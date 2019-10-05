@@ -1,0 +1,84 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="IranSansBold" parent="android:TextAppearance">
+        <item name="fontPath">fonts/iran_sans_bold.ttf</item>
+    </style>
+    <style name="bankFont" parent="android:TextAppearance">
+        <item name="fontPath">fonts/Far_Bank.ttf</item>
+    </style>
+
+    <style name="EditTextHint" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorHint">@color/textHint</item>
+<!--        <item name="colorControlNormal">@color/textColor2</item>-->
+<!--        <item name="colorControlActivated">@color/textColor2</item>-->
+<!--        <item name="colorControlHighlight">@color/textColor2</item>-->
+    </style>
+
+    <style name="EditTextHint2" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@android:color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="colorControlNormal">@color/black</item>
+<!--        <item name="colorControlActivated">@color/currentColor</item>-->
+<!--        <item name="colorControlHighlight">@color/currentColor</item>-->
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">@dimen/textSize_16dp</item>
+    </style>
+
+    <style name="TextLabel2" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">@dimen/textSize_16dp</item>
+        <item name="colorAccent">@android:color/black</item>
+    </style>
+
+    <style name="EditTextHint3" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorHint">@color/textHint</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+<!--        <item name="colorControlActivated">@color/textColor2</item>-->
+<!--        <item name="colorControlHighlight">@color/textColor2</item>-->
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@color/colorAccent</item>
+    </style>
+
+    <style name="IconFontMarket" parent="android:TextAppearance">
+        <item name="fontPath">fonts/market.ttf</item></style>
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@color/textColor</item>
+    </style>
+    <style name="scrollUpdate">
+        <item name="colorAccent">@color/red</item>
+        <item name="color">@color/red</item>
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/red</item>
+    </style>
+
+
+    <style name = "AppTheme.AppBarOverlay" parent = "ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name = "AppTheme.PopupOverlay" parent = "ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyAlertDialogStyleTransparrent" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
+</resources>

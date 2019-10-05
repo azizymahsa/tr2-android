@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "614513931538",
+    "firebase_url": "https://diba-8607c.firebaseio.com",
+    "project_id": "diba-8607c",
+    "storage_bucket": "diba-8607c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614513931538:android:88db18d2c1ba9838",
+        "android_client_info": {
+          "package_name": "ir.bankday.diba.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614513931538-aiv0sgricv2h1ef9tauvg0up3aihjpqc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ir.bankday.diba.android",
+            "certificate_hash": "6772fc0fbd9a3ff44c57dff6d093edcc1044ac0a"
+          }
+        },
+        {
+          "client_id": "614513931538-ug8vid5j2ktgde5qdudp76e2qj4mda7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV8mhXcKYZnYfhhd5Ft5MYeGpNsReKwEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614513931538-ug8vid5j2ktgde5qdudp76e2qj4mda7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
