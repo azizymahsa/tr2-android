@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import ir.trap.tractor.android.apiServices.ServiceApplication;
 import ir.trap.tractor.android.apiServices.di.component.NetComponent;
-import library.android.service.generator.DaggerComponentService;
+//import library.android.service.generator.DaggerComponentService;
 import okhttp3.OkHttpClient;
 
 /**

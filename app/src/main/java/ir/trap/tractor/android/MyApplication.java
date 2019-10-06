@@ -3,14 +3,17 @@ package ir.trap.tractor.android;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.support.multidex.MultiDex;
+//import android.support.multidex.MultiDex;
 import android.util.Log;
 
 //import androidx.multidex.MultiDex;
 
+import androidx.multidex.MultiDex;
+
 import com.adpdigital.push.AdpPushClient;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.crash.FirebaseCrash;
+import com.orm.SugarContext;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import io.fabric.sdk.android.Fabric;
@@ -68,7 +71,7 @@ public class MyApplication extends ServiceApplication
         SingletonGdsService.getInstance().setNetGdsComponent(mNetGdsComponent).inject();
 
 
-//        SugarContext.init(this);
+        SugarContext.init(this);
 
 //        UploadService.NAMESPACE = BuildConfig.APPLICATION_ID;
 //        UploadService.NAMESPACE = getApplicationContext().getPackageName();

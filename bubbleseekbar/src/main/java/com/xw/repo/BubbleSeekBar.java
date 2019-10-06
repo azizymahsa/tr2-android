@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -19,11 +20,10 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.annotation.ColorInt;
+//import android.support.annotation.IntDef;
+//import android.support.annotation.NonNull;
+//import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -35,6 +35,11 @@ import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.xw.repo.bubbleseekbar.R;
 
@@ -496,8 +501,8 @@ public class BubbleSeekBar extends View {
 //        }
 
         Context context = getContext();
-        if (context instanceof AppCompatActivity) {
-            Window window = ((AppCompatActivity) context).getWindow();
+        if (context instanceof Activity) {
+            Window window = ((Activity) context).getWindow();
             if (window != null) {
                 int flags = window.getAttributes().flags;
                 if ((flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0) {

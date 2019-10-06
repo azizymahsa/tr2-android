@@ -476,8 +476,10 @@ public final class TypeResolver {
         }
     }
 
-    private static boolean isDefaultMethod(Method m) {
-        return JAVA_VERSION >= 1.8 && m.isDefault();
+    private static boolean isDefaultMethod(Method m)
+    {
+//        return JAVA_VERSION >= 1.8 && m.isDefault();
+        return JAVA_VERSION >= 1.8;
     }
 
     private static Member getMemberRef(Class<?> type) {
