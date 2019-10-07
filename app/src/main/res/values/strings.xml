@@ -2,4 +2,12 @@
     <string name="app_name">تراپ</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="send_code">تایید کد</string>
+    <string name="enter">ورود</string>
+    <string name="confirm">تایید</string>
+    <string name="enter_mobile_number">شماره همراه</string>
+    <string name="no_name">بدون نام</string>
+    <string name="enter_first_name">نام خود را وارد نمایید</string>
+    <string name="enter_last_name">نام خانوادگی خود را وارد نمایید</string>
+    <string name="enter_passcode">رمز عبور دیبا خود را وارد نمایید.</string>
 </resources>
