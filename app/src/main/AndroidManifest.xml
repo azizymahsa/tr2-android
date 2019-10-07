@@ -21,7 +21,7 @@
 -->
 
         <activity
-            android:name="ui.activities.splash.SplashActivity"
+            android:name="ir.trap.tractor.android.ui.activities.splash.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
@@ -32,9 +32,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.login.LoginActivity"
+        <activity android:name="ir.trap.tractor.android.ui.activities.login.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.main.MainActivity"
+        <activity android:name="ir.trap.tractor.android.ui.activities.main.MainActivity"
             android:screenOrientation="portrait" />
     </application>
 

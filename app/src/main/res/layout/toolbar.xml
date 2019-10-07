@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_container"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="تراپ"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="18sp" />
+
+            <FrameLayout
+                android:id="@+id/flLogoToolbar"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:foreground="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/bank_dey_logo"/>
+
+            </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/imgMenu"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_centerVertical="true"
+        android:tint="@color/mainMenuColor"
+        android:src="@drawable/ic_menu_black_24dp" />
+
+</RelativeLayout>
