@@ -2,6 +2,9 @@ package ir.trap.tractor.android.apiServices.api;
 
 import io.reactivex.Single;
 import ir.trap.tractor.android.apiServices.helper.Const;
+import ir.trap.tractor.android.apiServices.model.GlobalResponse;
+import ir.trap.tractor.android.apiServices.model.GlobalResponse2;
+import ir.trap.tractor.android.apiServices.model.GlobalResponse3;
 import ir.trap.tractor.android.apiServices.model.billPayment.request.BillPaymentRequest;
 import ir.trap.tractor.android.apiServices.model.billPayment.response.BillPaymentResponse;
 import ir.trap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
@@ -22,6 +25,12 @@ import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.reponse.Sheta
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
+import ir.trap.tractor.android.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
+import ir.trap.tractor.android.apiServices.model.tourism.bus.getPaymentBus.request.RequestBusPayment;
+import ir.trap.tractor.android.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
+import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
+import ir.trap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
+import ir.trap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -85,5 +94,44 @@ public interface RetroClient
     Single<Response<DoTransferResponse>> doTransferCard(
             @Body DoTransferRequest request
     );
+
+    @POST(Const.BusPayment)
+    Single<Response<GlobalResponse3>> busBooking(
+            @Body RequestBusPayment request
+    );
+
+    @POST(Const.GetBusUserPass)
+    Single<Response<GetUserPassResponse>> getBusUserPass();
+
+    @POST(Const.SendBusMessage)
+    Single<Response<GlobalResponse3>> busSendMessage(
+            @Body BusSendMessage request
+    );
+
+    @POST(Const.FlightPayment)
+    Single<Response<GlobalResponse2>> flightPayment(
+            @Body FlightPaymentRequest request
+    );
+
+    @POST(Const.FlightSendMessage)
+    Single<Response<GlobalResponse2>> flightSendMessage(
+            @Body FlightPaymentRequest request
+    );
+
+    @POST(Const.FlightGetUserPass)
+    Single<Response<GetUserPassResponse>> getFlightUserPass();
+
+    @POST(Const.HotelSendMessage)
+    Single<Response<GlobalResponse>> hotelSendMessage(
+            @Body HotelSendMessageRequest request
+    );
+
+    @POST(Const.HotelGetUserPass)
+    Single<Response<GetUserPassResponse>> getHotelUserPass();
+
+    @POST(Const.HotelPayment)
+    Single<Response<GlobalResponse2>> doHotelPayment(
+            @Body GdsHotelPaymentRequest gdsHotelPaymentRequest);
+
 
 }

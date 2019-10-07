@@ -211,7 +211,7 @@ dependencies {
 
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     //----------------
-    implementation(name: 'flight-debug_v71', ext: 'aar')
+    implementation(name: 'flight-debug_v74', ext: 'aar')
     implementation project(':bubbleseekbar')
     implementation project(':imagepicker')
     implementation project(':taggroup')
