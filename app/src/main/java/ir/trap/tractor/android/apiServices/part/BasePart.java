@@ -42,7 +42,15 @@ public abstract class BasePart
 
     protected abstract BasePart getPart();
 
-    protected abstract CompositeDisposable getDisposable();
+    public CompositeDisposable getDisposable()
+    {
+        return disposable;
+    }
+
+    public void setDisposable(CompositeDisposable disposable)
+    {
+        this.disposable = disposable;
+    }
 
     public ServiceGenerator getServiceGenerator()
     {
