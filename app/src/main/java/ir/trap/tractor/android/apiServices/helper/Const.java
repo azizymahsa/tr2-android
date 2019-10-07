@@ -28,6 +28,19 @@ public class Const
     public final static String GetShetabCardInfo = "ApiDiba/Shetab/v1/GetCardInfo";
     public final static String DoTransferCard = "ApiDiba/Shetab/v1/DoTransfer";
 
+    //Hotel
+    public final static String HotelSendMessage = "ApiShetac/GdsHotel/v1/SendMessage";
+    public final static String HotelGetUserPass = "ApiShetac/GdsHotel/v1/GetAccountInfo";
+    public final static String HotelPayment = "ApiShetac/GdsHotel/v1/HotelPayment";
+    //flight
+    public final static String FlightPayment = "ApiShetac/GdsFlight/v1/FlightPayment";
+    public final static String FlightSendMessage = "ApiShetac/GdsFlight/v1/SendMessage";
+    public final static String FlightGetUserPass = "ApiShetac/GdsFlight/v1/GetAccountInfo";
+    //Bus
+    public final static String SendBusMessage = "ApiShetac/GdsBus/v1/SendMessage";
+    public final static String GetBusUserPass = "ApiShetac/GdsBus/v1/GetAccountInfo";
+    public final static String BusPayment = "ApiShetac/GdsBus/v1/BusPayment";
+
 
 
 }
