@@ -33,7 +33,7 @@ import retrofit2.Response;
 public abstract class BasePart
 {
     private ServiceGenerator serviceGenerator;
-    private CompositeDisposable disposable = new CompositeDisposable();
+//    private CompositeDisposable disposable = new CompositeDisposable();
 
     public BasePart(ServiceGenerator serviceGenerator)
     {
@@ -42,15 +42,15 @@ public abstract class BasePart
 
     protected abstract BasePart getPart();
 
-    public CompositeDisposable getDisposable()
-    {
-        return disposable;
-    }
-
-    public void setDisposable(CompositeDisposable disposable)
-    {
-        this.disposable = disposable;
-    }
+//    public CompositeDisposable getDisposable()
+//    {
+//        return disposable;
+//    }
+//
+//    public void setDisposable(CompositeDisposable disposable)
+//    {
+//        this.disposable = disposable;
+//    }
 
     public ServiceGenerator getServiceGenerator()
     {
@@ -91,7 +91,7 @@ public abstract class BasePart
                     @Override
                     public void onSubscribe(Disposable d)
                     {
-                        disposable = (CompositeDisposable) d;
+//                        disposable = (CompositeDisposable) d;
                     }
 
                     @Override

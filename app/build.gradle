@@ -145,6 +145,7 @@ dependencies {
     implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
 
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     compileOnly 'javax.annotation:jsr250-api:1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

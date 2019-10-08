@@ -1,9 +1,7 @@
 package ir.trap.tractor.android.ui.activities.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.animation.Animator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -12,16 +10,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-//import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.textfield.TextInputLayout;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -30,33 +30,48 @@ import ir.trap.tractor.android.apiServices.helper.Const;
 import ir.trap.tractor.android.base.GoToActivity;
 import ir.trap.tractor.android.ui.activities.login.user.UserActivity;
 import ir.trap.tractor.android.ui.activities.main.MainActivity;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+//import android.support.v7.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView, OnAnimationEndListener
+{
+    private LoginPresenterImpl loginPresenter;
+    private CircularProgressButton btnConfirm;
+    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, tvTitle;
+    ;
+    private TextInputLayout etLayout;
+    private PinEntryEditText codeView;
+    private boolean isCode = false;
+    private EditText etMobileNumber;
+    private LinearLayout countDownTimer, llPin;
+    private FrameLayout ivTitle;
 
+
+    @Override
+    protected void attachBaseContext(Context context)
     {
-        private LoginPresenterImpl loginPresenter;
-        private CircularProgressButton btnConfirm;
-        private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend,tvTitle;;
-        private TextInputLayout etLayout;
-        private PinEntryEditText codeView;
-        private boolean isCode = false;
-        private EditText etMobileNumber;
-        private LinearLayout countDownTimer, llPin;
-        private FrameLayout ivTitle;
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
 
 
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         loginPresenter = new LoginPresenterImpl(getApplicationContext(), this, this);
         initView();
 
+        //-----------------test------------------
+        Prefs.putString("serverToken", "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaWJha2V5IjoiNTUzMjcxMGRlZjQ5YjBhZWFlZGYyZmYxOTM4NzI5YmU4ODhjZjA3OSIsImltZWkiOiJuVUVGNmVIejU2WktmbjlDNzByQlptK2FSNU9SbFdHVVlpN3ZHeExRMHZnPSIsInVzZXJrZXkiOiI5NjZlZGQzMjhiY2MwN2Q1YTI2MmNhMzdlOTg1MmQ3YzUwZjE5NTM4In0.4yQr1cNO-Wu5_UD9c58s4POpoyIJOK3L2RBfk9dea6w");
+        //-----------------test------------------
+
     }
 
-        public void initView() {
+    public void initView()
+    {
         tvDesc = findViewById(R.id.tvDesc);
         tvTitle = findViewById(R.id.tvTitle);
         //etLayout = findViewById(R.id.etLayout);
@@ -64,12 +79,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
         btnConfirm = findViewById(R.id.btnConfirm);
         tvCountDown = findViewById(R.id.tvCountDown);
         codeView = findViewById(R.id.codeView);
-       // tvMenu = findViewById(R.id.tvMenu);
+        // tvMenu = findViewById(R.id.tvMenu);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         etMobileNumber = findViewById(R.id.etMobileNumber);
         countDownTimer = findViewById(R.id.countDownTimer);
         tvResend = findViewById(R.id.tvResend);
-       // tvMenu.setVisibility(View.GONE);
+        // tvMenu.setVisibility(View.GONE);
         llPin = findViewById(R.id.llPin);
         tvTitle.setVisibility(View.GONE);
         ivTitle.setVisibility(View.VISIBLE);
@@ -89,30 +104,34 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
 
     }
 
-        @Override
-        protected void onStart() {
+    @Override
+    protected void onStart()
+    {
         super.onStart();
         loginPresenter.onStart();
 
     }
 
-        @Override
-        protected void onDestroy() {
+    @Override
+    protected void onDestroy()
+    {
         super.onDestroy();
         loginPresenter.onDestroy();
 
     }
 
-        @Override
-        public void showProgress() {
+    @Override
+    public void showProgress()
+    {
         btnConfirm.startAnimation();
         btnConfirm.setClickable(false);
 
     }
 
 
-        @Override
-        public void hideProgress() {
+    @Override
+    public void hideProgress()
+    {
         btnConfirm.revertAnimation(LoginActivity.this);
         btnConfirm.setClickable(true);
 
@@ -120,11 +139,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
     }
 
 
-        @Override
-        public void onButtonActions(boolean canEnter, GoToActivity goToActivity) {
-        if (isCode && canEnter) {
+    @Override
+    public void onButtonActions(boolean canEnter, GoToActivity goToActivity)
+    {
+        if (isCode && canEnter)
+        {
             Intent intent = null;
-            switch (goToActivity) {
+            switch (goToActivity)
+            {
                 case UserActivity:
                     intent = new Intent(this, UserActivity.class);
 
@@ -134,9 +156,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
                         intent = new Intent(this, MainActivity.class);
                     else
 
-                      //  intent = new Intent(this, PassCodeActivity.class);
+                        //  intent = new Intent(this, PassCodeActivity.class);
 
-                    break;
+                        break;
             }
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -148,52 +170,61 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
     }
 
 
-        @Override
-        public void onFinishTimer() {
+    @Override
+    public void onFinishTimer()
+    {
         tvResend.setVisibility(View.VISIBLE);
         tvCountDown.setVisibility(View.GONE);
     }
 
-        @Override
-        public void onTick(String second) {
+    @Override
+    public void onTick(String second)
+    {
         tvCountDown.setText(second);
         countDownTimer.setVisibility(View.VISIBLE);
 
     }
 
-        @Override
-        public void onError(String message, String name, boolean b) {
+    @Override
+    public void onError(String message, String name, boolean b)
+    {
 
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-           // showToast(this, message, R.color.red);
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        // showToast(this, message, R.color.red);
     }
 
-        @Override
-        public void onFinish(int resultCode) {
+    @Override
+    public void onFinish(int resultCode)
+    {
         finish();
     }
 
 
-        @Override
-        public void onAnimationEnd() {
+    @Override
+    public void onAnimationEnd()
+    {
         btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
     }
 
-        public void mobileToCode() {
+    public void mobileToCode()
+    {
         btnConfirm.setTag("code");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " کد فعالسازی خود را وارد کنید"));
 
         tvPhoneNumber.setText("شماره همراه شما: " + etMobileNumber.getText().toString());
         YoYo.with(Techniques.SlideOutLeft)
-                .duration(700).withListener(new Animator.AnimatorListener() {
+                .duration(700).withListener(new Animator.AnimatorListener()
+        {
             @Override
-            public void onAnimationStart(Animator animator) {
+            public void onAnimationStart(Animator animator)
+            {
 
             }
 
             @Override
-            public void onAnimationEnd(Animator animator) {
+            public void onAnimationEnd(Animator animator)
+            {
                 llPin.setVisibility(View.VISIBLE);
                 etMobileNumber.setVisibility(View.GONE);
                 isCode = true;
@@ -203,12 +234,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
             }
 
             @Override
-            public void onAnimationCancel(Animator animator) {
+            public void onAnimationCancel(Animator animator)
+            {
 
             }
 
             @Override
-            public void onAnimationRepeat(Animator animator) {
+            public void onAnimationRepeat(Animator animator)
+            {
 
             }
         })
@@ -216,20 +249,24 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
 
     }
 
-        public void codeToMobile() {
+    public void codeToMobile()
+    {
         btnConfirm.setTag("mobile");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " همراه خود را وارد کنید"));
 
 
         YoYo.with(Techniques.SlideOutRight)
-                .duration(500).withListener(new Animator.AnimatorListener() {
+                .duration(500).withListener(new Animator.AnimatorListener()
+        {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(Animator animation)
+            {
 
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(Animator animation)
+            {
                 llPin.setVisibility(View.GONE);
                 etMobileNumber.setVisibility(View.VISIBLE);
                 isCode = false;
@@ -240,12 +277,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
             }
 
             @Override
-            public void onAnimationCancel(Animator animation) {
+            public void onAnimationCancel(Animator animation)
+            {
 
             }
 
             @Override
-            public void onAnimationRepeat(Animator animation) {
+            public void onAnimationRepeat(Animator animation)
+            {
 
             }
         })
@@ -255,12 +294,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
 
     }
 
-        @Override
-        public void onBackPressed() {
-        if (isCode) {
+    @Override
+    public void onBackPressed()
+    {
+        if (isCode)
+        {
             codeToMobile();
         } else
             super.onBackPressed();
     }
-    }
+}
 

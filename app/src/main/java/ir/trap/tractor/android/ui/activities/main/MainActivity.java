@@ -4,11 +4,8 @@ package ir.trap.tractor.android.ui.activities.main;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-//import android.support.v7.app.AppCompatActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,9 +24,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.adapter.ImagePagerAdapter;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
+import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.utilities.Logger;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+//import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements MenuDrawer.FragmentDrawerListener
 {
@@ -39,13 +39,11 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
 
     private Fragment fragment;
     private FragmentManager fragmentManager;
-
-    private RecyclerView rvList;
-    private ImagePagerAdapter imagePagerAdapter;
-    private ScrollingPagerIndicator indicator;
-    private LinearLayoutManager linearLayoutManager;
     private BottomNavigationView bottomNavigationView;
 
+    private Bundle mSavedInstanceState;
+
+    private FragmentTransaction transaction;
 
     @Override
     protected void attachBaseContext(Context context)
@@ -59,124 +57,77 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        indicator = findViewById(R.id.indicator);
-        rvList = findViewById(R.id.rvList);
+        mSavedInstanceState = savedInstanceState;
 
-        imagePagerAdapter = new ImagePagerAdapter(this);
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rvList.setLayoutManager(linearLayoutManager);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvList.getContext(),
-                linearLayoutManager.getOrientation());
-        rvList.addItemDecoration(dividerItemDecoration);
-        rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-
-                if (linearLayoutManager.findFirstVisibleItemPosition() == 0)
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-
-                    }
-            }
-        });
-        rvList.setAdapter(imagePagerAdapter);
-        indicator.attachToRecyclerView(rvList);
         //--------------------------------bottomBar----------------------------------
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
 
         fragmentManager = getSupportFragmentManager();
-//        fragment = new MainFragment();
+        fragment = MainFragment.newInstance();
 
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction = fragmentManager.beginTransaction();
 
-//        if (savedInstanceState == null)
-//        {
-//            transaction.add(R.id.main_container, fragment)
-//                    .commit();
-//        }
-//        else
-//        {
-//            transaction.replace(R.id.main_container, fragment)
-//                    .commit();
-//        }
+        if (mSavedInstanceState == null)
+        {
+            transaction.add(R.id.main_container, fragment)
+                    .commit();
+        } else
+        {
+            transaction.replace(R.id.main_container, fragment)
+                    .commit();
+        }
 
 //
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem ->
         {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
+            Logger.e("--item--", menuItem.getTitle().toString());
+            int itemId = menuItem.getItemId();
+            //switch fragment
+            switch (itemId)
             {
-                Logger.e("--item--", menuItem.getTitle().toString());
-                int itemId = menuItem.getItemId();
-                //switch fragment
-                switch (itemId)
+                case R.id.tab_shop:
                 {
-                    case R.id.tab_shop:
+                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
-                        if (!bottomNavigationView.getMenu().getItem(0).isChecked())
-                        {
-                            bottomNavigationView.getMenu().getItem(0).setChecked(true);
-                            bottomNavigationView.getMenu().getItem(1).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(2).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(3).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(4).setChecked(false);
-                        }
-                        break;
+                        setCheckedBNV(bottomNavigationView, 0);
                     }
-                    case R.id.tab_all_services:
-                    {
-                        if (!bottomNavigationView.getMenu().getItem(1).isChecked())
-                        {
-                            bottomNavigationView.getMenu().getItem(0).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(1).setChecked(true);
-                            bottomNavigationView.getMenu().getItem(2).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(3).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(4).setChecked(false);
-                        }
-                        break;
-                    }
-                    case R.id.tab_home:
-                    {
-                        if (!bottomNavigationView.getMenu().getItem(2).isChecked())
-                        {
-                            bottomNavigationView.getMenu().getItem(0).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(1).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(2).setChecked(true);
-                            bottomNavigationView.getMenu().getItem(3).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(4).setChecked(false);
-                        }
-                        break;
-                    }
-                    case R.id.tab_media:
-                    {
-                        if (!bottomNavigationView.getMenu().getItem(3).isChecked())
-                        {
-                            bottomNavigationView.getMenu().getItem(0).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(1).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(2).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(3).setChecked(true);
-                            bottomNavigationView.getMenu().getItem(4).setChecked(false);
-                        }
-                        break;
-                    }
-                    case R.id.tab_profile:
-                    {
-                        if (!bottomNavigationView.getMenu().getItem(4).isChecked())
-                        {
-                            bottomNavigationView.getMenu().getItem(0).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(1).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(2).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(3).setChecked(false);
-                            bottomNavigationView.getMenu().getItem(4).setChecked(true);
-                        }
-                        break;
-                    }
+                    break;
                 }
-                return true;
+                case R.id.tab_all_services:
+                {
+                    if (!bottomNavigationView.getMenu().getItem(1).isChecked())
+                    {
+                        setCheckedBNV(bottomNavigationView, 1);
+                    }
+                    break;
+                }
+                case R.id.tab_home:
+                {
+                    if (!bottomNavigationView.getMenu().getItem(2).isChecked())
+                    {
+                        setCheckedBNV(bottomNavigationView, 2);
+                    }
+                    break;
+                }
+                case R.id.tab_media:
+                {
+                    if (!bottomNavigationView.getMenu().getItem(3).isChecked())
+                    {
+                        setCheckedBNV(bottomNavigationView, 3);
+                    }
+                    break;
+                }
+                case R.id.tab_profile:
+                {
+                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
+                    {
+                        setCheckedBNV(bottomNavigationView, 4);
+                    }
+                    break;
+                }
             }
+            return true;
         });
 
 
@@ -189,17 +140,50 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
         drawerFragment.setDrawerListener(this);
 
         ImageButton btnDrawer = mToolbar.findViewById(R.id.imgMenu);
-        btnDrawer.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                View containerView = findViewById(R.id.fragment_navigation_menudrawer);
-                DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
-                mDrawerLayout.openDrawer(containerView);
 
-            }
+        btnDrawer.setOnClickListener(v ->
+        {
+            View containerView = findViewById(R.id.fragment_navigation_menudrawer);
+            DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
+            mDrawerLayout.openDrawer(containerView);
+
         });
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        try
+        {
+            if (mSavedInstanceState == null)
+            {
+//            transaction.add(R.id.main_container, fragment)
+//                    .
+            } else
+            {
+                transaction.replace(R.id.main_container, fragment)
+                        .commit();
+            }
+
+        } catch (IllegalStateException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void setCheckedBNV(BottomNavigationView bottomNavigationView, int index)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (i == index)
+            {
+                bottomNavigationView.getMenu().getItem(index).setChecked(true);
+            } else
+            {
+                bottomNavigationView.getMenu().getItem(index).setChecked(false);
+            }
+        }
     }
 
     @Override
@@ -209,8 +193,7 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
         if (drawer.isDrawerOpen(GravityCompat.END))
         {
             drawer.closeDrawer(GravityCompat.END);
-        }
-        else
+        } else
         {
             super.onBackPressed();
         }
