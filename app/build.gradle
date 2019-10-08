@@ -76,7 +76,7 @@ dependencies {
     implementation 'com.adpdigital.push:chabok-lib:2.14.1'
 
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
-    implementation 'com.airbnb.android:lottie:2.7.0'
+    implementation 'com.airbnb.android:lottie:2.5.5'
 
 
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
@@ -130,9 +130,10 @@ dependencies {
     implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
     implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
     implementation 'com.github.dariushm2:PersianCaldroid:1.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0' // appcompat library
+    implementation 'com.android.support:design:28.0.0'       //design support library
+    implementation 'com.jakewharton:butterknife:10.0.0'
 
-
-    implementation 'rouchuan.viewpagerlayoutmanager:viewpagerlayoutmanager:2.0.22'
 
     implementation 'com.robinhood.ticker:ticker:2.0.0'
     implementation 'com.appolica:interactive-info-window:v1.0.6'
