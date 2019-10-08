@@ -18,12 +18,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.adapter.ImagePagerAdapter;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
 import ir.trap.tractor.android.utilities.Logger;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements MenuDrawer.FragmentDrawerListener
@@ -35,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
     private Fragment fragment;
     private FragmentManager fragmentManager;
 
+    private RecyclerView rvList;
+    private ImagePagerAdapter imagePagerAdapter;
+    private ScrollingPagerIndicator indicator;
+    private LinearLayoutManager linearLayoutManager;
     private BottomNavigationView bottomNavigationView;
 
 
@@ -50,6 +59,30 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        indicator = findViewById(R.id.indicator);
+        rvList = findViewById(R.id.rvList);
+
+        imagePagerAdapter = new ImagePagerAdapter(this);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvList.setLayoutManager(linearLayoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvList.getContext(),
+                linearLayoutManager.getOrientation());
+        rvList.addItemDecoration(dividerItemDecoration);
+        rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+
+                if (linearLayoutManager.findFirstVisibleItemPosition() == 0)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+
+                    }
+            }
+        });
+        rvList.setAdapter(imagePagerAdapter);
+        indicator.attachToRecyclerView(rvList);
         //--------------------------------bottomBar----------------------------------
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
