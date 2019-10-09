@@ -76,5 +76,9 @@
         app:layout="@layout/menudrawer_fragment"
         tools:layout="@layout/menudrawer_fragment" />
 
+    <include
+        layout="@layout/loading"
+        android:visibility="gone" />
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

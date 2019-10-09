@@ -144,7 +144,7 @@
 
                 />
 
-        <!--    <android.support.design.widget.TextInputLayout
+        <!--    <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etLayout"
                 android:layout_width="250dp"
                 android:layout_height="80dp"
@@ -152,7 +152,7 @@
                 android:hint="@string/enter_mobile_number">
 
 
-            </android.support.design.widget.TextInputLayout>-->
+            </com.google.android.material.textfield.TextInputLayout>-->
 
             <include
                 android:id="@+id/btnConfirm"

@@ -2,37 +2,32 @@ package ir.trap.tractor.android.ui.activities.main;
 
 //import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.adapter.ImagePagerAdapter;
+import ir.trap.tractor.android.ui.base.BaseActivity;
+import ir.trap.tractor.android.ui.base.BaseView;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
+import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
+import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
+import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.utilities.Logger;
-import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-//import android.support.v7.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity implements MenuDrawer.FragmentDrawerListener
+public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener
 {
+    private Boolean isMainFragment = true;
 
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
@@ -44,12 +39,6 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
     private Bundle mSavedInstanceState;
 
     private FragmentTransaction transaction;
-
-    @Override
-    protected void attachBaseContext(Context context)
-    {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
 
         fragmentManager = getSupportFragmentManager();
-        fragment = MainFragment.newInstance();
+        fragment = MainFragment.newInstance(this);
 
         transaction = fragmentManager.beginTransaction();
 
@@ -104,9 +93,11 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
                 }
                 case R.id.tab_home:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(2).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(2).isChecked() || !isMainFragment)
                     {
                         setCheckedBNV(bottomNavigationView, 2);
+
+                        backToMainFragment();
                     }
                     break;
                 }
@@ -154,12 +145,15 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
     protected void onResume()
     {
         super.onResume();
+        fragment = MainFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
         try
         {
             if (mSavedInstanceState == null)
             {
-//            transaction.add(R.id.main_container, fragment)
-//                    .
+                transaction.add(R.id.main_container, fragment)
+                        .commit();
+//
             } else
             {
                 transaction.replace(R.id.main_container, fragment)
@@ -193,9 +187,17 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
         if (drawer.isDrawerOpen(GravityCompat.END))
         {
             drawer.closeDrawer(GravityCompat.END);
-        } else
+        }
+        else
         {
-            super.onBackPressed();
+            if (isMainFragment)
+            {
+                super.onBackPressed();
+            }
+            else
+            {
+                backToMainFragment();
+            }
         }
 
     }
@@ -204,5 +206,83 @@ public class MainActivity extends AppCompatActivity implements MenuDrawer.Fragme
     public void onDrawerItemSelected(View view, int position)
     {
 
+    }
+
+    @Override
+    public void showLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBill()
+    {
+
+    }
+
+    @Override
+    public void onChargeSimCard()
+    {
+        isMainFragment = false;
+
+        fragment = ChargeFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.main_container, fragment)
+                .commit();
+    }
+
+    @Override
+    public void onPackSimCard()
+    {
+        isMainFragment = false;
+
+        fragment = PackFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.main_container, fragment)
+                .commit();
+    }
+
+    @Override
+    public void doTransfer()
+    {
+
+    }
+
+    @Override
+    public void onContact()
+    {
+
+    }
+
+    @Override
+    public void onInternetAlert()
+    {
+
+    }
+
+    @Override
+    public void showError(String message)
+    {
+        showToast(this, message, R.color.red);
+    }
+
+    @Override
+    public void backToMainFragment()
+    {
+        isMainFragment = true;
+
+        fragment = MainFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.main_container, fragment)
+                .commit();
     }
 }

@@ -1,7 +1,5 @@
 package ir.trap.tractor.android.ui.activities.login;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -10,25 +8,16 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
-import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
 
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.base.GoToActivity;
-import ir.trap.tractor.android.singleton.SingletonContext;
-import ir.trap.tractor.android.ui.activities.main.MainActivity;
+import ir.trap.tractor.android.ui.base.GoToActivity;
 import library.android.eniac.utility.Utility;
 
 
 /**
- * Created by RezaNejati on 7/2/2018.
+ * Created by Javad.Abadi on 7/2/2018.
  */
 public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener
 {
@@ -111,9 +100,9 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener
                         loginView.onError("لطفا کد فعال سازی را وارد نمایید", this.getClass().getSimpleName(), false);
                         return;
                     }
-                    loginView.showProgress();
+                    loginView.showLoading();
                     loginView.onButtonActions(true, GoToActivity.UserActivity);
-                    loginView.hideProgress();
+                    loginView.hideLoading();
 
                 /*    activeCode.findCodeActiveRequest(appContext, activityContext, this, mobileNumber.getText().toString(),
                             codeView.getText().toString(), height, width);*/
@@ -128,11 +117,11 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener
 
     public void sendMobileRequest()
     {
-        loginView.showProgress();
+        loginView.showLoading();
 
 
         loginView.onButtonActions(false, null);
-        loginView.hideProgress();
+        loginView.hideLoading();
       /*  intent = new Intent(appContext, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         appContext.startActivity(intent);
@@ -174,7 +163,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener
     @Override
     public void onFinishedSendCode(SendActiveCodeResponse activeCodeResponse)
     {
-        loginView.hideProgress();
+        loginView.hideLoading();
 
         if (activeCodeResponse.getServiceMessage().getCode() == 200)
         {
@@ -194,7 +183,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener
     @Override
     public void onErrorSendCode(String error)
     {
-        loginView.hideProgress();
+        loginView.hideLoading();
         loginView.onError(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
     }
@@ -226,7 +215,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener
 /*    @Override
     public void onFinishedActive(ConfirmActiveCodeResponse response)
     {
-        loginView.hideProgress();
+        loginView.hideLoading();
 
         if (response.getServiceMessage().getCode() == 200)
         {
@@ -269,7 +258,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener
     public void onErrorActive(String error)
     {
         loginView.onError(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
-        loginView.hideProgress();
+        loginView.hideLoading();
     }*/
 
 
