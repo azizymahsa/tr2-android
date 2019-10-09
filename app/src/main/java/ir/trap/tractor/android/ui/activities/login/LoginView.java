@@ -1,15 +1,20 @@
 package ir.trap.tractor.android.ui.activities.login;
 
 
-import ir.trap.tractor.android.base.BaseView;
-import ir.trap.tractor.android.base.GoToActivity;
+import ir.trap.tractor.android.ui.base.BaseView;
+import ir.trap.tractor.android.ui.base.GoToActivity;
 
 /**
- * Created by RezaNejati on 7/2/2018.
+ * Created by Javad.Abadi on 7/2/2018.
  */
-public interface LoginView extends BaseView {
+public interface LoginView extends BaseView
+{
     void onButtonActions(boolean canEnter, GoToActivity goToActivity);
+
     void onFinishTimer();
+
     void onTick(String second);
+
+    void onError(String message, String name, boolean showClassName);
 
 }

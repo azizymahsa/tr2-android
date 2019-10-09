@@ -8,7 +8,7 @@ import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
 
 /**
- * Created by RezaNejati on 2/23/2019.
+ * Created by Javad.Abadi on 2/23/2019.
  */
 public class FlightService extends BasePart
 {

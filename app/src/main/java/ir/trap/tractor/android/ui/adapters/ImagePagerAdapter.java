@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.adapter;
+package ir.trap.tractor.android.ui.adapters;
 
 import android.content.Context;
 

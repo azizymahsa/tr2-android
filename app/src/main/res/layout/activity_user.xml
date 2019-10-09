@@ -107,7 +107,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             />
 
-     <!--   <android.support.design.widget.TextInputLayout app:hintTextAppearance="@style/TextLabel"
+     <!--   <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
             android:layout_width="@dimen/_230sdp"
             android:layout_height="@dimen/_60sdp"
             android:layout_gravity="center"
@@ -118,7 +118,7 @@
 
 
 
-        </android.support.design.widget.TextInputLayout>-->
+        </com.google.android.material.textfield.TextInputLayout>-->
 
         <EditText
             android:id="@+id/etLastName"
@@ -135,7 +135,7 @@
             android:maxLines="1"
             android:singleLine="true"
             />
-      <!--  <android.support.design.widget.TextInputLayout
+      <!--  <com.google.android.material.textfield.TextInputLayout
             android:layout_width="@dimen/_230sdp"
             android:layout_height="@dimen/_60sdp"
             android:layout_gravity="center"
@@ -144,7 +144,7 @@
 
 
 
-        </android.support.design.widget.TextInputLayout>-->
+        </com.google.android.material.textfield.TextInputLayout>-->
         <EditText
             android:id="@+id/etInvite"
             android:layout_width="@dimen/_230sdp"
@@ -162,7 +162,7 @@
             android:layout_marginBottom="@dimen/_20dp"
 
             />
-      <!--  <android.support.design.widget.TextInputLayout
+      <!--  <com.google.android.material.textfield.TextInputLayout
             android:layout_width="@dimen/_230sdp"
             android:layout_height="@dimen/_60sdp"
             android:layout_gravity="center"
@@ -171,7 +171,7 @@
 
 
 
-        </android.support.design.widget.TextInputLayout>-->
+        </com.google.android.material.textfield.TextInputLayout>-->
         <include layout="@layout/circular_progress_button"
             android:id="@+id/btnConfirm"/>
     </LinearLayout>

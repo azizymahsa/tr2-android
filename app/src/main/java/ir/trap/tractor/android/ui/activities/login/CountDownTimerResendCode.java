@@ -3,7 +3,7 @@ package ir.trap.tractor.android.ui.activities.login;
 import android.os.CountDownTimer;
 
 /**
- * Created by RezaNejati on 7/14/2018.
+ * Created by Javad.Abadi on 7/14/2018.
  */
 public class CountDownTimerResendCode extends CountDownTimer {
     private LoginView loginView;

@@ -1,14 +1,11 @@
 package ir.trap.tractor.android.ui.activities.login.user;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -23,9 +20,6 @@ import com.esafirm.imagepicker.features.ReturnMode;
 import com.esafirm.imagepicker.model.Image;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;
@@ -33,7 +27,7 @@ import java.util.Random;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.base.GoToActivity;
+import ir.trap.tractor.android.ui.base.GoToActivity;
 import ir.trap.tractor.android.ui.activities.main.MainActivity;
 import library.android.eniac.base.BaseActivity;
 
@@ -84,7 +78,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
     }
 
     @Override
-    public void showProgress()
+    public void showLoading()
     {
         btnConfirm.startAnimation();
         btnConfirm.setClickable(false);
@@ -92,7 +86,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
     }
 
     @Override
-    public void hideProgress()
+    public void hideLoading()
     {
         btnConfirm.revertAnimation(UserActivity.this);
         btnConfirm.setClickable(true);
@@ -303,13 +297,6 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
 
         }
     }
-
-    @Override
-    public void onFinish(int resultCode)
-    {
-        finish();
-    }
-
 
     private void saveImage(Bitmap finalBitmap)
     {

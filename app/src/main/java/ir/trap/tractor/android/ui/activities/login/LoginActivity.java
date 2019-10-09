@@ -27,14 +27,15 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.helper.Const;
-import ir.trap.tractor.android.base.GoToActivity;
+import ir.trap.tractor.android.ui.base.BaseActivity;
+import ir.trap.tractor.android.ui.base.GoToActivity;
 import ir.trap.tractor.android.ui.activities.login.user.UserActivity;
 import ir.trap.tractor.android.ui.activities.main.MainActivity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 //import android.support.v7.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity implements LoginView, OnAnimationEndListener
+public class LoginActivity extends BaseActivity implements LoginView, OnAnimationEndListener
 {
     private LoginPresenterImpl loginPresenter;
     private CircularProgressButton btnConfirm;
@@ -121,7 +122,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
     }
 
     @Override
-    public void showProgress()
+    public void showLoading()
     {
         btnConfirm.startAnimation();
         btnConfirm.setClickable(false);
@@ -130,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
 
 
     @Override
-    public void hideProgress()
+    public void hideLoading()
     {
         btnConfirm.revertAnimation(LoginActivity.this);
         btnConfirm.setClickable(true);
@@ -193,11 +194,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView, OnAni
         // showToast(this, message, R.color.red);
     }
 
-    @Override
-    public void onFinish(int resultCode)
-    {
-        finish();
-    }
 
 
     @Override

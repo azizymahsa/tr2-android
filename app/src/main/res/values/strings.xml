@@ -13,4 +13,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="buyChargeIrancellTitle">خرید شارژ آنلاین ایرانسل</string>
+    <string name="buyChargeRightelTitle">خرید شارژ آنلاین رایتل</string>
+    <string name="buyChargeMCITitle">خرید شارژ آنلاین همراه اول</string>
+    <string name="wwwloyalbank"><![CDATA[<string name=\"wwwloyalbank\">https://diba24.app</string>]]></string>
+    <string name="loyalBank">تراپ</string>
 </resources>

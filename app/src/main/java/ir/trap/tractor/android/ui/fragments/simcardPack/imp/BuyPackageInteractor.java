@@ -7,16 +7,16 @@ import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyR
  */
 public interface BuyPackageInteractor
 {
-    interface OnFinishedMciBuyPackageListener
+    interface OnFinishedBuyPackageListener
     {
         void onFinishedMciBuyPackagePackage(PackageBuyResponse response);
 
         void onErrorMciBuyPackagePackage(String error);
     }
 
-    void findMciBuyPackageDataRequest(OnFinishedMciBuyPackageListener listener, int bundleId, String packageType, int userId,
-                                      String cardNumber, String passwor, String mobileNumber,
-                                      String titlePackage, String amount, String cvv2, String expDate, String OperatorType, String RequestId);
+    void findBuyPackageDataRequest(OnFinishedBuyPackageListener listener, int bundleId, String packageType, int userId,
+                                      String cardNumber, String passwor, String mobileNumber, String titlePackage,
+                                   String amount, String cvv2, String expDate, String OperatorType, String RequestId);
 
 
 }

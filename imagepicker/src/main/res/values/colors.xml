@@ -10,6 +10,7 @@
     <color name="ef_grey">#9E9E9E</color>
     <color name="ef_black_alpha_50">#80000000</color>
     <color name="ef_black_alpha_aa">#AA000000</color>
-    <color name="currentColor" tools:ignore="ResourceName">#f2e190</color>
+    <color name="currentColor" tools:ignore="ResourceName">#ff0000</color>
+    <color name="textInputColor" tools:ignore="ResourceName">#ff0000</color>
     <color name="colorPrimary" tools:ignore="ResourceName">#585858</color>
 </resources>

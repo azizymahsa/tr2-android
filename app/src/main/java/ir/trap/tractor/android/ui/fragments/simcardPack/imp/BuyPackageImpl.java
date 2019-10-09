@@ -12,10 +12,10 @@ public class BuyPackageImpl implements BuyPackageInteractor
 {
 
     @Override
-    public void findMciBuyPackageDataRequest(OnFinishedMciBuyPackageListener listener, int bundleId,
+    public void findBuyPackageDataRequest(OnFinishedBuyPackageListener listener, int bundleId,
                                              String packageType, int userId, String cardNumber,
                                              String password, String mobileNumber, String titlePackage,
-                                             String amount,String cvv2,String expDate,String OperatorType,String RequestId) {
+                                             String amount, String cvv2, String expDate, String OperatorType, String RequestId) {
         PackageBuyRequest request = new PackageBuyRequest();
         request.setAmount(Integer.valueOf(amount));
         request.setBundleId(bundleId+"");
@@ -50,4 +50,5 @@ public class BuyPackageImpl implements BuyPackageInteractor
         }, request);
 
     }
+
 }

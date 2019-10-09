@@ -1,11 +1,9 @@
 package ir.trap.tractor.android.ui.fragments.main;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,9 +16,10 @@ import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.adapter.ImagePagerAdapter;
+import ir.trap.tractor.android.ui.adapters.ImagePagerAdapter;
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.singleton.SingletonContext;
+import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.StartEniacFlightActivity;
 import library.android.eniac.StartEniacHotelActivity;
@@ -35,29 +34,38 @@ import library.android.service.model.bus.searchBus.response.Company;
 import library.android.service.model.flight.reservation.response.ReservationResponse;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
-public class MainFragment extends Fragment implements onConfirmUserPassGDS,
+public class MainFragment extends BaseFragment implements onConfirmUserPassGDS,
         FlightReservationData, BusLockSeat, HotelReservationData
 {
-    private CircularProgressButton btnBus, btnFlight, btnHotel;
+    private CircularProgressButton btnBus, btnFlight, btnHotel, btnDoTransfer, btnChargeSimCard, btnPackSimCard, btnBill;
 
     private RecyclerView rvList;
     private ImagePagerAdapter imagePagerAdapter;
     private ScrollingPagerIndicator indicator;
     private LinearLayoutManager linearLayoutManager;
 
+    private MainActionView mainView;
+
     public MainFragment()
     {
         // Required empty public constructor
     }
 
-    public static MainFragment newInstance()
+    public static MainFragment newInstance(MainActionView mainActionView)
     {
         MainFragment fragment = new MainFragment();
+        fragment.setMainView(mainActionView);
         Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+
+    private void setMainView(MainActionView mainView)
+    {
+        this.mainView = mainView;
     }
 
     @Override
@@ -81,10 +89,18 @@ public class MainFragment extends Fragment implements onConfirmUserPassGDS,
         btnHotel = rootView.findViewById(R.id.btnHotel);
         btnFlight = rootView.findViewById(R.id.btnFlight);
         btnBus = rootView.findViewById(R.id.btnBus);
+        btnDoTransfer = rootView.findViewById(R.id.btnDoTransfer);
+        btnChargeSimCard = rootView.findViewById(R.id.btnChargeSimCard);
+        btnPackSimCard = rootView.findViewById(R.id.btnPackSimCard);
+        btnBill = rootView.findViewById(R.id.btnBill);
 
         btnHotel.setOnClickListener(clickListener);
         btnFlight.setOnClickListener(clickListener);
         btnBus.setOnClickListener(clickListener);
+        btnDoTransfer.setOnClickListener(clickListener);
+        btnChargeSimCard.setOnClickListener(clickListener);
+        btnPackSimCard.setOnClickListener(clickListener);
+        btnBill.setOnClickListener(clickListener);
 
 
 
@@ -126,17 +142,40 @@ public class MainFragment extends Fragment implements onConfirmUserPassGDS,
         {
             case R.id.btnHotel:
             {
+                mainView.showLoading();
                 GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_HOTEL, MainFragment.this);
                 break;
             }
             case R.id.btnFlight:
             {
+                mainView.showLoading();
                 GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
                 break;
             }
             case R.id.btnBus:
             {
+                mainView.showLoading();
                 GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, MainFragment.this);
+                break;
+            }
+            case R.id.btnChargeSimCard:
+            {
+                mainView.onChargeSimCard();
+                break;
+            }
+            case R.id.btnDoTransfer:
+            {
+                mainView.doTransfer();
+                break;
+            }
+            case R.id.btnPackSimCard:
+            {
+                mainView.onPackSimCard();
+                break;
+            }
+            case R.id.btnBill:
+            {
+                mainView.onBill();
                 break;
             }
         }
@@ -168,6 +207,8 @@ public class MainFragment extends Fragment implements onConfirmUserPassGDS,
     @Override
     public void onGdsFlight(GetUserPassResponse response)
     {
+        mainView.hideLoading();
+
         StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
                 response.getUsername(), response.getPassword(), this, 1);
 
@@ -178,6 +219,8 @@ public class MainFragment extends Fragment implements onConfirmUserPassGDS,
     @Override
     public void onGdsBus(GetUserPassResponse response)
     {
+        mainView.hideLoading();
+
         StartEniacFlightActivity busActivity = new StartEniacFlightActivity(response.getUniqeCode(),
                 response.getUsername(), response.getPassword(), this, 1);
 
@@ -188,6 +231,8 @@ public class MainFragment extends Fragment implements onConfirmUserPassGDS,
     @Override
     public void onGdsHotel(GetUserPassResponse response)
     {
+        mainView.hideLoading();
+
         StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity(response.getUniqeCode(),
                 response.getUsername(), response.getPassword(), SingletonContext.getInstance().getContext(),
                 this, 1);
@@ -199,6 +244,8 @@ public class MainFragment extends Fragment implements onConfirmUserPassGDS,
     @Override
     public void onGdsError(String message)
     {
+        mainView.hideLoading();
+
         Tools.showToast(getActivity(), message, R.color.red);
     }
 
