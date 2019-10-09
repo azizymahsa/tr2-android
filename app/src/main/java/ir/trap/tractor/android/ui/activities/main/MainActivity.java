@@ -21,6 +21,7 @@ import ir.trap.tractor.android.ui.base.BaseView;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
+import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.utilities.Logger;
@@ -251,9 +252,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void doTransfer()
+    public void doTransferMoney()
     {
+        isMainFragment = false;
 
+        fragment = MoneyTransferFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.main_container, fragment)
+                .commit();
     }
 
     @Override

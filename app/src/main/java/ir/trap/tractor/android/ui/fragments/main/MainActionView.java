@@ -12,7 +12,7 @@ public interface MainActionView extends BaseView
 
     void onPackSimCard();
 
-    void doTransfer();
+    void doTransferMoney();
 
     void onContact();
 
