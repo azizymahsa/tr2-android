@@ -43,6 +43,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS,
     private ImagePagerAdapter imagePagerAdapter;
     private ScrollingPagerIndicator indicator;
     private LinearLayoutManager linearLayoutManager;
+    //
 
     private MainActionView mainView;
 
@@ -165,7 +166,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS,
             }
             case R.id.btnDoTransfer:
             {
-                mainView.doTransfer();
+                mainView.doTransferMoney();
                 break;
             }
             case R.id.btnPackSimCard:

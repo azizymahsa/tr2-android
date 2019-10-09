@@ -19,4 +19,5 @@
     <string name="buyChargeMCITitle">خرید شارژ آنلاین همراه اول</string>
     <string name="wwwloyalbank"><![CDATA[<string name=\"wwwloyalbank\">https://diba24.app</string>]]></string>
     <string name="loyalBank">تراپ</string>
+    <string name="enter_pass">لطفارمز دوم را وارد نمایید.</string>
 </resources>

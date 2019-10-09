@@ -89,16 +89,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="20" />
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="100">
-
-            <include
-                android:id="@+id/btnMCIPackConfirm"
-                layout="@layout/circular_progress_button" />
-
-        </FrameLayout>
+        <include
+            android:id="@+id/btnMCIPackConfirm"
+            layout="@layout/circular_progress_button" />
 
         <Space
             android:layout_width="0dp"
