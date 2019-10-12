@@ -1,7 +1,10 @@
 package com.xw.repo;
 
-import android.support.annotation.ColorInt;
-import android.support.annotation.IntRange;
+//import android.support.annotation.ColorInt;
+//import android.support.annotation.IntRange;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntRange;
 
 import static com.xw.repo.BubbleUtils.dp2px;
 import static com.xw.repo.BubbleUtils.sp2px;

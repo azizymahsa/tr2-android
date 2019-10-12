@@ -1,6 +1,5 @@
 package me.gujun.android.taggroup;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -654,7 +653,6 @@ public class TagGroup extends ViewGroup {
     /**
      * The tag view which has two states can be either NORMAL or INPUT.
      */
-    @SuppressLint("AppCompatCustomView")
     class TagView extends TextView {
         public static final int STATE_NORMAL = 1;
         public static final int STATE_INPUT = 2;

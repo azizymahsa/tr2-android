@@ -1,10 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:agv="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.activities.splash.SplashActivity">
+
+    <!--android:background="@drawable/alpha_gradient_main"-->
+
+    <!--   <kr.pe.burt.android.lib.animategradientview.AnimateGradientView
+           android:id="@+id/agv"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_centerInParent="true"
+           agv:agv_startColor="@color/white"
+           agv:agv_endColor="@color/blue"
+           agv:agv_alpha="1.0"
+           agv:agv_gradient_scale="1.4"
+           agv:agv_animation="flow"
+           agv:agv_angle="45"
+           agv:agv_duration="1500"
+           />-->
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ic_logo_red"
+    android:layout_centerInParent="true"
+    />
+
+   <!-- <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="lottie/splash.json"
+        app:lottie_loop="false" />
+-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="26dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="invisible"
+            app:indicatorColor="@color/currentColor"
+            app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+        <TextView
+            android:id="@+id/tvVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/textColor3"
+            android:textSize="@dimen/textSize_12dp" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

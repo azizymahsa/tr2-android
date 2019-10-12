@@ -1,9 +1,11 @@
 package ir.trap.tractor.android.apiServices;
 
 import android.content.Context;
-import android.support.multidex.MultiDex;
+//import android.support.multidex.MultiDex;
 
 //import androidx.multidex.MultiDex;
+
+import androidx.multidex.MultiDex;
 
 import ir.trap.tractor.android.apiServices.di.component.DaggerNetComponent;
 import ir.trap.tractor.android.apiServices.di.component.NetComponent;

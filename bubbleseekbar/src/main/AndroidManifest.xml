@@ -1,1 +1,5 @@
-<manifest package="com.xw.repo.bubbleseekbar"/>
+<manifest package="com.xw.repo.bubbleseekbar">
+
+    <application/>
+
+</manifest>

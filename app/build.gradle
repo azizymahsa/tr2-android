@@ -56,6 +56,9 @@ dependencies {
 //    androidTestImplementation 'androidx.test:runner:1.1.1'
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+//    implementation 'androidx.appcompat:appcompat:1.0.2'
+//    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
     implementation("com.android.support:appcompat-v7:28.0.0") {
         exclude module: 'animated-vector-drawable'
         exclude module: 'support-media-compat'
@@ -73,7 +76,7 @@ dependencies {
     implementation 'com.adpdigital.push:chabok-lib:2.14.1'
 
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
-    implementation 'com.airbnb.android:lottie:2.7.0'
+    implementation 'com.airbnb.android:lottie:2.5.5'
 
 
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
@@ -100,10 +103,9 @@ dependencies {
 
     implementation 'com.github.johnpersano:supertoasts:2.0'
     implementation 'com.pixplicity.easyprefs:library:1.9.0'
-//    implementation 'com.jakewharton:butterknife:8.8.1'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-//    implementation 'androidx.appcompat:appcompat:1.0.2'
-//    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.github.satyan:sugar:1.5'
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.GwonHyeok:StickySwitch:0.0.15'
     implementation 'org.greenrobot:eventbus:3.1.1'
@@ -126,9 +128,10 @@ dependencies {
     implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
     implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
     implementation 'com.github.dariushm2:PersianCaldroid:1.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0' // appcompat library
+    implementation 'com.android.support:design:28.0.0'       //design support library
+    implementation 'com.jakewharton:butterknife:10.0.0'
 
-
-    implementation 'rouchuan.viewpagerlayoutmanager:viewpagerlayoutmanager:2.0.22'
 
     implementation 'com.robinhood.ticker:ticker:2.0.0'
     implementation 'com.appolica:interactive-info-window:v1.0.6'
@@ -140,6 +143,7 @@ dependencies {
     implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
 
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     compileOnly 'javax.annotation:jsr250-api:1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -206,11 +210,10 @@ dependencies {
     implementation 'com.daimajia.slider:library:1.1.5@aar'
 
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-
     //----------------
-    implementation(name: 'flight-debug_v70', ext: 'aar')
+    implementation(name: 'flight-debug_v74', ext: 'aar')
     implementation project(':bubbleseekbar')
-//    implementation project(':imagepicker')
+    implementation project(':imagepicker')
     implementation project(':taggroup')
     implementation project(':pinentryedittext')
     implementation project(':type')

@@ -15,7 +15,7 @@ buildscript {
         maven {
             url "https://s3.amazonaws.com/repo.commonsware.com"
         }
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
@@ -61,7 +61,7 @@ allprojects {
         maven {
             url "https://s3.amazonaws.com/repo.commonsware.com"
         }
-        
+
     }
 }
 

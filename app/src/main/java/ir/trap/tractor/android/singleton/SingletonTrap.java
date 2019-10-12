@@ -1,7 +1,7 @@
 package ir.trap.tractor.android.singleton;
 
 /**
- * Created by RezaNejati on 1/26/2019.
+ * Created by Javad.Abadi on 1/26/2019.
  */
 public class SingletonTrap
 {

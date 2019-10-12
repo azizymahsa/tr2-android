@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llMCICharge"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lMciMobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|right"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+            android:id="@+id/btnMciRecent"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:background="@color/white"
+            android:textSize="@dimen/textSize_20dp"
+            android:transitionName="transition"
+
+            app:finalCornerAngle="40dp"
+            app:initialCornerAngle="40dp"
+            app:spinning_bar_color="@color/btnColorSecondary"
+            app:spinning_bar_width="2dp" />
+
+        <ImageView
+            android:id="@+id/ivContactM"
+            android:src="@drawable/contact_icon"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_marginRight="5dp"
+            android:foreground="?attr/selectableItemBackground" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            app:hintTextAppearance="@style/TextLabel"
+            android:id="@+id/tilMMci"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_gravity="center|right"
+            android:hint="شماره موبایل"
+            android:theme="@style/EditTextHint"
+            android:layout_marginRight="5dp">
+
+            <ir.trap.tractor.android.utilities.ClearableEditText
+                android:id="@+id/etMCINumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:maxLength="11"
+                android:backgroundTint="@color/currentColor"
+                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                android:gravity="right|center"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/currentColor"
+                android:textSize="@dimen/textSize_16dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|right"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+        <include
+            android:id="@+id/btnMCIPackConfirm"
+            layout="@layout/circular_progress_button" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/textSize_12dp" />
+
+    <LinearLayout
+        android:id="@+id/llMciFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="دائمی"
+            android:textColor="@color/currentColor"
+            android:textSize="@dimen/_11sdp" />
+
+        <RadioButton
+            android:id="@+id/rbMciFirst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:buttonTint="@color/currentColor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="اعتباری"
+            android:textColor="@color/currentColor"
+            android:textSize="@dimen/_11sdp" />
+
+        <RadioButton
+            android:id="@+id/rbMciCredit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:buttonTint="@color/currentColor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="اعتباری و دائمی"
+            android:textColor="@color/currentColor"
+            android:textSize="@dimen/_11sdp" />
+
+        <RadioButton
+            android:id="@+id/rbMciAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/currentColor"
+            android:checked="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llPackBackMci"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/btnPackBackMci"
+            layout="@layout/circular_progress_button"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shadow_b"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/spinnerMci"
+                android:layout_width="0dp"
+                android:layout_weight="100"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:backgroundTint="@color/currentColor"
+                android:tag="mci"
+                android:background="@drawable/background_border_a" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="فیلتر نوع سیمکارت: "
+                android:textColor="@color/currentColor"
+                android:textSize="@dimen/textSize_16dp"
+                android:textAppearance="@style/IranSansBold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/llMciSpinner"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mciRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

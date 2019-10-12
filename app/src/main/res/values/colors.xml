@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#fff</color>
+    <color name="colorPrimaryDark">#D81B60</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="textColorPrimary">#ff0000</color>
+    <color name="textColorSecondary">#000</color>
+
+    <color name="mainMenuColor">#ff0000</color>
+    <color name="drawer_background">#88000000</color>
+    <color name="textColorDrawer">#fff</color>
+    <color name="drawerSepratorColor">#fff</color>
+    <color name="mainNavigationBottomColorSelected">#ff0000</color>
+    <color name="mainNavigationBottomColorDeSelected">#888</color>
+    <color name="textColorRecyclerView">#fff</color>
+    <color name="itemColor">#ff0000</color>
+    <color name="lineDividerColor">#fff</color>
+    <color name="btnColorSecondary">#ff0000</color>
+    <color name="borderColorRed">#ff0000</color>
+    <color name="textColorLoading">#fff</color>
 </resources>
