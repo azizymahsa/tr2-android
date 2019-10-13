@@ -17,136 +17,114 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="20" />
-        
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="100"
             android:gravity="center|right"
             android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_gravity="top"
+                android:layout_marginTop="@dimen/_30dp"
+                android:orientation="horizontal">
 
-            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-                android:id="@+id/btnRightelRecent"
-                android:layout_width="@dimen/_35dp"
-                android:layout_height="@dimen/_35dp"
-                android:layout_gravity="center"
-                android:layout_marginRight="5dp"
-                android:background="@color/white"
-                android:textSize="@dimen/textSize_20dp"
-                android:transitionName="transition"
-                app:finalCornerAngle="40dp"
-                app:initialCornerAngle="40dp"
-                app:spinning_bar_color="@color/btnColorSecondary"
-                app:spinning_bar_width="2dp" />
-            
-            <ImageView
-                android:id="@+id/ivContactR"
-                android:src="@drawable/contact_icon"
-                android:layout_width="@dimen/_35dp"
-                android:layout_height="@dimen/_35dp"
-                android:layout_marginRight="5dp"
-                android:foreground="?attr/selectableItemBackground" />
-            
-        <com.google.android.material.textfield.TextInputLayout 
-            app:hintTextAppearance="@style/TextLabel"
-            android:id="@+id/tilMRightel"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center|right"
-            android:layout_weight="100"
-            android:hint="شماره موبایل"
-            android:maxLength="11"
-            android:theme="@style/EditTextHint">
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnRightelRecent"
+                    android:layout_width="@dimen/_35dp"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="top"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/button_main_background_border"
+                    android:textSize="@dimen/textSize_20dp"
+                    android:transitionName="transition"
+                    app:finalCornerAngle="40dp"
+                    app:initialCornerAngle="40dp"
+                    app:spinning_bar_color="@color/btnColorSecondary"
+                    app:spinning_bar_width="2dp" />
 
-            <ir.trap.tractor.android.utilities.ClearableEditText
-                android:id="@+id/etMobileChargeRightel"
-                android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/ivContactR"
+                    android:src="@drawable/contact_icon"
+                    android:layout_width="@dimen/_35dp"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="top"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/button_main_background_border"
+                    android:foreground="?attr/selectableItemBackground" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="100"
-                android:maxLength="11"
-                android:backgroundTint="@color/textColorPrimary"
-                android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                android:gravity="right|center"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/textSize_16dp" />
-            
-        </com.google.android.material.textfield.TextInputLayout>
+                android:gravity="center|right"
+                android:orientation="vertical">
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center"-->
-<!--            android:text="@string/sim_icon"-->
-<!--            android:textAppearance="@style/IconFonts"-->
-<!--            android:textColor="@color/currentColor"-->
-<!--            android:textSize="@dimen/_20dp"-->
-<!--            android:visibility="gone"/>-->
+                <com.google.android.material.textfield.TextInputLayout
+                    app:hintTextAppearance="@style/TextLabel"
+                    android:id="@+id/tilMRightel"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_gravity="center|right"
+                    android:hint="شماره موبایل"
+                    android:theme="@style/EditTextHint">
 
-    </LinearLayout>
+                    <ir.trap.tractor.android.utilities.ClearableEditText
+                        android:id="@+id/etMobileChargeRightel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:maxLength="11"
+                        android:backgroundTint="@color/textColorPrimary"
+                        android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                        android:gravity="right|center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="@dimen/textSize_16dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    app:hintTextAppearance="@style/TextLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_gravity="center|right"
+                    android:hint="مبلغ (ریال)"
+                    android:theme="@style/EditTextHint">
+
+                    <ir.trap.tractor.android.utilities.ClearableEditText
+                        android:id="@+id/etChargeAmountRightel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:backgroundTint="@color/textColorPrimary"
+                        android:digits="0,1,2,3,4,5,6,7,8,9,,"
+                        android:gravity="right|center"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="@dimen/textSize_16dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
         
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="20" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|right"
-        android:orientation="horizontal">
-        
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20" />
-        
-        <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextLabel"
-            android:layout_width="0dp"
-            android:layout_weight="100"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center|right"
-            android:hint="مبلغ (ریال)"
-            android:theme="@style/EditTextHint">
-
-            <ir.trap.tractor.android.utilities.ClearableEditText
-                android:id="@+id/etChargeAmountRightel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="100"
-                android:backgroundTint="@color/textColorPrimary"
-                android:digits="0,1,2,3,4,5,6,7,8,9,,"
-                android:gravity="right|center"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/textSize_16dp"
-                android:editable="false" />
-            
-        </com.google.android.material.textfield.TextInputLayout>
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/money_icon"-->
-<!--            android:textAppearance="@style/IconFonts"-->
-<!--            android:textColor="@color/currentColor"-->
-<!--            android:textSize="@dimen/_20dp"-->
-<!--            android:visibility="gone"/>-->
-        
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20" />
-        
     </LinearLayout>
 
     <LinearLayout
@@ -198,7 +176,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/_10dp"
         android:gravity="center"
         android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
         android:textColor="@color/textColor"

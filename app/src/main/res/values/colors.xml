@@ -2,11 +2,12 @@
 <resources>
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#D81B60</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#fe0002</color>
 
-    <color name="textColorPrimary">#ff0000</color>
+    <color name="textColorPrimary">#fe0002</color>
     <color name="textColorSecondary">#000</color>
 
+    <color name="backgroundButton">#fe0002</color>
     <color name="mainMenuColor">#ff0000</color>
     <color name="drawer_background">#88000000</color>
     <color name="textColorDrawer">#fff</color>
@@ -22,4 +23,5 @@
     <color name="textColorLoading">#fff</color>
     <color name="buttonMainBackgroundColor">#fff</color>
     <color name="headerMainWeekNoBackground">#ff0000</color>
+    <color name="bloodRed">#9f0001</color>
 </resources>

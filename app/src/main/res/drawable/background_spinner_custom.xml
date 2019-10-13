@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+
+        <layer-list>
+
+            <item>
+                <shape>
+                    <solid android:color="@color/buttonMainBackgroundColor"/>
+                    <stroke android:color="@color/buttonMainBorderColor"
+                        android:width="2dp"/>
+
+                    <corners android:radius="@dimen/_10dp"/>
+                </shape>
+            </item>
+
+            <item android:left="5dp">
+
+                <bitmap android:gravity="center_vertical|left" android:src="@drawable/ic_calendar" />
+
+            </item>
+
+        </layer-list>
+
+    </item>
+
+</selector>

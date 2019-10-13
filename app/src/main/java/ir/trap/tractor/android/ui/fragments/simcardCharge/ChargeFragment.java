@@ -734,6 +734,9 @@ public class ChargeFragment extends BaseFragment
 
     private void initView()
     {
+        btnChargeConfirmRightel.setText("ادامه");
+        btnMCIChargeConfirm.setText("ادامه");
+        btnChargeConfirm.setText("ادامه");
         btnBackToCharge.setText("بازگشت");
         tlPassCharge.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         tipCvv2.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
