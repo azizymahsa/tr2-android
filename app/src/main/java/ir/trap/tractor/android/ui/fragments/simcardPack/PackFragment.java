@@ -989,7 +989,9 @@ public class PackFragment
     {
 //        tvPackTitle.setText("خرید بسته اینترنت " + "همراه اول");
         tvPackTitle.setTextSize(18);
-
+        btnChargeConfirm.setText("ادامه");
+        btnMCIPackConfirm.setText("ادامه");
+        btnChargeConfirmRightel.setText("ادامه");
         btnBackToCharge.setText("بازگشت");
         btnChargeBackRightel.setText("بازگشت");
         btnPackBackMci.setText("بازگشت");
