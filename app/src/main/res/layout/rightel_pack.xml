@@ -75,40 +75,15 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:gravity="center|right"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20" />
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="100">
-
             <include
                 android:id="@+id/btnChargeConfirmRightel"
                 layout="@layout/circular_progress_button" />
 
-        </FrameLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20" />
-
-    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/_10dp"
         android:gravity="center"
         android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
         android:textColor="@color/textColor"

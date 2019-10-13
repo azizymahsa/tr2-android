@@ -875,12 +875,12 @@ public class ChargeFragment extends BaseFragment
         etMCINumber.setText(Prefs.getString("mobile", ""));
         etMobileCharge.setText(Prefs.getString("mobile", ""));
         etMobileChargeRightel.setText(Prefs.getString("mobile", ""));
-        etMCIAmount.setOnFocusChangeListener(this);
+       // etMCIAmount.setOnFocusChangeListener(this);
 /*        etMCINumber.setOnFocusChangeListener(this);
         etMobileCharge.setOnFocusChangeListener(this);
         etMobileChargeRightel.setOnFocusChangeListener(this);*/
         //   etChargeAmountRightel.setOnFocusChangeListener(this);
-        etMCIAmount.setInputType(InputType.TYPE_NULL);
+       // etMCIAmount.setInputType(InputType.TYPE_NULL);
         // etChargeAmountRightel.setInputType(InputType.TYPE_NULL);
 
         etMobileCharge.addTextChangedListener(this);
