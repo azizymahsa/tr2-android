@@ -18,5 +18,8 @@
     <color name="lineDividerColor">#fff</color>
     <color name="btnColorSecondary">#ff0000</color>
     <color name="borderColorRed">#ff0000</color>
+    <color name="buttonMainBorderColor">#aaa</color>
     <color name="textColorLoading">#fff</color>
+    <color name="buttonMainBackgroundColor">#fff</color>
+    <color name="headerMainWeekNoBackground">#ff0000</color>
 </resources>
