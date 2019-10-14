@@ -26,4 +26,5 @@
     <color name="bloodRed">#9f0001</color>
     <color name="warmGray">#888888</color>
     <color name="midnight">#020526</color>
+    <color name="returnButtonColor">#484848</color>
 </resources>

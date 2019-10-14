@@ -132,7 +132,7 @@ public class ChargeFragment extends BaseFragment
     @BindView(R.id.btnChargeConfirm)
     CircularProgressButton btnChargeConfirm;
     @BindView(R.id.btnBackToCharge)
-    CircularProgressButton btnBackToCharge;
+    View btnBackToCharge;
     @BindView(R.id.btnMCIChargeConfirm)
     CircularProgressButton btnMCIChargeConfirm;
 
@@ -737,7 +737,7 @@ public class ChargeFragment extends BaseFragment
         btnChargeConfirmRightel.setText("ادامه");
         btnMCIChargeConfirm.setText("ادامه");
         btnChargeConfirm.setText("ادامه");
-        btnBackToCharge.setText("بازگشت");
+       // btnBackToCharge.setText("بازگشت");
         tlPassCharge.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         tipCvv2.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         etChargeAmount.addTextChangedListener(new NumberTextWatcher(etChargeAmount));

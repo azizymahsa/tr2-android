@@ -124,7 +124,74 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/tvAmpuntPassCharge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textColor="@color/textColorPrimary"
+                        android:text="10000"
+                        android:layout_marginRight="10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textColor="@color/textColor3f"
+                        android:text="مبلغ قابل پرداخت :"
+                        android:layout_marginRight="10dp"/>
 
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_60dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_gravity="center|right"
+                    android:orientation="horizontal">
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20" />
+                    <TextView
+                        android:id="@+id/tvDescriptionSelectedOperator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="100"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:gravity="center_vertical|right"
+                        android:layout_gravity="right"
+                        android:textColor="@color/textColor3f"
+                        android:text="خرید شارژ آنلاین همراه اول"
+                       />
+                    <FrameLayout
+                        android:id="@+id/flSelectedOperator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="100"
+                        android:foreground="?attr/selectableItemBackground">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivSelectedOperator"
+                            android:layout_width="@dimen/_60dp"
+                            android:layout_height="@dimen/_60dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/rightel2"
+                            app:civ_border_color="@color/colorPrimaryDark"
+                            app:civ_border_width="0dp" />
+
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -139,7 +206,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         app:hintTextAppearance="@style/TextLabel"
                         android:id="@+id/tlPassCharge"
-                        android:layout_width="@dimen/_230sdp"
+                        android:layout_width="@dimen/_150sdp"
                         android:layout_height="@dimen/_70dp"
                         android:layout_gravity="center|right"
                         android:hint="رمز دوم کارت را وارد نمایید"
@@ -219,8 +286,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal">
-
+                    android:orientation="horizontal"
+                    >
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -231,12 +298,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_weight="100"
-                        android:layout_marginBottom="2dp">
+                        android:layout_weight="100">
 
                         <include
                             android:id="@+id/btnBackToCharge"
-                            layout="@layout/circular_progress_button" />
+                            layout="@layout/return_button" />
 
                     </FrameLayout>
 
@@ -245,8 +311,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_weight="100"
-                        android:layout_marginBottom="2dp">
+                        android:layout_weight="100">
 
                         <include
                             android:id="@+id/btnBuyCharge"
