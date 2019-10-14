@@ -24,4 +24,6 @@
     <color name="buttonMainBackgroundColor">#fff</color>
     <color name="headerMainWeekNoBackground">#ff0000</color>
     <color name="bloodRed">#9f0001</color>
+    <color name="warmGray">#888888</color>
+    <color name="midnight">#020526</color>
 </resources>
