@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -146,24 +148,28 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     protected void onResume()
     {
         super.onResume();
-        fragment = MainFragment.newInstance(this);
-        transaction = fragmentManager.beginTransaction();
-        try
+        if (fragment == null)
         {
-            if (mSavedInstanceState == null)
+            fragment = MainFragment.newInstance(this);
+            transaction = fragmentManager.beginTransaction();
+            try
             {
-                transaction.add(R.id.main_container, fragment)
-                        .commit();
+                if (mSavedInstanceState == null)
+                {
+                    transaction.add(R.id.main_container, fragment)
+                            .commit();
 //
-            } else
+                } else
+                {
+                    transaction.replace(R.id.main_container, fragment)
+                            .commit();
+                }
+            }
+            catch (IllegalStateException e)
             {
-                transaction.replace(R.id.main_container, fragment)
-                        .commit();
+                e.printStackTrace();
             }
 
-        } catch (IllegalStateException e)
-        {
-            e.printStackTrace();
         }
     }
 

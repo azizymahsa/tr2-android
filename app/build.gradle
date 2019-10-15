@@ -18,6 +18,14 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword 'traap@Tractor@app#'
+            storeFile file('traap.jks')
+            storePassword 'traap@Tractor@app#'
+        }
+    }
 
     dexOptions {
         jumboMode true
@@ -26,12 +34,13 @@ android {
 
     buildTypes {
         debug {
-
+            signingConfig signingConfigs.release
         }
         release {
 
             debuggable false
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -211,7 +220,7 @@ dependencies {
 
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     //----------------
-    implementation(name: 'flight-debug_v74', ext: 'aar')
+    implementation(name: 'flight-debug_v78', ext: 'aar')
     implementation project(':bubbleseekbar')
     implementation project(':imagepicker')
     implementation project(':taggroup')

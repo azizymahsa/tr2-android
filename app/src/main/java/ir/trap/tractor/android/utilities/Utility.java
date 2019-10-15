@@ -744,8 +744,8 @@ public class Utility
         {
             Uri uri = Uri.parse(url);
             CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
-            intentBuilder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark2));
-            intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark2));
+            intentBuilder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+            intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
             CustomTabsIntent customTabsIntent = intentBuilder.build();
             customTabsIntent.launchUrl(context, uri);
 
