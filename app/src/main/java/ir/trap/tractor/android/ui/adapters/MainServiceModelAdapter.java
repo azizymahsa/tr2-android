@@ -78,8 +78,8 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
         }
 
         //------------test--------------------
-        holder.progressBar.setVisibility(View.GONE);
-        Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.image);
+//        holder.progressBar.setVisibility(View.GONE);
+//        Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.image);
         //------------test--------------------
 
 
@@ -126,9 +126,9 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
         public void onChosenItemClick(View view, Integer id);
     }
 
-    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
-    {
-        this.mItemClickListener = mItemClickListener;
-    }
+//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
+//    {
+//        this.mItemClickListener = mItemClickListener;
+//    }
 
 }
