@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#fff</color>
-    <color name="colorPrimaryDark">#000</color>
-    <color name="colorAccent">#fe0002</color>
+    <color name="colorPrimaryDark">#D81B60</color>
+    <color name="colorAccent">#D81B60</color>
 
     <color name="textColorTitle">#fff</color>
-    <color name="textColorPrimary">#fe0002</color>
+    <color name="textColorPrimary">#ff0000</color>
     <color name="textColorSecondary">#000</color>
 
     <color name="backgroundButton">#fe0002</color>
@@ -33,6 +33,7 @@
     <color name="textColorStadiumName">#888</color>
     <color name="grayColor">#888</color>
     <color name="mainNavigationBottomBackgroundColor">#fff</color>
+
     <color name="textColor3f">#3e3e3e</color>
     <color name="red">#800e10</color>
     <color name="red_light">#ff5456</color>

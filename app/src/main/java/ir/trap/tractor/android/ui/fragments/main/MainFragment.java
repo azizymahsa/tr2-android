@@ -125,19 +125,26 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         List<MainServiceModelItem> newList = new ArrayList<>();
 
-        for (GetMenuItemResponse itemResponse : chosenServiceList)
+        try
         {
-            if (itemResponse.getIsVisible())
+            for (GetMenuItemResponse itemResponse : chosenServiceList)
             {
-                MainServiceModelItem item = new MainServiceModelItem();
+                if (itemResponse.getIsVisible())
+                {
+                    MainServiceModelItem item = new MainServiceModelItem();
 
-                item.setId(itemResponse.getKeyId());
-                item.setTitle(itemResponse.getTitle());
-                item.setImageLink(itemResponse.getImageName());
-                item.setKeyName(itemResponse.getKeyName());
+                    item.setId(itemResponse.getKeyId());
+                    item.setTitle(itemResponse.getTitle());
+                    item.setImageLink(itemResponse.getImageName());
+                    item.setKeyName(itemResponse.getKeyName());
 
-                newList.add(item);
+                    newList.add(item);
+                }
             }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
 
 //        MainServiceModelItem item = new MainServiceModelItem();

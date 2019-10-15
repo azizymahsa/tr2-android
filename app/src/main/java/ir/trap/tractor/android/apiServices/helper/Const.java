@@ -12,7 +12,7 @@ public class Const
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
 
-    public final static String GetMenu = SubBASEURL + "v1/menu/get_menu";
+    public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
 
     public final static String MOBILE_CHARGE = SubBASEURL + "TopupCharge/v2/BuyCharge";
 
