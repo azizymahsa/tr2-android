@@ -9,7 +9,8 @@
 
     <include
         android:id="@+id/toolbar_container"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,23 +90,44 @@
         </RelativeLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center|right"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etFirstName"
-            android:layout_width="@dimen/_230sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:hint="@string/enter_first_name"
-            android:textSize="@dimen/_14sdp"
-            android:gravity="right|center"
-            android:backgroundTint="@color/textColor"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:textColor="@color/textColor"
-            android:imeOptions="actionNext"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_10sdp"
-            />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100">
+
+                <ir.trap.tractor.android.utilities.ClearableEditText
+                    android:id="@+id/etFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint="@string/enter_first_name"
+                    android:textSize="@dimen/_14sdp"
+                    android:backgroundTint="@color/textColor"
+                    android:textColor="@color/textColor"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    />
+
+            </FrameLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+        </LinearLayout>
 
      <!--   <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
             android:layout_width="@dimen/_230sdp"
@@ -119,22 +141,45 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|right"
+        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etLastName"
-            android:layout_width="@dimen/_230sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_gravity="center"
-            android:hint="@string/enter_last_name"
-            android:textSize="@dimen/_14sdp"
-            android:gravity="right|center"
-            android:backgroundTint="@color/textColor"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:textColor="@color/textColor"
-            android:imeOptions="actionDone"
-            android:maxLines="1"
-            android:singleLine="true"
-            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100">
+            <EditText
+                android:id="@+id/etLastName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:hint="@string/enter_last_name"
+                android:textSize="@dimen/_14sdp"
+                android:backgroundTint="@color/textColor"
+                android:textColor="@color/textColor"
+                android:imeOptions="actionDone"
+                android:maxLines="1"
+                android:singleLine="true"
+                />
+
+        </FrameLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40" />
+
+    </LinearLayout>
+
+
       <!--  <com.google.android.material.textfield.TextInputLayout
             android:layout_width="@dimen/_230sdp"
             android:layout_height="@dimen/_60sdp"
@@ -145,23 +190,47 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>-->
-        <EditText
-            android:id="@+id/etInvite"
-            android:layout_width="@dimen/_230sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:hint="کد معرف(اختیاری)"
-            android:textSize="@dimen/_14sdp"
-            android:gravity="right|center"
-            android:backgroundTint="@color/textColor"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:textColor="@color/textColor"
-            android:imeOptions="actionDone"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_20dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center|right"
+            android:orientation="horizontal">
 
-            />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100">
+                <EditText
+                    android:id="@+id/etInvite"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint="کد معرف(اختیاری)"
+                    android:textSize="@dimen/_14sdp"
+                    android:backgroundTint="@color/textColor"
+                    android:textColor="@color/textColor"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:layout_marginBottom="@dimen/_20dp"
+
+                    />
+
+            </FrameLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+        </LinearLayout>
+
+
       <!--  <com.google.android.material.textfield.TextInputLayout
             android:layout_width="@dimen/_230sdp"
             android:layout_height="@dimen/_60sdp"

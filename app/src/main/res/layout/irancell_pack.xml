@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="100"
                 android:maxLength="11"
-                android:backgroundTint="@color/textInputColor"
+                android:backgroundTint="@color/black"
                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
                 android:gravity="right|center"
                 android:imeOptions="actionDone"
