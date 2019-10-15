@@ -12,7 +12,6 @@ import androidx.multidex.MultiDex;
 
 import com.adpdigital.push.AdpPushClient;
 import com.crashlytics.android.Crashlytics;
-import com.google.firebase.crash.FirebaseCrash;
 import com.orm.SugarContext;
 import com.pixplicity.easyprefs.library.Prefs;
 

@@ -34,9 +34,11 @@
 
         <ImageView
             android:id="@+id/ivContactR"
-            android:src="@drawable/contact_icon"
+            android:src="@drawable/ic_phone_book"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/button_small_border"
             android:layout_marginRight="5dp"
             android:foreground="?attr/selectableItemBackground" />
 
@@ -54,7 +56,7 @@
                 android:id="@+id/etMobileChargeRightel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/currentColor"
+                android:backgroundTint="@color/black"
                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
                 android:gravity="right|center"
                 android:imeOptions="actionDone"
@@ -63,7 +65,7 @@
                 android:singleLine="true"
                 android:layout_weight="100"
                 android:maxLength="11"
-                android:textColor="@color/currentColor"
+                android:textColor="@color/textColor3f"
                 android:textSize="@dimen/textSize_16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -74,7 +76,6 @@
             android:layout_weight="20" />
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -85,7 +86,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="40" />
 
         <FrameLayout
             android:layout_width="0dp"
@@ -94,25 +95,41 @@
 
             <include
                 android:id="@+id/btnChargeConfirmRightel"
-                layout="@layout/circular_progress_button" />
+                layout="@layout/circular_progress_button_small" />
 
         </FrameLayout>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="40" />
 
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="2dp"
         android:gravity="center"
-        android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
-        android:textColor="@color/textColor"
-        android:textSize="@dimen/textSize_12dp" />
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25dp"
+            android:gravity="center_vertical"
+            android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
+            android:textColor="@color/textColor"
+            android:layout_marginRight="@dimen/_10dp"
+            android:textSize="@dimen/textSize_12dp" />
+        <ImageView
+            android:src="@drawable/ic_warning"
+            android:layout_width="@dimen/_25dp"
+            android:layout_height="@dimen/_25dp"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/llRightelFilter"

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|right"
-        android:textColor="@color/textColor"
+        android:textColor="@color/warmGray"
         android:textSize="12dp" />
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|right"
-        android:textColor="@color/white"
+        android:textColor="@color/midnight"
         android:textSize="14dp"
         android:textAppearance="@style/IranSansBold"/>
 

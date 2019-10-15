@@ -13,8 +13,7 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginTop="2dp"
-        android:background="@color/btnColorSecondary"
-        card_view:cardBackgroundColor="@color/btnColorSecondary"
+        android:background="@drawable/button_main_background_border"
         card_view:cardCornerRadius="1dp"
         card_view:cardElevation="0.5dp">
 
@@ -59,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/buttonLayout"
                 android:orientation="vertical"
-                android:background="@color/btnColorSecondary"
+                android:background="@color/white"
                 app:ael_duration="400"
                 app:ael_expanded="false"
                 android:padding="1dp">
@@ -67,13 +66,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/btnColorSecondary">
+                    android:background="@color/white">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/detailRecycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/btnColorSecondary"
+                        android:background="@color/white"
                         app:layoutManager="LinearLayoutManager" />
 
                 </LinearLayout>
