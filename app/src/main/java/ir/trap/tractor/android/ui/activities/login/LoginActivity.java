@@ -66,7 +66,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         initView();
 
         //-----------------test------------------
-        Prefs.putString("serverToken", "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkaWJha2V5IjoiNTUzMjcxMGRlZjQ5YjBhZWFlZGYyZmYxOTM4NzI5YmU4ODhjZjA3OSIsImltZWkiOiJuVUVGNmVIejU2WktmbjlDNzByQlptK2FSNU9SbFdHVVlpN3ZHeExRMHZnPSIsInVzZXJrZXkiOiI5NjZlZGQzMjhiY2MwN2Q1YTI2MmNhMzdlOTg1MmQ3YzUwZjE5NTM4In0.4yQr1cNO-Wu5_UD9c58s4POpoyIJOK3L2RBfk9dea6w");
+        Prefs.putString("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzExNDMzNzksImp3dCI6ImFjY2VzcyIsImp0aSI6ImJiODg2ZGI0YTkxYTRlY2I4NWZiZjc3ZDQzZjViMmYxIiwidXNlcl9pZCI6MTl9.vKgrcivbjy9EfHtgB6PXvFaao0tdKe1w8uVJMTQ9Kzg");
+        Prefs.putString("refreshToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3QiOiJyZWZyZXNoIiwidXNlcl9pZCI6MTksImV4cCI6MTU3MTIyMTUwOSwianRpIjoiZDU5NTAzMTE5ODQwNDNkNjk5MWJjNDQxMjJhOThhMzQifQ.JtsGamNvUX2XiZxq0OxhdZmPmNogQtdX8zjK8tqoKKY");
         //-----------------test------------------
 
     }

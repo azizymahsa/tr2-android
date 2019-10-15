@@ -2,6 +2,7 @@ package ir.trap.tractor.android.apiServices.part;
 
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
 import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
 
@@ -18,7 +19,7 @@ public class PackageBuyService extends BasePart{
         return this;
     }
 
-    public void MciPackageBuyService(OnServiceStatus<PackageBuyResponse> listener, PackageBuyRequest req) {
+    public void MciPackageBuyService(OnServiceStatus<WebServiceClass<PackageBuyResponse>> listener, PackageBuyRequest req) {
         start(getServiceGenerator().createService().buySimcardPackage(req), listener);
     }
 }

@@ -2,6 +2,7 @@ package ir.trap.tractor.android.apiServices.part;
 
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 
@@ -21,7 +22,7 @@ public class MobileChargeService extends BasePart
         return this;
     }
 
-    public void MobileChargeService(OnServiceStatus<MobileChargeResponse> listener, MobileChargeRequest req)
+    public void MobileChargeService(OnServiceStatus<WebServiceClass<MobileChargeResponse>> listener, MobileChargeRequest req)
     {
         start(getServiceGenerator().createService().getMobileCharge(req), listener);
     }

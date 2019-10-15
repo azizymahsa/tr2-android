@@ -16,4 +16,6 @@ public class MainServiceModelItem
     @Getter @Setter @Expose
     private String imageLink;
 
+    @Expose @Getter @Setter
+    private String keyName;
 }

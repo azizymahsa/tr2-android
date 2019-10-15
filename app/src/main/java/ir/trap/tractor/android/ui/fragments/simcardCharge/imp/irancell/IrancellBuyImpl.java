@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.fragments.simcardCharge.imp.irancell;
 
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 
@@ -29,14 +30,14 @@ public class IrancellBuyImpl implements IrancellBuyInteractor
         request.setSimcardType(simcardType);
         request.setOperatorType(1);
 
-        SingletonService.getInstance().getMobileCharge().MobileChargeService(new OnServiceStatus<MobileChargeResponse>()
+        SingletonService.getInstance().getMobileCharge().MobileChargeService(new OnServiceStatus<WebServiceClass<MobileChargeResponse>>()
         {
             @Override
-            public void onReady(MobileChargeResponse response)
+            public void onReady(WebServiceClass<MobileChargeResponse> response)
             {
                 try
                 {
-                    listener.onFinishedIrancellBuy(response, chargeMobileNumber);
+                    listener.onFinishedIrancellBuy(response.data, chargeMobileNumber);
                 }
                 catch (Exception e)
                 {

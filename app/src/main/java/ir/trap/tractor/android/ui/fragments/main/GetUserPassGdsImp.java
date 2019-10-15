@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.fragments.main;
 
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 
 public abstract class GetUserPassGdsImp
@@ -28,20 +29,20 @@ public abstract class GetUserPassGdsImp
 
     private static void callHotelAPI(onConfirmUserPassGDS listener)
     {
-        SingletonService.getInstance().getHotelService().hotelUserPass(new OnServiceStatus<GetUserPassResponse>()
+        SingletonService.getInstance().getHotelService().hotelUserPass(new OnServiceStatus<WebServiceClass<GetUserPassResponse>>()
         {
             @Override
-            public void onReady(GetUserPassResponse response)
+            public void onReady(WebServiceClass<GetUserPassResponse >response)
             {
                 try
                 {
-                    if (response.getServiceMessage().getCode() == 200)
+                    if (response.statusCode == 200)
                     {
-                        listener.onGdsHotel(response);
+                        listener.onGdsHotel(response.data);
                     }
                     else
                     {
-                        listener.onGdsError(response.getServiceMessage().getMessage());
+                        listener.onGdsError(response.message);
                     }
 
                 }
@@ -61,20 +62,20 @@ public abstract class GetUserPassGdsImp
 
     private static void callBusAPI(onConfirmUserPassGDS listener)
     {
-        SingletonService.getInstance().getBusService().userPass(new OnServiceStatus<GetUserPassResponse>()
+        SingletonService.getInstance().getBusService().userPass(new OnServiceStatus<WebServiceClass<GetUserPassResponse>>()
         {
             @Override
-            public void onReady(GetUserPassResponse response)
+            public void onReady(WebServiceClass<GetUserPassResponse> response)
             {
                 try
                 {
-                    if (response.getServiceMessage().getCode() == 200)
+                    if (response.statusCode == 200)
                     {
-                        listener.onGdsBus(response);
+                        listener.onGdsBus(response.data);
                     }
                     else
                     {
-                        listener.onGdsError(response.getServiceMessage().getMessage());
+                        listener.onGdsError(response.message);
                     }
 
                 }
@@ -95,20 +96,20 @@ public abstract class GetUserPassGdsImp
 
     private static void callFlightAPI(onConfirmUserPassGDS listener)
     {
-        SingletonService.getInstance().getFlightService().userPass(new OnServiceStatus<GetUserPassResponse>()
+        SingletonService.getInstance().getFlightService().userPass(new OnServiceStatus<WebServiceClass<GetUserPassResponse>>()
         {
             @Override
-            public void onReady(GetUserPassResponse response)
+            public void onReady(WebServiceClass<GetUserPassResponse> response)
             {
                 try
                 {
-                    if (response.getServiceMessage().getCode() == 200)
+                    if (response.statusCode == 200)
                     {
-                        listener.onGdsFlight(response);
+                        listener.onGdsFlight(response.data);
                     }
                     else
                     {
-                        listener.onGdsError(response.getServiceMessage().getMessage());
+                        listener.onGdsError(response.message);
                     }
 
                 }

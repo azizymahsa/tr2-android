@@ -1,5 +1,6 @@
 package ir.trap.tractor.android.ui.fragments.simcardPack.imp.irancell;
 
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 
 
@@ -10,7 +11,7 @@ public interface GetPackageIrancellInteractor
 {
     interface OnFinishedGetPackageIrancellListener
     {
-        void onFinishedGetPackageIrancell(GetPackageIrancellResponse getPackageMciResponse);
+        void onFinishedGetPackageIrancell(WebServiceClass<GetPackageIrancellResponse> getPackageMciResponse);
 
         void onErrorGetPackageIrancell(String error);
     }

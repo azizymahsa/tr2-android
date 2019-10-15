@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.fragments.simcardCharge.imp.rightel;
 
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 
@@ -27,14 +28,14 @@ public class RightelBuyImpl implements RightelBuyInteractor
         request.setSimcardType(0);
         request.setOperatorType(3);
 
-        SingletonService.getInstance().getMobileCharge().MobileChargeService(new OnServiceStatus<MobileChargeResponse>()
+        SingletonService.getInstance().getMobileCharge().MobileChargeService(new OnServiceStatus<WebServiceClass<MobileChargeResponse>>()
         {
             @Override
-            public void onReady(MobileChargeResponse response)
+            public void onReady(WebServiceClass<MobileChargeResponse> response)
             {
                 try
                 {
-                    listener.onFinishedRightelBuy(response, chargeMobileNumber);
+                    listener.onFinishedRightelBuy(response.data, chargeMobileNumber);
                 } catch (Exception e)
                 {
                     listener.onErrorRightelBuy(e.getMessage());

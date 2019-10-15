@@ -1,5 +1,6 @@
 package ir.trap.tractor.android.ui.fragments.simcardPack.imp;
 
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
 
 /**
@@ -9,7 +10,7 @@ public interface BuyPackageInteractor
 {
     interface OnFinishedBuyPackageListener
     {
-        void onFinishedMciBuyPackagePackage(PackageBuyResponse response);
+        void onFinishedMciBuyPackagePackage(WebServiceClass<PackageBuyResponse> response);
 
         void onErrorMciBuyPackagePackage(String error);
     }
