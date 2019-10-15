@@ -70,6 +70,7 @@
                         android:gravity="center"
                         android:textColor="@color/currentColor"
                         android:textSize="@dimen/_20sdp"
+                        android:layout_below="@+id/ivProfile"
 
                         />
 
@@ -83,7 +84,7 @@
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/_14sdp"
                     android:layout_below="@+id/rlImage"
-                    android:layout_marginTop="@dimen/_10sdp"
+
                     />
             </RelativeLayout>
 
@@ -110,9 +111,9 @@
                 <ir.trap.tractor.android.utilities.ClearableEditText
                     android:id="@+id/etFirstName"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:hint="@string/enter_first_name"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/textSize_14dp"
                     android:backgroundTint="@color/textColor"
                     android:textColor="@color/textColor"
                     android:imeOptions="actionNext"
@@ -160,9 +161,9 @@
             <EditText
                 android:id="@+id/etLastName"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:hint="@string/enter_last_name"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/textSize_14dp"
                 android:backgroundTint="@color/textColor"
                 android:textColor="@color/textColor"
                 android:imeOptions="actionDone"
@@ -209,9 +210,9 @@
                 <EditText
                     android:id="@+id/etInvite"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:hint="کد معرف(اختیاری)"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/textSize_14dp"
                     android:backgroundTint="@color/textColor"
                     android:textColor="@color/textColor"
                     android:imeOptions="actionDone"
