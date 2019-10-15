@@ -3,6 +3,7 @@ package ir.trap.tractor.android.ui.fragments.simcardCharge.imp.mci;
 
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 
@@ -28,14 +29,14 @@ public class MciBuyImpl implements MciBuyInteractor
         request.setSimcardType(0);
         request.setOperatorType(2);
 
-        SingletonService.getInstance().getMobileCharge().MobileChargeService(new OnServiceStatus<MobileChargeResponse>()
+        SingletonService.getInstance().getMobileCharge().MobileChargeService(new OnServiceStatus<WebServiceClass<MobileChargeResponse>>()
         {
             @Override
-            public void onReady(MobileChargeResponse response)
+            public void onReady(WebServiceClass<MobileChargeResponse> response)
             {
                 try
                 {
-                    listener.onFinishedMciBuyIn(response, chargeMobileNumber);
+                    listener.onFinishedMciBuyIn(response.data, chargeMobileNumber);
                 } catch (Exception e)
                 {
                     listener.onErrorMciBuyIn(e.getMessage());

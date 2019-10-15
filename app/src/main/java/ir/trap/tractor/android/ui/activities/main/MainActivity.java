@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -17,9 +15,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.generator.SingletonService;
+import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
+import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
+import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
+import ir.trap.tractor.android.conf.TrapConfig;
+import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.BaseActivity;
-import ir.trap.tractor.android.ui.base.BaseView;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
@@ -28,20 +35,23 @@ import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.utilities.Logger;
 
-public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener
+public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
+        OnServiceStatus<WebServiceClass<GetMenuResponse>>
 {
     private Boolean isMainFragment = true;
 
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
 
-    private Fragment fragment;
+    private Fragment curentFragment;
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNavigationView;
 
     private Bundle mSavedInstanceState;
 
     private FragmentTransaction transaction;
+
+    private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,31 +61,33 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         mSavedInstanceState = savedInstanceState;
 
-        //--------------------------------bottomBar----------------------------------
+        mToolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+
+        drawerFragment = (MenuDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_menudrawer);
+        drawerFragment.setUp(R.id.fragment_navigation_menudrawer, findViewById(R.id.drawer_layout), mToolbar);
+        drawerFragment.setDrawerListener(this);
+
+        ImageButton btnDrawer = mToolbar.findViewById(R.id.imgMenu);
+
+        btnDrawer.setOnClickListener(v ->
+        {
+            View containerView = findViewById(R.id.fragment_navigation_menudrawer);
+            DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
+            mDrawerLayout.openDrawer(containerView);
+
+        });
+
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
 
-        fragmentManager = getSupportFragmentManager();
-        fragment = MainFragment.newInstance(this);
-
-        transaction = fragmentManager.beginTransaction();
-
-        if (mSavedInstanceState == null)
-        {
-            transaction.add(R.id.main_container, fragment)
-                    .commit();
-        } else
-        {
-            transaction.replace(R.id.main_container, fragment)
-                    .commit();
-        }
-
-//
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem ->
         {
             Logger.e("--item--", menuItem.getTitle().toString());
             int itemId = menuItem.getItemId();
-            //switch fragment
+            //switch curentFragment
             switch (itemId)
             {
                 case R.id.tab_shop:
@@ -123,45 +135,48 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             return true;
         });
+        //--------------------------------bottomBar----------------------------------
+        GetMenuRequest request = new GetMenuRequest();
+        request.setDeviceType(TrapConfig.AndroidDeviceType);
+        request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
+        SingletonService.getInstance().getMenuService().getMenu(this, request);
 
+        fragmentManager = getSupportFragmentManager();
+        curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
 
-        mToolbar = findViewById(R.id.toolbar);
+        transaction = fragmentManager.beginTransaction();
 
-        setSupportActionBar(mToolbar);
-
-        drawerFragment = (MenuDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_menudrawer);
-        drawerFragment.setUp(R.id.fragment_navigation_menudrawer, findViewById(R.id.drawer_layout), mToolbar);
-        drawerFragment.setDrawerListener(this);
-
-        ImageButton btnDrawer = mToolbar.findViewById(R.id.imgMenu);
-
-        btnDrawer.setOnClickListener(v ->
+        if (mSavedInstanceState == null)
         {
-            View containerView = findViewById(R.id.fragment_navigation_menudrawer);
-            DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
-            mDrawerLayout.openDrawer(containerView);
+            transaction.add(R.id.main_container, curentFragment)
+                    .commit();
+        }
+        else
+        {
+            transaction.replace(R.id.main_container, curentFragment)
+                    .commit();
+        }
 
-        });
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        if (fragment == null)
+        if (curentFragment == null)
         {
-            fragment = MainFragment.newInstance(this);
+            curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
             transaction = fragmentManager.beginTransaction();
             try
             {
                 if (mSavedInstanceState == null)
                 {
-                    transaction.add(R.id.main_container, fragment)
+                    transaction.add(R.id.main_container, curentFragment)
                             .commit();
 //
                 } else
                 {
-                    transaction.replace(R.id.main_container, fragment)
+                    transaction.replace(R.id.main_container, curentFragment)
                             .commit();
                 }
             }
@@ -238,10 +253,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        fragment = ChargeFragment.newInstance(this);
+        curentFragment = ChargeFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, curentFragment)
                 .commit();
     }
 
@@ -250,10 +265,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        fragment = PackFragment.newInstance(this);
+        curentFragment = PackFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, curentFragment)
                 .commit();
     }
 
@@ -262,10 +277,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        fragment = MoneyTransferFragment.newInstance(this);
+        curentFragment = MoneyTransferFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, curentFragment)
                 .commit();
     }
 
@@ -292,10 +307,26 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = true;
 
-        fragment = MainFragment.newInstance(this);
+        curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
         transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, curentFragment)
                 .commit();
+    }
+
+    @Override
+    public void onReady(WebServiceClass<GetMenuResponse> response)
+    {
+        if (response.statusCode == 200)
+        {
+            chosenServiceList.addAll(response.data.getChosenServiceList());
+            footballServiceList.addAll(response.data.getFootballServiceList());
+        }
+    }
+
+    @Override
+    public void onError(String message)
+    {
+
     }
 }

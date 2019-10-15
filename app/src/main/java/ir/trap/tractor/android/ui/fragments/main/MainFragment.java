@@ -3,8 +3,6 @@ package ir.trap.tractor.android.ui.fragments.main;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,15 +14,13 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
-import ir.trap.tractor.android.ui.adapters.ImagePagerAdapter;
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.adapters.MainServiceModelAdapter;
@@ -43,7 +39,6 @@ import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
 import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
 import library.android.service.model.bus.searchBus.response.Company;
 import library.android.service.model.flight.reservation.response.ReservationResponse;
-import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
         FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener
@@ -58,6 +53,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private SliderLayout mDemoSlider;
 
+    private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
     private MainActionView mainView;
 
@@ -66,14 +62,20 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         // Required empty public constructor
     }
 
-    public static MainFragment newInstance(MainActionView mainActionView)
+    public static MainFragment newInstance(MainActionView mainActionView,
+                                           ArrayList<GetMenuItemResponse> footballServiceList,
+                                           ArrayList<GetMenuItemResponse> chosenServiceList
+    )
     {
         MainFragment fragment = new MainFragment();
         fragment.setMainView(mainActionView);
+
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
+        args.putParcelableArrayList("chosenServiceList", chosenServiceList);
+        args.putParcelableArrayList("footballServiceList", footballServiceList);
+
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -89,8 +91,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
         {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+            chosenServiceList = getArguments().getParcelableArrayList("chosenServiceList");
+            footballServiceList = getArguments().getParcelableArrayList("footballServiceList");
         }
     }
 
@@ -101,55 +103,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-//        btnHotel = rootView.findViewById(R.id.btnHotel);
-//        btnFlight = rootView.findViewById(R.id.btnFlight);
-//        btnBus = rootView.findViewById(R.id.btnBus);
-//        btnDoTransfer = rootView.findViewById(R.id.btnDoTransfer);
-//        btnChargeSimCard = rootView.findViewById(R.id.btnChargeSimCard);
-//        btnPackSimCard = rootView.findViewById(R.id.btnPackSimCard);
-//        btnBill = rootView.findViewById(R.id.btnBill);
-
         mDemoSlider = rootView.findViewById(R.id.slider);
-
-//        btnHotel.setOnClickListener(clickListener);
-//        btnFlight.setOnClickListener(clickListener);
-//        btnBus.setOnClickListener(clickListener);
-//        btnDoTransfer.setOnClickListener(clickListener);
-//        btnChargeSimCard.setOnClickListener(clickListener);
-//        btnPackSimCard.setOnClickListener(clickListener);
-//        btnBill.setOnClickListener(clickListener);
 
         setSlider();
 
-//        indicator = rootView.findViewById(R.id.indicator);
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
-//        imagePagerAdapter = new ImagePagerAdapter(getActivity());
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
         recyclerView.setLayoutManager(layoutManager);
 
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvList.getContext(),
-//                linearLayoutManager.getOrientation());
-//        rvList.addItemDecoration(dividerItemDecoration);
-//        rvList.addOnScrollListener(new RecyclerView.OnScrollListener()
-//        {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
-//            {
-//                super.onScrollStateChanged(recyclerView, newState);
-//
-//
-//                if (linearLayoutManager.findFirstVisibleItemPosition() == 0)
-//                    if (newState == RecyclerView.SCROLL_STATE_IDLE)
-//                    {
-//
-//                    }
-//            }
-//        });
-//        rvList.setAdapter(imagePagerAdapter);
-//        indicator.attachToRecyclerView(rvList);
-
-        list = setTestList();
+        list = fillMenuRecyclerList();
 
         adapter = new MainServiceModelAdapter(getActivity(), list, this);
         recyclerView.setAdapter(adapter);
@@ -158,45 +121,60 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         return rootView;
     }
 
-    private List<MainServiceModelItem> setTestList()
+    private List<MainServiceModelItem> fillMenuRecyclerList()
     {
         List<MainServiceModelItem> newList = new ArrayList<>();
 
-        MainServiceModelItem item = new MainServiceModelItem();
+        for (GetMenuItemResponse itemResponse : chosenServiceList)
+        {
+            if (itemResponse.getIsVisible())
+            {
+                MainServiceModelItem item = new MainServiceModelItem();
 
-        item.setId(1);
-        item.setTitle("بلیط هواپیما");
-        newList.add(item);
+                item.setId(itemResponse.getKeyId());
+                item.setTitle(itemResponse.getTitle());
+                item.setImageLink(itemResponse.getImageName());
+                item.setKeyName(itemResponse.getKeyName());
 
-        item = new MainServiceModelItem();
-        item.setId(2);
-        item.setTitle("رزرو هتل");
-        newList.add(item);
+                newList.add(item);
+            }
+        }
 
-        item = new MainServiceModelItem();
-        item.setId(3);
-        item.setTitle("بلیط اتوبوس");
-        newList.add(item);
-
-        item = new MainServiceModelItem();
-        item.setId(4);
-        item.setTitle("پرداخت قبض");
-        newList.add(item);
-
-        item = new MainServiceModelItem();
-        item.setId(5);
-        item.setTitle("بسته");
-        newList.add(item);
-
-        item = new MainServiceModelItem();
-        item.setId(6);
-        item.setTitle("شارژ");
-        newList.add(item);
-
-        item = new MainServiceModelItem();
-        item.setId(7);
-        item.setTitle("کارت به کارت");
-        newList.add(item);
+//        MainServiceModelItem item = new MainServiceModelItem();
+//
+//        item.setId(1);
+//        item.setTitle("بلیط هواپیما");
+//        newList.add(item);
+//
+//        item = new MainServiceModelItem();
+//        item.setId(2);
+//        item.setTitle("رزرو هتل");
+//        newList.add(item);
+//
+//        item = new MainServiceModelItem();
+//        item.setId(3);
+//        item.setTitle("بلیط اتوبوس");
+//        newList.add(item);
+//
+//        item = new MainServiceModelItem();
+//        item.setId(4);
+//        item.setTitle("پرداخت قبض");
+//        newList.add(item);
+//
+//        item = new MainServiceModelItem();
+//        item.setId(5);
+//        item.setTitle("بسته");
+//        newList.add(item);
+//
+//        item = new MainServiceModelItem();
+//        item.setId(6);
+//        item.setTitle("شارژ");
+//        newList.add(item);
+//
+//        item = new MainServiceModelItem();
+//        item.setId(7);
+//        item.setTitle("کارت به کارت");
+//        newList.add(item);
 
         return newList;
     }
@@ -346,25 +324,25 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
     @Override
-    public void onItemClick(View view, Integer id)
+    public void onChosenItemClick(View view, Integer id)
     {
         switch (id)
         {
-            case 1:
+            case 11://Flight
             {
                 mainView.showLoading();
                 GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
                 break;
             }
 
-            case 2:
+            case 12: //Hotel
             {
                 mainView.showLoading();
                 GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_HOTEL, MainFragment.this);
                 break;
             }
 
-            case 3:
+            case 13: //Bus
             {
                 mainView.showLoading();
                 GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, MainFragment.this);
@@ -373,17 +351,17 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 4:
             {
-                mainView.onBill();
+//                mainView.onBill();
                 break;
             }
 
-            case 5:
+            case 42: //Pack
             {
                 mainView.onPackSimCard();
                 break;
             }
 
-            case 6:
+            case 41: //Charge
             {
                 mainView.onChargeSimCard();
                 break;
@@ -391,7 +369,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 7:
             {
-                mainView.doTransferMoney();
+//                mainView.doTransferMoney();
+                break;
+            }
+
+            case 43: //خرید بدون کارت
+            {
+//                mainView.doTransferMoney();
                 break;
             }
 

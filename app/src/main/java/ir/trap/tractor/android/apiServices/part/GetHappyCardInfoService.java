@@ -2,6 +2,7 @@ package ir.trap.tractor.android.apiServices.part;
 
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getHappyCardInfo.GetHappyCardInfoRequest;
 import ir.trap.tractor.android.apiServices.model.getHappyCardInfo.response.GetHappyCardInfoResponse;
 
@@ -21,7 +22,7 @@ public class GetHappyCardInfoService extends BasePart
         return this;
     }
 
-    public void GetCardInfoService(OnServiceStatus<GetHappyCardInfoResponse> listener, GetHappyCardInfoRequest req)
+    public void GetCardInfoService(OnServiceStatus<WebServiceClass<GetHappyCardInfoResponse>> listener, GetHappyCardInfoRequest req)
     {
         start(getServiceGenerator().createService().getHappyCardInfo(req), listener);
     }

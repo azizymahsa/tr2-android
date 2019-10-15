@@ -1,6 +1,5 @@
 package ir.trap.tractor.android.apiServices.part;
 
-import android.content.Intent;
 import android.os.Handler;
 
 import java.io.IOException;
@@ -8,9 +7,7 @@ import java.io.IOException;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import ir.trap.tractor.android.BuildConfig;
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
@@ -18,8 +15,8 @@ import ir.trap.tractor.android.apiServices.helper.Const;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.mock.MockProcessor;
 import ir.trap.tractor.android.apiServices.model.SingletonResponse;
-import ir.trap.tractor.android.singleton.SingletonContext;
-import ir.trap.tractor.android.ui.activities.login.LoginActivity;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.utilities.Logger;
 import okhttp3.RequestBody;
 import okio.Buffer;
@@ -57,7 +54,7 @@ public abstract class BasePart
         return serviceGenerator;
     }
 
-    public <T> void start(Single<Response<T>> single, OnServiceStatus<T> listener)
+    public <T> void start(Single<Response<WebServiceClass<T>>> single, OnServiceStatus<WebServiceClass<T>> listener)
     {
         if (!BuildConfig.DEBUG)
         {
@@ -68,7 +65,7 @@ public abstract class BasePart
 
         if (Const.MOCK && mockProcessor.getRawRes() != null && mockProcessor.loadJSONFromAsset() != null)
         {
-            T model = mockProcessor.getMockModel();
+            WebServiceClass<T> model = mockProcessor.getMockModel();
             if (model == null)
             {
                 call(single, listener);
@@ -81,12 +78,12 @@ public abstract class BasePart
     }
 
 
-    private <T> void call(Single<Response<T>> observable, OnServiceStatus<T> listener)
+    private <T> void call(Single<Response<WebServiceClass<T>>> observable, OnServiceStatus<WebServiceClass<T>> listener)
     {
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
-                .subscribe(new SingleObserver<Response<T>>()
+                .subscribe(new SingleObserver<Response<WebServiceClass<T>>>()
                 {
                     @Override
                     public void onSubscribe(Disposable d)
@@ -95,7 +92,7 @@ public abstract class BasePart
                     }
 
                     @Override
-                    public void onSuccess(Response<T> value)
+                    public void onSuccess(Response<WebServiceClass<T>> value)
                     {
                         if (BuildConfig.DEBUG && Const.TEST)
                         {

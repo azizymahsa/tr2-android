@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
@@ -117,7 +115,7 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
         {
             if (mItemClickListener != null)
             {
-                mItemClickListener.onItemClick(view,  list.get(getAdapterPosition()).getId());
+                mItemClickListener.onChosenItemClick(view,  list.get(getAdapterPosition()).getId());
             }
         }
     }
@@ -125,7 +123,7 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
 
     public interface OnItemClickListener
     {
-        public void onItemClick(View view, Integer id);
+        public void onChosenItemClick(View view, Integer id);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)

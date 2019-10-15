@@ -10,6 +10,7 @@ import ir.trap.tractor.android.apiServices.part.DoTransferCardService;
 import ir.trap.tractor.android.apiServices.part.FlightService;
 import ir.trap.tractor.android.apiServices.part.GetBillInfoService;
 import ir.trap.tractor.android.apiServices.part.GetHappyCardInfoService;
+import ir.trap.tractor.android.apiServices.part.GetMenuService;
 import ir.trap.tractor.android.apiServices.part.GetPackageIrancellService;
 import ir.trap.tractor.android.apiServices.part.GetPackageMciService;
 import ir.trap.tractor.android.apiServices.part.GetRightelPackService;
@@ -66,6 +67,13 @@ public class SingletonService
     public void setContext(ServiceApplication context)
     {
         this.serviceApplication = context;
+    }
+
+
+
+    public GetMenuService getMenuService()
+    {
+        return new GetMenuService(serviceGenerator);
     }
 
     public PackageBuyService packageBuyService()

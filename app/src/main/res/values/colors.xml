@@ -9,7 +9,7 @@
     <color name="textColorSecondary">#000</color>
 
     <color name="backgroundButton">#fe0002</color>
-    <color name="mainMenuColor">#ff0000</color>
+    <color name="mainMenuColor">#fff</color>
     <color name="drawer_background">#88000000</color>
     <color name="textColorDrawer">#fff</color>
     <color name="drawerSepratorColor">#fff</color>
