@@ -81,4 +81,6 @@
     </style>
 
 
+    <color name="textHint">#aaa</color>
+    <color name="textColor">#000</color>
 </resources>

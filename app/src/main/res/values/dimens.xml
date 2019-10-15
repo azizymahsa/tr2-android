@@ -6,4 +6,7 @@
 
     <dimen name="BottomNavigation_size">60sp</dimen>
 
+    <dimen name="headerMainWeekNoTextSize">48sp</dimen>
+    <dimen name="headerMainWeekNoSubTextSize">24sp</dimen>
+
 </resources>

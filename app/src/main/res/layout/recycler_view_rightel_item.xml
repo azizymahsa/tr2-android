@@ -25,7 +25,7 @@
                 android:id="@+id/buttonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_main_background_border"
+                android:background="@color/itemColor"
                 android:minHeight="35dp">
 
                 <TextView
@@ -36,7 +36,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:textAppearance="@style/IranSansBold"
-                    android:textColor="@color/textColor3f"
+                    android:textColor="@color/textColorRecyclerView"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -47,7 +47,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:tint="@color/buttonMainBorderColor"
+                    android:tint="@color/menuColor"
                     android:src="@drawable/ic_arrow_down_36dp"/>
 
             </RelativeLayout>
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/buttonLayout"
                 android:orientation="vertical"
-                android:background="@color/buttonColor"
+                android:background="@color/white"
                 app:ael_duration="400"
                 app:ael_expanded="false"
                 android:padding="1dp">
@@ -66,13 +66,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/buttonColor">
+                    android:background="@color/white">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/detailRecycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/buttonColor"
+                        android:background="@color/white"
                         app:layoutManager="LinearLayoutManager" />
 
                 </LinearLayout>

@@ -6,7 +6,7 @@
 <!--        android:width="2dp"/>-->
     
     <corners
-        android:bottomRightRadius="@dimen/_30dp"
-        android:topLeftRadius="@dimen/_30dp"/>
+        android:bottomRightRadius="@dimen/_15sdp"
+        android:topLeftRadius="@dimen/_15sdp"/>
 
 </shape>

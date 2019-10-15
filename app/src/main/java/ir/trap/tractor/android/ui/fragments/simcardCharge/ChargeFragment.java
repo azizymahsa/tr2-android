@@ -315,7 +315,7 @@ public class ChargeFragment extends BaseFragment
         //mainView.needExpanded(false);
 
         tvChargeTitle.setText("خرید شارژ آنلاین " + "ایرانسل");
-        ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.buttonColor));
+        ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
         ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
         ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
 
@@ -354,7 +354,7 @@ public class ChargeFragment extends BaseFragment
 
         tvChargeTitle.setText("خرید شارژ آنلاین " + "همراه اول");
         ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-        ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.buttonColor));
+        ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
         ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
 
         ivIrancell.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.irancell2));
@@ -389,7 +389,7 @@ public class ChargeFragment extends BaseFragment
         tvChargeTitle.setText("خرید شارژ آنلاین " + "رایتل");
         ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
         ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-        ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.buttonColor));
+        ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
 
         ivIrancell.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.irancell2));
         ivHamraheAval.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.hamrahe_aval2));
@@ -837,7 +837,7 @@ public class ChargeFragment extends BaseFragment
                 rlIrancellSpinner.setVisibility(View.INVISIBLE);
 
                 ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-                ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.buttonColor));
+                ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
                 ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
 
                 ivIrancell.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.irancell2));
@@ -864,7 +864,7 @@ public class ChargeFragment extends BaseFragment
 
                 }, 250);
 
-                ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.buttonColor));
+                ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
                 ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
                 ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
 
@@ -890,7 +890,7 @@ public class ChargeFragment extends BaseFragment
 
                 ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
                 ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-                ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.buttonColor));
+                ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
 
                 ivIrancell.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.irancell2));
                 ivHamraheAval.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.hamrahe_aval2));
@@ -910,7 +910,7 @@ public class ChargeFragment extends BaseFragment
 //        llMTNCharge.setVisibility(View.GONE);
 //        llRightelCharge.setVisibility(View.GONE);
 //        ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-//        ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.buttonColor));
+//        ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
 //        ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
 //        isMtn = false;
 //        isMci = true;
