@@ -4,6 +4,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
 
@@ -18,10 +19,10 @@ public class PackageMciImpl implements PackageMciInteractor
         GetPackageMciRequest request = new GetPackageMciRequest();
         request.setMobile(mobile);
         request.setUserId(Prefs.getInt("userId", 0) + "");
-        SingletonService.getInstance().getPackageMciService().GetPackageMciService(new OnServiceStatus<GetPackageMciResponse>()
+        SingletonService.getInstance().getPackageMciService().GetPackageMciService(new OnServiceStatus<WebServiceClass<GetPackageMciResponse>>()
         {
             @Override
-            public void onReady(GetPackageMciResponse response)
+            public void onReady(WebServiceClass<GetPackageMciResponse> response)
             {
                 try
                 {

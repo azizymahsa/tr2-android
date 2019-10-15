@@ -4,6 +4,7 @@ package ir.trap.tractor.android.apiServices.part;
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse2;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
 
@@ -23,17 +24,17 @@ public class FlightService extends BasePart
         return this;
     }
 
-    public void flightPayment(OnServiceStatus<GlobalResponse2> listener, FlightPaymentRequest request)
+    public void flightPayment(OnServiceStatus<WebServiceClass<GlobalResponse2>> listener, FlightPaymentRequest request)
     {
         start(getServiceGenerator().createService().flightPayment(request), listener);
     }
 
-    public void sendMessage(OnServiceStatus<GlobalResponse2> listener, FlightPaymentRequest request)
+    public void sendMessage(OnServiceStatus<WebServiceClass<GlobalResponse2>> listener, FlightPaymentRequest request)
     {
         start(getServiceGenerator().createService().flightSendMessage(request), listener);
     }
 
-    public void userPass(OnServiceStatus<GetUserPassResponse> listener)
+    public void userPass(OnServiceStatus<WebServiceClass<GetUserPassResponse>> listener)
     {
         start(getServiceGenerator().createService().getFlightUserPass(), listener);
     }

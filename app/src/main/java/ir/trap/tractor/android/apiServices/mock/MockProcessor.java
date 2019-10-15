@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.part.BasePart;
 
 /**
@@ -20,12 +21,12 @@ import ir.trap.tractor.android.apiServices.part.BasePart;
  */
 public class MockProcessor<T>
 {
-    private OnServiceStatus<T> listener;
+    private OnServiceStatus<WebServiceClass<T>> listener;
     private BasePart part;
     Gson gson;
 
 
-    public MockProcessor(OnServiceStatus<T> listener, BasePart part)
+    public MockProcessor(OnServiceStatus<WebServiceClass<T>> listener, BasePart part)
     {
         this.listener = listener;
         this.part = part;
@@ -35,14 +36,11 @@ public class MockProcessor<T>
     {
         Method[] methods = part.getClass().getDeclaredMethods();
         Class<?> selectedType = TypeResolver.resolveRawArgument(OnServiceStatus.class, listener.getClass());
-        Log.e("teeeeeeeeeest1", "teeeeeeeeeest2");
 
         for (Method method : methods)
         {
             try
             {
-                Log.e("teeeeeeeeeest1", "teeeeeeeeeest1");
-
                 if (method.isAnnotationPresent(Mock.class))
                 {
 
@@ -89,12 +87,12 @@ public class MockProcessor<T>
         return json;
     }
 
-    public T getMockModel()
+    public WebServiceClass<T> getMockModel()
     {
         Mock mock = getRawRes();
         if (mock == null)
             return null;
         gson = new Gson();
-        return gson.fromJson(loadJSONFromAsset(), (Class<T>) mock.response());
+        return gson.fromJson(loadJSONFromAsset(), (Class<WebServiceClass<T>>) mock.response());
     }
 }

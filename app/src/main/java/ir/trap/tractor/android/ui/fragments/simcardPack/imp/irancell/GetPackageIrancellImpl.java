@@ -4,6 +4,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
 
@@ -19,10 +20,10 @@ public class GetPackageIrancellImpl implements GetPackageIrancellInteractor
         request.setMobile(mobile);
         request.setUserId(Prefs.getInt("userId", 0) + "");
 
-        SingletonService.getInstance().getPackageIrancellService().GetPackageIrancellService(new OnServiceStatus<GetPackageIrancellResponse>()
+        SingletonService.getInstance().getPackageIrancellService().GetPackageIrancellService(new OnServiceStatus<WebServiceClass<GetPackageIrancellResponse>>()
         {
             @Override
-            public void onReady(GetPackageIrancellResponse getPackageIrancellResponse)
+            public void onReady(WebServiceClass<GetPackageIrancellResponse> getPackageIrancellResponse)
             {
                 try
                 {

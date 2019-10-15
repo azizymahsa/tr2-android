@@ -4,6 +4,7 @@ import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse2;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
 import ir.trap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
@@ -24,14 +25,14 @@ public class HotelService extends BasePart
         return this;
     }
 
-    public void hotelPayment(GdsHotelPaymentRequest request, OnServiceStatus<GlobalResponse2> listener)
+    public void hotelPayment(GdsHotelPaymentRequest request, OnServiceStatus<WebServiceClass<GlobalResponse2>> listener)
     {
         start(getServiceGenerator().createService().doHotelPayment(request), listener);
     }
-    public void sendHotelMessage(OnServiceStatus<GlobalResponse> listener, HotelSendMessageRequest request) {
+    public void sendHotelMessage(OnServiceStatus<WebServiceClass<GlobalResponse>> listener, HotelSendMessageRequest request) {
         start(getServiceGenerator().createService().hotelSendMessage(request), listener);
     }
-    public void hotelUserPass(OnServiceStatus<GetUserPassResponse> listener) {
+    public void hotelUserPass(OnServiceStatus<WebServiceClass<GetUserPassResponse>> listener) {
         start(getServiceGenerator().createService().getHotelUserPass(), listener);
     }
 }

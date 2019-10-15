@@ -5,6 +5,7 @@ import ir.trap.tractor.android.apiServices.helper.Const;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse2;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse3;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.billPayment.request.BillPaymentRequest;
 import ir.trap.tractor.android.apiServices.model.billPayment.response.BillPaymentResponse;
 import ir.trap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
@@ -17,6 +18,8 @@ import ir.trap.tractor.android.apiServices.model.getInfoBill.request.GetInfoBill
 import ir.trap.tractor.android.apiServices.model.getInfoBill.response.GetInfoBillResponse;
 import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillRequest;
 import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillResponse;
+import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
+import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
@@ -38,99 +41,110 @@ import retrofit2.http.POST;
 public interface RetroClient
 {
 
+
+
+    @POST(Const.GetMenu)
+    Single<Response<WebServiceClass<GetMenuResponse>>> getMenu(
+            @Body GetMenuRequest request
+    );
+
+
+
+
+
     @POST(Const.MOBILE_CHARGE)
-    Single<Response<MobileChargeResponse>> getMobileCharge(
+    Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
             @Body MobileChargeRequest request
     );
 
 
     @POST(Const.GET_PACKAGE_RIGHTEL)
-    Single<Response<GetRightelPackRespone>> getRightelPackage(
+    Single<Response<WebServiceClass<GetRightelPackRespone>>> getRightelPackage(
             @Body GetPackageMciRequest friendRequest
     );
 
     @POST(Const.GET_PACKAGE_MCI)
-    Single<Response<GetPackageMciResponse>> getPackageMci(
+    Single<Response<WebServiceClass<GetPackageMciResponse>>> getPackageMci(
             @Body GetPackageMciRequest request
     );
 
     @POST(Const.GET_PACKAGE_IRANCELL)
-    Single<Response<GetPackageIrancellResponse>> getIrancellPackage(
+    Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(
             @Body GetPackageMciRequest request
     );
 
     @POST(Const.PACKAGE_BUY)
-    Single<Response<PackageBuyResponse>> buySimcardPackage(
+    Single<Response<WebServiceClass<PackageBuyResponse>>> buySimcardPackage(
             @Body PackageBuyRequest mciPackageBuyRequest
     );
 
     @POST(Const.GetInfoPhoneBill)
-    Single<Response<GetInfoPhoneBillResponse>> getInfoPhoneBill(
+    Single<Response<WebServiceClass<GetInfoPhoneBillResponse>>> getInfoPhoneBill(
             @Body GetInfoPhoneBillRequest request
     );
 
     @POST(Const.BillPayment)
-    Single<Response<BillPaymentResponse>> billPayment(
+    Single<Response<WebServiceClass<BillPaymentResponse>>> billPayment(
             @Body BillPaymentRequest request
     );
 
     @POST(Const.GetInfoBill)
-    Single<Response<GetInfoBillResponse>> getInfoBill(
+    Single<Response<WebServiceClass<GetInfoBillResponse>>> getInfoBill(
             @Body GetInfoBillRequest request
     );
 
 
     @POST(Const.GetHappyCardInfo)
-    Single<Response<GetHappyCardInfoResponse>> getHappyCardInfo(
+    Single<Response<WebServiceClass<GetHappyCardInfoResponse>>> getHappyCardInfo(
             @Body GetHappyCardInfoRequest request
     );
 
     @POST(Const.GetShetabCardInfo)
-    Single<Response<ShetabCardInfoResponse>> getShetabCardInfo(
+    Single<Response<WebServiceClass<ShetabCardInfoResponse>>> getShetabCardInfo(
             @Body ShetabCardInfoRequest request
     );
 
     @POST(Const.DoTransferCard)
-    Single<Response<DoTransferResponse>> doTransferCard(
+    Single<Response<WebServiceClass<DoTransferResponse>>> doTransferCard(
             @Body DoTransferRequest request
     );
 
     @POST(Const.BusPayment)
-    Single<Response<GlobalResponse3>> busBooking(
+    Single<Response<WebServiceClass<GlobalResponse3>>> busBooking(
             @Body RequestBusPayment request
     );
 
     @POST(Const.GetBusUserPass)
-    Single<Response<GetUserPassResponse>> getBusUserPass();
+    Single<Response<WebServiceClass<GetUserPassResponse>>> getBusUserPass();
 
     @POST(Const.SendBusMessage)
-    Single<Response<GlobalResponse3>> busSendMessage(
+    Single<Response<WebServiceClass<GlobalResponse3>>> busSendMessage(
             @Body BusSendMessage request
     );
 
     @POST(Const.FlightPayment)
-    Single<Response<GlobalResponse2>> flightPayment(
+    Single<Response<WebServiceClass<GlobalResponse2>>> flightPayment(
             @Body FlightPaymentRequest request
     );
 
     @POST(Const.FlightSendMessage)
-    Single<Response<GlobalResponse2>> flightSendMessage(
+    Single<Response<WebServiceClass<GlobalResponse2>>> flightSendMessage(
             @Body FlightPaymentRequest request
     );
 
     @POST(Const.FlightGetUserPass)
-    Single<Response<GetUserPassResponse>> getFlightUserPass();
+    Single<Response<WebServiceClass<GetUserPassResponse>>> getFlightUserPass();
 
     @POST(Const.HotelSendMessage)
-    Single<Response<GlobalResponse>> hotelSendMessage(
+    Single<Response<WebServiceClass<GlobalResponse>>> hotelSendMessage(
             @Body HotelSendMessageRequest request
     );
 
     @POST(Const.HotelGetUserPass)
-    Single<Response<GetUserPassResponse>> getHotelUserPass();
+    Single<Response<WebServiceClass<GetUserPassResponse>>> getHotelUserPass();
 
     @POST(Const.HotelPayment)
-    Single<Response<GlobalResponse2>> doHotelPayment(
+    Single<Response<WebServiceClass<GlobalResponse2>>> doHotelPayment(
             @Body GdsHotelPaymentRequest gdsHotelPaymentRequest);
 
 

@@ -48,6 +48,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
@@ -1309,16 +1310,16 @@ public class PackFragment
 
 
     @Override
-    public void onFinishedRightelPack(GetRightelPackRespone packRespone)
+    public void onFinishedRightelPack(WebServiceClass<GetRightelPackRespone> packRespone)
     {
         btnChargeConfirmRightel.revertAnimation(this);
         btnChargeConfirmRightel.setClickable(true);
 
-        if (packRespone.getServiceMessage().getCode() == 200)
+        if (packRespone.statusCode == 200)
         {
             //initDefaultOperatorView();
 
-            requestId = packRespone.getRequestId();
+            requestId = packRespone.data.getRequestId();
             rightelRecycler.setNestedScrollingEnabled(false);
 //            mainView.needExpanded(false);
             llRightelMobile.setVisibility(View.GONE);
@@ -1327,29 +1328,29 @@ public class PackFragment
                     .playOn(tvSelectRightel);*/
             irancellPack.clear();
 
-            if (packRespone.getPackages().getDaily() != null && packRespone.getPackages().getDaily().size() != 0)
-                irancellPack.add(new RightelPackModel("روزانه", packRespone.getPackages().getDaily()));
+            if (packRespone.data.getPackages().getDaily() != null && packRespone.data.getPackages().getDaily().size() != 0)
+                irancellPack.add(new RightelPackModel("روزانه", packRespone.data.getPackages().getDaily()));
 
-            if (packRespone.getPackages().getThreeDays() != null && packRespone.getPackages().getThreeDays().size() != 0)
-                irancellPack.add(new RightelPackModel("سه روزه", packRespone.getPackages().getThreeDays()));
+            if (packRespone.data.getPackages().getThreeDays() != null && packRespone.data.getPackages().getThreeDays().size() != 0)
+                irancellPack.add(new RightelPackModel("سه روزه", packRespone.data.getPackages().getThreeDays()));
 
-            if (packRespone.getPackages().getTenDays() != null && packRespone.getPackages().getTenDays().size() != 0)
-                irancellPack.add(new RightelPackModel("ده روزه", packRespone.getPackages().getTenDays()));
+            if (packRespone.data.getPackages().getTenDays() != null && packRespone.data.getPackages().getTenDays().size() != 0)
+                irancellPack.add(new RightelPackModel("ده روزه", packRespone.data.getPackages().getTenDays()));
 
-            if (packRespone.getPackages().getWeekly() != null && packRespone.getPackages().getWeekly().size() != 0)
-                irancellPack.add(new RightelPackModel("هفتگی", packRespone.getPackages().getWeekly()));
+            if (packRespone.data.getPackages().getWeekly() != null && packRespone.data.getPackages().getWeekly().size() != 0)
+                irancellPack.add(new RightelPackModel("هفتگی", packRespone.data.getPackages().getWeekly()));
 
-            if (packRespone.getPackages().getMonthly() != null && packRespone.getPackages().getMonthly().size() != 0)
-                irancellPack.add(new RightelPackModel("ماهیانه", packRespone.getPackages().getMonthly()));
+            if (packRespone.data.getPackages().getMonthly() != null && packRespone.data.getPackages().getMonthly().size() != 0)
+                irancellPack.add(new RightelPackModel("ماهیانه", packRespone.data.getPackages().getMonthly()));
 
-            if (packRespone.getPackages().getThreeMonths() != null && packRespone.getPackages().getThreeMonths().size() != 0)
-                irancellPack.add(new RightelPackModel("سه ماهه", packRespone.getPackages().getThreeMonths()));
+            if (packRespone.data.getPackages().getThreeMonths() != null && packRespone.data.getPackages().getThreeMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("سه ماهه", packRespone.data.getPackages().getThreeMonths()));
 
-            if (packRespone.getPackages().getSixMonths() != null && packRespone.getPackages().getSixMonths().size() != 0)
-                irancellPack.add(new RightelPackModel("شش ماهه", packRespone.getPackages().getSixMonths()));
+            if (packRespone.data.getPackages().getSixMonths() != null && packRespone.data.getPackages().getSixMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("شش ماهه", packRespone.data.getPackages().getSixMonths()));
 
-            if (packRespone.getPackages().getOneYear() != null && packRespone.getPackages().getSixMonths().size() != 0)
-                irancellPack.add(new RightelPackModel("یک ساله", packRespone.getPackages().getOneYear()));
+            if (packRespone.data.getPackages().getOneYear() != null && packRespone.data.getPackages().getSixMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("یک ساله", packRespone.data.getPackages().getOneYear()));
             if (!TextUtils.isEmpty(packageType) && operatorType == 3)
             {
                 boolean isActive = false;
@@ -1406,7 +1407,7 @@ public class PackFragment
             }, 500);
         } else
         {
-            mainView.showError(packRespone.getServiceMessage().getMessage());
+            mainView.showError(packRespone.message);
 
 
         }
@@ -1527,13 +1528,13 @@ public class PackFragment
 
 
     @Override
-    public void onFinishedPackageMciPackage(GetPackageMciResponse packRespone)
+    public void onFinishedPackageMciPackage(WebServiceClass<GetPackageMciResponse> packRespone)
     {
         // initDefaultOperatorView();
 
         btnMCIPackConfirm.revertAnimation(this);
         btnMCIPackConfirm.setClickable(true);
-        if (packRespone.getServiceMessage().getCode() == 200)
+        if (packRespone.statusCode == 200)
         {
             //requestId=getPackageMciResponse.getRequestId();
             mciRecycler.setNestedScrollingEnabled(false);
@@ -1545,37 +1546,37 @@ public class PackFragment
                     .duration(200)
                     .playOn(tvSelectMci);*/
             irancellPack.clear();
-            if (packRespone.getPackages().getNightly() != null && packRespone.getPackages().getNightly().size() != 0)
-                irancellPack.add(new RightelPackModel("شبانه", packRespone.getPackages().getNightly()));
-            if (packRespone.getPackages().getDaily() != null && packRespone.getPackages().getDaily().size() != 0)
-                irancellPack.add(new RightelPackModel("روزانه", packRespone.getPackages().getDaily()));
+            if (packRespone.data.getPackages().getNightly() != null && packRespone.data.getPackages().getNightly().size() != 0)
+                irancellPack.add(new RightelPackModel("شبانه", packRespone.data.getPackages().getNightly()));
+            if (packRespone.data.getPackages().getDaily() != null && packRespone.data.getPackages().getDaily().size() != 0)
+                irancellPack.add(new RightelPackModel("روزانه", packRespone.data.getPackages().getDaily()));
 
-            if (packRespone.getPackages().getThreeDays() != null && packRespone.getPackages().getThreeDays().size() != 0)
-                irancellPack.add(new RightelPackModel("سه روزه", packRespone.getPackages().getThreeDays()));
+            if (packRespone.data.getPackages().getThreeDays() != null && packRespone.data.getPackages().getThreeDays().size() != 0)
+                irancellPack.add(new RightelPackModel("سه روزه", packRespone.data.getPackages().getThreeDays()));
 
-            if (packRespone.getPackages().getWeekly() != null && packRespone.getPackages().getWeekly().size() != 0)
-                irancellPack.add(new RightelPackModel("هفتگی", packRespone.getPackages().getWeekly()));
+            if (packRespone.data.getPackages().getWeekly() != null && packRespone.data.getPackages().getWeekly().size() != 0)
+                irancellPack.add(new RightelPackModel("هفتگی", packRespone.data.getPackages().getWeekly()));
 
-            if (packRespone.getPackages().getMonthly() != null && packRespone.getPackages().getMonthly().size() != 0)
-                irancellPack.add(new RightelPackModel("ماهیانه", packRespone.getPackages().getMonthly()));
+            if (packRespone.data.getPackages().getMonthly() != null && packRespone.data.getPackages().getMonthly().size() != 0)
+                irancellPack.add(new RightelPackModel("ماهیانه", packRespone.data.getPackages().getMonthly()));
 
-            if (packRespone.getPackages().getTwoMonths() != null && packRespone.getPackages().getTwoMonths().size() != 0)
-                irancellPack.add(new RightelPackModel("دو ماهه", packRespone.getPackages().getTwoMonths()));
+            if (packRespone.data.getPackages().getTwoMonths() != null && packRespone.data.getPackages().getTwoMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("دو ماهه", packRespone.data.getPackages().getTwoMonths()));
 
-            if (packRespone.getPackages().getThreeMonths() != null && packRespone.getPackages().getThreeMonths().size() != 0)
-                irancellPack.add(new RightelPackModel("سه ماهه", packRespone.getPackages().getThreeMonths()));
+            if (packRespone.data.getPackages().getThreeMonths() != null && packRespone.data.getPackages().getThreeMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("سه ماهه", packRespone.data.getPackages().getThreeMonths()));
 
-            if (packRespone.getPackages().getFourMonths() != null && packRespone.getPackages().getFourMonths().size() != 0)
-                irancellPack.add(new RightelPackModel("چهار ماهه", packRespone.getPackages().getFourMonths()));
+            if (packRespone.data.getPackages().getFourMonths() != null && packRespone.data.getPackages().getFourMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("چهار ماهه", packRespone.data.getPackages().getFourMonths()));
 
-            if (packRespone.getPackages().getSixMonths() != null && packRespone.getPackages().getSixMonths().size() != 0)
-                irancellPack.add(new RightelPackModel("شش ماهه", packRespone.getPackages().getSixMonths()));
+            if (packRespone.data.getPackages().getSixMonths() != null && packRespone.data.getPackages().getSixMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("شش ماهه", packRespone.data.getPackages().getSixMonths()));
 
-            if (packRespone.getPackages().getOneYear() != null && packRespone.getPackages().getOneYear().size() != 0)
-                irancellPack.add(new RightelPackModel("یک ساله", packRespone.getPackages().getOneYear()));
+            if (packRespone.data.getPackages().getOneYear() != null && packRespone.data.getPackages().getOneYear().size() != 0)
+                irancellPack.add(new RightelPackModel("یک ساله", packRespone.data.getPackages().getOneYear()));
 
-            if (packRespone.getPackages().getOther() != null && packRespone.getPackages().getOther().size() != 0)
-                irancellPack.add(new RightelPackModel("موارد دیگر", packRespone.getPackages().getOther()));
+            if (packRespone.data.getPackages().getOther() != null && packRespone.data.getPackages().getOther().size() != 0)
+                irancellPack.add(new RightelPackModel("موارد دیگر", packRespone.data.getPackages().getOther()));
 
 
             if (!TextUtils.isEmpty(packageType) && operatorType == 2)
@@ -1629,7 +1630,7 @@ public class PackFragment
             mciRecycler.setVisibility(View.VISIBLE);
         } else
         {
-            mainView.showError(packRespone.getServiceMessage().getMessage());
+            mainView.showError(packRespone.message);
 
 
         }
@@ -1646,14 +1647,14 @@ public class PackFragment
     }
 
     @Override
-    public void onFinishedMciBuyPackagePackage(PackageBuyResponse response)
+    public void onFinishedMciBuyPackagePackage(WebServiceClass<PackageBuyResponse> response)
     {
         // initDefaultOperatorView();
 
         btnBuyCharge.revertAnimation(this);
         btnBuyCharge.setClickable(true);
 
-        if (response.getServiceMessage().getCode() == 200)
+        if (response.statusCode == 200)
         {
 //            ResultBuyCharge charge = new ResultBuyCharge(getActivity(), response.getCreateDate(),
 //                    response.getTrnBizKey() + "", cardNumber, cardName, Utility.priceFormat(amount), true, archiveCardDBModels.getCardImage(),
@@ -1662,7 +1663,7 @@ public class PackFragment
 
         } else
         {
-            mainView.showError(response.getServiceMessage().getMessage());
+            mainView.showError(response.message);
 
         }
     }
@@ -1679,13 +1680,13 @@ public class PackFragment
     }
 
     @Override
-    public void onFinishedGetPackageIrancell(GetPackageIrancellResponse packRespone)
+    public void onFinishedGetPackageIrancell(WebServiceClass<GetPackageIrancellResponse> packRespone)
     {
         //initDefaultOperatorView();
 
         btnChargeConfirm.revertAnimation(this);
         btnChargeConfirm.setClickable(true);
-        if (packRespone.getServiceMessage().getCode() == 200)
+        if (packRespone.statusCode == 200)
         {
             rbAll.setChecked(true);
 
@@ -1702,35 +1703,35 @@ public class PackFragment
                     .playOn(llIrancellFilter);*/
 
             irancellPack.clear();
-            if (packRespone.getIrancellPackage().getHourly() != null && packRespone.getIrancellPackage().getHourly().size() != 0)
-                irancellPack.add(new RightelPackModel("ساعتی", packRespone.getIrancellPackage().getHourly()));
+            if (packRespone.data.getIrancellPackage().getHourly() != null && packRespone.data.getIrancellPackage().getHourly().size() != 0)
+                irancellPack.add(new RightelPackModel("ساعتی", packRespone.data.getIrancellPackage().getHourly()));
 
-            if (packRespone.getIrancellPackage().getDaily() != null && packRespone.getIrancellPackage().getDaily().size() != 0)
-                irancellPack.add(new RightelPackModel("روزانه", packRespone.getIrancellPackage().getDaily()));
-
-
-            if (packRespone.getIrancellPackage().getThreeDays() != null && packRespone.getIrancellPackage().getThreeDays().size() != 0)
-                irancellPack.add(new RightelPackModel("سه روزه", packRespone.getIrancellPackage().getThreeDays()));
-
-            if (packRespone.getIrancellPackage().getWeekly() != null && packRespone.getIrancellPackage().getWeekly().size() != 0)
-                irancellPack.add(new RightelPackModel("هفتگی", packRespone.getIrancellPackage().getWeekly()));
+            if (packRespone.data.getIrancellPackage().getDaily() != null && packRespone.data.getIrancellPackage().getDaily().size() != 0)
+                irancellPack.add(new RightelPackModel("روزانه", packRespone.data.getIrancellPackage().getDaily()));
 
 
-            if (packRespone.getIrancellPackage().getFifteenDays() != null && packRespone.getIrancellPackage().getFifteenDays().size() != 0)
-                irancellPack.add(new RightelPackModel("پانزده روزه", packRespone.getIrancellPackage().getFifteenDays()));
+            if (packRespone.data.getIrancellPackage().getThreeDays() != null && packRespone.data.getIrancellPackage().getThreeDays().size() != 0)
+                irancellPack.add(new RightelPackModel("سه روزه", packRespone.data.getIrancellPackage().getThreeDays()));
+
+            if (packRespone.data.getIrancellPackage().getWeekly() != null && packRespone.data.getIrancellPackage().getWeekly().size() != 0)
+                irancellPack.add(new RightelPackModel("هفتگی", packRespone.data.getIrancellPackage().getWeekly()));
 
 
-            if (packRespone.getIrancellPackage().getOneMonth() != null && packRespone.getIrancellPackage().getOneMonth().size() != 0)
-                irancellPack.add(new RightelPackModel("ماهیانه", packRespone.getIrancellPackage().getOneMonth()));
+            if (packRespone.data.getIrancellPackage().getFifteenDays() != null && packRespone.data.getIrancellPackage().getFifteenDays().size() != 0)
+                irancellPack.add(new RightelPackModel("پانزده روزه", packRespone.data.getIrancellPackage().getFifteenDays()));
 
-            if (packRespone.getIrancellPackage().getThreeMonths() != null && packRespone.getIrancellPackage().getThreeMonths().size() != 0)
-                irancellPack.add(new RightelPackModel("سه ماهه", packRespone.getIrancellPackage().getThreeMonths()));
 
-            if (packRespone.getIrancellPackage().getSixMonths() != null && packRespone.getIrancellPackage().getSixMonths().size() != 0)
-                irancellPack.add(new RightelPackModel("شش ماهه", packRespone.getIrancellPackage().getSixMonths()));
+            if (packRespone.data.getIrancellPackage().getOneMonth() != null && packRespone.data.getIrancellPackage().getOneMonth().size() != 0)
+                irancellPack.add(new RightelPackModel("ماهیانه", packRespone.data.getIrancellPackage().getOneMonth()));
 
-            if (packRespone.getIrancellPackage().getOneYear() != null && packRespone.getIrancellPackage().getOneYear().size() != 0)
-                irancellPack.add(new RightelPackModel("یک ساله", packRespone.getIrancellPackage().getOneYear()));
+            if (packRespone.data.getIrancellPackage().getThreeMonths() != null && packRespone.data.getIrancellPackage().getThreeMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("سه ماهه", packRespone.data.getIrancellPackage().getThreeMonths()));
+
+            if (packRespone.data.getIrancellPackage().getSixMonths() != null && packRespone.data.getIrancellPackage().getSixMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("شش ماهه", packRespone.data.getIrancellPackage().getSixMonths()));
+
+            if (packRespone.data.getIrancellPackage().getOneYear() != null && packRespone.data.getIrancellPackage().getOneYear().size() != 0)
+                irancellPack.add(new RightelPackModel("یک ساله", packRespone.data.getIrancellPackage().getOneYear()));
 
             if (!TextUtils.isEmpty(packageType) && operatorType == 1)
             {
@@ -1787,7 +1788,7 @@ public class PackFragment
             }, 500);
         } else
         {
-            mainView.showError(packRespone.getServiceMessage().getMessage());
+            mainView.showError(packRespone.message);
         }
     }
 

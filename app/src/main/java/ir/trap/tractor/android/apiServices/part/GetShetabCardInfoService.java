@@ -3,6 +3,7 @@ package ir.trap.tractor.android.apiServices.part;
 
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -24,7 +25,7 @@ public class GetShetabCardInfoService extends BasePart
         return this;
     }
 
-    public void getShetabCardInfo(OnServiceStatus<ShetabCardInfoResponse> listener, ShetabCardInfoRequest req)
+    public void getShetabCardInfo(OnServiceStatus<WebServiceClass<ShetabCardInfoResponse>> listener, ShetabCardInfoRequest req)
     {
         start(getServiceGenerator().createService().getShetabCardInfo(req), listener);
     }

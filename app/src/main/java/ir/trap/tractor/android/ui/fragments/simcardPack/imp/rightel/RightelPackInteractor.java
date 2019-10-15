@@ -1,5 +1,6 @@
 package ir.trap.tractor.android.ui.fragments.simcardPack.imp.rightel;
 
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 
 
@@ -10,7 +11,7 @@ public interface RightelPackInteractor
 {
     interface OnFinishedRightelPackListener
     {
-        void onFinishedRightelPack(GetRightelPackRespone packRespone);
+        void onFinishedRightelPack(WebServiceClass<GetRightelPackRespone> packRespone);
 
         void onErrorRightelPack(String error);
     }

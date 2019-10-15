@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.fragments.simcardPack.imp;
 
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
 import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
 
@@ -31,9 +32,9 @@ public class BuyPackageImpl implements BuyPackageInteractor
         request.setOperatorType(OperatorType);
         request.setRequestId(RequestId);
 
-        SingletonService.getInstance().packageBuyService().MciPackageBuyService(new OnServiceStatus<PackageBuyResponse>() {
+        SingletonService.getInstance().packageBuyService().MciPackageBuyService(new OnServiceStatus<WebServiceClass<PackageBuyResponse>>() {
             @Override
-            public void onReady(PackageBuyResponse response) {
+            public void onReady(WebServiceClass<PackageBuyResponse> response) {
                 try {
                     listener.onFinishedMciBuyPackagePackage(response);
 

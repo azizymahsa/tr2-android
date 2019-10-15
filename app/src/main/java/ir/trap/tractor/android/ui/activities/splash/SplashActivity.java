@@ -8,7 +8,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.conf.RealmMigrations;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.activities.main.MainActivity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -27,6 +30,15 @@ public class SplashActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        RealmConfiguration realmConfiguration = new RealmConfiguration
+                .Builder()
+                .schemaVersion(0)
+//                .migration(new RealmMigrations())
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
+//        realm = Realm.getInstance(realmConfiguration);
+
 
         startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         finish();

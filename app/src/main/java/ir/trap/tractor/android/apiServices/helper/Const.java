@@ -7,10 +7,12 @@ public class Const
 
     //-----------------------------------------------------------------------------
     //public final static String BASEURL = "https://rest.diba24.app/";
-    public final static String BASEURL = "http://diba.eniac-service.ir:8000/";
+    public final static String BASEURL = "http://5.253.25.117:9000/";
 
-    private static final String SubBASEURL = "ApiDiba/";
+    private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
+
+    public final static String GetMenu = SubBASEURL + "v1/menu/get_menu";
 
     public final static String MOBILE_CHARGE = SubBASEURL + "TopupCharge/v2/BuyCharge";
 

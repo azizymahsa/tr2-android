@@ -2,6 +2,7 @@ package ir.trap.tractor.android.apiServices.part;
 
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
 
@@ -21,7 +22,7 @@ public class GetPackageMciService extends BasePart
         return this;
     }
 
-    public void GetPackageMciService(OnServiceStatus<GetPackageMciResponse> listener, GetPackageMciRequest request)
+    public void GetPackageMciService(OnServiceStatus<WebServiceClass<GetPackageMciResponse>> listener, GetPackageMciRequest request)
     {
         start(getServiceGenerator().createService().getPackageMci(request), listener);
     }
