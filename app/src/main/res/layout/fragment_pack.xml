@@ -48,7 +48,8 @@
                     android:maxLines="1"
                     android:text="خرید شارژ آنلاین همراه اول"
                     android:textColor="@color/currentColor"
-                    android:textSize="@dimen/textSize_14dp" />
+                    android:textSize="@dimen/textSize_14dp"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
@@ -344,7 +345,7 @@
 
                         <include
                             android:id="@+id/btnBuyCharge"
-                            layout="@layout/circular_progress_button" />
+                            layout="@layout/circular_progress_button_small" />
 
                     </FrameLayout>
 
