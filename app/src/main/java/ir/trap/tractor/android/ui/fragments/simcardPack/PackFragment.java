@@ -147,7 +147,7 @@ public class PackFragment
     @BindView(R.id.btnChargeConfirm)
     CircularProgressButton btnChargeConfirm;
     @BindView(R.id.btnBackToCharge)
-    CircularProgressButton btnBackToCharge;
+    View btnBackToCharge;
     @BindView(R.id.btnMCIPackConfirm)
     CircularProgressButton btnMCIPackConfirm;
     @BindView(R.id.btnPackBackIrancell)
@@ -992,7 +992,7 @@ public class PackFragment
         btnChargeConfirm.setText("ادامه");
         btnMCIPackConfirm.setText("ادامه");
         btnChargeConfirmRightel.setText("ادامه");
-        btnBackToCharge.setText("بازگشت");
+        //btnBackToCharge.setText("بازگشت");
         btnChargeBackRightel.setText("بازگشت");
         btnPackBackMci.setText("بازگشت");
         btnPackBackIrancell.setText("بازگشت");

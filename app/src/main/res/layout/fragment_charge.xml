@@ -51,6 +51,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llOperatorImages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -131,26 +132,34 @@
                     android:orientation="horizontal"
                     android:gravity="center">
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textColor="@color/textColor3f"
+                        android:text=" ریال"
+                        android:layout_marginRight="5dp"/>
+
+                    <TextView
                         android:id="@+id/tvAmpuntPassCharge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_14dp"
                         android:textColor="@color/textColorPrimary"
-                        android:text="10000"
-                        android:layout_marginRight="10dp"/>
+                        android:text=""
+                        android:layout_marginRight="@dimen/_10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_14dp"
                         android:textColor="@color/textColor3f"
                         android:text="مبلغ قابل پرداخت :"
-                        android:layout_marginRight="10dp"/>
+                        />
 
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_60dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_gravity="center|right"
                     android:orientation="horizontal">
@@ -160,20 +169,20 @@
                         android:layout_weight="20" />
                     <TextView
                         android:id="@+id/tvDescriptionSelectedOperator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="100"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="80"
                         android:textSize="@dimen/textSize_14dp"
+                        android:layout_marginRight="@dimen/_10dp"
                         android:gravity="center_vertical|right"
-                        android:layout_gravity="right"
                         android:textColor="@color/textColor3f"
                         android:text="خرید شارژ آنلاین همراه اول"
                        />
                     <FrameLayout
                         android:id="@+id/flSelectedOperator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="100"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20"
                         android:foreground="?attr/selectableItemBackground">
 
                         <de.hdodenhof.circleimageview.CircleImageView
@@ -196,6 +205,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center|right"
+                    android:layout_marginTop="@dimen/_10dp"
                     android:orientation="horizontal">
 
                     <Space

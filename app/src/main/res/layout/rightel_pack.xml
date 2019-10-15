@@ -34,9 +34,10 @@
 
         <ImageView
             android:id="@+id/ivContactR"
-            android:src="@drawable/contact_icon"
+            android:src="@drawable/ic_phone_book"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
+            android:background="@drawable/button_small_border"
             android:layout_marginRight="5dp"
             android:foreground="?attr/selectableItemBackground" />
 

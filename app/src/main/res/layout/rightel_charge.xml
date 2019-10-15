@@ -38,7 +38,7 @@
                     android:layout_gravity="top"
                     android:padding="@dimen/_5sdp"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/button_main_background_border"
+                    android:background="@drawable/button_small_border"
                     android:textSize="@dimen/textSize_20dp"
                     android:transitionName="transition"
                     app:finalCornerAngle="40dp"
@@ -48,13 +48,13 @@
 
                 <ImageView
                     android:id="@+id/ivContactR"
-                    android:src="@drawable/contact_icon"
+                    android:src="@drawable/ic_phone_book"
                     android:layout_width="@dimen/_35dp"
                     android:layout_height="@dimen/_35dp"
                     android:layout_gravity="top"
                     android:padding="@dimen/_5sdp"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/button_main_background_border"
+                    android:background="@drawable/button_small_border"
                     android:foreground="?attr/selectableItemBackground" />
             </LinearLayout>
 

@@ -144,7 +144,82 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textColor="@color/textColor3f"
+                        android:text=" ریال"
+                        android:layout_marginRight="5dp"/>
 
+                    <TextView
+                        android:id="@+id/tvAmpuntPassCharge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textColor="@color/textColorPrimary"
+                        android:text=""
+                        android:layout_marginRight="@dimen/_10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textColor="@color/textColor3f"
+                        android:text="مبلغ قابل پرداخت :"
+                        />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_gravity="center|right"
+                    android:orientation="horizontal">
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20" />
+                    <TextView
+                        android:id="@+id/tvDescriptionSelectedOperator"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="80"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:layout_marginRight="@dimen/_10dp"
+                        android:gravity="center_vertical|right"
+                        android:textColor="@color/textColor3f"
+                        android:text="خرید شارژ آنلاین همراه اول"
+                        />
+                    <FrameLayout
+                        android:id="@+id/flSelectedOperator"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20"
+                        android:foreground="?attr/selectableItemBackground">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivSelectedOperator"
+                            android:layout_width="@dimen/_60dp"
+                            android:layout_height="@dimen/_60dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/rightel2"
+                            app:civ_border_color="@color/colorPrimaryDark"
+                            app:civ_border_width="0dp" />
+
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -256,7 +331,7 @@
 
                         <include
                             android:id="@+id/btnBackToCharge"
-                            layout="@layout/circular_progress_button" />
+                            layout="@layout/return_button" />
 
                     </FrameLayout>
 

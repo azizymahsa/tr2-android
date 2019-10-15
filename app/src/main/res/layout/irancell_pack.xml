@@ -25,7 +25,7 @@
             android:layout_height="@dimen/_35dp"
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
-            android:background="@color/white"
+            android:background="@drawable/button_small_border"
             android:textSize="@dimen/textSize_20dp"
             android:transitionName="transition"
             app:finalCornerAngle="40dp"
@@ -35,10 +35,11 @@
 
         <ImageView
             android:id="@+id/ivContactI"
-            android:src="@drawable/contact_icon"
+            android:src="@drawable/ic_phone_book"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
             android:layout_marginRight="5dp"
+            android:background="@drawable/button_small_border"
             android:foreground="?attr/selectableItemBackground" />
 
         <com.google.android.material.textfield.TextInputLayout
