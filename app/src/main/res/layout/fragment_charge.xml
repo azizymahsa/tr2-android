@@ -136,7 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_14dp"
-                        android:textColor="@color/textColor3f"
+                        android:textColor="@color/chargePackTextColor"
                         android:text=" ریال"
                         android:layout_marginRight="5dp"/>
 
@@ -152,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_14dp"
-                        android:textColor="@color/textColor3f"
+                        android:textColor="@color/chargePackTextColor"
                         android:text="مبلغ قابل پرداخت :"
                         />
 
@@ -176,7 +176,7 @@
                         android:textSize="@dimen/textSize_14dp"
                         android:layout_marginRight="@dimen/_10dp"
                         android:gravity="center_vertical|right"
-                        android:textColor="@color/textColor3f"
+                        android:textColor="@color/chargePackTextColor"
                         android:text="خرید شارژ آنلاین همراه اول"
                        />
                     <FrameLayout

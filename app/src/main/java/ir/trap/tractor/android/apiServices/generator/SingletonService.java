@@ -69,8 +69,6 @@ public class SingletonService
         this.serviceApplication = context;
     }
 
-
-
     public GetMenuService getMenuService()
     {
         return new GetMenuService(serviceGenerator);

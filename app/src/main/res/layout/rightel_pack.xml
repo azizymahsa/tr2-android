@@ -65,7 +65,7 @@
                 android:singleLine="true"
                 android:layout_weight="100"
                 android:maxLength="11"
-                android:textColor="@color/textColor3f"
+                android:textColor="@color/chargePackTextColor"
                 android:textSize="@dimen/textSize_16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
