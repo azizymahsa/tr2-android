@@ -26,6 +26,7 @@ import ir.trap.tractor.android.apiServices.model.getPackageMci.response.request.
 import ir.trap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
+import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
@@ -41,16 +42,16 @@ import retrofit2.http.POST;
 public interface RetroClient
 {
 
+    @POST(Const.Login)
+    Single<Response<WebServiceClass<GlobalResponse>>> login(
+            @Body LoginRequest request
+    );
 
 
     @POST(Const.GetMenu)
     Single<Response<WebServiceClass<GetMenuResponse>>> getMenu(
             @Body GetMenuRequest request
     );
-
-
-
-
 
     @POST(Const.MOBILE_CHARGE)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
