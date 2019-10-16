@@ -20,7 +20,7 @@
             android:layout_height="110dp"
             android:layout_marginBottom="4dp"
             android:elevation="3dp"
-            android:background="@drawable/background_main_header"
+            android:background="@drawable/img_header_background"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <androidx.appcompat.widget.Toolbar

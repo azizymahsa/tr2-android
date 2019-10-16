@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private LoginPresenterImpl loginPresenter;
     private CircularProgressButton btnConfirm;
     private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, tvTitle;
-    ;
+
     private TextInputLayout etLayout;
     private PinEntryEditText codeView;
     private boolean isCode = false;

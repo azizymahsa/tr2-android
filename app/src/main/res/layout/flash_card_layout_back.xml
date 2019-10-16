@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlBackView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#da000000">
+
+        <TextView
+            android:id="@+id/tvDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:textAppearance="@style/IconFonts_R"
+            android:text="@string/trash_icon_R"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_24sdp" />
+
+        <View
+            android:id="@+id/vDelete"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shadow_back_card" />
+
+        <TextView
+            android:id="@+id/tvStar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:textAppearance="@style/IconFonts_R"
+            android:textSize="@dimen/_24sdp"
+            android:text="@string/star_icon_R"
+            android:textColor="@color/textColor_dey2" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shadow_back_card" />
+
+        <TextView
+            android:id="@+id/tvEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            android:textAppearance="@style/IconFonts_R"
+            android:textSize="@dimen/_24sdp"
+            android:text="@string/check_icon_R"
+            android:textColor="@color/green_light" />
+
+        <LinearLayout
+            android:id="@+id/llSecurity"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shadow_back_card" />
+
+            <TextView
+                android:id="@+id/tvSecurity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackground"
+                android:textAppearance="@style/IconFonts_R"
+                android:text="@string/fingerprint_icon_R"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_24sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llChangePas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shadow_back_card" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackground"
+                android:textAppearance="@style/IconFonts"
+                android:textSize="@dimen/_24sdp"
+                android:text="@string/lock_icon"
+                android:textColor="@color/blue" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shadow_back_card" />
+
+            <TextView
+                android:id="@+id/tvShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackground"
+                android:textAppearance="@style/IconFonts"
+                android:text="@string/share_icon"
+                android:textColor="@color/happy"
+                android:textSize="@dimen/_24sdp" />
+
+        </LinearLayout>
+
+    </LinearLayout>-->
+
+</RelativeLayout>

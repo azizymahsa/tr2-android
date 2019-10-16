@@ -317,7 +317,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
-        if (response.statusCode == 200)
+        if (response.info.statusCode == 200)
         {
             chosenServiceList = response.data.getChosenServiceList();
             footballServiceList = response.data.getFootballServiceList();

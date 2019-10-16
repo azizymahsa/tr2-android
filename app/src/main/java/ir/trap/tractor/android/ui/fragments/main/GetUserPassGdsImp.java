@@ -36,13 +36,13 @@ public abstract class GetUserPassGdsImp
             {
                 try
                 {
-                    if (response.statusCode == 200)
+                    if (response.info.statusCode == 200)
                     {
                         listener.onGdsHotel(response.data);
                     }
                     else
                     {
-                        listener.onGdsError(response.message);
+                        listener.onGdsError(response.info.message);
                     }
 
                 }
@@ -69,13 +69,13 @@ public abstract class GetUserPassGdsImp
             {
                 try
                 {
-                    if (response.statusCode == 200)
+                    if (response.info.statusCode == 200)
                     {
                         listener.onGdsBus(response.data);
                     }
                     else
                     {
-                        listener.onGdsError(response.message);
+                        listener.onGdsError(response.info.message);
                     }
 
                 }
@@ -103,13 +103,13 @@ public abstract class GetUserPassGdsImp
             {
                 try
                 {
-                    if (response.statusCode == 200)
+                    if (response.info.statusCode == 200)
                     {
                         listener.onGdsFlight(response.data);
                     }
                     else
                     {
-                        listener.onGdsError(response.message);
+                        listener.onGdsError(response.info.message);
                     }
 
                 }

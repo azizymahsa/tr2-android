@@ -89,7 +89,7 @@
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor3f"
+                        android:textColor="@color/chargePackTextColor"
                         android:textSize="@dimen/textSize_16dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -113,7 +113,7 @@
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor3f"
+                        android:textColor="@color/chargePackTextColor"
                         android:textSize="@dimen/textSize_16dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -145,7 +145,7 @@
             android:layout_marginRight="5dp"
             android:gravity="center"
             android:text="شارژ شگفت انگیز"
-            android:textColor="@color/textColor3f"
+            android:textColor="@color/chargePackTextColor"
             android:textSize="@dimen/textSize_14dp" />
 
         <RadioButton
@@ -162,7 +162,7 @@
             android:layout_marginRight="5dp"
             android:gravity="center"
             android:text="شارژ عادی"
-            android:textColor="@color/textColor3f"
+            android:textColor="@color/chargePackTextColor"
             android:textSize="@dimen/textSize_14dp" />
 
         <RadioButton
