@@ -7,7 +7,7 @@ import lombok.Setter;
 
 public class ArchiveCardDBModel extends RealmObject
 {
-    @Getter @Setter @NonNull
+    @Getter @Setter
     private Long _Id;
 
     @Getter @Setter

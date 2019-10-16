@@ -375,7 +375,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
         private MyViewHolder(View convertView)
         {
             super(convertView);
-            ivLoyal = convertView.findViewById(R.id.ivLoyal);
+         /*   ivLoyal = convertView.findViewById(R.id.ivLoyal);
             tvShare = convertView.findViewById(R.id.tvShare);
             vDelete = convertView.findViewById(R.id.vDelete);
             rlBackView = convertView.findViewById(R.id.rlBackView);
@@ -394,7 +394,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //            tvBankNameAdapter = convertView.findViewById(R.id.tvBankNameAdapter);
             llChangePas = convertView.findViewById(R.id.llChangePas);
             tvSecurity = convertView.findViewById(R.id.tvSecurity);
-            myEasyFlipView = itemView.findViewById(R.id.myEasyFlipView);
+            myEasyFlipView = itemView.findViewById(R.id.myEasyFlipView);*/
 
         }
     }

@@ -26,6 +26,8 @@ import ir.trap.tractor.android.apiServices.model.getPackageMci.response.request.
 import ir.trap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
+import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
+import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
@@ -34,6 +36,8 @@ import ir.trap.tractor.android.apiServices.model.tourism.flight.payment.request.
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
 import ir.trap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
+import ir.trap.tractor.android.apiServices.model.verify.VerifyRequest;
+import ir.trap.tractor.android.apiServices.model.verify.VerifyResponse;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -41,16 +45,21 @@ import retrofit2.http.POST;
 public interface RetroClient
 {
 
+    @POST(Const.Login)
+    Single<Response<WebServiceClass<LoginResponse>>> login(
+            @Body LoginRequest request
+    );
+
+    @POST(Const.Verify)
+    Single<Response<WebServiceClass<VerifyResponse>>> verify(
+            @Body VerifyRequest request
+    );
 
 
     @POST(Const.GetMenu)
     Single<Response<WebServiceClass<GetMenuResponse>>> getMenu(
             @Body GetMenuRequest request
     );
-
-
-
-
 
     @POST(Const.MOBILE_CHARGE)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(

@@ -16,8 +16,10 @@ import ir.trap.tractor.android.apiServices.part.GetPackageMciService;
 import ir.trap.tractor.android.apiServices.part.GetRightelPackService;
 import ir.trap.tractor.android.apiServices.part.GetShetabCardInfoService;
 import ir.trap.tractor.android.apiServices.part.HotelService;
+import ir.trap.tractor.android.apiServices.part.LoginService;
 import ir.trap.tractor.android.apiServices.part.MobileChargeService;
 import ir.trap.tractor.android.apiServices.part.PackageBuyService;
+import ir.trap.tractor.android.apiServices.part.VerifyService;
 import okhttp3.OkHttpClient;
 
 /**
@@ -67,6 +69,16 @@ public class SingletonService
     public void setContext(ServiceApplication context)
     {
         this.serviceApplication = context;
+    }
+
+
+
+    public LoginService getLoginService(){
+        return new LoginService(serviceGenerator);
+    }
+
+    public VerifyService getVerifyService(){
+        return new VerifyService(serviceGenerator);
     }
 
     public GetMenuService getMenuService()

@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import ir.trap.tractor.android.R;
@@ -39,8 +41,12 @@ public class SplashActivity extends AppCompatActivity
         Realm.setDefaultConfiguration(realmConfiguration);
 //        realm = Realm.getInstance(realmConfiguration);
 
+        if (Prefs.getString("accessToken","").isEmpty()) {
+            startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }else {
+            startActivity(new Intent(SplashActivity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
 
-        startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         finish();
     }
 }

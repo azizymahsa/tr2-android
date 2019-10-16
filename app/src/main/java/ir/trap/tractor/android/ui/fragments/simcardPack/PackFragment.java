@@ -1317,7 +1317,7 @@ public class PackFragment
         btnChargeConfirmRightel.revertAnimation(this);
         btnChargeConfirmRightel.setClickable(true);
 
-        if (packRespone.statusCode == 200)
+        if (packRespone.info.statusCode == 200)
         {
             //initDefaultOperatorView();
 
@@ -1409,7 +1409,7 @@ public class PackFragment
             }, 500);
         } else
         {
-            mainView.showError(packRespone.message);
+            mainView.showError(packRespone.info.message);
 
 
         }
@@ -1536,7 +1536,7 @@ public class PackFragment
 
         btnMCIPackConfirm.revertAnimation(this);
         btnMCIPackConfirm.setClickable(true);
-        if (packRespone.statusCode == 200)
+        if (packRespone.info.statusCode == 200)
         {
             //requestId=getPackageMciResponse.getRequestId();
             mciRecycler.setNestedScrollingEnabled(false);
@@ -1632,7 +1632,7 @@ public class PackFragment
             mciRecycler.setVisibility(View.VISIBLE);
         } else
         {
-            mainView.showError(packRespone.message);
+            mainView.showError(packRespone.info.message);
 
 
         }
@@ -1656,7 +1656,7 @@ public class PackFragment
         btnBuyCharge.revertAnimation(this);
         btnBuyCharge.setClickable(true);
 
-        if (response.statusCode == 200)
+        if (response.info.statusCode == 200)
         {
 //            ResultBuyCharge charge = new ResultBuyCharge(getActivity(), response.getCreateDate(),
 //                    response.getTrnBizKey() + "", cardNumber, cardName, Utility.priceFormat(amount), true, archiveCardDBModels.getCardImage(),
@@ -1665,7 +1665,7 @@ public class PackFragment
 
         } else
         {
-            mainView.showError(response.message);
+            mainView.showError(response.info.message);
 
         }
     }
@@ -1688,7 +1688,7 @@ public class PackFragment
 
         btnChargeConfirm.revertAnimation(this);
         btnChargeConfirm.setClickable(true);
-        if (packRespone.statusCode == 200)
+        if (packRespone.info.statusCode == 200)
         {
             rbAll.setChecked(true);
 
@@ -1790,7 +1790,7 @@ public class PackFragment
             }, 500);
         } else
         {
-            mainView.showError(packRespone.message);
+            mainView.showError(packRespone.info.message);
         }
     }
 

@@ -62,13 +62,14 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        Prefs.putString("accessToken","");
         loginPresenter = new LoginPresenterImpl(getApplicationContext(), this, this);
         initView();
 
         //-----------------test------------------
-        Prefs.putString("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzExNDcyMDUsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiJjZDRhMTlmZTJhMmU0MGQxYWQwZTRhNjkxNWQ3OGNlZSJ9.yaa5Wy-iwcuAPu5tkzYiLg8QCcv1LM9zLg4yBK7zvsY");
+       /* Prefs.putString("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzExNDcyMDUsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiJjZDRhMTlmZTJhMmU0MGQxYWQwZTRhNjkxNWQ3OGNlZSJ9.yaa5Wy-iwcuAPu5tkzYiLg8QCcv1LM9zLg4yBK7zvsY");
         Prefs.putString("refreshToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3QiOiJyZWZyZXNoIiwidXNlcl9pZCI6MTksImV4cCI6MTU3MTIyMTUwOSwianRpIjoiZDU5NTAzMTE5ODQwNDNkNjk5MWJjNDQxMjJhOThhMzQifQ.JtsGamNvUX2XiZxq0OxhdZmPmNogQtdX8zjK8tqoKKY");
-        //-----------------test------------------
+      */  //-----------------test------------------
 
     }
 
@@ -137,7 +138,6 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         btnConfirm.revertAnimation(LoginActivity.this);
         btnConfirm.setClickable(true);
 
-
     }
 
 
@@ -183,7 +183,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     public void onTick(String second)
     {
         tvCountDown.setText(second);
-        countDownTimer.setVisibility(View.VISIBLE);
+     //   countDownTimer.setVisibility(View.VISIBLE);
 
     }
 
@@ -200,12 +200,14 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     @Override
     public void onAnimationEnd()
     {
-        btnConfirm.setText(getString(R.string.send_code));
+       // btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
     }
 
     public void mobileToCode()
     {
+        countDownTimer.setVisibility(View.VISIBLE);
+        btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setTag("code");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " کد فعالسازی خود را وارد کنید"));
 
@@ -248,6 +250,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 
     public void codeToMobile()
     {
+        countDownTimer.setVisibility(View.GONE);
         btnConfirm.setTag("mobile");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " همراه خود را وارد کنید"));
 
@@ -264,6 +267,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             @Override
             public void onAnimationEnd(Animator animation)
             {
+                btnConfirm.setText(getString(R.string.confirm));
                 llPin.setVisibility(View.GONE);
                 etMobileNumber.setVisibility(View.VISIBLE);
                 isCode = false;
