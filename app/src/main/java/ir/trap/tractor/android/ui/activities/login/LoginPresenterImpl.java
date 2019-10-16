@@ -22,6 +22,7 @@ import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
+import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.GoToActivity;
 import ir.trap.tractor.android.utilities.Tools;
@@ -31,7 +32,7 @@ import library.android.eniac.utility.Utility;
 /**
  * Created by Javad.Abadi on 7/2/2018.
  */
-public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener, OnServiceStatus<WebServiceClass<GlobalResponse>> {
+public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener, OnServiceStatus<WebServiceClass<LoginResponse>> {
     private Context appContext;
     private Context activityContext;
     private LoginView loginView;
@@ -226,7 +227,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     }
 
     @Override
-    public void onReady(WebServiceClass<GlobalResponse> globalResponseWebServiceClass) {
+    public void onReady(WebServiceClass<LoginResponse> globalResponseWebServiceClass) {
         loginView.onButtonActions(false, null);
         countDownTimer.start();
         loginView.hideLoading();
@@ -242,6 +243,8 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             countDownTimer.cancel();
         }*/
     }
+
+
 
     @Override
     public void onError(String message) {

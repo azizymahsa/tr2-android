@@ -140,22 +140,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         request.setDeviceType(TrapConfig.AndroidDeviceType);
         request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
         SingletonService.getInstance().getMenuService().getMenu(this, request);
-
-        fragmentManager = getSupportFragmentManager();
-        curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
-
-        transaction = fragmentManager.beginTransaction();
-
-        if (mSavedInstanceState == null)
-        {
-            transaction.add(R.id.main_container, curentFragment)
-                    .commit();
-        }
-        else
-        {
-            transaction.replace(R.id.main_container, curentFragment)
-                    .commit();
-        }
+//
+//        fragmentManager = getSupportFragmentManager();
+//        curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
+//
+//        transaction = fragmentManager.beginTransaction();
+//
+//        if (mSavedInstanceState == null)
+//        {
+//            transaction.add(R.id.main_container, curentFragment)
+//                    .commit();
+//        }
+//        else
+//        {
+//            transaction.replace(R.id.main_container, curentFragment)
+//                    .commit();
+//        }
 
     }
 
@@ -165,25 +165,25 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         super.onResume();
         if (curentFragment == null)
         {
-            curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
-            transaction = fragmentManager.beginTransaction();
-            try
-            {
-                if (mSavedInstanceState == null)
-                {
-                    transaction.add(R.id.main_container, curentFragment)
-                            .commit();
-//
-                } else
-                {
-                    transaction.replace(R.id.main_container, curentFragment)
-                            .commit();
-                }
-            }
-            catch (IllegalStateException e)
-            {
-                e.printStackTrace();
-            }
+//            curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
+//            transaction = fragmentManager.beginTransaction();
+//            try
+//            {
+//                if (mSavedInstanceState == null)
+//                {
+//                    transaction.add(R.id.main_container, curentFragment)
+//                            .commit();
+////
+//                } else
+//                {
+//                    transaction.replace(R.id.main_container, curentFragment)
+//                            .commit();
+//                }
+//            }
+//            catch (IllegalStateException e)
+//            {
+//                e.printStackTrace();
+//            }
 
         }
     }
@@ -307,7 +307,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = true;
 
-        curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
+        curentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
         transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.main_container, curentFragment)
@@ -317,10 +317,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
-        if (response.statusCode == 200)
+        if (response.info.statusCode == 200)
         {
-            chosenServiceList.addAll(response.data.getChosenServiceList());
-            footballServiceList.addAll(response.data.getFootballServiceList());
+            chosenServiceList = response.data.getChosenServiceList();
+            footballServiceList = response.data.getFootballServiceList();
+        }
+
+        Logger.e("--List size--", "chosenServiceList: " + chosenServiceList.size() +
+                "footballServiceList: " + footballServiceList.size());
+
+        fragmentManager = getSupportFragmentManager();
+        curentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
+
+        transaction = fragmentManager.beginTransaction();
+
+        if (mSavedInstanceState == null)
+        {
+            transaction.add(R.id.main_container, curentFragment)
+                    .commit();
+        }
+        else
+        {
+            transaction.replace(R.id.main_container, curentFragment)
+                    .commit();
         }
     }
 

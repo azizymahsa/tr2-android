@@ -22,7 +22,7 @@ public class LoginService extends BasePart {
         return this;
     }
 
-    public void login(OnServiceStatus<WebServiceClass<GlobalResponse>> listener, LoginRequest request)
+    public void login(OnServiceStatus<WebServiceClass<LoginResponse>> listener, LoginRequest request)
     {
         start(getServiceGenerator().createService().login(request), listener);
     }

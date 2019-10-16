@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private LoginPresenterImpl loginPresenter;
     private CircularProgressButton btnConfirm;
     private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, tvTitle;
-    ;
+
     private TextInputLayout etLayout;
     private PinEntryEditText codeView;
     private boolean isCode = false;
@@ -66,7 +66,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         initView();
 
         //-----------------test------------------
-        Prefs.putString("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzExNDMzNzksImp3dCI6ImFjY2VzcyIsImp0aSI6ImJiODg2ZGI0YTkxYTRlY2I4NWZiZjc3ZDQzZjViMmYxIiwidXNlcl9pZCI6MTl9.vKgrcivbjy9EfHtgB6PXvFaao0tdKe1w8uVJMTQ9Kzg");
+        Prefs.putString("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzExNDcyMDUsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiJjZDRhMTlmZTJhMmU0MGQxYWQwZTRhNjkxNWQ3OGNlZSJ9.yaa5Wy-iwcuAPu5tkzYiLg8QCcv1LM9zLg4yBK7zvsY");
         Prefs.putString("refreshToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3QiOiJyZWZyZXNoIiwidXNlcl9pZCI6MTksImV4cCI6MTU3MTIyMTUwOSwianRpIjoiZDU5NTAzMTE5ODQwNDNkNjk5MWJjNDQxMjJhOThhMzQifQ.JtsGamNvUX2XiZxq0OxhdZmPmNogQtdX8zjK8tqoKKY");
         //-----------------test------------------
 

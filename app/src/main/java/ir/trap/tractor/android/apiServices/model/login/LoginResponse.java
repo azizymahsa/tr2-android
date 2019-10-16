@@ -10,7 +10,7 @@ import ir.trap.tractor.android.apiServices.model.GlobalResponse;
  */
 public class LoginResponse {
 
-    @SerializedName("info")
+  /*  @SerializedName("info")
     @Expose
     private GlobalResponse info;
 
@@ -33,6 +33,5 @@ public class LoginResponse {
 
     public void setData(Data data) {
         this.data = data;
-    }
-
+    }*/
 }
