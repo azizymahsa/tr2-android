@@ -67,6 +67,26 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
         //presenter.details(etFirstName, etLastName, etInvite);
         flLogoToolbar.setVisibility(View.GONE);
         Prefs.putBoolean("isFirstLogin", true);
+        setDataProfileUser();
+
+    }
+
+    private void setDataProfileUser() {
+
+        etFirstName.setText(Prefs.getString("firstName",""));
+        etLastName.setText(Prefs.getString("lastName",""));
+        etInvite.setText(Prefs.getString("keyInvite",""));
+
+
+
+    /*    Prefs.putString("englishName", profile.getEnglishName());
+        if (profile.getBirthday()!=null) {
+            Prefs.putString("birthday", profile.getBirthday().toString());
+        }
+        if (profile.getPopularPlayer()!=null){
+            Prefs.putInt("popularPlayer", profile.getPopularPlayer());
+        }
+        Prefs.putString("nationalCode", profile.getNationalCode());*/
 
     }
 

@@ -36,6 +36,8 @@ import ir.trap.tractor.android.apiServices.model.tourism.flight.payment.request.
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
 import ir.trap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
+import ir.trap.tractor.android.apiServices.model.verify.VerifyRequest;
+import ir.trap.tractor.android.apiServices.model.verify.VerifyResponse;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -46,6 +48,11 @@ public interface RetroClient
     @POST(Const.Login)
     Single<Response<WebServiceClass<LoginResponse>>> login(
             @Body LoginRequest request
+    );
+
+    @POST(Const.Verify)
+    Single<Response<WebServiceClass<VerifyResponse>>> verify(
+            @Body VerifyRequest request
     );
 
 

@@ -62,13 +62,14 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        Prefs.putString("accessToken","");
         loginPresenter = new LoginPresenterImpl(getApplicationContext(), this, this);
         initView();
 
         //-----------------test------------------
-        Prefs.putString("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzExNDcyMDUsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiJjZDRhMTlmZTJhMmU0MGQxYWQwZTRhNjkxNWQ3OGNlZSJ9.yaa5Wy-iwcuAPu5tkzYiLg8QCcv1LM9zLg4yBK7zvsY");
+       /* Prefs.putString("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzExNDcyMDUsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiJjZDRhMTlmZTJhMmU0MGQxYWQwZTRhNjkxNWQ3OGNlZSJ9.yaa5Wy-iwcuAPu5tkzYiLg8QCcv1LM9zLg4yBK7zvsY");
         Prefs.putString("refreshToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3QiOiJyZWZyZXNoIiwidXNlcl9pZCI6MTksImV4cCI6MTU3MTIyMTUwOSwianRpIjoiZDU5NTAzMTE5ODQwNDNkNjk5MWJjNDQxMjJhOThhMzQifQ.JtsGamNvUX2XiZxq0OxhdZmPmNogQtdX8zjK8tqoKKY");
-        //-----------------test------------------
+      */  //-----------------test------------------
 
     }
 
@@ -182,7 +183,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     public void onTick(String second)
     {
         tvCountDown.setText(second);
-        countDownTimer.setVisibility(View.VISIBLE);
+     //   countDownTimer.setVisibility(View.VISIBLE);
 
     }
 

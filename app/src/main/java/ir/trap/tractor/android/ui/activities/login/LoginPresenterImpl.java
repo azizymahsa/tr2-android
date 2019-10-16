@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,6 +24,9 @@ import ir.trap.tractor.android.apiServices.model.GlobalResponse;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
 import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
+import ir.trap.tractor.android.apiServices.model.verify.Profile;
+import ir.trap.tractor.android.apiServices.model.verify.VerifyRequest;
+import ir.trap.tractor.android.apiServices.model.verify.VerifyResponse;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.GoToActivity;
 import ir.trap.tractor.android.utilities.Tools;
@@ -113,8 +117,8 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                         return;
                     }
                     loginView.showLoading();
-                    loginView.onButtonActions(true, GoToActivity.UserActivity);
-                    loginView.hideLoading();
+                    sendVerifyRequest();
+
 
                 /*    activeCode.findCodeActiveRequest(appContext, activityContext, this, mobileNumber.getText().toString(),
                             codeView.getText().toString(), height, width);*/
@@ -124,6 +128,49 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                 break;
 
         }
+
+    }
+
+    private void sendVerifyRequest() {
+        VerifyRequest request = new VerifyRequest();
+        request.setUsername(mobileNumber.getText().toString());
+        request.setCode(codeView.getText().toString());
+        SingletonService.getInstance().getVerifyService().verify(new OnServiceStatus<WebServiceClass<VerifyResponse>>() {
+            @Override
+            public void onReady(WebServiceClass<VerifyResponse> response) {
+                if (response != null) {
+                    setProfileData(response);
+                    loginView.onButtonActions(true, GoToActivity.UserActivity);
+                    loginView.hideLoading();
+                }else {
+                    Tools.showToast(appContext,"خطایی رخ داده است",R.color.red);
+                    loginView.hideLoading();
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+                loginView.hideLoading();
+                Tools.showToast(appContext,message,R.color.red);
+            }
+        }, request);
+    }
+
+    private void setProfileData(WebServiceClass<VerifyResponse> response) {
+        Prefs.putString("accessToken","bearer "+response.data.getAccess());
+
+        Profile profile = response.data.getProfile();
+        Prefs.putString("firstName", profile.getFirstName());
+        Prefs.putString("lastName", profile.getLastName());
+        Prefs.putString("englishName", profile.getEnglishName());
+        if (profile.getBirthday()!=null) {
+            Prefs.putString("birthday", profile.getBirthday().toString());
+        }
+        if (profile.getPopularPlayer()!=null){
+            Prefs.putInt("popularPlayer", profile.getPopularPlayer());
+        }
+        Prefs.putString("nationalCode", profile.getNationalCode());
+        Prefs.putString("keyInvite", profile.getKeyInvite());
 
     }
 
@@ -227,12 +274,15 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     }
 
     @Override
-    public void onReady(WebServiceClass<LoginResponse> globalResponseWebServiceClass) {
-        loginView.onButtonActions(false, null);
-        countDownTimer.start();
-        loginView.hideLoading();
-
-
+    public void onReady(WebServiceClass<LoginResponse> response) {
+        if (response!=null) {
+            loginView.onButtonActions(false, null);
+            countDownTimer.start();
+            loginView.hideLoading();
+        }else {
+            Tools.showToast(appContext,"خطایی رخ داده است",R.color.red);
+            loginView.hideLoading();
+        }
       /*  if (globalResponseWebServiceClass.statusCode == 200)
         {
             loginView.onButtonActions(false, null);
