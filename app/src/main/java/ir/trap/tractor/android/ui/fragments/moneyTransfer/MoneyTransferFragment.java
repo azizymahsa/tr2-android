@@ -22,6 +22,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -42,11 +45,15 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
+import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
 import ir.trap.tractor.android.enums.TransferType;
 import ir.trap.tractor.android.ui.base.BaseFragment;
+import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardFragment;
+import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardParentActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
+import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.utilities.ClearableEditText;
 import ir.trap.tractor.android.utilities.NumberTextWatcher;
 import ir.trap.tractor.android.utilities.Utility;
@@ -57,9 +64,13 @@ import library.android.eniac.utility.GlideApp;
  */
 @SuppressLint("ValidFragment")
 public class MoneyTransferFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
-        TextWatcher, View.OnFocusChangeListener
+        TextWatcher, View.OnFocusChangeListener, FavoriteCardParentActionView
 //        ,OnServiceStatus<HappyDoTransferResponse>
 {
+    private Fragment currentFragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
+
     private View v;
     private CircularProgressButton btnConfirm, btnContinue, btnPassConfirm, btnBackToTransfer, btnBackToDetail, btnContactTransfer, btnDestinationHistory;
     private LinearLayout llTransfer, llConfirmTransfer, llCardDetail, llCvv2, llKeshavarszi;
@@ -106,6 +117,13 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+//        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
@@ -126,6 +144,8 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
     public void onDestroy()
     {
         super.onDestroy();
+
+//        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -155,6 +175,12 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 
     public void initView()
     {
+        //----------------card fragment----------------
+        fragmentManager = getChildFragmentManager();
+        currentFragment = FavoriteCardFragment.newInstance(this);
+
+        transaction = fragmentManager.beginTransaction();
+        //----------------card fragment----------------
 
 
         btnConfirm = v.findViewById(R.id.btnConfirm);
@@ -1086,13 +1112,6 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
         }
     }
 
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-//        EventBus.getDefault().register(this);
-    }
-
 //    @Subscribe(threadMode = ThreadMode.MAIN)
 //    public void onMessageEvent(ListCard event)
 //    {
@@ -1235,5 +1254,17 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
         } catch (Exception e)
         {
         }
+    }
+
+    @Override
+    public void showFavoriteCardParentLoading()
+    {
+        mainView.showLoading();
+    }
+
+    @Override
+    public void hideFavoriteCardParentLoading()
+    {
+        mainView.hideLoading();
     }
 }

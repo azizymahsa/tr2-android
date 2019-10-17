@@ -11,6 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
@@ -23,8 +24,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
+                android:gravity="center"
                 android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -50,11 +56,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -63,6 +64,11 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:gravity="center|right"
                 android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -88,11 +94,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -101,6 +102,11 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:gravity="center|right"
                 android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -127,11 +133,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -140,6 +141,11 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:gravity="center|right"
                 android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -166,11 +172,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -179,6 +180,11 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:gravity="center|right"
                 android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -204,11 +210,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -217,6 +218,11 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:gravity="center|right"
                 android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -243,11 +249,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -256,6 +257,11 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:gravity="center|right"
                 android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -277,10 +283,6 @@
 
                 </FrameLayout>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
 
                 <Space
                     android:layout_width="0dp"
@@ -295,6 +297,11 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:gravity="center|right"
                 android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -318,10 +325,6 @@
 
                 </FrameLayout>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
 
                 <Space
                     android:layout_width="0dp"
@@ -338,6 +341,11 @@
                 android:gravity="center|right"
                 android:orientation="horizontal">
 
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -349,15 +357,11 @@
 
                 </FrameLayout>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="40" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="40" />
+                    android:layout_weight="20" />
 
             </LinearLayout>
 

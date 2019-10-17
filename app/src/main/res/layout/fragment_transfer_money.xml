@@ -20,8 +20,15 @@
             android:layout_marginBottom="32dp"
             android:layout_marginLeft="64dp"
             android:scaleType="fitCenter"
+            android:visibility="gone"
             android:src="@drawable/img_bank_card_test"
             android:layout_marginRight="64dp"/>
+
+        <fragment
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
 
 
         <LinearLayout

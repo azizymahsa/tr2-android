@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.activities.main;
 
 //import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -26,6 +27,7 @@ import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemRes
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.singleton.SingletonContext;
+import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.base.BaseActivity;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
@@ -43,13 +45,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
 
-    private Fragment curentFragment;
+    private Fragment currentFragment;
     private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
+
     private BottomNavigationView bottomNavigationView;
 
     private Bundle mSavedInstanceState;
 
-    private FragmentTransaction transaction;
 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
@@ -87,7 +90,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             Logger.e("--item--", menuItem.getTitle().toString());
             int itemId = menuItem.getItemId();
-            //switch curentFragment
+            //switch currentFragment
             switch (itemId)
             {
                 case R.id.tab_shop:
@@ -142,18 +145,18 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         SingletonService.getInstance().getMenuService().getMenu(this, request);
 //
 //        fragmentManager = getSupportFragmentManager();
-//        curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
+//        currentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
 //
 //        transaction = fragmentManager.beginTransaction();
 //
 //        if (mSavedInstanceState == null)
 //        {
-//            transaction.add(R.id.main_container, curentFragment)
+//            transaction.add(R.id.main_container, currentFragment)
 //                    .commit();
 //        }
 //        else
 //        {
-//            transaction.replace(R.id.main_container, curentFragment)
+//            transaction.replace(R.id.main_container, currentFragment)
 //                    .commit();
 //        }
 
@@ -163,20 +166,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     protected void onResume()
     {
         super.onResume();
-        if (curentFragment == null)
+        if (currentFragment == null)
         {
-//            curentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
+//            currentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
 //            transaction = fragmentManager.beginTransaction();
 //            try
 //            {
 //                if (mSavedInstanceState == null)
 //                {
-//                    transaction.add(R.id.main_container, curentFragment)
+//                    transaction.add(R.id.main_container, currentFragment)
 //                            .commit();
 ////
 //                } else
 //                {
-//                    transaction.replace(R.id.main_container, curentFragment)
+//                    transaction.replace(R.id.main_container, currentFragment)
 //                            .commit();
 //                }
 //            }
@@ -253,10 +256,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        curentFragment = ChargeFragment.newInstance(this);
+        currentFragment = ChargeFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_container, curentFragment)
+        transaction.replace(R.id.main_container, currentFragment)
                 .commit();
     }
 
@@ -265,10 +268,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        curentFragment = PackFragment.newInstance(this);
+        currentFragment = PackFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_container, curentFragment)
+        transaction.replace(R.id.main_container, currentFragment)
                 .commit();
     }
 
@@ -277,10 +280,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        curentFragment = MoneyTransferFragment.newInstance(this);
+        currentFragment = MoneyTransferFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_container, curentFragment)
+        transaction.replace(R.id.main_container, currentFragment)
                 .commit();
     }
 
@@ -307,40 +310,48 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = true;
 
-        curentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
+        currentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
         transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_container, curentFragment)
+        transaction.replace(R.id.main_container, currentFragment)
                 .commit();
     }
 
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
+        if (response.info.statusCode != 200)
+        {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+
+            return;
+        }
         if (response.info.statusCode == 200)
         {
             chosenServiceList = response.data.getChosenServiceList();
             footballServiceList = response.data.getFootballServiceList();
+
+            Logger.e("--List size--", "chosenServiceList: " + chosenServiceList.size() +
+                    "footballServiceList: " + footballServiceList.size());
+
+            fragmentManager = getSupportFragmentManager();
+            currentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
+
+            transaction = fragmentManager.beginTransaction();
+
+            if (mSavedInstanceState == null)
+            {
+                transaction.add(R.id.main_container, currentFragment)
+                        .commit();
+            }
+            else
+            {
+                transaction.replace(R.id.main_container, currentFragment)
+                        .commit();
+            }
         }
 
-        Logger.e("--List size--", "chosenServiceList: " + chosenServiceList.size() +
-                "footballServiceList: " + footballServiceList.size());
-
-        fragmentManager = getSupportFragmentManager();
-        curentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
-
-        transaction = fragmentManager.beginTransaction();
-
-        if (mSavedInstanceState == null)
-        {
-            transaction.add(R.id.main_container, curentFragment)
-                    .commit();
-        }
-        else
-        {
-            transaction.replace(R.id.main_container, curentFragment)
-                    .commit();
-        }
     }
 
     @Override
