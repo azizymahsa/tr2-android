@@ -16,7 +16,7 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:layout_centerInParent="true"
-            android:padding="16dp"
+            android:padding="6dp"
             android:background="@drawable/button_main_background_border"
             android:scaleType="fitCenter" />
 

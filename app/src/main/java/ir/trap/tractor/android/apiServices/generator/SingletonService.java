@@ -9,6 +9,7 @@ import ir.trap.tractor.android.apiServices.part.BusService;
 import ir.trap.tractor.android.apiServices.part.DoTransferCardService;
 import ir.trap.tractor.android.apiServices.part.FlightService;
 import ir.trap.tractor.android.apiServices.part.GetBillInfoService;
+import ir.trap.tractor.android.apiServices.part.GetCardListService;
 import ir.trap.tractor.android.apiServices.part.GetHappyCardInfoService;
 import ir.trap.tractor.android.apiServices.part.GetMenuService;
 import ir.trap.tractor.android.apiServices.part.GetPackageIrancellService;
@@ -75,6 +76,11 @@ public class SingletonService
 
     public LoginService getLoginService(){
         return new LoginService(serviceGenerator);
+    }
+
+    public GetCardListService getCardListService()
+    {
+        return new GetCardListService(serviceGenerator);
     }
 
     public VerifyService getVerifyService(){

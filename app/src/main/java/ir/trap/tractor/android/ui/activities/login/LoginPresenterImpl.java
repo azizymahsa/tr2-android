@@ -157,7 +157,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     }
 
     private void setProfileData(WebServiceClass<VerifyResponse> response) {
-        Prefs.putString("accessToken","bearer "+response.data.getAccess());
+        Prefs.putString("accessToken","Bearer "+response.data.getAccess());
 
         Profile profile = response.data.getProfile();
         Prefs.putString("firstName", profile.getFirstName());
@@ -224,7 +224,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     @Override
     public void onFinishedSendCode(SendActiveCodeResponse activeCodeResponse)
     {
-        loginView.hideLoading();
+        loginView.hideFavoriteCardParentLoading();
 
         if (activeCodeResponse.getServiceMessage().getCode() == 200)
         {
@@ -244,7 +244,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     @Override
     public void onErrorSendCode(String error)
     {
-        loginView.hideLoading();
+        loginView.hideFavoriteCardParentLoading();
         loginView.onError(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
     }
@@ -305,7 +305,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 /*    @Override
     public void onFinishedActive(ConfirmActiveCodeResponse response)
     {
-        loginView.hideLoading();
+        loginView.hideFavoriteCardParentLoading();
 
         if (response.getServiceMessage().getCode() == 200)
         {
@@ -348,7 +348,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     public void onErrorActive(String error)
     {
         loginView.onError(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
-        loginView.hideLoading();
+        loginView.hideFavoriteCardParentLoading();
     }*/
 
 

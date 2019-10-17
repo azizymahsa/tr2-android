@@ -242,8 +242,10 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         mainView.hideLoading();
 
-        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
-                response.getUsername(), response.getPassword(), this, 0);
+//        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
+//                response.getUsername(), response.getPassword(), this, 0);
+        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+                "0037250100293610", "1397", this, 0);
 
         flightActivity.startMainFlight();
     }
@@ -254,8 +256,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         mainView.hideLoading();
 
-        StartEniacBusActivity busActivity = new StartEniacBusActivity(response.getUniqeCode(),
-                response.getUsername(), response.getPassword(), getActivity(), this, 0);
+//        StartEniacBusActivity busActivity = new StartEniacBusActivity(response.getUniqeCode(),
+//                response.getUsername(), response.getPassword(), getActivity(), this, 0);
+
+        StartEniacBusActivity busActivity = new StartEniacBusActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+                "0037250100293610", "1397", getActivity(), this, 0);
 
         busActivity.startMainBusActivity();
     }
@@ -266,8 +271,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         mainView.hideLoading();
 
-        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity(response.getUniqeCode(),
-                response.getUsername(), response.getPassword(), SingletonContext.getInstance().getContext(),
+//        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity(response.getUniqeCode(),
+//                response.getUsername(), response.getPassword(), SingletonContext.getInstance().getContext(),
+//                this, 0);
+
+        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+                "0037250100293610", "1397", SingletonContext.getInstance().getContext(),
                 this, 0);
 
         hotelActivity.startMainHotelActivity();
@@ -338,21 +347,24 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             case 11://Flight
             {
                 mainView.showLoading();
-                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
+//                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
+                onGdsFlight(null);
                 break;
             }
 
             case 12: //Hotel
             {
                 mainView.showLoading();
-                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_HOTEL, MainFragment.this);
+//                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_HOTEL, MainFragment.this);
+                onGdsHotel(null);
                 break;
             }
 
             case 13: //Bus
             {
                 mainView.showLoading();
-                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, MainFragment.this);
+//                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, MainFragment.this);
+                onGdsBus(null);
                 break;
             }
 
