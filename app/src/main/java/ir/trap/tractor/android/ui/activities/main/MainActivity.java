@@ -320,6 +320,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
+        if (response == null || response.info == null)
+        {
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         if (response.info.statusCode != 200)
         {
             startActivity(new Intent(this, LoginActivity.class));
@@ -333,7 +338,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             footballServiceList = response.data.getFootballServiceList();
 
             Logger.e("--List size--", "chosenServiceList: " + chosenServiceList.size() +
-                    "footballServiceList: " + footballServiceList.size());
+                "footballServiceList: " + footballServiceList.size());
 
             fragmentManager = getSupportFragmentManager();
             currentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
