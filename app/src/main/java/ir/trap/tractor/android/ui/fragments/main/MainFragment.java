@@ -3,17 +3,22 @@ package ir.trap.tractor.android.ui.fragments.main;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +53,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private MainServiceModelAdapter adapter;
+
+    private Toolbar mToolbar;
+
+    private RelativeLayout rlF1, rlF2, rlF3, rlF4, rlF5, rlF6;
+    private TextView tvF1, tvF2, tvF3, tvF4, tvF5, tvF6;
+    private ImageView imgF1, imgF2, imgF3, imgF4, imgF5, imgF6;
 
     private List<MainServiceModelItem> list = new ArrayList<>();
 
@@ -105,6 +116,21 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         mDemoSlider = rootView.findViewById(R.id.slider);
 
+        initView(rootView);
+
+
+
+        mToolbar = rootView.findViewById(R.id.toolbar);
+
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mainView.openDrawer();
+            }
+        });
+
         setSlider();
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
@@ -119,6 +145,50 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
         return rootView;
+    }
+
+    private void initView(View rootView)
+    {
+        rlF1 = rootView.findViewById(R.id.rlF1);
+        rlF2 = rootView.findViewById(R.id.rlF2);
+        rlF3 = rootView.findViewById(R.id.rlF3);
+        rlF4 = rootView.findViewById(R.id.rlF4);
+        rlF5 = rootView.findViewById(R.id.rlF5);
+        rlF6 = rootView.findViewById(R.id.rlF6);
+
+        imgF1 = rootView.findViewById(R.id.imgF1);
+        imgF2 = rootView.findViewById(R.id.imgF2);
+        imgF3 = rootView.findViewById(R.id.imgF3);
+        imgF4 = rootView.findViewById(R.id.imgF4);
+        imgF5 = rootView.findViewById(R.id.imgF5);
+        imgF6 = rootView.findViewById(R.id.imgF6);
+
+        tvF1 = rootView.findViewById(R.id.tvF1);
+        tvF2 = rootView.findViewById(R.id.tvF2);
+        tvF3 = rootView.findViewById(R.id.tvF3);
+        tvF4 = rootView.findViewById(R.id.tvF4);
+        tvF5 = rootView.findViewById(R.id.tvF5);
+        tvF6 = rootView.findViewById(R.id.tvF6);
+
+        tvF1.setText(footballServiceList.get(0).getTitle());
+        tvF2.setText(footballServiceList.get(1).getTitle());
+        tvF3.setText(footballServiceList.get(2).getTitle());
+        tvF4.setText(footballServiceList.get(3).getTitle());
+        tvF5.setText(footballServiceList.get(4).getTitle());
+        tvF6.setText(footballServiceList.get(5).getTitle());
+
+        setImageIntoIV(imgF1, footballServiceList.get(0).getImageName());
+        setImageIntoIV(imgF2, footballServiceList.get(1).getImageName());
+        setImageIntoIV(imgF3, footballServiceList.get(2).getImageName());
+        setImageIntoIV(imgF4, footballServiceList.get(3).getImageName());
+        setImageIntoIV(imgF5, footballServiceList.get(4).getImageName());
+        setImageIntoIV(imgF6, footballServiceList.get(5).getImageName());
+
+    }
+
+    private void setImageIntoIV(ImageView imageView, String link)
+    {
+        Picasso.with(getActivity()).load(link).into(imageView);
     }
 
     private List<MainServiceModelItem> fillMenuRecyclerList()
@@ -386,9 +456,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             }
 
-            case 7:
+            case 72:
             {
-//                mainView.doTransferMoney();
+                mainView.doTransferMoney();
                 break;
             }
 

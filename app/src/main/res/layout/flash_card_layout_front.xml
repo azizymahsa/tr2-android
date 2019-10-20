@@ -8,7 +8,8 @@
     <RelativeLayout
         android:id="@+id/cvContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="invisible">
 <!--        android:background="#eaeaea">-->
     <!--android:background="@color/black">-->
 
@@ -70,7 +71,7 @@
                 android:orientation="horizontal"
                 android:singleLine="true"
                 android:textColor="@color/warmGray"
-                android:textSize="@dimen/textSize_12dp"/>
+                android:textSize="@dimen/textSize_18dp"/>
 
         </LinearLayout>
 
@@ -81,13 +82,47 @@
         android:id="@+id/cvAddCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible">
+        android:background="@drawable/img_add_card_background"
+        android:visibility="visible">
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/img_add_card_background"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16sdp">
+
+            <ImageView
+                android:id="@+id/imgAdd"
+                android:layout_width="@dimen/_20dp"
+                android:layout_height="@dimen/_20dp"
+                android:src="@drawable/ic_add_card"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:layout_toLeftOf="@+id/imgAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_gravity="right"
+                android:layout_centerVertical="true"
+                android:text="کارت جدید"
+                android:textStyle="bold"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="@dimen/textSize_20dp"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:text="کارت بانکی خود را اضافه کنید."
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/textSize_14dp"/>
+
 
     </RelativeLayout>
 

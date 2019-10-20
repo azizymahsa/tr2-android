@@ -21,4 +21,8 @@ public interface MainActionView extends BaseView
     void showError(String message);
 
     void backToMainFragment();
+
+    void openDrawer();
+
+    void closeDrawer();
 }

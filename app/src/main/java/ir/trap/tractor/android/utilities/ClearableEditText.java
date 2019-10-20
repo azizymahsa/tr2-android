@@ -229,10 +229,10 @@ public class ClearableEditText extends MaskedEditText implements OnTouchListener
         if (visible != wasVisible)
         {
             Drawable x = visible ? xD : null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
-                x.setTint(getResources().getColor(R.color.clearButtonColor));
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//            {
+//                x.setTint(getResources().getColor(R.color.clearButtonColor));
+//            }
             super.setCompoundDrawables((loc == Location.LEFT) ? x : cd[0], cd[1], (loc == Location.RIGHT) ? x : cd[2],
                     cd[3]);
         }

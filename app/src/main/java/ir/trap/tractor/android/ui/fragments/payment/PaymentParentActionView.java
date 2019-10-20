@@ -5,4 +5,6 @@ public interface PaymentParentActionView
     void showPaymentParentLoading();
 
     void hidePaymentParentLoading();
+
+    void onPaymentCancelAndBack();
 }

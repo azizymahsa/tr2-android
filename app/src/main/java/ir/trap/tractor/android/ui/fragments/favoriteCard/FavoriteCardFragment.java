@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,6 +31,7 @@ import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListRes
 import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
 import ir.trap.tractor.android.ui.adapters.favoriteCard.CardViewPagerAdapter;
 import ir.trap.tractor.android.ui.adapters.favoriteCard.ViewPagerAdapterAction;
+import ir.trap.tractor.android.utilities.LinearLayoutManagerWithSmoothScroller;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class FavoriteCardFragment extends Fragment implements FavoriteCardActionView, ViewPagerAdapterAction,
@@ -35,6 +39,9 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
 {
     private ImageView ivLeft, ivRight;
     private ScrollingPagerIndicator indicator;
+
+    private ProgressBar progress;
+    private LinearLayout llCardList, llIndicator;
 
     private RecyclerView rvListCard;
     private LinearLayoutManager linearLayoutManager;
@@ -84,6 +91,10 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
     {
         View rootView = inflater.inflate(R.layout.fragment_favorite_card, container, false);
 
+        llCardList = rootView.findViewById(R.id.llCardList);
+        llIndicator = rootView.findViewById(R.id.llIndicator);
+        progress = rootView.findViewById(R.id.progress);
+
         rvListCard = rootView.findViewById(R.id.rvListCard);
         ivRight = rootView.findViewById(R.id.ivRight);
         ivLeft = rootView.findViewById(R.id.ivLeft);
@@ -92,8 +103,14 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
         ivLeft.setOnClickListener(clickListener);
         ivRight.setOnClickListener(clickListener);
 
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+//        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManagerWithSmoothScroller.HORIZONTAL, false);
         rvListCard.setLayoutManager(linearLayoutManager);
+
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvListCard.getContext(),
+//                linearLayoutManager.getOrientation());
+//        rvListCard.addItemDecoration(dividerItemDecoration);
+
         adapter = new CardViewPagerAdapter(cardList, this, this);
         rvListCard.setAdapter(adapter);
 
@@ -106,10 +123,6 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
             {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if (linearLayoutManager.findFirstVisibleItemPosition() == 0)
-                {
-//                    presenter.viewPagerPosition(linearLayoutManager.findFirstVisibleItemPosition());
-                }
                 if (newState == RecyclerView.SCROLL_STATE_IDLE)
                 {
                     if (linearLayoutManager.findFirstVisibleItemPosition() == 0)
@@ -132,10 +145,11 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
 
                     new Handler().postDelayed(() ->
                     {
-//                        presenter.viewPagerPosition(linearLayoutManager.findFirstVisibleItemPosition());
                         EventBus.getDefault().post(cardList.get(linearLayoutManager.findFirstVisibleItemPosition()));
                     }, 200);
                 }
+//                if (newState == RecyclerView.n )
+//                recyclerView.smoothScrollToPosition(linearLayoutManager.findFirstVisibleItemPosition());
             }
         });
 
@@ -155,11 +169,11 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
     {
         if (view.getId() == R.id.ivLeft)
         {
-
+            onSlideLeft();
         }
         else if (view.getId() == R.id.ivRight)
         {
-
+            onSlideRight();
         }
     };
 
@@ -168,18 +182,39 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
     {
         parentView.hideFavoriteCardParentLoading();
 
+        progress.setVisibility(View.GONE);
+        llCardList.setVisibility(View.VISIBLE);
+        llIndicator.setVisibility(View.VISIBLE);
+
         //fill adapter
         if (response.info.statusCode == 200)
         {
-            cardList = response.data.getResults();
+            Result result = new Result();
+            result.setBankBin("");
+            cardList.add(result);
+            cardList.addAll(response.data.getResults());
 //            adapter = new CardViewPagerAdapter(cardList, this, this);
             adapter.notifyDataSetChanged();
 
             rvListCard.setAdapter(adapter);
-
             indicator.attachToRecyclerView(rvListCard);
 
-
+            if (cardList.size() > 2)
+            {
+                int favorittePos = 0;
+                for (int i = 1 ; i <= response.data.getResults().size() ; i++)
+                {
+                    if (response.data.getResults().get(i).getIsFavorite())
+                    {
+                        favorittePos = i;
+                    }
+                }
+                rvListCard.smoothScrollToPosition(favorittePos == 0 ? 1 : favorittePos);
+            }
+            else
+            {
+                rvListCard.smoothScrollToPosition(1);
+            }
         }
         else
         {
@@ -194,6 +229,7 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
     {
         parentView.hideFavoriteCardParentLoading();
 
+        progress.setVisibility(View.GONE);
 
     }
 
@@ -201,7 +237,9 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
     public void onSlideRight()
     {
         if (linearLayoutManager.findFirstCompletelyVisibleItemPosition() == Objects.requireNonNull(rvListCard.getAdapter()).getItemCount())
+        {
             return;
+        }
         int newPos = linearLayoutManager.findFirstCompletelyVisibleItemPosition() + 1;
 
         rvListCard.smoothScrollToPosition(newPos);

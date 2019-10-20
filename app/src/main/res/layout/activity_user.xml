@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".ui.activities.login.user.UserActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +15,7 @@
         android:orientation="vertical">
         <include
             android:id="@+id/toolbar_container"
-            layout="@layout/toolbar"
+            layout="@layout/toolbar_main"
             android:visibility="gone" />
     <View
         android:layout_width="match_parent"

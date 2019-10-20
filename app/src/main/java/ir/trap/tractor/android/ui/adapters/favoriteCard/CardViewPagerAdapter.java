@@ -1,15 +1,11 @@
 package ir.trap.tractor.android.ui.adapters.favoriteCard;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -26,10 +21,9 @@ import java.util.List;
 
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
-import ir.trap.tractor.android.conf.TrapConfig;
-import ir.trap.tractor.android.models.dbModels.ArchiveCardDBModel;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardActionView;
+import ir.trap.tractor.android.utilities.Utility;
 
 
 /**
@@ -68,38 +62,77 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
     {
         Result item = cardList.get(position);
 
+        if (position == 0)
+        {
+            holder.cvAddCard.setVisibility(View.VISIBLE);
+            holder.cvContent.setVisibility(View.INVISIBLE);
+            holder.rlBackView.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            holder.cvAddCard.setVisibility(View.INVISIBLE);
+            holder.cvContent.setVisibility(View.VISIBLE);
+            holder.rlBackView.setVisibility(View.VISIBLE);
+
+
+            holder.tvFullName.setText(item.getFullName());
+//            holder.tvNumberCard.setText(item.getCardNumber());
+            holder.tvNumberCard.setText(Utility.cardFormat(item.getCardNumber().toLowerCase().replace("x", "*")));
+            holder.tvExpireDate.setText(item.getExpirationDateYear() + "/" + item.getExpirationDateMonth());
+
+            holder.tvFullName.setTextColor(Color.parseColor(item.getColorText()));
+            holder.tvExpireDate.setTextColor(Color.parseColor(item.getColorText()));
+            holder.tvNumberCard.setTextColor(Color.parseColor(item.getColorNumber()));
+
+            loadImageIntoIV(item.getCardImage(), holder.ivLoyal, holder);
+            loadImageIntoIV(item.getCardImageBack(), holder.ivBack, holder);
+
+
+            if (item.getIsMainCard())
+            {
+//            holder.tvDelete.setVisibility(View.GONE);
+//            holder.vDelete.setVisibility(View.GONE);
+                holder.tvNumberCard.setVisibility(View.GONE);
+                holder.tvExpireDate.setVisibility(View.GONE);
+                holder.tvFullName.setVisibility(View.GONE);
+
+                holder.cvContent.setVisibility(View.INVISIBLE);
+                holder.cvAddCard.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+//            holder.tvDelete.setVisibility(View.VISIBLE);
+//            holder.vDelete.setVisibility(View.VISIBLE);
+                holder.tvNumberCard.setVisibility(View.VISIBLE);
+                holder.tvExpireDate.setVisibility(View.VISIBLE);
+                holder.tvFullName.setVisibility(View.VISIBLE);
+//
+            }
+
+            if (item.getIsFavorite() && !item.getIsMainCard())
+            {
+////            holder.tvStar.setText(R.string.star_f_icon_R);
+                holder.lottieView.setMinFrame(1);
+                holder.lottieView.setVisibility(View.VISIBLE);
+//
+            }
+            else
+            {
+////            holder.tvStar.setText(R.string.star_icon_R);
+                holder.lottieView.setVisibility(View.GONE);
+            }
+
+        }
+
+
+
 //        holder.tvEdit.setOnClickListener(view ->
 //        {
 ////            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
 ////            mainView.onShowEditDialog(cardDBModel, model.getId(), position);
 //        });
 //
-        if (item.getIsMainCard())
-        {
-////            holder.tvDelete.setVisibility(View.GONE);
-////            holder.vDelete.setVisibility(View.GONE);
-////            holder.ivBankLogoAdapter.setVisibility(View.GONE);
-////            holder.tvNumberCard.setVisibility(View.GONE);
-////            holder.tvExpireDate.setVisibility(View.GONE);
-////            holder.tvFullName.setVisibility(View.GONE);
-////
-////            holder.cvContent.setBackgroundColor(Color.TRANSPARENT);
-//
-//
-        }
-//        else
-//        {
-//            holder.tvDelete.setVisibility(View.VISIBLE);
-//            holder.vDelete.setVisibility(View.VISIBLE);
-//            holder.ivBankLogoAdapter.setVisibility(View.VISIBLE);
-//            holder.tvNumberCard.setVisibility(View.VISIBLE);
-//            holder.tvExpireDate.setVisibility(View.VISIBLE);
-//            holder.tvFullName.setVisibility(View.VISIBLE);
-//            holder.ivLoyal.setVisibility(View.VISIBLE);
-//
-//            holder.cvContent.setBackgroundColor(Color.BLUE);
-//
-//        }
+
 //        holder.llChangePas.setOnClickListener(view -> {
 ////            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
 ////            mainView.onShowPasswordChangeDialog(cardDBModel, model.getId(), position);
@@ -135,36 +168,41 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //        });
 //
 //
-        holder.cvContent.setOnClickListener(view ->
-        {
-            holder.myEasyFlipView.flipTheView();
-
-
-
-           /* if (model.isSelect()) {
-                model.setSelect(false);
-                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", context.getResources().getInteger(R.integer.values_anim), 0f);
-                anim2.setDuration(200);
-                anim2.setInterpolator(new AccelerateInterpolator());
-                anim2.start();
-
-            } else {
-                model.setSelect(true);
-                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", 0f, context.getResources().getInteger(R.integer.values_anim));
-                anim2.setDuration(200);
-                anim2.setInterpolator(new AccelerateInterpolator());
-                anim2.start();
-
-
-            }*/
-        });
-        holder.rlBackView.setOnClickListener(view ->
-        {
-            holder.myEasyFlipView.flipTheView();
-
-
-        });
-        holder.cardView.setOnClickListener(new View.OnClickListener()
+//        holder.cvContent.setOnClickListener(view ->
+//        {
+//            if (position != 0)
+//            {
+//                holder.myEasyFlipView.flipTheView();
+//            }
+//
+//
+//
+//           /* if (model.isSelect()) {
+//                model.setSelect(false);
+//                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", context.getResources().getInteger(R.integer.values_anim), 0f);
+//                anim2.setDuration(200);
+//                anim2.setInterpolator(new AccelerateInterpolator());
+//                anim2.start();
+//
+//            } else {
+//                model.setSelect(true);
+//                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", 0f, context.getResources().getInteger(R.integer.values_anim));
+//                anim2.setDuration(200);
+//                anim2.setInterpolator(new AccelerateInterpolator());
+//                anim2.start();
+//
+//
+//            }*/
+//        });
+//        holder.rlBackView.setOnClickListener(view ->
+//        {
+//            if (position != 0)
+//            {
+//                holder.myEasyFlipView.flipTheView();
+//            }
+//
+//        });
+        holder.cvAddCard.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -211,18 +249,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 ////
 ////        }
 //
-//        if (model.isFavorite() && !model.isMainCard())
-//        {
-////            holder.tvStar.setText(R.string.star_f_icon_R);
-////            holder.lottieView.setMinFrame(1);
-////            holder.lottieView.setVisibility(View.VISIBLE);
-//
-//        }
-//        else
-//        {
-////            holder.tvStar.setText(R.string.star_icon_R);
-////            holder.lottieView.setVisibility(View.GONE);
-//        }
+
 //
 //      /*  if (model.isSelect()) {
 //            model.setSelect(true);
@@ -244,12 +271,12 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //*/
 ////        if (model.getPic() == 100)
 ////        {
-////            holder.cardView.setVisibility(View.VISIBLE);
+////            holder.cvAddCard.setVisibility(View.VISIBLE);
 ////            holder.cvContent.setVisibility(View.GONE);
 ////
 ////        } else
 ////        {
-////            holder.cardView.setVisibility(View.GONE);
+////            holder.cvAddCard.setVisibility(View.GONE);
 ////            holder.cvContent.setVisibility(View.VISIBLE);
 ////
 ////
@@ -302,14 +329,6 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 ////
 ////            }
 ////
-////            try
-////            {
-////                // holder.ivBankLogoAdapter.setImageDrawable(ContextCompat.getDrawable(context, model.getOfflineLogoImage()));
-////
-////            } catch (Exception e)
-////            {
-////                mainView.onError(e.getMessage(), this.getClass().getCanonicalName(), DibaConfig.showClassNameInException);
-////            }
 ////
 ////
 ////            try
@@ -364,7 +383,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
         private TextView tvExpireDate, tvNumberCard, tvFullName;
 //        private TextView tvStar, tvDelete, tvEdit, tvSecurity, tvShare;
         private LottieAnimationView lottieView;
-        private RelativeLayout cardView;
+        private RelativeLayout cvAddCard;
         private ImageView ivLoyal, ivBack;
 //        private LinearLayout llChangePas;
         private EasyFlipView myEasyFlipView;
@@ -382,7 +401,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
             cvContent = convertView.findViewById(R.id.cvContent);
             rlBackView = convertView.findViewById(R.id.rlBackView);
             lottieView = convertView.findViewById(R.id.lottieView);
-            cardView = convertView.findViewById(R.id.cvAddCard);
+            cvAddCard = convertView.findViewById(R.id.cvAddCard);
             tvExpireDate = convertView.findViewById(R.id.tvExpireDate);
             tvNumberCard = convertView.findViewById(R.id.tvNumberCard);
             tvFullName = convertView.findViewById(R.id.tvFullName);
