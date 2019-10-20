@@ -13,7 +13,7 @@
 
     <include
         android:id="@+id/toolbar_container"
-        layout="@layout/toolbar"
+        layout="@layout/toolbar_main"
         android:visibility="gone"/>
 
     <LinearLayout

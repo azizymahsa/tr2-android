@@ -72,15 +72,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         drawerFragment.setUp(R.id.fragment_navigation_menudrawer, findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
-        ImageButton btnDrawer = mToolbar.findViewById(R.id.imgMenu);
-
-        btnDrawer.setOnClickListener(v ->
-        {
-            View containerView = findViewById(R.id.fragment_navigation_menudrawer);
-            DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
-            mDrawerLayout.openDrawer(containerView);
-
-        });
+//        ImageButton btnDrawer = mToolbar.findViewById(R.id.imgMenu);
+//
+//        btnDrawer.setOnClickListener(v ->
+//        {
+//            View containerView = findViewById(R.id.fragment_navigation_menudrawer);
+//            DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
+//            mDrawerLayout.openDrawer(containerView);
+//
+//        });
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -315,6 +315,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
+    }
+
+    @Override
+    public void openDrawer()
+    {
+        View containerView = findViewById(R.id.fragment_navigation_menudrawer);
+        DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerLayout.openDrawer(containerView);
+    }
+
+    @Override
+    public void closeDrawer()
+    {
+
     }
 
     @Override
