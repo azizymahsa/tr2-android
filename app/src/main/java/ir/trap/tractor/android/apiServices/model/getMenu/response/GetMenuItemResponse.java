@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
+import ir.trap.tractor.android.apiServices.model.allService.response.SubMenu;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,6 +42,16 @@ public class GetMenuItemResponse implements Parcelable
     @Expose @Getter @Setter
     private Integer orderItem;
 
+
+    @SerializedName("sub_menu")
+    @Expose @Getter @Setter
+    private List<SubMenu> subMenu = null;
+    @SerializedName("logo")
+    @Expose @Getter @Setter
+    private String logo;
+    @SerializedName("logo_selected")
+    @Expose @Getter @Setter
+    private String logoSelected;
     protected GetMenuItemResponse(Parcel in)
     {
         if (in.readByte() == 0)

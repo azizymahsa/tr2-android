@@ -34,6 +34,7 @@ import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.base.BaseActivity;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
+import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
@@ -111,6 +112,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     {
                         setCheckedBNV(bottomNavigationView, 1);
                     }
+                    isMainFragment = false;
+
+                    currentFragment = AllMenuFragment.newInstance(this);
+                  //  transaction = fragmentManager.beginTransaction();
+                    transaction = getSupportFragmentManager().beginTransaction();
+
+                    transaction.replace(R.id.main_container, currentFragment)
+                            .commit();
                     break;
                 }
                 case R.id.tab_home:
