@@ -1,11 +1,16 @@
 package ir.trap.tractor.android.apiServices.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Single;
 import ir.trap.tractor.android.apiServices.helper.Const;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse2;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse3;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.allService.response.Datum;
+import ir.trap.tractor.android.apiServices.model.allService.response.ResponseAllService;
 import ir.trap.tractor.android.apiServices.model.billPayment.request.BillPaymentRequest;
 import ir.trap.tractor.android.apiServices.model.billPayment.response.BillPaymentResponse;
 import ir.trap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
@@ -20,6 +25,7 @@ import ir.trap.tractor.android.apiServices.model.getInfoBill.response.GetInfoBil
 import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillRequest;
 import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
+import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
@@ -44,8 +50,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface RetroClient
-{
+public interface RetroClient {
 
     @POST(Const.Login)
     Single<Response<WebServiceClass<LoginResponse>>> login(
@@ -66,11 +71,13 @@ public interface RetroClient
             @Body GetMenuRequest request
     );
 
+    @POST(Const.GetMenuAll)
+    Single<Response<WebServiceClass<ArrayList<GetMenuItemResponse>>>> getMenuAll(
+            @Body GetMenuRequest request
+    );
+
     @GET(Const.GetCardList)
     Single<Response<WebServiceClass<GetCardListResponse>>> getCardList();
-
-
-
 
 
     @POST(Const.MOBILE_CHARGE)

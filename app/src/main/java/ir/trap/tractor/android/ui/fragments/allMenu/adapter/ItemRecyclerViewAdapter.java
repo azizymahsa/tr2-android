@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.ui.adapters;
+package ir.trap.tractor.android.ui.fragments.allMenu.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,19 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.allService.response.SubMenu;
 import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
-import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 
-public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceModelAdapter.ViewHolder>
-{
-    private OnItemClickListener mItemClickListener;
+
+public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
+
+    private ItemRecyclerViewAdapter.OnItemClickListenerItem mItemClickListener;
     private Context mContext;
-    private List<MainServiceModelItem> list;
+    private List<SubMenu> list;
 
-    public MainServiceModelAdapter(Context mContext, List<MainServiceModelItem> list, OnItemClickListener mItemClickListener)
+    public ItemRecyclerViewAdapter(Context mContext, List<SubMenu> list, OnItemClickListenerItem mItemClickListener)
     {
         this.mItemClickListener = mItemClickListener;
         this.mContext = mContext;
@@ -37,27 +39,32 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public ItemRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.adapter_main_service_model, null);
+                R.layout.adapter_main_service_model_item, null);
 
-        ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+        ItemRecyclerViewAdapter.ViewHolder viewHolder = new ItemRecyclerViewAdapter.ViewHolder(itemLayoutView);
 
         return viewHolder;
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
-    {
-        MainServiceModelItem item = list.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+/*    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MainServiceModelAdapter.ViewHolder holder, int position)
+    {*/
+        SubMenu item = list.get(position);
 
         holder.tvTitle.setText(item.getTitle());
 
         try
         {
-            Picasso.with(mContext).load(item.getImageLink()).into(holder.image, new Callback()
+            Picasso.with(mContext).load(item.getImageName()).into(holder.image, new Callback()
             {
                 @Override
                 public void onSuccess()
@@ -117,15 +124,15 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
         {
             if (mItemClickListener != null)
             {
-                mItemClickListener.onChosenItemClick(view,  list.get(getAdapterPosition()).getId());
+                mItemClickListener.onChosenItemClickk(view,  list.get(getAdapterPosition()).getKeyId());
             }
         }
     }
 
 
-    public interface OnItemClickListener
+    public interface OnItemClickListenerItem
     {
-        public void onChosenItemClick(View view, Integer id);
+        public void onChosenItemClickk(View view, Integer id);
     }
 
 //    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
