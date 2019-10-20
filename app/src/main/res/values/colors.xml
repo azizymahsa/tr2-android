@@ -44,6 +44,6 @@
     <color name="clearButtonColor">#ff0000</color>
     <color name="arrowButtonColor">#ff0000</color>
     <color name="textColorHint">#FF7A7A</color>
-    <color name="textColorButton">#000</color>
+    <color name="textColorButton">#FDFCFC</color>
 
 </resources>
