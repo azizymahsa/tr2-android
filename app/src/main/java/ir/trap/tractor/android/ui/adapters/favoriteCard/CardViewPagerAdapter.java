@@ -74,32 +74,27 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 ////            mainView.onShowEditDialog(cardDBModel, model.getId(), position);
 //        });
 //
-//        if (model.isMainCard())
-//        {
+        if (item.getIsMainCard())
+        {
 ////            holder.tvDelete.setVisibility(View.GONE);
 ////            holder.vDelete.setVisibility(View.GONE);
-////            holder.tvBankNameAdapter.setVisibility(View.GONE);
 ////            holder.ivBankLogoAdapter.setVisibility(View.GONE);
 ////            holder.tvNumberCard.setVisibility(View.GONE);
 ////            holder.tvExpireDate.setVisibility(View.GONE);
 ////            holder.tvFullName.setVisibility(View.GONE);
-////            holder.tvPrice.setVisibility(View.VISIBLE);
 ////
-////            // holder.tvPrice.setText("موجودی: " + "125,000" + " ریال");
 ////            holder.cvContent.setBackgroundColor(Color.TRANSPARENT);
 //
 //
-//        }
+        }
 //        else
 //        {
 //            holder.tvDelete.setVisibility(View.VISIBLE);
 //            holder.vDelete.setVisibility(View.VISIBLE);
-//            holder.tvBankNameAdapter.setVisibility(View.VISIBLE);
 //            holder.ivBankLogoAdapter.setVisibility(View.VISIBLE);
 //            holder.tvNumberCard.setVisibility(View.VISIBLE);
 //            holder.tvExpireDate.setVisibility(View.VISIBLE);
 //            holder.tvFullName.setVisibility(View.VISIBLE);
-//            holder.tvPrice.setVisibility(View.GONE);
 //            holder.ivLoyal.setVisibility(View.VISIBLE);
 //
 //            holder.cvContent.setBackgroundColor(Color.BLUE);
@@ -140,42 +135,44 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //        });
 //
 //
-//        holder.cvContent.setOnClickListener(view -> {
-//            holder.myEasyFlipView.flipTheView();
-//
-//
-//
-//           /* if (model.isSelect()) {
-//                model.setSelect(false);
-//                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", context.getResources().getInteger(R.integer.values_anim), 0f);
-//                anim2.setDuration(200);
-//                anim2.setInterpolator(new AccelerateInterpolator());
-//                anim2.start();
-//
-//            } else {
-//                model.setSelect(true);
-//                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", 0f, context.getResources().getInteger(R.integer.values_anim));
-//                anim2.setDuration(200);
-//                anim2.setInterpolator(new AccelerateInterpolator());
-//                anim2.start();
-//
-//
-//            }*/
-//        });
-//        holder.rlBackView.setOnClickListener(view -> {
-//            holder.myEasyFlipView.flipTheView();
-//
-//
-//        });
-//        holder.cardView.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-////                mainView.startActivity(GoToActivity.AddCardActivity);
-//
-//            }
-//        });
+        holder.cvContent.setOnClickListener(view ->
+        {
+            holder.myEasyFlipView.flipTheView();
+
+
+
+           /* if (model.isSelect()) {
+                model.setSelect(false);
+                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", context.getResources().getInteger(R.integer.values_anim), 0f);
+                anim2.setDuration(200);
+                anim2.setInterpolator(new AccelerateInterpolator());
+                anim2.start();
+
+            } else {
+                model.setSelect(true);
+                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", 0f, context.getResources().getInteger(R.integer.values_anim));
+                anim2.setDuration(200);
+                anim2.setInterpolator(new AccelerateInterpolator());
+                anim2.start();
+
+
+            }*/
+        });
+        holder.rlBackView.setOnClickListener(view ->
+        {
+            holder.myEasyFlipView.flipTheView();
+
+
+        });
+        holder.cardView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+//                mainView.startActivity(GoToActivity.AddCardActivity);
+
+            }
+        });
 //
 ////        if (model.isDelete())
 ////        {
@@ -307,7 +304,6 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 ////
 ////            try
 ////            {
-////                holder.tvBankNameAdapter.setText(model.getOfflineCardName());
 ////                // holder.ivBankLogoAdapter.setImageDrawable(ContextCompat.getDrawable(context, model.getOfflineLogoImage()));
 ////
 ////            } catch (Exception e)
@@ -346,7 +342,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
             @Override
             public void onSuccess()
             {
-                holder.cvContent.setBackgroundColor(Color.TRANSPARENT);
+//                holder.cvContent.setBackgroundColor(Color.TRANSPARENT);
             }
 
             @Override
@@ -365,39 +361,37 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 
     class MyViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView tvExpireDate, tvNumberCard, tvFullName, tvStar, tvDelete, tvEdit, tvBankNameAdapter, tvSecurity, tvShare, tvPrice;
+        private TextView tvExpireDate, tvNumberCard, tvFullName;
+//        private TextView tvStar, tvDelete, tvEdit, tvSecurity, tvShare;
         private LottieAnimationView lottieView;
-        private RelativeLayout cardView, cvContent, rlBackView;
-        private ImageView ivLoyal, ivBankLogoAdapter, ivBack;
-        private LinearLayout llChangePas;
+        private RelativeLayout cardView;
+        private ImageView ivLoyal, ivBack;
+//        private LinearLayout llChangePas;
         private EasyFlipView myEasyFlipView;
-        private View vDelete;
+//        private View vDelete;
+        private RelativeLayout cvContent, rlBackView;
 
 
         private MyViewHolder(View convertView)
         {
             super(convertView);
-//            ivLoyal = convertView.findViewById(R.id.ivLoyal);
+            ivLoyal = convertView.findViewById(R.id.ivLoyal);
 ////            tvShare = convertView.findViewById(R.id.tvShare);
 //            vDelete = convertView.findViewById(R.id.vDelete);
-//            rlBackView = convertView.findViewById(R.id.rlBackView);
-//            ivBack = convertView.findViewById(R.id.ivBack);
-//            cvContent = convertView.findViewById(R.id.cvContent);
-//            lottieView = convertView.findViewById(R.id.lottieView);
-//            cardView = convertView.findViewById(R.id.cvAddCard);
-//            tvExpireDate = convertView.findViewById(R.id.tvExpireDate);
-//            tvPrice = convertView.findViewById(R.id.tvPrice);
-//            tvNumberCard = convertView.findViewById(R.id.tvNumberCard);
-//            tvFullName = convertView.findViewById(R.id.tvFullName);
+            ivBack = convertView.findViewById(R.id.ivBack);
+            cvContent = convertView.findViewById(R.id.cvContent);
+            rlBackView = convertView.findViewById(R.id.rlBackView);
+            lottieView = convertView.findViewById(R.id.lottieView);
+            cardView = convertView.findViewById(R.id.cvAddCard);
+            tvExpireDate = convertView.findViewById(R.id.tvExpireDate);
+            tvNumberCard = convertView.findViewById(R.id.tvNumberCard);
+            tvFullName = convertView.findViewById(R.id.tvFullName);
 //            tvStar = convertView.findViewById(R.id.tvStar);
 //            tvDelete = convertView.findViewById(R.id.tvDelete);
 //            tvEdit = convertView.findViewById(R.id.tvEdit);
-////            ivBankLogoAdapter = convertView.findViewById(R.id.ivBankLogoAdapter);
-////            tvBankNameAdapter = convertView.findViewById(R.id.tvBankNameAdapter);
 //            llChangePas = convertView.findViewById(R.id.llChangePas);
 //            tvSecurity = convertView.findViewById(R.id.tvSecurity);
-//            myEasyFlipView = itemView.findViewById(R.id.myEasyFlipView);
-
+            myEasyFlipView = itemView.findViewById(R.id.myEasyFlipView);
         }
     }
 
