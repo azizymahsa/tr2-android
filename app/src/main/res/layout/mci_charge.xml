@@ -33,20 +33,18 @@
                 android:layout_marginTop="@dimen/_30dp"
                 android:orientation="horizontal">
 
-                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                <ImageView
                     android:id="@+id/btnMciRecent"
                     android:layout_width="@dimen/_35dp"
                     android:layout_height="@dimen/_35dp"
                     android:layout_gravity="top"
                     android:padding="@dimen/_5sdp"
                     android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_phone_book"
                     android:background="@drawable/button_small_border"
                     android:textSize="@dimen/textSize_20dp"
                     android:transitionName="transition"
-                    app:finalCornerAngle="40dp"
-                    app:initialCornerAngle="40dp"
-                    app:spinning_bar_color="@color/btnColorSecondary"
-                    app:spinning_bar_width="2dp" />
+                    />
 
                 <ImageView
                     android:id="@+id/ivContactM"

@@ -13,8 +13,8 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginTop="2dp"
-        android:background="@drawable/button_main_background_border"
-        card_view:cardCornerRadius="1dp"
+        android:background="@drawable/button_small_border"
+        card_view:cardCornerRadius="5dp"
         card_view:cardElevation="0.5dp">
 
         <RelativeLayout
@@ -25,19 +25,22 @@
                 android:id="@+id/buttonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/itemColor"
+                android:paddingRight="@dimen/_10dp"
+                android:paddingLeft="@dimen/_10dp"
                 android:minHeight="35dp">
 
                 <TextView
                     android:id="@+id/tvTitle"
-                    android:layout_width="300dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
                     android:gravity="center"
                     android:padding="5dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:layout_marginLeft="@dimen/_20dp"
                     android:textAppearance="@style/IranSansBold"
-                    android:textColor="@color/textColorRecyclerView"
-                    android:textSize="15dp" />
+                    android:textColor="@color/chargePackTextColor"
+                    android:textSize="@dimen/textSize_12dp" />
 
                 <ImageView
                     android:id="@+id/imgArrow"
@@ -45,9 +48,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:tint="@color/menuColor"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"
                     android:src="@drawable/ic_arrow_down_36dp"/>
 
             </RelativeLayout>

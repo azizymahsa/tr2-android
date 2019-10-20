@@ -7,6 +7,12 @@
     android:padding="10dp"
     android:background="@color/colorPrimary">
 
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/warmGray"
+    android:layout_marginBottom="@dimen/_10dp"
+    android:layout_marginTop="@dimen/_10dp"/>
 
     <TextView
         android:id="@+id/tvTitle"
@@ -14,15 +20,15 @@
         android:layout_height="wrap_content"
         android:gravity="center|right"
         android:textColor="@color/warmGray"
-        android:textSize="12dp" />
+        android:textSize="@dimen/textSize_12dp" />
 
     <TextView
         android:id="@+id/tvAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|right"
+        android:gravity="center|left"
         android:textColor="@color/midnight"
-        android:textSize="14dp"
+        android:textSize="@dimen/textSize_14dp"
         android:textAppearance="@style/IranSansBold"/>
 
 </LinearLayout>

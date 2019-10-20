@@ -6,21 +6,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class GetPackageIrancellResponse {
 
-    @SerializedName("ServiceMessage")
-    @Expose
-    private ServiceMessage serviceMessage;
 
-    @SerializedName("Packages")
+    @SerializedName("packages")
     @Expose
     private IrancellPackage irancellPackage;
 
-    public ServiceMessage getServiceMessage() {
-        return serviceMessage;
-    }
-
-    public void setServiceMessage(ServiceMessage serviceMessage) {
-        this.serviceMessage = serviceMessage;
-    }
 
     public IrancellPackage getIrancellPackage() {
         return irancellPackage;

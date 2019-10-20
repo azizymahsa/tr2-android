@@ -20,7 +20,6 @@ public class RightelPackImpl implements RightelPackInteractor
     {
         GetPackageMciRequest request = new GetPackageMciRequest();
         request.setMobile(mobile);
-        request.setUserId(Prefs.getInt("userId", 0) + "");
         SingletonService.getInstance().getPackageRightelService().GetRightelPackService(new OnServiceStatus<WebServiceClass<GetRightelPackRespone>>()
         {
             @Override

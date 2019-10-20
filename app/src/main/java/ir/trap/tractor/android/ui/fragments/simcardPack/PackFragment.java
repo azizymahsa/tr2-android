@@ -149,10 +149,18 @@ public class PackFragment
     CircularProgressButton btnChargeConfirm;
     @BindView(R.id.btnBackToCharge)
     View btnBackToCharge;
+    @BindView(R.id.llDescriptionSelectPack)
+    LinearLayout llDescriptionSelectPack;
+    @BindView(R.id.llDetailDescription)
+    LinearLayout llDetailDescription;
+    @BindView(R.id.llDetailDescriptionRightel)
+    LinearLayout llDetailDescriptionRightel;
+    @BindView(R.id.llDescriptionSelectPackRightel)
+    LinearLayout llDescriptionSelectPackRightel;
     @BindView(R.id.btnMCIPackConfirm)
     CircularProgressButton btnMCIPackConfirm;
     @BindView(R.id.btnPackBackIrancell)
-    CircularProgressButton btnPackBackIrancell;
+    View btnPackBackIrancell;
     @BindView(R.id.nested)
     NestedScrollView nested;
     @BindView(R.id.rbAll)
@@ -183,15 +191,15 @@ public class PackFragment
     @BindView(R.id.btnChargeConfirmRightel)
     CircularProgressButton btnChargeConfirmRightel;
     @BindView(R.id.btnChargeBackRightel)
-    CircularProgressButton btnChargeBackRightel;
+    View btnChargeBackRightel;
     @BindView(R.id.btnPackBackMci)
     CircularProgressButton btnPackBackMci;
     @BindView(R.id.btnIrancellRecent)
-    CircularProgressButton btnIrancellRecent;
+    View btnIrancellRecent;
     @BindView(R.id.btnMciRecent)
-    CircularProgressButton btnMciRecent;
+    View btnMciRecent;
     @BindView(R.id.btnRightelRecent)
-    CircularProgressButton btnRightelRecent;
+    View btnRightelRecent;
     @BindView(R.id.etMobileChargeRightel)
     ClearableEditText etMobileChargeRightel;
     /* @BindView(R.id.etChargeAmountRightel)
@@ -330,6 +338,8 @@ public class PackFragment
     @OnClick(R.id.btnChargeBackRightel)
     void setRightelPack()
     {
+        llDescriptionSelectPackRightel.setVisibility(View.GONE);
+        llDetailDescriptionRightel.setVisibility(View.VISIBLE);
 //        mainView.needExpanded(false);
         tvPackTitle.setText("خرید بسته اینترنت " + "رایتل");
         tvPackTitle.setTextSize(18);
@@ -351,6 +361,8 @@ public class PackFragment
     @OnClick(R.id.btnPackBackIrancell)
     void setBtnIrancellBack()
     {
+        llDescriptionSelectPack.setVisibility(View.GONE);
+        llDetailDescription.setVisibility(View.VISIBLE);
 //        mainView.needExpanded(false);
         tvPackTitle.setText("خرید بسته ایرانسل " + "رایتل");
         tvPackTitle.setTextSize(18);
@@ -382,7 +394,7 @@ public class PackFragment
                 .duration(200)
                 .playOn(lMciMobile);
         llPackBackMci.setVisibility(View.GONE);
-        //llMciFilter.setVisibility(View.GONE);
+        llMciFilter.setVisibility(View.GONE);
         btnMCIPackConfirm.setVisibility(View.VISIBLE);
         mciRecycler.setVisibility(View.GONE);
         llMciSpinner.setVisibility(View.GONE);
@@ -464,6 +476,9 @@ public class PackFragment
     @OnClick(R.id.flRightel)
     void rightel()
     {
+        llDescriptionSelectPackRightel.setVisibility(View.GONE);
+        llDetailDescriptionRightel.setVisibility(View.VISIBLE);
+        llRightelMobile.setVisibility(View.VISIBLE);
 //        mainView.needExpanded(false);
         tvPackTitle.setText("خرید بسته اینترنت " + "رایتل");
         tvPackTitle.setTextSize(18);
@@ -642,6 +657,7 @@ public class PackFragment
                 .playOn(llSelectOptaror);
         if (isMtn)
         {
+
 //            mainView.needExpanded(false);
             llPassCharge.setVisibility(View.GONE);
             llMTNCharge.setVisibility(View.VISIBLE);
@@ -679,6 +695,8 @@ public class PackFragment
     @OnClick(R.id.btnChargeConfirm)
     void setBtnChargeConfirm()
     {
+        initSpinner();
+        setupRecycler();
         if (!Utility.mtnValidation(etMobileCharge.getText().toString()))
         {
             mainView.showError("لطفا شماره موبایل ایرانسل را صحیح وارد نمایید.");
@@ -694,6 +712,8 @@ public class PackFragment
         btnChargeConfirm.startAnimation();
         btnChargeConfirm.setClickable(false);
         getPackageIrancell.findGetPackageIrancellDataRequest(this, etMobileCharge.getText().toString());
+        llDetailDescription.setVisibility(View.GONE);
+        llDescriptionSelectPack.setVisibility(View.VISIBLE);
         hideSoftKeyboard(etMobileCharge);
 
         isMtn = true;
@@ -707,7 +727,8 @@ public class PackFragment
     void setBtnChargeConfirmRightel()
     {
 
-
+        initSpinner();
+        setupRecycler();
         if (!Utility.rightelValidation(etMobileChargeRightel.getText().toString()))
         {
             hideSoftKeyboard(etMobileChargeRightel);
@@ -721,7 +742,8 @@ public class PackFragment
             return;
 
         }
-
+        llDetailDescriptionRightel.setVisibility(View.GONE);
+        llDescriptionSelectPackRightel.setVisibility(View.VISIBLE);
         btnChargeConfirmRightel.startAnimation();
         btnChargeConfirmRightel.setClickable(false);
         rightelPack.findRightelPackData(this, etMobileChargeRightel.getText().toString());
@@ -988,15 +1010,16 @@ public class PackFragment
 
     private void initView()
     {
+
 //        tvPackTitle.setText("خرید بسته اینترنت " + "همراه اول");
         tvPackTitle.setTextSize(18);
         btnChargeConfirm.setText("ادامه");
         btnMCIPackConfirm.setText("ادامه");
         btnChargeConfirmRightel.setText("ادامه");
         //btnBackToCharge.setText("بازگشت");
-        btnChargeBackRightel.setText("بازگشت");
+        //btnChargeBackRightel.setText("بازگشت");
         btnPackBackMci.setText("بازگشت");
-        btnPackBackIrancell.setText("بازگشت");
+        //btnPackBackIrancell.setText("بازگشت");
         tlPassCharge.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         tipCvv2.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
 
@@ -1025,9 +1048,9 @@ public class PackFragment
         etMobileCharge.setText(Prefs.getString("mobile", ""));
         etMobileChargeRightel.setText(Prefs.getString("mobile", ""));
 
-        btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
-        btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
-        btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
+//        btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
+//        btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
+//        btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 
     }
 
@@ -1378,7 +1401,7 @@ public class PackFragment
                                     .playOn(tvAmountPackage);
                             tvPackTitle.setText(irancellPack.get(i).getDetail().get(j).getTitle());
                             // profileType = irancellPack.get(i).getDetail().get(j).getProfileId();
-                            bundleId = irancellPack.get(i).getDetail().get(j).getBundleId();
+                            //bundleId = irancellPack.get(i).getDetail().get(j).getBundleId();
                             tvPackTitle.setTextSize(14);
                             amount = irancellPack.get(i).getDetail().get(j).getAmount();
                             tvAmountPackage.setText("قیمت: " + Utility.priceFormat(amount) + " ریال");
@@ -1484,7 +1507,7 @@ public class PackFragment
                 .duration(200)
                 .playOn(tvAmountPackage);
         tvPackTitle.setText(o.getTitle());
-        bundleId = o.getBundleId();
+      //  bundleId = o.getBundleId();
         tvPackTitle.setTextSize(14);
         amount = o.getAmount();
 
@@ -1542,14 +1565,14 @@ public class PackFragment
             mciRecycler.setNestedScrollingEnabled(false);
 //            mainView.needExpanded(false);
             llPackBackMci.setVisibility(View.GONE);
-            //  llMciFilter.setVisibility(View.GONE);
+              llMciFilter.setVisibility(View.GONE);
             llMciSpinner.setVisibility(View.GONE);
           /*  YoYo.with(Techniques.SlideInRight)
                     .duration(200)
                     .playOn(tvSelectMci);*/
             irancellPack.clear();
-            if (packRespone.data.getPackages().getNightly() != null && packRespone.data.getPackages().getNightly().size() != 0)
-                irancellPack.add(new RightelPackModel("شبانه", packRespone.data.getPackages().getNightly()));
+          /*  if (packRespone.data.getPackages().getNightly() != null && packRespone.data.getPackages().getNightly().size() != 0)
+                irancellPack.add(new RightelPackModel("شبانه", packRespone.data.getPackages().getNightly()));*/
             if (packRespone.data.getPackages().getDaily() != null && packRespone.data.getPackages().getDaily().size() != 0)
                 irancellPack.add(new RightelPackModel("روزانه", packRespone.data.getPackages().getDaily()));
 
@@ -1606,7 +1629,7 @@ public class PackFragment
                                     .playOn(tvAmountPackage);
                             tvPackTitle.setText(irancellPack.get(i).getDetail().get(j).getTitle());
                             // profileType = irancellPack.get(i).getDetail().get(j).getProfileId();
-                            bundleId = irancellPack.get(i).getDetail().get(j).getBundleId();
+                            //bundleId = irancellPack.get(i).getDetail().get(j).getBundleId();
                             tvPackTitle.setTextSize(14);
                             amount = irancellPack.get(i).getDetail().get(j).getAmount();
                             tvAmountPackage.setText("قیمت: " + Utility.priceFormat(amount) + " ریال");
@@ -1723,8 +1746,8 @@ public class PackFragment
                 irancellPack.add(new RightelPackModel("پانزده روزه", packRespone.data.getIrancellPackage().getFifteenDays()));
 
 
-            if (packRespone.data.getIrancellPackage().getOneMonth() != null && packRespone.data.getIrancellPackage().getOneMonth().size() != 0)
-                irancellPack.add(new RightelPackModel("ماهیانه", packRespone.data.getIrancellPackage().getOneMonth()));
+            if (packRespone.data.getIrancellPackage().getMonthly() != null && packRespone.data.getIrancellPackage().getMonthly().size() != 0)
+                irancellPack.add(new RightelPackModel("ماهیانه", packRespone.data.getIrancellPackage().getMonthly()));
 
             if (packRespone.data.getIrancellPackage().getThreeMonths() != null && packRespone.data.getIrancellPackage().getThreeMonths().size() != 0)
                 irancellPack.add(new RightelPackModel("سه ماهه", packRespone.data.getIrancellPackage().getThreeMonths()));
@@ -1993,8 +2016,8 @@ public class PackFragment
         }
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onMessageEvent(Transaction event)
+   // @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onConfirmButtonPhoneNumber(Transaction event)
 //    {
 //
 //        if (event.getTypeTransactionId() != 4)

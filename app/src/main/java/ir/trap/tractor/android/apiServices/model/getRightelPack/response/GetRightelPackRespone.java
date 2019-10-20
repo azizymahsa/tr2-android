@@ -6,23 +6,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class GetRightelPackRespone {
 
-    @SerializedName("ServiceMessage")
-    @Expose
-    private ServiceMessage serviceMessage;
+
     @SerializedName("RequestId")
     @Expose
     private String requestId;
-    @SerializedName("Packages")
+    @SerializedName("packages")
     @Expose
     private Packages packages;
 
-    public ServiceMessage getServiceMessage() {
-        return serviceMessage;
-    }
-
-    public void setServiceMessage(ServiceMessage serviceMessage) {
-        this.serviceMessage = serviceMessage;
-    }
 
     public String getRequestId() {
         return requestId;

@@ -2,8 +2,10 @@ package ir.trap.tractor.android.ui.activities.main;
 
 //import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -15,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
 
@@ -290,7 +294,24 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onContact()
     {
+        new TedPermission(SingletonContext.getInstance().getContext())
+                .setPermissionListener(new PermissionListener()
+                {
+                    @Override
+                    public void onPermissionGranted()
+                    {
 
+                        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                        startActivityForResult(intent, 8080);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
+                    }
+                })
+                .setPermissions(Manifest.permission.READ_CONTACTS)
+                .check();
     }
 
     @Override

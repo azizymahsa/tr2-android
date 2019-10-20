@@ -57,7 +57,10 @@ public interface RetroClient
             @Body VerifyRequest request
     );
 
-
+    @POST(Const.GET_PACKAGE_IRANCELL)
+    Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(
+            @Body GetPackageMciRequest request
+    );
     @POST(Const.GetMenu)
     Single<Response<WebServiceClass<GetMenuResponse>>> getMenu(
             @Body GetMenuRequest request
@@ -86,10 +89,7 @@ public interface RetroClient
             @Body GetPackageMciRequest request
     );
 
-    @POST(Const.GET_PACKAGE_IRANCELL)
-    Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(
-            @Body GetPackageMciRequest request
-    );
+
 
     @POST(Const.PACKAGE_BUY)
     Single<Response<WebServiceClass<PackageBuyResponse>>> buySimcardPackage(

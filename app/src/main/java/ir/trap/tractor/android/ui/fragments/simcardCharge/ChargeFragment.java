@@ -169,11 +169,11 @@ public class ChargeFragment extends BaseFragment
     CircularProgressButton btnChargeConfirmRightel;
 
     @BindView(R.id.btnIrancellRecent)
-    CircularProgressButton btnIrancellRecent;
+    View btnIrancellRecent;
     @BindView(R.id.btnMciRecent)
-    CircularProgressButton btnMciRecent;
+    View btnMciRecent;
     @BindView(R.id.btnRightelRecent)
-    CircularProgressButton btnRightelRecent;
+    View btnRightelRecent;
 
 
     @BindView(R.id.etMobileChargeRightel)
@@ -910,9 +910,9 @@ public class ChargeFragment extends BaseFragment
         {
 
         }
-        btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
-        btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
-        btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
+     /*   btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));
+        btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));
+        btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));*/
 
     }
 
