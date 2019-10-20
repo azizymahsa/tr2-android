@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llMTNCharge"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,19 +19,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="20" />
 
-        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        <ImageView
             android:id="@+id/btnIrancellRecent"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
+            android:src="@drawable/ic_phone_book"
             android:background="@drawable/button_small_border"
             android:textSize="@dimen/textSize_20dp"
+            android:padding="@dimen/_5sdp"
             android:transitionName="transition"
-            app:finalCornerAngle="40dp"
-            app:initialCornerAngle="40dp"
-            app:spinning_bar_color="@color/btnColorSecondary"
-            app:spinning_bar_width="2dp" />
+            />
 
         <ImageView
             android:id="@+id/ivContactI"
@@ -172,6 +171,7 @@
 
 
     <LinearLayout
+        android:id="@+id/llDetailDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -194,7 +194,25 @@
             />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llDescriptionSelectPack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25dp"
+            android:gravity="center_vertical"
+            android:text="لطفا بسته مورد نظر خود را انتخاب بفرمایید"
+            android:textColor="@color/returnButtonColor"
+            android:textSize="@dimen/textSize_12dp" />
 
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/llPackBackIrancell"
         android:layout_width="match_parent"
@@ -204,10 +222,8 @@
 
         <include
             android:id="@+id/btnPackBackIrancell"
-            layout="@layout/circular_progress_button"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center" />
+            layout="@layout/return_button"
+            />
 
         <View
             android:layout_width="match_parent"
@@ -223,8 +239,7 @@
         android:id="@+id/llIrancellSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -232,6 +247,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="@dimen/_10dp"
             android:orientation="horizontal">
 
             <Spinner
@@ -240,10 +256,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="100"
-                android:backgroundTint="@color/currentColor"
                 android:gravity="right"
                 android:tag="irancell"
-                android:background="@drawable/background_border_a" />
+                android:background="@drawable/background_spinner_custom" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -252,7 +267,7 @@
                 android:gravity="center"
                 android:text="فیلتر نوع سیمکارت: "
                 android:textAppearance="@style/IranSansBold"
-                android:textColor="@color/currentColor"
+                android:textColor="@color/black"
                 android:textSize="@dimen/textSize_16dp"/>
 
         </LinearLayout>
@@ -265,5 +280,6 @@
             android:layout_marginRight="15dp" />
 
     </LinearLayout>
+
 
 </LinearLayout>

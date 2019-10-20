@@ -8,54 +8,51 @@ import java.util.List;
 
 public class Packages {
 
-    @SerializedName("Daily")
-    @Expose
-    private List<Detail> daily = null;
-    @SerializedName("ThreeDays")
-    @Expose
-    private List<Detail> threeDays = null;
-    @SerializedName("Weekly")
-    @Expose
-    private List<Detail> weekly = null;
-    @SerializedName("TenDays")
+
+    @SerializedName("ten_days")
     @Expose
     private List<Detail> tenDays = null;
-    @SerializedName("Monthly")
+
+    @SerializedName("four_months")
+    @Expose
+    private List<Detail> fourMonths = null;
+
+    @SerializedName("monthly")
     @Expose
     private List<Detail> monthly = null;
-    @SerializedName("ThreeMonths")
+
+    @SerializedName("two_months")
     @Expose
-    private List<Detail> threeMonths = null;
-    @SerializedName("SixMonths")
+    private List<Detail> twoMonths = null;
+    @SerializedName("hourly")
     @Expose
-    private List<Detail> sixMonths = null;
-    @SerializedName("OneYear")
+    private List<Detail> hourly = null;
+    @SerializedName("daily")
+    @Expose
+    private List<Detail> daily = null;
+    @SerializedName("weekly")
+    @Expose
+    private List<Detail> weekly = null;
+
+    @SerializedName("one_year")
     @Expose
     private List<Detail> oneYear = null;
 
-    public List<Detail> getDaily() {
-        return daily;
-    }
+    @SerializedName("three_months")
+    @Expose
+    private List<Detail> threeMonths = null;
 
-    public void setDetail(List<Detail> daily) {
-        this.daily = daily;
-    }
+    @SerializedName("six_months")
+    @Expose
+    private List<Detail> sixMonths = null;
 
-    public List<Detail> getThreeDays() {
-        return threeDays;
-    }
+    @SerializedName("fifteen_days")
+    @Expose
+    private List<Detail> fifteenDays = null;
 
-    public void setThreeDays(List<Detail> threeDays) {
-        this.threeDays = threeDays;
-    }
-
-    public List<Detail> getWeekly() {
-        return weekly;
-    }
-
-    public void setWeekly(List<Detail> weekly) {
-        this.weekly = weekly;
-    }
+    @SerializedName("three_days")
+    @Expose
+    private List<Detail> threeDays = null;
 
     public List<Detail> getTenDays() {
         return tenDays;
@@ -65,12 +62,28 @@ public class Packages {
         this.tenDays = tenDays;
     }
 
+    public List<Detail> getFourMonths() {
+        return fourMonths;
+    }
+
+    public void setFourMonths(List<Detail> fourMonths) {
+        this.fourMonths = fourMonths;
+    }
+
     public List<Detail> getMonthly() {
         return monthly;
     }
 
     public void setMonthly(List<Detail> monthly) {
         this.monthly = monthly;
+    }
+
+    public List<Detail> getTwoMonths() {
+        return twoMonths;
+    }
+
+    public void setTwoMonths(List<Detail> twoMonths) {
+        this.twoMonths = twoMonths;
     }
 
     public List<Detail> getThreeMonths() {
@@ -89,6 +102,49 @@ public class Packages {
         this.sixMonths = sixMonths;
     }
 
+    public List<Detail> getFifteenDays() {
+        return fifteenDays;
+    }
+
+    public void setFifteenDays(List<Detail> fifteenDays) {
+        this.fifteenDays = fifteenDays;
+    }
+
+    public List<Detail> getThreeDays() {
+        return threeDays;
+    }
+
+    public void setThreeDays(List<Detail> threeDays) {
+        this.threeDays = threeDays;
+    }
+
+
+
+    public List<Detail> getHourly() {
+        return hourly;
+    }
+
+    public void setHourly(List<Detail> hourly) {
+        this.hourly = hourly;
+    }
+
+    public List<Detail> getDaily() {
+        return daily;
+    }
+
+    public void setDaily(List<Detail> daily) {
+        this.daily = daily;
+    }
+
+    public List<Detail> getWeekly() {
+        return weekly;
+    }
+
+    public void setWeekly(List<Detail> weekly) {
+        this.weekly = weekly;
+    }
+
+
     public List<Detail> getOneYear() {
         return oneYear;
     }
@@ -96,5 +152,6 @@ public class Packages {
     public void setOneYear(List<Detail> oneYear) {
         this.oneYear = oneYear;
     }
+
 
 }

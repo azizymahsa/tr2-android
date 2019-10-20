@@ -20,9 +20,9 @@ public class Const
 
     public final static String MOBILE_CHARGE = SubBASEURL + "TopupCharge/v2/BuyCharge";
 
-    public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "InternetPackage/v1/GetPackageRightel";
-    public final static String GET_PACKAGE_MCI = SubBASEURL + "InternetPackage/v1/GetPackageMci";
-    public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "InternetPackage/v1/GetPackageIrancell";
+    public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/\n";
+    public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
+    public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
 
     public final static String PACKAGE_BUY = SubBASEURL + "InternetPackage/v1/PackageBuy";
 

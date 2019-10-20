@@ -18,19 +18,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="20" />
 
-        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        <ImageView
             android:id="@+id/btnRightelRecent"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
-            android:background="@color/white"
+            android:src="@drawable/ic_phone_book"
+            android:background="@drawable/button_small_border"
             android:textSize="@dimen/textSize_20dp"
+            android:padding="@dimen/_5sdp"
             android:transitionName="transition"
-            app:finalCornerAngle="40dp"
-            app:initialCornerAngle="40dp"
-            app:spinning_bar_color="@color/btnColorSecondary"
-            app:spinning_bar_width="2dp" />
+           />
 
         <ImageView
             android:id="@+id/ivContactR"
@@ -108,6 +107,7 @@
 
 
     <LinearLayout
+        android:id="@+id/llDetailDescriptionRightel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -120,7 +120,7 @@
             android:layout_height="@dimen/_25dp"
             android:gravity="center_vertical"
             android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
-            android:textColor="@color/textColor"
+            android:textColor="@color/black"
             android:layout_marginRight="@dimen/_10dp"
             android:textSize="@dimen/textSize_12dp" />
         <ImageView
@@ -128,6 +128,25 @@
             android:layout_width="@dimen/_25dp"
             android:layout_height="@dimen/_25dp"
             />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llDescriptionSelectPackRightel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25dp"
+            android:gravity="center_vertical"
+            android:text="لطفا بسته مورد نظر خود را انتخاب بفرمایید"
+            android:textColor="@color/returnButtonColor"
+            android:textSize="@dimen/textSize_12dp" />
 
     </LinearLayout>
 
@@ -201,10 +220,8 @@
 
         <include
             android:id="@+id/btnChargeBackRightel"
-            layout="@layout/circular_progress_button"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center" />
+            layout="@layout/return_button"
+            />
 
         <View
             android:layout_width="match_parent"
@@ -229,18 +246,18 @@
             android:orientation="horizontal"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp" >
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="@dimen/_10dp">
 
             <Spinner
                 android:id="@+id/spinnerRightel"
                 android:layout_width="0dp"
-                android:layout_weight="100"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="100"
                 android:gravity="right"
-                android:backgroundTint="@color/currentColor"
-                android:tag="mci"
-                android:background="@drawable/background_border_a" />
+                android:tag="irancell"
+                android:background="@drawable/background_spinner_custom" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -248,9 +265,9 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="فیلتر نوع سیمکارت: "
-                android:textColor="@color/currentColor"
-                android:textSize="@dimen/textSize_16dp"
-                android:textAppearance="@style/IranSansBold" />
+                android:textAppearance="@style/IranSansBold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_16dp"/>
 
         </LinearLayout>
 

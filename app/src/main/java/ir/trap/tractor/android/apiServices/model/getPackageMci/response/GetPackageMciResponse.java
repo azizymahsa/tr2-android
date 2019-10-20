@@ -6,20 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class GetPackageMciResponse {
 
-    @SerializedName("ServiceMessage")
-    @Expose
-    private ServiceMessage serviceMessage;
-    @SerializedName("Packages")
+    @SerializedName("packages")
     @Expose
     private Packages packages;
-
-    public ServiceMessage getServiceMessage() {
-        return serviceMessage;
-    }
-
-    public void setServiceMessage(ServiceMessage serviceMessage) {
-        this.serviceMessage = serviceMessage;
-    }
 
     public Packages getPackages() {
         return packages;

@@ -7,20 +7,10 @@ import com.google.gson.annotations.SerializedName;
  * Created by Javad.Abadi on 6/8/2019.
  */
 public class GetPackageMciRequest {
-    @SerializedName("UserId")
-    @Expose
-    private String userId;
-    @SerializedName("Mobile")
+
+    @SerializedName("mobile")
     @Expose
     private String mobile;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getMobile() {
         return mobile;

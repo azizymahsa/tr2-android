@@ -11,38 +11,71 @@ import ir.trap.tractor.android.apiServices.model.getRightelPack.response.Detail;
  * Created by Javad.Abadi on 6/8/2019.
  */
 public class IrancellPackage {
-    @SerializedName("Hourly")
+
+    @SerializedName("four_months")
+    @Expose
+    private List<Detail> fourMonths = null;
+
+    @SerializedName("monthly")
+    @Expose
+    private List<Detail> monthly = null;
+
+    @SerializedName("two_months")
+    @Expose
+    private List<Detail> twoMonths = null;
+    @SerializedName("hourly")
     @Expose
     private List<Detail> hourly = null;
-    @SerializedName("Daily")
+    @SerializedName("daily")
     @Expose
     private List<Detail> daily = null;
-    @SerializedName("Weekly")
+    @SerializedName("weekly")
     @Expose
     private List<Detail> weekly = null;
-    @SerializedName("OneMonth")
-    @Expose
-    private List<Detail> oneMonth = null;
-    @SerializedName("OneYear")
+
+    @SerializedName("one_year")
     @Expose
     private List<Detail> oneYear = null;
 
-    @SerializedName("ThreeMonths")
+    @SerializedName("three_months")
     @Expose
     private List<Detail> threeMonths = null;
 
-    @SerializedName("SixMonths")
+    @SerializedName("six_months")
     @Expose
     private List<Detail> sixMonths = null;
 
-
-    @SerializedName("FifteenDays")
+    @SerializedName("fifteen_days")
     @Expose
     private List<Detail> fifteenDays = null;
 
-    @SerializedName("ThreeDays")
+    @SerializedName("three_days")
     @Expose
     private List<Detail> threeDays = null;
+
+    public List<Detail> getFourMonths() {
+        return fourMonths;
+    }
+
+    public void setFourMonths(List<Detail> fourMonths) {
+        this.fourMonths = fourMonths;
+    }
+
+    public List<Detail> getMonthly() {
+        return monthly;
+    }
+
+    public void setMonthly(List<Detail> monthly) {
+        this.monthly = monthly;
+    }
+
+    public List<Detail> getTwoMonths() {
+        return twoMonths;
+    }
+
+    public void setTwoMonths(List<Detail> twoMonths) {
+        this.twoMonths = twoMonths;
+    }
 
     public List<Detail> getThreeMonths() {
         return threeMonths;
@@ -102,13 +135,6 @@ public class IrancellPackage {
         this.weekly = weekly;
     }
 
-    public List<Detail> getOneMonth() {
-        return oneMonth;
-    }
-
-    public void setOneMonth(List<Detail> oneMonth) {
-        this.oneMonth = oneMonth;
-    }
 
     public List<Detail> getOneYear() {
         return oneYear;

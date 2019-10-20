@@ -6,31 +6,23 @@ import com.google.gson.annotations.SerializedName;
 
 public class Detail {
 
-    @SerializedName("Title")
+    @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("BundleId")
-    @Expose
-    private String bundleId;
-    @SerializedName("Amount")
+
+    @SerializedName("amount")
     @Expose
     private String amount;
-    @SerializedName("BillAmount")
-    @Expose
-    private String billAmount;
-    @SerializedName("TitlePackageType")
+
+    @SerializedName("title_package_type")
     @Expose
     private String titlePackageType;
-    @SerializedName("PackageType")
+
+    @SerializedName("package_type")
     @Expose
     private String PackageType;
-    @SerializedName("Duration")
-    @Expose
-    private Integer duration;
-    @SerializedName("Systems")
-    @Expose
-    private Integer Systems;
-    @SerializedName("ProfileId")
+
+    @SerializedName("profile_id")
     @Expose
     private Integer profileId;
 
@@ -58,14 +50,6 @@ public class Detail {
         this.profileId = profileId;
     }
 
-    public Integer getSystems() {
-        return Systems;
-    }
-
-    public void setSystems(Integer systems) {
-        Systems = systems;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -74,36 +58,12 @@ public class Detail {
         this.title = title;
     }
 
-    public String getBundleId() {
-        return bundleId;
-    }
-
-    public void setBundleId(String bundleId) {
-        this.bundleId = bundleId;
-    }
-
     public String getAmount() {
         return amount;
     }
 
     public void setAmount(String amount) {
         this.amount = amount;
-    }
-
-    public String getBillAmount() {
-        return billAmount;
-    }
-
-    public void setBillAmount(String billAmount) {
-        this.billAmount = billAmount;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
     }
 
 }

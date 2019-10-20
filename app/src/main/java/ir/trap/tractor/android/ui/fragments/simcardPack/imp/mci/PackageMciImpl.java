@@ -18,7 +18,6 @@ public class PackageMciImpl implements PackageMciInteractor
     {
         GetPackageMciRequest request = new GetPackageMciRequest();
         request.setMobile(mobile);
-        request.setUserId(Prefs.getInt("userId", 0) + "");
         SingletonService.getInstance().getPackageMciService().GetPackageMciService(new OnServiceStatus<WebServiceClass<GetPackageMciResponse>>()
         {
             @Override

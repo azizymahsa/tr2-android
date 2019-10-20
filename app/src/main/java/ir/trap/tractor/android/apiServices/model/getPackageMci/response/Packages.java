@@ -10,39 +10,47 @@ import ir.trap.tractor.android.apiServices.model.getRightelPack.response.Detail;
 
 public class Packages {
 
-    @SerializedName("Daily")
+    @SerializedName("daily")
     @Expose
     private List<Detail> daily = null;
-    @SerializedName("Nightly")
+    @SerializedName("hourly")
     @Expose
-    private List<Detail> nightly = null;
-    @SerializedName("ThreeDays")
+    private List<Detail> hourly = null;
+    @SerializedName("three_days")
     @Expose
     private List<Detail> threeDays = null;
-    @SerializedName("Weekly")
+    @SerializedName("weekly")
     @Expose
     private List<Detail> weekly = null;
-    @SerializedName("Monthly")
+    @SerializedName("monthly")
     @Expose
     private List<Detail> monthly = null;
-    @SerializedName("ThreeMonths")
+    @SerializedName("three_months")
     @Expose
     private List<Detail> threeMonths = null;
-    @SerializedName("TwoMonths")
+    @SerializedName("two_months")
     @Expose
     private List<Detail> twoMonths = null;
-    @SerializedName("FourMonths")
+    @SerializedName("four_months")
     @Expose
     private List<Detail> fourMonths = null;
-    @SerializedName("SixMonths")
+    @SerializedName("six_months")
     @Expose
     private List<Detail> sixMonths = null;
-    @SerializedName("OneYear")
+    @SerializedName("one_year")
     @Expose
     private List<Detail> oneYear = null;
-    @SerializedName("Other")
+    @SerializedName("other")
     @Expose
     private List<Detail> other = null;
+
+    public List<Detail> getHourly() {
+        return hourly;
+    }
+
+    public void setHourly(List<Detail> hourly) {
+        this.hourly = hourly;
+    }
 
     public List<Detail> getDaily() {
         return daily;
@@ -106,14 +114,6 @@ public class Packages {
 
     public void setOther(List<Detail> other) {
         this.other = other;
-    }
-
-    public List<Detail> getNightly() {
-        return nightly;
-    }
-
-    public void setNightly(List<Detail> nightly) {
-        this.nightly = nightly;
     }
 
     public List<Detail> getFourMonths() {

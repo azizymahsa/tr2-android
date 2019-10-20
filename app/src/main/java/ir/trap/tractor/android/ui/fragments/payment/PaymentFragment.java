@@ -213,7 +213,7 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
 
     private void setContent()
     {
-        tvAmount.setText(Utility.priceFormat(price));
+        tvAmount.setText(price);
         tvTitle.setText(title);
 
         if (drawableIcon == 0)

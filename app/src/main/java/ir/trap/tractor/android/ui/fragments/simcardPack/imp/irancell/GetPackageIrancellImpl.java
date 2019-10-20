@@ -18,8 +18,6 @@ public class GetPackageIrancellImpl implements GetPackageIrancellInteractor
     {
         GetPackageMciRequest request = new GetPackageMciRequest();
         request.setMobile(mobile);
-        request.setUserId(Prefs.getInt("userId", 0) + "");
-
         SingletonService.getInstance().getPackageIrancellService().GetPackageIrancellService(new OnServiceStatus<WebServiceClass<GetPackageIrancellResponse>>()
         {
             @Override
