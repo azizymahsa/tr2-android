@@ -610,16 +610,18 @@ public class ChargeFragment extends BaseFragment
             mobile = etMobileChargeRightel.getText().toString();
         }
         tvAmpuntPassCharge.setText(amount);
-        tvDescriptionSelectedOperator.setText("با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ شماره " + mobile + " از حساب شما کسر خواهد شد.");
+        tvDescriptionSelectedOperator.setText("با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.");
 
         //----------------------------new for payment fragment-----------------------
         contentView.setVisibility(View.GONE);
 
+        String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
 
         fragmentManager = getChildFragmentManager();
         pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
                 amount,
-                "پرداخت شارژ سیمکارت " + chargeStr,
+//                "پرداخت شارژ سیمکارت " + chargeStr,
+                title,
                 imageDrawable,
                 this,
                 null);
@@ -634,8 +636,15 @@ public class ChargeFragment extends BaseFragment
         }
         else
         {
-            transaction.replace(R.id.container, pFragment)
-                    .commit();
+            if (rootView.findViewById(R.id.container).getVisibility() == View.GONE)
+            {
+                transaction.show(pFragment);
+            }
+            else
+            {
+                transaction.replace(R.id.container, pFragment)
+                        .commit();
+            }
         }
 
         YoYo.with(Techniques.SlideOutRight).withListener(new AnimatorListenerAdapter()
@@ -1604,5 +1613,12 @@ public class ChargeFragment extends BaseFragment
     public void hidePaymentParentLoading()
     {
 
+    }
+
+    @Override
+    public void onPaymentCancelAndBack()
+    {
+        rootView.findViewById(R.id.container).setVisibility(View.GONE);
+        contentView.setVisibility(View.VISIBLE);
     }
 }
