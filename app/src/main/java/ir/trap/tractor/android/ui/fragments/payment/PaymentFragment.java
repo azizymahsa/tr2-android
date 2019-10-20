@@ -13,6 +13,7 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,12 +46,12 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
     private Result mCard;
 
     private TextView tvAmount, tvTitle;
-    private CircleImageView imgLogo;
+    private ImageView imgLogo;
     private View btnBack;
     private CircularProgressButton btnConfirmPayment;
     private ClearableEditText etCvv2, etPass;
 
-    private LinearLayout llCvv2;
+    private LinearLayout llCvv2, llPass;
     private RelativeLayout rlTitle;
 
     private PaymentParentActionView pActionView;
@@ -200,6 +201,7 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
         etCvv2 = rootView.findViewById(R.id.etCvv2);
         etPass = rootView.findViewById(R.id.etPass);
         llCvv2 = rootView.findViewById(R.id.llCvv2);
+        llPass = rootView.findViewById(R.id.llPass);
         rlTitle = rootView.findViewById(R.id.rlTitle);
 
         btnBack.setOnClickListener(clickListener);
@@ -230,7 +232,7 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
     {
         if (v.getId() == R.id.btnBack)
         {
-
+            pActionView.onPaymentCancelAndBack();
         }
         else if (v.getId() == R.id.btnBuy)
         {
@@ -308,8 +310,46 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
     public void onGetCardDetails(Result card)
     {
         mCard = card;
-        if (mCard.getBankBin().equalsIgnoreCase(TrapConfig.HappyBaseCardNo))
+        if (mCard.getBankBin().equals(""))
         {
+            YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
+            {
+                @Override
+                public void onAnimationEnd(Animator animation)
+                {
+                    super.onAnimationEnd(animation);
+                    llCvv2.setVisibility(View.GONE);
+
+                }
+            }).duration(200)
+                    .playOn(llCvv2);
+            YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
+            {
+                @Override
+                public void onAnimationEnd(Animator animation)
+                {
+                    super.onAnimationEnd(animation);
+                    llPass.setVisibility(View.GONE);
+
+                }
+            }).duration(200)
+                    .playOn(llPass);
+
+            btnConfirmPayment.setAlpha(0.5f);
+            btnConfirmPayment.setClickable(false);
+        }
+        else if (mCard.getBankBin().equalsIgnoreCase(TrapConfig.HappyBaseCardNo))
+        {
+            btnConfirmPayment.setAlpha(1f);
+            btnConfirmPayment.setClickable(true);
+
+            if (llPass.getVisibility() != View.VISIBLE)
+            {
+                llPass.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.SlideInLeft)
+                        .duration(200)
+                        .playOn(llPass);
+            }
             if (llCvv2.getVisibility() == View.VISIBLE)
             {
                 YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
@@ -324,13 +364,13 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
                 }).duration(200)
                         .playOn(llCvv2);
             }
-            else
-            {
-                llCvv2.setVisibility(View.VISIBLE);
-                YoYo.with(Techniques.SlideInLeft)
-                        .duration(200)
-                        .playOn(llCvv2);
-            }
+        }
+        else
+        {
+            llCvv2.setVisibility(View.VISIBLE);
+            YoYo.with(Techniques.SlideInLeft)
+                    .duration(200)
+                    .playOn(llCvv2);
         }
     }
 
@@ -403,6 +443,12 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
 
     @Override
     public void onPaymentBillTicket()
+    {
+
+    }
+
+    @Override
+    public void onPaymentCancelAndBack()
     {
 
     }

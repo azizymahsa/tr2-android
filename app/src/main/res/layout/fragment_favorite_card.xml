@@ -6,18 +6,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.favoriteCard.FavoriteCardFragment">
 
-    <LinearLayout
-        android:id="@+id/llVpager"
+    <RelativeLayout
+        android:id="@+id/rlVpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="4dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
         <LinearLayout
+            android:id="@+id/llCardList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:orientation="horizontal">
 
             <ImageView
@@ -50,8 +58,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llIndicator"
+            android:layout_below="@+id/llCardList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:layout_gravity="center|bottom"
             android:layout_marginTop="5dp"
             android:orientation="vertical">
@@ -71,6 +82,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>
