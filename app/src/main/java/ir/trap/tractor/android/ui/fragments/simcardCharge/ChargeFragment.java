@@ -78,6 +78,8 @@ public class ChargeFragment extends BaseFragment
     private FragmentTransaction transaction;
 
 
+
+
     private int operatorType = 0;
 
     private static int OPERATOR_TYPE_MCI = 0;
@@ -125,6 +127,12 @@ public class ChargeFragment extends BaseFragment
 
     @BindView(R.id.contentView)
     LinearLayout contentView;
+
+    @BindView(R.id.imgBack)
+    ImageView imgBack;
+
+    @BindView(R.id.imgMenu)
+    ImageView imgMenu;
 
     @BindView(R.id.tvAmpuntPassCharge)
     TextView tvAmpuntPassCharge;
@@ -647,6 +655,8 @@ public class ChargeFragment extends BaseFragment
             }
         }
 
+        ((TextView) rootView.findViewById(R.id.tvTitle)).setText("پرداخت");
+
         YoYo.with(Techniques.SlideOutRight).withListener(new AnimatorListenerAdapter()
         {
             @Override
@@ -800,6 +810,7 @@ public class ChargeFragment extends BaseFragment
             return rootView;
         rootView = inflater.inflate(R.layout.fragment_charge, container, false);
 
+        ((TextView) rootView.findViewById(R.id.tvTitle)).setText("شارژ");
 
         irancellBuy = new IrancellBuyImpl();
         mciBuy = new MciBuyImpl();
@@ -875,7 +886,18 @@ public class ChargeFragment extends BaseFragment
 
     private void initView()
     {
+        imgMenu.setOnClickListener(v ->
+        {
+            mainView.openDrawer();
+        });
+
+        imgBack.setOnClickListener(v ->
+        {
+            mainView.backToMainFragment();
+        });
+
         btnChargeConfirmRightel.setText("ادامه");
+        
         btnMCIChargeConfirm.setText("ادامه");
         btnChargeConfirm.setText("ادامه");
         // btnBackToCharge.setText("بازگشت");

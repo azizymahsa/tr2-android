@@ -65,7 +65,7 @@
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/_10sdp"
                 android:text="@string/enter"
-                android:textColor="@color/textColor"
+                android:textColor="@color/textColorSecondary"
                 android:textSize="@dimen/_14sdp"
                 android:visibility="gone" />
 
@@ -80,7 +80,7 @@
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
             android:text="I am here"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/textSize_16dp" />
 
         <LinearLayout
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/textSize_14dp" />
 
                 <com.alimuzaffar.lib.pin.PinEntryEditText
@@ -117,9 +117,9 @@
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:maxLength="4"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/textSize_20dp"
-                    app:pinLineColors="@color/textColor"
+                    app:pinLineColors="@color/textColorSecondary"
 
                     />
 
@@ -155,7 +155,7 @@
                         android:maxLength="11"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_18dp" />
 
                 </FrameLayout>
@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10dp"
                     android:layout_marginBottom="@dimen/_20sdp"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/textSize_12dp" />
                 <TextView
                     android:id="@+id/tvResend"
@@ -233,7 +233,7 @@
                     android:gravity="center"
                     android:layout_margin="@dimen/_10dp"
                     android:layout_marginBottom="@dimen/_20sdp"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/textSize_12dp"
                     android:text="ارسال مجدد کد"
                     android:foreground="?attr/selectableItemBackground"
@@ -248,7 +248,7 @@
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:text="ارسال مجدد کد: "
                     android:gravity="center"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/textSize_12dp" />
 
             </LinearLayout>
@@ -271,7 +271,7 @@
         android:layout_margin="12dp"
         android:layout_marginBottom="20dp"
         android:text="کد تایید برای شما ارسال خواهد شد."
-        android:textColor="@color/textColor"
+        android:textColor="@color/textColorSecondary"
         android:textSize="@dimen/textSize_12dp" />
 
     <View

@@ -3,11 +3,11 @@ package ir.trap.tractor.android.ui.activities.main;
 //import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
-import android.widget.ImageButton;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,7 @@ import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.utilities.Logger;
+import library.android.eniac.utility.CustomAlert;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -57,7 +59,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private BottomNavigationView bottomNavigationView;
 
     private Bundle mSavedInstanceState;
-
 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
@@ -115,7 +116,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     isMainFragment = false;
 
                     currentFragment = AllMenuFragment.newInstance(this);
-                  //  transaction = fragmentManager.beginTransaction();
+                    //  transaction = fragmentManager.beginTransaction();
                     transaction = getSupportFragmentManager().beginTransaction();
 
                     transaction.replace(R.id.main_container, currentFragment)
@@ -225,14 +226,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (drawer.isDrawerOpen(GravityCompat.END))
         {
             drawer.closeDrawer(GravityCompat.END);
-        }
-        else
+        } else
         {
             if (isMainFragment)
             {
                 super.onBackPressed();
-            }
-            else
+            } else
             {
                 backToMainFragment();
             }
@@ -241,9 +240,36 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onDrawerItemSelected(View view, int position)
+    public void onDrawerItemSelected(View view, int itemNumber)
     {
+        final Intent intent = new Intent();
+        switch (itemNumber)
+        {
+            case 7:
+            {
+                CustomAlert ca = new CustomAlert(this);
+                ca.setCustomTitle(R.string.app_name);
+                ca.setCustomMessage("آیا می خواهید از حساب کاربری خود خارج شوید؟");
+                ca.setPositiveButton("خروج", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        Prefs.clear();
+                        finish();
+                        intent.setClass(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                ca.setNegativeButton("انصراف", null);
+                ca.create();
+                ca.show();
 
+                return;
+
+            }
+
+        }
     }
 
     @Override
@@ -382,7 +408,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             footballServiceList = response.data.getFootballServiceList();
 
             Logger.e("--List size--", "chosenServiceList: " + chosenServiceList.size() +
-                "footballServiceList: " + footballServiceList.size());
+                    "footballServiceList: " + footballServiceList.size());
 
             fragmentManager = getSupportFragmentManager();
             currentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
@@ -393,8 +419,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 transaction.add(R.id.main_container, currentFragment)
                         .commit();
-            }
-            else
+            } else
             {
                 transaction.replace(R.id.main_container, currentFragment)
                         .commit();

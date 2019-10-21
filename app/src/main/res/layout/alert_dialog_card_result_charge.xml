@@ -429,7 +429,7 @@
                             android:layout_marginRight="10dp"
                             android:gravity="center"
                             android:textSize="@dimen/_18sdp"
-                            android:textColor="@color/textColor"
+                            android:textColor="@color/textColorSecondary"
                             android:text="اشتراک عکس"/>
 <!--                            android:background="@drawable/circle_background_main_2"-->
 <!--                            android:textAppearance="@style/IconFonts_R"-->
@@ -475,7 +475,7 @@
             android:layout_margin="@dimen/_10dp"
             android:gravity="center"
             android:textSize="@dimen/_18sdp"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorSecondary"
             android:text="بستن"/>
 <!--            android:textAppearance="@style/IconFonts_R"-->
 <!--            android:text="@string/close_icon"/>-->

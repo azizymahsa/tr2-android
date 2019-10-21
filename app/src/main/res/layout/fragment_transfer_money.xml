@@ -170,15 +170,15 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="right|center"
                                 android:inputType="number"
-                                android:backgroundTint="@color/textColor"
+                                android:backgroundTint="@color/textColorSecondary"
                                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
                                 android:imeOptions="actionNext"
                                 android:maxLines="1"
                                 android:singleLine="true"
                                 android:textSize="@dimen/textSize_16dp"
                                 app:mask="9999-9999-9999-9999"
-                                android:textColor="@color/textColor"
-                                android:textColorHint="@color/textColor"
+                                android:textColor="@color/textColorSecondary"
+                                android:textColorHint="@color/textColorSecondary"
                                 app:placeholder="_" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -199,13 +199,13 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="right|center"
                                 android:inputType="number"
-                                android:backgroundTint="@color/textColor"
+                                android:backgroundTint="@color/textColorSecondary"
                                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
                                 android:imeOptions="actionNext"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:textColor="@color/textColor"
-                                android:textColorHint="@color/textColor"
+                                android:textColor="@color/textColorSecondary"
+                                android:textColorHint="@color/textColorSecondary"
                                 android:textSize="@dimen/textSize_16dp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -262,12 +262,12 @@
                             android:layout_height="wrap_content"
                             android:gravity="right|center"
                             android:inputType="number"
-                            android:backgroundTint="@color/textColor"
+                            android:backgroundTint="@color/textColorSecondary"
                             android:imeOptions="actionDone"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:textColor="@color/textColor"
-                            android:textColorHint="@color/textColor"
+                            android:textColor="@color/textColorSecondary"
+                            android:textColorHint="@color/textColorSecondary"
                             android:textSize="@dimen/textSize_16dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -327,7 +327,7 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="حداکثر مبلغ قابل انتقال در هر تراکنش 10,000,000 ریال می باشد"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/textSize_12dp" />
 
             </LinearLayout>
@@ -367,13 +367,13 @@
                             android:layout_height="wrap_content"
                             android:inputType="numberPassword"
                             android:tag="amount"
-                            android:backgroundTint="@color/textColor"
+                            android:backgroundTint="@color/textColorSecondary"
                             android:digits="0,1,2,3,4,5,6,7,8,9,-"
                             android:imeOptions="actionNext"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:textColor="@color/textColor"
-                            android:textColorHint="@color/textColor"
+                            android:textColor="@color/textColorSecondary"
+                            android:textColorHint="@color/textColorSecondary"
                             android:textSize="@dimen/textSize_16dp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -414,13 +414,13 @@
                             android:layout_height="wrap_content"
                             android:gravity="right|center"
                             android:inputType="numberPassword"
-                            android:backgroundTint="@color/textColor"
+                            android:backgroundTint="@color/textColorSecondary"
                             android:digits="0,1,2,3,4,5,6,7,8,9,-"
                             android:imeOptions="actionDone"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:textColor="@color/textColor"
-                            android:textColorHint="@color/textColor"
+                            android:textColor="@color/textColorSecondary"
+                            android:textColorHint="@color/textColorSecondary"
                             android:textSize="@dimen/textSize_16dp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -617,13 +617,13 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:inputType="numberPassword"
-                            android:backgroundTint="@color/textColor"
+                            android:backgroundTint="@color/textColorSecondary"
                             android:digits="0,1,2,3,4,5,6,7,8,9,-"
                             android:imeOptions="actionDone"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:textColor="@color/textColor"
-                            android:textColorHint="@color/textColor"
+                            android:textColor="@color/textColorSecondary"
+                            android:textColorHint="@color/textColorSecondary"
                             android:textSize="@dimen/textSize_16dp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
