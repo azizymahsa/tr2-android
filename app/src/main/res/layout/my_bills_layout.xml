@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/alpha_gradient_main2"
+    android:background="@color/black"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -22,8 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_35sdp"
-                android:textAppearance="@style/IconFonts_R"
-                android:text="@string/arrow_icon_R"
                 android:gravity="center"
                 android:textColor="@color/white"/>
             <TextView
@@ -57,7 +55,7 @@
             android:textSize="@dimen/textSize_16dp"
             android:layout_below="@+id/ll2"
             />-->
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMyBills"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -75,14 +73,14 @@
         android:layout_width="@dimen/_220sdp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:background="@drawable/background40"
+        android:background="@drawable/button_small_border"
         android:text="اضافه کردن قبض"
-        android:textColor="@color/textColor2"
         android:textSize="@dimen/textSize_14dp"
         android:transitionName="transition"
         app:finalCornerAngle="50dp"
         app:spinning_bar_color="@color/white"
         app:initialCornerAngle="50dp"
         app:spinning_bar_width="2dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"/>
 </LinearLayout>

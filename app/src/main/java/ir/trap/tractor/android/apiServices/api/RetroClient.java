@@ -18,6 +18,8 @@ import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyR
 import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
+import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
+import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
 import ir.trap.tractor.android.apiServices.model.getHappyCardInfo.GetHappyCardInfoRequest;
 import ir.trap.tractor.android.apiServices.model.getHappyCardInfo.response.GetHappyCardInfoResponse;
 import ir.trap.tractor.android.apiServices.model.getInfoBill.request.GetInfoBillRequest;
@@ -27,6 +29,8 @@ import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBi
 import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
+import ir.trap.tractor.android.apiServices.model.getMyBill.GetMyBillRequest;
+import ir.trap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
@@ -57,6 +61,13 @@ public interface RetroClient {
             @Body LoginRequest request
     );
 
+    @GET(Const.GetMyBills)
+    Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
+
+    @POST(Const.GetBillCodePayCode)
+    Single<Response<WebServiceClass<GetBillCodePayCodeResponse>>> getBillCodePayCode(
+            @Body GetBillCodePayCodeRequest request
+    );
     @POST(Const.Verify)
     Single<Response<WebServiceClass<VerifyResponse>>> verify(
             @Body VerifyRequest request

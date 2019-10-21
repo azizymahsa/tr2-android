@@ -1,8 +1,6 @@
 package ir.trap.tractor.android.ui.adapters;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,10 @@ import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.getMyBill.Bills;
 import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 
 
@@ -29,7 +30,6 @@ public class MyBillsAdapter extends RecyclerView.Adapter<MyBillsAdapter.MyViewHo
 
     private final BillFragment billFragment;
     private List<Bills> billsList;
-    private MainView mainView;
     private RecyclerView recyclerView;
     private Activity activity;
     private Integer billId;
@@ -60,11 +60,10 @@ public class MyBillsAdapter extends RecyclerView.Adapter<MyBillsAdapter.MyViewHo
         holder.tvBillName.setText(billsList.get(position).getTitle());
         String billNumber = billsList.get(position).getParameter();
         holder.tvBillNumber.setText(billNumber);
-        billId = billsList.get(position).getBillId();
+        billId = billsList.get(position).getId();
 
 
         holder.llItemMyBill.setOnClickListener(view -> {
-            Log.e("testtt", billNumber);
 
             EventBus.getDefault().post(billsList.get(position));
             billFragment.transactionsCollapsed();
@@ -73,7 +72,7 @@ public class MyBillsAdapter extends RecyclerView.Adapter<MyBillsAdapter.MyViewHo
         });
        // holder.btnDelete.revertAnimation();
 
-        Glide.with(activity).load(billsList.get(position).getLogoBill()).into(holder.ivBillLogo);
+      //  Glide.with(activity).load(billsList.get(position).getLogoBill()).into(holder.ivBillLogo);
 
 
    /*     holder.btnEdit.setOnClickListener(view -> {

@@ -438,9 +438,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             }
 
-            case 4:
+            case 65:
             {
-//                mainView.onBill();
+                mainView.onBill();
                 break;
             }
 

@@ -26,4 +26,13 @@
     <string name="enter_birthday">تاریخ تولد خود را وارد نمایید(اختیاری)</string>
     <string name="enter_english_name">نام خود را به انگلیسی وارد نمایید(اختیاری)</string>
     <string name="enter_popular_player">نام بازیگر محبوب خود را وارد نمایید (اختیاری)</string>
+    <string name="etMobileHint">شماره تلفن خود را وارد نمایید</string>
+    <string name="etBillHint">شناسه قبض خود را وارد نمایید</string>
+    <string name="amount">مبلغ</string>
+    <string name="toDate">تا تاریخ</string>
+    <string name="pay_code">شناسه پرداخت</string>
+    <string name="bill_code">شناسه قبض</string>
+    <string name="bill_now">میان دوره :</string>
+    <string name="bill_end">پایان دوره :</string>
+
 </resources>
