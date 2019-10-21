@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rootView"
-    android:layout_margin="@dimen/_5sdp"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+
+    android:layout_height="wrap_content"
+
+    android:layout_margin="@dimen/_5sdp"
+    android:orientation="vertical"
+    android:rotationY="180">
 
     <RelativeLayout
         android:layout_width="@dimen/_60sdp"
@@ -24,7 +26,7 @@
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
 
     </RelativeLayout>
 
@@ -32,10 +34,10 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="عنوان"
-        android:gravity="center"
         android:layout_gravity="center"
-        android:textSize="@dimen/textSize_12dp"
-        android:textColor="@color/textColorSecondary"/>
+        android:gravity="center"
+        android:text="عنوان"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/textSize_12dp" />
 
 </LinearLayout>

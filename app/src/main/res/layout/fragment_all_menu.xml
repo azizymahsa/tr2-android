@@ -14,7 +14,8 @@
         android:layout_height="104dp"
         android:layout_marginBottom="4dp"
         android:elevation="3dp"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,7 +48,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
     </androidx.core.widget.NestedScrollView>
 
@@ -86,7 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp" />
+                android:layout_marginLeft="15dp"
+                android:rotationY="180"/>
 
 
         </LinearLayout>

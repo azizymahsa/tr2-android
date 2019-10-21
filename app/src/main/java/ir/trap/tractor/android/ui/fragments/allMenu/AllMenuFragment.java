@@ -96,6 +96,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     private MainActionView mainView;
     Context context = getContext();
     private RecyclerView rvGrid;
+    private String unicCode="";
 
     public AllMenuFragment() {
 
@@ -281,9 +282,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     public void onGdsFlight(GetUserPassResponse response) {
         mainView.hideLoading();
 
-//        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
-//                response.getUsername(), response.getPassword(), this, 0);
-        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+
+        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(unicCode,
                 "0037250100293610", "1397", this, 0);
 
         flightActivity.startMainFlight();
@@ -405,13 +405,20 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     @Override
     public void onChosenItemClickk(View view, Integer id) {
         switch (id) {
-            case 11://Flight
+            case 11://Flight ata
             {
                 mainView.showLoading();
+                unicCode="MGZlOTg5ZWEtNGVkNS00ZjcxLThjYmEtYzZiYjM2Yzk2MzQ1";
                 onGdsFlight(null);
                 break;
             }
-
+            case 14://Flight all
+            {
+                mainView.showLoading();
+                unicCode="ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
+                onGdsFlight(null);
+                break;
+            }
             case 12: //Hotel
             {
                 mainView.showLoading();
@@ -457,10 +464,81 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             case 21: //خبیمه شخص ثالث
             {
                 Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://bimeh.com/thirdparty");
                 startActivity(intent);
                 break;
             }
-
+            case 22: //بیمه بدنه
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://bimeh.com/carbody");
+                startActivity(intent);
+                break;
+            }
+            case 29: //بیمه موتورسیکلت
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://bimeh.com/thirdpartyMotor");
+                startActivity(intent);
+                break;
+            }
+            case 23: //بیمه مسافرتی ویژه
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://bimeh.com/travelplus");
+                startActivity(intent);
+                break;
+            }
+            case 24: //بیمه مسافرتی
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://bimeh.com/travel");
+                startActivity(intent);
+                break;
+            }
+            case 25: //بیمه آتش سوزی
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://bimeh.com/fire");
+                startActivity(intent);
+                break;
+            }
+            case 26: //بیمه تجهیزات الکترونیکی
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://bimeh.com/equipments");
+                startActivity(intent);
+                break;
+            }
+            case 27: //بیمه زلزله
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://bimeh.com/earthquake");
+                startActivity(intent);
+                break;
+            }
+            case 28: //بیمه انفرادی و گروهی
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://bimeh.com/others");
+                startActivity(intent);
+                break;
+            }
+            //الوپارک
+            case 31: //  پارکینگ عمومی
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
+                startActivity(intent);
+                break;
+            }
+            case 32: //  پارک حاشیه ای
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL","https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
+                startActivity(intent);
+                break;
+            }
         }
     }
 }
