@@ -144,14 +144,23 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_margin="4dp"
-                        android:layout_height="@dimen/_75sdp"
-                        android:background="@drawable/button_main_background_border">
+                        android:layout_height="@dimen/_75sdp">
+<!--                        android:background="@drawable/button_main_background_border">-->
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/imgF1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"/>
+                            app:riv_corner_radius="15dp"
+                            app:riv_mutate_background="true"
+                            android:scaleType="fitXY"
+                            app:riv_oval="false" />
+                        
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgF1"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:scaleType="fitXY"/>-->
 
                         <TextView
                             android:id="@+id/tvF1"
@@ -171,14 +180,23 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_margin="4dp"
-                        android:layout_height="@dimen/_75sdp"
-                        android:background="@drawable/button_main_background_border">
+                        android:layout_height="@dimen/_75sdp">
+<!--                        android:background="@drawable/button_main_background_border">-->
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/imgF2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"/>
+                            app:riv_corner_radius="15dp"
+                            app:riv_mutate_background="true"
+                            android:scaleType="fitXY"
+                            app:riv_oval="false" />
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgF2"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:scaleType="fitXY"/>-->
 
                         <TextView
                             android:id="@+id/tvF2"
@@ -206,14 +224,23 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_margin="4dp"
-                        android:layout_height="@dimen/_75sdp"
-                        android:background="@drawable/button_main_background_border">
+                        android:layout_height="@dimen/_75sdp">
+<!--                        android:background="@drawable/button_main_background_border">-->
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/imgF3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"/>
+                            app:riv_corner_radius="15dp"
+                            app:riv_mutate_background="true"
+                            android:scaleType="fitXY"
+                            app:riv_oval="false" />
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgF3"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:scaleType="fitXY"/>-->
 
                         <TextView
                             android:id="@+id/tvF3"
@@ -233,14 +260,23 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_margin="4dp"
-                        android:layout_height="@dimen/_75sdp"
-                        android:background="@drawable/button_main_background_border">
+                        android:layout_height="@dimen/_75sdp">
+<!--                        android:background="@drawable/button_main_background_border">-->
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/imgF4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"/>
+                            app:riv_corner_radius="15dp"
+                            app:riv_mutate_background="true"
+                            android:scaleType="fitXY"
+                            app:riv_oval="false" />
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgF4"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:scaleType="fitXY"/>-->
 
                         <TextView
                             android:id="@+id/tvF4"
@@ -269,14 +305,23 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_margin="4dp"
-                        android:layout_height="@dimen/_75sdp"
-                        android:background="@drawable/button_main_background_border">
+                        android:layout_height="@dimen/_75sdp">
+<!--                        android:background="@drawable/button_main_background_border">-->
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/imgF5"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"/>
+                            app:riv_corner_radius="15dp"
+                            app:riv_mutate_background="true"
+                            android:scaleType="fitXY"
+                            app:riv_oval="false" />
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgF5"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:scaleType="fitXY"/>-->
 
                         <TextView
                             android:id="@+id/tvF5"
@@ -296,14 +341,23 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_margin="4dp"
-                        android:layout_height="@dimen/_75sdp"
-                        android:background="@drawable/button_main_background_border">
+                        android:layout_height="@dimen/_75sdp">
+<!--                        android:background="@drawable/button_main_background_border">-->
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/imgF6"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"/>
+                            app:riv_corner_radius="15dp"
+                            app:riv_mutate_background="true"
+                            android:scaleType="fitXY"
+                            app:riv_oval="false" />
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgF6"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:scaleType="fitXY"/>-->
 
                         <TextView
                             android:id="@+id/tvF6"
