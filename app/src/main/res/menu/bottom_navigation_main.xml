@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/tab_profile"
+        android:id="@+id/tab_payment"
         android:enabled="true"
         android:icon="@drawable/ic_coins"
         android:title="پرداخت"

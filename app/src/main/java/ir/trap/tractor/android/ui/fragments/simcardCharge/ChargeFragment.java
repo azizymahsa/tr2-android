@@ -897,7 +897,7 @@ public class ChargeFragment extends BaseFragment
         });
 
         btnChargeConfirmRightel.setText("ادامه");
-        
+
         btnMCIChargeConfirm.setText("ادامه");
         btnChargeConfirm.setText("ادامه");
         // btnBackToCharge.setText("بازگشت");
