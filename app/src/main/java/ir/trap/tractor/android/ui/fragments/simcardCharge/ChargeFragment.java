@@ -1650,6 +1650,7 @@ public class ChargeFragment extends BaseFragment
         rootView.findViewById(R.id.container).setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnSelectContact event)
     {

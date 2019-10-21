@@ -5,8 +5,6 @@ public class OnSelectContact
 
     String number,name;
 
-
-
     public String getNumber()
     {
         return number;
