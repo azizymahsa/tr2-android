@@ -27,7 +27,7 @@
             android:background="@drawable/button_small_border"
             android:textSize="@dimen/textSize_20dp"
             android:padding="@dimen/_5sdp"
-            android:src="@drawable/ic_phone_book"
+            android:src="@drawable/ic_list"
             android:transitionName="transition"
            />
 
