@@ -204,7 +204,7 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
                 int favorittePos = 0;
                 for (int i = 1 ; i <= response.data.getResults().size() ; i++)
                 {
-                    if (response.data.getResults().get(i).getIsFavorite())
+                    if (response.data.getResults().get(i-1).getIsFavorite())
                     {
                         favorittePos = i;
                     }

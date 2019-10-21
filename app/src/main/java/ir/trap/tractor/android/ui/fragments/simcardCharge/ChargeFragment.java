@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -38,6 +39,10 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.Arrays;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -46,8 +51,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.contact.OnSelectContact;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
+import ir.trap.tractor.android.ui.activities.main.OnContactClick;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.dialogs.ResultBuyCharge;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
@@ -67,7 +74,7 @@ import library.android.eniac.utility.Utility;
  */
 @SuppressLint("ValidFragment")
 public class ChargeFragment extends BaseFragment
-        implements IrancellBuyImpl.OnFinishedIrancellBuyListener,
+        implements OnContactClick, IrancellBuyImpl.OnFinishedIrancellBuyListener,
         ChargeFragmentInteractor, CompoundButton.OnCheckedChangeListener, OnAnimationEndListener, View.OnFocusChangeListener,
         RightelBuyImpl.OnFinishedRightelBuyListener, PaymentParentActionView,
         MciBuyInteractor.OnFinishedMciBuyInListener, TextWatcher
@@ -880,7 +887,7 @@ public class ChargeFragment extends BaseFragment
     {
         super.onStop();
         etPassCharge.setText("");
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
 
@@ -1530,7 +1537,7 @@ public class ChargeFragment extends BaseFragment
     public void onStart()
     {
         super.onStart();
-//        EventBus.getDefault().register(this);
+       EventBus.getDefault().register(this);
     }
 
 //    @Subscribe(threadMode = ThreadMode.MAIN)
@@ -1643,4 +1650,78 @@ public class ChargeFragment extends BaseFragment
         rootView.findViewById(R.id.container).setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(OnSelectContact event)
+    {
+        Toast.makeText(getContext(), "cliiick", Toast.LENGTH_SHORT).show();
+        try
+        {
+            if (isMtn)
+            {
+                etMobileCharge.setText(event.getNumber().replaceAll(" ", ""));
+                tilMIrancell.setHint(event.getName());
+
+
+                return;
+            }
+            if (isMci)
+            {
+                etMCINumber.setText(event.getNumber().replaceAll(" ", ""));
+                tilMMci.setHint(event.getName());
+
+
+                return;
+
+
+            }
+            if (isRightel)
+            {
+                etMobileChargeRightel.setText(event.getNumber().replaceAll(" ", ""));
+                tilMRightel.setHint(event.getName());
+
+
+            }
+
+        } catch (Exception e)
+        {
+        }
+
+    }
+  /*  @Override
+    public void onContactClicked(String number, String name)
+    {
+        Toast.makeText(getContext(), "cliiick", Toast.LENGTH_SHORT).show();
+        try
+        {
+            if (isMtn)
+            {
+                etMobileCharge.setText(number.replaceAll(" ", ""));
+                tilMIrancell.setHint(name);
+
+
+                return;
+            }
+            if (isMci)
+            {
+                etMCINumber.setText(number.replaceAll(" ", ""));
+                tilMMci.setHint(name);
+
+
+                return;
+
+
+            }
+            if (isRightel)
+            {
+                etMobileChargeRightel.setText(number.replaceAll(" ", ""));
+                tilMRightel.setHint(name);
+
+
+            }
+
+        } catch (Exception e)
+        {
+        }
+    }*/
 }

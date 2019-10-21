@@ -28,7 +28,7 @@
     <color name="bloodRed">#9f0001</color>
     <color name="warmGray">#888888</color>
     <color name="midnight">#020526</color>
-    <color name="returnButtonColor">#fe0002</color>
+    <color name="returnButtonColor">#484848</color>
     <color name="borderBackgroundColor">#e2e2e2</color>
     <color name="headerMainWeekNoBackground">#bb0000</color>
     <color name="headerMainWeekNoTextColor">#fff</color>

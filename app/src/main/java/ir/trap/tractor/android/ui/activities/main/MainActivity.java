@@ -3,8 +3,10 @@ package ir.trap.tractor.android.ui.activities.main;
 //import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -21,12 +23,15 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.contact.OnSelectContact;
 import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
@@ -308,10 +313,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         isMainFragment = false;
 
         currentFragment = ChargeFragment.newInstance(this);
+
         transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
+
     }
 
     @Override
@@ -359,6 +366,46 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 })
                 .setPermissions(Manifest.permission.READ_CONTACTS)
                 .check();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (resultCode == Activity.RESULT_OK && requestCode == 8080)
+        {
+
+            Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
+            while (cursor.moveToNext())
+            {
+                String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+
+                String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+                if (hasPhone.equalsIgnoreCase("1"))
+                    hasPhone = "true";
+                else
+                    hasPhone = "false";
+
+                if (Boolean.parseBoolean(hasPhone))
+                {
+                    Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                    while (phones.moveToNext())
+                    {
+
+                        OnSelectContact onSelectContact =new OnSelectContact();
+                        onSelectContact.setName( phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)) == null ? "" : phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
+                        onSelectContact.setNumber(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll(" ", "").replace("0098", "0").replace(getString(R.string.plus) + "98", "0"));
+
+                        EventBus.getDefault().post(onSelectContact);
+                         }
+                    phones.close();
+                }
+
+
+            }
+            cursor.close();
+
+        }
     }
 
     @Override

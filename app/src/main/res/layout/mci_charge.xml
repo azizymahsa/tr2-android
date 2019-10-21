@@ -40,7 +40,7 @@
                     android:layout_gravity="top"
                     android:padding="@dimen/_5sdp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/ic_phone_book"
+                    android:src="@drawable/ic_list"
                     android:background="@drawable/button_small_border"
                     android:textSize="@dimen/textSize_20dp"
                     android:transitionName="transition"
