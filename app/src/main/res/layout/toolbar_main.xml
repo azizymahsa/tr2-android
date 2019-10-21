@@ -5,24 +5,11 @@
     android:id="@+id/toolbar_container"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="112dp">
+    android:layout_height="102dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp">
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="تراپ"
-            android:visibility="invisible"
-            android:textStyle="bold"
-            android:textColor="@color/textColorTitle"
-            android:textSize="18sp" />
+        android:layout_height="52dp">
 
         <FrameLayout
             android:id="@+id/flLogoToolbar"
@@ -46,6 +33,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
             android:foreground="?attr/selectableItemBackground"
             android:layout_centerVertical="true"
             android:tint="@color/mainMenuColor"
@@ -55,7 +43,60 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="52dp">
+        
+        <Button
+            android:id="@+id/btnBuyTicket"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_35dp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:text="خرید بلیط"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/textColorButton"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_centerVertical="true"
+            android:background="@drawable/button_main_header_background"/>
+
+        <RelativeLayout
+            android:id="@+id/rlShirt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_width="@dimen/_40dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/img_shirt"
+                android:layout_marginRight="32dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="10"
+                android:textStyle="bold"
+                android:textColor="@color/textColorTitle"
+                android:textSize="@dimen/textSize_10dp"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_toLeftOf="@+id/rlShirt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="نامشخص"
+            android:layout_marginRight="8dp"
+            android:textStyle="bold"
+            android:textColor="@color/textColorTitle"
+            android:textSize="@dimen/textSize_20dp"/>
+
 
     </RelativeLayout>
 

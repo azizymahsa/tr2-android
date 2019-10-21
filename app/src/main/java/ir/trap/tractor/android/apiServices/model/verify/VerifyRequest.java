@@ -6,7 +6,8 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by MahtabAzizi on 10/16/2019.
  */
-public class VerifyRequest {
+public class VerifyRequest
+{
 
     @SerializedName("username")
     @Expose
@@ -37,19 +38,23 @@ public class VerifyRequest {
     @Expose
     private String imei;
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.username = username;
     }
 
-    public String getCode() {
+    public String getCode()
+    {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(String code)
+    {
         this.code = code;
     }
 

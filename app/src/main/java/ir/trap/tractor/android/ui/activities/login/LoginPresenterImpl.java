@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -20,11 +19,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
-import ir.trap.tractor.android.BuildConfig;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
-import ir.trap.tractor.android.apiServices.model.GlobalResponse;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
 import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
@@ -42,12 +39,13 @@ import library.android.eniac.utility.Utility;
 /**
  * Created by Javad.Abadi on 7/2/2018.
  */
-public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener, OnServiceStatus<WebServiceClass<LoginResponse>> {
+public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener, OnServiceStatus<WebServiceClass<LoginResponse>>
+{
     private Context appContext;
     private Context activityContext;
     private LoginView loginView;
-   /* private SendActiveCodeImpl sendActiveCode;
-    private ConfirmActiveCodeImpl activeCode;*/
+    /* private SendActiveCodeImpl sendActiveCode;
+     private ConfirmActiveCodeImpl activeCode;*/
     private EditText mobileNumber;
     private CountDownTimer countDownTimer;
     private PinEntryEditText codeView;
@@ -64,7 +62,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         this.appContext = appContext;
         this.activityContext = activityContext;
         countDownTimer = new CountDownTimerResendCode(startTime, interval, loginView);
-       // EventBus.getDefault().register(this);
+        // EventBus.getDefault().register(this);
 
     }
 
@@ -95,7 +93,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
                 if (view.getTag().equals("mobile"))
                 {
-                   // sendMobileRequest();
+                    // sendMobileRequest();
                     new TedPermission(SingletonContext.getInstance().getContext())
                             .setPermissionListener(new PermissionListener()
                             {
@@ -114,8 +112,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                             })
                             .setPermissions(Manifest.permission.RECEIVE_SMS)
                             .check();
-                }
-                else
+                } else
                 {
                     if (TextUtils.isEmpty(codeView.getText().toString()))
                     {
@@ -137,54 +134,63 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
     }
 
-    private void sendVerifyRequest() {
+    private void sendVerifyRequest()
+    {
         VerifyRequest request = new VerifyRequest();
         request.setUsername(mobileNumber.getText().toString());
         request.setCode(codeView.getText().toString());
 //        request.setCurrentVersion(BuildConfig.VERSION_NAME);
         request.setDevice_type(TrapConfig.AndroidDeviceType);
-//        request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), SingletonContext.getInstance().getContext()));
-        request.setImei("864890030464324");
+        request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), activityContext));
+//        request.setImei("864890030464324");
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity)activityContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        ((Activity) activityContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         request.setScreenSizeHeight(String.valueOf(displayMetrics.heightPixels));
         request.setScreenSizeWidth(String.valueOf(displayMetrics.widthPixels));
 
-        SingletonService.getInstance().getVerifyService().verify(new OnServiceStatus<WebServiceClass<VerifyResponse>>() {
+        SingletonService.getInstance().getVerifyService().verify(new OnServiceStatus<WebServiceClass<VerifyResponse>>()
+        {
             @Override
-            public void onReady(WebServiceClass<VerifyResponse> response) {
-                if (response != null) {
+            public void onReady(WebServiceClass<VerifyResponse> response)
+            {
+                if (response != null)
+                {
                     setProfileData(response);
                     loginView.onButtonActions(true, GoToActivity.UserActivity);
                     loginView.hideLoading();
-                }else {
-                    Tools.showToast(appContext,"خطایی رخ داده است",R.color.red);
+                } else
+                {
+                    Tools.showToast(appContext, "خطایی رخ داده است", R.color.red);
                     loginView.hideLoading();
                 }
             }
 
             @Override
-            public void onError(String message) {
+            public void onError(String message)
+            {
                 loginView.hideLoading();
-                Tools.showToast(appContext,message,R.color.red);
+                Tools.showToast(appContext, message, R.color.red);
             }
         }, request);
     }
 
-    private void setProfileData(WebServiceClass<VerifyResponse> response) {
-        Prefs.putString("accessToken","Bearer "+response.data.getAccess());
+    private void setProfileData(WebServiceClass<VerifyResponse> response)
+    {
+        Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
 //        Prefs.putString("accessToken","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDMwOTM2MTcsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiI1NjA3MTg3NDUyOWE0MTQ5YmU4MDliMTBkOTY3NzI5YSJ9.EQ3pzj46tNquy1AKiZNJ3rPcBg8DR1PaDFpeikuWX8I");
 
         Profile profile = response.data.getProfile();
         Prefs.putString("firstName", profile.getFirstName());
         Prefs.putString("lastName", profile.getLastName());
         Prefs.putString("englishName", profile.getEnglishName());
-        if (profile.getBirthday()!=null) {
+        if (profile.getBirthday() != null)
+        {
             Prefs.putString("birthday", profile.getBirthday().toString());
         }
-        if (profile.getPopularPlayer()!=null){
+        if (profile.getPopularPlayer() != null)
+        {
             Prefs.putInt("popularPlayer", profile.getPopularPlayer());
         }
         Prefs.putString("nationalCode", profile.getNationalCode());
@@ -206,7 +212,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         appContext.startActivity(intent);
         ((Activity) activityContext).finish();*/
 
-       // sendActiveCode.findCodeDataRequest(this, mobileNumber.getText().toString());
+        // sendActiveCode.findCodeDataRequest(this, mobileNumber.getText().toString());
 
     }
 
@@ -292,13 +298,16 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     }
 
     @Override
-    public void onReady(WebServiceClass<LoginResponse> response) {
-        if (response!=null) {
+    public void onReady(WebServiceClass<LoginResponse> response)
+    {
+        if (response != null)
+        {
             loginView.onButtonActions(false, null);
             countDownTimer.start();
             loginView.hideLoading();
-        }else {
-            Tools.showToast(appContext,"خطایی رخ داده است",R.color.red);
+        } else
+        {
+            Tools.showToast(appContext, "خطایی رخ داده است", R.color.red);
             loginView.hideLoading();
         }
       /*  if (globalResponseWebServiceClass.statusCode == 200)
@@ -313,10 +322,10 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     }
 
 
-
     @Override
-    public void onError(String message) {
-        Tools.showToast(appContext,message,R.color.red);
+    public void onError(String message)
+    {
+        Tools.showToast(appContext, message, R.color.red);
         loginView.hideLoading();
     }
 

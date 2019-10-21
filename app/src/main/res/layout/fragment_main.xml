@@ -12,19 +12,19 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="168dp"
+            android:layout_height="156dp"
             android:background="@drawable/background_main_header" />
 
         <RelativeLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="168dp"
+            android:layout_height="156dp"
             android:background="@drawable/img_header_background" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="112dp"
+            android:layout_height="102dp"
             android:layout_alignParentTop="true"
             android:background="@android:color/transparent">
 
@@ -35,7 +35,7 @@
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="102dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -50,8 +50,9 @@
                 android:layout_height="@dimen/slider_height"
                 app:layout_anchor="@id/header"
                 app:layout_anchorGravity="bottom|center_horizontal|end"
-
-                android:layout_margin="8dp">
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp">
 
                 <com.daimajia.slider.library.SliderLayout
                     android:id="@+id/slider"

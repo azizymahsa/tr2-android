@@ -7,8 +7,8 @@
     <string name="confirm">تایید</string>
     <string name="enter_mobile_number">شماره همراه</string>
     <string name="no_name">بدون نام</string>
-    <string name="enter_first_name">نام خود را وارد نمایید</string>
-    <string name="enter_last_name">نام خانوادگی خود را وارد نمایید</string>
+    <string name="enter_first_name">نام خود را وارد نمایید(اختیاری)</string>
+    <string name="enter_last_name">نام خانوادگی خود را وارد نمایید(اختیاری)</string>
     <string name="enter_passcode">رمز عبور دیبا خود را وارد نمایید.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -26,4 +26,5 @@
     <string name="enter_birthday">تاریخ تولد خود را وارد نمایید(اختیاری)</string>
     <string name="enter_english_name">نام خود را به انگلیسی وارد نمایید(اختیاری)</string>
     <string name="enter_popular_player">نام بازیگر محبوب خود را وارد نمایید (اختیاری)</string>
+    <string name="get_permission">با توجه به دستور بانک مرکزی و پلیس فتا مبنی بر افزایش امنیت انجام تراکنشهای بانکی در اپلیکیشن موبایل بانک، میبایست مجوز دسترسی به وضعیت دستگاه داده شود. \n برای ادامه کار لطفا مجوز مربوطه را تایید نمایید.</string>
 </resources>

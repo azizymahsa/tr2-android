@@ -121,7 +121,7 @@
             android:layout_height="@dimen/_25dp"
             android:gravity="center_vertical"
             android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorSecondary"
             android:layout_marginRight="@dimen/_10dp"
             android:textSize="@dimen/textSize_12dp" />
         <ImageView

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nested"
@@ -29,55 +30,18 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar_container"
             android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="@dimen/_140sdp"
-                android:layout_height="@dimen/_140sdp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center">
 
-                <RelativeLayout
-                    android:id="@+id/rlImage"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/circle_background"
-                    android:foreground="?attr/selectableItemBackground">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/ivProfile"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:textColor="@color/currentColor"
-                        android:textSize="@dimen/_20sdp"
-
-                        />
-
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivProfile"
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="@dimen/_100sdp"
-                        android:layout_centerHorizontal="true"
-                        app:civ_border_color="@color/currentColor"
-                        app:civ_border_width="1dp" />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
             <TextView
-                android:id="@+id/tvUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/no_name"
-                android:textColor="@color/textColor"
+                android:text="لطفا مشخصات خود را وارد نمایید"
+                android:textColor="@color/textColorSecondary"
                 android:textSize="@dimen/_14sdp"
                 android:layout_marginBottom="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_10dp"
                 />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,12 +63,12 @@
                         android:id="@+id/etFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColor"
+                        android:backgroundTint="@color/textColorSecondary"
                         android:hint="@string/enter_first_name"
                         android:imeOptions="actionNext"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_12dp" />
 
                 </FrameLayout>
@@ -137,12 +101,12 @@
                         android:id="@+id/etLastName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColor"
+                        android:backgroundTint="@color/textColorSecondary"
                         android:hint="@string/enter_last_name"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_12dp" />
 
                 </FrameLayout>
@@ -175,13 +139,13 @@
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColor"
+                        android:backgroundTint="@color/textColorSecondary"
                         android:hint="@string/enter_email"
                         android:imeOptions="actionDone"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_12dp" />
 
                 </FrameLayout>
@@ -214,13 +178,13 @@
                         android:id="@+id/etNationalCode"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColor"
+                        android:backgroundTint="@color/textColorSecondary"
                         android:hint="@string/enter_national_code"
                         android:imeOptions="actionDone"
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_12dp" />
 
                 </FrameLayout>
@@ -253,12 +217,12 @@
                         android:id="@+id/etBirthDay"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColor"
+                        android:backgroundTint="@color/textColorSecondary"
                         android:hint="@string/enter_birthday"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_12dp" />
 
                 </FrameLayout>
@@ -291,13 +255,13 @@
                         android:id="@+id/etEnglishName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColor"
+                        android:backgroundTint="@color/textColorSecondary"
                         android:hint="@string/enter_english_name"
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_12dp" />
 
                 </FrameLayout>
@@ -330,13 +294,13 @@
                         android:id="@+id/etPopularPlayer"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColor"
+                        android:backgroundTint="@color/textColorSecondary"
                         android:hint="@string/enter_popular_player"
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_12dp" />
 
                 </FrameLayout>
@@ -371,15 +335,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
                         android:layout_marginBottom="@dimen/_20dp"
-                        android:backgroundTint="@color/textColor"
+                        android:backgroundTint="@color/textColorSecondary"
                         android:hint="کد معرف(اختیاری)"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/textColor"
-                        android:textSize="@dimen/textSize_12dp"
-
-                        />
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_12dp" />
 
                 </FrameLayout>
 
