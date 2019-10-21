@@ -1,10 +1,13 @@
 package ir.trap.tractor.android.ui.activities.login;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 
@@ -17,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
+import ir.trap.tractor.android.BuildConfig;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
@@ -27,8 +31,10 @@ import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
 import ir.trap.tractor.android.apiServices.model.verify.Profile;
 import ir.trap.tractor.android.apiServices.model.verify.VerifyRequest;
 import ir.trap.tractor.android.apiServices.model.verify.VerifyResponse;
+import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.GoToActivity;
+import ir.trap.tractor.android.utilities.IMEI_Device;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.utility.Utility;
 
@@ -135,6 +141,17 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         VerifyRequest request = new VerifyRequest();
         request.setUsername(mobileNumber.getText().toString());
         request.setCode(codeView.getText().toString());
+//        request.setCurrentVersion(BuildConfig.VERSION_NAME);
+        request.setDevice_type(TrapConfig.AndroidDeviceType);
+//        request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), SingletonContext.getInstance().getContext()));
+        request.setImei("864890030464324");
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)activityContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        request.setScreenSizeHeight(String.valueOf(displayMetrics.heightPixels));
+        request.setScreenSizeWidth(String.valueOf(displayMetrics.widthPixels));
+
         SingletonService.getInstance().getVerifyService().verify(new OnServiceStatus<WebServiceClass<VerifyResponse>>() {
             @Override
             public void onReady(WebServiceClass<VerifyResponse> response) {
@@ -158,6 +175,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
     private void setProfileData(WebServiceClass<VerifyResponse> response) {
         Prefs.putString("accessToken","Bearer "+response.data.getAccess());
+//        Prefs.putString("accessToken","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDMwOTM2MTcsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiI1NjA3MTg3NDUyOWE0MTQ5YmU4MDliMTBkOTY3NzI5YSJ9.EQ3pzj46tNquy1AKiZNJ3rPcBg8DR1PaDFpeikuWX8I");
 
         Profile profile = response.data.getProfile();
         Prefs.putString("firstName", profile.getFirstName());
