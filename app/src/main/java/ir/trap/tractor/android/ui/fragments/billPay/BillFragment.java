@@ -47,7 +47,10 @@ import java.util.List;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.LstPhoneBill;
+import ir.trap.tractor.android.models.dbModels.ArchiveCardDBModel;
 import ir.trap.tractor.android.ui.base.BaseFragment;
+import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.utilities.ClearableEditText;
 import library.android.eniac.StartEniacFlightActivity;
 import library.android.eniac.StartEniacHotelActivity;
@@ -60,7 +63,7 @@ import library.android.service.model.flight.issueReservation.response.IssueReser
  * Created by RezaNejati on 1/31/2019.
  */
 @SuppressLint("ValidFragment")
-public class BillFragment extends BaseFragment implements  OnAnimationEndListener, BillInfoAdapter.Bill,CompoundButton.OnCheckedChangeListener {
+public class BillFragment extends BaseFragment implements  MainActionView,OnAnimationEndListener, BillInfoAdapter.Bill,CompoundButton.OnCheckedChangeListener {
     private View v;
     private CardView cvBarcode;
     private ClearableEditText etPayId, etBillId, etMobile, etTitleAddMyBill;
@@ -68,7 +71,7 @@ public class BillFragment extends BaseFragment implements  OnAnimationEndListene
     private RecyclerView rvInfo, rvMyBills;
     private LinearLayout llDetailPayment, llCardDetail, llBill, llCvv2, llSelect, rlBillList, llTitleAddMyBill,llContinueBill;
     private List<LstPhoneBill> lstPhoneBills = new ArrayList<>();
-    private BillInfoAdapter billInfoAdapter;
+   // private BillInfoAdapter billInfoAdapter;
     private String billId, payId;
     private CircularProgressButton btnBackToList, btnPassConfirm;
     private TextInputLayout etLayoutPass, etLayoutCvv;
@@ -87,7 +90,7 @@ public class BillFragment extends BaseFragment implements  OnAnimationEndListene
     private List<MenusSub> billSubMenus;
     private String phone, contactPhone;
     boolean mianDore = false, payanDore = false;
-    private MainView mainView;
+    private MainActionView mainView;
     private Spinner spinnerBillTypes;
     private ArrayList<String> bills;
     private Integer idSelectedBillType;
@@ -96,7 +99,6 @@ public class BillFragment extends BaseFragment implements  OnAnimationEndListene
     private MyBillsAdapter myBillsAdapter;
     private SlidingUpPanelLayout upPanelLayout;
     private ArrayList<Integer> billsTypePosition;
-    private AddMyBillDialog addMyBillDialog;
     private RadioButton rbBillEnd, rbBillFirst;
     private int idBillNowEndSelected = -1;
     private CheckBox cbAddToMyBill;
@@ -1334,6 +1336,30 @@ public class BillFragment extends BaseFragment implements  OnAnimationEndListene
     }
 
     @Override
+    public void showError(String message)
+    {
+
+    }
+
+    @Override
+    public void backToMainFragment()
+    {
+
+    }
+
+    @Override
+    public void openDrawer()
+    {
+
+    }
+
+    @Override
+    public void closeDrawer()
+    {
+
+    }
+
+    @Override
     public void onShowEditDialog(ArchiveCardDBModel dbModel, long dbID, int position) {
 
     }
@@ -1370,6 +1396,30 @@ public class BillFragment extends BaseFragment implements  OnAnimationEndListene
 
     @Override
     public void hideProgressFriend(boolean b) {
+
+    }
+
+    @Override
+    public void onBill()
+    {
+
+    }
+
+    @Override
+    public void onChargeSimCard()
+    {
+
+    }
+
+    @Override
+    public void onPackSimCard()
+    {
+
+    }
+
+    @Override
+    public void doTransferMoney()
+    {
 
     }
 
@@ -1706,6 +1756,18 @@ public class BillFragment extends BaseFragment implements  OnAnimationEndListene
 
                 break;
         }
+    }
+
+    @Override
+    public void showLoading()
+    {
+
+    }
+
+    @Override
+    public void hideLoading()
+    {
+
     }
 }
 
