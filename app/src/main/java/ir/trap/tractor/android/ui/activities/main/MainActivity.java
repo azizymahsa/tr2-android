@@ -3,11 +3,13 @@ package ir.trap.tractor.android.ui.activities.main;
 //import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
-import android.widget.ImageButton;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -19,6 +21,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.pixplicity.easyprefs.library.Prefs;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -26,6 +31,7 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.contact.OnSelectContact;
 import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
@@ -39,9 +45,11 @@ import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
+import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.utilities.Logger;
+import library.android.eniac.utility.CustomAlert;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -58,7 +66,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private BottomNavigationView bottomNavigationView;
 
     private Bundle mSavedInstanceState;
-
 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
@@ -116,7 +123,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     isMainFragment = false;
 
                     currentFragment = AllMenuFragment.newInstance(this);
-                  //  transaction = fragmentManager.beginTransaction();
+                    transaction = fragmentManager.beginTransaction();
+                    //  transaction = fragmentManager.beginTransaction();
                     transaction = getSupportFragmentManager().beginTransaction();
 
                     transaction.replace(R.id.main_container, currentFragment)
@@ -141,11 +149,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     }
                     break;
                 }
-                case R.id.tab_profile:
+                case R.id.tab_payment:
                 {
                     if (!bottomNavigationView.getMenu().getItem(4).isChecked())
                     {
                         setCheckedBNV(bottomNavigationView, 4);
+
+                        isMainFragment = false;
+
+                        currentFragment = PaymentWithoutCardFragment.newInstance(this);
+                        transaction = fragmentManager.beginTransaction();
+
+                        transaction.replace(R.id.main_container, currentFragment)
+                                .commit();
                     }
                     break;
                 }
@@ -226,15 +242,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (drawer.isDrawerOpen(GravityCompat.END))
         {
             drawer.closeDrawer(GravityCompat.END);
-        }
-        else
+        } else
         {
             if (isMainFragment)
             {
                 super.onBackPressed();
-            }
-            else
+            } else
             {
+                setCheckedBNV(bottomNavigationView, 2);
+
                 backToMainFragment();
             }
         }
@@ -242,9 +258,36 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onDrawerItemSelected(View view, int position)
+    public void onDrawerItemSelected(View view, int itemNumber)
     {
+        final Intent intent = new Intent();
+        switch (itemNumber)
+        {
+            case 7:
+            {
+                CustomAlert ca = new CustomAlert(this);
+                ca.setCustomTitle(R.string.app_name);
+                ca.setCustomMessage("آیا می خواهید از حساب کاربری خود خارج شوید؟");
+                ca.setPositiveButton("خروج", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        Prefs.clear();
+                        finish();
+                        intent.setClass(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                ca.setNegativeButton("انصراف", null);
+                ca.create();
+                ca.show();
 
+                return;
+
+            }
+
+        }
     }
 
     @Override
@@ -278,10 +321,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         isMainFragment = false;
 
         currentFragment = ChargeFragment.newInstance(this);
+
         transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
+
     }
 
     @Override
@@ -329,6 +374,46 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 })
                 .setPermissions(Manifest.permission.READ_CONTACTS)
                 .check();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (resultCode == Activity.RESULT_OK && requestCode == 8080)
+        {
+
+            Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
+            while (cursor.moveToNext())
+            {
+                String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+
+                String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+                if (hasPhone.equalsIgnoreCase("1"))
+                    hasPhone = "true";
+                else
+                    hasPhone = "false";
+
+                if (Boolean.parseBoolean(hasPhone))
+                {
+                    Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                    while (phones.moveToNext())
+                    {
+
+                        OnSelectContact onSelectContact =new OnSelectContact();
+                        onSelectContact.setName( phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)) == null ? "" : phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
+                        onSelectContact.setNumber(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll(" ", "").replace("0098", "0").replace(getString(R.string.plus) + "98", "0"));
+
+                        EventBus.getDefault().post(onSelectContact);
+                         }
+                    phones.close();
+                }
+
+
+            }
+            cursor.close();
+
+        }
     }
 
     @Override
@@ -390,7 +475,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             footballServiceList = response.data.getFootballServiceList();
 
             Logger.e("--List size--", "chosenServiceList: " + chosenServiceList.size() +
-                "footballServiceList: " + footballServiceList.size());
+                    "footballServiceList: " + footballServiceList.size());
 
             fragmentManager = getSupportFragmentManager();
             currentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
@@ -401,8 +486,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 transaction.add(R.id.main_container, currentFragment)
                         .commit();
-            }
-            else
+            } else
             {
                 transaction.replace(R.id.main_container, currentFragment)
                         .commit();

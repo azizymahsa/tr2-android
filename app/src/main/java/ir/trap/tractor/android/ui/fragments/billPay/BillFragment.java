@@ -290,7 +290,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         llContinueBill.setVisibility(View.GONE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ivBillPayment.setImageTintList(null);
-            ivBillInfo.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColor));
+            ivBillInfo.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColorSecondary));
         }
 
         llAddToMyBills.setOnClickListener(view -> {
@@ -507,9 +507,9 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         llBillInfo.setOnClickListener(view -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ivBillInfo.setImageTintList(null);
-                ivBillPayment.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColor));
+                ivBillPayment.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColorSecondary));
             }
-            tvBillPayment.setTextColor(getActivity().getResources().getColor(R.color.textColor));
+            tvBillPayment.setTextColor(getActivity().getResources().getColor(R.color.textColorSecondary));
             tvBillInfo.setTextColor(getActivity().getResources().getColor(R.color.warmGray));
             llMobileNumber.setVisibility(View.GONE);
             llDetailPayment.setVisibility(View.VISIBLE);
@@ -524,7 +524,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             tvBillPayment.setTextColor(getActivity().getResources().getColor(R.color.warmGray));
             tvBillInfo.setTextColor(getActivity().getResources().getColor(R.color.warmGray));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ivBillInfo.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColor));
+                ivBillInfo.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColorSecondary));
                 ivBillPayment.setImageTintList(null);
             }
 
@@ -1026,9 +1026,9 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         ivBillInfo.setImageTintList(null);
-                        ivBillPayment.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColor));
+                        ivBillPayment.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColorSecondary));
                     }
-                    tvBillPayment.setTextColor(getActivity().getResources().getColor(R.color.textColor));
+                    tvBillPayment.setTextColor(getActivity().getResources().getColor(R.color.textColorSecondary));
                     tvBillInfo.setTextColor(getActivity().getResources().getColor(R.color.new_app_color));
 
                     llMobileNumber.setVisibility(View.GONE);

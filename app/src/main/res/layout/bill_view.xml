@@ -110,7 +110,7 @@
                             android:gravity="right"
                             android:text="استعلام موبایل یا تلفن ثابت"
 
-                            android:textColor="@color/textColor"
+                            android:textColor="@color/textColorSecondary"
                             android:textSize="@dimen/textSize_12dp"/>
                         <ImageView
                             android:id="@+id/ivBillInfo"
@@ -440,7 +440,7 @@
                     android:layout_marginRight="@dimen/_10dp"
                     android:gravity="center"
                     android:text=""
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/textSize_12dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -679,7 +679,7 @@
                         android:layout_weight="60"
                         android:gravity="center|right"
                         android:text="@string/amount"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
 
                         />
@@ -726,7 +726,7 @@
                         android:layout_weight="60"
                         android:gravity="center|right"
                         android:text="@string/toDate"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
 
                         />
@@ -773,7 +773,7 @@
                         android:layout_weight="60"
                         android:gravity="center|right"
                         android:text="@string/bill_code"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
 
                         />
@@ -819,7 +819,7 @@
                         android:layout_weight="60"
                         android:gravity="center|right"
                         android:text="@string/pay_code"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
 
                         />
@@ -906,7 +906,7 @@
                         android:layout_weight="60"
                         android:gravity="center|right"
                         android:text="@string/amount"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
 
                         />
@@ -953,7 +953,7 @@
                         android:layout_weight="60"
                         android:gravity="center|right"
                         android:text="@string/toDate"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
 
                         />
@@ -1000,7 +1000,7 @@
                         android:layout_weight="60"
                         android:gravity="center|right"
                         android:text="@string/bill_code"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
 
                         />
@@ -1046,7 +1046,7 @@
                         android:layout_weight="60"
                         android:gravity="center|right"
                         android:text="@string/pay_code"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
 
                         />

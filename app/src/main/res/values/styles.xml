@@ -60,7 +60,7 @@
     <style name="IconFontMarket" parent="android:TextAppearance">
         <item name="fontPath">fonts/market.ttf</item></style>
     <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
-        <item name="android:textColorPrimary">@color/textColor</item>
+        <item name="android:textColorPrimary">@color/textColorSecondary</item>
     </style>
     <style name="scrollUpdate">
         <item name="colorAccent">@color/red</item>
@@ -81,6 +81,4 @@
     </style>
 
 
-    <color name="textHint">#aaa</color>
-    <color name="textColor">#000</color>
 </resources>

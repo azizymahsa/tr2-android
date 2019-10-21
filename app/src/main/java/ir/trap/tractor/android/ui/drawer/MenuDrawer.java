@@ -87,7 +87,7 @@ public class MenuDrawer extends Fragment
 
         dataList = new ArrayList<MenuItems>();
 
-//        dataList.add(new MenuItems(1, "مشاهده لیست خرید", R.string.shopping_cart_icons));
+        dataList.add(new MenuItems(1, "مشاهده لیست خرید", R.drawable.ic_logo_red));
 //        dataList.add(new MenuItems("مشاهده لیست دانلودهای قبلی", R.string.download_icons));
 //        if (!pref.getToken().isEmpty())
 //        {
@@ -101,7 +101,7 @@ public class MenuDrawer extends Fragment
 //        }
 //        else
 //        {
-//            dataList.add(new MenuItems(1, "ورود/عضویت", R.string.person_icons));
+            dataList.add(new MenuItems(7, "خروج از پروفایل کاربری", android.R.drawable.ic_menu_close_clear_cancel));
 //            userMobile.setVisibility(View.GONE);
 //            user_invite_code.setVisibility(View.GONE);
 //            user_score.setVisibility(View.GONE);

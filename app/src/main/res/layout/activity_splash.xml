@@ -23,14 +23,14 @@
            agv:agv_angle="45"
            agv:agv_duration="1500"
            />-->
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/ic_logo_red"
-    android:layout_centerInParent="true"
-    />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_logo_red"
+        android:visibility="gone"
+        android:layout_centerInParent="true" />
 
-   <!-- <com.airbnb.lottie.LottieAnimationView
+   <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
@@ -39,7 +39,6 @@
         app:lottie_autoPlay="true"
         app:lottie_fileName="lottie/splash.json"
         app:lottie_loop="false" />
--->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,7 +54,7 @@
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:layout_marginBottom="5dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:indicatorColor="@color/currentColor"
             app:indicatorName="BallSpinFadeLoaderIndicator" />
 
@@ -66,6 +65,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
+            android:text="0.1.0"
             android:textColor="@color/textColorPrimary"
             android:textSize="@dimen/textSize_12dp" />
 

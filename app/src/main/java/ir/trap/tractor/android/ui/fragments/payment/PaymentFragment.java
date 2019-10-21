@@ -208,9 +208,6 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
         btnConfirmPayment.setOnClickListener(clickListener);
 
         setContent();
-
-
-
     }
 
     private void setContent()

@@ -27,20 +27,21 @@ import java.util.Random;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.ui.base.GoToActivity;
 import ir.trap.tractor.android.ui.activities.main.MainActivity;
+import ir.trap.tractor.android.ui.base.GoToActivity;
 import library.android.eniac.base.BaseActivity;
 
 /**
  * Created by MahtabAzizi on 10/7/2019.
  */
-public class UserActivity extends BaseActivity implements UserView, OnAnimationEndListener, View.OnClickListener {
-   // private UserPresenterImpl presenter;
-    private RelativeLayout rlImage;
+public class UserActivity extends BaseActivity implements UserView, OnAnimationEndListener, View.OnClickListener
+{
+    // private UserPresenterImpl presenter;
+//    private RelativeLayout rlImage;
     private CircularProgressButton btnConfirm;
     private EditText etFirstName, etLastName, etInvite;
     private TextView tvMenu;
-    private ImageView ivProfile;
+//    private ImageView ivProfile;
     private File userPic;
     private boolean isChangePic = false;
     private FrameLayout flLogoToolbar;
@@ -52,18 +53,18 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-       // presenter = new UserPresenterImpl(this, new UpdateUserImpl());
+        // presenter = new UserPresenterImpl(this, new UpdateUserImpl());
         btnConfirm = findViewById(R.id.btnConfirm);
         etFirstName = findViewById(R.id.etFirstName);
-        ivProfile = findViewById(R.id.ivProfile);
+//        ivProfile = findViewById(R.id.ivProfile);
         etInvite = findViewById(R.id.etInvite);
 
         flLogoToolbar = findViewById(R.id.flLogoToolbar);
         etLastName = findViewById(R.id.etLastName);
-        rlImage = findViewById(R.id.rlImage);
+//        rlImage = findViewById(R.id.rlImage);
         btnConfirm.setOnClickListener(this);
-     //   btnConfirm.setOnClickListener(presenter);
-       // rlImage.setOnClickListener(presenter);
+        //   btnConfirm.setOnClickListener(presenter);
+        // rlImage.setOnClickListener(presenter);
         //presenter.details(etFirstName, etLastName, etInvite);
         flLogoToolbar.setVisibility(View.GONE);
         Prefs.putBoolean("isFirstLogin", true);
@@ -71,11 +72,12 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
 
     }
 
-    private void setDataProfileUser() {
+    private void setDataProfileUser()
+    {
 
-        etFirstName.setText(Prefs.getString("firstName",""));
-        etLastName.setText(Prefs.getString("lastName",""));
-        etInvite.setText(Prefs.getString("keyInvite",""));
+        etFirstName.setText(Prefs.getString("firstName", ""));
+        etLastName.setText(Prefs.getString("lastName", ""));
+        etInvite.setText(Prefs.getString("keyInvite", ""));
 
 
 
@@ -94,7 +96,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
     protected void onDestroy()
     {
         super.onDestroy();
-      //  presenter.onDestroy();
+        //  presenter.onDestroy();
     }
 
     @Override
@@ -115,7 +117,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
     @Override
     public void onError(String message, String name, boolean b)
     {
-       // showToast(this, message, R.color.red);
+        // showToast(this, message, R.color.red);
 
     }
 
@@ -136,7 +138,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
                 finish();
                 break;
             case PassCodeActivity:
-              //  startActivityForResult(new Intent(this, PassCodeActivity.class), 22);
+                //  startActivityForResult(new Intent(this, PassCodeActivity.class), 22);
                 break;
         }
     }
@@ -159,7 +161,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
     {
         if (!isChangePic)
             return;
-       // uploadMultipart(this);
+        // uploadMultipart(this);
 
     }
 
@@ -305,7 +307,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
             Image image = ImagePicker.getFirstImageOrNull(data);
             if (image != null)
             {
-                ivProfile.setImageBitmap(BitmapFactory.decodeFile(image.getPath()));
+//                ivProfile.setImageBitmap(BitmapFactory.decodeFile(image.getPath()));
                 saveImage(BitmapFactory.decodeFile(image.getPath()));
             }
         }
@@ -313,7 +315,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
         {
             String pass = data.getStringExtra("newPass");
 
-          //  presenter.onConfirmPassword(pass);
+            //  presenter.onConfirmPassword(pass);
 
         }
     }
@@ -344,10 +346,12 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
             case R.id.btnConfirm:
-                Intent intent = new Intent(this,MainActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();

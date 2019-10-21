@@ -13,6 +13,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="plus">&#43;</string>
 
     <string name="buyChargeIrancellTitle">خرید شارژ آنلاین ایرانسل</string>
     <string name="buyChargeRightelTitle">خرید شارژ آنلاین رایتل</string>
@@ -35,4 +36,5 @@
     <string name="bill_now">میان دوره :</string>
     <string name="bill_end">پایان دوره :</string>
 
+    <string name="get_permission">با توجه به دستور بانک مرکزی و پلیس فتا مبنی بر افزایش امنیت انجام تراکنشهای بانکی در اپلیکیشن موبایل بانک، میبایست مجوز دسترسی به وضعیت دستگاه داده شود. \n برای ادامه کار لطفا مجوز مربوطه را تایید نمایید.</string>
 </resources>

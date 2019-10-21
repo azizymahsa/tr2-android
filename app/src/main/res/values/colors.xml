@@ -5,28 +5,30 @@
     <color name="colorAccent">#FF7A7A</color>
 
     <color name="textColorTitle">#fff</color>
-    <color name="textColorPrimary">#ff0000</color>
+    <color name="textColorPrimary">#fe0002</color>
     <color name="textColorSecondary">#000</color>
+
+    <color name="textHint">#aaa</color>
 
     <color name="backgroundButton">#fe0002</color>
     <color name="mainMenuColor">#fff</color>
     <color name="drawer_background">#88000000</color>
     <color name="textColorDrawer">#fff</color>
     <color name="drawerSepratorColor">#fff</color>
-    <color name="mainNavigationBottomColorSelected">#ff0000</color>
+    <color name="mainNavigationBottomColorSelected">#fe0002</color>
     <color name="mainNavigationBottomColorDeSelected">#888</color>
     <color name="textColorRecyclerView">#fff</color>
-    <color name="itemColor">#ff0000</color>
+    <color name="itemColor">#fe0002</color>
     <color name="lineDividerColor">#fff</color>
-    <color name="btnColorSecondary">#ff0000</color>
-    <color name="borderColorRed">#ff0000</color>
+    <color name="btnColorSecondary">#fe0002</color>
+    <color name="borderColorRed">#fe0002</color>
     <color name="buttonMainBorderColor">#aaa</color>
     <color name="textColorLoading">#fff</color>
     <color name="buttonMainBackgroundColor">#fff</color>
     <color name="bloodRed">#9f0001</color>
     <color name="warmGray">#888888</color>
     <color name="midnight">#020526</color>
-    <color name="returnButtonColor">#ff0000</color>
+    <color name="returnButtonColor">#484848</color>
     <color name="borderBackgroundColor">#e2e2e2</color>
     <color name="headerMainWeekNoBackground">#bb0000</color>
     <color name="headerMainWeekNoTextColor">#fff</color>
@@ -41,9 +43,11 @@
     <color name="green">#0e8019</color>
     <color name="green_light">#24d13c</color>
     <color name="menuColor">#fff</color>
-    <color name="clearButtonColor">#ff0000</color>
-    <color name="arrowButtonColor">#ff0000</color>
+    <color name="clearButtonColor">#fe0002</color>
+    <color name="arrowButtonColor">#fe0002</color>
     <color name="textColorHint">#FF7A7A</color>
     <color name="textColorButton">#FDFCFC</color>
+
+    <color name="buttonHeaderBackgroundColor">#fe0002</color>
 
 </resources>

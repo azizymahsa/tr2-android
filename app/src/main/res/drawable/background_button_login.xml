@@ -4,11 +4,10 @@
   <gradient
         android:angle="180"
         android:endColor="@color/backgroundButton"
-        android:startColor="@color/backgroundButton"
+        android:startColor="@color/backgroundButton" />
 
-
-        />
     <corners android:radius="200dp"/>
+
     <padding android:bottom="2dp"
         android:left="2dp"
         android:right="2dp"

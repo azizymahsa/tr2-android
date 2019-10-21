@@ -18,6 +18,7 @@ public abstract class IMEI_Device
         String IMEI = "";
 
         TelephonyManager mTelephony = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+
         if (ActivityCompat.checkSelfPermission(activityContext, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
         {
             return "";

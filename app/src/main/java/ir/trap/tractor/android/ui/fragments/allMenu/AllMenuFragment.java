@@ -121,6 +121,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     public void initView() {
         recyclerView = rootView.findViewById(R.id.recyclerView);
         rvGrid = rootView.findViewById(R.id.rvGrid);
+
+        ((TextView) rootView.findViewById(R.id.tvTitle)).setText("همه سرویسها");
+
     }
 
     @Override

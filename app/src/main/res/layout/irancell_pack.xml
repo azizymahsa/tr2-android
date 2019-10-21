@@ -21,16 +21,15 @@
 
         <ImageView
             android:id="@+id/btnIrancellRecent"
-            android:layout_width="@dimen/_35dp"
-            android:layout_height="@dimen/_35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
-            android:src="@drawable/ic_phone_book"
             android:background="@drawable/button_small_border"
-            android:textSize="@dimen/textSize_20dp"
             android:padding="@dimen/_5sdp"
-            android:transitionName="transition"
-            />
+            android:src="@drawable/ic_list"
+            android:textSize="@dimen/textSize_20dp"
+            android:transitionName="transition" />
 
         <ImageView
             android:id="@+id/ivContactI"
@@ -184,7 +183,7 @@
             android:layout_height="@dimen/_25dp"
             android:gravity="center_vertical"
             android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorSecondary"
             android:layout_marginRight="@dimen/_10dp"
             android:textSize="@dimen/textSize_12dp" />
         <ImageView
