@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -24,6 +25,8 @@ import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -375,7 +378,28 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .setPermissions(Manifest.permission.READ_CONTACTS)
                 .check();
     }
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
 
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        EventBus.getDefault().register(this);
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(OnSelectContact event)
+    {
+        Toast.makeText(getApplicationContext(), "hoooraaa", Toast.LENGTH_SHORT).show();
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -403,8 +427,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         OnSelectContact onSelectContact =new OnSelectContact();
                         onSelectContact.setName( phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)) == null ? "" : phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
                         onSelectContact.setNumber(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll(" ", "").replace("0098", "0").replace(getString(R.string.plus) + "98", "0"));
+                        if (currentFragment instanceof ChargeFragment){
+                            ((ChargeFragment) currentFragment).onSelectContact(onSelectContact);
 
-                        EventBus.getDefault().post(onSelectContact);
+                        }else if(currentFragment instanceof PackFragment){
+                            ((PackFragment) currentFragment).onSelectContact(onSelectContact);
+                        }else if(currentFragment instanceof BillFragment){
+                            ((BillFragment) currentFragment).onSelectContact(onSelectContact);
+                        }
+
                          }
                     phones.close();
                 }

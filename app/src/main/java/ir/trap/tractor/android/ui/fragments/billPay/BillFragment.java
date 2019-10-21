@@ -55,6 +55,7 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.contact.OnSelectContact;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
 import ir.trap.tractor.android.apiServices.model.getInfoBill.request.GetInfoBillRequest;
@@ -1061,10 +1062,10 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
-    public void onSelectContact(String number, String name) {
+    public void onSelectContact(OnSelectContact onSelectContact) {
         //todo change this
         try {
-            contactPhone = number.replaceAll(" ", "") + " ( " + name + " ) ";
+            contactPhone = onSelectContact.getNumber().replaceAll(" ", "") + " ( " + onSelectContact.getName() + " ) ";
 
         } catch (Exception e) {
         }

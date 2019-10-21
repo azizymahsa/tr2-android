@@ -50,6 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
+import ir.trap.tractor.android.apiServices.model.contact.OnSelectContact;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.trap.tractor.android.apiServices.model.getRightelPack.response.Detail;
@@ -1980,23 +1981,23 @@ public class PackFragment
     }
 
 
-    public void onSelectContact(String number, String name)
+    public void onSelectContact(OnSelectContact onSelectContact)
     {
         //todo change this
         try
         {
             if (isMtn)
             {
-                etMobileCharge.setText(number.replaceAll(" ", ""));
-                tilMIrancell.setHint(name);
+                etMobileCharge.setText(onSelectContact.getNumber().replaceAll(" ", ""));
+                tilMIrancell.setHint(onSelectContact.getName());
 
 
                 return;
             }
             if (isMci)
             {
-                etMCINumber.setText(number.replaceAll(" ", ""));
-                tilMMci.setHint(name);
+                etMCINumber.setText(onSelectContact.getNumber().replaceAll(" ", ""));
+                tilMMci.setHint(onSelectContact.getName());
 
 
                 return;
@@ -2005,8 +2006,8 @@ public class PackFragment
             }
             if (isRightel)
             {
-                etMobileChargeRightel.setText(number.replaceAll(" ", ""));
-                tilMRightel.setHint(name);
+                etMobileChargeRightel.setText(onSelectContact.getNumber().replaceAll(" ", ""));
+                tilMRightel.setHint(onSelectContact.getName());
 
 
             }
