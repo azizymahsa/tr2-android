@@ -422,6 +422,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             }
 
+            case 14://Flight
+            {
+                mainView.showLoading();
+//                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
+                onGdsFlightTest();
+//                onGdsFlight(null);
+                break;
+            }
+
             case 12: //Hotel
             {
                 mainView.showLoading();
@@ -469,5 +478,17 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             }
 
         }
+    }
+
+    private void onGdsFlightTest()
+    {
+        mainView.hideLoading();
+
+//        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
+//                response.getUsername(), response.getPassword(), this, 0);
+        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity("MGZlOTg5ZWEtNGVkNS00ZjcxLThjYmEtYzZiYjM2Yzk2MzQ1",
+                "0037250100293610", "1397", this, 0);
+
+        flightActivity.startMainFlight();
     }
 }
