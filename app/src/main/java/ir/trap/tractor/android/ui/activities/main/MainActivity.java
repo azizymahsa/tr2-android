@@ -41,6 +41,7 @@ import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.base.BaseActivity;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
 import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
+import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
@@ -305,6 +306,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onBill()
     {
 
+        isMainFragment = false;
+
+        currentFragment = BillFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.main_container, currentFragment)
+                .commit();
     }
 
     @Override

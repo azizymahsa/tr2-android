@@ -427,7 +427,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             }
 
             case 4: {
-//                mainView.onBill();
+                mainView.onBill();
                 break;
             }
 

@@ -18,6 +18,8 @@ public class Const
     public final static String Verify =SubBASEURL +"v1/user/verify/";
     public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
     public final static String GetMenuAll = SubBASEURL + "v1/menu/get_all_services/";
+    public final static String GetMyBills = SubBASEURL + "v1/bill/";
+    public final static String GetBillCodePayCode= SubBASEURL +"v1/bill/get_bill_code_pay_code/";
 
     public final static String MOBILE_CHARGE = SubBASEURL + "TopupCharge/v2/BuyCharge";
 

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llItemMyBill"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_5sdp"
+    android:foreground="?attr/selectableItemBackground">
+
+
+    <ImageView
+        android:id="@+id/ivBillLogo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:maxHeight="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvBillNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSize_16dp"
+            android:textAppearance="@style/IranSansBold"
+            />
+
+        <TextView
+            android:id="@+id/tvBillName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/currentColor"
+            android:textSize="@dimen/textSize_14dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@drawable/shadow_b"
+            android:layout_marginBottom="2dp"/>
+    </LinearLayout>
+
+   <!-- <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        android:id="@+id/btnDelete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/background40"
+        android:text="@string/trash_icon_R"
+        android:textAppearance="@style/IconFonts_R"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:transitionName="transition"
+        app:finalCornerAngle="40dp"
+        app:initialCornerAngle="40dp"
+        app:spinning_bar_width="2dp" />
+
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        android:id="@+id/btnEdit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:text="@string/edit_icon"
+        android:layout_marginLeft="@dimen/_45dp"
+        android:background="@drawable/background40"
+        android:textAppearance="@style/IconFonts"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:layout_alignParentLeft="true"
+        android:transitionName="transition"
+        app:finalCornerAngle="40dp"
+        app:initialCornerAngle="40dp"
+        app:spinning_bar_width="2dp"
+
+        />-->
+
+
+</RelativeLayout>

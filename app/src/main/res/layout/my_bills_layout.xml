@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="100"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll2"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_35sdp"
+                android:gravity="center"
+                android:textColor="@color/white"/>
+            <TextView
+                android:id="@+id/tvBillsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="قبض های من"
+                android:textAppearance="@style/IranSansBold"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+        </LinearLayout>
+        <View
+            android:layout_below="@+id/ll2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/shadow_b"
+            android:backgroundTint="@color/white"/>
+     <!--   <ir.bankday.diba.android.tools.ClearableEditText
+            android:id="@+id/etSearch"
+            android:layout_width="@dimen/_220sdp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/circle_background_search"
+            android:gravity="center"
+            android:hint="جستجو"
+            android:textColor="@color/white"
+
+            android:textColorHint="#b9b9b9"
+            android:textSize="@dimen/textSize_16dp"
+            android:layout_below="@+id/ll2"
+            />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMyBills"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_below="@+id/ll2"/>
+
+    </RelativeLayout>
+
+
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        android:id="@+id/btnAddBill"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_small_border"
+        android:text="اضافه کردن قبض"
+        android:textSize="@dimen/textSize_14dp"
+        android:transitionName="transition"
+        app:finalCornerAngle="50dp"
+        app:spinning_bar_color="@color/white"
+        app:initialCornerAngle="50dp"
+        app:spinning_bar_width="2dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"/>
+</LinearLayout>

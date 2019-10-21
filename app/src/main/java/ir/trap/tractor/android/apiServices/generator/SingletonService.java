@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import ir.trap.tractor.android.apiServices.ServiceApplication;
 import ir.trap.tractor.android.apiServices.di.component.NetComponent;
 //import library.android.service.generator.DaggerComponentService;
+import ir.trap.tractor.android.apiServices.part.BillCodePayCodeService;
 import ir.trap.tractor.android.apiServices.part.BusService;
 import ir.trap.tractor.android.apiServices.part.DoTransferCardService;
 import ir.trap.tractor.android.apiServices.part.FlightService;
@@ -12,6 +13,7 @@ import ir.trap.tractor.android.apiServices.part.GetBillInfoService;
 import ir.trap.tractor.android.apiServices.part.GetCardListService;
 import ir.trap.tractor.android.apiServices.part.GetHappyCardInfoService;
 import ir.trap.tractor.android.apiServices.part.GetMenuService;
+import ir.trap.tractor.android.apiServices.part.GetMyBillsService;
 import ir.trap.tractor.android.apiServices.part.GetPackageIrancellService;
 import ir.trap.tractor.android.apiServices.part.GetPackageMciService;
 import ir.trap.tractor.android.apiServices.part.GetRightelPackService;
@@ -87,6 +89,14 @@ public class SingletonService
         return new VerifyService(serviceGenerator);
     }
 
+    public GetMyBillsService getMyBillsService(){
+        return new GetMyBillsService(serviceGenerator);
+    }
+
+    public BillCodePayCodeService getBillCodePayCode()
+    {
+        return new BillCodePayCodeService(serviceGenerator);
+    }
     public GetMenuService getMenuService()
     {
         return new GetMenuService(serviceGenerator);
