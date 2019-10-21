@@ -44,6 +44,7 @@ import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
+import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.utilities.Logger;
@@ -121,6 +122,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     isMainFragment = false;
 
                     currentFragment = AllMenuFragment.newInstance(this);
+                    transaction = fragmentManager.beginTransaction();
                     //  transaction = fragmentManager.beginTransaction();
                     transaction = getSupportFragmentManager().beginTransaction();
 
@@ -146,11 +148,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     }
                     break;
                 }
-                case R.id.tab_profile:
+                case R.id.tab_payment:
                 {
                     if (!bottomNavigationView.getMenu().getItem(4).isChecked())
                     {
                         setCheckedBNV(bottomNavigationView, 4);
+
+                        isMainFragment = false;
+
+                        currentFragment = PaymentWithoutCardFragment.newInstance(this);
+                        transaction = fragmentManager.beginTransaction();
+
+                        transaction.replace(R.id.main_container, currentFragment)
+                                .commit();
                     }
                     break;
                 }
@@ -238,6 +248,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 super.onBackPressed();
             } else
             {
+                setCheckedBNV(bottomNavigationView, 2);
+
                 backToMainFragment();
             }
         }

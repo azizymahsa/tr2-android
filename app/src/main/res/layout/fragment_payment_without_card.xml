@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:background="@drawable/background_main_header" />
+
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:background="@drawable/img_header_background" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent">
+
+                <include layout="@layout/toolbar_main" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/llMerchantList"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:layout_width="@dimen/_72sdp"
+                                android:layout_height="@dimen/_72sdp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_60sdp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_merchant_list"
+                                    android:scaleType="fitCenter" />
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="لیست پذیرنگان"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textSize="@dimen/textSize_14dp"
+                                android:textColor="@color/textColorSecondary"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llQrScan"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:layout_width="@dimen/_72sdp"
+                                android:layout_height="@dimen/_72sdp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_60sdp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_qr_code"
+                                    android:scaleType="fitCenter" />
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tvTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="اسکن بارکد"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textSize="@dimen/textSize_14dp"
+                                android:textColor="@color/textColorSecondary"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llDetailPayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|right"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            app:hintTextAppearance="@style/TextLabel"
+                            android:id="@+id/etLayoutCode"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_gravity="center|right"
+                            android:layout_weight="2"
+                            android:hint="کد پذیرنده"
+                            android:theme="@style/EditTextHint">
+
+                            <ir.trap.tractor.android.utilities.ClearableEditText
+                                android:id="@+id/etQR"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/textColorSecondary"
+                                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                                android:gravity="right|center"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textColor="@color/textColorPrimary"
+                                android:textColorHint="@color/textColorHint"
+                                android:textSize="@dimen/textSize_16dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|right"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            app:hintTextAppearance="@style/TextLabel"
+                            android:id="@+id/etLayoutPass"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_gravity="center|right"
+                            android:layout_weight="2"
+                            android:hint="مبلغ را به ریال وارد نمایید"
+                            android:theme="@style/EditTextHint">
+
+                            <ir.trap.tractor.android.utilities.ClearableEditText
+                                android:id="@+id/etAmountPayment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/textColorSecondary"
+                                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                                android:gravity="right|center"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textColor="@color/textColorPrimary"
+                                android:textColorHint="@color/textColorHint"
+                                android:textSize="@dimen/textSize_16dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llBtnConfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_30dp"
+                        android:gravity="center|right"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2">
+
+                            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                                android:id="@+id/btnConfirm"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_30dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/background_button_login"
+                                android:textColor="@color/textColorButton"
+                                android:textSize="@dimen/textSize_14dp"
+                                android:transitionName="transition"
+                                app:finalCornerAngle="50dp"
+                                android:text="ادامه"
+                                app:spinning_bar_color="@color/textColorButton"
+                                android:textStyle="bold"
+                                app:initialCornerAngle="50dp"
+                                app:spinning_bar_width="2dp"
+                                android:layout_margin="2dp"/>
+
+                        </FrameLayout>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>
