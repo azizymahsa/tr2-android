@@ -3,6 +3,7 @@ package ir.trap.tractor.android.apiServices.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import ir.trap.tractor.android.apiServices.helper.Const;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse;
@@ -20,6 +21,8 @@ import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransf
 import ir.trap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
+import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
+import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
 import ir.trap.tractor.android.apiServices.model.getHappyCardInfo.GetHappyCardInfoRequest;
 import ir.trap.tractor.android.apiServices.model.getHappyCardInfo.response.GetHappyCardInfoResponse;
 import ir.trap.tractor.android.apiServices.model.getInfoBill.request.GetInfoBillRequest;
@@ -182,6 +185,8 @@ public interface RetroClient {
     @POST(Const.HotelPayment)
     Single<Response<WebServiceClass<GlobalResponse2>>> doHotelPayment(
             @Body GdsHotelPaymentRequest gdsHotelPaymentRequest);
-
+    @POST(Const.DECRYPTQRCODE)
+    Single<Response<WebServiceClass<DecryptQrResponse>>> decryptQr(
+            @Body DecryptQrRequest request);
 
 }

@@ -119,16 +119,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     if (!bottomNavigationView.getMenu().getItem(1).isChecked())
                     {
                         setCheckedBNV(bottomNavigationView, 1);
+
+                        isMainFragment = false;
+
+                        currentFragment = AllMenuFragment.newInstance(this);
+                        transaction = fragmentManager.beginTransaction();
+                        transaction = getSupportFragmentManager().beginTransaction();
+
+                        transaction.replace(R.id.main_container, currentFragment)
+                                .commit();
                     }
-                    isMainFragment = false;
 
-                    currentFragment = AllMenuFragment.newInstance(this);
-                    transaction = fragmentManager.beginTransaction();
-                    //  transaction = fragmentManager.beginTransaction();
-                    transaction = getSupportFragmentManager().beginTransaction();
-
-                    transaction.replace(R.id.main_container, currentFragment)
-                            .commit();
                     break;
                 }
                 case R.id.tab_home:
