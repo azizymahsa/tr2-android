@@ -195,7 +195,7 @@ public class PackFragment
     @BindView(R.id.btnChargeBackRightel)
     View btnChargeBackRightel;
     @BindView(R.id.btnPackBackMci)
-    CircularProgressButton btnPackBackMci;
+    View btnPackBackMci;
     @BindView(R.id.btnIrancellRecent)
     View btnIrancellRecent;
     @BindView(R.id.btnMciRecent)
@@ -767,7 +767,8 @@ public class PackFragment
     @OnClick(R.id.btnMCIPackConfirm)
     void setBtnMCIPackConfirm()
     {
-
+        initSpinner();
+        setupRecycler();
         if (!Utility.mciValidation(etMCINumber.getText().toString()))
         {
             mainView.showError("لطفا شماره موبایل همراه اول را صحیح وارد نمایید.");
@@ -1021,7 +1022,7 @@ public class PackFragment
         btnChargeConfirmRightel.setText("ادامه");
         //btnBackToCharge.setText("بازگشت");
         //btnChargeBackRightel.setText("بازگشت");
-        btnPackBackMci.setText("بازگشت");
+      //  btnPackBackMci.setText("بازگشت");
         //btnPackBackIrancell.setText("بازگشت");
         tlPassCharge.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         tipCvv2.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
@@ -1574,8 +1575,8 @@ public class PackFragment
                     .duration(200)
                     .playOn(tvSelectMci);*/
             irancellPack.clear();
-          /*  if (packRespone.data.getPackages().getNightly() != null && packRespone.data.getPackages().getNightly().size() != 0)
-                irancellPack.add(new RightelPackModel("شبانه", packRespone.data.getPackages().getNightly()));*/
+            if (packRespone.data.getPackages().getNightly() != null && packRespone.data.getPackages().getNightly().size() != 0)
+                irancellPack.add(new RightelPackModel("شبانه", packRespone.data.getPackages().getNightly()));
             if (packRespone.data.getPackages().getDaily() != null && packRespone.data.getPackages().getDaily().size() != 0)
                 irancellPack.add(new RightelPackModel("روزانه", packRespone.data.getPackages().getDaily()));
 

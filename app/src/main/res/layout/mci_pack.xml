@@ -202,10 +202,8 @@
 
         <include
             android:id="@+id/btnPackBackMci"
-            layout="@layout/circular_progress_button"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center" />
+            layout="@layout/return_button"
+            />
 
         <View
             android:layout_width="match_parent"

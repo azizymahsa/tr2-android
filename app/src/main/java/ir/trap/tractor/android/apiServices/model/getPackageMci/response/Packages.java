@@ -10,6 +10,11 @@ import ir.trap.tractor.android.apiServices.model.getRightelPack.response.Detail;
 
 public class Packages {
 
+
+    @SerializedName("nightly")
+    @Expose
+    private List<Detail> nightly = null;
+
     @SerializedName("daily")
     @Expose
     private List<Detail> daily = null;
@@ -43,6 +48,16 @@ public class Packages {
     @SerializedName("other")
     @Expose
     private List<Detail> other = null;
+
+    public List<Detail> getNightly()
+    {
+        return nightly;
+    }
+
+    public void setNightly(List<Detail> nightly)
+    {
+        this.nightly = nightly;
+    }
 
     public List<Detail> getHourly() {
         return hourly;
