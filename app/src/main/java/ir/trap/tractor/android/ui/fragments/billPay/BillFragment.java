@@ -83,7 +83,7 @@ import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
 import library.android.service.model.flight.issueReservation.response.IssueReservationResponse;
 
 /**
- * Created by RezaNejati on 1/31/2019.
+ * Created by Javad.Abadi on 1/31/2019.
  */
 @SuppressLint("ValidFragment")
 public class BillFragment extends BaseFragment implements  MainActionView,OnAnimationEndListener,CompoundButton.OnCheckedChangeListener {
@@ -1288,6 +1288,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     @Override
     public void closeDrawer()
+    {
+
+    }
+
+    @Override
+    public void startAddCardActivity()
     {
 
     }

@@ -194,7 +194,8 @@ public class ResultBuyCharge extends DialogFragment implements View.OnClickListe
                 dismiss();
                 break;
             case R.id.tvShareImageP:
-                tvCardNumberDialog.setText(Utility.cardStarFormat(cardNumber));
+//                tvCardNumberDialog.setText(Utility.cardStarFormat(cardNumber));
+                tvCardNumberDialog.setText(cardNumber);
                 tvShareImageP.setVisibility(View.INVISIBLE);
                 tvShareP.setVisibility(View.INVISIBLE);
                 tvShareText.setVisibility(View.INVISIBLE);
@@ -217,7 +218,8 @@ public class ResultBuyCharge extends DialogFragment implements View.OnClickListe
                         tvAmountDialog.getText().toString() +
                         "\n" +
                         "از کارت: " +
-                        Utility.cardStarFormat(cardNumber) +
+//                        Utility.cardStarFormat(cardNumber) +
+                        cardNumber +
                         "\n" +
                         "متعلق به: " +
                         tvNameDialog.getText().toString() +

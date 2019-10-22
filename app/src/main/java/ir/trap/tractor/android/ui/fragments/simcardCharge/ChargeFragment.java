@@ -85,8 +85,6 @@ public class ChargeFragment extends BaseFragment
     private FragmentTransaction transaction;
 
 
-
-
     private int operatorType = 0;
 
     private static int OPERATOR_TYPE_MCI = 2;
@@ -1623,8 +1621,14 @@ public class ChargeFragment extends BaseFragment
     public void onPaymentCancelAndBack()
     {
         rootView.findViewById(R.id.container).setVisibility(View.GONE);
+//        transaction.detach(pFragment);
         contentView.setVisibility(View.VISIBLE);
         setBtnBackToCharge();
+    }
+    @Override
+    public void startAddCardActivity()
+    {
+        mainView.startAddCardActivity();
     }
 
     public void onSelectContact(OnSelectContact event)

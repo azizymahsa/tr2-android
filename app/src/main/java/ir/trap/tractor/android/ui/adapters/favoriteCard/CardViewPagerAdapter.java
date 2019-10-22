@@ -22,6 +22,7 @@ import java.util.List;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
 import ir.trap.tractor.android.singleton.SingletonContext;
+import ir.trap.tractor.android.ui.base.GoToActivity;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardActionView;
 import ir.trap.tractor.android.utilities.Utility;
 
@@ -77,7 +78,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 
             holder.tvFullName.setText(item.getFullName());
 //            holder.tvNumberCard.setText(item.getCardNumber());
-            holder.tvNumberCard.setText(Utility.cardFormat(item.getCardNumber().toLowerCase().replace("x", "*")));
+            holder.tvNumberCard.setText(Utility.cardFormat(item.getCardNumber()));
             holder.tvExpireDate.setText(item.getExpirationDateYear() + "/" + item.getExpirationDateMonth());
 
             holder.tvFullName.setTextColor(Color.parseColor(item.getColorText()));
@@ -202,15 +203,9 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //            }
 //
 //        });
-        holder.cvAddCard.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-//                mainView.startActivity(GoToActivity.AddCardActivity);
-
-            }
-        });
+        holder.cvAddCard.setOnClickListener(view ->
+                actionView.startActivity(GoToActivity.AddCardActivity)
+        );
 //
 ////        if (model.isDelete())
 ////        {

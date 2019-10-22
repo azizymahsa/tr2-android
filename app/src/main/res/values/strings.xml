@@ -11,6 +11,9 @@
     <string name="enter_last_name">نام خانوادگی خود را وارد نمایید</string>
     <string name="enter_passcode">رمز عبور دیبا خود را وارد نمایید.</string>
 
+
+    <string name="back_icon_R">&#xf061;</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="plus">&#43;</string>
@@ -37,4 +40,9 @@
     <string name="bill_end">پایان دوره :</string>
 
     <string name="get_permission">با توجه به دستور بانک مرکزی و پلیس فتا مبنی بر افزایش امنیت انجام تراکنشهای بانکی در اپلیکیشن موبایل بانک، میبایست مجوز دسترسی به وضعیت دستگاه داده شود. \n برای ادامه کار لطفا مجوز مربوطه را تایید نمایید.</string>
+
+    <string name="enter_name">لطفا نام و نام خانوادگی را وارد نمایید.</string>
+    <string name="enter_card_number">لطفا شماره کارت را وارد نمایید.</string>
+    <string name="enter_expire_month">لطفا ماه انقضا کارت را وارد نمایید.</string>
+    <string name="enter_expire_year">لطفا سال انقضا کارت را وارد نمایید.</string>
 </resources>

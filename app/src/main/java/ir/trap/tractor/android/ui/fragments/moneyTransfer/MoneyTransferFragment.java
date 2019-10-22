@@ -60,7 +60,7 @@ import ir.trap.tractor.android.utilities.Utility;
 import library.android.eniac.utility.GlideApp;
 
 /**
- * Created by RezaNejati on 7/10/2018.
+ * Created by Javad.Abadi on 7/10/2018.
  */
 @SuppressLint("ValidFragment")
 public class MoneyTransferFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
@@ -1266,5 +1266,11 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
     public void hideFavoriteCardParentLoading()
     {
         mainView.hideLoading();
+    }
+
+    @Override
+    public void startAddCardActivity()
+    {
+
     }
 }
