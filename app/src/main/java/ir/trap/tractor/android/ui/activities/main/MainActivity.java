@@ -43,6 +43,7 @@ import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.base.BaseActivity;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
+import ir.trap.tractor.android.ui.fragments.BarcodeReaderFragment;
 import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
@@ -119,9 +120,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
                 case R.id.tab_all_services:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(1).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(3).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 1);
+                        setCheckedBNV(bottomNavigationView, 3);
 
                         isMainFragment = false;
 
@@ -147,10 +148,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
                 case R.id.tab_media:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(3).isChecked())
+                   /* if (!bottomNavigationView.getMenu().getItem(3).isChecked())
                     {
                         setCheckedBNV(bottomNavigationView, 3);
-                    }
+                    }*/
                     break;
                 }
                 case R.id.tab_payment:
@@ -340,6 +341,31 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         isMainFragment = false;
 
         currentFragment = PackFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.main_container, currentFragment)
+                .commit();
+    }
+
+    @Override
+    public void onBarcodeReader()
+    {
+        isMainFragment = false;
+
+        currentFragment = BarcodeReaderFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.main_container, currentFragment)
+                .commit();
+
+    }
+
+    @Override
+    public void onPaymentWithoutCard()
+    {
+        isMainFragment = false;
+
+        currentFragment = PaymentWithoutCardFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.main_container, currentFragment)

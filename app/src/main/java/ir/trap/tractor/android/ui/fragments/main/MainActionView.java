@@ -12,6 +12,9 @@ public interface MainActionView extends BaseView
 
     void onPackSimCard();
 
+    void onBarcodeReader();
+    void onPaymentWithoutCard();
+
     void doTransferMoney();
 
     void onContact();

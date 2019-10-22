@@ -60,7 +60,7 @@ public class MerchantService extends BasePart
     }
 
 
-    public void decryptQrService(OnServiceStatus<WebServiceClass<DecryptQrResponse>> listener, DecryptQrRequest req)
+    public void GetdecryptQrService(OnServiceStatus<WebServiceClass<DecryptQrResponse>> listener, DecryptQrRequest req)
     {
         start(getServiceGenerator().createService().decryptQr(req), listener);
     }
