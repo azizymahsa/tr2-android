@@ -652,7 +652,8 @@ public class ChargeFragment extends BaseFragment
 
         if (transaction.isEmpty())
         {
-            transaction.add(R.id.container, pFragment)
+            transaction
+                .replace(R.id.container, pFragment)
                     .commit();
         }
         else
@@ -931,7 +932,7 @@ public class ChargeFragment extends BaseFragment
         rbYoungMCN.setChecked(true);
         rbNormalChargeRightel.setChecked(true);
 
-       // initDefaultOperatorView();
+        initDefaultOperatorView();
 
         try
         {
