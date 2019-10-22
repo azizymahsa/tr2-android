@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -84,7 +85,7 @@ import library.android.service.model.flight.reservation.response.ReservationResp
 /**
  * Created by MahsaAzizi
  */
-@SuppressLint("ValidFragment")
+
 public class AllMenuFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
         ItemRecyclerViewAdapter.OnItemClickListenerItem, TextWatcher, OnServiceStatus<WebServiceClass<ArrayList<GetMenuItemResponse>>>, onConfirmUserPassGDS, AllMenuServiceModelAdapter.OnItemAllMenuClickListener, HotelReservationData, BusLockSeat, FlightReservationData {
     private RecyclerView recyclerView;
@@ -97,13 +98,19 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     Context context = getContext();
     private RecyclerView rvGrid;
     private String unicCode="";
-
+    private Toolbar mToolbar;
     public AllMenuFragment() {
 
     }
 
+
     public static AllMenuFragment newInstance(MainActionView mainView) {
         AllMenuFragment f = new AllMenuFragment();
+        Bundle args = new Bundle();
+//        args.putParcelableArrayList("chosenServiceList", chosenServiceList);
+//        args.putParcelableArrayList("footballServiceList", footballServiceList);
+
+        f.setArguments(args);
         f.setMainView(mainView);
         return f;
     }
@@ -123,7 +130,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
         recyclerView = rootView.findViewById(R.id.recyclerView);
         rvGrid = rootView.findViewById(R.id.rvGrid);
 
-        ((TextView) rootView.findViewById(R.id.tvTitle)).setText("همه سرویسها");
+       // ((TextView) rootView.findViewById(R.id.tvTitle)).setText("همه سرویسها");
 
     }
 
@@ -142,7 +149,16 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
         request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
         SingletonService.getInstance().getMenuService().getMenuAll(AllMenuFragment.this, request);
 
+        mToolbar = rootView.findViewById(R.id.toolbar);
 
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mainView.openDrawer();
+            }
+        });
         return rootView;
     }
 

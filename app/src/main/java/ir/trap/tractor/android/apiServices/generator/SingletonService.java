@@ -20,6 +20,7 @@ import ir.trap.tractor.android.apiServices.part.GetRightelPackService;
 import ir.trap.tractor.android.apiServices.part.GetShetabCardInfoService;
 import ir.trap.tractor.android.apiServices.part.HotelService;
 import ir.trap.tractor.android.apiServices.part.LoginService;
+import ir.trap.tractor.android.apiServices.part.MerchantService;
 import ir.trap.tractor.android.apiServices.part.MobileChargeService;
 import ir.trap.tractor.android.apiServices.part.PackageBuyService;
 import ir.trap.tractor.android.apiServices.part.VerifyService;
@@ -100,6 +101,10 @@ public class SingletonService
     public GetMenuService getMenuService()
     {
         return new GetMenuService(serviceGenerator);
+    }
+    public MerchantService getMerchantService()
+    {
+        return new MerchantService(serviceGenerator);
     }
 
     public PackageBuyService packageBuyService()

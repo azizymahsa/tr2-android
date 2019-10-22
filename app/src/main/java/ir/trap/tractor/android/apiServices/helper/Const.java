@@ -52,6 +52,7 @@ public class Const
 
     public final static String GetCardList = SubBASEURL + "v1/card";
 
+    public final static String DECRYPTQRCODE = "api/v1/payment/decrypt_qr_code/";
 
 
 
