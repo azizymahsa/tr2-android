@@ -89,7 +89,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     private View v;
     private CardView cvBarcode;
     private ClearableEditText etPayId, etBillId, etMobile, etTitleAddMyBill;
-    private CircularProgressButton btnConfirm, btnContact, btnPhoneInfo, btnAddBill, btnBillInfoEnd, btnMyBills;
+    private CircularProgressButton btnConfirm, btnAddBill, btnBillInfoEnd, btnMyBills,btnPhoneInfo;
+    private View  btnContact;
     private RecyclerView rvInfo, rvMyBills;
     private LinearLayout llDetailPayment, llCardDetail, llBill, llCvv2, llSelect, rlBillList, llTitleAddMyBill,llContinueBill;
     private List<LstPhoneBill> lstPhoneBills = new ArrayList<>();
@@ -178,6 +179,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             v = null;
 
         v = inflater.inflate(R.layout.bill_fragment, container, false);
+        //((TextView) v.findViewById(R.id.tvTitle)).setText("پرداخت قبض");
 
         Log.e("testspeech5", "onSpeechBill: " + phone);
 

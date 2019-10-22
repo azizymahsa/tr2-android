@@ -73,6 +73,10 @@ public interface RetroClient {
             @Body VerifyRequest request
     );
 
+    @POST(Const.BuyCharge)
+    Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
+            @Body MobileChargeRequest request);
+
     @POST(Const.GET_PACKAGE_IRANCELL)
     Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(
             @Body GetPackageMciRequest request
@@ -91,10 +95,10 @@ public interface RetroClient {
     Single<Response<WebServiceClass<GetCardListResponse>>> getCardList();
 
 
-    @POST(Const.MOBILE_CHARGE)
+/*    @POST(Const.MOBILE_CHARGE)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
             @Body MobileChargeRequest request
-    );
+    );*/
 
 
     @POST(Const.GET_PACKAGE_RIGHTEL)

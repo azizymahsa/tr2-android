@@ -466,11 +466,11 @@ public class ChargeFragment extends BaseFragment
 
         if (isMtn)
         {
-            irancellBuy.findDataIrancellBuyRequest(this, Prefs.getInt("userId", 0),
+           /* irancellBuy.findDataIrancellBuyRequest(this, Prefs.getInt("userId", 0),
                     profileType, Integer.valueOf(etChargeAmount.getText().toString().replaceAll(",", "")),
                     cardNumber, etPassCharge.getText().toString(), etMobileCharge.getText().toString(), ccv2,
 //                    archiveCardDBModels.getExpireYear() + archiveCardDBModels.getExpireMonth(), simcardType);
-                    "", simcardType);
+                    "", simcardType);*/
             return;
         }
         if (isMci)
@@ -639,7 +639,11 @@ public class ChargeFragment extends BaseFragment
                 title,
                 imageDrawable,
                 this,
-                null);
+                null,
+                operatorType,
+                simcardType,
+                Integer.valueOf(chargeType)
+                ,mobile);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
@@ -1088,7 +1092,7 @@ public class ChargeFragment extends BaseFragment
         etPassCharge.setText("");
         btnBuyCharge.revertAnimation(this);
         btnBuyCharge.setClickable(true);
-        if (response.getServiceMessage().getCode() == 200)
+  /*      if (response.getServiceMessage().getCode() == 200)
         {
             initDefaultOperatorView();
             ResultBuyCharge charge = new ResultBuyCharge(getActivity(), response.getCreateDate(),
@@ -1104,7 +1108,7 @@ public class ChargeFragment extends BaseFragment
         {
             mainView.showError(response.getServiceMessage().getMessage());
             hideSoftKeyboard(etPassCharge);
-        }
+        }*/
     }
 
     @Override
@@ -1223,7 +1227,8 @@ public class ChargeFragment extends BaseFragment
                     rbYoungMCN.setChecked(false);
                     rbWomenMCN.setChecked(false);
                 }
-                chargeType = "DIRECT";
+              //  chargeType = "DIRECT";
+                chargeType="0";
                 chargeName = "شارژ مستقیم";
 
                 break;
@@ -1300,7 +1305,7 @@ public class ChargeFragment extends BaseFragment
 
         btnBuyCharge.revertAnimation(this);
         btnBuyCharge.setClickable(true);
-        if (mciBuyResponse.getServiceMessage().getCode() == 200)
+   /*     if (mciBuyResponse.getServiceMessage().getCode() == 200)
         {
             initDefaultOperatorView();
             ResultBuyCharge charge = new ResultBuyCharge(getActivity(), mciBuyResponse.getCreateDate(), mciBuyResponse.getTrnBizKey(),
@@ -1318,7 +1323,7 @@ public class ChargeFragment extends BaseFragment
             hideSoftKeyboard(etPassCharge);
 
 
-        }
+        }*/
     }
 
     @Override
@@ -1340,7 +1345,7 @@ public class ChargeFragment extends BaseFragment
 
         btnBuyCharge.revertAnimation(this);
         btnBuyCharge.setClickable(true);
-        if (response.getServiceMessage().getCode() == 200)
+    /*    if (response.getServiceMessage().getCode() == 200)
         {
             initDefaultOperatorView();
             ResultBuyCharge charge = new ResultBuyCharge(getActivity(), response.getCreateDate(),
@@ -1355,7 +1360,7 @@ public class ChargeFragment extends BaseFragment
             mainView.showError(response.getServiceMessage().getMessage());
             hideSoftKeyboard(etPassCharge);
 
-        }
+        }*/
 
     }
 

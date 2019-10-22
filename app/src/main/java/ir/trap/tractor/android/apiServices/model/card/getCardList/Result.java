@@ -8,6 +8,11 @@ import lombok.Setter;
 
 public class Result
 {
+    @SerializedName("id")
+    @Expose @Getter @Setter
+    private Integer cardId;
+
+
     @SerializedName("bank")
     @Expose @Getter @Setter
     private Integer bankId;

@@ -11,7 +11,43 @@ import ir.trap.tractor.android.apiServices.model.ServiceMessage;
 public class MobileChargeResponse
 {
 
-    @SerializedName("CreateDate")
+    @SerializedName("TrnBizKey")
+    @Expose
+    private String trnBizKey;
+
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+
+    @SerializedName("create_date")
+    @Expose
+    private String createDate;
+
+    public String getTrnBizKey() {
+        return trnBizKey;
+    }
+
+    public void setTrnBizKey(String trnBizKey) {
+        this.trnBizKey = trnBizKey;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+   /* @SerializedName("CreateDate")
     @Expose
     private String createDate;
 
@@ -59,5 +95,5 @@ public class MobileChargeResponse
     public ServiceMessage getServiceMessage() { return serviceMessage; }
 
     public void setServiceMessage(ServiceMessage serviceMessage) { this.serviceMessage = serviceMessage; }
-
+*/
 }
