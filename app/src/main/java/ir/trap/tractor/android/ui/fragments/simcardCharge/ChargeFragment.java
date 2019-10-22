@@ -89,9 +89,9 @@ public class ChargeFragment extends BaseFragment
 
     private int operatorType = 0;
 
-    private static int OPERATOR_TYPE_MCI = 0;
+    private static int OPERATOR_TYPE_MCI = 2;
     private static int OPERATOR_TYPE_MTN = 1;
-    private static int OPERATOR_TYPE_RIGHTEL = 2;
+    private static int OPERATOR_TYPE_RIGHTEL = 3;
 
     private MainActionView mainView;
 
@@ -475,22 +475,22 @@ public class ChargeFragment extends BaseFragment
         }
         if (isMci)
         {
-            mciBuy.findDataMciBuyInRequest(this, Prefs.getInt("userId", 0),
+          /*  mciBuy.findDataMciBuyInRequest(this, Prefs.getInt("userId", 0),
                     chargeType, Integer.valueOf(etMCIAmount.getText().toString().replaceAll(",", "")),
                     cardNumber, etPassCharge.getText().toString(), etMCINumber.getText().toString(), ccv2,
 //                    archiveCardDBModels.getExpireYear() + archiveCardDBModels.getExpireMonth());
                     "");
-            return;
+            return;*/
 
 
         }
         if (isRightel)
         {
-            rightelBuy.findRightelBuyDataRequest(this, Prefs.getInt("userId", 0),
+           /* rightelBuy.findRightelBuyDataRequest(this, Prefs.getInt("userId", 0),
                     rightelType + "", Integer.valueOf(etChargeAmountRightel.getText().toString().replaceAll(",", "")),
                     cardNumber, etPassCharge.getText().toString(), etMobileChargeRightel.getText().toString(), ccv2,
 //                    archiveCardDBModels.getExpireYear() + archiveCardDBModels.getExpireMonth());
-                    "");
+                    "");*/
         }
 
 
@@ -633,6 +633,8 @@ public class ChargeFragment extends BaseFragment
         String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
 
         fragmentManager = getChildFragmentManager();
+        operatorType = getOperatorType(mobile);
+
         pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
                 amount,
 //                "پرداخت شارژ سیمکارت " + chargeStr,
@@ -650,7 +652,8 @@ public class ChargeFragment extends BaseFragment
 
         if (transaction.isEmpty())
         {
-            transaction.add(R.id.container, pFragment)
+            transaction
+                .replace(R.id.container, pFragment)
                     .commit();
         }
         else
@@ -951,12 +954,12 @@ public class ChargeFragment extends BaseFragment
 
     private void initDefaultOperatorView()
     {
-//        operatorType = getOperatorType(Prefs.getString("mobile", ""));
+       // operatorType = getOperatorType(Prefs.getString("mobile", ""));
         operatorType = getOperatorType("09121234567");
 
         switch (operatorType)
         {
-            case 0:
+            case 2:
             {
                 tvChargeTitle.setText("خرید شارژ آنلاین " + "همراه اول");
 
@@ -1008,7 +1011,7 @@ public class ChargeFragment extends BaseFragment
                 isRightel = false;
                 break;
             }
-            case 2:
+            case 3:
             {
                 tvChargeTitle.setText("خرید شارژ آنلاین " + "رایتل");
 
@@ -1202,7 +1205,7 @@ public class ChargeFragment extends BaseFragment
                     rbNormalChargeIrancell.setChecked(false);
                 profileType = 1;
                 chargeName = "شارژ شگفت انگیز";
-
+                chargeType="1";
 
                 break;
             case R.id.rbNormalChargeIrancell:
@@ -1600,7 +1603,7 @@ public class ChargeFragment extends BaseFragment
     @Override
     public void onDestroyView()
     {
-        initDefaultOperatorView();
+      //  initDefaultOperatorView();
         super.onDestroyView();
     }
 

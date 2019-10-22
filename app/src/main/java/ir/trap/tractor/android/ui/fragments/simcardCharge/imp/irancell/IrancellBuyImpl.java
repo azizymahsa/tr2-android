@@ -24,7 +24,7 @@ public class IrancellBuyImpl implements IrancellBuyInteractor
        request.setExpDate(expDate);
        request.setMobile(mobile);
        //operator type 1
-       request.setOperatorType(1);
+       request.setOperatorType(operatorType);
        request.setSimCardType(simcardType);
        request.setTypeCharge(typeCharge);
        request.setPin(password);
@@ -35,7 +35,12 @@ public class IrancellBuyImpl implements IrancellBuyInteractor
             {
                 try
                 {
-                    listener.onPaymentChargeSimCard(response.data, mobile);
+                    if (response.info.statusCode==200)
+                    {
+                        listener.onPaymentChargeSimCard(response.data, mobile);
+                    }else {
+                        listener.onErrorCharge(response.info.message);
+                    }
 
                 }
                 catch (Exception e)
