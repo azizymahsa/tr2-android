@@ -40,6 +40,7 @@ import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemRes
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.singleton.SingletonContext;
+import ir.trap.tractor.android.ui.activities.card.add.AddCardActivity;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.base.BaseActivity;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
@@ -268,7 +269,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         final Intent intent = new Intent();
         switch (itemNumber)
         {
-            case 7:
+            case 1:
             {
                 CustomAlert ca = new CustomAlert(this);
                 ca.setCustomTitle(R.string.app_name);
@@ -473,6 +474,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             cursor.close();
 
         }
+
+        if (resultCode == Activity.RESULT_OK && requestCode == 22)
+        {
+            showToast(this, "کارت جدید با موفقیت ذخیره شد.", R.color.green);
+
+        }
     }
 
     @Override
@@ -511,6 +518,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void closeDrawer()
     {
 
+    }
+
+    @Override
+    public void startAddCardActivity()
+    {
+//        startActivityForResult(new Intent(this, AddCardActivity.class), 22);
     }
 
     @Override

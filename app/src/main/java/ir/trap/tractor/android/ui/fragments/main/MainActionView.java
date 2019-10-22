@@ -28,4 +28,6 @@ public interface MainActionView extends BaseView
     void openDrawer();
 
     void closeDrawer();
+
+    void startAddCardActivity();
 }
