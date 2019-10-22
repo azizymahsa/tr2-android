@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -27,14 +28,17 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
-import de.hdodenhof.circleimageview.CircleImageView;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
+import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardFragment;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardParentActionView;
+import ir.trap.tractor.android.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
 import ir.trap.tractor.android.utilities.ClearableEditText;
+import ir.trap.tractor.android.utilities.Tools;
 import ir.trap.tractor.android.utilities.Utility;
+import okhttp3.internal.Util;
 
 public class PaymentFragment extends Fragment implements FavoriteCardParentActionView, PaymentParentActionView, PaymentActionView
 {
@@ -60,6 +64,14 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
     private String price;
     private String title;
     private int drawableIcon;
+    private IrancellBuyImpl irancellBuy;
+    private int operatorType;
+    private int typeCharge;
+    private int simcardType;
+    private String mobile;
+    private String cvv2="";
+    private String expDate="";
+    private Integer cardId;
 
 
     public PaymentFragment()
@@ -72,7 +84,12 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
                                               String title,
                                               int imgLogo,
                                               PaymentParentActionView paymentParentActionView,
-                                              Object response)
+                                              Object response,
+                                              int operatorType,
+                                              int simcardType,
+                                              int typeCharge,
+                                              String mobile
+                                              )
     {
         PaymentFragment fragment = new PaymentFragment();
         fragment.setParentActionView(paymentParentActionView);
@@ -84,6 +101,11 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
         args.putString("price", price);
         args.putString("title", title);
         args.putParcelable("response", (Parcelable) response);
+
+        args.putInt("OPERATOR_TYPE",operatorType);
+        args.putInt("SIMCARD_TYPE",simcardType);
+        args.putString("MOBILE",mobile);
+        args.putInt("TYPE_CHARGE",typeCharge);
 
         fragment.setArguments(args);
 
@@ -108,6 +130,10 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
             title = getArguments().getString("title");
             PAYMENT_STATUS = getArguments().getInt("PAYMENT_STATUS", 0);
             drawableIcon = getArguments().getInt("imgLogo", 0);
+            operatorType=getArguments().getInt("OPERATOR_TYPE",0);
+            typeCharge=getArguments().getInt("TYPE_CHARGE",0);
+            simcardType=getArguments().getInt("SIMCARD_TYPE",0);
+            mobile=getArguments().getString("MOBILE","");
             getObjectTypeArg(getArguments().getParcelable("response"));
         }
 
@@ -192,7 +218,7 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
                     .commit();
         }
         //----------------card fragment----------------
-
+        irancellBuy = new IrancellBuyImpl();
         tvAmount = rootView.findViewById(R.id.tvAmount);
         tvTitle = rootView.findViewById(R.id.tvTitle);
         imgLogo = rootView.findViewById(R.id.imgLogo);
@@ -252,7 +278,8 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
                 }
                 case TrapConfig.PAYMENT_STAUS_ChargeSimCard:
                 {
-
+                    irancellBuy.findDataIrancellBuyRequest(this,price,simcardType,operatorType
+                            ,typeCharge,etPass.getText().toString(),mobile,cvv2,expDate,cardId);
                     break;
                 }
                 case TrapConfig.PAYMENT_STAUS_PackSimCard:
@@ -369,6 +396,7 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
                     .duration(200)
                     .playOn(llCvv2);
         }
+        cardId=mCard.getCardId();
     }
 
 
@@ -415,9 +443,9 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
     }
 
     @Override
-    public void onPaymentChargeSimCard()
+    public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
     {
-
+        Tools.showToast(getContext(),"خرید شارژ برای شماره "+mobile + "با موفقیت انجام شد", R.color.green);
     }
 
     @Override
@@ -442,6 +470,12 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
     public void onPaymentBillTicket()
     {
 
+    }
+
+    @Override
+    public void onErrorCharge(String message)
+    {
+        Tools.showToast(getContext(),message , R.color.red);
     }
 
     @Override

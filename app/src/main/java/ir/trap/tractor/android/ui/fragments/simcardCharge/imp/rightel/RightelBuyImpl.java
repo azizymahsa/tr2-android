@@ -17,7 +17,7 @@ public class RightelBuyImpl implements RightelBuyInteractor
     {
 //        RightelBuyRequest request = new RightelBuyRequest();
         MobileChargeRequest request = new MobileChargeRequest();
-        request.setUserId(userId);
+       /* request.setUserId(userId);
         request.setAmount(amount);
         request.setCardNumber(cardNumber);
         request.setChargeMobileNumber(chargeMobileNumber);
@@ -25,7 +25,7 @@ public class RightelBuyImpl implements RightelBuyInteractor
         request.setChargeType(Integer.parseInt(chargeType));
         request.setCvv2(cvv2);
         request.setExpDate(expDate);
-        request.setSimcardType(0);
+        request.setSimcardType(0);*/
         request.setOperatorType(3);
 
         SingletonService.getInstance().getMobileCharge().MobileChargeService(new OnServiceStatus<WebServiceClass<MobileChargeResponse>>()

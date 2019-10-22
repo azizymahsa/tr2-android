@@ -5,6 +5,8 @@ import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
+import ir.trap.tractor.android.ui.fragments.payment.PaymentActionView;
+import ir.trap.tractor.android.ui.fragments.payment.PaymentFragment;
 
 /**
  * Created by Javad.Abadi on 7/21/2018.
@@ -12,24 +14,20 @@ import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileCha
 public class IrancellBuyImpl implements IrancellBuyInteractor
 {
     @Override
-    public void findDataIrancellBuyRequest(OnFinishedIrancellBuyListener listener, int userId, int profileType,
-                                           int amount, String cardNumber, String password, String chargeMobileNumber,
-                                           String cvv2, String expDate, int simcardType)
+    public void findDataIrancellBuyRequest(PaymentActionView listener, String price, int simcardType, int operatorType, int typeCharge, String password
+            , String mobile, String cvv2, String expDate,Integer cardId)
     {
-//        IrancellChargeRequest request = new IrancellChargeRequest();
         MobileChargeRequest request = new MobileChargeRequest();
-        request.setUserId(userId);
-        request.setAmount(amount);
-        request.setCardNumber(cardNumber);
-        request.setChargeMobileNumber(chargeMobileNumber);
-        request.setPassword(password);
-//        request.setProfileType(profileType);
-        request.setChargeType(profileType);
-        request.setCvv2(cvv2);
-        request.setExpDate(expDate);
-        request.setSimcardType(simcardType);
-        request.setOperatorType(1);
-
+       request.setAmount(Integer.valueOf(price.replaceAll(",", "")));
+       request.setCardId(cardId);
+       request.setCvv2(cvv2);
+       request.setExpDate(expDate);
+       request.setMobile(mobile);
+       //operator type 1
+       request.setOperatorType(1);
+       request.setSimCardType(simcardType);
+       request.setTypeCharge(typeCharge);
+       request.setPin(password);
         SingletonService.getInstance().getMobileCharge().MobileChargeService(new OnServiceStatus<WebServiceClass<MobileChargeResponse>>()
         {
             @Override
@@ -37,47 +35,20 @@ public class IrancellBuyImpl implements IrancellBuyInteractor
             {
                 try
                 {
-                    listener.onFinishedIrancellBuy(response.data, chargeMobileNumber);
+                    listener.onPaymentChargeSimCard(response.data, mobile);
+
                 }
                 catch (Exception e)
                 {
-                    listener.onErrorIrancellBuy(e.getMessage());
+                    listener.onErrorCharge(e.getMessage());
                 }
             }
 
             @Override
             public void onError(String message)
             {
-                listener.onErrorIrancellBuy(message);
+                listener.onErrorCharge(message);
             }
         }, request);
-
-//        SingletonService.getInstance().getIrancell().IrancellBuyChargeService(new OnServiceStatus<IrancellChargeResponse>()
-//        {
-//            @Override
-//            public void onReady(IrancellChargeResponse response)
-//            {
-//
-//                try
-//                {
-//                    listener.onFinishedIrancellBuy(response);
-//
-//                } catch (Exception e)
-//                {
-//                    listener.onErrorIrancellBuy(e.getMessage());
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onError(String message)
-//            {
-//                listener.onErrorIrancellBuy(message);
-//
-//
-//            }
-//        }, request);
-
-
     }
 }

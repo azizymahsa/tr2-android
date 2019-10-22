@@ -50,6 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
+import ir.trap.tractor.android.apiServices.model.contact.OnSelectContact;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.trap.tractor.android.apiServices.model.getRightelPack.response.Detail;
@@ -59,6 +60,7 @@ import ir.trap.tractor.android.ui.adapters.pack.DetailPackAdapter;
 import ir.trap.tractor.android.ui.adapters.pack.TitlePackAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
+import ir.trap.tractor.android.ui.fragments.simcardCharge.imp.irancell.IrancellBuyInteractor;
 import ir.trap.tractor.android.ui.fragments.simcardPack.imp.BuyPackageImpl;
 import ir.trap.tractor.android.ui.fragments.simcardPack.imp.BuyPackageInteractor;
 import ir.trap.tractor.android.ui.fragments.simcardPack.imp.irancell.GetPackageIrancellImpl;
@@ -803,6 +805,7 @@ public class PackFragment
 
         }
         v = inflater.inflate(R.layout.fragment_pack, container, false);
+        ((TextView) v.findViewById(R.id.tvTitle)).setText("خرید بسته اینترنت");
         rightelPack = new RightelPackImpl();
         rightelPackageBuy = new BuyPackageImpl();
         packageMci = new PackageMciImpl();
@@ -1980,23 +1983,23 @@ public class PackFragment
     }
 
 
-    public void onSelectContact(String number, String name)
+    public void onSelectContact(OnSelectContact onSelectContact)
     {
         //todo change this
         try
         {
             if (isMtn)
             {
-                etMobileCharge.setText(number.replaceAll(" ", ""));
-                tilMIrancell.setHint(name);
+                etMobileCharge.setText(onSelectContact.getNumber().replaceAll(" ", ""));
+                tilMIrancell.setHint(onSelectContact.getName());
 
 
                 return;
             }
             if (isMci)
             {
-                etMCINumber.setText(number.replaceAll(" ", ""));
-                tilMMci.setHint(name);
+                etMCINumber.setText(onSelectContact.getNumber().replaceAll(" ", ""));
+                tilMMci.setHint(onSelectContact.getName());
 
 
                 return;
@@ -2005,8 +2008,8 @@ public class PackFragment
             }
             if (isRightel)
             {
-                etMobileChargeRightel.setText(number.replaceAll(" ", ""));
-                tilMRightel.setHint(name);
+                etMobileChargeRightel.setText(onSelectContact.getNumber().replaceAll(" ", ""));
+                tilMRightel.setHint(onSelectContact.getName());
 
 
             }
@@ -2114,7 +2117,6 @@ public class PackFragment
     {
 
     }
-
 
     @SuppressLint("StaticFieldLeak")
     private class ChangeData extends AsyncTask<String, Void, String>
