@@ -8,50 +8,40 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="104dp"
-        android:layout_marginBottom="4dp"
-        android:elevation="3dp"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:visibility="visible">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="102dp"
+            android:background="@drawable/background_main_header" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/background_main_header" />
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:background="@drawable/img_header_background" />
 
-            <RelativeLayout
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/img_header_background" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="104dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
+            <include layout="@layout/toolbar_main" />
 
-                <include layout="@layout/toolbar_back" />
+        </androidx.appcompat.widget.Toolbar>
 
-            </androidx.appcompat.widget.Toolbar>
-
-        </RelativeLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        >
 
-    </androidx.core.widget.NestedScrollView>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,7 +66,9 @@
         <LinearLayout
             android:id="@+id/llGrid"
             android:orientation="vertical"
-            android:layout_margin="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_40dp"
+            android:layout_marginRight="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible">
@@ -95,5 +87,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
