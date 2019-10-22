@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -128,15 +129,23 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     private CheckBox cbAddToMyBill;
     private boolean addToMyBill = false;
     private View vDateEnd,vDateFirst;
+    private TextView tvBillTitle;
 
 
     public BillFragment() {
 
     }
 
-    public static BillFragment newInstance(MainActionView mainView) {
+    public static BillFragment newInstance(MainActionView mainView,String billTitle,int idSelectedBillType) {
         BillFragment f = new BillFragment();
         f.setMainView(mainView);
+
+        Bundle args = new Bundle();
+        args.putString("TITLE", billTitle);
+        args.putInt("ID_BILL_TYPE",idSelectedBillType);
+
+        f.setArguments(args);
+
         return f;
     }
 
@@ -179,7 +188,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             v = null;
 
         v = inflater.inflate(R.layout.bill_fragment, container, false);
-        //((TextView) v.findViewById(R.id.tvTitle)).setText("پرداخت قبض");
+        ((TextView) v.findViewById(R.id.tvTitle)).setText("پرداخت قبض");
 
         Log.e("testspeech5", "onSpeechBill: " + phone);
 
@@ -219,7 +228,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     private void initView() {
         Log.e("sssss", "initView: ");
-
+        if (getArguments() != null)
+        {
+            idSelectedBillType = getArguments().getInt("ID_BILL_TYPE");
+            billTitle = getArguments().getString("TITLE");
+        }
+        tvBillTitle=v.findViewById(R.id.tvBillTitle);
         tvBillsTitle = v.findViewById(R.id.tvBillsTitle);
         rlBillList = v.findViewById(R.id.rlBillList);
         upPanelLayout = v.findViewById(R.id.sliding_layout);
@@ -263,7 +277,6 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         tvBillName = v.findViewById(R.id.tvBillName);
         llSelect = v.findViewById(R.id.llSelect);
         tvBillName2 = v.findViewById(R.id.tvBillName2);
-        spinnerBillTypes = v.findViewById(R.id.spinnerBillTypes);
         tvBillDescription = v.findViewById(R.id.tvBillDescription);
         rvMyBills = v.findViewById(R.id.rvMyBills);
         btnAddBill = v.findViewById(R.id.btnAddBill);
@@ -291,6 +304,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         rbBillFirst.setOnCheckedChangeListener(this);
         rbBillEnd.setOnCheckedChangeListener(this);
         llContinueBill.setVisibility(View.GONE);
+        tvBillTitle.setText(billTitle);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ivBillPayment.setImageTintList(null);
             ivBillInfo.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColorSecondary));
@@ -432,11 +446,11 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
 
         btnPhoneInfo.setOnClickListener(view -> {
-            if (idSelectedBillType == 1 || idSelectedBillType == 2 || idSelectedBillType == 3) {
+         /*   if (idSelectedBillType == 1 || idSelectedBillType == 2 || idSelectedBillType == 3) {
                 llAddToMyBills.setVisibility(View.VISIBLE);
             } else {
                 llAddToMyBills.setVisibility(View.GONE);
-            }
+            }*/
             if (!Utility.isNetworkAvailable()) {
                 mainView.onInternetAlert();
                 return;
@@ -579,7 +593,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                        Tools.showToast(getContext(),response.info.message,R.color.red);
                     }
                 } catch (Exception e) {
-                    Tools.showToast(getContext(),response.info.message,R.color.red);
+                    Tools.showToast(getContext(),e.getMessage(),R.color.red);
                 }
 
 
@@ -1338,11 +1352,11 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         try {
             etMobile.setText(event.getParameter());
             idSelectedBillType = event.getType();
-            for (int i = 0; i < billsTypePosition.size(); i++) {
+           /* for (int i = 0; i < billsTypePosition.size(); i++) {
                 if (event.getType() == billsTypePosition.get(i)) {
                     spinnerBillTypes.setSelection(i);
                 }
-            }
+            }*/
         } catch (Exception e) {
             etMobile.setText("");
         }

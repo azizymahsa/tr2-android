@@ -311,8 +311,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
 
         isMainFragment = false;
-
-        currentFragment = BillFragment.newInstance(this);
+        String titleBill = "قبض تلفن همراه";
+        int idBillType = 5;
+        currentFragment = BillFragment.newInstance(this,titleBill,idBillType);
         transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.main_container, currentFragment)

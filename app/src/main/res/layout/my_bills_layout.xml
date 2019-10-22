@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black"
+    android:background="@color/warmGray"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -18,12 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_35sdp"
                 android:gravity="center"
-                android:textColor="@color/white"/>
+                android:src="@drawable/ic_arrow_down_36dp"
+                android:tint="@color/white"
+
+                />
             <TextView
                 android:id="@+id/tvBillsTitle"
                 android:layout_width="match_parent"
@@ -31,7 +34,7 @@
                 android:gravity="center"
                 android:text="قبض های من"
                 android:textAppearance="@style/IranSansBold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="18dp" />
         </LinearLayout>
         <View
@@ -39,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@drawable/shadow_b"
-            android:backgroundTint="@color/white"/>
+            android:backgroundTint="@color/warmGray"/>
      <!--   <ir.bankday.diba.android.tools.ClearableEditText
             android:id="@+id/etSearch"
             android:layout_width="@dimen/_220sdp"
