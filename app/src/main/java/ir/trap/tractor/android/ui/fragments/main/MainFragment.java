@@ -25,6 +25,7 @@ import java.util.List;
 
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
+import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.singleton.SingletonContext;
@@ -122,14 +123,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         mToolbar = rootView.findViewById(R.id.toolbar);
 
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mainView.openDrawer();
-            }
-        });
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
 
         setSlider();
 
@@ -314,7 +308,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 //        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
 //                response.getUsername(), response.getPassword(), this, 0);
-        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.u_Flight_All,
                 "0037250100293610", "1397", this, 0);
 
         flightActivity.startMainFlight();
@@ -486,7 +480,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 //        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
 //                response.getUsername(), response.getPassword(), this, 0);
-        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity("MGZlOTg5ZWEtNGVkNS00ZjcxLThjYmEtYzZiYjM2Yzk2MzQ1",
+        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.u_Flight_Ata,
                 "0037250100293610", "1397", this, 0);
 
         flightActivity.startMainFlight();

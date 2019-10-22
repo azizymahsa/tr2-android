@@ -74,7 +74,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="@dimen/_3sdp"
-                app:spi_dotColor="@color/white"
+                app:spi_dotColor="@color/grayColor"
                 app:spi_dotSelectedColor="@color/currentColor"
                 app:spi_dotSelectedSize="@dimen/_8sdp"
                 app:spi_dotSize="@dimen/_4sdp"

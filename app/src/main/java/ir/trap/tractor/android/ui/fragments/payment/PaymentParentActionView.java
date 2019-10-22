@@ -7,4 +7,6 @@ public interface PaymentParentActionView
     void hidePaymentParentLoading();
 
     void onPaymentCancelAndBack();
+
+    void startAddCardActivity();
 }

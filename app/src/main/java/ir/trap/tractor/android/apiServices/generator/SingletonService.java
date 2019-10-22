@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import ir.trap.tractor.android.apiServices.ServiceApplication;
 import ir.trap.tractor.android.apiServices.di.component.NetComponent;
 //import library.android.service.generator.DaggerComponentService;
+import ir.trap.tractor.android.apiServices.part.AddCardService;
 import ir.trap.tractor.android.apiServices.part.BillCodePayCodeService;
 import ir.trap.tractor.android.apiServices.part.BusService;
 import ir.trap.tractor.android.apiServices.part.DoTransferCardService;
@@ -165,6 +166,11 @@ public class SingletonService
     public HotelService getHotelService()
     {
         return new HotelService(serviceGenerator);
+    }
+
+    public AddCardService addCardService()
+    {
+        return new AddCardService(serviceGenerator);
     }
 
 

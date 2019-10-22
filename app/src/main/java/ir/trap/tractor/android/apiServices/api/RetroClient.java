@@ -16,6 +16,7 @@ import ir.trap.tractor.android.apiServices.model.billPayment.request.BillPayment
 import ir.trap.tractor.android.apiServices.model.billPayment.response.BillPaymentResponse;
 import ir.trap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
 import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
+import ir.trap.tractor.android.apiServices.model.card.addCard.request.AddCardRequest;
 import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
@@ -52,6 +53,7 @@ import ir.trap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.requ
 import ir.trap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
 import ir.trap.tractor.android.apiServices.model.verify.VerifyRequest;
 import ir.trap.tractor.android.apiServices.model.verify.VerifyResponse;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -96,6 +98,11 @@ public interface RetroClient {
 
     @GET(Const.GetCardList)
     Single<Response<WebServiceClass<GetCardListResponse>>> getCardList();
+
+    @GET(Const.AddCard)
+    Single<Response<WebServiceClass<ResponseBody>>> addCard(
+            @Body AddCardRequest request
+            );
 
 
 /*    @POST(Const.MOBILE_CHARGE)

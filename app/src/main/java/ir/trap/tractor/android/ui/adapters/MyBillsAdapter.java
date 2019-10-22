@@ -24,7 +24,7 @@ import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 
 
 /**
- * Created by RezaNejati on 9/14/2019.
+ * Created by Javad.Abadi on 9/14/2019.
  */
 public class MyBillsAdapter extends RecyclerView.Adapter<MyBillsAdapter.MyViewHolder> {
 

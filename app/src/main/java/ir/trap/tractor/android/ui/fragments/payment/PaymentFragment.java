@@ -413,6 +413,12 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
     }
 
     @Override
+    public void startAddCardActivity()
+    {
+        pActionView.startAddCardActivity();
+    }
+
+    @Override
     public void showPaymentParentLoading()
     {
 

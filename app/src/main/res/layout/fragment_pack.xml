@@ -3,11 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -38,218 +37,73 @@
                 android:layout_height="104dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
-                <include layout="@layout/toolbar_back" />
+                <include layout="@layout/toolbar_main" />
 
             </androidx.appcompat.widget.Toolbar>
 
         </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-<androidx.core.widget.NestedScrollView
-    android:id="@+id/nested"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_180dp"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/_30dp"
-            android:layout_marginBottom="@dimen/_30dp"
-            android:layout_marginLeft="@dimen/_60dp"
-            android:layout_marginRight="@dimen/_60dp">
-
-            <!--  <include layout="@layout/cards" />-->
-
-        </FrameLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginTop="5dp"
-                android:gravity="center|right"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvPackTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="خرید شارژ آنلاین همراه اول"
-                    android:textColor="@color/currentColor"
-                    android:textSize="@dimen/textSize_14dp"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llSelectOptaror"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <FrameLayout
-                    android:id="@+id/flRightel"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="100"
-                    android:foreground="?attr/selectableItemBackground">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivRightel"
-                        android:layout_width="@dimen/_60dp"
-                        android:layout_height="@dimen/_60dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/rightel2"
-                        app:civ_border_color="@color/colorPrimaryDark"
-                        app:civ_border_width="0dp" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/flIrancell"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="100"
-                    android:foreground="?attr/selectableItemBackground">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivIrancell"
-                        android:layout_width="@dimen/_60dp"
-                        android:layout_height="@dimen/_60dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/irancell2"
-                        app:civ_border_color="@color/colorPrimaryDark"
-                        app:civ_border_width="0dp" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/flHamraheAval"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="100"
-                    android:foreground="?attr/selectableItemBackground">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivHamraheAval"
-                        android:layout_width="@dimen/_60dp"
-                        android:layout_height="@dimen/_60dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/hamrahe_aval"
-                        app:civ_border_color="@color/btnColorSecondary"
-                        app:civ_border_width="0dp" />
-
-                </FrameLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvAmountPackage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAppearance="@style/IranSansBold"
-                android:text="خرید شارژ آنلاین همراه اول"
-                android:textColor="@color/currentColor"
-                android:textSize="18dp"
-                android:visibility="gone"
-                android:gravity="center"
-                android:layout_marginTop="10dp"/>
-
-            <include layout="@layout/irancell_pack"
-                android:visibility="gone"/>
-
-            <include layout="@layout/mci_pack" />
-
-            <include layout="@layout/rightel_pack"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:id="@+id/llPassCharge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_14dp"
-                        android:textColor="@color/chargePackTextColor"
-                        android:text=" ریال"
-                        android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center|right"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvAmpuntPassCharge"
+                        android:id="@+id/tvPackTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="خرید شارژ آنلاین همراه اول"
+                        android:textColor="@color/currentColor"
                         android:textSize="@dimen/textSize_14dp"
-                        android:textColor="@color/textColorPrimary"
-                        android:text=""
-                        android:layout_marginRight="@dimen/_10dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_14dp"
-                        android:textColor="@color/chargePackTextColor"
-                        android:text="مبلغ قابل پرداخت :"
-                        />
-
+                        android:visibility="gone"/>
 
                 </LinearLayout>
+
                 <LinearLayout
+                    android:id="@+id/llSelectOptaror"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_gravity="center|right"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
-                    <Space
+
+                    <FrameLayout
+                        android:id="@+id/flRightel"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="20" />
-                    <TextView
-                        android:id="@+id/tvDescriptionSelectedOperator"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="80"
-                        android:textSize="@dimen/textSize_14dp"
-                        android:layout_marginRight="@dimen/_10dp"
-                        android:gravity="center_vertical|right"
-                        android:textColor="@color/chargePackTextColor"
-                        android:text="خرید شارژ آنلاین همراه اول"
-                        />
-                    <FrameLayout
-                        android:id="@+id/flSelectedOperator"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20"
+                        android:layout_weight="100"
                         android:foreground="?attr/selectableItemBackground">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/ivSelectedOperator"
+                            android:id="@+id/ivRightel"
                             android:layout_width="@dimen/_60dp"
                             android:layout_height="@dimen/_60dp"
                             android:layout_gravity="center"
@@ -259,143 +113,283 @@
 
                     </FrameLayout>
 
-                    <Space
+                    <FrameLayout
+                        android:id="@+id/flIrancell"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|right"
-                    android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_weight="100"
+                        android:foreground="?attr/selectableItemBackground">
 
-                    <Space
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivIrancell"
+                            android:layout_width="@dimen/_60dp"
+                            android:layout_height="@dimen/_60dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/irancell2"
+                            app:civ_border_color="@color/colorPrimaryDark"
+                            app:civ_border_width="0dp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/flHamraheAval"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="100"
+                        android:foreground="?attr/selectableItemBackground">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        app:hintTextAppearance="@style/TextLabel"
-                        android:id="@+id/tlPassCharge"
-                        android:layout_width="@dimen/_230sdp"
-                        android:layout_height="@dimen/_50dp"
-                        android:layout_gravity="center|right"
-                        android:hint="رمز دوم کارت را وارد نمایید"
-                        android:textColorHint="@color/textColorSecondary"
-                        android:theme="@style/EditTextHint">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivHamraheAval"
+                            android:layout_width="@dimen/_60dp"
+                            android:layout_height="@dimen/_60dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/hamrahe_aval"
+                            app:civ_border_color="@color/btnColorSecondary"
+                            app:civ_border_width="0dp" />
 
-                        <ir.trap.tractor.android.utilities.ClearableEditText
-                            android:id="@+id/etPassCharge"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="100"
-                            android:backgroundTint="@color/textColorSecondary"
-                            android:gravity="right|center"
-                            android:imeOptions="actionDone"
-                            android:inputType="numberPassword"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/textColorSecondary"
-                            android:textColorHint="@color/textColorSecondary"
-                            android:textSize="@dimen/textSize_16dp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
+                    </FrameLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tvAmountPackage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center|right"
-                    android:orientation="horizontal"
-                    android:id="@+id/llCvv2"
+                    android:layout_marginRight="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/IranSansBold"
+                    android:text="خرید شارژ آنلاین همراه اول"
+                    android:textColor="@color/currentColor"
+                    android:textSize="18dp"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"/>
+
+                <include layout="@layout/irancell_pack"
+                    android:visibility="gone"/>
+
+                <include layout="@layout/mci_pack" />
+
+                <include layout="@layout/rightel_pack"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/llPassCharge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:visibility="gone">
-
-                    <Space
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        app:hintTextAppearance="@style/TextLabel"
-                        android:id="@+id/tipCvv2"
-                        android:layout_width="@dimen/_230sdp"
-                        android:layout_height="@dimen/_50dp"
-                        android:layout_gravity="center|right"
-                        android:hint="شماره Cvv2 کارت را وارد نمایید"
-                        android:textColorHint="@color/textColorSecondary"
-                        android:theme="@style/EditTextHint">
-
-                        <ir.trap.tractor.android.utilities.ClearableEditText
-                            android:id="@+id/etCvv2"
-                            android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="100"
-                            android:backgroundTint="@color/textColorSecondary"
-                            android:gravity="right|center"
-                            android:imeOptions="actionDone"
-                            android:inputType="numberPassword"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="@dimen/textSize_16dp" />
+                            android:textSize="@dimen/textSize_14dp"
+                            android:textColor="@color/chargePackTextColor"
+                            android:text=" ریال"
+                            android:layout_marginRight="5dp"/>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:id="@+id/tvAmpuntPassCharge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize_14dp"
+                            android:textColor="@color/textColorPrimary"
+                            android:text=""
+                            android:layout_marginRight="@dimen/_10dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize_14dp"
+                            android:textColor="@color/chargePackTextColor"
+                            android:text="مبلغ قابل پرداخت :"
+                            />
 
-                    <Space
-                        android:layout_width="0dp"
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20" />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_gravity="center|right"
+                        android:orientation="horizontal">
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="20" />
+                        <TextView
+                            android:id="@+id/tvDescriptionSelectedOperator"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="80"
+                            android:textSize="@dimen/textSize_14dp"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/chargePackTextColor"
+                            android:text="خرید شارژ آنلاین همراه اول"
+                            />
+                        <FrameLayout
+                            android:id="@+id/flSelectedOperator"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20"
+                            android:foreground="?attr/selectableItemBackground">
 
-                </LinearLayout>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivSelectedOperator"
+                                android:layout_width="@dimen/_60dp"
+                                android:layout_height="@dimen/_60dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/rightel2"
+                                app:civ_border_color="@color/colorPrimaryDark"
+                                app:civ_border_width="0dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal">
+                        </FrameLayout>
 
-                    <Space
-                        android:layout_width="0dp"
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20" />
+                        android:gravity="center|right"
+                        android:orientation="horizontal">
 
-                    <FrameLayout
-                        android:layout_width="0dp"
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            app:hintTextAppearance="@style/TextLabel"
+                            android:id="@+id/tlPassCharge"
+                            android:layout_width="@dimen/_230sdp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_gravity="center|right"
+                            android:hint="رمز دوم کارت را وارد نمایید"
+                            android:textColorHint="@color/textColorSecondary"
+                            android:theme="@style/EditTextHint">
+
+                            <ir.trap.tractor.android.utilities.ClearableEditText
+                                android:id="@+id/etPassCharge"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="100"
+                                android:backgroundTint="@color/textColorSecondary"
+                                android:gravity="right|center"
+                                android:imeOptions="actionDone"
+                                android:inputType="numberPassword"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textColor="@color/textColorSecondary"
+                                android:textColorHint="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_16dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_weight="100">
+                        android:gravity="center|right"
+                        android:orientation="horizontal"
+                        android:id="@+id/llCvv2"
+                        android:visibility="gone">
 
-                        <include
-                            android:id="@+id/btnBackToCharge"
-                            layout="@layout/return_button" />
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
 
-                    </FrameLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            app:hintTextAppearance="@style/TextLabel"
+                            android:id="@+id/tipCvv2"
+                            android:layout_width="@dimen/_230sdp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_gravity="center|right"
+                            android:hint="شماره Cvv2 کارت را وارد نمایید"
+                            android:textColorHint="@color/textColorSecondary"
+                            android:theme="@style/EditTextHint">
 
-                    <FrameLayout
-                        android:layout_width="0dp"
+                            <ir.trap.tractor.android.utilities.ClearableEditText
+                                android:id="@+id/etCvv2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="100"
+                                android:backgroundTint="@color/textColorSecondary"
+                                android:gravity="right|center"
+                                android:imeOptions="actionDone"
+                                android:inputType="numberPassword"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_16dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_weight="100">
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
 
-                        <include
-                            android:id="@+id/btnBuyCharge"
-                            layout="@layout/circular_progress_button_small" />
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
 
-                    </FrameLayout>
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_weight="100">
 
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
+                            <include
+                                android:id="@+id/btnBackToCharge"
+                                layout="@layout/return_button" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_weight="100">
+
+                            <include
+                                android:id="@+id/btnBuyCharge"
+                                layout="@layout/circular_progress_button_small" />
+
+                        </FrameLayout>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -403,7 +397,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.core.widget.NestedScrollView>
 </LinearLayout>

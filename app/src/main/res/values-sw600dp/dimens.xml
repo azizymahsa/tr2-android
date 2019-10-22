@@ -2,4 +2,5 @@
 <resources>
     <dimen name="BottomNavigation_size">70sp</dimen>
 
+    <dimen name="slider_height_app">250dp</dimen>
 </resources>

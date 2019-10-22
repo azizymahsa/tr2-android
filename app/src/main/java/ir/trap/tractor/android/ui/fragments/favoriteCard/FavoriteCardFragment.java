@@ -31,6 +31,7 @@ import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListRes
 import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
 import ir.trap.tractor.android.ui.adapters.favoriteCard.CardViewPagerAdapter;
 import ir.trap.tractor.android.ui.adapters.favoriteCard.ViewPagerAdapterAction;
+import ir.trap.tractor.android.ui.base.GoToActivity;
 import ir.trap.tractor.android.utilities.LinearLayoutManagerWithSmoothScroller;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
@@ -290,6 +291,12 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
     public void showConfirmDeleteCard(Result result, int Position)
     {
 
+    }
+
+    @Override
+    public void startActivity(GoToActivity activity)
+    {
+        parentView.startAddCardActivity();
     }
 
     @Override

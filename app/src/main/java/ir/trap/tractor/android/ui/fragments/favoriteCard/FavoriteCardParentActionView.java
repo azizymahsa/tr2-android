@@ -5,4 +5,6 @@ public interface FavoriteCardParentActionView
     void showFavoriteCardParentLoading();
 
     void hideFavoriteCardParentLoading();
+
+    void startAddCardActivity();
 }

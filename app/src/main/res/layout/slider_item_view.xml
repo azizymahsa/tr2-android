@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/rlRoot"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_180sdp"
+        android:layout_height="@dimen/_160sdp"
         android:visibility="visible">
 
         <ImageView
@@ -20,40 +20,44 @@
             android:layout_height="match_parent"
             android:background="@drawable/button_main_background_border"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/llHeaderWeekNo"
-            android:layout_width="@dimen/_80dp"
-            android:layout_height="@dimen/_60dp"
+            android:layout_width="@dimen/_70dp"
+            android:layout_height="@dimen/_45dp"
             android:orientation="horizontal"
-            android:gravity="center_horizontal"
             android:background="@drawable/header_main_week_no_background">
 
             <TextView
                 android:id="@+id/tvHeaderText"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="12dp"
+                android:layout_alignParentTop="true"
                 android:text="5"
                 android:gravity="top"
-                android:layout_gravity="top|center_horizontal"
+                android:layout_gravity="top"
                 android:textSize="@dimen/headerMainWeekNoTextSize"
                 android:textColor="@color/headerMainWeekNoTextColor"/>
 
             <TextView
+                android:layout_toRightOf="@+id/tvHeaderText"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:text="/30"
                 android:layout_gravity="bottom|center_horizontal"
                 android:gravity="bottom"
                 android:textSize="@dimen/headerMainWeekNoSubTextSize"
                 android:textColor="@color/headerMainWeekNoTextColor"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/llCenterView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_70sdp"
-            android:layout_centerVertical="true"
+            android:layout_height="@dimen/_70dp"
+            android:layout_below="@+id/llHeaderWeekNo"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -80,6 +84,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_soccer"/>
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
 
             </RelativeLayout>
 
@@ -124,12 +134,6 @@
                 android:text="یکشنبه 12 آبان 1398 - 18:00 "/>
 
         </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
 
     </RelativeLayout>
 
