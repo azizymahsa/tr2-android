@@ -1311,6 +1311,18 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
+    public void onBarcodeReader()
+    {
+
+    }
+
+    @Override
+    public void onPaymentWithoutCard()
+    {
+
+    }
+
+    @Override
     public void doTransferMoney()
     {
 
