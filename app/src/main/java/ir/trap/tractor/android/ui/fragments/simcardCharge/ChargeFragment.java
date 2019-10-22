@@ -1205,7 +1205,7 @@ public class ChargeFragment extends BaseFragment
                     rbNormalChargeIrancell.setChecked(false);
                 profileType = 1;
                 chargeName = "شارژ شگفت انگیز";
-
+                chargeType="1";
 
                 break;
             case R.id.rbNormalChargeIrancell:
