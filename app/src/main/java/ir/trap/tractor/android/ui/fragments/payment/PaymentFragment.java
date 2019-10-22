@@ -445,7 +445,8 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
     @Override
     public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
     {
-        Tools.showToast(getContext(),"خرید شارژ برای شماره "+mobile + "با موفقیت انجام شد", R.color.green);
+        Tools.showToast(getActivity(),"خرید شارژ برای شماره "+mobile + "با موفقیت انجام شد", R.color.green);
+        getActivity().onBackPressed();
     }
 
     @Override
