@@ -21,7 +21,7 @@ public class AddCardService extends BasePart
         return this;
     }
 
-    public void addCardService(AddCardRequest request, OnServiceStatus<WebServiceClass<ResponseBody>> listener)
+    public void addCardService(AddCardRequest request, OnServiceStatus<WebServiceClass<Object>> listener)
     {
         start(getServiceGenerator().createService().addCard(request), listener);
     }

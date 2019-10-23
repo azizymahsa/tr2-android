@@ -89,12 +89,12 @@ public class MenuDrawer extends Fragment
 
 //        dataList.add(new MenuItems(1, "مشاهده لیست خرید", R.drawable.ic_logo_red));
 //
-//        dataList.add(new MenuItems(2, "مشاهده میزان موجودی", R.drawable.img_failure));
+        dataList.add(new MenuItems(1, "افزودن کارت بانکی", R.drawable.ic_logo_red));
 //        dataList.add(new MenuItems(3, "اشتراک امانات", R.drawable.img_failure));
 //        dataList.add(new MenuItems(4, "لیست امانات کتاب", R.drawable.img_failure));
 //        dataList.add(new MenuItems(5, "شارژ حساب از درگاه بانکی", R.drawable.img_failure));
 //        dataList.add(new MenuItems(6, "ویرایش اطلاعات کاربری", R.drawable.img_failure));
-        dataList.add(new MenuItems(1, "خروج از پروفایل کاربری", android.R.drawable.ic_menu_close_clear_cancel));
+        dataList.add(new MenuItems(2, "خروج از پروفایل کاربری", android.R.drawable.ic_menu_close_clear_cancel));
 //            userMobile.setVisibility(View.GONE);
 //            user_invite_code.setVisibility(View.GONE);
 //            user_score.setVisibility(View.GONE);

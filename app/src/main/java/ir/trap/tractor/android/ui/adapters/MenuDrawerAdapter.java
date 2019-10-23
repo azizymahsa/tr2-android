@@ -50,7 +50,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
 
 //        holder.lyItem.setVisibility(View.VISIBLE);
 
-//        holder.MenuIcon.setImageDrawable(current.getImgResID());
+        holder.MenuIcon.setImageDrawable(context.getResources().getDrawable(current.getImgResID()));
         holder.MenuItem.setText(current.getItemName());
 //        if (current.getItemNumber() >= 0)
 //        {

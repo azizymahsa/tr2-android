@@ -69,7 +69,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
 
-//        initView();
+        initView();
     }
 
     private void initAccubin()
@@ -123,7 +123,6 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         btnConfirm.setText("ثبت کارت");
 
         rlLoading.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -133,26 +132,28 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         {
             case R.id.cvBarcode:
 
-                new TedPermission(AddCardActivity.this)
-                        .setPermissionListener(new PermissionListener()
-                        {
-                            @Override
-                            public void onPermissionGranted()
-                            {
-                                startActivityForResult(AccubinActivity.getIntent(getApplicationContext(),
-                                        "4GTR62HFVOPVKH9T0PMKYUY0OQIXCE4VGRHH458ALRP", configuration), SCAN_REQUEST_CODE);
-                            }
+                Tools.showToast(this, "فعلا غیر فعال است!", R.color.red);
 
-                            @Override
-                            public void onPermissionDenied(ArrayList<String> deniedPermissions)
-                            {
-                            }
-
-
-                        })
-                        .setDeniedMessage("If you reject permission,you can not use this application, Please turn on permissions at [Setting] > [Permission]")
-                        .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .check();
+//                new TedPermission(AddCardActivity.this)
+//                        .setPermissionListener(new PermissionListener()
+//                        {
+//                            @Override
+//                            public void onPermissionGranted()
+//                            {
+//                                startActivityForResult(AccubinActivity.getIntent(getApplicationContext(),
+//                                        "4GTR62HFVOPVKH9T0PMKYUY0OQIXCE4VGRHH458ALRP", configuration), SCAN_REQUEST_CODE);
+//                            }
+//
+//                            @Override
+//                            public void onPermissionDenied(ArrayList<String> deniedPermissions)
+//                            {
+//                            }
+//
+//
+//                        })
+//                        .setDeniedMessage("If you reject permission,you can not use this application, Please turn on permissions at [Setting] > [Permission]")
+//                        .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                        .check();
 
                 break;
 
@@ -336,6 +337,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onFinish(int resultCode)
     {
+        showToast(this, "کارت با موفقیت افزوده شد.", R.color.green);
         Intent returnIntent = new Intent();
         setResult(resultCode, returnIntent);
         finish();
@@ -395,11 +397,11 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
             ivBankLogo.setImageDrawable(null);
             ivBackCard.setImageDrawable(null);
             cvAddCard.setCardBackgroundColor(getResources().getColor(R.color.cardview_dark_background));
-            etNumberAddCard.setTextColor(getResources().getColor(R.color.textColorSecondary));
-            etFullName.setTextColor(getResources().getColor(R.color.textColorSecondary));
-            etFullName.setHintTextColor(getResources().getColor(R.color.textColorSecondary));
-            etExpireDateAddCard.setTextColor(getResources().getColor(R.color.textColorSecondary));
-            tvExpireText.setTextColor(getResources().getColor(R.color.textColorSecondary));
+            etNumberAddCard.setTextColor(getResources().getColor(R.color.textColorTitle));
+            etFullName.setTextColor(getResources().getColor(R.color.textColorTitle));
+            etFullName.setHintTextColor(getResources().getColor(R.color.textColorTitle));
+            etExpireDateAddCard.setTextColor(getResources().getColor(R.color.textColorTitle));
+            tvExpireText.setTextColor(getResources().getColor(R.color.textColorTitle));
         }
         if (etNumberAddCard.isFocused() && bankDetect.length() == 6 && isFirstTimeChange)
         {

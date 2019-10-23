@@ -99,8 +99,8 @@ public interface RetroClient {
     @GET(Const.GetCardList)
     Single<Response<WebServiceClass<GetCardListResponse>>> getCardList();
 
-    @GET(Const.AddCard)
-    Single<Response<WebServiceClass<ResponseBody>>> addCard(
+    @POST(Const.AddCard)
+    Single<Response<WebServiceClass<Object>>> addCard(
             @Body AddCardRequest request
             );
 
