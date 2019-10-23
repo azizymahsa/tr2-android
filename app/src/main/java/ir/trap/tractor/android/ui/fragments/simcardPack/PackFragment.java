@@ -806,7 +806,7 @@ public class PackFragment
 
         }
         v = inflater.inflate(R.layout.fragment_pack, container, false);
-        ((TextView) v.findViewById(R.id.tvTitle)).setText("خرید بسته اینترنت");
+        //((TextView) v.findViewById(R.id.tvTitle)).setText("خرید بسته اینترنت");
         rightelPack = new RightelPackImpl();
         rightelPackageBuy = new BuyPackageImpl();
         packageMci = new PackageMciImpl();
