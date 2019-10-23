@@ -4,10 +4,12 @@ package ir.trap.tractor.android.ui.activities.splash;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +53,18 @@ public class SplashActivity extends AppCompatActivity
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
 //        realm = Realm.getInstance(realmConfiguration);
+
+        PackageInfo pInfo = null;
+        try
+        {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+        ((TextView) findViewById(R.id.tvVersion)).setText("نسخه " + pInfo.versionName);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {

@@ -206,6 +206,7 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
         cardFragment = FavoriteCardFragment.newInstance(this);
 
         transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         if (transaction.isEmpty())
         {

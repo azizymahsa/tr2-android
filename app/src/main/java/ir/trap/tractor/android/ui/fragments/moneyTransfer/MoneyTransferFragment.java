@@ -180,6 +180,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
         currentFragment = FavoriteCardFragment.newInstance(this);
 
         transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         //----------------card fragment----------------
 
 

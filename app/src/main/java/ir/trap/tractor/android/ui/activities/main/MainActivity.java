@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         currentFragment = AllMenuFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
-                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                         transaction.replace(R.id.main_container, currentFragment)
                                 .commit();
@@ -165,6 +165,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         currentFragment = PaymentWithoutCardFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                         transaction.replace(R.id.main_container, currentFragment)
                                 .commit();
@@ -184,6 +185,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        currentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
 //
 //        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 //
 //        if (mSavedInstanceState == null)
 //        {
@@ -206,6 +208,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
 //            currentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
 //            transaction = fragmentManager.beginTransaction();
+//            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 //            try
 //            {
 //                if (mSavedInstanceState == null)
@@ -317,6 +320,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         int idBillType = 5;
         currentFragment = BillFragment.newInstance(this,titleBill,idBillType);
         transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
@@ -330,6 +334,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         currentFragment = ChargeFragment.newInstance(this);
 
         transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
@@ -343,6 +348,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         currentFragment = PackFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
@@ -355,6 +361,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         currentFragment = BarcodeReaderFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
@@ -368,6 +375,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         currentFragment = PaymentWithoutCardFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
@@ -380,6 +388,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         currentFragment = MoneyTransferFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
@@ -501,6 +510,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         currentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
         transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
@@ -524,6 +534,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void startAddCardActivity()
     {
 //        startActivityForResult(new Intent(this, AddCardActivity.class), 22);
+        
     }
 
     @Override
@@ -553,6 +564,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             currentFragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
 
             transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
             if (mSavedInstanceState == null)
             {

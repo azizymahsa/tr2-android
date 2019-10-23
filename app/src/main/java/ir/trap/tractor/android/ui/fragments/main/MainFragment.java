@@ -164,19 +164,19 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvF5 = rootView.findViewById(R.id.tvF5);
         tvF6 = rootView.findViewById(R.id.tvF6);
 
-        tvF1.setText(footballServiceList.get(0).getTitle());
-        tvF2.setText(footballServiceList.get(1).getTitle());
-        tvF3.setText(footballServiceList.get(2).getTitle());
-        tvF4.setText(footballServiceList.get(3).getTitle());
-        tvF5.setText(footballServiceList.get(4).getTitle());
-        tvF6.setText(footballServiceList.get(5).getTitle());
+        tvF2.setText(footballServiceList.get(0).getTitle());
+        tvF1.setText(footballServiceList.get(1).getTitle());
+        tvF4.setText(footballServiceList.get(2).getTitle());
+        tvF3.setText(footballServiceList.get(3).getTitle());
+        tvF6.setText(footballServiceList.get(4).getTitle());
+        tvF5.setText(footballServiceList.get(5).getTitle());
 
-        setImageIntoIV(imgF1, footballServiceList.get(0).getImageName());
-        setImageIntoIV(imgF2, footballServiceList.get(1).getImageName());
-        setImageIntoIV(imgF3, footballServiceList.get(2).getImageName());
-        setImageIntoIV(imgF4, footballServiceList.get(3).getImageName());
-        setImageIntoIV(imgF5, footballServiceList.get(4).getImageName());
-        setImageIntoIV(imgF6, footballServiceList.get(5).getImageName());
+        setImageIntoIV(imgF2, footballServiceList.get(0).getImageName());
+        setImageIntoIV(imgF1, footballServiceList.get(1).getImageName());
+        setImageIntoIV(imgF4, footballServiceList.get(2).getImageName());
+        setImageIntoIV(imgF3, footballServiceList.get(3).getImageName());
+        setImageIntoIV(imgF6, footballServiceList.get(4).getImageName());
+        setImageIntoIV(imgF5, footballServiceList.get(5).getImageName());
 
     }
 
@@ -308,7 +308,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 //        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
 //                response.getUsername(), response.getPassword(), this, 0);
-        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.u_Flight_All,
+        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.UNIQUE_CODE_Flight_All,
                 "0037250100293610", "1397", this, 0);
 
         flightActivity.startMainFlight();
@@ -323,7 +323,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //        StartEniacBusActivity busActivity = new StartEniacBusActivity(response.getUniqeCode(),
 //                response.getUsername(), response.getPassword(), getActivity(), this, 0);
 
-        StartEniacBusActivity busActivity = new StartEniacBusActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+        StartEniacBusActivity busActivity = new StartEniacBusActivity(TrapConfig.UNIQUE_CODE_BUS,
                 "0037250100293610", "1397", getActivity(), this, 0);
 
         busActivity.startMainBusActivity();
@@ -339,7 +339,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                response.getUsername(), response.getPassword(), SingletonContext.getInstance().getContext(),
 //                this, 0);
 
-        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity(TrapConfig.UNIQUE_CODE_HOTEL,
                 "0037250100293610", "1397", SingletonContext.getInstance().getContext(),
                 this, 0);
 
@@ -408,11 +408,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         switch (id)
         {
-            case 11://Flight
+            case 11: //Flight ATA
             {
                 mainView.showLoading();
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
-                onGdsFlight(null);
+                onGdsFlightAta(null);
                 break;
             }
 
@@ -420,8 +420,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             {
                 mainView.showLoading();
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
-                onGdsFlightTest();
-//                onGdsFlight(null);
+                onGdsFlight(null);
                 break;
             }
 
@@ -441,7 +440,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             }
 
-            case 65:
+            case 65: //Bill
             {
                 mainView.onBill();
                 break;
@@ -459,7 +458,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             }
 
-            case 72:
+            case 72: //خرید بدون کارت
             {
                 mainView.doTransferMoney();
                 break;
@@ -474,13 +473,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         }
     }
 
-    private void onGdsFlightTest()
+    private void onGdsFlightAta(GetUserPassResponse response)
     {
         mainView.hideLoading();
 
 //        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
 //                response.getUsername(), response.getPassword(), this, 0);
-        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.u_Flight_Ata,
+        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.UNIQUE_CODE_Flight_Ata,
                 "0037250100293610", "1397", this, 0);
 
         flightActivity.startMainFlight();

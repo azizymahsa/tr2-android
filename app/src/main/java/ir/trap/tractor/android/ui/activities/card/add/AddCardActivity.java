@@ -69,8 +69,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
 
-
-        initView();
+//        initView();
     }
 
     private void initAccubin()
