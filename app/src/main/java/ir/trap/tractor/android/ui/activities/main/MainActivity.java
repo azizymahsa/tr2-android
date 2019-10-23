@@ -274,6 +274,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             case 1:
             {
+                closeDrawer();
+                startAddCardActivity();
+                break;
+            }
+            case 2:
+            {
                 CustomAlert ca = new CustomAlert(this);
                 ca.setCustomTitle(R.string.app_name);
                 ca.setCustomMessage("آیا می خواهید از حساب کاربری خود خارج شوید؟");
@@ -527,14 +533,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void closeDrawer()
     {
-
+        View containerView = findViewById(R.id.fragment_navigation_menudrawer);
+        DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerLayout.closeDrawer(containerView);
     }
 
     @Override
     public void startAddCardActivity()
     {
-//        startActivityForResult(new Intent(this, AddCardActivity.class), 22);
-        
+        startActivityForResult(new Intent(this, AddCardActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 22);
     }
 
     @Override

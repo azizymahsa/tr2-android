@@ -16,6 +16,7 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.card.add.request.AddCardServiceImpl;
+import ir.trap.tractor.android.utilities.Tools;
 import ir.trap.tractor.android.utilities.Utility;
 
 
@@ -224,6 +225,14 @@ public class AddCardPresenterImpl
     public void onFinishedAddCard(Boolean isSuccess)
     {
         addCardView.hideLoading();
+        if (isSuccess)
+        {
+            addCardView.onFinish(Activity.RESULT_OK);
+        }
+        else
+        {
+            addCardView.onError("خطا در ارسال کارت!");
+        }
 //        if (addCardResponse.getServiceMessage().getCode() == 200)
 //        {
 ////            SingletonCard.getInstance().setNewCard(cardNumber);

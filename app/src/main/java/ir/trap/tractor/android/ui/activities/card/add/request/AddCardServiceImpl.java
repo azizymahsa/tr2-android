@@ -16,16 +16,33 @@ public class AddCardServiceImpl implements AddCardIntractor
     public void findDataAddCardRequest(OnFinishedActiveListener listener, String cardNumber, int cvv, String expirationDateMonth,
                                        String expirationDateYear, String fullName, boolean isFavorite, int userId)
     {
+        String mExpirationDateMonth = expirationDateMonth.replaceAll("-", "").replaceAll("_", "").replaceAll(" ", "");
+        String mExpirationDateYear = expirationDateYear.replaceAll("-", "").replaceAll("_", "").replaceAll(" ", "");
+
+        if (mExpirationDateMonth.equalsIgnoreCase(""))
+        {
+            mExpirationDateMonth = "0";
+        }
+
+        if (mExpirationDateYear.equalsIgnoreCase(""))
+        {
+            mExpirationDateYear = "0";
+        }
+
+
+
         AddCardRequest addCardRequest = new AddCardRequest();
         addCardRequest.setCardNumber(cardNumber);
-        addCardRequest.setExpirationDateMonth(expirationDateMonth);
-        addCardRequest.setExpirationDateYear(expirationDateYear);
+        addCardRequest.setExpirationDateMonth(mExpirationDateMonth);
+        addCardRequest.setExpirationDateYear(mExpirationDateYear);
         addCardRequest.setFullName(fullName);
+        addCardRequest.setOrderList(1);
 
-        SingletonService.getInstance().addCardService().addCardService(addCardRequest, new OnServiceStatus<WebServiceClass<ResponseBody>>()
+
+        SingletonService.getInstance().addCardService().addCardService(addCardRequest, new OnServiceStatus<WebServiceClass<Object>>()
         {
             @Override
-            public void onReady(WebServiceClass<ResponseBody> responseBody)
+            public void onReady(WebServiceClass<Object> responseBody)
             {
                 try
                 {
