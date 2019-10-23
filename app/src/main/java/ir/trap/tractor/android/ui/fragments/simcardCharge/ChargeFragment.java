@@ -646,7 +646,7 @@ public class ChargeFragment extends BaseFragment
                 ,mobile);
 
         transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         if (transaction.isEmpty())
         {
@@ -832,6 +832,7 @@ public class ChargeFragment extends BaseFragment
 //        pFragment = FavoriteCardFragment.newInstance(this);
 //
 //        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 //
 //        if (transaction.isEmpty())
 //        {

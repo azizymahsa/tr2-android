@@ -17,6 +17,8 @@ public class TrapConfig
 
     public static final int PAYMENT_STAUS_BillTicket = 7;
 
-    public static final String u_Flight_Ata = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
-    public static final String u_Flight_All = "MGZlOTg5ZWEtNGVkNS00ZjcxLThjYmEtYzZiYjM2Yzk2MzQ1";
+    public static final String UNIQUE_CODE_Flight_Ata = "MGZlOTg5ZWEtNGVkNS00ZjcxLThjYmEtYzZiYjM2Yzk2MzQ1";
+    public static final String UNIQUE_CODE_HOTEL = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
+    public static final String UNIQUE_CODE_BUS = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
+    public static final String UNIQUE_CODE_Flight_All = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
 }
