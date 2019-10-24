@@ -43,6 +43,9 @@ import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 
 import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
 import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
+import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
+import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
+import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentFragment;
 
 
 public class MerchantService extends BasePart
@@ -64,5 +67,8 @@ public class MerchantService extends BasePart
     {
         start(getServiceGenerator().createService().decryptQr(req), listener);
     }
-
+    public void PaymentPrintPosService(PaymentFragment listener, PaymentPrintPosRequest req)
+    {
+        start(getServiceGenerator().createService().getPayment(req), listener);
+    }
 }

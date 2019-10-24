@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "480283647564",
-    "firebase_url": "https://shetac-efe53.firebaseio.com",
-    "project_id": "shetac-efe53",
-    "storage_bucket": "shetac-efe53.appspot.com"
+    "project_number": "614513931538",
+    "firebase_url": "https://diba-8607c.firebaseio.com",
+    "project_id": "diba-8607c",
+    "storage_bucket": "diba-8607c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:480283647564:android:88ffa8f42cbae946",
+        "mobilesdk_app_id": "1:614513931538:android:88db18d2c1ba9838",
         "android_client_info": {
-          "package_name": "eniac.shetac"
+          "package_name": "ir.trap.tractor.android"
         }
       },
       "oauth_client": [
         {
-          "client_id": "480283647564-47r8kfs9a522l7aptcqm8rkn2katf21v.apps.googleusercontent.com",
+          "client_id": "614513931538-aiv0sgricv2h1ef9tauvg0up3aihjpqc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "eniac.shetac",
-            "certificate_hash": "1ca5cfb60fa9acbff9eb65f1bdafd0573cfd4b99"
+            "package_name": "ir.trap.tractor.android",
+            "certificate_hash": "6772fc0fbd9a3ff44c57dff6d093edcc1044ac0a"
           }
         },
         {
-          "client_id": "480283647564-f3nngmnpuia4jlin49l3codluuqg9bh6.apps.googleusercontent.com",
+          "client_id": "614513931538-ug8vid5j2ktgde5qdudp76e2qj4mda7j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCyTAIPjrkEyDwrS3EGLx3pLhGtXcSGXmo"
+          "current_key": "AIzaSyD0Sz5c524BMxUW_YzlRW7K7g8R1jrzD7o"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "480283647564-f3nngmnpuia4jlin49l3codluuqg9bh6.apps.googleusercontent.com",
+              "client_id": "614513931538-ug8vid5j2ktgde5qdudp76e2qj4mda7j.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

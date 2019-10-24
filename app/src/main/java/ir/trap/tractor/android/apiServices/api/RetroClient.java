@@ -45,6 +45,8 @@ import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
 import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
+import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
+import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import ir.trap.tractor.android.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
 import ir.trap.tractor.android.apiServices.model.tourism.bus.getPaymentBus.request.RequestBusPayment;
 import ir.trap.tractor.android.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
@@ -59,7 +61,8 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface RetroClient {
+public interface RetroClient
+{
 
     @POST(Const.Login)
     Single<Response<WebServiceClass<LoginResponse>>> login(
@@ -73,6 +76,7 @@ public interface RetroClient {
     Single<Response<WebServiceClass<GetBillCodePayCodeResponse>>> getBillCodePayCode(
             @Body GetBillCodePayCodeRequest request
     );
+
     @POST(Const.Verify)
     Single<Response<WebServiceClass<VerifyResponse>>> verify(
             @Body VerifyRequest request
@@ -86,6 +90,7 @@ public interface RetroClient {
     Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(
             @Body GetPackageMciRequest request
     );
+
     @POST(Const.GetMenu)
     Single<Response<WebServiceClass<GetMenuResponse>>> getMenu(
             @Body GetMenuRequest request
@@ -120,7 +125,6 @@ public interface RetroClient {
     Single<Response<WebServiceClass<GetPackageMciResponse>>> getPackageMci(
             @Body GetPackageMciRequest request
     );
-
 
 
     @POST(Const.PACKAGE_BUY)
@@ -196,8 +200,13 @@ public interface RetroClient {
     @POST(Const.HotelPayment)
     Single<Response<WebServiceClass<GlobalResponse2>>> doHotelPayment(
             @Body GdsHotelPaymentRequest gdsHotelPaymentRequest);
+
     @POST(Const.DECRYPTQRCODE)
     Single<Response<WebServiceClass<DecryptQrResponse>>> decryptQr(
             @Body DecryptQrRequest request);
+
+    @POST(Const.PAYMENT)
+    Single<Response<WebServiceClass<PaymentPrintPosResponse>>> getPayment(
+            @Body PaymentPrintPosRequest request);
 
 }

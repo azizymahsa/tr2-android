@@ -55,6 +55,7 @@ public class Const
     public final static String AddCard = SubBASEURL + "v1/card/";
 
     public final static String DECRYPTQRCODE = "api/v1/payment/decrypt_qr_code/";
+    public final static String PAYMENT = "api/v1/payment/payment_print_pos/";
 
 
 
