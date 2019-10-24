@@ -135,7 +135,7 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
     public void onResume()
     {
         super.onResume();
-        //  decryptBarcode(barcode);
+         decryptBarcode(barcode);
         continue_ = false;
         etPassPayment.setText("");
         etQR.setText("");
@@ -355,7 +355,7 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
         }
         btnPaymentConfirm.startAnimation();
         btnPaymentConfirm.setClickable(false);
-       PaymentPrintPosRequest request = new PaymentPrintPosRequest();
+        PaymentPrintPosRequest request = new PaymentPrintPosRequest();
         request.setAmount(Integer.valueOf(etAmountPayment.getText().toString().replaceAll(",", "")));
         request.setPin2(etPassPayment.getText().toString());
       //  request.setDeviceId(qrCode);
@@ -424,9 +424,9 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
 
     }
 
+*/
 
-
-    @Override
+    /*@Override
     public void barcode(String barcode)
     {
         this.barcode = barcode;
@@ -453,8 +453,8 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
         }
 
 
-    }*/
-
+    }
+*/
     public void decryptBarcode(String barcode)
     {
         btnConfirm.startAnimation();

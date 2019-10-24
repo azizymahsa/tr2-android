@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -139,7 +140,8 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         VerifyRequest request = new VerifyRequest();
         request.setUsername(mobileNumber.getText().toString());
         request.setCode(codeView.getText().toString());
-//        request.setCurrentVersion(BuildConfig.VERSION_NAME);
+//        request.setCurrentVersion(BuildConfig.VERSION_NAME);0
+        request.setDevice_model(Build.BRAND + "-" + Build.MODEL);
         request.setDevice_type(TrapConfig.AndroidDeviceType);
         request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), activityContext));
 //        request.setImei("864890030464324");
