@@ -90,7 +90,7 @@ dependencies {
     implementation 'com.adpdigital.push:chabok-lib:2.14.1'
 
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
-    implementation 'com.airbnb.android:lottie:2.5.5'
+    implementation 'com.airbnb.android:lottie:2.7.0'
 
 
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
