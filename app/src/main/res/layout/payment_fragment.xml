@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_10dp">
+
+        <LinearLayout
+            android:id="@+id/llTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="100"
+                android:text="پرداخت وجه"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize_14dp" />
+
+            <LinearLayout
+                android:id="@+id/llSelect"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5" />
+
+                <LinearLayout
+                    android:id="@+id/llPayment"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/llList"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="100"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvIncrease"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:gravity="right"
+                            android:text="انتخاب از لیست"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/textSize_12dp" />
+
+                        
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/textColorSecondary" />
+
+                    <LinearLayout
+                        android:id="@+id/llBarcode"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="100"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvShowBalance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:gravity="right"
+                            android:text="اسکن بارکد"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/textSize_12dp" />
+
+                        <ImageView
+                            android:id="@+id/ivShowBalance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_qr_code" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llDetailPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+              >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
+                        android:id="@+id/etLayoutCode"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
+                        android:hint="کد پذیرنده"
+                        android:theme="@style/EditTextHint">
+
+                        <ir.bankday.diba.android.tools.ClearableEditText
+                            android:id="@+id/etQR"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/black"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/textSize_16dp"
+
+
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
+                        android:id="@+id/etLayoutPass"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
+
+                        android:hint="مبلغ را به ریال وارد نمایید"
+                        android:theme="@style/EditTextHint">
+
+                        <ir.bankday.diba.android.tools.ClearableEditText
+                            android:id="@+id/etAmountPayment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/black"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/textSize_16dp"
+
+
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/llBtnConfirm2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+                    <FrameLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnBackToHome"
+                            layout="@layout/return_button"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_30dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="2dp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10dp"
+
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnConfirm2"
+                            layout="@layout/circular_progress_button"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_30dp"
+                            android:layout_gravity="center"
+
+                            android:layout_margin="2dp" />
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+                </LinearLayout>
+
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/llBtnConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    >
+
+
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100">
+                        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                            android:id="@+id/btnConfirm"
+
+                            android:layout_width="match_parent"
+
+                            android:layout_height="@dimen/_30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/background45f"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize_14dp"
+                            android:transitionName="transition"
+                            app:finalCornerAngle="50dp" app:spinning_bar_color="@color/white"
+                            app:initialCornerAngle="50dp"
+                            app:spinning_bar_width="2dp"
+                            android:layout_margin="2dp"/>
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llPricePeyment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+             >
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
+                        android:id="@+id/llPaymentPass"
+                        android:layout_width="0dp"
+                        android:layout_weight="100"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center|right"
+
+                        android:hint="رمز دوم کارت را وارد نمایید"
+                        android:theme="@style/EditTextHint">
+
+                        <ir.bankday.diba.android.tools.ClearableEditText
+                            android:id="@+id/etPassPayment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/black"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="numberPassword"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/textSize_16dp"
+
+
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llCvv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:visibility="gone">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                    <android.support.design.widget.TextInputLayout app:hintTextAppearance="@style/TextLabel"
+                        android:id="@+id/tipCvv2"
+                        android:layout_width="0dp"
+                        android:layout_weight="100"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center|right"
+
+
+                        android:hint="شماره cvv2 را وارد نمایید"
+                        android:theme="@style/EditTextHint">
+
+                        <ir.bankday.diba.android.tools.ClearableEditText
+                            android:id="@+id/etCvv2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/black"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="numberPassword"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/textSize_16dp"
+
+
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/llCheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center|right"
+                    android:gravity="center|right"
+                    >
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="100"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center|right"
+                        android:gravity="center|right"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textSize="@dimen/textSize_12dp"
+                            android:textColor="@color/currentColor"
+                            android:text="چاپ رسید در دستگاه کارت خوان"
+                            android:textAppearance="@style/IranSansBold"
+                            />
+                        <CheckBox
+                            android:id="@+id/cbPrint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/currentColor"/>
+                    </LinearLayout>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnBackToDetail"
+                            layout="@layout/return_button"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_30dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="2dp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnPaymentConfirm"
+                            layout="@layout/circular_progress_button"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_30dp"
+                            android:layout_gravity="center"
+
+                            android:layout_margin="2dp" />
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

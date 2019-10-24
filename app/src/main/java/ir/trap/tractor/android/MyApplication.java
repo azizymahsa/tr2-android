@@ -11,11 +11,10 @@ import android.util.Log;
 import androidx.multidex.MultiDex;
 
 import com.adpdigital.push.AdpPushClient;
-import com.crashlytics.android.Crashlytics;
+
 import com.orm.SugarContext;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import ir.trap.tractor.android.apiServices.ServiceApplication;
 import ir.trap.tractor.android.singleton.SingletonContext;
