@@ -3,6 +3,9 @@ package ir.trap.tractor.android.apiServices.model.verify;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by MahtabAzizi on 10/16/2019.
  */
@@ -10,115 +13,35 @@ public class VerifyRequest
 {
 
     @SerializedName("username")
-    @Expose
+    @Expose @Getter @Setter
     private String username;
 
     @SerializedName("code")
-    @Expose
+    @Expose @Getter @Setter
     private String code;
 
     @SerializedName("screen_size_width")
-    @Expose
+    @Expose @Getter @Setter
     private String screenSizeWidth;
 
     @SerializedName("screen_size_height")
-    @Expose
+    @Expose @Getter @Setter
     private String screenSizeHeight;
 
     @SerializedName("current_version")
-    @Expose
+    @Expose @Getter @Setter
     private String currentVersion;
 
+    @SerializedName("device_model")
+    @Expose @Getter @Setter
+    private String deviceModel;
 
     @SerializedName("device_type")
-    @Expose
+    @Expose @Getter @Setter
     private int device_type;
-@SerializedName("device_model")
-    @Expose
-    private String device_model;
 
     @SerializedName("imei")
-    @Expose
+    @Expose @Getter @Setter
     private String imei;
 
-    public String getDevice_model()
-    {
-        return device_model;
-    }
-
-    public void setDevice_model(String device_model)
-    {
-        this.device_model = device_model;
-    }
-
-    public String getUsername()
-    {
-        return username;
-    }
-
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-
-    public String getCode()
-    {
-        return code;
-    }
-
-    public void setCode(String code)
-    {
-        this.code = code;
-    }
-
-    public String getScreenSizeWidth()
-    {
-        return screenSizeWidth;
-    }
-
-    public void setScreenSizeWidth(String screenSizeWidth)
-    {
-        this.screenSizeWidth = screenSizeWidth;
-    }
-
-    public String getScreenSizeHeight()
-    {
-        return screenSizeHeight;
-    }
-
-    public void setScreenSizeHeight(String screenSizeHeight)
-    {
-        this.screenSizeHeight = screenSizeHeight;
-    }
-
-    public String getCurrentVersion()
-    {
-        return currentVersion;
-    }
-
-    public void setCurrentVersion(String currentVersion)
-    {
-        this.currentVersion = currentVersion;
-    }
-
-
-    public int getDevice_type()
-    {
-        return device_type;
-    }
-
-    public void setDevice_type(int device_type)
-    {
-        this.device_type = device_type;
-    }
-
-    public String getImei()
-    {
-        return imei;
-    }
-
-    public void setImei(String imei)
-    {
-        this.imei = imei;
-    }
 }

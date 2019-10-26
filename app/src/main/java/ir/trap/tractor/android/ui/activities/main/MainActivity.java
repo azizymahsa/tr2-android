@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Toast;
@@ -30,15 +31,23 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+import io.realm.exceptions.RealmException;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.contact.OnSelectContact;
+import ir.trap.tractor.android.apiServices.model.getBankList.response.Bank;
+import ir.trap.tractor.android.apiServices.model.getBankList.response.BankListResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
+import ir.trap.tractor.android.enums.BarcodeType;
+import ir.trap.tractor.android.models.dbModels.BankDB;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.card.add.AddCardActivity;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;
@@ -50,6 +59,7 @@ import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
+import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
@@ -63,6 +73,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
+
+    private Realm realm;
 
     private Fragment currentFragment;
     private FragmentManager fragmentManager;
@@ -81,6 +93,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         setContentView(R.layout.activity_main);
 
         mSavedInstanceState = savedInstanceState;
+
+        realm = Realm.getDefaultInstance();
 
         mToolbar = findViewById(R.id.toolbar);
 
@@ -163,7 +177,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         isMainFragment = false;
 
-                        currentFragment = PaymentWithoutCardFragment.newInstance(this);
+                        //currentFragment = PaymentWithoutCardFragment.newInstance(this);
+                        currentFragment = PaymentFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -176,11 +191,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             return true;
         });
         //--------------------------------bottomBar----------------------------------
+        showLoading();
+
         GetMenuRequest request = new GetMenuRequest();
         request.setDeviceType(TrapConfig.AndroidDeviceType);
         request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
         SingletonService.getInstance().getMenuService().getMenu(this, request);
-//
+
 //        fragmentManager = getSupportFragmentManager();
 //        currentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
 //
@@ -274,8 +291,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             case 1:
             {
-                closeDrawer();
                 startAddCardActivity();
+                closeDrawer();
                 break;
             }
             case 2:
@@ -308,19 +325,21 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void showLoading()
     {
-        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+        findViewById(R.id.llLoading).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading()
     {
-        findViewById(R.id.rlLoading).setVisibility(View.GONE);
+        runOnUiThread(() ->
+        {
+            findViewById(R.id.llLoading).setVisibility(View.GONE);
+        });
     }
 
     @Override
     public void onBill()
     {
-
         isMainFragment = false;
         String titleBill = "قبض تلفن همراه";
         int idBillType = 5;
@@ -360,12 +379,42 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .commit();
     }
 
+
     @Override
-    public void onBarcodeReader()
-    {
+    public void openBarcode(BarcodeType bill) {
+        new TedPermission(this)
+                .setPermissionListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        try{
+                        onBarcodReader();
+                        }catch (Exception e){
+                            e.getMessage();
+                        }
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+
+                    }
+                })
+                .setDeniedMessage("If you reject permission,you can not use this application, Please turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.CAMERA)
+                .check();
+
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
+    }
+    @Override
+    public void onBarcodReader() {
         isMainFragment = false;
 
         currentFragment = BarcodeReaderFragment.newInstance(this);
+      //  transaction.commitAllowingStateLoss();
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -379,7 +428,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        currentFragment = PaymentWithoutCardFragment.newInstance(this);
+       // currentFragment = PaymentWithoutCardFragment.newInstance(this);
+        currentFragment = PaymentFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -550,6 +600,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (response == null || response.info == null)
         {
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
             return;
         }
         if (response.info.statusCode != 200)
@@ -559,7 +610,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             return;
         }
-        if (response.info.statusCode == 200)
+        else
         {
             chosenServiceList = response.data.getChosenServiceList();
             footballServiceList = response.data.getFootballServiceList();
@@ -577,11 +628,97 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 transaction.add(R.id.main_container, currentFragment)
                         .commit();
-            } else
+            }
+            else
             {
                 transaction.replace(R.id.main_container, currentFragment)
                         .commit();
             }
+
+            SingletonService.getInstance().getBankListService().getBankListService(new OnServiceStatus<WebServiceClass<BankListResponse>>()
+            {
+                @Override
+                public void onReady(WebServiceClass<BankListResponse> responseBankList)
+                {
+                    hideLoading();
+
+                    if (responseBankList == null || responseBankList.info == null)
+                    {
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        finish();
+
+                        return;
+                    }
+                    if (responseBankList.info.statusCode != 200)
+                    {
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        finish();
+
+                        return;
+                    }
+                    else
+                    {
+                        Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
+
+                        try
+                        {
+                            realm.executeTransaction(realm1 ->
+                            {
+                                realm1.delete(BankDB.class);
+                            });
+                        }
+                        catch (RealmException ex)
+                        {
+                            Logger.e("--BankDB Delete--", "false");
+
+                            ex.printStackTrace();
+                        }
+
+                        for (Bank bank : responseBankList.data.getBankList())
+                        {
+                            realm.executeTransaction(realm ->
+                            {
+                                try
+                                {
+                                    BankDB bankDB = realm.createObject(BankDB.class);
+                                    int maxId = 0;
+                                    if (realm.where(BankDB.class).findAll().size() != 0)
+                                    {
+                                        maxId = realm.where(BankDB.class).max("_ID").intValue();
+                                    }
+                                    bankDB.set_ID(maxId + 1);
+                                    bankDB.setId(bank.getId());
+                                    bankDB.setBankBin(bank.getBankBin());
+                                    bankDB.setBankName(bank.getBankName());
+                                    bankDB.setColorNumber(bank.getColorNumber());
+                                    bankDB.setColorText(bank.getColorText());
+                                    bankDB.setImageCard(bank.getImageCard());
+                                    bankDB.setImageCardBack(bank.getImageCardBack());
+                                    bankDB.setOrderItem(bank.getOrderItem());
+                                }
+                                catch (RealmException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                            });
+                        }
+
+                        Logger.e("--BankDB size after delete--", "size: " + realm.where(BankDB.class).findAll().size());
+
+                    }
+                }
+
+                @Override
+                public void onError(String message)
+                {
+                    hideLoading();
+
+                    showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
+
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
+            });
         }
 
     }
@@ -589,6 +726,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onError(String message)
     {
+        hideLoading();
 
+        showError(this, "خطا در دریافت اطلاعات از سرور!");
+
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        finish();
     }
 }

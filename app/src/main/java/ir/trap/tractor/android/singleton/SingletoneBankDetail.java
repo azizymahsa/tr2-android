@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.models.Bank;
+import ir.trap.tractor.android.apiServices.model.getBankList.response.Bank;
 
 
 /**

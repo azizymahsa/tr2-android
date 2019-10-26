@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
+import ir.trap.tractor.android.BuildConfig;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
@@ -138,12 +139,14 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     private void sendVerifyRequest()
     {
         VerifyRequest request = new VerifyRequest();
+
         request.setUsername(mobileNumber.getText().toString());
         request.setCode(codeView.getText().toString());
 //        request.setCurrentVersion(BuildConfig.VERSION_NAME);0
         request.setDevice_model(Build.BRAND + "-" + Build.MODEL);
         request.setDevice_type(TrapConfig.AndroidDeviceType);
         request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), activityContext));
+        request.setDeviceModel(Build.BRAND + "-" + Build.MODEL);
 //        request.setImei("864890030464324");
 
         DisplayMetrics displayMetrics = new DisplayMetrics();

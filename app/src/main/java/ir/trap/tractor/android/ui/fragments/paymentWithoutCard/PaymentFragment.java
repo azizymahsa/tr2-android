@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
@@ -51,7 +52,8 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
         View.OnClickListener, OnServiceStatus<WebServiceClass<PaymentPrintPosResponse>>
 {
     private View v;
-    private CircularProgressButton btnConfirm, btnPaymentConfirm, btnBackToDetail, btnBackToHome, btnConfirm2;
+    private CircularProgressButton btnConfirm, btnPaymentConfirm, btnConfirm2;
+    private TextView  btnBackToDetail, btnBackToHome;
     private LinearLayout llDetailPayment, llPricePeyment, llPayment, llCvv2, llBtnConfirm, llBtnConfirm2;
     private EditText etAmountPayment, etQR, etPassPayment, etCvv2;
     private LinearLayout llBarcode, llList;
@@ -60,7 +62,7 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
     private boolean isDetailPaymentList = false, isDetailPaymentBarcode = false;
     private ArchiveCardDBModel archiveCardDBModels;
     private String cvv2 = "";
-    private String cardNumberCheck;
+    private String cardNumberCheck="";
     private boolean continue_ = false;
     private CheckBox cbPrint;
     private LinearLayout llCheckBox;
@@ -205,8 +207,8 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
     @Override
     public void onAnimationEnd()
     {
-        btnPaymentConfirm.setBackground(ContextCompat.getDrawable(SingletonContext.getInstance().getContext(), R.drawable.background40f));
-        btnConfirm.setBackground(ContextCompat.getDrawable(SingletonContext.getInstance().getContext(), R.drawable.background40f));
+        btnPaymentConfirm.setBackground(ContextCompat.getDrawable(SingletonContext.getInstance().getContext(), R.drawable.background_button_login));
+        btnConfirm.setBackground(ContextCompat.getDrawable(SingletonContext.getInstance().getContext(), R.drawable.background_button_login));
 
     }
 
@@ -295,7 +297,7 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
 
                 break;
             case R.id.llBarcode:
-              //  mainView.openBarcode(BarcodeType.Payment);
+                mainView.openBarcode(BarcodeType.Payment);
                 isDetailPaymentBarcode = true;
 
 
@@ -341,6 +343,7 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
         llBtnConfirm2.setVisibility(View.GONE);
         llBtnConfirm.setVisibility(View.VISIBLE);
         etQR.setText("");
+        Prefs.putString("qrCode", "");
         etAmountPayment.setText("");
         etLayoutCode.setHint("کد پذیرنده");
 

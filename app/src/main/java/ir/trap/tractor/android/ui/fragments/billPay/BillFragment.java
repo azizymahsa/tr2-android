@@ -67,6 +67,7 @@ import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.LstPhoneBill;
 import ir.trap.tractor.android.apiServices.model.getMyBill.Bills;
 import ir.trap.tractor.android.apiServices.model.getMyBill.GetMyBillRequest;
 import ir.trap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
+import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.models.dbModels.ArchiveCardDBModel;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.adapters.MyBillsAdapter;
@@ -1317,10 +1318,18 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void onBarcodeReader()
+    public void openBarcode(BarcodeType bill)
     {
 
     }
+
+    @Override
+    public void onBarcodReader()
+    {
+
+    }
+
+
 
     @Override
     public void onPaymentWithoutCard()
