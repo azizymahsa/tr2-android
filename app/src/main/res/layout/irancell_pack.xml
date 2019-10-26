@@ -19,10 +19,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="20" />
 
+
         <ImageView
             android:id="@+id/btnIrancellRecent"
-            android:layout_width="wrap_content"
-            android:layout_height="29dp"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
             android:background="@drawable/button_small_border"
