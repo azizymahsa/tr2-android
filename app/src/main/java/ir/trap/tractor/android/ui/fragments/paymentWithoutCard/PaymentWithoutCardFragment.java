@@ -308,7 +308,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements View.OnC
                     @Override
                     public void onPermissionGranted()
                     {
-                        onBarcodReader(bill);
+                        onBarcodReader();
                     }
 
                     @Override
@@ -323,11 +323,11 @@ public class PaymentWithoutCardFragment extends BaseFragment implements View.OnC
 
     }
 
-    public void onBarcodReader(BarcodeType barcodeType)
+    public void onBarcodReader()
     {
         // changeFragment(fragments.get(13), "13");
         Prefs.putString("qrCode", "");
-        mainView.onBarcodeReader();
+        mainView.onBarcodReader();
         //    mFragNavController.switchTab(13);
        /* new Handler().postDelayed(() -> {
             layoutBehavior();

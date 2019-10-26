@@ -111,6 +111,38 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
 
         return fragment;
     }
+    public static PaymentFragment newInstance(int PAYMENT_STATUS,
+                                              String price,
+                                              String title,
+                                              int imgLogo,
+                                              PaymentParentActionView paymentParentActionView,
+                                              Object response,
+                                              int operatorType,
+                                              int simcardType,
+                                              int typeCharge,
+                                              String mobile,String s
+    )
+    {
+        PaymentFragment fragment = new PaymentFragment();
+        fragment.setParentActionView(paymentParentActionView);
+
+        Bundle args = new Bundle();
+
+        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+        args.putInt("imgLogo", imgLogo);
+        args.putString("price", price);
+        args.putString("title", title);
+        args.putParcelable("response", (Parcelable) response);
+
+        args.putInt("OPERATOR_TYPE",operatorType);
+        args.putInt("SIMCARD_TYPE",simcardType);
+        args.putString("MOBILE",mobile);
+        args.putInt("TYPE_CHARGE",typeCharge);
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
     private void setParentActionView(PaymentParentActionView pActionView)
     {

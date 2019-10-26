@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.fragments.main;
 
 import androidx.fragment.app.Fragment;
 
+import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.ui.base.BaseView;
 
 public interface MainActionView extends BaseView
@@ -11,8 +12,8 @@ public interface MainActionView extends BaseView
     void onChargeSimCard();
 
     void onPackSimCard();
-
-    void onBarcodeReader();
+    void openBarcode(BarcodeType bill);
+    void onBarcodReader();
     void onPaymentWithoutCard();
 
     void doTransferMoney();
@@ -30,4 +31,5 @@ public interface MainActionView extends BaseView
     void closeDrawer();
 
     void startAddCardActivity();
+
 }
