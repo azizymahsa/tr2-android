@@ -60,7 +60,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvAddCard"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_180dp"
+            android:layout_height="180dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_20sdp"

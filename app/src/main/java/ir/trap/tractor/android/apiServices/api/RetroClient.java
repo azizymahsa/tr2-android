@@ -1,17 +1,13 @@
 package ir.trap.tractor.android.apiServices.api;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import ir.trap.tractor.android.apiServices.helper.Const;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse2;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse3;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
-import ir.trap.tractor.android.apiServices.model.allService.response.Datum;
-import ir.trap.tractor.android.apiServices.model.allService.response.ResponseAllService;
 import ir.trap.tractor.android.apiServices.model.billPayment.request.BillPaymentRequest;
 import ir.trap.tractor.android.apiServices.model.billPayment.response.BillPaymentResponse;
 import ir.trap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
@@ -20,6 +16,7 @@ import ir.trap.tractor.android.apiServices.model.card.addCard.request.AddCardReq
 import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
+import ir.trap.tractor.android.apiServices.model.getBankList.response.BankListResponse;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
 import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
@@ -33,7 +30,6 @@ import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBi
 import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
-import ir.trap.tractor.android.apiServices.model.getMyBill.GetMyBillRequest;
 import ir.trap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
@@ -55,7 +51,7 @@ import ir.trap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.requ
 import ir.trap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
 import ir.trap.tractor.android.apiServices.model.verify.VerifyRequest;
 import ir.trap.tractor.android.apiServices.model.verify.VerifyResponse;
-import okhttp3.ResponseBody;
+import ir.trap.tractor.android.apiServices.model.getBankList.response.Bank;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -71,6 +67,9 @@ public interface RetroClient
 
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
+
+    @GET(Const.BANK_LIST)
+    Single<Response<WebServiceClass<BankListResponse>>> getBankList();
 
     @POST(Const.GetBillCodePayCode)
     Single<Response<WebServiceClass<GetBillCodePayCodeResponse>>> getBillCodePayCode(
