@@ -446,10 +446,10 @@
                             android:layout_marginRight="10dp"
                             android:background="@drawable/circle_background_main_2"
                             android:gravity="center"
-                            android:text="@string/pic_icon_R"
-                            android:textAppearance="@style/IconFonts_R"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize_20dp" />
+<!--                            android:text="@string/pic_icon_R"-->
+<!--                            android:textAppearance="@style/IconFonts_R"/>-->
 
                         <TextView
                             android:id="@+id/tvShareP"
@@ -457,10 +457,10 @@
                             android:layout_height="@dimen/_30dp"
                             android:background="@drawable/circle_background_main_2"
                             android:gravity="center"
-                            android:text="@string/share_icon"
-                            android:textAppearance="@style/IconFonts"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/textSize_20dp" />
+                            android:textSize="@dimen/textSize_20dp"/>
+<!--                            android:text="@string/share_icon"-->
+<!--                            android:textAppearance="@style/IconFonts"/>-->
 
 
                     </LinearLayout>
@@ -487,12 +487,12 @@
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:gravity="center"
-            android:textAppearance="@style/IconFonts_R"
-            android:text="@string/close_icon"
             android:textColor="@color/black"
             android:textSize="@dimen/_18sdp"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/_10dp"/>
+<!--            android:textAppearance="@style/IconFonts_R"-->
+<!--            android:text="@string/close_icon"/>-->
     </RelativeLayout>
 
 

@@ -1,6 +1,6 @@
 package ir.trap.tractor.android.ui.activities.card.add;
 
-import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -23,26 +22,26 @@ import com.farazpardazan.accubin.AccubinConfiguration;
 import com.farazpardazan.accubin.core.scanResult.BarcodeScanResult;
 import com.farazpardazan.accubin.core.scanResult.CardScanResult;
 import com.farazpardazan.accubin.core.scanResult.ScanResult;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
-import com.pixplicity.easyprefs.library.Prefs;
-
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import io.realm.Realm;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.conf.TrapConfig;
-import ir.trap.tractor.android.models.Bank;
+import ir.trap.tractor.android.apiServices.model.getBankList.response.Bank;
+import ir.trap.tractor.android.models.dbModels.BankDB;
 import ir.trap.tractor.android.singleton.SingletoneBankDetail;
 import ir.trap.tractor.android.ui.activities.card.add.request.AddCardServiceImpl;
 import ir.trap.tractor.android.ui.base.BaseActivity;
+import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.Tools;
 import ru.kolotnev.formattedittext.MaskedEditText;
 
 public class AddCardActivity extends BaseActivity implements View.OnClickListener, PinEntryEditText.OnPinEnteredListener,
         OnAnimationEndListener, AddCardView, TextWatcher
 {
+    private Realm realm;
 
     private ImageView imgBack;
     private CardView cvBarcode;
@@ -58,7 +57,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     private boolean isFirstTimeChange = true;
     private CardView cvAddCard;
     boolean isHappy = false;
-    private LinearLayout llExpireDate, rlLoading;
+    private LinearLayout llExpireDate, llLoading;
     private LinearLayout rlRoot;
     private final int SCAN_REQUEST_CODE = 100;
     private AccubinConfiguration configuration;
@@ -68,6 +67,8 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
+
+        realm = Realm.getDefaultInstance();
 
         initView();
     }
@@ -86,7 +87,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         cvBarcode = findViewById(R.id.cvBarcode);
         tvExpireText = findViewById(R.id.tvExpireText);
         ivBackCard = findViewById(R.id.ivBackCard);
-        rlLoading = findViewById(R.id.rlLoading);
+        llLoading = findViewById(R.id.llLoading);
         llExpireDate = findViewById(R.id.llExpireDate);
         etFullName = findViewById(R.id.etFullName);
         btnConfirm = findViewById(R.id.btnConfirm);
@@ -122,7 +123,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         imgBack.setVisibility(View.VISIBLE);
         btnConfirm.setText("ثبت کارت");
 
-        rlLoading.setVisibility(View.GONE);
+        llLoading.setVisibility(View.GONE);
     }
 
     @Override
@@ -243,23 +244,23 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
                         }
                         isFirstTimeChange = false;
-                        for (Bank detail : SingletoneBankDetail.getInstance().getBanks())
-                        {
-                            if (detail.getBankBin().equals(bankDetect))
-                            {
-                                etNumberAddCard.setTextColor(Color.parseColor(detail.getColorText()));
-
-                                tvBankName.setText(detail.getBankName());
-                                tvBankName.setBackgroundColor(Color.WHITE);
-                                ivBankLogo.setBackgroundColor(Color.WHITE);
-                                Glide.with(this).load(detail.getImageLogo()).into(ivBankLogo);
-                                Glide.with(this).load(detail.getImageCard()).into(ivBackCard);
-                                etFullName.setTextColor(Color.parseColor(detail.getColorText()));
-                                etExpireDateAddCard.setTextColor(Color.parseColor(detail.getColorText()));
-                                tvExpireText.setTextColor(Color.parseColor(detail.getColorText()));
-                                etFullName.setHintTextColor(Color.parseColor(detail.getColorText()));
-                            }
-                        }
+//                        for (Bank detail : SingletoneBankDetail.getInstance().getBanks())
+//                        {
+//                            if (detail.getBankBin().equals(bankDetect))
+//                            {
+//                                etNumberAddCard.setTextColor(Color.parseColor(detail.getColorText()));
+//
+//                                tvBankName.setText(detail.getBankName());
+//                                tvBankName.setBackgroundColor(Color.WHITE);
+//                                ivBankLogo.setBackgroundColor(Color.WHITE);
+////                                Glide.with(this).load(detail.getImageLogo()).into(ivBankLogo);
+//                                Glide.with(this).load(detail.getImageCard()).into(ivBackCard);
+//                                etFullName.setTextColor(Color.parseColor(detail.getColorText()));
+//                                etExpireDateAddCard.setTextColor(Color.parseColor(detail.getColorText()));
+//                                tvExpireText.setTextColor(Color.parseColor(detail.getColorText()));
+//                                etFullName.setHintTextColor(Color.parseColor(detail.getColorText()));
+//                            }
+//                        }
                     }
                     catch (Exception e)
                     {
@@ -281,7 +282,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
     public void getFullName(String pan)
     {
-//        rlLoading.setVisibility(View.VISIBLE);
+//        llLoading.setVisibility(View.VISIBLE);
 //
 //        GetFullNameCardRequest request = new GetFullNameCardRequest();
 //        request.setPan(pan);
@@ -293,7 +294,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 //            {
 //                try
 //                {
-//                    rlLoading.setVisibility(View.GONE);
+//                    llLoading.setVisibility(View.GONE);
 //
 //
 //                    if (getFullNameCardResponse.getServiceMessage().getCode() == 200)
@@ -317,7 +318,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 //            @Override
 //            public void onError(String message)
 //            {
-//                rlLoading.setVisibility(View.GONE);
+//                llLoading.setVisibility(View.GONE);
 //                AddCardActivity.this.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 //
 //            }
@@ -337,7 +338,10 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onFinish(int resultCode)
     {
-        showToast(this, "کارت با موفقیت افزوده شد.", R.color.green);
+        if (resultCode == Activity.RESULT_OK)
+        {
+            showToast(this, "کارت با موفقیت افزوده شد.", R.color.green);
+        }
         Intent returnIntent = new Intent();
         setResult(resultCode, returnIntent);
         finish();
@@ -385,6 +389,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         String bankDetect = etNumberAddCard.getText().toString().replaceAll("-", "").
                 replaceAll("_", "").replaceAll(" ", "");
 
+        Logger.e("--bankDetect--", bankDetect);
 
         if (etNumberAddCard.isFocused() && bankDetect.length() < 6)
         {
@@ -405,36 +410,54 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         }
         if (etNumberAddCard.isFocused() && bankDetect.length() == 6 && isFirstTimeChange)
         {
-
             if (bankDetect.equals(TrapConfig.HappyBaseCardNo))
             {
                 llExpireDate.setVisibility(View.GONE);
                 isHappy = true;
-            } else
+            }
+            else
             {
                 llExpireDate.setVisibility(View.VISIBLE);
                 isHappy = false;
-
             }
             isFirstTimeChange = false;
-            for (Bank detail : SingletoneBankDetail.getInstance().getBanks())
-            {
-                if (detail.getBankBin().equals(bankDetect))
-                {
+            //-------------------------old-------------------------
+//            for (Bank detail : SingletoneBankDetail.getInstance().getBanks())
+//            {
+//                if (detail.getBankBin().equals(bankDetect))
+//                {
+//
+//                    tvBankName.setText(detail.getBankName());
+//                    tvBankName.setBackgroundColor(Color.WHITE);
+//                    ivBankLogo.setBackgroundColor(Color.WHITE);
+////                    Glide.with(this).load(detail.getImageLogo()).into(ivBankLogo);
+//                    Glide.with(this).load(detail.getImageCard()).into(ivBackCard);
+//                    etNumberAddCard.setTextColor(Color.parseColor(detail.getColorNumber()));
+//                    etFullName.setTextColor(Color.parseColor(detail.getColorText()));
+//                    etExpireDateAddCard.setTextColor(Color.parseColor(detail.getColorText()));
+//                    tvExpireText.setTextColor(Color.parseColor(detail.getColorText()));
+//                    etFullName.setHintTextColor(Color.parseColor(detail.getColorText()));
+//
+//                }
+//            }
+            //-------------------------old-------------------------
+            //-------------------------new-------------------------
 
-                    tvBankName.setText(detail.getBankName());
-                    tvBankName.setBackgroundColor(Color.WHITE);
-                    ivBankLogo.setBackgroundColor(Color.WHITE);
-                    Glide.with(this).load(detail.getImageLogo()).into(ivBankLogo);
-                    Glide.with(this).load(detail.getImageCard()).into(ivBackCard);
-                    etNumberAddCard.setTextColor(Color.parseColor(detail.getColorNumber()));
-                    etFullName.setTextColor(Color.parseColor(detail.getColorText()));
-                    etExpireDateAddCard.setTextColor(Color.parseColor(detail.getColorText()));
-                    tvExpireText.setTextColor(Color.parseColor(detail.getColorText()));
-                    etFullName.setHintTextColor(Color.parseColor(detail.getColorText()));
+            BankDB bankDB = realm.where(BankDB.class)
+                    .equalTo("bankBin", bankDetect)
+                    .findFirst();
 
-                }
-            }
+            tvBankName.setText(bankDB.getBankName());
+            tvBankName.setBackgroundColor(Color.TRANSPARENT);
+            ivBankLogo.setBackgroundColor(Color.TRANSPARENT);
+            Picasso.with(this).load(bankDB.getImageCard()).into(ivBackCard);
+
+            etNumberAddCard.setTextColor(Color.parseColor(bankDB.getColorNumber()));
+            etFullName.setTextColor(Color.parseColor(bankDB.getColorText()));
+            etExpireDateAddCard.setTextColor(Color.parseColor(bankDB.getColorText()));
+            tvExpireText.setTextColor(Color.parseColor(bankDB.getColorText()));
+            etFullName.setHintTextColor(Color.parseColor(bankDB.getColorText()));
+            //-------------------------new-------------------------
         }
 
 

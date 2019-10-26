@@ -6,6 +6,7 @@ import ir.trap.tractor.android.apiServices.ServiceApplication;
 import ir.trap.tractor.android.apiServices.di.component.NetComponent;
 //import library.android.service.generator.DaggerComponentService;
 import ir.trap.tractor.android.apiServices.part.AddCardService;
+import ir.trap.tractor.android.apiServices.part.BankListService;
 import ir.trap.tractor.android.apiServices.part.BillCodePayCodeService;
 import ir.trap.tractor.android.apiServices.part.BusService;
 import ir.trap.tractor.android.apiServices.part.DoTransferCardService;
@@ -171,6 +172,11 @@ public class SingletonService
     public AddCardService addCardService()
     {
         return new AddCardService(serviceGenerator);
+    }
+
+    public BankListService getBankListService()
+    {
+        return new BankListService(serviceGenerator);
     }
 
 
