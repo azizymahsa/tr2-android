@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
+import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.models.dbModels.BankDB;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.card.add.AddCardActivity;
@@ -57,6 +59,7 @@ import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
+import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
@@ -174,7 +177,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         isMainFragment = false;
 
-                        currentFragment = PaymentWithoutCardFragment.newInstance(this);
+                        //currentFragment = PaymentWithoutCardFragment.newInstance(this);
+                        currentFragment = PaymentFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -375,12 +379,42 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .commit();
     }
 
+
     @Override
-    public void onBarcodeReader()
-    {
+    public void openBarcode(BarcodeType bill) {
+        new TedPermission(this)
+                .setPermissionListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        try{
+                        onBarcodReader();
+                        }catch (Exception e){
+                            e.getMessage();
+                        }
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+
+                    }
+                })
+                .setDeniedMessage("If you reject permission,you can not use this application, Please turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.CAMERA)
+                .check();
+
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
+    }
+    @Override
+    public void onBarcodReader() {
         isMainFragment = false;
 
         currentFragment = BarcodeReaderFragment.newInstance(this);
+      //  transaction.commitAllowingStateLoss();
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -394,7 +428,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        currentFragment = PaymentWithoutCardFragment.newInstance(this);
+       // currentFragment = PaymentWithoutCardFragment.newInstance(this);
+        currentFragment = PaymentFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
