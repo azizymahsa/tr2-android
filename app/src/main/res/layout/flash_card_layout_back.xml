@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlBackView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,24 +12,24 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY" />
 
-    <!--<LinearLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
         android:gravity="center"
         android:background="#da000000">
 
-        <TextView
-            android:id="@+id/tvDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imgDelete"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
             android:layout_marginRight="10dp"
             android:foreground="?attr/selectableItemBackground"
-            android:textAppearance="@style/IconFonts_R"
-            android:text="@string/trash_icon_R"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_24sdp" />
+            android:tint="@color/colorDelete"
+            app:srcCompat="@drawable/ic_delete"/>
 
         <View
             android:id="@+id/vDelete"
@@ -36,16 +38,14 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/shadow_back_card" />
 
-        <TextView
-            android:id="@+id/tvStar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imgStar"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
             android:layout_marginRight="10dp"
             android:foreground="?attr/selectableItemBackground"
-            android:textAppearance="@style/IconFonts_R"
-            android:textSize="@dimen/_24sdp"
-            android:text="@string/star_icon_R"
-            android:textColor="@color/textColor_dey2" />
+            android:tint="@color/colorStar"
+            app:srcCompat="@drawable/ic_star_border_24dp"/>
 
         <View
             android:layout_width="1dp"
@@ -53,44 +53,41 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/shadow_back_card" />
 
-        <TextView
-            android:id="@+id/tvEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imgEdit"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_marginRight="10dp"
             android:foreground="?attr/selectableItemBackground"
-            android:textAppearance="@style/IconFonts_R"
-            android:textSize="@dimen/_24sdp"
-            android:text="@string/check_icon_R"
-            android:textColor="@color/green_light" />
+            android:tint="@color/colorEditCard"
+            app:srcCompat="@drawable/ic_check_card"/>
 
         <LinearLayout
             android:id="@+id/llSecurity"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:visibility="gone">
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/shadow_back_card" />
 
-            <TextView
-                android:id="@+id/tvSecurity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/imgSecurity"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_35dp"
                 android:foreground="?attr/selectableItemBackground"
-                android:textAppearance="@style/IconFonts_R"
-                android:text="@string/fingerprint_icon_R"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_24sdp" />
+                android:tint="@color/colorSecurityCard"
+                app:srcCompat="@drawable/ic_lock"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llChangePas"
+            android:id="@+id/llChangePass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -98,18 +95,17 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/shadow_back_card" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/imgChangePass"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_35dp"
+                android:layout_marginRight="10dp"
                 android:foreground="?attr/selectableItemBackground"
-                android:textAppearance="@style/IconFonts"
-                android:textSize="@dimen/_24sdp"
-                android:text="@string/lock_icon"
-                android:textColor="@color/blue" />
+                android:tint="@color/colorChangePassCard"
+                app:srcCompat="@drawable/ic_lock"/>
 
         </LinearLayout>
 
@@ -122,22 +118,19 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/shadow_back_card" />
 
-            <TextView
-                android:id="@+id/tvShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/imgShare"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_35dp"
                 android:foreground="?attr/selectableItemBackground"
-                android:textAppearance="@style/IconFonts"
-                android:text="@string/share_icon"
-                android:textColor="@color/happy"
-                android:textSize="@dimen/_24sdp" />
+                android:tint="@color/colorShareCard"
+                app:srcCompat="@drawable/ic_share"/>
 
         </LinearLayout>
 
-    </LinearLayout>-->
+    </LinearLayout>
 
 </RelativeLayout>
