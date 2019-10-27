@@ -17,9 +17,7 @@ public class CountTicketFragment
 {
 
     private static final String KEY_MODEL = "KEY_MODEL";
-    TextView tvTitle;
-   // private SubMenuModel[] subMenuModels;
-  //  private OnListFragmentInteractionListener interactionListener;
+
 
     public CountTicketFragment() {
     }
