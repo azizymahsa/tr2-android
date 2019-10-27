@@ -143,7 +143,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         request.setUsername(mobileNumber.getText().toString());
         request.setCode(codeView.getText().toString());
 //        request.setCurrentVersion(BuildConfig.VERSION_NAME);0
-        request.setDevice_model(Build.BRAND + "-" + Build.MODEL);
+        //request.setDevice_model(Build.BRAND + "-" + Build.MODEL);
         request.setDevice_type(TrapConfig.AndroidDeviceType);
         request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), activityContext));
         request.setDeviceModel(Build.BRAND + "-" + Build.MODEL);
