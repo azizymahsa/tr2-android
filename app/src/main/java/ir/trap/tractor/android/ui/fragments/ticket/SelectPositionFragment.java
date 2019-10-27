@@ -6,10 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+
+import butterknife.BindView;
 import ir.trap.tractor.android.R;
 
 public class SelectPositionFragment
@@ -20,6 +26,9 @@ public class SelectPositionFragment
     TextView tvTitle;
    // private SubMenuModel[] subMenuModels;
     private OnListFragmentInteractionListener interactionListener;
+    @BindView(R.id.spinnerAllBoxes)
+    Spinner spinnerAllBoxes;
+    private ArrayList<String> allBoxes;
 
     public SelectPositionFragment() {
     }
@@ -52,7 +61,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             throw new RuntimeException("You must to send a subMenuModels ");
         }
 
-        Log.d("SSSSSSSSSSSSSSSSSS:",getArguments().getString(KEY_MODEL));
+        Log.d("",getArguments().getString(KEY_MODEL));
     }
 
     @Override
@@ -61,6 +70,8 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         View view = inflater.inflate(R.layout.select_position_fragment, container, false);
         // tvTitle=view.findViewById(R.id.tvTitle);
         Context context = view.getContext();
+
+        //setDataSpinnerAllBoxes(Result);
        /* RecyclerView recyclerView = (RecyclerView) view;
 
         recyclerView.setLayoutManager(new GridLayoutManager(context,3));
@@ -69,7 +80,40 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         return view;
     }
 
+ /*   private void setDataSpinnerAllBoxes(Result result)
+    {
+        allBoxes = new ArrayList<String>();
+      //  billsTypePosition = new ArrayList<Integer>();
 
+        for (int i = 0; i < result.size(); i++) {
+            allBoxes.add(result.get(i).getTitle());
+          //  billsTypePosition.add(billActiveVm.get(i).getId());
+        }
+        ArrayAdapter<String> adapterIrancell = new ArrayAdapter<String>(getActivity(),
+                R.layout.simple_spinner_item, allBoxes);
+        adapterIrancell.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinnerAllBoxes.setAdapter(adapterIrancell);
+        spinnerAllBoxes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (spinnerAllBoxes.getSelectedItemPosition() == 0)
+                {
+                   // simcardType = SIMCARD_TYPE_ETEBARI;
+                } else
+                {
+                   // simcardType = SIMCARD_TYPE_DAEMI;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+    }
+*/
 
     @Override
     public void onAttach(Context context) {
