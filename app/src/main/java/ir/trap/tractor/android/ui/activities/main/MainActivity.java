@@ -46,8 +46,8 @@ import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
-import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.models.dbModels.BankDB;
+import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.card.add.AddCardActivity;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;
@@ -64,6 +64,7 @@ import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCar
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.utilities.Logger;
+import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.utility.CustomAlert;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
@@ -113,7 +114,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            mDrawerLayout.openDrawer(containerView);
 //
 //        });
-
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
@@ -291,8 +291,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             case 1:
             {
+                showToast(this, "AddCardActivity", R.color.green);
                 startAddCardActivity();
-                closeDrawer();
+//                closeDrawer();
                 break;
             }
             case 2:
@@ -714,9 +715,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     hideLoading();
 
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();
                 }
             });
         }

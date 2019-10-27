@@ -84,6 +84,8 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
     private void initView()
     {
+        ((TextView) findViewById(R.id.tvTitle)).setText("افزودن کارت");
+
         cvBarcode = findViewById(R.id.cvBarcode);
         tvExpireText = findViewById(R.id.tvExpireText);
         ivBackCard = findViewById(R.id.ivBackCard);
@@ -450,6 +452,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
             tvBankName.setText(bankDB.getBankName());
             tvBankName.setBackgroundColor(Color.TRANSPARENT);
             ivBankLogo.setBackgroundColor(Color.TRANSPARENT);
+            cvAddCard.setCardBackgroundColor(Color.TRANSPARENT);
             Picasso.with(this).load(bankDB.getImageCard()).into(ivBackCard);
 
             etNumberAddCard.setTextColor(Color.parseColor(bankDB.getColorNumber()));
