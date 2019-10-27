@@ -46,6 +46,7 @@ import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
+import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.models.dbModels.BankDB;
 import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.singleton.SingletonContext;
@@ -63,12 +64,17 @@ import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
+import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
+import ir.trap.tractor.android.ui.fragments.ticket.CountTicketFragment;
+import ir.trap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.utility.CustomAlert;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
+        ,SelectPositionFragment.OnListFragmentInteractionListener
+
 {
     private Boolean isMainFragment = true;
 
@@ -130,6 +136,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
                         setCheckedBNV(bottomNavigationView, 0);
+                        isMainFragment = false;
+
+                        currentFragment = BuyTickets.newInstance(this);
+                        transaction = fragmentManager.beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                        transaction.replace(R.id.main_container, currentFragment)
+                                .commit();
                     }
                     break;
                 }
