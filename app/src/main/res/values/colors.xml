@@ -38,6 +38,7 @@
 
     <color name="chargePackTextColor">#3e3e3e</color>
 
+    <color name="gray">#aa888888</color>
     <color name="red">#800e10</color>
     <color name="red_light">#ff5456</color>
     <color name="green">#0e8019</color>
@@ -49,5 +50,11 @@
     <color name="textColorButton">#FDFCFC</color>
 
     <color name="buttonHeaderBackgroundColor">#fe0002</color>
+    <color name="colorStar">#edcb62</color>
+    <color name="colorEditCard">#2eda3f</color>
+    <color name="colorSecurityCard">#5aa7ff</color>
+    <color name="colorChangePassCard">#5aa7ff</color>
+    <color name="colorShareCard">#EC078D</color>
+    <color name="colorDelete">#fff</color>
 
 </resources>

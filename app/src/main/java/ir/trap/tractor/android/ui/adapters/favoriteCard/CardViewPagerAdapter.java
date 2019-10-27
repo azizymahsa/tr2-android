@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,9 +22,11 @@ import java.util.List;
 
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
+import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.GoToActivity;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardActionView;
+import ir.trap.tractor.android.utilities.Tools;
 import ir.trap.tractor.android.utilities.Utility;
 
 
@@ -85,127 +88,121 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
             holder.tvExpireDate.setTextColor(Color.parseColor(item.getColorText()));
             holder.tvNumberCard.setTextColor(Color.parseColor(item.getColorNumber()));
 
-            loadImageIntoIV(item.getCardImage(), holder.ivLoyal, holder);
-            loadImageIntoIV(item.getCardImageBack(), holder.ivBack, holder);
-
 
             if (item.getIsMainCard())
             {
-//            holder.tvDelete.setVisibility(View.GONE);
-//            holder.vDelete.setVisibility(View.GONE);
+                holder.imgDelete.setVisibility(View.GONE);
+                holder.vDelete.setVisibility(View.GONE);
                 holder.tvNumberCard.setVisibility(View.GONE);
                 holder.tvExpireDate.setVisibility(View.GONE);
                 holder.tvFullName.setVisibility(View.GONE);
 
-                holder.cvContent.setVisibility(View.INVISIBLE);
+//                holder.cvContent.setVisibility(View.INVISIBLE);
                 holder.cvAddCard.setVisibility(View.INVISIBLE);
             }
             else
             {
-//            holder.tvDelete.setVisibility(View.VISIBLE);
-//            holder.vDelete.setVisibility(View.VISIBLE);
+                holder.imgDelete.setVisibility(View.VISIBLE);
+                holder.vDelete.setVisibility(View.VISIBLE);
                 holder.tvNumberCard.setVisibility(View.VISIBLE);
                 holder.tvExpireDate.setVisibility(View.VISIBLE);
                 holder.tvFullName.setVisibility(View.VISIBLE);
-//
+
             }
 
             if (item.getIsFavorite() && !item.getIsMainCard())
             {
-////            holder.tvStar.setText(R.string.star_f_icon_R);
+                holder.imgStar.setImageResource(R.drawable.ic_star_24dp);
                 holder.lottieView.setMinFrame(1);
                 holder.lottieView.setVisibility(View.VISIBLE);
-//
             }
             else
             {
-////            holder.tvStar.setText(R.string.star_icon_R);
+                holder.imgStar.setImageResource(R.drawable.ic_star_border_24dp);
                 holder.lottieView.setVisibility(View.GONE);
+            }
+
+            if (!item.getBankBin().equals(TrapConfig.HappyBaseCardNo))
+            {
+                holder.llChangePass.setVisibility(View.GONE);
             }
 
         }
 
 
-
-//        holder.tvEdit.setOnClickListener(view ->
-//        {
-////            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
-////            mainView.onShowEditDialog(cardDBModel, model.getId(), position);
-//        });
+        holder.imgEdit.setOnClickListener(view ->
+        {
+            Tools.showToast(context, "Edit", R.color.gray);
+            action.onEdit(position, item.getCardId());
+//            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
+//            mainView.onShowEditDialog(cardDBModel, model.getId(), position);
+        });
 //
 
-//        holder.llChangePas.setOnClickListener(view -> {
-////            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
-////            mainView.onShowPasswordChangeDialog(cardDBModel, model.getId(), position);
-//
-//        });
-//
-//
-////        holder.tvDelete.setOnClickListener(view -> mainView.showConfirmDeleteCard(Utility.cardFormat(model.getNumber()), position));
-//
-//
-//        holder.tvStar.setOnClickListener(view ->
+        holder.llChangePass.setOnClickListener(view ->
+        {
+            Tools.showToast(context, "ChangePass", R.color.gray);
+            action.onChangePass(position, item.getCardId());
+//            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
+//            mainView.onShowPasswordChangeDialog(cardDBModel, model.getId(), position);
+
+        });
+
+
+        holder.imgDelete.setOnClickListener(view ->
+        {
+            Tools.showToast(context, "Delete", R.color.gray);
+            action.onDelete(position, item.getCardId());
+//            mainView.showConfirmDeleteCard(Utility.cardFormat(model.getNumber()), position)
+        });
+
+
+        holder.imgStar.setOnClickListener(view ->
+        {
+            Tools.showToast(context, "Star", R.color.gray);
+
+            action.onFavorite(position, item.getCardId());
+//            mainView.onFavoriteRequest(Prefs.getInt("userId", 0), model.getCardId());
+            if (item.getIsFavorite())
+            {
+                Picasso.with(context).load(R.drawable.ic_star_border_24dp).into(holder.imgStar);
+            }
+            else
+            {
+                Picasso.with(context).load(R.drawable.ic_star_24dp).into(holder.imgStar);
+            }
+            notifyDataSetChanged();
+
+
+        });
+//        holder.imgSecurity.setOnClickListener(view ->
 //        {
-//            action.onFavorite(position);
-////            mainView.onFavoriteRequest(Prefs.getInt("userId", 0), model.getCardId());
-//            if (model.isFavorite())
-//            {
-////                holder.tvStar.setText(R.string.star_f_icon_R);
+//            Tools.showToast(context, "Security", R.color.gray);
 //
-//            } else
-//            {
-////                holder.tvStar.setText(R.string.star_icon_R);
-//
-//
-//            }
-//            notifyDataSetChanged();
-//
-//
-//        });
-//        holder.tvSecurity.setOnClickListener(view -> {
 ////            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
 ////            mainView.securityDialog(cardDBModel, model.getId(), position);
-//
 //        });
-//
-//
-//        holder.cvContent.setOnClickListener(view ->
-//        {
-//            if (position != 0)
-//            {
-//                holder.myEasyFlipView.flipTheView();
-//            }
-//
-//
-//
-//           /* if (model.isSelect()) {
-//                model.setSelect(false);
-//                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", context.getResources().getInteger(R.integer.values_anim), 0f);
-//                anim2.setDuration(200);
-//                anim2.setInterpolator(new AccelerateInterpolator());
-//                anim2.start();
-//
-//            } else {
-//                model.setSelect(true);
-//                ObjectAnimator anim2 = ObjectAnimator.ofFloat(holder.cvContent, "translationY", 0f, context.getResources().getInteger(R.integer.values_anim));
-//                anim2.setDuration(200);
-//                anim2.setInterpolator(new AccelerateInterpolator());
-//                anim2.start();
-//
-//
-//            }*/
-//        });
-//        holder.rlBackView.setOnClickListener(view ->
-//        {
-//            if (position != 0)
-//            {
-//                holder.myEasyFlipView.flipTheView();
-//            }
-//
-//        });
+
+        holder.cvContent.setOnClickListener(view ->
+        {
+            if (position != 0)
+            {
+                holder.myEasyFlipView.flipTheView();
+            }
+        });
+
+        holder.rlBackView.setOnClickListener(view ->
+        {
+            if (position != 0)
+            {
+                holder.myEasyFlipView.flipTheView();
+            }
+        });
+
         holder.cvAddCard.setOnClickListener(view ->
-                actionView.startActivity(GoToActivity.AddCardActivity)
-        );
+        {
+            actionView.startActivity(GoToActivity.AddCardActivity);
+        });
 //
 ////        if (model.isDelete())
 ////        {
@@ -245,25 +242,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 ////        }
 //
 
-//
-//      /*  if (model.isSelect()) {
-//            model.setSelect(true);
-//            ObjectAnimator anim = ObjectAnimator.ofFloat(holder.cvContent, "translationY", 0f, context.getResources().getInteger(R.integer.values_anim));
-//            anim.setDuration(0);
-//            anim.setInterpolator(new AccelerateInterpolator());
-//            anim.start();
-//
-//        } else {
-//            model.setSelect(false);
-//            ObjectAnimator anim = ObjectAnimator.ofFloat(holder.cvContent, "translationY", context.getResources().getInteger(R.integer.values_anim), 0f);
-//            anim.setDuration(0);
-//            anim.setInterpolator(new AccelerateInterpolator());
-//            anim.start();
-//
-//
-//        }
-//
-//*/
+
 ////        if (model.getPic() == 100)
 ////        {
 ////            holder.cvAddCard.setVisibility(View.VISIBLE);
@@ -308,14 +287,21 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 ////
 ////                }
 ////
-////                holder.tvShare.setOnClickListener(view -> {
-////                    holder.tvExpireDate.setVisibility(View.INVISIBLE);
-////                    mainView.capture(holder.cvContent);
-////                    if (!bankNumber.equals(TrapConfig.HappyBaseCardNo))
-////                        holder.tvExpireDate.setVisibility(View.VISIBLE);
-////
-////
-////                });
+        holder.imgShare.setOnClickListener(view ->
+        {
+            Tools.showToast(context, "Share", R.color.gray);
+
+////            holder.tvExpireDate.setVisibility(View.INVISIBLE);
+
+//            mainView.capture(holder.cvContent);
+
+////            if (!bankNumber.equals(TrapConfig.HappyBaseCardNo))
+////            {
+////                holder.tvExpireDate.setVisibility(View.VISIBLE);
+////            }
+
+
+        });
 ////
 ////            } catch (Exception e)
 ////            {
@@ -324,44 +310,41 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 ////
 ////            }
 ////
-////
-////
-////            try
-////            {
-////                if (model.getBackCardImage() == null)
-////                {
-////                    loadImageIntoIV(model.getCardImage(), holder.ivBack, holder);
-////                } else
-////                {
-////                    loadImageIntoIV(model.getBackCardImage(), holder.ivBack, holder);
-////                }
-////
-////                loadImageIntoIV(model.getCardImage(), holder.ivLoyal, holder);
-////
-////            } catch (Exception e)
-////            {
-////                mainView.onError(e.getMessage(), this.getClass().getCanonicalName(), DibaConfig.showClassNameInException);
-////
-////            }
-////
-////
+            try
+            {
+                if (item.getCardImageBack() == null)
+                {
+                    loadImageIntoIV(item.getCardImage(), holder.ivBack, holder);
+                }
+                else
+                {
+                    loadImageIntoIV(item.getCardImageBack(), holder.ivBack, holder);
+                }
+
+                loadImageIntoIV(item.getCardImage(), holder.ivLoyal, holder);
+            }
+            catch (Exception e)
+            {
+//                mainView.onError(e.getMessage());
+                e.printStackTrace();
+            }
 ////        }
     }
 
     private void loadImageIntoIV(String link, ImageView imageView, @NonNull MyViewHolder holder)
     {
-//        GlideApp.with(context).load(link).into(imageView);
         Picasso.with(context).load(link).into(imageView, new Callback()
         {
             @Override
             public void onSuccess()
             {
-//                holder.cvContent.setBackgroundColor(Color.TRANSPARENT);
+                holder.cvContent.setBackgroundColor(Color.TRANSPARENT);
             }
 
             @Override
             public void onError()
             {
+                Picasso.with(context).load(R.drawable.img_failure).into(imageView);
             }
         });
     }
@@ -376,13 +359,13 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
     class MyViewHolder extends RecyclerView.ViewHolder
     {
         private TextView tvExpireDate, tvNumberCard, tvFullName;
-//        private TextView tvStar, tvDelete, tvEdit, tvSecurity, tvShare;
+        private ImageView imgStar, imgDelete, imgEdit, imgSecurity, imgShare;
         private LottieAnimationView lottieView;
         private RelativeLayout cvAddCard;
         private ImageView ivLoyal, ivBack;
-//        private LinearLayout llChangePas;
+        private LinearLayout llChangePass;
         private EasyFlipView myEasyFlipView;
-//        private View vDelete;
+        private View vDelete;
         private RelativeLayout cvContent, rlBackView;
 
 
@@ -390,8 +373,8 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
         {
             super(convertView);
             ivLoyal = convertView.findViewById(R.id.ivLoyal);
-////            tvShare = convertView.findViewById(R.id.tvShare);
-//            vDelete = convertView.findViewById(R.id.vDelete);
+            imgShare = convertView.findViewById(R.id.imgShare);
+            vDelete = convertView.findViewById(R.id.vDelete);
             ivBack = convertView.findViewById(R.id.ivBack);
             cvContent = convertView.findViewById(R.id.cvContent);
             rlBackView = convertView.findViewById(R.id.rlBackView);
@@ -400,11 +383,11 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
             tvExpireDate = convertView.findViewById(R.id.tvExpireDate);
             tvNumberCard = convertView.findViewById(R.id.tvNumberCard);
             tvFullName = convertView.findViewById(R.id.tvFullName);
-//            tvStar = convertView.findViewById(R.id.tvStar);
-//            tvDelete = convertView.findViewById(R.id.tvDelete);
-//            tvEdit = convertView.findViewById(R.id.tvEdit);
-//            llChangePas = convertView.findViewById(R.id.llChangePas);
-//            tvSecurity = convertView.findViewById(R.id.tvSecurity);
+            imgStar = convertView.findViewById(R.id.imgStar);
+            imgDelete = convertView.findViewById(R.id.imgDelete);
+            imgEdit = convertView.findViewById(R.id.imgEdit);
+            llChangePass = convertView.findViewById(R.id.llChangePass);
+            imgSecurity = convertView.findViewById(R.id.imgSecurity);
             myEasyFlipView = itemView.findViewById(R.id.myEasyFlipView);
         }
     }

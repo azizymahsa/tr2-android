@@ -5,7 +5,11 @@ package ir.trap.tractor.android.ui.adapters.favoriteCard;
  */
 public interface ViewPagerAdapterAction
 {
-    void onFavorite(int position);
+    void onFavorite(int position, int cardId);
 
-    void onDelete(int position);
+    void onDelete(int position, int cardId);
+
+    void onEdit(int position, int cardId);
+
+    void onChangePass(int position, int cardId);
 }

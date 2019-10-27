@@ -299,17 +299,6 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
         parentView.startAddCardActivity();
     }
 
-    @Override
-    public void onFavorite(int position)
-    {
-
-    }
-
-    @Override
-    public void onDelete(int position)
-    {
-
-    }
 
     @Override
     public void onAttach(Context context)
@@ -332,4 +321,27 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
 //        mListener = null;
     }
 
+    @Override
+    public void onFavorite(int position, int cardId)
+    {
+
+    }
+
+    @Override
+    public void onDelete(int position, int cardId)
+    {
+
+    }
+
+    @Override
+    public void onEdit(int position, int cardId)
+    {
+
+    }
+
+    @Override
+    public void onChangePass(int position, int cardId)
+    {
+
+    }
 }

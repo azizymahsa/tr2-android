@@ -59,10 +59,10 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
 //        } else
 //            holder.MenuItemNumber.setVisibility(View.GONE);
 
-        if (current.getId() == 3)
-        {
-//            holder.switchItem.setVisibility(View.VISIBLE);
-        }
+//        if (current.getId() == 3)
+//        {
+////            holder.switchItem.setVisibility(View.VISIBLE);
+//        }
 
 //        if (current.getId() == 2)
 //        {
