@@ -8,21 +8,30 @@ import com.google.gson.annotations.SerializedName;
  */
 public class AllBoxesResult
 {
-    public AllBoxesResult(Integer id,String name, Integer seats) {
-        this.id = id;
-        this.name = name;
-        this.seats=seats;
-    }
 
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("name")
-    @Expose
-    private String name;
     @SerializedName("seats")
     @Expose
     private Integer seats;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("sex")
+    @Expose
+    private Integer sex;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("ticket_amount")
+    @Expose
+    private Integer ticketAmount;
+
+    public Integer getSeats() {
+        return seats;
+    }
+
+    public void setSeats(Integer seats) {
+        this.seats = seats;
+    }
 
     public Integer getId() {
         return id;
@@ -30,6 +39,14 @@ public class AllBoxesResult
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
     public String getName() {
@@ -40,11 +57,12 @@ public class AllBoxesResult
         this.name = name;
     }
 
-    public Integer getSeats() {
-        return seats;
+    public Integer getTicketAmount() {
+        return ticketAmount;
     }
 
-    public void setSeats(Integer seats) {
-        this.seats = seats;
+    public void setTicketAmount(Integer ticketAmount) {
+        this.ticketAmount = ticketAmount;
     }
+
 }

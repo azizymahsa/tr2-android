@@ -34,10 +34,12 @@ public class SelectPositionFragment
     TextView tvTitle;
    // private SubMenuModel[] subMenuModels;
     private OnListFragmentInteractionListener interactionListener;
-    @BindView(R.id.spinnerAllBoxes)
-    Spinner spinnerAllBoxes;
+   /* @BindView(R.id.spinnerAllBoxes)
+    Spinner spinnerAllBoxes;*/
     private ArrayList<String> allBoxes;
-    private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
+    private Spinner spinnerAllBoxes;
+    private Integer selectPositionId;
+    // private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
 
     public SelectPositionFragment() {
     }
@@ -79,7 +81,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         View view = inflater.inflate(R.layout.select_position_fragment, container, false);
         // tvTitle=view.findViewById(R.id.tvTitle);
         Context context = view.getContext();
-
+        spinnerAllBoxes=view.findViewById(R.id.spinnerAllBoxes);
         getAllBoxesRequest();
       // allBoxesResult.add(new AllBoxesResult(0,"test",4));
        // setDataSpinnerAllBoxes(allBoxesResult);
@@ -106,15 +108,6 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                     }else {
                         Tools.showToast(getContext(),response.info.message,R.color.red);
                     }
-                   /* btnMyBills.revertAnimation(BillFragment.this);
-                    btnMyBills.setClickable(true);
-                    if (response.info.statusCode == 200) {
-
-                        onGetMyBillsServiceSuccess(response.data.getResults());
-
-                    } else {
-                        Tools.showToast(getContext(),response.info.message,R.color.red);
-                    }*/
                 } catch (Exception e) {
                     Tools.showToast(getContext(),e.getMessage(),R.color.red);
 
@@ -134,11 +127,11 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     private void setDataSpinnerAllBoxes(List<AllBoxesResult> result)
     {
         allBoxes = new ArrayList<String>();
-      //  billsTypePosition = new ArrayList<Integer>();
+       // selectPositionId = new ArrayList<Integer>();
 
         for (int i = 0; i < result.size(); i++) {
             allBoxes.add(result.get(i).getName());
-          //  billsTypePosition.add(billActiveVm.get(i).getId());
+           // selectPositionId.add(result.get(i).getId());
         }
         ArrayAdapter<String> adapterAllBoxes = new ArrayAdapter<String>(getActivity(),
                 R.layout.simple_spinner_item, allBoxes);
@@ -151,10 +144,11 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             {
                 if (spinnerAllBoxes.getSelectedItemPosition() == 0)
                 {
-                   // simcardType = SIMCARD_TYPE_ETEBARI;
                 } else
                 {
-                   // simcardType = SIMCARD_TYPE_DAEMI;
+                    //TODO if seat count 0 deleted check id
+                    AllBoxesResult item = result.get(position);
+                    selectPositionId = item.getId();
                 }
             }
 

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nested"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -71,6 +76,17 @@
             android:gravity="right"
             android:tag="allBox"
             android:background="@drawable/background_spinner_custom" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginTop="@dimen/_40dp"
+                android:text="روش دوم :"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:textColor="@color/warmGray"
+                android:textSize="@dimen/textSize_14dp"
+                android:layout_gravity="right"/>
         </LinearLayout>
         <Space
             android:layout_width="0dp"
@@ -79,7 +95,11 @@
 
     </LinearLayout>
 
-
-
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_300sdp"
+    android:src="@drawable/stadium_screen"
+    />
 
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>
