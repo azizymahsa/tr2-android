@@ -79,7 +79,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="98"
                     android:text="تعداد بلیت های درخواستی شما:"
-                    android:textAppearance="@style/IranSansBoldf"
                     android:textColor="@color/textColorStadiumName"
                     android:textSize="@dimen/textSize_14dp"
 
@@ -87,6 +86,46 @@
 
 
             </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:lineSpacingExtra="@dimen/_10dp"
+                android:maxLines="1"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="@dimen/textSize_14dp"
+
+                android:text="قیمت هر بلیت : 50.000 ریال می باشد"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:lineSpacingExtra="@dimen/_10dp"
+                android:maxLines="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/textSize_14dp"
+
+                android:text="مجموع قیمت : 250.000 ریال می باشد"/>
 
         </LinearLayout>
 
@@ -108,7 +147,7 @@
                 android:padding="@dimen/_5sdp"
                 android:text="حداکثر تعداد بلیت قابل خرید برای شما، مطابق قوانین مصوب 5 بلیت می باشد"
                 android:textColor="@color/textColorStadiumName"
-                android:textSize="@dimen/textSize_14dp"
+                android:textSize="@dimen/textSize_12dp"
 
                 />
 
@@ -132,8 +171,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:lineSpacingExtra="@dimen/_10dp"
+                android:lineSpacingExtra="@dimen/_3sdp"
                 android:maxLines="3"
+                android:textSize="@dimen/textSize_14dp"
                 android:text="لطفا اطلاعات مرتبط با هرفرد را برای خرید بلیط استادیوم مطابق اطلاعات درخواستی ذیل وارد بفرمایید ( کد ملی و نام و نام خانوادگی )" />
 
 
@@ -221,68 +261,24 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.9"
+                android:layout_weight="0.6"
                 android:gravity="center"
                 android:background="@drawable/left_line_invisible"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_20dp"
-                        android:gravity="center|center_horizontal"
-                        android:rotation="90"
-                        android:singleLine="true"
-                        android:text="1"
-                        android:textColor="@color/textColorStadiumName"
-                        android:textSize="@dimen/textSize_10dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50dp"
-                        android:gravity="center|left"
-                        android:rotation="90"
-                        android:singleLine="true"
-                        android:text="بلیت شماره"
-                        android:textColor="@color/textColorStadiumName"
-                        android:textSize="@dimen/textSize_10dp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_20dp"
-                        android:gravity="center|center_horizontal"
-                        android:rotation="90"
-                        android:singleLine="true"
-                        android:text="14"
-                        android:textColor="@color/_title_black"
-                        android:textSize="@dimen/textSize_10dp" />
 
                     <TextView
                         android:id="@+id/tvStation"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50dp"
-                        android:gravity="center|left"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
                         android:rotation="90"
                         android:singleLine="true"
-                        android:text="جایگاه "
+                        android:text="جایگاه 14"
                         android:textColor="@color/_title_black"
                         android:textSize="@dimen/textSize_12dp" />
 
-                </LinearLayout>
+
 
 
             </LinearLayout>
