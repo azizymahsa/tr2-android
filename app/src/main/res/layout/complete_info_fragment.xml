@@ -8,7 +8,10 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".ui.activities.login.user.UserActivity">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -283,62 +286,57 @@
 
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_alignParentBottom="true"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20dp"
+        android:orientation="horizontal">
 
-            android:layout_marginTop="@dimen/_20sdp">
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <FrameLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:layout_weight="100">
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
+                <include
+                    android:id="@+id/btnBackToDetail"
+                    layout="@layout/return_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp" />
+            </FrameLayout>
 
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100"
-                    android:visibility="visible">
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100">
 
-                    <include
-                        android:id="@+id/btnBackToDetail"
-                        layout="@layout/return_button"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight="100">
-
-                    <include
-                        android:id="@+id/btnPaymentConfirm"
-                        layout="@layout/circular_progress_button_peyment"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_30dp"
-                        android:layout_gravity="center"
-
-                        android:layout_margin="2dp" />
-                </FrameLayout>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-            </LinearLayout>
-        </RelativeLayout>
+                <include
+                    android:id="@+id/btnPaymentConfirm"
+                    layout="@layout/circular_progress_button_peyment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="center"
+                    />
+            </FrameLayout>
+        </LinearLayout>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10" />
 
     </LinearLayout>
+</LinearLayout>
 </androidx.core.widget.NestedScrollView>
