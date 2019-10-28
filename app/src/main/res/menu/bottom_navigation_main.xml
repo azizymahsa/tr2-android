@@ -30,6 +30,6 @@
         android:id="@+id/tab_shop"
         android:enabled="true"
         android:icon="@drawable/ic_shop_main"
-        android:title="فروشگاه"
+        android:title="تراپ مارکت"
         app:showAsAction="withText" />
 </menu>

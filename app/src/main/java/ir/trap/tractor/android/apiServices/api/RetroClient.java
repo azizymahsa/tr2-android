@@ -18,6 +18,7 @@ import ir.trap.tractor.android.apiServices.model.card.editCard.request.EditCardR
 import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
+import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import ir.trap.tractor.android.apiServices.model.getBankList.response.BankListResponse;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
@@ -41,6 +42,7 @@ import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.reponse.Sheta
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
 import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
 import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
+import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
@@ -75,6 +77,9 @@ public interface RetroClient
     @GET(Const.BANK_LIST)
     Single<Response<WebServiceClass<BankListResponse>>> getBankList();
 
+    @GET(Const.GetAllBoxes)
+    Single<Response<WebServiceClass<GetAllBoxesResponse>>> getAllBoxes(@Path("id") Integer id);
+
     @POST(Const.GetBillCodePayCode)
     Single<Response<WebServiceClass<GetBillCodePayCodeResponse>>> getBillCodePayCode(
             @Body GetBillCodePayCodeRequest request
@@ -107,11 +112,9 @@ public interface RetroClient
     @GET(Const.GetCardList)
     Single<Response<WebServiceClass<GetCardListResponse>>> getCardList();
 
-
     @POST(Const.AddCard)
     Single<Response<WebServiceClass<Object>>> addCard(
             @Body AddCardRequest request);
-
 
     @DELETE(Const.DeleteCard + "{id}/")
     Single<Response<WebServiceClass<Object>>> deleteCard(
@@ -221,5 +224,8 @@ public interface RetroClient
     @POST(Const.PAYMENT)
     Single<Response<WebServiceClass<PaymentPrintPosResponse>>> getPayment(
             @Body PaymentPrintPosRequest request);
+
+    @GET(Const.GetMatch)
+    Single<Response<WebServiceClass<ResponseMatch>>> getMatch();
 
 }

@@ -14,21 +14,35 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.generator.SingletonService;
+import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.getAllBoxes.AllBoxesResult;
+import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest;
+import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse;
+import ir.trap.tractor.android.utilities.Tools;
 
 public class SelectPositionFragment
-        extends Fragment
+        extends Fragment implements View.OnClickListener
 {
 
     private static final String KEY_MODEL = "KEY_MODEL";
     TextView tvTitle;
    // private SubMenuModel[] subMenuModels;
     private OnListFragmentInteractionListener interactionListener;
-    @BindView(R.id.spinnerAllBoxes)
-    Spinner spinnerAllBoxes;
+   /* @BindView(R.id.spinnerAllBoxes)
+    Spinner spinnerAllBoxes;*/
     private ArrayList<String> allBoxes;
+    private Spinner spinnerAllBoxes;
+    private Integer selectPositionId;
+    private View btnBackToDetail;
+    private View btnPaymentConfirm;
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
+    // private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
 
     public SelectPositionFragment() {
     }
@@ -36,13 +50,19 @@ public class SelectPositionFragment
     /**
      * Receive the model list
      */
-    public static SelectPositionFragment newInstance(String s) {
+    public static SelectPositionFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket) {
         SelectPositionFragment fragment = new SelectPositionFragment();
+        fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
        Bundle args = new Bundle();
         args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
+        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
     }
 /*
 public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
@@ -70,8 +90,14 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         View view = inflater.inflate(R.layout.select_position_fragment, container, false);
         // tvTitle=view.findViewById(R.id.tvTitle);
         Context context = view.getContext();
-
-        //setDataSpinnerAllBoxes(Result);
+        spinnerAllBoxes=view.findViewById(R.id.spinnerAllBoxes);
+        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
+        btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
+        getAllBoxesRequest();
+        btnBackToDetail.setOnClickListener(this);
+        btnPaymentConfirm.setOnClickListener(this);
+      // allBoxesResult.add(new AllBoxesResult(0,"test",4));
+       // setDataSpinnerAllBoxes(allBoxesResult);
        /* RecyclerView recyclerView = (RecyclerView) view;
 
         recyclerView.setLayoutManager(new GridLayoutManager(context,3));
@@ -80,19 +106,50 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         return view;
     }
 
- /*   private void setDataSpinnerAllBoxes(Result result)
+    private void getAllBoxesRequest()
+    {
+        Integer id=1;
+        GetAllBoxesRequest request = new GetAllBoxesRequest();
+        SingletonService.getInstance().getAllBoxesService().getAllBoxes(new OnServiceStatus<WebServiceClass<GetAllBoxesResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetAllBoxesResponse> response)
+            {
+                try {
+                    if (response.info.statusCode==200){
+                        setDataSpinnerAllBoxes(response.data.getResults());
+                    }else {
+                        Tools.showToast(getContext(),response.info.message,R.color.red);
+                    }
+                } catch (Exception e) {
+                    Tools.showToast(getContext(),e.getMessage(),R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+               /* btnMyBills.revertAnimation(BillFragment.this);
+                btnMyBills.setClickable(true);*/
+                Tools.showToast(getActivity(),message,R.color.red);
+            }
+        }, request,id);
+    }
+
+    private void setDataSpinnerAllBoxes(List<AllBoxesResult> result)
     {
         allBoxes = new ArrayList<String>();
-      //  billsTypePosition = new ArrayList<Integer>();
+       // selectPositionId = new ArrayList<Integer>();
 
         for (int i = 0; i < result.size(); i++) {
-            allBoxes.add(result.get(i).getTitle());
-          //  billsTypePosition.add(billActiveVm.get(i).getId());
+            allBoxes.add(result.get(i).getName());
+           // selectPositionId.add(result.get(i).getId());
         }
-        ArrayAdapter<String> adapterIrancell = new ArrayAdapter<String>(getActivity(),
+        ArrayAdapter<String> adapterAllBoxes = new ArrayAdapter<String>(getActivity(),
                 R.layout.simple_spinner_item, allBoxes);
-        adapterIrancell.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
-        spinnerAllBoxes.setAdapter(adapterIrancell);
+        adapterAllBoxes.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinnerAllBoxes.setAdapter(adapterAllBoxes);
         spinnerAllBoxes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -100,10 +157,11 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             {
                 if (spinnerAllBoxes.getSelectedItemPosition() == 0)
                 {
-                   // simcardType = SIMCARD_TYPE_ETEBARI;
                 } else
                 {
-                   // simcardType = SIMCARD_TYPE_DAEMI;
+                    //TODO if seat count 0 deleted check id
+                    AllBoxesResult item = result.get(position);
+                    selectPositionId = item.getId();
                 }
             }
 
@@ -113,7 +171,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             }
         });
     }
-*/
+
 
     @Override
     public void onAttach(Context context) {
@@ -131,6 +189,19 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     public void onDetach() {
         super.onDetach();
         interactionListener = null;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId()){
+            case R.id.btnPaymentConfirm:
+                onClickContinueBuyTicketListener.onContinueClicked();
+                break;
+            case R.id.btnBackToDetail:
+                onClickContinueBuyTicketListener.onBackClicked();
+                break;
+        }
     }
 
     /**

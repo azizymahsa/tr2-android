@@ -16,308 +16,207 @@
         android:orientation="vertical">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvAddCard"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        card_view:cardBackgroundColor="@color/cardview_dark_background"
-        card_view:cardCornerRadius="@dimen/_15sdp"
-        card_view:cardElevation="3dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center|right"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:orientation="horizontal">
+
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100">
+
+                <include
+                    android:id="@+id/btnMCIPackConfirm"
+                    layout="@layout/slider_item_view" />
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@drawable/dotted"
+                android:gravity="center"
+                android:padding="@dimen/_6sdp"
+                android:text="برای مشاهده جایگاه های فعال ( دارای ظرفیت خالی) لطفا تعداد بلیت درخواستی تان را مشخص کنید"
+                android:textColor="#484848"
+                android:textSize="@dimen/textSize_14dp"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="@dimen/_90dp"
+                    android:layout_height="@dimen/_30dp"
+                    android:gravity="center|left"
+                    android:background="@drawable/background_l_r_round"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvM"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textColor="@color/g_txt_title2"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tvCount"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/g_txt_title2"
+                        android:textSize="12dp"
+                        android:text="1"
+                        android:background="@drawable/background_rectangle_with_out_round"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/tvP"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@color/g_txt_title2"
+                        android:textSize="19dp"
+                        />
+                </LinearLayout>
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="98"
+                android:layout_height="wrap_content"
+                android:text="تعداد بلیت های درخواستی شما:"
+                android:textColor="@color/textColorStadiumName"
+                android:textSize="@dimen/textSize_14dp"
+                android:textAppearance="@style/IranSansBoldf"
+
+                />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/dotted"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="right|center"
+                android:padding="@dimen/_5sdp"
+                android:text="حداکثر تعداد بلیت قابل خرید برای شما، مطابق قوانین مصوب 5 بلیت می باشد"
+                android:textColor="@color/textColorStadiumName"
+                android:textSize="@dimen/textSize_14dp"
+
+                />
+
+            <ImageView
+                android:id="@+id/ivFullInfo"
+                android:layout_width="@dimen/_40dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_centerInParent="true"
+                android:scaleType="center"
+                android:src="@drawable/danger" />
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true">
 
-            <ImageView
-                android:id="@+id/ivBackCard"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvBankName"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:gravity="center"
-                    android:textColor="@color/textColorTitle"
-                    android:visibility="invisible"
-                    android:textSize="@dimen/_12sdp" />
-
-                <ImageView
-                    android:id="@+id/ivBankLogo"
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:padding="5dp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="match_parent"
+                <Space
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivBankLogo"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:paddingRight="10dp"
-                    android:text="شماره کارت را وارد نمایید"
-                    android:textColor="@color/textColorTitle"
-                    android:textSize="@dimen/textSize_16dp"
-                    android:visibility="invisible"/>
+                    android:layout_weight="10" />
 
-                <ru.kolotnev.formattedittext.MaskedEditText
-                    android:id="@+id/etNumberAddCard"
-                    android:layout_width="match_parent"
+                <FrameLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv1"
-                    android:background="@null"
-                    android:backgroundTint="@color/textColorTitle"
-                    android:gravity="center"
-                    android:hint="شماره کارت"
-                    android:imeOptions="actionDone"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/textColorTitle"
-                    android:textSize="@dimen/textSize_18dp"
-                    app:mask="9 9 9 9 - 9 9 9 9 - 9 9 9 9 - 9 9 9 9"
-                    app:placeholder="_" />
-
-                <LinearLayout
-                    android:id="@+id/llNumberCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv1"
-                    android:orientation="horizontal"
+                    android:layout_weight="100"
                     android:visibility="gone">
 
-                    <com.alimuzaffar.lib.pin.PinEntryEditText
-                        android:id="@+id/codeView1"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
+                    <include
+                        android:id="@+id/btnBackToDetail"
+                        layout="@layout/return_button"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_30dp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="100"
-                        android:cursorVisible="false"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:textColor="@color/textColorTitle"
-                        android:textSize="14dp"
-                        app:pinLineColors="@color/textColorTitle" />
+                        android:layout_margin="2dp" />
+                </FrameLayout>
 
-                    <com.alimuzaffar.lib.pin.PinEntryEditText
-                        android:id="@+id/codeView2"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="100"
-                        android:cursorVisible="false"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:textColor="@color/textColorTitle"
-                        android:textSize="14dp"
-                        app:pinLineColors="@color/textColorTitle" />
-
-                    <com.alimuzaffar.lib.pin.PinEntryEditText
-                        android:id="@+id/codeView3"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="100"
-                        android:cursorVisible="false"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:textColor="@color/textColorTitle"
-                        android:textSize="14dp"
-                        app:pinLineColors="@color/textColorTitle" />
-
-                    <com.alimuzaffar.lib.pin.PinEntryEditText
-                        android:id="@+id/codeView4"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="100"
-                        android:cursorVisible="false"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:textColor="@color/textColorTitle"
-                        android:textSize="14dp"
-                        app:pinLineColors="@color/textColorTitle" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <FrameLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/etNumberAddCard"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:gravity="left"
-                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/llExpireDate"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="100"
-                        android:orientation="horizontal">
+                    android:layout_weight="100">
 
-                        <TextView
-                            android:id="@+id/tvExpireText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:gravity="center"
-                            android:text="تاریخ انقضا"
-                            android:textColor="@color/textColorTitle"
-                            android:textSize="@dimen/textSize_14dp" />
+                    <include
+                        android:id="@+id/btnPaymentConfirm"
+                        layout="@layout/circular_progress_button_next"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_30dp"
+                        android:layout_gravity="center"
 
-                        <ru.kolotnev.formattedittext.MaskedEditText
-                            android:id="@+id/etExpireDateAddCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:background="@null"
-                            android:backgroundTint="@color/textColorTitle"
-                            android:gravity="left"
-                            android:hint="تاریخ انقضا"
-                            android:imeOptions="actionDone"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/textColorTitle"
-                            android:textSize="@dimen/textSize_14dp"
-                            app:mask="9 9 / 9 9"
-                            app:placeholder="_" />
+                        android:layout_margin="2dp" />
+                </FrameLayout>
 
-                        <com.alimuzaffar.lib.pin.PinEntryEditText
-                            android:id="@+id/codeView5"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:cursorVisible="false"
-                            android:inputType="number"
-                            android:maxLength="2"
-                            android:textColor="@color/textColorTitle"
-                            android:textSize="14dp"
-                            android:visibility="gone"
-                            app:pinLineColors="@color/textColorTitle" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="/"
-                            android:textColor="@color/textColorTitle"
-                            android:textSize="14dp"
-                            android:visibility="gone" />
-
-                        <com.alimuzaffar.lib.pin.PinEntryEditText
-                            android:id="@+id/codeView6"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:cursorVisible="false"
-                            android:inputType="number"
-                            android:maxLength="2"
-                            android:textColor="@color/textColorTitle"
-                            android:textSize="14dp"
-                            android:visibility="gone"
-                            app:pinLineColors="@color/textColorTitle" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="100"
-                        android:orientation="horizontal">
-
-                        <EditText
-                            android:id="@+id/etFullName"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:layout_weight="100"
-                            android:background="@null"
-                            android:gravity="right|center"
-                            android:hint="نام و نام خانوادگی"
-                            android:imeOptions="actionDone"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/textColorTitle"
-                            android:textColorHint="@color/textColorTitle"
-                            android:textSize="@dimen/textSize_14dp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
         </RelativeLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="50000 ریال می باشد"
-           />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:text="قیمت هر بلیط:"
-
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/_5sdp"
-            android:background="@drawable/dotted"
-            android:textSize="@dimen/textSize_16dp"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:textColor="@color/_disable_color"
-            android:text="برای مشاهده جایگاه های فعال ( دارای ظرفیت خالی) لطفا تعداد بلیط درخواستی تان را مشخص کنید"
-
-            />
-    </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

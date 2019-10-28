@@ -2,11 +2,13 @@ package ir.trap.tractor.android.ui.fragments.ticket;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -28,39 +30,34 @@ import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
-public class CountTicketFragment
+public class CompeletInfoFragment
         extends Fragment implements View.OnClickListener
 {
 
     private static final String KEY_MODEL = "KEY_MODEL";
-    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private View btnBackToDetail;
-    private View btnPaymentConfirm;
-
     private View view;
-    private TextView tvStadiumName, tvDateTime, tvCount, tvM, tvP;
-    private ImageView imgHost, imgGuest;
-    private ProgressBar progress;
-    private RelativeLayout llHeaderWeekNo;
+    private TextView  tvCount, tvM, tvP,tvStation;
+    private View btnBackToDetail,btnPaymentConfirm;
     private int count = 1;
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
 
-    public CountTicketFragment()
+    public CompeletInfoFragment()
     {
     }
 
     /**
      * Receive the model list
      */
-    public static CountTicketFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket) {
-        CountTicketFragment fragment = new CountTicketFragment();
+    public static CompeletInfoFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
+        CompeletInfoFragment fragment = new CompeletInfoFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
-       Bundle args = new Bundle();
+        Bundle args = new Bundle();
         args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
 
         return fragment;
     }
-
     private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
@@ -88,15 +85,6 @@ public class CountTicketFragment
             Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
         }
     }
-/*
-public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
-        ItemFragment fragment = new ItemFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArray(KEY_MODEL, subMenuModels);
-        fragment.setArguments(args);
-        return fragment;
-    }
-*/
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -112,20 +100,12 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             @Override
             public void onReady(WebServiceClass<ResponseMatch> response)
             {
-                progress.setVisibility(View.GONE);
-                tvStadiumName.setText(response.data.getResults().get(0).getStadium().getName());
 
-                setImageColor(imgHost, response.data.getResults().get(0).getTeamHome().getLogo());
-                setImageColor(imgGuest, response.data.getResults().get(0).getTeamAway().getLogo());
-
-                tvDateTime.setText(getDate(response.data.getResults().get(0).getMatchDatetime()));
             }
 
             @Override
             public void onError(String message)
             {
-                progress.setVisibility(View.GONE);
-
 
             }
         });
@@ -144,36 +124,29 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
 
     private void initView()
     {
+        tvStation = view.findViewById(R.id.tvStation);
         tvCount = view.findViewById(R.id.tvCount);
         tvM = view.findViewById(R.id.tvM);
         tvP = view.findViewById(R.id.tvP);
-        llHeaderWeekNo = view.findViewById(R.id.llHeaderWeekNo);
-        llHeaderWeekNo.setVisibility(View.INVISIBLE);
-        tvStadiumName = view.findViewById(R.id.tvStadiumName);
-        tvDateTime = view.findViewById(R.id.tvDateTime);
-        imgHost = view.findViewById(R.id.imgHost);
-        imgGuest = view.findViewById(R.id.imgGuest);
-        progress = view.findViewById(R.id.progress);
-        btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
-        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
 
+        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
+        btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
         btnBackToDetail.setOnClickListener(this);
-        tvP.setOnClickListener(this);
-        tvM.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
 
-
-        progress.setVisibility(View.VISIBLE);
+        tvP.setOnClickListener(this);
+        tvM.setOnClickListener(this);
+        /*RotateAnimation rotate= (RotateAnimation) AnimationUtils.loadAnimation(getContext(),R.anim.rotate_animation);
+        tvStation.setAnimation(rotate);*/
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.count_ticket_fragment, container, false);
+        view = inflater.inflate(R.layout.complete_info_fragment, container, false);
         initView();
         Context context = view.getContext();
-
 
         return view;
     }
@@ -187,20 +160,23 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
     }
 
-
     @Override
-    public void onClick(View v)
+    public void onClick(View view)
     {
-        switch (v.getId()){
+        switch (view.getId())
+        {
             case R.id.btnPaymentConfirm:
                 onClickContinueBuyTicketListener.onContinueClicked();
+
                 break;
             case R.id.btnBackToDetail:
                 onClickContinueBuyTicketListener.onBackClicked();
+
                 break;
 
             case R.id.tvM:
@@ -213,7 +189,6 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                 break;
         }
         tvCount.setText(String.valueOf(count));
-
     }
 }
 
