@@ -3,7 +3,6 @@ package ir.trap.tractor.android.ui.fragments.ticket;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
-public class CountTicketFragment
+public class CompeletInfoFragment
         extends Fragment implements View.OnClickListener
 {
 
@@ -41,16 +40,16 @@ public class CountTicketFragment
     private CircularProgressButton btnPaymentConfirm;
     private int count = 1;
 
-    public CountTicketFragment()
+    public CompeletInfoFragment()
     {
     }
 
     /**
      * Receive the model list
      */
-    public static CountTicketFragment newInstance(String s)
+    public static CompeletInfoFragment newInstance(String s)
     {
-        CountTicketFragment fragment = new CountTicketFragment();
+        CompeletInfoFragment fragment = new CompeletInfoFragment();
         Bundle args = new Bundle();
         args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
@@ -161,7 +160,7 @@ public class CountTicketFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.count_ticket_fragment, container, false);
+        view = inflater.inflate(R.layout.complete_info_fragment, container, false);
         initView();
         Context context = view.getContext();
 

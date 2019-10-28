@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import ir.trap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.CountTicketFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 
@@ -42,7 +43,7 @@ public class PagerAdapter
                 SelectPositionFragment tab2 = SelectPositionFragment.newInstance("TAB2");
                 return tab2;
             case 2:
-                SelectPositionFragment tab3 = SelectPositionFragment.newInstance("TAB3");
+                CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3");
                 return tab3;
             case 3:
                 SelectPositionFragment tab4 = SelectPositionFragment.newInstance("TAB4");
