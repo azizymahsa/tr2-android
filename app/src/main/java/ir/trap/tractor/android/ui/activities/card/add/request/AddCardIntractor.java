@@ -14,6 +14,6 @@ public interface AddCardIntractor
         void onErrorAddCard(String error);
     }
 
-    void findDataAddCardRequest(OnFinishedActiveListener listener, String cardNumber, int cvv, String expirationDateMonth,
-                                String expirationDateYear, String fullName, boolean isFavorite, int userId);
+    void findDataAddCardRequest(OnFinishedActiveListener listener, String cardNumber,
+                                String fullName, boolean isFavorite);
 }

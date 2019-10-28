@@ -12,7 +12,9 @@ import ir.trap.tractor.android.apiServices.model.billPayment.request.BillPayment
 import ir.trap.tractor.android.apiServices.model.billPayment.response.BillPaymentResponse;
 import ir.trap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
 import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
+import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.card.addCard.request.AddCardRequest;
+import ir.trap.tractor.android.apiServices.model.card.editCard.request.EditCardRequest;
 import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
@@ -53,11 +55,12 @@ import ir.trap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.requ
 import ir.trap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
 import ir.trap.tractor.android.apiServices.model.verify.VerifyRequest;
 import ir.trap.tractor.android.apiServices.model.verify.VerifyResponse;
-import ir.trap.tractor.android.apiServices.model.getBankList.response.Bank;
 import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface RetroClient
@@ -73,7 +76,6 @@ public interface RetroClient
 
     @GET(Const.BANK_LIST)
     Single<Response<WebServiceClass<BankListResponse>>> getBankList();
-
 
     @GET(Const.GetAllBoxes)
     Single<Response<WebServiceClass<GetAllBoxesResponse>>> getAllBoxes(@Path("id") Integer id);
@@ -112,8 +114,16 @@ public interface RetroClient
 
     @POST(Const.AddCard)
     Single<Response<WebServiceClass<Object>>> addCard(
-            @Body AddCardRequest request
-    );
+            @Body AddCardRequest request);
+
+    @DELETE(Const.DeleteCard + "{id}/")
+    Single<Response<WebServiceClass<Object>>> deleteCard(
+            @Path("id") Integer cardId);
+
+    @PUT(Const.EditCard + "{id}/")
+    Single<Response<WebServiceClass<Result>>> editCard(
+            @Path("id") Integer cardId,
+            @Body EditCardRequest request);
 
 
 /*    @POST(Const.MOBILE_CHARGE)

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="20dp"
+    app:cardBackgroundColor="@color/colorPrimaryDark"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/alert_background">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieViewEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie/loading.json"
+            app:lottie_loop="false"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ویرایش کارت"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:textAppearance="@style/IranSansBold"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/llNumberCardEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/textSize_14dp"
+            android:layout_marginRight="@dimen/textSize_14dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:hintTextAppearance="@style/TextLabel2"
+                android:id="@+id/etLayoutNumberCardEdit"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_55sdp"
+                android:layout_gravity="right"
+                android:theme="@style/EditTextHint2"
+                android:layout_marginRight="5dp">
+
+                <ru.kolotnev.formattedittext.MaskedEditText
+                    android:id="@+id/etNumberCardEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/textColorPrimary"
+                    android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                    android:gravity="center"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingTop="15dp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColorPrimary"
+                    android:textColorHint="@color/textColorPrimary"
+                    android:textSize="@dimen/textSize_16dp"
+                    app:mask="9999-9999-9999-9999"
+                    app:placeholder="_"
+                    android:hint="شماره کارت" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginRight="@dimen/textSize_14dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:hintTextAppearance="@style/TextLabel2"
+                android:id="@+id/etLayoutCardNameEdit"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center|right"
+                android:theme="@style/EditTextHint2"
+                android:layout_marginRight="5dp">
+
+                <ir.trap.tractor.android.utilities.ClearableEditText
+                    android:id="@+id/etCardNameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:gravity="center|right"
+                    android:backgroundTint="@color/textColorPrimary"
+                    android:textColor="@color/textColorPrimary"
+                    android:textColorHint="@color/textColorPrimary"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:hint="نام صاحب کارت" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/textSize_14dp"
+            android:layout_marginBottom="@dimen/textSize_14dp">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:layout_marginRight="@dimen/textSize_14dp"
+                android:layout_marginLeft="@dimen/textSize_14dp">
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnCancelEdit"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/background_border_a"
+                    app:spinning_bar_width="2dp"
+                    android:text="انصراف"
+                    android:textColor="@color/currentColor"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:layout_gravity="center"
+                    app:initialCornerAngle="50dp"
+                    app:finalCornerAngle="50dp"
+                    app:spinning_bar_color="@color/currentColor"
+                    android:transitionName="transition"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:layout_marginRight="@dimen/textSize_14dp"
+                android:layout_marginLeft="@dimen/textSize_14dp">
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnConfirmEdit"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/background_border_a"
+                    app:spinning_bar_width="2dp"
+                    android:text="@string/confirm"
+                    android:textColor="@color/currentColor"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:layout_gravity="center"
+                    app:initialCornerAngle="50dp"
+                    app:finalCornerAngle="50dp"
+                    app:spinning_bar_color="@color/currentColor"
+                    android:transitionName="transition"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

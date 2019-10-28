@@ -26,22 +26,24 @@ import library.android.eniac.utility.GlideApp;
 
 
 /**
- * Created by RezaNejati on 7/21/2018.
+ * Created by Javad.Abadi on 7/21/2018.
  */
 @SuppressLint("ValidFragment")
-public class PaymentResultDialog extends BaseDialog implements View.OnClickListener {
+public class PaymentResultDialog extends BaseDialog implements View.OnClickListener
+{
     private Activity activity;
     private WebServiceClass<PaymentPrintPosResponse> posResponse;
     private Dialog dialog;
-    private TextView tvDate, tvTrackId, tvAmountDialog, tvNameDialog, tvCardNumberDialog,tvShare,
-            tvShareImage,tvMerchantName,tvMerchantPhone,tvTerminalId,tvPaymentId,tvClose,tvShareText,tvTrackText,tvDialogTitle,tvPrintId;
+    private TextView tvDate, tvTrackId, tvAmountDialog, tvNameDialog, tvCardNumberDialog, tvShare,
+            tvShareImage, tvMerchantName, tvMerchantPhone, tvTerminalId, tvPaymentId, tvClose, tvShareText, tvTrackText, tvDialogTitle, tvPrintId;
     private RelativeLayout rlShare;
-    private String cardNumber, amount, cardName,cardImage,color;
-    private ImageView ivCardAlert,ivShetab;
+    private String cardNumber, amount, cardName, cardImage, color;
+    private ImageView ivCardAlert, ivShetab;
 
 
     public PaymentResultDialog(Activity activity, WebServiceClass<PaymentPrintPosResponse> posResponse, String cardNumber, String cardName,
-                               String amount, String cardImage, String color) {
+                               String amount, String cardImage, String color)
+    {
         this.activity = activity;
         this.posResponse = posResponse;
         this.cardNumber = cardNumber;
@@ -55,7 +57,8 @@ public class PaymentResultDialog extends BaseDialog implements View.OnClickListe
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         dialog = new Dialog(activity, R.style.MyAlertDialogStyle);
         dialog.setContentView(R.layout.alert_dialog_card_result_payment);
@@ -86,96 +89,120 @@ public class PaymentResultDialog extends BaseDialog implements View.OnClickListe
         tvClose.setOnClickListener(this);
         tvShareImage.setOnClickListener(this);
 
-        try {
+        try
+        {
             tvDate.setText(posResponse.data.getCreateDate());
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             tvDate.setText("نا مشخص");
 
         }
-       try {
-           tvPrintId.setText(posResponse.data.getPirntId());
+        try
+        {
+            tvPrintId.setText(posResponse.data.getPirntId());
 
-        } catch (Exception e) {
-           tvPrintId.setText("نا مشخص");
+        } catch (Exception e)
+        {
+            tvPrintId.setText("نا مشخص");
 
         }
 
-        try {
-            tvTrackId.setText(posResponse.data.getId()+"");
-        } catch (Exception e) {
+        try
+        {
+            tvTrackId.setText(posResponse.data.getId() + "");
+        } catch (Exception e)
+        {
             tvTrackId.setText("نا مشخص");
         }
-        try {
+        try
+        {
             tvMerchantName.setText(posResponse.data.getMerchantName());
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             tvMerchantName.setText("نا مشخص");
 
         }
-        try {
+        try
+        {
             tvMerchantName.setText(posResponse.data.getMerchantName());
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             tvMerchantName.setText("نا مشخص");
 
         }
-      try {
-          tvMerchantPhone.setText(posResponse.data.getMerchantPhone());
+        try
+        {
+            tvMerchantPhone.setText(posResponse.data.getMerchantPhone());
 
-        } catch (Exception e) {
-          tvMerchantPhone.setText("نا مشخص");
+        } catch (Exception e)
+        {
+            tvMerchantPhone.setText("نا مشخص");
 
         }
-        try {
-            tvTerminalId.setText(posResponse.data.getTerminalId()+"");
+        try
+        {
+            tvTerminalId.setText(posResponse.data.getTerminalId() + "");
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             tvTerminalId.setText("نا مشخص");
 
         }
 
 
-        tvAmountDialog.setText(amount+" ریال");
+        tvAmountDialog.setText(amount + " ریال");
         tvNameDialog.setText(cardName);
         tvCardNumberDialog.setText(Utility.cardFormat(cardNumber));
-        if (cardNumber.substring(0, 6).equals("003725")){
+        if (cardNumber.substring(0, 6).equals("003725"))
+        {
             tvTrackText.setText("شناسه پیگیری پرداخت:");
             tvDialogTitle.setText("رسید پرداخت وجه شتاکی موفق ");
             ivShetab.setImageDrawable(activity.getResources().getDrawable(R.drawable.shetak));
-            try {
-                tvPaymentId.setText(posResponse.data.getRefNo()+"");
+            try
+            {
+                tvPaymentId.setText(posResponse.data.getRefNo() + "");
 
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 tvPaymentId.setText("نا مشخص");
 
             }
 
-        }
-        else{
+        } else
+        {
             tvTrackText.setText("شناسه پیگیری پرداخت:");
             tvDialogTitle.setText("رسید پرداخت وجه شاپرکی موفق");
             ivShetab.setImageDrawable(activity.getResources().getDrawable(R.drawable.shetab));
-            try {
-                tvPaymentId.setText(posResponse.data.getRefNo()+"");
+            try
+            {
+                tvPaymentId.setText(posResponse.data.getRefNo() + "");
 
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 tvPaymentId.setText("نا مشخص");
 
             }
 
         }
 
-        try{
+        try
+        {
             tvCardNumberDialog.setTextColor(Color.parseColor(color));
 
-        }catch (Exception e){}
+        } catch (Exception e)
+        {
+        }
 
-        try {
+        try
+        {
             GlideApp.with(activity).load(cardImage).into(ivCardAlert);
 
 
-        }catch (Exception e){
+        } catch (Exception e)
+        {
 
         }
 
@@ -184,27 +211,31 @@ public class PaymentResultDialog extends BaseDialog implements View.OnClickListe
     }
 
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         super.onPause();
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
 
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.tvClose) {
+    public void onClick(View v)
+    {
+        if (v.getId() == R.id.tvClose)
+        {
             dismiss();
 
 
         }
 
 
-
-        if (v.getId()==R.id.tvShareP) {
+        if (v.getId() == R.id.tvShareP)
+        {
             String share = "رسید پرداخت" +
                     "\n" +
                     "مبلغ: " +
@@ -230,13 +261,14 @@ public class PaymentResultDialog extends BaseDialog implements View.OnClickListe
 
             Utility.share(share);
         }
-        if (v.getId()==R.id.tvShareImageP) {
+        if (v.getId() == R.id.tvShareImageP)
+        {
             tvCardNumberDialog.setText(Utility.cardStarFormat(cardNumber));
             tvShareImage.setVisibility(View.INVISIBLE);
             tvShare.setVisibility(View.INVISIBLE);
             tvShareText.setVisibility(View.INVISIBLE);
             tvClose.setVisibility(View.INVISIBLE);
-            new ScreenShot(dialog.getWindow().getDecorView(),activity);
+            new ScreenShot(dialog.getWindow().getDecorView(), activity);
             tvCardNumberDialog.setText(Utility.cardFormat(cardNumber));
             tvShareImage.setVisibility(View.VISIBLE);
             tvShare.setVisibility(View.VISIBLE);
@@ -248,7 +280,8 @@ public class PaymentResultDialog extends BaseDialog implements View.OnClickListe
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
     }
 

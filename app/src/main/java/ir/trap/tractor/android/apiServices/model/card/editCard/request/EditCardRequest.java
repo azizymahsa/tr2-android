@@ -1,5 +1,4 @@
-
-package ir.trap.tractor.android.apiServices.model.card.addCard.request;
+package ir.trap.tractor.android.apiServices.model.card.editCard.request;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AddCardRequest
+public class EditCardRequest
 {
 
     @SerializedName("card_number")
