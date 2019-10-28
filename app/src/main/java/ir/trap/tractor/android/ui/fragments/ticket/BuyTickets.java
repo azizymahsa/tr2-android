@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -23,8 +24,9 @@ import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.ticket.adapter.PagerAdapter;
+import ir.trap.tractor.android.utilities.Tools;
 
-public class BuyTickets extends BaseFragment implements OnAnimationEndListener, View.OnClickListener
+public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {
     private static BuyTickets f;
     private View rootView;
@@ -33,8 +35,10 @@ public class BuyTickets extends BaseFragment implements OnAnimationEndListener, 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private LinearLayout llPrintTicket, llFullInfo, llSelectPosition;
-    private TextView btnBackToDetail;
+    private TextView btnBackToDetail,tvCountTicket,tvSelectPosition,tvFullInfo,tvPrintTicket;
     private CircularProgressButton btnPaymentConfirm;
+    private ImageView ivCountTicket,ivSelectPosition,ivFullInfo,ivPrintTicket;
+    private View vOneToTow,vZeroToOne,vTowToThree;
 
     public BuyTickets()
     {
@@ -87,7 +91,7 @@ public class BuyTickets extends BaseFragment implements OnAnimationEndListener, 
 
         //  ViewPager need a PagerAdapter
         final PagerAdapter adapter = new PagerAdapter
-                (getFragmentManager(), tabLayout.getTabCount());
+                (getFragmentManager(), tabLayout.getTabCount(),this);
 
         viewPager.setAdapter(adapter);
         viewPager.beginFakeDrag();
@@ -142,10 +146,22 @@ public class BuyTickets extends BaseFragment implements OnAnimationEndListener, 
         viewPager = rootView.findViewById(R.id.pager);
         llPrintTicket = rootView.findViewById(R.id.llPrintTicket);
         llFullInfo = rootView.findViewById(R.id.llFullInfo);
+        ivCountTicket=rootView.findViewById(R.id.ivCountTicket);
+        tvCountTicket=rootView.findViewById(R.id.tvCountTicket);
+        ivSelectPosition=rootView.findViewById(R.id.ivSelectPosition);
+        tvSelectPosition=rootView.findViewById(R.id.tvSelectPosition);
+        ivFullInfo=rootView.findViewById(R.id.ivFullInfo);
+        tvFullInfo=rootView.findViewById(R.id.tvFullInfo);
+        ivPrintTicket=rootView.findViewById(R.id.ivPrintTicket);
+        tvPrintTicket=rootView.findViewById(R.id.tvPrintTicket);
+        vZeroToOne=rootView.findViewById(R.id.vZeroToOne);
+        vOneToTow=rootView.findViewById(R.id.vOneToTow);
+        vTowToThree=rootView.findViewById(R.id.vTowToThree);
+
         llPrintTicket.setOnClickListener(this);
         llFullInfo.setOnClickListener(this);
-        btnPaymentConfirm.setOnClickListener(this);
-        btnBackToDetail.setOnClickListener(this);
+//        btnPaymentConfirm.setOnClickListener(this);
+      //  btnBackToDetail.setOnClickListener(this);
 
     }
 
@@ -214,5 +230,95 @@ public class BuyTickets extends BaseFragment implements OnAnimationEndListener, 
     public void onAnimationEnd()
     {
 
+    }
+
+    @Override
+    public void onBackClicked()
+    {
+        viewPager.setCurrentItem(getItem(-1), true);
+        checkPositionFromSetSelected();
+    }
+
+    @Override
+    public void onContinueClicked()
+    {
+        viewPager.setCurrentItem(getItem(+1), true);
+        checkPositionFromSetSelected();
+
+    }
+
+    private void checkPositionFromSetSelected()
+    {
+        if (viewPager.getCurrentItem()==0){
+            ivCountTicket.setImageResource(R.drawable.select_step_non);
+            tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+            ivSelectPosition.setImageResource(R.drawable.un_select_step);
+            tvSelectPosition.setTextColor(getResources().getColor(R.color._disable_color));
+
+            ivFullInfo.setImageResource(R.drawable.un_select_step);
+            tvFullInfo.setTextColor(getResources().getColor(R.color._disable_color));
+
+            ivPrintTicket.setImageResource(R.drawable.un_select_step);
+            tvPrintTicket.setTextColor(getResources().getColor(R.color._disable_color));
+
+            vZeroToOne.setBackgroundColor(getResources().getColor(R.color._disable_color));
+            vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
+            vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
+
+        }else if (viewPager.getCurrentItem()==1){
+            ivCountTicket.setImageResource(R.drawable.select_step);
+            tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+            ivSelectPosition.setImageResource(R.drawable.select_step_non);
+            tvSelectPosition.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+            ivFullInfo.setImageResource(R.drawable.un_select_step);
+            tvFullInfo.setTextColor(getResources().getColor(R.color._disable_color));
+
+            ivPrintTicket.setImageResource(R.drawable.un_select_step);
+            tvPrintTicket.setTextColor(getResources().getColor(R.color._disable_color));
+
+            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
+            vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
+
+        }else if (viewPager.getCurrentItem()==2){
+            ivCountTicket.setImageResource(R.drawable.select_step);
+            tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+            ivSelectPosition.setImageResource(R.drawable.select_step);
+            tvSelectPosition.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+
+            ivFullInfo.setImageResource(R.drawable.select_step_non);
+            tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+            ivPrintTicket.setImageResource(R.drawable.un_select_step);
+            tvPrintTicket.setTextColor(getResources().getColor(R.color._disable_color));
+
+            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
+
+        }else if(viewPager.getCurrentItem()==3){
+
+            ivCountTicket.setImageResource(R.drawable.select_step);
+            tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+            ivSelectPosition.setImageResource(R.drawable.select_step);
+            tvSelectPosition.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+
+            ivFullInfo.setImageResource(R.drawable.select_step);
+            tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+            ivPrintTicket.setImageResource(R.drawable.select_step_non);
+            tvPrintTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+        }
     }
 }

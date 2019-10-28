@@ -13,11 +13,13 @@ import androidx.fragment.app.Fragment;
 import ir.trap.tractor.android.R;
 
 public class CountTicketFragment
-        extends Fragment
+        extends Fragment implements View.OnClickListener
 {
 
     private static final String KEY_MODEL = "KEY_MODEL";
-
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
+    private View btnBackToDetail;
+    private View btnPaymentConfirm;
 
     public CountTicketFragment() {
     }
@@ -25,13 +27,19 @@ public class CountTicketFragment
     /**
      * Receive the model list
      */
-    public static CountTicketFragment newInstance(String s) {
+    public static CountTicketFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket) {
         CountTicketFragment fragment = new CountTicketFragment();
+        fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
        Bundle args = new Bundle();
         args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
+        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
     }
 /*
 public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
@@ -59,6 +67,10 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         View view = inflater.inflate(R.layout.count_ticket_fragment, container, false);
         // tvTitle=view.findViewById(R.id.tvTitle);
         Context context = view.getContext();
+        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
+        btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
+        btnBackToDetail.setOnClickListener(this);
+        btnPaymentConfirm.setOnClickListener(this);
        /* RecyclerView recyclerView = (RecyclerView) view;
 
         recyclerView.setLayoutManager(new GridLayoutManager(context,3));
@@ -88,6 +100,17 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     }
 
 
-
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId()){
+            case R.id.btnPaymentConfirm:
+                onClickContinueBuyTicketListener.onContinueClicked();
+                break;
+            case R.id.btnBackToDetail:
+                onClickContinueBuyTicketListener.onBackClicked();
+                break;
+        }
+    }
 }
 

@@ -40,7 +40,6 @@
 
         </RelativeLayout>
 
-
         <LinearLayout
             android:id="@+id/llSelect"
             android:layout_width="match_parent"
@@ -80,6 +79,7 @@
                         android:src="@drawable/un_select_step" />
 
                     <View
+                        android:id="@+id/vTowToThree"
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="1dp"
                         android:layout_gravity="center"
@@ -95,6 +95,7 @@
                         android:src="@drawable/un_select_step" />
 
                     <View
+                        android:id="@+id/vOneToTow"
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="1dp"
                         android:layout_gravity="center"
@@ -110,6 +111,7 @@
                         android:src="@drawable/un_select_step" />
 
                     <View
+                        android:id="@+id/vZeroToOne"
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="1dp"
                         android:layout_gravity="center"
@@ -204,62 +206,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/tab_layout"
-            android:layout_marginBottom="57dp"
             android:background="@android:color/white" />
-
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="10" />
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="100">
-
-                <include
-                    android:id="@+id/btnBackToDetail"
-                    layout="@layout/return_button"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_30dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-
-                android:layout_weight="100">
-
-                <include
-                    android:id="@+id/btnPaymentConfirm"
-                    layout="@layout/circular_progress_button"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_30dp"
-                    android:layout_gravity="center"
-
-                    android:layout_margin="2dp" />
-            </FrameLayout>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="10" />
-        </LinearLayout>
-    </RelativeLayout>
 </RelativeLayout>

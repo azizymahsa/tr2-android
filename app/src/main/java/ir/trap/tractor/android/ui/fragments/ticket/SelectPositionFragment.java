@@ -27,7 +27,7 @@ import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse
 import ir.trap.tractor.android.utilities.Tools;
 
 public class SelectPositionFragment
-        extends Fragment
+        extends Fragment implements View.OnClickListener
 {
 
     private static final String KEY_MODEL = "KEY_MODEL";
@@ -39,6 +39,9 @@ public class SelectPositionFragment
     private ArrayList<String> allBoxes;
     private Spinner spinnerAllBoxes;
     private Integer selectPositionId;
+    private View btnBackToDetail;
+    private View btnPaymentConfirm;
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
     // private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
 
     public SelectPositionFragment() {
@@ -47,13 +50,19 @@ public class SelectPositionFragment
     /**
      * Receive the model list
      */
-    public static SelectPositionFragment newInstance(String s) {
+    public static SelectPositionFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket) {
         SelectPositionFragment fragment = new SelectPositionFragment();
+        fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
        Bundle args = new Bundle();
         args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
+        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
     }
 /*
 public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
@@ -82,7 +91,11 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         // tvTitle=view.findViewById(R.id.tvTitle);
         Context context = view.getContext();
         spinnerAllBoxes=view.findViewById(R.id.spinnerAllBoxes);
+        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
+        btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
         getAllBoxesRequest();
+        btnBackToDetail.setOnClickListener(this);
+        btnPaymentConfirm.setOnClickListener(this);
       // allBoxesResult.add(new AllBoxesResult(0,"test",4));
        // setDataSpinnerAllBoxes(allBoxesResult);
        /* RecyclerView recyclerView = (RecyclerView) view;
@@ -176,6 +189,19 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     public void onDetach() {
         super.onDetach();
         interactionListener = null;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId()){
+            case R.id.btnPaymentConfirm:
+                onClickContinueBuyTicketListener.onContinueClicked();
+                break;
+            case R.id.btnBackToDetail:
+                onClickContinueBuyTicketListener.onBackClicked();
+                break;
+        }
     }
 
     /**
