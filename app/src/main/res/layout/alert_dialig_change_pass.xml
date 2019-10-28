@@ -42,7 +42,6 @@
             android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/textSize_16dp" />
 
-
         <LinearLayout
             android:id="@+id/llPass"
             android:layout_width="match_parent"
