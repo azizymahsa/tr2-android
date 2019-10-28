@@ -7,4 +7,5 @@ public interface OnClickContinueBuyTicket
 {
     void onBackClicked();
     void onContinueClicked();
+    void goBuyTicket();
 }

@@ -247,6 +247,13 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
     }
 
+    @Override
+    public void goBuyTicket()
+    {
+        viewPager.setCurrentItem(0, true);
+        checkPositionFromSetSelected();
+    }
+
     private void checkPositionFromSetSelected()
     {
         if (viewPager.getCurrentItem()==0){

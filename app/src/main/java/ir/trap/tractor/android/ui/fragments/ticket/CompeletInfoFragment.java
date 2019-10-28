@@ -161,8 +161,6 @@ public class CompeletInfoFragment
 
         tvP.setOnClickListener(this);
         tvM.setOnClickListener(this);
-        btnPaymentConfirm.setOnClickListener(this);
-
 
         progress.setVisibility(View.VISIBLE);
     }
