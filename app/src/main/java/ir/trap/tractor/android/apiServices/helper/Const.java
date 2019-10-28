@@ -22,6 +22,8 @@ public class Const
     public final static String GetBillCodePayCode= SubBASEURL +"v1/bill/get_bill_code_pay_code/";
     public final static String BuyCharge = SubBASEURL+"v1/topupcharge/buy_charge/";
 
+    public final static String GetAllBoxes=SubBASEURL+"v1/match/{id}/all_boxes/";
+
     public final static String MOBILE_CHARGE = SubBASEURL + "TopupCharge/v2/BuyCharge";
 
     public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/";
@@ -59,6 +61,9 @@ public class Const
 
     //Bank List
     public final static String BANK_LIST = "api/v1/menu/bank/";
+
+    //Ticket
+    public final static String GetMatch = "api/v1/match/";
 
 
 

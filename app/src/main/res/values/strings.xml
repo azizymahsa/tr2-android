@@ -46,4 +46,5 @@
     <string name="enter_card_number">لطفا شماره کارت را وارد نمایید.</string>
     <string name="enter_expire_month">لطفا ماه انقضا کارت را وارد نمایید.</string>
     <string name="enter_expire_year">لطفا سال انقضا کارت را وارد نمایید.</string>
+    <string name="select_position_tiitle">لطفا جایگاه مطلوب خود را انتخاب کنید :</string>
 </resources>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nested"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_weight="100"
+        android:text="@string/select_position_tiitle"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize_14dp"
+        android:layout_gravity="right"/>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llAllBoxesSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+        <LinearLayout
+            android:layout_width="@dimen/_10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="روش اول :"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:textColor="@color/warmGray"
+                android:textSize="@dimen/textSize_14dp"
+                android:layout_gravity="right"/>
+        <Spinner
+            android:id="@+id/spinnerAllBoxes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="100"
+            android:gravity="right"
+            android:tag="allBox"
+            android:background="@drawable/background_spinner_custom" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginTop="@dimen/_40dp"
+                android:text="روش دوم :"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:textColor="@color/warmGray"
+                android:textSize="@dimen/textSize_14dp"
+                android:layout_gravity="right"/>
+        </LinearLayout>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+    </LinearLayout>
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_300sdp"
+    android:src="@drawable/stadium_screen"
+    />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100">
+
+                <include
+                    android:id="@+id/btnBackToDetail"
+                    layout="@layout/return_button"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="100">
+
+                <include
+                    android:id="@+id/btnPaymentConfirm"
+                    layout="@layout/circular_progress_button"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_gravity="center"
+
+                    android:layout_margin="2dp" />
+            </FrameLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

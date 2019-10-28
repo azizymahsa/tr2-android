@@ -11,6 +11,7 @@ import ir.trap.tractor.android.apiServices.part.BillCodePayCodeService;
 import ir.trap.tractor.android.apiServices.part.BusService;
 import ir.trap.tractor.android.apiServices.part.DoTransferCardService;
 import ir.trap.tractor.android.apiServices.part.FlightService;
+import ir.trap.tractor.android.apiServices.part.GetAllBoxesService;
 import ir.trap.tractor.android.apiServices.part.GetBillInfoService;
 import ir.trap.tractor.android.apiServices.part.GetCardListService;
 import ir.trap.tractor.android.apiServices.part.GetHappyCardInfoService;
@@ -25,6 +26,7 @@ import ir.trap.tractor.android.apiServices.part.LoginService;
 import ir.trap.tractor.android.apiServices.part.MerchantService;
 import ir.trap.tractor.android.apiServices.part.MobileChargeService;
 import ir.trap.tractor.android.apiServices.part.PackageBuyService;
+import ir.trap.tractor.android.apiServices.part.TicketService;
 import ir.trap.tractor.android.apiServices.part.VerifyService;
 import okhttp3.OkHttpClient;
 
@@ -87,6 +89,11 @@ public class SingletonService
     {
         return new GetCardListService(serviceGenerator);
     }
+    public TicketService getTicketServices()
+    {
+        return new TicketService(serviceGenerator);
+    }
+
 
     public VerifyService getVerifyService(){
         return new VerifyService(serviceGenerator);
@@ -94,6 +101,10 @@ public class SingletonService
 
     public GetMyBillsService getMyBillsService(){
         return new GetMyBillsService(serviceGenerator);
+    }
+
+    public GetAllBoxesService getAllBoxesService(){
+        return new GetAllBoxesService(serviceGenerator);
     }
 
     public BillCodePayCodeService getBillCodePayCode()

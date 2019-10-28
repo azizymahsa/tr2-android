@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:background="@drawable/background_main_header" />
+
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:background="@drawable/img_header_background" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent">
+
+                <include layout="@layout/toolbar_main" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/llSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llPrintTicket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/ivPrintTicket"
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        android:layout_centerInParent="true"
+                        android:scaleType="center"
+                        android:src="@drawable/un_select_step" />
+
+                    <View
+                        android:id="@+id/vTowToThree"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:background="@color/_disable_color" />
+
+                    <ImageView
+                        android:id="@+id/ivFullInfo"
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        android:layout_centerInParent="true"
+
+                        android:scaleType="center"
+                        android:src="@drawable/un_select_step" />
+
+                    <View
+                        android:id="@+id/vOneToTow"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:background="@color/_disable_color" />
+
+                    <ImageView
+                        android:id="@+id/ivSelectPosition"
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        android:layout_centerHorizontal="true"
+
+                        android:scaleType="center"
+                        android:src="@drawable/un_select_step" />
+
+                    <View
+                        android:id="@+id/vZeroToOne"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:background="@color/_disable_color" />
+
+                    <ImageView
+                        android:id="@+id/ivCountTicket"
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="center"
+                        android:src="@drawable/select_step" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llFullInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tvPrintTicket"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="صدور بلیط"
+                        android:textColor="@color/_disable_color"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                    <TextView
+                        android:id="@+id/tvFullInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="تکمیل اطلاعات"
+                        android:textColor="@color/_disable_color"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                    <TextView
+                        android:id="@+id/tvSelectPosition"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="انتخاب جایگاه "
+                        android:textColor="@color/_disable_color"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                    <TextView
+                        android:id="@+id/tvCountTicket"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="تعداد بلیط "
+                        android:textColor="@color/g_btn_gradient_lighter"
+                        android:textSize="@dimen/textSize_12dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2" />
+
+
+        </LinearLayout>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:visibility="gone"
+            app:tabMode="fixed" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tab_layout"
+            android:background="@android:color/white" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

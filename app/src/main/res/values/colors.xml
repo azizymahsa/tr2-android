@@ -56,5 +56,7 @@
     <color name="colorChangePassCard">#5aa7ff</color>
     <color name="colorShareCard">#EC078D</color>
     <color name="colorDelete">#fff</color>
+    <color name="_disable_color">#cccccc</color>
+    <color name="_title_black">#242424</color>
 
 </resources>

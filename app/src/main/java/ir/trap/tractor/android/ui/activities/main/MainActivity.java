@@ -46,6 +46,7 @@ import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
+import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.models.dbModels.BankDB;
 import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.singleton.SingletonContext;
@@ -63,12 +64,17 @@ import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
+import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
+import ir.trap.tractor.android.ui.fragments.ticket.CountTicketFragment;
+import ir.trap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.utility.CustomAlert;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
+        , SelectPositionFragment.OnListFragmentInteractionListener, View.OnClickListener
+
 {
     private Boolean isMainFragment = true;
 
@@ -80,7 +86,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Fragment currentFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-
+private View btnBuyTicket;
     private BottomNavigationView bottomNavigationView;
 
     private Bundle mSavedInstanceState;
@@ -98,13 +104,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         realm = Realm.getDefaultInstance();
 
         mToolbar = findViewById(R.id.toolbar);
-
         setSupportActionBar(mToolbar);
 
         drawerFragment = (MenuDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_menudrawer);
         drawerFragment.setUp(R.id.fragment_navigation_menudrawer, findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
+      //  btnBuyTicket.setOnClickListener(this);
 //        ImageButton btnDrawer = mToolbar.findViewById(R.id.imgMenu);
 //
 //        btnDrawer.setOnClickListener(v ->
@@ -129,7 +135,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 0);
+                       /* setCheckedBNV(bottomNavigationView, 0);
+                        isMainFragment = false;
+
+                        currentFragment = BuyTickets.newInstance(this);
+                        transaction = fragmentManager.beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                        transaction.replace(R.id.main_container, currentFragment)
+                                .commit();*/
                     }
                     break;
                 }
@@ -596,6 +610,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
+    public void onBuyTicketClick()
+    {
+        isMainFragment = false;
+        currentFragment = BuyTickets.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, currentFragment)
+                .commit();
+    }
+
+    @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
         if (response == null || response.info == null)
@@ -730,5 +755,21 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish();
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId()){
+            case R.id.btnBuyTicket:
+
+                isMainFragment = false;
+                currentFragment = BuyTickets.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                transaction.replace(R.id.main_container, currentFragment)
+                        .commit();
+                break;
+        }
     }
 }
