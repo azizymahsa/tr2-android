@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,15 +25,19 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.card.editCard.request.EditCardRequest;
 import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
-import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
+import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.ui.adapters.favoriteCard.CardViewPagerAdapter;
-import ir.trap.tractor.android.ui.adapters.favoriteCard.ViewPagerAdapterAction;
+import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.base.GoToActivity;
+import ir.trap.tractor.android.ui.dialogs.DialogDeleteCard;
+import ir.trap.tractor.android.ui.dialogs.DialogEditCard;
 import ir.trap.tractor.android.utilities.LinearLayoutManagerWithSmoothScroller;
+import ir.trap.tractor.android.utilities.ScreenShot;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
-public class FavoriteCardFragment extends Fragment implements FavoriteCardActionView, ViewPagerAdapterAction,
+public class FavoriteCardFragment extends BaseFragment implements FavoriteCardActionView,
         OnServiceStatus<WebServiceClass<GetCardListResponse>>
 {
     private ImageView ivLeft, ivRight;
@@ -112,7 +114,7 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
 //                linearLayoutManager.getOrientation());
 //        rvListCard.addItemDecoration(dividerItemDecoration);
 
-        adapter = new CardViewPagerAdapter(cardList, this, this);
+        adapter = new CardViewPagerAdapter(cardList, this);
         rvListCard.setAdapter(adapter);
 
         indicator.attachToRecyclerView(rvListCard);
@@ -276,21 +278,123 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
     }
 
     @Override
-    public void onShowEditDialog(Result result, int Position)
+    public void onShowEditDialog(Result result, int position)
+    {
+        DialogEditCard editCardDialog = new DialogEditCard(getActivity(), result, this, position);
+        editCardDialog.show(getActivity().getFragmentManager(), "editCard");
+    }
+
+    @Override
+    public void onShowChangePasswordDialog(Result result, int Position)
     {
 
     }
 
     @Override
-    public void onShowPasswordChangeDialog(Result result, int Position)
+    public void onShowConfirmDeleteDialog(Result result, int position)
+    {
+        new DialogDeleteCard(getActivity(), "آیا از حذف کارت " + result.getCardNumber() + " اطمینان دارید؟",
+                this, result.getCardId(), position).show(getActivity().getFragmentManager(), "deleteCard");
+    }
+
+    @Override
+    public void onEditCard(Result cardDetail, int position)
+    {
+        parentView.showFavoriteCardParentLoading();
+
+        EditCardRequest request = new EditCardRequest();
+        request.setCardNumber(cardDetail.getCardNumber());
+        request.setFullName(cardDetail.getFullName());
+        request.setIsMainCard(false);
+        request.setOrderList(2);
+
+        SingletonService.getInstance().editCardService().editCardService(cardDetail.getCardId(), request, new OnServiceStatus<WebServiceClass<Result>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<Result> response)
+            {
+                parentView.hideFavoriteCardParentLoading();
+
+                if (response == null)
+                {
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    return;
+                }
+                if (response.info.statusCode != 200)
+                {
+                    showError(getActivity(), response.info.message);
+                    return;
+                }
+
+                showToast(getActivity(), "کارت با موفقیت ویرایش و بروزرسانی شد.", R.color.green);
+                cardList.set(position, cardDetail);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                parentView.hideFavoriteCardParentLoading();
+
+                showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+            }
+        });
+    }
+
+    @Override
+    public void onDeleteCard(Integer cardId, int position)
+    {
+        parentView.showFavoriteCardParentLoading();
+
+        SingletonService.getInstance().deleteCardService().deleteCardService(cardId, new OnServiceStatus<WebServiceClass<Object>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<Object> response)
+            {
+                parentView.hideFavoriteCardParentLoading();
+
+                if (response == null)
+                {
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    return;
+                }
+                if (response.info.statusCode != 204)
+                {
+                    showError(getActivity(), response.info.message);
+                    return;
+                }
+
+                showToast(getActivity(), "کارت با موفقیت حذف شد.", R.color.green);
+                cardList.remove(position);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                parentView.hideFavoriteCardParentLoading();
+
+                showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+            }
+        });
+    }
+
+    @Override
+    public void onChangePasswordCard(Integer cardId, String oldPin2, String newPin2)
     {
 
     }
 
     @Override
-    public void showConfirmDeleteCard(Result result, int Position)
+    public void onForgotPasswordCard(Integer cardId)
     {
 
+    }
+
+    @Override
+    public void onShareCard(View view)
+    {
+        new ScreenShot(view,getActivity());
     }
 
     @Override
@@ -321,27 +425,4 @@ public class FavoriteCardFragment extends Fragment implements FavoriteCardAction
 //        mListener = null;
     }
 
-    @Override
-    public void onFavorite(int position, int cardId)
-    {
-
-    }
-
-    @Override
-    public void onDelete(int position, int cardId)
-    {
-
-    }
-
-    @Override
-    public void onEdit(int position, int cardId)
-    {
-
-    }
-
-    @Override
-    public void onChangePass(int position, int cardId)
-    {
-
-    }
 }

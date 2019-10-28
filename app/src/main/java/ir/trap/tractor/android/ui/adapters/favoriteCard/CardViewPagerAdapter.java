@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -21,7 +20,7 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
+import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.GoToActivity;
@@ -38,15 +37,13 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 
     private List<Result> cardList;
     private Context context;
-    private ViewPagerAdapterAction action;
     private FavoriteCardActionView actionView;
 
 
-    public CardViewPagerAdapter(List<Result> models, FavoriteCardActionView actionView, ViewPagerAdapterAction action)
+    public CardViewPagerAdapter(List<Result> models, FavoriteCardActionView actionView)
     {
         this.cardList = models;
         this.actionView = actionView;
-        this.action = action;
         context = SingletonContext.getInstance().getContext();
     }
 
@@ -82,10 +79,10 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
             holder.tvFullName.setText(item.getFullName());
 //            holder.tvNumberCard.setText(item.getCardNumber());
             holder.tvNumberCard.setText(Utility.cardFormat(item.getCardNumber()));
-            holder.tvExpireDate.setText(item.getExpirationDateYear() + "/" + item.getExpirationDateMonth());
+//            holder.tvExpireDate.setText(item.getExpirationDateYear() + "/" + item.getExpirationDateMonth());
 
             holder.tvFullName.setTextColor(Color.parseColor(item.getColorText()));
-            holder.tvExpireDate.setTextColor(Color.parseColor(item.getColorText()));
+//            holder.tvExpireDate.setTextColor(Color.parseColor(item.getColorText()));
             holder.tvNumberCard.setTextColor(Color.parseColor(item.getColorNumber()));
 
 
@@ -93,8 +90,9 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
             {
                 holder.imgDelete.setVisibility(View.GONE);
                 holder.vDelete.setVisibility(View.GONE);
+                holder.vChangePass.setVisibility(View.GONE);
+                holder.imgEdit.setVisibility(View.GONE);
                 holder.tvNumberCard.setVisibility(View.GONE);
-                holder.tvExpireDate.setVisibility(View.GONE);
                 holder.tvFullName.setVisibility(View.GONE);
 
 //                holder.cvContent.setVisibility(View.INVISIBLE);
@@ -102,85 +100,72 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
             }
             else
             {
+                holder.imgEdit.setVisibility(View.VISIBLE);
+                holder.vChangePass.setVisibility(View.VISIBLE);
                 holder.imgDelete.setVisibility(View.VISIBLE);
                 holder.vDelete.setVisibility(View.VISIBLE);
                 holder.tvNumberCard.setVisibility(View.VISIBLE);
-                holder.tvExpireDate.setVisibility(View.VISIBLE);
                 holder.tvFullName.setVisibility(View.VISIBLE);
 
+                if (!item.getBankBin().equalsIgnoreCase(TrapConfig.HappyBaseCardNo))
+                {
+                    holder.llChangePass.setVisibility(View.GONE);
+                }
             }
 
-            if (item.getIsFavorite() && !item.getIsMainCard())
-            {
-                holder.imgStar.setImageResource(R.drawable.ic_star_24dp);
-                holder.lottieView.setMinFrame(1);
-                holder.lottieView.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                holder.imgStar.setImageResource(R.drawable.ic_star_border_24dp);
-                holder.lottieView.setVisibility(View.GONE);
-            }
+//            if (item.getIsFavorite() && !item.getIsMainCard())
+//            {
+//                holder.imgStar.setImageResource(R.drawable.ic_star_24dp);
+//                holder.lottieView.setMinFrame(1);
+//                holder.lottieView.setVisibility(View.VISIBLE);
+//            }
+//            else
+//            {
+//                holder.imgStar.setImageResource(R.drawable.ic_star_border_24dp);
+//                holder.lottieView.setVisibility(View.GONE);
+//            }
 
-            if (!item.getBankBin().equals(TrapConfig.HappyBaseCardNo))
-            {
-                holder.llChangePass.setVisibility(View.GONE);
-            }
 
         }
 
 
         holder.imgEdit.setOnClickListener(view ->
         {
-            Tools.showToast(context, "Edit", R.color.gray);
-            action.onEdit(position, item.getCardId());
-//            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
-//            mainView.onShowEditDialog(cardDBModel, model.getId(), position);
+            actionView.onShowEditDialog(item, position);
         });
 //
 
         holder.llChangePass.setOnClickListener(view ->
         {
-            Tools.showToast(context, "ChangePass", R.color.gray);
-            action.onChangePass(position, item.getCardId());
-//            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
-//            mainView.onShowPasswordChangeDialog(cardDBModel, model.getId(), position);
-
+            actionView.onShowChangePasswordDialog(item, position);
         });
 
 
         holder.imgDelete.setOnClickListener(view ->
         {
             Tools.showToast(context, "Delete", R.color.gray);
-            action.onDelete(position, item.getCardId());
-//            mainView.showConfirmDeleteCard(Utility.cardFormat(model.getNumber()), position)
-        });
-
-
-        holder.imgStar.setOnClickListener(view ->
-        {
-            Tools.showToast(context, "Star", R.color.gray);
-
-            action.onFavorite(position, item.getCardId());
-//            mainView.onFavoriteRequest(Prefs.getInt("userId", 0), model.getCardId());
-            if (item.getIsFavorite())
-            {
-                Picasso.with(context).load(R.drawable.ic_star_border_24dp).into(holder.imgStar);
-            }
-            else
-            {
-                Picasso.with(context).load(R.drawable.ic_star_24dp).into(holder.imgStar);
-            }
-            notifyDataSetChanged();
-
+            actionView.onShowConfirmDeleteDialog(item, position);
 
         });
-//        holder.imgSecurity.setOnClickListener(view ->
+
+
+//        holder.imgStar.setOnClickListener(view ->
 //        {
-//            Tools.showToast(context, "Security", R.color.gray);
+//            Tools.showToast(context, "Star", R.color.gray);
 //
-////            ArchiveCardDBModel cardDBModel = ArchiveCardDBModel.findById(ArchiveCardDBModel.class, model.getId());
-////            mainView.securityDialog(cardDBModel, model.getId(), position);
+//            action.onFavorite(position, item.getCardId());
+////            mainView.onFavoriteRequest(Prefs.getInt("userId", 0), model.getCardId());
+//            if (item.getIsFavorite())
+//            {
+//                Picasso.with(context).load(R.drawable.ic_star_border_24dp).into(holder.imgStar);
+//            }
+//            else
+//            {
+//                Picasso.with(context).load(R.drawable.ic_star_24dp).into(holder.imgStar);
+//            }
+//            notifyDataSetChanged();
+//
+//
 //        });
 
         holder.cvContent.setOnClickListener(view ->
@@ -203,132 +188,32 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
         {
             actionView.startActivity(GoToActivity.AddCardActivity);
         });
-//
-////        if (model.isDelete())
-////        {
-////            ObjectAnimator anim = ObjectAnimator.ofFloat(holder.cvContent, "translationY", context.getResources().getInteger(R.integer.values_anim), 1000f);
-////            anim.setDuration(400);
-////            anim.setInterpolator(new AccelerateInterpolator());
-////            anim.addListener(new Animator.AnimatorListener()
-////            {
-////                @Override
-////                public void onAnimationStart(Animator animator)
-////                {
-////
-////                }
-////
-////                @Override
-////                public void onAnimationEnd(Animator animator)
-////                {
-////                    mainView.onDeleteRequest(Prefs.getInt("userId", 0), model.getCardId());
-////                    action.onDelete(position);
-////                }
-////
-////                @Override
-////                public void onAnimationCancel(Animator animator)
-////                {
-////
-////                }
-////
-////                @Override
-////                public void onAnimationRepeat(Animator animator)
-////                {
-////
-////                }
-////            });
-////            anim.start();
-////
-////
-////        }
-//
 
-
-////        if (model.getPic() == 100)
-////        {
-////            holder.cvAddCard.setVisibility(View.VISIBLE);
-////            holder.cvContent.setVisibility(View.GONE);
-////
-////        } else
-////        {
-////            holder.cvAddCard.setVisibility(View.GONE);
-////            holder.cvContent.setVisibility(View.VISIBLE);
-////
-////
-////            holder.tvExpireDate.setText(model.getExpireYear() + "/" + model.getExpireMonth());
-////            holder.tvFullName.setText(model.getfullName());
-////            try
-////            {
-////                if (model.getNumber().length() > 0)
-////                {
-////                    holder.tvNumberCard.setText(Utility.cardFormat(model.getNumber()));
-////
-////                }
-////            } catch (Exception e)
-////            {
-////            }
-////
-////            holder.tvNumberCard.setTextColor(model.getCardNumberColor() == null ? Color.parseColor("#666666") : Color.parseColor(model.getCardNumberColor()));
-////            holder.tvFullName.setTextColor(model.getTextColor() == null ? Color.parseColor("#666666") : Color.parseColor(model.getTextColor()));
-////            holder.tvExpireDate.setTextColor(model.getTextColor() == null ? Color.parseColor("#666666") : Color.parseColor(model.getTextColor()));
-////
-////
-////            try
-////            {
-////                //todo
-////                String bankNumber = model.getNumber().substring(0, 6);
-////                if (bankNumber.equals(TrapConfig.HappyBaseCardNo))
-////                {
-////                    holder.tvExpireDate.setVisibility(View.GONE);
-////                    holder.llChangePas.setVisibility(View.VISIBLE);
-////                } else
-////                {
-////                    holder.tvExpireDate.setVisibility(View.VISIBLE);
-////                    holder.llChangePas.setVisibility(View.GONE);
-////
-////                }
-////
         holder.imgShare.setOnClickListener(view ->
         {
             Tools.showToast(context, "Share", R.color.gray);
 
-////            holder.tvExpireDate.setVisibility(View.INVISIBLE);
-
-//            mainView.capture(holder.cvContent);
-
-////            if (!bankNumber.equals(TrapConfig.HappyBaseCardNo))
-////            {
-////                holder.tvExpireDate.setVisibility(View.VISIBLE);
-////            }
-
+            actionView.onShareCard(holder.cvContent);
 
         });
-////
-////            } catch (Exception e)
-////            {
-////                // Toast.makeText(context, "eerrrrrrrrrrrrrrrroorrrrrrrrrrrrrrrrrrr", Toast.LENGTH_SHORT).show();
-////
-////
-////            }
-////
-            try
-            {
-                if (item.getCardImageBack() == null)
-                {
-                    loadImageIntoIV(item.getCardImage(), holder.ivBack, holder);
-                }
-                else
-                {
-                    loadImageIntoIV(item.getCardImageBack(), holder.ivBack, holder);
-                }
 
-                loadImageIntoIV(item.getCardImage(), holder.ivLoyal, holder);
-            }
-            catch (Exception e)
+        try
+        {
+            if (item.getCardImageBack() == null)
             {
-//                mainView.onError(e.getMessage());
-                e.printStackTrace();
+                loadImageIntoIV(item.getCardImage(), holder.ivBack, holder);
+            } else
+            {
+                loadImageIntoIV(item.getCardImageBack(), holder.ivBack, holder);
             }
-////        }
+
+            loadImageIntoIV(item.getCardImage(), holder.ivLoyal, holder);
+        }
+        catch (Exception e)
+        {
+//                mainView.onError(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void loadImageIntoIV(String link, ImageView imageView, @NonNull MyViewHolder holder)
@@ -358,14 +243,14 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 
     class MyViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView tvExpireDate, tvNumberCard, tvFullName;
-        private ImageView imgStar, imgDelete, imgEdit, imgSecurity, imgShare;
-        private LottieAnimationView lottieView;
+        private TextView tvNumberCard, tvFullName;
+        private ImageView imgDelete, imgEdit, imgShare;
+        //        private LottieAnimationView lottieView;
         private RelativeLayout cvAddCard;
         private ImageView ivLoyal, ivBack;
         private LinearLayout llChangePass;
         private EasyFlipView myEasyFlipView;
-        private View vDelete;
+        private View vDelete, vChangePass;
         private RelativeLayout cvContent, rlBackView;
 
 
@@ -375,19 +260,19 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
             ivLoyal = convertView.findViewById(R.id.ivLoyal);
             imgShare = convertView.findViewById(R.id.imgShare);
             vDelete = convertView.findViewById(R.id.vDelete);
+            vChangePass = convertView.findViewById(R.id.vChangePass);
             ivBack = convertView.findViewById(R.id.ivBack);
             cvContent = convertView.findViewById(R.id.cvContent);
             rlBackView = convertView.findViewById(R.id.rlBackView);
-            lottieView = convertView.findViewById(R.id.lottieView);
+//            lottieView = convertView.findViewById(R.id.lottieView);
             cvAddCard = convertView.findViewById(R.id.cvAddCard);
-            tvExpireDate = convertView.findViewById(R.id.tvExpireDate);
+//            tvExpireDate = convertView.findViewById(R.id.tvExpireDate);
             tvNumberCard = convertView.findViewById(R.id.tvNumberCard);
             tvFullName = convertView.findViewById(R.id.tvFullName);
-            imgStar = convertView.findViewById(R.id.imgStar);
+//            imgStar = convertView.findViewById(R.id.imgStar);
             imgDelete = convertView.findViewById(R.id.imgDelete);
             imgEdit = convertView.findViewById(R.id.imgEdit);
             llChangePass = convertView.findViewById(R.id.llChangePass);
-            imgSecurity = convertView.findViewById(R.id.imgSecurity);
             myEasyFlipView = itemView.findViewById(R.id.myEasyFlipView);
         }
     }

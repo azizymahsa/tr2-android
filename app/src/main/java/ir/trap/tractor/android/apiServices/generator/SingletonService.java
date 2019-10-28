@@ -9,7 +9,9 @@ import ir.trap.tractor.android.apiServices.part.AddCardService;
 import ir.trap.tractor.android.apiServices.part.BankListService;
 import ir.trap.tractor.android.apiServices.part.BillCodePayCodeService;
 import ir.trap.tractor.android.apiServices.part.BusService;
+import ir.trap.tractor.android.apiServices.part.DeleteCardService;
 import ir.trap.tractor.android.apiServices.part.DoTransferCardService;
+import ir.trap.tractor.android.apiServices.part.EditCardService;
 import ir.trap.tractor.android.apiServices.part.FlightService;
 import ir.trap.tractor.android.apiServices.part.GetBillInfoService;
 import ir.trap.tractor.android.apiServices.part.GetCardListService;
@@ -172,6 +174,16 @@ public class SingletonService
     public AddCardService addCardService()
     {
         return new AddCardService(serviceGenerator);
+    }
+
+    public DeleteCardService deleteCardService()
+    {
+        return new DeleteCardService(serviceGenerator);
+    }
+
+    public EditCardService editCardService()
+    {
+        return new EditCardService(serviceGenerator);
     }
 
     public BankListService getBankListService()

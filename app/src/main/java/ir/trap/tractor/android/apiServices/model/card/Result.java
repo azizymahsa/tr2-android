@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.apiServices.model.card.getCardList;
+package ir.trap.tractor.android.apiServices.model.card;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,7 +12,6 @@ public class Result
     @Expose @Getter @Setter
     private Integer cardId;
 
-
     @SerializedName("bank")
     @Expose @Getter @Setter
     private Integer bankId;
@@ -24,15 +23,7 @@ public class Result
     @SerializedName("full_name")
     @Expose @Getter @Setter
     private String fullName;
-    
-    @SerializedName("expiration_date_year")
-    @Expose @Getter @Setter
-    private String expirationDateYear;
-    
-    @SerializedName("expiration_date_month")
-    @Expose @Getter @Setter
-    private String expirationDateMonth;
-    
+
     @SerializedName("create_date")
     @Expose @Getter @Setter
     private String createDate;

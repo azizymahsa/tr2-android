@@ -51,8 +51,11 @@ public class Const
     public final static String GetBusUserPass = SubBASEURLTest + "GdsBus/v1/GetAccountInfo";
     public final static String BusPayment = SubBASEURLTest + "GdsBus/v1/BusPayment";
 
+    //card
     public final static String GetCardList = SubBASEURL + "v1/card/";
     public final static String AddCard = SubBASEURL + "v1/card/";
+    public final static String DeleteCard = SubBASEURL + "v1/card/";
+    public final static String EditCard = SubBASEURL + "v1/card/";
 
     public final static String DECRYPTQRCODE = "api/v1/payment/decrypt_qr_code/";
     public final static String PAYMENT = "api/v1/payment/payment_print_pos/";

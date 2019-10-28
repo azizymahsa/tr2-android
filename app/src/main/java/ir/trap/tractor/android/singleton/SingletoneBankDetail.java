@@ -9,7 +9,7 @@ import ir.trap.tractor.android.apiServices.model.getBankList.response.Bank;
 
 
 /**
- * Created by RezaNejati on 7/31/2018.
+ * Created by Javad.Abadi on 7/31/2018.
  */
 public class SingletoneBankDetail
 {
