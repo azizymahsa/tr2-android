@@ -142,10 +142,8 @@ public class BuyTickets extends BaseFragment implements OnAnimationEndListener, 
         viewPager = rootView.findViewById(R.id.pager);
         llPrintTicket = rootView.findViewById(R.id.llPrintTicket);
         llFullInfo = rootView.findViewById(R.id.llFullInfo);
-        llSelectPosition = rootView.findViewById(R.id.llSelectPosition);
         llPrintTicket.setOnClickListener(this);
         llFullInfo.setOnClickListener(this);
-        llSelectPosition.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
         btnBackToDetail.setOnClickListener(this);
 
@@ -173,9 +171,7 @@ public class BuyTickets extends BaseFragment implements OnAnimationEndListener, 
             case R.id.llFullInfo:
                 // mainView.onPackSimCard();
                 break;
-            case R.id.llSelectPosition:
-                //  mainView.onPaymentWithoutCard();
-                break;
+
 
 
         }
