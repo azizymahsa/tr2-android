@@ -305,26 +305,80 @@ private View btnBuyTicket;
         {
             case 1:
             {
-                showToast(this, "AddCardActivity", R.color.green);
-                startAddCardActivity();
-//                closeDrawer();
+                showToast(this, "لیست تراکنش ها", R.color.green);
+//                startAddCardActivity();
                 break;
             }
             case 2:
             {
+                showToast(this, "امتیازات", R.color.green);
+                break;
+            }
+            case 3:
+            {
+                showToast(this, "جشنواره", R.color.green);
+
+                break;
+            }
+            case 4:
+            {
+                showToast(this, "کیف پول", R.color.green);
+
+                break;
+            }
+            case 5:
+            {
+                showToast(this, "مدیریت کارت ها", R.color.green);
+
+                break;
+            }
+            case 6:
+            {
+                showToast(this, "دعوت از دوستان", R.color.green);
+
+                break;
+            }
+            case 7:
+            {
+                showToast(this, "درباره ما", R.color.green);
+
+                break;
+            }
+            case 8:
+            {
+                showToast(this, "تنظیمات", R.color.green);
+
+                break;
+            }
+            case 9:
+            {
+                showToast(this, "پشتیبانی", R.color.green);
+
+                break;
+            }
+            case 10:
+            {
+                showToast(this, "راهنما", R.color.green);
+
+                break;
+            }
+            case 11:
+            {
+                showToast(this, "انتقادات و پیشنهادات", R.color.green);
+
+                break;
+            }
+            case 12:
+            {
                 CustomAlert ca = new CustomAlert(this);
                 ca.setCustomTitle(R.string.app_name);
                 ca.setCustomMessage("آیا می خواهید از حساب کاربری خود خارج شوید؟");
-                ca.setPositiveButton("خروج", new DialogInterface.OnClickListener()
+                ca.setPositiveButton("خروج", (dialog, which) ->
                 {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        Prefs.clear();
-                        finish();
-                        intent.setClass(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                    }
+                    Prefs.clear();
+                    finish();
+                    intent.setClass(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 });
                 ca.setNegativeButton("انصراف", null);
                 ca.create();

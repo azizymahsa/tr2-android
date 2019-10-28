@@ -12,9 +12,9 @@
 
     <color name="backgroundButton">#fe0002</color>
     <color name="mainMenuColor">#fff</color>
-    <color name="drawer_background">#88000000</color>
+    <color name="drawer_background">#fff</color>
     <color name="textColorDrawer">#fff</color>
-    <color name="drawerSepratorColor">#fff</color>
+    <color name="drawerSepratorColor">#aaa</color>
     <color name="mainNavigationBottomColorSelected">#fe0002</color>
     <color name="mainNavigationBottomColorDeSelected">#888</color>
     <color name="textColorRecyclerView">#fff</color>
