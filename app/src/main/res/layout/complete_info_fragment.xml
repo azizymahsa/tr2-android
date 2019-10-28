@@ -12,77 +12,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
         android:gravity="center"
         android:orientation="vertical">
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10dp"
-            android:gravity="center|right"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
 
-
-            <FrameLayout
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="100">
 
-                <include
-                    android:id="@+id/btnMCIPackConfirm"
-                    layout="@layout/slider_item_view" />
-
-            </FrameLayout>
-
-
-
-        </LinearLayout>
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:background="@drawable/dotted"
-                android:gravity="center"
-                android:padding="@dimen/_6sdp"
-                android:text="برای مشاهده جایگاه های فعال ( دارای ظرفیت خالی) لطفا تعداد بلیت درخواستی تان را مشخص کنید"
-                android:textColor="#484848"
-                android:textSize="@dimen/textSize_14dp"
-                android:textStyle="bold"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="right"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_40sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:padding="10dp">
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="@dimen/_90dp"
                     android:layout_height="@dimen/_30dp"
-                    android:gravity="center|left"
                     android:background="@drawable/background_l_r_round"
+                    android:gravity="center|left"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvM"
                         android:layout_width="30dp"
@@ -96,14 +53,13 @@
                     <TextView
                         android:id="@+id/tvCount"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:textColor="@color/g_txt_title2"
-                        android:textSize="12dp"
-                        android:text="1"
+                        android:layout_weight="1"
                         android:background="@drawable/background_rectangle_with_out_round"
-                        />
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/g_txt_title2"
+                        android:textSize="12dp" />
 
 
                     <TextView
@@ -114,34 +70,35 @@
                         android:gravity="center"
                         android:text="+"
                         android:textColor="@color/g_txt_title2"
-                        android:textSize="19dp"
-                        />
+                        android:textSize="19dp" />
                 </LinearLayout>
 
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="98"
-                android:layout_height="wrap_content"
-                android:text="تعداد بلیت های درخواستی شما:"
-                android:textColor="@color/textColorStadiumName"
-                android:textSize="@dimen/textSize_14dp"
-                android:textAppearance="@style/IranSansBoldf"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="98"
+                    android:text="تعداد بلیت های درخواستی شما:"
+                    android:textAppearance="@style/IranSansBoldf"
+                    android:textColor="@color/textColorStadiumName"
+                    android:textSize="@dimen/textSize_14dp"
 
-                />
+                    />
 
 
+            </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
+
             android:background="@drawable/dotted"
             android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -164,27 +121,179 @@
                 android:src="@drawable/danger" />
 
         </LinearLayout>
-      <!--  <FrameLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:layout_weight="100">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <include
-                android:id="@+id/btnPaymentConfirm"
-                layout="@layout/circular_progress_button"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_30dp"
-                android:layout_gravity="center"
-                android:layout_margin="2dp" />
-        </FrameLayout>-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:lineSpacingExtra="@dimen/_10dp"
+                android:maxLines="3"
+                android:text="لطفا اطلاعات مرتبط با هرفرد را برای خرید بلیط استادیوم مطابق اطلاعات درخواستی ذیل وارد بفرمایید ( کد ملی و نام و نام خانوادگی )" />
+
+
+        </LinearLayout>
+        <!--ticket1-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:gravity="center"
+
+
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.8"
+                android:gravity="center"
+                android:background="@drawable/dotted_line"
+
+                android:orientation="vertical"
+                android:padding="@dimen/_20dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="نام"
+                    android:textColor="@color/_title_black"
+                    android:textColorHint="@color/_disable_color"
+                    android:textSize="@dimen/textSize_10dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="نام خانوادگی"
+                    android:textColor="@color/_title_black"
+                    android:textColorHint="@color/_disable_color"
+                    android:textSize="@dimen/textSize_10dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="کد ملی "
+                    android:inputType="number"
+                    android:textColor="@color/_title_black"
+                    android:textColorHint="@color/_disable_color"
+                    android:textSize="@dimen/textSize_10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/top_dis"
+                        android:layout_alignParentTop="true"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="center"
+                        android:src="@drawable/dot_dis"
+                        android:layout_centerInParent="true"/>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/bottom_dis"
+                        android:layout_alignParentBottom="true"/>
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:gravity="center"
+                android:background="@drawable/left_line_invisible"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_20dp"
+                        android:gravity="center|center_horizontal"
+                        android:rotation="90"
+                        android:singleLine="true"
+                        android:text="1"
+                        android:textColor="@color/textColorStadiumName"
+                        android:textSize="@dimen/textSize_10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50dp"
+                        android:gravity="center|left"
+                        android:rotation="90"
+                        android:singleLine="true"
+                        android:text="بلیت شماره"
+                        android:textColor="@color/textColorStadiumName"
+                        android:textSize="@dimen/textSize_10dp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_20dp"
+                        android:gravity="center|center_horizontal"
+                        android:rotation="90"
+                        android:singleLine="true"
+                        android:text="14"
+                        android:textColor="@color/_title_black"
+                        android:textSize="@dimen/textSize_10dp" />
+
+                    <TextView
+                        android:id="@+id/tvStation"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50dp"
+                        android:gravity="center|left"
+                        android:rotation="90"
+                        android:singleLine="true"
+                        android:text="جایگاه "
+                        android:textColor="@color/_title_black"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_gravity="bottom">
+            android:layout_alignParentBottom="true"
+
+            android:layout_marginTop="@dimen/_20sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -200,7 +309,8 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="100">
+                    android:layout_weight="100"
+                    android:visibility="visible">
 
                     <include
                         android:id="@+id/btnBackToDetail"
@@ -219,7 +329,7 @@
 
                     <include
                         android:id="@+id/btnPaymentConfirm"
-                        layout="@layout/circular_progress_button"
+                        layout="@layout/circular_progress_button_peyment"
                         android:layout_width="@dimen/_120sdp"
                         android:layout_height="@dimen/_30dp"
                         android:layout_gravity="center"
@@ -233,5 +343,6 @@
                     android:layout_weight="10" />
             </LinearLayout>
         </RelativeLayout>
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
