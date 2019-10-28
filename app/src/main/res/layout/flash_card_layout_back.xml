@@ -19,6 +19,8 @@
         android:orientation="horizontal"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
         android:gravity="center"
         android:background="#da000000">
 
@@ -38,20 +40,20 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/shadow_back_card" />
 
-        <ImageView
-            android:id="@+id/imgStar"
-            android:layout_width="@dimen/_35dp"
-            android:layout_height="@dimen/_35dp"
-            android:layout_marginRight="10dp"
-            android:foreground="?attr/selectableItemBackground"
-            android:tint="@color/colorStar"
-            app:srcCompat="@drawable/ic_star_border_24dp"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/imgStar"-->
+<!--            android:layout_width="@dimen/_35dp"-->
+<!--            android:layout_height="@dimen/_35dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:foreground="?attr/selectableItemBackground"-->
+<!--            android:tint="@color/colorStar"-->
+<!--            app:srcCompat="@drawable/ic_star_border_24dp"/>-->
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/shadow_back_card" />
+<!--        <View-->
+<!--            android:layout_width="1dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:background="@drawable/shadow_back_card" />-->
 
         <ImageView
             android:id="@+id/imgEdit"
@@ -63,36 +65,13 @@
             app:srcCompat="@drawable/ic_check_card"/>
 
         <LinearLayout
-            android:id="@+id/llSecurity"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:visibility="gone">
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/shadow_back_card" />
-
-            <ImageView
-                android:id="@+id/imgSecurity"
-                android:layout_width="@dimen/_35dp"
-                android:layout_height="@dimen/_35dp"
-                android:foreground="?attr/selectableItemBackground"
-                android:tint="@color/colorSecurityCard"
-                app:srcCompat="@drawable/ic_lock"/>
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/llChangePass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <View
+                android:id="@+id/vChangePass"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"

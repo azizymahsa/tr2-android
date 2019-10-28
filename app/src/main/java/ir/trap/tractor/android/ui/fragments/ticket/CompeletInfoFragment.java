@@ -2,10 +2,13 @@ package ir.trap.tractor.android.ui.fragments.ticket;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -33,11 +36,7 @@ public class CompeletInfoFragment
 
     private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
-    private TextView tvStadiumName, tvDateTime, tvCount, tvM, tvP;
-    private ImageView imgHost, imgGuest;
-    private ProgressBar progress;
-    private RelativeLayout llHeaderWeekNo;
-   // private CircularProgressButton btnPaymentConfirm;
+    private TextView  tvCount, tvM, tvP,tvStation;
     private View btnBackToDetail,btnPaymentConfirm;
     private int count = 1;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
@@ -63,15 +62,7 @@ public class CompeletInfoFragment
     {
         this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
     }
-    /*
-    public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
-            ItemFragment fragment = new ItemFragment();
-            Bundle args = new Bundle();
-            args.putParcelableArray(KEY_MODEL, subMenuModels);
-            fragment.setArguments(args);
-            return fragment;
-        }
-    */
+
     private void setImageColor(ImageView imageView, String link)
     {
         try
@@ -109,20 +100,12 @@ public class CompeletInfoFragment
             @Override
             public void onReady(WebServiceClass<ResponseMatch> response)
             {
-                progress.setVisibility(View.GONE);
-                tvStadiumName.setText(response.data.getResults().get(0).getStadium().getName());
 
-                setImageColor(imgHost, response.data.getResults().get(0).getTeamHome().getLogo());
-                setImageColor(imgGuest, response.data.getResults().get(0).getTeamAway().getLogo());
-
-                tvDateTime.setText(getDate(response.data.getResults().get(0).getMatchDatetime()));
             }
 
             @Override
             public void onError(String message)
             {
-                progress.setVisibility(View.GONE);
-
 
             }
         });
@@ -141,18 +124,10 @@ public class CompeletInfoFragment
 
     private void initView()
     {
+        tvStation = view.findViewById(R.id.tvStation);
         tvCount = view.findViewById(R.id.tvCount);
         tvM = view.findViewById(R.id.tvM);
         tvP = view.findViewById(R.id.tvP);
-        llHeaderWeekNo = view.findViewById(R.id.llHeaderWeekNo);
-        llHeaderWeekNo.setVisibility(View.INVISIBLE);
-        tvStadiumName = view.findViewById(R.id.tvStadiumName);
-        tvDateTime = view.findViewById(R.id.tvDateTime);
-        imgHost = view.findViewById(R.id.imgHost);
-        imgGuest = view.findViewById(R.id.imgGuest);
-        progress = view.findViewById(R.id.progress);
-        //btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
-       // btnPaymentConfirm.setText("تایید و مرحله بعد");
 
         btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
         btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
@@ -161,8 +136,8 @@ public class CompeletInfoFragment
 
         tvP.setOnClickListener(this);
         tvM.setOnClickListener(this);
-
-        progress.setVisibility(View.VISIBLE);
+        /*RotateAnimation rotate= (RotateAnimation) AnimationUtils.loadAnimation(getContext(),R.anim.rotate_animation);
+        tvStation.setAnimation(rotate);*/
     }
 
     @Override

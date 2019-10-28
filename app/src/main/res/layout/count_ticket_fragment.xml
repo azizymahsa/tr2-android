@@ -184,7 +184,8 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="100">
+                    android:layout_weight="100"
+                    android:visibility="gone">
 
                     <include
                         android:id="@+id/btnBackToDetail"
@@ -203,7 +204,7 @@
 
                     <include
                         android:id="@+id/btnPaymentConfirm"
-                        layout="@layout/circular_progress_button"
+                        layout="@layout/circular_progress_button_next"
                         android:layout_width="@dimen/_120sdp"
                         android:layout_height="@dimen/_30dp"
                         android:layout_gravity="center"

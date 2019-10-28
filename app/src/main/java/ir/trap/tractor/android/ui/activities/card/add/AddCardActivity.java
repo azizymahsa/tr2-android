@@ -45,19 +45,19 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
     private ImageView imgBack;
     private CardView cvBarcode;
-    private PinEntryEditText codeView1, codeView2, codeView3, codeView4, codeView5, codeView6;
+    private PinEntryEditText codeView1, codeView2, codeView3, codeView4;
     private CircularProgressButton btnConfirm;
     private String fullName, expireMonth, expireYear;
     private StringBuilder cardNumber = new StringBuilder();
     private EditText etFullName;
     private ImageView ivBankLogo,ivBackCard;
     private AddCardPresenterImpl presenter;
-    private TextView tvBankName,tvExpireText;
-    private MaskedEditText etNumberAddCard, etExpireDateAddCard;
+    private TextView tvBankName;
+    private MaskedEditText etNumberAddCard;
     private boolean isFirstTimeChange = true;
     private CardView cvAddCard;
     boolean isHappy = false;
-    private LinearLayout llExpireDate, llLoading;
+    private LinearLayout llLoading;
     private LinearLayout rlRoot;
     private final int SCAN_REQUEST_CODE = 100;
     private AccubinConfiguration configuration;
@@ -87,15 +87,12 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         ((TextView) findViewById(R.id.tvTitle)).setText("افزودن کارت");
 
         cvBarcode = findViewById(R.id.cvBarcode);
-        tvExpireText = findViewById(R.id.tvExpireText);
         ivBackCard = findViewById(R.id.ivBackCard);
         llLoading = findViewById(R.id.llLoading);
-        llExpireDate = findViewById(R.id.llExpireDate);
         etFullName = findViewById(R.id.etFullName);
         btnConfirm = findViewById(R.id.btnConfirm);
         etNumberAddCard = findViewById(R.id.etNumberAddCard);
         cvAddCard = findViewById(R.id.cvAddCard);
-        etExpireDateAddCard = findViewById(R.id.etExpireDateAddCard);
         tvBankName = findViewById(R.id.tvBankName);
         ivBankLogo = findViewById(R.id.ivBankLogo);
         rlRoot = findViewById(R.id.rlRoot);
@@ -104,8 +101,6 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         codeView2 = findViewById(R.id.codeView2);
         codeView3 = findViewById(R.id.codeView3);
         codeView4 = findViewById(R.id.codeView4);
-        codeView5 = findViewById(R.id.codeView5);
-        codeView6 = findViewById(R.id.codeView6);
 
         initAccubin();
 
@@ -113,11 +108,8 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         codeView2.setOnPinEnteredListener(this);
         codeView3.setOnPinEnteredListener(this);
         codeView4.setOnPinEnteredListener(this);
-        codeView5.setOnPinEnteredListener(this);
-        codeView6.setOnPinEnteredListener(this);
         cvBarcode.setOnClickListener(this);
         etNumberAddCard.addTextChangedListener(this);
-        etExpireDateAddCard.addTextChangedListener(this);
         presenter = new AddCardPresenterImpl(this, new AddCardServiceImpl(), rlRoot);
 
         btnConfirm.setOnClickListener(presenter);
@@ -188,20 +180,9 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         }
         if (str.length() == 4 && codeView4.isFocused())
         {
-            codeView5.requestFocus();
+            etFullName.requestFocus();
             cardNumber.append(codeView4.getText().toString());
             return;
-        }
-        if (str.length() == 2 && codeView5.isFocused())
-        {
-            codeView6.requestFocus();
-            expireYear = codeView5.getText().toString();
-            return;
-        }
-        if (str.length() == 2 && codeView6.isFocused())
-        {
-            expireMonth = codeView6.getText().toString();
-            etFullName.requestFocus();
         }
 
     }
@@ -235,43 +216,15 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
                         String bankDetect = cardPan.replaceAll("-", "").
                                 replaceAll("_", "").replaceAll(" ", "").substring(0, 6);
 
-                        if (bankDetect.equals("003725"))
+                        if (bankDetect.equals(TrapConfig.HappyBaseCardNo))
                         {
-                            llExpireDate.setVisibility(View.GONE);
                             isHappy = true;
                         } else
                         {
-                            llExpireDate.setVisibility(View.VISIBLE);
                             isHappy = false;
 
                         }
                         isFirstTimeChange = false;
-//                        for (Bank detail : SingletoneBankDetail.getInstance().getBanks())
-//                        {
-//                            if (detail.getBankBin().equals(bankDetect))
-//                            {
-//                                etNumberAddCard.setTextColor(Color.parseColor(detail.getColorText()));
-//
-//                                tvBankName.setText(detail.getBankName());
-//                                tvBankName.setBackgroundColor(Color.WHITE);
-//                                ivBankLogo.setBackgroundColor(Color.WHITE);
-////                                Glide.with(this).load(detail.getImageLogo()).into(ivBankLogo);
-//                                Glide.with(this).load(detail.getImageCard()).into(ivBackCard);
-//                                etFullName.setTextColor(Color.parseColor(detail.getColorText()));
-//                                etExpireDateAddCard.setTextColor(Color.parseColor(detail.getColorText()));
-//                                tvExpireText.setTextColor(Color.parseColor(detail.getColorText()));
-//                                etFullName.setHintTextColor(Color.parseColor(detail.getColorText()));
-//                            }
-//                        }
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                    try
-                    {
-                        etExpireDateAddCard.setText(date);
-
-
                     }
                     catch (Exception e)
                     {
@@ -279,54 +232,6 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
                 }
             }
         }
-    }
-
-
-    public void getFullName(String pan)
-    {
-//        llLoading.setVisibility(View.VISIBLE);
-//
-//        GetFullNameCardRequest request = new GetFullNameCardRequest();
-//        request.setPan(pan);
-//        request.setUserId(Prefs.getInt("userId", 0));
-//        SingletonService.getInstance().getAddCard().getFullNameCard(new OnServiceStatus<GetFullNameCardResponse>()
-//        {
-//            @Override
-//            public void onReady(GetFullNameCardResponse getFullNameCardResponse)
-//            {
-//                try
-//                {
-//                    llLoading.setVisibility(View.GONE);
-//
-//
-//                    if (getFullNameCardResponse.getServiceMessage().getCode() == 200)
-//                    {
-//                        etFullName.setText(getFullNameCardResponse.getFirstName() + " " + getFullNameCardResponse.getLastName());
-//
-//                    } else
-//                    {
-//                        AddCardActivity.this.onError(getFullNameCardResponse.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
-//
-//                    }
-//
-//                } catch (Exception e)
-//                {
-//                    AddCardActivity.this.onError(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onError(String message)
-//            {
-//                llLoading.setVisibility(View.GONE);
-//                AddCardActivity.this.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
-//
-//            }
-//        }, request);
-
-
     }
 
     @Override
@@ -353,9 +258,8 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     public void getData()
     {
 
-        String[] date = etExpireDateAddCard.getText().toString().replaceAll(" ", "").split("/");
-
-        presenter.setCardDetail(date[1], etNumberAddCard.getText().toString().replaceAll("-", "").replaceAll("_", "").replaceAll(" ", ""), date[0], etFullName.getText().toString(), 0, false);
+        presenter.setCardDetail(etNumberAddCard.getText().toString().replaceAll("-", "").replaceAll("_", "").replaceAll(" ", ""),
+                etFullName.getText().toString(), false);
     }
 
     @Override
@@ -400,51 +304,25 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
             tvBankName.setText("");
             tvBankName.setBackgroundColor(Color.TRANSPARENT);
             ivBankLogo.setBackgroundColor(Color.TRANSPARENT);
-            llExpireDate.setVisibility(View.VISIBLE);
             ivBankLogo.setImageDrawable(null);
             ivBackCard.setImageDrawable(null);
             cvAddCard.setCardBackgroundColor(getResources().getColor(R.color.cardview_dark_background));
             etNumberAddCard.setTextColor(getResources().getColor(R.color.textColorTitle));
             etFullName.setTextColor(getResources().getColor(R.color.textColorTitle));
             etFullName.setHintTextColor(getResources().getColor(R.color.textColorTitle));
-            etExpireDateAddCard.setTextColor(getResources().getColor(R.color.textColorTitle));
-            tvExpireText.setTextColor(getResources().getColor(R.color.textColorTitle));
         }
         if (etNumberAddCard.isFocused() && bankDetect.length() == 6 && isFirstTimeChange)
         {
             if (bankDetect.equals(TrapConfig.HappyBaseCardNo))
             {
-                llExpireDate.setVisibility(View.GONE);
                 isHappy = true;
             }
             else
             {
-                llExpireDate.setVisibility(View.VISIBLE);
                 isHappy = false;
             }
             isFirstTimeChange = false;
-            //-------------------------old-------------------------
-//            for (Bank detail : SingletoneBankDetail.getInstance().getBanks())
-//            {
-//                if (detail.getBankBin().equals(bankDetect))
-//                {
-//
-//                    tvBankName.setText(detail.getBankName());
-//                    tvBankName.setBackgroundColor(Color.WHITE);
-//                    ivBankLogo.setBackgroundColor(Color.WHITE);
-////                    Glide.with(this).load(detail.getImageLogo()).into(ivBankLogo);
-//                    Glide.with(this).load(detail.getImageCard()).into(ivBackCard);
-//                    etNumberAddCard.setTextColor(Color.parseColor(detail.getColorNumber()));
-//                    etFullName.setTextColor(Color.parseColor(detail.getColorText()));
-//                    etExpireDateAddCard.setTextColor(Color.parseColor(detail.getColorText()));
-//                    tvExpireText.setTextColor(Color.parseColor(detail.getColorText()));
-//                    etFullName.setHintTextColor(Color.parseColor(detail.getColorText()));
-//
-//                }
-//            }
-            //-------------------------old-------------------------
             //-------------------------new-------------------------
-
             BankDB bankDB = realm.where(BankDB.class)
                     .equalTo("bankBin", bankDetect)
                     .findFirst();
@@ -457,8 +335,6 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
             etNumberAddCard.setTextColor(Color.parseColor(bankDB.getColorNumber()));
             etFullName.setTextColor(Color.parseColor(bankDB.getColorText()));
-            etExpireDateAddCard.setTextColor(Color.parseColor(bankDB.getColorText()));
-            tvExpireText.setTextColor(Color.parseColor(bankDB.getColorText()));
             etFullName.setHintTextColor(Color.parseColor(bankDB.getColorText()));
             //-------------------------new-------------------------
         }
@@ -468,13 +344,6 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         {
             if (isHappy)
                 etFullName.requestFocus();
-            else
-                etExpireDateAddCard.requestFocus();
-        }
-        if (etExpireDateAddCard.isFocused() && etExpireDateAddCard.getText().toString().replaceAll("_", "").replaceAll(" ", "").replaceAll("/", "").length() == 4)
-        {
-            etFullName.requestFocus();
-
         }
 
     }

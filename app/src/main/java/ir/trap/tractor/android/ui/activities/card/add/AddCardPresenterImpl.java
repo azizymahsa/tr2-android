@@ -27,9 +27,8 @@ public class AddCardPresenterImpl
         implements AddCardPresenter, View.OnClickListener, AddCardServiceImpl.OnFinishedActiveListener
 {
     private AddCardView addCardView;
-    private String expireMonth, cardNumber, expireYear, fullName;
+    private String cardNumber, fullName;
     private boolean isFavorite;
-    private int cvv;
     private AddCardServiceImpl addCardService;
     private Context context;
     private View view;
@@ -102,67 +101,6 @@ public class AddCardPresenterImpl
                     return;
                 }
 
-
-                if (!expireMonth.contains("_"))
-                {
-
-                    if (Integer.valueOf(expireMonth) > 12)
-                    {
-
-                        addCardView.onError("لطفا ماه انقضا کارت را درست وارد نمایید.");
-                        Utility.hideSoftKeyboard(view, context);
-                        return;
-                    }
-                    if (TextUtils.isEmpty(expireMonth))
-                    {
-                        addCardView.onError(context.getString(R.string.enter_expire_month));
-                        Utility.hideSoftKeyboard(view, context);
-
-                        return;
-                    }
-
-                    if (expireMonth.equals("00"))
-                    {
-                        addCardView.onError("لطفا ماه انقضا کارت را درست وارد نمایید.");
-                        Utility.hideSoftKeyboard(view, context);
-                        return;
-                    }
-                }
-
-                if (!expireYear.contains("_"))
-                {
-                    if (TextUtils.isEmpty(expireYear))
-                    {
-                        addCardView.onError(context.getString(R.string.enter_expire_year));
-                        Utility.hideSoftKeyboard(view, context);
-
-                        return;
-                    }
-
-
-
-              /*      if ((expireYear.equals("00")? 1400+Integer.valueOf(expireYear):1300+Integer.valueOf(expireYear))<1397){
-
-                        addCardView.onError("لطفا سال انقضا کارت را درست وارد نمایید.");
-                        Utility.hideSoftKeyboard(view,context);
-                        return;
-                    }*/
-
-                    PersianDate persianDate = new PersianDate();
-                    persianDate.setYear(expireYear.substring(0, 1).equals("0") ? 1400 + Integer.valueOf(expireYear) : 1300 + Integer.valueOf(expireYear));
-                    persianDate.setMonth(Integer.valueOf(expireMonth));
-                    persianDate.setDayOfMonth(10);
-                    CivilDate civilDate = DateConverter.persianToCivil(persianDate);
-
-
-                    if (!Utility.checkDate(civilDate.getYear(), civilDate.getMonth(), civilDate.getDayOfMonth()))
-                    {
-                        addCardView.onError("لطفا تاریخ انقضا کارت را درست وارد نمایید.");
-                        return;
-
-                    }
-
-                }
 //                List<ArchiveCardDBModel> archiveCardDBModels = ArchiveCardDBModel.listAll(ArchiveCardDBModel.class);
 //                if (contains(archiveCardDBModels, cardNumber))
 //                {
@@ -180,8 +118,7 @@ public class AddCardPresenterImpl
                     return;
                 }
                 addCardView.showLoading();
-                addCardService.findDataAddCardRequest(this, cardNumber, cvv, expireMonth, expireYear, fullName, isFavorite, Prefs.getInt("userId", 0));
-
+                addCardService.findDataAddCardRequest(this, cardNumber, fullName, isFavorite);
 
                 break;
             case R.id.imgBack:
@@ -209,13 +146,10 @@ public class AddCardPresenterImpl
 
 
     @Override
-    public void setCardDetail(String expireMonth, String cardNumber, String expireYear, String fullName, int cvv, boolean isFavorite)
+    public void setCardDetail(String cardNumber, String fullName, boolean isFavorite)
     {
-        this.expireMonth = expireMonth;
         this.cardNumber = cardNumber;
-        this.expireYear = expireYear;
         this.fullName = fullName;
-        this.cvv = cvv;
         this.isFavorite = isFavorite;
 
 

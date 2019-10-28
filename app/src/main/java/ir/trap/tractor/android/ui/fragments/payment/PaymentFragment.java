@@ -13,11 +13,11 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -29,7 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
+import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardFragment;
@@ -37,8 +37,6 @@ import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardParentActio
 import ir.trap.tractor.android.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
 import ir.trap.tractor.android.utilities.ClearableEditText;
 import ir.trap.tractor.android.utilities.Tools;
-import ir.trap.tractor.android.utilities.Utility;
-import okhttp3.internal.Util;
 
 public class PaymentFragment extends Fragment implements FavoriteCardParentActionView, PaymentParentActionView, PaymentActionView
 {
@@ -54,8 +52,9 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
     private View btnBack;
     private CircularProgressButton btnConfirmPayment;
     private ClearableEditText etCvv2, etPass;
+    private EditText edtExpYear, edtExpMound;
 
-    private LinearLayout llCvv2, llPass;
+    private LinearLayout llCvv2, llPass, llExpireDate;
     private RelativeLayout rlTitle;
 
     private PaymentParentActionView pActionView;
@@ -259,8 +258,11 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
         btnConfirmPayment = rootView.findViewById(R.id.btnBuy);
         etCvv2 = rootView.findViewById(R.id.etCvv2);
         etPass = rootView.findViewById(R.id.etPass);
+        edtExpYear = rootView.findViewById(R.id.edtExpYear);
+        edtExpMound = rootView.findViewById(R.id.edtExpMound);
         llCvv2 = rootView.findViewById(R.id.llCvv2);
         llPass = rootView.findViewById(R.id.llPass);
+        llExpireDate = rootView.findViewById(R.id.llExpireDate);
         rlTitle = rootView.findViewById(R.id.rlTitle);
 
         btnBack.setOnClickListener(clickListener);
@@ -292,52 +294,60 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
         }
         else if (v.getId() == R.id.btnBuy)
         {
-            switch (PAYMENT_STATUS)
+            if (setError())
             {
-                case TrapConfig.PAYMENT_STAUS_GDS_FLIGHT:
+                switch (PAYMENT_STATUS)
                 {
+                    case TrapConfig.PAYMENT_STAUS_GDS_FLIGHT:
+                    {
 
-                    break;
-                }
-                case TrapConfig.PAYMENT_STAUS_GDS_HOTEL:
-                {
+                        break;
+                    }
+                    case TrapConfig.PAYMENT_STAUS_GDS_HOTEL:
+                    {
 
-                    break;
-                }
-                case TrapConfig.PAYMENT_STAUS_GDS_BUS:
-                {
+                        break;
+                    }
+                    case TrapConfig.PAYMENT_STAUS_GDS_BUS:
+                    {
 
-                    break;
-                }
-                case TrapConfig.PAYMENT_STAUS_ChargeSimCard:
-                {
-                    irancellBuy.findDataIrancellBuyRequest(this,price,simcardType,operatorType
-                            ,typeCharge,etPass.getText().toString(),mobile,cvv2,expDate,cardId);
-                    break;
-                }
-                case TrapConfig.PAYMENT_STAUS_PackSimCard:
-                {
+                        break;
+                    }
+                    case TrapConfig.PAYMENT_STAUS_ChargeSimCard:
+                    {
+                        irancellBuy.findDataIrancellBuyRequest(this,price,simcardType,operatorType
+                                ,typeCharge,etPass.getText().toString(),mobile,cvv2,expDate,cardId);
+                        break;
+                    }
+                    case TrapConfig.PAYMENT_STAUS_PackSimCard:
+                    {
 
-                    break;
-                }
-                case TrapConfig.PAYMENT_STAUS_TransferMoney:
-                {
+                        break;
+                    }
+                    case TrapConfig.PAYMENT_STAUS_TransferMoney:
+                    {
 
-                    break;
-                }
-                case TrapConfig.PAYMENT_STAUS_WithoutCard:
-                {
+                        break;
+                    }
+                    case TrapConfig.PAYMENT_STAUS_WithoutCard:
+                    {
 
-                    break;
-                }
-                case TrapConfig.PAYMENT_STAUS_BillTicket:
-                {
+                        break;
+                    }
+                    case TrapConfig.PAYMENT_STAUS_BillTicket:
+                    {
 
-                    break;
+                        break;
+                    }
                 }
             }
         }
     };
+
+    private boolean setError()
+    {
+        return true;
+    }
 
     @Override
     public void onAttach(Context context)
@@ -421,6 +431,20 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
                 }).duration(200)
                         .playOn(llCvv2);
             }
+            if (llExpireDate.getVisibility() == View.VISIBLE)
+            {
+                YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
+                {
+                    @Override
+                    public void onAnimationEnd(Animator animation)
+                    {
+                        super.onAnimationEnd(animation);
+                        llExpireDate.setVisibility(View.GONE);
+
+                    }
+                }).duration(200)
+                        .playOn(llExpireDate);
+            }
         }
         else
         {
@@ -428,6 +452,10 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
             YoYo.with(Techniques.SlideInLeft)
                     .duration(200)
                     .playOn(llCvv2);
+            llExpireDate.setVisibility(View.VISIBLE);
+            YoYo.with(Techniques.SlideInLeft)
+                    .duration(200)
+                    .playOn(llExpireDate);
         }
         cardId=mCard.getCardId();
     }

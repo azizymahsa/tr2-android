@@ -1,13 +1,9 @@
 package ir.trap.tractor.android.ui.fragments.moneyTransfer;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -29,35 +25,22 @@ import androidx.fragment.app.FragmentTransaction;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
 import com.pixplicity.easyprefs.library.Prefs;
-import com.scottyab.aescrypt.AESCrypt;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.security.GeneralSecurityException;
-import java.util.List;
 import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.apiServices.generator.SingletonService;
-import ir.trap.tractor.android.apiServices.model.card.getCardList.Result;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
-import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
 import ir.trap.tractor.android.enums.TransferType;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardFragment;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardParentActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
-import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.utilities.ClearableEditText;
 import ir.trap.tractor.android.utilities.NumberTextWatcher;
 import ir.trap.tractor.android.utilities.Utility;
-import library.android.eniac.utility.GlideApp;
 
 /**
  * Created by Javad.Abadi on 7/10/2018.

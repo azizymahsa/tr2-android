@@ -42,7 +42,6 @@ public class CountTicketFragment
     private ImageView imgHost, imgGuest;
     private ProgressBar progress;
     private RelativeLayout llHeaderWeekNo;
-    //private CircularProgressButton btnPaymentConfirm;
     private int count = 1;
 
     public CountTicketFragment()
@@ -156,7 +155,6 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         imgGuest = view.findViewById(R.id.imgGuest);
         progress = view.findViewById(R.id.progress);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
-        //btnPaymentConfirm.setText("تایید و مرحله بعد");
         btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
 
         btnBackToDetail.setOnClickListener(this);

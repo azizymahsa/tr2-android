@@ -18,14 +18,6 @@ public class AddCardRequest
     @Expose @Getter @Setter
     private String fullName;
 
-    @SerializedName("expiration_date_year")
-    @Expose @Getter @Setter
-    private String expirationDateYear;
-
-    @SerializedName("expiration_date_month")
-    @Expose @Getter @Setter
-    private String expirationDateMonth;
-
     @SerializedName("order_list")
     @Expose @Getter @Setter
     private Integer orderList;
