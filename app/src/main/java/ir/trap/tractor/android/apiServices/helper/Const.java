@@ -60,6 +60,9 @@ public class Const
     //Bank List
     public final static String BANK_LIST = "api/v1/menu/bank/";
 
+    //Ticket
+    public final static String GetMatch = "api/v1/match/";
+
 
 
 }
