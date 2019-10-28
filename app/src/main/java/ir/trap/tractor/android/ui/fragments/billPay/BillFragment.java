@@ -1300,6 +1300,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
+    public void onBuyTicketClick()
+    {
+
+    }
+
+    @Override
     public void onBill()
     {
 

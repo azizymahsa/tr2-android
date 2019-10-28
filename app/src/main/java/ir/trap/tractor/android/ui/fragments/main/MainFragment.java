@@ -31,6 +31,7 @@ import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.adapters.MainServiceModelAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
+import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.trap.tractor.android.ui.others.MyCustomSliderView;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.StartEniacBusActivity;
@@ -47,7 +48,7 @@ import library.android.service.model.bus.searchBus.response.Company;
 import library.android.service.model.flight.reservation.response.ReservationResponse;
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
-        FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener
+        FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener, View.OnClickListener
 {
 //    private CircularProgressButton btnBus, btnFlight, btnHotel, btnDoTransfer, btnChargeSimCard, btnPackSimCard, btnBill;
 
@@ -68,6 +69,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
     private MainActionView mainView;
+    private View btnBuyTicket;
 
     public MainFragment()
     {
@@ -128,6 +130,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         setSlider();
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
+        btnBuyTicket=rootView.findViewById(R.id.btnBuyTicket);
+
+        btnBuyTicket.setOnClickListener(this);
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
         recyclerView.setLayoutManager(layoutManager);
@@ -483,5 +488,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 "0037250100293610", "1397", this, 0);
 
         flightActivity.startMainFlight();
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId()){
+            case R.id.btnBuyTicket:
+            mainView.onBuyTicketClick();
+            break;
+        }
     }
 }

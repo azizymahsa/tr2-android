@@ -37,8 +37,10 @@ public class CompeletInfoFragment
     private ImageView imgHost, imgGuest;
     private ProgressBar progress;
     private RelativeLayout llHeaderWeekNo;
-    private CircularProgressButton btnPaymentConfirm;
+   // private CircularProgressButton btnPaymentConfirm;
+    private View btnBackToDetail,btnPaymentConfirm;
     private int count = 1;
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
 
     public CompeletInfoFragment()
     {
@@ -47,16 +49,20 @@ public class CompeletInfoFragment
     /**
      * Receive the model list
      */
-    public static CompeletInfoFragment newInstance(String s)
+    public static CompeletInfoFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         CompeletInfoFragment fragment = new CompeletInfoFragment();
+        fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
         Bundle args = new Bundle();
         args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
 
         return fragment;
     }
-
+    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
+        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
+    }
     /*
     public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             ItemFragment fragment = new ItemFragment();
@@ -145,8 +151,13 @@ public class CompeletInfoFragment
         imgHost = view.findViewById(R.id.imgHost);
         imgGuest = view.findViewById(R.id.imgGuest);
         progress = view.findViewById(R.id.progress);
-        btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
-        btnPaymentConfirm.setText("تایید و مرحله بعد");
+        //btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
+       // btnPaymentConfirm.setText("تایید و مرحله بعد");
+
+        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
+        btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
+        btnBackToDetail.setOnClickListener(this);
+        btnPaymentConfirm.setOnClickListener(this);
 
         tvP.setOnClickListener(this);
         tvM.setOnClickListener(this);
@@ -187,7 +198,11 @@ public class CompeletInfoFragment
         switch (view.getId())
         {
             case R.id.btnPaymentConfirm:
+                onClickContinueBuyTicketListener.onContinueClicked();
 
+                break;
+            case R.id.btnBackToDetail:
+                onClickContinueBuyTicketListener.onBackClicked();
 
                 break;
 

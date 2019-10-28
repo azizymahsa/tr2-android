@@ -32,4 +32,5 @@ public interface MainActionView extends BaseView
 
     void startAddCardActivity();
 
+    void onBuyTicketClick();
 }

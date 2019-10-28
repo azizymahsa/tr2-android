@@ -33,12 +33,16 @@ public class CountTicketFragment
 {
 
     private static final String KEY_MODEL = "KEY_MODEL";
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
+    private View btnBackToDetail;
+    private View btnPaymentConfirm;
+
     private View view;
     private TextView tvStadiumName, tvDateTime, tvCount, tvM, tvP;
     private ImageView imgHost, imgGuest;
     private ProgressBar progress;
     private RelativeLayout llHeaderWeekNo;
-    private CircularProgressButton btnPaymentConfirm;
+    //private CircularProgressButton btnPaymentConfirm;
     private int count = 1;
 
     public CountTicketFragment()
@@ -48,25 +52,21 @@ public class CountTicketFragment
     /**
      * Receive the model list
      */
-    public static CountTicketFragment newInstance(String s)
-    {
+    public static CountTicketFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket) {
         CountTicketFragment fragment = new CountTicketFragment();
-        Bundle args = new Bundle();
+        fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
+       Bundle args = new Bundle();
         args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
 
         return fragment;
     }
 
-    /*
-    public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
-            ItemFragment fragment = new ItemFragment();
-            Bundle args = new Bundle();
-            args.putParcelableArray(KEY_MODEL, subMenuModels);
-            fragment.setArguments(args);
-            return fragment;
-        }
-    */
+    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
+        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
+    }
+
     private void setImageColor(ImageView imageView, String link)
     {
         try
@@ -89,6 +89,15 @@ public class CountTicketFragment
             Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
         }
     }
+/*
+public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
+        ItemFragment fragment = new ItemFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArray(KEY_MODEL, subMenuModels);
+        fragment.setArguments(args);
+        return fragment;
+    }
+*/
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -147,8 +156,10 @@ public class CountTicketFragment
         imgGuest = view.findViewById(R.id.imgGuest);
         progress = view.findViewById(R.id.progress);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
-        btnPaymentConfirm.setText("تایید و مرحله بعد");
+        //btnPaymentConfirm.setText("تایید و مرحله بعد");
+        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
 
+        btnBackToDetail.setOnClickListener(this);
         tvP.setOnClickListener(this);
         tvM.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
@@ -165,6 +176,7 @@ public class CountTicketFragment
         initView();
         Context context = view.getContext();
 
+
         return view;
     }
 
@@ -177,19 +189,20 @@ public class CountTicketFragment
     }
 
     @Override
-    public void onDetach()
-    {
+    public void onDetach() {
         super.onDetach();
     }
 
+
     @Override
-    public void onClick(View view)
+    public void onClick(View v)
     {
-        switch (view.getId())
-        {
+        switch (v.getId()){
             case R.id.btnPaymentConfirm:
-
-
+                onClickContinueBuyTicketListener.onContinueClicked();
+                break;
+            case R.id.btnBackToDetail:
+                onClickContinueBuyTicketListener.onBackClicked();
                 break;
 
             case R.id.tvM:
@@ -202,6 +215,7 @@ public class CountTicketFragment
                 break;
         }
         tvCount.setText(String.valueOf(count));
+
     }
 }
 
