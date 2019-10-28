@@ -3,7 +3,6 @@ package ir.trap.tractor.android.ui.fragments.ticket;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,45 +27,51 @@ import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
-public class CountTicketFragment
+public class CompeletInfoFragment
         extends Fragment implements View.OnClickListener
 {
 
     private static final String KEY_MODEL = "KEY_MODEL";
-    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private View btnBackToDetail;
-    private View btnPaymentConfirm;
-
     private View view;
     private TextView tvStadiumName, tvDateTime, tvCount, tvM, tvP;
     private ImageView imgHost, imgGuest;
     private ProgressBar progress;
     private RelativeLayout llHeaderWeekNo;
-    //private CircularProgressButton btnPaymentConfirm;
+   // private CircularProgressButton btnPaymentConfirm;
+    private View btnBackToDetail,btnPaymentConfirm;
     private int count = 1;
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
 
-    public CountTicketFragment()
+    public CompeletInfoFragment()
     {
     }
 
     /**
      * Receive the model list
      */
-    public static CountTicketFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket) {
-        CountTicketFragment fragment = new CountTicketFragment();
+    public static CompeletInfoFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
+        CompeletInfoFragment fragment = new CompeletInfoFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
-       Bundle args = new Bundle();
+        Bundle args = new Bundle();
         args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
 
         return fragment;
     }
-
     private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
     }
-
+    /*
+    public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
+            ItemFragment fragment = new ItemFragment();
+            Bundle args = new Bundle();
+            args.putParcelableArray(KEY_MODEL, subMenuModels);
+            fragment.setArguments(args);
+            return fragment;
+        }
+    */
     private void setImageColor(ImageView imageView, String link)
     {
         try
@@ -89,15 +94,6 @@ public class CountTicketFragment
             Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
         }
     }
-/*
-public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
-        ItemFragment fragment = new ItemFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArray(KEY_MODEL, subMenuModels);
-        fragment.setArguments(args);
-        return fragment;
-    }
-*/
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -155,11 +151,14 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         imgHost = view.findViewById(R.id.imgHost);
         imgGuest = view.findViewById(R.id.imgGuest);
         progress = view.findViewById(R.id.progress);
-        btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
-        //btnPaymentConfirm.setText("تایید و مرحله بعد");
-        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
+        //btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
+       // btnPaymentConfirm.setText("تایید و مرحله بعد");
 
+        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
+        btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
         btnBackToDetail.setOnClickListener(this);
+        btnPaymentConfirm.setOnClickListener(this);
+
         tvP.setOnClickListener(this);
         tvM.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
@@ -172,10 +171,9 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.count_ticket_fragment, container, false);
+        view = inflater.inflate(R.layout.complete_info_fragment, container, false);
         initView();
         Context context = view.getContext();
-
 
         return view;
     }
@@ -189,20 +187,23 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
     }
 
-
     @Override
-    public void onClick(View v)
+    public void onClick(View view)
     {
-        switch (v.getId()){
+        switch (view.getId())
+        {
             case R.id.btnPaymentConfirm:
                 onClickContinueBuyTicketListener.onContinueClicked();
+
                 break;
             case R.id.btnBackToDetail:
                 onClickContinueBuyTicketListener.onBackClicked();
+
                 break;
 
             case R.id.tvM:
@@ -215,7 +216,6 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                 break;
         }
         tvCount.setText(String.valueOf(count));
-
     }
 }
 
