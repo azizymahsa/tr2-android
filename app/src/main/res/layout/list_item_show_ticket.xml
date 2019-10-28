@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30dp"
                 android:textColor="@color/_title_black"
-                android:textSize="@dimen/textSize_10dp"
+                android:textSize="@dimen/textSize_12dp"
                 android:maxLines="1"
                 android:gravity="center_vertical|right"
                 android:text="test"
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30dp"
                 android:textColor="@color/_title_black"
-                android:textSize="@dimen/textSize_10dp"
+                android:textSize="@dimen/textSize_12dp"
                 android:maxLines="1"
                 android:text="last name"
                 android:gravity="center_vertical|right"
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30dp"
                 android:textColor="@color/_title_black"
-                android:textSize="@dimen/textSize_10dp"
+                android:textSize="@dimen/textSize_12dp"
                 android:gravity="center_vertical|right"
                 android:text="0012225555"
                 android:maxLines="1"
@@ -97,15 +97,12 @@
 
             <ImageView
                 android:id="@+id/ivBarcode"
-                android:layout_width="@dimen/_100dp"
+                android:layout_width="@dimen/_90dp"
                 android:layout_height="@dimen/_70dp"
                 android:rotation="90"
                 />
 
-
         </LinearLayout>
     </LinearLayout>
-
-
 
 </LinearLayout>
