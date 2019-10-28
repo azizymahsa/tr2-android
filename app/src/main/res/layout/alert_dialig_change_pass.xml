@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="20dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="5dp">
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--&lt;!&ndash;        <View&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_alignLeft="@id/actual_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_alignTop="@+id/actual_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_alignRight="@id/actual_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_alignBottom="@id/actual_content" />&ndash;&gt;-->
+
+<!--    </RelativeLayout>-->
+
+    <LinearLayout
+        android:id="@+id/actual_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/alert_background"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="تغییر رمز دوم"
+            android:textAppearance="@style/IranSansBold"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/textSize_16dp" />
+
+
+        <LinearLayout
+            android:id="@+id/llPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etLayoutPass"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:theme="@style/EditTextHint"
+                app:hintTextAppearance="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/etPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/textColorPrimary"
+                    android:gravity="right|center"
+                    android:hint="رمز کارت را وارد نمایید"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/_10sdp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etLayoutNewPass"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:theme="@style/EditTextHint"
+                app:hintTextAppearance="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/etNewPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/textColorPrimary"
+                    android:gravity="right|center"
+                    android:hint="رمز کارت جدید را وارد نمایید"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/_10sdp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etLayoutRepeatNewPass"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:theme="@style/EditTextHint"
+                app:hintTextAppearance="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/etRepeatNewPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/textColorPrimary"
+                    android:gravity="right|center"
+                    android:hint="رمز جدید را مجددا وارد نمایید"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/_10sdp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvConfirmForget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:minHeight="@dimen/_100dp"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="@dimen/textSize_14dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_weight="100">
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnCancelEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/background_border_a"
+                    android:text="انصراف"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:transitionName="transition"
+                    app:finalCornerAngle="50dp"
+                    app:initialCornerAngle="50dp"
+                    app:spinning_bar_color="@color/white"
+                    app:spinning_bar_width="2dp" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_weight="100">
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnConfirmEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/background_border_a"
+                    android:text="تغییر رمز دوم"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:transitionName="transition"
+                    app:finalCornerAngle="50dp"
+                    app:initialCornerAngle="50dp"
+                    app:spinning_bar_color="@color/white"
+                    app:spinning_bar_width="2dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvForgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center|top"
+            android:text="فراموشی رمز دوم"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="@dimen/textSize_12dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -13,28 +13,11 @@ import okhttp3.ResponseBody;
 public class AddCardServiceImpl implements AddCardIntractor
 {
     @Override
-    public void findDataAddCardRequest(OnFinishedActiveListener listener, String cardNumber, int cvv, String expirationDateMonth,
-                                       String expirationDateYear, String fullName, boolean isFavorite, int userId)
+    public void findDataAddCardRequest(OnFinishedActiveListener listener, String cardNumber,
+                                       String fullName, boolean isFavorite)
     {
-        String mExpirationDateMonth = expirationDateMonth.replaceAll("-", "").replaceAll("_", "").replaceAll(" ", "");
-        String mExpirationDateYear = expirationDateYear.replaceAll("-", "").replaceAll("_", "").replaceAll(" ", "");
-
-        if (mExpirationDateMonth.equalsIgnoreCase(""))
-        {
-            mExpirationDateMonth = "0";
-        }
-
-        if (mExpirationDateYear.equalsIgnoreCase(""))
-        {
-            mExpirationDateYear = "0";
-        }
-
-
-
         AddCardRequest addCardRequest = new AddCardRequest();
         addCardRequest.setCardNumber(cardNumber);
-        addCardRequest.setExpirationDateMonth(mExpirationDateMonth);
-        addCardRequest.setExpirationDateYear(mExpirationDateYear);
         addCardRequest.setFullName(fullName);
         addCardRequest.setOrderList(1);
 

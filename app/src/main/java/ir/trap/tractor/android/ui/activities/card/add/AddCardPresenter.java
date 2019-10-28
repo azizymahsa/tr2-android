@@ -8,5 +8,5 @@ import ir.trap.tractor.android.ui.base.BasePresenter;
  */
 public interface AddCardPresenter extends BasePresenter
 {
-    void setCardDetail(String expireMonth, String cardNumber, String expireYear, String etFullName, int cvv, boolean isFavorite);
+    void setCardDetail(String cardNumber, String etFullName, boolean isFavorite);
 }

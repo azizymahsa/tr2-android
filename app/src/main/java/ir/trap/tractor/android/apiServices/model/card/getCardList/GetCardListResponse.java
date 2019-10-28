@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import ir.trap.tractor.android.apiServices.model.card.Result;
 import lombok.Getter;
 import lombok.Setter;
 

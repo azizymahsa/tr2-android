@@ -1,6 +1,7 @@
 package ir.trap.tractor.android.utilities;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.InputFilter;
@@ -207,6 +208,7 @@ public class ClearableEditText extends MaskedEditText implements OnTouchListener
         if (xD == null)
         {
             xD = getResources().getDrawable(R.drawable.ic_clears);
+            xD.setColorFilter(getResources().getColor(R.color.textColorPrimary), PorterDuff.Mode.MULTIPLY);
         }
         xD.setBounds(0, 0, xD.getIntrinsicWidth(), xD.getIntrinsicHeight());
         int min = getPaddingTop() + xD.getIntrinsicHeight() + getPaddingBottom();

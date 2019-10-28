@@ -7,4 +7,6 @@ public interface FavoriteCardParentActionView
     void hideFavoriteCardParentLoading();
 
     void startAddCardActivity();
+
+
 }
