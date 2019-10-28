@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nested"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+            <LinearLayout
+                android:layout_width="@dimen/_10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvDescTicket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_weight="100"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_14dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_gravity="right"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_weight="100"
+                android:text="@string/buy_ticket_description"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_14dp"
+                android:layout_gravity="right"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_alignParentLeft="true"
+                    android:text="جایگاه شماره 14"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize_14dp"
+                    />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="شماره پیگیری : 222111555"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:layout_gravity="right"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+        </LinearLayout>
+
+      <!--  <LinearLayout
+            android:id="@+id/llAllBoxesSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20" />
+
+            <LinearLayout
+                android:layout_width="@dimen/_10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="روش اول :"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:textColor="@color/warmGray"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:layout_gravity="right"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="@dimen/_40dp"
+                    android:text="روش دوم :"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:textColor="@color/warmGray"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:layout_gravity="right"/>
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20" />
+
+        </LinearLayout>-->
+    <LinearLayout
+        android:id="@+id/llAllBoxesSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTickets"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+    </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_10dp">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100">
+
+                <!--    <include
+                        android:id="@+id/btnBackToDetail"
+                        layout="@layout/return_button"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_30dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp" />-->
+
+                    <ImageView
+                        android:id="@+id/btnShareTicket"
+                        android:layout_width="@dimen/_35dp"
+                        android:layout_height="@dimen/_35dp"
+                        android:background="@drawable/button_small_border"
+                        android:src="@drawable/ic_share_36dp"
+                        android:layout_marginRight="@dimen/_10dp"
+                        android:layout_marginLeft="@dimen/_10dp"
+                        android:padding="@dimen/_5sdp"
+                        android:tint="@color/buttonHeaderBackgroundColor"
+                        android:foreground="?attr/selectableItemBackground"
+                        />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="100">
+
+                    <include
+                        android:id="@+id/btnPaymentConfirm"
+                        layout="@layout/circular_progress_button_show_ticket"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35dp"
+                        android:layout_gravity="center"
+                         />
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

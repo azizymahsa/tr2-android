@@ -9,6 +9,7 @@ import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.trap.tractor.android.ui.fragments.ticket.CountTicketFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.trap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
+import ir.trap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
 import ir.trap.tractor.android.utilities.Tools;
 
 public class PagerAdapter
@@ -51,7 +52,7 @@ public class PagerAdapter
                 CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3",buyTickets);
                 return tab3;
             case 3:
-                SelectPositionFragment tab4 = SelectPositionFragment.newInstance("TAB4",buyTickets);
+                ShowTicketsFragment tab4 = ShowTicketsFragment.newInstance("TAB4",buyTickets);
                 return tab4;
 
 
