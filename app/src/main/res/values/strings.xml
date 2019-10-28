@@ -49,4 +49,6 @@
     <string name="select_position_tiitle">لطفا جایگاه مطلوب خود را انتخاب کنید :</string>
     <string name="_confirm_next">تایید و مرحله بعد</string>
     <string name="_confirm_peyment">تایید و پرداخت</string>
+    <string name="buy_ticket_description">با تشکر از اینکه به عنوان یک هوادار در این بازی همراه تیم ما هستید، لطفا اطلاعات مندرج در بلیط خریداری شده به همراه کد ملی خود را هنگام ورود به ورزشگاه همراه داشته باشید.</string>
+    <string name="backToBuyTicket">بازگشت به خرید بلیط</string>
 </resources>
