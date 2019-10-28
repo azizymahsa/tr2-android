@@ -42,7 +42,6 @@ public class ShowTicketsFragment  extends Fragment implements View.OnClickListen
     private RecyclerView rvTickets;
     private LinearLayoutManager linearLayoutManager;
     private ShowTicketAdapter showTicketAdapter;
-    private ImageView ivBarcode;
     private ArrayList<ShowTicketItem> ticketItems = new ArrayList<>();;
 
 
@@ -88,9 +87,6 @@ public class ShowTicketsFragment  extends Fragment implements View.OnClickListen
 
     private void initView()
     {
-        ivBarcode=view.findViewById(R.id.ivBarcode);
-        ivBarcode.setVisibility(View.GONE);
-
         tvDescTicket=view.findViewById(R.id.tvDescTicket);
         btnShareTicket=view.findViewById(R.id.btnShareTicket);
         btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
@@ -119,23 +115,8 @@ public class ShowTicketsFragment  extends Fragment implements View.OnClickListen
         showTicketAdapter = new ShowTicketAdapter(ticketItems);
         rvTickets.setAdapter(showTicketAdapter);
 
-        setBarcode();
-    }
 
-    private void setBarcode()
-    {
-        String text="0480759294"; // Whatever you need to encode in the QR code
-        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-        try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.CODE_128,200,200);
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-            ivBarcode.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
     }
-
 
     @Override
     public void onAttach(Context context)

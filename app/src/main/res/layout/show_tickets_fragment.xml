@@ -48,6 +48,32 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize_14dp"
                 android:layout_gravity="right"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_alignParentLeft="true"
+                    android:text="جایگاه شماره 14"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize_14dp"
+                    />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="شماره پیگیری : 222111555"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:layout_gravity="right"/>
+                </RelativeLayout>
             </LinearLayout>
             <Space
                 android:layout_width="0dp"
@@ -103,20 +129,34 @@
                 android:layout_weight="20" />
 
         </LinearLayout>-->
-        <ImageView
-            android:id="@+id/ivBarcode"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200dp"
-            />
+    <LinearLayout
+        android:id="@+id/llAllBoxesSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTickets"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
-            <LinearLayout
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+    </LinearLayout>
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
