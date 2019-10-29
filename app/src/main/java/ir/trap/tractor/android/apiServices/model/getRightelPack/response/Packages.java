@@ -9,6 +9,10 @@ import java.util.List;
 public class Packages {
 
 
+    @SerializedName("request_id")
+    @Expose
+    private String requestId;
+
     @SerializedName("ten_days")
     @Expose
     private List<Detail> tenDays = null;
@@ -53,6 +57,16 @@ public class Packages {
     @SerializedName("three_days")
     @Expose
     private List<Detail> threeDays = null;
+
+    public String getRequestId()
+    {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId)
+    {
+        this.requestId = requestId;
+    }
 
     public List<Detail> getTenDays() {
         return tenDays;

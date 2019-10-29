@@ -6,53 +6,52 @@ import com.google.gson.annotations.SerializedName;
 
 public class PackageBuyRequest
 {
-
-    @SerializedName("BundleId")
-    @Expose
-    private String bundleId;
-    @SerializedName("PackageType")
-    @Expose
-    private String packageType;
-    @SerializedName("UserId")
-    @Expose
-    private Integer userId;
-    @SerializedName("Mobile")
-    @Expose
-    private String mobileNumber;
-    @SerializedName("Pan")
-    @Expose
-    private String cardNumber;
-    @SerializedName("Pin2")
-    @Expose
-    private String password;
-    @SerializedName("TitlePackage")
-    @Expose
-    private String titlePackage;
-    @SerializedName("Amount")
-    @Expose
-    private Integer amount;
-    @SerializedName("Cvv2")
-    @Expose
-    private String cvv2;
-    @SerializedName("ExpDate")
-    @Expose
-    private String expDate;
-    @SerializedName("OperatorType")
-    @Expose
-    private String operatorType;
-    @SerializedName("RequestId")
+    @SerializedName("request_id")
     @Expose
     private String requestId;
-    @SerializedName("ProfileId")
-    @Expose
-    private String profileId;
 
-    public String getProfileId() {
-        return profileId;
+    @SerializedName("operator_type")
+    @Expose
+    private String operatorType;
+
+    @SerializedName("card_id")
+    @Expose
+    private Integer cardId;
+
+    @SerializedName("title_package")
+    @Expose
+    private String titlePackage;
+
+    @SerializedName("bundle_id")
+    @Expose
+    private String bundleId;
+
+    @SerializedName("mobile")
+    @Expose
+    private String mobile;
+
+    @SerializedName("pin2")
+    @Expose
+    private String pin2;
+
+    @SerializedName("cvv2")
+    @Expose
+    private String cvv2;
+
+    @SerializedName("exp_Date")
+    @Expose
+    private String expDate;
+
+    @SerializedName("amount")
+    @Expose
+    private Integer amount;
+
+    public String getRequestId() {
+        return requestId;
     }
 
-    public void setProfileId(String profileId) {
-        this.profileId = profileId;
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     public String getOperatorType() {
@@ -63,12 +62,44 @@ public class PackageBuyRequest
         this.operatorType = operatorType;
     }
 
-    public String getRequestId() {
-        return requestId;
+    public Integer getCardId() {
+        return cardId;
     }
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
+    public void setCardId(Integer cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getTitlePackage() {
+        return titlePackage;
+    }
+
+    public void setTitlePackage(String titlePackage) {
+        this.titlePackage = titlePackage;
+    }
+
+    public String getBundleId() {
+        return bundleId;
+    }
+
+    public void setBundleId(String bundleId) {
+        this.bundleId = bundleId;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPin2() {
+        return pin2;
+    }
+
+    public void setPin2(String pin2) {
+        this.pin2 = pin2;
     }
 
     public String getCvv2() {
@@ -85,62 +116,6 @@ public class PackageBuyRequest
 
     public void setExpDate(String expDate) {
         this.expDate = expDate;
-    }
-
-    public String getBundleId() {
-        return bundleId;
-    }
-
-    public void setBundleId(String bundleId) {
-        this.bundleId = bundleId;
-    }
-
-    public String getPackageType() {
-        return packageType;
-    }
-
-    public void setPackageType(String packageType) {
-        this.packageType = packageType;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getTitlePackage() {
-        return titlePackage;
-    }
-
-    public void setTitlePackage(String titlePackage) {
-        this.titlePackage = titlePackage;
     }
 
     public Integer getAmount() {

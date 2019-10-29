@@ -30,7 +30,7 @@ public class Const
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
 
-    public final static String PACKAGE_BUY = SubBASEURL + "InternetPackage/v1/PackageBuy";
+    public final static String PACKAGE_BUY = SubBASEURL + "v1/internetpackage/package_buy/";
 
     public final static String GetInfoPhoneBill = SubBASEURL + "Bill/v1/GetInfoPhoneBill";
     public final static String BillPayment = SubBASEURL + "Bill/v1/BillPayment";
