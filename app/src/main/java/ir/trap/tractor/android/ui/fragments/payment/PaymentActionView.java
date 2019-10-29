@@ -1,5 +1,7 @@
 package ir.trap.tractor.android.ui.fragments.payment;
 
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 
 public interface PaymentActionView
@@ -9,7 +11,9 @@ public interface PaymentActionView
     void onPaymentGDSBus();
 
     void onPaymentChargeSimCard(MobileChargeResponse data, String mobile);
-    void onPaymentPackSimCard();
+    void onPaymentPackSimCard(PackageBuyResponse response, String mobile);
+
+    void onErrorPackSimcard(String message);
 
     void onPaymentTransferMoney();
 
