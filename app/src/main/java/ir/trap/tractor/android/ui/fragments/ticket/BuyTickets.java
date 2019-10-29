@@ -83,9 +83,9 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         rootView = inflater.inflate(R.layout.fragment_buy_ticket, container, false);
         initView();
         // define TabLayout
-        tabLayout.addTab(tabLayout.newTab().setText("تعداد بلیط"));
         tabLayout.addTab(tabLayout.newTab().setText("انتخاب جایگاه"));
         tabLayout.addTab(tabLayout.newTab().setText("تکمیل اطلاعات"));
+        tabLayout.addTab(tabLayout.newTab().setText("پرداخت"));
         tabLayout.addTab(tabLayout.newTab().setText("صدور بلیط"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

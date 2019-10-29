@@ -26,6 +26,7 @@ import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
 import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
 import ir.trap.tractor.android.apiServices.model.getHappyCardInfo.GetHappyCardInfoRequest;
 import ir.trap.tractor.android.apiServices.model.getHappyCardInfo.response.GetHappyCardInfoResponse;
+import ir.trap.tractor.android.apiServices.model.getHistory.ResponseHistory;
 import ir.trap.tractor.android.apiServices.model.getInfoBill.request.GetInfoBillRequest;
 import ir.trap.tractor.android.apiServices.model.getInfoBill.response.GetInfoBillResponse;
 import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillRequest;
@@ -227,5 +228,8 @@ public interface RetroClient
 
     @GET(Const.GetMatch)
     Single<Response<WebServiceClass<ResponseMatch>>> getMatch();
+
+    @GET(Const.GetHistory)
+    Single<Response<WebServiceClass<ResponseHistory>>> getHistory();
 
 }

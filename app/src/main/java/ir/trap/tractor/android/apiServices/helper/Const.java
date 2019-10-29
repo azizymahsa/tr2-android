@@ -68,6 +68,7 @@ public class Const
     //Ticket
     public final static String GetMatch = "api/v1/match/";
 
-
+    //History
+    public final static String GetHistory = "api/v1/club_history/get_history/";
 
 }
