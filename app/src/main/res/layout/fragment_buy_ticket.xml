@@ -123,7 +123,7 @@
                         android:layout_height="@dimen/_20dp"
                         android:layout_centerHorizontal="true"
                         android:scaleType="center"
-                        android:src="@drawable/select_step" />
+                        android:src="@drawable/select_step_non" />
 
                 </LinearLayout>
 
@@ -154,7 +154,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="تکمیل اطلاعات"
+                        android:text="پرداخت"
                         android:textColor="@color/_disable_color"
                         android:textSize="@dimen/textSize_12dp" />
 
@@ -165,7 +165,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="انتخاب جایگاه "
+                        android:text="تکمیل اطلاعات"
                         android:textColor="@color/_disable_color"
                         android:textSize="@dimen/textSize_12dp" />
 
@@ -176,7 +176,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="تعداد بلیط "
+                        android:text="انتخاب جایگاه "
                         android:textColor="@color/g_btn_gradient_lighter"
                         android:textSize="@dimen/textSize_12dp" />
                 </LinearLayout>
