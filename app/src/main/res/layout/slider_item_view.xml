@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="ltr"
@@ -18,38 +17,40 @@
             android:id="@+id/imgBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/button_main_background_border"/>
+            android:adjustViewBounds="true"
+            android:background="@drawable/button_main_background_border"
+            android:scaleType="fitCenter" />
 
         <RelativeLayout
             android:id="@+id/llHeaderWeekNo"
             android:layout_width="@dimen/_70dp"
             android:layout_height="@dimen/_45dp"
-            android:orientation="horizontal"
-            android:background="@drawable/header_main_week_no_background">
+            android:background="@drawable/header_main_week_no_background"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="12dp"
                 android:layout_alignParentTop="true"
-                android:text="5"
-                android:gravity="top"
                 android:layout_gravity="top"
-                android:textSize="@dimen/headerMainWeekNoTextSize"
-                android:textColor="@color/headerMainWeekNoTextColor"/>
+                android:layout_marginLeft="12dp"
+                android:gravity="top"
+                android:text="5"
+                android:textColor="@color/headerMainWeekNoTextColor"
+                android:textSize="@dimen/headerMainWeekNoTextSize" />
 
             <TextView
-                android:layout_toRightOf="@+id/tvHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="/30"
                 android:layout_gravity="bottom|center_horizontal"
+                android:layout_toRightOf="@+id/tvHeaderText"
                 android:gravity="bottom"
-                android:textSize="@dimen/headerMainWeekNoSubTextSize"
-                android:textColor="@color/headerMainWeekNoTextColor"/>
+                android:text="/30"
+                android:textColor="@color/headerMainWeekNoTextColor"
+                android:textSize="@dimen/headerMainWeekNoSubTextSize" />
 
         </RelativeLayout>
 
@@ -62,54 +63,55 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="3">
 
                 <ImageView
                     android:id="@+id/imgGuest"
-                    android:layout_alignParentRight="true"
                     android:layout_width="@dimen/_70sdp"
-                    android:src="@drawable/img_guest_test"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/img_guest_test" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="2">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_soccer"/>
+                    android:src="@drawable/ic_soccer" />
 
                 <ProgressBar
                     android:id="@+id/progress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="3">
 
                 <ImageView
                     android:id="@+id/imgHost"
-                    android:layout_alignParentLeft="true"
                     android:layout_width="@dimen/_70sdp"
-                    android:src="@drawable/img_tractor"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/img_tractor" />
 
             </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/llCenterView"
@@ -120,18 +122,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:text="ورزشگاه یادگار امام تبریز"
                 android:textColor="@color/textColorStadiumName"
-                android:textSize="@dimen/textSize_14dp"
-                android:text="ورزشگاه یادگار امام تبریز"/>
+                android:textSize="@dimen/textSize_14dp" />
 
             <TextView
                 android:id="@+id/tvDateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:text="یکشنبه 12 آبان 1398 - 18:00 "
                 android:textColor="@color/textColorSecondary"
-                android:textSize="@dimen/textSize_16dp"
-                android:text="یکشنبه 12 آبان 1398 - 18:00 "/>
+                android:textSize="@dimen/textSize_16dp" />
 
         </LinearLayout>
 

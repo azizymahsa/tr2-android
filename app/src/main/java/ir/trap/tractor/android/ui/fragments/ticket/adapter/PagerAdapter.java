@@ -43,13 +43,16 @@ public class PagerAdapter
         switch (position)
         {
             case 0:
-                 CountTicketFragment tab1 = CountTicketFragment.newInstance("TAB1",buyTickets);
+                SelectPositionFragment tab1 = SelectPositionFragment.newInstance("TAB2",buyTickets);
+
                 return tab1;
             case 1:
-                SelectPositionFragment tab2 = SelectPositionFragment.newInstance("TAB2",buyTickets);
+                CompeletInfoFragment tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets);
+
                 return tab2;
-            case 2:
-                CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3",buyTickets);
+            case 2://پرداخت
+                 CountTicketFragment tab3 = CountTicketFragment.newInstance("TAB1",buyTickets);
+
                 return tab3;
             case 3:
                 ShowTicketsFragment tab4 = ShowTicketsFragment.newInstance("TAB4",buyTickets);
