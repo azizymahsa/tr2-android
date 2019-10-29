@@ -28,6 +28,8 @@ import ir.trap.tractor.android.apiServices.part.LoginService;
 import ir.trap.tractor.android.apiServices.part.MerchantService;
 import ir.trap.tractor.android.apiServices.part.MobileChargeService;
 import ir.trap.tractor.android.apiServices.part.PackageBuyService;
+import ir.trap.tractor.android.apiServices.part.SheatcChangePassService;
+import ir.trap.tractor.android.apiServices.part.SheatcForgotPassService;
 import ir.trap.tractor.android.apiServices.part.TicketService;
 import ir.trap.tractor.android.apiServices.part.VerifyService;
 import okhttp3.OkHttpClient;
@@ -200,6 +202,16 @@ public class SingletonService
     public BankListService getBankListService()
     {
         return new BankListService(serviceGenerator);
+    }
+
+    public SheatcChangePassService doChangePassService()
+    {
+        return new SheatcChangePassService(serviceGenerator);
+    }
+
+    public SheatcForgotPassService doForgotPassService()
+    {
+        return new SheatcForgotPassService(serviceGenerator);
     }
 
 

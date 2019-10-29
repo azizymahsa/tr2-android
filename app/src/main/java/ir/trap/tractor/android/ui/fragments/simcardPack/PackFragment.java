@@ -76,6 +76,7 @@ import ir.trap.tractor.android.ui.fragments.simcardPack.imp.irancell.GetPackageI
 import ir.trap.tractor.android.ui.fragments.simcardPack.imp.mci.PackageMciImpl;
 import ir.trap.tractor.android.ui.fragments.simcardPack.imp.rightel.RightelPackImpl;
 import ir.trap.tractor.android.utilities.ClearableEditText;
+import ir.trap.tractor.android.utilities.Logger;
 import library.android.eniac.utility.Utility;
 
 /**
@@ -1146,7 +1147,7 @@ public class PackFragment
     private int getOperatorType(String phoneNo)
     {
         String startPhoneNo = phoneNo.substring(0, 4);
-        Log.e("-startPhoneNo-", startPhoneNo);
+        Logger.e("-startPhoneNo-", startPhoneNo);
 
 
         String[] typeMCI_No = {"0990", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919"};
