@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.drawer;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,6 +28,8 @@ import java.util.List;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.models.otherModels.MenuItems;
 import ir.trap.tractor.android.ui.adapters.MenuDrawerAdapter;
+import ir.trap.tractor.android.utilities.Logger;
+import ir.trap.tractor.android.utilities.Tools;
 
 public class MenuDrawer extends Fragment
 {
@@ -79,6 +82,10 @@ public class MenuDrawer extends Fragment
         recyclerView = layout.findViewById(R.id.drawerList);
 
         imgMenu = layout.findViewById(R.id.imgMenu);
+        imgMenu.setOnClickListener(v ->
+        {
+            Logger.e("--btnBack Drawer--", "Clicked");
+        });
 
 
         dataList = new ArrayList<>();
@@ -106,6 +113,10 @@ public class MenuDrawer extends Fragment
             @Override
             public void onClick(View view, int position)
             {
+                Logger.e("--click menu Drawer--", "Clicked");
+
+                Tools.showToast(view.getContext(), "click menu");
+
                 drawerListener.onDrawerItemSelected(view, dataList.get(position).getId());
                 if (position != 0)
                 {

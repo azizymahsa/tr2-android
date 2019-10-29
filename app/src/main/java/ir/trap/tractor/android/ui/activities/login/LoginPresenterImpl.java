@@ -208,6 +208,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
         LoginRequest request = new LoginRequest();
         request.setUsername(mobileNumber.getText().toString());
+        Prefs.putString("mobile", mobileNumber.getText().toString());
         SingletonService.getInstance().getLoginService().login(this, request);
 
 

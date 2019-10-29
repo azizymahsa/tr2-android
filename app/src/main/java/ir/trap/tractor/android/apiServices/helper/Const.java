@@ -14,59 +14,78 @@ public class Const
     private static final String SubBASEURLTest = "ApiDiba/";
     //-----------------------------------------------------------------------------
 
+    //Login
     public final static String Login = SubBASEURL + "v1/user/login/";
-    public final static String Verify =SubBASEURL +"v1/user/login/verify/";
+    public final static String Verify = SubBASEURL + "v1/user/login/verify/";
+
+
+    //Menu
     public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
     public final static String GetMenuAll = SubBASEURL + "v1/menu/get_all_services/";
-    public final static String GetMyBills = SubBASEURL + "v1/bill/";
-    public final static String GetBillCodePayCode= SubBASEURL +"v1/bill/get_bill_code_pay_code/";
-    public final static String BuyCharge = SubBASEURL+"v1/topupcharge/buy_charge/";
+    public final static String GetAllBoxes = SubBASEURL + "v1/match/{id}/all_boxes/";
 
-    public final static String GetAllBoxes=SubBASEURL+"v1/match/{id}/all_boxes/";
 
-    public final static String MOBILE_CHARGE = SubBASEURL + "TopupCharge/v2/BuyCharge";
-
+    //Mobile
+    public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
+    public final static String BUY_MOBILE_PACKAGE = SubBASEURL + "InternetPackage/v1/PackageBuy";
     public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/";
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
 
-    public final static String PACKAGE_BUY = SubBASEURL + "v1/internetpackage/package_buy/";
-
+    //Bill
+    public final static String GetMyBills = SubBASEURL + "v1/bill/";
+    public final static String GetBillCodePayCode = SubBASEURL + "v1/bill/get_bill_code_pay_code/";
     public final static String GetInfoPhoneBill = SubBASEURL + "Bill/v1/GetInfoPhoneBill";
     public final static String BillPayment = SubBASEURL + "Bill/v1/BillPayment";
     public final static String GetInfoBill = SubBASEURL + "Bill/v1/GetInfoBill";
 
+
+    //card_Shetac (HappyCard)
+    public final static String FORGOT_PASS2 = SubBASEURL + "v1/shetac/forget_password_tow/";
+    public final static String CHANGE_PASS2 = SubBASEURL + "v1/shetac/change_password_tow/";
     public final static String GetHappyCardInfo = SubBASEURL + "Happy/v1/GetCardInfo";
     public final static String GetShetabCardInfo = SubBASEURL + "Shetab/v1/GetCardInfo";
     public final static String DoTransferCard = SubBASEURL + "Shetab/v1/DoTransfer";
 
-    //Hotel
-    public final static String HotelSendMessage = SubBASEURLTest + "GdsHotel/v1/SendMessage";
-    public final static String HotelGetUserPass = SubBASEURLTest + "GdsHotel/v1/GetAccountInfo";
-    public final static String HotelPayment = SubBASEURLTest + "GdsHotel/v1/HotelPayment";
-    //flight
-    public final static String FlightPayment = SubBASEURLTest + "GdsFlight/v1/FlightPayment";
-    public final static String FlightSendMessage = SubBASEURLTest + "GdsFlight/v1/SendMessage";
-    public final static String FlightGetUserPass = SubBASEURLTest + "GdsFlight/v1/GetAccountInfo";
-    //Bus
-    public final static String SendBusMessage = SubBASEURLTest + "GdsBus/v1/SendMessage";
-    public final static String GetBusUserPass = SubBASEURLTest + "GdsBus/v1/GetAccountInfo";
-    public final static String BusPayment = SubBASEURLTest + "GdsBus/v1/BusPayment";
 
-    //card
+    //card_Shetab
     public final static String GetCardList = SubBASEURL + "v1/card/";
     public final static String AddCard = SubBASEURL + "v1/card/";
     public final static String DeleteCard = SubBASEURL + "v1/card/";
     public final static String EditCard = SubBASEURL + "v1/card/";
 
+
+    //Hotel
+    public final static String HotelSendMessage = SubBASEURLTest + "GdsHotel/v1/SendMessage";
+    public final static String HotelGetUserPass = SubBASEURLTest + "GdsHotel/v1/GetAccountInfo";
+    public final static String HotelPayment = SubBASEURLTest + "GdsHotel/v1/HotelPayment";
+
+
+    //flight
+    public final static String FlightPayment = SubBASEURLTest + "GdsFlight/v1/FlightPayment";
+    public final static String FlightSendMessage = SubBASEURLTest + "GdsFlight/v1/SendMessage";
+    public final static String FlightGetUserPass = SubBASEURLTest + "GdsFlight/v1/GetAccountInfo";
+
+
+    //Bus
+    public final static String SendBusMessage = SubBASEURLTest + "GdsBus/v1/SendMessage";
+    public final static String GetBusUserPass = SubBASEURLTest + "GdsBus/v1/GetAccountInfo";
+    public final static String BusPayment = SubBASEURLTest + "GdsBus/v1/BusPayment";
+
+
+
+    //Pos
     public final static String DECRYPTQRCODE = "api/v1/payment/decrypt_qr_code/";
-    public final static String PAYMENT = "api/v1/payment/payment_print_pos/";
+    public final static String PAYMENT_PRINT_pOS = "api/v1/payment/payment_print_pos/";
+
 
     //Bank List
     public final static String BANK_LIST = "api/v1/menu/bank/";
 
+
     //Ticket
     public final static String GetMatch = "api/v1/match/";
+
 
     //History
     public final static String GetHistory = "api/v1/club_history/get_history/";

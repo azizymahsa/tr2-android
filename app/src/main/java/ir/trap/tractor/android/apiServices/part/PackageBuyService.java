@@ -9,17 +9,21 @@ import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyR
 /**
  * Created by Javad.Abadi on 8/25/2018.
  */
-public class PackageBuyService extends BasePart{
-    public PackageBuyService(ServiceGenerator serviceGenerator) {
+public class PackageBuyService extends BasePart
+{
+    public PackageBuyService(ServiceGenerator serviceGenerator)
+    {
         super(serviceGenerator);
     }
 
     @Override
-    protected BasePart getPart() {
+    protected BasePart getPart()
+    {
         return this;
     }
 
-    public void MciPackageBuyService(OnServiceStatus<WebServiceClass<PackageBuyResponse>> listener, PackageBuyRequest req) {
+    public void MciPackageBuyService(OnServiceStatus<WebServiceClass<PackageBuyResponse>> listener, PackageBuyRequest req)
+    {
         start(getServiceGenerator().createService().buySimcardPackage(req), listener);
     }
 }
