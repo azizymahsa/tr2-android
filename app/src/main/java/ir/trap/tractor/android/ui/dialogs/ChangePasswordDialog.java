@@ -173,10 +173,12 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
 
                     mainView.onChangePasswordCard(item.getCardId(), etPass.getText().toString(),
                             etNewPass.getText().toString());
+                    dismiss();
                 }
                 else
                 {
                     mainView.onForgotPasswordCard(item.getCardId());
+                    dismiss();
                 }
                 break;
             }

@@ -17,7 +17,7 @@
     <item
         android:id="@+id/tab_home"
         android:enabled="true"
-        android:icon="@drawable/ic_logo_red"
+        android:icon="@drawable/ic_logo_main"
         android:title="خانه"
         app:showAsAction="ifRoom" />
     <item
@@ -30,6 +30,6 @@
         android:id="@+id/tab_shop"
         android:enabled="true"
         android:icon="@drawable/ic_shop_main"
-        android:title="تراپ مارکت"
+        android:title="تراپ\u200cمارکت"
         app:showAsAction="withText" />
 </menu>

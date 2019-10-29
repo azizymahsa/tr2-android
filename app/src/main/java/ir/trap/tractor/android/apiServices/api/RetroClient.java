@@ -47,6 +47,8 @@ import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChar
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
+import ir.trap.tractor.android.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
+import ir.trap.tractor.android.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
 import ir.trap.tractor.android.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
 import ir.trap.tractor.android.apiServices.model.tourism.bus.getPaymentBus.request.RequestBusPayment;
 import ir.trap.tractor.android.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
@@ -90,7 +92,7 @@ public interface RetroClient
             @Body VerifyRequest request
     );
 
-    @POST(Const.BuyCharge)
+    @POST(Const.BUY_MOBILE_CHARGE)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
             @Body MobileChargeRequest request);
 
@@ -143,7 +145,7 @@ public interface RetroClient
     );
 
 
-    @POST(Const.PACKAGE_BUY)
+    @POST(Const.BUY_MOBILE_PACKAGE)
     Single<Response<WebServiceClass<PackageBuyResponse>>> buySimcardPackage(
             @Body PackageBuyRequest mciPackageBuyRequest
     );
@@ -168,6 +170,17 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetHappyCardInfoResponse>>> getHappyCardInfo(
             @Body GetHappyCardInfoRequest request
     );
+
+    @POST(Const.FORGOT_PASS2)
+    Single<Response<WebServiceClass<Object>>> doForgotPass(
+            @Body ShetacForgotPass2Request request
+    );
+
+    @POST(Const.CHANGE_PASS2)
+    Single<Response<WebServiceClass<Object>>> doChangePass(
+            @Body ShetacChangePass2Request request
+    );
+
 
     @POST(Const.GetShetabCardInfo)
     Single<Response<WebServiceClass<ShetabCardInfoResponse>>> getShetabCardInfo(
@@ -221,7 +234,7 @@ public interface RetroClient
     Single<Response<WebServiceClass<DecryptQrResponse>>> decryptQr(
             @Body DecryptQrRequest request);
 
-    @POST(Const.PAYMENT)
+    @POST(Const.PAYMENT_PRINT_pOS)
     Single<Response<WebServiceClass<PaymentPrintPosResponse>>> getPayment(
             @Body PaymentPrintPosRequest request);
 

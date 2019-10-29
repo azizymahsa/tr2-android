@@ -1557,7 +1557,7 @@ public class ChargeFragment extends BaseFragment
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
     {
-        Log.e("onTextChanged", charSequence.toString());
+        Logger.e("onTextChanged", charSequence.toString());
 
 
         if (TextUtils.isEmpty(charSequence))

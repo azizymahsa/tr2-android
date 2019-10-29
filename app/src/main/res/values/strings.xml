@@ -5,6 +5,8 @@
     <string name="send_code">تایید کد</string>
     <string name="enter">ورود</string>
     <string name="confirm">تایید</string>
+    <string name="cancel">انصراف</string>
+    <string name="error">خطا!</string>
     <string name="enter_mobile_number">شماره همراه</string>
     <string name="no_name">بدون نام</string>
     <string name="enter_first_name">نام خود را وارد نمایید</string>
