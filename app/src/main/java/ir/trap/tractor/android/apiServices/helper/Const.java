@@ -32,7 +32,6 @@ public class Const
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
 
-
     //Bill
     public final static String GetMyBills = SubBASEURL + "v1/bill/";
     public final static String GetBillCodePayCode = SubBASEURL + "v1/bill/get_bill_code_pay_code/";
@@ -87,5 +86,8 @@ public class Const
     //Ticket
     public final static String GetMatch = "api/v1/match/";
 
+
+    //History
+    public final static String GetHistory = "api/v1/club_history/get_history/";
 
 }

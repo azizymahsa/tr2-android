@@ -56,6 +56,7 @@ import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.base.BaseActivity;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
 import ir.trap.tractor.android.ui.fragments.BarcodeReaderFragment;
+import ir.trap.tractor.android.ui.fragments.about.HistoryFragment;
 import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
@@ -136,10 +137,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
-                       /* setCheckedBNV(bottomNavigationView, 0);
+                        /*setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 
-                        currentFragment = BuyTickets.newInstance(this);
+                        currentFragment = HistoryFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 

@@ -5,6 +5,8 @@ import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
 import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
+import ir.trap.tractor.android.ui.fragments.payment.PaymentActionView;
+import ir.trap.tractor.android.ui.fragments.payment.PaymentFragment;
 
 /**
  * Created by Javad.Abadi on 8/25/2018.
@@ -12,44 +14,53 @@ import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyR
 public class BuyPackageImpl implements BuyPackageInteractor
 {
 
-    @Override
-    public void findBuyPackageDataRequest(OnFinishedBuyPackageListener listener, int bundleId,
-                                             String packageType, int userId, String cardNumber,
-                                             String password, String mobileNumber, String titlePackage,
-                                             String amount, String cvv2, String expDate, String OperatorType, String RequestId) {
+    public void findBuyPackageDataRequest(PaymentActionView listener,
+                                          String requestId, int operatorType,
+                                          Integer cardId, String titlePackageType,
+                                          int profileId, String mobile, String pass,
+                                          String cvv2, String expDate, String price)
+    {
         PackageBuyRequest request = new PackageBuyRequest();
-        request.setAmount(Integer.valueOf(amount));
-        request.setBundleId(bundleId+"");
-        request.setMobileNumber(mobileNumber);
-        request.setCardNumber(cardNumber);
-       // request.setPackageType(packageType);
-        request.setPassword(password);
-        request.setTitlePackage(titlePackage);
-        request.setUserId(userId);
+        request.setRequestId(requestId);
+        request.setOperatorType(String.valueOf(operatorType));
+        request.setCardId(cardId);
+        request.setTitlePackage(titlePackageType);
+        request.setBundleId(String.valueOf(profileId));
+        request.setMobile(mobile);
+        request.setPin2(pass);
         request.setCvv2(cvv2);
         request.setExpDate(expDate);
-       // request.setProfileId(packageType);
-        request.setOperatorType(OperatorType);
-        request.setRequestId(RequestId);
+        if (price.isEmpty()){
+            price="0";
+        }
+        request.setAmount(Integer.valueOf(price.replaceAll(",", "")));
+        SingletonService.getInstance().packageBuyService().MciPackageBuyService(new OnServiceStatus<WebServiceClass<PackageBuyResponse>>(){
 
-        SingletonService.getInstance().packageBuyService().MciPackageBuyService(new OnServiceStatus<WebServiceClass<PackageBuyResponse>>() {
             @Override
-            public void onReady(WebServiceClass<PackageBuyResponse> response) {
+            public void onReady(WebServiceClass<PackageBuyResponse> response)
+            {
+
                 try {
-                    listener.onFinishedMciBuyPackagePackage(response);
-
+                    if (response.info.statusCode==200)
+                    {
+                        listener.onPaymentPackSimCard(response.data,mobile);
+                    }else {
+                        listener.onErrorPackSimcard(response.info.message);
+                    }
                 } catch (Exception e) {
-                    listener.onErrorMciBuyPackagePackage(e.getMessage());
+                    listener.onErrorPackSimcard(e.getMessage());
                 }
+
+
             }
 
             @Override
-            public void onError(String message) {
-                listener.onErrorMciBuyPackagePackage(message);
+            public void onError(String message)
+            {
+                listener.onErrorPackSimcard(message);
 
             }
-        }, request);
+        },request);
 
     }
-
 }
