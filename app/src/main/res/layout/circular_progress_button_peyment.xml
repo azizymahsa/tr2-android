@@ -11,6 +11,7 @@
     android:textColor="@color/textColorButton"
     android:textSize="@dimen/textSize_14dp"
     android:layout_gravity="center"
+    android:textStyle="bold"
     app:initialCornerAngle="50dp"
     app:spinning_bar_color="@color/textColorButton"
     app:finalCornerAngle="80dp"
