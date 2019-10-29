@@ -81,54 +81,6 @@
                 android:layout_weight="10" />
         </LinearLayout>
 
-      <!--  <LinearLayout
-            android:id="@+id/llAllBoxesSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible">
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="20" />
-
-            <LinearLayout
-                android:layout_width="@dimen/_10dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="100"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="روش اول :"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    android:textColor="@color/warmGray"
-                    android:textSize="@dimen/textSize_14dp"
-                    android:layout_gravity="right"/>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:layout_marginTop="@dimen/_40dp"
-                    android:text="روش دوم :"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    android:textColor="@color/warmGray"
-                    android:textSize="@dimen/textSize_14dp"
-                    android:layout_gravity="right"/>
-            </LinearLayout>
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="20" />
-
-        </LinearLayout>-->
     <LinearLayout
         android:id="@+id/llAllBoxesSpinner"
         android:layout_width="match_parent"
@@ -142,7 +94,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="10" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTickets"
@@ -154,19 +106,24 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="10" />
     </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_10dp">
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_20dp">
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="10" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:orientation="horizontal">
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -187,8 +144,7 @@
                         android:layout_height="@dimen/_35dp"
                         android:background="@drawable/button_small_border"
                         android:src="@drawable/ic_share_36dp"
-                        android:layout_marginRight="@dimen/_10dp"
-                        android:layout_marginLeft="@dimen/_10dp"
+
                         android:padding="@dimen/_5sdp"
                         android:tint="@color/buttonHeaderBackgroundColor"
                         android:foreground="?attr/selectableItemBackground"
@@ -198,7 +154,6 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-
                     android:layout_weight="100">
 
                     <include
@@ -210,10 +165,11 @@
                          />
                 </FrameLayout>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
             </LinearLayout>
     </LinearLayout>
 
