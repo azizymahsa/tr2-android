@@ -8,10 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.skydoves.colorpickerview.ColorEnvelope;
+import com.skydoves.colorpickerview.ColorPickerView;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +37,9 @@ public class SelectPositionFragment
         extends Fragment implements View.OnClickListener
 {
 
+    ColorPickerView colorPickerView;
+    ImageView ivDefault;
+    RelativeLayout rlImageViews;
     private static final String KEY_MODEL = "KEY_MODEL";
     TextView tvTitle;
    // private SubMenuModel[] subMenuModels;
@@ -42,6 +52,7 @@ public class SelectPositionFragment
     private View btnBackToDetail;
     private View btnPaymentConfirm;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
+    private List<AllBoxesResult> allBoxesResponse;
     // private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
 
     public SelectPositionFragment() {
@@ -96,6 +107,13 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         getAllBoxesRequest();
         btnBackToDetail.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
+
+        colorPickerView = view.findViewById(R.id.colorPickerView);
+        ivDefault = view.findViewById(R.id.ivDefault);
+        rlImageViews = view.findViewById(R.id.rlImageViews);
+
+        handleSetStadiumLayouts();
+
       // allBoxesResult.add(new AllBoxesResult(0,"test",4));
        // setDataSpinnerAllBoxes(allBoxesResult);
        /* RecyclerView recyclerView = (RecyclerView) view;
@@ -106,6 +124,104 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         return view;
     }
 
+    private void handleSetStadiumLayouts()
+    {
+        colorPickerView.setColorListener(new ColorEnvelopeListener() {
+            @Override
+            public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
+
+                Log.e("tessstt", envelope.getHexCode() + "");
+              /*  if (allBoxesResponse.isEmpty()){
+                        getAllBoxesRequest();
+                    }else
+                    {*/
+                       /* if (envelope.getHexCode().equals(getString(R.string.full)))
+                        {
+                        Toast.makeText(getContext(), "این جایگاه پر شده است", Toast.LENGTH_SHORT).show();
+                        return;
+                    }*/
+              /*      for (AllBoxesResult stadiomModel : allBoxesResponse)
+                    {
+                        if (envelope.getHexCode().equals(getString(R.string.full)))
+                        {
+                            for (Integer integer : fullFromServer)
+                            {
+                                if (integer.equals(Integer.valueOf(stadiomModel.getName())))
+                                {
+                                    Toast.makeText(getContext(), "این جایگاه پر شده است", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                        }
+                    }*//*
+                }*/
+
+
+                switch (envelope.getHexCode()) {
+
+                    case "FF999900":
+                        ivDefault.setImageResource(R.drawable.ic_test_stadium_full);
+                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                        break;
+                    case "FFFE0002":
+                        ivDefault.setImageResource(R.drawable.ic_test_stadium_selected);
+                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                        break;
+                /*    case "FFDD78FF":
+                        ivDefault.setImageResource(R.drawable.tes_207_selectt);
+                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                        break;
+                    case "FFF478FF":
+                        ivDefault.setImageResource(R.drawable.tes_209_selectt);
+                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                        break;
+                    case "FFFF78DD":
+                        ivDefault.setImageResource(R.drawable.tes_210_selectt);
+                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                        break;
+                    case "FFFF78C7":
+                        ivDefault.setImageResource(R.drawable.tes_211_selectt);
+                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        break;*/
+                }
+
+                Log.e("tessstt", envelope.getHexCode() + "");
+            }
+        });
+    }
+
+    public void handleFullPositions(){
+     /*   for (Integer integer : fullFromServer) {
+            ImageView imgView = new ImageView(this.getContext());
+            rlImageViews.addView(imgView);
+            imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imgView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+            switch (integer) {
+                case 205:
+                    imgView.setImageResource(R.drawable.ic_test_stadium_full);
+                    break;
+                case 206:
+                   // imgView.setImageResource(R.drawable.tes_206_fullt);
+                    break;
+                case 207:
+                    break;
+                case 209:
+                    break;
+                case 210:
+                    break;
+                case 211:
+                    break;
+
+            }
+
+
+        }*/
+    }
     private void getAllBoxesRequest()
     {
         Integer id=1;
@@ -118,6 +234,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                 try {
                     if (response.info.statusCode==200){
                         setDataSpinnerAllBoxes(response.data.getResults());
+                        allBoxesResponse=response.data.getResults();
                     }else {
                         Tools.showToast(getContext(),response.info.message,R.color.red);
                     }

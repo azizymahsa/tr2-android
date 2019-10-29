@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nested"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -38,12 +38,49 @@
         android:layout_weight="20" />
     </LinearLayout>
 
+
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/_200dp"
+        android:layout_height="@dimen/_200dp"
+        android:layout_gravity="center"
+        >
+
+        <com.skydoves.colorpickerview.ColorPickerView
+            android:id="@+id/colorPickerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:palette="@drawable/test_stadium"
+            />
+
+
+        <ImageView
+            android:id="@+id/ivDefault"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_test_stadium_user"
+            android:scaleType="fitCenter"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rlImageViews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
     <LinearLayout
         android:id="@+id/llAllBoxesSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="visible">
@@ -62,31 +99,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="روش اول :"
+                android:text="انتخاب جایگاه از لیست :"
                 android:layout_marginBottom="@dimen/_10dp"
                 android:textColor="@color/warmGray"
                 android:textSize="@dimen/textSize_14dp"
                 android:layout_gravity="right"/>
-        <Spinner
-            android:id="@+id/spinnerAllBoxes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="100"
-            android:gravity="right"
-            android:tag="allBox"
-            android:background="@drawable/background_spinner_custom" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spinnerAllBoxes"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="100"
                 android:gravity="right"
-                android:layout_marginTop="@dimen/_40dp"
-                android:text="روش دوم :"
-                android:layout_marginBottom="@dimen/_10dp"
-                android:textColor="@color/warmGray"
-                android:textSize="@dimen/textSize_14dp"
-                android:layout_gravity="right"/>
+                android:tag="allBox"
+                android:background="@drawable/background_spinner_custom" />
+
         </LinearLayout>
         <Space
             android:layout_width="0dp"
@@ -95,11 +122,6 @@
 
     </LinearLayout>
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_300sdp"
-    android:src="@drawable/stadium_screen"
-    />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
