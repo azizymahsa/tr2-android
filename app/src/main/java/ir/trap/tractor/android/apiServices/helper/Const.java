@@ -75,21 +75,24 @@ public class Const
     public final static String BusPayment = SubBASEURLTest + "GdsBus/v1/BusPayment";
 
 
-
     //Pos
-    public final static String DECRYPTQRCODE = "api/v1/payment/decrypt_qr_code/";
-    public final static String PAYMENT_PRINT_pOS = "api/v1/payment/payment_print_pos/";
+    public final static String DECRYPTQRCODE = SubBASEURLTest + "v1/payment/decrypt_qr_code/";
+    public final static String PAYMENT_PRINT_pOS = SubBASEURLTest + "v1/payment/payment_print_pos/";
 
 
     //Bank List
-    public final static String BANK_LIST = "api/v1/menu/bank/";
+    public final static String BANK_LIST = SubBASEURLTest + "v1/menu/bank/";
 
 
     //Ticket
-    public final static String GetMatch = "api/v1/match/";
+    public final static String GetMatch = SubBASEURLTest + "v1/match/";
 
 
     //History
-    public final static String GetHistory = "api/v1/club_history/get_history/";
+    public final static String GetHistory = SubBASEURLTest + "v1/club_history/get_history/";
+
+
+    //Version
+    public final static String GET_VERSION = SubBASEURLTest + "v1/version/get_version_android/";
 
 }

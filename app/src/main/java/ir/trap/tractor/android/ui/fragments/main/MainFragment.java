@@ -48,7 +48,8 @@ import library.android.service.model.bus.searchBus.response.Company;
 import library.android.service.model.flight.reservation.response.ReservationResponse;
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
-        FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener
+        FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener,
+        View.OnClickListener
 {
 //    private CircularProgressButton btnBus, btnFlight, btnHotel, btnDoTransfer, btnChargeSimCard, btnPackSimCard, btnBill;
 
@@ -69,7 +70,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
     private MainActionView mainView;
-//    private View btnBuyTicket;
+    private View btnBuyTicket;
 
     public MainFragment()
     {
@@ -129,9 +130,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         setSlider();
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
-//        btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
+        btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
 
-//        btnBuyTicket.setOnClickListener(this);
+        btnBuyTicket.setOnClickListener(this);
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
         recyclerView.setLayoutManager(layoutManager);
@@ -400,7 +401,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onSliderClick(BaseSliderView slider)
     {
-        mainView.onBuyTicketClick();
+//        mainView.onBuyTicketClick();
     }
 
     @Override
@@ -485,14 +486,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         flightActivity.startMainFlight();
     }
 
-//    @Override
-//    public void onClick(View v)
-//    {
-//        switch (v.getId())
-//        {
-//            case R.id.btnBuyTicket:
-//                mainView.onBuyTicketClick();
-//                break;
-//        }
-//    }
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.btnBuyTicket:
+                mainView.onBuyTicketClick();
+                break;
+        }
+    }
 }
