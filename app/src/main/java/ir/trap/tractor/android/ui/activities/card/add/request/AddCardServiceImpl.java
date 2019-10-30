@@ -8,6 +8,7 @@ import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.card.addCard.request.AddCardRequest;
+import ir.trap.tractor.android.models.otherModels.AddCardModel;
 import okhttp3.ResponseBody;
 
 /**
@@ -32,7 +33,9 @@ public class AddCardServiceImpl implements AddCardIntractor
             {
                 try
                 {
-                    EventBus.getDefault().post(responseBody.data);
+                    AddCardModel cardModel = new AddCardModel();
+                    cardModel.setCard(responseBody.data);
+                    EventBus.getDefault().post(cardModel);
                     listener.onFinishedAddCard(true);
 
                 } catch (Exception e)
