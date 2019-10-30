@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.fragments.paymentWithoutCard;
 
 import android.Manifest;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -17,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -35,9 +39,11 @@ import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
 import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
+import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.BaseFragment;
+import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 
 public class PaymentWithoutCardFragment2 extends BaseFragment implements View.OnClickListener, OnAnimationEndListener
@@ -69,8 +75,8 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
         etQR = rootView.findViewById(R.id.etQR);
         etLayoutCode = rootView.findViewById(R.id.etLayoutCode);
         llPricePeyment = rootView.findViewById(R.id.llPricePeyment);
-      //  llPaymentPass = rootView.findViewById(R.id.llPaymentPass);
-      //  llPaymentPass.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
+        //  llPaymentPass = rootView.findViewById(R.id.llPaymentPass);
+        //  llPaymentPass.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         llBtnConfirm2 = rootView.findViewById(R.id.llBtnConfirm2);
         llCheckBox = rootView.findViewById(R.id.llCheckBox);
         btnPaymentConfirm = rootView.findViewById(R.id.btnPaymentConfirm);
@@ -80,12 +86,12 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
         btnConfirm.setOnClickListener(this);
         btnConfirm.setText("ادامه");
         btnPaymentConfirm.setText("تایید نهایی");
-       // etPassPayment = rootView.findViewById(R.id.etPassPayment);
+        // etPassPayment = rootView.findViewById(R.id.etPassPayment);
 
        /* btnBackToDetail.setText("بازگشت");
         btnBackToHome.setText("بازگشت");*/
         btnConfirm.setOnClickListener(this);
-       // btnBackToDetail.setOnClickListener(this);
+        // btnBackToDetail.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
        /* btnBackToHome.setOnClickListener(this);
         llBarcode.setOnClickListener(this);
@@ -149,7 +155,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
             }
 
         }
-        rootView = inflater.inflate(R.layout.fragment_payment_without_card2, container, false);
+        rootView = inflater.inflate(R.layout.fragment_payment_without_card, container, false);
 
         mToolbar = rootView.findViewById(R.id.toolbar);
         initView();
@@ -203,7 +209,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
                             etQR.setText(decryptQrResponse.data.getMerchantName());
                             etAmountPayment.setText(decryptQrResponse.data.getAmount());
                             etQR.setEnabled(false);
-                           // qrCode = decryptQrResponse.data.getDeviceId();
+                            // qrCode = decryptQrResponse.data.getDeviceId();
 
                             if (decryptQrResponse.data.getAmount().equals("0") || TextUtils.isEmpty(decryptQrResponse.data.getAmount()))
                             {
@@ -443,7 +449,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
         etQR.setText("");
         btnConfirm.revertAnimation(PaymentWithoutCardFragment2.this);
         btnConfirm.setClickable(true);
-       // etCvv2.setText("");
+        // etCvv2.setText("");
         etAmountPayment.setText("");
 
 

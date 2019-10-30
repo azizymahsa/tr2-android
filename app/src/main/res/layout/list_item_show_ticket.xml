@@ -21,7 +21,7 @@
             android:padding="@dimen/_10dp">
 
             <TextView
-                android:id="@+id/tvFirstName"
+                android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30dp"
                 android:textColor="@color/_title_black"
@@ -30,7 +30,16 @@
                 android:gravity="center_vertical|right"
                 android:text="test"
                 android:singleLine="true"/>
-
+            <TextView
+                android:id="@+id/tvNationalCode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30dp"
+                android:textColor="@color/_title_black"
+                android:textSize="@dimen/textSize_12dp"
+                android:gravity="center_vertical|right"
+                android:text="0012225555"
+                android:maxLines="1"
+                android:singleLine="true"/>
             <TextView
                 android:id="@+id/tvLastName"
                 android:layout_width="match_parent"
@@ -42,16 +51,7 @@
                 android:gravity="center_vertical|right"
                 android:singleLine="true"/>
 
-            <TextView
-                android:id="@+id/tvNationalCode"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_30dp"
-                android:textColor="@color/_title_black"
-                android:textSize="@dimen/textSize_12dp"
-                android:gravity="center_vertical|right"
-                android:text="0012225555"
-                android:maxLines="1"
-                android:singleLine="true"/>
+
         </LinearLayout>
 
         <LinearLayout

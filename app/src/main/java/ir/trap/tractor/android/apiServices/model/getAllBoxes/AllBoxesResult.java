@@ -21,7 +21,7 @@ public class AllBoxesResult
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("ticket_amount")
+    @SerializedName("amount")
     @Expose
     private Integer ticketAmount;
 

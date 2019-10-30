@@ -1,17 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nested"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <LinearLayout
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llSliderItemMatch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="30"
+        android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|right"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100">
+
+            <include
+                android:id="@+id/btnMCIPackConfirm"
+                layout="@layout/slider_item_match" />
+
+        </FrameLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="@dimen/_90dp"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:background="@drawable/background_l_r_round"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvM"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@color/g_txt_title2"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvCount"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/g_txt_title2"
+                android:textSize="12dp"
+                android:text="1"
+                android:background="@drawable/background_rectangle_with_out_round"
+                />
+
+
+            <TextView
+                android:id="@+id/tvP"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/g_txt_title2"
+                android:textSize="19dp"
+                />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="تعداد بلیت های درخواستی شما:"
+            android:textColor="@color/textColorStadiumName"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:textSize="@dimen/textSize_14dp"
+            android:gravity="center"
+            android:textAppearance="@style/IranSansBoldf"
+
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
         android:gravity="center"
@@ -20,7 +121,7 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="20" />
+        android:layout_weight="10" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -31,19 +132,59 @@
         android:text="@string/select_position_tiitle"
         android:textColor="@color/black"
         android:textSize="@dimen/textSize_14dp"
-        android:layout_gravity="right"/>
+        android:layout_gravity="center"/>
     <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="20" />
+        android:layout_weight="10" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="40"
+        android:layout_gravity="center"
+        >
+
+        <com.skydoves.colorpickerview.ColorPickerView
+            android:id="@+id/colorPickerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:palette="@drawable/ic_stadium_color"
+            />
+
+
+        <ImageView
+            android:id="@+id/ivDefault"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_stadium_user"
+            />
+        <ImageView
+            android:id="@+id/ivSelected"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rlImageViewsFull"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/llAllBoxesSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="5dp"
+        android:layout_height="0dp"
+        android:layout_weight="10"
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="visible">
@@ -51,7 +192,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="10" />
 
         <LinearLayout
             android:layout_width="@dimen/_10dp"
@@ -62,47 +203,84 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="روش اول :"
+                android:text="انتخاب جایگاه از لیست :"
                 android:layout_marginBottom="@dimen/_10dp"
                 android:textColor="@color/warmGray"
                 android:textSize="@dimen/textSize_14dp"
                 android:layout_gravity="right"/>
-        <Spinner
-            android:id="@+id/spinnerAllBoxes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="100"
-            android:gravity="right"
-            android:tag="allBox"
-            android:background="@drawable/background_spinner_custom" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spinnerAllBoxes"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="100"
                 android:gravity="right"
-                android:layout_marginTop="@dimen/_40dp"
-                android:text="روش دوم :"
-                android:layout_marginBottom="@dimen/_10dp"
-                android:textColor="@color/warmGray"
-                android:textSize="@dimen/textSize_14dp"
-                android:layout_gravity="right"/>
+                android:tag="allBox"
+                android:background="@drawable/background_spinner_custom" />
+
         </LinearLayout>
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="10" />
 
     </LinearLayout>
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_300sdp"
-    android:src="@drawable/stadium_screen"
-    />
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/llAmount"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10" />
+
+    <LinearLayout
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:layout_weight="100"
+         android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvAmountStation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="قیمت بلیط این جایگاه"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_14dp"
+            android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/tvAmountForPay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="مبلغ قابل پرداخت"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize_14dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="30"
         android:layout_gravity="bottom">
 
         <LinearLayout
@@ -116,7 +294,24 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="10" />
 
+
             <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="100">
+
+                <include
+                    android:id="@+id/btnPaymentConfirm"
+                    layout="@layout/circular_progress_button_next"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_gravity="center"
+
+                    android:layout_margin="2dp" />
+            </FrameLayout>
+
+          <!--  <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="100">
@@ -145,7 +340,7 @@
 
                     android:layout_margin="2dp" />
             </FrameLayout>
-
+-->
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

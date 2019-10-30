@@ -1,12 +1,16 @@
 package ir.trap.tractor.android.ui.fragments.paymentWithoutCard;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +43,7 @@ import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.dialogs.PaymentResultDialog;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
+import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.NumberTextWatcher;
 import ir.trap.tractor.android.utilities.Utility;
 
@@ -134,7 +139,12 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     public void onResume()
     {
         super.onResume();
-         decryptBarcode(barcode);
+        if (Prefs.getString("qrCode", "").length() > 5)
+        {
+
+            Logger.d("--QRCode:--", Prefs.getString("qrCode", ""));
+            decryptBarcode(barcode);
+        }
         continue_ = false;
         etPassPayment.setText("");
         etQR.setText("");
@@ -294,8 +304,14 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
 
                 break;
             case R.id.llBarcode:
-                mainView.openBarcode(BarcodeType.Payment);
-                isDetailPaymentBarcode = true;
+                try
+                {
+                    mainView.openBarcode(BarcodeType.Payment);
+                    isDetailPaymentBarcode = true;
+
+                }catch (Exception e){
+                    e.getMessage();
+                }
 
 
                 break;
@@ -311,7 +327,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
 
 
                 isDetailPaymentList = true;
-              //  getActivity().startActivityForResult(new Intent(getActivity(), MapActivity.class).putExtra("isSelect", true), 9090);
+                //  getActivity().startActivityForResult(new Intent(getActivity(), MapActivity.class).putExtra("isSelect", true), 9090);
 
 
 
@@ -358,8 +374,8 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
         PaymentPrintPosRequest request = new PaymentPrintPosRequest();
         request.setAmount(Integer.valueOf(etAmountPayment.getText().toString().replaceAll(",", "")));
         request.setPin2(etPassPayment.getText().toString());
-      //  request.setDeviceId(qrCode);
-     //   request.setUserId(Prefs.getInt("userId", 0));
+        //  request.setDeviceId(qrCode);
+        //   request.setUserId(Prefs.getInt("userId", 0));
         request.setCardId(Integer.parseInt(cardNumber));
         request.setCvv2(cvv2);
         request.setIsPrintPos(cbPrint.isChecked());

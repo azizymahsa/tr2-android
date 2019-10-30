@@ -6,11 +6,11 @@ package ir.trap.tractor.android.apiServices.model.showTicket;
 public class ShowTicketItem
 {
     private  String nationalCode;
-    private  String firstName;
+    private  String name;
 
-    public ShowTicketItem(String firstName, String nationalCode)
+    public ShowTicketItem(String name, String nationalCode)
     {
-        this.firstName=firstName;
+        this.name=name;
         this.nationalCode=nationalCode;
     }
 
@@ -24,13 +24,13 @@ public class ShowTicketItem
         this.nationalCode = nationalCode;
     }
 
-    public String getFirstName()
+    public String getName()
     {
-        return firstName;
+        return name;
     }
 
-    public void setFirstName(String firstName)
+    public void setName(String name)
     {
-        this.firstName = firstName;
+        this.name = name;
     }
 }
