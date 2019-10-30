@@ -825,15 +825,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         switch (v.getId())
         {
-            case R.id.btnBuyTicket:
-
-                isMainFragment = false;
-                currentFragment = BuyTickets.newInstance(this);
-                transaction = fragmentManager.beginTransaction();
-                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                transaction.replace(R.id.main_container, currentFragment)
-                        .commit();
-                break;
+//            case R.id.btnBuyTicket:
+//
+//                isMainFragment = false;
+//                currentFragment = BuyTickets.newInstance(this);
+//                transaction = fragmentManager.beginTransaction();
+//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//                transaction.replace(R.id.main_container, currentFragment)
+//                        .commit();
+//                break;
         }
     }
 }

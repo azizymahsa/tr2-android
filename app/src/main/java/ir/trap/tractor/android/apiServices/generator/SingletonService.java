@@ -23,6 +23,7 @@ import ir.trap.tractor.android.apiServices.part.GetPackageIrancellService;
 import ir.trap.tractor.android.apiServices.part.GetPackageMciService;
 import ir.trap.tractor.android.apiServices.part.GetRightelPackService;
 import ir.trap.tractor.android.apiServices.part.GetShetabCardInfoService;
+import ir.trap.tractor.android.apiServices.part.GetVersionService;
 import ir.trap.tractor.android.apiServices.part.HotelService;
 import ir.trap.tractor.android.apiServices.part.LoginService;
 import ir.trap.tractor.android.apiServices.part.MerchantService;
@@ -212,6 +213,11 @@ public class SingletonService
     public SheatcForgotPassService doForgotPassService()
     {
         return new SheatcForgotPassService(serviceGenerator);
+    }
+
+    public GetVersionService getVersionService()
+    {
+        return new GetVersionService(serviceGenerator);
     }
 
 
