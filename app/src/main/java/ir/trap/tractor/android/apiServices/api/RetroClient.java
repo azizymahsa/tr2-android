@@ -116,7 +116,7 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetCardListResponse>>> getCardList();
 
     @POST(Const.AddCard)
-    Single<Response<WebServiceClass<Object>>> addCard(
+    Single<Response<WebServiceClass<Result>>> addCard(
             @Body AddCardRequest request);
 
     @DELETE(Const.DeleteCard + "{id}/")

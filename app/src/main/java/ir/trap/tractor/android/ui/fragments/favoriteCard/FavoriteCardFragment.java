@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +93,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -459,6 +461,12 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
         parentView.startAddCardActivity();
     }
 
+    @Subscribe
+    public void addCard(Result card)
+    {
+        cardList.add(card);
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onAttach(Context context)
@@ -479,6 +487,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     {
         super.onDetach();
 //        mListener = null;
+        EventBus.getDefault().unregister(this);
     }
 
 }

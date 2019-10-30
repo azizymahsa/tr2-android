@@ -1,9 +1,12 @@
 package ir.trap.tractor.android.ui.activities.card.add.request;
 
 
+import org.greenrobot.eventbus.EventBus;
+
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.card.addCard.request.AddCardRequest;
 import okhttp3.ResponseBody;
 
@@ -22,13 +25,14 @@ public class AddCardServiceImpl implements AddCardIntractor
         addCardRequest.setOrderList(1);
 
 
-        SingletonService.getInstance().addCardService().addCardService(addCardRequest, new OnServiceStatus<WebServiceClass<Object>>()
+        SingletonService.getInstance().addCardService().addCardService(addCardRequest, new OnServiceStatus<WebServiceClass<Result>>()
         {
             @Override
-            public void onReady(WebServiceClass<Object> responseBody)
+            public void onReady(WebServiceClass<Result> responseBody)
             {
                 try
                 {
+                    EventBus.getDefault().post(responseBody.data);
                     listener.onFinishedAddCard(true);
 
                 } catch (Exception e)

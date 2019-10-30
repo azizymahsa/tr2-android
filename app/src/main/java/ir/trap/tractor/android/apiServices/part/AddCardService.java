@@ -3,6 +3,7 @@ package ir.trap.tractor.android.apiServices.part;
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.card.addCard.request.AddCardRequest;
 import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
 import okhttp3.ResponseBody;
@@ -21,7 +22,7 @@ public class AddCardService extends BasePart
         return this;
     }
 
-    public void addCardService(AddCardRequest request, OnServiceStatus<WebServiceClass<Object>> listener)
+    public void addCardService(AddCardRequest request, OnServiceStatus<WebServiceClass<Result>> listener)
     {
         start(getServiceGenerator().createService().addCard(request), listener);
     }

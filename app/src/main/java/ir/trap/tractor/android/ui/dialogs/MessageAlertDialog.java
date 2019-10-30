@@ -80,12 +80,17 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         tvMessage = dialog.findViewById(R.id.confirm_msessage);
         btnConfirm = dialog.findViewById(R.id.btnConfirm);
         btnCancel = dialog.findViewById(R.id.btnCancel);
-        rlCancel = dialog.findViewById(R.id.ivLeft);
+        rlCancel = dialog.findViewById(R.id.rlCancel);
 
         if (!isCancelable)
         {
             rlCancel.setVisibility(View.GONE);
         }
+        if (title.equalsIgnoreCase(""))
+        {
+            tvTitle.setVisibility(View.INVISIBLE);
+        }
+        tvMessage.setText(messages);
 
         btnConfirm.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
