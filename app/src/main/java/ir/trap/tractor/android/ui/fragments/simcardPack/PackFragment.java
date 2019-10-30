@@ -2161,13 +2161,13 @@ public class PackFragment
     @Override
     public void showPaymentParentLoading()
     {
-
+        mainView.showLoading();
     }
 
     @Override
     public void hidePaymentParentLoading()
     {
-
+        mainView.hideLoading();
     }
 
     @Override
