@@ -22,7 +22,7 @@ public class Const
     public final static String GetBillCodePayCode= SubBASEURL +"v1/bill/get_bill_code_pay_code/";
     public final static String BuyCharge = SubBASEURL+"v1/topupcharge/buy_charge/";
 
-    public final static String GetAllBoxes=SubBASEURL+"v1/match/{id}/all_boxes/";
+    public final static String GetAllBoxes=SubBASEURL+"v1/match/all_boxes/";
 
     public final static String MOBILE_CHARGE = SubBASEURL + "TopupCharge/v2/BuyCharge";
 

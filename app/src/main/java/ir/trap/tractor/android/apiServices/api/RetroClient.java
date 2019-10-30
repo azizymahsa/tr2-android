@@ -18,6 +18,7 @@ import ir.trap.tractor.android.apiServices.model.card.editCard.request.EditCardR
 import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.trap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
+import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import ir.trap.tractor.android.apiServices.model.getBankList.response.BankListResponse;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
@@ -78,8 +79,10 @@ public interface RetroClient
     @GET(Const.BANK_LIST)
     Single<Response<WebServiceClass<BankListResponse>>> getBankList();
 
-    @GET(Const.GetAllBoxes)
-    Single<Response<WebServiceClass<GetAllBoxesResponse>>> getAllBoxes(@Path("id") Integer id);
+    @POST(Const.GetAllBoxes)
+    Single<Response<WebServiceClass<GetAllBoxesResponse>>> getAllBoxes(
+            @Body GetAllBoxesRequest request
+            );
 
     @POST(Const.GetBillCodePayCode)
     Single<Response<WebServiceClass<GetBillCodePayCodeResponse>>> getBillCodePayCode(

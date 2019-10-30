@@ -23,9 +23,9 @@ public class GetAllBoxesService extends BasePart
         return this;
     }
 
-    public void getAllBoxes(OnServiceStatus<WebServiceClass<GetAllBoxesResponse>> listener, GetAllBoxesRequest request,Integer id)
+    public void getAllBoxes(OnServiceStatus<WebServiceClass<GetAllBoxesResponse>> listener, GetAllBoxesRequest request)
     {
-        start(getServiceGenerator().createService().getAllBoxes(id), listener);
+        start(getServiceGenerator().createService().getAllBoxes(request), listener);
     }
 
 
