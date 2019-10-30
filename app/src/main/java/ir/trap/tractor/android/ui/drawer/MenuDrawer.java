@@ -2,38 +2,32 @@ package ir.trap.tractor.android.ui.drawer;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.models.otherModels.MenuItems;
-import ir.trap.tractor.android.ui.adapters.MenuDrawerAdapter;
+import ir.trap.tractor.android.ui.adapters.menuDrawer.MenuDrawerAdapter;
 import ir.trap.tractor.android.utilities.Logger;
-import ir.trap.tractor.android.utilities.Tools;
 
 public class MenuDrawer extends Fragment
 {
-//    private SharedPref pref;
+    private CardView cardProfile;
 
     private static String TAG = MenuDrawer.class.getSimpleName();
 
@@ -47,13 +41,7 @@ public class MenuDrawer extends Fragment
     private FragmentDrawerListener drawerListener;
 
     private List<MenuItems> dataList;
-    private TextView userName;
-    private TextView userMobile;
-    private TextView user_invite_code;
-    private TextView user_score;
-    private TextView user_sub_state;
     private ImageView imgMenu;
-    private LinearLayout lay_user_subState;
 
     public MenuDrawer()
     {
@@ -81,27 +69,34 @@ public class MenuDrawer extends Fragment
 
         recyclerView = layout.findViewById(R.id.drawerList);
 
+        cardProfile = layout.findViewById(R.id.cardProfile);
+        cardProfile.setOnClickListener(v ->
+        {
+            drawerListener.onUserProfileClick();
+            mDrawerLayout.closeDrawer(containerView);
+        });
+
         imgMenu = layout.findViewById(R.id.imgMenu);
         imgMenu.setOnClickListener(v ->
         {
-            Logger.e("--btnBack Drawer--", "Clicked");
+            mDrawerLayout.closeDrawer(containerView);
         });
 
 
         dataList = new ArrayList<>();
 
-        dataList.add(new MenuItems(1, "لیست تراکنش ها", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(2, "امتیازات", R.drawable.ic_logo_red));
+        dataList.add(new MenuItems(1, "لیست تراکنش ها", R.drawable.ic_transaction_list));
+        dataList.add(new MenuItems(2, "امتیازات", R.drawable.ic_score));
         dataList.add(new MenuItems(3, "جشنواره", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(4, "کیف پول", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(5, "مدیریت کارت ها", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(6, "دعوت از دوستان", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(7, "درباره ما", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(8, "تنظیمات", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(9, "پشتیبانی", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(10, "راهنما", R.drawable.ic_logo_red));
+        dataList.add(new MenuItems(4, "کیف پول", R.drawable.ic_wallet));
+        dataList.add(new MenuItems(5, "مدیریت کارت ها", R.drawable.ic_card_management));
+        dataList.add(new MenuItems(6, "دعوت از دوستان", R.drawable.ic_invite_friends));
+        dataList.add(new MenuItems(7, "درباره ما", R.drawable.ic_about_us));
+        dataList.add(new MenuItems(8, "تنظیمات", R.drawable.ic_setting));
+        dataList.add(new MenuItems(9, "پشتیبانی", R.drawable.ic_support));
+        dataList.add(new MenuItems(10, "راهنما", R.drawable.ic_help));
         dataList.add(new MenuItems(11, "انتقادات و پیشنهادات", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(12, "خروج از حساب کاربری", android.R.drawable.ic_menu_close_clear_cancel));
+        dataList.add(new MenuItems(12, "خروج از حساب کاربری", R.drawable.ic_exit_app));
 
         adapter = new MenuDrawerAdapter(getActivity(), dataList);
 
@@ -115,7 +110,7 @@ public class MenuDrawer extends Fragment
             {
                 Logger.e("--click menu Drawer--", "Clicked");
 
-                Tools.showToast(view.getContext(), "click menu");
+//                Tools.showToast(view.getContext(), "click menu");
 
                 drawerListener.onDrawerItemSelected(view, dataList.get(position).getId());
                 if (position != 0)
@@ -187,6 +182,8 @@ public class MenuDrawer extends Fragment
     public interface FragmentDrawerListener
     {
         public void onDrawerItemSelected(View view, int position);
+
+        public void onUserProfileClick();
     }
 
     static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener

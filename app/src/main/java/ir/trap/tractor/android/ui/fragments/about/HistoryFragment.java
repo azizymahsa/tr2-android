@@ -3,12 +3,10 @@ package ir.trap.tractor.android.ui.fragments.about;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,21 +16,12 @@ import com.daimajia.slider.library.SliderLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getHistory.ResponseHistory;
-import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
-import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentFragment;
-import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
-import ir.trap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
-import ir.trap.tractor.android.ui.others.MyCustomSliderView;
-import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 public class HistoryFragment
         extends Fragment implements View.OnClickListener

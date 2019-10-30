@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.ui.adapters;
+package ir.trap.tractor.android.ui.adapters.menuDrawer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collections;
@@ -81,7 +80,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
 
         ImageView MenuIcon;
         TextView MenuItem;
-//        TextView MenuItemNumber;
+        //        TextView MenuItemNumber;
         TextView MenuItemDrop;
 //        SwitchCompat switchItem;
 //        LinearLayout lyItem;
