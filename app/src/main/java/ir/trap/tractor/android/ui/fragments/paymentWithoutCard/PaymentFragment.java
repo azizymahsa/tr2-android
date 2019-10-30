@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.dialogs.PaymentResultDialog;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
+import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.NumberTextWatcher;
 import ir.trap.tractor.android.utilities.Utility;
 
@@ -137,7 +139,12 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
     public void onResume()
     {
         super.onResume();
+        if (Prefs.getString("qrCode", "").length() > 5)
+        {
+
+            Logger.d("--QRCode:--", Prefs.getString("qrCode", ""));
          decryptBarcode(barcode);
+        }
         continue_ = false;
         etPassPayment.setText("");
         etQR.setText("");
@@ -297,8 +304,14 @@ public class PaymentFragment extends BaseFragment implements OnAnimationEndListe
 
                 break;
             case R.id.llBarcode:
-                mainView.openBarcode(BarcodeType.Payment);
-                isDetailPaymentBarcode = true;
+                try
+                {
+                    mainView.openBarcode(BarcodeType.Payment);
+                    isDetailPaymentBarcode = true;
+
+                }catch (Exception e){
+                  e.getMessage();
+                }
 
 
                 break;

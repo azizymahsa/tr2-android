@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import ir.trap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.trap.tractor.android.ui.fragments.ticket.CountTicketFragment;
@@ -51,7 +52,8 @@ public class PagerAdapter
 
                 return tab2;
             case 2://پرداخت
-                 CountTicketFragment tab3 = CountTicketFragment.newInstance("TAB1",buyTickets);
+                 //PaymentFragment tab3 = PaymentFragment.newInstance("TAB1",buyTickets);
+                CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3",buyTickets);
 
                 return tab3;
             case 3:

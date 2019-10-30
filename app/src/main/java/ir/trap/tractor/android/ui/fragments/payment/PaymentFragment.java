@@ -38,6 +38,7 @@ import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardFragment;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardParentActionView;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
 import ir.trap.tractor.android.ui.fragments.simcardPack.imp.BuyPackageImpl;
+import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.trap.tractor.android.utilities.ClearableEditText;
 import ir.trap.tractor.android.utilities.Tools;
 
@@ -177,6 +178,15 @@ public class PaymentFragment extends Fragment implements FavoriteCardParentActio
 
         return fragment;
 
+    }
+
+    public static PaymentFragment newInstance(String tab1, BuyTickets buyTickets)
+    {
+       // this.buyTickets=buyTickets;
+        PaymentFragment fragment = new PaymentFragment();
+
+
+        return fragment;
     }
 
     private void setParentActionView(PaymentParentActionView pActionView)

@@ -1,34 +1,30 @@
 package ir.trap.tractor.android.ui.fragments.ticket;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import java.util.Arrays;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
-import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
+import ir.trap.tractor.android.ui.fragments.main.MainActionView;
+import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 
 public class CompeletInfoFragment
         extends Fragment implements View.OnClickListener
@@ -36,19 +32,39 @@ public class CompeletInfoFragment
 
     private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
-    private TextView  tvCount, tvM, tvP,tvStation;
-    private View btnBackToDetail,btnPaymentConfirm;
+    private TextView txtCondition;
+    private View btnBackToDetail, btnPaymentConfirm;
     private int count = 1;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
+    private EditText etNationalCode_1, etFamily_1, etName_1;
+    private MainActionView mainView;
+    private CheckBox cbCondition;
+    private View llConfirm, llInVisible;
 
     public CompeletInfoFragment()
     {
     }
 
+    public static CompeletInfoFragment newInstance(MainActionView mainActionView
+    )
+    {
+        CompeletInfoFragment fragment = new CompeletInfoFragment();
+        fragment.setMainView(mainActionView);
+
+
+        return fragment;
+    }
+
+
+    private void setMainView(MainActionView mainView)
+    {
+        this.mainView = mainView;
+    }
+
     /**
      * Receive the model list
      */
-    public static CompeletInfoFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket)
+    public static CompeletInfoFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         CompeletInfoFragment fragment = new CompeletInfoFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
@@ -58,33 +74,12 @@ public class CompeletInfoFragment
 
         return fragment;
     }
+
     private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
-        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
+        this.onClickContinueBuyTicketListener = onClickContinueBuyTicket;
     }
 
-    private void setImageColor(ImageView imageView, String link)
-    {
-        try
-        {
-            Picasso.with(getContext()).load(Uri.parse(link)).centerCrop().resize(imageView.getMeasuredWidth(), imageView.getMeasuredHeight()).into(imageView, new Callback()
-            {
-                @Override
-                public void onSuccess()
-                {
-                }
-
-                @Override
-                public void onError()
-                {
-                    Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
-                }
-            });
-        } catch (NullPointerException e)
-        {
-            Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -111,34 +106,33 @@ public class CompeletInfoFragment
         });
     }
 
-    private String getDate(Double matchDatetime)
-    {
-        String shamsi = "";
-        Date d = new Date((new Double(matchDatetime)).longValue());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd " + " " + "hh:mm:ss");
-        String date = dateFormat.format(d);  // formatted date in string
-
-        PersianCalendar persianCalendar = new PersianCalendar();
-        return date;
-    }
 
     private void initView()
     {
-        tvStation = view.findViewById(R.id.tvStation);
-        tvCount = view.findViewById(R.id.tvCount);
-        tvM = view.findViewById(R.id.tvM);
-        tvP = view.findViewById(R.id.tvP);
+        etNationalCode_1 = view.findViewById(R.id.etNationalCode_1);
+        etFamily_1 = view.findViewById(R.id.etFamily_1);
+        etName_1 = view.findViewById(R.id.etName_1);
+        txtCondition = view.findViewById(R.id.txtCondition);
+        cbCondition = view.findViewById(R.id.cbCondition);
+        llConfirm = view.findViewById(R.id.llConfirm);
+        llInVisible = view.findViewById(R.id.llInVisible);
+        llConfirm.setVisibility(View.GONE);
+        llInVisible.setVisibility(View.VISIBLE);
 
-        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
-        btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
+
+        btnBackToDetail = view.findViewById(R.id.btnBackToDetail);
+        btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
         btnBackToDetail.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
+        cbCondition.setOnClickListener(this);
+        String textlink = "<a href=''> قوانین و مقررات</a> ";
+        String textStart = "صحت اطلاعات وارد شده را تایید می نمایم.";
+        String textEnd = " را مطالعه کرده و می پذیرم";
+        // txtCondition.setText(textStart + Html.fromHtml(textlink) + textEnd);
+        txtCondition.setOnClickListener(this);
 
-        tvP.setOnClickListener(this);
-        tvM.setOnClickListener(this);
-        /*RotateAnimation rotate= (RotateAnimation) AnimationUtils.loadAnimation(getContext(),R.anim.rotate_animation);
-        tvStation.setAnimation(rotate);*/
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -171,7 +165,45 @@ public class CompeletInfoFragment
         switch (view.getId())
         {
             case R.id.btnPaymentConfirm:
-                onClickContinueBuyTicketListener.onContinueClicked();
+                if (etNationalCode_1.getText().toString() != null)
+                {
+                    if (isValidNationalCode(etNationalCode_1.getText().toString()))
+                    {
+                        etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+                        //((EditText)findViewById(R.id.txtfamilyP)).setTextColor(Color.parseColor("#ff3300"));
+                        etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
+                    }
+                } else if (etFamily_1.getText().toString() != null)
+                {
+
+                    if (etFamily_1.getText().toString().length() > 2 && !(etFamily_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+                        etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+                        //((EditText)findViewById(R.id.txtfamilyP)).setTextColor(Color.parseColor("#ff3300"));
+                        etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                    }
+
+                } else if (etName_1.getText().toString() != null)
+                {
+
+                    if (etName_1.getText().toString().length() > 2 && !(etName_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+                        etName_1.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+                        //((EditText)findViewById(R.id.txtfamilyP)).setTextColor(Color.parseColor("#ff3300"));
+                        etName_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                    }
+
+                } else
+                    onClickContinueBuyTicketListener.onContinueClicked();
 
                 break;
             case R.id.btnBackToDetail:
@@ -179,16 +211,59 @@ public class CompeletInfoFragment
 
                 break;
 
-            case R.id.tvM:
-                if (count > 1)
-                    count--;
+            case R.id.txtCondition:
+                PaymentWithoutCardFragment nextFrag = new PaymentWithoutCardFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, nextFrag, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
                 break;
-            case R.id.tvP:
-                if (count < 5)
-                    count++;
+            case R.id.cbCondition:
+                if (((CheckBox) view).isChecked())
+                {
+                    llConfirm.setVisibility(View.VISIBLE);
+                    llInVisible.setVisibility(View.GONE);
+
+                } else
+                {
+                    llConfirm.setVisibility(View.GONE);
+                    llInVisible.setVisibility(View.VISIBLE);
+                }
                 break;
         }
-        tvCount.setText(String.valueOf(count));
+        // tvCount.setText(String.valueOf(count));
+    }
+
+    private boolean isValidNationalCode(String nationalCode)
+    {
+        if (nationalCode.length() != 10)
+        {
+            return false;
+        } else
+        {
+            //Check for equal numbers
+            String[] allDigitEqual = {"0000000000", "1111111111", "2222222222", "3333333333",
+                    "4444444444", "5555555555", "6666666666", "7777777777", "8888888888", "9999999999"};
+            if (Arrays.asList(allDigitEqual).contains(nationalCode))
+            {
+                return false;
+            } else
+            {
+                int sum = 0;
+                int lenght = 10;
+                for (int i = 0; i < lenght - 1; i++)
+                {
+                    sum += Integer.parseInt(String.valueOf(nationalCode.charAt(i))) * (lenght - i);
+                }
+
+                int r = Integer.parseInt(String.valueOf(nationalCode.charAt(9)));
+
+                int c = sum % 11;
+
+                return (((c < 2) && (r == c)) || ((c >= 2) && ((11 - c) == r)));
+            }
+
+        }
     }
 }
 

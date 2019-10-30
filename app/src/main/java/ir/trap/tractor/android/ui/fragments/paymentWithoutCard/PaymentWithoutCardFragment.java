@@ -45,6 +45,7 @@ import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
+import ir.trap.tractor.android.utilities.Logger;
 
 public class PaymentWithoutCardFragment extends BaseFragment implements View.OnClickListener, OnAnimationEndListener
 {
@@ -170,6 +171,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements View.OnC
         });
         if (Prefs.getString("qrCode", "").length() > 5)
         {
+            Log.d("--QRCode:--", Prefs.getString("qrCode", ""));
             DecryptQrRequest request = new DecryptQrRequest();
             request.setDecryptQr(Prefs.getString("qrCode", ""));
             SingletonService.getInstance().getMerchantService().GetdecryptQrService(new OnServiceStatus<WebServiceClass<DecryptQrResponse>>()
