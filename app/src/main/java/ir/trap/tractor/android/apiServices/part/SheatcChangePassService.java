@@ -3,15 +3,13 @@ package ir.trap.tractor.android.apiServices.part;
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
-import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.card.addCard.request.AddCardRequest;
-import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
-import okhttp3.ResponseBody;
+import ir.trap.tractor.android.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 
-public class AddCardService extends BasePart
+public class SheatcChangePassService extends BasePart
 {
 
-    public AddCardService(ServiceGenerator serviceGenerator)
+    public SheatcChangePassService(ServiceGenerator serviceGenerator)
     {
         super(serviceGenerator);
     }
@@ -22,8 +20,8 @@ public class AddCardService extends BasePart
         return this;
     }
 
-    public void addCardService(AddCardRequest request, OnServiceStatus<WebServiceClass<Result>> listener)
+    public void sheatcChangePassService(ShetacChangePass2Request request, OnServiceStatus<WebServiceClass<Object>> listener)
     {
-        start(getServiceGenerator().createService().addCard(request), listener);
+        start(getServiceGenerator().createService().doChangePass(request), listener);
     }
 }

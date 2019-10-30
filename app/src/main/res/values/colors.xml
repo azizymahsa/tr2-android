@@ -58,5 +58,7 @@
     <color name="colorDelete">#fff</color>
     <color name="_disable_color">#cccccc</color>
     <color name="_title_black">#242424</color>
+    <color name="color_alert_border">#ff0000</color>
+    <color name="alert_background_color">#fff</color>
 
 </resources>

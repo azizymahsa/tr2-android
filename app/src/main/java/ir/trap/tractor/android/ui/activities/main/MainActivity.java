@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Fragment currentFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-private View btnBuyTicket;
+    private View btnBuyTicket;
     private BottomNavigationView bottomNavigationView;
 
     private Bundle mSavedInstanceState;
@@ -301,6 +302,8 @@ private View btnBuyTicket;
     @Override
     public void onDrawerItemSelected(View view, int itemNumber)
     {
+        Logger.e("-onDrawerItemSelected-", "selected " + itemNumber);
+
         final Intent intent = new Intent();
         switch (itemNumber)
         {
@@ -645,6 +648,8 @@ private View btnBuyTicket;
     @Override
     public void openDrawer()
     {
+        showToast(this, "OpenDrawer", R.color.gray);
+
         View containerView = findViewById(R.id.fragment_navigation_menudrawer);
         DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayout.openDrawer(containerView);
@@ -653,6 +658,8 @@ private View btnBuyTicket;
     @Override
     public void closeDrawer()
     {
+        showToast(this, "closeDrawer", R.color.gray);
+
         View containerView = findViewById(R.id.fragment_navigation_menudrawer);
         DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayout.closeDrawer(containerView);

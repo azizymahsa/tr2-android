@@ -188,16 +188,10 @@ public class Tools
 
         if (finish)
         {
-            b.setPositiveButton("تایید", new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i)
-                {
-                    ((Activity) con).finish();
-                }
-            });
+            b.setPositiveButton("تایید", (dialogInterface, i) -> ((Activity) con).finish());
 
-        } else
+        }
+        else
             b.setPositiveButton("تایید", null);
         b.create();
         b.show();

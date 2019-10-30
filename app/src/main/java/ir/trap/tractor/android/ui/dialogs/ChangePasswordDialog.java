@@ -31,6 +31,7 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardActionView;
+import ir.trap.tractor.android.utilities.Tools;
 import ir.trap.tractor.android.utilities.Utility;
 import library.android.eniac.base.BaseDialog;
 
@@ -139,44 +140,38 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
                 {
                     if (TextUtils.isEmpty(etPass.getText().toString()))
                     {
-                        Toast.makeText(activity, "رمز کارت را وارد نمایید.", Toast.LENGTH_SHORT).show();
-
+                        Tools.showToast(activity, "رمز کارت را وارد نمایید.", R.color.red);
 
                         return;
-
                     }
                     if (TextUtils.isEmpty(etNewPass.getText().toString()))
                     {
-
-                        Toast.makeText(activity, "رمز جدید را وارد نمایید.", Toast.LENGTH_SHORT).show();
+                        Tools.showToast(activity, "رمز جدید را وارد نمایید.", R.color.red);
 
                         return;
-
                     }
                     if (TextUtils.isEmpty(etRepeatNewPass.getText().toString()))
                     {
-                        Toast.makeText(activity, "تکرار رمز جدید را وارد نمایید.", Toast.LENGTH_SHORT).show();
-
+                        Tools.showToast(activity, "تکرار رمز جدید را وارد نمایید.", R.color.red);
 
                         return;
-
                     }
 
                     if (!etRepeatNewPass.getText().toString().equals(etNewPass.getText().toString()))
                     {
-
-                        Toast.makeText(activity, "تکرار رمز صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
-
+                        Tools.showToast(activity, "تکرار رمز صحیح نمی باشد.", R.color.red);
 
                         return;
                     }
 
                     mainView.onChangePasswordCard(item.getCardId(), etPass.getText().toString(),
                             etNewPass.getText().toString());
+                    dismiss();
                 }
                 else
                 {
                     mainView.onForgotPasswordCard(item.getCardId());
+                    dismiss();
                 }
                 break;
             }

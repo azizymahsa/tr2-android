@@ -55,25 +55,27 @@
                     android:layout_marginTop="@dimen/_10dp"
                     android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:layout_alignParentLeft="true"
-                    android:text="جایگاه شماره 14"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textSize_14dp"
-                    />
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="شماره پیگیری : 222111555"
+                        android:text="کد پیگیری پرداخت : 222111555"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp"
                         android:layout_gravity="right"/>
                 </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_weight="100"
+                    android:text="@string/buy_ticket_description_2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:layout_gravity="right"/>
             </LinearLayout>
             <Space
                 android:layout_width="0dp"
@@ -130,13 +132,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                <!--    <include
-                        android:id="@+id/btnBackToDetail"
-                        layout="@layout/return_button"
+                   <include
+                        android:id="@+id/btnBackToHome"
+                        layout="@layout/home_button"
                         android:layout_width="@dimen/_120sdp"
                         android:layout_height="@dimen/_30dp"
                         android:layout_gravity="center"
-                        android:layout_margin="2dp" />-->
+                        android:layout_margin="2dp" />
 
                     <ImageView
                         android:id="@+id/btnShareTicket"

@@ -15,7 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +31,18 @@ import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.card.editCard.request.EditCardRequest;
 import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
 import ir.trap.tractor.android.apiServices.model.card.Result;
+import ir.trap.tractor.android.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
+import ir.trap.tractor.android.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
+import ir.trap.tractor.android.models.otherModels.AddCardModel;
 import ir.trap.tractor.android.ui.adapters.favoriteCard.CardViewPagerAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.base.GoToActivity;
+import ir.trap.tractor.android.ui.dialogs.ChangePasswordDialog;
 import ir.trap.tractor.android.ui.dialogs.DialogDeleteCard;
 import ir.trap.tractor.android.ui.dialogs.DialogEditCard;
 import ir.trap.tractor.android.utilities.LinearLayoutManagerWithSmoothScroller;
 import ir.trap.tractor.android.utilities.ScreenShot;
+import ir.trap.tractor.android.utilities.Tools;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class FavoriteCardFragment extends BaseFragment implements FavoriteCardActionView,
@@ -86,6 +94,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -287,7 +296,8 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     @Override
     public void onShowChangePasswordDialog(Result result, int Position)
     {
-
+        ChangePasswordDialog dialog = new ChangePasswordDialog(getActivity(), this, result);
+        dialog.show(getActivity().getFragmentManager(), "changePasswordDialog");
     }
 
     @Override
@@ -382,13 +392,62 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     @Override
     public void onChangePasswordCard(Integer cardId, String oldPin2, String newPin2)
     {
+        parentView.showFavoriteCardParentLoading();
 
+        ShetacChangePass2Request request = new ShetacChangePass2Request();
+        request.setCardId(cardId);
+        request.setPin2Old(oldPin2);
+        request.setPin2New(newPin2);
+
+        SingletonService.getInstance().doChangePassService().sheatcChangePassService(request, new OnServiceStatus<WebServiceClass<Object>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<Object> response)
+            {
+                parentView.hideFavoriteCardParentLoading();
+
+                showAlert(getActivity(), response.info.message, 0);
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                parentView.hideFavoriteCardParentLoading();
+
+                showAlert(getActivity(), "خطا در دریافت اطلاعات از سرور!", 0);
+            }
+        });
     }
 
     @Override
     public void onForgotPasswordCard(Integer cardId)
     {
+        parentView.showFavoriteCardParentLoading();
 
+        ShetacForgotPass2Request request = new ShetacForgotPass2Request();
+        request.setCardId(cardId);
+        request.setMobile(Prefs.getString("mobile", ""));
+
+        SingletonService.getInstance().doForgotPassService().sheatcForgotPassService(request,
+                new OnServiceStatus<WebServiceClass<Object>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<Object> response)
+            {
+                parentView.hideFavoriteCardParentLoading();
+
+                showAlert(getActivity(), response.info.message, 0);
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                parentView.hideFavoriteCardParentLoading();
+
+                showAlert(getActivity(), "خطا در دریافت اطلاعات از سرور!", 0);
+
+            }
+        });
     }
 
     @Override
@@ -403,6 +462,12 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
         parentView.startAddCardActivity();
     }
 
+    @Subscribe
+    public void addCard(AddCardModel cardModel)
+    {
+        cardList.add(cardModel.getCard());
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onAttach(Context context)
@@ -423,6 +488,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     {
         super.onDetach();
 //        mListener = null;
+        EventBus.getDefault().unregister(this);
     }
 
 }

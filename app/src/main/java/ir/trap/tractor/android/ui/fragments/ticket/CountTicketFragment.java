@@ -51,10 +51,11 @@ public class CountTicketFragment
     /**
      * Receive the model list
      */
-    public static CountTicketFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket) {
+    public static CountTicketFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
         CountTicketFragment fragment = new CountTicketFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
-       Bundle args = new Bundle();
+        Bundle args = new Bundle();
         args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
 
@@ -63,7 +64,7 @@ public class CountTicketFragment
 
     private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
-        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
+        this.onClickContinueBuyTicketListener = onClickContinueBuyTicket;
     }
 
     private void setImageColor(ImageView imageView, String link)
@@ -113,12 +114,16 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             public void onReady(WebServiceClass<ResponseMatch> response)
             {
                 progress.setVisibility(View.GONE);
-                tvStadiumName.setText(response.data.getResults().get(0).getStadium().getName());
+                if (response.info.statusCode == 200)
+                    if (response.data.getResults().size() > 0)
+                    {
+                        tvStadiumName.setText(response.data.getResults().get(0).getStadium().getName());
 
-                setImageColor(imgHost, response.data.getResults().get(0).getTeamHome().getLogo());
-                setImageColor(imgGuest, response.data.getResults().get(0).getTeamAway().getLogo());
+                        setImageColor(imgHost, response.data.getResults().get(0).getTeamHome().getLogo());
+                        setImageColor(imgGuest, response.data.getResults().get(0).getTeamAway().getLogo());
 
-                tvDateTime.setText(getDate(response.data.getResults().get(0).getMatchDatetime()));
+                        tvDateTime.setText(getDate(response.data.getResults().get(0).getMatchDatetime()));
+                    }
             }
 
             @Override
@@ -155,7 +160,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         imgGuest = view.findViewById(R.id.imgGuest);
         progress = view.findViewById(R.id.progress);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
-        btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
+        btnBackToDetail = view.findViewById(R.id.btnBackToDetail);
 
         btnBackToDetail.setOnClickListener(this);
         tvP.setOnClickListener(this);
@@ -187,7 +192,8 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
     }
 
@@ -195,7 +201,8 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     @Override
     public void onClick(View v)
     {
-        switch (v.getId()){
+        switch (v.getId())
+        {
             case R.id.btnPaymentConfirm:
                 onClickContinueBuyTicketListener.onContinueClicked();
                 break;
