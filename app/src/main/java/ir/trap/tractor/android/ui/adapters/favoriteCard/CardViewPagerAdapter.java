@@ -107,10 +107,10 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
                 holder.tvNumberCard.setVisibility(View.VISIBLE);
                 holder.tvFullName.setVisibility(View.VISIBLE);
 
-                if (!item.getBankBin().equalsIgnoreCase(TrapConfig.HappyBaseCardNo))
-                {
-                    holder.llChangePass.setVisibility(View.GONE);
-                }
+//                if (!item.getBankBin().equalsIgnoreCase(TrapConfig.HappyBaseCardNo))
+//                {
+//                }
+                holder.llChangePass.setVisibility(View.GONE);
             }
 
 //            if (item.getIsFavorite() && !item.getIsMainCard())

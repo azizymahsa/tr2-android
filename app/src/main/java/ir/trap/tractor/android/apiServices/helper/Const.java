@@ -48,7 +48,7 @@ public class Const
     public final static String DoTransferCard = SubBASEURL + "Shetab/v1/DoTransfer";
 
 
-    //card_Shetab
+    //card
     public final static String GetCardList = SubBASEURL + "v1/card/";
     public final static String AddCard = SubBASEURL + "v1/card/";
     public final static String DeleteCard = SubBASEURL + "v1/card/";

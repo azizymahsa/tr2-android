@@ -1609,13 +1609,13 @@ public class ChargeFragment extends BaseFragment
     @Override
     public void showPaymentParentLoading()
     {
-
+        mainView.showLoading();
     }
 
     @Override
     public void hidePaymentParentLoading()
     {
-
+        mainView.hideLoading();
     }
 
     @Override
