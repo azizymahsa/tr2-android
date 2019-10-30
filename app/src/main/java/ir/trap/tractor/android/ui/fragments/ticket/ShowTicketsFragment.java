@@ -25,24 +25,28 @@ import java.util.ArrayList;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.showTicket.ShowTicketItem;
 import ir.trap.tractor.android.ui.adapters.ticket.ShowTicketAdapter;
+import ir.trap.tractor.android.ui.fragments.main.MainActionView;
+import ir.trap.tractor.android.ui.fragments.main.MainFragment;
+import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.trap.tractor.android.utilities.Tools;
 
 /**
  * Created by MahtabAzizi on 10/28/2019.
  */
-public class ShowTicketsFragment  extends Fragment implements View.OnClickListener
+public class ShowTicketsFragment extends Fragment implements View.OnClickListener
 {
 
     private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private View btnShareTicket,btnPaymentConfirm;
+    private View btnShareTicket, btnPaymentConfirm,btnBackToHome;
     private TextView tvDescTicket;
-    private String firstName,lastName;
+    private String firstName, lastName;
     private RecyclerView rvTickets;
     private LinearLayoutManager linearLayoutManager;
     private ShowTicketAdapter showTicketAdapter;
-    private ArrayList<ShowTicketItem> ticketItems = new ArrayList<>();;
+    private ArrayList<ShowTicketItem> ticketItems = new ArrayList<>();
+    ;
 
 
     public ShowTicketsFragment()
@@ -52,7 +56,7 @@ public class ShowTicketsFragment  extends Fragment implements View.OnClickListen
     /**
      * Receive the model list
      */
-    public static ShowTicketsFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket)
+    public static ShowTicketsFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         ShowTicketsFragment fragment = new ShowTicketsFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
@@ -87,20 +91,23 @@ public class ShowTicketsFragment  extends Fragment implements View.OnClickListen
 
     private void initView()
     {
-        tvDescTicket=view.findViewById(R.id.tvDescTicket);
-        btnShareTicket=view.findViewById(R.id.btnShareTicket);
-        btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
-        rvTickets=view.findViewById(R.id.rvTickets);
+        tvDescTicket = view.findViewById(R.id.tvDescTicket);
+        btnShareTicket = view.findViewById(R.id.btnShareTicket);
+        btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
+        btnBackToHome = view.findViewById(R.id.btnBackToHome);
+        rvTickets = view.findViewById(R.id.rvTickets);
         if (Prefs.getString("firstName", "").isEmpty())
         {
-           firstName ="کاربر";
-        }else {
-            firstName=Prefs.getString("firstName", "");
+            firstName = "کاربر";
+        } else
+        {
+            firstName = Prefs.getString("firstName", "");
         }
-        lastName=Prefs.getString("lastName", "");
-        tvDescTicket.setText(firstName+" "+lastName+"عزیز؛");
+        lastName = Prefs.getString("lastName", "");
+        tvDescTicket.setText(firstName + " " + lastName + "عزیز؛");
         btnShareTicket.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
+        btnBackToHome.setOnClickListener(this);
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvTickets.setLayoutManager(linearLayoutManager);
@@ -133,8 +140,9 @@ public class ShowTicketsFragment  extends Fragment implements View.OnClickListen
 
     private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
-        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
+        this.onClickContinueBuyTicketListener = onClickContinueBuyTicket;
     }
+
     @Override
     public void onClick(View v)
     {
@@ -145,9 +153,18 @@ public class ShowTicketsFragment  extends Fragment implements View.OnClickListen
                 onClickContinueBuyTicketListener.goBuyTicket();
 
                 break;
+            case R.id.btnBackToHome:
+
+               MainFragment nextFrag = new MainFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, nextFrag, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+
+                break;
             case R.id.btnShareTicket:
-               // onClickContinueBuyTicketListener.onBackClicked();
-                Tools.showToast(getContext(),"share");
+                // onClickContinueBuyTicketListener.onBackClicked();
+                Tools.showToast(getContext(), "share");
                 break;
         }
     }

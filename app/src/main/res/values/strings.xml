@@ -28,6 +28,7 @@
     <string name="loyalBank">تراپ</string>
     <string name="enter_pass">لطفارمز دوم را وارد نمایید.</string>
     <string name="returnButton"><u>بازگشت</u></string>
+    <string name="homeButton"><u>خانه</u></string>
     <string name="enter_email">ایمیل خود را وارد نمایید (اختیاری)</string>
     <string name="enter_national_code">کد ملی خود را وارد نمایید(اختیاری)</string>
     <string name="enter_birthday">تاریخ تولد خود را وارد نمایید(اختیاری)</string>
@@ -51,6 +52,10 @@
     <string name="select_position_tiitle">لطفا جایگاه مطلوب خود را انتخاب کنید :</string>
     <string name="_confirm_next">تایید و مرحله بعد</string>
     <string name="_confirm_peyment">تایید و پرداخت</string>
-    <string name="buy_ticket_description">با تشکر از اینکه به عنوان یک هوادار در این بازی همراه تیم ما هستید، لطفا اطلاعات مندرج در بلیط خریداری شده به همراه کد ملی خود را هنگام ورود به ورزشگاه همراه داشته باشید.</string>
-    <string name="backToBuyTicket">بازگشت به خرید بلیط</string>
-</resources>
+    <string name="buy_ticket_description">کاربر گرامی؛ خرید با موفقیت انجام شد. </string>
+    <string name="buy_ticket_description_2">همراه داشتن کارت ملی برای همه افراد جهت ورود به ورزشگاه الزامی می باشد. </string>
+    <string name="backToBuyTicket"> خرید مجدد</string>
+    <string name="Please_enter_the_national_code">لطفا کد ملی خود را وارد کنید</string>
+    <string name="condition_text">صحت اطلاعات وارد شده را تایید می نمایم . قوانین و مقررات را مطالعه کرده و می پذیرم</string>
+    <string name="Please_enter_last_name_in_Persian">لطفا نام خانوادگی خود را وارد نمایید</string>
+    <string name="string_under_line"><u>قوانین و مقررات</u>.</string></resources>
