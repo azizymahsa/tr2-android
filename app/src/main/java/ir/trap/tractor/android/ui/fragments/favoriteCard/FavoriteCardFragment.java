@@ -33,6 +33,7 @@ import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListRes
 import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import ir.trap.tractor.android.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
+import ir.trap.tractor.android.models.otherModels.AddCardModel;
 import ir.trap.tractor.android.ui.adapters.favoriteCard.CardViewPagerAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.base.GoToActivity;
@@ -462,9 +463,9 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     }
 
     @Subscribe
-    public void addCard(Result card)
+    public void addCard(AddCardModel cardModel)
     {
-        cardList.add(card);
+        cardList.add(cardModel.getCard());
         adapter.notifyDataSetChanged();
     }
 
