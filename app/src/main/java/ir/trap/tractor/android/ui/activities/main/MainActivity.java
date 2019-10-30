@@ -1,18 +1,13 @@
 package ir.trap.tractor.android.ui.activities.main;
 
-//import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -33,8 +28,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 import io.realm.exceptions.RealmException;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
@@ -49,34 +42,29 @@ import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuRespons
 import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.models.dbModels.BankDB;
-import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.card.add.AddCardActivity;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.base.BaseActivity;
+import ir.trap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
 import ir.trap.tractor.android.ui.fragments.BarcodeReaderFragment;
-import ir.trap.tractor.android.ui.fragments.about.HistoryFragment;
 import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
-import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
-import ir.trap.tractor.android.ui.fragments.ticket.CountTicketFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 import ir.trap.tractor.android.utilities.Logger;
-import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.utility.CustomAlert;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
-        , SelectPositionFragment.OnListFragmentInteractionListener, View.OnClickListener
-
+        , SelectPositionFragment.OnListFragmentInteractionListener
 {
     private Boolean isMainFragment = true;
 
@@ -88,7 +76,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Fragment currentFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-    private View btnBuyTicket;
+//    private View btnBuyTicket;
+
     private BottomNavigationView bottomNavigationView;
 
     private Bundle mSavedInstanceState;
@@ -106,13 +95,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         realm = Realm.getDefaultInstance();
 
         mToolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(mToolbar);
 
         drawerFragment = (MenuDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_menudrawer);
         drawerFragment.setUp(R.id.fragment_navigation_menudrawer, findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
-      //  btnBuyTicket.setOnClickListener(this);
 //        ImageButton btnDrawer = mToolbar.findViewById(R.id.imgMenu);
 //
 //        btnDrawer.setOnClickListener(v ->
@@ -122,6 +111,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            mDrawerLayout.openDrawer(containerView);
 //
 //        });
+
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
@@ -133,19 +123,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             //switch currentFragment
             switch (itemId)
             {
-                case R.id.tab_shop:
+                case R.id.tab_market:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
                     {
-                        /*setCheckedBNV(bottomNavigationView, 0);
-                        isMainFragment = false;
-
-                        currentFragment = HistoryFragment.newInstance(this);
-                        transaction = fragmentManager.beginTransaction();
-                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                        transaction.replace(R.id.main_container, currentFragment)
-                                .commit();*/
+                        setCheckedBNV(bottomNavigationView, 4);
                     }
                     break;
                 }
@@ -158,13 +140,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         isMainFragment = false;
 
                         currentFragment = AllMenuFragment.newInstance(this);
+
                         transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
                         transaction.replace(R.id.main_container, currentFragment)
                                 .commit();
                     }
-
                     break;
                 }
                 case R.id.tab_home:
@@ -179,22 +160,21 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
                 case R.id.tab_media:
                 {
-                   /* if (!bottomNavigationView.getMenu().getItem(3).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(1).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 3);
-                    }*/
+                        setCheckedBNV(bottomNavigationView, 1);
+                    }
                     break;
                 }
                 case R.id.tab_payment:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 4);
+                        setCheckedBNV(bottomNavigationView, 0);
 
                         isMainFragment = false;
 
-                        //currentFragment = PaymentWithoutCardFragment.newInstance(this);
-                        currentFragment = PaymentFragment.newInstance(this);
+                        currentFragment = PaymentWithoutCardFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -207,18 +187,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             return true;
         });
         //--------------------------------bottomBar----------------------------------
-        showLoading();
+//        showLoading();
 
         GetMenuRequest request = new GetMenuRequest();
         request.setDeviceType(TrapConfig.AndroidDeviceType);
         request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
         SingletonService.getInstance().getMenuService().getMenu(this, request);
-
+//
 //        fragmentManager = getSupportFragmentManager();
 //        currentFragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
 //
 //        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 //
 //        if (mSavedInstanceState == null)
 //        {
@@ -310,7 +289,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             case 1:
             {
                 showToast(this, "لیست تراکنش ها", R.color.green);
-//                startAddCardActivity();
                 break;
             }
             case 2:
@@ -374,25 +352,38 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 12:
             {
-                CustomAlert ca = new CustomAlert(this);
-                ca.setCustomTitle(R.string.app_name);
-                ca.setCustomMessage("آیا می خواهید از حساب کاربری خود خارج شوید؟");
-                ca.setPositiveButton("خروج", (dialog, which) ->
+                MessageAlertDialog dialog = new MessageAlertDialog(this, "", "آیا می خواهید از حساب کاربری خود خارج شوید؟",
+                        true, "خروج", "انصراف", new MessageAlertDialog.OnConfirmListener()
                 {
-                    Prefs.clear();
-                    finish();
-                    intent.setClass(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        Prefs.clear();
+                        finish();
+                        intent.setClass(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelClick()
+                    {
+
+                    }
                 });
-                ca.setNegativeButton("انصراف", null);
-                ca.create();
-                ca.show();
+                dialog.show(getFragmentManager(), "messageDialog");
 
                 return;
 
             }
 
         }
+    }
+
+    @Override
+    public void onUserProfileClick()
+    {
+        showToast(this, "حساب کاربری من", R.color.green);
+        //go to UserProfileActivity
     }
 
     @Override
@@ -404,10 +395,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void hideLoading()
     {
-        runOnUiThread(() ->
-        {
-            findViewById(R.id.llLoading).setVisibility(View.GONE);
-        });
+        findViewById(R.id.llLoading).setVisibility(View.GONE);
+//        runOnUiThread(() ->
+//        {
+//        });
     }
 
     @Override
@@ -416,7 +407,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         isMainFragment = false;
         String titleBill = "قبض تلفن همراه";
         int idBillType = 5;
-        currentFragment = BillFragment.newInstance(this,titleBill,idBillType);
+        currentFragment = BillFragment.newInstance(this, titleBill, idBillType);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -436,7 +427,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
-
     }
 
     @Override
@@ -454,21 +444,27 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
 
     @Override
-    public void openBarcode(BarcodeType bill) {
+    public void openBarcode(BarcodeType bill)
+    {
         new TedPermission(this)
-                .setPermissionListener(new PermissionListener() {
+                .setPermissionListener(new PermissionListener()
+                {
                     @Override
-                    public void onPermissionGranted() {
-                        try{
-                        onBarcodReader();
-                        }catch (Exception e){
+                    public void onPermissionGranted()
+                    {
+                        try
+                        {
+                            onBarcodReader();
+                        } catch (Exception e)
+                        {
                             e.getMessage();
                         }
 
                     }
 
                     @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
 
                     }
                 })
@@ -477,17 +473,21 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .check();
 
     }
+
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+    protected void onSaveInstanceState(Bundle outState)
+    {
+//        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
         super.onSaveInstanceState(outState);
     }
+
     @Override
-    public void onBarcodReader() {
+    public void onBarcodReader()
+    {
         isMainFragment = false;
 
         currentFragment = BarcodeReaderFragment.newInstance(this);
-      //  transaction.commitAllowingStateLoss();
+        //  transaction.commitAllowingStateLoss();
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -501,8 +501,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-       // currentFragment = PaymentWithoutCardFragment.newInstance(this);
-        currentFragment = PaymentFragment.newInstance(this);
+        // currentFragment = PaymentWithoutCardFragment2.newInstance(this);
+        currentFragment = PaymentWithoutCardFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -545,12 +545,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .setPermissions(Manifest.permission.READ_CONTACTS)
                 .check();
     }
+
     @Override
     protected void onStop()
     {
         super.onStop();
         EventBus.getDefault().unregister(this);
-
     }
 
     @Override
@@ -558,15 +558,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         super.onStart();
         EventBus.getDefault().register(this);
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnSelectContact event)
     {
-        Toast.makeText(getApplicationContext(), "hoooraaa", Toast.LENGTH_SHORT).show();
+        showToast(this, "hoooraaa", R.color.gray);
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -591,19 +591,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     while (phones.moveToNext())
                     {
 
-                        OnSelectContact onSelectContact =new OnSelectContact();
-                        onSelectContact.setName( phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)) == null ? "" : phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
+                        OnSelectContact onSelectContact = new OnSelectContact();
+                        onSelectContact.setName(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)) == null ? "" : phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
                         onSelectContact.setNumber(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll(" ", "").replace("0098", "0").replace(getString(R.string.plus) + "98", "0"));
-                        if (currentFragment instanceof ChargeFragment){
+                        if (currentFragment instanceof ChargeFragment)
+                        {
                             ((ChargeFragment) currentFragment).onSelectContact(onSelectContact);
 
-                        }else if(currentFragment instanceof PackFragment){
+                        } else if (currentFragment instanceof PackFragment)
+                        {
                             ((PackFragment) currentFragment).onSelectContact(onSelectContact);
-                        }else if(currentFragment instanceof BillFragment){
+                        } else if (currentFragment instanceof BillFragment)
+                        {
                             ((BillFragment) currentFragment).onSelectContact(onSelectContact);
                         }
 
-                         }
+                    }
                     phones.close();
                 }
 
@@ -648,8 +651,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void openDrawer()
     {
-        showToast(this, "OpenDrawer", R.color.gray);
-
         View containerView = findViewById(R.id.fragment_navigation_menudrawer);
         DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayout.openDrawer(containerView);
@@ -658,11 +659,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void closeDrawer()
     {
-        showToast(this, "closeDrawer", R.color.gray);
-
-        View containerView = findViewById(R.id.fragment_navigation_menudrawer);
-        DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
-        mDrawerLayout.closeDrawer(containerView);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.END))
+        {
+            drawer.closeDrawer(GravityCompat.END);
+        }
+//        showToast(this, "closeDrawer", R.color.gray);
+//
+//        View containerView = findViewById(R.id.fragment_navigation_menudrawer);
+//        DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
+//        mDrawerLayout.closeDrawer(containerView);
     }
 
     @Override
@@ -697,8 +703,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             finish();
 
             return;
-        }
-        else
+        } else
         {
             chosenServiceList = response.data.getChosenServiceList();
             footballServiceList = response.data.getFootballServiceList();
@@ -716,8 +721,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 transaction.add(R.id.main_container, currentFragment)
                         .commit();
-            }
-            else
+            } else
             {
                 transaction.replace(R.id.main_container, currentFragment)
                         .commit();
@@ -743,8 +747,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         finish();
 
                         return;
-                    }
-                    else
+                    } else
                     {
                         Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
 
@@ -754,8 +757,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                             {
                                 realm1.delete(BankDB.class);
                             });
-                        }
-                        catch (RealmException ex)
+                        } catch (RealmException ex)
                         {
                             Logger.e("--BankDB Delete--", "false");
 
@@ -783,8 +785,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                                     bankDB.setImageCard(bank.getImageCard());
                                     bankDB.setImageCardBack(bank.getImageCardBack());
                                     bankDB.setOrderItem(bank.getOrderItem());
-                                }
-                                catch (RealmException e)
+                                } catch (RealmException e)
                                 {
                                     e.printStackTrace();
                                 }
@@ -819,19 +820,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         finish();
     }
 
-    @Override
-    public void onClick(View v)
-    {
-        switch (v.getId()){
-            case R.id.btnBuyTicket:
-
-                isMainFragment = false;
-                currentFragment = BuyTickets.newInstance(this);
-                transaction = fragmentManager.beginTransaction();
-                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                transaction.replace(R.id.main_container, currentFragment)
-                        .commit();
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v)
+//    {
+//        switch (v.getId())
+//        {
+//            case R.id.btnBuyTicket:
+//
+//                isMainFragment = false;
+//                currentFragment = BuyTickets.newInstance(this);
+//                transaction = fragmentManager.beginTransaction();
+//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//                transaction.replace(R.id.main_container, currentFragment)
+//                        .commit();
+//                break;
+//        }
+//    }
 }

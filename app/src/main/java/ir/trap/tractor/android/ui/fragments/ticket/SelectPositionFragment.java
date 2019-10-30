@@ -111,7 +111,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             throw new RuntimeException("You must to send a subMenuModels ");
         }
 
-        Log.d("",getArguments().getString(KEY_MODEL));
+        Logger.d("",getArguments().getString(KEY_MODEL));
     }
 
     @Override
@@ -672,7 +672,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                         //////////45*/
                 }
 
-                Log.e("tessstt", envelope.getHexCode() + "");
+                Logger.e("tessstt", envelope.getHexCode() + "");
             }
         });
     }

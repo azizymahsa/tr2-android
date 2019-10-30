@@ -40,12 +40,7 @@ package ir.trap.tractor.android.apiServices.part;
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
-import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
-import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
-import ir.trap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
 import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
-import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
-import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentFragment;
 
 
 public class TicketService extends BasePart

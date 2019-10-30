@@ -27,7 +27,7 @@
         android:title="سرویسها"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/tab_shop"
+        android:id="@+id/tab_market"
         android:enabled="true"
         android:icon="@drawable/ic_shop_main"
         android:title="تراپ\u200cمارکت"
