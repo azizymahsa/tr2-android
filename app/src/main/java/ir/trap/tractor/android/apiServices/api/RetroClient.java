@@ -42,6 +42,8 @@ import ir.trap.tractor.android.apiServices.model.getPackageMci.response.request.
 import ir.trap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
+import ir.trap.tractor.android.apiServices.model.getVersion.request.GetVersionRequest;
+import ir.trap.tractor.android.apiServices.model.getVersion.response.GetVersionResponse;
 import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
 import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
 import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
@@ -94,6 +96,11 @@ public interface RetroClient
     @POST(Const.Verify)
     Single<Response<WebServiceClass<VerifyResponse>>> verify(
             @Body VerifyRequest request
+    );
+
+    @POST(Const.GET_VERSION)
+    Single<Response<WebServiceClass<GetVersionResponse>>> getVersion(
+            @Body GetVersionRequest request
     );
 
     @POST(Const.BUY_MOBILE_CHARGE)
