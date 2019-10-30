@@ -18,7 +18,6 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
-import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 

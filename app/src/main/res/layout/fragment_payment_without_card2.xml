@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     xmlns:tools="http://schemas.android.com/tools"
@@ -49,28 +50,12 @@
                 android:id="@+id/llTransfer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_weight="100"
-                    android:text="پرداخت وجه"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/textSize_14dp"
-                    android:visibility="gone" />
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_20dp">
 
                 <LinearLayout
-                    android:id="@+id/llSelect"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <Space
@@ -82,19 +67,16 @@
                         android:id="@+id/llPayment"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_weight="5"
-                        android:gravity="center"
                         android:orientation="horizontal">
 
-
                         <LinearLayout
-                            android:id="@+id/llList"
+                            android:id="@+id/llMerchantList"
+                            android:orientation="vertical"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:foreground="?attr/selectableItemBackground"
-                            android:orientation="vertical">
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
 
                             <RelativeLayout
                                 android:layout_width="@dimen/_72sdp"
@@ -105,32 +87,29 @@
                                     android:layout_width="@dimen/_60sdp"
                                     android:layout_height="@dimen/_60sdp"
                                     android:layout_centerInParent="true"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/ic_merchant_list" />
+                                    android:src="@drawable/ic_merchant_list"
+                                    android:scaleType="fitCenter" />
 
                             </RelativeLayout>
 
                             <TextView
-                                android:id="@+id/tvIncrease"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
                                 android:text="لیست پذیرنگان"
-                                android:textColor="@color/textColorSecondary"
-                                android:textSize="@dimen/textSize_14dp" />
-
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textSize="@dimen/textSize_14dp"
+                                android:textColor="@color/textColorSecondary"/>
 
                         </LinearLayout>
 
-
                         <LinearLayout
-                            android:id="@+id/llBarcode"
+                            android:id="@+id/llQrScan"
+                            android:orientation="vertical"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:foreground="?attr/selectableItemBackground"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content">
 
                             <RelativeLayout
                                 android:layout_width="@dimen/_72sdp"
@@ -138,25 +117,23 @@
                                 android:layout_gravity="center">
 
                                 <ImageView
-                                    android:id="@+id/ivShowBalance"
                                     android:layout_width="@dimen/_60sdp"
                                     android:layout_height="@dimen/_60sdp"
                                     android:layout_centerInParent="true"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/ic_qr_code" />
+                                    android:src="@drawable/ic_qr_code"
+                                    android:scaleType="fitCenter" />
 
                             </RelativeLayout>
 
                             <TextView
-                                android:id="@+id/tvShowBalance"
+                                android:id="@+id/tvTitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
                                 android:text="اسکن بارکد"
-                                android:textColor="@color/textColorSecondary"
-                                android:textSize="@dimen/textSize_14dp" />
-
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textSize="@dimen/textSize_14dp"
+                                android:textColor="@color/textColorSecondary"/>
 
                         </LinearLayout>
 
@@ -167,13 +144,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2" />
 
-
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llDetailPayment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginBottom="@dimen/_10dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -185,45 +163,42 @@
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="10" />
-
+                            android:layout_weight="1" />
 
                         <com.google.android.material.textfield.TextInputLayout
+                            app:hintTextAppearance="@style/TextLabel"
                             android:id="@+id/etLayoutCode"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_gravity="center|right"
-                            android:layout_weight="100"
+                            android:layout_weight="2"
                             android:hint="کد پذیرنده"
-                            android:theme="@style/EditTextHint"
-                            app:hintTextAppearance="@style/TextLabel">
+                            android:theme="@style/EditTextHint">
 
                             <ir.trap.tractor.android.utilities.ClearableEditText
                                 android:id="@+id/etQR"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="@color/black"
+                                android:backgroundTint="@color/textColorSecondary"
                                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
                                 android:gravity="right|center"
                                 android:imeOptions="actionNext"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/black"
-                                android:textSize="@dimen/textSize_16dp"
+                                android:textColor="@color/textColorPrimary"
+                                android:textColorHint="@color/textColorHint"
+                                android:textSize="@dimen/textSize_16dp" />
 
-
-                                />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="10" />
-
+                            android:layout_weight="1" />
 
                     </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -234,48 +209,41 @@
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="10" />
-
+                            android:layout_weight="1" />
 
                         <com.google.android.material.textfield.TextInputLayout
+                            app:hintTextAppearance="@style/TextLabel"
                             android:id="@+id/etLayoutPass"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_gravity="center|right"
-                            android:layout_weight="100"
+                            android:layout_weight="2"
                             android:hint="مبلغ را به ریال وارد نمایید"
-
-                            android:theme="@style/EditTextHint"
-                            app:hintTextAppearance="@style/TextLabel">
+                            android:theme="@style/EditTextHint">
 
                             <ir.trap.tractor.android.utilities.ClearableEditText
                                 android:id="@+id/etAmountPayment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="@color/black"
+                                android:backgroundTint="@color/textColorSecondary"
                                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
                                 android:gravity="right|center"
                                 android:imeOptions="actionDone"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/black"
-                                android:textSize="@dimen/textSize_16dp"
+                                android:textColor="@color/textColorPrimary"
+                                android:textColorHint="@color/textColorHint"
+                                android:textSize="@dimen/textSize_16dp" />
 
-
-                                />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="10" />
-
+                            android:layout_weight="1" />
 
                     </LinearLayout>
-
-
                     <LinearLayout
                         android:id="@+id/llBtnConfirm2"
                         android:layout_width="match_parent"
@@ -325,22 +293,18 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="10" />
                     </LinearLayout>
-
-
                     <LinearLayout
                         android:id="@+id/llBtnConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_30dp"
                         android:gravity="center|right"
                         android:orientation="horizontal">
-
 
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
-
 
                         <FrameLayout
                             android:layout_width="0dp"
@@ -352,15 +316,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_30dp"
                                 android:layout_gravity="center"
-                                android:layout_margin="2dp"
                                 android:background="@drawable/background_button_login"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textColorButton"
                                 android:textSize="@dimen/textSize_14dp"
                                 android:transitionName="transition"
                                 app:finalCornerAngle="50dp"
+                                android:text="ادامه"
+                                app:spinning_bar_color="@color/textColorButton"
+                                android:textStyle="bold"
                                 app:initialCornerAngle="50dp"
-                                app:spinning_bar_color="@color/white"
-                                app:spinning_bar_width="2dp" />
+                                app:spinning_bar_width="2dp"
+                                android:layout_margin="2dp"/>
+
                         </FrameLayout>
 
                         <Space
@@ -370,15 +337,19 @@
 
                     </LinearLayout>
 
-
                 </LinearLayout>
-
+                <!--llPricePayment-->
                 <LinearLayout
                     android:id="@+id/llPricePeyment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    >
+
+
+
+
 
 
                     <LinearLayout
@@ -393,18 +364,18 @@
                             android:layout_weight="10" />
 
 
-                        <com.google.android.material.textfield.TextInputLayout
+<!--
+                        <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
                             android:id="@+id/llPaymentPass"
                             android:layout_width="0dp"
+                            android:layout_weight="100"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_gravity="center|right"
-                            android:layout_weight="100"
+
                             android:hint="رمز دوم کارت را وارد نمایید"
+                            android:theme="@style/EditTextHint">
 
-                            android:theme="@style/EditTextHint"
-                            app:hintTextAppearance="@style/TextLabel">
-
-                            <ir.trap.tractor.android.utilities.ClearableEditText
+                            <ir.bankday.diba.android.tools.ClearableEditText
                                 android:id="@+id/etPassPayment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -422,6 +393,7 @@
 
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
+-->
 
                         <Space
                             android:layout_width="0dp"
@@ -431,97 +403,64 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/llCvv2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:gravity="center|right"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <Space
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="10" />
 
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tipCvv2"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:layout_gravity="center|right"
-                            android:layout_weight="100"
-                            android:hint="شماره cvv2 را وارد نمایید"
-
-                            android:theme="@style/EditTextHint"
-                            app:hintTextAppearance="@style/TextLabel">
-
-                            <ir.trap.tractor.android.utilities.ClearableEditText
-                                android:id="@+id/etCvv2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:backgroundTint="@color/black"
-                                android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                                android:gravity="right|center"
-                                android:imeOptions="actionDone"
-                                android:inputType="numberPassword"
-                                android:maxLines="1"
-                                android:singleLine="true"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/black"
-                                android:textSize="@dimen/textSize_16dp"
 
 
-                                />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <Space
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="10" />
 
 
-                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     <LinearLayout
                         android:id="@+id/llCheckBox"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:orientation="horizontal"
                         android:layout_gravity="center|right"
                         android:gravity="center|right"
-                        android:orientation="horizontal">
-
+                        >
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="10" />
-
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center|right"
                             android:layout_weight="100"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center|right"
                             android:gravity="center|right"
-                            android:orientation="horizontal">
-
+                            >
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
+                                android:textSize="@dimen/textSize_12dp"
+                                android:textColor="@color/currentColor"
                                 android:text="چاپ رسید در دستگاه کارت خوان"
                                 android:textAppearance="@style/IranSansBold"
-                                android:textColor="@color/currentColor"
-                                android:textSize="@dimen/textSize_12dp" />
-
+                                />
                             <CheckBox
                                 android:id="@+id/cbPrint"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:buttonTint="@color/currentColor" />
+                                android:buttonTint="@color/currentColor"/>
                         </LinearLayout>
-
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -530,11 +469,13 @@
                     </LinearLayout>
 
 
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
 
                         <Space
                             android:layout_width="0dp"
@@ -578,13 +519,19 @@
                     </LinearLayout>
 
 
-                </LinearLayout>
 
+
+
+
+
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+
     </LinearLayout>
+
 </FrameLayout>
-
-

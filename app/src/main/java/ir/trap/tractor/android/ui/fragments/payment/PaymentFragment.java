@@ -34,6 +34,7 @@ import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyR
 import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
+import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardFragment;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardParentActionView;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
@@ -42,7 +43,7 @@ import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.trap.tractor.android.utilities.ClearableEditText;
 import ir.trap.tractor.android.utilities.Tools;
 
-public class PaymentFragment extends Fragment implements FavoriteCardParentActionView, PaymentParentActionView, PaymentActionView
+public class PaymentFragment extends BaseFragment implements FavoriteCardParentActionView, PaymentParentActionView, PaymentActionView
 {
 
     private Fragment cardFragment;

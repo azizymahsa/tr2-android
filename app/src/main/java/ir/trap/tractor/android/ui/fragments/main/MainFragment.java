@@ -48,7 +48,7 @@ import library.android.service.model.bus.searchBus.response.Company;
 import library.android.service.model.flight.reservation.response.ReservationResponse;
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
-        FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener, View.OnClickListener
+        FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener
 {
 //    private CircularProgressButton btnBus, btnFlight, btnHotel, btnDoTransfer, btnChargeSimCard, btnPackSimCard, btnBill;
 
@@ -69,7 +69,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
     private MainActionView mainView;
-    private View btnBuyTicket;
+//    private View btnBuyTicket;
 
     public MainFragment()
     {
@@ -122,7 +122,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         initView(rootView);
 
 
-
         mToolbar = rootView.findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
@@ -130,9 +129,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         setSlider();
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
-        btnBuyTicket=rootView.findViewById(R.id.btnBuyTicket);
+//        btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
 
-        btnBuyTicket.setOnClickListener(this);
+//        btnBuyTicket.setOnClickListener(this);
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
         recyclerView.setLayoutManager(layoutManager);
@@ -210,8 +209,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     newList.add(item);
                 }
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -257,7 +255,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private void setSlider()
     {
-        for (int i = 1 ; i < 4 ; i++)
+        for (int i = 1; i < 4; i++)
         {
             MyCustomSliderView textSliderView = new MyCustomSliderView(getActivity());
 //            textSliderView.setStadiumName("ورزشگاه یادگار امام تبریز");
@@ -361,7 +359,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
 
-
     @Override
     public void LockSeatListener(LockSeatResponse lockSeatResponse, String s, String s1, List<Company> list)
     {
@@ -375,7 +372,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
 
-
     @Override
     public void flightReservationListener(ReservationResponse reservationResponse, FlightReservation flightReservation, String s, String s1)
     {
@@ -387,7 +383,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
 
     }
-
 
 
     @Override
@@ -405,7 +400,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onSliderClick(BaseSliderView slider)
     {
-
+        mainView.onBuyTicketClick();
     }
 
     @Override
@@ -490,13 +485,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         flightActivity.startMainFlight();
     }
 
-    @Override
-    public void onClick(View v)
-    {
-        switch (v.getId()){
-            case R.id.btnBuyTicket:
-            mainView.onBuyTicketClick();
-            break;
-        }
-    }
+//    @Override
+//    public void onClick(View v)
+//    {
+//        switch (v.getId())
+//        {
+//            case R.id.btnBuyTicket:
+//                mainView.onBuyTicketClick();
+//                break;
+//        }
+//    }
 }

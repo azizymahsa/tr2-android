@@ -459,7 +459,10 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     @Override
     public void startActivity(GoToActivity activity)
     {
-        parentView.startAddCardActivity();
+        if (activity == GoToActivity.AddCardActivity)
+        {
+            parentView.startAddCardActivity();
+        }
     }
 
     @Subscribe
