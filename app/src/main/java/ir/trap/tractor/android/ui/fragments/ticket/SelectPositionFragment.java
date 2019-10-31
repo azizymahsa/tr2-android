@@ -488,88 +488,86 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
 
 
                     case "FF328DAA":
-                        ivDefault.setImageResource(R.drawable.ic_test_stadium_selected);
+                        ivDefault.setImageResource(R.drawable.ic_selected_one);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FF953d3d":
-                       // ivDefault.setImageResource(R.drawable.ic_test_stadium_selected);
+                    case "FF953D3D":
+                        ivDefault.setImageResource(R.drawable.ic_selected_two);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivSelected.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FFFE9000":
+                        ivDefault.setImageResource(R.drawable.ic_selected_three);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                   /* case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FFFFFC9B":
+                        ivDefault.setImageResource(R.drawable.ic_selected_four);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FF00AC62":
+                        ivDefault.setImageResource(R.drawable.ic_selected_five);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
                         /////5
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FF8A3D7D":
+                        ivDefault.setImageResource(R.drawable.ic_selected_six);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FF9AB260":
+                        ivDefault.setImageResource(R.drawable.ic_selected_seven);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FFFF8181":
+                        ivDefault.setImageResource(R.drawable.ic_selected_eight);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FF0F0060":
+                        ivDefault.setImageResource(R.drawable.ic_selected_nine);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FFFFC170":
+                        ivDefault.setImageResource(R.drawable.ic_selected_ten);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
                         ////////10
-
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FF00EDFF":
+                        ivDefault.setImageResource(R.drawable.ic_selected_eleven);
+                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        break;
+                    case "FF481337":
+                        ivDefault.setImageResource(R.drawable.ic_selected_twelve);
+                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        break;
+                    case "FF009A8F":
+                        ivDefault.setImageResource(R.drawable.ic_selected_thirteen);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
                     case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                        ivDefault.setImageResource(R.drawable.ic_selected_fourteen);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
-                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
-                        ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FF00FF5D":
+                        ivDefault.setImageResource(R.drawable.ic_selected_fifteen);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
                         ////15
-
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                     case "FFA0F113":
+                        ivDefault.setImageResource(R.drawable.ic_selected_sixteen);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FF8A4000":
+                        ivDefault.setImageResource(R.drawable.ic_selected_seventeen);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FF0080FF":
+                        ivDefault.setImageResource(R.drawable.ic_selected_eighteen);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FFDC0DB3":
+                        ivDefault.setImageResource(R.drawable.ic_selected_nineteen);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                    case "FFFE0002":
-                        ivDefault.setImageResource(R.drawable.ic_fourteen_full);
+                    case "FF52488A":
+                        ivDefault.setImageResource(R.drawable.ic_selected_twelve);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
                         ////20
@@ -682,7 +680,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                         ivDefault.setImageResource(R.drawable.ic_fourteen_full);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
-                        //////////45*/
+                        //////////45
                 }
 
                 Logger.e("tessstt", envelope.getHexCode() + "");
