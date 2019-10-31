@@ -8,6 +8,7 @@ import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.allService.response.Datum;
 import ir.trap.tractor.android.apiServices.model.allService.response.ResponseAllService;
+import ir.trap.tractor.android.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
 import ir.trap.tractor.android.apiServices.model.getHistory.ResponseHistory;
 import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
@@ -31,7 +32,7 @@ public class GetMenuService extends BasePart
     {
         start(getServiceGenerator().createService().getMenu(request), listener);
     }
-    public void getMenuAll(OnServiceStatus<WebServiceClass<ArrayList<GetMenuItemResponse>>> listener, GetMenuRequest request)
+    public void getMenuAll(OnServiceStatus<WebServiceClass<GetAllMenuResponse>> listener, GetMenuRequest request)
     {
         start(getServiceGenerator().createService().getMenuAll(request), listener);
     }
