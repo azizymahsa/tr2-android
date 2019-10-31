@@ -41,6 +41,8 @@ import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import library.android.eniac.utility.Utility;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 public class SelectPositionFragment
         extends Fragment implements View.OnClickListener
@@ -170,6 +172,15 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         String date = dateFormat.format(d);  // formatted date in string
 
         PersianCalendar persianCalendar = new PersianCalendar();
+        PersianDate pdate = new PersianDate();
+        PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d");
+      //  pdformater1.format(pdate);//1396/05/20
+
+        PersianDateFormat pdformater2 = new PersianDateFormat("y F j l");
+        date =String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
+
+
+
         return date;
     }
 
