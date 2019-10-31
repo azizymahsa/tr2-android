@@ -77,6 +77,7 @@ public class SelectPositionFragment
     // private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
 
     public SelectPositionFragment() {
+
     }
 
     /**
