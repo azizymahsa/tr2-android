@@ -57,7 +57,6 @@ import ir.trap.tractor.android.enums.TransferType;
 import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;
-import ir.trap.tractor.android.ui.activities.web.WebActivity;
 import ir.trap.tractor.android.ui.adapters.AllMenuServiceModelAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.allMenu.adapter.ItemRecyclerViewAdapter;
@@ -477,82 +476,60 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                 break;
             }
             //بیمه
-            case 21: //خبیمه شخص ثالث
+            case 21: //بیمه شخص ثالث
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://traap.bimeh.com/thirdparty");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/thirdparty");
                 break;
             }
             case 22: //بیمه بدنه
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://traap.bimeh.com/carbody");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/carbody");
                 break;
             }
             case 29: //بیمه موتورسیکلت
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://traap.bimeh.com/thirdpartyMotor");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/thirdpartyMotor");
                 break;
             }
             case 23: //بیمه مسافرتی ویژه
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://traap.bimeh.com/travelplus");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/travelplus");
                 break;
             }
             case 24: //بیمه مسافرتی
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://traap.bimeh.com/travel");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/travel");
                 break;
             }
             case 25: //بیمه آتش سوزی
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://traap.bimeh.com/fire");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/fire");
                 break;
             }
             case 26: //بیمه تجهیزات الکترونیکی
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://traap.bimeh.com/equipments");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/equipments");
                 break;
             }
             case 27: //بیمه زلزله
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://traap.bimeh.com/earthquake");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/earthquake");
                 break;
             }
             case 28: //بیمه انفرادی و گروهی
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://traap.bimeh.com/others");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/others");
                 break;
             }
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
                 break;
             }
             case 32: //  پارک حاشیه ای
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL","https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
-                startActivity(intent);
+                Utility.openUrlCustomTab(getActivity(), "https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
                 break;
             }
         }

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="5dp">
+
+<!--    <RelativeLayout-->
+<!--        android:background="@color/colorPrimaryDark"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:padding="2dp">-->
+
+
+<!--    </RelativeLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/alert_backgroundd">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieViewEdit"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie/phone.json"
+            app:lottie_loop="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                android:id="@+id/btnUpdateDetail"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:background="@drawable/alert_backgroundd"
+                android:foreground="?attr/selectableItemBackground"
+                android:text="مشاهده تغییرات"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="@dimen/textSize_10dp"
+                android:transitionName="transition"
+                app:finalCornerAngle="50dp"
+                app:initialCornerAngle="50dp"
+                app:spinning_bar_color="@color/white"
+                app:spinning_bar_width="2dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="100"
+                android:gravity="center|right"
+                android:textStyle="bold"
+                android:text="بروزرسانی"
+                android:textSize="@dimen/_14sdp"
+                android:textAppearance="@style/IranSansBold"
+                android:textColor="@color/textColorPrimary" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:text="بروزرسانی"
+            android:textAppearance="@style/IranSansBold"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/flCafeBazaarUpdate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_weight="100">
+
+                <ImageView
+                    android:id="@+id/btnCafeBazaarUpdate"
+                    android:layout_width="@dimen/_101sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_download_cafebazaar"
+                    android:background="@drawable/background_border_red" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/flGooglePlayUpdate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100">
+
+                <ImageView
+                    android:id="@+id/btnGooglePlayUpdate"
+                    android:layout_width="@dimen/_101sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_download_playstore"
+                    android:background="@drawable/background_border_red" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/flConfirmUpdate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_weight="100">
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnConfirmUpdate"
+                    android:layout_width="@dimen/_101sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/background_border_red"
+                    android:layout_gravity="center"
+                    android:text="دانلود مستقیم"
+                    android:textColor="@color/textColorTitle"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_10sdp"
+                    android:transitionName="transition"
+                    app:finalCornerAngle="50dp"
+                    app:initialCornerAngle="50dp"
+                    app:spinning_bar_color="@color/textColorPrimary"
+                    app:spinning_bar_width="2dp" />
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/flWebSite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_weight="100">
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnWebSite"
+                    android:layout_width="@dimen/_101sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/background_border_red"
+                    android:text="بروزرسانی از سایت"
+                    android:textColor="@color/textColorTitle"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_10sdp"
+                    android:transitionName="transition"
+                    app:finalCornerAngle="50dp"
+                    app:initialCornerAngle="50dp"
+                    app:spinning_bar_color="@color/textColorPrimary"
+                    app:spinning_bar_width="2dp" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/flCancelUpdate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_weight="100">
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnCancelUpdate"
+                    android:layout_width="@dimen/_101sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/background_border_red"
+                    android:layout_gravity="center"
+                    android:text="انصراف"
+                    android:textStyle="bold"
+                    android:textColor="@color/textColorTitle"
+                    android:textSize="@dimen/_10sdp"
+                    android:transitionName="transition"
+                    app:finalCornerAngle="50dp"
+                    app:initialCornerAngle="50dp"
+                    app:spinning_bar_color="@color/textColorPrimary"
+                    app:spinning_bar_width="2dp" />
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
