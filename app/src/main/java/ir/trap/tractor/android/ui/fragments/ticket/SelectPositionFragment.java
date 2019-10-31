@@ -138,6 +138,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
         tvAmountStation=view.findViewById(R.id.tvAmountStation);
         tvAmountForPay=view.findViewById(R.id.tvAmountForPay);
+        getMatchRequest();
         getAllBoxesRequest();
         //btnBackToDetail.setOnClickListener(this);
         tvP.setOnClickListener(this);
@@ -149,7 +150,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         ivSelected=view.findViewById(R.id.ivSelected);
         rlImageViewsFull = view.findViewById(R.id.rlImageViewsFull);
 
-        getMatchRequest();
+
         setDataStadiumPosition();
         setFullPositions();
         setLayoutFullPosition();
@@ -215,18 +216,19 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             {
                 try
                 {
-                    if (!response.data.getResults().isEmpty()){
+                    matchId=2;
+                  /*  if (!response.data.getResults().isEmpty()){
                         matchId=response.data.getResults().get(0).getId();
                         llSliderItemMatch.setVisibility(View.VISIBLE);
                         tvStadiumName.setText(response.data.getResults().get(0).getStadium().getName());
                         setImageColor(imgHost, response.data.getResults().get(0).getTeamHome().getLogo());
                         setImageColor(imgGuest, response.data.getResults().get(0).getTeamAway().getLogo());
                         tvDateTime.setText(getDate(response.data.getResults().get(0).getMatchDatetime()));
-                    }
+                    }*/
                         // progress.setVisibility(View.GONE);
                 }catch (Exception e){
                     Tools.showToast(getContext(),e.getMessage(),R.color.red);
-                    llSliderItemMatch.setVisibility(View.VISIBLE);
+                    llSliderItemMatch.setVisibility(View.GONE);
 
                 }
             }

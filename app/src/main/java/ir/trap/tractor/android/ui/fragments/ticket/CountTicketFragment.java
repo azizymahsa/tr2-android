@@ -114,7 +114,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             public void onReady(WebServiceClass<ResponseMatch> response)
             {
                 progress.setVisibility(View.GONE);
-                if (response.info.statusCode == 200)
+               /* if (response.info.statusCode == 200)
                     if (response.data.getResults().size() > 0)
                     {
                         tvStadiumName.setText(response.data.getResults().get(0).getStadium().getName());
@@ -123,7 +123,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                         setImageColor(imgGuest, response.data.getResults().get(0).getTeamAway().getLogo());
 
                         tvDateTime.setText(getDate(response.data.getResults().get(0).getMatchDatetime()));
-                    }
+                    }*/
             }
 
             @Override
