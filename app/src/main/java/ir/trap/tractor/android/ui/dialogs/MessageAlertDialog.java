@@ -90,6 +90,10 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         {
             tvTitle.setVisibility(View.INVISIBLE);
         }
+        else
+        {
+            tvTitle.setText(title);
+        }
         tvMessage.setText(messages);
 
         btnConfirm.setOnClickListener(this);

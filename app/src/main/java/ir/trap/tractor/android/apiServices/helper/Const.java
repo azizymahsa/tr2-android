@@ -24,7 +24,7 @@ public class Const
     public final static String GetMenuAll = SubBASEURL + "v1/menu/get_all_services/";
 
 
-    public final static String GetAllBoxes=SubBASEURL+"v1/match/all_boxes/";
+    public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
 
     //Mobile
     public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
@@ -57,41 +57,41 @@ public class Const
 
 
     //Hotel
-    public final static String HotelSendMessage = SubBASEURLTest + "GdsHotel/v1/SendMessage";
-    public final static String HotelGetUserPass = SubBASEURLTest + "GdsHotel/v1/GetAccountInfo";
-    public final static String HotelPayment = SubBASEURLTest + "GdsHotel/v1/HotelPayment";
+    public final static String HotelSendMessage = SubBASEURL + "GdsHotel/v1/SendMessage";
+    public final static String HotelGetUserPass = SubBASEURL + "GdsHotel/v1/GetAccountInfo";
+    public final static String HotelPayment = SubBASEURL + "GdsHotel/v1/HotelPayment";
 
 
     //flight
-    public final static String FlightPayment = SubBASEURLTest + "GdsFlight/v1/FlightPayment";
-    public final static String FlightSendMessage = SubBASEURLTest + "GdsFlight/v1/SendMessage";
-    public final static String FlightGetUserPass = SubBASEURLTest + "GdsFlight/v1/GetAccountInfo";
+    public final static String FlightPayment = SubBASEURL + "GdsFlight/v1/FlightPayment";
+    public final static String FlightSendMessage = SubBASEURL + "GdsFlight/v1/SendMessage";
+    public final static String FlightGetUserPass = SubBASEURL + "GdsFlight/v1/GetAccountInfo";
 
 
     //Bus
-    public final static String SendBusMessage = SubBASEURLTest + "GdsBus/v1/SendMessage";
-    public final static String GetBusUserPass = SubBASEURLTest + "GdsBus/v1/GetAccountInfo";
-    public final static String BusPayment = SubBASEURLTest + "GdsBus/v1/BusPayment";
+    public final static String SendBusMessage = SubBASEURL + "GdsBus/v1/SendMessage";
+    public final static String GetBusUserPass = SubBASEURL + "GdsBus/v1/GetAccountInfo";
+    public final static String BusPayment = SubBASEURL + "GdsBus/v1/BusPayment";
 
 
     //Pos
-    public final static String DECRYPTQRCODE = SubBASEURLTest + "v1/payment/decrypt_qr_code/";
-    public final static String PAYMENT_PRINT_pOS = SubBASEURLTest + "v1/payment/payment_print_pos/";
+    public final static String DECRYPTQRCODE = SubBASEURL + "v1/payment/decrypt_qr_code/";
+    public final static String PAYMENT_PRINT_pOS = SubBASEURL + "v1/payment/payment_print_pos/";
 
 
     //Bank List
-    public final static String BANK_LIST = SubBASEURLTest + "v1/menu/bank/";
+    public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";
 
 
     //Ticket
-    public final static String GetMatch = SubBASEURLTest + "v1/match/";
+    public final static String GetMatch = SubBASEURL + "v1/match/";
 
 
     //History
-    public final static String GetHistory = SubBASEURLTest + "v1/club_history/get_history/";
+    public final static String GetHistory = SubBASEURL + "v1/club_history/get_history/";
 
 
     //Version
-    public final static String GET_VERSION = SubBASEURLTest + "v1/version/get_version_android/";
+    public final static String GET_VERSION = SubBASEURL + "v1/version/get_version_android/";
 
 }
