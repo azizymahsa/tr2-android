@@ -255,7 +255,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                     break;
 
                 case 6:
-                    imgView.setImageResource(R.drawable.ic_test_stadium_full);
+                    imgView.setImageResource(R.drawable.ic_fourteen_full);
                     break;
                 case 7:
                     imgView.setImageResource(R.drawable.ic_fourteen_full);
@@ -376,7 +376,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                     imgView.setImageResource(R.drawable.ic_fourteen_full);
                     break;
                 case 44:
-                     imgView.setImageResource(R.drawable.ic_test_stadium_full);
+                     imgView.setImageResource(R.drawable.ic_fourteen_full);
                     break;
                 case 45:
                     break;
@@ -483,7 +483,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
                     case "FFFE0002":
-                        ivSelected.setImageResource(R.drawable.ic_fourteen_selected);
+                        ivSelected.setImageResource(R.drawable.ic_fourteen_full);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
                    /* case "FFFE0002":
