@@ -1,5 +1,7 @@
 package ir.trap.tractor.android.ui.activities.main;
 
+//import androidx.appcompat.app.AppCompatActivity;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -125,9 +127,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 case R.id.tab_market:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 4);
+                        /*setCheckedBNV(bottomNavigationView, 0);
+                        isMainFragment = false;
+
+                        currentFragment = HistoryFragment.newInstance(this);
+                        transaction = fragmentManager.beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                        transaction.replace(R.id.main_container, currentFragment)
+                                .commit();*/
                     }
                     break;
                 }
@@ -427,6 +437,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         transaction.replace(R.id.main_container, currentFragment)
                 .commit();
+
     }
 
     @Override
@@ -551,6 +562,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         super.onStop();
         EventBus.getDefault().unregister(this);
+
     }
 
     @Override
@@ -558,6 +570,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         super.onStart();
         EventBus.getDefault().register(this);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -823,17 +836,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onClick(View v)
     {
-        switch (v.getId())
-        {
-//            case R.id.btnBuyTicket:
-//
-//                isMainFragment = false;
-//                currentFragment = BuyTickets.newInstance(this);
-//                transaction = fragmentManager.beginTransaction();
-//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//                transaction.replace(R.id.main_container, currentFragment)
-//                        .commit();
-//                break;
+        switch (v.getId()){
+            case R.id.btnBuyTicket:
+
+                isMainFragment = false;
+                currentFragment = BuyTickets.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                transaction.replace(R.id.main_container, currentFragment)
+                        .commit();
+                break;
         }
     }
 }

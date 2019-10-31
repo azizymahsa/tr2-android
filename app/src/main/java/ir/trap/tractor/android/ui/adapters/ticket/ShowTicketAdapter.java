@@ -83,8 +83,8 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
         //String text="0480759294"; // Whatever you need to encode in the QR code
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(nationalCode, BarcodeFormat.CODE_128, (int) context.getResources().getDimension(R.dimen._80dp)
-                    ,(int) context.getResources().getDimension(R.dimen._70dp));
+            BitMatrix bitMatrix = multiFormatWriter.encode(nationalCode, BarcodeFormat.CODE_128, convertDpToPx(context.getResources().getDimension(R.dimen._200dp))
+                    , convertDpToPx(context.getResources().getDimension(R.dimen._40dp)));
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             holder.ivBarcode.setImageBitmap(bitmap);
@@ -93,7 +93,9 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
         }
     }
 
-
+    public int convertDpToPx(float dp) {
+        return Math.round(dp * context.getResources().getDisplayMetrics().density);
+    }
     @Override
     public int getItemCount()
     {

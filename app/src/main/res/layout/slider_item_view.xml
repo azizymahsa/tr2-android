@@ -5,7 +5,8 @@
     android:layoutDirection="ltr"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    android:paddingBottom="8dp">
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
 
     <RelativeLayout
         android:id="@+id/rlRoot"

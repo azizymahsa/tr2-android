@@ -3,10 +3,14 @@ package ir.trap.tractor.android.ui.fragments.about;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,12 +20,19 @@ import com.daimajia.slider.library.SliderLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getHistory.ResponseHistory;
+import ir.trap.tractor.android.ui.fragments.about.adapter.ExpandableListViewAdapter;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
+
 
 public class HistoryFragment
         extends Fragment implements View.OnClickListener
@@ -29,9 +40,19 @@ public class HistoryFragment
 
 
     private View view;
-    private SliderLayout mDemoSlider;
+    private com.daimajia.slider.library.SliderLayout mDemoSlider;
     private MainActionView mainView;
 
+    //Expanding
+    private ir.trap.tractor.android.ui.fragments.about.adapter.NoScrollExListView expandableListView;
+
+    private ExpandableListViewAdapter expandableListViewAdapter;
+
+    private List<String> listDataGroup;
+
+   // private HashMap<String, List<String>> listDataChild;
+    private HashMap<String,String> listDataChild;
+    private WebServiceClass<ResponseHistory> responseHistory=new WebServiceClass<>();
 
     public static HistoryFragment newInstance(MainActionView mainView)
     {
@@ -44,6 +65,7 @@ public class HistoryFragment
     {
         this.mainView = mainView;
     }
+
     public HistoryFragment()
     {
     }
@@ -62,18 +84,12 @@ public class HistoryFragment
         for (int i = 1; i < response.data.getImages().size(); i++)
         {//HeaderWeekNo,CenterView,Text;
             ImageSliderView textSliderView = new ImageSliderView(getActivity());
-//            textSliderView.setStadiumName("ورزشگاه یادگار امام تبریز");
-//            textSliderView.setDateTime("یکشنبه 12 آبان 1398 - 18:00");
-//            textSliderView.setColorDateTime("#000");
-//            textSliderView.setColorStadiumName("#aaa");
-            //  textSliderView.setHeaderText(String.valueOf(i));
+
             textSliderView.setImgBackgroundLink(response.data.getImages().get(i).getImageName());
             textSliderView.setText("gone");
             textSliderView.setHeaderWeekNo("gone");
             textSliderView.setCenterView("gone");
-//            textSliderView.setImgGuestLink();;
-//            textSliderView.setImgHostLink();;
-            //  textSliderView.setOnSliderClickListener(getContext());
+
 
             mDemoSlider.addSlider(textSliderView);
 
@@ -118,6 +134,135 @@ public class HistoryFragment
         super.onCreate(savedInstanceState);
 
 
+
+
+    }
+    /**
+     * method to initialize the listeners
+     */
+    private void initListeners() {
+
+        // ExpandableListView on child click listener
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+               /* Toast.makeText(
+                        getContext(),
+                        listDataGroup.get(groupPosition)
+                                + " : "
+                                + listDataChild.get(
+                                listDataGroup.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT)
+                        .show();*/
+                return false;
+            }
+        });
+
+        // ExpandableListView Group expanded listener
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getContext(),
+                        listDataGroup.get(groupPosition) + " " + "text_collapsed",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // ExpandableListView Group collapsed listener
+        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getContext(),
+                        listDataGroup.get(groupPosition) + " " + "text_collapsed",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+    /**
+     * method to initialize the objects
+     * @param
+     */
+    private void initObjects() {
+
+        // initializing the list of groups
+        listDataGroup = new ArrayList<>();
+
+        // initializing the list of child
+        listDataChild = new HashMap<>();
+
+        // initializing the adapter object
+        expandableListViewAdapter = new ExpandableListViewAdapter(getContext(), listDataGroup, listDataChild);
+
+        // setting list adapter
+        expandableListView.setAdapter(expandableListViewAdapter);
+
+    }
+
+    /*
+     * Preparing the list data
+     *
+     * Dummy Items
+     */
+    private void initListData(WebServiceClass<ResponseHistory> response) {
+
+
+        // Adding group data
+        for (int i = 0; i < response.data.getHistory().size(); i++)
+            {
+                listDataGroup.add(response.data.getHistory().get(i).getTitle());
+                listDataChild.put(listDataGroup.get(i),response.data.getHistory().get(i).getBody());
+            }
+
+
+        // array of strings
+        String[] array;
+
+        // list of alcohol
+        List<String> alcoholList = new ArrayList<>();
+        array = getResources().getStringArray(R.array.string_array_alcohol);
+        for (String item : array) {
+            alcoholList.add(item);
+        }
+
+        // list of coffee
+        List<String> coffeeList = new ArrayList<>();
+        array = getResources().getStringArray(R.array.string_array_coffee);
+        for (String item : array) {
+            coffeeList.add(item);
+        }
+
+        // list of pasta
+        List<String> pastaList = new ArrayList<>();
+        array = getResources().getStringArray(R.array.string_array_pasta);
+        for (String item : array) {
+            pastaList.add(item);
+        }
+
+        // list of cold drinks
+        List<String> coldDrinkList = new ArrayList<>();
+        array = getResources().getStringArray(R.array.string_array_cold_drinks);
+        for (String item : array) {
+            coldDrinkList.add(item);
+        }
+
+        // Adding child data
+       /* listDataChild.put(listDataGroup.get(0), alcoholList);
+        listDataChild.put(listDataGroup.get(1), coffeeList);
+        listDataChild.put(listDataGroup.get(2), pastaList);
+        listDataChild.put(listDataGroup.get(3), coldDrinkList);*/
+
+        // notify the adapter
+        expandableListViewAdapter.notifyDataSetChanged();
+    }
+    private void sendRequest()
+    {
         SingletonService.getInstance().getMenuService().getHistory(new OnServiceStatus<WebServiceClass<ResponseHistory>>()
         {
             @Override
@@ -125,13 +270,18 @@ public class HistoryFragment
             {
                 try
                 {
-                    if (response.info.statusCode == 200){
-                        if (response.data.getImages().size() > 0)
+                    if (response.info.statusCode == 200)
+                    {
+                        if (response.data.getImages().size() > 0){
+                           // responseHistory=response;
                             setSlider(response);
-                    }else{
+                            setExpanding(response);
+                        }
+                    } else
+                    {
                         mainView.showError(response.info.message);
                     }
-                }catch (Exception e)
+                } catch (Exception e)
                 {
                     mainView.showError(e.getMessage());
                 }
@@ -144,12 +294,27 @@ public class HistoryFragment
 
             }
         });
+
+    }
+
+    private void setExpanding(WebServiceClass<ResponseHistory> response)
+    {
+        // initializing the listeners
+        initListeners();
+
+        // initializing the objects
+        initObjects();
+
+        // preparing list data
+        initListData(response);
     }
 
 
-    private void initView()
+    private void initViews()
     {
         mDemoSlider = view.findViewById(R.id.slider);
+        expandableListView = view.findViewById(R.id.expandableListView);
+
     }
 
     @Override
@@ -157,7 +322,11 @@ public class HistoryFragment
                              Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.history_fragment, container, false);
-        initView();
+        sendRequest();
+        // initializing the views
+        initViews();
+
+
 
         return view;
     }

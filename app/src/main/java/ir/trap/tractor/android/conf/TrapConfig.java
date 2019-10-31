@@ -16,6 +16,7 @@ public class TrapConfig
     public static final int PAYMENT_STAUS_WithoutCard = 6;
 
     public static final int PAYMENT_STAUS_BillTicket = 7;
+    public static final int PAYMENT_STAUS_StudiomTicket = 8;
 
     public static final String UNIQUE_CODE_Flight_Ata = "MGZlOTg5ZWEtNGVkNS00ZjcxLThjYmEtYzZiYjM2Yzk2MzQ1";
     public static final String UNIQUE_CODE_HOTEL = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
