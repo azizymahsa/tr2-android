@@ -83,9 +83,7 @@ public class SelectPositionFragment
     public static SelectPositionFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket) {
         SelectPositionFragment fragment = new SelectPositionFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
-       Bundle args = new Bundle();
-        args.putString(KEY_MODEL, s);
-        fragment.setArguments(args);
+
 
         return fragment;
     }
@@ -94,24 +92,12 @@ public class SelectPositionFragment
     {
         this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
     }
-/*
-public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
-        ItemFragment fragment = new ItemFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArray(KEY_MODEL, subMenuModels);
-        fragment.setArguments(args);
-        return fragment;
-    }
-*/
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() == null) {
-            throw new RuntimeException("You must to send a subMenuModels ");
-        }
 
-        Logger.d("",getArguments().getString(KEY_MODEL));
     }
 
     @Override
@@ -672,7 +658,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                         //////////45*/
                 }
 
-                Logger.e("tessstt", envelope.getHexCode() + "");
+                Log.e("tessstt", envelope.getHexCode() + "");
             }
         });
     }

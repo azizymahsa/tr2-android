@@ -23,11 +23,12 @@ import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
+import ir.trap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 
 public class CompeletInfoFragment
-        extends Fragment implements View.OnClickListener
+        extends Fragment implements View.OnClickListener, View.OnFocusChangeListener
 {
 
     private static final String KEY_MODEL = "KEY_MODEL";
@@ -40,6 +41,7 @@ public class CompeletInfoFragment
     private MainActionView mainView;
     private CheckBox cbCondition;
     private View llConfirm, llInVisible;
+    private MessageAlertDialog.OnConfirmListener listener;
 
     public CompeletInfoFragment()
     {
@@ -64,14 +66,12 @@ public class CompeletInfoFragment
     /**
      * Receive the model list
      */
-    public static CompeletInfoFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket)
+    public static CompeletInfoFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MainActionView mainActionView)
     {
         CompeletInfoFragment fragment = new CompeletInfoFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
-        Bundle args = new Bundle();
-        args.putString(KEY_MODEL, s);
-        fragment.setArguments(args);
 
+        fragment.setMainView(mainActionView);
         return fragment;
     }
 
@@ -85,25 +85,28 @@ public class CompeletInfoFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        if (getArguments() == null)
+        try
         {
-            throw new RuntimeException("You must to send a subMenuModels ");
+            SingletonService.getInstance().getTicketServices().getMatch(new OnServiceStatus<WebServiceClass<ResponseMatch>>()
+            {
+                @Override
+                public void onReady(WebServiceClass<ResponseMatch> response)
+                {
+
+                }
+
+                @Override
+                public void onError(String message)
+                {
+
+                }
+            });
+        } catch (Exception e)
+        {
+            e.getMessage();
         }
 
-        SingletonService.getInstance().getTicketServices().getMatch(new OnServiceStatus<WebServiceClass<ResponseMatch>>()
-        {
-            @Override
-            public void onReady(WebServiceClass<ResponseMatch> response)
-            {
 
-            }
-
-            @Override
-            public void onError(String message)
-            {
-
-            }
-        });
     }
 
 
@@ -125,10 +128,10 @@ public class CompeletInfoFragment
         btnBackToDetail.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
         cbCondition.setOnClickListener(this);
-        String textlink = "<a href=''> قوانین و مقررات</a> ";
-        String textStart = "صحت اطلاعات وارد شده را تایید می نمایم.";
-        String textEnd = " را مطالعه کرده و می پذیرم";
-        // txtCondition.setText(textStart + Html.fromHtml(textlink) + textEnd);
+        etNationalCode_1.setOnFocusChangeListener(this);
+        etFamily_1.setOnFocusChangeListener(this);
+        etName_1.setOnFocusChangeListener(this);
+
         txtCondition.setOnClickListener(this);
 
     }
@@ -139,8 +142,25 @@ public class CompeletInfoFragment
                              Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.complete_info_fragment, container, false);
+        listener = new MessageAlertDialog.OnConfirmListener()
+        {
+
+
+            @Override
+            public void onConfirmClick()
+            {
+                cbCondition.setChecked(true);
+                llConfirm.setVisibility(View.VISIBLE);
+                llInVisible.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+                //  mainView.backToMainFragment();
+            }
+        };
         initView();
-        Context context = view.getContext();
 
         return view;
     }
@@ -165,46 +185,64 @@ public class CompeletInfoFragment
         switch (view.getId())
         {
             case R.id.btnPaymentConfirm:
+                String flagValidations = "";
                 if (etNationalCode_1.getText().toString() != null)
-                {
                     if (isValidNationalCode(etNationalCode_1.getText().toString()))
                     {
+                        flagValidations = flagValidations + "T";
                         etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
 
                     } else
                     {
+                        flagValidations = flagValidations + "F";
+
                         //((EditText)findViewById(R.id.txtfamilyP)).setTextColor(Color.parseColor("#ff3300"));
                         etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
                     }
-                } else if (etFamily_1.getText().toString() != null)
+                if (etFamily_1.getText().toString() != null)
                 {
 
                     if (etFamily_1.getText().toString().length() > 2 && !(etFamily_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
                     {
+                        flagValidations = flagValidations + "T";
+
                         etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
 
                     } else
                     {
+                        flagValidations = flagValidations + "F";
+
                         //((EditText)findViewById(R.id.txtfamilyP)).setTextColor(Color.parseColor("#ff3300"));
                         etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
                     }
 
-                } else if (etName_1.getText().toString() != null)
+                }
+                if (etName_1.getText().toString() != null)
                 {
 
                     if (etName_1.getText().toString().length() > 2 && !(etName_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
                     {
+                        flagValidations = flagValidations + "T";
+
                         etName_1.setTextColor(Color.parseColor("#4d4d4d"));
 
                     } else
                     {
+                        flagValidations = flagValidations + "F";
+
                         //((EditText)findViewById(R.id.txtfamilyP)).setTextColor(Color.parseColor("#ff3300"));
                         etName_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
                     }
 
+                }
+                if (flagValidations.contains("F"))
+                {
+                    mainView.showError(getString(R.string.Error_edit_input));
                 } else
+                {
                     onClickContinueBuyTicketListener.onContinueClicked();
 
+                }
                 break;
             case R.id.btnBackToDetail:
                 onClickContinueBuyTicketListener.onBackClicked();
@@ -212,11 +250,11 @@ public class CompeletInfoFragment
                 break;
 
             case R.id.txtCondition:
-                PaymentWithoutCardFragment nextFrag = new PaymentWithoutCardFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, nextFrag, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();
+
+                //MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "قوانین و مقررات", "شرکت تراکتور سازی ...");
+                MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "قوانین و مقررات", "شرکت تراکتور سازی ...",
+                        true, "تایید", "بستن", listener);
+                dialog.show(getActivity().getFragmentManager(), "dialog");
                 break;
             case R.id.cbCondition:
                 if (((CheckBox) view).isChecked())
@@ -262,6 +300,62 @@ public class CompeletInfoFragment
 
                 return (((c < 2) && (r == c)) || ((c >= 2) && ((11 - c) == r)));
             }
+
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean b)
+    {
+
+        switch (v.getId())
+        {
+            case R.id.etNationalCode_1:
+            if (etNationalCode_1.getText().toString() != null)
+                if (isValidNationalCode(etNationalCode_1.getText().toString()))
+                {
+                    etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
+
+                } else
+                {
+
+                    etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
+                }
+            break;
+            case R.id.etFamily_1:
+            if (etFamily_1.getText().toString() != null)
+            {
+
+                if (etFamily_1.getText().toString().length() > 2 && !(etFamily_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                {
+
+                    etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
+
+                } else
+                {
+
+                    etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                }
+
+            }
+            break;
+            case R.id.etName_1:
+            if (etName_1.getText().toString() != null)
+            {
+
+                if (etName_1.getText().toString().length() > 2 && !(etName_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                {
+
+                    etName_1.setTextColor(Color.parseColor("#4d4d4d"));
+
+                } else
+                {
+
+                    etName_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                }
+
+            }
+            break;
 
         }
     }

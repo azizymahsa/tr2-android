@@ -40,6 +40,7 @@ import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardParentActio
 import ir.trap.tractor.android.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
 import ir.trap.tractor.android.ui.fragments.simcardPack.imp.BuyPackageImpl;
 import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
+import ir.trap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.trap.tractor.android.utilities.ClearableEditText;
 import ir.trap.tractor.android.utilities.Tools;
 
@@ -81,6 +82,7 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
     private String titlePackageType;
     private int profileId;
 
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
 
     public PaymentFragment()
     {
@@ -151,7 +153,18 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
 
         return fragment;
     }
+    public static PaymentFragment newInstance(int PAYMENT_STATUS, BuyTickets buyTickets,
+                                              PaymentParentActionView paymentParentActionView,OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
+        PaymentFragment fragment = new PaymentFragment();
+        fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
+        fragment.setParentActionView(paymentParentActionView);
+        Bundle args = new Bundle();
+        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+        fragment.setArguments(args);
 
+        return fragment;
+    }
     public static PaymentFragment newInstance(int PAYMENT_STATUS,
                                               PaymentParentActionView paymentParentActionView, String price,
                                               String title, int imgLogo,
@@ -180,15 +193,11 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
         return fragment;
 
     }
-
-    public static PaymentFragment newInstance(String tab1, BuyTickets buyTickets)
+    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
-       // this.buyTickets=buyTickets;
-        PaymentFragment fragment = new PaymentFragment();
-
-
-        return fragment;
+        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
     }
+
 
     private void setParentActionView(PaymentParentActionView pActionView)
     {
@@ -395,6 +404,11 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
                     case TrapConfig.PAYMENT_STAUS_BillTicket:
                     {
 
+                        break;
+                    }
+                    case TrapConfig.PAYMENT_STAUS_StudiomTicket:
+                    {
+                        onClickContinueBuyTicketListener.onContinueClicked();
                         break;
                     }
                 }

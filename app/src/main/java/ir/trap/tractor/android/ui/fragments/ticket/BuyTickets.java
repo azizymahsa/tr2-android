@@ -66,7 +66,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        // View rootView = inflater.inflate(R.layout.fragment_all_menu, container, false);
+
 
     }
 
@@ -91,7 +91,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
         //  ViewPager need a PagerAdapter
         final PagerAdapter adapter = new PagerAdapter
-                (getFragmentManager(), tabLayout.getTabCount(),this);
+                (getFragmentManager(), tabLayout.getTabCount(),this,mainView,this);
 
         viewPager.setAdapter(adapter);
         viewPager.beginFakeDrag();
@@ -109,28 +109,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
             public void onPageSelected(int position)
             {
-               /* if(position==0) {
-                    backButton.setVisibility(View.INVISIBLE);
-                }else  {
-                    backButton.setVisibility(View.VISIBLE);
-                }
-                if(position < viewPager.getAdapter().getCount()-1 ) {
-                    nextButton.setVisibility(View.VISIBLE);
-                }else  {
-                    nextButton.setVisibility(View.INVISIBLE);
-                }*/
-              /*  Log.i("TAG", "position: " + position);
-                switch (position) {
-                    case 0:
-                        addingMarker(LocationData.find(LocationData.class, "Category = ? ", "1"));
-                        break;
-                    case 1:
-                        addingMarker(LocationData.find(LocationData.class, "Category = ? ", "2"));
-                        break;
-                    case 2:
-                        addingMarker(LocationData.find(LocationData.class, "Category = ? ", "3"));
-                        break;
-                }*/
+
             }
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
