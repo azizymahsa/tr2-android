@@ -20,6 +20,7 @@ import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransf
 import ir.trap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse;
+import ir.trap.tractor.android.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
 import ir.trap.tractor.android.apiServices.model.getBankList.response.BankListResponse;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
 import ir.trap.tractor.android.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
@@ -118,7 +119,7 @@ public interface RetroClient
     );
 
     @POST(Const.GetMenuAll)
-    Single<Response<WebServiceClass<ArrayList<GetMenuItemResponse>>>> getMenuAll(
+    Single<Response<WebServiceClass<GetAllMenuResponse>>> getMenuAll(
             @Body GetMenuRequest request
     );
 
