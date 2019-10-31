@@ -109,10 +109,10 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         {
             case R.id.btnConfirm:
             {
-                if (listener != null)
-                {
+               // if (listener != null)
+               // {
                     listener.onConfirmClick();
-                }
+               // }
                 dismiss();
                 break;
             }

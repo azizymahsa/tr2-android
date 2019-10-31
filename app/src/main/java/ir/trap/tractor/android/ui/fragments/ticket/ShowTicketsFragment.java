@@ -1,5 +1,6 @@
 package ir.trap.tractor.android.ui.fragments.ticket;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -7,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,9 +28,11 @@ import java.util.ArrayList;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.showTicket.ShowTicketItem;
 import ir.trap.tractor.android.ui.adapters.ticket.ShowTicketAdapter;
+import ir.trap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
+import ir.trap.tractor.android.utilities.ScreenShot;
 import ir.trap.tractor.android.utilities.Tools;
 
 /**
@@ -36,17 +41,18 @@ import ir.trap.tractor.android.utilities.Tools;
 public class ShowTicketsFragment extends Fragment implements View.OnClickListener
 {
 
-    private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private View btnShareTicket, btnPaymentConfirm,btnBackToHome;
+    private View btnShareTicket, btnPaymentConfirm, btnBackToHome;
     private TextView tvDescTicket;
     private String firstName, lastName;
     private RecyclerView rvTickets;
     private LinearLayoutManager linearLayoutManager;
     private ShowTicketAdapter showTicketAdapter;
     private ArrayList<ShowTicketItem> ticketItems = new ArrayList<>();
-    ;
+    private MainActionView mainView;
+    private MessageAlertDialog.OnConfirmListener listener=null;
+    private LinearLayout llFram;
 
 
     public ShowTicketsFragment()
@@ -56,25 +62,24 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
     /**
      * Receive the model list
      */
-    public static ShowTicketsFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket)
+    public static ShowTicketsFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MainActionView mainActionView)
     {
         ShowTicketsFragment fragment = new ShowTicketsFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
-        Bundle args = new Bundle();
-        args.putString(KEY_MODEL, s);
-        fragment.setArguments(args);
+
+        fragment.setMainView(mainActionView);
 
         return fragment;
     }
-
+    private void setMainView(MainActionView mainView)
+    {
+        this.mainView = mainView;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        if (getArguments() == null)
-        {
-            throw new RuntimeException("You must to send a subMenuModels ");
-        }
+
 
     }
 
@@ -83,14 +88,31 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.show_tickets_fragment, container, false);
+        listener=new MessageAlertDialog.OnConfirmListener()
+        {
 
-        Context context = view.getContext();
+
+
+           @Override
+           public void onConfirmClick()
+           {
+               mainView.backToMainFragment();
+
+           }
+
+            @Override
+            public void onCancelClick()
+            {
+                mainView.backToMainFragment();
+            }
+        };
         initView();
         return view;
     }
 
     private void initView()
     {
+        llFram = view.findViewById(R.id.llFram);
         tvDescTicket = view.findViewById(R.id.tvDescTicket);
         btnShareTicket = view.findViewById(R.id.btnShareTicket);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
@@ -155,17 +177,19 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.btnBackToHome:
 
-               MainFragment nextFrag = new MainFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, nextFrag, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();
+                //MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟");
+                MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
+                         false,"بله","بستن",listener);
+                dialog.show(getActivity().getFragmentManager(), "dialog");
+
 
                 break;
             case R.id.btnShareTicket:
-                // onClickContinueBuyTicketListener.onBackClicked();
-                Tools.showToast(getContext(), "share");
+                new ScreenShot(llFram, getActivity());
+               // Tools.showToast(getContext(), "share");
                 break;
         }
     }
+
+
 }

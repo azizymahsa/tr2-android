@@ -115,7 +115,7 @@
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:textColor="@color/_title_black"
+                                        android:maxLength="11"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_10dp" />
 
@@ -124,6 +124,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:hint="نام"
+                                        android:maxLength="40"
+                                        android:maxLines="1"
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
@@ -134,7 +136,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:hint="نام خانوادگی"
-
+                                        android:maxLength="40"
+                                        android:maxLines="1"
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"

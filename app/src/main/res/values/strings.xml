@@ -58,4 +58,39 @@
     <string name="Please_enter_the_national_code">لطفا کد ملی خود را وارد کنید</string>
     <string name="condition_text">صحت اطلاعات وارد شده را تایید می نمایم . قوانین و مقررات را مطالعه کرده و می پذیرم</string>
     <string name="Please_enter_last_name_in_Persian">لطفا نام خانوادگی خود را وارد نمایید</string>
-    <string name="string_under_line"><u>قوانین و مقررات</u>.</string></resources>
+    <string name="string_under_line"><u>قوانین و مقررات</u>.</string>
+    <string name="Error_edit_input">اطلاعات ورودی نامعتبر است</string>
+
+
+    <string-array name="string_array_alcohol">
+        <item>Vodka</item>
+        <item>Rum</item>
+        <item>Whiskey</item>
+        <item>Gin</item>
+        <item>Tequila</item>
+    </string-array>
+
+    <string-array name="string_array_coffee">
+        <item>Espresso</item>
+        <item>Macchiato</item>
+        <item>Cappuccino</item>
+        <item>Cafe Latte</item>
+        <item>Ristretto</item>
+    </string-array>
+
+    <string-array name="string_array_pasta">
+        <item>Carbonara</item>
+        <item>Capellini</item>
+        <item>Spaghetti</item>
+        <item>Gnocchi</item>
+        <item>Lasagnette</item>
+    </string-array>
+
+    <string-array name="string_array_cold_drinks">
+        <item>Cola</item>
+        <item>Lemonade</item>
+        <item>Citrus soda</item>
+        <item>Juice</item>
+        <item>Sparkling Water</item>
+    </string-array>
+</resources>
