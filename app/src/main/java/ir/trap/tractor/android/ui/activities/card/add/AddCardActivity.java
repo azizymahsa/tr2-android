@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
@@ -42,8 +43,11 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         OnAnimationEndListener, AddCardView, TextWatcher
 {
     private Realm realm;
+    private Toolbar mToolbar;
 
-    private ImageView imgBack;
+    private TextView tvTitle;
+    private ImageView imgBack, imgMenu;
+
     private CardView cvBarcode;
     private PinEntryEditText codeView1, codeView2, codeView3, codeView4;
     private CircularProgressButton btnConfirm;
@@ -68,6 +72,9 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
 
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
         realm = Realm.getDefaultInstance();
 
         initView();
@@ -84,7 +91,16 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
     private void initView()
     {
-        ((TextView) findViewById(R.id.tvTitle)).setText("افزودن کارت");
+        tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        imgBack = mToolbar.findViewById(R.id.imgBack);
+        imgMenu = mToolbar.findViewById(R.id.imgMenu);
+
+        tvTitle.setText("افزودن کارت");
+        imgMenu.setVisibility(View.GONE);
+        imgBack.setOnClickListener(v ->
+        {
+            super.onBackPressed();
+        });
 
         cvBarcode = findViewById(R.id.cvBarcode);
         ivBackCard = findViewById(R.id.ivBackCard);
@@ -96,7 +112,6 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         tvBankName = findViewById(R.id.tvBankName);
         ivBankLogo = findViewById(R.id.ivBankLogo);
         rlRoot = findViewById(R.id.rlRoot);
-        imgBack = findViewById(R.id.imgBack);
         codeView1 = findViewById(R.id.codeView1);
         codeView2 = findViewById(R.id.codeView2);
         codeView3 = findViewById(R.id.codeView3);
@@ -192,6 +207,8 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     {
 
 
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == SCAN_REQUEST_CODE)
         {
             if (data != null)
@@ -204,8 +221,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
                     // Do whatever you need with barcode data
                     String barcodeFormat = ((BarcodeScanResult) scanResult).getBarcodeFormat();
                     String barcodeText = ((BarcodeScanResult) scanResult).getStringValue();
-                }
-                else
+                } else
                 {
                     String cardPan = ((CardScanResult) scanResult).getNumber();
                     String date = ((CardScanResult) scanResult).getExpirationDate();
@@ -225,8 +241,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
                         }
                         isFirstTimeChange = false;
-                    }
-                    catch (Exception e)
+                    } catch (Exception e)
                     {
                     }
                 }

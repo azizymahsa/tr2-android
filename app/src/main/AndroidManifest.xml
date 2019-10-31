@@ -4,6 +4,8 @@
     package="ir.trap.tractor.android"
     tools:ignore="GoogleAppIndexingWarning">
 
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.RECEIVE_SMS" /> -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -15,6 +17,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
@@ -54,10 +57,13 @@
 
         <activity android:name="ir.trap.tractor.android.ui.activities.login.LoginActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name="ir.trap.tractor.android.ui.activities.main.MainActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".ui.activities.login.user.UserActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".ui.activities.web.WebActivity"
             android:screenOrientation="portrait" />
 
@@ -65,6 +71,7 @@
             android:name=".ui.activities.card.add.AddCardActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
     </application>
 
 </manifest>
