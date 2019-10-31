@@ -5,7 +5,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class TeamHome {
-
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -15,6 +14,9 @@ public class TeamHome {
     @SerializedName("logo")
     @Expose
     private String logo;
+    @SerializedName("color_code")
+    @Expose
+    private String colorCode;
 
     public Integer getId() {
         return id;
@@ -40,4 +42,11 @@ public class TeamHome {
         this.logo = logo;
     }
 
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
 }

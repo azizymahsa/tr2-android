@@ -15,6 +15,9 @@ public class TeamAway {
     @SerializedName("logo")
     @Expose
     private String logo;
+    @SerializedName("color_code")
+    @Expose
+    private String colorCode;
 
     public Integer getId() {
         return id;
@@ -38,6 +41,14 @@ public class TeamAway {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
     }
 
 }

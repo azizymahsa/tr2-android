@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class GetAllBoxesResponse
 {
-    @SerializedName("result")
+    @SerializedName("results")
     @Expose
     private List<AllBoxesResult> results = null;
 
