@@ -226,7 +226,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                         // progress.setVisibility(View.GONE);
                 }catch (Exception e){
                     Tools.showToast(getContext(),e.getMessage(),R.color.red);
-                    llSliderItemMatch.setVisibility(View.GONE);
+                    llSliderItemMatch.setVisibility(View.VISIBLE);
 
                 }
             }
@@ -235,7 +235,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             public void onError(String message)
             {
                 Tools.showToast(getContext(),message,R.color.red);
-                llSliderItemMatch.setVisibility(View.GONE);
+                llSliderItemMatch.setVisibility(View.VISIBLE);
                 // progress.setVisibility(View.GONE);
             }
         });
@@ -407,59 +407,61 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
     private void setDataStadiumPosition()
     {
         stadiumPositionModels.add(new StadiumPositionModel("FF328DAA", 1));
-        stadiumPositionModels.add(new StadiumPositionModel("FF953d3d", 2));
-        stadiumPositionModels.add(new StadiumPositionModel("FFfe9000", 3));
-        stadiumPositionModels.add(new StadiumPositionModel("FFfffc9b", 4));
-        stadiumPositionModels.add(new StadiumPositionModel("FF00ac62", 5));
+        stadiumPositionModels.add(new StadiumPositionModel("FF953D3D", 2));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFE9000", 3));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFFC9B", 4));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00AC62", 5));
 
         stadiumPositionModels.add(new StadiumPositionModel("FF8A3D7D", 6));
-        stadiumPositionModels.add(new StadiumPositionModel("FF9ab260", 7));
-        stadiumPositionModels.add(new StadiumPositionModel("FFff8181", 8));
-        stadiumPositionModels.add(new StadiumPositionModel("FF0f0060", 9));
-        stadiumPositionModels.add(new StadiumPositionModel("FFffc170", 10));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9AB260", 7));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFF8181", 8));
+        stadiumPositionModels.add(new StadiumPositionModel("FF0F0060", 9));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFC170", 10));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 11));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 12));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 13));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00EDFF", 11));
+        stadiumPositionModels.add(new StadiumPositionModel("FF481337", 12));
+        stadiumPositionModels.add(new StadiumPositionModel("FF009A8F", 13));
         stadiumPositionModels.add(new StadiumPositionModel("FFFE0002", 14));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 15));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00FF5D", 15));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 16));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 17));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 18));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 19));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 20));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA0F113", 16));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8A4000", 17));
+        stadiumPositionModels.add(new StadiumPositionModel("FF0080FF", 18));
+        stadiumPositionModels.add(new StadiumPositionModel("FFDC0DB3", 19));
+        stadiumPositionModels.add(new StadiumPositionModel("FF52488A", 20));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 21));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 22));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 23));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 24));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 25));
+        stadiumPositionModels.add(new StadiumPositionModel("FFCFD574", 21));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA8CAEC", 22));
+        stadiumPositionModels.add(new StadiumPositionModel("FF575657", 23));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8FC549", 24));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9A1955", 25));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 26));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 27));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 28));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 29));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 30));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8DFFFB", 26));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA29C00", 27));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00E600", 28));
+        stadiumPositionModels.add(new StadiumPositionModel("FFD8B506", 29));
+        stadiumPositionModels.add(new StadiumPositionModel("FFCF0000", 30));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 31));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 32));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 33));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 34));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 35));
+        stadiumPositionModels.add(new StadiumPositionModel("FF948DFF", 31));
+        stadiumPositionModels.add(new StadiumPositionModel("FFE7EC44", 32));
+        stadiumPositionModels.add(new StadiumPositionModel("FFD97B00", 33));
+        stadiumPositionModels.add(new StadiumPositionModel("FFC500FF", 34));
+        stadiumPositionModels.add(new StadiumPositionModel("FF74FFD0", 35));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 36));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 37));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 38));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 39));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 40));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8E7627", 36));
+        stadiumPositionModels.add(new StadiumPositionModel("FFAC0000", 37));
+        stadiumPositionModels.add(new StadiumPositionModel("FF828282", 38));
+        stadiumPositionModels.add(new StadiumPositionModel("FF6E00FF", 39));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9CE27F", 40));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 41));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 42));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 43));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 44));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC778FF", 45));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFBAFA", 41));
+        stadiumPositionModels.add(new StadiumPositionModel("FFF237FF", 42));
+        stadiumPositionModels.add(new StadiumPositionModel("FF440000", 43));
 
+        /////
+        stadiumPositionModels.add(new StadiumPositionModel("", 44));
+        stadiumPositionModels.add(new StadiumPositionModel("", 45));
+        //////
 
     }
 
@@ -486,7 +488,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
 
 
                     case "FF328DAA":
-                       // ivDefault.setImageResource(R.drawable.ic_test_stadium_selected);
+                        ivDefault.setImageResource(R.drawable.ic_test_stadium_selected);
                         ivDefault.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;
                     case "FF953d3d":
