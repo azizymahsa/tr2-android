@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.widget.TextView;
 
@@ -19,7 +20,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.AnalyticsListener;
+import com.androidnetworking.interfaces.DownloadListener;
+import com.androidnetworking.interfaces.DownloadProgressListener;
 import com.pixplicity.easyprefs.library.Prefs;
+import com.readystatesoftware.chuck.ChuckInterceptor;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -30,6 +45,7 @@ import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getVersion.request.GetVersionRequest;
 import ir.trap.tractor.android.apiServices.model.getVersion.response.GetVersionResponse;
+import ir.trap.tractor.android.models.otherModels.download.Download;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.activities.main.MainActivity;
 import ir.trap.tractor.android.ui.activities.web.WebActivity;
@@ -39,6 +55,7 @@ import ir.trap.tractor.android.ui.dialogs.UpdateAppDialog;
 import ir.trap.tractor.android.ui.dialogs.UpdateDownloadDialog;
 import ir.trap.tractor.android.utilities.Tools;
 import ir.trap.tractor.android.utilities.Utility;
+import okhttp3.OkHttpClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 //import android.support.v7.app.AppCompatActivity;
@@ -48,6 +65,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 {
     private static final int REQUEST_CODE = 123;
     private String description;
+    private String url;
 
     private UpdateDownloadDialog updateDialog;
 
@@ -75,8 +93,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         try
         {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-        }
-        catch (PackageManager.NameNotFoundException e)
+        } catch (PackageManager.NameNotFoundException e)
         {
             e.printStackTrace();
         }
@@ -93,8 +110,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                 }
 //                goToActivity();
             }
-        }
-        else
+        } else
         {
             if (Utility.isNetworkAvailable())
             {
@@ -121,8 +137,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         if (Prefs.getString("accessToken", "").isEmpty())
         {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
-        else
+        } else
         {
             startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
@@ -145,8 +160,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                 goToActivity();
                 return;
             }
-        }
-        catch (NullPointerException e)
+        } catch (NullPointerException e)
         {
 //            String mMessage =  "خطای دریافت اطلاعات از سرور!" + "\n" +
 //                    "لطفا پس از چند دقیقه مجددا اقدام نمایید";
@@ -155,7 +169,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             goToActivity();
             return;
         }
-        if (response.info.statusCode <= 200 || response.info.statusCode > 299)
+        if (response.info.statusCode != 200)
         {
 //            showError(response.info.message);
             Tools.showToast(this, response.info.message, R.color.red);
@@ -166,12 +180,11 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             if (BuildConfig.VERSION_CODE >= response.data.getVersion())
             {
                 goToActivity();
-            }
-            else
+            } else
             {
                 description = response.data.getDescription();
 
-//                String url = response.data.getDownloadUrl();
+                url = response.data.getDownloadUrl();
 
                 UpdateAppDialog updateAppAlert = new UpdateAppDialog(this,
                         response.data.getTitle(),
@@ -201,17 +214,18 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     {
         MessageAlertDialog dialog = new MessageAlertDialog(this, "خطا!", message, false,
                 new MessageAlertDialog.OnConfirmListener()
-        {
-            @Override
-            public void onConfirmClick()
-            {
-                finish();
-            }
+                {
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        goToActivity();
+                    }
 
-            @Override
-            public void onCancelClick()
-            { }
-        });
+                    @Override
+                    public void onCancelClick()
+                    {
+                    }
+                });
         dialog.show((this).getFragmentManager(), "dialog");
     }
 
@@ -231,7 +245,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     @Override
     public void onUpdate()
     {
-        updateDialog = new UpdateDownloadDialog(this);
+        updateDialog = new UpdateDownloadDialog(this, this);
         updateDialog.show(getFragmentManager(), "updateDialog");
         new Handler().postDelayed(() ->
         {
@@ -243,6 +257,69 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
     private void startDownload()
     {
+        String fileName = "Traap.apk";
+        File dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File outputFile = new File(dirPath, fileName);
+        if (outputFile.exists())
+        {
+            outputFile.delete();
+        }
+
+        OkHttpClient.Builder client = new OkHttpClient.Builder();
+        client.connectTimeout(70, TimeUnit.SECONDS);
+        client.readTimeout(70, TimeUnit.SECONDS);
+        client.writeTimeout(70, TimeUnit.SECONDS);
+        client.addInterceptor(new ChuckInterceptor(SingletonService.getInstance().getContext()));
+
+        Download download = new Download();
+
+        AndroidNetworking.download(url, dirPath.getAbsolutePath(), fileName)
+                .addHeaders("Content-Type", "application/x-www-form-urlencoded")
+                .setOkHttpClient(client.build())
+                .setTag("downloadTest")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .setAnalyticsListener((timeTakenInMillis, bytesSent, bytesReceived, isFromCache) ->
+                {
+                    double current = Math.round(bytesReceived / (Math.pow(1024, 2)));
+                    download.setCurrentFileSize(((int) current));
+
+                    EventBus.getDefault().post(download);
+
+//                        Log.d(TAG, " timeTakenInMillis : " + timeTakenInMillis);
+//                        Log.d(TAG, " bytesSent : " + bytesSent);
+//                        Log.d(TAG, " bytesReceived : " + bytesReceived);
+//                        Log.d(TAG, " isFromCache : " + isFromCache);
+                })
+                .setDownloadProgressListener((bytesDownloaded, totalBytes) ->
+                {
+                    int progress = (int) ((bytesDownloaded * 100) / totalBytes);
+                    download.setProgress(progress);
+
+                    int totalFileSize = (int) (totalBytes / (Math.pow(1024, 2)));
+                    download.setTotalFileSize(totalFileSize);
+
+                    EventBus.getDefault().post(download);
+                })
+                .startDownload(new DownloadListener()
+                {
+                    @Override
+                    public void onDownloadComplete()
+                    {
+                        // do anything after completion
+
+                        download.setProgress(100);
+
+                        EventBus.getDefault().post(download);
+                    }
+
+                    @Override
+                    public void onError(ANError error)
+                    {
+                        // handle error
+                    }
+                });
+
 
     }
 
@@ -262,8 +339,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + BuildConfig.APPLICATION_ID));
             startActivity(intent);
-        }
-        catch (ActivityNotFoundException e2)
+        } catch (ActivityNotFoundException e2)
         {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID));
@@ -279,6 +355,12 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         startActivity(intent);
     }
 
+    @Override
+    public void showAlert(String message)
+    {
+        showError(message);
+    }
+
     //------------------------------add permission--------------------------------
     private boolean setPermission()
     {
@@ -286,8 +368,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         {
             requestPermissions();
             return false;
-        }
-        else
+        } else
         {
             return true;
         }
@@ -298,8 +379,10 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         int mGranted = PackageManager.PERMISSION_GRANTED;
 
         int result = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        int result2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result3 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
-        if (result == mGranted)
+        if (result == mGranted && result2 == mGranted && result3 == mGranted)
         {
             return true;
         }
@@ -311,7 +394,10 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
     private void requestPermissions()
     {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE))
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE) &&
+                ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) &&
+                ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        )
         {
             String message = "برای ادامه کار حتما باید مجوز دسترسی به وضعیت دستگاه صادر شود.لطفا در تنظیمات برنامه مجوز مربوطه را صادر نمایید.";
 
@@ -321,7 +407,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                         @Override
                         public void onConfirmClick()
                         {
-                            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
+                            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
                         }
 
                         @Override
@@ -333,10 +419,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             dialog.show((this).getFragmentManager(), "dialog");
 
 //            Tools.showToast(this, "برای ادامه کار حتما باید مجوز دسترسی به وضعیت دستگاه صادر شود.لطفا در تنظیمات برنامه مجوز مربوطه را صادر نمایید.");
-        }
-        else
+        } else
         {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
+            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
         }
     }
 
@@ -345,7 +430,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     {
         if (requestCode == REQUEST_CODE)
         {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[2] == PackageManager.PERMISSION_GRANTED)
             {
 //                startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 //                finish();
@@ -355,8 +442,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                     versionRequest();
                 }
 //                goToActivity();
-            }
-            else
+            } else
             {
                 DialogGetPermissionRequest dialog = new DialogGetPermissionRequest(this, new DialogGetPermissionRequest.OnButtonClick()
                 {
@@ -378,7 +464,6 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             return;
         }
     }
-
     //------------------------------add permission--------------------------------
 
 }

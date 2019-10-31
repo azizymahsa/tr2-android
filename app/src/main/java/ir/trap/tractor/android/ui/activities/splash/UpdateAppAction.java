@@ -13,4 +13,6 @@ public interface UpdateAppAction
     void onUpdateFromGooglePlay();
 
     void onUpdateFromWebSite(String downloadUrl);
+
+    void showAlert(String message);
 }

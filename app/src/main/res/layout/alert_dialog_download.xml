@@ -36,7 +36,7 @@
             android:id="@+id/ga_downloading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            gastudio:arrow_color="@android:color/black"
+            gastudio:arrow_color="@color/textColorPrimary"
             gastudio:loading_circle_back_color="@color/textColorPrimary"
             gastudio:done_text_color="@color/textColorPrimary" />
 

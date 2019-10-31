@@ -25,7 +25,7 @@ public class Const
     public final static String GetMenuAll = SubBASEURL + "v1/menu/get_all_services/";
 
 
-    public final static String GetAllBoxes=SubBASEURL+"v1/match/all_boxes/";
+    public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
 
     //Mobile
     public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
