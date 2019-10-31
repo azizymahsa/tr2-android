@@ -140,7 +140,6 @@ public class UpdateDownloadDialog extends BaseDialog
         super.onViewCreated(view, savedInstanceState);
     }
 
-
     private void setProgress(int progress)
     {
         mProgressBar.updateProgress(progress);
