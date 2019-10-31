@@ -7,13 +7,13 @@ public class Const
     public static final boolean TEST = false;
 
     //-----------------------------------------------------------------------------
-//public final static String BASEURL = "https://rest.diba24.app/";
+    //public final static String BASEURL = "https://rest.diba24.app/";
     public final static String BASEURL = "http://5.253.25.117:9000/";
     public final static String BASEURLTest = "http://diba.eniac-service.ir:8000/";
 
     private static final String SubBASEURL = "api/";
     private static final String SubBASEURLTest = "ApiDiba/";
-//-----------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------
 
     //Login
     public final static String Login = SubBASEURL + "v1/user/login/";
@@ -24,6 +24,7 @@ public class Const
     public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
     public final static String GetMenuAll = SubBASEURL + "v1/menu/get_all_services/";
     public final static String BuyCharge = SubBASEURL + "v1/topupcharge/buy_charge/";
+
 
     public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
 
@@ -76,6 +77,7 @@ public class Const
     public final static String BusPayment = SubBASEURLTest + "GdsBus/v1/BusPayment";
 
 
+
     //Pos
     public final static String DECRYPTQRCODE = SubBASEURLTest + "v1/payment/decrypt_qr_code/";
     public final static String PAYMENT_PRINT_pOS = SubBASEURLTest + "v1/payment/payment_print_pos/";
@@ -95,6 +97,5 @@ public class Const
 
     //Version
     public final static String GET_VERSION = SubBASEURLTest + "v1/version/get_version_android/";
-
 
 }
