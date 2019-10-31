@@ -10,8 +10,8 @@ android {
         applicationId "ir.trap.tractor.android"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 4
-        versionName "0.3.1"
+        versionCode 3
+        versionName "0.4.0"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -251,6 +251,10 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.16'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
     implementation project(path: ':type')
+
+    //Fast-Android-Networking for download
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation 'com.amitshekhar.android:jackson-android-networking:1.0.2'
 }
 
 configurations.all {

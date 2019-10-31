@@ -12,11 +12,17 @@ import androidx.multidex.MultiDex;
 
 import com.adpdigital.push.AdpPushClient;
 
+import com.androidnetworking.AndroidNetworking;
+import com.jacksonandroidnetworking.JacksonParserFactory;
 import com.orm.SugarContext;
 import com.pixplicity.easyprefs.library.Prefs;
+import com.readystatesoftware.chuck.ChuckInterceptor;
+
+import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
 import ir.trap.tractor.android.apiServices.ServiceApplication;
+import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.splash.SplashActivity;
 import library.android.eniac.utility.font.CustomViewWithTypefaceSupport;
@@ -71,18 +77,18 @@ public class MyApplication extends ServiceApplication
 
         SugarContext.init(this);
 
-//        UploadService.NAMESPACE = BuildConfig.APPLICATION_ID;
-//        UploadService.NAMESPACE = getApplicationContext().getPackageName();
-
         // Adding an Network Interceptor for Debugging purpose :
         OkHttpClient.Builder client = new OkHttpClient.Builder();
-//        client.addInterceptor(new ChuckInterceptor(SingletonService.getInstance().getContext()));
+        client.connectTimeout(70, TimeUnit.SECONDS);
+        client.readTimeout(70, TimeUnit.SECONDS);
+        client.writeTimeout(70, TimeUnit.SECONDS);
+        client.addInterceptor(new ChuckInterceptor(SingletonService.getInstance().getContext()));
 
         OkHttpClient okHttpClient = client.build();
-//        AndroidNetworking.initialize(getApplicationContext(),okHttpClient);
+        AndroidNetworking.initialize(getApplicationContext(),okHttpClient);
 
         // Then set the JacksonParserFactory like below
-//        AndroidNetworking.setParserFactory(new JacksonParserFactory());
+        AndroidNetworking.setParserFactory(new JacksonParserFactory());
 
         SingletonContext.getInstance().setContext(this);
 
@@ -125,12 +131,6 @@ public class MyApplication extends ServiceApplication
                     "limizmoij",
                     "surihuodiv"
             );
-           /* String   uniqueId;
-            if(Prefs.getString("uuid","").equals("")) {
-                uniqueId = UUID.randomUUID().toString().replaceAll("-","");
-
-                Prefs.putString("uuid",uniqueId.replaceAll("-",""));
-            }*/
 
 
             chabok.setDevelopment(true);
@@ -140,9 +140,6 @@ public class MyApplication extends ServiceApplication
         }
     }
 
-    /* public void onEvent(PushMessage message) {
-         Log.e("mmmmm", "Got push message " + message);
-     }*/
     public synchronized AdpPushClient getPushClient() throws IllegalStateException
     {
         if (chabok == null)
