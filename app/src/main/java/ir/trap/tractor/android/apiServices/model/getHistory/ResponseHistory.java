@@ -18,7 +18,7 @@ public class ResponseHistory
         private List<PlayersCurrent> playersCurrent = null;
         @SerializedName("players")
         @Expose
-        private List<Player> players = null;
+        private List<PlayersCurrent> players = null;
 
         public List<Image> getImages() {
             return images;
@@ -44,11 +44,11 @@ public class ResponseHistory
             this.playersCurrent = playersCurrent;
         }
 
-        public List<Player> getPlayers() {
+        public List<PlayersCurrent> getPlayers() {
             return players;
         }
 
-        public void setPlayers(List<Player> players) {
+        public void setPlayers(List<PlayersCurrent> players) {
             this.players = players;
         }
 

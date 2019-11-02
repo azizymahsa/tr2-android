@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.ui.fragments.about.adapter;
+package ir.trap.tractor.android.ui.adapters.aboutUs;
 
 import android.content.Context;
 import android.util.AttributeSet;
