@@ -123,7 +123,7 @@ public class CompeletInfoFragment
 
     public void setVisibilityLayouts(){
         count= Prefs.getInt("CountTicket",1);
-        textStation=String.valueOf(Prefs.getInt("PositionId",1))+"جایگاه ";
+        textStation="جایگاه "+String.valueOf(Prefs.getInt("PositionId",1));
         if(textStation != null){
             tvStation_1.setText(textStation);
             tvStation_2.setText(textStation);
