@@ -121,6 +121,7 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
 
         return fragment;
     }
+
     public static PaymentFragment newInstance(int PAYMENT_STATUS,
                                               String price,
                                               String title,
@@ -154,7 +155,8 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
         return fragment;
     }
     public static PaymentFragment newInstance(int PAYMENT_STATUS, BuyTickets buyTickets,
-                                              PaymentParentActionView paymentParentActionView,OnClickContinueBuyTicket onClickContinueBuyTicket)
+                                              PaymentParentActionView paymentParentActionView,
+                                              OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         PaymentFragment fragment = new PaymentFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
@@ -166,11 +168,15 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
         return fragment;
     }
     public static PaymentFragment newInstance(int PAYMENT_STATUS,
-                                              PaymentParentActionView paymentParentActionView, String price,
-                                              String title, int imgLogo,
-                                              Integer profileId, int operatorType,
+                                              PaymentParentActionView paymentParentActionView,
+                                              String price,
+                                              String title,
+                                              int imgLogo,
+                                              Integer profileId,
+                                              int operatorType,
                                               String titlePackageType,
-                                              String requestId, String mobile)
+                                              String requestId,
+                                              String mobile)
     {
         PaymentFragment fragment = new PaymentFragment();
         fragment.setParentActionView(paymentParentActionView);
@@ -193,11 +199,11 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
         return fragment;
 
     }
+
     private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
     }
-
 
     private void setParentActionView(PaymentParentActionView pActionView)
     {

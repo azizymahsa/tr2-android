@@ -50,7 +50,7 @@
             android:layout_height="@dimen/_35dp"
             android:paddingRight="16dp"
             android:paddingLeft="16dp"
-            android:text="خرید بلیط"
+            android:text="خرید بلیت"
             android:layout_alignParentLeft="true"
             android:textColor="@color/textColorButton"
             android:textStyle="bold"

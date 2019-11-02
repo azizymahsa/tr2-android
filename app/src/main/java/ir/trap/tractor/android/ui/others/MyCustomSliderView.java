@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.others;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ import lombok.Setter;
 
 public class MyCustomSliderView extends BaseSliderView
 {
-    private TextView tvHeaderText, tvStadiumName, tvDateTime;
+    private TextView tvHeaderText, tvHeaderSubText, tvStadiumName, tvDateTime;
     private ImageView imgGuest, imgHost, imgBackground;
     private RelativeLayout rlRoot;
 
@@ -31,7 +32,7 @@ public class MyCustomSliderView extends BaseSliderView
 
     @Getter @Setter
     @Nullable
-    private String imgGuestLink, imgHostLink, imgBackgroundLink, headerText, stadiumName, dateTime;
+    private String imgAwayLink, imgHomeLink, imgBackgroundLink, headerDesc, stadiumName, dateTime;
 
     private ProgressBar progress;
 
@@ -50,10 +51,13 @@ public class MyCustomSliderView extends BaseSliderView
         imgHost = rootView.findViewById(R.id.imgHost);
         imgGuest = rootView.findViewById(R.id.imgGuest);
         tvHeaderText = rootView.findViewById(R.id.tvHeaderText);
+        tvHeaderSubText = rootView.findViewById(R.id.tvHeaderSubText);
         tvStadiumName = rootView.findViewById(R.id.tvStadiumName);
         tvDateTime = rootView.findViewById(R.id.tvDateTime);
         progress = rootView.findViewById(R.id.progress);
 
+        tvHeaderText.setTypeface(Typeface.SANS_SERIF);
+        tvHeaderSubText.setTypeface(Typeface.SANS_SERIF);
 
         progress.setVisibility(View.VISIBLE);
         bindAndShow();
@@ -73,9 +77,20 @@ public class MyCustomSliderView extends BaseSliderView
             }
         });
 
-        if (getHeaderText() != null)
+        if (getHeaderDesc() != null)
         {
-            tvHeaderText.setText(getHeaderText());
+            if (getHeaderDesc().contains("/"))
+            {
+                String split[] = getHeaderDesc().split("/");
+                tvHeaderText.setText(split[0]);
+                tvHeaderSubText.setText("/" + split[1]);
+                tvHeaderSubText.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                tvHeaderText.setText(getHeaderDesc());
+                tvHeaderSubText.setVisibility(View.GONE);
+            }
         }
 
         if (getStadiumName() != null)
@@ -100,28 +115,28 @@ public class MyCustomSliderView extends BaseSliderView
 
         if (getImgBackgroundLink() != null)
         {
-            setImageColor(imgBackground, getImgBackgroundLink());
+            setImageBackground(imgBackground, getImgBackgroundLink());
         }
 
-        if (getImgHostLink() != null)
+        if (getImgHomeLink() != null)
         {
-            setImageColor(imgHost, getImgHostLink());
+            setImageBackground(imgHost, getImgHomeLink());
         }
 
-        if (getImgGuestLink() != null)
+        if (getImgAwayLink() != null)
         {
-            setImageColor(imgGuest, getImgGuestLink());
+            setImageBackground(imgGuest, getImgAwayLink());
         }
 
         progress.setVisibility(View.GONE);
         rlRoot.setVisibility(View.VISIBLE);
     }
 
-    private void setImageColor(ImageView imageView, String link)
+    private void setImageBackground(ImageView imageView, String link)
     {
         try
         {
-            Picasso.with(mContext).load(Uri.parse(link)).centerInside().into(imageView, new Callback()
+            Picasso.with(mContext).load(Uri.parse(link)).into(imageView, new Callback()
             {
                 @Override
                 public void onSuccess() { }

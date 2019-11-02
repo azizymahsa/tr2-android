@@ -84,8 +84,8 @@ public class Const
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";
 
 
-    //Ticket
-    public final static String GetMatch = SubBASEURL + "v1/match/";
+    //MatchList
+    public final static String GET_Match_List = SubBASEURL + "v1/match/";
 
 
     //History
@@ -94,5 +94,7 @@ public class Const
 
     //Version
     public final static String GET_VERSION = SubBASEURL + "v1/version/get_version_android/";
+
+
 
 }

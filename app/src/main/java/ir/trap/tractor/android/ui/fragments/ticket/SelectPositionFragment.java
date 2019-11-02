@@ -36,7 +36,7 @@ import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.AllBoxesResult;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse;
-import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
+import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
@@ -196,10 +196,10 @@ public class SelectPositionFragment
     }
     private void getMatchRequest()
     {
-        SingletonService.getInstance().getTicketServices().getMatch(new OnServiceStatus<WebServiceClass<ResponseMatch>>()
+        SingletonService.getInstance().getMatchListService().getMatchList(new OnServiceStatus<WebServiceClass<MachListResponse>>()
         {
             @Override
-            public void onReady(WebServiceClass<ResponseMatch> response)
+            public void onReady(WebServiceClass<MachListResponse> response)
             {
                 try
                 {
@@ -719,7 +719,7 @@ public class SelectPositionFragment
     {
         amountForPay = results.get(0).getTicketAmount() * count;
         amountOneTicket=results.get(0).getTicketAmount();
-        tvAmountStation.setText("قیمت بلیط این جایگاه :"+ Utility.priceFormat(results.get(0).getTicketAmount().toString()) +" ریال");
+        tvAmountStation.setText("قیمت بلیت این جایگاه :"+ Utility.priceFormat(results.get(0).getTicketAmount().toString()) +" ریال");
         tvAmountForPay.setText("مبلغ قابل پرداخت "+Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
     }
 

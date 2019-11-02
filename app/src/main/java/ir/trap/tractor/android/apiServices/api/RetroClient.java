@@ -1,7 +1,5 @@
 package ir.trap.tractor.android.apiServices.api;
 
-import java.util.ArrayList;
-
 import io.reactivex.Single;
 import ir.trap.tractor.android.apiServices.helper.Const;
 import ir.trap.tractor.android.apiServices.model.GlobalResponse;
@@ -34,7 +32,6 @@ import ir.trap.tractor.android.apiServices.model.getInfoBill.response.GetInfoBil
 import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillRequest;
 import ir.trap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
-import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
@@ -47,7 +44,8 @@ import ir.trap.tractor.android.apiServices.model.getVersion.request.GetVersionRe
 import ir.trap.tractor.android.apiServices.model.getVersion.response.GetVersionResponse;
 import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
 import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
-import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
+import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
+import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
@@ -250,8 +248,8 @@ public interface RetroClient
     Single<Response<WebServiceClass<PaymentPrintPosResponse>>> getPayment(
             @Body PaymentPrintPosRequest request);
 
-    @GET(Const.GetMatch)
-    Single<Response<WebServiceClass<ResponseMatch>>> getMatch();
+    @GET(Const.GET_Match_List)
+    Single<Response<WebServiceClass<MachListResponse>>> getMatchList();
 
     @GET(Const.GetHistory)
     Single<Response<WebServiceClass<ResponseHistory>>> getHistory();

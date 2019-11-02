@@ -28,5 +28,4 @@
         android:text="در حال دریافت اطلاعات..."
         android:gravity="center"/>
 
-
 </LinearLayout>
