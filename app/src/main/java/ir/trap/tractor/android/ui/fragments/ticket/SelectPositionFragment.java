@@ -479,231 +479,188 @@ public class SelectPositionFragment
 
                 switch (envelope.getHexCode()) {
                     case "FF328DAA":
-                        ivSelected.setImageResource(R.drawable.ic_selected_one);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setOnePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(0).getNumber());
                         break;
                     case "FF953D3D":
-                        ivSelected.setImageResource(R.drawable.ic_selected_two);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTowPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(1).getNumber());
                         break;
                     case "FFFE9000":
-                        ivSelected.setImageResource(R.drawable.ic_selected_three);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setThreePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(2).getNumber());
                         break;
                     case "FFFFFC9B":
-                        ivSelected.setImageResource(R.drawable.ic_selected_four);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setFourPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(3).getNumber());
                         break;
                     case "FF00AC62":
-                        ivSelected.setImageResource(R.drawable.ic_selected_five);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setFivePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(4).getNumber());
                         break;
                         /////5
                     case "FF8A3D7D":
-                        ivSelected.setImageResource(R.drawable.ic_selected_six);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSixPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(5).getNumber());
                         break;
                     case "FF9AB260":
-                        ivSelected.setImageResource(R.drawable.ic_selected_seven);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSevenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(6).getNumber());
                         break;
                     case "FFFF8181":
-                        ivSelected.setImageResource(R.drawable.ic_selected_eight);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setEightPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(7).getNumber());
                         break;
                     case "FF0F0060":
-                        ivSelected.setImageResource(R.drawable.ic_selected_nine);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setNinePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(8).getNumber());
                         break;
                     case "FFFFC170":
-                        ivSelected.setImageResource(R.drawable.ic_selected_ten);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(9).getNumber());
                         break;
                         ////////10
                     case "FF00EDFF":
-                        ivSelected.setImageResource(R.drawable.ic_selected_eleven);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setElevenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(10).getNumber());
                         break;
                     case "FF481337":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twelve);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwelvePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(11).getNumber());
                         break;
                     case "FF009A8F":
-                        ivSelected.setImageResource(R.drawable.ic_selected_thirteen);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setThirteenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(12).getNumber());
                         break;
                     case "FFFE0002":
-                        ivSelected.setImageResource(R.drawable.ic_selected_fourteen);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setFourteenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(13).getNumber());
                         break;
                     case "FF00FF5D":
-                        ivSelected.setImageResource(R.drawable.ic_selected_fifteen);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setFiveteenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(14).getNumber());
                         break;
                         ////15
                      case "FFA0F113":
-                         ivSelected.setImageResource(R.drawable.ic_selected_sixteen);
-                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                         setSixteenPositionSelected();
                          setSpinnerPositionSelected(stadiumPositionModels.get(15).getNumber());
                         break;
                     case "FF8A4000":
-                        ivSelected.setImageResource(R.drawable.ic_selected_seventeen);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSeventeenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(16).getNumber());
                         break;
                     case "FF0080FF":
-                        ivSelected.setImageResource(R.drawable.ic_selected_eighteen);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setEighteenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(17).getNumber());
                         break;
                     case "FFDC0DB3":
-                        ivSelected.setImageResource(R.drawable.ic_selected_nineteen);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setNineteenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(18).getNumber());
                         break;
                     case "FF52488A":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twelve);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentyPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(19).getNumber());
                         break;
                         ////20
 
                     case "FFCFD574":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twenty_one);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentyonePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(20).getNumber());
                         break;
                     case "FFA8CAEC":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twenty_two);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentytwoPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(21).getNumber());
                         break;
                     case "FF575657":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twenty_three);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentythreePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(22).getNumber());
                         break;
                     case "FF8FC549":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twenty_four);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentyfourPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(23).getNumber());
                         break;
                     case "FF9A1955":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twenty_five);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentyfivePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(24).getNumber());
                         break;
                         ///////25
 
                     case "FF8DFFFB":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twenty_six);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentysixPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(25).getNumber());
                         break;
                     case "FFA29C00":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twenty_seven);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentysevenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(26).getNumber());
                         break;
                     case "FF00E600":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twenty_eight);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentyeightPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(27).getNumber());
                         break;
                     case "FFD8B506":
-                        ivSelected.setImageResource(R.drawable.ic_selected_twenty_nine);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setTwentyninePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(28).getNumber());
                         break;
                     case "FFCF0000":
-                        ivSelected.setImageResource(R.drawable.ic_selected_thirty);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setThirtyPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(29).getNumber());
                         break;
                         //////30
 
                       case "FF948DFF":
-                          ivSelected.setImageResource(R.drawable.ic_selected_thirty_one);
-                          ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                          setThirtyonePositionSelected();
                           setSpinnerPositionSelected(stadiumPositionModels.get(30).getNumber());
                         break;
                     case "FFE7EC44":
-                        ivSelected.setImageResource(R.drawable.ic_selected_thirty_two);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        setSpinnerPositionSelected(stadiumPositionModels.get(31).getNumber());
+                        setThirtytwoPositionSelected();
+                       setSpinnerPositionSelected(stadiumPositionModels.get(31).getNumber());
                         break;
                     case "FFD97B00":
-                        ivSelected.setImageResource(R.drawable.ic_selected_thirty_three);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setThirtythreePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(32).getNumber());
                         break;
                     case "FFC500FF":
-                        ivSelected.setImageResource(R.drawable.ic_selected_thirty_four);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setThirtyfourPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(33).getNumber());
                         break;
                     case "FF74FFD0":
-                        ivSelected.setImageResource(R.drawable.ic_selected_thirty_five);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setThirtyfivePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(34).getNumber());
                         break;
                         //////////35
 
                    case "FF8E7627":
-                       ivSelected.setImageResource(R.drawable.ic_selected_thirty_six);
-                       ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                       setThirtysixPositionSelected();
                        setSpinnerPositionSelected(stadiumPositionModels.get(35).getNumber());
                         break;
                     case "FFAC0000":
-                        ivSelected.setImageResource(R.drawable.ic_selected_thirty_seven);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setThirtysevenPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(36).getNumber());
                         break;
                     case "FF828282":
-                        ivSelected.setImageResource(R.drawable.ic_selected_thirty_eight);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setThirtyeightPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(37).getNumber());
                         break;
                     case "FF6E00FF":
-                        ivSelected.setImageResource(R.drawable.ic_selected_thirty_nine);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setThirtyninePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(38).getNumber());
                         break;
                     case "FF9CE27F":
-                        ivSelected.setImageResource(R.drawable.ic_selected_fourty);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setfourtyPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(39).getNumber());
                         break;
                         //////40
 
                     case "FFFFBAFA":
-                        ivSelected.setImageResource(R.drawable.ic_selected_fourty_one);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setfourtyonePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(40).getNumber());
                         break;
                     case "FFF237FF":
-                        ivSelected.setImageResource(R.drawable.ic_selected_fourty_two);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setfourtytwoPositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(41).getNumber());
                         break;
                     case "FF440000":
-                        ivSelected.setImageResource(R.drawable.ic_selected_fourty_three);
-                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setfourtythreePositionSelected();
                         setSpinnerPositionSelected(stadiumPositionModels.get(42).getNumber());
                         break;
                    /* case "":
@@ -720,6 +677,347 @@ public class SelectPositionFragment
                 Log.e("tessstt", envelope.getHexCode() + "");
             }
         });
+    }
+
+    private void setfourtythreePositionSelected()
+    {
+        selectPositionId = 43;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourty_three);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setfourtytwoPositionSelected()
+    {
+        selectPositionId = 42;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourty_two);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setfourtyonePositionSelected()
+    {
+        selectPositionId = 41;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourty_one);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setfourtyPositionSelected()
+    {
+        selectPositionId = 40;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourty);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyninePositionSelected()
+    {
+        selectPositionId = 39;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_nine);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyeightPositionSelected()
+    {
+        selectPositionId = 38;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_eight);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtysevenPositionSelected()
+    {
+        selectPositionId = 37;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_seven);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtysixPositionSelected()
+    {
+        selectPositionId = 36;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_six);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyfivePositionSelected()
+    {
+        selectPositionId = 35;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_five);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyfourPositionSelected()
+    {
+        selectPositionId = 34;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_four);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtythreePositionSelected()
+    {
+        selectPositionId = 33;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_three);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtytwoPositionSelected()
+    {
+        selectPositionId = 32;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_two);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyonePositionSelected()
+    {
+        selectPositionId = 31;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_one);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyPositionSelected()
+    {
+        selectPositionId = 30;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+
+    }
+
+    private void setTwentyninePositionSelected()
+    {
+        selectPositionId = 29;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_nine);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentyeightPositionSelected()
+    {
+        selectPositionId = 28;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_eight);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentysevenPositionSelected()
+    {
+        selectPositionId = 27;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_seven);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentysixPositionSelected()
+    {
+        selectPositionId = 26;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_six);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentyfivePositionSelected()
+    {
+        selectPositionId = 25;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_five);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentyfourPositionSelected()
+    {
+        selectPositionId = 24;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_four);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentythreePositionSelected()
+    {
+        selectPositionId = 23;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_three);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentytwoPositionSelected()
+    {
+        selectPositionId = 22;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_two);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    }
+
+    private void setTwentyonePositionSelected()
+    {
+        selectPositionId = 21;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_one);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentyPositionSelected()
+    {
+        selectPositionId = 20;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setNineteenPositionSelected()
+    {
+        selectPositionId = 19;
+        ivSelected.setImageResource(R.drawable.ic_selected_nineteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setEighteenPositionSelected()
+    {
+        selectPositionId = 18;
+        ivSelected.setImageResource(R.drawable.ic_selected_eighteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setSeventeenPositionSelected()
+    {
+        selectPositionId = 17;
+        ivSelected.setImageResource(R.drawable.ic_selected_seventeen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setSixteenPositionSelected()
+    {
+        selectPositionId = 16;
+        ivSelected.setImageResource(R.drawable.ic_selected_sixteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setFiveteenPositionSelected()
+    {
+        selectPositionId = 15;
+        ivSelected.setImageResource(R.drawable.ic_selected_fifteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setFourteenPositionSelected()
+    {
+        selectPositionId = 14;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirteenPositionSelected()
+    {
+        selectPositionId = 13;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwelvePositionSelected()
+    {
+        selectPositionId = 12;
+        ivSelected.setImageResource(R.drawable.ic_selected_twelve);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setElevenPositionSelected()
+    {
+        selectPositionId = 11;
+        ivSelected.setImageResource(R.drawable.ic_selected_eleven);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTenPositionSelected()
+    {
+        selectPositionId = 10;
+        ivSelected.setImageResource(R.drawable.ic_selected_ten);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setNinePositionSelected()
+    {
+        selectPositionId = 9;
+        ivSelected.setImageResource(R.drawable.ic_selected_nine);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setEightPositionSelected()
+    {
+        selectPositionId = 8;
+        ivSelected.setImageResource(R.drawable.ic_selected_eight);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setSevenPositionSelected()
+    {
+        selectPositionId = 7;
+        ivSelected.setImageResource(R.drawable.ic_selected_seven);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setSixPositionSelected()
+    {
+        selectPositionId = 6;
+        ivSelected.setImageResource(R.drawable.ic_selected_six);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setFivePositionSelected()
+    {
+        selectPositionId = 5;
+        ivSelected.setImageResource(R.drawable.ic_selected_five);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setFourPositionSelected()
+    {
+        selectPositionId = 4;
+        ivSelected.setImageResource(R.drawable.ic_selected_four);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThreePositionSelected()
+    {
+        selectPositionId = 3;
+        ivSelected.setImageResource(R.drawable.ic_selected_three);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    }
+
+    private void setTowPositionSelected()
+    {
+        selectPositionId = 2;
+        ivSelected.setImageResource(R.drawable.ic_selected_two);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    }
+
+    private void setOnePositionSelected()
+    {
+        selectPositionId = 1;
+        ivSelected.setImageResource(R.drawable.ic_selected_one);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
 
     private void setSpinnerPositionSelected(Integer numberPosition)
@@ -797,13 +1095,162 @@ public class SelectPositionFragment
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                if (spinnerAllBoxes.getSelectedItemPosition() == 0)
+
+                try
                 {
-                } else
-                {
-                    //TODO if seat count 0 deleted check id
-                    AllBoxesResult item = result.get(position);
-                    selectPositionId = item.getId();
+                    switch (result.get(position).getName())
+                    {
+                        case "1":
+                            setOnePositionSelected();
+                            break;
+                        case "2":
+                            setTowPositionSelected();
+                            break;
+                        case "3":
+                            setThreePositionSelected();
+                            break;
+                        case "4":
+                            setFourPositionSelected();
+                            break;
+                        case "5":
+                            setFivePositionSelected();
+                            break;
+
+
+                        case "6":
+                            setSixPositionSelected();
+                            break;
+                        case "7":
+                            setSevenPositionSelected();
+                            break;
+                        case "8":
+                            setEightPositionSelected();
+                            break;
+                        case "9":
+                            setNinePositionSelected();
+                            break;
+                        case "10":
+                            setTenPositionSelected();
+                            break;
+
+
+                        case "11":
+                            setElevenPositionSelected();
+                            break;
+                        case "12":
+                            setTwelvePositionSelected();
+                            break;
+                        case "13":
+                            setThirteenPositionSelected();
+                            break;
+                        case "14":
+                            setFourteenPositionSelected();
+                            break;
+                        case "15":
+                            setFiveteenPositionSelected();
+                            break;
+
+
+                        case "16":
+                            setSixteenPositionSelected();
+                            break;
+                        case "17":
+                            setSeventeenPositionSelected();
+                            break;
+                        case "18":
+                            setEighteenPositionSelected();
+                            break;
+                        case "19":
+                            setNineteenPositionSelected();
+                            break;
+                        case "20":
+                            setTwentyPositionSelected();
+                            break;
+
+
+                        case "21":
+                            setTwentyonePositionSelected();
+                            break;
+                        case "22":
+                            setTwentytwoPositionSelected();
+                            break;
+                        case "23":
+                            setTwentythreePositionSelected();
+                            break;
+                        case "24":
+                            setTwentyfourPositionSelected();
+                            break;
+                        case "25":
+                            setTwentyfivePositionSelected();
+                            break;
+
+
+
+                        case "26":
+                            setTwentysixPositionSelected();
+                            break;
+                        case "27":
+                            setTwentysevenPositionSelected();
+                            break;
+                        case "28":
+                            setTwentyeightPositionSelected();
+                            break;
+                        case "29":
+                            setTwentyninePositionSelected();
+                            break;
+                        case "30":
+                            setThirtyPositionSelected();
+                            break;
+
+
+                        case "31":
+                            setThirtyonePositionSelected();
+                            break;
+                        case "32":
+                            setThirtytwoPositionSelected();
+                            break;
+                        case "33":
+                            setThirtythreePositionSelected();
+                            break;
+                        case "34":
+                            setThirtyfourPositionSelected();
+                            break;
+                        case "35":
+                            setThirtyfivePositionSelected();
+                            break;
+
+
+                        case "36":
+                            setThirtysixPositionSelected();
+                            break;
+                        case "37":
+                            setThirtysevenPositionSelected();
+                            break;
+                        case "38":
+                            setThirtyeightPositionSelected();
+                            break;
+                        case "39":
+                            setThirtyninePositionSelected();
+                            break;
+                        case "40":
+                            setfourtyPositionSelected();
+                            break;
+
+
+                        case "41":
+                            setfourtyonePositionSelected();
+                            break;
+                        case "42":
+                            setfourtytwoPositionSelected();
+                            break;
+                        case "43":
+                            setfourtythreePositionSelected();
+                            break;
+
+                    }
+
+                }catch (Exception e){
+
                 }
             }
 
