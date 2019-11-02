@@ -40,6 +40,7 @@ import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.adapters.MainServiceModelAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.others.MyCustomSliderView;
+import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.StartEniacBusActivity;
 import library.android.eniac.StartEniacFlightActivity;
@@ -298,6 +299,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             textSliderView.setImgBackgroundLink(matchItem.getCup().getImageName());
             textSliderView.setImgAwayLink(matchItem.getTeamAway().getLogo());
             textSliderView.setImgHomeLink(matchItem.getTeamHome().getLogo());
+            textSliderView.setMatchResult(matchItem.getResult());
+            Logger.e("--result--","R: "+ matchItem.getResult());
 
             textSliderView.setOnSliderClickListener(this);
 

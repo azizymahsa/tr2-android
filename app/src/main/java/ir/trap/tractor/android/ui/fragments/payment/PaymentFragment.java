@@ -117,6 +117,32 @@ public class PaymentFragment<T> extends BaseFragment implements FavoriteCardPare
 
         args.putString("MOBILE", mobile);
 
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    public static PaymentFragment newInstance(int PAYMENT_STATUS,
+                                              String price,
+                                              String title,
+                                              int imgLogo,
+                                              PaymentParentActionView paymentParentActionView,
+                                              Object response,
+                                              int operatorType,
+                                              int simcardType,
+                                              int typeCharge,
+                                              String mobile,String s
+    )
+    {
+        PaymentFragment fragment = new PaymentFragment();
+        fragment.setParentActionView(paymentParentActionView);
+
+        Bundle args = new Bundle();
+
+        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+        args.putInt("imgLogo", imgLogo);
+        args.putString("price", price);
+        args.putString("title", title);
         args.putParcelable("response", (Parcelable) response);
 
         fragment.setArguments(args);
@@ -163,6 +189,7 @@ public class PaymentFragment<T> extends BaseFragment implements FavoriteCardPare
         PaymentFragment fragment = new PaymentFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
         fragment.setParentActionView(paymentParentActionView);
+
         Bundle args = new Bundle();
         args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
         fragment.setArguments(args);

@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.ui.fragments.ticket.adapter;
+package ir.trap.tractor.android.ui.adapters.ticket;
 
 import android.view.View;
 import android.widget.Toast;
@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentFragment;
