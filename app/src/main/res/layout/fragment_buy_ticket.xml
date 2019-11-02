@@ -143,7 +143,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="صدور بلیط"
+                        android:text="صدور بلیت"
                         android:textColor="@color/_disable_color"
                         android:textSize="@dimen/textSize_12dp" />
 

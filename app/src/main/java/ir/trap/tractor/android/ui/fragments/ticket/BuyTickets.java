@@ -39,6 +39,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     private CircularProgressButton btnPaymentConfirm;
     private ImageView ivCountTicket,ivSelectPosition,ivFullInfo,ivPrintTicket;
     private View vOneToTow,vZeroToOne,vTowToThree;
+    private TextView tvTitle;
 
     public BuyTickets()
     {
@@ -119,6 +120,13 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
     private void initView()
     {
+        try
+        {
+            tvTitle=rootView.findViewById(R.id.tvTitle);
+            tvTitle.setText("خرید بلیت");
+        }catch (Exception e){
+
+        }
         btnPaymentConfirm = rootView.findViewById(R.id.btnPaymentConfirm);
         btnBackToDetail = rootView.findViewById(R.id.btnBackToDetail);
         tabLayout = rootView.findViewById(R.id.tab_layout);

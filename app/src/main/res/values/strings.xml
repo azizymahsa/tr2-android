@@ -60,6 +60,7 @@
     <string name="Please_enter_last_name_in_Persian">لطفا نام خانوادگی خود را وارد نمایید</string>
     <string name="string_under_line"><u>قوانین و مقررات</u>.</string>
     <string name="Error_edit_input">اطلاعات ورودی نامعتبر است</string>
+    <string name="Please_enter_first_name_in_Persian">لطفا نام خود را وارد نمایید</string>
 
 
     <string-array name="string_array_alcohol">

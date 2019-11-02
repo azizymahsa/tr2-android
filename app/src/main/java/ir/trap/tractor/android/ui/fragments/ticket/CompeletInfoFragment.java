@@ -213,7 +213,7 @@ public class CompeletInfoFragment
                         flagValidations = flagValidations + "F";
 
                         //((EditText)findViewById(R.id.txtfamilyP)).setTextColor(Color.parseColor("#ff3300"));
-                        etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                        etFamily_1.setError(getString(R.string.Please_enter_first_name_in_Persian));
                     }
 
                 }

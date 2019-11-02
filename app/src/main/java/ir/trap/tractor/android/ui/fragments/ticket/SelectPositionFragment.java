@@ -72,6 +72,7 @@ public class SelectPositionFragment
     private int count = 1;
     private Integer matchId=1;
     private Integer amountOneTicket=0;
+    private ArrayList<Integer> positionIdAllBoxes;
 
 
     // private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
@@ -393,7 +394,6 @@ public class SelectPositionFragment
         fullFromServer.add(25);
         fullFromServer.add(30);
 
-
         //fullFromServer.add(14);
     }
 
@@ -464,7 +464,7 @@ public class SelectPositionFragment
             @Override
             public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
 
-                Logger.e("tessstt", envelope.getHexCode() + "");
+                Logger.e("test", envelope.getHexCode() + "");
 
                 for (StadiumPositionModel stadiumPosition : stadiumPositionModels) {
                     if (envelope.getHexCode().equals(stadiumPosition.getColor())) {
@@ -478,192 +478,233 @@ public class SelectPositionFragment
                 }
 
                 switch (envelope.getHexCode()) {
-
-
                     case "FF328DAA":
                         ivSelected.setImageResource(R.drawable.ic_selected_one);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(0).getNumber());
                         break;
                     case "FF953D3D":
                         ivSelected.setImageResource(R.drawable.ic_selected_two);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(1).getNumber());
                         break;
                     case "FFFE9000":
                         ivSelected.setImageResource(R.drawable.ic_selected_three);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(2).getNumber());
                         break;
                     case "FFFFFC9B":
                         ivSelected.setImageResource(R.drawable.ic_selected_four);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(3).getNumber());
                         break;
                     case "FF00AC62":
                         ivSelected.setImageResource(R.drawable.ic_selected_five);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(4).getNumber());
                         break;
                         /////5
                     case "FF8A3D7D":
                         ivSelected.setImageResource(R.drawable.ic_selected_six);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(5).getNumber());
                         break;
                     case "FF9AB260":
                         ivSelected.setImageResource(R.drawable.ic_selected_seven);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(6).getNumber());
                         break;
                     case "FFFF8181":
                         ivSelected.setImageResource(R.drawable.ic_selected_eight);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(7).getNumber());
                         break;
                     case "FF0F0060":
                         ivSelected.setImageResource(R.drawable.ic_selected_nine);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(8).getNumber());
                         break;
                     case "FFFFC170":
                         ivSelected.setImageResource(R.drawable.ic_selected_ten);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(9).getNumber());
                         break;
                         ////////10
                     case "FF00EDFF":
                         ivSelected.setImageResource(R.drawable.ic_selected_eleven);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(10).getNumber());
                         break;
                     case "FF481337":
                         ivSelected.setImageResource(R.drawable.ic_selected_twelve);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(11).getNumber());
                         break;
                     case "FF009A8F":
                         ivSelected.setImageResource(R.drawable.ic_selected_thirteen);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(12).getNumber());
                         break;
                     case "FFFE0002":
                         ivSelected.setImageResource(R.drawable.ic_selected_fourteen);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(13).getNumber());
                         break;
                     case "FF00FF5D":
                         ivSelected.setImageResource(R.drawable.ic_selected_fifteen);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(14).getNumber());
                         break;
                         ////15
                      case "FFA0F113":
                          ivSelected.setImageResource(R.drawable.ic_selected_sixteen);
                          ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                         setSpinnerPositionSelected(stadiumPositionModels.get(15).getNumber());
                         break;
                     case "FF8A4000":
                         ivSelected.setImageResource(R.drawable.ic_selected_seventeen);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(16).getNumber());
                         break;
                     case "FF0080FF":
                         ivSelected.setImageResource(R.drawable.ic_selected_eighteen);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(17).getNumber());
                         break;
                     case "FFDC0DB3":
                         ivSelected.setImageResource(R.drawable.ic_selected_nineteen);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(18).getNumber());
                         break;
                     case "FF52488A":
                         ivSelected.setImageResource(R.drawable.ic_selected_twelve);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(19).getNumber());
                         break;
                         ////20
 
                     case "FFCFD574":
                         ivSelected.setImageResource(R.drawable.ic_selected_twenty_one);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(20).getNumber());
                         break;
                     case "FFA8CAEC":
                         ivSelected.setImageResource(R.drawable.ic_selected_twenty_two);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(21).getNumber());
                         break;
                     case "FF575657":
                         ivSelected.setImageResource(R.drawable.ic_selected_twenty_three);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(22).getNumber());
                         break;
                     case "FF8FC549":
                         ivSelected.setImageResource(R.drawable.ic_selected_twenty_four);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(23).getNumber());
                         break;
                     case "FF9A1955":
                         ivSelected.setImageResource(R.drawable.ic_selected_twenty_five);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(24).getNumber());
                         break;
                         ///////25
 
                     case "FF8DFFFB":
                         ivSelected.setImageResource(R.drawable.ic_selected_twenty_six);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(25).getNumber());
                         break;
                     case "FFA29C00":
                         ivSelected.setImageResource(R.drawable.ic_selected_twenty_seven);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(26).getNumber());
                         break;
                     case "FF00E600":
                         ivSelected.setImageResource(R.drawable.ic_selected_twenty_eight);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(27).getNumber());
                         break;
                     case "FFD8B506":
                         ivSelected.setImageResource(R.drawable.ic_selected_twenty_nine);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(28).getNumber());
                         break;
                     case "FFCF0000":
                         ivSelected.setImageResource(R.drawable.ic_selected_thirty);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(29).getNumber());
                         break;
                         //////30
 
                       case "FF948DFF":
                           ivSelected.setImageResource(R.drawable.ic_selected_thirty_one);
                           ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                          setSpinnerPositionSelected(stadiumPositionModels.get(30).getNumber());
                         break;
                     case "FFE7EC44":
                         ivSelected.setImageResource(R.drawable.ic_selected_thirty_two);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(31).getNumber());
                         break;
                     case "FFD97B00":
                         ivSelected.setImageResource(R.drawable.ic_selected_thirty_three);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(32).getNumber());
                         break;
                     case "FFC500FF":
                         ivSelected.setImageResource(R.drawable.ic_selected_thirty_four);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(33).getNumber());
                         break;
                     case "FF74FFD0":
                         ivSelected.setImageResource(R.drawable.ic_selected_thirty_five);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(34).getNumber());
                         break;
                         //////////35
 
                    case "FF8E7627":
                        ivSelected.setImageResource(R.drawable.ic_selected_thirty_six);
                        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                       setSpinnerPositionSelected(stadiumPositionModels.get(35).getNumber());
                         break;
                     case "FFAC0000":
                         ivSelected.setImageResource(R.drawable.ic_selected_thirty_seven);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(36).getNumber());
                         break;
                     case "FF828282":
                         ivSelected.setImageResource(R.drawable.ic_selected_thirty_eight);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(37).getNumber());
                         break;
                     case "FF6E00FF":
                         ivSelected.setImageResource(R.drawable.ic_selected_thirty_nine);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(38).getNumber());
                         break;
                     case "FF9CE27F":
                         ivSelected.setImageResource(R.drawable.ic_selected_fourty);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(39).getNumber());
                         break;
                         //////40
 
                     case "FFFFBAFA":
                         ivSelected.setImageResource(R.drawable.ic_selected_fourty_one);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(40).getNumber());
                         break;
                     case "FFF237FF":
                         ivSelected.setImageResource(R.drawable.ic_selected_fourty_two);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(41).getNumber());
                         break;
                     case "FF440000":
                         ivSelected.setImageResource(R.drawable.ic_selected_fourty_three);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        setSpinnerPositionSelected(stadiumPositionModels.get(42).getNumber());
                         break;
                    /* case "":
                         ivSelected.setImageResource(R.drawable.ic_fourteen_full);
@@ -679,6 +720,21 @@ public class SelectPositionFragment
                 Log.e("tessstt", envelope.getHexCode() + "");
             }
         });
+    }
+
+    private void setSpinnerPositionSelected(Integer numberPosition)
+    {
+        try
+        {
+            for (int i = 0; i < positionIdAllBoxes.size(); i++) {
+                if (numberPosition == Integer.valueOf(allBoxes.get(i))) {
+                    spinnerAllBoxes.setSelection(i);
+                }
+            }
+        }catch (Exception e){
+
+        }
+
     }
 
     private void getAllBoxesRequest()
@@ -720,17 +776,17 @@ public class SelectPositionFragment
         amountForPay = results.get(0).getTicketAmount() * count;
         amountOneTicket=results.get(0).getTicketAmount();
         tvAmountStation.setText("قیمت بلیط این جایگاه :"+ Utility.priceFormat(results.get(0).getTicketAmount().toString()) +" ریال");
-        tvAmountForPay.setText("مبلغ قابل پرداخت "+Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+        tvAmountForPay.setText("مبلغ قابل پرداخت :"+Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
     }
 
     private void setDataSpinnerAllBoxes(List<AllBoxesResult> result)
     {
         allBoxes = new ArrayList<String>();
-       // selectPositionId = new ArrayList<Integer>();
+        positionIdAllBoxes = new ArrayList<Integer>();
 
         for (int i = 0; i < result.size(); i++) {
             allBoxes.add(result.get(i).getName());
-           // selectPositionId.add(result.get(i).getId());
+            positionIdAllBoxes.add(result.get(i).getId());
         }
         ArrayAdapter<String> adapterAllBoxes = new ArrayAdapter<String>(getActivity(),
                 R.layout.simple_spinner_item, allBoxes);
