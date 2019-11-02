@@ -2,26 +2,26 @@
 <resources>
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#810000</color>
-    <color name="colorAccent">#FF7A7A</color>
+    <color name="colorAccent">#f58232</color>
 
     <color name="textColorTitle">#fff</color>
-    <color name="textColorPrimary">#fe0002</color>
+    <color name="textColorPrimary">#d5282e</color>
     <color name="textColorSecondary">#000</color>
 
     <color name="textHint">#aaa</color>
 
-    <color name="backgroundButton">#fe0002</color>
+    <color name="backgroundButton">#d5282e</color>
     <color name="mainMenuColor">#fff</color>
     <color name="drawer_background">#fff</color>
     <color name="textColorDrawer">#fff</color>
     <color name="drawerSepratorColor">#aaa</color>
-    <color name="mainNavigationBottomColorSelected">#fe0002</color>
+    <color name="mainNavigationBottomColorSelected">#d5282e</color>
     <color name="mainNavigationBottomColorDeSelected">#888</color>
     <color name="textColorRecyclerView">#fff</color>
-    <color name="itemColor">#fe0002</color>
+    <color name="itemColor">#d5282e</color>
     <color name="lineDividerColor">#fff</color>
-    <color name="btnColorSecondary">#fe0002</color>
-    <color name="borderColorRed">#fe0002</color>
+    <color name="btnColorSecondary">#d5282e</color>
+    <color name="borderColorRed">#d5282e</color>
     <color name="buttonMainBorderColor">#aaa</color>
     <color name="textColorLoading">#fff</color>
     <color name="buttonMainBackgroundColor">#fff</color>
@@ -30,7 +30,7 @@
     <color name="midnight">#020526</color>
     <color name="returnButtonColor">#484848</color>
     <color name="borderBackgroundColor">#e2e2e2</color>
-    <color name="headerMainWeekNoBackground">#bb0000</color>
+    <color name="headerMainWeekNoBackground">#d5282e</color>
     <color name="headerMainWeekNoTextColor">#fff</color>
     <color name="textColorStadiumName">#888</color>
     <color name="grayColor">#888</color>
@@ -44,12 +44,12 @@
     <color name="green">#0e8019</color>
     <color name="green_light">#24d13c</color>
     <color name="menuColor">#fff</color>
-    <color name="clearButtonColor">#fe0002</color>
-    <color name="arrowButtonColor">#fe0002</color>
+    <color name="clearButtonColor">#d5282e</color>
+    <color name="arrowButtonColor">#d5282e</color>
     <color name="textColorHint">#FF7A7A</color>
     <color name="textColorButton">#FDFCFC</color>
 
-    <color name="buttonHeaderBackgroundColor">#fe0002</color>
+    <color name="buttonHeaderBackgroundColor">#d5282e</color>
     <color name="colorStar">#edcb62</color>
     <color name="colorEditCard">#2eda3f</color>
     <color name="colorSecurityCard">#5aa7ff</color>
@@ -58,7 +58,7 @@
     <color name="colorDelete">#fff</color>
     <color name="_disable_color">#cccccc</color>
     <color name="_title_black">#242424</color>
-    <color name="color_alert_border">#ff0000</color>
+    <color name="color_alert_border">#d5282e</color>
     <color name="alert_background_color">#fff</color>
 
 </resources>

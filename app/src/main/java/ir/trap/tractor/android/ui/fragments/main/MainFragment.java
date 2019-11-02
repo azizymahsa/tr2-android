@@ -1,6 +1,7 @@
 package ir.trap.tractor.android.ui.fragments.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -18,20 +19,26 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.generator.SingletonService;
+import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
+import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
+import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
+import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.singleton.SingletonContext;
+import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.adapters.MainServiceModelAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
-import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.trap.tractor.android.ui.others.MyCustomSliderView;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.StartEniacBusActivity;
@@ -49,10 +56,8 @@ import library.android.service.model.flight.reservation.response.ReservationResp
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
         FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener,
-        View.OnClickListener
+        View.OnClickListener, OnServiceStatus<WebServiceClass<MachListResponse>>
 {
-//    private CircularProgressButton btnBus, btnFlight, btnHotel, btnDoTransfer, btnChargeSimCard, btnPackSimCard, btnBill;
-
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private MainServiceModelAdapter adapter;
@@ -60,7 +65,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private Toolbar mToolbar;
 
     private RelativeLayout rlF1, rlF2, rlF3, rlF4, rlF5, rlF6;
-    private TextView tvF1, tvF2, tvF3, tvF4, tvF5, tvF6;
+    private TextView tvF1, tvF2, tvF3, tvF4, tvF5, tvF6, tvUserName;
     private ImageView imgF1, imgF2, imgF3, imgF4, imgF5, imgF6;
 
     private List<MainServiceModelItem> list = new ArrayList<>();
@@ -71,6 +76,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private MainActionView mainView;
     private View btnBuyTicket;
+
+    private List<MatchItem> matchList;
+    private MatchItem matchCurrent, matchBuyable, matchPredict;
 
     public MainFragment()
     {
@@ -122,16 +130,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         initView(rootView);
 
-
-        mToolbar = rootView.findViewById(R.id.toolbar);
-
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-
-        setSlider();
-
-        recyclerView = rootView.findViewById(R.id.recyclerView);
-        btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
-
         btnBuyTicket.setOnClickListener(this);
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
@@ -148,6 +146,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private void initView(View rootView)
     {
+        mToolbar = rootView.findViewById(R.id.toolbar);
+
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvUserName.setText(Prefs.getString("mobile", ""));
+
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
+
         rlF1 = rootView.findViewById(R.id.rlF1);
         rlF2 = rootView.findViewById(R.id.rlF2);
         rlF3 = rootView.findViewById(R.id.rlF3);
@@ -183,6 +190,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         setImageIntoIV(imgF6, footballServiceList.get(4).getImageName());
         setImageIntoIV(imgF5, footballServiceList.get(5).getImageName());
 
+        getSliderData();
+    }
+
+    private void getSliderData()
+    {
+        mainView.showLoading();
+
+        SingletonService.getInstance().getMatchListService().getMatchList(this);
     }
 
     private void setImageIntoIV(ImageView imageView, String link)
@@ -210,7 +225,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     newList.add(item);
                 }
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -218,7 +234,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //        MainServiceModelItem item = new MainServiceModelItem();
 //
 //        item.setId(1);
-//        item.setTitle("بلیط هواپیما");
+//        item.setTitle("بلیت هواپیما");
 //        newList.add(item);
 //
 //        item = new MainServiceModelItem();
@@ -228,7 +244,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //
 //        item = new MainServiceModelItem();
 //        item.setId(3);
-//        item.setTitle("بلیط اتوبوس");
+//        item.setTitle("بلیت اتوبوس");
 //        newList.add(item);
 //
 //        item = new MainServiceModelItem();
@@ -256,30 +272,68 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private void setSlider()
     {
-        for (int i = 1; i < 4; i++)
+        for (MatchItem matchItem: matchList)
         {
+            if (matchItem.getIsCurrent())
+            {
+                this.matchCurrent = matchItem;
+            }
+
+            if (matchItem.getIsPredict())
+            {
+                this.matchPredict = matchItem;
+            }
+
+            if (matchItem.getBuyEnable())
+            {
+                this.matchBuyable = matchItem;
+            }
+
             MyCustomSliderView textSliderView = new MyCustomSliderView(getActivity());
-//            textSliderView.setStadiumName("ورزشگاه یادگار امام تبریز");
-//            textSliderView.setDateTime("یکشنبه 12 آبان 1398 - 18:00");
+            textSliderView.setStadiumName("ورزشگاه " + matchItem.getStadium().getName());
+            textSliderView.setDateTime(matchItem.getMatchDatetimeStr());
 //            textSliderView.setColorDateTime("#000");
 //            textSliderView.setColorStadiumName("#aaa");
-            textSliderView.setHeaderText(String.valueOf(i));
-//            textSliderView.setImgBackgroundLink();
-//            textSliderView.setImgGuestLink();;
-//            textSliderView.setImgHostLink();;
+            textSliderView.setHeaderDesc(matchItem.getDescription());
+            textSliderView.setImgBackgroundLink(matchItem.getCup().getImageName());
+            textSliderView.setImgAwayLink(matchItem.getTeamAway().getLogo());
+            textSliderView.setImgHomeLink(matchItem.getTeamHome().getLogo());
+
             textSliderView.setOnSliderClickListener(this);
 
             mDemoSlider.addSlider(textSliderView);
-
-
         }
+
+        //---------------------old---------------------------
+//        for (int i = 1; i < 4; i++)
+//        {
+//            MyCustomSliderView textSliderView = new MyCustomSliderView(getActivity());
+////            textSliderView.setStadiumName("ورزشگاه یادگار امام تبریز");
+////            textSliderView.setDateTime("یکشنبه 12 آبان 1398 - 18:00");
+////            textSliderView.setColorDateTime("#000");
+////            textSliderView.setColorStadiumName("#aaa");
+//            textSliderView.setHeaderDesc(String.valueOf(i));
+////            textSliderView.setImgBackgroundLink();
+////            textSliderView.setImgAwayLink();
+////            textSliderView.setImgHomeLink();
+//
+//
+//
+//            textSliderView.setOnSliderClickListener(this);
+//
+//            mDemoSlider.addSlider(textSliderView);
+//        }
+        //---------------------old---------------------------
 //            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.RotateDown);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         PagerIndicator pagerIndicator = new PagerIndicator(getActivity());
         pagerIndicator.setDefaultIndicatorColor(R.color.currentColor, R.color.grayColor);
         mDemoSlider.setCustomIndicator(pagerIndicator);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(10000);
+
+        mDemoSlider.setCurrentPosition(matchList.indexOf(matchCurrent));
+        mDemoSlider.stopAutoCycle();
+//        mDemoSlider.setDuration(10000);
 //            mDemoSlider.addOnPageChangeListener(this);
     }
 
@@ -492,8 +546,43 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         switch (v.getId())
         {
             case R.id.btnBuyTicket:
-                mainView.onBuyTicketClick();
+                mainView.onBuyTicketClick(matchBuyable);
                 break;
         }
+    }
+
+    @Override
+    public void onReady(WebServiceClass<MachListResponse> responseMatchList)
+    {
+        if (responseMatchList == null || responseMatchList.info == null)
+        {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+
+            return;
+        }
+        if (responseMatchList.info.statusCode != 200)
+        {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+
+            return;
+        }
+        else
+        {
+            matchList = responseMatchList.data.getMatchList();
+
+            setSlider();
+        }
+
+        mainView.hideLoading();
+    }
+
+    @Override
+    public void onError(String message)
+    {
+        mainView.hideLoading();
+
+        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
     }
 }

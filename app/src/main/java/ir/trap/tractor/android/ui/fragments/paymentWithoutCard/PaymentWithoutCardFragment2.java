@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,12 +60,18 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
     View rootView;
     private boolean isDetailPaymentList = false, isDetailPaymentBarcode = false;
     private boolean continue_ = false;
+    private TextView tvUserName;
+
     public PaymentWithoutCardFragment2()
     {
     }
 
     private void initView()
     {
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+
+        tvUserName.setText(Prefs.getString("mobile", ""));
+
         llQrScan = rootView.findViewById(R.id.llQrScan);
         llDetailPayment = rootView.findViewById(R.id.llDetailPayment);
         llPayment = rootView.findViewById(R.id.llPayment);

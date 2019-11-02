@@ -2,6 +2,7 @@ package ir.trap.tractor.android.ui.fragments.main;
 
 import androidx.fragment.app.Fragment;
 
+import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.enums.BarcodeType;
 import ir.trap.tractor.android.ui.base.BaseView;
 
@@ -32,5 +33,5 @@ public interface MainActionView extends BaseView
 
     void startAddCardActivity();
 
-    void onBuyTicketClick();
+    void onBuyTicketClick(MatchItem matchBuyable);
 }

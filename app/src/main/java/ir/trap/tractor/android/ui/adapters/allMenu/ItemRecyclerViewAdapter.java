@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.ui.fragments.allMenu.adapter;
+package ir.trap.tractor.android.ui.adapters.allMenu;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,12 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.allService.response.SubMenu;
-import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
 
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {

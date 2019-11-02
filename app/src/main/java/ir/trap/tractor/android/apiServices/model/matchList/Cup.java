@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.apiServices.model.match;
+package ir.trap.tractor.android.apiServices.model.matchList;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

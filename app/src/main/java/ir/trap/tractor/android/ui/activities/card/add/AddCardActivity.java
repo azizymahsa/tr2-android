@@ -17,12 +17,12 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
-import com.bumptech.glide.Glide;
 import com.farazpardazan.accubin.AccubinActivity;
 import com.farazpardazan.accubin.AccubinConfiguration;
 import com.farazpardazan.accubin.core.scanResult.BarcodeScanResult;
 import com.farazpardazan.accubin.core.scanResult.CardScanResult;
 import com.farazpardazan.accubin.core.scanResult.ScanResult;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -30,9 +30,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import io.realm.Realm;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.conf.TrapConfig;
-import ir.trap.tractor.android.apiServices.model.getBankList.response.Bank;
 import ir.trap.tractor.android.models.dbModels.BankDB;
-import ir.trap.tractor.android.singleton.SingletoneBankDetail;
 import ir.trap.tractor.android.ui.activities.card.add.request.AddCardServiceImpl;
 import ir.trap.tractor.android.ui.base.BaseActivity;
 import ir.trap.tractor.android.utilities.Logger;
@@ -45,7 +43,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     private Realm realm;
     private Toolbar mToolbar;
 
-    private TextView tvTitle;
+    private TextView tvTitle, tvUserName;
     private ImageView imgBack, imgMenu;
 
     private CardView cvBarcode;
@@ -92,10 +90,14 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     private void initView()
     {
         tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
         imgBack = mToolbar.findViewById(R.id.imgBack);
         imgMenu = mToolbar.findViewById(R.id.imgMenu);
 
         tvTitle.setText("افزودن کارت");
+
+        tvUserName.setText(Prefs.getString("mobile", ""));
+
         imgMenu.setVisibility(View.GONE);
         imgBack.setOnClickListener(v ->
         {
