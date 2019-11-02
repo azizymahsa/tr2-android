@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="ltr"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
@@ -11,17 +12,22 @@
     <RelativeLayout
         android:id="@+id/rlRoot"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_160sdp"
+        android:layout_height="@dimen/_170sdp"
         android:visibility="visible">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:foreground="?attr/selectableItemBackground"
             android:background="@drawable/button_main_background_border"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitXY"
+            app:riv_corner_radius="15dp"
+            app:riv_border_width="1dp"
+            app:riv_border_color="@color/borderColorRed"
+            app:riv_mutate_background="true"
+            app:riv_oval="false"  />
 
 <!--        <Button-->
 <!--            android:id="@+id/btnBuyTicket"-->
@@ -31,7 +37,7 @@
 <!--            android:paddingLeft="16dp"-->
 <!--            android:clickable="false"-->
 <!--            android:layout_marginTop="8dp"-->
-<!--            android:text="خرید بلیط"-->
+<!--            android:text="خرید بلیت"-->
 <!--            android:layout_centerHorizontal="true"-->
 <!--            android:textColor="@color/textColorButton"-->
 <!--            android:textStyle="bold"-->
@@ -48,23 +54,25 @@
             <TextView
                 android:id="@+id/tvHeaderText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_gravity="top"
                 android:layout_marginLeft="12dp"
-                android:gravity="top"
+                android:layout_marginTop="4dp"
+                android:gravity="bottom"
                 android:text="5"
                 android:textColor="@color/headerMainWeekNoTextColor"
                 android:textSize="@dimen/headerMainWeekNoTextSize" />
 
             <TextView
+                android:id="@+id/tvHeaderSubText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_toRightOf="@+id/tvHeaderText"
                 android:gravity="bottom"
+                android:layout_marginBottom="4dp"
                 android:text="/30"
                 android:textColor="@color/headerMainWeekNoTextColor"
                 android:textSize="@dimen/headerMainWeekNoSubTextSize" />
@@ -85,9 +93,10 @@
 
                 <ImageView
                     android:id="@+id/imgGuest"
-                    android:layout_width="@dimen/_70sdp"
+                    android:layout_width="@dimen/_70dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
+                    android:scaleType="fitXY"
                     android:src="@drawable/img_guest_test" />
 
             </RelativeLayout>
@@ -118,9 +127,10 @@
 
                 <ImageView
                     android:id="@+id/imgHost"
-                    android:layout_width="@dimen/_70sdp"
+                    android:layout_width="@dimen/_70dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
+                    android:scaleType="fitXY"
                     android:src="@drawable/img_tractor" />
 
             </RelativeLayout>

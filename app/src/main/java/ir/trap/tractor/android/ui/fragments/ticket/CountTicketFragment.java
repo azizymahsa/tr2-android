@@ -3,7 +3,6 @@ package ir.trap.tractor.android.ui.fragments.ticket;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +19,11 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
-import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
+import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 public class CountTicketFragment
@@ -108,10 +106,10 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             throw new RuntimeException("You must to send a subMenuModels ");
         }
 
-        SingletonService.getInstance().getTicketServices().getMatch(new OnServiceStatus<WebServiceClass<ResponseMatch>>()
+        SingletonService.getInstance().getMatchListService().getMatchList(new OnServiceStatus<WebServiceClass<MachListResponse>>()
         {
             @Override
-            public void onReady(WebServiceClass<ResponseMatch> response)
+            public void onReady(WebServiceClass<MachListResponse> response)
             {
                 progress.setVisibility(View.GONE);
                /* if (response.info.statusCode == 200)

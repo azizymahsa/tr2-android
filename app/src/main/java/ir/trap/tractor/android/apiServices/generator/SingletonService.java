@@ -31,7 +31,7 @@ import ir.trap.tractor.android.apiServices.part.MobileChargeService;
 import ir.trap.tractor.android.apiServices.part.PackageBuyService;
 import ir.trap.tractor.android.apiServices.part.SheatcChangePassService;
 import ir.trap.tractor.android.apiServices.part.SheatcForgotPassService;
-import ir.trap.tractor.android.apiServices.part.TicketService;
+import ir.trap.tractor.android.apiServices.part.GetMatchListService;
 import ir.trap.tractor.android.apiServices.part.VerifyService;
 import okhttp3.OkHttpClient;
 
@@ -94,9 +94,9 @@ public class SingletonService
     {
         return new GetCardListService(serviceGenerator);
     }
-    public TicketService getTicketServices()
+    public GetMatchListService getMatchListService()
     {
-        return new TicketService(serviceGenerator);
+        return new GetMatchListService(serviceGenerator);
     }
 
 

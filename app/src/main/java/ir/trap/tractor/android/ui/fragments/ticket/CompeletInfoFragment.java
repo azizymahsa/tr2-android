@@ -2,17 +2,13 @@ package ir.trap.tractor.android.ui.fragments.ticket;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -22,10 +18,9 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
-import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
+import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.trap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
-import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 
 public class CompeletInfoFragment
         extends Fragment implements View.OnClickListener, View.OnFocusChangeListener
@@ -87,10 +82,10 @@ public class CompeletInfoFragment
         super.onCreate(savedInstanceState);
         try
         {
-            SingletonService.getInstance().getTicketServices().getMatch(new OnServiceStatus<WebServiceClass<ResponseMatch>>()
+            SingletonService.getInstance().getMatchListService().getMatchList(new OnServiceStatus<WebServiceClass<MachListResponse>>()
             {
                 @Override
-                public void onReady(WebServiceClass<ResponseMatch> response)
+                public void onReady(WebServiceClass<MachListResponse> response)
                 {
 
                 }

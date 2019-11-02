@@ -1,72 +1,44 @@
 package ir.trap.tractor.android.ui.fragments.allMenu;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.material.textfield.TextInputLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
-import ir.trap.tractor.android.apiServices.model.allService.response.Datum;
-import ir.trap.tractor.android.apiServices.model.allService.response.ResponseAllService;
 import ir.trap.tractor.android.apiServices.model.allService.response.SubMenu;
-import ir.trap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.trap.tractor.android.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
-import ir.trap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
-import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
-import ir.trap.tractor.android.enums.TransferType;
 import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
 import ir.trap.tractor.android.singleton.SingletonContext;
-import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.adapters.AllMenuServiceModelAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
-import ir.trap.tractor.android.ui.fragments.allMenu.adapter.ItemRecyclerViewAdapter;
-import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardFragment;
-import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardParentActionView;
+import ir.trap.tractor.android.ui.adapters.allMenu.ItemRecyclerViewAdapter;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.onConfirmUserPassGDS;
-import ir.trap.tractor.android.utilities.ClearableEditText;
-import ir.trap.tractor.android.utilities.NumberTextWatcher;
 import ir.trap.tractor.android.utilities.Tools;
 import ir.trap.tractor.android.utilities.Utility;
 import library.android.eniac.StartEniacBusActivity;
@@ -100,6 +72,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     private RecyclerView rvGrid;
     private String unicCode = "";
     private Toolbar mToolbar;
+    private TextView tvUserName;
 
     public AllMenuFragment()
     {
@@ -159,6 +132,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
         SingletonService.getInstance().getMenuService().getMenuAll(AllMenuFragment.this, request);
 
         mToolbar = rootView.findViewById(R.id.toolbar);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+
+        tvUserName.setText(Prefs.getString("mobile", ""));
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
         {
