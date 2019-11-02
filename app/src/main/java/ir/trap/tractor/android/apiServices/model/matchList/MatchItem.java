@@ -3,6 +3,8 @@ package ir.trap.tractor.android.apiServices.model.matchList;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -55,6 +57,25 @@ public class MatchItem implements Parcelable
     @Expose @Getter @Setter
     private String description;
 
+    @SerializedName("result")
+    @Expose @Getter @Setter
+    @Nullable
+    private String result = null;
+
+    @SerializedName("referee")
+    @Expose @Getter @Setter
+    @Nullable
+    private String referee = null;
+
+    @SerializedName("assistant_referee")
+    @Expose @Getter @Setter
+    @Nullable
+    private String assistant_referee = null;
+
+    public MatchItem()
+    {
+    }
+
     protected MatchItem(Parcel in)
     {
         if (in.readByte() == 0)
@@ -79,6 +100,9 @@ public class MatchItem implements Parcelable
         byte tmpIsPredict = in.readByte();
         isPredict = tmpIsPredict == 0 ? null : tmpIsPredict == 1;
         description = in.readString();
+        result = in.readString();
+        referee = in.readString();
+        assistant_referee = in.readString();
     }
 
     public static final Creator<MatchItem> CREATOR = new Creator<MatchItem>()
@@ -126,5 +150,8 @@ public class MatchItem implements Parcelable
         dest.writeByte((byte) (isCurrent == null ? 0 : isCurrent ? 1 : 2));
         dest.writeByte((byte) (isPredict == null ? 0 : isPredict ? 1 : 2));
         dest.writeString(description);
+        dest.writeString(result);
+        dest.writeString(referee);
+        dest.writeString(assistant_referee);
     }
 }

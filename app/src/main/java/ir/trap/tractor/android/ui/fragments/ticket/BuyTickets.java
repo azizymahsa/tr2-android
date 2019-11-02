@@ -21,9 +21,10 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
+import ir.trap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
-import ir.trap.tractor.android.ui.fragments.ticket.adapter.PagerAdapter;
+import ir.trap.tractor.android.ui.adapters.ticket.PagerAdapter;
 
 public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {

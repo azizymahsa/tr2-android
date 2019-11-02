@@ -640,8 +640,8 @@ public class ChargeFragment extends BaseFragment
         paymentInstance.setSimcardType(simcardType);
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
 
-        pFragment = PaymentFragment.newInstance(this, amount, title, imageDrawable,
-                mobile, paymentInstance);
+    /*    pFragment = PaymentFragment.newInstance(this, amount, title, imageDrawable,
+                mobile, paymentInstance);*/
 
 //        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
 //                amount,

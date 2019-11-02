@@ -265,6 +265,7 @@ public class CompeletInfoFragment
         llConfirm.setVisibility(View.GONE);
         llInVisible.setVisibility(View.VISIBLE);
 
+
         btnBackToDetail = view.findViewById(R.id.btnBackToDetail);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
         btnBackToDetail.setOnClickListener(this);

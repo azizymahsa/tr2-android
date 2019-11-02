@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.ui.fragments.ticket.adapter;
+package ir.trap.tractor.android.ui.adapters.ticket;
 
 import android.view.View;
 import android.widget.Toast;
@@ -71,15 +71,15 @@ public class PagerAdapter
 //                paymentInstance.setLastName();
 //                paymentInstance.setNationalCode();
 //                paymentInstance.setTicketId();
-                PaymentFragment tab3 = PaymentFragment.newInstance(this,
-                        "",
-                        "",
-                        0,
-                        "",
-                        paymentInstance);
+//                PaymentFragment tab3 = PaymentFragment.newInstance(this,
+//                        "",
+//                        "",
+//                        0,
+//                        "",
+//                        paymentInstance);
 
-//               PaymentFragment tab3 = PaymentFragment.newInstance(8,buyTickets,
-//                       this,onClickContinueBuyTicket);
+               PaymentFragment tab3 = PaymentFragment.newInstance(8,buyTickets,
+                       this,onClickContinueBuyTicket);
 
                // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);
 
