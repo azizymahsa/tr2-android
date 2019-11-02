@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
@@ -82,6 +83,8 @@ public class SelectPositionFragment
     private Integer amountOneTicket=0;
     private ArrayList<Integer> positionIdAllBoxes;
     private MatchItem matchBuyable;
+    private int positionId;
+    private String positionName;
 
 
     // private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
@@ -1315,12 +1318,21 @@ public class SelectPositionFragment
         interactionListener = null;
     }
 
+    public void setDataToCompleteInfoFragment(Integer id)
+    {
+        this.selectPositionId=id;
+    }
     @Override
     public void onClick(View v)
     {
         switch (v.getId()){
             case R.id.btnPaymentConfirm:
+               // checkIdFromEachPosition();
+                Prefs.putInt("PositionId",selectPositionId);
+                Prefs.putInt("CountTicket",count);
                 onClickContinueBuyTicketListener.onContinueClicked();
+              //  callReservationRequest();
+              //  onClickContinueBuyTicketListener.onContinueSelectPosiotionClicked(count,selectPositionId);
                 break;
            /* case R.id.btnBackToDetail:
                 onClickContinueBuyTicketListener.onBackClicked();
@@ -1336,6 +1348,11 @@ public class SelectPositionFragment
         }
         setAmounts(count);
         tvCount.setText(String.valueOf(count));
+    }
+
+    private void callReservationRequest()
+    {
+
     }
 
     private void setAmounts(int countTicket)

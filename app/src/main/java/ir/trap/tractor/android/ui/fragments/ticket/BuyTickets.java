@@ -37,6 +37,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     private ImageView ivCountTicket,ivSelectPosition,ivFullInfo,ivPrintTicket;
     private View vOneToTow,vZeroToOne,vTowToThree;
     private TextView tvTitle;
+    public String namePosition;
 
     private MatchItem matchBuyable;
 
@@ -110,11 +111,22 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             public void onPageSelected(int position)
             {
 
+                if (position==1){
+
+                   // ((SelectPositionFragment)adapter.getItem(1).get)
+                  //  setDataToCompleteInfoFragment(namePosition);
+                }
+
             }
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
         return rootView;
+    }
+
+    public void setDataToCompleteInfoFragment(String name)
+    {
+        this.namePosition=name;
     }
 
     private void initView()
@@ -240,6 +252,13 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         checkPositionFromSetSelected();
     }
 
+    @Override
+    public void onContinueSelectPosiotionClicked(int count, Integer selectPositionId)
+    {
+        viewPager.setCurrentItem(getItem(+1), true);
+        checkPositionFromSetSelected();
+    }
+
     private void checkPositionFromSetSelected()
     {
         if (viewPager.getCurrentItem()==0){
@@ -306,7 +325,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             ivFullInfo.setImageResource(R.drawable.select_step);
             tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
-            ivPrintTicket.setImageResource(R.drawable.select_step_non);
+            ivPrintTicket.setImageResource(R.drawable.select_step);
             tvPrintTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
             vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
