@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentParentActionView;
@@ -25,6 +26,7 @@ public class PagerAdapter
 
     private final MainActionView mainActionView;
     private final OnClickContinueBuyTicket onClickContinueBuyTicket;
+    private final MatchItem matchBuyable;
     private BuyTickets buyTickets;
     private int numTabs;
    /* private SubMenuModel[] gdsModel1;
@@ -33,7 +35,7 @@ public class PagerAdapter
     private SubMenuModel[] shargModel4;
     private SubMenuModel[] ghabzModel6;*/
 
-    public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView, OnClickContinueBuyTicket onClickContinueBuyTicket)
+    public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView, OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)
     {
         super(fm);
         this.numTabs = numTabs;
@@ -41,6 +43,7 @@ public class PagerAdapter
         this.buyTickets=buyTickets;
         this.mainActionView=mainActionView;
         this.onClickContinueBuyTicket=onClickContinueBuyTicket;
+        this.matchBuyable=matchBuyable;
       /*  this.gdsModel1 = gdsModel1;
         this.insuranceModel2 = insuranceModel2;
         this.aloparkModel3 = aloparkModel3;
@@ -54,7 +57,7 @@ public class PagerAdapter
         switch (position)
         {
             case 0:
-                SelectPositionFragment tab1 = SelectPositionFragment.newInstance("TAB2",buyTickets);
+                SelectPositionFragment tab1 = SelectPositionFragment.newInstance("TAB2",buyTickets,matchBuyable);
 
                 return tab1;
             case 1:

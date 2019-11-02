@@ -1,8 +1,10 @@
 package ir.trap.tractor.android.ui.fragments.ticket;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ import ir.trap.tractor.android.apiServices.model.getAllBoxes.AllBoxesResult;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
+import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
@@ -78,6 +81,7 @@ public class SelectPositionFragment
     private Integer matchId=1;
     private Integer amountOneTicket=0;
     private ArrayList<Integer> positionIdAllBoxes;
+    private MatchItem matchBuyable;
 
 
     // private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
@@ -89,10 +93,13 @@ public class SelectPositionFragment
     /**
      * Receive the model list
      */
-    public static SelectPositionFragment newInstance(String s,OnClickContinueBuyTicket onClickContinueBuyTicket) {
+    public static SelectPositionFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MatchItem matchBuyable) {
         SelectPositionFragment fragment = new SelectPositionFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
+        Bundle args = new Bundle();
+        args.putParcelable("matchBuyable", matchBuyable);
 
+        fragment.setArguments(args);
 
         return fragment;
     }
@@ -106,7 +113,7 @@ public class SelectPositionFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        matchBuyable = getArguments().getParcelable("matchBuyable");
     }
 
     @Override
@@ -131,7 +138,7 @@ public class SelectPositionFragment
         btnPaymentConfirm=view.findViewById(R.id.btnPaymentConfirm);
         tvAmountStation=view.findViewById(R.id.tvAmountStation);
         tvAmountForPay=view.findViewById(R.id.tvAmountForPay);
-        getMatchRequest();
+        setDataMatch();
         getAllBoxesRequest();
         //btnBackToDetail.setOnClickListener(this);
         tvP.setOnClickListener(this);
@@ -158,6 +165,27 @@ public class SelectPositionFragment
         recyclerView.setAdapter(new ItemRecyclerViewAdapter(subMenuModels, interactionListener));*/
         return view;
     }
+
+    private void setDataMatch()
+    {
+
+                    try
+                    {
+                        llSliderItemMatch.setVisibility(View.VISIBLE);
+                        matchId=matchBuyable.getId();
+                        tvStadiumName.setText(matchBuyable.getStadium().getName());
+                        setImageColor(imgHost, matchBuyable.getTeamHome().getLogo());
+                        setImageColor(imgGuest,matchBuyable.getTeamAway().getLogo());
+                        tvDateTime.setText(getDate(matchBuyable.getMatchDatetime()));
+
+                    }catch (Exception e){
+                        Tools.showToast(getContext(),e.getMessage(),R.color.red);
+                        llSliderItemMatch.setVisibility(View.GONE);
+
+                    }
+
+    }
+
     private String getDate(Double matchDatetime)
     {
         String shamsi = "";
@@ -170,7 +198,7 @@ public class SelectPositionFragment
         PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d");
       //  pdformater1.format(pdate);//1396/05/20
 
-        PersianDateFormat pdformater2 = new PersianDateFormat("y F j l");
+        PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
         date =String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
 
 
@@ -182,11 +210,12 @@ public class SelectPositionFragment
     {
         try
         {
-            Picasso.with(getContext()).load(Uri.parse(link)).centerCrop().resize(imageView.getMeasuredWidth(), imageView.getMeasuredHeight()).into(imageView, new Callback()
+            Picasso.with(getContext()).load(link).into(imageView, new Callback()
             {
                 @Override
                 public void onSuccess()
                 {
+                    // cvContent.setBackgroundColor(Color.TRANSPARENT);
                 }
 
                 @Override
@@ -195,46 +224,11 @@ public class SelectPositionFragment
                     Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
                 }
             });
-        } catch (NullPointerException e)
-        {
-            Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
+        }catch (Exception e){
+
         }
     }
-    private void getMatchRequest()
-    {
-        SingletonService.getInstance().getMatchListService().getMatchList(new OnServiceStatus<WebServiceClass<MachListResponse>>()
-        {
-            @Override
-            public void onReady(WebServiceClass<MachListResponse> response)
-            {
-                try
-                {
-                    matchId=2;
-                  /*  if (!response.data.getResults().isEmpty()){
-                        matchId=response.data.getResults().get(0).getId();
-                        llSliderItemMatch.setVisibility(View.VISIBLE);
-                        tvStadiumName.setText(response.data.getResults().get(0).getStadium().getName());
-                        setImageColor(imgHost, response.data.getResults().get(0).getTeamHome().getLogo());
-                        setImageColor(imgGuest, response.data.getResults().get(0).getTeamAway().getLogo());
-                        tvDateTime.setText(getDate(response.data.getResults().get(0).getMatchDatetime()));
-                    }*/
-                        // progress.setVisibility(View.GONE);
-                }catch (Exception e){
-                    Tools.showToast(getContext(),e.getMessage(),R.color.red);
-                    llSliderItemMatch.setVisibility(View.GONE);
 
-                }
-            }
-
-            @Override
-            public void onError(String message)
-            {
-                Tools.showToast(getContext(),message,R.color.red);
-                llSliderItemMatch.setVisibility(View.VISIBLE);
-                // progress.setVisibility(View.GONE);
-            }
-        });
-    }
 
     private void setLayoutFullPosition()
     {

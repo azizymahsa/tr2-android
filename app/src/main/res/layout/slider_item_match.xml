@@ -37,8 +37,8 @@
 
                 <ImageView
                     android:id="@+id/imgGuest"
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_70dp"
+                    android:layout_height="@dimen/_70dp"
                     android:layout_alignParentRight="true"
                     />
 
@@ -71,8 +71,8 @@
 
                 <ImageView
                     android:id="@+id/imgHost"
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_70dp"
+                    android:layout_height="@dimen/_70dp"
                     android:layout_alignParentLeft="true"
                     android:src="@drawable/img_tractor" />
 

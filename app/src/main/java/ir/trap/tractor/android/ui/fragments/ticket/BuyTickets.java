@@ -91,7 +91,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
         //  ViewPager need a PagerAdapter
         final PagerAdapter adapter = new PagerAdapter
-                (getFragmentManager(), tabLayout.getTabCount(),this,mainView,this);
+                (getFragmentManager(), tabLayout.getTabCount(),this,mainView,this,matchBuyable);
 
         viewPager.setAdapter(adapter);
         viewPager.beginFakeDrag();
