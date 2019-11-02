@@ -64,6 +64,8 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
         nationalCode="0480759294";
         setBarcode(nationalCode,holder);
         holder.tvName.setText(ticketItems.get(position).getName());
+        holder.tvNationalCode.setText(ticketItems.get(position).getNationalCode());
+        holder.tvStation.setText(ticketItems.get(position).getStation());
        /* final RightelPackModel item = data.get(position);
 
         holder.tvTitle.setText(item.getTitle());
@@ -106,13 +108,15 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView ivBarcode;
-        public TextView tvName;
+        public TextView tvName,tvNationalCode,tvStation;
 
         public ViewHolder(View v)
         {
             super(v);
             ivBarcode = v.findViewById(R.id.ivBarcode);
             tvName = v.findViewById(R.id.tvName);
+            tvNationalCode = v.findViewById(R.id.tvNationalCode);
+            tvStation = v.findViewById(R.id.tvStation);
            /* imgArrow = v.findViewById(R.id.imgArrow);
             tvTitle = v.findViewById(R.id.tvTitle);
             buttonLayout = v.findViewById(R.id.buttonLayout);*/

@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import java.util.Arrays;
 
 import ir.trap.tractor.android.R;
@@ -31,7 +33,7 @@ public class CompeletInfoFragment
     private View view;
     private TextView txtCondition;
     private View btnBackToDetail, btnPaymentConfirm;
-    private int count = 3;
+    private int count = 1;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
     private EditText etNationalCode_1, etFamily_1, etName_1;
     private EditText etNationalCode_2, etFamily_2, etName_2;
@@ -201,6 +203,7 @@ public class CompeletInfoFragment
         llInVisible = view.findViewById(R.id.llInVisible);
         llConfirm.setVisibility(View.GONE);
         llInVisible.setVisibility(View.VISIBLE);
+
 
         btnBackToDetail = view.findViewById(R.id.btnBackToDetail);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
