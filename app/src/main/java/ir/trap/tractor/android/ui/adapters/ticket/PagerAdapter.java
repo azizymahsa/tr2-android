@@ -99,7 +99,7 @@ public class PagerAdapter
     {
        // CompeletInfoFragment tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
         tab2.setVisibilityLayouts();
-       // tab4.setSharedData();
+
     }
 
 
@@ -136,4 +136,8 @@ public class PagerAdapter
 
     }
 
+    public void createShareShowTicket()
+    {
+        tab4.setSharedData();
+    }
 }

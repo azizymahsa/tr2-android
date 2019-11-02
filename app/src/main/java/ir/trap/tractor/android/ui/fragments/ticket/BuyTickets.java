@@ -114,7 +114,11 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             public void onPageSelected(int position)
             {
 
+                if (position==1)
                 adapter.createInstance();
+
+                if (position==3)
+                    adapter.createShareShowTicket();
               /*  if (position==1){
 
                    // ((SelectPositionFragment)adapter.getItem(1).get)
