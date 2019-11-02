@@ -15,6 +15,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.content.ContextCompat;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import ir.trap.tractor.android.R;
 
 public class WebActivity extends AppCompatActivity
@@ -22,7 +24,7 @@ public class WebActivity extends AppCompatActivity
     private WebView webView;
     private Toolbar mToolbar;
 
-    private TextView tvTitle;
+    private TextView tvTitle, tvUserName;
     private ImageView imgBack, imgMenu;
 
     @Override
@@ -35,10 +37,14 @@ public class WebActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
 
         tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
         imgBack = mToolbar.findViewById(R.id.imgBack);
         imgMenu = mToolbar.findViewById(R.id.imgMenu);
 
         tvTitle.setText("مشاهده تغییرات");
+
+        tvUserName.setText(Prefs.getString("mobile", ""));
+
         imgMenu.setVisibility(View.GONE);
         imgBack.setOnClickListener(v ->
         {

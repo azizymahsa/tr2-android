@@ -8,6 +8,20 @@
         </compositeConfiguration>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/bubbleseekbar" />
+            <option value="$PROJECT_DIR$/imagepicker" />
+            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/materialdatetimepicker" />
+            <option value="$PROJECT_DIR$/persianmaterialdatetimepicker" />
+            <option value="$PROJECT_DIR$/pinentryedittext" />
+            <option value="$PROJECT_DIR$/taggroup" />
+            <option value="$PROJECT_DIR$/type" />
+          </set>
+        </option>
         <option name="resolveModulePerSourceSet" value="false" />
         <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>

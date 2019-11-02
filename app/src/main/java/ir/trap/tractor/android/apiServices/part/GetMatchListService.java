@@ -40,13 +40,14 @@ package ir.trap.tractor.android.apiServices.part;
 import ir.trap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
-import ir.trap.tractor.android.apiServices.model.match.ResponseMatch;
+import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
+import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 
 
-public class TicketService extends BasePart
+public class GetMatchListService extends BasePart
 {
 
-    public TicketService(ServiceGenerator serviceGenerator)
+    public GetMatchListService(ServiceGenerator serviceGenerator)
     {
         super(serviceGenerator);
     }
@@ -58,9 +59,8 @@ public class TicketService extends BasePart
     }
 
 
-
-    public void getMatch(OnServiceStatus<WebServiceClass<ResponseMatch>> listener)
+    public void getMatchList(OnServiceStatus<WebServiceClass<MachListResponse>> listener)
     {
-        start(getServiceGenerator().createService().getMatch(), listener);
+        start(getServiceGenerator().createService().getMatchList(), listener);
     }
 }

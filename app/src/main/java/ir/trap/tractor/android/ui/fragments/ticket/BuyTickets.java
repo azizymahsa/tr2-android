@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +18,10 @@ import com.google.android.material.tabs.TabLayout;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.ui.base.BaseFragment;
-import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.ticket.adapter.PagerAdapter;
-import ir.trap.tractor.android.utilities.Tools;
 
 public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {
@@ -41,17 +38,19 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     private View vOneToTow,vZeroToOne,vTowToThree;
     private TextView tvTitle;
 
+    private MatchItem matchBuyable;
+
     public BuyTickets()
     {
 
     }
 
 
-    public static BuyTickets newInstance(MainActionView mainView)
+    public static BuyTickets newInstance(MainActionView mainView, MatchItem matchBuyable)
     {
         f = new BuyTickets();
         Bundle args = new Bundle();
-
+        args.putParcelable("matchBuyable", matchBuyable);
 
         f.setArguments(args);
         f.setMainView(mainView);
@@ -67,7 +66,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
+        matchBuyable = getArguments().getParcelable("matchBuyable");
 
     }
 
@@ -87,7 +86,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         tabLayout.addTab(tabLayout.newTab().setText("انتخاب جایگاه"));
         tabLayout.addTab(tabLayout.newTab().setText("تکمیل اطلاعات"));
         tabLayout.addTab(tabLayout.newTab().setText("پرداخت"));
-        tabLayout.addTab(tabLayout.newTab().setText("صدور بلیط"));
+        tabLayout.addTab(tabLayout.newTab().setText("صدور بلیت"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //  ViewPager need a PagerAdapter
