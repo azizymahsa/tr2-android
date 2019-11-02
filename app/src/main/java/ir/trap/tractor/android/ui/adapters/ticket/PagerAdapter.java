@@ -30,6 +30,7 @@ public class PagerAdapter
     private BuyTickets buyTickets;
     private int numTabs;
     private CompeletInfoFragment tab2;
+    private ShowTicketsFragment tab4;
 
 
     public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView, OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)
@@ -85,7 +86,7 @@ public class PagerAdapter
 
                 return tab3;
             case 3:
-                ShowTicketsFragment tab4 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
+                 tab4 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
                 return tab4;
 
 
@@ -98,7 +99,7 @@ public class PagerAdapter
     {
        // CompeletInfoFragment tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
         tab2.setVisibilityLayouts();
-
+       // tab4.setSharedData();
     }
 
 
