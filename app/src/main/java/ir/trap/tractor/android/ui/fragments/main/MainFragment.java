@@ -19,6 +19,7 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
@@ -336,8 +337,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         mDemoSlider.setCurrentPosition(matchList.indexOf(matchCurrent));
         mDemoSlider.stopAutoCycle();
-//        mDemoSlider.setDuration(10000);
-//            mDemoSlider.addOnPageChangeListener(this);
+
     }
 
     @Override
