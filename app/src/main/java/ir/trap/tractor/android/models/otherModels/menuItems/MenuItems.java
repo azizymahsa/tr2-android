@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.models.otherModels;
+package ir.trap.tractor.android.models.otherModels.menuItems;
 
 public class MenuItems
 {

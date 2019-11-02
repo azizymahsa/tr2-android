@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.models.otherModels.MenuItems;
+import ir.trap.tractor.android.models.otherModels.menuItems.MenuItems;
 import ir.trap.tractor.android.ui.adapters.menuDrawer.MenuDrawerAdapter;
 import ir.trap.tractor.android.utilities.Logger;
 

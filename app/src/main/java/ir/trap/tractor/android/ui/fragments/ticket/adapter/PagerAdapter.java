@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentParentActionView;
@@ -62,7 +63,21 @@ public class PagerAdapter
 
                 return tab2;
             case 2://پرداخت
-               PaymentFragment tab3 = PaymentFragment.newInstance(8,buyTickets,this,onClickContinueBuyTicket);
+                TicketPaymentInstance paymentInstance = new TicketPaymentInstance();
+//                paymentInstance.setFirstName();
+//                paymentInstance.setLastName();
+//                paymentInstance.setNationalCode();
+//                paymentInstance.setTicketId();
+                PaymentFragment tab3 = PaymentFragment.newInstance(this,
+                        "",
+                        "",
+                        0,
+                        "",
+                        paymentInstance);
+
+//               PaymentFragment tab3 = PaymentFragment.newInstance(8,buyTickets,
+//                       this,onClickContinueBuyTicket);
+
                // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);
 
                 return tab3;

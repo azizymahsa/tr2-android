@@ -54,6 +54,7 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.contact.OnSelectContact;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
+import ir.trap.tractor.android.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import ir.trap.tractor.android.ui.activities.main.OnContactClick;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.dialogs.ResultBuyCharge;
@@ -633,17 +634,26 @@ public class ChargeFragment extends BaseFragment
         fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
 
-        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
-                amount,
-//                "پرداخت شارژ سیمکارت " + chargeStr,
-                title,
-                imageDrawable,
-                this,
-                null,
-                operatorType,
-                simcardType,
-                Integer.valueOf(chargeType)
-                ,mobile);
+        SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
+        paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_ChargeSimCard);
+        paymentInstance.setOperatorType(operatorType);
+        paymentInstance.setSimcardType(simcardType);
+        paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
+
+        pFragment = PaymentFragment.newInstance(this, amount, title, imageDrawable,
+                mobile, paymentInstance);
+
+//        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
+//                amount,
+////                "پرداخت شارژ سیمکارت " + chargeStr,
+//                title,
+//                imageDrawable,
+//                this,
+//                null,
+//                operatorType,
+//                simcardType,
+//                Integer.valueOf(chargeType)
+//                ,mobile);
 
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);

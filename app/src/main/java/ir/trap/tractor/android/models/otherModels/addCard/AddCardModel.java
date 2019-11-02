@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.models.otherModels;
+package ir.trap.tractor.android.models.otherModels.addCard;
 
 import ir.trap.tractor.android.apiServices.model.card.Result;
 import lombok.Getter;
