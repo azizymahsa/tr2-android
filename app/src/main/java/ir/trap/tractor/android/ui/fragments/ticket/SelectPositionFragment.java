@@ -1330,6 +1330,7 @@ public class SelectPositionFragment
                // checkIdFromEachPosition();
                 Prefs.putInt("PositionId",selectPositionId);
                 Prefs.putInt("CountTicket",count);
+
                 onClickContinueBuyTicketListener.onContinueClicked();
               //  callReservationRequest();
               //  onClickContinueBuyTicketListener.onContinueSelectPosiotionClicked(count,selectPositionId);
