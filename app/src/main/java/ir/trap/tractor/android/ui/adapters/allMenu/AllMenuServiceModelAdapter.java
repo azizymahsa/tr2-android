@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.ui.adapters;
+package ir.trap.tractor.android.ui.adapters.allMenu;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,7 +19,7 @@ import java.util.List;
 
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.allService.response.SubMenu;
-import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
+import ir.trap.tractor.android.models.otherModels.mainService.MainServiceModelItem;
 
 public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServiceModelAdapter.ViewHolder> {
     private AllMenuServiceModelAdapter.OnItemAllMenuClickListener mItemClickListener;

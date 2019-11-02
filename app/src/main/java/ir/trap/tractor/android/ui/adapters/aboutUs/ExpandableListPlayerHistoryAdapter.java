@@ -1,6 +1,7 @@
-package ir.trap.tractor.android.ui.fragments.about.adapter;
+package ir.trap.tractor.android.ui.adapters.aboutUs;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.getHistory.PlayersCurrent;
 
-public class ExpandableListViewAdapter
+public class ExpandableListPlayerHistoryAdapter
         extends BaseExpandableListAdapter
 {
 
@@ -22,21 +24,21 @@ public class ExpandableListViewAdapter
     // group titles
     private List<String> listDataGroup;
 
-    // child data in format of header title, child title
-   // private HashMap<String, List<String>> listDataChild;
-    private HashMap<String, String> listDataChild;
+    // child data
+    private HashMap<String, List<PlayersCurrent>> listDataChild;
 
-    public ExpandableListViewAdapter(Context context, List<String> listDataGroup,
-                                     HashMap<String, String> listChildData) {
+    public ExpandableListPlayerHistoryAdapter(Context context, List<String> listDataGroup,
+                                              HashMap<String,  List<PlayersCurrent>> listChildData) {
         this.context = context;
         this.listDataGroup = listDataGroup;
         this.listDataChild = listChildData;
     }
 
+
     @Override
-    public Object getChild(int groupPosition, int childPosititon) {
-       // return this.listDataChild.get(this.listDataGroup.get(groupPosition)).get(childPosititon);
-        return this.listDataChild.get(this.listDataGroup.get(groupPosition));
+    public PlayersCurrent getChild(int groupPosition, int childPosititon) {
+        return this.listDataChild.get(this.listDataGroup.get(groupPosition))
+                .get(childPosititon);
     }
 
     @Override
@@ -48,25 +50,31 @@ public class ExpandableListViewAdapter
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final String childText = (String) getChild(groupPosition, childPosition);
+       // final String childText = getChild(groupPosition, childPosition).getFirstName();
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_row_child, null);
+            convertView = layoutInflater.inflate(R.layout.list_row_player_history, null);
         }
 
-        TextView textViewChild = convertView
-                .findViewById(R.id.textViewChild);
+        TextView tvNumber = convertView.findViewById(R.id.tvNumber);
+        TextView tvNationality = convertView.findViewById(R.id.tvNationality);
+        TextView tvPosition = convertView.findViewById(R.id.tvPosition);
+        TextView tvName = convertView.findViewById(R.id.tvName);
 
-        textViewChild.setText(childText);
+
+        tvName.setText(getChild(groupPosition, childPosition).getFirstName()+" "+getChild(groupPosition, childPosition).getLastName());
+        tvPosition.setText(getChild(groupPosition, childPosition).getPosition());
+        tvNationality.setText(getChild(groupPosition, childPosition).getNationality());
+        tvNumber.setText(getChild(groupPosition, childPosition).getNumber()+"");
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-      //  return this.listDataChild.get(this.listDataGroup.get(groupPosition)).size();
-        return 1;
+        return this.listDataChild.get(this.listDataGroup.get(groupPosition))
+                .size();
     }
 
     @Override
@@ -94,9 +102,16 @@ public class ExpandableListViewAdapter
             convertView = layoutInflater.inflate(R.layout.list_row_group, null);
         }
 
-        TextView textViewGroup = convertView
-                .findViewById(R.id.textViewGroup);
-        textViewGroup.setTypeface(null, Typeface.BOLD);
+        TextView textViewGroup = convertView.findViewById(R.id.textViewGroup);
+        if(isExpanded)
+        {
+            textViewGroup.setTextColor(Color.WHITE);
+            textViewGroup.setBackgroundColor(Color.RED);
+        }else{
+            textViewGroup.setTextColor(Color.parseColor("#484848"));
+            textViewGroup.setBackgroundColor(Color.parseColor("#eaeaea"));
+        }
+        //textViewGroup.setTypeface(null, Typeface.BOLD);
         textViewGroup.setText(headerTitle);
 
         return convertView;
@@ -112,4 +127,3 @@ public class ExpandableListViewAdapter
         return true;
     }
 }
-

@@ -33,7 +33,7 @@ import ir.trap.tractor.android.apiServices.model.getMenu.response.GetMenuItemRes
 import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.conf.TrapConfig;
-import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
+import ir.trap.tractor.android.models.otherModels.mainService.MainServiceModelItem;
 import ir.trap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.trap.tractor.android.singleton.SingletonContext;
 import ir.trap.tractor.android.ui.activities.login.LoginActivity;

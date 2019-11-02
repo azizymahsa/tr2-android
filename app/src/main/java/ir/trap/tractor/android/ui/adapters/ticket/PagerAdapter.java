@@ -8,17 +8,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
+import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentParentActionView;
 import ir.trap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
-import ir.trap.tractor.android.ui.fragments.ticket.CountTicketFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.trap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
-import ir.trap.tractor.android.utilities.Tools;
 
 public class PagerAdapter
         extends FragmentStatePagerAdapter implements  PaymentParentActionView
@@ -29,20 +29,18 @@ public class PagerAdapter
     private final MatchItem matchBuyable;
     private BuyTickets buyTickets;
     private int numTabs;
-   /* private SubMenuModel[] gdsModel1;
-    private SubMenuModel[] insuranceModel2;
-    private SubMenuModel[] aloparkModel3;
-    private SubMenuModel[] shargModel4;
-    private SubMenuModel[] ghabzModel6;*/
+    private CompeletInfoFragment tab2;
+
 
     public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView, OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)
     {
         super(fm);
         this.numTabs = numTabs;
 
-        this.buyTickets=buyTickets;
-        this.mainActionView=mainActionView;
-        this.onClickContinueBuyTicket=onClickContinueBuyTicket;
+        this.buyTickets = buyTickets;
+        this.mainActionView = mainActionView;
+        this.onClickContinueBuyTicket = onClickContinueBuyTicket;
+
         this.matchBuyable=matchBuyable;
       /*  this.gdsModel1 = gdsModel1;
         this.insuranceModel2 = insuranceModel2;
@@ -61,16 +59,33 @@ public class PagerAdapter
 
                 return tab1;
             case 1:
-                CompeletInfoFragment tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
+                 tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
 
+               // createInstance();
                 return tab2;
             case 2://پرداخت
-               PaymentFragment tab3 = PaymentFragment.newInstance(8,buyTickets,this,onClickContinueBuyTicket);
+              //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTickets, this, onClickContinueBuyTicket);
+               // CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3", buyTickets, mainActionView);
+                TicketPaymentInstance paymentInstance = new TicketPaymentInstance();
+//                paymentInstance.setFirstName();
+//                paymentInstance.setLastName();
+//                paymentInstance.setNationalCode();
+//                paymentInstance.setTicketId();
+                PaymentFragment tab3 = PaymentFragment.newInstance(this,
+                        "",
+                        "",
+                        0,
+                        "",
+                        paymentInstance);
+
+//               PaymentFragment tab3 = PaymentFragment.newInstance(8,buyTickets,
+//                       this,onClickContinueBuyTicket);
+
                // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);
 
                 return tab3;
             case 3:
-                ShowTicketsFragment tab4 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);
+                ShowTicketsFragment tab4 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
                 return tab4;
 
 
@@ -78,6 +93,14 @@ public class PagerAdapter
                 throw new RuntimeException("Tab position invalid " + position);
         }
     }
+
+    public void createInstance()
+    {
+       // CompeletInfoFragment tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
+        tab2.setVisibilityLayouts();
+
+    }
+
 
     @Override
     public int getCount()

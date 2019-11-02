@@ -53,7 +53,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
-
+            <!--slider1-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
                     android:layout_weight="10" />
             </LinearLayout>
 
-
+            <!--expanding history-->
             <LinearLayout
                 android:id="@+id/llAllBoxesSpinner"
                 android:layout_width="match_parent"
@@ -159,30 +159,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="10" />
 
-                <!--<androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvTickets"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    />-->
+
                 <LinearLayout
-                    android:layout_weight="100"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    >
-                <!--<ExpandableListView
-                    android:id="@+id/expandableListView"
-                    android:nestedScrollingEnabled="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                     />-->
-                    <ir.trap.tractor.android.ui.fragments.about.adapter.NoScrollExListView
+                    android:layout_weight="100">
+
+                    <ir.trap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
                         android:id="@+id/expandableListView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </ir.trap.tractor.android.ui.fragments.about.adapter.NoScrollExListView>
+                        android:layout_height="wrap_content"></ir.trap.tractor.android.ui.adapters.aboutUs.NoScrollExListView>
                 </LinearLayout>
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -193,10 +181,91 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/_10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="100"
+                        android:gravity="right|center"
+                        android:text="معرفی بازیکنان"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:gravity="right"
+                        android:src="@drawable/football_player" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
+
+            <!--expanding player-->
+            <LinearLayout
+                android:id="@+id/llAllBoxesSpinner2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100">
+
+                    <ir.trap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
+                        android:id="@+id/expandableListView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></ir.trap.tractor.android.ui.adapters.aboutUs.NoScrollExListView>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
+            <!--button-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
                 android:layout_marginBottom="@dimen/_10dp"
                 android:orientation="horizontal"
-
-                >
+                android:visibility="gone">
 
                 <Space
                     android:layout_width="0dp"

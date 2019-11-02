@@ -33,7 +33,7 @@ import ir.trap.tractor.android.apiServices.model.card.getCardList.GetCardListRes
 import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import ir.trap.tractor.android.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
-import ir.trap.tractor.android.models.otherModels.AddCardModel;
+import ir.trap.tractor.android.models.otherModels.addCard.AddCardModel;
 import ir.trap.tractor.android.ui.adapters.favoriteCard.CardViewPagerAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.base.GoToActivity;
@@ -42,7 +42,6 @@ import ir.trap.tractor.android.ui.dialogs.DialogDeleteCard;
 import ir.trap.tractor.android.ui.dialogs.DialogEditCard;
 import ir.trap.tractor.android.utilities.LinearLayoutManagerWithSmoothScroller;
 import ir.trap.tractor.android.utilities.ScreenShot;
-import ir.trap.tractor.android.utilities.Tools;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class FavoriteCardFragment extends BaseFragment implements FavoriteCardActionView,

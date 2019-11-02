@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.models.otherModels.MenuItems;
+import ir.trap.tractor.android.models.otherModels.menuItems.MenuItems;
 
 public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.MyViewHolder>
 {

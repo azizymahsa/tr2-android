@@ -3,13 +3,11 @@ package ir.trap.tractor.android.ui.fragments.about;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -29,8 +27,11 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
+import ir.trap.tractor.android.apiServices.model.getHistory.PlayersCurrent;
 import ir.trap.tractor.android.apiServices.model.getHistory.ResponseHistory;
-import ir.trap.tractor.android.ui.fragments.about.adapter.ExpandableListViewAdapter;
+import ir.trap.tractor.android.ui.adapters.aboutUs.ExpandableListPlayerHistoryAdapter;
+import ir.trap.tractor.android.ui.adapters.aboutUs.NoScrollExListView;
+import ir.trap.tractor.android.ui.adapters.aboutUs.ExpandableListHistoryAdapter;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 
 
@@ -44,15 +45,18 @@ public class HistoryFragment
     private MainActionView mainView;
 
     //Expanding
-    private ir.trap.tractor.android.ui.fragments.about.adapter.NoScrollExListView expandableListView;
+    private NoScrollExListView expandableListView;
+    private NoScrollExListView expandableListView2;
 
-    private ExpandableListViewAdapter expandableListViewAdapter;
+    private ExpandableListHistoryAdapter expandableListViewAdapter;
+    private ExpandableListPlayerHistoryAdapter expandableListViewAdapter2;
 
     private List<String> listDataGroup;
+    private List<String> listDataGroup2;
 
-   // private HashMap<String, List<String>> listDataChild;
-    private HashMap<String,String> listDataChild;
-    private WebServiceClass<ResponseHistory> responseHistory=new WebServiceClass<>();
+    private HashMap<String, String> listDataChild;
+    private HashMap<String, List<PlayersCurrent>> listPlayerCurrent;
+    private WebServiceClass<ResponseHistory> responseHistory = new WebServiceClass<>();
 
     public static HistoryFragment newInstance(MainActionView mainView)
     {
@@ -82,18 +86,19 @@ public class HistoryFragment
     private void setSlider(WebServiceClass<ResponseHistory> response)
     {
         for (int i = 1; i < response.data.getImages().size(); i++)
-        {//HeaderWeekNo,CenterView,Text;
-            ImageSliderView textSliderView = new ImageSliderView(getActivity());
+        {
+            if (response.data.getImages().get(i).getRowNumber() == 1)
+            {
+                ImageSliderView textSliderView = new ImageSliderView(getActivity());
 
-            textSliderView.setImgBackgroundLink(response.data.getImages().get(i).getImageName());
-            textSliderView.setText("gone");
-            textSliderView.setHeaderWeekNo("gone");
-            textSliderView.setCenterView("gone");
+                textSliderView.setImgBackgroundLink(response.data.getImages().get(i).getImageName());
+                textSliderView.setText("gone");
+                textSliderView.setHeaderWeekNo("gone");
+                textSliderView.setCenterView("gone");
 
+                mDemoSlider.addSlider(textSliderView);
 
-            mDemoSlider.addSlider(textSliderView);
-
-
+            }
         }
 //            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.RotateDown);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
@@ -133,21 +138,22 @@ public class HistoryFragment
     {
         super.onCreate(savedInstanceState);
 
-
-
-
     }
+
     /**
      * method to initialize the listeners
      */
-    private void initListeners() {
+    private void initListeners()
+    {
 
         // ExpandableListView on child click listener
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
+        {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
+                                        int groupPosition, int childPosition, long id)
+            {
                /* Toast.makeText(
                         getContext(),
                         listDataGroup.get(groupPosition)
@@ -161,10 +167,12 @@ public class HistoryFragment
         });
 
         // ExpandableListView Group expanded listener
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener()
+        {
 
             @Override
-            public void onGroupExpand(int groupPosition) {
+            public void onGroupExpand(int groupPosition)
+            {
                 Toast.makeText(getContext(),
                         listDataGroup.get(groupPosition) + " " + "text_collapsed",
                         Toast.LENGTH_SHORT).show();
@@ -172,10 +180,12 @@ public class HistoryFragment
         });
 
         // ExpandableListView Group collapsed listener
-        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener()
+        {
 
             @Override
-            public void onGroupCollapse(int groupPosition) {
+            public void onGroupCollapse(int groupPosition)
+            {
                 Toast.makeText(getContext(),
                         listDataGroup.get(groupPosition) + " " + "text_collapsed",
                         Toast.LENGTH_SHORT).show();
@@ -187,22 +197,26 @@ public class HistoryFragment
 
     /**
      * method to initialize the objects
+     *
      * @param
      */
-    private void initObjects() {
+    private void initObjects()
+    {
 
         // initializing the list of groups
         listDataGroup = new ArrayList<>();
+        listDataGroup2 = new ArrayList<>();
 
         // initializing the list of child
         listDataChild = new HashMap<>();
+        listPlayerCurrent = new HashMap<String, List<PlayersCurrent>>();
 
         // initializing the adapter object
-        expandableListViewAdapter = new ExpandableListViewAdapter(getContext(), listDataGroup, listDataChild);
-
-        // setting list adapter
+        expandableListViewAdapter = new ExpandableListHistoryAdapter(getContext(), listDataGroup, listDataChild);
         expandableListView.setAdapter(expandableListViewAdapter);
 
+        expandableListViewAdapter2 = new ExpandableListPlayerHistoryAdapter(getContext(), listDataGroup2, listPlayerCurrent);
+        expandableListView2.setAdapter(expandableListViewAdapter2);
     }
 
     /*
@@ -210,47 +224,26 @@ public class HistoryFragment
      *
      * Dummy Items
      */
-    private void initListData(WebServiceClass<ResponseHistory> response) {
+    private void initListData(WebServiceClass<ResponseHistory> response)
+    {
 
 
         // Adding group data
         for (int i = 0; i < response.data.getHistory().size(); i++)
+        {
+            listDataGroup.add(response.data.getHistory().get(i).getTitle());
+            listDataChild.put(listDataGroup.get(i), response.data.getHistory().get(i).getBody());
+        }
+
+            if (response.data != null)
             {
-                listDataGroup.add(response.data.getHistory().get(i).getTitle());
-                listDataChild.put(listDataGroup.get(i),response.data.getHistory().get(i).getBody());
+                listDataGroup2.add("بازیکنان کنونی");
+                listDataGroup2.add("بازیکنان برجسته پیشین");
             }
+            listPlayerCurrent.put(listDataGroup2.get(0), response.data.getPlayersCurrent());
+            listPlayerCurrent.put(listDataGroup2.get(1), response.data.getPlayers());
 
 
-        // array of strings
-        String[] array;
-
-        // list of alcohol
-        List<String> alcoholList = new ArrayList<>();
-        array = getResources().getStringArray(R.array.string_array_alcohol);
-        for (String item : array) {
-            alcoholList.add(item);
-        }
-
-        // list of coffee
-        List<String> coffeeList = new ArrayList<>();
-        array = getResources().getStringArray(R.array.string_array_coffee);
-        for (String item : array) {
-            coffeeList.add(item);
-        }
-
-        // list of pasta
-        List<String> pastaList = new ArrayList<>();
-        array = getResources().getStringArray(R.array.string_array_pasta);
-        for (String item : array) {
-            pastaList.add(item);
-        }
-
-        // list of cold drinks
-        List<String> coldDrinkList = new ArrayList<>();
-        array = getResources().getStringArray(R.array.string_array_cold_drinks);
-        for (String item : array) {
-            coldDrinkList.add(item);
-        }
 
         // Adding child data
        /* listDataChild.put(listDataGroup.get(0), alcoholList);
@@ -260,7 +253,9 @@ public class HistoryFragment
 
         // notify the adapter
         expandableListViewAdapter.notifyDataSetChanged();
+        expandableListViewAdapter2.notifyDataSetChanged();
     }
+
     private void sendRequest()
     {
         SingletonService.getInstance().getMenuService().getHistory(new OnServiceStatus<WebServiceClass<ResponseHistory>>()
@@ -272,10 +267,12 @@ public class HistoryFragment
                 {
                     if (response.info.statusCode == 200)
                     {
-                        if (response.data.getImages().size() > 0){
-                           // responseHistory=response;
+                        if (response.data.getImages().size() > 0)
+                        {
+                            // responseHistory=response;
                             setSlider(response);
-                            setExpanding(response);
+                            setExpanding1(response);
+                            setExpanding2(response);
                         }
                     } else
                     {
@@ -297,7 +294,19 @@ public class HistoryFragment
 
     }
 
-    private void setExpanding(WebServiceClass<ResponseHistory> response)
+    private void setExpanding2(WebServiceClass<ResponseHistory> response)
+    {
+        // initializing the listeners
+        initListeners();
+
+        // initializing the objects
+        initObjects();
+
+        // preparing list data
+        initListData(response);
+    }
+
+    private void setExpanding1(WebServiceClass<ResponseHistory> response)
     {
         // initializing the listeners
         initListeners();
@@ -314,6 +323,7 @@ public class HistoryFragment
     {
         mDemoSlider = view.findViewById(R.id.slider);
         expandableListView = view.findViewById(R.id.expandableListView);
+        expandableListView2 = view.findViewById(R.id.expandableListView2);
 
     }
 
@@ -325,7 +335,6 @@ public class HistoryFragment
         sendRequest();
         // initializing the views
         initViews();
-
 
 
         return view;

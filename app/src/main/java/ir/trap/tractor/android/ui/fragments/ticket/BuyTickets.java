@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,11 +113,12 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             public void onPageSelected(int position)
             {
 
-                if (position==1){
+                adapter.createInstance();
+              /*  if (position==1){
 
                    // ((SelectPositionFragment)adapter.getItem(1).get)
                   //  setDataToCompleteInfoFragment(namePosition);
-                }
+                }*/
 
             }
         });
@@ -256,6 +259,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     public void onContinueSelectPosiotionClicked(int count, Integer selectPositionId)
     {
         viewPager.setCurrentItem(getItem(+1), true);
+
         checkPositionFromSetSelected();
     }
 
