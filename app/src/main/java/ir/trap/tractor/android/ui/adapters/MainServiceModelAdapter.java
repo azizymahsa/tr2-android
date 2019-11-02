@@ -18,8 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.models.otherModels.MainServiceModelItem;
-import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
+import ir.trap.tractor.android.models.otherModels.mainService.MainServiceModelItem;
 
 public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceModelAdapter.ViewHolder>
 {
