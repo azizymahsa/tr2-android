@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.models.otherModels;
+package ir.trap.tractor.android.models.otherModels.mainService;
 
 import com.google.gson.annotations.Expose;
 

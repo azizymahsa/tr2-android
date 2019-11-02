@@ -11,14 +11,16 @@ public interface PaymentActionView
     void onPaymentGDSBus();
 
     void onPaymentChargeSimCard(MobileChargeResponse data, String mobile);
-    void onPaymentPackSimCard(PackageBuyResponse response, String mobile);
+    void onErrorCharge(String message);
 
+    void onPaymentPackSimCard(PackageBuyResponse response, String mobile);
     void onErrorPackSimcard(String message);
 
     void onPaymentTransferMoney();
 
     void onPaymentWithoutCard();
 
-    void onPaymentBillTicket();
-    void onErrorCharge(String message);
+    void onPaymentBill();
+
+    void onPaymentTicket();
 }
