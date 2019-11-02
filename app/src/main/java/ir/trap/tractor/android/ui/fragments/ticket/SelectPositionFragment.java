@@ -28,6 +28,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
@@ -140,7 +145,7 @@ public class SelectPositionFragment
 
 
         setDataStadiumPosition();
-        setFullPositions();
+       // setFullPositions();
         setLayoutFullPosition();
         handleSetStadiumLayouts();
 
@@ -394,7 +399,6 @@ public class SelectPositionFragment
         fullFromServer.add(25);
         fullFromServer.add(30);
 
-        //fullFromServer.add(14);
     }
 
     private void setDataStadiumPosition()
@@ -1050,6 +1054,7 @@ public class SelectPositionFragment
                         setDataSpinnerAllBoxes(response.data.getResults());
                         setAmounts(response.data.getResults());
                         allBoxesResponse=response.data.getResults();
+                        setFullPositions(response.data.getResults());
                     }else {
                         Tools.showToast(getContext(),response.info.message,R.color.red);
                     }
@@ -1067,6 +1072,42 @@ public class SelectPositionFragment
                 Tools.showToast(getActivity(),message,R.color.red);
             }
         }, request);
+    }
+
+    private void setFullPositions(List<AllBoxesResult> results)
+    {
+        Observable.fromIterable(results)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<AllBoxesResult>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                      //  initFullPart();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(AllBoxesResult result) {
+                        for (StadiumPositionModel stadiomModel : stadiumPositionModels) {
+
+                           /* if (stadiomModel.getNumber().equals(result.getName()) && stadiomModel.isFull) {
+                                stadiomModel.setFull(false);
+                            }*/
+
+                        }
+
+
+                    }
+                });
     }
 
     private void setAmounts(List<AllBoxesResult> results)
