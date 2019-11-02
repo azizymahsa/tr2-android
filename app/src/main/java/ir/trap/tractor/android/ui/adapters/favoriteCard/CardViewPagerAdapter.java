@@ -85,7 +85,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //            holder.tvExpireDate.setTextColor(Color.parseColor(item.getColorText()));
             holder.tvNumberCard.setTextColor(Color.parseColor(item.getColorNumber()));
 
-
+            if (item.getIsMainCard()!=null)
             if (item.getIsMainCard())
             {
                 holder.imgDelete.setVisibility(View.GONE);

@@ -1,4 +1,4 @@
-package ir.trap.tractor.android.ui.adapters;
+package ir.trap.tractor.android.ui.adapters.allMenu;
 
 import android.content.Context;
 import android.view.LayoutInflater;

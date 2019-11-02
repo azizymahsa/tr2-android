@@ -3,6 +3,8 @@ package ir.trap.tractor.android.apiServices.model.card;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import javax.annotation.Nullable;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,8 +46,8 @@ public class Result
     @Expose @Getter @Setter
     private Boolean isFavorite;
     
-    @SerializedName("is_main_card")
-    @Expose @Getter @Setter
+    @SerializedName("is_wallet_card")
+    @Expose @Getter @Setter @Nullable
     private Boolean isMainCard;
     
     @SerializedName("bank_bin")

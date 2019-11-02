@@ -11,6 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#484848"
-        android:textSize="@dimen/_14sdp" />
+        android:textSize="@dimen/_10sdp" />
 
 </LinearLayout>
