@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +23,7 @@ import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
-import ir.trap.tractor.android.ui.fragments.ticket.adapter.PagerAdapter;
+import ir.trap.tractor.android.ui.adapters.ticket.PagerAdapter;
 
 public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {
