@@ -8,6 +8,7 @@
 
     <dimen name="headerMainWeekNoTextSize">36sp</dimen>
     <dimen name="headerMainWeekNoSubTextSize">18sp</dimen>
+    <dimen name="headerMainWeeklessTextSize">14sp</dimen>
 
     <dimen name="slider_height_app">180dp</dimen>
 

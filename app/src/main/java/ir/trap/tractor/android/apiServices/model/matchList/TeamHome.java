@@ -4,6 +4,9 @@ package ir.trap.tractor.android.apiServices.model.matchList;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class TeamHome {
     @SerializedName("id")
     @Expose
@@ -14,9 +17,14 @@ public class TeamHome {
     @SerializedName("logo")
     @Expose
     private String logo;
+
     @SerializedName("color_code")
     @Expose
     private String colorCode;
+
+    @SerializedName("livescore_id")
+    @Expose @Getter @Setter
+    private Integer livescoreId;
 
     public Integer getId() {
         return id;
