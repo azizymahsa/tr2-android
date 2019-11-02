@@ -23,8 +23,8 @@ import lombok.Setter;
 
 public class MyCustomSliderView extends BaseSliderView
 {
-    private TextView tvHeaderText, tvHeaderSubText, tvStadiumName, tvDateTime;
-    private ImageView imgGuest, imgHost, imgBackground;
+    private TextView tvHeaderText, tvHeaderSubText, tvStadiumName, tvDateTime, tvMatchResult;
+    private ImageView imgGuest, imgHost, imgBackground, imgCenter;
     private RelativeLayout rlRoot;
 
     @Getter @Setter
@@ -32,7 +32,7 @@ public class MyCustomSliderView extends BaseSliderView
 
     @Getter @Setter
     @Nullable
-    private String imgAwayLink, imgHomeLink, imgBackgroundLink, headerDesc, stadiumName, dateTime;
+    private String imgAwayLink, imgHomeLink, imgBackgroundLink, headerDesc, stadiumName, dateTime, matchResult;
 
     private ProgressBar progress;
 
@@ -48,12 +48,15 @@ public class MyCustomSliderView extends BaseSliderView
 
         rlRoot = rootView.findViewById(R.id.rlRoot);
         imgBackground = rootView.findViewById(R.id.imgBackground);
+        imgCenter = rootView.findViewById(R.id.imgCenter);
         imgHost = rootView.findViewById(R.id.imgHost);
         imgGuest = rootView.findViewById(R.id.imgGuest);
         tvHeaderText = rootView.findViewById(R.id.tvHeaderText);
         tvHeaderSubText = rootView.findViewById(R.id.tvHeaderSubText);
         tvStadiumName = rootView.findViewById(R.id.tvStadiumName);
         tvDateTime = rootView.findViewById(R.id.tvDateTime);
+        tvMatchResult = rootView.findViewById(R.id.tvMatchResult);
+
         progress = rootView.findViewById(R.id.progress);
 
         tvHeaderText.setTypeface(Typeface.SANS_SERIF);
@@ -89,6 +92,7 @@ public class MyCustomSliderView extends BaseSliderView
             else
             {
                 tvHeaderText.setText(getHeaderDesc());
+//                tvHeaderText.setTextSize(mContext.getResources().getDimension(R.dimen.headerMainWeeklessTextSize));
                 tvHeaderSubText.setVisibility(View.GONE);
             }
         }
@@ -106,6 +110,20 @@ public class MyCustomSliderView extends BaseSliderView
         if (getDateTime() != null)
         {
             tvDateTime.setText(getDateTime());
+        }
+
+        if (getMatchResult() != null)
+        {
+            String result[] = getMatchResult().split("-");
+            tvMatchResult.setText(Integer.parseInt(result[1] )+ "  :  " + Integer.parseInt(result[0]));
+
+            tvMatchResult.setVisibility(View.VISIBLE);
+            imgCenter.setVisibility(View.GONE);
+        }
+        else
+        {
+            tvMatchResult.setVisibility(View.GONE);
+            imgCenter.setVisibility(View.VISIBLE);
         }
 
         if (getColorDateTime() != null)
