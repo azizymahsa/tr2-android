@@ -142,10 +142,6 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
 
 
 
-
-
-
-
     }
 
     @Override

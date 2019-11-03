@@ -60,7 +60,7 @@ import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCar
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
-import ir.trap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
+import ir.trap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.trap.tractor.android.utilities.Logger;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,

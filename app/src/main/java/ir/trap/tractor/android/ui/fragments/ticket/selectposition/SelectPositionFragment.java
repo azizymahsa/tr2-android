@@ -1,10 +1,7 @@
-package ir.trap.tractor.android.ui.fragments.ticket;
+package ir.trap.tractor.android.ui.fragments.ticket.selectposition;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +41,8 @@ import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.AllBoxesResult;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse;
-import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
+import ir.trap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
@@ -62,19 +59,15 @@ public class SelectPositionFragment
     RelativeLayout rlImageViewsFull;
     private static final String KEY_MODEL = "KEY_MODEL";
     private TextView tvTitle,tvAmountStation,tvAmountForPay,tvStadiumName, tvDateTime, tvCount, tvM, tvP;
-   // private SubMenuModel[] subMenuModels;
     private OnListFragmentInteractionListener interactionListener;
-   /* @BindView(R.id.spinnerAllBoxes)
-    Spinner spinnerAllBoxes;*/
     private ArrayList<String> allBoxes;
     private Spinner spinnerAllBoxes;
-    private Integer selectPositionId;
+    private Integer selectPositionId=1;
     private View btnBackToDetail;
     private View btnPaymentConfirm,llSliderItemMatch;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
     private List<AllBoxesResult> allBoxesResponse;
     ArrayList<StadiumPositionModel> stadiumPositionModels = new ArrayList<>();
-    ArrayList<Integer> fullFromServer = new ArrayList<>();
     private int amountForPay;
     private ImageView imgView,imgHost, imgGuest;
     private ImageView imgViewSelected;
@@ -86,8 +79,6 @@ public class SelectPositionFragment
     private int positionId;
     private String positionName;
 
-
-    // private List<AllBoxesResult> allBoxesResult=new ArrayList<>();
 
     public SelectPositionFragment() {
 
@@ -123,9 +114,7 @@ public class SelectPositionFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.select_position_fragment, container, false);
-        // tvTitle=view.findViewById(R.id.tvTitle);
         Context context = view.getContext();
-
 
         tvCount = view.findViewById(R.id.tvCount);
         tvM = view.findViewById(R.id.tvM);
@@ -142,7 +131,6 @@ public class SelectPositionFragment
         tvAmountStation=view.findViewById(R.id.tvAmountStation);
         tvAmountForPay=view.findViewById(R.id.tvAmountForPay);
         setDataMatch();
-        getAllBoxesRequest();
         //btnBackToDetail.setOnClickListener(this);
         tvP.setOnClickListener(this);
         tvM.setOnClickListener(this);
@@ -155,17 +143,9 @@ public class SelectPositionFragment
 
 
         setDataStadiumPosition();
-       // setFullPositions();
-        setLayoutFullPosition();
+        getAllBoxesRequest();
         handleSetStadiumLayouts();
 
-      // allBoxesResult.add(new AllBoxesResult(0,"test",4));
-       // setDataSpinnerAllBoxes(allBoxesResult);
-       /* RecyclerView recyclerView = (RecyclerView) view;
-
-        recyclerView.setLayoutManager(new GridLayoutManager(context,3));
-        recyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(new ItemRecyclerViewAdapter(subMenuModels, interactionListener));*/
         return view;
     }
 
@@ -204,8 +184,6 @@ public class SelectPositionFragment
         PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
         date =String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
 
-
-
         return date;
     }
 
@@ -232,229 +210,63 @@ public class SelectPositionFragment
         }
     }
 
-
-    private void setLayoutFullPosition()
-    {
-        for (Integer integer : fullFromServer) {
-            imgView = new ImageView(this.getContext());
-            rlImageViewsFull.addView(imgView);
-            imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imgView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
-            switch (integer) {
-                case 1:
-                    imgView.setImageResource(R.drawable.ic_one_full);
-                    break;
-                case 2:
-                    imgView.setImageResource(R.drawable.ic_tow_full);
-                    break;
-                case 3:
-                    imgView.setImageResource(R.drawable.ic_three_full);
-                    break;
-                case 4:
-                    imgView.setImageResource(R.drawable.ic_four_full);
-                    break;
-                case 5:
-                    imgView.setImageResource(R.drawable.ic_five_full);
-                    break;
-
-                case 6:
-                    imgView.setImageResource(R.drawable.ic_six_full);
-                    break;
-                case 7:
-                    imgView.setImageResource(R.drawable.ic_seven_full);
-                    break;
-                case 8:
-                    imgView.setImageResource(R.drawable.ic_eight_full);
-                    break;
-                case 9:
-                    imgView.setImageResource(R.drawable.ic_nine_full);
-                    break;
-                case 10:
-                    imgView.setImageResource(R.drawable.ic_ten_full);
-                    break;
-
-                case 11:
-                    imgView.setImageResource(R.drawable.ic_eleven_full);
-                    break;
-                case 12:
-                    imgView.setImageResource(R.drawable.ic_twelve_full);
-                    break;
-                case 13:
-                    imgView.setImageResource(R.drawable.ic_thirteen_full);
-                    break;
-                case 14:
-                    imgView.setImageResource(R.drawable.ic_fourteen_full);
-                    break;
-                case 15:
-                    imgView.setImageResource(R.drawable.ic_fifteen_full);
-                    break;
-
-                case 16:
-                    imgView.setImageResource(R.drawable.ic_sixteen_full);
-                    break;
-                case 17:
-                    imgView.setImageResource(R.drawable.ic_seventeen_full);
-                    break;
-                case 18:
-                    imgView.setImageResource(R.drawable.ic_eighteen_full);
-                    break;
-                case 19:
-                    imgView.setImageResource(R.drawable.ic_nineteen_full);
-                    break;
-                case 20:
-                    imgView.setImageResource(R.drawable.ic_twenty_full);
-                    break;
-
-                case 21:
-                    imgView.setImageResource(R.drawable.ic_twenty_one_full);
-                    break;
-                case 22:
-                    imgView.setImageResource(R.drawable.ic_twenty_tow_full);
-                    break;
-                case 23:
-                    imgView.setImageResource(R.drawable.ic_twenty_three_full);
-                    break;
-                case 24:
-                    imgView.setImageResource(R.drawable.ic_twenty_four_full);
-                    break;
-                case 25:
-                    imgView.setImageResource(R.drawable.ic_twenty_five_full);
-                    break;
-
-                case 26:
-                    imgView.setImageResource(R.drawable.ic_twenty_six_full);
-                    break;
-                case 27:
-                    imgView.setImageResource(R.drawable.ic_twenty_seven_full);
-                    break;
-                case 28:
-                    imgView.setImageResource(R.drawable.ic_twenty_eight_full);
-                    break;
-                case 29:
-                    imgView.setImageResource(R.drawable.ic_twenty_nine_full);
-                    break;
-                case 30:
-                    imgView.setImageResource(R.drawable.ic_thirty_full);
-                    break;
-
-                case 31:
-                    imgView.setImageResource(R.drawable.ic_thirty_one_full);
-                    break;
-                case 32:
-                    imgView.setImageResource(R.drawable.ic_thirty_two_full);
-                    break;
-                case 33:
-                    imgView.setImageResource(R.drawable.ic_thirty_three_full);
-                    break;
-                case 34:
-                    imgView.setImageResource(R.drawable.ic_thirty_four_full);
-                    break;
-                case 35:
-                    imgView.setImageResource(R.drawable.ic_thirty_five_full);
-                    break;
-
-                case 36:
-                    imgView.setImageResource(R.drawable.ic_thirty_six_full);
-                    break;
-                case 37:
-                    imgView.setImageResource(R.drawable.ic_thirty_seven_full);
-                    break;
-                case 38:
-                    imgView.setImageResource(R.drawable.ic_thirty_eight_full);
-                    break;
-                case 39:
-                    imgView.setImageResource(R.drawable.ic_thirty_nine_full);
-                    break;
-                case 40:
-                    imgView.setImageResource(R.drawable.ic_fourty_full);
-                    break;
-
-                case 41:
-                    imgView.setImageResource(R.drawable.ic_fourty_one_full);
-                    break;
-                case 42:
-                    imgView.setImageResource(R.drawable.ic_fourty_two_full);
-                    break;
-                case 43:
-                    imgView.setImageResource(R.drawable.ic_fourty_three_full);
-                    break;
-                case 44:
-                    break;
-                case 45:
-                    break;
-
-            }
-
-
-        }
-    }
-
-    private void setFullPositions()
-    {
-        fullFromServer.add(5);
-        fullFromServer.add(20);
-        fullFromServer.add(25);
-        fullFromServer.add(30);
-
-    }
-
     private void setDataStadiumPosition()
     {
-        stadiumPositionModels.add(new StadiumPositionModel("FF328DAA", 1));
-        stadiumPositionModels.add(new StadiumPositionModel("FF953D3D", 2));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFE9000", 3));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFFFC9B", 4));
-        stadiumPositionModels.add(new StadiumPositionModel("FF00AC62", 5));
+        stadiumPositionModels.add(new StadiumPositionModel("FF328DAA", 1,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF953D3D", 2,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFE9000", 3,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFFC9B", 4,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00AC62", 5,false));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF8A3D7D", 6));
-        stadiumPositionModels.add(new StadiumPositionModel("FF9AB260", 7));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFF8181", 8));
-        stadiumPositionModels.add(new StadiumPositionModel("FF0F0060", 9));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFFC170", 10));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8A3D7D", 6,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9AB260", 7,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFF8181", 8,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF0F0060", 9,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFC170", 10,false));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF00EDFF", 11));
-        stadiumPositionModels.add(new StadiumPositionModel("FF481337", 12));
-        stadiumPositionModels.add(new StadiumPositionModel("FF009A8F", 13));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFE0002", 14));
-        stadiumPositionModels.add(new StadiumPositionModel("FF00FF5D", 15));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00EDFF", 11,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF481337", 12,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF009A8F", 13,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFE0002", 14,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00FF5D", 15,false));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFA0F113", 16));
-        stadiumPositionModels.add(new StadiumPositionModel("FF8A4000", 17));
-        stadiumPositionModels.add(new StadiumPositionModel("FF0080FF", 18));
-        stadiumPositionModels.add(new StadiumPositionModel("FFDC0DB3", 19));
-        stadiumPositionModels.add(new StadiumPositionModel("FF52488A", 20));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA0F113", 16,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8A4000", 17,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF0080FF", 18,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFDC0DB3", 19,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF52488A", 20,false));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFCFD574", 21));
-        stadiumPositionModels.add(new StadiumPositionModel("FFA8CAEC", 22));
-        stadiumPositionModels.add(new StadiumPositionModel("FF575657", 23));
-        stadiumPositionModels.add(new StadiumPositionModel("FF8FC549", 24));
-        stadiumPositionModels.add(new StadiumPositionModel("FF9A1955", 25));
+        stadiumPositionModels.add(new StadiumPositionModel("FFCFD574", 21,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA8CAEC", 22,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF575657", 23,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8FC549", 24,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9A1955", 25,false));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF8DFFFB", 26));
-        stadiumPositionModels.add(new StadiumPositionModel("FFA29C00", 27));
-        stadiumPositionModels.add(new StadiumPositionModel("FF00E600", 28));
-        stadiumPositionModels.add(new StadiumPositionModel("FFD8B506", 29));
-        stadiumPositionModels.add(new StadiumPositionModel("FFCF0000", 30));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8DFFFB", 26,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA29C00", 27,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00E600", 28,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFD8B506", 29,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFCF0000", 30,false));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF948DFF", 31));
-        stadiumPositionModels.add(new StadiumPositionModel("FFE7EC44", 32));
-        stadiumPositionModels.add(new StadiumPositionModel("FFD97B00", 33));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC500FF", 34));
-        stadiumPositionModels.add(new StadiumPositionModel("FF74FFD0", 35));
+        stadiumPositionModels.add(new StadiumPositionModel("FF948DFF", 31,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFE7EC44", 32,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFD97B00", 33,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFC500FF", 34,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF74FFD0", 35,false));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF8E7627", 36));
-        stadiumPositionModels.add(new StadiumPositionModel("FFAC0000", 37));
-        stadiumPositionModels.add(new StadiumPositionModel("FF828282", 38));
-        stadiumPositionModels.add(new StadiumPositionModel("FF6E00FF", 39));
-        stadiumPositionModels.add(new StadiumPositionModel("FF9CE27F", 40));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8E7627", 36,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFAC0000", 37,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF828282", 38,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF6E00FF", 39,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9CE27F", 40,false));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFFFBAFA", 41));
-        stadiumPositionModels.add(new StadiumPositionModel("FFF237FF", 42));
-        stadiumPositionModels.add(new StadiumPositionModel("FF440000", 43));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFBAFA", 41,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFF237FF", 42,false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF440000", 43,false));
 
         /////
-        stadiumPositionModels.add(new StadiumPositionModel("", 44));
-        stadiumPositionModels.add(new StadiumPositionModel("", 45));
+        stadiumPositionModels.add(new StadiumPositionModel("", 44,false));
+        stadiumPositionModels.add(new StadiumPositionModel("", 45,false));
         //////
 
     }
@@ -465,18 +277,15 @@ public class SelectPositionFragment
             @Override
             public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
 
-                Logger.e("test", envelope.getHexCode() + "");
-
-                for (StadiumPositionModel stadiumPosition : stadiumPositionModels) {
-                    if (envelope.getHexCode().equals(stadiumPosition.getColor())) {
-                        for (Integer integer : fullFromServer) {
-                            if (integer.equals(stadiumPosition.getNumber())) {
-                                Toast.makeText(getContext(), "این جایگاه پر شده است", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                        }
+                for (StadiumPositionModel stadiomModel : stadiumPositionModels) {
+                    if (envelope.getHexCode().equals(stadiomModel.getColor()) && stadiomModel.isFull())
+                    {
+                        Toast.makeText(getContext(), "این جایگاه پر شده است", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                }
+
+                    }
+
 
                 switch (envelope.getHexCode()) {
                     case "FF328DAA":
@@ -675,7 +484,7 @@ public class SelectPositionFragment
                         //////////45
                 }
 
-                Log.e("tessstt", envelope.getHexCode() + "");
+                Log.e("tesstt", envelope.getHexCode() + "");
             }
         });
     }
@@ -1083,7 +892,7 @@ public class SelectPositionFragment
 
                     @Override
                     public void onComplete() {
-                      //  initFullPart();
+                        initFullPart();
 
                     }
 
@@ -1096,15 +905,198 @@ public class SelectPositionFragment
                     public void onNext(AllBoxesResult result) {
                         for (StadiumPositionModel stadiomModel : stadiumPositionModels) {
 
-                           /* if (stadiomModel.getNumber().equals(result.getName()) && stadiomModel.isFull) {
+                            if (stadiomModel.getNumber().equals(result.getName()) && stadiomModel.isFull()) {
                                 stadiomModel.setFull(false);
-                            }*/
+                            }
 
                         }
 
 
                     }
                 });
+    }
+
+
+    public void initFullPart() {
+
+        Observable.fromIterable(stadiumPositionModels)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StadiumPositionModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        //ToDo hide progress
+                        Toast.makeText(getContext(), "complete", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(StadiumPositionModel partStadiomModel) {
+                        if (partStadiomModel.isFull()){
+                            imgView = new ImageView(getContext());
+                            rlImageViewsFull.addView(imgView);
+                            imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            imgView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams                           .MATCH_PARENT));
+                            switch (partStadiomModel.getNumber()) {
+                                case 1:
+                                    imgView.setImageResource(R.drawable.ic_one_full);
+                                    break;
+                                case 2:
+                                    imgView.setImageResource(R.drawable.ic_tow_full);
+                                    break;
+                                case 3:
+                                    imgView.setImageResource(R.drawable.ic_three_full);
+                                    break;
+                                case 4:
+                                    imgView.setImageResource(R.drawable.ic_four_full);
+                                    break;
+                                case 5:
+                                    imgView.setImageResource(R.drawable.ic_five_full);
+                                    break;
+
+                                case 6:
+                                    imgView.setImageResource(R.drawable.ic_six_full);
+                                    break;
+                                case 7:
+                                    imgView.setImageResource(R.drawable.ic_seven_full);
+                                    break;
+                                case 8:
+                                    imgView.setImageResource(R.drawable.ic_eight_full);
+                                    break;
+                                case 9:
+                                    imgView.setImageResource(R.drawable.ic_nine_full);
+                                    break;
+                                case 10:
+                                    imgView.setImageResource(R.drawable.ic_ten_full);
+                                    break;
+
+                                case 11:
+                                    imgView.setImageResource(R.drawable.ic_eleven_full);
+                                    break;
+                                case 12:
+                                    imgView.setImageResource(R.drawable.ic_twelve_full);
+                                    break;
+                                case 13:
+                                    imgView.setImageResource(R.drawable.ic_thirteen_full);
+                                    break;
+                                case 14:
+                                    imgView.setImageResource(R.drawable.ic_fourteen_full);
+                                    break;
+                                case 15:
+                                    imgView.setImageResource(R.drawable.ic_fifteen_full);
+                                    break;
+
+                                case 16:
+                                    imgView.setImageResource(R.drawable.ic_sixteen_full);
+                                    break;
+                                case 17:
+                                    imgView.setImageResource(R.drawable.ic_seventeen_full);
+                                    break;
+                                case 18:
+                                    imgView.setImageResource(R.drawable.ic_eighteen_full);
+                                    break;
+                                case 19:
+                                    imgView.setImageResource(R.drawable.ic_nineteen_full);
+                                    break;
+                                case 20:
+                                    imgView.setImageResource(R.drawable.ic_twenty_full);
+                                    break;
+
+                                case 21:
+                                    imgView.setImageResource(R.drawable.ic_twenty_one_full);
+                                    break;
+                                case 22:
+                                    imgView.setImageResource(R.drawable.ic_twenty_tow_full);
+                                    break;
+                                case 23:
+                                    imgView.setImageResource(R.drawable.ic_twenty_three_full);
+                                    break;
+                                case 24:
+                                    imgView.setImageResource(R.drawable.ic_twenty_four_full);
+                                    break;
+                                case 25:
+                                    imgView.setImageResource(R.drawable.ic_twenty_five_full);
+                                    break;
+
+                                case 26:
+                                    imgView.setImageResource(R.drawable.ic_twenty_six_full);
+                                    break;
+                                case 27:
+                                    imgView.setImageResource(R.drawable.ic_twenty_seven_full);
+                                    break;
+                                case 28:
+                                    imgView.setImageResource(R.drawable.ic_twenty_eight_full);
+                                    break;
+                                case 29:
+                                    imgView.setImageResource(R.drawable.ic_twenty_nine_full);
+                                    break;
+                                case 30:
+                                    imgView.setImageResource(R.drawable.ic_thirty_full);
+                                    break;
+
+                                case 31:
+                                    imgView.setImageResource(R.drawable.ic_thirty_one_full);
+                                    break;
+                                case 32:
+                                    imgView.setImageResource(R.drawable.ic_thirty_two_full);
+                                    break;
+                                case 33:
+                                    imgView.setImageResource(R.drawable.ic_thirty_three_full);
+                                    break;
+                                case 34:
+                                    imgView.setImageResource(R.drawable.ic_thirty_four_full);
+                                    break;
+                                case 35:
+                                    imgView.setImageResource(R.drawable.ic_thirty_five_full);
+                                    break;
+
+                                case 36:
+                                    imgView.setImageResource(R.drawable.ic_thirty_six_full);
+                                    break;
+                                case 37:
+                                    imgView.setImageResource(R.drawable.ic_thirty_seven_full);
+                                    break;
+                                case 38:
+                                    imgView.setImageResource(R.drawable.ic_thirty_eight_full);
+                                    break;
+                                case 39:
+                                    imgView.setImageResource(R.drawable.ic_thirty_nine_full);
+                                    break;
+                                case 40:
+                                    imgView.setImageResource(R.drawable.ic_fourty_full);
+                                    break;
+
+                                case 41:
+                                    imgView.setImageResource(R.drawable.ic_fourty_one_full);
+                                    break;
+                                case 42:
+                                    imgView.setImageResource(R.drawable.ic_fourty_two_full);
+                                    break;
+                                case 43:
+                                    imgView.setImageResource(R.drawable.ic_fourty_three_full);
+                                    break;
+                                case 44:
+                                    break;
+                                case 45:
+                                    break;
+
+                            }
+
+
+
+                        }
+
+                    }
+                });
+
     }
 
     private void setAmounts(List<AllBoxesResult> results)
@@ -1318,10 +1310,6 @@ public class SelectPositionFragment
         interactionListener = null;
     }
 
-    public void setDataToCompleteInfoFragment(Integer id)
-    {
-        this.selectPositionId=id;
-    }
     @Override
     public void onClick(View v)
     {
@@ -1330,7 +1318,6 @@ public class SelectPositionFragment
                // checkIdFromEachPosition();
                 Prefs.putInt("PositionId",selectPositionId);
                 Prefs.putInt("CountTicket",count);
-
                 onClickContinueBuyTicketListener.onContinueClicked();
               //  callReservationRequest();
               //  onClickContinueBuyTicketListener.onContinueSelectPosiotionClicked(count,selectPositionId);

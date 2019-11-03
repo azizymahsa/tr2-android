@@ -1,14 +1,9 @@
 package ir.trap.tractor.android.ui.adapters.ticket;
 
-import android.view.View;
-import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
@@ -17,7 +12,7 @@ import ir.trap.tractor.android.ui.fragments.payment.PaymentParentActionView;
 import ir.trap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.trap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
-import ir.trap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
+import ir.trap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
 
 public class PagerAdapter

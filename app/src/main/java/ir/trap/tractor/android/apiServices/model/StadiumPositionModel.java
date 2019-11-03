@@ -7,10 +7,22 @@ public class StadiumPositionModel
 {
     String color;
     Integer number;
+    boolean isFull;
 
-    public StadiumPositionModel(String color, Integer number) {
+    public StadiumPositionModel(String color, Integer number,boolean isFull) {
         this.color = color;
         this.number = number;
+        this.isFull=isFull;
+    }
+
+    public boolean isFull()
+    {
+        return isFull;
+    }
+
+    public void setFull(boolean full)
+    {
+        isFull = full;
     }
 
     public String getColor() {

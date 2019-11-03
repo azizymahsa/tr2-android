@@ -50,6 +50,8 @@ import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChar
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
+import ir.trap.tractor.android.apiServices.model.reservationmatch.ReservationRequest;
+import ir.trap.tractor.android.apiServices.model.reservationmatch.ReservationResponse;
 import ir.trap.tractor.android.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import ir.trap.tractor.android.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
 import ir.trap.tractor.android.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
@@ -86,6 +88,11 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetAllBoxesResponse>>> getAllBoxes(
             @Body GetAllBoxesRequest request
             );
+
+    @POST(Const.ReservationMatch)
+    Single<Response<WebServiceClass<ReservationResponse>>> reservTicket(
+            @Body ReservationRequest request
+    );
 
     @POST(Const.GetBillCodePayCode)
     Single<Response<WebServiceClass<GetBillCodePayCodeResponse>>> getBillCodePayCode(
