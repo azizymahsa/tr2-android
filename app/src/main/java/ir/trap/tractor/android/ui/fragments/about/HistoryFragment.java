@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -39,9 +41,11 @@ public class HistoryFragment
         extends Fragment implements View.OnClickListener
 {
 
-
+    private Toolbar mToolbar;
+    private TextView tvUserName;
     private View view;
     private com.daimajia.slider.library.SliderLayout mDemoSlider;
+    private com.daimajia.slider.library.SliderLayout mDemoSlider2;
     private MainActionView mainView;
 
     //Expanding
@@ -58,30 +62,30 @@ public class HistoryFragment
     private HashMap<String, List<PlayersCurrent>> listPlayerCurrent;
     private WebServiceClass<ResponseHistory> responseHistory = new WebServiceClass<>();
 
-    public static HistoryFragment newInstance(MainActionView mainView)
-    {
-        HistoryFragment f = new HistoryFragment();
-        f.setMainView(mainView);
-        return f;
-    }
+
 
     private void setMainView(MainActionView mainView)
     {
         this.mainView = mainView;
     }
 
-    public HistoryFragment()
+    public HistoryFragment(MainActionView mainView)
     {
+        this.mainView=mainView;
     }
 
-
-    public static HistoryFragment newInstance()
+    public static HistoryFragment newInstance(MainActionView mainView)
     {
-        HistoryFragment fragment = new HistoryFragment();
+        HistoryFragment f = new HistoryFragment(mainView);
+        Bundle args = new Bundle();
+//        args.putParcelableArrayList("chosenServiceList", chosenServiceList);
+//        args.putParcelableArrayList("footballServiceList", footballServiceList);
 
-
-        return fragment;
+        f.setArguments(args);
+        f.setMainView(mainView);
+        return f;
     }
+
 
     private void setSlider(WebServiceClass<ResponseHistory> response)
     {
@@ -173,9 +177,9 @@ public class HistoryFragment
             @Override
             public void onGroupExpand(int groupPosition)
             {
-                Toast.makeText(getContext(),
+               /* Toast.makeText(getContext(),
                         listDataGroup.get(groupPosition) + " " + "text_collapsed",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
             }
         });
 
@@ -186,9 +190,9 @@ public class HistoryFragment
             @Override
             public void onGroupCollapse(int groupPosition)
             {
-                Toast.makeText(getContext(),
+               /* Toast.makeText(getContext(),
                         listDataGroup.get(groupPosition) + " " + "text_collapsed",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
 
             }
         });
@@ -245,11 +249,7 @@ public class HistoryFragment
 
 
 
-        // Adding child data
-       /* listDataChild.put(listDataGroup.get(0), alcoholList);
-        listDataChild.put(listDataGroup.get(1), coffeeList);
-        listDataChild.put(listDataGroup.get(2), pastaList);
-        listDataChild.put(listDataGroup.get(3), coldDrinkList);*/
+
 
         // notify the adapter
         expandableListViewAdapter.notifyDataSetChanged();
@@ -273,6 +273,7 @@ public class HistoryFragment
                             setSlider(response);
                             setExpanding1(response);
                             setExpanding2(response);
+                            setSlider2(response);
                         }
                     } else
                     {
@@ -292,6 +293,33 @@ public class HistoryFragment
             }
         });
 
+    }
+
+    private void setSlider2(WebServiceClass<ResponseHistory> response)
+      {
+        for (int i = 1; i < response.data.getImages().size(); i++)
+        {
+            if (response.data.getImages().get(i).getRowNumber() == 2)
+            {
+                ImageSliderView textSliderView = new ImageSliderView(getActivity());
+
+                textSliderView.setImgBackgroundLink(response.data.getImages().get(i).getImageName());
+                textSliderView.setText("gone");
+                textSliderView.setHeaderWeekNo("gone");
+                textSliderView.setCenterView("gone");
+
+                mDemoSlider2.addSlider(textSliderView);
+
+            }
+        }
+//            mDemoSlider2.setPresetTransformer(SliderLayout.Transformer.RotateDown);
+        mDemoSlider2.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        PagerIndicator pagerIndicator = new PagerIndicator(getActivity());
+        pagerIndicator.setDefaultIndicatorColor(R.color.currentColor, R.color.grayColor);
+        mDemoSlider2.setCustomIndicator(pagerIndicator);
+        mDemoSlider2.setCustomAnimation(new DescriptionAnimation());
+        mDemoSlider2.setDuration(10000);
+//            mDemoSlider.addOnPageChangeListener(this);
     }
 
     private void setExpanding2(WebServiceClass<ResponseHistory> response)
@@ -322,6 +350,7 @@ public class HistoryFragment
     private void initViews()
     {
         mDemoSlider = view.findViewById(R.id.slider);
+        mDemoSlider2 = view.findViewById(R.id.slider2);
         expandableListView = view.findViewById(R.id.expandableListView);
         expandableListView2 = view.findViewById(R.id.expandableListView2);
 
@@ -336,6 +365,20 @@ public class HistoryFragment
         // initializing the views
         initViews();
 
+        /*Toolbars*/
+        mToolbar = view.findViewById(R.id.toolbar);
+        tvUserName = view.findViewById(R.id.tvUserName);
+
+        tvUserName.setText(Prefs.getString("mobile", ""));
+
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mainView.openDrawer();
+            }
+        });
 
         return view;
     }

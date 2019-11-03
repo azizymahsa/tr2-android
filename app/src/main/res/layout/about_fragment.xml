@@ -13,13 +13,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="102dp"
-            android:background="@drawable/background_main_header" />
+            android:background="@drawable/background_main_header2" />
 
-<!--        <RelativeLayout-->
-<!--            android:id="@+id/header"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="102dp"-->
-<!--            android:background="@drawable/img_header_background" />-->
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:background="@drawable/img_header_background" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -44,7 +44,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
-            <!--slider1-->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,14 +69,128 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/slider_height_app">
 
-                        <com.daimajia.slider.library.SliderLayout
-                            android:id="@+id/slider"
+                        <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/slider_height_app"
-                            android:layout_centerVertical="true"
-                            android:background="@android:color/transparent" />
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/logo_about" />
 
                     </RelativeLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/_10dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_weight="100"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tvVersion"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="نسخه 0.1.4"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/black" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/_10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivInsta"
+
+                        android:layout_width="@dimen/_40dp"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginRight="@dimen/_10dp"
+                        android:gravity="right"
+                        android:src="@drawable/insta_icon" />
+
+                    <ImageView
+                        android:id="@+id/ivTele"
+                        android:layout_width="@dimen/_40dp"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginRight="@dimen/_10dp"
+
+                        android:gravity="right"
+                        android:src="@drawable/telegram_icon" />
+
+
+                    <ImageView
+                        android:id="@+id/ivTwit"
+
+                        android:layout_width="@dimen/_40dp"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:gravity="right"
+                        android:src="@drawable/twiter_icon" />
+
                 </LinearLayout>
 
                 <Space
@@ -106,25 +220,17 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvDescTicket"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
                         android:layout_marginTop="@dimen/_10dp"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_weight="100"
-                        android:gravity="right|center"
-                        android:text="تاریخچه باشگاه تراکتورسازی تبریز"
+                        android:gravity="center"
+                        android:text="@string/low_ata"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:gravity="right"
-                        android:src="@drawable/icon_history" />
 
                 </LinearLayout>
 
@@ -134,40 +240,6 @@
                     android:layout_weight="10" />
             </LinearLayout>
 
-            <!--expanding history-->
-            <LinearLayout
-                android:id="@+id/llAllBoxesSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100">
-
-                    <ir.trap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
-                        android:id="@+id/expandableListView"
-                        android:layout_width="match_parent"
-                       android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-            </LinearLayout>
-            <!--slider2-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -188,16 +260,13 @@
                     android:layout_marginRight="@dimen/_20sdp">
 
                     <RelativeLayout
-                        android:id="@+id/rl12"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/slider_height_app">
 
-                        <com.daimajia.slider.library.SliderLayout
-                            android:id="@+id/slider2"
+                        <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/slider_height_app"
-                            android:layout_centerVertical="true"
-                            android:background="@android:color/transparent" />
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ata_icon" />
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -207,6 +276,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="10" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -228,24 +298,18 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tvPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
                         android:layout_marginTop="@dimen/_10dp"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_weight="100"
-                        android:gravity="right|center"
-                        android:text="معرفی بازیکنان"
+                        android:gravity="center"
+                        android:text="تماس با ما: 021-44890412"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:gravity="right"
-                        android:src="@drawable/football_player" />
 
                 </LinearLayout>
 
@@ -255,40 +319,7 @@
                     android:layout_weight="10" />
             </LinearLayout>
 
-            <!--expanding player-->
-            <LinearLayout
-                android:id="@+id/llAllBoxesSpinner2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100">
-
-                    <ir.trap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
-                        android:id="@+id/expandableListView2"
-                        android:layout_width="match_parent"
-                        android:childDivider="@android:color/transparent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-            </LinearLayout>
             <!--button-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -296,7 +327,7 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:layout_marginBottom="@dimen/_10dp"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <Space
                     android:layout_width="0dp"
@@ -311,8 +342,8 @@
                     android:layout_weight="100">
 
                     <include
-                        android:id="@+id/btnPaymentConfirm"
-                        layout="@layout/circular_progress_button_show_ticket"
+                        android:id="@+id/btnHistory"
+                        layout="@layout/circular_progress_button_show_history"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_35dp"
                         android:layout_gravity="center" />
