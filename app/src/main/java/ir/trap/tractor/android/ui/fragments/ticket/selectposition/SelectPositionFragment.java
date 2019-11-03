@@ -303,7 +303,7 @@ public class SelectPositionFragment
 
                     if (envelope.getHexCode().equals(stadiomModel.getColor()) && stadiomModel.isFull())
                     {
-                        Toast.makeText(getContext(), "این جایگاه پر شده است", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "ظرفیت این جایگاه پر شده است", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (envelope.getHexCode().equals(stadiomModel.getColor()))
