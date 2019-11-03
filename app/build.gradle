@@ -255,6 +255,9 @@ dependencies {
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation 'com.amitshekhar.android:jackson-android-networking:1.0.2'
 
+    //AnyChart
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
 }
 
 configurations.all {
