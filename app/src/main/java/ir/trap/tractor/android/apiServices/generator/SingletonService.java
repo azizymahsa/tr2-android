@@ -29,6 +29,7 @@ import ir.trap.tractor.android.apiServices.part.LoginService;
 import ir.trap.tractor.android.apiServices.part.MerchantService;
 import ir.trap.tractor.android.apiServices.part.MobileChargeService;
 import ir.trap.tractor.android.apiServices.part.PackageBuyService;
+import ir.trap.tractor.android.apiServices.part.PaymentMatchService;
 import ir.trap.tractor.android.apiServices.part.ReservationMatchService;
 import ir.trap.tractor.android.apiServices.part.SheatcChangePassService;
 import ir.trap.tractor.android.apiServices.part.SheatcForgotPassService;
@@ -130,7 +131,10 @@ public class SingletonService
     {
         return new PackageBuyService(serviceGenerator);
     }
-
+    public PaymentMatchService paymentMatch()
+    {
+        return new PaymentMatchService(serviceGenerator);
+    }
     public MobileChargeService getMobileCharge()
     {
         return new MobileChargeService(serviceGenerator);

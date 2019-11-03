@@ -7,11 +7,11 @@ import ir.trap.tractor.android.apiServices.model.reservationmatch.ReservationRes
  */
 public interface ReservationMatchInteractor
 {
-    void reservationRequest(int matchId, int countViewers, int boxId);
+    void reservationRequest(OnFinishedReservationListener listener,int matchId, int countViewers, int boxId);
 
 
     interface OnFinishedReservationListener {
-        void onFinishedReservation(ReservationResponse response, String mobileChargeNo);
+        void onFinishedReservation(ReservationResponse response);
         void onErrorReservation(String error);
     }
 

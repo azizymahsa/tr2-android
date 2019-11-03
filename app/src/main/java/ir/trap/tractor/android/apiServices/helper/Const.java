@@ -28,6 +28,8 @@ public class Const
     //stadium
     public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
     public final static String ReservationMatch=SubBASEURL+"v1/match/reservation/";
+    public final static String PaymentMatch=SubBASEURL+"v1/match/payment/";
+
 
     //Mobile
     public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";

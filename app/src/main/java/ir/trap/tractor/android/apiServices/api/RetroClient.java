@@ -48,6 +48,8 @@ import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
+import ir.trap.tractor.android.apiServices.model.paymentMatch.PaymentMatchRequest;
+import ir.trap.tractor.android.apiServices.model.paymentMatch.PaymentMatchResponse;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import ir.trap.tractor.android.apiServices.model.reservationmatch.ReservationRequest;
@@ -93,6 +95,13 @@ public interface RetroClient
     Single<Response<WebServiceClass<ReservationResponse>>> reservTicket(
             @Body ReservationRequest request
     );
+
+    @POST(Const.PaymentMatch)
+    Single<Response<WebServiceClass<PaymentMatchResponse>>> paymentMatch(
+            @Body PaymentMatchRequest request
+    );
+
+
 
     @POST(Const.GetBillCodePayCode)
     Single<Response<WebServiceClass<GetBillCodePayCodeResponse>>> getBillCodePayCode(

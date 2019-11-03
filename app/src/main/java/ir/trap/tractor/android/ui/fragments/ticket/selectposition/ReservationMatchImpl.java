@@ -12,7 +12,7 @@ import ir.trap.tractor.android.apiServices.model.reservationmatch.ReservationRes
 public class ReservationMatchImpl implements ReservationMatchInteractor
 {
     @Override
-    public void reservationRequest(int matchId, int countViewers, int boxId)
+    public void reservationRequest(OnFinishedReservationListener listener,int matchId, int countViewers, int boxId)
     {
         ReservationRequest request = new ReservationRequest();
         request.setBoxId(boxId);
@@ -21,18 +21,25 @@ public class ReservationMatchImpl implements ReservationMatchInteractor
         SingletonService.getInstance().getReservation().reservationMatchService(new OnServiceStatus<WebServiceClass<ReservationResponse>>()
         {
             @Override
-            public void onReady(WebServiceClass<ReservationResponse> reservationResponseWebServiceClass)
+            public void onReady(WebServiceClass<ReservationResponse> response)
             {
                 try{
 
+                    if (response.info.statusCode==200){
+                        listener.onFinishedReservation(response.data);
+                    }else {
+                        listener.onErrorReservation(response.info.message);
+                    }
                 }catch (Exception e){
 
+                    listener.onErrorReservation(e.getMessage());
                 }
             }
 
             @Override
             public void onError(String message)
             {
+                listener.onErrorReservation(message);
 
             }
         },request);
