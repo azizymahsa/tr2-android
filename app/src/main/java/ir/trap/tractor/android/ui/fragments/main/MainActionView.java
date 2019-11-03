@@ -13,8 +13,11 @@ public interface MainActionView extends BaseView
     void onChargeSimCard();
 
     void onPackSimCard();
+
     void openBarcode(BarcodeType bill);
+
     void onBarcodReader();
+
     void onPaymentWithoutCard();
 
     void doTransferMoney();
@@ -34,4 +37,6 @@ public interface MainActionView extends BaseView
     void startAddCardActivity();
 
     void onBuyTicketClick(MatchItem matchBuyable);
+
+    void onPredict(MatchItem matchPredict);
 }

@@ -26,11 +26,11 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/background_main_header" />
 
-            <RelativeLayout
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/img_header_background" />
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/header"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/img_header_background" />-->
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -54,11 +54,448 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="16dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:orientation="vertical">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="15dp"
+                app:contentPaddingTop="8dp"
+                app:contentPaddingRight="2dp"
+                app:contentPaddingLeft="2dp"
+                app:contentPaddingBottom="8dp"
+                app:cardElevation="5dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:id="@+id/rlAway"
+                            android:layout_width="@dimen/_120dp"
+                            android:layout_height="@dimen/_120dp"
+                            android:background="@drawable/ic_ball"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:layout_alignParentTop="true">
+
+                            <ImageView
+                                android:id="@+id/imgAwayHeader"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:scaleType="fitCenter"/>
+
+                            <TextView
+                                android:id="@+id/tvAwayHeader"
+                                android:layout_below="@+id/imgAwayHeader"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="عنوان"
+                                android:textStyle="bold"
+                                android:textColor="@color/textColorSecondary"
+                                android:gravity="center"/>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llAwayResultList"
+                            android:layout_below="@+id/rlAway"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"/>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/drawerSepratorColor"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:id="@+id/rlHomeHeader"
+                            android:layout_width="@dimen/_120dp"
+                            android:layout_height="@dimen/_120dp"
+                            android:background="@drawable/ic_ball"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:layout_alignParentTop="true">
+
+                            <ImageView
+                                android:id="@+id/imgHomeHeader"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:scaleType="fitCenter"/>
+
+                            <TextView
+                                android:id="@+id/tvHomeHeader"
+                                android:layout_below="@+id/imgHomeHeader"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="عنوان"
+                                android:textStyle="bold"
+                                android:textColor="@color/textColorSecondary"
+                                android:gravity="center"/>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llHomeResultList"
+                            android:layout_below="@+id/rlHomeHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:orientation="horizontal"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textSize="@dimen/textSize_20dp"
+                android:textColor="@color/textColorSecondary"
+                android:text="پیش بینی شما:"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_rectangle_white_8dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imgAway3"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="@dimen/_45dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="2dp"
+                        android:scaleType="fitCenter"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray"/>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtAwayPredict"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="match_parent"
+                        android:hint="؟"
+                        android:maxLength="2"
+                        android:nextFocusDown="@+id/edtHomePredict"
+                        android:inputType="number"
+                        android:textSize="@dimen/textSize_16dp"
+                        android:textColorHint="@color/colorAccent"
+                        android:textColor="@color/textColorSecondary"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="1dp"
+                    android:layout_margin="8dp"
+                    android:background="@color/black"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_rectangle_white_8dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtHomePredict"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="match_parent"
+                        android:hint="؟"
+                        android:maxLength="2"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:textSize="@dimen/textSize_16dp"
+                        android:textColorHint="@color/colorAccent"
+                        android:textColor="@color/textColorSecondary"
+                        android:gravity="center"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray"/>
+
+                    <ImageView
+                        android:id="@+id/imgHome3"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="@dimen/_45dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:scaleType="fitCenter"/>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                android:id="@+id/btnSendPredict"
+                android:layout_width="@dimen/_180dp"
+                android:layout_height="@dimen/_30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/background_button_login"
+                android:text="ثبت پیش بینی"
+                android:textColor="@color/textColorButton"
+                android:textSize="@dimen/textSize_14dp"
+                android:textStyle="bold"
+                android:transitionName="transition"
+                app:finalCornerAngle="50dp"
+                app:spinning_bar_color="@color/white"
+                app:initialCornerAngle="50dp"
+                app:spinning_bar_width="2dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="right"
+                android:textSize="@dimen/textSize_18dp"
+                android:text="آمار پیش بینی شرکت کنندگان:"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:gravity="right"
+                android:layout_marginBottom="8dp"
+                android:textSize="@dimen/textSize_18dp"
+                android:text="آخرین بازی رو در روی دو تیم:"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:background="@drawable/background_rectangle_white_15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textColor="@color/gray"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="1398/00/00"/>
+
+                    <TextView
+                        android:id="@+id/tvCupTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_16dp"
+                        android:textColor="@color/textColorSecondary"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="جام"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@drawable/dotted_line_horizontal"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="4dp">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4">
+
+                        <TextView
+                            android:id="@+id/tvAway"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="عنوان"
+                            android:layout_toRightOf="@+id/imgAway"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/textColorSecondary"
+                            android:gravity="center"/>
+
+                        <ImageView
+                            android:id="@+id/imgAway"
+                            android:layout_width="@dimen/_35dp"
+                            android:layout_height="@dimen/_35dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:scaleType="fitCenter"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3">
+                        
+                        <View
+                            android:id="@+id/vAway"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/vAway2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"/>
+
+                            <View
+                                android:id="@+id/vHome2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvMatchResult"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:background="@color/white"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/textSize_14dp"
+                            android:layout_margin="2dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3">
+
+                        <View
+                            android:id="@+id/vHome"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4">
+
+                        <TextView
+                            android:id="@+id/tvHome"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="عنوان"
+                            android:layout_toLeftOf="@+id/imgHome"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/textColorSecondary"
+                            android:gravity="center"/>
+
+                        <ImageView
+                            android:id="@+id/imgHome"
+                            android:layout_width="@dimen/_35dp"
+                            android:layout_height="@dimen/_35dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:scaleType="fitCenter"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 

@@ -52,6 +52,9 @@
 
         </RelativeLayout>
 
+        <include layout="@layout/loading"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
     <fragment
@@ -62,37 +65,5 @@
         android:layout_gravity="right"
         app:layout="@layout/menudrawer_fragment"
         tools:layout="@layout/menudrawer_fragment" />
-
-    <LinearLayout
-        android:id="@+id/llLoading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#de000000"
-        android:gravity="center"
-        android:visibility="gone"
-        android:orientation="vertical"
-        android:clickable="true">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_250dp_r"
-            android:layout_gravity="center"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie/loading.json"
-            app:lottie_loop="true"
-            android:scaleType="centerCrop" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textColorLoading"
-            android:textAppearance="@style/IranSansBold"
-            android:textSize="@dimen/textSize_16dp"
-            android:text="در حال دریافت اطلاعات..."
-            android:gravity="center"/>
-
-    </LinearLayout>
-
 
 </androidx.drawerlayout.widget.DrawerLayout>
