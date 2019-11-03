@@ -18,6 +18,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.utilities.Logger;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -114,6 +115,11 @@ public class MyCustomSliderView extends BaseSliderView
 
         if (getMatchResult() != null)
         {
+            //---------test----------
+//            String test1 = "01|00";
+//            String test2[] = test1.split("\\|");
+//            Logger.e("--result test--", test2[1] + "  :  " + test2[0]);
+            //---------test----------
             String result[] = getMatchResult().split("-");
             tvMatchResult.setText(Integer.parseInt(result[1] )+ "  :  " + Integer.parseInt(result[0]));
 

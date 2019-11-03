@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import java.util.Arrays;
 
 import ir.trap.tractor.android.R;
@@ -31,7 +33,7 @@ public class CompeletInfoFragment
     private View view;
     private TextView txtCondition;
     private View btnBackToDetail, btnPaymentConfirm;
-    private int count = 3;
+    private int count = 1;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
     private EditText etNationalCode_1, etFamily_1, etName_1;
     private EditText etNationalCode_2, etFamily_2, etName_2;
@@ -112,9 +114,70 @@ public class CompeletInfoFragment
 
     }
 
-
-    private void initView()
+    @Override
+    public void onResume()
     {
+        super.onResume();
+        initView();
+    }
+
+    public void setVisibilityLayouts(){
+        count= Prefs.getInt("CountTicket",1);
+        textStation="جایگاه "+String.valueOf(Prefs.getInt("PositionId",1));
+        if(textStation != null){
+            tvStation_1.setText(textStation);
+            tvStation_2.setText(textStation);
+            tvStation_3.setText(textStation);
+            tvStation_4.setText(textStation);
+            tvStation_5.setText(textStation);
+        }
+        if (count == 1)
+        {
+            llBoxTicket1.setVisibility(View.VISIBLE);
+            llBoxTicket2.setVisibility(View.GONE);
+            llBoxTicket3.setVisibility(View.GONE);
+            llBoxTicket4.setVisibility(View.GONE);
+            llBoxTicket5.setVisibility(View.GONE);
+        }else
+        if (count == 2)
+        {
+            llBoxTicket1.setVisibility(View.VISIBLE);
+            llBoxTicket2.setVisibility(View.VISIBLE);
+            llBoxTicket3.setVisibility(View.GONE);
+            llBoxTicket4.setVisibility(View.GONE);
+            llBoxTicket5.setVisibility(View.GONE);
+        }else
+        if (count == 3)
+        {
+            llBoxTicket1.setVisibility(View.VISIBLE);
+            llBoxTicket2.setVisibility(View.VISIBLE);
+            llBoxTicket3.setVisibility(View.VISIBLE);
+            llBoxTicket4.setVisibility(View.GONE);
+            llBoxTicket5.setVisibility(View.GONE);
+        }else
+        if (count == 4)
+        {
+            llBoxTicket1.setVisibility(View.VISIBLE);
+            llBoxTicket2.setVisibility(View.VISIBLE);
+            llBoxTicket3.setVisibility(View.VISIBLE);
+            llBoxTicket4.setVisibility(View.VISIBLE);
+            llBoxTicket5.setVisibility(View.GONE);
+        }else
+        if (count == 5)
+        {
+            llBoxTicket1.setVisibility(View.VISIBLE);
+            llBoxTicket2.setVisibility(View.VISIBLE);
+            llBoxTicket3.setVisibility(View.VISIBLE);
+            llBoxTicket4.setVisibility(View.VISIBLE);
+            llBoxTicket5.setVisibility(View.VISIBLE);
+        }
+
+
+    }
+    public void initView()
+    {
+        count= Prefs.getInt("CountTicket",1);
+        textStation=String.valueOf(Prefs.getInt("PositionId",1));
         etNationalCode_1 = view.findViewById(R.id.etNationalCode_1);
         etFamily_1 = view.findViewById(R.id.etFamily_1);
         etName_1 = view.findViewById(R.id.etName_1);
@@ -201,6 +264,7 @@ public class CompeletInfoFragment
         llInVisible = view.findViewById(R.id.llInVisible);
         llConfirm.setVisibility(View.GONE);
         llInVisible.setVisibility(View.VISIBLE);
+
 
         btnBackToDetail = view.findViewById(R.id.btnBackToDetail);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
@@ -341,7 +405,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
-
+                Prefs.putString("etNationalCode_1",etNationalCode_1.getText().toString());
             } else
             {
                 flagValidations = flagValidations + "F";
@@ -354,6 +418,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etFamily_1",etFamily_1.getText().toString());
 
             } else
             {
@@ -369,6 +434,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_1.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etName_1",etName_1.getText().toString());
 
             } else
             {
@@ -396,6 +462,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_2.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etNationalCode_2",etNationalCode_2.getText().toString());
 
             } else
             {
@@ -409,6 +476,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etFamily_2.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etFamily_2",etFamily_2.getText().toString());
 
             } else
             {
@@ -424,6 +492,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_2.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etName_2",etName_2.getText().toString());
 
             } else
             {
@@ -451,6 +520,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_3.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etNationalCode_3",etNationalCode_3.getText().toString());
 
             } else
             {
@@ -464,6 +534,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etFamily_3.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etFamily_3",etFamily_3.getText().toString());
 
             } else
             {
@@ -479,6 +550,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_3.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etName_3",etName_3.getText().toString());
 
             } else
             {
@@ -506,6 +578,8 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_4.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etNationalCode_4",etNationalCode_4.getText().toString());
+                Prefs.putString("etFamily_4",etFamily_4.getText().toString());
 
             } else
             {
@@ -534,6 +608,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_4.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etName_4",etName_4.getText().toString());
 
             } else
             {
@@ -561,6 +636,8 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_5.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etNationalCode_5",etNationalCode_5.getText().toString());
+                Prefs.putString("etFamily_5",etFamily_5.getText().toString());
 
             } else
             {
@@ -589,6 +666,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_5.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etName_5",etName_5.getText().toString());
 
             } else
             {
@@ -607,6 +685,8 @@ public class CompeletInfoFragment
 
         }
     }
+
+
 
     private boolean isValidNationalCode(String nationalCode)
     {

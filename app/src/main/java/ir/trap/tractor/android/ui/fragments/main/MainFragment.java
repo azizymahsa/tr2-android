@@ -66,7 +66,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private Toolbar mToolbar;
 
-    private RelativeLayout rlF1, rlF2, rlF3, rlF4, rlF5, rlF6;
+    private RelativeLayout rlF1, rlF2, rlF3, rlF4, rlF5, rlF6, rlPredict;
     private TextView tvF1, tvF2, tvF3, tvF4, tvF5, tvF6, tvUserName;
     private ImageView imgF1, imgF2, imgF3, imgF4, imgF5, imgF6;
 
@@ -157,6 +157,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         recyclerView = rootView.findViewById(R.id.recyclerView);
         btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
 
+        rlPredict = rootView.findViewById(R.id.rlPredict);
+
         rlF1 = rootView.findViewById(R.id.rlF1);
         rlF2 = rootView.findViewById(R.id.rlF2);
         rlF3 = rootView.findViewById(R.id.rlF3);
@@ -191,6 +193,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         setImageIntoIV(imgF3, footballServiceList.get(3).getImageName());
         setImageIntoIV(imgF6, footballServiceList.get(4).getImageName());
         setImageIntoIV(imgF5, footballServiceList.get(5).getImageName());
+
+        rlPredict.setOnClickListener(v ->
+        {
+            mainView.onPredict(matchPredict);
+//            matchCurrent
+        });
 
         getSliderData();
     }

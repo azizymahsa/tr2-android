@@ -21,6 +21,7 @@ import ir.trap.tractor.android.apiServices.part.GetMenuService;
 import ir.trap.tractor.android.apiServices.part.GetMyBillsService;
 import ir.trap.tractor.android.apiServices.part.GetPackageIrancellService;
 import ir.trap.tractor.android.apiServices.part.GetPackageMciService;
+import ir.trap.tractor.android.apiServices.part.GetPredictService;
 import ir.trap.tractor.android.apiServices.part.GetRightelPackService;
 import ir.trap.tractor.android.apiServices.part.GetShetabCardInfoService;
 import ir.trap.tractor.android.apiServices.part.GetVersionService;
@@ -29,6 +30,7 @@ import ir.trap.tractor.android.apiServices.part.LoginService;
 import ir.trap.tractor.android.apiServices.part.MerchantService;
 import ir.trap.tractor.android.apiServices.part.MobileChargeService;
 import ir.trap.tractor.android.apiServices.part.PackageBuyService;
+import ir.trap.tractor.android.apiServices.part.SendPredictService;
 import ir.trap.tractor.android.apiServices.part.SheatcChangePassService;
 import ir.trap.tractor.android.apiServices.part.SheatcForgotPassService;
 import ir.trap.tractor.android.apiServices.part.GetMatchListService;
@@ -218,6 +220,16 @@ public class SingletonService
     public GetVersionService getVersionService()
     {
         return new GetVersionService(serviceGenerator);
+    }
+
+    public GetPredictService getPredictService()
+    {
+        return new GetPredictService(serviceGenerator);
+    }
+
+    public SendPredictService sendPredictService()
+    {
+        return new SendPredictService(serviceGenerator);
     }
 
 

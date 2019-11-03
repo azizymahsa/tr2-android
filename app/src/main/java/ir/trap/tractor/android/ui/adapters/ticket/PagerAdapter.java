@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
+import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
+import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentParentActionView;
@@ -24,11 +26,14 @@ public class PagerAdapter
 
     private final MainActionView mainActionView;
     private final OnClickContinueBuyTicket onClickContinueBuyTicket;
+    private final MatchItem matchBuyable;
     private BuyTickets buyTickets;
     private int numTabs;
+    private CompeletInfoFragment tab2;
+    private ShowTicketsFragment tab4;
 
 
-    public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView, OnClickContinueBuyTicket onClickContinueBuyTicket)
+    public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView, OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)
     {
         super(fm);
         this.numTabs = numTabs;
@@ -37,6 +42,12 @@ public class PagerAdapter
         this.mainActionView = mainActionView;
         this.onClickContinueBuyTicket = onClickContinueBuyTicket;
 
+        this.matchBuyable=matchBuyable;
+      /*  this.gdsModel1 = gdsModel1;
+        this.insuranceModel2 = insuranceModel2;
+        this.aloparkModel3 = aloparkModel3;
+        this.shargModel4 = shargModel4;
+        this.ghabzModel6 = ghabzModel6;*/
     }
 
     @Override
@@ -45,12 +56,13 @@ public class PagerAdapter
         switch (position)
         {
             case 0:
-                SelectPositionFragment tab1 = SelectPositionFragment.newInstance("TAB2",buyTickets);
+                SelectPositionFragment tab1 = SelectPositionFragment.newInstance("TAB2",buyTickets,matchBuyable);
 
                 return tab1;
             case 1:
-                CompeletInfoFragment tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
+                 tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
 
+               // createInstance();
                 return tab2;
             case 2://پرداخت
               //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTickets, this, onClickContinueBuyTicket);
@@ -60,21 +72,21 @@ public class PagerAdapter
 //                paymentInstance.setLastName();
 //                paymentInstance.setNationalCode();
 //                paymentInstance.setTicketId();
-                PaymentFragment tab3 = PaymentFragment.newInstance(this,
-                        "",
-                        "",
-                        0,
-                        "",
-                        paymentInstance);
+//                PaymentFragment tab3 = PaymentFragment.newInstance(this,
+//                        "",
+//                        "",
+//                        0,
+//                        "",
+//                        paymentInstance);
 
-//               PaymentFragment tab3 = PaymentFragment.newInstance(8,buyTickets,
-//                       this,onClickContinueBuyTicket);
+               PaymentFragment tab3 = PaymentFragment.newInstance(8,buyTickets,
+                       this,onClickContinueBuyTicket);
 
                // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);
 
                 return tab3;
             case 3:
-                ShowTicketsFragment tab4 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
+                 tab4 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
                 return tab4;
 
 
@@ -82,6 +94,14 @@ public class PagerAdapter
                 throw new RuntimeException("Tab position invalid " + position);
         }
     }
+
+    public void createInstance()
+    {
+       // CompeletInfoFragment tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
+        tab2.setVisibilityLayouts();
+
+    }
+
 
     @Override
     public int getCount()
@@ -116,4 +136,8 @@ public class PagerAdapter
 
     }
 
+    public void createShareShowTicket()
+    {
+        tab4.setSharedData();
+    }
 }

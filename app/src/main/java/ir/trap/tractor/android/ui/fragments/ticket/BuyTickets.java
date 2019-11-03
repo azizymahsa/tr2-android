@@ -21,6 +21,7 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
+import ir.trap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.adapters.ticket.PagerAdapter;
@@ -38,6 +39,8 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     private CircularProgressButton btnPaymentConfirm;
     private ImageView ivCountTicket,ivSelectPosition,ivFullInfo,ivPrintTicket;
     private View vOneToTow,vZeroToOne,vTowToThree;
+    private TextView tvTitle;
+    public String namePosition;
 
     private MatchItem matchBuyable;
 
@@ -92,7 +95,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
         //  ViewPager need a PagerAdapter
         final PagerAdapter adapter = new PagerAdapter
-                (getFragmentManager(), tabLayout.getTabCount(),this,mainView,this);
+                (getFragmentManager(), tabLayout.getTabCount(),this,mainView,this,matchBuyable);
 
         viewPager.setAdapter(adapter);
         viewPager.beginFakeDrag();
@@ -111,6 +114,17 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             public void onPageSelected(int position)
             {
 
+                if (position==1)
+                adapter.createInstance();
+
+                if (position==3)
+                    adapter.createShareShowTicket();
+              /*  if (position==1){
+
+                   // ((SelectPositionFragment)adapter.getItem(1).get)
+                  //  setDataToCompleteInfoFragment(namePosition);
+                }*/
+
             }
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -118,8 +132,20 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         return rootView;
     }
 
+    public void setDataToCompleteInfoFragment(String name)
+    {
+        this.namePosition=name;
+    }
+
     private void initView()
     {
+        try
+        {
+            tvTitle=rootView.findViewById(R.id.tvTitle);
+            tvTitle.setText("خرید بلیت");
+        }catch (Exception e){
+
+        }
         btnPaymentConfirm = rootView.findViewById(R.id.btnPaymentConfirm);
         btnBackToDetail = rootView.findViewById(R.id.btnBackToDetail);
         tabLayout = rootView.findViewById(R.id.tab_layout);
@@ -234,6 +260,14 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         checkPositionFromSetSelected();
     }
 
+    @Override
+    public void onContinueSelectPosiotionClicked(int count, Integer selectPositionId)
+    {
+        viewPager.setCurrentItem(getItem(+1), true);
+
+        checkPositionFromSetSelected();
+    }
+
     private void checkPositionFromSetSelected()
     {
         if (viewPager.getCurrentItem()==0){
@@ -300,7 +334,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             ivFullInfo.setImageResource(R.drawable.select_step);
             tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
-            ivPrintTicket.setImageResource(R.drawable.select_step_non);
+            ivPrintTicket.setImageResource(R.drawable.select_step);
             tvPrintTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
             vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));

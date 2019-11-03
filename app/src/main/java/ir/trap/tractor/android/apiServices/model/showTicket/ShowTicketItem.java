@@ -7,11 +7,13 @@ public class ShowTicketItem
 {
     private  String nationalCode;
     private  String name;
+    private  String station;
 
-    public ShowTicketItem(String name, String nationalCode)
+    public ShowTicketItem(String name, String nationalCode,String station)
     {
         this.name=name;
         this.nationalCode=nationalCode;
+        this.station=station;
     }
 
     public String getNationalCode()
@@ -27,6 +29,16 @@ public class ShowTicketItem
     public String getName()
     {
         return name;
+    }
+
+    public String getStation()
+    {
+        return station;
+    }
+
+    public void setStation(String station)
+    {
+        this.station = station;
     }
 
     public void setName(String name)

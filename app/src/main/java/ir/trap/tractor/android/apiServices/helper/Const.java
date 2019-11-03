@@ -96,5 +96,10 @@ public class Const
     public final static String GET_VERSION = SubBASEURL + "v1/version/get_version_android/";
 
 
+    //Predict
+    public final static String GET_PREDICT = SubBASEURL + "v1/predict/";
+    public final static String SEND_PREDICT = SubBASEURL + "v1/predict/";
+
+
 
 }

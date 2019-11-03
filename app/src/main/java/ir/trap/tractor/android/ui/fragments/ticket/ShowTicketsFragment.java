@@ -134,15 +134,16 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvTickets.setLayoutManager(linearLayoutManager);
 
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvListCard.getContext(),
-//                linearLayoutManager.getOrientation());
-//        rvListCard.addItemDecoration(dividerItemDecoration);
-        ticketItems.add(new ShowTicketItem("mahtab", "0480489999"));
-        ticketItems.add(new ShowTicketItem("test", "0480000000"));
-        ticketItems.add(new ShowTicketItem("ticket", "0015478963"));
+       /* Prefs.getInt("PositionId",1);
+        Prefs.getInt("CountTicket",1);
+        Prefs.getString("etNationalCode_1","");
+        Prefs.getString("etFamily_1","");
+        Prefs.getString("etName_1","");*/
 
-        showTicketAdapter = new ShowTicketAdapter(ticketItems);
-        rvTickets.setAdapter(showTicketAdapter);
+
+
+
+
 
 
     }
@@ -192,4 +193,33 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
     }
 
 
+    public void setSharedData()
+    {
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        rvTickets.setLayoutManager(linearLayoutManager);
+
+        for (int i = 0; i <Prefs.getInt("CountTicket",1) ; i++)
+        {
+            if(i==0)
+                ticketItems.add(new ShowTicketItem(Prefs.getString("etFamily_1","")+" "+Prefs.getString("etName_1",""), Prefs.getString("etNationalCode_1",""),"جایگاه "+Prefs.getInt("PositionId",1)));
+
+            if(i==1)
+                ticketItems.add(new ShowTicketItem(Prefs.getString("etFamily_2","")+" "+Prefs.getString("etName_2",""), Prefs.getString("etNationalCode_2",""),"جایگاه "+Prefs.getInt("PositionId",1)));
+
+            if(i==2)
+                ticketItems.add(new ShowTicketItem(Prefs.getString("etFamily_3","")+" "+Prefs.getString("etName_3",""), Prefs.getString("etNationalCode_3",""),"جایگاه "+Prefs.getInt("PositionId",1)));
+
+            if(i==3)
+                ticketItems.add(new ShowTicketItem(Prefs.getString("etFamily_4","")+" "+Prefs.getString("etName_4",""), Prefs.getString("etNationalCode_4",""),"جایگاه "+Prefs.getInt("PositionId",1)));
+
+            if(i==4)
+                ticketItems.add(new ShowTicketItem(Prefs.getString("etFamily_5","")+" "+Prefs.getString("etName_4",""), Prefs.getString("etNationalCode_5",""),"جایگاه "+Prefs.getInt("PositionId",1)));
+
+
+        }
+        showTicketAdapter = new ShowTicketAdapter(ticketItems);
+        rvTickets.setAdapter(showTicketAdapter);
+
+
+    }
 }
