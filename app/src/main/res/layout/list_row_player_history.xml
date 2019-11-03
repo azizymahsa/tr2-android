@@ -1,63 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FEFEFE"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    >
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="right"
     android:background="@android:color/white"
     android:gravity="right"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     >
-
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@android:color/white"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
     <TextView
-        android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1.5"
         android:gravity="center"
-        android:text="tvNumber"
+        android:text="بازیکن"
         android:textColor="#484848"
         android:background="@drawable/rec_only_r_l"
         android:singleLine="true"
         android:maxLines="1"
-        android:textSize="@dimen/_10sdp" />
+        android:textSize="@dimen/textSize_12dp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvPosition"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="tvNationality"
+        android:text="نقش"
         android:textColor="#484848"
         android:singleLine="true"
         android:maxLines="1"
         android:background="@drawable/rec_only_r_l"
-
-        android:textSize="@dimen/_10sdp" />
+        android:textSize="@dimen/textSize_12dp"
+        android:textStyle="bold"
+         />
 
     <TextView
-        android:id="@+id/tvNationality"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="tvNationality"
+        android:text="ملیت"
         android:textColor="#484848"
         android:singleLine="true"
         android:maxLines="1"
         android:background="@drawable/rec_only_r_l"
-        android:textSize="@dimen/_10sdp" />
+        android:textSize="@dimen/textSize_12dp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvNumber"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
+        android:layout_weight="0.7"
+        android:gravity="center"
+        android:text="شماره"
+        android:background="@drawable/rec_only_r_l"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:textColor="#484848"
+        android:textSize="@dimen/textSize_12dp"
+         />
+</LinearLayout>
+    <View
+        android:id="@+id/SplitLine_hor1"
+        android:layout_width="match_parent"
+        android:layout_height= "1dp"
+        android:background="@color/gray"
+        android:visibility="gone"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@android:color/white"
         android:gravity="right"
-        android:text="1"
-        android:background="@drawable/rec_only_r_l"
-        android:singleLine="true"
-        android:maxLines="1"
-        android:textColor="#484848"
-        android:textSize="@dimen/_10sdp" />
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:text="tvNumber"
+            android:textColor="#484848"
+            android:background="@drawable/rec_only_r_l"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="@dimen/textSize_12dp" />
+
+        <TextView
+            android:id="@+id/tvPosition"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="tvNationality"
+            android:textColor="#484848"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:background="@drawable/rec_only_r_l"
+
+            android:textSize="@dimen/textSize_12dp" />
+
+        <TextView
+            android:id="@+id/tvNationality"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="tvNationality"
+            android:textColor="#484848"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:background="@drawable/rec_only_r_l"
+            android:textSize="@dimen/textSize_12dp" />
+
+        <TextView
+            android:id="@+id/tvNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:gravity="right"
+            android:text="1"
+            android:background="@drawable/rec_only_r_l"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textColor="#484848"
+            android:textSize="@dimen/textSize_12dp" />
+    </LinearLayout>
+
+</LinearLayout>
 </LinearLayout>

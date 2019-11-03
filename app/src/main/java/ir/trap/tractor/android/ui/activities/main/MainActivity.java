@@ -51,6 +51,8 @@ import ir.trap.tractor.android.ui.base.BaseActivity;
 import ir.trap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
 import ir.trap.tractor.android.ui.fragments.BarcodeReaderFragment;
+import ir.trap.tractor.android.ui.fragments.about.AboutFragment;
+import ir.trap.tractor.android.ui.fragments.about.HistoryFragment;
 import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
@@ -331,7 +333,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 7:
             {
-                showToast(this, "درباره ما", R.color.green);
+               // showToast(this, "درباره ما", R.color.green);
+
+
+                matchBuyable = AboutFragment.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, matchBuyable)
+                        .commit();
 
                 break;
             }
@@ -718,8 +728,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             finish();
 
             return;
-        }
-        else
+        } else
         {
             chosenServiceList = response.data.getChosenServiceList();
             footballServiceList = response.data.getFootballServiceList();
@@ -763,8 +772,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         finish();
 
                         return;
-                    }
-                    else
+                    } else
                     {
                         Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
 
