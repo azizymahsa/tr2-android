@@ -141,7 +141,6 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     {
         this.namePosition=name;
     }
-
     private void initView()
     {
         try

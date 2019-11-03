@@ -97,7 +97,14 @@ public class SelectPositionFragment
         SelectPositionFragment fragment = new SelectPositionFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
         Bundle args = new Bundle();
-        args.putParcelable("matchBuyable", matchBuyable);
+        try
+        {
+            args.putParcelable("matchBuyable", matchBuyable);
+
+        } catch (Exception e)
+        {
+
+        }
 
         fragment.setArguments(args);
 
@@ -152,7 +159,7 @@ public class SelectPositionFragment
 
         setDataStadiumPosition();
         getAllBoxesRequest();
-        handleSetStadiumLayouts();
+
 
 
         return view;
@@ -223,57 +230,57 @@ public class SelectPositionFragment
 
     private void setDataStadiumPosition()
     {
-        stadiumPositionModels.add(new StadiumPositionModel("FF328DAA", 1, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF953D3D", 2, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFE9000", 3, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFFFC9B", 4, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF00AC62", 5, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF328DAA", 1, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF953D3D", 2, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFE9000", 3, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFFC9B", 4, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00AC62", 5, true));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF8A3D7D", 6, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF9AB260", 7, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFF8181", 8, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF0F0060", 9, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFFC170", 10, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8A3D7D", 6, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9AB260", 7, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFF8181", 8, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF0F0060", 9, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFC170", 10, true));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF00EDFF", 11, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF481337", 12, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF009A8F", 13, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFFE0002", 14, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF00FF5D", 15, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00EDFF", 11, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF481337", 12, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF009A8F", 13, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFE0002", 14, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00FF5D", 15, true));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFA0F113", 16, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF8A4000", 17, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF0080FF", 18, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFDC0DB3", 19, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF52488A", 20, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA0F113", 16, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8A4000", 17, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF0080FF", 18, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFDC0DB3", 19, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF52488A", 20, true));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFCFD574", 21, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFA8CAEC", 22, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF575657", 23, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF8FC549", 24, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF9A1955", 25, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFCFD574", 21, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA8CAEC", 22, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF575657", 23, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8FC549", 24, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9A1955", 25, true));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF8DFFFB", 26, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFA29C00", 27, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF00E600", 28, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFD8B506", 29, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFCF0000", 30, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8DFFFB", 26, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA29C00", 27, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00E600", 28, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFD8B506", 29, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFCF0000", 30, true));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF948DFF", 31, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFE7EC44", 32, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFD97B00", 33, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFC500FF", 34, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF74FFD0", 35, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF948DFF", 31, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFE7EC44", 32, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFD97B00", 33, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFC500FF", 34, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF74FFD0", 35, true));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FF8E7627", 36, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFAC0000", 37, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF828282", 38, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF6E00FF", 39, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF9CE27F", 40, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8E7627", 36, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFAC0000", 37, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF828282", 38, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF6E00FF", 39, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9CE27F", 40, true));
 
-        stadiumPositionModels.add(new StadiumPositionModel("FFFFBAFA", 41, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FFF237FF", 42, false));
-        stadiumPositionModels.add(new StadiumPositionModel("FF440000", 43, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFBAFA", 41, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFF237FF", 42, true));
+        stadiumPositionModels.add(new StadiumPositionModel("FF440000", 43, true));
 
         /////
         stadiumPositionModels.add(new StadiumPositionModel("", 44, false));
@@ -852,8 +859,8 @@ public class SelectPositionFragment
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
 
-          private void setSpinnerPositionSelected(Integer numberPosition)
-          {
+    private void setSpinnerPositionSelected(Integer numberPosition)
+    {
         try
         {
             for (int i = 0; i < positionIdAllBoxes.size(); i++)
@@ -870,8 +877,8 @@ public class SelectPositionFragment
 
     }
 
-              private void getAllBoxesRequest()
-           {
+    private void getAllBoxesRequest()
+    {
         GetAllBoxesRequest request = new GetAllBoxesRequest();
         request.setViewers(count);
         request.setMatchId(matchId);
@@ -909,9 +916,9 @@ public class SelectPositionFragment
         }, request);
     }
 
-              private void setFullPositions(List<AllBoxesResult> results)
-           {
-               Observable.fromIterable(results)
+    private void setFullPositions(List<AllBoxesResult> results)
+    {
+        Observable.fromIterable(results)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<AllBoxesResult>()
@@ -953,13 +960,13 @@ public class SelectPositionFragment
 
                     }
                 });
-          }
+    }
 
 
-        public void initFullPart()
-             {
+    public void initFullPart()
+    {
 
-              Observable.fromIterable(stadiumPositionModels)
+        Observable.fromIterable(stadiumPositionModels)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<StadiumPositionModel>()
@@ -973,7 +980,9 @@ public class SelectPositionFragment
                     public void onComplete()
                     {
                         //ToDo hide progress
-                        Toast.makeText(getContext(), "complete", Toast.LENGTH_SHORT).show();
+                        //   Toast.makeText(getContext(), "complete", Toast.LENGTH_SHORT).show();
+
+                        handleSetStadiumLayouts();
                     }
 
                     @Override
@@ -990,7 +999,8 @@ public class SelectPositionFragment
                             imgView = new ImageView(getContext());
                             rlImageViewsFull.addView(imgView);
                             imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            imgView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+                            imgView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT
+                                    , RelativeLayout.LayoutParams.MATCH_PARENT));
                             switch (partStadiomModel.getNumber())
                             {
                                 case 1:
@@ -1392,7 +1402,7 @@ public class SelectPositionFragment
     private void callReservationRequest()
     {
 
-        reservationMatch.reservationRequest(this, matchId, count,stadiumPositionModels.get(selectPositionId).getId()-1);
+        reservationMatch.reservationRequest(this, matchId, count, stadiumPositionModels.get(selectPositionId).getId() - 1);
     }
 
     private void setAmounts(int countTicket)
