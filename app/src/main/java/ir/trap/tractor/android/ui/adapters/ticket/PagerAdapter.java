@@ -28,7 +28,8 @@ public class PagerAdapter
     private ShowTicketsFragment tab4;
 
 
-    public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView, OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)
+    public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView
+            , OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)
     {
         super(fm);
         this.numTabs = numTabs;
@@ -89,14 +90,6 @@ public class PagerAdapter
                 throw new RuntimeException("Tab position invalid " + position);
         }
     }
-
-    public void createInstance()
-    {
-       // CompeletInfoFragment tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
-        tab2.setVisibilityLayouts();
-
-    }
-
 
     @Override
     public int getCount()

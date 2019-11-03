@@ -1,6 +1,7 @@
 package ir.trap.tractor.android.ui.fragments.ticket;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.List;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.apiServices.model.buyTicket.InfoViewer;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
@@ -28,7 +32,7 @@ import ir.trap.tractor.android.ui.adapters.ticket.PagerAdapter;
 
 public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {
-    private static BuyTickets f;
+    public static BuyTickets buyTickets;
     private View rootView;
 
     private MainActionView mainView;
@@ -41,7 +45,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     private View vOneToTow,vZeroToOne,vTowToThree;
     private TextView tvTitle;
     public String namePosition;
-
+    Integer selectPositionId,count,amountForPay;
     private MatchItem matchBuyable;
 
     public BuyTickets()
@@ -52,13 +56,13 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
     public static BuyTickets newInstance(MainActionView mainView, MatchItem matchBuyable)
     {
-        f = new BuyTickets();
+        buyTickets = new BuyTickets();
         Bundle args = new Bundle();
         args.putParcelable("matchBuyable", matchBuyable);
 
-        f.setArguments(args);
-        f.setMainView(mainView);
-        return f;
+        buyTickets.setArguments(args);
+        buyTickets.setMainView(mainView);
+        return buyTickets;
     }
 
     private void setMainView(MainActionView mainView)
@@ -114,16 +118,17 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             public void onPageSelected(int position)
             {
 
-                if (position==1)
-                adapter.createInstance();
+                /*if (position==1)
+                    adapter.createInstance();*/
 
                 if (position==3)
                     adapter.createShareShowTicket();
-              /*  if (position==1){
+                if (position==1){
+                    new Handler().postDelayed(() -> ((CompeletInfoFragment) adapter.getItem(1))
+                            .getDataFormBefore(selectPositionId,count,amountForPay),200);
 
-                   // ((SelectPositionFragment)adapter.getItem(1).get)
-                  //  setDataToCompleteInfoFragment(namePosition);
-                }*/
+                    //setDataToCompleteInfoFragment(namePosition);
+                }
 
             }
         });
@@ -167,7 +172,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         llPrintTicket.setOnClickListener(this);
         llFullInfo.setOnClickListener(this);
 //        btnPaymentConfirm.setOnClickListener(this);
-      //  btnBackToDetail.setOnClickListener(this);
+        //  btnBackToDetail.setOnClickListener(this);
 
     }
 
@@ -341,5 +346,18 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
         }
+    }
+    public void setDate(Integer selectPositionId, int count, int amountForPay)
+    {
+
+        this.selectPositionId = selectPositionId;
+        this.count = count;
+        this.amountForPay = amountForPay;
+
+    }
+
+    public void setInfoViewers(List<InfoViewer> infoViewers)
+    {
+
     }
 }

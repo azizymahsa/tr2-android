@@ -42,6 +42,9 @@ import ir.trap.tractor.android.apiServices.model.getAllBoxes.AllBoxesResult;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import ir.trap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
+import ir.trap.tractor.android.apiServices.model.reservationmatch.ReservationResponse;
+import ir.trap.tractor.android.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
+import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.trap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.trap.tractor.android.utilities.Logger;
 import ir.trap.tractor.android.utilities.Tools;
@@ -51,46 +54,46 @@ import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
 
 public class SelectPositionFragment
-        extends Fragment implements View.OnClickListener
+        extends Fragment implements View.OnClickListener, ReservationMatchInteractor.OnFinishedReservationListener
 {
 
+    ColorPickerView colorPickerView;
+    ImageView ivDefault, ivSelected;
+    RelativeLayout rlImageViewsFull;
+    private static final String KEY_MODEL = "KEY_MODEL";
+    private TextView tvTitle, tvAmountStation, tvAmountForPay, tvStadiumName, tvDateTime, tvCount, tvM, tvP;
+    private OnListFragmentInteractionListener interactionListener;
+    private ArrayList<String> allBoxes;
+    private Spinner spinnerAllBoxes;
+    private Integer selectPositionId = 1;
+    private View btnBackToDetail;
+    private View btnPaymentConfirm, llSliderItemMatch;
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
+    private List<AllBoxesResult> allBoxesResponse;
+    ArrayList<StadiumPositionModel> stadiumPositionModels = new ArrayList<>();
+    private int amountForPay;
+    private ImageView imgView, imgHost, imgGuest;
+    private ImageView imgViewSelected;
+    private int count = 1;
+    private Integer matchId = 1;
+    private Integer amountOneTicket = 0;
+    private ArrayList<Integer> positionIdAllBoxes;
+    private MatchItem matchBuyable;
+    private int positionId, positionIdFromServer;
+    private String positionName;
+    private ReservationMatchImpl reservationMatch;
 
 
-        ColorPickerView colorPickerView;
-        ImageView ivDefault, ivSelected;
-        RelativeLayout rlImageViewsFull;
-        private static final String KEY_MODEL = "KEY_MODEL";
-        private TextView tvTitle, tvAmountStation, tvAmountForPay, tvStadiumName, tvDateTime, tvCount, tvM, tvP;
-        private OnListFragmentInteractionListener interactionListener;
-        private ArrayList<String> allBoxes;
-        private Spinner spinnerAllBoxes;
-        private Integer selectPositionId = 1;
-        private View btnBackToDetail;
-        private View btnPaymentConfirm, llSliderItemMatch;
-        private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-        private List<AllBoxesResult> allBoxesResponse;
-        ArrayList<StadiumPositionModel> stadiumPositionModels = new ArrayList<>();
-        private int amountForPay;
-        private ImageView imgView, imgHost, imgGuest;
-        private ImageView imgViewSelected;
-        private int count = 1;
-        private Integer matchId = 1;
-        private Integer amountOneTicket = 0;
-        private ArrayList<Integer> positionIdAllBoxes;
-        private MatchItem matchBuyable;
-        private int positionId, positionIdFromServer;
-        private String positionName;
-
-
-    public SelectPositionFragment() {
+    public SelectPositionFragment()
+    {
 
     }
 
-        /**
-         * Receive the model list
-         */
-        public static SelectPositionFragment newInstance (String s, OnClickContinueBuyTicket
-        onClickContinueBuyTicket, MatchItem matchBuyable){
+    /**
+     * Receive the model list
+     */
+    public static SelectPositionFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MatchItem matchBuyable)
+    {
         SelectPositionFragment fragment = new SelectPositionFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
         Bundle args = new Bundle();
@@ -101,24 +104,26 @@ public class SelectPositionFragment
         return fragment;
     }
 
-        private void setOnClickContinueBuyTicket (OnClickContinueBuyTicket onClickContinueBuyTicket)
-        {
-            this.onClickContinueBuyTicketListener = onClickContinueBuyTicket;
-        }
+    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
+        this.onClickContinueBuyTicketListener = onClickContinueBuyTicket;
+    }
 
 
-        @Override
-        public void onCreate (Bundle savedInstanceState){
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         matchBuyable = getArguments().getParcelable("matchBuyable");
     }
 
-        @Override
-        public View onCreateView (LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState){
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.select_position_fragment, container, false);
         Context context = view.getContext();
-
+        reservationMatch = new ReservationMatchImpl();
         tvCount = view.findViewById(R.id.tvCount);
         tvM = view.findViewById(R.id.tvM);
         tvP = view.findViewById(R.id.tvP);
@@ -149,347 +154,347 @@ public class SelectPositionFragment
         getAllBoxesRequest();
         handleSetStadiumLayouts();
 
+
         return view;
     }
 
-        private void setDataMatch ()
+    private void setDataMatch()
+    {
+
+        try
         {
+            llSliderItemMatch.setVisibility(View.VISIBLE);
+            matchId = matchBuyable.getId();
+            tvStadiumName.setText(matchBuyable.getStadium().getName());
+            setImageColor(imgHost, matchBuyable.getTeamHome().getLogo());
+            setImageColor(imgGuest, matchBuyable.getTeamAway().getLogo());
+            tvDateTime.setText(getDate(matchBuyable.getMatchDatetime()));
 
-            try
-            {
-                llSliderItemMatch.setVisibility(View.VISIBLE);
-                matchId = matchBuyable.getId();
-                tvStadiumName.setText(matchBuyable.getStadium().getName());
-                setImageColor(imgHost, matchBuyable.getTeamHome().getLogo());
-                setImageColor(imgGuest, matchBuyable.getTeamAway().getLogo());
-                tvDateTime.setText(getDate(matchBuyable.getMatchDatetime()));
-
-            } catch (Exception e)
-            {
-                Tools.showToast(getContext(), e.getMessage(), R.color.red);
-                llSliderItemMatch.setVisibility(View.GONE);
-
-            }
+        } catch (Exception e)
+        {
+            Tools.showToast(getContext(), e.getMessage(), R.color.red);
+            llSliderItemMatch.setVisibility(View.GONE);
 
         }
 
-        private String getDate (Double matchDatetime)
+    }
+
+    private String getDate(Double matchDatetime)
+    {
+        String shamsi = "";
+        Date d = new Date((new Double(matchDatetime)).longValue());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd " + " " + "hh:mm:ss");
+        String date = dateFormat.format(d);  // formatted date in string
+
+        PersianCalendar persianCalendar = new PersianCalendar();
+        PersianDate pdate = new PersianDate();
+        PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d");
+        //  pdformater1.format(pdate);//1396/05/20
+
+        PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
+        date = String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
+
+        return date;
+    }
+
+    private void setImageColor(ImageView imageView, String link)
+    {
+        try
         {
-            String shamsi = "";
-            Date d = new Date((new Double(matchDatetime)).longValue());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd " + " " + "hh:mm:ss");
-            String date = dateFormat.format(d);  // formatted date in string
-
-            PersianCalendar persianCalendar = new PersianCalendar();
-            PersianDate pdate = new PersianDate();
-            PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d");
-            //  pdformater1.format(pdate);//1396/05/20
-
-            PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
-            date = String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
-
-            return date;
-        }
-
-        private void setImageColor (ImageView imageView, String link)
-        {
-            try
-            {
-                Picasso.with(getContext()).load(link).into(imageView, new Callback()
-                {
-                    @Override
-                    public void onSuccess()
-                    {
-                        // cvContent.setBackgroundColor(Color.TRANSPARENT);
-                    }
-
-                    @Override
-                    public void onError()
-                    {
-                        Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
-                    }
-                });
-            } catch (Exception e)
-            {
-
-            }
-        }
-
-        private void setDataStadiumPosition ()
-        {
-            stadiumPositionModels.add(new StadiumPositionModel("FF328DAA", 1, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF953D3D", 2, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFFE9000", 3, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFFFFC9B", 4, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF00AC62", 5, false));
-
-            stadiumPositionModels.add(new StadiumPositionModel("FF8A3D7D", 6, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF9AB260", 7, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFFF8181", 8, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF0F0060", 9, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFFFC170", 10, false));
-
-            stadiumPositionModels.add(new StadiumPositionModel("FF00EDFF", 11, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF481337", 12, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF009A8F", 13, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFFE0002", 14, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF00FF5D", 15, false));
-
-            stadiumPositionModels.add(new StadiumPositionModel("FFA0F113", 16, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF8A4000", 17, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF0080FF", 18, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFDC0DB3", 19, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF52488A", 20, false));
-
-            stadiumPositionModels.add(new StadiumPositionModel("FFCFD574", 21, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFA8CAEC", 22, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF575657", 23, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF8FC549", 24, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF9A1955", 25, false));
-
-            stadiumPositionModels.add(new StadiumPositionModel("FF8DFFFB", 26, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFA29C00", 27, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF00E600", 28, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFD8B506", 29, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFCF0000", 30, false));
-
-            stadiumPositionModels.add(new StadiumPositionModel("FF948DFF", 31, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFE7EC44", 32, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFD97B00", 33, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFC500FF", 34, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF74FFD0", 35, false));
-
-            stadiumPositionModels.add(new StadiumPositionModel("FF8E7627", 36, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFAC0000", 37, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF828282", 38, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF6E00FF", 39, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF9CE27F", 40, false));
-
-            stadiumPositionModels.add(new StadiumPositionModel("FFFFBAFA", 41, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FFF237FF", 42, false));
-            stadiumPositionModels.add(new StadiumPositionModel("FF440000", 43, false));
-
-            /////
-            stadiumPositionModels.add(new StadiumPositionModel("", 44, false));
-            stadiumPositionModels.add(new StadiumPositionModel("", 45, false));
-            //////
-
-        }
-
-        private void handleSetStadiumLayouts ()
-        {
-            colorPickerView.setColorListener(new ColorEnvelopeListener()
+            Picasso.with(getContext()).load(link).into(imageView, new Callback()
             {
                 @Override
-                public void onColorSelected(ColorEnvelope envelope, boolean fromUser)
+                public void onSuccess()
+                {
+                    // cvContent.setBackgroundColor(Color.TRANSPARENT);
+                }
+
+                @Override
+                public void onError()
+                {
+                    Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
+                }
+            });
+        } catch (Exception e)
+        {
+
+        }
+    }
+
+    private void setDataStadiumPosition()
+    {
+        stadiumPositionModels.add(new StadiumPositionModel("FF328DAA", 1, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF953D3D", 2, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFE9000", 3, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFFC9B", 4, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00AC62", 5, false));
+
+        stadiumPositionModels.add(new StadiumPositionModel("FF8A3D7D", 6, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9AB260", 7, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFF8181", 8, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF0F0060", 9, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFC170", 10, false));
+
+        stadiumPositionModels.add(new StadiumPositionModel("FF00EDFF", 11, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF481337", 12, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF009A8F", 13, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFE0002", 14, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00FF5D", 15, false));
+
+        stadiumPositionModels.add(new StadiumPositionModel("FFA0F113", 16, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8A4000", 17, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF0080FF", 18, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFDC0DB3", 19, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF52488A", 20, false));
+
+        stadiumPositionModels.add(new StadiumPositionModel("FFCFD574", 21, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA8CAEC", 22, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF575657", 23, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF8FC549", 24, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9A1955", 25, false));
+
+        stadiumPositionModels.add(new StadiumPositionModel("FF8DFFFB", 26, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA29C00", 27, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF00E600", 28, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFD8B506", 29, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFCF0000", 30, false));
+
+        stadiumPositionModels.add(new StadiumPositionModel("FF948DFF", 31, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFE7EC44", 32, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFD97B00", 33, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFC500FF", 34, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF74FFD0", 35, false));
+
+        stadiumPositionModels.add(new StadiumPositionModel("FF8E7627", 36, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFAC0000", 37, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF828282", 38, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF6E00FF", 39, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF9CE27F", 40, false));
+
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFBAFA", 41, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FFF237FF", 42, false));
+        stadiumPositionModels.add(new StadiumPositionModel("FF440000", 43, false));
+
+        /////
+        stadiumPositionModels.add(new StadiumPositionModel("", 44, false));
+        stadiumPositionModels.add(new StadiumPositionModel("", 45, false));
+        //////
+
+    }
+
+    private void handleSetStadiumLayouts()
+    {
+        colorPickerView.setColorListener(new ColorEnvelopeListener()
+        {
+            @Override
+            public void onColorSelected(ColorEnvelope envelope, boolean fromUser)
+            {
+
+                for (StadiumPositionModel stadiomModel : stadiumPositionModels)
                 {
 
-                    for (StadiumPositionModel stadiomModel : stadiumPositionModels)
+
+                    if (envelope.getHexCode().equals(stadiomModel.getColor()) && stadiomModel.isFull())
                     {
-
-
-                        if (envelope.getHexCode().equals(stadiomModel.getColor()) && stadiomModel.isFull())
-                        {
-                            Toast.makeText(getContext(), "این جایگاه پر شده است", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        if (envelope.getHexCode().equals(stadiomModel.getColor()))
-                        {
-                            positionIdFromServer = stadiomModel.getId();
-                            Toast.makeText(getActivity(), positionId + "", Toast.LENGTH_SHORT).show();
-
-                        }
+                        Toast.makeText(getContext(), "این جایگاه پر شده است", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (envelope.getHexCode().equals(stadiomModel.getColor()))
+                    {
+                        positionId = stadiomModel.getId();
 
                     }
 
+                }
 
-                    switch (envelope.getHexCode())
-                    {
-                        case "FF328DAA":
-                            setOnePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(0).getNumber());
-                            break;
-                        case "FF953D3D":
-                            setTowPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(1).getNumber());
-                            break;
-                        case "FFFE9000":
-                            setThreePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(2).getNumber());
-                            break;
-                        case "FFFFFC9B":
-                            setFourPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(3).getNumber());
-                            break;
-                        case "FF00AC62":
-                            setFivePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(4).getNumber());
-                            break;
-                        /////5
-                        case "FF8A3D7D":
-                            setSixPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(5).getNumber());
-                            break;
-                        case "FF9AB260":
-                            setSevenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(6).getNumber());
-                            break;
-                        case "FFFF8181":
-                            setEightPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(7).getNumber());
-                            break;
-                        case "FF0F0060":
-                            setNinePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(8).getNumber());
-                            break;
-                        case "FFFFC170":
-                            setTenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(9).getNumber());
-                            break;
-                        ////////10
-                        case "FF00EDFF":
-                            setElevenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(10).getNumber());
-                            break;
-                        case "FF481337":
-                            setTwelvePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(11).getNumber());
-                            break;
-                        case "FF009A8F":
-                            setThirteenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(12).getNumber());
-                            break;
-                        case "FFFE0002":
-                            setFourteenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(13).getNumber());
-                            break;
-                        case "FF00FF5D":
-                            setFiveteenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(14).getNumber());
-                            break;
-                        ////15
-                        case "FFA0F113":
-                            setSixteenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(15).getNumber());
-                            break;
-                        case "FF8A4000":
-                            setSeventeenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(16).getNumber());
-                            break;
-                        case "FF0080FF":
-                            setEighteenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(17).getNumber());
-                            break;
-                        case "FFDC0DB3":
-                            setNineteenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(18).getNumber());
-                            break;
-                        case "FF52488A":
-                            setTwentyPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(19).getNumber());
-                            break;
-                        ////20
 
-                        case "FFCFD574":
-                            setTwentyonePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(20).getNumber());
-                            break;
-                        case "FFA8CAEC":
-                            setTwentytwoPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(21).getNumber());
-                            break;
-                        case "FF575657":
-                            setTwentythreePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(22).getNumber());
-                            break;
-                        case "FF8FC549":
-                            setTwentyfourPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(23).getNumber());
-                            break;
-                        case "FF9A1955":
-                            setTwentyfivePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(24).getNumber());
-                            break;
-                        ///////25
+                switch (envelope.getHexCode())
+                {
+                    case "FF328DAA":
+                        setOnePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(0).getNumber());
+                        break;
+                    case "FF953D3D":
+                        setTowPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(1).getNumber());
+                        break;
+                    case "FFFE9000":
+                        setThreePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(2).getNumber());
+                        break;
+                    case "FFFFFC9B":
+                        setFourPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(3).getNumber());
+                        break;
+                    case "FF00AC62":
+                        setFivePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(4).getNumber());
+                        break;
+                    /////5
+                    case "FF8A3D7D":
+                        setSixPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(5).getNumber());
+                        break;
+                    case "FF9AB260":
+                        setSevenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(6).getNumber());
+                        break;
+                    case "FFFF8181":
+                        setEightPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(7).getNumber());
+                        break;
+                    case "FF0F0060":
+                        setNinePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(8).getNumber());
+                        break;
+                    case "FFFFC170":
+                        setTenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(9).getNumber());
+                        break;
+                    ////////10
+                    case "FF00EDFF":
+                        setElevenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(10).getNumber());
+                        break;
+                    case "FF481337":
+                        setTwelvePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(11).getNumber());
+                        break;
+                    case "FF009A8F":
+                        setThirteenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(12).getNumber());
+                        break;
+                    case "FFFE0002":
+                        setFourteenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(13).getNumber());
+                        break;
+                    case "FF00FF5D":
+                        setFiveteenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(14).getNumber());
+                        break;
+                    ////15
+                    case "FFA0F113":
+                        setSixteenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(15).getNumber());
+                        break;
+                    case "FF8A4000":
+                        setSeventeenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(16).getNumber());
+                        break;
+                    case "FF0080FF":
+                        setEighteenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(17).getNumber());
+                        break;
+                    case "FFDC0DB3":
+                        setNineteenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(18).getNumber());
+                        break;
+                    case "FF52488A":
+                        setTwentyPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(19).getNumber());
+                        break;
+                    ////20
 
-                        case "FF8DFFFB":
-                            setTwentysixPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(25).getNumber());
-                            break;
-                        case "FFA29C00":
-                            setTwentysevenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(26).getNumber());
-                            break;
-                        case "FF00E600":
-                            setTwentyeightPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(27).getNumber());
-                            break;
-                        case "FFD8B506":
-                            setTwentyninePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(28).getNumber());
-                            break;
-                        case "FFCF0000":
-                            setThirtyPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(29).getNumber());
-                            break;
-                        //////30
+                    case "FFCFD574":
+                        setTwentyonePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(20).getNumber());
+                        break;
+                    case "FFA8CAEC":
+                        setTwentytwoPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(21).getNumber());
+                        break;
+                    case "FF575657":
+                        setTwentythreePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(22).getNumber());
+                        break;
+                    case "FF8FC549":
+                        setTwentyfourPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(23).getNumber());
+                        break;
+                    case "FF9A1955":
+                        setTwentyfivePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(24).getNumber());
+                        break;
+                    ///////25
 
-                        case "FF948DFF":
-                            setThirtyonePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(30).getNumber());
-                            break;
-                        case "FFE7EC44":
-                            setThirtytwoPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(31).getNumber());
-                            break;
-                        case "FFD97B00":
-                            setThirtythreePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(32).getNumber());
-                            break;
-                        case "FFC500FF":
-                            setThirtyfourPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(33).getNumber());
-                            break;
-                        case "FF74FFD0":
-                            setThirtyfivePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(34).getNumber());
-                            break;
-                        //////////35
+                    case "FF8DFFFB":
+                        setTwentysixPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(25).getNumber());
+                        break;
+                    case "FFA29C00":
+                        setTwentysevenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(26).getNumber());
+                        break;
+                    case "FF00E600":
+                        setTwentyeightPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(27).getNumber());
+                        break;
+                    case "FFD8B506":
+                        setTwentyninePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(28).getNumber());
+                        break;
+                    case "FFCF0000":
+                        setThirtyPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(29).getNumber());
+                        break;
+                    //////30
 
-                        case "FF8E7627":
-                            setThirtysixPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(35).getNumber());
-                            break;
-                        case "FFAC0000":
-                            setThirtysevenPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(36).getNumber());
-                            break;
-                        case "FF828282":
-                            setThirtyeightPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(37).getNumber());
-                            break;
-                        case "FF6E00FF":
-                            setThirtyninePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(38).getNumber());
-                            break;
-                        case "FF9CE27F":
-                            setfourtyPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(39).getNumber());
-                            break;
-                        //////40
+                    case "FF948DFF":
+                        setThirtyonePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(30).getNumber());
+                        break;
+                    case "FFE7EC44":
+                        setThirtytwoPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(31).getNumber());
+                        break;
+                    case "FFD97B00":
+                        setThirtythreePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(32).getNumber());
+                        break;
+                    case "FFC500FF":
+                        setThirtyfourPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(33).getNumber());
+                        break;
+                    case "FF74FFD0":
+                        setThirtyfivePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(34).getNumber());
+                        break;
+                    //////////35
 
-                        case "FFFFBAFA":
-                            setfourtyonePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(40).getNumber());
-                            break;
-                        case "FFF237FF":
-                            setfourtytwoPositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(41).getNumber());
-                            break;
-                        case "FF440000":
-                            setfourtythreePositionSelected();
-                            setSpinnerPositionSelected(stadiumPositionModels.get(42).getNumber());
-                            break;
+                    case "FF8E7627":
+                        setThirtysixPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(35).getNumber());
+                        break;
+                    case "FFAC0000":
+                        setThirtysevenPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(36).getNumber());
+                        break;
+                    case "FF828282":
+                        setThirtyeightPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(37).getNumber());
+                        break;
+                    case "FF6E00FF":
+                        setThirtyninePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(38).getNumber());
+                        break;
+                    case "FF9CE27F":
+                        setfourtyPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(39).getNumber());
+                        break;
+                    //////40
+
+                    case "FFFFBAFA":
+                        setfourtyonePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(40).getNumber());
+                        break;
+                    case "FFF237FF":
+                        setfourtytwoPositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(41).getNumber());
+                        break;
+                    case "FF440000":
+                        setfourtythreePositionSelected();
+                        setSpinnerPositionSelected(stadiumPositionModels.get(42).getNumber());
+                        break;
                    /* case "":
                         ivSelected.setImageResource(R.drawable.ic_fourteen_full);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -498,462 +503,463 @@ public class SelectPositionFragment
                         ivSelected.setImageResource(R.drawable.ic_fourteen_full);
                         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         break;*/
-                        //////////45
-                    }
-
-                    Log.e("tesstt", envelope.getHexCode() + "");
+                    //////////45
                 }
-            });
-        }
 
-        private void setfourtythreePositionSelected ()
+                Log.e("tesstt", envelope.getHexCode() + "");
+            }
+        });
+    }
+
+    private void setfourtythreePositionSelected()
+    {
+        selectPositionId = 43;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourty_three);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setfourtytwoPositionSelected()
+    {
+        selectPositionId = 42;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourty_two);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setfourtyonePositionSelected()
+    {
+        selectPositionId = 41;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourty_one);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setfourtyPositionSelected()
+    {
+        selectPositionId = 40;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourty);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyninePositionSelected()
+    {
+        selectPositionId = 39;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_nine);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyeightPositionSelected()
+    {
+        selectPositionId = 38;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_eight);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtysevenPositionSelected()
+    {
+        selectPositionId = 37;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_seven);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtysixPositionSelected()
+    {
+        selectPositionId = 36;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_six);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyfivePositionSelected()
+    {
+        selectPositionId = 35;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_five);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyfourPositionSelected()
+    {
+        selectPositionId = 34;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_four);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtythreePositionSelected()
+    {
+        selectPositionId = 33;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_three);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtytwoPositionSelected()
+    {
+        selectPositionId = 32;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_two);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyonePositionSelected()
+    {
+        selectPositionId = 31;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty_one);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirtyPositionSelected()
+    {
+        selectPositionId = 30;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirty);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+
+    }
+
+    private void setTwentyninePositionSelected()
+    {
+        selectPositionId = 29;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_nine);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentyeightPositionSelected()
+    {
+        selectPositionId = 28;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_eight);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentysevenPositionSelected()
+    {
+        selectPositionId = 27;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_seven);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentysixPositionSelected()
+    {
+        selectPositionId = 26;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_six);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentyfivePositionSelected()
+    {
+        selectPositionId = 25;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_five);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentyfourPositionSelected()
+    {
+        selectPositionId = 24;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_four);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentythreePositionSelected()
+    {
+        selectPositionId = 23;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_three);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentytwoPositionSelected()
+    {
+        selectPositionId = 22;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_two);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    }
+
+    private void setTwentyonePositionSelected()
+    {
+        selectPositionId = 21;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty_one);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwentyPositionSelected()
+    {
+        selectPositionId = 20;
+        ivSelected.setImageResource(R.drawable.ic_selected_twenty);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setNineteenPositionSelected()
+    {
+        selectPositionId = 19;
+        ivSelected.setImageResource(R.drawable.ic_selected_nineteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setEighteenPositionSelected()
+    {
+        selectPositionId = 18;
+        ivSelected.setImageResource(R.drawable.ic_selected_eighteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setSeventeenPositionSelected()
+    {
+        selectPositionId = 17;
+        ivSelected.setImageResource(R.drawable.ic_selected_seventeen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setSixteenPositionSelected()
+    {
+        selectPositionId = 16;
+        ivSelected.setImageResource(R.drawable.ic_selected_sixteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setFiveteenPositionSelected()
+    {
+        selectPositionId = 15;
+        ivSelected.setImageResource(R.drawable.ic_selected_fifteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setFourteenPositionSelected()
+    {
+        selectPositionId = 14;
+        ivSelected.setImageResource(R.drawable.ic_selected_fourteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThirteenPositionSelected()
+    {
+        selectPositionId = 13;
+        ivSelected.setImageResource(R.drawable.ic_selected_thirteen);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTwelvePositionSelected()
+    {
+        selectPositionId = 12;
+        ivSelected.setImageResource(R.drawable.ic_selected_twelve);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setElevenPositionSelected()
+    {
+        selectPositionId = 11;
+        ivSelected.setImageResource(R.drawable.ic_selected_eleven);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setTenPositionSelected()
+    {
+        selectPositionId = 10;
+        ivSelected.setImageResource(R.drawable.ic_selected_ten);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setNinePositionSelected()
+    {
+        selectPositionId = 9;
+        ivSelected.setImageResource(R.drawable.ic_selected_nine);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setEightPositionSelected()
+    {
+        selectPositionId = 8;
+        ivSelected.setImageResource(R.drawable.ic_selected_eight);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setSevenPositionSelected()
+    {
+        selectPositionId = 7;
+        ivSelected.setImageResource(R.drawable.ic_selected_seven);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setSixPositionSelected()
+    {
+        selectPositionId = 6;
+        ivSelected.setImageResource(R.drawable.ic_selected_six);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setFivePositionSelected()
+    {
+        selectPositionId = 5;
+        ivSelected.setImageResource(R.drawable.ic_selected_five);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setFourPositionSelected()
+    {
+        selectPositionId = 4;
+        ivSelected.setImageResource(R.drawable.ic_selected_four);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    }
+
+    private void setThreePositionSelected()
+    {
+        selectPositionId = 3;
+        ivSelected.setImageResource(R.drawable.ic_selected_three);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    }
+
+    private void setTowPositionSelected()
+    {
+        selectPositionId = 2;
+        ivSelected.setImageResource(R.drawable.ic_selected_two);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    }
+
+    private void setOnePositionSelected()
+    {
+        selectPositionId = 1;
+        ivSelected.setImageResource(R.drawable.ic_selected_one);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    }
+
+          private void setSpinnerPositionSelected(Integer numberPosition)
+          {
+        try
         {
-            selectPositionId = 43;
-            ivSelected.setImageResource(R.drawable.ic_selected_fourty_three);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setfourtytwoPositionSelected ()
-        {
-            selectPositionId = 42;
-            ivSelected.setImageResource(R.drawable.ic_selected_fourty_two);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setfourtyonePositionSelected ()
-        {
-            selectPositionId = 41;
-            ivSelected.setImageResource(R.drawable.ic_selected_fourty_one);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setfourtyPositionSelected ()
-        {
-            selectPositionId = 40;
-            ivSelected.setImageResource(R.drawable.ic_selected_fourty);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtyninePositionSelected ()
-        {
-            selectPositionId = 39;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty_nine);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtyeightPositionSelected ()
-        {
-            selectPositionId = 38;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty_eight);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtysevenPositionSelected ()
-        {
-            selectPositionId = 37;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty_seven);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtysixPositionSelected ()
-        {
-            selectPositionId = 36;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty_six);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtyfivePositionSelected ()
-        {
-            selectPositionId = 35;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty_five);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtyfourPositionSelected ()
-        {
-            selectPositionId = 34;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty_four);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtythreePositionSelected ()
-        {
-            selectPositionId = 33;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty_three);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtytwoPositionSelected ()
-        {
-            selectPositionId = 32;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty_two);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtyonePositionSelected ()
-        {
-            selectPositionId = 31;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty_one);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirtyPositionSelected ()
-        {
-            selectPositionId = 30;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirty);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-
-        }
-
-        private void setTwentyninePositionSelected ()
-        {
-            selectPositionId = 29;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty_nine);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTwentyeightPositionSelected ()
-        {
-            selectPositionId = 28;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty_eight);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTwentysevenPositionSelected ()
-        {
-            selectPositionId = 27;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty_seven);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTwentysixPositionSelected ()
-        {
-            selectPositionId = 26;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty_six);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTwentyfivePositionSelected ()
-        {
-            selectPositionId = 25;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty_five);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTwentyfourPositionSelected ()
-        {
-            selectPositionId = 24;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty_four);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTwentythreePositionSelected ()
-        {
-            selectPositionId = 23;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty_three);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTwentytwoPositionSelected ()
-        {
-            selectPositionId = 22;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty_two);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        }
-
-        private void setTwentyonePositionSelected ()
-        {
-            selectPositionId = 21;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty_one);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTwentyPositionSelected ()
-        {
-            selectPositionId = 20;
-            ivSelected.setImageResource(R.drawable.ic_selected_twenty);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setNineteenPositionSelected ()
-        {
-            selectPositionId = 19;
-            ivSelected.setImageResource(R.drawable.ic_selected_nineteen);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setEighteenPositionSelected ()
-        {
-            selectPositionId = 18;
-            ivSelected.setImageResource(R.drawable.ic_selected_eighteen);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setSeventeenPositionSelected ()
-        {
-            selectPositionId = 17;
-            ivSelected.setImageResource(R.drawable.ic_selected_seventeen);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setSixteenPositionSelected ()
-        {
-            selectPositionId = 16;
-            ivSelected.setImageResource(R.drawable.ic_selected_sixteen);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setFiveteenPositionSelected ()
-        {
-            selectPositionId = 15;
-            ivSelected.setImageResource(R.drawable.ic_selected_fifteen);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setFourteenPositionSelected ()
-        {
-            selectPositionId = 14;
-            ivSelected.setImageResource(R.drawable.ic_selected_fourteen);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThirteenPositionSelected ()
-        {
-            selectPositionId = 13;
-            ivSelected.setImageResource(R.drawable.ic_selected_thirteen);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTwelvePositionSelected ()
-        {
-            selectPositionId = 12;
-            ivSelected.setImageResource(R.drawable.ic_selected_twelve);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setElevenPositionSelected ()
-        {
-            selectPositionId = 11;
-            ivSelected.setImageResource(R.drawable.ic_selected_eleven);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setTenPositionSelected ()
-        {
-            selectPositionId = 10;
-            ivSelected.setImageResource(R.drawable.ic_selected_ten);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setNinePositionSelected ()
-        {
-            selectPositionId = 9;
-            ivSelected.setImageResource(R.drawable.ic_selected_nine);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setEightPositionSelected ()
-        {
-            selectPositionId = 8;
-            ivSelected.setImageResource(R.drawable.ic_selected_eight);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setSevenPositionSelected ()
-        {
-            selectPositionId = 7;
-            ivSelected.setImageResource(R.drawable.ic_selected_seven);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setSixPositionSelected ()
-        {
-            selectPositionId = 6;
-            ivSelected.setImageResource(R.drawable.ic_selected_six);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setFivePositionSelected ()
-        {
-            selectPositionId = 5;
-            ivSelected.setImageResource(R.drawable.ic_selected_five);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setFourPositionSelected ()
-        {
-            selectPositionId = 4;
-            ivSelected.setImageResource(R.drawable.ic_selected_four);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        }
-
-        private void setThreePositionSelected ()
-        {
-            selectPositionId = 3;
-            ivSelected.setImageResource(R.drawable.ic_selected_three);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        }
-
-        private void setTowPositionSelected ()
-        {
-            selectPositionId = 2;
-            ivSelected.setImageResource(R.drawable.ic_selected_two);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        }
-
-        private void setOnePositionSelected ()
-        {
-            selectPositionId = 1;
-            ivSelected.setImageResource(R.drawable.ic_selected_one);
-            ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        }
-
-        private void setSpinnerPositionSelected (Integer numberPosition)
-        {
-            try
+            for (int i = 0; i < positionIdAllBoxes.size(); i++)
             {
-                for (int i = 0; i < positionIdAllBoxes.size(); i++)
+                if (numberPosition == Integer.valueOf(allBoxes.get(i)))
                 {
-                    if (numberPosition == Integer.valueOf(allBoxes.get(i)))
-                    {
-                        spinnerAllBoxes.setSelection(i);
-                    }
+                    spinnerAllBoxes.setSelection(i);
                 }
-            } catch (Exception e)
-            {
+            }
+        } catch (Exception e)
+        {
 
+        }
+
+    }
+
+              private void getAllBoxesRequest()
+           {
+        GetAllBoxesRequest request = new GetAllBoxesRequest();
+        request.setViewers(count);
+        request.setMatchId(matchId);
+        SingletonService.getInstance().getAllBoxesService().getAllBoxes(new OnServiceStatus<WebServiceClass<GetAllBoxesResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetAllBoxesResponse> response)
+            {
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        setDataSpinnerAllBoxes(response.data.getResults());
+                        setAmounts(response.data.getResults());
+                        allBoxesResponse = response.data.getResults();
+                        setFullPositions(response.data.getResults());
+                    } else
+                    {
+                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+
+                }
             }
 
-        }
-
-        private void getAllBoxesRequest ()
-        {
-            GetAllBoxesRequest request = new GetAllBoxesRequest();
-            request.setViewers(count);
-            request.setMatchId(matchId);
-            SingletonService.getInstance().getAllBoxesService().getAllBoxes(new OnServiceStatus<WebServiceClass<GetAllBoxesResponse>>()
+            @Override
+            public void onError(String message)
             {
-                @Override
-                public void onReady(WebServiceClass<GetAllBoxesResponse> response)
-                {
-                    try
-                    {
-                        if (response.info.statusCode == 200)
-                        {
-                            setDataSpinnerAllBoxes(response.data.getResults());
-                            setAmounts(response.data.getResults());
-                            allBoxesResponse = response.data.getResults();
-                            setFullPositions(response.data.getResults());
-                        } else
-                        {
-                            Tools.showToast(getContext(), response.info.message, R.color.red);
-                        }
-                    } catch (Exception e)
-                    {
-                        Tools.showToast(getContext(), e.getMessage(), R.color.red);
-
-                    }
-                }
-
-                @Override
-                public void onError(String message)
-                {
                /* btnMyBills.revertAnimation(BillFragment.this);
                 btnMyBills.setClickable(true);*/
-                    Tools.showToast(getActivity(), message, R.color.red);
-                }
-            }, request);
-        }
+                Tools.showToast(getActivity(), message, R.color.red);
+            }
+        }, request);
+    }
 
-        private void setFullPositions (List < AllBoxesResult > results)
-        {
-            Observable.fromIterable(results)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<AllBoxesResult>()
+              private void setFullPositions(List<AllBoxesResult> results)
+           {
+               Observable.fromIterable(results)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<AllBoxesResult>()
+                {
+                    @Override
+                    public void onSubscribe(Disposable d)
                     {
-                        @Override
-                        public void onSubscribe(Disposable d)
+                    }
+
+                    @Override
+                    public void onComplete()
+                    {
+                        initFullPart();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e)
+                    {
+
+                    }
+
+                    @Override
+                    public void onNext(AllBoxesResult result)
+                    {
+                        for (StadiumPositionModel stadiomModel : stadiumPositionModels)
                         {
-                        }
 
-                        @Override
-                        public void onComplete()
-                        {
-                            initFullPart();
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e)
-                        {
-
-                        }
-
-                        @Override
-                        public void onNext(AllBoxesResult result)
-                        {
-                            for (StadiumPositionModel stadiomModel : stadiumPositionModels)
+                            if (stadiomModel.getNumber().toString().equals(result.getName()))
                             {
+                                stadiomModel.setId(result.getId());
 
-                                if (stadiomModel.getNumber().toString().equals(result.getName()))
-                                {
-                                    stadiomModel.setId(result.getId());
-
-                                    if (stadiomModel.isFull())
-                                        stadiomModel.setFull(false);
-                                }
-
+                                if (stadiomModel.isFull())
+                                    stadiomModel.setFull(false);
                             }
 
-
                         }
-                    });
-        }
 
 
-        public void initFullPart () {
+                    }
+                });
+          }
 
-        Observable.fromIterable(stadiumPositionModels)
+
+        public void initFullPart()
+             {
+
+              Observable.fromIterable(stadiumPositionModels)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<StadiumPositionModel>()
@@ -984,7 +990,7 @@ public class SelectPositionFragment
                             imgView = new ImageView(getContext());
                             rlImageViewsFull.addView(imgView);
                             imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            imgView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams                           .MATCH_PARENT));
+                            imgView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
                             switch (partStadiomModel.getNumber())
                             {
                                 case 1:
@@ -1139,202 +1145,203 @@ public class SelectPositionFragment
 
     }
 
-        private void setAmounts (List < AllBoxesResult > results)
+    private void setAmounts(List<AllBoxesResult> results)
+    {
+        amountForPay = results.get(0).getTicketAmount() * count;
+        amountOneTicket = results.get(0).getTicketAmount();
+        tvAmountStation.setText("قیمت بلیت این جایگاه :" + Utility.priceFormat(results.get(0).getTicketAmount().toString()) + " ریال");
+        tvAmountForPay.setText("مبلغ قابل پرداخت :" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+    }
+
+    private void setDataSpinnerAllBoxes(List<AllBoxesResult> result)
+    {
+        allBoxes = new ArrayList<String>();
+        positionIdAllBoxes = new ArrayList<Integer>();
+
+        for (int i = 0; i < result.size(); i++)
         {
-            amountForPay = results.get(0).getTicketAmount() * count;
-            amountOneTicket = results.get(0).getTicketAmount();
-            tvAmountStation.setText("قیمت بلیت این جایگاه :" + Utility.priceFormat(results.get(0).getTicketAmount().toString()) + " ریال");
-            tvAmountForPay.setText("مبلغ قابل پرداخت :" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+            allBoxes.add(result.get(i).getName());
+            positionIdAllBoxes.add(result.get(i).getId());
         }
-
-        private void setDataSpinnerAllBoxes (List < AllBoxesResult > result)
+        ArrayAdapter<String> adapterAllBoxes = new ArrayAdapter<String>(getActivity(),
+                R.layout.simple_spinner_item, allBoxes);
+        adapterAllBoxes.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinnerAllBoxes.setAdapter(adapterAllBoxes);
+        spinnerAllBoxes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
-            allBoxes = new ArrayList<String>();
-            positionIdAllBoxes = new ArrayList<Integer>();
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
 
-            for (int i = 0; i < result.size(); i++)
-            {
-                allBoxes.add(result.get(i).getName());
-                positionIdAllBoxes.add(result.get(i).getId());
-            }
-            ArrayAdapter<String> adapterAllBoxes = new ArrayAdapter<String>(getActivity(),
-                    R.layout.simple_spinner_item, allBoxes);
-            adapterAllBoxes.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
-            spinnerAllBoxes.setAdapter(adapterAllBoxes);
-            spinnerAllBoxes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-            {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                try
                 {
-
-                    try
+                    switch (result.get(position).getName())
                     {
-                        switch (result.get(position).getName())
-                        {
-                            case "1":
-                                setOnePositionSelected();
-                                break;
-                            case "2":
-                                setTowPositionSelected();
-                                break;
-                            case "3":
-                                setThreePositionSelected();
-                                break;
-                            case "4":
-                                setFourPositionSelected();
-                                break;
-                            case "5":
-                                setFivePositionSelected();
-                                break;
+                        case "1":
+                            setOnePositionSelected();
+                            break;
+                        case "2":
+                            setTowPositionSelected();
+                            break;
+                        case "3":
+                            setThreePositionSelected();
+                            break;
+                        case "4":
+                            setFourPositionSelected();
+                            break;
+                        case "5":
+                            setFivePositionSelected();
+                            break;
 
 
-                            case "6":
-                                setSixPositionSelected();
-                                break;
-                            case "7":
-                                setSevenPositionSelected();
-                                break;
-                            case "8":
-                                setEightPositionSelected();
-                                break;
-                            case "9":
-                                setNinePositionSelected();
-                                break;
-                            case "10":
-                                setTenPositionSelected();
-                                break;
+                        case "6":
+                            setSixPositionSelected();
+                            break;
+                        case "7":
+                            setSevenPositionSelected();
+                            break;
+                        case "8":
+                            setEightPositionSelected();
+                            break;
+                        case "9":
+                            setNinePositionSelected();
+                            break;
+                        case "10":
+                            setTenPositionSelected();
+                            break;
 
 
-                            case "11":
-                                setElevenPositionSelected();
-                                break;
-                            case "12":
-                                setTwelvePositionSelected();
-                                break;
-                            case "13":
-                                setThirteenPositionSelected();
-                                break;
-                            case "14":
-                                setFourteenPositionSelected();
-                                break;
-                            case "15":
-                                setFiveteenPositionSelected();
-                                break;
+                        case "11":
+                            setElevenPositionSelected();
+                            break;
+                        case "12":
+                            setTwelvePositionSelected();
+                            break;
+                        case "13":
+                            setThirteenPositionSelected();
+                            break;
+                        case "14":
+                            setFourteenPositionSelected();
+                            break;
+                        case "15":
+                            setFiveteenPositionSelected();
+                            break;
 
 
-                            case "16":
-                                setSixteenPositionSelected();
-                                break;
-                            case "17":
-                                setSeventeenPositionSelected();
-                                break;
-                            case "18":
-                                setEighteenPositionSelected();
-                                break;
-                            case "19":
-                                setNineteenPositionSelected();
-                                break;
-                            case "20":
-                                setTwentyPositionSelected();
-                                break;
+                        case "16":
+                            setSixteenPositionSelected();
+                            break;
+                        case "17":
+                            setSeventeenPositionSelected();
+                            break;
+                        case "18":
+                            setEighteenPositionSelected();
+                            break;
+                        case "19":
+                            setNineteenPositionSelected();
+                            break;
+                        case "20":
+                            setTwentyPositionSelected();
+                            break;
 
 
-                            case "21":
-                                setTwentyonePositionSelected();
-                                break;
-                            case "22":
-                                setTwentytwoPositionSelected();
-                                break;
-                            case "23":
-                                setTwentythreePositionSelected();
-                                break;
-                            case "24":
-                                setTwentyfourPositionSelected();
-                                break;
-                            case "25":
-                                setTwentyfivePositionSelected();
-                                break;
+                        case "21":
+                            setTwentyonePositionSelected();
+                            break;
+                        case "22":
+                            setTwentytwoPositionSelected();
+                            break;
+                        case "23":
+                            setTwentythreePositionSelected();
+                            break;
+                        case "24":
+                            setTwentyfourPositionSelected();
+                            break;
+                        case "25":
+                            setTwentyfivePositionSelected();
+                            break;
 
 
-                            case "26":
-                                setTwentysixPositionSelected();
-                                break;
-                            case "27":
-                                setTwentysevenPositionSelected();
-                                break;
-                            case "28":
-                                setTwentyeightPositionSelected();
-                                break;
-                            case "29":
-                                setTwentyninePositionSelected();
-                                break;
-                            case "30":
-                                setThirtyPositionSelected();
-                                break;
+                        case "26":
+                            setTwentysixPositionSelected();
+                            break;
+                        case "27":
+                            setTwentysevenPositionSelected();
+                            break;
+                        case "28":
+                            setTwentyeightPositionSelected();
+                            break;
+                        case "29":
+                            setTwentyninePositionSelected();
+                            break;
+                        case "30":
+                            setThirtyPositionSelected();
+                            break;
 
 
-                            case "31":
-                                setThirtyonePositionSelected();
-                                break;
-                            case "32":
-                                setThirtytwoPositionSelected();
-                                break;
-                            case "33":
-                                setThirtythreePositionSelected();
-                                break;
-                            case "34":
-                                setThirtyfourPositionSelected();
-                                break;
-                            case "35":
-                                setThirtyfivePositionSelected();
-                                break;
+                        case "31":
+                            setThirtyonePositionSelected();
+                            break;
+                        case "32":
+                            setThirtytwoPositionSelected();
+                            break;
+                        case "33":
+                            setThirtythreePositionSelected();
+                            break;
+                        case "34":
+                            setThirtyfourPositionSelected();
+                            break;
+                        case "35":
+                            setThirtyfivePositionSelected();
+                            break;
 
 
-                            case "36":
-                                setThirtysixPositionSelected();
-                                break;
-                            case "37":
-                                setThirtysevenPositionSelected();
-                                break;
-                            case "38":
-                                setThirtyeightPositionSelected();
-                                break;
-                            case "39":
-                                setThirtyninePositionSelected();
-                                break;
-                            case "40":
-                                setfourtyPositionSelected();
-                                break;
+                        case "36":
+                            setThirtysixPositionSelected();
+                            break;
+                        case "37":
+                            setThirtysevenPositionSelected();
+                            break;
+                        case "38":
+                            setThirtyeightPositionSelected();
+                            break;
+                        case "39":
+                            setThirtyninePositionSelected();
+                            break;
+                        case "40":
+                            setfourtyPositionSelected();
+                            break;
 
 
-                            case "41":
-                                setfourtyonePositionSelected();
-                                break;
-                            case "42":
-                                setfourtytwoPositionSelected();
-                                break;
-                            case "43":
-                                setfourtythreePositionSelected();
-                                break;
-
-                        }
-
-                    } catch (Exception e)
-                    {
+                        case "41":
+                            setfourtyonePositionSelected();
+                            break;
+                        case "42":
+                            setfourtytwoPositionSelected();
+                            break;
+                        case "43":
+                            setfourtythreePositionSelected();
+                            break;
 
                     }
-                }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent)
+                } catch (Exception e)
                 {
+
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+    }
 
 
-        @Override
-        public void onAttach (Context context){
+    @Override
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
         // activity must implement OnListFragmentInteractionListener
         if (context instanceof OnListFragmentInteractionListener)
@@ -1347,60 +1354,77 @@ public class SelectPositionFragment
         }
     }
 
-        @Override
-        public void onDetach () {
+    @Override
+    public void onDetach()
+    {
         super.onDetach();
         interactionListener = null;
     }
 
-        @Override
-        public void onClick (View v)
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
         {
-            switch (v.getId())
-            {
-                case R.id.btnPaymentConfirm:
-                    // checkIdFromEachPosition();
-                    Prefs.putInt("PositionId", selectPositionId);
-                    Prefs.putInt("CountTicket", count);
-                    onClickContinueBuyTicketListener.onContinueClicked();
-                    //  callReservationRequest();
-                    //  onClickContinueBuyTicketListener.onContinueSelectPosiotionClicked(count,selectPositionId);
-                    break;
+            case R.id.btnPaymentConfirm:
+                // checkIdFromEachPosition();
+               /* Prefs.putInt("PositionId",selectPositionId);
+                Prefs.putInt("CountTicket",count);*/
+                callReservationRequest();
+
+                break;
            /* case R.id.btnBackToDetail:
                 onClickContinueBuyTicketListener.onBackClicked();
                 break;*/
-                case R.id.tvM:
-                    if (count > 1)
-                        count--;
-                    break;
-                case R.id.tvP:
-                    if (count < 5)
-                        count++;
-                    break;
-            }
-            setAmounts(count);
-            tvCount.setText(String.valueOf(count));
+            case R.id.tvM:
+                if (count > 1)
+                    count--;
+                break;
+            case R.id.tvP:
+                if (count < 5)
+                    count++;
+                break;
         }
-
-        private void callReservationRequest ()
-        {
-
-        }
-
-        private void setAmounts ( int countTicket)
-        {
-            amountForPay = amountOneTicket * countTicket;
-            tvAmountForPay.setText("مبلغ قابل پرداخت " + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
-        }
-
-        /**
-         * This interface must be implemented by activities that contain this
-         * fragment to allow an interaction in this fragment to be communicated
-         * <p/>
-         */
-        public interface OnListFragmentInteractionListener
-        {
-            // void onListFragmentInteraction(SubMenuModel item);
-        }
+        setAmounts(count);
+        tvCount.setText(String.valueOf(count));
     }
+
+    private void callReservationRequest()
+    {
+
+        reservationMatch.reservationRequest(this, matchId, count,stadiumPositionModels.get(selectPositionId).getId()-1);
+    }
+
+    private void setAmounts(int countTicket)
+    {
+        amountForPay = amountOneTicket * countTicket;
+        tvAmountForPay.setText("مبلغ قابل پرداخت " + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+    }
+
+    @Override
+    public void onFinishedReservation(ReservationResponse response)
+    {
+        Tools.showToast(getContext(), "با موفقیت رزرو شد");
+        BuyTickets.buyTickets.setDate(selectPositionId, count, amountForPay);
+        onClickContinueBuyTicketListener.onContinueClicked();
+
+    }
+
+    @Override
+    public void onErrorReservation(String error)
+    {
+
+        Tools.showToast(getContext(), error, R.color.red);
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * <p/>
+     */
+    public interface OnListFragmentInteractionListener
+    {
+        // void onListFragmentInteraction(SubMenuModel item);
+    }
+}
 

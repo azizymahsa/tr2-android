@@ -178,7 +178,6 @@
                                             android:src="@drawable/bottom_dis" />
                                     </RelativeLayout>
 
-
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -197,7 +196,7 @@
                                         android:gravity="center"
                                         android:rotation="90"
                                         android:singleLine="true"
-                                        android:text="جایگاه 14"
+                                        android:text="جایگاه "
                                         android:textColor="@color/_title_black"
                                         android:textSize="@dimen/textSize_12dp" />
 
