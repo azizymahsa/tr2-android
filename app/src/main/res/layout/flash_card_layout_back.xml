@@ -19,8 +19,8 @@
         android:orientation="horizontal"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
         android:gravity="center"
         android:background="#da000000">
 
@@ -28,7 +28,7 @@
             android:id="@+id/imgDelete"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:foreground="?attr/selectableItemBackground"
             android:tint="@color/colorDelete"
             app:srcCompat="@drawable/ic_delete"/>
@@ -37,7 +37,7 @@
             android:id="@+id/vDelete"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/shadow_back_card" />
 
 <!--        <ImageView-->
@@ -59,7 +59,7 @@
             android:id="@+id/imgEdit"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:foreground="?attr/selectableItemBackground"
             android:tint="@color/colorEditCard"
             app:srcCompat="@drawable/ic_check_card"/>
@@ -74,14 +74,14 @@
                 android:id="@+id/vChangePass"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/shadow_back_card" />
 
             <ImageView
                 android:id="@+id/imgChangePass"
                 android:layout_width="@dimen/_35dp"
                 android:layout_height="@dimen/_35dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:foreground="?attr/selectableItemBackground"
                 android:tint="@color/colorChangePassCard"
                 app:srcCompat="@drawable/ic_lock"/>
@@ -97,7 +97,7 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/shadow_back_card" />
 
             <ImageView

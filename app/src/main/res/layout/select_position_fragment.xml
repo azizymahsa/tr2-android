@@ -13,7 +13,7 @@
         android:id="@+id/llSliderItemMatch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:orientation="horizontal"
         android:visibility="visible">
 
@@ -44,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
+        android:layoutDirection="ltr"
         android:layout_marginBottom="@dimen/_10dp"
         android:orientation="horizontal"
         android:gravity="center"
@@ -95,7 +96,7 @@
             android:layout_height="match_parent"
             android:text="تعداد بلیت های درخواستی شما:"
             android:textColor="@color/textColorStadiumName"
-            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginStart="@dimen/_10dp"
             android:textSize="@dimen/textSize_14dp"
             android:gravity="center"
             android:textAppearance="@style/IranSansBoldf"
@@ -109,6 +110,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
         android:gravity="center"
         android:layout_marginTop="@dimen/_10dp"
         android:layout_marginBottom="@dimen/_10dp"
@@ -121,13 +123,13 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:paddingLeft="@dimen/_10dp"
+            android:gravity="end"
+            android:paddingStart="@dimen/_10dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="راهنما:"
                 android:textColor="@color/warmGray"
                 android:textSize="@dimen/textSize_12dp"
@@ -136,15 +138,15 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="right|center"
+                android:gravity="end|center"
                 android:layout_marginTop="3dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:gravity="center"
                     android:text="قابل انتخاب"
                     android:textColor="@color/warmGray"
@@ -163,15 +165,15 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="right|center"
+                android:gravity="end|center"
                 android:layout_marginTop="3dp"
 
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="غیر قابل انتخاب"
@@ -190,14 +192,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="right|center"
+                android:gravity="end|center"
                 android:layout_marginTop="3dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="انتخاب شده"
@@ -219,7 +221,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:gravity="start"
         android:layout_gravity="top"
         android:layout_marginTop="@dimen/_10dp"
         android:layout_weight="60"
@@ -289,22 +291,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layoutDirection="ltr"
             android:layout_weight="40">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="انتخاب جایگاه از لیست :"
                 android:layout_marginBottom="@dimen/_10dp"
                 android:textColor="@color/warmGray"
                 android:textSize="@dimen/textSize_14dp"
-                android:layout_gravity="right"/>
+                android:layout_gravity="end"/>
             <Spinner
                 android:id="@+id/spinnerAllBoxes"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35dp"
                 android:layout_gravity="center"
-                android:gravity="right"
+                android:gravity="end"
                 android:tag="allBox"
                 android:background="@drawable/background_spinner_custom" />
 

@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="horizontal">
 
                 <Space
@@ -156,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="horizontal">
 
                 <Space
@@ -194,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="horizontal">
 
                 <Space
@@ -233,7 +233,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="horizontal">
 
                 <Space
@@ -272,7 +272,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="horizontal">
 
                 <Space
@@ -310,7 +310,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="horizontal">
 
                 <Space
@@ -351,7 +351,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="horizontal">
 
                 <Space
@@ -392,7 +392,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
                 android:layout_marginBottom="@dimen/_20dp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="horizontal">
 
                 <Space

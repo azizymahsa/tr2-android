@@ -45,7 +45,7 @@
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:background="@drawable/alert_backgroundd"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="مشاهده تغییرات"
@@ -60,9 +60,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="100"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:textStyle="bold"
                 android:text="بروزرسانی"
                 android:textSize="@dimen/_14sdp"
@@ -75,8 +75,8 @@
             android:id="@+id/tvDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:gravity="center"
             android:text="بروزرسانی"
@@ -95,7 +95,7 @@
                 android:id="@+id/flCafeBazaarUpdate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_weight="100">
 
                 <ImageView
@@ -119,7 +119,7 @@
                     android:id="@+id/btnGooglePlayUpdate"
                     android:layout_width="@dimen/_101sdp"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:scaleType="fitCenter"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_download_playstore"
@@ -140,7 +140,7 @@
                 android:id="@+id/flConfirmUpdate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_weight="100">
 
                 <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
@@ -166,7 +166,7 @@
                 android:id="@+id/flWebSite"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_weight="100">
 
                 <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
@@ -201,7 +201,7 @@
                 android:id="@+id/flCancelUpdate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_weight="100">
 
                 <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
