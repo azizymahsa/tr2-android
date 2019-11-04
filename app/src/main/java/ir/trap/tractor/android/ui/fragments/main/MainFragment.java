@@ -187,12 +187,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvF6.setText(footballServiceList.get(4).getTitle());
         tvF5.setText(footballServiceList.get(5).getTitle());
 
-        setImageIntoIV(imgF2, footballServiceList.get(0).getImageName());
-        setImageIntoIV(imgF1, footballServiceList.get(1).getImageName());
-        setImageIntoIV(imgF4, footballServiceList.get(2).getImageName());
-        setImageIntoIV(imgF3, footballServiceList.get(3).getImageName());
-        setImageIntoIV(imgF6, footballServiceList.get(4).getImageName());
-        setImageIntoIV(imgF5, footballServiceList.get(5).getImageName());
+        setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ","%20"));
+        setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ","%20"));
+        setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ","%20"));
+        setImageIntoIV(imgF3, footballServiceList.get(3).getImageName().replace(" ","%20"));
+        setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ","%20"));
+        setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ","%20"));
 
         rlPredict.setOnClickListener(v ->
         {

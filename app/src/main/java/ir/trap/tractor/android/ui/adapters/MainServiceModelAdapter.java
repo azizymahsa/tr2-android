@@ -56,7 +56,7 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
 
         try
         {
-            Picasso.with(mContext).load(item.getImageLink()).into(holder.image, new Callback()
+            Picasso.with(mContext).load(item.getImageLink().replace(" ","%20")).into(holder.image, new Callback()
             {
                 @Override
                 public void onSuccess()

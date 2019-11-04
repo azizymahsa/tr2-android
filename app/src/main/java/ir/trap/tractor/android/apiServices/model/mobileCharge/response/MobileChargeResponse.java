@@ -11,6 +11,10 @@ import ir.trap.tractor.android.apiServices.model.ServiceMessage;
 public class MobileChargeResponse
 {
 
+    @SerializedName("amount")
+    @Expose
+    private Integer amount;
+
     @SerializedName("TrnBizKey")
     @Expose
     private String trnBizKey;
@@ -22,6 +26,17 @@ public class MobileChargeResponse
     @SerializedName("create_date")
     @Expose
     private String createDate;
+
+
+    public Integer getAmount()
+    {
+        return amount;
+    }
+
+    public void setAmount(Integer amount)
+    {
+        this.amount = amount;
+    }
 
     public String getTrnBizKey() {
         return trnBizKey;

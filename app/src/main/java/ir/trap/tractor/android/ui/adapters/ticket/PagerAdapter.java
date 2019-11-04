@@ -1,15 +1,12 @@
 package ir.trap.tractor.android.ui.adapters.ticket;
 
-import android.view.View;
-import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import ir.trap.tractor.android.R;
-import ir.trap.tractor.android.conf.TrapConfig;
-import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
+import java.util.List;
+
+import ir.trap.tractor.android.apiServices.model.buyTicket.InfoViewer;
 import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
@@ -17,8 +14,9 @@ import ir.trap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.trap.tractor.android.ui.fragments.payment.PaymentParentActionView;
 import ir.trap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
+import ir.trap.tractor.android.ui.fragments.ticket.CountTicketFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
-import ir.trap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
+import ir.trap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
 
 public class PagerAdapter
@@ -32,9 +30,11 @@ public class PagerAdapter
     private int numTabs;
     private CompeletInfoFragment tab2;
     private ShowTicketsFragment tab4;
+    private PaymentFragment tab3;
 
 
-    public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView, OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)
+    public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView
+            , OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)
     {
         super(fm);
         this.numTabs = numTabs;
@@ -57,11 +57,11 @@ public class PagerAdapter
         switch (position)
         {
             case 0:
-                SelectPositionFragment tab1 = SelectPositionFragment.newInstance("TAB2",buyTickets,matchBuyable);
+                SelectPositionFragment tab1 = SelectPositionFragment.newInstance("TAB1",buyTickets,matchBuyable);
 
                 return tab1;
             case 1:
-                 tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
+                 tab2 = CompeletInfoFragment.newInstance("TAB2",buyTickets,mainActionView);
 
                // createInstance();
                 return tab2;
@@ -69,21 +69,18 @@ public class PagerAdapter
               //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTickets, this, onClickContinueBuyTicket);
                // CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3", buyTickets, mainActionView);
                 TicketPaymentInstance paymentInstance = new TicketPaymentInstance();
-                paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_StudiomTicket);
 //                paymentInstance.setFirstName();
 //                paymentInstance.setLastName();
 //                paymentInstance.setNationalCode();
 //                paymentInstance.setTicketId();
-                PaymentFragment tab3 = PaymentFragment.newInstance(onClickContinueBuyTicket,
-                        "",
-                        "",
-                        0,
-                        "",
-                        paymentInstance);
+//                PaymentFragment tab3 = PaymentFragment.newInstance(this,
+//                        "",
+//                        "",
+//                        0,
+//                        "",
+//                        paymentInstance);
 
-//               PaymentFragment tab3 = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_StudiomTicket,buyTickets,
-//                       this,onClickContinueBuyTicket);
-
+                ShowTicketsFragment tab3 =ShowTicketsFragment.newInstance("TAB3", buyTickets, mainActionView);
                // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);
 
                 return tab3;
@@ -97,13 +94,16 @@ public class PagerAdapter
         }
     }
 
-    public void createInstance()
+    public void compeletInfoFragmentData(Integer selectPositionId, Integer count, Integer amountForPay, List<Integer> ticketIdList)
     {
-       // CompeletInfoFragment tab2 = CompeletInfoFragment.newInstance("TAB3",buyTickets,mainActionView);
-        tab2.setVisibilityLayouts();
+        tab2.getDataFormBefore(selectPositionId,count,amountForPay,ticketIdList);
 
     }
+    public void paymentFragmentData(List<InfoViewer> infoViewers)
+    {
+       // tab3.setInfoViewers(infoViewers);
 
+    }
 
     @Override
     public int getCount()
