@@ -18,6 +18,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
 
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.apiServices.generator.SingletonService;
@@ -49,6 +50,8 @@ public class CompeletInfoFragment
     private View llConfirm, llInVisible;
     private MessageAlertDialog.OnConfirmListener listener;
     private String textStation = "";
+    ArrayList<String> numbers = new ArrayList<String>();
+    private int countRepetitive=0;
     public String namePosition;
     String positionName;
     Integer selectPositionId, amountForPay;
@@ -118,8 +121,6 @@ public class CompeletInfoFragment
 
 
     public void initView() {
-        count = Prefs.getInt("CountTicket", 1);
-        textStation = String.valueOf(Prefs.getInt("PositionId", 1));
         etNationalCode_1 = view.findViewById(R.id.etNationalCode_1);
         etFamily_1 = view.findViewById(R.id.etFamily_1);
         etName_1 = view.findViewById(R.id.etName_1);
@@ -170,19 +171,25 @@ public class CompeletInfoFragment
             llBoxTicket3.setVisibility(View.GONE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        } else if (count == 3) {
+        }else
+        if (count == 3)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        } else if (count == 4) {
+        }else
+        if (count == 4)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.VISIBLE);
             llBoxTicket5.setVisibility(View.GONE);
-        } else if (count == 5) {
+        }else
+        if (count == 5)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
@@ -207,6 +214,22 @@ public class CompeletInfoFragment
         etNationalCode_1.setOnFocusChangeListener(this);
         etFamily_1.setOnFocusChangeListener(this);
         etName_1.setOnFocusChangeListener(this);
+
+        etNationalCode_2.setOnFocusChangeListener(this);
+        etFamily_2.setOnFocusChangeListener(this);
+        etName_2.setOnFocusChangeListener(this);
+
+        etNationalCode_3.setOnFocusChangeListener(this);
+        etFamily_3.setOnFocusChangeListener(this);
+        etName_3.setOnFocusChangeListener(this);
+
+        etNationalCode_4.setOnFocusChangeListener(this);
+        etFamily_4.setOnFocusChangeListener(this);
+        etName_4.setOnFocusChangeListener(this);
+
+        etNationalCode_5.setOnFocusChangeListener(this);
+        etFamily_5.setOnFocusChangeListener(this);
+        etName_5.setOnFocusChangeListener(this);
 
         txtCondition.setOnClickListener(this);
 
@@ -239,36 +262,51 @@ public class CompeletInfoFragment
 
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
 
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
             case R.id.btnPaymentConfirm:
                 String flagValidations = "";
-                if (count == 1) {
+                countRepetitive=0;
+                numbers = new ArrayList<String>();
+                if (count == 1)
+                {
                     flagValidations = flagValidations + PassengerOne();
-                } else if (count == 2) {
+                }else
+                if (count == 2)
+                {
                     flagValidations = flagValidations + PassengerOne();
                     flagValidations = flagValidations + PassengerSecond();
-                } else if (count == 3) {
+                }else
+                if (count == 3)
+                {
                     flagValidations = flagValidations + PassengerOne();
                     flagValidations = flagValidations + PassengerSecond();
                     flagValidations = flagValidations + PassengerThird();
-                } else if (count == 4) {
+                }else
+                if (count == 4)
+                {
                     flagValidations = flagValidations + PassengerOne();
                     flagValidations = flagValidations + PassengerSecond();
                     flagValidations = flagValidations + PassengerThird();
                     flagValidations = flagValidations + PassengerFourth();
-                } else if (count == 5) {
+                }else
+                if (count == 5)
+                {
                     flagValidations = flagValidations + PassengerOne();
                     flagValidations = flagValidations + PassengerSecond();
                     flagValidations = flagValidations + PassengerThird();
@@ -277,13 +315,21 @@ public class CompeletInfoFragment
                 }
 
 
-
-
-                if (flagValidations.contains("F")) {
+                if (flagValidations.contains("F"))
+                {
                     mainView.showError(getString(R.string.Error_edit_input));
-                } else {
+                    cbCondition.setChecked(true);
+                    llConfirm.setVisibility(View.VISIBLE);
+                    llInVisible.setVisibility(View.GONE);
+                } else if (countRepetitive > count)
+                {
+                    mainView.showError(getString(R.string.Error_nationall_code_input));
+                    cbCondition.setChecked(true);
+                    llConfirm.setVisibility(View.VISIBLE);
+                    llInVisible.setVisibility(View.GONE);
+                } else
+                {
                     BuyTickets.buyTickets.setInfoViewers(infoViewers);
-
                   //  onClickContinueBuyTicketListener.onContinueClicked();
 
                 }
@@ -301,11 +347,13 @@ public class CompeletInfoFragment
                 dialog.show(getActivity().getFragmentManager(), "dialog");
                 break;
             case R.id.cbCondition:
-                if (((CheckBox) view).isChecked()) {
+                if (((CheckBox) view).isChecked())
+                {
                     llConfirm.setVisibility(View.VISIBLE);
                     llInVisible.setVisibility(View.GONE);
 
-                } else {
+                } else
+                {
                     llConfirm.setVisibility(View.GONE);
                     llInVisible.setVisibility(View.VISIBLE);
                 }
@@ -315,37 +363,47 @@ public class CompeletInfoFragment
 
     private String PassengerOne() {
         String flagValidations = "";
-        etNationalCode_1.getText().toString();
-        if (isValidNationalCode(etNationalCode_1.getText().toString())) {
-            flagValidations = flagValidations + "T";
-            etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
-            Prefs.putString("etNationalCode_1", etNationalCode_1.getText().toString());
-        } else {
-            flagValidations = flagValidations + "F";
-            etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
+        if (etNationalCode_1.getText().toString() != null)
+            if (isValidNationalCode(etNationalCode_1.getText().toString()))
+            {
+                flagValidations = flagValidations + "T";
+                etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etNationalCode_1", etNationalCode_1.getText().toString());
+                numbers.add(etNationalCode_1.getText().toString());
+                countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_1.getText().toString());
+
+            } else
+            {
+                flagValidations = flagValidations + "F";
+                etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
+            }
+        if (etFamily_1.getText().toString() != null)
+        {
+
+            if (etFamily_1.getText().toString().length() > 2 && !(etFamily_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
+                flagValidations = flagValidations + "T";
+                etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etFamily_1", etFamily_1.getText().toString());
+
+            } else
+            {
+                flagValidations = flagValidations + "F";
+                etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
+            }
+
         }
-        etFamily_1.getText().toString();
+        if (etName_1.getText().toString() != null)
+        {
 
-        if (etFamily_1.getText().toString().length() > 2 && !(etFamily_1.getText().toString()
-                .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
-            flagValidations = flagValidations + "T";
-            etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
-            Prefs.putString("etFamily_1", etFamily_1.getText().toString());
-
-        } else {
-            flagValidations = flagValidations + "F";
-            etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
-        }
-
-        if (etName_1.getText().toString() != null) {
-
-            if (etName_1.getText().toString().length() > 2 && !(etName_1.getText().toString()
-                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_1.getText().toString().length() > 2 && !(etName_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
                 flagValidations = flagValidations + "T";
                 etName_1.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_1", etName_1.getText().toString());
+                Prefs.putString("etName_1",etName_1.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etName_1.setError(getString(R.string.Please_enter_name_in_Persian));
             }
@@ -367,41 +425,50 @@ public class CompeletInfoFragment
         }
     }
 
-    private String PassengerSecond() {
+    private String PassengerSecond()
+    {
         String flagValidations = "";
         if (etNationalCode_2.getText().toString() != null)
-            if (isValidNationalCode(etNationalCode_2.getText().toString())) {
+            if (isValidNationalCode(etNationalCode_2.getText().toString()))
+            {
                 flagValidations = flagValidations + "T";
                 etNationalCode_2.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etNationalCode_2", etNationalCode_2.getText().toString());
+                numbers.add(etNationalCode_2.getText().toString());
+                countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_2.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code));
             }
-        if (etFamily_2.getText().toString() != null) {
+        if (etFamily_2.getText().toString() != null)
+        {
 
-            if (etFamily_2.getText().toString().length() > 2 && !(etFamily_2.getText().toString()
-                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etFamily_2.getText().toString().length() > 2 && !(etFamily_2.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
                 flagValidations = flagValidations + "T";
                 etFamily_2.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etFamily_2", etFamily_2.getText().toString());
+                Prefs.putString("etFamily_2",etFamily_2.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etFamily_2.setError(getString(R.string.Please_enter_last_name_in_Persian));
             }
 
         }
-        if (etName_2.getText().toString() != null) {
+        if (etName_2.getText().toString() != null)
+        {
 
-            if (etName_2.getText().toString().length() > 2 && !(etName_2.getText().toString()
-                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_2.getText().toString().length() > 2 && !(etName_2.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
                 flagValidations = flagValidations + "T";
                 etName_2.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_2", etName_2.getText().toString());
+                Prefs.putString("etName_2",etName_2.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etName_2.setError(getString(R.string.Please_enter_name_in_Persian));
             }
@@ -423,41 +490,50 @@ public class CompeletInfoFragment
         }
     }
 
-    private String PassengerThird() {
+    private String PassengerThird()
+    {
         String flagValidations = "";
         if (etNationalCode_3.getText().toString() != null)
-            if (isValidNationalCode(etNationalCode_3.getText().toString())) {
+            if (isValidNationalCode(etNationalCode_3.getText().toString()))
+            {
                 flagValidations = flagValidations + "T";
                 etNationalCode_3.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etNationalCode_3", etNationalCode_3.getText().toString());
+                numbers.add(etNationalCode_3.getText().toString());
+                countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_3.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etNationalCode_3.setError(getString(R.string.Please_enter_the_national_code));
             }
-        if (etFamily_3.getText().toString() != null) {
+        if (etFamily_3.getText().toString() != null)
+        {
 
-            if (etFamily_3.getText().toString().length() > 2 && !(etFamily_3.getText().toString()
-                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etFamily_3.getText().toString().length() > 2 && !(etFamily_3.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
                 flagValidations = flagValidations + "T";
                 etFamily_3.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etFamily_3", etFamily_3.getText().toString());
+                Prefs.putString("etFamily_3",etFamily_3.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etFamily_3.setError(getString(R.string.Please_enter_last_name_in_Persian));
             }
 
         }
-        if (etName_3.getText().toString() != null) {
+        if (etName_3.getText().toString() != null)
+        {
 
-            if (etName_3.getText().toString().length() > 2 && !(etName_3.getText().toString()
-                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_3.getText().toString().length() > 2 && !(etName_3.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
                 flagValidations = flagValidations + "T";
                 etName_3.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_3", etName_3.getText().toString());
+                Prefs.putString("etName_3",etName_3.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etName_3.setError(getString(R.string.Please_enter_name_in_Persian));
             }
@@ -479,41 +555,50 @@ public class CompeletInfoFragment
         }
     }
 
-    private String PassengerFourth() {
+    private String PassengerFourth()
+    {
         String flagValidations = "";
         if (etNationalCode_4.getText().toString() != null)
-            if (isValidNationalCode(etNationalCode_4.getText().toString())) {
+            if (isValidNationalCode(etNationalCode_4.getText().toString()))
+            {
                 flagValidations = flagValidations + "T";
                 etNationalCode_4.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etNationalCode_4", etNationalCode_4.getText().toString());
-                Prefs.putString("etFamily_4", etFamily_4.getText().toString());
+                numbers.add(etNationalCode_4.getText().toString());
+                countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_4.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code));
             }
-        if (etFamily_4.getText().toString() != null) {
+        if (etFamily_4.getText().toString() != null)
+        {
 
-            if (etFamily_4.getText().toString().length() > 2 && !(etFamily_4.getText().toString()
-                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etFamily_4.getText().toString().length() > 2 && !(etFamily_4.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
                 flagValidations = flagValidations + "T";
                 etFamily_4.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etFamily_4", etFamily_4.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etFamily_4.setError(getString(R.string.Please_enter_last_name_in_Persian));
             }
 
         }
-        if (etName_4.getText().toString() != null) {
+        if (etName_4.getText().toString() != null)
+        {
 
-            if (etName_4.getText().toString().length() > 2 && !(etName_4.getText().toString()
-                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_4.getText().toString().length() > 2 && !(etName_4.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
                 flagValidations = flagValidations + "T";
                 etName_4.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_4", etName_4.getText().toString());
+                Prefs.putString("etName_4",etName_4.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etName_4.setError(getString(R.string.Please_enter_name_in_Persian));
             }
@@ -535,41 +620,50 @@ public class CompeletInfoFragment
         }
     }
 
-    private String PassengerFifth() {
+    private String PassengerFifth()
+    {
         String flagValidations = "";
         if (etNationalCode_5.getText().toString() != null)
-            if (isValidNationalCode(etNationalCode_5.getText().toString())) {
+            if (isValidNationalCode(etNationalCode_5.getText().toString()))
+            {
                 flagValidations = flagValidations + "T";
                 etNationalCode_5.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etNationalCode_5", etNationalCode_5.getText().toString());
-                Prefs.putString("etFamily_5", etFamily_5.getText().toString());
+                numbers.add(etNationalCode_5.getText().toString());
+                countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_5.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code));
             }
-        if (etFamily_5.getText().toString() != null) {
+        if (etFamily_5.getText().toString() != null)
+        {
 
-            if (etFamily_5.getText().toString().length() > 2 && !(etFamily_5.getText().toString()
-                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etFamily_5.getText().toString().length() > 2 && !(etFamily_5.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
                 flagValidations = flagValidations + "T";
                 etFamily_5.setTextColor(Color.parseColor("#4d4d4d"));
+                Prefs.putString("etFamily_5", etFamily_5.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etFamily_5.setError(getString(R.string.Please_enter_last_name_in_Persian));
             }
 
         }
-        if (etName_5.getText().toString() != null) {
+        if (etName_5.getText().toString() != null)
+        {
 
-            if (etName_5.getText().toString().length() > 2 && !(etName_5.getText().toString()
-                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_5.getText().toString().length() > 2 && !(etName_5.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+            {
                 flagValidations = flagValidations + "T";
                 etName_5.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_5", etName_5.getText().toString());
+                Prefs.putString("etName_5",etName_5.getText().toString());
 
-            } else {
+            } else
+            {
                 flagValidations = flagValidations + "F";
                 etName_5.setError(getString(R.string.Please_enter_name_in_Persian));
             }
@@ -592,19 +686,26 @@ public class CompeletInfoFragment
     }
 
 
-    private boolean isValidNationalCode(String nationalCode) {
-        if (nationalCode.length() != 10) {
+
+    private boolean isValidNationalCode(String nationalCode)
+    {
+        if (nationalCode.length() != 10)
+        {
             return false;
-        } else {
+        } else
+        {
             //Check for equal numbers
             String[] allDigitEqual = {"0000000000", "1111111111", "2222222222", "3333333333",
                     "4444444444", "5555555555", "6666666666", "7777777777", "8888888888", "9999999999"};
-            if (Arrays.asList(allDigitEqual).contains(nationalCode)) {
+            if (Arrays.asList(allDigitEqual).contains(nationalCode))
+            {
                 return false;
-            } else {
+            } else
+            {
                 int sum = 0;
                 int lenght = 10;
-                for (int i = 0; i < lenght - 1; i++) {
+                for (int i = 0; i < lenght - 1; i++)
+                {
                     sum += Integer.parseInt(String.valueOf(nationalCode.charAt(i))) * (lenght - i);
                 }
 
@@ -619,48 +720,245 @@ public class CompeletInfoFragment
     }
 
     @Override
-    public void onFocusChange(View v, boolean b) {
+    public void onFocusChange(View v, boolean b)
+    {
 
-        switch (v.getId()) {
+        switch (v.getId())
+        {
             case R.id.etNationalCode_1:
-                etNationalCode_1.getText().toString();
-                if (isValidNationalCode(etNationalCode_1.getText().toString())) {
-                    etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
+                if (etNationalCode_1.getText().toString() != null)
+                    if (isValidNationalCode(etNationalCode_1.getText().toString()))
+                    {
+                        etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
 
-                } else {
+                    } else
+                    {
 
-                    etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
-                }
+                        etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
+                    }
                 break;
             case R.id.etFamily_1:
-                etFamily_1.getText().toString();
+                if (etFamily_1.getText().toString() != null)
+                {
 
-                if (etFamily_1.getText().toString().length() > 2 && !(etFamily_1.getText().toString()
-                        .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+                    if (etFamily_1.getText().toString().length() > 2 && !(etFamily_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
 
-                    etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
+                        etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
 
-                } else {
+                    } else
+                    {
 
-                    etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                        etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                    }
+
                 }
-
                 break;
             case R.id.etName_1:
-                etName_1.getText().toString();
+                if (etName_1.getText().toString() != null)
+                {
 
-                if (etName_1.getText().toString().length() > 2 && !(etName_1.getText().toString()
-                        .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+                    if (etName_1.getText().toString().length() > 2 && !(etName_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
 
-                    etName_1.setTextColor(Color.parseColor("#4d4d4d"));
+                        etName_1.setTextColor(Color.parseColor("#4d4d4d"));
 
-                } else {
+                    } else
+                    {
 
-                    etName_1.setError(getString(R.string.Please_enter_name_in_Persian));
+                        etName_1.setError(getString(R.string.Please_enter_name_in_Persian));
+                    }
+
                 }
-
                 break;
+            /*PassengetSecond*/
+            case R.id.etNationalCode_2:
+                if (etNationalCode_2.getText().toString() != null)
+                    if (isValidNationalCode(etNationalCode_2.getText().toString()))
+                    {
+                        etNationalCode_2.setTextColor(Color.parseColor("#4d4d4d"));
 
+                    } else
+                    {
+
+                        etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code));
+                    }
+                break;
+            case R.id.etFamily_2:
+                if (etFamily_2.getText().toString() != null)
+                {
+
+                    if (etFamily_2.getText().toString().length() > 2 && !(etFamily_2.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+
+                        etFamily_2.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etFamily_2.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                    }
+
+                }
+                break;
+            case R.id.etName_2:
+                if (etName_2.getText().toString() != null)
+                {
+
+                    if (etName_2.getText().toString().length() > 2 && !(etName_2.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+
+                        etName_2.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etName_2.setError(getString(R.string.Please_enter_name_in_Persian));
+                    }
+
+                }
+                break;
+            /*PassengetThird*/
+            case R.id.etNationalCode_3:
+                if (etNationalCode_3.getText().toString() != null)
+                    if (isValidNationalCode(etNationalCode_3.getText().toString()))
+                    {
+                        etNationalCode_3.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etNationalCode_3.setError(getString(R.string.Please_enter_the_national_code));
+                    }
+                break;
+            case R.id.etFamily_3:
+                if (etFamily_3.getText().toString() != null)
+                {
+
+                    if (etFamily_3.getText().toString().length() > 2 && !(etFamily_3.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+
+                        etFamily_3.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etFamily_3.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                    }
+
+                }
+                break;
+            case R.id.etName_3:
+                if (etName_3.getText().toString() != null)
+                {
+
+                    if (etName_3.getText().toString().length() > 2 && !(etName_3.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+
+                        etName_3.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etName_3.setError(getString(R.string.Please_enter_name_in_Persian));
+                    }
+
+                }
+                break;
+            /*PassengetForthi*/
+            case R.id.etNationalCode_4:
+                if (etNationalCode_4.getText().toString() != null)
+                    if (isValidNationalCode(etNationalCode_4.getText().toString()))
+                    {
+                        etNationalCode_4.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code));
+                    }
+                break;
+            case R.id.etFamily_4:
+                if (etFamily_4.getText().toString() != null)
+                {
+
+                    if (etFamily_4.getText().toString().length() > 2 && !(etFamily_4.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+
+                        etFamily_4.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etFamily_4.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                    }
+
+                }
+                break;
+            case R.id.etName_4:
+                if (etName_4.getText().toString() != null)
+                {
+
+                    if (etName_4.getText().toString().length() > 2 && !(etName_4.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+
+                        etName_4.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etName_4.setError(getString(R.string.Please_enter_name_in_Persian));
+                    }
+
+                }
+                break;
+            /*PassengetFive*/
+            case R.id.etNationalCode_5:
+                if (etNationalCode_5.getText().toString() != null)
+                    if (isValidNationalCode(etNationalCode_5.getText().toString()))
+                    {
+                        etNationalCode_5.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code));
+                    }
+                break;
+            case R.id.etFamily_5:
+                if (etFamily_5.getText().toString() != null)
+                {
+
+                    if (etFamily_5.getText().toString().length() > 2 && !(etFamily_5.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+
+                        etFamily_5.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etFamily_5.setError(getString(R.string.Please_enter_last_name_in_Persian));
+                    }
+
+                }
+                break;
+            case R.id.etName_5:
+                if (etName_5.getText().toString() != null)
+                {
+
+                    if (etName_5.getText().toString().length() > 2 && !(etName_5.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")))
+                    {
+
+                        etName_5.setTextColor(Color.parseColor("#4d4d4d"));
+
+                    } else
+                    {
+
+                        etName_5.setError(getString(R.string.Please_enter_name_in_Persian));
+                    }
+
+                }
+                break;
         }
     }
 

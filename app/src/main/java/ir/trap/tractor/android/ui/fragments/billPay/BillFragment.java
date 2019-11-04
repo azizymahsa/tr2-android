@@ -1307,6 +1307,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
+    public void onPredict(MatchItem matchPredict)
+    {
+
+    }
+
+    @Override
     public void onBill()
     {
 

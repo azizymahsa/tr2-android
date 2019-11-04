@@ -11,5 +11,6 @@
     <dimen name="headerMainWeeklessTextSize">14sp</dimen>
 
     <dimen name="slider_height_app">180dp</dimen>
+    <dimen name="margin_static">1dp</dimen>
 
 </resources>

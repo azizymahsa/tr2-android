@@ -63,6 +63,7 @@ import ir.trap.tractor.android.apiServices.model.getRightelPack.response.Detail;
 import ir.trap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.models.otherModels.pack.RightelPackModel;
+import ir.trap.tractor.android.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import ir.trap.tractor.android.ui.adapters.pack.DetailPackAdapter;
 import ir.trap.tractor.android.ui.adapters.pack.TitlePackAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
@@ -1520,15 +1521,29 @@ public class PackFragment
         fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
 
-        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_PackSimCard,this,
+        SimPackPaymentInstance paymentInstance = new SimPackPaymentInstance();
+        paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_PackSimCard);
+        paymentInstance.setOperatorType(operatorType);
+        paymentInstance.setProfileId(o.getProfileId());
+        paymentInstance.setRequestId(requestId);
+        paymentInstance.setTitlePackageType(o.getTitlePackageType());
+
+        pFragment =  PaymentFragment.newInstance(this,
                 Utility.priceFormat(o.getAmount()),
                 title,
                 imageDrawable,
-                o.getProfileId(),
-                operatorType,
-                o.getTitlePackageType(),
-                requestId,
-                mobile);
+                mobile,
+                paymentInstance);
+
+//        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_PackSimCard,this,
+//                Utility.priceFormat(o.getAmount()),
+//                title,
+//                imageDrawable,
+//                o.getProfileId(),
+//                operatorType,
+//                o.getTitlePackageType(),
+//                requestId,
+//                mobile);
 
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);

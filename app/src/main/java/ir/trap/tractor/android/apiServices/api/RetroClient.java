@@ -37,6 +37,7 @@ import ir.trap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.trap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import ir.trap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import ir.trap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
 import ir.trap.tractor.android.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
@@ -45,13 +46,13 @@ import ir.trap.tractor.android.apiServices.model.getVersion.response.GetVersionR
 import ir.trap.tractor.android.apiServices.model.login.LoginRequest;
 import ir.trap.tractor.android.apiServices.model.login.LoginResponse;
 import ir.trap.tractor.android.apiServices.model.matchList.MachListResponse;
-import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.request.MobileChargeRequest;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.apiServices.model.paymentMatch.PaymentMatchRequest;
 import ir.trap.tractor.android.apiServices.model.paymentMatch.PaymentMatchResponse;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import ir.trap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
+import ir.trap.tractor.android.apiServices.model.predict.sendPredict.request.SendPredictRequest;
 import ir.trap.tractor.android.apiServices.model.reservationmatch.ReservationRequest;
 import ir.trap.tractor.android.apiServices.model.reservationmatch.ReservationResponse;
 import ir.trap.tractor.android.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
@@ -80,16 +81,19 @@ public interface RetroClient
             @Body LoginRequest request
     );
 
+
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
+
 
     @GET(Const.BANK_LIST)
     Single<Response<WebServiceClass<BankListResponse>>> getBankList();
 
+
     @POST(Const.GetAllBoxes)
     Single<Response<WebServiceClass<GetAllBoxesResponse>>> getAllBoxes(
             @Body GetAllBoxesRequest request
-            );
+    );
 
     @POST(Const.ReservationMatch)
     Single<Response<WebServiceClass<ReservationResponse>>> reservTicket(
@@ -108,62 +112,70 @@ public interface RetroClient
             @Body GetBillCodePayCodeRequest request
     );
 
+
     @POST(Const.Verify)
     Single<Response<WebServiceClass<VerifyResponse>>> verify(
             @Body VerifyRequest request
     );
+
 
     @POST(Const.GET_VERSION)
     Single<Response<WebServiceClass<GetVersionResponse>>> getVersion(
             @Body GetVersionRequest request
     );
 
+
     @POST(Const.BUY_MOBILE_CHARGE)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
             @Body MobileChargeRequest request);
+
 
     @POST(Const.GET_PACKAGE_IRANCELL)
     Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(
             @Body GetPackageMciRequest request
     );
 
+
     @POST(Const.GetMenu)
     Single<Response<WebServiceClass<GetMenuResponse>>> getMenu(
             @Body GetMenuRequest request
     );
+
 
     @POST(Const.GetMenuAll)
     Single<Response<WebServiceClass<GetAllMenuResponse>>> getMenuAll(
             @Body GetMenuRequest request
     );
 
+
     @GET(Const.GetCardList)
     Single<Response<WebServiceClass<GetCardListResponse>>> getCardList();
 
+
     @POST(Const.AddCard)
     Single<Response<WebServiceClass<Result>>> addCard(
-            @Body AddCardRequest request);
+            @Body AddCardRequest request
+    );
+
 
     @DELETE(Const.DeleteCard + "{id}/")
     Single<Response<WebServiceClass<Object>>> deleteCard(
-            @Path("id") Integer cardId);
+            @Path("id") Integer cardId
+    );
+
 
     @PUT(Const.EditCard + "{id}/")
     Single<Response<WebServiceClass<Result>>> editCard(
             @Path("id") Integer cardId,
-            @Body EditCardRequest request);
-
-
-/*    @POST(Const.MOBILE_CHARGE)
-    Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
-            @Body MobileChargeRequest request
-    );*/
+            @Body EditCardRequest request
+    );
 
 
     @POST(Const.GET_PACKAGE_RIGHTEL)
     Single<Response<WebServiceClass<GetRightelPackRespone>>> getRightelPackage(
             @Body GetPackageMciRequest friendRequest
     );
+
 
     @POST(Const.GET_PACKAGE_MCI)
     Single<Response<WebServiceClass<GetPackageMciResponse>>> getPackageMci(
@@ -176,10 +188,12 @@ public interface RetroClient
             @Body PackageBuyRequest mciPackageBuyRequest
     );
 
+
     @POST(Const.GetInfoPhoneBill)
     Single<Response<WebServiceClass<GetInfoPhoneBillResponse>>> getInfoPhoneBill(
             @Body GetInfoPhoneBillRequest request
     );
+
 
     @POST(Const.BillPayment)
     Single<Response<WebServiceClass<BillPaymentResponse>>> billPayment(
@@ -197,10 +211,12 @@ public interface RetroClient
             @Body GetHappyCardInfoRequest request
     );
 
+
     @POST(Const.FORGOT_PASS2)
     Single<Response<WebServiceClass<Object>>> doForgotPass(
             @Body ShetacForgotPass2Request request
     );
+
 
     @POST(Const.CHANGE_PASS2)
     Single<Response<WebServiceClass<Object>>> doChangePass(
@@ -213,36 +229,44 @@ public interface RetroClient
             @Body ShetabCardInfoRequest request
     );
 
+
     @POST(Const.DoTransferCard)
     Single<Response<WebServiceClass<DoTransferResponse>>> doTransferCard(
             @Body DoTransferRequest request
     );
+
 
     @POST(Const.BusPayment)
     Single<Response<WebServiceClass<GlobalResponse3>>> busBooking(
             @Body RequestBusPayment request
     );
 
+
     @POST(Const.GetBusUserPass)
     Single<Response<WebServiceClass<GetUserPassResponse>>> getBusUserPass();
+
 
     @POST(Const.SendBusMessage)
     Single<Response<WebServiceClass<GlobalResponse3>>> busSendMessage(
             @Body BusSendMessage request
     );
 
+
     @POST(Const.FlightPayment)
     Single<Response<WebServiceClass<GlobalResponse2>>> flightPayment(
             @Body FlightPaymentRequest request
     );
+
 
     @POST(Const.FlightSendMessage)
     Single<Response<WebServiceClass<GlobalResponse2>>> flightSendMessage(
             @Body FlightPaymentRequest request
     );
 
+
     @POST(Const.FlightGetUserPass)
     Single<Response<WebServiceClass<GetUserPassResponse>>> getFlightUserPass();
+
 
     @POST(Const.HotelSendMessage)
     Single<Response<WebServiceClass<GlobalResponse>>> hotelSendMessage(
@@ -252,22 +276,41 @@ public interface RetroClient
     @POST(Const.HotelGetUserPass)
     Single<Response<WebServiceClass<GetUserPassResponse>>> getHotelUserPass();
 
+
     @POST(Const.HotelPayment)
     Single<Response<WebServiceClass<GlobalResponse2>>> doHotelPayment(
-            @Body GdsHotelPaymentRequest gdsHotelPaymentRequest);
+            @Body GdsHotelPaymentRequest gdsHotelPaymentRequest
+    );
+
 
     @POST(Const.DECRYPTQRCODE)
     Single<Response<WebServiceClass<DecryptQrResponse>>> decryptQr(
-            @Body DecryptQrRequest request);
+            @Body DecryptQrRequest request
+    );
+
 
     @POST(Const.PAYMENT_PRINT_pOS)
     Single<Response<WebServiceClass<PaymentPrintPosResponse>>> getPayment(
-            @Body PaymentPrintPosRequest request);
+            @Body PaymentPrintPosRequest request
+    );
+
 
     @GET(Const.GET_Match_List)
     Single<Response<WebServiceClass<MachListResponse>>> getMatchList();
 
+
     @GET(Const.GetHistory)
     Single<Response<WebServiceClass<ResponseHistory>>> getHistory();
+
+
+    @GET(Const.GET_PREDICT + "{matchId}/")
+    Single<Response<WebServiceClass<GetPredictResponse>>> getPredict(
+            @Path("matchId") Integer matchId
+    );
+
+    @POST(Const.SEND_PREDICT)
+    Single<Response<WebServiceClass<Object>>> sendPredict(
+            @Body SendPredictRequest request
+    );
 
 }

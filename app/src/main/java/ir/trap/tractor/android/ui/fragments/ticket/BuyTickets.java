@@ -371,4 +371,28 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         this.infoViewers=infoViewers;
 
     }
+
+    @Override
+    public void showPaymentParentLoading()
+    {
+
+    }
+
+    @Override
+    public void hidePaymentParentLoading()
+    {
+
+    }
+
+    @Override
+    public void onPaymentCancelAndBack()
+    {
+
+    }
+
+    @Override
+    public void startAddCardActivity()
+    {
+
+    }
 }

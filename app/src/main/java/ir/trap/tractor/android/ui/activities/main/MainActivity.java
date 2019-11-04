@@ -51,12 +51,15 @@ import ir.trap.tractor.android.ui.base.BaseActivity;
 import ir.trap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.trap.tractor.android.ui.drawer.MenuDrawer;
 import ir.trap.tractor.android.ui.fragments.BarcodeReaderFragment;
+import ir.trap.tractor.android.ui.fragments.about.AboutFragment;
+import ir.trap.tractor.android.ui.fragments.about.HistoryFragment;
 import ir.trap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.trap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.fragments.main.MainFragment;
 import ir.trap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.trap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
+import ir.trap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.trap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.trap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.trap.tractor.android.ui.fragments.ticket.BuyTickets;
@@ -74,7 +77,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private Realm realm;
 
-    private Fragment matchBuyable;
+    private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 //    private View btnBuyTicket;
@@ -121,7 +124,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             Logger.e("--item--", menuItem.getTitle().toString());
             int itemId = menuItem.getItemId();
-            //switch matchBuyable
+            //switch fragment
             switch (itemId)
             {
                 case R.id.tab_market:
@@ -131,11 +134,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         /*setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 
-                        matchBuyable = HistoryFragment.newInstance(this);
+                        fragment = HistoryFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                        transaction.replace(R.id.main_container, matchBuyable)
+                        transaction.replace(R.id.main_container, fragment)
                                 .commit();*/
                     }
                     break;
@@ -148,11 +151,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         isMainFragment = false;
 
-                        matchBuyable = AllMenuFragment.newInstance(this);
+                        fragment = AllMenuFragment.newInstance(this);
 
                         transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                        transaction.replace(R.id.main_container, matchBuyable)
+                        transaction.replace(R.id.main_container, fragment)
                                 .commit();
                     }
                     break;
@@ -183,11 +186,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         isMainFragment = false;
 
-                        matchBuyable = PaymentWithoutCardFragment.newInstance(this);
+                        fragment = PaymentWithoutCardFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                        transaction.replace(R.id.main_container, matchBuyable)
+                        transaction.replace(R.id.main_container, fragment)
                                 .commit();
                     }
                     break;
@@ -204,18 +207,18 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         SingletonService.getInstance().getMenuService().getMenu(this, request);
 //
 //        fragmentManager = getSupportFragmentManager();
-//        matchBuyable = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
+//        fragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
 //
 //        transaction = fragmentManager.beginTransaction();
 //
 //        if (mSavedInstanceState == null)
 //        {
-//            transaction.add(R.id.main_container, matchBuyable)
+//            transaction.add(R.id.main_container, fragment)
 //                    .commit();
 //        }
 //        else
 //        {
-//            transaction.replace(R.id.main_container, matchBuyable)
+//            transaction.replace(R.id.main_container, fragment)
 //                    .commit();
 //        }
 
@@ -225,21 +228,21 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     protected void onResume()
     {
         super.onResume();
-        if (matchBuyable == null)
+        if (fragment == null)
         {
-//            matchBuyable = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
+//            fragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
 //            transaction = fragmentManager.beginTransaction();
 //            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 //            try
 //            {
 //                if (mSavedInstanceState == null)
 //                {
-//                    transaction.add(R.id.main_container, matchBuyable)
+//                    transaction.add(R.id.main_container, fragment)
 //                            .commit();
 ////
 //                } else
 //                {
-//                    transaction.replace(R.id.main_container, matchBuyable)
+//                    transaction.replace(R.id.main_container, fragment)
 //                            .commit();
 //                }
 //            }
@@ -331,7 +334,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 7:
             {
-                showToast(this, "درباره ما", R.color.green);
+               // showToast(this, "درباره ما", R.color.green);
+
+
+                fragment = AboutFragment.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment)
+                        .commit();
 
                 break;
             }
@@ -398,13 +409,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void showLoading()
     {
-//        findViewById(R.id.llLoading).setVisibility(View.VISIBLE);
+        findViewById(R.id.llLoading).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading()
     {
-//        findViewById(R.id.llLoading).setVisibility(View.GONE);
+        findViewById(R.id.llLoading).setVisibility(View.GONE);
 //        runOnUiThread(() ->
 //        {
 //        });
@@ -416,11 +427,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         isMainFragment = false;
         String titleBill = "قبض تلفن همراه";
         int idBillType = 5;
-        matchBuyable = BillFragment.newInstance(this, titleBill, idBillType);
+        fragment = BillFragment.newInstance(this, titleBill, idBillType);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, matchBuyable)
+        transaction.replace(R.id.main_container, fragment)
                 .commit();
     }
 
@@ -429,12 +440,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        matchBuyable = ChargeFragment.newInstance(this);
+        fragment = ChargeFragment.newInstance(this);
 
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, matchBuyable)
+        transaction.replace(R.id.main_container, fragment)
                 .commit();
 
     }
@@ -444,11 +455,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        matchBuyable = PackFragment.newInstance(this);
+        fragment = PackFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, matchBuyable)
+        transaction.replace(R.id.main_container, fragment)
                 .commit();
     }
 
@@ -496,12 +507,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        matchBuyable = BarcodeReaderFragment.newInstance(this);
+        fragment = BarcodeReaderFragment.newInstance(this);
         //  transaction.commitAllowingStateLoss();
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, matchBuyable)
+        transaction.replace(R.id.main_container, fragment)
                 .commit();
 
     }
@@ -511,12 +522,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        // matchBuyable = PaymentWithoutCardFragment2.newInstance(this);
-        matchBuyable = PaymentWithoutCardFragment.newInstance(this);
+        // fragment = PaymentWithoutCardFragment2.newInstance(this);
+        fragment = PaymentWithoutCardFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, matchBuyable)
+        transaction.replace(R.id.main_container, fragment)
                 .commit();
     }
 
@@ -525,11 +536,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        matchBuyable = MoneyTransferFragment.newInstance(this);
+        fragment = MoneyTransferFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, matchBuyable)
+        transaction.replace(R.id.main_container, fragment)
                 .commit();
     }
 
@@ -608,16 +619,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         OnSelectContact onSelectContact = new OnSelectContact();
                         onSelectContact.setName(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)) == null ? "" : phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
                         onSelectContact.setNumber(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll(" ", "").replace("0098", "0").replace(getString(R.string.plus) + "98", "0"));
-                        if (matchBuyable instanceof ChargeFragment)
+                        if (fragment instanceof ChargeFragment)
                         {
-                            ((ChargeFragment) matchBuyable).onSelectContact(onSelectContact);
+                            ((ChargeFragment) fragment).onSelectContact(onSelectContact);
 
-                        } else if (matchBuyable instanceof PackFragment)
+                        } else if (fragment instanceof PackFragment)
                         {
-                            ((PackFragment) matchBuyable).onSelectContact(onSelectContact);
-                        } else if (matchBuyable instanceof BillFragment)
+                            ((PackFragment) fragment).onSelectContact(onSelectContact);
+                        } else if (fragment instanceof BillFragment)
                         {
-                            ((BillFragment) matchBuyable).onSelectContact(onSelectContact);
+                            ((BillFragment) fragment).onSelectContact(onSelectContact);
                         }
 
                     }
@@ -654,11 +665,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = true;
 
-        matchBuyable = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
+        fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, matchBuyable)
+        transaction.replace(R.id.main_container, fragment)
                 .commit();
     }
 
@@ -695,11 +706,23 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onBuyTicketClick(MatchItem matchBuyable)
     {
         isMainFragment = false;
-        this.matchBuyable = BuyTickets.newInstance(this, matchBuyable);
+        this.fragment = BuyTickets.newInstance(this, matchBuyable);
 
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.matchBuyable)
+        transaction.replace(R.id.main_container, this.fragment)
+                .commit();
+    }
+
+    @Override
+    public void onPredict(MatchItem matchPredict)
+    {
+        isMainFragment = false;
+        this.fragment = PredictFragment.newInstance(this, matchPredict);
+
+        transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment)
                 .commit();
     }
 
@@ -718,8 +741,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             finish();
 
             return;
-        }
-        else
+        } else
         {
             chosenServiceList = response.data.getChosenServiceList();
             footballServiceList = response.data.getFootballServiceList();
@@ -728,18 +750,18 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     "footballServiceList: " + footballServiceList.size());
 
             fragmentManager = getSupportFragmentManager();
-            matchBuyable = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
+            fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
 
             transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
             if (mSavedInstanceState == null)
             {
-                transaction.add(R.id.main_container, matchBuyable)
+                transaction.add(R.id.main_container, fragment)
                         .commit();
             } else
             {
-                transaction.replace(R.id.main_container, matchBuyable)
+                transaction.replace(R.id.main_container, fragment)
                         .commit();
             }
 
@@ -763,8 +785,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         finish();
 
                         return;
-                    }
-                    else
+                    } else
                     {
                         Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
 
@@ -844,10 +865,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            case R.id.btnBuyTicket:
 //
 //                isMainFragment = false;
-//                matchBuyable = BuyTickets.newInstance(this);
+//                fragment = BuyTickets.newInstance(this);
 //                transaction = fragmentManager.beginTransaction();
 //                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//                transaction.replace(R.id.main_container, matchBuyable)
+//                transaction.replace(R.id.main_container, fragment)
 //                        .commit();
 //                break;
 //        }
