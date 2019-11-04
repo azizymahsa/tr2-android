@@ -12,5 +12,6 @@
 
     <dimen name="slider_height_app">180dp</dimen>
     <dimen name="margin_static">1dp</dimen>
+    <dimen name="win_lose_view_height">30dp</dimen>
 
 </resources>

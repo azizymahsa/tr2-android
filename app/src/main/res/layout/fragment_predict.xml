@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:layoutDirection="ltr"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -55,8 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="16dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -213,10 +214,10 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_height="@dimen/_45dp"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="2dp"
-                        android:layout_marginRight="2dp"
+                        android:layout_marginEnd="2dp"
                         android:scaleType="fitCenter"/>
 
                     <View
@@ -278,10 +279,10 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_height="@dimen/_45dp"
-                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="4dp"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="2dp"
-                        android:layout_marginLeft="2dp"
+                        android:layout_marginStart="2dp"
                         android:scaleType="fitCenter"/>
 
                 </LinearLayout>
@@ -317,8 +318,8 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
-                android:gravity="center"
                 android:layout_marginBottom="8dp"
+                android:gravity="center"
                 android:textSize="@dimen/textSize_18dp"
                 android:textColor="@color/textColorPrimary"
                 android:text=".تاکنون کسی پیش بینی نکرده است"/>
@@ -335,7 +336,7 @@
                     android:textStyle="bold"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:gravity="right"
+                    android:gravity="start"
                     android:textSize="@dimen/textSize_18dp"
                     android:text="آمار پیش بینی شرکت کنندگان:"/>
 
@@ -358,7 +359,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
-                android:gravity="right"
+                android:gravity="start"
                 android:layout_marginBottom="8dp"
                 android:textSize="@dimen/textSize_18dp"
                 android:text="آخرین بازی رودرروی دو تیم:"/>
@@ -380,7 +381,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_14dp"
                         android:textColor="@color/gray"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:text="1398/00/00"/>
 
@@ -390,7 +391,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_16dp"
                         android:textColor="@color/textColorSecondary"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:text="جام"/>
 
@@ -419,7 +420,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="عنوان"
-                            android:layout_toRightOf="@+id/imgAway"
+                            android:layout_toEndOf="@+id/imgAway"
                             android:layout_centerVertical="true"
                             android:textColor="@color/textColorSecondary"
                             android:gravity="center"/>
@@ -429,7 +430,7 @@
                             android:layout_width="@dimen/_35dp"
                             android:layout_height="@dimen/_35dp"
                             android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:scaleType="fitCenter"/>
 
                     </RelativeLayout>
@@ -507,7 +508,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="عنوان"
-                            android:layout_toLeftOf="@+id/imgHome"
+                            android:layout_toStartOf="@+id/imgHome"
                             android:layout_centerVertical="true"
                             android:textColor="@color/textColorSecondary"
                             android:gravity="center"/>
@@ -517,7 +518,7 @@
                             android:layout_width="@dimen/_35dp"
                             android:layout_height="@dimen/_35dp"
                             android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:scaleType="fitCenter"/>
 
                     </RelativeLayout>

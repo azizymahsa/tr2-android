@@ -62,5 +62,8 @@
     <color name="_title_black">#242424</color>
     <color name="color_alert_border">#d5282e</color>
     <color name="alert_background_color">#fff</color>
+    <color name="selected_stadium">#FFFE0002</color>
+    <color name="not_select_stadium">#d6d6d6</color>
+
 
 </resources>

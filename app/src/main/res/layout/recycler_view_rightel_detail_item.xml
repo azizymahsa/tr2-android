@@ -18,7 +18,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:textColor="@color/warmGray"
         android:textSize="@dimen/textSize_12dp" />
 
@@ -26,7 +26,7 @@
         android:id="@+id/tvAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|left"
+        android:gravity="center|start"
         android:textColor="@color/midnight"
         android:textSize="@dimen/textSize_14dp"
         android:textAppearance="@style/IranSansBold"/>

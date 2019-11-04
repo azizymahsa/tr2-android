@@ -46,7 +46,7 @@
                     android:layout_width="@dimen/_100dp"
                     android:layout_height="@dimen/_100dp"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/circle_background"
+                    android:background="@drawable/ic_logo_main"
                     android:gravity="center"
                     android:textColor="@color/currentColor"
                     android:textSize="@dimen/iconSize_45dp"
@@ -77,9 +77,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:gravity="center"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:text="I am here"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:text=""
             android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/textSize_16dp" />
 
@@ -111,8 +111,8 @@
                     android:layout_gravity="center"
                     android:textDirection="ltr"
                     android:layoutDirection="ltr"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:cursorVisible="false"
                     android:imeOptions="actionDone"
                     android:inputType="number"
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <ir.trap.tractor.android.utilities.ClearableEditText
+                    <ir.traap.tractor.android.utilities.ClearableEditText
                         android:id="@+id/etMobileNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="horizontal">
 
                 <Space
@@ -249,7 +249,8 @@
                     android:text="ارسال مجدد کد: "
                     android:gravity="center"
                     android:textColor="@color/textColorSecondary"
-                    android:textSize="@dimen/textSize_12dp" />
+                    android:textSize="@dimen/textSize_12dp"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
@@ -272,7 +273,8 @@
         android:layout_marginBottom="20dp"
         android:text="کد تایید برای شما ارسال خواهد شد."
         android:textColor="@color/textColorSecondary"
-        android:textSize="@dimen/textSize_12dp" />
+        android:textSize="@dimen/textSize_12dp"
+        android:visibility="gone"/>
 
     <View
         android:layout_width="match_parent"
