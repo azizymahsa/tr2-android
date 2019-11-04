@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layoutDirection="ltr"
     android:background="@android:color/transparent"
     android:orientation="vertical">
     <!--    android:clickable="true">-->
@@ -13,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp">
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp">
 
         <TextView
             android:id="@+id/menu_dr_drop"
@@ -22,7 +21,7 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:textColor="@color/textColorDrawer"
             style="@style/IconText"
             android:text="@string/arrow_drop_down"
@@ -41,12 +40,12 @@
             android:id="@+id/menu_dr_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
+            android:gravity="right|center_vertical"
             android:layout_centerVertical="true"
-            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
             android:text="عنوان"
             android:textSize="@dimen/textSize_16dp"
-            android:layout_toStartOf="@+id/menu_dr_icon"
+            android:layout_toLeftOf="@+id/menu_dr_icon"
             android:textColor="@color/textColorSecondary"/>
 
         <ImageView
@@ -54,7 +53,7 @@
             android:layout_width="@dimen/_40dp"
             android:layout_height="@dimen/_40dp"
             android:padding="3dp"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_logo_red"/>
 
@@ -63,8 +62,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="2dp"
         android:background="@color/drawerSepratorColor"/>
 

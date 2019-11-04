@@ -47,16 +47,16 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="@dimen/textSize_14dp"
-            android:layout_marginEnd="@dimen/textSize_14dp">
+            android:layout_marginRight="@dimen/textSize_14dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 app:hintTextAppearance="@style/TextLabel2"
                 android:id="@+id/etLayoutNumberCardEdit"
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="@dimen/_55sdp"
-                android:layout_gravity="end"
+                android:layout_gravity="right"
                 android:theme="@style/EditTextHint2"
-                android:layout_marginEnd="5dp">
+                android:layout_marginRight="5dp">
 
                 <ru.kolotnev.formattedittext.MaskedEditText
                     android:id="@+id/etNumberCardEdit"
@@ -87,23 +87,23 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginEnd="@dimen/textSize_14dp">
+            android:layout_marginRight="@dimen/textSize_14dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 app:hintTextAppearance="@style/TextLabel2"
                 android:id="@+id/etLayoutCardNameEdit"
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="@dimen/_45sdp"
-                android:layout_gravity="center|end"
+                android:layout_gravity="center|right"
                 android:theme="@style/EditTextHint2"
-                android:layout_marginEnd="5dp">
+                android:layout_marginRight="5dp">
 
                 <ir.trap.tractor.android.utilities.ClearableEditText
                     android:id="@+id/etCardNameEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/textSize_14dp"
-                    android:gravity="center|end"
+                    android:gravity="center|right"
                     android:backgroundTint="@color/textColorPrimary"
                     android:textColor="@color/textColorPrimary"
                     android:textColorHint="@color/textColorPrimary"
@@ -127,8 +127,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="100"
-                android:layout_marginEnd="@dimen/textSize_14dp"
-                android:layout_marginStart="@dimen/textSize_14dp">
+                android:layout_marginRight="@dimen/textSize_14dp"
+                android:layout_marginLeft="@dimen/textSize_14dp">
 
                 <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                     android:id="@+id/btnCancelEdit"
@@ -151,8 +151,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="100"
-                android:layout_marginEnd="@dimen/textSize_14dp"
-                android:layout_marginStart="@dimen/textSize_14dp">
+                android:layout_marginRight="@dimen/textSize_14dp"
+                android:layout_marginLeft="@dimen/textSize_14dp">
 
                 <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                     android:id="@+id/btnConfirmEdit"

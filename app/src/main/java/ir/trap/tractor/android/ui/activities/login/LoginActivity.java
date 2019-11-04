@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.InputFilter;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -86,11 +85,6 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         // tvMenu = findViewById(R.id.tvMenu);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         etMobileNumber = findViewById(R.id.etMobileNumber);
-
-        InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(11);
-        etMobileNumber.setFilters(filterArray);
-
         countDownTimer = findViewById(R.id.countDownTimer);
         tvResend = findViewById(R.id.tvResend);
         // tvMenu.setVisibility(View.GONE);
@@ -101,7 +95,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         loginPresenter.getMobile(etMobileNumber);
         btnConfirm.setOnClickListener(loginPresenter);
         btnConfirm.setTag("mobile");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " تلفن همراه خود را وارد کنید."));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " همراه خود را وارد کنید"));
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         loginPresenter.setScreenSize(displayMetrics.heightPixels, displayMetrics.widthPixels);
@@ -215,9 +209,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         countDownTimer.setVisibility(View.VISIBLE);
         btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setTag("code");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " کد فعالسازی خود را وارد کنید."));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " کد فعالسازی خود را وارد کنید"));
 
-        tvPhoneNumber.setText("شماره تلفن همراه شما: " + etMobileNumber.getText().toString());
+        tvPhoneNumber.setText("شماره همراه شما: " + etMobileNumber.getText().toString());
         YoYo.with(Techniques.SlideOutLeft)
                 .duration(700).withListener(new Animator.AnimatorListener()
         {
@@ -258,7 +252,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     {
         countDownTimer.setVisibility(View.GONE);
         btnConfirm.setTag("mobile");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " تلفن همراه خود را وارد کنید"));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " همراه خود را وارد کنید"));
 
 
         YoYo.with(Techniques.SlideOutRight)

@@ -124,7 +124,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/white"
                                 android:text="عنوان بسته:"/>
@@ -157,7 +157,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/white"
                                 android:text="شماره موبایل:"/>
@@ -191,7 +191,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/white"
                                 android:text="تاریخ و زمان:"/>
@@ -225,7 +225,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/white"
                                 android:text="شماره پیگیری:"/>
@@ -260,7 +260,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/white"
                                 android:text="شماره پیگیری پرداخت:"/>
@@ -295,7 +295,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/white"
                                 android:text="مبلغ (ریال): "/>
@@ -329,7 +329,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/white"
                                 android:text="نام فروشگاه: "/>
@@ -364,7 +364,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/white"
                                 android:text="شماره فروشگاه: "/>
@@ -399,7 +399,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/white"
                                 android:text="صاحب کارت:"/>
@@ -426,7 +426,7 @@
                             android:id="@+id/tvShareImageP"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
                             android:gravity="center"
                             android:textSize="@dimen/_18sdp"
                             android:textColor="@color/textColorSecondary"
@@ -471,7 +471,7 @@
             android:id="@+id/tvClose"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_margin="@dimen/_10dp"
             android:gravity="center"
             android:textSize="@dimen/_18sdp"

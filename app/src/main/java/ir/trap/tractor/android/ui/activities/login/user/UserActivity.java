@@ -77,7 +77,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
 
         etFirstName.setText(Prefs.getString("firstName", ""));
         etLastName.setText(Prefs.getString("lastName", ""));
-       // etInvite.setText(Prefs.getString("keyInvite", ""));
+        etInvite.setText(Prefs.getString("keyInvite", ""));
 
 
 

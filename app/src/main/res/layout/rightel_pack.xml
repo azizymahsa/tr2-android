@@ -10,7 +10,7 @@
         android:id="@+id/llRightelMobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|end"
+        android:gravity="center|right"
         android:orientation="horizontal">
 
         <Space
@@ -23,7 +23,7 @@
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
             android:layout_gravity="center"
-            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:src="@drawable/ic_list"
             android:background="@drawable/button_small_border"
             android:textSize="@dimen/textSize_20dp"
@@ -38,7 +38,7 @@
             android:layout_height="@dimen/_35dp"
             android:padding="@dimen/_5sdp"
             android:background="@drawable/button_small_border"
-            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:foreground="?attr/selectableItemBackground" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -46,10 +46,10 @@
             android:id="@+id/tilMRightel"
             android:layout_width="@dimen/_180sdp"
             android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center|end"
+            android:layout_gravity="center|right"
             android:hint="شماره موبایل"
             android:theme="@style/EditTextHint"
-            android:layout_marginEnd="5dp">
+            android:layout_marginRight="5dp">
 
             <ir.trap.tractor.android.utilities.ClearableEditText
                 android:id="@+id/etMobileChargeRightel"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                android:gravity="end|center"
+                android:gravity="right|center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLines="1"
@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
-        android:gravity="center|end"
+        android:gravity="center|right"
         android:orientation="horizontal">
 
         <Space
@@ -121,7 +121,7 @@
             android:gravity="center_vertical"
             android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
             android:textColor="@color/black"
-            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_10dp"
             android:textSize="@dimen/textSize_12dp" />
         <ImageView
             android:src="@drawable/ic_warning"
@@ -162,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:gravity="center"
             android:text="دائمی"
             android:textColor="@color/currentColor"
@@ -172,14 +172,14 @@
             android:id="@+id/rbRightelFirst"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
             android:buttonTint="@color/currentColor"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:gravity="center"
             android:text="اعتباری"
             android:textColor="@color/currentColor"
@@ -189,14 +189,14 @@
             android:id="@+id/rbRightelCredit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
             android:buttonTint="@color/currentColor"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:gravity="center"
             android:text="همه"
             android:textColor="@color/currentColor"
@@ -245,8 +245,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="5dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginBottom="@dimen/_10dp">
 
             <Spinner
@@ -255,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="100"
-                android:gravity="end"
+                android:gravity="right"
                 android:tag="irancell"
                 android:background="@drawable/background_spinner_custom" />
 
@@ -275,8 +275,8 @@
             android:id="@+id/rightelRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp" />
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp" />
 
     </LinearLayout>
 
