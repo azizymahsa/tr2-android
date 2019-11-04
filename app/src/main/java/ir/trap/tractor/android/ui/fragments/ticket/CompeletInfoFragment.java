@@ -113,7 +113,7 @@ public class CompeletInfoFragment
     @Override
     public void onResume() {
         super.onResume();
-        initView();
+       // initView();
     }
 
 
@@ -284,7 +284,7 @@ public class CompeletInfoFragment
                 } else {
                     BuyTickets.buyTickets.setInfoViewers(infoViewers);
 
-                    onClickContinueBuyTicketListener.onContinueClicked();
+                  //  onClickContinueBuyTicketListener.onContinueClicked();
 
                 }
                 break;
