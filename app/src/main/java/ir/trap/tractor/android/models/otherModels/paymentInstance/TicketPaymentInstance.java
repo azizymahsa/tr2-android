@@ -9,6 +9,9 @@ import lombok.Setter;
 public class TicketPaymentInstance implements Parcelable
 {
     @Getter @Setter
+    Integer PAYMENT_STATUS;
+
+    @Getter @Setter
     private String firstName;
 
     @Getter @Setter
@@ -26,6 +29,13 @@ public class TicketPaymentInstance implements Parcelable
 
     protected TicketPaymentInstance(Parcel in)
     {
+        if (in.readByte() == 0)
+        {
+            PAYMENT_STATUS = null;
+        } else
+        {
+            PAYMENT_STATUS = in.readInt();
+        }
         firstName = in.readString();
         lastName = in.readString();
         nationalCode = in.readString();
@@ -56,6 +66,14 @@ public class TicketPaymentInstance implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
+        if (PAYMENT_STATUS == null)
+        {
+            dest.writeByte((byte) 0);
+        } else
+        {
+            dest.writeByte((byte) 1);
+            dest.writeInt(PAYMENT_STATUS);
+        }
         dest.writeString(firstName);
         dest.writeString(lastName);
         dest.writeString(nationalCode);

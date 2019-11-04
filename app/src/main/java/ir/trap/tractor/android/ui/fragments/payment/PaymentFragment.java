@@ -34,6 +34,9 @@ import ir.trap.tractor.android.apiServices.model.buyPackage.response.PackageBuyR
 import ir.trap.tractor.android.apiServices.model.card.Result;
 import ir.trap.tractor.android.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import ir.trap.tractor.android.conf.TrapConfig;
+import ir.trap.tractor.android.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import ir.trap.tractor.android.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardFragment;
 import ir.trap.tractor.android.ui.fragments.favoriteCard.FavoriteCardParentActionView;
@@ -44,7 +47,8 @@ import ir.trap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.trap.tractor.android.utilities.ClearableEditText;
 import ir.trap.tractor.android.utilities.Tools;
 
-public class PaymentFragment extends BaseFragment implements FavoriteCardParentActionView, PaymentParentActionView, PaymentActionView
+public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseFragment implements FavoriteCardParentActionView,
+        PaymentParentActionView, PaymentActionView
 {
 
     private Fragment cardFragment;
@@ -75,129 +79,163 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
     private int typeCharge;
     private int simcardType;
     private String mobile;
-    private String cvv2="";
-    private String expDate="";
+    private String cvv2 = "";
+    private String expDate = "";
     private Integer cardId;
     private String requestId;
     private String titlePackageType;
     private int profileId;
 
-    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
+//    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
+
+    private T response;
+    private SimChargePaymentInstance simChargePaymentInstance;
+    private TicketPaymentInstance ticketPaymentInstance;
+    private SimPackPaymentInstance simPackPaymentInstance;
+
 
     public PaymentFragment()
     {
         // Required empty public constructor
     }
 
-    public static PaymentFragment newInstance(int PAYMENT_STATUS,
-                                              String price,
-                                              String title,
-                                              int imgLogo,
-                                              PaymentParentActionView paymentParentActionView,
-                                              Object response,
-                                              int operatorType,
-                                              int simcardType,
-                                              int typeCharge,
-                                              String mobile
-    )
+
+    public static <T, I extends PaymentParentActionView> PaymentFragment newInstance(I paymentParentActionView,
+                                                  String price,
+                                                  String title,
+                                                  int imgLogo,
+                                                  String mobile,
+                                                  T response)
     {
         PaymentFragment fragment = new PaymentFragment();
         fragment.setParentActionView(paymentParentActionView);
 
         Bundle args = new Bundle();
 
-        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
         args.putInt("imgLogo", imgLogo);
         args.putString("price", price);
         args.putString("title", title);
         args.putParcelable("response", (Parcelable) response);
 
-        args.putInt("OPERATOR_TYPE",operatorType);
-        args.putInt("SIMCARD_TYPE",simcardType);
-        args.putString("MOBILE",mobile);
-        args.putInt("TYPE_CHARGE",typeCharge);
+        args.putString("MOBILE", mobile);
 
         fragment.setArguments(args);
 
         return fragment;
     }
-    public static PaymentFragment newInstance(int PAYMENT_STATUS,
-                                              String price,
-                                              String title,
-                                              int imgLogo,
-                                              PaymentParentActionView paymentParentActionView,
-                                              Object response,
-                                              int operatorType,
-                                              int simcardType,
-                                              int typeCharge,
-                                              String mobile,String s
-    )
-    {
-        PaymentFragment fragment = new PaymentFragment();
-        fragment.setParentActionView(paymentParentActionView);
 
-        Bundle args = new Bundle();
+//    public static PaymentFragment newInstance(int PAYMENT_STATUS,
+//                                              String price,
+//                                              String title,
+//                                              int imgLogo,
+//                                              PaymentParentActionView paymentParentActionView,
+//                                              Object response,
+//                                              int operatorType,
+//                                              int simcardType,
+//                                              int typeCharge,
+//                                              String mobile,String s
+//    )
+//    {
+//        PaymentFragment fragment = new PaymentFragment();
+//        fragment.setParentActionView(paymentParentActionView);
+//
+//        Bundle args = new Bundle();
+//
+//        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+//        args.putInt("imgLogo", imgLogo);
+//        args.putString("price", price);
+//        args.putString("title", title);
+//        args.putParcelable("response", (Parcelable) response);
+//
+//        fragment.setArguments(args);
+//
+//        return fragment;
+//    }
 
-        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
-        args.putInt("imgLogo", imgLogo);
-        args.putString("price", price);
-        args.putString("title", title);
-        args.putParcelable("response", (Parcelable) response);
+//    public static PaymentFragment newInstance(int PAYMENT_STATUS,
+//                                              String price,
+//                                              String title,
+//                                              int imgLogo,
+//                                              PaymentParentActionView paymentParentActionView,
+//                                              Object response,
+//                                              int operatorType,
+//                                              int simcardType,
+//                                              int typeCharge,
+//                                              String mobile)
+//    {
+//        PaymentFragment fragment = new PaymentFragment();
+//        fragment.setParentActionView(paymentParentActionView);
+//
+//        Bundle args = new Bundle();
+//
+//        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+//        args.putInt("imgLogo", imgLogo);
+//        args.putString("price", price);
+//        args.putString("title", title);
+//        args.putParcelable("response", (Parcelable) response);
+//
+//        args.putInt("OPERATOR_TYPE", operatorType);
+//        args.putInt("SIMCARD_TYPE", simcardType);
+//        args.putString("MOBILE", mobile);
+//        args.putInt("TYPE_CHARGE", typeCharge);
+//
+//        fragment.setArguments(args);
+//
+//        return fragment;
+//    }
 
-        args.putInt("OPERATOR_TYPE",operatorType);
-        args.putInt("SIMCARD_TYPE",simcardType);
-        args.putString("MOBILE",mobile);
-        args.putInt("TYPE_CHARGE",typeCharge);
+//    public static PaymentFragment newInstance(int PAYMENT_STATUS, BuyTickets buyTickets,
+//                                              PaymentParentActionView paymentParentActionView,
+//                                              OnClickContinueBuyTicket onClickContinueBuyTicket)
+//    {
+//        PaymentFragment fragment = new PaymentFragment();
+//        fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
+//        fragment.setParentActionView(paymentParentActionView);
+//
+//        Bundle args = new Bundle();
+//        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+//        fragment.setArguments(args);
+//
+//        return fragment;
+//    }
+//
+//    public static PaymentFragment newInstance(Integer PAYMENT_STATUS,
+//                                              PaymentParentActionView pActionView,
+//                                              String price,
+//                                              String title,
+//                                              Integer imgLogo,
+//                                              Integer profileId,
+//                                              Integer operatorType,
+//                                              String titlePackageType,
+//                                              String requestId,
+//                                              String mobile)
+//    {
+//        PaymentFragment fragment = new PaymentFragment();
+//        fragment.setParentActionView(pActionView);
+//
+//        Bundle args = new Bundle();
+//
+//        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+//        args.putInt("imgLogo", imgLogo);
+//        args.putString("price", price);
+//        args.putString("title", title);
+//
+//        args.putInt("OPERATOR_TYPE", operatorType);
+//        args.putInt("PROFILE_ID", profileId);
+//        args.putString("MOBILE", mobile);
+//        args.putString("TITLE_PACKAGE_TYPE", titlePackageType);
+//        args.putString("REQUEST_ID", requestId);
+//
+//        fragment.setArguments(args);
+//
+//        return fragment;
+//
+//    }
 
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-    public static PaymentFragment newInstance(int PAYMENT_STATUS, BuyTickets buyTickets,
-                                              PaymentParentActionView paymentParentActionView,OnClickContinueBuyTicket onClickContinueBuyTicket)
-    {
-        PaymentFragment fragment = new PaymentFragment();
-        fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
-        fragment.setParentActionView(paymentParentActionView);
-        Bundle args = new Bundle();
-        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-    public static PaymentFragment newInstance(int PAYMENT_STATUS,
-                                              PaymentParentActionView paymentParentActionView, String price,
-                                              String title, int imgLogo,
-                                              Integer profileId, int operatorType,
-                                              String titlePackageType,
-                                              String requestId, String mobile)
-    {
-        PaymentFragment fragment = new PaymentFragment();
-        fragment.setParentActionView(paymentParentActionView);
-
-        Bundle args = new Bundle();
-
-        args.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
-        args.putInt("imgLogo", imgLogo);
-        args.putString("price", price);
-        args.putString("title", title);
-
-        args.putInt("OPERATOR_TYPE",operatorType);
-        args.putInt("PROFILE_ID",profileId);
-        args.putString("MOBILE",mobile);
-        args.putString("TITLE_PACKAGE_TYPE",titlePackageType);
-        args.putString("REQUEST_ID",requestId);
-
-        fragment.setArguments(args);
-
-        return fragment;
-
-    }
-    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
-    {
-        this.onClickContinueBuyTicketListener=onClickContinueBuyTicket;
-    }
-
+//    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
+//    {
+//        this.onClickContinueBuyTicketListener = onClickContinueBuyTicket;
+//    }
 
     private void setParentActionView(PaymentParentActionView pActionView)
     {
@@ -215,69 +253,51 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
         {
             price = getArguments().getString("price");
             title = getArguments().getString("title");
-            PAYMENT_STATUS = getArguments().getInt("PAYMENT_STATUS", 0);
             drawableIcon = getArguments().getInt("imgLogo", 0);
-            operatorType=getArguments().getInt("OPERATOR_TYPE",0);
-            typeCharge=getArguments().getInt("TYPE_CHARGE",0);
-            simcardType=getArguments().getInt("SIMCARD_TYPE",0);
-            mobile=getArguments().getString("MOBILE","");
-            getObjectTypeArg(getArguments().getParcelable("response"));
+            mobile = getArguments().getString("MOBILE", "");
+
+            response = getArguments().getParcelable("response");
+
+            if (response instanceof SimChargePaymentInstance)
+            {
+                simChargePaymentInstance = (SimChargePaymentInstance) response;
+
+                PAYMENT_STATUS = simChargePaymentInstance.getPAYMENT_STATUS();
+                operatorType = simChargePaymentInstance.getOperatorType();
+                typeCharge = simChargePaymentInstance.getTypeCharge();
+                simcardType = simChargePaymentInstance.getSimcardType();
+
+//                PAYMENT_STATUS = getArguments().getInt("PAYMENT_STATUS", 0);
+//                operatorType = getArguments().getInt("OPERATOR_TYPE", 0);
+//                typeCharge = getArguments().getInt("TYPE_CHARGE", 0);
+//                simcardType = getArguments().getInt("SIMCARD_TYPE", 0);
+            }
+            else if (response instanceof TicketPaymentInstance)
+            {
+                ticketPaymentInstance = (TicketPaymentInstance) response;
+
+            }
+            else if (response instanceof SimPackPaymentInstance)
+            {
+                simPackPaymentInstance = (SimPackPaymentInstance) response;
+
+                profileId = simPackPaymentInstance.getProfileId();
+                titlePackageType = simPackPaymentInstance.getTitlePackageType();
+                requestId = simPackPaymentInstance.getRequestId();
+
+//                profileId = getArguments().getInt("PROFILE_ID", 0);
+//                titlePackageType = getArguments().getString("TITLE_PACKAGE_TYPE", "");
+//                requestId = getArguments().getString("REQUEST_ID", "");
+            }
+
+
+//            getObjectTypeArg(response);
 
             //////
-            profileId=getArguments().getInt("PROFILE_ID",0);
-            titlePackageType=getArguments().getString("TITLE_PACKAGE_TYPE","");
-            requestId=getArguments().getString("REQUEST_ID","");
 
         }
 
         EventBus.getDefault().register(this);
-    }
-
-    private void getObjectTypeArg(Parcelable response)
-    {
-        switch (PAYMENT_STATUS)
-        {
-            case TrapConfig.PAYMENT_STAUS_GDS_FLIGHT:
-            {
-
-                break;
-            }
-            case TrapConfig.PAYMENT_STAUS_GDS_HOTEL:
-            {
-
-                break;
-            }
-            case TrapConfig.PAYMENT_STAUS_GDS_BUS:
-            {
-
-                break;
-            }
-            case TrapConfig.PAYMENT_STAUS_ChargeSimCard:
-            {
-
-                break;
-            }
-            case TrapConfig.PAYMENT_STAUS_PackSimCard:
-            {
-
-                break;
-            }
-            case TrapConfig.PAYMENT_STAUS_TransferMoney:
-            {
-
-                break;
-            }
-            case TrapConfig.PAYMENT_STAUS_WithoutCard:
-            {
-
-                break;
-            }
-            case TrapConfig.PAYMENT_STAUS_BillTicket:
-            {
-
-                break;
-            }
-        }
     }
 
     @Override
@@ -305,15 +325,14 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
         {
             transaction.add(R.id.container, cardFragment)
                     .commit();
-        }
-        else
+        } else
         {
             transaction.replace(R.id.container, cardFragment)
                     .commit();
         }
         //----------------card fragment----------------
         irancellBuy = new IrancellBuyImpl();
-        buyPackage=new BuyPackageImpl();
+        buyPackage = new BuyPackageImpl();
         tvAmount = rootView.findViewById(R.id.tvAmount);
         tvTitle = rootView.findViewById(R.id.tvTitle);
         imgLogo = rootView.findViewById(R.id.imgLogo);
@@ -354,64 +373,14 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
         if (v.getId() == R.id.btnBack)
         {
             pActionView.onPaymentCancelAndBack();
-        }
-        else if (v.getId() == R.id.btnBuy)
+        } else if (v.getId() == R.id.btnBuy)
         {
             if (setError())
             {
-                switch (PAYMENT_STATUS)
-                {
-                    case TrapConfig.PAYMENT_STAUS_GDS_FLIGHT:
-                    {
-
-                        break;
-                    }
-                    case TrapConfig.PAYMENT_STAUS_GDS_HOTEL:
-                    {
-
-                        break;
-                    }
-                    case TrapConfig.PAYMENT_STAUS_GDS_BUS:
-                    {
-
-                        break;
-                    }
-                    case TrapConfig.PAYMENT_STAUS_ChargeSimCard:
-                    {
-                        irancellBuy.findDataIrancellBuyRequest(this,price,simcardType,operatorType
-                                ,typeCharge,etPass.getText().toString(),mobile,cvv2,expDate,cardId);
-                        break;
-                    }
-                    case TrapConfig.PAYMENT_STAUS_PackSimCard:
-                    {
-                        buyPackage.findBuyPackageDataRequest(this, requestId, operatorType,
-                                cardId,titlePackageType,profileId,mobile
-                                , etPass.getText().toString(),cvv2
-                                ,expDate, price
-                        );
-                        break;
-                    }
-                    case TrapConfig.PAYMENT_STAUS_TransferMoney:
-                    {
-
-                        break;
-                    }
-                    case TrapConfig.PAYMENT_STAUS_WithoutCard:
-                    {
-
-                        break;
-                    }
-                    case TrapConfig.PAYMENT_STAUS_BillTicket:
-                    {
-
-                        break;
-                    }
-                    case TrapConfig.PAYMENT_STAUS_StudiomTicket:
-                    {
-                        onClickContinueBuyTicketListener.onContinueClicked();
-                        break;
-                    }
-                }
+//                if (response instanceof )
+//                {
+//
+//                }
             }
         }
     };
@@ -517,8 +486,7 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
                 }).duration(200)
                         .playOn(llExpireDate);
             }
-        }
-        else
+        } else
         {
             llCvv2.setVisibility(View.VISIBLE);
             YoYo.with(Techniques.SlideInLeft)
@@ -529,7 +497,7 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
                     .duration(200)
                     .playOn(llExpireDate);
         }
-        cardId=mCard.getCardId();
+        cardId = mCard.getCardId();
     }
 
 
@@ -554,13 +522,13 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
     @Override
     public void showPaymentParentLoading()
     {
-
+        pActionView.showPaymentParentLoading();
     }
 
     @Override
     public void hidePaymentParentLoading()
     {
-
+        pActionView.hidePaymentParentLoading();
     }
 
     @Override
@@ -584,21 +552,21 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
     @Override
     public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
     {
-        Tools.showToast(getActivity(),"خرید شارژ برای شماره "+mobile + "با موفقیت انجام شد", R.color.green);
+        Tools.showToast(getActivity(), "خرید شارژ برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
         getActivity().onBackPressed();
     }
 
     @Override
     public void onPaymentPackSimCard(PackageBuyResponse response, String mobile)
     {
-        Tools.showToast(getActivity(),"خرید بسته برای شماره "+mobile + "با موفقیت انجام شد", R.color.green);
+        Tools.showToast(getActivity(), "خرید بسته برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
         getActivity().onBackPressed();
     }
 
     @Override
     public void onErrorPackSimcard(String message)
     {
-        Tools.showToast(getContext(),message , R.color.red);
+        Tools.showToast(getContext(), message, R.color.red);
     }
 
     @Override
@@ -625,12 +593,10 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
 
     }
 
-
-
     @Override
     public void onErrorCharge(String message)
     {
-        Tools.showToast(getContext(),message , R.color.red);
+        Tools.showToast(getContext(), message, R.color.red);
     }
 
     @Override

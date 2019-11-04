@@ -362,4 +362,28 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
         }
     }
+
+    @Override
+    public void showPaymentParentLoading()
+    {
+
+    }
+
+    @Override
+    public void hidePaymentParentLoading()
+    {
+
+    }
+
+    @Override
+    public void onPaymentCancelAndBack()
+    {
+
+    }
+
+    @Override
+    public void startAddCardActivity()
+    {
+
+    }
 }

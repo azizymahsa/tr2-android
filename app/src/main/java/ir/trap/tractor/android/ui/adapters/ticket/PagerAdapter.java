@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import ir.trap.tractor.android.R;
+import ir.trap.tractor.android.conf.TrapConfig;
 import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
@@ -68,19 +69,20 @@ public class PagerAdapter
               //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTickets, this, onClickContinueBuyTicket);
                // CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3", buyTickets, mainActionView);
                 TicketPaymentInstance paymentInstance = new TicketPaymentInstance();
+                paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_StudiomTicket);
 //                paymentInstance.setFirstName();
 //                paymentInstance.setLastName();
 //                paymentInstance.setNationalCode();
 //                paymentInstance.setTicketId();
-//                PaymentFragment tab3 = PaymentFragment.newInstance(this,
-//                        "",
-//                        "",
-//                        0,
-//                        "",
-//                        paymentInstance);
+                PaymentFragment tab3 = PaymentFragment.newInstance(onClickContinueBuyTicket,
+                        "",
+                        "",
+                        0,
+                        "",
+                        paymentInstance);
 
-               PaymentFragment tab3 = PaymentFragment.newInstance(8,buyTickets,
-                       this,onClickContinueBuyTicket);
+//               PaymentFragment tab3 = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_StudiomTicket,buyTickets,
+//                       this,onClickContinueBuyTicket);
 
                // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);
 
