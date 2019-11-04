@@ -54,7 +54,7 @@ public class CountTicketFragment
         CountTicketFragment fragment = new CountTicketFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
         Bundle args = new Bundle();
-        args.putString(KEY_MODEL, s);
+      //  args.putString(KEY_MODEL, s);
         fragment.setArguments(args);
 
         return fragment;

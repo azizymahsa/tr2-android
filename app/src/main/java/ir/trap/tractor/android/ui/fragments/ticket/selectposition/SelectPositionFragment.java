@@ -282,9 +282,11 @@ public class SelectPositionFragment
         stadiumPositionModels.add(new StadiumPositionModel("FFF237FF", 42, true));
         stadiumPositionModels.add(new StadiumPositionModel("FF440000", 43, true));
 
-        /////
-        stadiumPositionModels.add(new StadiumPositionModel("", 44, false));
-        stadiumPositionModels.add(new StadiumPositionModel("", 45, false));
+        /////CIP Up Down
+        stadiumPositionModels.add(new StadiumPositionModel("", 44, true));
+        stadiumPositionModels.add(new StadiumPositionModel("", 45, true));
+        stadiumPositionModels.add(new StadiumPositionModel("", 46, true));
+
         //////
 
     }
@@ -1141,8 +1143,13 @@ public class SelectPositionFragment
                                     imgView.setImageResource(R.drawable.ic_fourty_three_full);
                                     break;
                                 case 44:
+                                    imgView.setImageResource(R.drawable.ic_cip_full);
                                     break;
                                 case 45:
+                                    imgView.setImageResource(R.drawable.ic_bottom_full);
+                                    break;
+                                case 46:
+                                    imgView.setImageResource(R.drawable.ic_up_stadium_full);
                                     break;
 
                             }
@@ -1159,8 +1166,8 @@ public class SelectPositionFragment
     {
         amountForPay = results.get(0).getTicketAmount() * count;
         amountOneTicket = results.get(0).getTicketAmount();
-        tvAmountStation.setText("قیمت بلیت این جایگاه :" + Utility.priceFormat(results.get(0).getTicketAmount().toString()) + " ریال");
-        tvAmountForPay.setText("مبلغ قابل پرداخت :" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+        tvAmountStation.setText("قیمت بلیت این جایگاه:" + Utility.priceFormat(results.get(0).getTicketAmount().toString()) + " ریال");
+        tvAmountForPay.setText("مبلغ قابل پرداخت:" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
     }
 
     private void setDataSpinnerAllBoxes(List<AllBoxesResult> result)
@@ -1377,11 +1384,7 @@ public class SelectPositionFragment
         switch (v.getId())
         {
             case R.id.btnPaymentConfirm:
-                // checkIdFromEachPosition();
-               /* Prefs.putInt("PositionId",selectPositionId);
-                Prefs.putInt("CountTicket",count);*/
                 callReservationRequest();
-
                 break;
            /* case R.id.btnBackToDetail:
                 onClickContinueBuyTicketListener.onBackClicked();
@@ -1391,6 +1394,10 @@ public class SelectPositionFragment
                     count--;
                 break;
             case R.id.tvP:
+                if (count==5)
+                {
+                    Tools.showToast(getContext(),"حداکثر تعداد بلیط قابل خرید 5 عدد میباشد.");
+                }
                 if (count < 5)
                     count++;
                 break;
@@ -1408,14 +1415,13 @@ public class SelectPositionFragment
     private void setAmounts(int countTicket)
     {
         amountForPay = amountOneTicket * countTicket;
-        tvAmountForPay.setText("مبلغ قابل پرداخت " + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+        tvAmountForPay.setText("مبلغ قابل پرداخت:" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
     }
 
     @Override
     public void onFinishedReservation(ReservationResponse response)
     {
-        Tools.showToast(getContext(), "با موفقیت رزرو شد");
-        BuyTickets.buyTickets.setDate(selectPositionId, count, amountForPay);
+        BuyTickets.buyTickets.setData(selectPositionId, count, amountForPay,response.getResults());
         onClickContinueBuyTicketListener.onContinueClicked();
 
     }

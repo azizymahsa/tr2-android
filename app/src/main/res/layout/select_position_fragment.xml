@@ -118,22 +118,123 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="10" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingLeft="@dimen/_10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="راهنما:"
+                android:textColor="@color/warmGray"
+                android:textSize="@dimen/textSize_12dp"
+                />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="right|center"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="قابل انتخاب"
+                    android:textColor="@color/warmGray"
+                    android:textSize="@dimen/textSize_12dp"
+                    />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/guide_stadium_selectable"/>
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="right|center"
+                android:layout_marginTop="3dp"
+
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="غیر قابل انتخاب"
+                    android:textColor="@color/warmGray"
+                    android:textSize="@dimen/textSize_12dp"
+                    />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/guide_stadium_not_selected"/>
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="right|center"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="انتخاب شده"
+                    android:textColor="@color/warmGray"
+                    android:textSize="@dimen/textSize_12dp"
+                    />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/guide_stadium_selected"/>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:layout_weight="100"
+        android:layout_gravity="top"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_weight="60"
         android:text="@string/select_position_tiitle"
         android:textColor="@color/black"
         android:textSize="@dimen/textSize_14dp"
         />
-    <Space
+
+
+        <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="10" />
     </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"

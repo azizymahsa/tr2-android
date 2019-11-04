@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ import ir.trap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
 import ir.trap.tractor.android.ui.adapters.ticket.PagerAdapter;
+import ir.trap.tractor.android.utilities.CustomViewPager;
 
 public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {
@@ -37,16 +39,20 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
     private MainActionView mainView;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
     private LinearLayout llPrintTicket, llFullInfo, llSelectPosition;
     private TextView btnBackToDetail,tvCountTicket,tvSelectPosition,tvFullInfo,tvPrintTicket;
     private CircularProgressButton btnPaymentConfirm;
     private ImageView ivCountTicket,ivSelectPosition,ivFullInfo,ivPrintTicket;
     private View vOneToTow,vZeroToOne,vTowToThree;
-    private TextView tvTitle;
+    private TextView tvTitle,tvUserName;
     public String namePosition;
     Integer selectPositionId,count,amountForPay;
     private MatchItem matchBuyable;
+    private List<InfoViewer> infoViewers;
+    private List<Integer> ticketIdList;
+    private View imgBack,imgMenu;
+
 
     public BuyTickets()
     {
@@ -102,7 +108,8 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
                 (getFragmentManager(), tabLayout.getTabCount(),this,mainView,this,matchBuyable);
 
         viewPager.setAdapter(adapter);
-        viewPager.beginFakeDrag();
+        //viewPager.beginFakeDrag();
+        viewPager.setPagingEnabled(false);
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
@@ -118,17 +125,18 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             public void onPageSelected(int position)
             {
 
-                /*if (position==1)
-                    adapter.createInstance();*/
 
-                if (position==3)
-                    adapter.createShareShowTicket();
-                if (position==1){
-                    new Handler().postDelayed(() -> ((CompeletInfoFragment) adapter.getItem(1))
-                            .getDataFormBefore(selectPositionId,count,amountForPay),200);
+                if (position == 1) {
 
+                    new Handler().postDelayed(() -> adapter.compeletInfoFragmentData(selectPositionId, count, amountForPay,ticketIdList), 200);
                     //setDataToCompleteInfoFragment(namePosition);
                 }
+                if (position == 2) {
+
+                    new Handler().postDelayed(() -> adapter.paymentFragmentData(infoViewers), 200);
+                }
+                if (position == 3)
+                    adapter.createShareShowTicket();
 
             }
         });
@@ -146,6 +154,16 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         try
         {
             tvTitle=rootView.findViewById(R.id.tvTitle);
+            tvUserName=rootView.findViewById(R.id.tvUserName);
+            tvUserName.setText(Prefs.getString("mobile", ""));
+            imgMenu=rootView.findViewById(R.id.imgMenu);
+            imgBack=rootView.findViewById(R.id.imgBack);
+            imgMenu.setVisibility(View.GONE);
+            imgBack.setOnClickListener(v ->
+            {
+                getActivity().onBackPressed();
+            });
+
             tvTitle.setText("خرید بلیت");
         }catch (Exception e){
 
@@ -264,13 +282,6 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         checkPositionFromSetSelected();
     }
 
-    @Override
-    public void onContinueSelectPosiotionClicked(int count, Integer selectPositionId)
-    {
-        viewPager.setCurrentItem(getItem(+1), true);
-
-        checkPositionFromSetSelected();
-    }
 
     private void checkPositionFromSetSelected()
     {
@@ -346,17 +357,17 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
         }
     }
-    public void setDate(Integer selectPositionId, int count, int amountForPay)
-    {
+    public void setData(Integer selectPositionId, int count, int amountForPay, List<Integer> results) {
 
         this.selectPositionId = selectPositionId;
         this.count = count;
         this.amountForPay = amountForPay;
+        this.ticketIdList=results;
 
     }
 
-    public void setInfoViewers(List<InfoViewer> infoViewers)
-    {
+    public void setInfoViewers(List<InfoViewer> infoViewers) {
+        this.infoViewers=infoViewers;
 
     }
 }

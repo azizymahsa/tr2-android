@@ -8,7 +8,4 @@ public interface OnClickContinueBuyTicket
     void onBackClicked();
     void onContinueClicked();
     void goBuyTicket();
-
-    void onContinueSelectPosiotionClicked(int count, Integer selectPositionId);
-
 }

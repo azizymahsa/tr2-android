@@ -53,6 +53,7 @@ public class CompeletInfoFragment
     String positionName;
     Integer selectPositionId, amountForPay;
     List<InfoViewer> infoViewers = new ArrayList<>();
+    private List<Integer> ticketIdList;
 
     public CompeletInfoFragment() {
     }
@@ -325,7 +326,8 @@ public class CompeletInfoFragment
         }
         etFamily_1.getText().toString();
 
-        if (etFamily_1.getText().toString().length() > 2 && !(etFamily_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+        if (etFamily_1.getText().toString().length() > 2 && !(etFamily_1.getText().toString()
+                .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
             flagValidations = flagValidations + "T";
             etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
             Prefs.putString("etFamily_1", etFamily_1.getText().toString());
@@ -337,7 +339,8 @@ public class CompeletInfoFragment
 
         if (etName_1.getText().toString() != null) {
 
-            if (etName_1.getText().toString().length() > 2 && !(etName_1.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_1.getText().toString().length() > 2 && !(etName_1.getText().toString()
+                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
                 flagValidations = flagValidations + "T";
                 etName_1.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_1", etName_1.getText().toString());
@@ -349,14 +352,15 @@ public class CompeletInfoFragment
 
         }
         if (flagValidations.contains("F")) {
-            mainView.showError("اطلاعات ورودی مسافر اول نامعتبر است");
+            mainView.showError("اطلاعات ورودی نفر اول نامعتبر است");
             return "F";
         } else {
             InfoViewer viewer= new InfoViewer();
             viewer.setFirstName(etName_1.getText().toString());
             viewer.setLastName(etFamily_1.getText().toString());
             viewer.setNationalCode(etNationalCode_1.getText().toString());
-           // viewer.setTicketId();
+            if (!ticketIdList.isEmpty())
+                viewer.setTicketId(ticketIdList.get(0));
             infoViewers.add(viewer);
             return "T";
 
@@ -377,7 +381,8 @@ public class CompeletInfoFragment
             }
         if (etFamily_2.getText().toString() != null) {
 
-            if (etFamily_2.getText().toString().length() > 2 && !(etFamily_2.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etFamily_2.getText().toString().length() > 2 && !(etFamily_2.getText().toString()
+                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
                 flagValidations = flagValidations + "T";
                 etFamily_2.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_2", etFamily_2.getText().toString());
@@ -390,7 +395,8 @@ public class CompeletInfoFragment
         }
         if (etName_2.getText().toString() != null) {
 
-            if (etName_2.getText().toString().length() > 2 && !(etName_2.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_2.getText().toString().length() > 2 && !(etName_2.getText().toString()
+                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
                 flagValidations = flagValidations + "T";
                 etName_2.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_2", etName_2.getText().toString());
@@ -402,14 +408,15 @@ public class CompeletInfoFragment
 
         }
         if (flagValidations.contains("F")) {
-            mainView.showError("اطلاعات ورودی مسافر دوم نامعتبر است");
+            mainView.showError("اطلاعات ورودی نفر دوم نامعتبر است");
             return "F";
         } else {
             InfoViewer viewer= new InfoViewer();
             viewer.setFirstName(etName_2.getText().toString());
             viewer.setLastName(etFamily_2.getText().toString());
             viewer.setNationalCode(etNationalCode_2.getText().toString());
-           // viewer.setTicketId();
+            if (!ticketIdList.isEmpty()&&ticketIdList.size()>=2)
+                viewer.setTicketId(ticketIdList.get(1));
             infoViewers.add(viewer);
             return "T";
 
@@ -430,7 +437,8 @@ public class CompeletInfoFragment
             }
         if (etFamily_3.getText().toString() != null) {
 
-            if (etFamily_3.getText().toString().length() > 2 && !(etFamily_3.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etFamily_3.getText().toString().length() > 2 && !(etFamily_3.getText().toString()
+                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
                 flagValidations = flagValidations + "T";
                 etFamily_3.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_3", etFamily_3.getText().toString());
@@ -443,7 +451,8 @@ public class CompeletInfoFragment
         }
         if (etName_3.getText().toString() != null) {
 
-            if (etName_3.getText().toString().length() > 2 && !(etName_3.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_3.getText().toString().length() > 2 && !(etName_3.getText().toString()
+                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
                 flagValidations = flagValidations + "T";
                 etName_3.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_3", etName_3.getText().toString());
@@ -455,14 +464,15 @@ public class CompeletInfoFragment
 
         }
         if (flagValidations.contains("F")) {
-            mainView.showError("اطلاعات ورودی مسافر سوم نامعتبر است");
+            mainView.showError("اطلاعات ورودی نفر سوم نامعتبر است");
             return "F";
         } else {
             InfoViewer viewer= new InfoViewer();
             viewer.setFirstName(etName_3.getText().toString());
             viewer.setLastName(etFamily_3.getText().toString());
             viewer.setNationalCode(etNationalCode_3.getText().toString());
-            //viewer.setTicketId();
+            if (!ticketIdList.isEmpty()&&ticketIdList.size()>=3)
+                viewer.setTicketId(ticketIdList.get(2));
             infoViewers.add(viewer);
             return "T";
 
@@ -484,7 +494,8 @@ public class CompeletInfoFragment
             }
         if (etFamily_4.getText().toString() != null) {
 
-            if (etFamily_4.getText().toString().length() > 2 && !(etFamily_4.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etFamily_4.getText().toString().length() > 2 && !(etFamily_4.getText().toString()
+                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
                 flagValidations = flagValidations + "T";
                 etFamily_4.setTextColor(Color.parseColor("#4d4d4d"));
 
@@ -496,7 +507,8 @@ public class CompeletInfoFragment
         }
         if (etName_4.getText().toString() != null) {
 
-            if (etName_4.getText().toString().length() > 2 && !(etName_4.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_4.getText().toString().length() > 2 && !(etName_4.getText().toString()
+                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
                 flagValidations = flagValidations + "T";
                 etName_4.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_4", etName_4.getText().toString());
@@ -508,14 +520,15 @@ public class CompeletInfoFragment
 
         }
         if (flagValidations.contains("F")) {
-            mainView.showError("اطلاعات ورودی مسافر چهارم نامعتبر است");
+            mainView.showError("اطلاعات ورودی نفر چهارم نامعتبر است");
             return "F";
         } else {
             InfoViewer viewer= new InfoViewer();
             viewer.setFirstName(etName_4.getText().toString());
             viewer.setLastName(etFamily_4.getText().toString());
             viewer.setNationalCode(etNationalCode_4.getText().toString());
-           // viewer.setTicketId();
+            if (!ticketIdList.isEmpty()&&ticketIdList.size()>=4)
+                viewer.setTicketId(ticketIdList.get(3));
             infoViewers.add(viewer);
             return "T";
 
@@ -537,7 +550,8 @@ public class CompeletInfoFragment
             }
         if (etFamily_5.getText().toString() != null) {
 
-            if (etFamily_5.getText().toString().length() > 2 && !(etFamily_5.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etFamily_5.getText().toString().length() > 2 && !(etFamily_5.getText().toString()
+                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
                 flagValidations = flagValidations + "T";
                 etFamily_5.setTextColor(Color.parseColor("#4d4d4d"));
 
@@ -549,7 +563,8 @@ public class CompeletInfoFragment
         }
         if (etName_5.getText().toString() != null) {
 
-            if (etName_5.getText().toString().length() > 2 && !(etName_5.getText().toString().toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
+            if (etName_5.getText().toString().length() > 2 && !(etName_5.getText().toString()
+                    .toLowerCase().matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$"))) {
                 flagValidations = flagValidations + "T";
                 etName_5.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_5", etName_5.getText().toString());
@@ -561,14 +576,15 @@ public class CompeletInfoFragment
 
         }
         if (flagValidations.contains("F")) {
-            mainView.showError("اطلاعات ورودی مسافر پنجم نامعتبر است");
+            mainView.showError("اطلاعات ورودی نفر پنجم نامعتبر است");
             return "F";
         } else {
             InfoViewer viewer= new InfoViewer();
             viewer.setFirstName(etName_5.getText().toString());
             viewer.setLastName(etFamily_5.getText().toString());
             viewer.setNationalCode(etNationalCode_5.getText().toString());
-            //viewer.setTicketId();
+            if (!ticketIdList.isEmpty()&&ticketIdList.size()>=5)
+                viewer.setTicketId(ticketIdList.get(4));
             infoViewers.add(viewer);
             return "T";
 
@@ -648,11 +664,12 @@ public class CompeletInfoFragment
         }
     }
 
-    public void getDataFormBefore(Integer selectPositionId, Integer count, Integer amountForPay) {
+    public void getDataFormBefore(Integer selectPositionId, Integer count, Integer amountForPay, List<Integer> ticketIdList) {
         this.selectPositionId = selectPositionId;
-        this.textStation = selectPositionId.toString();
+        this.textStation = "جایگاه "+selectPositionId.toString();
         this.count = count;
         this.amountForPay = amountForPay;
+        this.ticketIdList=ticketIdList;
 
         if (view == null)
             return;

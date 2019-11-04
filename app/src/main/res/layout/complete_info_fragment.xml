@@ -212,7 +212,8 @@
                                 android:background="@drawable/edit_text_background_border_white"
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon" />
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="gone"/>
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -376,7 +377,8 @@
                                 android:background="@drawable/edit_text_background_border_white"
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon" />
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="gone"/>
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -540,7 +542,8 @@
                                 android:background="@drawable/edit_text_background_border_white"
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon" />
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="gone"/>
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -704,7 +707,8 @@
                                 android:background="@drawable/edit_text_background_border_white"
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon" />
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="gone"/>
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -868,7 +872,8 @@
                                 android:background="@drawable/edit_text_background_border_white"
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon" />
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="gone"/>
                         </RelativeLayout>
                     </LinearLayout>
 

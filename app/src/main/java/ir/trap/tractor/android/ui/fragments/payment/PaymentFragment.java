@@ -154,7 +154,8 @@ public class PaymentFragment extends BaseFragment implements FavoriteCardParentA
         return fragment;
     }
     public static PaymentFragment newInstance(int PAYMENT_STATUS, BuyTickets buyTickets,
-                                              PaymentParentActionView paymentParentActionView,OnClickContinueBuyTicket onClickContinueBuyTicket)
+                                              PaymentParentActionView paymentParentActionView,
+                                              OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         PaymentFragment fragment = new PaymentFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
