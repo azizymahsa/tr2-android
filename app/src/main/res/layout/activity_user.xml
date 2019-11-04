@@ -31,17 +31,89 @@
             android:layout_below="@+id/toolbar_container"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:layout_marginTop="@dimen/_20dp"
+                android:orientation="vertical"
+                >
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="لطفا مشخصات خود را وارد نمایید"
                 android:textColor="@color/textColorSecondary"
-                android:textSize="@dimen/_14sdp"
-                android:layout_marginBottom="@dimen/_10dp"
+                android:textSize="@dimen/textSize_14dp"
                 android:layout_marginTop="@dimen/_10dp"
                 />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/profile_desc"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    />
+
+
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:gravity="center|right"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100">
+
+                    <EditText
+                        android:id="@+id/etPopularPlayer"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:backgroundTint="@color/textColorSecondary"
+                        android:hint="@string/enter_popular_player"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                </FrameLayout>
+
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -273,45 +345,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|right"
-                android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100">
-
-                    <EditText
-                        android:id="@+id/etPopularPlayer"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColorSecondary"
-                        android:hint="@string/enter_popular_player"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
-
-                </FrameLayout>
-
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -336,7 +370,7 @@
                         android:layout_height="@dimen/_50sdp"
                         android:layout_marginBottom="@dimen/_20dp"
                         android:backgroundTint="@color/textColorSecondary"
-                        android:hint="کد معرف(اختیاری)"
+                        android:hint="کد معرف"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:singleLine="true"
@@ -357,7 +391,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_20dp"
                 android:gravity="center|right"
                 android:orientation="horizontal">
 

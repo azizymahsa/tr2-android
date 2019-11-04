@@ -215,7 +215,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         countDownTimer.setVisibility(View.VISIBLE);
         btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setTag("code");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " کد فعالسازی خود را وارد کنید."));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " کد فعالسازی خود را وارد کنید."));
 
         tvPhoneNumber.setText("شماره تلفن همراه شما: " + etMobileNumber.getText().toString());
         YoYo.with(Techniques.SlideOutLeft)
