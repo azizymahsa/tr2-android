@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/_15sdp"
-        app:cardElevation="3dp"
+        app:cardElevation="5dp"
         app:layout_anchor="@+id/nav_header_container"
         app:layout_anchorGravity="bottom|center_horizontal">
 

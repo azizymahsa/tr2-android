@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +52,12 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
 
         holder.MenuIcon.setImageDrawable(context.getResources().getDrawable(current.getImgResID()));
         holder.MenuItem.setText(current.getItemName());
+
+        if (!current.getIsActive())
+        {
+            holder.lyItem.setAlpha(0.5f);
+            holder.lyItem.setClickable(false);
+        }
 //        if (current.getItemNumber() >= 0)
 //        {
 //            holder.MenuItemNumber.setVisibility(View.VISIBLE);
@@ -83,7 +90,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
         //        TextView MenuItemNumber;
         TextView MenuItemDrop;
 //        SwitchCompat switchItem;
-//        LinearLayout lyItem;
+        RelativeLayout lyItem;
 
 
         public MyViewHolder(View view)
@@ -95,7 +102,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
 //            MenuItemNumber = view.findViewById(R.id.menu_dr_number);
             MenuItemDrop = view.findViewById(R.id.menu_dr_drop);
 //            switchItem = view.findViewById(R.id.switch_item);
-//            lyItem =  view.findViewById(R.id.ly_item);
+            lyItem =  view.findViewById(R.id.ly_item);
 
         }
     }

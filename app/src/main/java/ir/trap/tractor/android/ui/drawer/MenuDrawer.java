@@ -85,18 +85,18 @@ public class MenuDrawer extends Fragment
 
         dataList = new ArrayList<>();
 
-        dataList.add(new MenuItems(1, "لیست تراکنش ها", R.drawable.ic_transaction_list));
-        dataList.add(new MenuItems(2, "امتیازات", R.drawable.ic_score));
+        dataList.add(new MenuItems(1, "لیست تراکنش ها", R.drawable.ic_transaction_list, false));
+        dataList.add(new MenuItems(2, "امتیازات", R.drawable.ic_score, false));
 //        dataList.add(new MenuItems(3, "جشنواره", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(4, "کیف پول", R.drawable.ic_wallet));
-        dataList.add(new MenuItems(5, "مدیریت کارت ها", R.drawable.ic_card_management));
-        dataList.add(new MenuItems(6, "دعوت از دوستان", R.drawable.ic_invite_friends));
-        dataList.add(new MenuItems(7, "درباره ما", R.drawable.ic_about_us));
-        dataList.add(new MenuItems(8, "تنظیمات", R.drawable.ic_setting));
-        dataList.add(new MenuItems(9, "پشتیبانی", R.drawable.ic_support));
-        dataList.add(new MenuItems(10, "راهنما", R.drawable.ic_help));
+        dataList.add(new MenuItems(4, "کیف پول", R.drawable.ic_wallet, false));
+        dataList.add(new MenuItems(5, "مدیریت کارت ها", R.drawable.ic_card_management, false));
+        dataList.add(new MenuItems(6, "دعوت از دوستان", R.drawable.ic_invite_friends, false));
+        dataList.add(new MenuItems(7, "درباره ما", R.drawable.ic_about_us, true));
+        dataList.add(new MenuItems(8, "تنظیمات", R.drawable.ic_setting, false));
+        dataList.add(new MenuItems(9, "پشتیبانی", R.drawable.ic_support, false));
+        dataList.add(new MenuItems(10, "راهنما", R.drawable.ic_help, false));
 //        dataList.add(new MenuItems(11, "انتقادات و پیشنهادات", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(12, "خروج از حساب کاربری", R.drawable.ic_exit_app));
+        dataList.add(new MenuItems(12, "خروج از حساب کاربری", R.drawable.ic_exit_app, true));
 
         adapter = new MenuDrawerAdapter(getActivity(), dataList);
 

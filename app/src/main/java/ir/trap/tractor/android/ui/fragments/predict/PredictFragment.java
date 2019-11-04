@@ -1,7 +1,6 @@
 package ir.trap.tractor.android.ui.fragments.predict;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,17 +9,31 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.anychart.APIlib;
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Cartesian;
+import com.anychart.charts.Pie;
+import com.anychart.core.cartesian.series.Column;
+import com.anychart.enums.Align;
+import com.anychart.enums.Anchor;
+import com.anychart.enums.HoverMode;
+import com.anychart.enums.LegendLayout;
+import com.anychart.enums.Position;
+import com.anychart.enums.TooltipPositionMode;
+import com.anychart.graphics.vector.text.Direction;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -29,9 +42,10 @@ import ir.trap.tractor.android.apiServices.generator.SingletonService;
 import ir.trap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.trap.tractor.android.apiServices.model.WebServiceClass;
 import ir.trap.tractor.android.apiServices.model.matchList.MatchItem;
+import ir.trap.tractor.android.apiServices.model.predict.getPredict.response.Chart;
 import ir.trap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
+import ir.trap.tractor.android.apiServices.model.predict.getPredict.response.Predict;
 import ir.trap.tractor.android.apiServices.model.predict.sendPredict.request.SendPredictRequest;
-import ir.trap.tractor.android.ui.activities.login.LoginActivity;
 import ir.trap.tractor.android.ui.base.BaseFragment;
 import ir.trap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.trap.tractor.android.ui.fragments.main.MainActionView;
@@ -46,8 +60,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 {
     private MatchItem matchPredict;
 
-    private LinearLayout llAwayResultList, llHomeResultList;
-    private TextView tvAwayHeader, tvHomeHeader, tvAway, tvHome, tvCupTitle, tvDate, tvMatchResult;
+    private LinearLayout llAwayResultList, llHomeResultList, llChart;
+    private TextView tvAwayHeader, tvHomeHeader, tvAway, tvHome, tvCupTitle, tvDate, tvMatchResult, tvPredictEmpty;
     private ImageView imgHomeHeader, imgAwayHeader, imgHome, imgAway, imgHomePredict, imgAwayPredict;
 
     private EditText edtAwayPredict, edtHomePredict;
@@ -56,9 +70,12 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private CircularProgressButton btnSendPredict;
 
+    private Pie pieChart;
+    private Cartesian cartesian;
 
     private MainActionView mainView;
 
+    private AnyChartView chartViewPie, chartViewColumn;
 
     public PredictFragment()
     {
@@ -119,10 +136,18 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private void initView()
     {
+        chartViewPie = rootView.findViewById(R.id.chartViewPie);
+//        APIlib.getInstance().setActiveAnyChartView(chartViewPie);
+
+//        chartViewColumn = rootView.findViewById(R.id.chartViewColumn);
+//        APIlib.getInstance().setActiveAnyChartView(chartViewColumn);
+
         btnSendPredict = rootView.findViewById(R.id.btnSendPredict);
 
         llAwayResultList = rootView.findViewById(R.id.llAwayResultList);
         llHomeResultList = rootView.findViewById(R.id.llHomeResultList);
+
+        llChart = rootView.findViewById(R.id.llChart);
 
         edtAwayPredict = rootView.findViewById(R.id.edtAwayPredict);
         edtHomePredict = rootView.findViewById(R.id.edtHomePredict);
@@ -135,6 +160,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         tvDate = rootView.findViewById(R.id.tvDate);
         tvMatchResult = rootView.findViewById(R.id.tvMatchResult);
 
+        tvPredictEmpty = rootView.findViewById(R.id.tvPredictEmpty);
+
         imgAwayHeader = rootView.findViewById(R.id.imgAwayHeader);
         imgAway = rootView.findViewById(R.id.imgAway);
         imgAwayPredict = rootView.findViewById(R.id.imgAway3);
@@ -146,6 +173,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         vHome2 = rootView.findViewById(R.id.vHome2);
         vAway = rootView.findViewById(R.id.vAway);
         vAway2 = rootView.findViewById(R.id.vAway2);
+
+        pieChart = AnyChart.pie();
 
         getBaseData();
 
@@ -175,7 +204,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         }
                         else
                         {
-                            showAlert(getActivity(),response.info.message, R.string.error);
+                            showAlert(getActivity(),response.info.message, 0);
                         }
                     }
                     catch (NullPointerException e)
@@ -200,11 +229,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private void getBaseData()
     {
-//        SendPredictRequest request = new SendPredictRequest();
-//        request.setMatchId();
-//        request.setHomeTeamDcore();
-//        request.setAwayTeamDcore();
-
         SingletonService.getInstance().getPredictService().getPredictService(matchPredict.getId(), this);
     }
 
@@ -259,6 +283,95 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             vHome2.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
 
             tvMatchResult.setText(response.data.getAwayScore() + " : " + response.data.getHomeScore());
+
+            if (response.data.getPredict() == null || response.data.getPredict().isEmpty() ||
+                    response.data.getChart() == null || response.data.getChart().isEmpty())
+            {
+                llChart.setVisibility(View.GONE);
+                tvPredictEmpty.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                llChart.setVisibility(View.VISIBLE);
+                tvPredictEmpty.setVisibility(View.GONE);
+
+                List<DataEntry> data = new ArrayList<>();
+
+                for (Chart chart: response.data.getChart())
+                {
+                    try
+                    {
+                        if (chart.getChartPrediction() == 0) //0 = مساوی
+                        {
+                            data.add(new ValueDataEntry( "مساوی" , chart.getTotalUser()));
+                        }
+                        else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
+                        {
+                            data.add(new ValueDataEntry( "برد " + response.data.getHomeTeamName(), chart.getTotalUser()));
+                        }
+                        else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
+                        {
+                            data.add(new ValueDataEntry( "برد " + response.data.getAwayTeamName(), chart.getTotalUser()));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
+
+                pieChart.data(data);
+
+                pieChart.labels().position("outside");
+                pieChart.labels().fontColor("#000");
+//                Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"fonts/iran_sans_normal.ttf");
+//                pieChart.labels().fontFamily(face.toString());
+
+                pieChart.legend()
+//                        .position("center-bottom")
+                        .position("right")
+                        .itemsLayout(LegendLayout.VERTICAL)
+                        .textDirection(Direction.RTL)
+                        .align(Align.CENTER);
+
+//                pieChart.legend().background()
+
+                chartViewPie.setChart(pieChart);
+
+//                cartesian = AnyChart.column();
+//                data = new ArrayList<>();
+//
+//                for (Predict predict: response.data.getPredict())
+//                {
+//                    String pSplit[] = predict.getPredict().split("\\|");
+//                    data.add(new ValueDataEntry(Integer.parseInt(pSplit[1]) + "-" + Integer.parseInt(pSplit[0]), predict.getTotalUser()));
+//                }
+//                Column column = cartesian.column(data);
+//                column.tooltip()
+//                        .titleFormat("{%X}")
+//                        .position(Position.CENTER_BOTTOM)
+//                        .anchor(Anchor.CENTER_BOTTOM)
+//                        .offsetX(0d)
+//                        .offsetY(5d)
+//                        .format("%{%Value}{groupsSeparator: }");
+//
+//                cartesian.animation(true);
+//                cartesian.yScale().minimum(0d);
+//                cartesian.yScale().maximum(100d);
+//
+//                cartesian.yAxis(0).labels().format("%{%Value}{groupsSeparator: }");
+////                cartesian.yAxis(0).labels().format();
+//
+//                cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+//                cartesian.interactivity().hoverMode(HoverMode.BY_X);
+//
+////                cartesian.xAxis(0).title("Product");
+////                cartesian.yAxis(0).title("Revenue");
+//
+//                chartViewColumn.setChart(cartesian);
+
+            }
+
         }
 
     }

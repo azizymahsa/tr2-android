@@ -1,12 +1,24 @@
 package ir.trap.tractor.android.models.otherModels.menuItems;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class MenuItems
 {
+    @Getter @Setter
+    private int id;
 
-    int id;
-    int imgResID;
-    String ItemName;
-    int ItemNumber;
+    @Getter @Setter
+    private int imgResID;
+
+    @Getter @Setter
+    private String ItemName;
+
+    @Getter @Setter
+    private int ItemNumber;
+
+    @Getter @Setter
+    private Boolean isActive;
 
     public MenuItems(int id, String itemName, int imgResID, int itemNumber)
     {
@@ -14,53 +26,21 @@ public class MenuItems
         this.imgResID = imgResID;
         ItemName = itemName;
         ItemNumber = itemNumber;
+        this.isActive = true;
     }
 
     public MenuItems()
     {
     }
 
-    public MenuItems(int id, String itemName, int imgResID)
+    public MenuItems(int id, String itemName, int imgResID, Boolean isActive)
     {
         this.id = id;
         this.ItemName = itemName;
         this.imgResID = imgResID;
+        this.isActive = isActive;
         this.ItemNumber = -1;
     }
 
-    public int getId()
-    {
-        return id;
-    }
-
-    public int getItemNumber()
-    {
-        return ItemNumber;
-    }
-
-    public void setItemNumber(int itemNumber)
-    {
-        ItemNumber = itemNumber;
-    }
-
-    public String getItemName()
-    {
-        return ItemName;
-    }
-
-    public void setItemName(String itemName)
-    {
-        ItemName = itemName;
-    }
-
-    public int getImgResID()
-    {
-        return imgResID;
-    }
-
-    public void setImgResID(int imgResID)
-    {
-        this.imgResID = imgResID;
-    }
 
 }

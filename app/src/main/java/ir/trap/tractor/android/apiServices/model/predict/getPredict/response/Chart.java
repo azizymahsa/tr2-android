@@ -1,5 +1,7 @@
 package ir.trap.tractor.android.apiServices.model.predict.getPredict.response;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +12,8 @@ public class Chart
 {
     @SerializedName("chart_prediction")
     @Expose @Getter @Setter
-    private Double chartPrediction;
+    @Nullable
+    private Integer chartPrediction;
 
     @SerializedName("total_user")
     @Expose @Getter @Setter

@@ -309,7 +309,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             textSliderView.setImgAwayLink(matchItem.getTeamAway().getLogo());
             textSliderView.setImgHomeLink(matchItem.getTeamHome().getLogo());
             textSliderView.setMatchResult(matchItem.getResult());
-            Logger.e("--result--","R: "+ matchItem.getResult());
+//            Logger.e("--result--","R: "+ matchItem.getResult());
 
             textSliderView.setOnSliderClickListener(this);
 
