@@ -9,5 +9,5 @@
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
     android:textAlignment="gravity"
-    android:gravity="end"
+    android:gravity="right"
     android:padding="@dimen/_5sdp" />

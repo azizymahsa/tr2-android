@@ -69,9 +69,9 @@
                 android:layout_width="@dimen/_200dp"
                 android:layout_height="@dimen/_60dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
@@ -151,8 +151,8 @@
                             android:id="@+id/tvBillInfo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="5dp"
-                            android:gravity="end"
+                            android:layout_marginRight="5dp"
+                            android:gravity="right"
                             android:text="استعلام موبایل یا تلفن ثابت"
 
                             android:textColor="@color/textColorSecondary"
@@ -161,7 +161,7 @@
                             android:id="@+id/ivBillInfo"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
                             android:visibility="visible"
 
                             />
@@ -197,8 +197,8 @@
                             android:id="@+id/tvBillPayment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="5dp"
-                            android:gravity="end"
+                            android:layout_marginRight="5dp"
+                            android:gravity="right"
                             android:text="پرداخت"
 
                             android:textSize="@dimen/textSize_12dp" />
@@ -208,7 +208,7 @@
 
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
                             android:padding="@dimen/_5sdp"
                             android:visibility="visible"
 
@@ -254,7 +254,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="30"
-                        android:gravity="end"
+                        android:gravity="right"
                         android:text="aaaaa"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_16dp" />
@@ -271,10 +271,10 @@
                         android:id="@+id/tvf"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="30"
                         android:gravity="center"
                         android:text=" نوع قبض :"
@@ -294,7 +294,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20dp"
-                    android:gravity="center|end"
+                    android:gravity="center|right"
                     android:orientation="horizontal">
 
                     <Space
@@ -306,7 +306,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:orientation="horizontal">
 
 
@@ -315,7 +315,7 @@
                             android:layout_width="@dimen/_30dp"
                             android:layout_height="@dimen/_30dp"
                             android:layout_gravity="center"
-                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
                             android:background="@drawable/button_small_border"
                             android:textColor="@color/white"
                             android:textSize="@dimen/textSize_20dp"
@@ -331,8 +331,8 @@
                             android:layout_width="@dimen/_35dp"
                             android:layout_height="@dimen/_35dp"
                             android:layout_gravity="center"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginStart="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
                             android:padding="@dimen/_5sdp"
                             android:background="@drawable/button_small_border"
                             android:foreground="?attr/selectableItemBackground" />
@@ -342,7 +342,7 @@
                             android:id="@+id/etMobileHint"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_60sdp"
-                            android:layout_gravity="center|end"
+                            android:layout_gravity="center|right"
                             android:layout_weight="100"
                             android:hint="@string/etMobileHint"
                             android:theme="@style/EditTextHint"
@@ -354,7 +354,7 @@
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/warmGray"
                                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                                android:gravity="end|center"
+                                android:gravity="right|center"
                                 android:imeOptions="actionDone"
                                 android:inputType="number"
                                 android:maxLines="1"
@@ -373,7 +373,7 @@
                             android:id="@+id/etLayoutDestination2"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_60sdp"
-                            android:layout_gravity="center|end"
+                            android:layout_gravity="center|right"
                             android:layout_weight="100"
                             android:theme="@style/EditTextHint"
 
@@ -386,7 +386,7 @@
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/warmGray"
                                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                                android:gravity="end|center"
+                                android:gravity="right|center"
                                 android:imeOptions="actionNext"
                                 android:inputType="number"
                                 android:maxLines="1"
@@ -427,7 +427,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:gravity="center|end"
+                    android:gravity="center|right"
                     android:orientation="horizontal">
 
 
@@ -470,7 +470,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:text="لیست قبوض قابل پرداخت"
                     android:textColor="@android:color/holo_blue_bright"
@@ -481,9 +481,9 @@
                     android:id="@+id/tvBillDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_10dp"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:layout_marginEnd="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"
                     android:gravity="center"
                     android:text=""
                     android:textColor="@color/textColorSecondary"
@@ -493,8 +493,8 @@
                     android:id="@+id/rvInfo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:visibility="gone" />
 
             </LinearLayout>
@@ -508,7 +508,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center|end"
+                    android:gravity="center|right"
                     android:orientation="horizontal">
 
                     <Space
@@ -521,7 +521,7 @@
                         android:id="@+id/etLayoutCode"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_50sdp"
-                        android:layout_gravity="center|end"
+                        android:layout_gravity="center|right"
                         android:layout_weight="100"
                         android:hint="شناسه قبض"
                         android:theme="@style/EditTextHint"
@@ -533,7 +533,7 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/warmGray"
                             android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                            android:gravity="end|center"
+                            android:gravity="right|center"
                             android:imeOptions="actionDone"
                             android:inputType="number"
                             android:maxLines="1"
@@ -555,7 +555,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center|end"
+                    android:gravity="center|right"
                     android:orientation="horizontal">
 
                     <Space
@@ -567,7 +567,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_50sdp"
-                        android:layout_gravity="center|end"
+                        android:layout_gravity="center|right"
                         android:layout_weight="100"
                         android:hint="شناسه پرداخت"
 
@@ -580,7 +580,7 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/warmGray"
                             android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                            android:gravity="end|center"
+                            android:gravity="right|center"
                             android:imeOptions="actionDone"
                             android:inputType="number"
                             android:maxLines="1"
@@ -605,7 +605,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:gravity="center|end"
+                    android:gravity="center|right"
                     android:orientation="horizontal">
 
 
@@ -649,7 +649,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:text="لیست قبوض قابل پرداخت"
                     android:textColor="@android:color/holo_blue_bright"
@@ -671,7 +671,7 @@
                     android:id="@+id/llbillFirst"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end|center"
+                    android:gravity="right|center"
                     android:orientation="horizontal">
 
                     <TextView
@@ -679,7 +679,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10dp"
                         android:layout_weight="60"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:text="@string/bill_now"
                         android:textColor="@color/white"
                         android:textSize="@dimen/textSize_14dp" />
@@ -689,9 +689,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
                         android:buttonTint="@android:color/white"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:checked="false"/>
 
                 </LinearLayout>
@@ -713,7 +713,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:gravity="center|start"
+                        android:gravity="center|left"
                         android:textColor="@color/warmGray"
                         android:textSize="@dimen/textSize_14dp"
 
@@ -723,7 +723,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:text="@string/amount"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
@@ -760,7 +760,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:gravity="center|start"
+                        android:gravity="center|left"
                         android:textColor="@color/warmGray"
                         android:textSize="@dimen/textSize_14dp"
 
@@ -770,7 +770,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:text="@string/toDate"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
@@ -807,7 +807,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:gravity="center|start"
+                        android:gravity="center|left"
                         android:textColor="@color/warmGray"
                         android:textSize="@dimen/textSize_14dp"
 
@@ -817,7 +817,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:text="@string/bill_code"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
@@ -853,7 +853,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:gravity="center|start"
+                        android:gravity="center|left"
                         android:textColor="@color/warmGray"
                         android:textSize="@dimen/textSize_14dp"
 
@@ -863,7 +863,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:text="@string/pay_code"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
@@ -898,14 +898,14 @@
                     android:id="@+id/tvBillEnd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end|center"
+                    android:gravity="right|center"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10dp"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:padding="8dp"
                         android:text="@string/bill_end"
                         android:textColor="@color/white"
@@ -916,9 +916,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
                         android:buttonTint="@android:color/white"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:checked="true"/>
 
                 </LinearLayout>
@@ -940,7 +940,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:gravity="center|start"
+                        android:gravity="center|left"
                         android:textColor="@color/warmGray"
                         android:textSize="@dimen/textSize_14dp"
 
@@ -950,7 +950,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:text="@string/amount"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
@@ -987,7 +987,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:gravity="center|start"
+                        android:gravity="center|left"
                         android:textColor="@color/warmGray"
                         android:textSize="@dimen/textSize_14dp"
 
@@ -997,7 +997,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:text="@string/toDate"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
@@ -1034,7 +1034,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:gravity="center|start"
+                        android:gravity="center|left"
                         android:textColor="@color/warmGray"
                         android:textSize="@dimen/textSize_14dp"
 
@@ -1044,7 +1044,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:text="@string/bill_code"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
@@ -1080,7 +1080,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:gravity="center|start"
+                        android:gravity="center|left"
                         android:textColor="@color/warmGray"
                         android:textSize="@dimen/textSize_14dp"
 
@@ -1090,7 +1090,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:text="@string/pay_code"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_14dp"
@@ -1114,11 +1114,11 @@
                     android:id="@+id/llAddToMyBills"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:layout_gravity="end"
+                    android:gravity="right"
+                    android:layout_gravity="right"
                     android:orientation="horizontal"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:layout_marginEnd="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"
                     android:layout_marginTop="@dimen/_20dp"
                     android:padding="2dp"
                     android:visibility="gone">
@@ -1131,11 +1131,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center|end"
+                        android:gravity="center|right"
                         android:textColor="@color/white"
                         android:textSize="@dimen/textSize_14dp"
-                        android:layout_marginEnd="@dimen/_10dp"
-                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_marginRight="@dimen/_10dp"
+                        android:layout_marginLeft="@dimen/_10dp"
                         />
 
                     <CheckBox
@@ -1156,7 +1156,7 @@
                     android:id="@+id/llTitleAddMyBill"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center|end"
+                    android:gravity="center|right"
                     android:layout_marginTop="@dimen/_10dp"
                     android:orientation="horizontal"
                     android:visibility="gone">
@@ -1171,7 +1171,7 @@
                         android:id="@+id/tiHintTitleAddMyBill"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_50sdp"
-                        android:layout_gravity="center|end"
+                        android:layout_gravity="center|right"
                         android:layout_weight="100"
                         android:hint="عنوان مورد نظر را وارد نمایید"
                         android:theme="@style/EditTextHint"
@@ -1182,7 +1182,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/warmGray"
-                            android:gravity="end|center"
+                            android:gravity="right|center"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
@@ -1210,7 +1210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20dp"
-                android:gravity="center|end"
+                android:gravity="center|right"
                 android:orientation="horizontal"
                 android:visibility="gone">
 
@@ -1265,7 +1265,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|end"
+                android:gravity="center|right"
                 android:orientation="horizontal"
                 android:visibility="gone">
 
@@ -1300,7 +1300,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|end"
+                android:gravity="center|right"
                 android:orientation="horizontal">
 
                 <Space
@@ -1313,7 +1313,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:gravity="center|end"
+                    android:gravity="center|right"
                     android:orientation="horizontal">
 
                     <TextView
@@ -1322,7 +1322,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginBottom="5dp"
                         android:textAppearance="@style/IranSansBold"
                         android:textColor="@color/white"
@@ -1348,7 +1348,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|end"
+                android:gravity="center|right"
                 android:orientation="horizontal">
 
                 <Space
@@ -1361,7 +1361,7 @@
                     android:id="@+id/etLayoutPass"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center|end"
+                    android:layout_gravity="center|right"
                     android:layout_weight="100"
                     android:hint="رمز دوم کارت را وارد نمایید"
 
@@ -1374,7 +1374,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/warmGray"
                         android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                        android:gravity="end|center"
+                        android:gravity="right|center"
                         android:imeOptions="actionDone"
                         android:inputType="numberPassword"
                         android:maxLines="1"
@@ -1400,7 +1400,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center|end"
+                android:gravity="center|right"
                 android:orientation="horizontal"
                 android:visibility="gone">
 
@@ -1414,7 +1414,7 @@
                     android:id="@+id/etLayoutCvv"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center|end"
+                    android:layout_gravity="center|right"
                     android:layout_weight="100"
                     android:hint="شماره cvv2 را وارد نمایید"
 
@@ -1428,7 +1428,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/warmGray"
                         android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                        android:gravity="end|center"
+                        android:gravity="right|center"
                         android:imeOptions="actionDone"
                         android:inputType="numberPassword"
                         android:maxLines="1"
@@ -1464,7 +1464,7 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"
                     android:layout_weight="100">
 
                     <include
@@ -1476,7 +1476,7 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_10dp"
                     android:layout_weight="100">
 
                     <include

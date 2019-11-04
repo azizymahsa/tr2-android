@@ -23,7 +23,7 @@
             <RelativeLayout
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true">
 
                 <ImageView
@@ -31,8 +31,8 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="8dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
                     android:scaleType="fitXY"
                     android:layout_centerVertical="true"
                     android:tint="@color/mainMenuColor"
@@ -47,9 +47,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/nav_header_container"
-            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="@dimen/_24sdp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="4dp"
             android:background="@color/drawerSepratorColor" />
 
@@ -83,9 +83,9 @@
             android:text="حساب کاربری من"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
-            android:paddingEnd="24dp"
+            android:paddingRight="24dp"
             android:textColor="@color/textColorPrimary"
-            android:paddingStart="24dp" />
+            android:paddingLeft="24dp" />
 
     </androidx.cardview.widget.CardView>
 

@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -56,7 +56,7 @@
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
-                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:theme="@style/EditTextHint"
                 app:hintTextAppearance="@style/TextLabel">
 
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/textColorPrimary"
-                    android:gravity="end|center"
+                    android:gravity="right|center"
                     android:hint="رمز کارت را وارد نمایید"
                     android:nextFocusDown="@+id/etNewPass"
                     android:inputType="numberPassword"
@@ -82,7 +82,7 @@
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
-                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:theme="@style/EditTextHint"
                 app:hintTextAppearance="@style/TextLabel">
 
@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/textColorPrimary"
-                    android:gravity="end|center"
+                    android:gravity="right|center"
                     android:hint="رمز کارت جدید را وارد نمایید"
                     android:nextFocusDown="@+id/etRepeatNewPass"
                     android:inputType="numberPassword"
@@ -107,7 +107,7 @@
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
-                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:theme="@style/EditTextHint"
                 app:hintTextAppearance="@style/TextLabel">
 
@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/textColorPrimary"
-                    android:gravity="end|center"
+                    android:gravity="right|center"
                     android:hint="رمز جدید را مجددا وارد نمایید"
                     android:imeOptions="actionDone"
                     android:inputType="numberPassword"
@@ -150,8 +150,8 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:layout_weight="100">
 
                 <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
@@ -176,8 +176,8 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:layout_weight="100">
 
                 <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton

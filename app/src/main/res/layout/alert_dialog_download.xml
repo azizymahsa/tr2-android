@@ -29,8 +29,8 @@
             android:textAppearance="@style/IranSansBold"
             android:text="در حال دریافت آخرین نسخه تراپ..."
             android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="@dimen/_10sdp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="@dimen/_10sdp"/>
 
         <com.gastudio.downloadloadding.library.GADownloadingView
             android:id="@+id/ga_downloading"

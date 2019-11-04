@@ -705,7 +705,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onBuyTicketClick(MatchItem matchBuyable)
     {
-        showLoading();
         isMainFragment = false;
         this.fragment = BuyTickets.newInstance(this, matchBuyable);
 
