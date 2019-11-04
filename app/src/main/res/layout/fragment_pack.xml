@@ -70,16 +70,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginTop="5dp"
-                    android:gravity="center|right"
+                    android:gravity="center|end"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvPackTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="خرید شارژ آنلاین همراه اول"
@@ -156,7 +156,7 @@
                     android:id="@+id/tvAmountPackage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textAppearance="@style/IranSansBold"
@@ -193,7 +193,7 @@
                             android:textSize="@dimen/textSize_14dp"
                             android:textColor="@color/chargePackTextColor"
                             android:text=" ریال"
-                            android:layout_marginRight="5dp"/>
+                            android:layout_marginEnd="5dp"/>
 
                         <TextView
                             android:id="@+id/tvAmpuntPassCharge"
@@ -202,7 +202,7 @@
                             android:textSize="@dimen/textSize_14dp"
                             android:textColor="@color/textColorPrimary"
                             android:text=""
-                            android:layout_marginRight="@dimen/_10dp"/>
+                            android:layout_marginEnd="@dimen/_10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -217,7 +217,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_gravity="center|right"
+                        android:layout_gravity="center|end"
                         android:orientation="horizontal">
                         <Space
                             android:layout_width="0dp"
@@ -229,8 +229,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="80"
                             android:textSize="@dimen/textSize_14dp"
-                            android:layout_marginRight="@dimen/_10dp"
-                            android:gravity="center_vertical|right"
+                            android:layout_marginEnd="@dimen/_10dp"
+                            android:gravity="center_vertical|end"
                             android:textColor="@color/chargePackTextColor"
                             android:text="خرید شارژ آنلاین همراه اول"
                             />
@@ -260,7 +260,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center|right"
+                        android:gravity="center|end"
                         android:orientation="horizontal">
 
                         <Space
@@ -273,7 +273,7 @@
                             android:id="@+id/tlPassCharge"
                             android:layout_width="@dimen/_230sdp"
                             android:layout_height="@dimen/_50dp"
-                            android:layout_gravity="center|right"
+                            android:layout_gravity="center|end"
                             android:hint="رمز دوم کارت را وارد نمایید"
                             android:textColorHint="@color/textColorSecondary"
                             android:theme="@style/EditTextHint">
@@ -284,7 +284,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
                                 android:backgroundTint="@color/textColorSecondary"
-                                android:gravity="right|center"
+                                android:gravity="end|center"
                                 android:imeOptions="actionDone"
                                 android:inputType="numberPassword"
                                 android:maxLines="1"
@@ -305,7 +305,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center|right"
+                        android:gravity="center|end"
                         android:orientation="horizontal"
                         android:id="@+id/llCvv2"
                         android:visibility="gone">
@@ -320,7 +320,7 @@
                             android:id="@+id/tipCvv2"
                             android:layout_width="@dimen/_230sdp"
                             android:layout_height="@dimen/_50dp"
-                            android:layout_gravity="center|right"
+                            android:layout_gravity="center|end"
                             android:hint="شماره Cvv2 کارت را وارد نمایید"
                             android:textColorHint="@color/textColorSecondary"
                             android:theme="@style/EditTextHint">
@@ -331,7 +331,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="100"
                                 android:backgroundTint="@color/textColorSecondary"
-                                android:gravity="right|center"
+                                android:gravity="end|center"
                                 android:imeOptions="actionDone"
                                 android:inputType="numberPassword"
                                 android:maxLines="1"
@@ -362,8 +362,8 @@
                         <FrameLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_weight="100">
 
                             <include
@@ -375,8 +375,8 @@
                         <FrameLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_weight="100">
 
                             <include
