@@ -37,6 +37,8 @@ import ir.traap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import ir.traap.tractor.android.apiServices.model.league.request.GetLeagueRequest;
+import ir.traap.tractor.android.apiServices.model.league.response.ResponseLeage;
 import ir.traap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import ir.traap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.traap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -129,6 +131,9 @@ public interface RetroClient
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
             @Body MobileChargeRequest request);
 
+    @POST(Const.GET_Leage)
+    Single<Response<WebServiceClass<ResponseLeage>>> getLeage(
+            @Body GetLeagueRequest request);
 
     @POST(Const.GET_PACKAGE_IRANCELL)
     Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(

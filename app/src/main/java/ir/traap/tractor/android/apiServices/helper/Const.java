@@ -99,6 +99,8 @@ public class Const
     //Version
     public final static String GET_VERSION = SubBASEURL + "v1/version/get_version_android/";
 
+    //Leagues
+    public final static String GET_Leage = SubBASEURL + "v1/livescore/get_leagues/";
 
     //Predict
     public final static String GET_PREDICT = SubBASEURL + "v1/predict/";

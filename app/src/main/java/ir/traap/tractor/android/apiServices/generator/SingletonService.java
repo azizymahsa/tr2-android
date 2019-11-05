@@ -26,6 +26,7 @@ import ir.traap.tractor.android.apiServices.part.GetRightelPackService;
 import ir.traap.tractor.android.apiServices.part.GetShetabCardInfoService;
 import ir.traap.tractor.android.apiServices.part.GetVersionService;
 import ir.traap.tractor.android.apiServices.part.HotelService;
+import ir.traap.tractor.android.apiServices.part.LiveScoreService;
 import ir.traap.tractor.android.apiServices.part.LoginService;
 import ir.traap.tractor.android.apiServices.part.MerchantService;
 import ir.traap.tractor.android.apiServices.part.MobileChargeService;
@@ -77,6 +78,13 @@ public class SingletonService
     {
     }
 
+    public ReservationMatchService getReservation()
+    {
+        return new ReservationMatchService(serviceGenerator);
+    }
+
+
+
     public ServiceApplication getContext()
     {
         return serviceApplication;
@@ -119,6 +127,10 @@ public class SingletonService
     {
         return new BillCodePayCodeService(serviceGenerator);
     }
+    public LiveScoreService getLiveScoreService()
+    {
+        return new LiveScoreService(serviceGenerator);
+    }
     public GetMenuService getMenuService()
     {
         return new GetMenuService(serviceGenerator);
@@ -139,11 +151,6 @@ public class SingletonService
     public MobileChargeService getMobileCharge()
     {
         return new MobileChargeService(serviceGenerator);
-    }
-
-    public ReservationMatchService getReservation()
-    {
-        return new ReservationMatchService(serviceGenerator);
     }
 
     public GetRightelPackService getPackageRightelService()
