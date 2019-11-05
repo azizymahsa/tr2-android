@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.anychart.AnyChart;
@@ -24,6 +25,7 @@ import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 import com.anychart.graphics.vector.text.Direction;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -70,6 +72,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private AnyChartView chartViewPie, chartViewColumn;
 
+    private Toolbar mToolbar;
+
+
     public PredictFragment()
     {
 
@@ -115,11 +120,17 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         rootView = inflater.inflate(R.layout.fragment_predict, container, false);
 
-        ((TextView) rootView.findViewById(R.id.tvTitle)).setText("پیش بینی بازی");
+        mToolbar = rootView.findViewById(R.id.toolbar);
+
+        ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("پیش بینی بازی");
         rootView.findViewById(R.id.imgBack).setOnClickListener(v ->
         {
             mainView.backToMainFragment();
         });
+
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+        TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvUserName.setText(Prefs.getString("mobile", ""));
 
         initView();
 

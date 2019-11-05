@@ -103,7 +103,10 @@ public class AboutFragment
         // initializing the views
         initViews();
         mToolbar = view.findViewById(R.id.toolbar);
-        tvUserName = view.findViewById(R.id.tvUserName);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvTitle.setText("درباره تراپ");
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
         tvUserName.setText(Prefs.getString("mobile", ""));
 
