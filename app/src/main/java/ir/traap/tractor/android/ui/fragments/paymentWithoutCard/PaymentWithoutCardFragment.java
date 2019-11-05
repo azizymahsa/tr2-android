@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -66,6 +67,8 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     private LinearLayout llCheckBox;
     private MainActionView mainView;
 
+    private Toolbar mToolbar;
+
 
     public PaymentWithoutCardFragment()
     {
@@ -96,7 +99,8 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
                 isDetailPaymentList = false;
                 return v;
 
-            } else
+            }
+            else
             {
                 if (isDetailPaymentBarcode)
                 {
@@ -111,6 +115,14 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
         }
 
         v = inflater.inflate(R.layout.fragment_payment_without_card, container, false);
+
+        mToolbar = v.findViewById(R.id.toolbar);
+
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+//        mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
+        TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvUserName.setText(Prefs.getString("mobile", ""));
+
         initView();
 
         return v;
@@ -130,6 +142,8 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
             isDetailPaymentList = false;
 
     }
+
+
 
     @Override
     public void onResume()
@@ -156,6 +170,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
 
     public void initView()
     {
+
         etAmountPayment = v.findViewById(R.id.etAmountPayment);
         etLayoutCode = v.findViewById(R.id.etLayoutCode);
         etQR = v.findViewById(R.id.etQR);

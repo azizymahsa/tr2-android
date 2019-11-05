@@ -30,8 +30,12 @@ public class NotificationJobService extends JobService
     public void onCreate()
     {
         super.onCreate();
-        AdpPushClient client = AdpPushClient.get().register(Prefs.getString("mobile", ""));
-        client.addListener(this);
+
+        if (!Prefs.getString("mobile", "").isEmpty() || !Prefs.getString("mobile", "").equals(null))
+        {
+            AdpPushClient client = AdpPushClient.get().register(Prefs.getString("mobile", ""));
+            client.addListener(this);
+        }
     }
 
     public void onEvent(PushMessage message)

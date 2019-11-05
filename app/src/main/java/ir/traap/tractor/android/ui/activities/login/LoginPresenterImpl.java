@@ -2,6 +2,7 @@ package ir.traap.tractor.android.ui.activities.login;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 
+import com.adpdigital.push.AdpPushClient;
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -31,6 +33,8 @@ import ir.traap.tractor.android.apiServices.model.verify.Profile;
 import ir.traap.tractor.android.apiServices.model.verify.VerifyRequest;
 import ir.traap.tractor.android.apiServices.model.verify.VerifyResponse;
 import ir.traap.tractor.android.conf.TrapConfig;
+import ir.traap.tractor.android.notification.NotificationJobService;
+import ir.traap.tractor.android.notification.PushMessageReceiver;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.base.GoToActivity;
 import ir.traap.tractor.android.utilities.IMEI_Device;
@@ -317,6 +321,20 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             loginView.onButtonActions(false, null);
             countDownTimer.start();
             loginView.hideLoading();
+
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
+            {
+
+                AdpPushClient.get().register(Prefs.getString("mobile", ""));
+                Intent myIntent = new Intent(appContext, PushMessageReceiver.class);
+                PendingIntent.getBroadcast(appContext, 0, myIntent, 0);
+
+
+            }
+            else
+            {
+                appContext.startService(new Intent(appContext, NotificationJobService.class));
+            }
         } else
         {
             Tools.showToast(appContext, "خطایی رخ داده است", R.color.red);
