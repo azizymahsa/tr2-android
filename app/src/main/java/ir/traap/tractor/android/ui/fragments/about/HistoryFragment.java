@@ -379,9 +379,11 @@ public class HistoryFragment
 
         /*Toolbars*/
         mToolbar = view.findViewById(R.id.toolbar);
-        tvUserName = view.findViewById(R.id.tvUserName);
-
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(Prefs.getString("mobile", ""));
+        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvTitle.setText("تاریخچه تراپ");
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
         {

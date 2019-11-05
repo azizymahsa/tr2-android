@@ -106,12 +106,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
         {
-
             AdpPushClient.get().register(Prefs.getString("mobile", ""));
             Intent myIntent = new Intent(this, PushMessageReceiver.class);
             PendingIntent.getBroadcast(this, 0, myIntent, 0);
-
-
         }
         else
         {
@@ -398,7 +395,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     @Override
                     public void onConfirmClick()
                     {
+                        String mobile = Prefs.getString("mobile", "");
                         Prefs.clear();
+                        Prefs.putString("mobile", mobile);
                         finish();
                         intent.setClass(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
