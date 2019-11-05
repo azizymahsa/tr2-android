@@ -60,6 +60,7 @@ import ir.traap.tractor.android.ui.fragments.about.AboutFragment;
 import ir.traap.tractor.android.ui.fragments.about.HistoryFragment;
 import ir.traap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.traap.tractor.android.ui.fragments.billPay.BillFragment;
+import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.main.MainFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
@@ -731,6 +732,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment)
+                .commit();
+    }
+
+    @Override
+    public void onLeageClick()
+    {
+        isMainFragment = true;
+
+        fragment = LeagueTableFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+        transaction.replace(R.id.main_container, fragment)
                 .commit();
     }
 
