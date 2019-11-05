@@ -6,9 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -27,6 +30,8 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import ir.traap.tractor.android.ui.base.GoToActivity;
+import ir.traap.tractor.android.utilities.ClearableEditText;
+import ir.traap.tractor.android.utilities.Tools;
 import library.android.eniac.base.BaseActivity;
 
 /**
@@ -38,11 +43,13 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
 //    private RelativeLayout rlImage;
     private CircularProgressButton btnConfirm;
     private EditText etFirstName, etLastName, etInvite;
+    private ClearableEditText etPopularPlayer;
     private TextView tvMenu;
-//    private ImageView ivProfile;
+    //    private ImageView ivProfile;
     private File userPic;
     private boolean isChangePic = false;
     private FrameLayout flLogoToolbar;
+    private String popularPlayer;
 
 
     @Override
@@ -54,6 +61,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
         // presenter = new UserPresenterImpl(this, new UpdateUserImpl());
         btnConfirm = findViewById(R.id.btnConfirm);
         etFirstName = findViewById(R.id.etFirstName);
+        etPopularPlayer = findViewById(R.id.etPopularPlayer);
 //        ivProfile = findViewById(R.id.ivProfile);
         etInvite = findViewById(R.id.etInvite);
 
@@ -61,6 +69,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
         etLastName = findViewById(R.id.etLastName);
 //        rlImage = findViewById(R.id.rlImage);
         btnConfirm.setOnClickListener(this);
+        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
         //   btnConfirm.setOnClickListener(presenter);
         // rlImage.setOnClickListener(presenter);
         //presenter.details(etFirstName, etLastName, etInvite);
@@ -75,7 +84,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
 
         etFirstName.setText(Prefs.getString("firstName", ""));
         etLastName.setText(Prefs.getString("lastName", ""));
-       // etInvite.setText(Prefs.getString("keyInvite", ""));
+        // etInvite.setText(Prefs.getString("keyInvite", ""));
 
 
 
@@ -300,7 +309,6 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (ImagePicker.shouldHandle(requestCode, resultCode, data))
         {
             // Get a list of picked images
@@ -351,10 +359,21 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
         switch (view.getId())
         {
             case R.id.btnConfirm:
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
+
+
+                popularPlayer = etPopularPlayer.getText().toString();
+                if (popularPlayer.matches(""))
+                {
+                    Tools.showToast(this,"وارد کردن شماره بازیکن محبوب اجباری می باشد." ,R.color.red);
+
+                }else
+                {
+
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
 
         }

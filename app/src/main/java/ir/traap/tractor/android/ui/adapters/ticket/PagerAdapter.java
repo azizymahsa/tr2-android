@@ -4,17 +4,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import ir.traap.tractor.android.conf.TrapConfig;
-import ir.traap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import java.util.List;
 
 import ir.traap.tractor.android.apiServices.model.buyTicket.InfoViewer;
+import ir.traap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentParentActionView;
 import ir.traap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
+import ir.traap.tractor.android.ui.fragments.ticket.CountTicketFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
@@ -69,21 +69,16 @@ public class PagerAdapter
               //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTickets, this, onClickContinueBuyTicket);
                // CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3", buyTickets, mainActionView);
                 TicketPaymentInstance paymentInstance = new TicketPaymentInstance();
-                paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_StudiomTicket);
 //                paymentInstance.setFirstName();
 //                paymentInstance.setLastName();
 //                paymentInstance.setNationalCode();
 //                paymentInstance.setTicketId();
-
-//                PaymentFragment tab3 = PaymentFragment.newInstance(onClickContinueBuyTicket,
+//                PaymentFragment tab3 = PaymentFragment.newInstance(this,
 //                        "",
 //                        "",
 //                        0,
 //                        "",
 //                        paymentInstance);
-
-//               PaymentFragment tab3 = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_StudiomTicket,buyTickets,
-//                       this,onClickContinueBuyTicket);
 
                 ShowTicketsFragment tab3 =ShowTicketsFragment.newInstance("TAB3", buyTickets, mainActionView);
                // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);

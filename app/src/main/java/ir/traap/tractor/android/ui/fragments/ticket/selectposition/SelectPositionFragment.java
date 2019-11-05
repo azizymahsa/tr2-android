@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
@@ -42,8 +43,10 @@ import ir.traap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest
 import ir.traap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.apiServices.model.reservationmatch.ReservationResponse;
+import ir.traap.tractor.android.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
+import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.Tools;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import library.android.eniac.utility.Utility;
@@ -978,7 +981,7 @@ public class SelectPositionFragment
                     @Override
                     public void onComplete()
                     {
-                        BuyTickets.buyTickets.hideLoading();
+                       BuyTickets.buyTickets.hideLoading();
                         handleSetStadiumLayouts();
                     }
 
@@ -1379,6 +1382,7 @@ public class SelectPositionFragment
         switch (v.getId())
         {
             case R.id.btnPaymentConfirm:
+                BuyTickets.buyTickets.showLoading();
                 callReservationRequest();
                 break;
            /* case R.id.btnBackToDetail:
@@ -1403,7 +1407,7 @@ public class SelectPositionFragment
 
     private void callReservationRequest()
     {
-        BuyTickets.buyTickets.showLoading();
+
         reservationMatch.reservationRequest(this, matchId, count, stadiumPositionModels.get(selectPositionId).getId() - 1);
     }
 

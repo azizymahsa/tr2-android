@@ -30,9 +30,8 @@ import ir.traap.tractor.android.apiServices.part.LoginService;
 import ir.traap.tractor.android.apiServices.part.MerchantService;
 import ir.traap.tractor.android.apiServices.part.MobileChargeService;
 import ir.traap.tractor.android.apiServices.part.PackageBuyService;
-import ir.traap.tractor.android.apiServices.part.SendPredictService;
-import ir.traap.tractor.android.apiServices.part.PaymentMatchService;
 import ir.traap.tractor.android.apiServices.part.ReservationMatchService;
+import ir.traap.tractor.android.apiServices.part.SendPredictService;
 import ir.traap.tractor.android.apiServices.part.SheatcChangePassService;
 import ir.traap.tractor.android.apiServices.part.SheatcForgotPassService;
 import ir.traap.tractor.android.apiServices.part.GetMatchListService;
@@ -133,9 +132,9 @@ public class SingletonService
     {
         return new PackageBuyService(serviceGenerator);
     }
-    public PaymentMatchService paymentMatch()
+    public ir.traap.tractor.android.apiServices.part.PaymentMatchService paymentMatch()
     {
-        return new PaymentMatchService(serviceGenerator);
+        return new ir.traap.tractor.android.apiServices.part.PaymentMatchService(serviceGenerator);
     }
     public MobileChargeService getMobileCharge()
     {

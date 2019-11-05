@@ -5,14 +5,15 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -28,13 +29,14 @@ import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.traap.tractor.android.utilities.CustomViewPager;
 
 public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {
     public static BuyTickets buyTickets;
     private View rootView;
-    private Toolbar mToolbar;
+
     private MainActionView mainView;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
@@ -91,23 +93,8 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             rootView = null;
         }
 
-        //Toolbar
+
         rootView = inflater.inflate(R.layout.fragment_buy_ticket, container, false);
-        mToolbar = rootView.findViewById(R.id.toolbar);
-        tvUserName = rootView.findViewById(R.id.tvUserName);
-
-        tvUserName.setText(Prefs.getString("mobile", ""));
-
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mainView.openDrawer();
-            }
-        });
-
-
         initView();
         // define TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("انتخاب جایگاه"));
@@ -162,7 +149,6 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     {
         this.namePosition=name;
     }
-
     private void initView()
     {
         try
@@ -171,8 +157,10 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             tvUserName=rootView.findViewById(R.id.tvUserName);
             tvUserName.setText(Prefs.getString("mobile", ""));
             imgMenu=rootView.findViewById(R.id.imgMenu);
+
+            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+
             imgBack=rootView.findViewById(R.id.imgBack);
-            imgMenu.setVisibility(View.GONE);
             imgBack.setOnClickListener(v ->
             {
                 getActivity().onBackPressed();
@@ -188,17 +176,17 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         viewPager = rootView.findViewById(R.id.pager);
         llPrintTicket = rootView.findViewById(R.id.llPrintTicket);
         llFullInfo = rootView.findViewById(R.id.llFullInfo);
-        ivCountTicket = rootView.findViewById(R.id.ivCountTicket);
-        tvCountTicket = rootView.findViewById(R.id.tvCountTicket);
-        ivSelectPosition = rootView.findViewById(R.id.ivSelectPosition);
-        tvSelectPosition = rootView.findViewById(R.id.tvSelectPosition);
-        ivFullInfo = rootView.findViewById(R.id.ivFullInfo);
-        tvFullInfo = rootView.findViewById(R.id.tvFullInfo);
-        ivPrintTicket = rootView.findViewById(R.id.ivPrintTicket);
-        tvPrintTicket = rootView.findViewById(R.id.tvPrintTicket);
-        vZeroToOne = rootView.findViewById(R.id.vZeroToOne);
-        vOneToTow = rootView.findViewById(R.id.vOneToTow);
-        vTowToThree = rootView.findViewById(R.id.vTowToThree);
+        ivCountTicket=rootView.findViewById(R.id.ivCountTicket);
+        tvCountTicket=rootView.findViewById(R.id.tvCountTicket);
+        ivSelectPosition=rootView.findViewById(R.id.ivSelectPosition);
+        tvSelectPosition=rootView.findViewById(R.id.tvSelectPosition);
+        ivFullInfo=rootView.findViewById(R.id.ivFullInfo);
+        tvFullInfo=rootView.findViewById(R.id.tvFullInfo);
+        ivPrintTicket=rootView.findViewById(R.id.ivPrintTicket);
+        tvPrintTicket=rootView.findViewById(R.id.tvPrintTicket);
+        vZeroToOne=rootView.findViewById(R.id.vZeroToOne);
+        vOneToTow=rootView.findViewById(R.id.vOneToTow);
+        vTowToThree=rootView.findViewById(R.id.vTowToThree);
 
         llPrintTicket.setOnClickListener(this);
         llFullInfo.setOnClickListener(this);
@@ -317,9 +305,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
 
-        }
-        else if (viewPager.getCurrentItem()==1)
-        {
+        }else if (viewPager.getCurrentItem()==1){
             ivCountTicket.setImageResource(R.drawable.select_step);
             tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
@@ -383,17 +369,18 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
     }
 
-    public void setInfoViewers(List<InfoViewer> infoViewers) {
-        this.infoViewers=infoViewers;
-
-    }
-
     public void showLoading(){
         mainView.showLoading();
     }
     public void hideLoading(){
         mainView.hideLoading();
     }
+
+    public void setInfoViewers(List<InfoViewer> infoViewers) {
+        this.infoViewers=infoViewers;
+
+    }
+
 
     @Override
     public void showPaymentParentLoading()

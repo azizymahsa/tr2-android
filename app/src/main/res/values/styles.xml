@@ -43,6 +43,9 @@
     <style name="TextLabel" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">@dimen/textSize_16dp</item>
     </style>
+    <style name="TextLabelProfile" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">@dimen/textSize_12dp</item>
+    </style>
 
     <style name="TextLabel2" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">@dimen/textSize_16dp</item>

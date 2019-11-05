@@ -67,6 +67,7 @@
     <string name="profile_desc">(وارد کردن شماره بازیکن محبوب به صورت اجباری، و بقیه موارد به صورت اختیاری می باشد.)</string>
 
 
+
     <string-array name="string_array_alcohol">
         <item>Vodka</item>
         <item>Rum</item>

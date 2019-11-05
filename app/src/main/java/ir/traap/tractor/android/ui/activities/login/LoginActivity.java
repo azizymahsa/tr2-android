@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     public void initView()
     {
         tvDesc = findViewById(R.id.tvDesc);
-       // tvTitle = findViewById(R.id.tvTitle);
+        // tvTitle = findViewById(R.id.tvTitle);
         //etLayout = findViewById(R.id.etLayout);
         ivTitle = findViewById(R.id.flLogoToolbar);
         btnConfirm = findViewById(R.id.btnConfirm);
@@ -94,7 +94,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         tvResend = findViewById(R.id.tvResend);
         // tvMenu.setVisibility(View.GONE);
         llPin = findViewById(R.id.llPin);
-       // tvTitle.setVisibility(View.GONE);
+        // tvTitle.setVisibility(View.GONE);
         ivTitle.setVisibility(View.VISIBLE);
         loginPresenter.getCode(codeView);
         loginPresenter.getMobile(etMobileNumber);
@@ -188,7 +188,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     public void onTick(String second)
     {
         tvCountDown.setText(second);
-     //   countDownTimer.setVisibility(View.VISIBLE);
+        //   countDownTimer.setVisibility(View.VISIBLE);
 
     }
 
@@ -205,7 +205,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     @Override
     public void onAnimationEnd()
     {
-       // btnConfirm.setText(getString(R.string.send_code));
+        // btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
     }
 
