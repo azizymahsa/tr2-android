@@ -981,9 +981,7 @@ public class SelectPositionFragment
                     @Override
                     public void onComplete()
                     {
-                        //ToDo hide progress
-                        //   Toast.makeText(getContext(), "complete", Toast.LENGTH_SHORT).show();
-
+                       BuyTickets.buyTickets.hideLoading();
                         handleSetStadiumLayouts();
                     }
 
@@ -1384,6 +1382,7 @@ public class SelectPositionFragment
         switch (v.getId())
         {
             case R.id.btnPaymentConfirm:
+                BuyTickets.buyTickets.showLoading();
                 callReservationRequest();
                 break;
            /* case R.id.btnBackToDetail:
@@ -1423,6 +1422,7 @@ public class SelectPositionFragment
     {
         BuyTickets.buyTickets.setData(selectPositionId, count, amountForPay,response.getResults());
         onClickContinueBuyTicketListener.onContinueClicked();
+        BuyTickets.buyTickets.hideLoading();
 
     }
 
@@ -1431,6 +1431,8 @@ public class SelectPositionFragment
     {
 
         Tools.showToast(getContext(), error, R.color.red);
+        BuyTickets.buyTickets.hideLoading();
+
     }
 
     /**
