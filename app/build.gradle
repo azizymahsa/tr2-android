@@ -266,6 +266,8 @@ dependencies {
 
     //AnyChart
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+    //TableView Scrolling
+    implementation 'com.github.HYY-yu:TableRecyclerView:v1.0.0'
 
 }
 

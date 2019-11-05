@@ -26,15 +26,22 @@ import java.util.HashMap;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.apiServices.model.WebServiceClass;
+import ir.traap.tractor.android.apiServices.model.getHistory.ResponseHistory;
+import ir.traap.tractor.android.ui.fragments.about.ImageSliderView;
+import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.getHistory.PlayersCurrent;
 import ir.traap.tractor.android.apiServices.model.getHistory.ResponseHistory;
+import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.ui.adapters.aboutUs.ExpandableListPlayerHistoryAdapter;
 import ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView;
 import ir.traap.tractor.android.ui.adapters.aboutUs.ExpandableListHistoryAdapter;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.others.MyCustomSliderView;
+import ir.traap.tractor.android.utilities.Logger;
 
 
 public class HistoryFragment
@@ -86,9 +93,10 @@ public class HistoryFragment
         return f;
     }
 
-
     private void setSlider(WebServiceClass<ResponseHistory> response)
     {
+
+
         for (int i = 1; i < response.data.getImages().size(); i++)
         {
             if (response.data.getImages().get(i).getRowNumber() == 1)
@@ -104,14 +112,18 @@ public class HistoryFragment
 
             }
         }
+
+
 //            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.RotateDown);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         PagerIndicator pagerIndicator = new PagerIndicator(getActivity());
         pagerIndicator.setDefaultIndicatorColor(R.color.currentColor, R.color.grayColor);
         mDemoSlider.setCustomIndicator(pagerIndicator);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(10000);
-//            mDemoSlider.addOnPageChangeListener(this);
+
+       // mDemoSlider.setCurrentPosition(response.indexOf(matchCurrent));
+        mDemoSlider.stopAutoCycle();
+
     }
 
     private void setImageColor(ImageView imageView, String link)
