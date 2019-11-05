@@ -92,18 +92,33 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <EditText
-                        android:id="@+id/etPopularPlayer"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColorSecondary"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
                         android:hint="@string/enter_popular_player"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
+                        android:theme="@style/EditTextHint"
+                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                        <ir.trap.tractor.android.utilities.ClearableEditText
+                            android:id="@+id/etPopularPlayer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/textSize_12dp"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </FrameLayout>
 
@@ -131,17 +146,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <ir.trap.tractor.android.utilities.ClearableEditText
-                        android:id="@+id/etFirstName"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColorSecondary"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
                         android:hint="@string/enter_first_name"
-                        android:imeOptions="actionNext"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
+                        android:theme="@style/EditTextHint"
+                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                        <ir.trap.tractor.android.utilities.ClearableEditText
+                            android:id="@+id/etFirstName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/textSize_12dp"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </FrameLayout>
 
@@ -168,18 +198,32 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
-
-                    <EditText
-                        android:id="@+id/etLastName"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColorSecondary"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
                         android:hint="@string/enter_last_name"
-                        android:imeOptions="actionDone"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
+                        android:theme="@style/EditTextHint"
+                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                        <ir.trap.tractor.android.utilities.ClearableEditText
+                            android:id="@+id/etLastName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/textSize_12dp"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </FrameLayout>
 
@@ -206,19 +250,32 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
-
-                    <EditText
-                        android:id="@+id/etEmail"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColorSecondary"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
                         android:hint="@string/enter_email"
-                        android:imeOptions="actionDone"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
+                        android:theme="@style/EditTextHint"
+                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                        <ir.trap.tractor.android.utilities.ClearableEditText
+                            android:id="@+id/etEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/textSize_12dp"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </FrameLayout>
 
@@ -246,18 +303,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <EditText
-                        android:id="@+id/etNationalCode"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColorSecondary"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
                         android:hint="@string/enter_national_code"
-                        android:imeOptions="actionDone"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
+                        android:theme="@style/EditTextHint"
+                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                        <ir.trap.tractor.android.utilities.ClearableEditText
+                            android:id="@+id/etNationalCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/textSize_12dp"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </FrameLayout>
 
@@ -285,17 +356,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <EditText
-                        android:id="@+id/etBirthDay"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColorSecondary"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
                         android:hint="@string/enter_birthday"
-                        android:imeOptions="actionDone"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
+                        android:theme="@style/EditTextHint"
+                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                        <ir.trap.tractor.android.utilities.ClearableEditText
+                            android:id="@+id/etBirthDay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/textSize_12dp"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </FrameLayout>
 
@@ -323,18 +409,33 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <EditText
-                        android:id="@+id/etEnglishName"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:backgroundTint="@color/textColorSecondary"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
                         android:hint="@string/enter_english_name"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
+                        android:theme="@style/EditTextHint"
+                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                        <ir.trap.tractor.android.utilities.ClearableEditText
+                            android:id="@+id/etEnglishName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/textSize_12dp"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </FrameLayout>
 
@@ -364,18 +465,34 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <EditText
-                        android:id="@+id/etInvite"
+
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:layout_marginBottom="@dimen/_20dp"
-                        android:backgroundTint="@color/textColorSecondary"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="center|right"
+                        android:layout_weight="100"
                         android:hint="کد معرف"
-                        android:imeOptions="actionDone"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
+                        android:theme="@style/EditTextHint"
+                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                        <ir.trap.tractor.android.utilities.ClearableEditText
+                            android:id="@+id/etInvite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                            android:gravity="right|center"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:paddingTop="15dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/textSize_12dp"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                 </FrameLayout>
 

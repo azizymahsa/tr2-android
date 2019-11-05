@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -29,6 +30,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.trap.tractor.android.R;
 import ir.trap.tractor.android.ui.activities.main.MainActivity;
 import ir.trap.tractor.android.ui.base.GoToActivity;
+import ir.trap.tractor.android.utilities.ClearableEditText;
 import ir.trap.tractor.android.utilities.Tools;
 import library.android.eniac.base.BaseActivity;
 
@@ -40,7 +42,8 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
     // private UserPresenterImpl presenter;
 //    private RelativeLayout rlImage;
     private CircularProgressButton btnConfirm;
-    private EditText etFirstName, etLastName, etInvite, etPopularPlayer;
+    private EditText etFirstName, etLastName, etInvite;
+    private ClearableEditText etPopularPlayer;
     private TextView tvMenu;
     //    private ImageView ivProfile;
     private File userPic;
@@ -66,6 +69,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
         etLastName = findViewById(R.id.etLastName);
 //        rlImage = findViewById(R.id.rlImage);
         btnConfirm.setOnClickListener(this);
+        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
         //   btnConfirm.setOnClickListener(presenter);
         // rlImage.setOnClickListener(presenter);
         //presenter.details(etFirstName, etLastName, etInvite);
