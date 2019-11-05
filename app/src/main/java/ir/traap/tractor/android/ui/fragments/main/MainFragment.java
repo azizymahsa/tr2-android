@@ -80,6 +80,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private List<MatchItem> matchList;
     private MatchItem matchCurrent, matchBuyable, matchPredict;
+    private TextView tvPopularPlayer;
 
     public MainFragment()
     {
@@ -152,6 +153,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(Prefs.getString("mobile", ""));
+        tvPopularPlayer=mToolbar.findViewById(R.id.tvPopularPlayer);
+        tvPopularPlayer.setText(Prefs.getString("PopularPlayer",""));
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
         btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
