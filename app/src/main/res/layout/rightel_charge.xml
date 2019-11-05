@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:orientation="horizontal">
 
         <Space
@@ -21,12 +21,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="100"
-            android:gravity="center|right"
+            android:gravity="center|end"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="@dimen/_80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_gravity="top"
                 android:layout_marginTop="@dimen/_30dp"
                 android:orientation="horizontal">
@@ -37,7 +37,7 @@
                     android:layout_height="@dimen/_35dp"
                     android:layout_gravity="top"
                     android:padding="@dimen/_5sdp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:src="@drawable/ic_list"
                     android:background="@drawable/button_small_border"
                     android:textSize="@dimen/textSize_20dp"
@@ -51,7 +51,7 @@
                     android:layout_height="@dimen/_35dp"
                     android:layout_gravity="top"
                     android:padding="@dimen/_5sdp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@drawable/button_small_border"
                     android:foreground="?attr/selectableItemBackground" />
             </LinearLayout>
@@ -60,7 +60,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="100"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -68,11 +68,11 @@
                     android:id="@+id/tilMRightel"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_60sdp"
-                    android:layout_gravity="center|right"
+                    android:layout_gravity="center|end"
                     android:hint="شماره موبایل"
                     android:theme="@style/EditTextHint">
 
-                    <ir.trap.tractor.android.utilities.ClearableEditText
+                    <ir.traap.tractor.android.utilities.ClearableEditText
                         android:id="@+id/etMobileChargeRightel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                         android:maxLength="11"
                         android:backgroundTint="@color/black"
                         android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                        android:gravity="right|center"
+                        android:gravity="end|center"
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLines="1"
@@ -93,18 +93,18 @@
                     app:hintTextAppearance="@style/TextLabel"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_60sdp"
-                    android:layout_gravity="center|right"
+                    android:layout_gravity="center|end"
                     android:hint="مبلغ (ریال)"
                     android:theme="@style/EditTextHint">
 
-                    <ir.trap.tractor.android.utilities.ClearableEditText
+                    <ir.traap.tractor.android.utilities.ClearableEditText
                         android:id="@+id/etChargeAmountRightel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:backgroundTint="@color/black"
                         android:digits="0,1,2,3,4,5,6,7,8,9,,"
-                        android:gravity="right|center"
+                        android:gravity="end|center"
                         android:imeOptions="actionDone"
                         android:inputType="number"
                         android:maxLines="1"
@@ -137,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:gravity="center"
             android:text="شارژ شگفت انگیز"
             android:textColor="@color/textColorSecondary"
@@ -148,13 +148,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="@color/textColorPrimary"
-            android:layout_marginRight="@dimen/_15sdp"/>
+            android:layout_marginEnd="@dimen/_15sdp"/>
         
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:gravity="center"
             android:text="شارژ عادی"
             android:textColor="@color/textColorSecondary"
@@ -174,7 +174,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:orientation="horizontal">
 
         <Space
@@ -214,7 +214,7 @@
             android:gravity="center_vertical"
             android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
             android:textColor="@color/textColorSecondary"
-            android:layout_marginRight="@dimen/_10dp"
+            android:layout_marginEnd="@dimen/_10dp"
             android:textSize="@dimen/textSize_12dp" />
         <ImageView
             android:src="@drawable/ic_warning"

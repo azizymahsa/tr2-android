@@ -102,7 +102,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabelProfile">
 
-                        <ir.trap.tractor.android.utilities.ClearableEditText
+                        <ir.traap.tractor.android.utilities.ClearableEditText
                             android:id="@+id/etPopularPlayer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabelProfile">
 
-                        <ir.trap.tractor.android.utilities.ClearableEditText
+                        <ir.traap.tractor.android.utilities.ClearableEditText
                             android:id="@+id/etFirstName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -209,7 +209,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabelProfile">
 
-                        <ir.trap.tractor.android.utilities.ClearableEditText
+                        <ir.traap.tractor.android.utilities.ClearableEditText
                             android:id="@+id/etLastName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -261,7 +261,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabelProfile">
 
-                        <ir.trap.tractor.android.utilities.ClearableEditText
+                        <ir.traap.tractor.android.utilities.ClearableEditText
                             android:id="@+id/etEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -313,7 +313,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabelProfile">
 
-                        <ir.trap.tractor.android.utilities.ClearableEditText
+                        <ir.traap.tractor.android.utilities.ClearableEditText
                             android:id="@+id/etNationalCode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -366,7 +366,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabelProfile">
 
-                        <ir.trap.tractor.android.utilities.ClearableEditText
+                        <ir.traap.tractor.android.utilities.ClearableEditText
                             android:id="@+id/etBirthDay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -420,7 +420,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabelProfile">
 
-                        <ir.trap.tractor.android.utilities.ClearableEditText
+                        <ir.traap.tractor.android.utilities.ClearableEditText
                             android:id="@+id/etEnglishName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -477,7 +477,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabelProfile">
 
-                        <ir.trap.tractor.android.utilities.ClearableEditText
+                        <ir.traap.tractor.android.utilities.ClearableEditText
                             android:id="@+id/etInvite"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
