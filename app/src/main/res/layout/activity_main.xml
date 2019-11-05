@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     android:fitsSystemWindows="true"
     tools:context=".ui.activities.main.MainActivity">
 
@@ -59,7 +60,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation_menudrawer"
-        android:name="ir.trap.tractor.android.ui.drawer.MenuDrawer"
+        android:name="ir.traap.tractor.android.ui.drawer.MenuDrawer"
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="right"

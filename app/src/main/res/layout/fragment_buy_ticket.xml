@@ -203,7 +203,7 @@
             android:visibility="gone"
             app:tabMode="fixed" />
 
-        <ir.trap.tractor.android.utilities.CustomViewPager
+        <ir.traap.tractor.android.utilities.CustomViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

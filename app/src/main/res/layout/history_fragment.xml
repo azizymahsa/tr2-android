@@ -60,9 +60,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_20sdp">
+                    android:layout_marginEnd="@dimen/_20sdp">
 
                     <RelativeLayout
                         android:id="@+id/rl1"
@@ -109,11 +109,11 @@
                         android:id="@+id/tvDescTicket"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_weight="100"
-                        android:gravity="right|center"
+                        android:gravity="end|center"
                         android:text="تاریخچه باشگاه تراکتورسازی تبریز"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp" />
@@ -121,9 +121,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:src="@drawable/icon_history" />
 
                 </LinearLayout>
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <ir.trap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
+                    <ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
                         android:id="@+id/expandableListView"
                         android:layout_width="match_parent"
                        android:layout_height="wrap_content"/>
@@ -183,9 +183,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_20sdp">
+                    android:layout_marginEnd="@dimen/_20sdp">
 
                     <RelativeLayout
                         android:id="@+id/rl12"
@@ -230,11 +230,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_weight="100"
-                        android:gravity="right|center"
+                        android:gravity="end|center"
                         android:text="معرفی بازیکنان"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp" />
@@ -242,9 +242,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:src="@drawable/football_player" />
 
                 </LinearLayout>
@@ -277,7 +277,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <ir.trap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
+                    <ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
                         android:id="@+id/expandableListView2"
                         android:layout_width="match_parent"
                         android:childDivider="@android:color/transparent"

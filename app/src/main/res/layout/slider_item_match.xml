@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="ltr"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
     android:paddingBottom="8dp">
 
     <RelativeLayout
@@ -39,7 +39,7 @@
                     android:id="@+id/imgGuest"
                     android:layout_width="@dimen/_70dp"
                     android:layout_height="@dimen/_70dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     />
 
             </RelativeLayout>
@@ -73,7 +73,7 @@
                     android:id="@+id/imgHost"
                     android:layout_width="@dimen/_70dp"
                     android:layout_height="@dimen/_70dp"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:src="@drawable/img_tractor" />
 
             </RelativeLayout>

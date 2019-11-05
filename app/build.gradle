@@ -7,11 +7,11 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "ir.trap.tractor.android"
+        applicationId "ir.traap.tractor.android"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
-        versionName "0.4.0"
+        versionCode 1
+        versionName "0.5.0"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -87,7 +87,6 @@ dependencies {
   // implementation 'com.android.support:customtabs:28.0.0-alpha1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
-    implementation 'com.adpdigital.push:chabok-lib:2.14.1'
 
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
     implementation 'com.airbnb.android:lottie:2.7.0'
@@ -139,7 +138,12 @@ dependencies {
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 
     implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
+
+    //chabok
     implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
+    implementation 'com.adpdigital.push:chabok-lib:2.14.1'
+    implementation 'com.android.installreferrer:installreferrer:1.0'
+
     implementation 'com.github.dariushm2:PersianCaldroid:1.0.0'
 //    implementation 'com.android.support:appcompat-v7:28.0.0' // appcompat library
 //    implementation 'com.android.support:design:28.0.0'       //design support library
@@ -232,6 +236,12 @@ dependencies {
     implementation project(':type')
 
     //----------------
+    //FireBase
+    implementation 'com.google.firebase:firebase-analytics:17.2.1'
+    implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.google.firebase:firebase-firestore:21.2.1'
+    implementation 'com.google.firebase:firebase-crash:16.2.1'
+
     implementation 'com.android.support:customtabs:28.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.code.gson:gson:2.8.2'
@@ -239,9 +249,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-gcm:17.0.0"
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.android.gms:play-services-vision:18.0.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
     //design widget
-    implementation 'com.google.firebase:firebase-crash:16.2.1'
 
     implementation 'com.google.zxing:core:3.2.1'
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
