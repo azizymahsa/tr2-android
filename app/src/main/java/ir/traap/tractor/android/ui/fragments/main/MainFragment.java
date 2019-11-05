@@ -465,7 +465,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onSliderClick(BaseSliderView slider)
     {
-//        mainView.onBuyTicketClick();
+       mainView.onLeageClick();
     }
 
     @Override

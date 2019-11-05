@@ -35,6 +35,7 @@ public interface MainActionView extends BaseView
     void startAddCardActivity();
 
     void onBuyTicketClick(MatchItem matchBuyable);
+    void onLeageClick ();
 
     void onPredict(MatchItem matchPredict);
 }
