@@ -52,6 +52,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     private List<InfoViewer> infoViewers;
     private List<Integer> ticketIdList;
     private View imgBack,imgMenu;
+    private TextView tvPopularPlayer;
 
 
     public BuyTickets()
@@ -159,6 +160,9 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             imgMenu=rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
+
+            tvPopularPlayer=rootView.findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer",""));
 
             imgBack=rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->

@@ -168,141 +168,8 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
     {
         if (!isChangePic)
             return;
-        // uploadMultipart(this);
 
     }
-
-/*    public void uploadMultipart(final Context context)
-    {
-        try
-        {
-
-            //---------------------new FAN--------------------------
-            AndroidNetworking.upload(Const.BASEURL + Const.UploadImageProfile +
-                    "?userId=" + Prefs.getInt("userId", 0))
-                    .addHeaders("Content-Type", "application/x-www-form-urlencoded")
-                    .addHeaders("Token",Prefs.getString("serverToken",""))
-//                    .addHeaders(SingletonDiba.getInstance().getDIBA_NAME(), SingletonDiba.getInstance().getDIBA_KEY())
-//                    .addHeaders(SingletonDiba.getInstance().getDIBA_USER(), Utility.decryption(Prefs.getString(Utility.encryption(SingletonDiba.getInstance().getPASS_KEY()), "")))
-                    .addMultipartFile("file", userPic)
-                    .setTag("uploadProfile")
-                    .setPriority(Priority.HIGH)
-                    .build()
-                    .setUploadProgressListener(new UploadProgressListener()
-                    {
-                        @Override
-                        public void onProgress(long bytesUploaded, long totalBytes)
-                        {
-                            Log.e("-Upload Progress-",  "in Progress #");
-                        }
-                    })
-                    .getAsString(new StringRequestListener()
-                    {
-                        @Override
-                        public void onResponse(String response)
-                        {
-                            try
-                            {
-                                showToast(UserActivity.this, "اطلاعات شما با موفقیت بروزرسانی شد.", R.color.green);
-//                                Tools.showToast(UserActivity.this, "اطلاعات شما با موفقیت بروزرسانی شد.");
-//                                Log.e("--Upload Response--", response);
-                                btnConfirm.revertAnimation(UserActivity.this);
-                                btnConfirm.setClickable(true);
-
-                                JSONObject object = new JSONObject(response);
-
-                                Prefs.putString("userImage", object.getString("Url"));
-                                EventBus.getDefault().post(object.getString("Url"));
-                                new Handler().postDelayed(() ->
-                                                finish()
-                                        , 2000);
-
-//                                Log.e("--userImage--", Prefs.getString("userImage", ""));
-//                                Log.e("userImage", response.getUrl() + " ###");
-                            }
-                            catch (Exception e)
-                            {
-                                e.printStackTrace();
-                                btnConfirm.revertAnimation(UserActivity.this);
-                                btnConfirm.setClickable(true);
-                                showToast(UserActivity.this, "خطایی رخ داده است!", R.color.red);
-                                Log.e("--Upload Exception--", e.getMessage() + " #");
-                            }
-                        }
-
-                        @Override
-                        public void onError(ANError anError)
-                        {
-                            Log.e("--Upload Error--", anError.getMessage().toString());
-                            btnConfirm.revertAnimation(UserActivity.this);
-                            btnConfirm.setClickable(true);
-                            showToast(UserActivity.this, "خطایی رخ داده است.", R.color.red);
-                        }
-                    });
-            //---------------------new FAN--------------------------
-
-//            UploadNotificationConfig config = new UploadNotificationConfig();
-//            config.getCompleted().autoClear = true;
-//
-//            new MultipartUploadRequest(context, " https://rest.loyalbank.app/apidiba/Users/UploadImage?userId=" + Prefs.getInt("userId", 0))
-//                    .addFileToUpload(userPic.getAbsolutePath(), "name")
-//                    .addHeader(SingletonDiba.getInstance().getDIBA_NAME(), SingletonDiba.getInstance().getDIBA_KEY())
-//                    .addHeader(SingletonDiba.getInstance().getDIBA_USER(), Utility.decryption(Prefs.getString(Utility.encryption(SingletonDiba.getInstance().getPASS_KEY()), "")))
-//
-//                    .setMaxRetries(2)
-//                    .setNotificationConfig(config)
-//
-//                    .setDelegate(new UploadStatusDelegate()
-//                    {
-//                        @Override
-//                        public void onProgress(Context context, UploadInfo uploadInfo)
-//                        {
-//
-//
-//                        }
-//
-//                        @Override
-//                        public void onError(Context context, UploadInfo uploadInfo, ServerResponse serverResponse,
-//                                            Exception exception)
-//                        {
-//
-//                        }
-//
-//                        @Override
-//                        public void onCompleted(Context context, UploadInfo uploadInfo, ServerResponse serverResponse)
-//                        {
-//                            try
-//                            {
-//
-//                                JSONArray jsonArray = new JSONArray(serverResponse.getBodyAsString());
-//                                JSONObject object = jsonArray.getJSONObject(0);
-//                                Prefs.putString("userImage", "http://91.241.92.15:1051/" + object.getString("Url"));
-//
-//
-//                            } catch (JSONException e)
-//                            {
-//                                e.printStackTrace();
-//
-//                            }
-//
-//                            // your code here
-//                            // if you have mapped your server response to a POJO, you can easily get it:
-//                            // YourClass obj = new Gson().fromJson(serverResponse.getBodyAsString(), YourClass.class);
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(Context context, UploadInfo uploadInfo)
-//                        {
-//                            // your code here
-//                        }
-//                    })
-//                    .startUpload();
-        } catch (Exception exc)
-        {
-            Log.e("AndroidUploadService", exc.getMessage(), exc);
-        }
-    }*/
 
 
     @Override
@@ -315,7 +182,6 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
             Image image = ImagePicker.getFirstImageOrNull(data);
             if (image != null)
             {
-//                ivProfile.setImageBitmap(BitmapFactory.decodeFile(image.getPath()));
                 saveImage(BitmapFactory.decodeFile(image.getPath()));
             }
         }
@@ -323,7 +189,6 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
         {
             String pass = data.getStringExtra("newPass");
 
-            //  presenter.onConfirmPassword(pass);
 
         }
     }
@@ -369,6 +234,7 @@ public class UserActivity extends BaseActivity implements UserView, OnAnimationE
                 }else
                 {
 
+                    Prefs.putString("PopularPlayer",popularPlayer);
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
