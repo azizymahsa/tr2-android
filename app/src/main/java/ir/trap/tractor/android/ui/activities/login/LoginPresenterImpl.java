@@ -159,14 +159,21 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             @Override
             public void onReady(WebServiceClass<VerifyResponse> response)
             {
-                if (response != null)
+                try
                 {
-                    setProfileData(response);
-                    loginView.onButtonActions(true, GoToActivity.UserActivity);
-                    loginView.hideLoading();
-                } else
+                    if (response.info.statusCode == 200)
+                    {
+                        setProfileData(response);
+                        loginView.onButtonActions(true, GoToActivity.UserActivity);
+                        loginView.hideLoading();
+                    } else
+                    {
+                        Tools.showToast(appContext, response.info.message, R.color.red);
+                        loginView.hideLoading();
+                    }
+                } catch (Exception e)
                 {
-                    Tools.showToast(appContext, "خطایی رخ داده است", R.color.red);
+                    Tools.showToast(appContext, e.getMessage(), R.color.red);
                     loginView.hideLoading();
                 }
             }
@@ -178,27 +185,27 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                 Tools.showToast(appContext, message, R.color.red);
             }
         }, request);
-    }
 
+    }
     private void setProfileData(WebServiceClass<VerifyResponse> response)
     {
-        Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
-//        Prefs.putString("accessToken","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDMwOTM2MTcsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiI1NjA3MTg3NDUyOWE0MTQ5YmU4MDliMTBkOTY3NzI5YSJ9.EQ3pzj46tNquy1AKiZNJ3rPcBg8DR1PaDFpeikuWX8I");
 
-        Profile profile = response.data.getProfile();
-        Prefs.putString("firstName", profile.getFirstName());
-        Prefs.putString("lastName", profile.getLastName());
-        Prefs.putString("englishName", profile.getEnglishName());
-        if (profile.getBirthday() != null)
-        {
-            Prefs.putString("birthday", profile.getBirthday().toString());
-        }
-        if (profile.getPopularPlayer() != null)
-        {
-            Prefs.putInt("popularPlayer", profile.getPopularPlayer());
-        }
-        Prefs.putString("nationalCode", profile.getNationalCode());
-        Prefs.putString("keyInvite", profile.getKeyInvite());
+                Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
+
+                Profile profile = response.data.getProfile();
+                Prefs.putString("firstName", profile.getFirstName());
+                Prefs.putString("lastName", profile.getLastName());
+                Prefs.putString("englishName", profile.getEnglishName());
+                if (profile.getBirthday() != null)
+                {
+                    Prefs.putString("birthday", profile.getBirthday().toString());
+                }
+                if (profile.getPopularPlayer() != null)
+                {
+                    Prefs.putInt("popularPlayer", profile.getPopularPlayer());
+                }
+                Prefs.putString("nationalCode", profile.getNationalCode());
+                Prefs.putString("keyInvite", profile.getKeyInvite());
 
     }
 

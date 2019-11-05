@@ -157,8 +157,10 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             tvUserName=rootView.findViewById(R.id.tvUserName);
             tvUserName.setText(Prefs.getString("mobile", ""));
             imgMenu=rootView.findViewById(R.id.imgMenu);
+
+            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+
             imgBack=rootView.findViewById(R.id.imgBack);
-            imgMenu.setVisibility(View.GONE);
             imgBack.setOnClickListener(v ->
             {
                 getActivity().onBackPressed();
