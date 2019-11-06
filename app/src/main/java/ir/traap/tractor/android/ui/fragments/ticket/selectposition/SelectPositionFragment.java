@@ -83,7 +83,7 @@ public class SelectPositionFragment
     private String positionName;
     private ReservationMatchImpl reservationMatch;
 
-    
+
     public SelectPositionFragment()
     {
     }
@@ -921,6 +921,7 @@ public class SelectPositionFragment
             {
                 try
                 {
+
                     if (response.info.statusCode == 200)
                     {
                         setDataSpinnerAllBoxes(response.data.getResults());
@@ -1018,6 +1019,7 @@ public class SelectPositionFragment
                     @Override
                     public void onError(Throwable e)
                     {
+                        BuyTickets.buyTickets.hideLoading();
 
                     }
 

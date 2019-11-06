@@ -127,6 +127,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
         rootView = inflater.inflate(R.layout.fragment_all_menu, container, false);
         initView();
+        mainView.showLoading();
         ir.traap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest request = new ir.traap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest();
         request.setDeviceType(TrapConfig.AndroidDeviceType);
         request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
@@ -184,30 +185,41 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     @Override
     public void onReady(WebServiceClass<GetAllMenuResponse> response)
     {
-        if (response == null || response.info == null)
+        try
         {
-            // startActivity(new Intent(this, A.class));
-            return;
-        }
-        if (response.info.statusCode != 200)
+            mainView.hideLoading();
+
+
+            if (response == null || response.info == null)
+            {
+                // startActivity(new Intent(this, A.class));
+                return;
+            }
+            if (response.info.statusCode != 200)
+            {
+                // startActivity(new Intent(this, LoginActivity.class));
+                //  finish();
+
+                return;
+            }
+            if (response.info.statusCode == 200)
+            {
+                chosenServiceList = response.data.getResults();
+
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
+                recyclerView.setLayoutManager(layoutManager);
+
+                list = fillMenuRecyclerList();
+
+                adapter = new AllMenuServiceModelAdapter(getActivity(), list, this);
+                recyclerView.setAdapter(adapter);
+
+
+            }
+        } catch (Exception e)
         {
-            // startActivity(new Intent(this, LoginActivity.class));
-            //  finish();
-
-            return;
-        }
-        if (response.info.statusCode == 200)
-        {
-            chosenServiceList = response.data.getResults();
-
-            layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
-            recyclerView.setLayoutManager(layoutManager);
-
-            list = fillMenuRecyclerList();
-
-            adapter = new AllMenuServiceModelAdapter(getActivity(), list, this);
-            recyclerView.setAdapter(adapter);
-
+            mainView.showError(e.getMessage());
+            mainView.hideLoading();
 
         }
     }
@@ -215,6 +227,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     @Override
     public void onError(String message)
     {
+        mainView.showError(message);
+
+        mainView.hideLoading();
 
     }
 

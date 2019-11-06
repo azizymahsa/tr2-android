@@ -442,16 +442,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void showLoading()
     {
-//        findViewById(R.id.llLoading).setVisibility(View.VISIBLE);
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading()
     {
-//        findViewById(R.id.llLoading).setVisibility(View.GONE);
-//        runOnUiThread(() ->
-//        {
-//        });
+       findViewById(R.id.rlLoading).setVisibility(View.GONE);
+        runOnUiThread(() ->
+       {
+        });
     }
 
     @Override
