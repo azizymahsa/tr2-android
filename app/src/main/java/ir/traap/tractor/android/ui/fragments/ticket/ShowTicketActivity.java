@@ -23,16 +23,17 @@ import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.ticket.ticketInfo.TicketInfoImpl;
 import ir.traap.tractor.android.ui.fragments.ticket.ticketInfo.TicketInfoInteractor;
+import ir.traap.tractor.android.utilities.ScreenShot;
 import ir.traap.tractor.android.utilities.Tools;
 
 public class ShowTicketActivity extends AppCompatActivity implements View.OnClickListener, TicketInfoInteractor.OnFinishedTicketInfoListener
 {
-    private TextView btnBackToDetail,tvCountTicket,tvSelectPosition,tvFullInfo,tvPrintTicket;
-    private ImageView ivCountTicket,ivSelectPosition,ivFullInfo,ivPrintTicket;
-    private View vOneToTow,vZeroToOne,vTowToThree;
+    private TextView btnBackToDetail, tvCountTicket, tvSelectPosition, tvFullInfo, tvPrintTicket;
+    private ImageView ivCountTicket, ivSelectPosition, ivFullInfo, ivPrintTicket;
+    private View vOneToTow, vZeroToOne, vTowToThree;
     private TicketInfoImpl ticketInfo;
-    private TextView tvTitle,tvUserName;
-    private View imgBack,imgMenu;
+    private TextView tvTitle, tvUserName;
+    private View imgBack, imgMenu;
 
     private TextView tvPopularPlayer;
     private View view;
@@ -47,11 +48,25 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
     private MainActionView mainView;
     private MessageAlertDialog.OnConfirmListener listener = null;
     private LinearLayout llFram;
+    private String refrenceNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_ticket);
+
+        if (savedInstanceState == null)
+        {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null)
+            {
+
+            } else
+            {
+                refrenceNumber = extras.getString("RefrenceNumber");
+            }
+        }
         ticketInfo = new TicketInfoImpl();
 
         initView();
@@ -60,48 +75,65 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
 
     private void initView()
     {
+        showLoading();
         try
         {
-            tvTitle=findViewById(R.id.tvTitle);
-            tvUserName=findViewById(R.id.tvUserName);
+            tvTitle = findViewById(R.id.tvTitle);
+            tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(Prefs.getString("mobile", ""));
-            imgMenu=findViewById(R.id.imgMenu);
+            imgMenu = findViewById(R.id.imgMenu);
 
             imgMenu.setVisibility(View.GONE);
             //imgMenu.setOnClickListener(v -> mainView.openDrawer());
 
-            tvPopularPlayer=findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer",""));
+            tvPopularPlayer = findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
 
-            imgBack=findViewById(R.id.imgBack);
+            imgBack = findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
                 onBackPressed();
             });
 
             tvTitle.setText("خرید بلیت");
-        }catch (Exception e){
+        } catch (Exception e)
+        {
 
         }
+        listener = new MessageAlertDialog.OnConfirmListener()
+        {
 
-        ivCountTicket=findViewById(R.id.ivCountTicket);
-        tvCountTicket=findViewById(R.id.tvCountTicket);
-        ivSelectPosition=findViewById(R.id.ivSelectPosition);
-        tvSelectPosition=findViewById(R.id.tvSelectPosition);
-        ivFullInfo=findViewById(R.id.ivFullInfo);
-        tvFullInfo=findViewById(R.id.tvFullInfo);
-        ivPrintTicket=findViewById(R.id.ivPrintTicket);
-        tvPrintTicket=findViewById(R.id.tvPrintTicket);
-        vZeroToOne=findViewById(R.id.vZeroToOne);
-        vOneToTow=findViewById(R.id.vOneToTow);
-        vTowToThree=findViewById(R.id.vTowToThree);
 
+            @Override
+            public void onConfirmClick()
+            {
+                mainView.backToMainFragment();
+
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+                onBackPressed();
+            }
+        };
+        ivCountTicket = findViewById(R.id.ivCountTicket);
+        tvCountTicket = findViewById(R.id.tvCountTicket);
+        ivSelectPosition = findViewById(R.id.ivSelectPosition);
+        tvSelectPosition = findViewById(R.id.tvSelectPosition);
+        ivFullInfo = findViewById(R.id.ivFullInfo);
+        tvFullInfo = findViewById(R.id.tvFullInfo);
+        ivPrintTicket = findViewById(R.id.ivPrintTicket);
+        tvPrintTicket = findViewById(R.id.tvPrintTicket);
+        vZeroToOne = findViewById(R.id.vZeroToOne);
+        vOneToTow = findViewById(R.id.vOneToTow);
+        vTowToThree = findViewById(R.id.vTowToThree);
 
 
         llFram = findViewById(R.id.llFram);
         tvDescTicket = findViewById(R.id.tvDescTicket);
         btnShareTicket = findViewById(R.id.btnShareTicket);
-        btnPaymentConfirm =findViewById(R.id.btnPaymentConfirm);
+        btnPaymentConfirm = findViewById(R.id.btnPaymentConfirm);
         btnBackToHome = findViewById(R.id.btnBackToHome);
         rvTickets = findViewById(R.id.rvTickets);
         btnShareTicket.setOnClickListener(this);
@@ -110,11 +142,14 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
 
         linearLayoutManager = new LinearLayoutManager(this);
         rvTickets.setLayoutManager(linearLayoutManager);
+        try
+        {
+            ticketInfo.reservationRequest(this, Integer.valueOf(refrenceNumber.trim()));
 
+        } catch (Exception e)
+        {
 
-
-        BuyTickets.buyTickets.showLoading();
-        ticketInfo.reservationRequest(this, 1212);
+        }
 
     }
 
@@ -142,7 +177,27 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v)
     {
 
+        switch (v.getId())
+        {
+            case R.id.btnPaymentConfirm:
 
+                // onClickContinueBuyTicketListener.goBuyTicket();
+
+                break;
+            case R.id.btnBackToHome:
+
+                //MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟");
+                MessageAlertDialog dialog = new MessageAlertDialog(this, "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
+                        false, "بله", "بستن", listener);
+                dialog.show(this.getFragmentManager(), "dialog");
+
+
+                break;
+            case R.id.btnShareTicket:
+                new ScreenShot(llFram, this);
+                // Tools.showToast(getContext(), "share");
+                break;
+        }
     }
 
     @Override
@@ -151,6 +206,8 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
 
         showTicketAdapter = new ShowTicketAdapter(response.getResults(), mainView);
         rvTickets.setAdapter(showTicketAdapter);
+
+        hideLoading();
         //BuyTickets.buyTickets.hideLoading();
 
 
@@ -161,7 +218,22 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
     {
 
         Tools.showToast(this, error, R.color.red);
-      //  BuyTickets.buyTickets.hideLoading();
+        hideLoading();
+        //  BuyTickets.buyTickets.hideLoading();
 
+    }
+
+
+    public void showLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+    }
+
+    public void hideLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
+        runOnUiThread(() ->
+        {
+        });
     }
 }

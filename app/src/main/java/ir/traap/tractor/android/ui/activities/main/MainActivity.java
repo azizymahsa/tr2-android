@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -99,6 +100,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
     private boolean hasPaymentTicket=false;
+    private String refrenceNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -135,7 +137,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         Intent intent = getIntent();
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             Uri uri = intent.getData();
-            String refrenceNumber=uri.getEncodedPath().toString();
+             refrenceNumber=uri.getQueryParameter("refrencenumber").replace("/","");
+            Log.d("maaaaaaaaaaaaa",refrenceNumber);
+            Log.d("maaaaaa",uri.getQueryParameter("refrencenumber").toString());
             //String refrenceNumber = uri.getQueryParameter("RefrenceNumber");
             Toast.makeText(this, refrenceNumber, Toast.LENGTH_SHORT).show();
 
@@ -862,7 +866,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment)
                     .commit();*/
-            startActivity(new Intent(MainActivity.this, ShowTicketActivity.class));
+           Intent intent= new Intent(MainActivity.this, ShowTicketActivity.class);
+
+            intent.putExtra("RefrenceNumber", refrenceNumber);
+            startActivity(intent);
 
         }
         if (response == null || response.info == null)
