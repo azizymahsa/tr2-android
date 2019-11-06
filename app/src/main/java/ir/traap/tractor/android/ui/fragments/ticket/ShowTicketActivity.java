@@ -92,7 +92,7 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
             imgBack = findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
-                onBackPressed();
+               finish();
             });
 
             tvTitle.setText("خرید بلیت");

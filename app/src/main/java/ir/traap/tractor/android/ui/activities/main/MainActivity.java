@@ -138,11 +138,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             Uri uri = intent.getData();
              refrenceNumber=uri.getQueryParameter("refrencenumber").replace("/","");
-            Log.d("maaaaaaaaaaaaa",refrenceNumber);
-            Log.d("maaaaaa",uri.getQueryParameter("refrencenumber").toString());
             //String refrenceNumber = uri.getQueryParameter("RefrenceNumber");
-            Toast.makeText(this, refrenceNumber, Toast.LENGTH_SHORT).show();
-
             hasPaymentTicket=true;
 
 
