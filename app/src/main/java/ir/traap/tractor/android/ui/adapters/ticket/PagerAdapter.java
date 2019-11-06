@@ -12,6 +12,7 @@ import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentParentActionView;
+import ir.traap.tractor.android.ui.fragments.payment.WebViewFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.traap.tractor.android.ui.fragments.ticket.CountTicketFragment;
@@ -30,7 +31,7 @@ public class PagerAdapter
     private int numTabs;
     private CompeletInfoFragment tab2;
     private ShowTicketsFragment tab4;
-    private PaymentFragment tab3;
+    private WebViewFragment tab3;
 
 
     public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView
@@ -66,9 +67,14 @@ public class PagerAdapter
                // createInstance();
                 return tab2;
             case 2://پرداخت
-              //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTickets, this, onClickContinueBuyTicket);
+
+
+
+               // tab3=WebViewFragment.newInstance("TAB3", buyTickets,mainActionView);
+
+                //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTickets, this, onClickContinueBuyTicket);
                // CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3", buyTickets, mainActionView);
-                TicketPaymentInstance paymentInstance = new TicketPaymentInstance();
+                //TicketPaymentInstance paymentInstance = new TicketPaymentInstance();
 //                paymentInstance.setFirstName();
 //                paymentInstance.setLastName();
 //                paymentInstance.setNationalCode();
@@ -80,7 +86,7 @@ public class PagerAdapter
 //                        "",
 //                        paymentInstance);
 
-                ShowTicketsFragment tab3 =ShowTicketsFragment.newInstance("TAB3", buyTickets, mainActionView);
+                //ShowTicketsFragment tab3 =ShowTicketsFragment.newInstance("TAB3", buyTickets, mainActionView);
                // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);
 
                 return tab3;
@@ -99,9 +105,11 @@ public class PagerAdapter
         tab2.getDataFormBefore(selectPositionId,count,amountForPay,ticketIdList);
 
     }
-    public void paymentFragmentData(List<InfoViewer> infoViewers)
+    public void webFragmentData(String url)
     {
        // tab3.setInfoViewers(infoViewers);
+        //tab3.webUrl(url);
+
 
     }
 

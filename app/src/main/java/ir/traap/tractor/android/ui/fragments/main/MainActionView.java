@@ -38,4 +38,8 @@ public interface MainActionView extends BaseView
     void onLeageClick ();
 
     void onPredict(MatchItem matchPredict);
+
+    void openWeb(String url,boolean b);
+
+    void onCash();
 }

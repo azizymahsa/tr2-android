@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
 
@@ -64,6 +65,7 @@ import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.main.MainFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
+import ir.traap.tractor.android.ui.fragments.payment.WebViewFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
@@ -71,6 +73,7 @@ import ir.traap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.traap.tractor.android.utilities.Logger;
+import ir.traap.tractor.android.utilities.Utility;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -80,6 +83,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
+    private WebViewFragment webViewFragment;
 
     private Realm realm;
 
@@ -758,6 +762,36 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment)
                 .commit();
+    }
+    @Override
+    public void onCash()
+    {
+       /* tvTitle.setText("موجودی");
+
+        changeFragment(fragments.get(1), "1");
+        new Handler().postDelayed(() -> {
+            layoutBehavior();
+            tvTurnover.setVisibility(View.GONE);
+
+        }, 200);
+*/
+    }
+    @Override
+    public void openWeb(String url, boolean b)
+    {
+       /* if (b)
+            Utility.openUrlCustomTab(MainActivity.this, url);
+        else
+        {
+            changeFragment(fragments.get(7), "7");
+
+            webViewFragment.webUrl(url);
+
+            new Handler().postDelayed(() -> {
+                layoutBehavior();
+                appBar.setExpanded(false, true);
+            }, 200);
+        }*/
     }
 
     @Override

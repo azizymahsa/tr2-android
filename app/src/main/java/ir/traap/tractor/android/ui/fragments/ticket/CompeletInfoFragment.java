@@ -329,8 +329,10 @@ public class CompeletInfoFragment
                     llInVisible.setVisibility(View.GONE);
                 } else
                 {
-                    BuyTickets.buyTickets.setInfoViewers(infoViewers);
-                  //  onClickContinueBuyTicketListener.onContinueClicked();
+                    //BuyTickets.buyTickets.setInfoViewers(infoViewers);
+                    BuyTickets.buyTickets.setUrlFromWebFragment("http://5.253.25.117:9000/api/v1/payment/ipg/AA5D62A484ECBCFA");
+                    BuyTickets.buyTickets.openWebPayment();
+                    onClickContinueBuyTicketListener.onContinueClicked();
 
                 }
                 break;

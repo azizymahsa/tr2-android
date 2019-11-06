@@ -1299,6 +1299,18 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
+    public void openWeb(String url, boolean b)
+    {
+
+    }
+
+    @Override
+    public void onCash()
+    {
+
+    }
+
+    @Override
     public void onBill()
     {
 

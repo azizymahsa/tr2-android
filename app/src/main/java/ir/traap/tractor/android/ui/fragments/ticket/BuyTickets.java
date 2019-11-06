@@ -31,6 +31,7 @@ import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.traap.tractor.android.utilities.CustomViewPager;
+import ir.traap.tractor.android.utilities.Utility;
 
 public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {
@@ -53,6 +54,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     private List<Integer> ticketIdList;
     private View imgBack,imgMenu;
     private TextView tvPopularPlayer;
+    private String url="";
 
 
     public BuyTickets()
@@ -132,12 +134,16 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
                     new Handler().postDelayed(() -> adapter.compeletInfoFragmentData(selectPositionId, count, amountForPay,ticketIdList), 200);
                     //setDataToCompleteInfoFragment(namePosition);
                 }
-                if (position == 2) {
+            /*    if (position ==2){
+
+                    new Handler().postDelayed(() -> adapter.webFragmentData(url), 200);
+                }*/
+             /*   if (position == 2) {
 
                     new Handler().postDelayed(() -> adapter.paymentFragmentData(infoViewers), 200);
                 }
                 if (position == 3)
-                    adapter.createShareShowTicket();
+                    adapter.createShareShowTicket();*/
 
             }
         });
@@ -382,6 +388,15 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
     public void setInfoViewers(List<InfoViewer> infoViewers) {
         this.infoViewers=infoViewers;
+
+    }
+    public void setUrlFromWebFragment(String url){
+
+        this.url=url;
+
+    }
+    public void openWebPayment(){
+        Utility.openUrlCustomTab(getActivity(), url);
 
     }
 
