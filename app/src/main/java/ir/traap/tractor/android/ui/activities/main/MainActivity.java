@@ -11,7 +11,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -58,7 +60,6 @@ import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.drawer.MenuDrawer;
 import ir.traap.tractor.android.ui.fragments.BarcodeReaderFragment;
 import ir.traap.tractor.android.ui.fragments.about.AboutFragment;
-import ir.traap.tractor.android.ui.fragments.about.HistoryFragment;
 import ir.traap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.traap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
@@ -71,6 +72,8 @@ import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.traap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
+import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketActivity;
+import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
 import ir.traap.tractor.android.utilities.Logger;
@@ -96,6 +99,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Bundle mSavedInstanceState;
 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
+    private boolean hasPaymentTicket=false;
+    private String refrenceNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -127,6 +132,26 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         //------------------test------------------------
 
         mSavedInstanceState = savedInstanceState;
+
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            Uri uri = intent.getData();
+             refrenceNumber=uri.getQueryParameter("refrencenumber").replace("/","");
+            //String refrenceNumber = uri.getQueryParameter("RefrenceNumber");
+            hasPaymentTicket=true;
+
+
+            /*showLoading();
+            isMainFragment = false;
+            MatchItem matchBuyable = new MatchItem();
+            this.fragment = BuyTickets.newInstance(this, matchBuyable,refrenceNumber);
+
+            transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.replace(R.id.main_container, this.fragment)
+                    .commit();*/
+        }
 
         realm = Realm.getDefaultInstance();
 
@@ -811,10 +836,38 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction.replace(R.id.main_container, this.fragment)
                 .commit();
     }
+    @Override
+    public void onCash()
+    {
+       /* tvTitle.setText("موجودی");
+
+        changeFragment(fragments.get(1), "1");
+        new Handler().postDelayed(() -> {
+            layoutBehavior();
+            tvTurnover.setVisibility(View.GONE);
+
+        }, 200);
+*/
+    }
 
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
-    {
+        {
+        if (hasPaymentTicket){
+           /* showLoading();
+            isMainFragment = false;
+            this.fragment = ShowTicketsFragment.newInstance(this);
+
+            transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.replace(R.id.main_container, this.fragment)
+                    .commit();*/
+           Intent intent= new Intent(MainActivity.this, ShowTicketActivity.class);
+
+            intent.putExtra("RefrenceNumber", refrenceNumber);
+            startActivity(intent);
+
+        }
         if (response == null || response.info == null)
         {
             startActivity(new Intent(this, LoginActivity.class));

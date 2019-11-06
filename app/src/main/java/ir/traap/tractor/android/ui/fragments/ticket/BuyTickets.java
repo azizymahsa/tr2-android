@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -26,15 +27,18 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.buyTicket.InfoViewer;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
+import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import ir.traap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.traap.tractor.android.utilities.CustomViewPager;
+import ir.traap.tractor.android.utilities.Utility;
 
 public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {
     public static BuyTickets buyTickets;
+    private static boolean paymentIsComplete=false;
     private View rootView;
 
     private MainActionView mainView;
@@ -53,6 +57,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     private List<Integer> ticketIdList;
     private View imgBack,imgMenu;
     private TextView tvPopularPlayer;
+    private String url="";
 
 
     public BuyTickets()
@@ -69,6 +74,20 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
         buyTickets.setArguments(args);
         buyTickets.setMainView(mainView);
+        return buyTickets;
+    }
+
+    public static BuyTickets newInstance(MainActionView mainView, MatchItem matchBuyable, String refrenceNumber)
+    {
+
+        buyTickets = new BuyTickets();
+        Bundle args = new Bundle();
+        if (matchBuyable!=null)
+        args.putParcelable("matchBuyable", matchBuyable);
+
+        buyTickets.setArguments(args);
+        buyTickets.setMainView(mainView);
+        paymentIsComplete = true;
         return buyTickets;
     }
 
@@ -100,8 +119,8 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
         // define TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("انتخاب جایگاه"));
         tabLayout.addTab(tabLayout.newTab().setText("تکمیل اطلاعات"));
-        tabLayout.addTab(tabLayout.newTab().setText("پرداخت"));
-        tabLayout.addTab(tabLayout.newTab().setText("صدور بلیت"));
+        //tabLayout.addTab(tabLayout.newTab().setText("پرداخت"));
+       // tabLayout.addTab(tabLayout.newTab().setText("صدور بلیت"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //  ViewPager need a PagerAdapter
@@ -132,17 +151,28 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
                     new Handler().postDelayed(() -> adapter.compeletInfoFragmentData(selectPositionId, count, amountForPay,ticketIdList), 200);
                     //setDataToCompleteInfoFragment(namePosition);
                 }
-                if (position == 2) {
+                if (position == 2)
+                    adapter.createShareShowTicket();
+            /*    if (position ==2){
+
+                    new Handler().postDelayed(() -> adapter.webFragmentData(url), 200);
+                }*/
+             /*   if (position == 2) {
 
                     new Handler().postDelayed(() -> adapter.paymentFragmentData(infoViewers), 200);
                 }
                 if (position == 3)
-                    adapter.createShareShowTicket();
+                    adapter.createShareShowTicket();*/
 
             }
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
+        if (paymentIsComplete){
+
+             //   viewPager.setCurrentItem(3, true);
+
+        }
         return rootView;
     }
 
@@ -172,6 +202,12 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
             tvTitle.setText("خرید بلیت");
         }catch (Exception e){
+
+        }
+
+        if (paymentIsComplete){
+
+         //   viewPager.setCurrentItem(3, true);
 
         }
         btnPaymentConfirm = rootView.findViewById(R.id.btnPaymentConfirm);
@@ -333,8 +369,16 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             ivSelectPosition.setImageResource(R.drawable.select_step);
             tvSelectPosition.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
+            ivFullInfo.setImageResource(R.drawable.select_step);
+            tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
-            ivFullInfo.setImageResource(R.drawable.select_step_non);
+            ivPrintTicket.setImageResource(R.drawable.select_step);
+            tvPrintTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+
+            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+          /*  ivFullInfo.setImageResource(R.drawable.select_step_non);
             tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
             ivPrintTicket.setImageResource(R.drawable.un_select_step);
@@ -343,7 +387,7 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
             vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
             vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
-
+*/
         }else if(viewPager.getCurrentItem()==3){
 
             ivCountTicket.setImageResource(R.drawable.select_step);
@@ -382,6 +426,15 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
 
     public void setInfoViewers(List<InfoViewer> infoViewers) {
         this.infoViewers=infoViewers;
+
+    }
+    public void setUrlFromWebFragment(String url){
+
+        this.url=url;
+
+    }
+    public void openWebPayment(String url){
+        Utility.openUrlCustomTab(getActivity(), url);
 
     }
 

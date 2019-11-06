@@ -60,10 +60,11 @@
 
 
                     <TextView
+                        android:id="@+id/txRefrenceNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="کد پیگیری پرداخت : 222111555"
+                        android:text="کد پیگیری پرداخت : "
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp"
                         android:layout_gravity="end"/>
@@ -71,13 +72,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:gravity="start"
                     android:layout_marginTop="@dimen/_10dp"
                     android:layout_weight="100"
                     android:text="@string/buy_ticket_description_2"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize_14dp"
-                    android:layout_gravity="end"/>
+                    android:layout_gravity="start"/>
             </LinearLayout>
             <Space
                 android:layout_width="0dp"

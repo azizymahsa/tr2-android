@@ -42,7 +42,7 @@
                 android:textStyle="bold"
                 android:singleLine="true"/>
             <TextView
-                android:id="@+id/tvStation"
+                android:id="@+id/tvLastName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30dp"
                 android:textColor="@color/_title_black"

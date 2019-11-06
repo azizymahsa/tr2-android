@@ -38,4 +38,6 @@ public interface MainActionView extends BaseView
     void onLeageClick ();
 
     void onPredict(MatchItem matchPredict);
+
+    void onCash();
 }
