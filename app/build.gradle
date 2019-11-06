@@ -275,16 +275,6 @@ android {
         implementation 'com.scottyab:aescrypt:0.0.1'
         //---------------Others end------------------------------
 
-
-
-
-
-
-
-
-
-
-
 //        implementation 'com.github.johnpersano:supertoasts:2.0' //supertoasts
         implementation 'com.github.satyan:sugar:1.5' //for Flght sdk
 //        implementation 'com.github.GwonHyeok:StickySwitch:0.0.15'
