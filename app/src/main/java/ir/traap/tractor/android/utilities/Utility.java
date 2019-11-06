@@ -35,7 +35,7 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.scottyab.aescrypt.AESCrypt;
+//import com.scottyab.aescrypt.AESCrypt;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -104,32 +104,32 @@ public class Utility
     }
 
 
-    public static String encryption(String strNormalText)
-    {
-
-        try
-        {
-            return AESCrypt.encrypt(Settings.Secure.getString(SingletonContext.getInstance().getContext().getContentResolver(),
-                    Settings.Secure.ANDROID_ID), strNormalText);
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    public static String decryption(String strEncryptedText)
-    {
-        try
-        {
-            return AESCrypt.decrypt(Settings.Secure.getString(SingletonContext.getInstance().getContext().getContentResolver(),
-                    Settings.Secure.ANDROID_ID), strEncryptedText);
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return "";
-    }
+//    public static String encryption(String strNormalText)
+//    {
+//
+//        try
+//        {
+//            return AESCrypt.encrypt(Settings.Secure.getString(SingletonContext.getInstance().getContext().getContentResolver(),
+//                    Settings.Secure.ANDROID_ID), strNormalText);
+//        } catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
+//        return "";
+//    }
+//
+//    public static String decryption(String strEncryptedText)
+//    {
+//        try
+//        {
+//            return AESCrypt.decrypt(Settings.Secure.getString(SingletonContext.getInstance().getContext().getContentResolver(),
+//                    Settings.Secure.ANDROID_ID), strEncryptedText);
+//        } catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
+//        return "";
+//    }
 
     public static String MD5(String str)
     {

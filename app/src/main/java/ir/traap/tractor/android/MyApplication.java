@@ -12,6 +12,9 @@ import androidx.multidex.MultiDex;
 import com.adpdigital.push.AdpPushClient;
 
 import com.androidnetworking.AndroidNetworking;
+import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 import com.jacksonandroidnetworking.JacksonParserFactory;
 import com.orm.SugarContext;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -19,6 +22,7 @@ import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import ir.traap.tractor.android.apiServices.ServiceApplication;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
@@ -51,20 +55,19 @@ public class MyApplication extends ServiceApplication
     @Override
     public void onCreate()
     {
-
         super.onCreate();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/iran_sans_normal.ttf").build());
         Realm.init(this);
 
 
-//        FirebaseAnalytics.getInstance(this);
-//        FirebaseCrash.setCrashCollectionEnabled(!BuildConfig.DEBUG);
+        FirebaseAnalytics.getInstance(this);
+        FirebaseCrash.setCrashCollectionEnabled(!BuildConfig.DEBUG);
 
-//        Fabric fabric = new Fabric.Builder(this)
-//                .kits(new Crashlytics())
-//                .debuggable(false) // Enables Crashlytics debugger
-//                .build();
-//        Fabric.with(fabric);
+        Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(false) // Enables Crashlytics debugger
+                .build();
+        Fabric.with(fabric);
 
 
         SingletonGdsService.getInstance().setContext(this);
@@ -125,7 +128,7 @@ public class MyApplication extends ServiceApplication
 
 
 //            chabok.setDevelopment(true);
-            chabok.get().setDevelopment(false);
+            chabok.get().setDevelopment(true);
 
 //             chabok.register(Prefs.getString("uuid",""));
         }

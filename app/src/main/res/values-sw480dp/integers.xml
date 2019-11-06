@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="paddingRight_spinner">40</integer>
+    <integer name="paddingTop_spinner">0</integer>
+    <integer name="text_justified_size">35</integer>
+    <integer name="gallery">700</integer>
+    <integer name="values_anim">190</integer>
+</resources>

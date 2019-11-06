@@ -17,11 +17,11 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
-import com.farazpardazan.accubin.AccubinActivity;
-import com.farazpardazan.accubin.AccubinConfiguration;
-import com.farazpardazan.accubin.core.scanResult.BarcodeScanResult;
-import com.farazpardazan.accubin.core.scanResult.CardScanResult;
-import com.farazpardazan.accubin.core.scanResult.ScanResult;
+//import com.farazpardazan.accubin.AccubinActivity;
+//import com.farazpardazan.accubin.AccubinConfiguration;
+//import com.farazpardazan.accubin.core.scanResult.BarcodeScanResult;
+//import com.farazpardazan.accubin.core.scanResult.CardScanResult;
+//import com.farazpardazan.accubin.core.scanResult.ScanResult;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
@@ -62,7 +62,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     private LinearLayout llLoading;
     private LinearLayout rlRoot;
     private final int SCAN_REQUEST_CODE = 100;
-    private AccubinConfiguration configuration;
+//    private AccubinConfiguration configuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -80,11 +80,11 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
     private void initAccubin()
     {
-        configuration = new AccubinConfiguration();
-
-        configuration.setDisplayDefaultMask(true);
-        configuration.setDisplayHint(true);
-        configuration.setCustomFlashIcon(R.drawable.flash);
+//        configuration = new AccubinConfiguration();
+//
+//        configuration.setDisplayDefaultMask(true);
+//        configuration.setDisplayHint(true);
+//        configuration.setCustomFlashIcon(R.drawable.flash);
     }
 
     private void initView()
@@ -119,7 +119,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         codeView3 = findViewById(R.id.codeView3);
         codeView4 = findViewById(R.id.codeView4);
 
-        initAccubin();
+//        initAccubin();
 
         codeView1.setOnPinEnteredListener(this);
         codeView2.setOnPinEnteredListener(this);
@@ -203,53 +203,53 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         }
 
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == SCAN_REQUEST_CODE)
-        {
-            if (data != null)
-            {
-                ScanResult scanResult = ((ScanResult) data.getSerializableExtra(AccubinActivity.EXTRA_SCAN_RESULT));
-
-                if (scanResult instanceof BarcodeScanResult)
-                {
-
-                    // Do whatever you need with barcode data
-                    String barcodeFormat = ((BarcodeScanResult) scanResult).getBarcodeFormat();
-                    String barcodeText = ((BarcodeScanResult) scanResult).getStringValue();
-                } else
-                {
-                    String cardPan = ((CardScanResult) scanResult).getNumber();
-                    String date = ((CardScanResult) scanResult).getExpirationDate();
-
-                    try
-                    {
-                        etNumberAddCard.setText(cardPan);
-                        String bankDetect = cardPan.replaceAll("-", "").
-                                replaceAll("_", "").replaceAll(" ", "").substring(0, 6);
-
-                        if (bankDetect.equals(TrapConfig.HappyBaseCardNo))
-                        {
-                            isHappy = true;
-                        } else
-                        {
-                            isHappy = false;
-
-                        }
-                        isFirstTimeChange = false;
-                    } catch (Exception e)
-                    {
-                    }
-                }
-            }
-        }
-    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+//    {
+//
+//
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == SCAN_REQUEST_CODE)
+//        {
+//            if (data != null)
+//            {
+//                ScanResult scanResult = ((ScanResult) data.getSerializableExtra(AccubinActivity.EXTRA_SCAN_RESULT));
+//
+//                if (scanResult instanceof BarcodeScanResult)
+//                {
+//
+//                    // Do whatever you need with barcode data
+//                    String barcodeFormat = ((BarcodeScanResult) scanResult).getBarcodeFormat();
+//                    String barcodeText = ((BarcodeScanResult) scanResult).getStringValue();
+//                } else
+//                {
+//                    String cardPan = ((CardScanResult) scanResult).getNumber();
+//                    String date = ((CardScanResult) scanResult).getExpirationDate();
+//
+//                    try
+//                    {
+//                        etNumberAddCard.setText(cardPan);
+//                        String bankDetect = cardPan.replaceAll("-", "").
+//                                replaceAll("_", "").replaceAll(" ", "").substring(0, 6);
+//
+//                        if (bankDetect.equals(TrapConfig.HappyBaseCardNo))
+//                        {
+//                            isHappy = true;
+//                        } else
+//                        {
+//                            isHappy = false;
+//
+//                        }
+//                        isFirstTimeChange = false;
+//                    } catch (Exception e)
+//                    {
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public void onAnimationEnd()

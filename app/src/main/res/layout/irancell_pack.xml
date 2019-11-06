@@ -92,15 +92,15 @@
             android:layout_marginEnd="5dp"
             android:gravity="center"
             android:text="دائمی"
-            android:textColor="@color/currentColor"
+            android:textColor="@color/textColorPrimary"
             android:textSize="@dimen/_11sdp" />
 
         <RadioButton
             android:id="@+id/rbFirst"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:buttonTint="@color/currentColor" />
+            android:layout_marginEnd="@dimen/radius_15dp"
+            android:buttonTint="@color/textColorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -109,15 +109,15 @@
             android:layout_marginEnd="5dp"
             android:gravity="center"
             android:text="اعتباری"
-            android:textColor="@color/currentColor"
+            android:textColor="@color/textColorPrimary"
             android:textSize="@dimen/_11sdp" />
 
         <RadioButton
             android:id="@+id/rbCredit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:buttonTint="@color/currentColor" />
+            android:layout_marginEnd="@dimen/radius_15dp"
+            android:buttonTint="@color/textColorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -126,14 +126,14 @@
             android:layout_marginEnd="5dp"
             android:gravity="center"
             android:text="همه"
-            android:textColor="@color/currentColor"
+            android:textColor="@color/textColorPrimary"
             android:textSize="@dimen/_11sdp" />
 
         <RadioButton
             android:id="@+id/rbAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/currentColor"
+            android:buttonTint="@color/textColorPrimary"
             android:checked="true" />
 
     </LinearLayout>

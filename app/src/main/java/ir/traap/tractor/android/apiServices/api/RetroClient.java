@@ -37,10 +37,12 @@ import ir.traap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import ir.traap.tractor.android.apiServices.model.league.getLeagues.request.GetLeagueRequest;
+import ir.traap.tractor.android.apiServices.model.league.getLeagues.response.ResponseLeage;
+import ir.traap.tractor.android.apiServices.model.league.pastResult.request.RequestPastResult;
+import ir.traap.tractor.android.apiServices.model.league.pastResult.response.ResponsePastResult;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
-import ir.traap.tractor.android.apiServices.model.league.request.GetLeagueRequest;
-import ir.traap.tractor.android.apiServices.model.league.response.ResponseLeage;
 import ir.traap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import ir.traap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.traap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -141,6 +143,10 @@ public interface RetroClient
     @POST(Const.GET_Leage)
     Single<Response<WebServiceClass<ResponseLeage>>> getLeage(
             @Body GetLeagueRequest request);
+
+    @POST(Const.Get_Past_result)
+    Single<Response<WebServiceClass<ResponsePastResult>>> getPastResult(
+            @Body RequestPastResult request);
 
     @POST(Const.GET_PACKAGE_IRANCELL)
     Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(

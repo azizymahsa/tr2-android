@@ -137,12 +137,12 @@
                     android:background="@drawable/background_border_a"
                     app:spinning_bar_width="2dp"
                     android:text="انصراف"
-                    android:textColor="@color/currentColor"
+                    android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/textSize_14dp"
                     android:layout_gravity="center"
                     app:initialCornerAngle="50dp"
                     app:finalCornerAngle="50dp"
-                    app:spinning_bar_color="@color/currentColor"
+                    app:spinning_bar_color="@color/textColorPrimary"
                     android:transitionName="transition"/>
 
             </FrameLayout>
@@ -161,12 +161,12 @@
                     android:background="@drawable/background_border_a"
                     app:spinning_bar_width="2dp"
                     android:text="@string/confirm"
-                    android:textColor="@color/currentColor"
+                    android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/textSize_14dp"
                     android:layout_gravity="center"
                     app:initialCornerAngle="50dp"
                     app:finalCornerAngle="50dp"
-                    app:spinning_bar_color="@color/currentColor"
+                    app:spinning_bar_color="@color/textColorPrimary"
                     android:transitionName="transition"/>
 
             </FrameLayout>

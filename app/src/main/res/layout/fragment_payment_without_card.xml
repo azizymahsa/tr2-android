@@ -512,14 +512,14 @@
                                 android:gravity="center"
                                 android:text="چاپ رسید در دستگاه کارت خوان"
                                 android:textAppearance="@style/IranSansBold"
-                                android:textColor="@color/currentColor"
+                                android:textColor="@color/textColorPrimary"
                                 android:textSize="@dimen/textSize_12dp" />
 
                             <CheckBox
                                 android:id="@+id/cbPrint"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:buttonTint="@color/currentColor" />
+                                android:buttonTint="@color/textColorPrimary" />
                         </LinearLayout>
 
                         <Space

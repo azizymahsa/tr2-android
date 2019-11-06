@@ -64,6 +64,7 @@ import ir.traap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.main.MainFragment;
+import ir.traap.tractor.android.ui.fragments.media.MediaFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
@@ -73,6 +74,7 @@ import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
 import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketActivity;
 import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
+import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
 import ir.traap.tractor.android.utilities.Logger;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
@@ -86,7 +88,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private Realm realm;
 
-    private Fragment fragment;
+    private Fragment fragment, mainFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 //    private View btnBuyTicket;
@@ -103,6 +105,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //------------------test------------------------
+//        Intent intent = getIntent();
+//        String action = intent.getAction();
+//        Uri data = intent.getData();
+//
+//        try
+//        {
+//            if (intent != null)
+//            {
+//                showAlert(this, "action= " + action + "\n" + "data= " + data.getQuery(), 0);
+//            }
+//            else
+//            {
+//                showError(this, "Null");
+//            }
+//        }
+//        catch (NullPointerException e)
+//        {
+//            showError(this, "Null");
+//        }
+
+        //------------------test------------------------
 
         mSavedInstanceState = savedInstanceState;
 
@@ -177,15 +202,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
-                        /*setCheckedBNV(bottomNavigationView, 0);
+                        setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 
-                        fragment = HistoryFragment.newInstance(this);
+                        fragment = MarketFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                         transaction.replace(R.id.main_container, fragment)
-                                .commit();*/
+                                .commit();
                     }
                     break;
                 }
@@ -210,7 +235,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     if (!bottomNavigationView.getMenu().getItem(2).isChecked() || !isMainFragment)
                     {
-                        setCheckedBNV(bottomNavigationView, 2);
+//                        setCheckedBNV(bottomNavigationView, 2);
 
                         backToMainFragment();
                     }
@@ -221,6 +246,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     if (!bottomNavigationView.getMenu().getItem(1).isChecked())
                     {
                         setCheckedBNV(bottomNavigationView, 1);
+                        isMainFragment = false;
+
+                        fragment = MediaFragment.newInstance(this);
+                        transaction = fragmentManager.beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                        transaction.replace(R.id.main_container, fragment)
+                                .commit();
                     }
                     break;
                 }
@@ -326,9 +359,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             if (isMainFragment)
             {
                 super.onBackPressed();
-            } else
+            }
+            else
             {
-                setCheckedBNV(bottomNavigationView, 2);
+//                setCheckedBNV(bottomNavigationView, 2);
 
                 backToMainFragment();
             }
@@ -381,7 +415,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             case 7:
             {
                // showToast(this, "درباره ما", R.color.green);
-
+                isMainFragment = false;
 
                 fragment = AboutFragment.newInstance(this);
                 transaction = fragmentManager.beginTransaction();
@@ -424,7 +458,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     @Override
                     public void onConfirmClick()
                     {
+                        String mobile = Prefs.getString("mobile", "");
                         Prefs.clear();
+                        Prefs.putString("mobile", mobile);
                         finish();
                         intent.setClass(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -455,16 +491,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void showLoading()
     {
-//        findViewById(R.id.llLoading).setVisibility(View.VISIBLE);
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading()
     {
-//        findViewById(R.id.llLoading).setVisibility(View.GONE);
-//        runOnUiThread(() ->
-//        {
-//        });
+       findViewById(R.id.rlLoading).setVisibility(View.GONE);
+        runOnUiThread(() ->
+       {
+        });
     }
 
     @Override
@@ -709,9 +745,18 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void backToMainFragment()
     {
+        setCheckedBNV(bottomNavigationView, 2);
+
         isMainFragment = true;
 
-        fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
+        if (mainFragment != null)
+        {
+            fragment = mainFragment;
+        }
+        else
+        {
+            fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
+        }
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -764,14 +809,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onLeageClick()
     {
-        isMainFragment = true;
+       /* this.isMainFragment = true;
 
         fragment = LeagueTableFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment)
-                .commit();
+                .commit();*/
+        isMainFragment = false;
+               fragment = LeagueTableFragment.newInstance(this);
+               transaction = fragmentManager.beginTransaction();
+               transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+               transaction.replace(R.id.main_container, fragment)
+                        .commit();
     }
 
     @Override
@@ -836,6 +887,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             fragmentManager = getSupportFragmentManager();
             fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
+            mainFragment = fragment;
 
             transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);

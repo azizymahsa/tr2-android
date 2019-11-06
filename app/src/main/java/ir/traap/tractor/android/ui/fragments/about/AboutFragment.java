@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -19,17 +20,19 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 
 public class AboutFragment
-        extends Fragment implements View.OnClickListener
+        extends BaseFragment implements View.OnClickListener
 {
 
 
     private View view;
     private Toolbar mToolbar;
-    private TextView tvUserName,tvPhone;
+    private TextView tvTitle, tvUserName,tvPhone;
+    private View imgBack, imgMenu;
     private MainActionView mainView;
     private ImageView ivInsta, ivTwit, ivTele;
     private CircularProgressButton btnHistory;
@@ -71,17 +74,36 @@ public class AboutFragment
 
     private void initViews()
     {
-        ivTwit = view.findViewById(R.id.ivTwit);
-        ivTele = view.findViewById(R.id.ivTele);
-        ivInsta = view.findViewById(R.id.ivInsta);
-        btnHistory = view.findViewById(R.id.btnHistory);
-        tvPhone = view.findViewById(R.id.tvPhone);
+        try
+        {
+            ivTwit = view.findViewById(R.id.ivTwit);
+            ivTele = view.findViewById(R.id.ivTele);
+            ivInsta = view.findViewById(R.id.ivInsta);
+            btnHistory = view.findViewById(R.id.btnHistory);
+            tvPhone = view.findViewById(R.id.tvPhone);
 
-        ivTwit.setOnClickListener(this);
-        ivTele.setOnClickListener(this);
-        ivInsta.setOnClickListener(this);
-        btnHistory.setOnClickListener(this);
-        tvPhone.setOnClickListener(this);
+            ivTwit.setOnClickListener(this);
+            ivTele.setOnClickListener(this);
+            ivInsta.setOnClickListener(this);
+            btnHistory.setOnClickListener(this);
+            tvPhone.setOnClickListener(this);
+            //toolbar
+            tvTitle = view.findViewById(R.id.tvTitle);
+            tvTitle.setText("درباره ما");
+            imgMenu=view.findViewById(R.id.imgMenu);
+
+            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+            imgBack = view.findViewById(R.id.imgBack);
+            imgBack.setOnClickListener(v ->
+            {
+                getActivity().onBackPressed();
+            });
+
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
     }
 
     @Override
@@ -103,7 +125,10 @@ public class AboutFragment
         // initializing the views
         initViews();
         mToolbar = view.findViewById(R.id.toolbar);
-        tvUserName = view.findViewById(R.id.tvUserName);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvTitle.setText("درباره تراپ");
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
         tvUserName.setText(Prefs.getString("mobile", ""));
 
@@ -145,7 +170,12 @@ public class AboutFragment
                 //mainView.onPaymentWithoutCard();
                 break;
             case R.id.tvPhone:
-                if (tvPhone.getText().toString() == null) {//44890412
+                if (tvPhone.getText().toString() == null)
+                {//44890412
+                    Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "021-44890412", null));
+                    startActivity(intent2);
+                } else
+                {
                     Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "021-44890412", null));
                     startActivity(intent2);
                 }/*else {

@@ -86,7 +86,6 @@ public class SelectPositionFragment
 
     public SelectPositionFragment()
     {
-
     }
 
     /**
@@ -175,7 +174,8 @@ public class SelectPositionFragment
             tvStadiumName.setText(matchBuyable.getStadium().getName());
             setImageColor(imgHost, matchBuyable.getTeamHome().getLogo());
             setImageColor(imgGuest, matchBuyable.getTeamAway().getLogo());
-            tvDateTime.setText(getDate(matchBuyable.getMatchDatetime()));
+          //  tvDateTime.setText(getDate(matchBuyable.getMatchDatetime()));
+            tvDateTime.setText(matchBuyable.getMatchDatetimeStr());
 
         } catch (Exception e)
         {
@@ -185,21 +185,51 @@ public class SelectPositionFragment
         }
 
     }
+ /*   private String getDate(Date d)
+    {
 
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd" );
+        String date = dateFormat.format(d);  // formatted date in string
+        String[] splitsDate = date.split("-");
+
+        PersianDate persianDate = new PersianDate();
+        persianDate.setGrgYear(Integer.valueOf(splitsDate[0]));
+        persianDate.setGrgMonth(Integer.valueOf(splitsDate[1]));
+        persianDate.setGrgDay(Integer.valueOf(splitsDate[2]));
+
+
+        PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d");
+        pdformater1.format(persianDate);//1396/05/20
+
+        //PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
+        // date = String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
+        date = String.valueOf(pdformater1.format(persianDate));//1396/05/20
+
+        return date;
+    }*/
     private String getDate(Double matchDatetime)
     {
         String shamsi = "";
         Date d = new Date((new Double(matchDatetime)).longValue());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd " + " " + "hh:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         String date = dateFormat.format(d);  // formatted date in string
+        String[] splitsDate = date.split("-");
 
         PersianCalendar persianCalendar = new PersianCalendar();
-        PersianDate pdate = new PersianDate();
+
+        PersianDate persianDate = new PersianDate();
+        persianDate.setGrgYear(Integer.valueOf(splitsDate[0]));
+        persianDate.setGrgMonth(Integer.valueOf(splitsDate[1]));
+        persianDate.setGrgDay(Integer.valueOf(splitsDate[2]));
+
         PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d");
         //  pdformater1.format(pdate);//1396/05/20
 
         PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
-        date = String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
+        date = String.valueOf(pdformater2.format(persianDate));//۱۹ تیر ۹۶
 
         return date;
     }
@@ -891,6 +921,7 @@ public class SelectPositionFragment
             {
                 try
                 {
+
                     if (response.info.statusCode == 200)
                     {
                         setDataSpinnerAllBoxes(response.data.getResults());
@@ -988,6 +1019,7 @@ public class SelectPositionFragment
                     @Override
                     public void onError(Throwable e)
                     {
+                        BuyTickets.buyTickets.hideLoading();
 
                     }
 

@@ -5,6 +5,7 @@
     tools:ignore="GoogleAppIndexingWarning">
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.RECEIVE_SMS" /> -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -13,13 +14,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <meta-data
-        android:name="com.adpdigital.push.client.SHOW_ONLY_CHABOK_NOTIFICATIONS"
-        android:value="ENABLE" />
+    <meta-data android:name="com.adpdigital.push.client.SHOW_ONLY_CHABOK_NOTIFICATIONS" android:value="ENABLE" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
@@ -29,26 +29,28 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
-        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".ui.fragments.ticket.ShowTicketActivity"></activity>
-        <!--         android:appComponentFactory="whateverString" -->
+
+<!--
+        android:appComponentFactory="whateverString"
+-->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD0Sz5c524BMxUW_YzlRW7K7g8R1jrzD7o" />
 
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false" />
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
         <activity
-            android:name=".ui.activities.splash.SplashActivity"
+            android:name="ir.traap.tractor.android.ui.activities.splash.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
@@ -58,8 +60,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activities.login.LoginActivity"
+        <activity android:name=".ui.fragments.ticket.ShowTicketActivity"></activity>
+        <activity android:name="ir.traap.tractor.android.ui.activities.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.main.MainActivity"
@@ -72,59 +74,20 @@
 
                 <data android:scheme="traap" />
             </intent-filter>
-            <!--
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="faildpayment"
-                    android:scheme="traap" />
-            </intent-filter>
-            -->
-            <!--
-        <intent-filter>
-
-            <action android:name="android.intent.action.VIEW" />
-
-            <category android:name="android.intent.category.DEFAULT" />
-
-
-            <category android:name="android.intent.category.BROWSABLE" />
-
-            <data
-                android:host="5.253.25.117:9000"
-                android:scheme="http" />
-        </intent-filter>
-            -->
-
-
-            <!--
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="faildpayment"
-                    android:scheme="traap" />
-            </intent-filter>
-            -->
-
         </activity>
-        <activity
-            android:name=".ui.activities.login.user.UserActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity
-            android:name=".ui.activities.web.WebActivity"
+
+
+
+
+
+
+
+        <activity android:name=".ui.activities.login.user.UserActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.activities.web.WebActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activities.card.add.AddCardActivity"
             android:screenOrientation="portrait"
@@ -138,7 +101,6 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
                 <category android:name="ir.traap.tractor.android" />
             </intent-filter>
         </receiver>
@@ -155,6 +117,7 @@
                 <action android:name="com.adpdigital.push.client.MSGRECEIVE" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

@@ -1,349 +1,355 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-    <RelativeLayout
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="102dp"
-            android:background="@drawable/background_main_header" />
+            android:layout_height="wrap_content">
 
-<!--        <RelativeLayout-->
-<!--            android:id="@+id/header"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="102dp"-->
-<!--            android:background="@drawable/img_header_background" />-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:background="@drawable/background_main_header2" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:background="@drawable/img_header_background" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent">
+
+
+                <include layout="@layout/toolbar_back" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested"
             android:layout_width="match_parent"
-            android:layout_height="102dp"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/transparent">
+            android:layout_height="match_parent">
 
-            <include layout="@layout/toolbar_main" />
-
-        </androidx.appcompat.widget.Toolbar>
-
-    </RelativeLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-            <!--slider1-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_10dp"
-                android:orientation="horizontal">
-
-                <Space
-                    android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+                <!--slider1-->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10" />
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp">
+
+                        <!--<RelativeLayout
+                            android:id="@+id/rl1"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/slider_height_app">
+
+                            <com.daimajia.slider.library.SliderLayout
+                                android:id="@+id/slider"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/slider_height_app"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent" />
+
+                        </RelativeLayout>-->
+                        <RelativeLayout
+                            android:id="@+id/rl1"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/slider_height_app"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            app:layout_anchor="@id/header"
+                            app:layout_anchorGravity="bottom|center_horizontal|end">
+
+                            <com.daimajia.slider.library.SliderLayout
+                                android:id="@+id/slider"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/slider_height_app"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
-                    <!--<RelativeLayout
-                        android:id="@+id/rl1"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/slider_height_app">
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
 
-                        <com.daimajia.slider.library.SliderLayout
-                            android:id="@+id/slider"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/slider_height_app"
-                            android:layout_centerVertical="true"
-                            android:background="@android:color/transparent" />
+                    <LinearLayout
+                        android:layout_width="@dimen/_10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:gravity="right"
+                        android:orientation="horizontal">
 
-                    </RelativeLayout>-->
-                    <RelativeLayout
-                        android:id="@+id/rl1"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/slider_height_app"
-                        app:layout_anchor="@id/header"
-                        app:layout_anchorGravity="bottom|center_horizontal|end"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginBottom="8dp">
+                        <TextView
+                            android:id="@+id/tvDescTicket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="100"
+                            android:gravity="start|center"
+                            android:text="تاریخچه باشگاه تراکتورسازی تبریز"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize_14dp" />
 
-                        <com.daimajia.slider.library.SliderLayout
-                            android:id="@+id/slider"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/slider_height_app"
-                            android:layout_centerVertical="true"
-                            android:background="@android:color/transparent" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:gravity="end"
+                            android:src="@drawable/icon_history" />
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
                 </LinearLayout>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-
+                <!--expanding history-->
                 <LinearLayout
-                    android:layout_width="@dimen/_10dp"
+                    android:id="@+id/llAllBoxesSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100">
+
+                        <ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
+                            android:id="@+id/expandableListView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+                </LinearLayout>
+                <!--slider2-->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="100"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvDescTicket"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_weight="100"
-                        android:gravity="end|center"
-                        android:text="تاریخچه باشگاه تراکتورسازی تبریز"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize_14dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <Space
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:gravity="end"
-                        android:src="@drawable/icon_history" />
+                        android:layout_weight="10" />
 
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-            </LinearLayout>
-
-            <!--expanding history-->
-            <LinearLayout
-                android:id="@+id/llAllBoxesSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100">
-
-                    <ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
-                        android:id="@+id/expandableListView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                       android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp">
+
+                        <RelativeLayout
+                            android:id="@+id/rl12"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/slider_height_app">
+
+                            <com.daimajia.slider.library.SliderLayout
+                                android:id="@+id/slider2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
                 </LinearLayout>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-            </LinearLayout>
-            <!--slider2-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_10dp"
-                android:orientation="horizontal">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp">
-
-                    <RelativeLayout
-                        android:id="@+id/rl12"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/slider_height_app">
-
-                        <com.daimajia.slider.library.SliderLayout
-                            android:id="@+id/slider2"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/slider_height_app"
-                            android:layout_centerVertical="true"
-                            android:background="@android:color/transparent" />
-
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-
-                <LinearLayout
-                    android:layout_width="@dimen/_10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_weight="100"
-                        android:gravity="end|center"
-                        android:text="معرفی بازیکنان"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize_14dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <Space
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:gravity="end"
-                        android:src="@drawable/football_player" />
+                        android:layout_weight="10" />
 
+                    <LinearLayout
+                        android:layout_width="@dimen/_10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="100"
+                            android:gravity="start|center"
+                            android:text="معرفی بازیکنان"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize_14dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:gravity="end"
+                            android:src="@drawable/football_player" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
                 </LinearLayout>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-            </LinearLayout>
-
-            <!--expanding player-->
-            <LinearLayout
-                android:id="@+id/llAllBoxesSpinner2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-
-
+                <!--expanding player-->
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100">
+                    android:id="@+id/llAllBoxesSpinner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
-                    <ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
-                        android:id="@+id/expandableListView2"
-                        android:layout_width="match_parent"
-                        android:childDivider="@android:color/transparent"
-                        android:layout_height="wrap_content"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100">
+
+                        <ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
+                            android:id="@+id/expandableListView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:childDivider="@android:color/transparent" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+                </LinearLayout>
+                <!--button-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnPaymentConfirm"
+                            layout="@layout/circular_progress_button_show_ticket"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_35dp"
+                            android:layout_gravity="center" />
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
                 </LinearLayout>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-            </LinearLayout>
-            <!--button-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_10dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight="100">
-
-                    <include
-                        android:id="@+id/btnPaymentConfirm"
-                        layout="@layout/circular_progress_button_show_ticket"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35dp"
-                        android:layout_gravity="center" />
-                </FrameLayout>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
-</LinearLayout>

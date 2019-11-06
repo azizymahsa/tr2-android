@@ -404,8 +404,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:minWidth="@dimen/_20sdp"
-                            android:textColor="@color/currentColor"
+                            android:minWidth="@dimen/_20dp"
+                            android:textColor="@color/textColorPrimary"
                             android:textSize="@dimen/_20dp"
                             android:visibility="gone" />
 
@@ -689,7 +689,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/radius_15dp"
                         android:buttonTint="@android:color/white"
                         android:gravity="center|end"
                         android:checked="false"/>
@@ -916,7 +916,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/radius_15dp"
                         android:buttonTint="@android:color/white"
                         android:gravity="center|end"
                         android:checked="true"/>
@@ -1142,7 +1142,7 @@
                         android:id="@+id/cbAddToMyBill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/currentColor"
+                        android:buttonTint="@color/textColorPrimary"
                         android:checked="false"
                         android:clickable="false"
                         />
@@ -1285,7 +1285,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/currentColor"
+                    android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/_20dp"
                     android:visibility="gone" />
 

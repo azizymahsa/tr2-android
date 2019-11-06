@@ -2,6 +2,7 @@ package ir.traap.tractor.android.ui.fragments.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -565,6 +566,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             case R.id.btnBuyTicket:
                 mainView.onBuyTicketClick(matchBuyable);
+                //---------------test------------------
+//                Intent i = new Intent(Intent.ACTION_VIEW);
+//                i.setData(Uri.parse("http://5.253.25.117:9000/api/v1/payment/ipg_call_back/1219"));
+////                i.setData(Uri.parse("traap://finalticket"));
+////                i.setData(Uri.parse("traap://FinalTicket?refrenceNumber=1219"));
+//                startActivity(i);
+
+                //---------------test------------------
                 break;
         }
     }
@@ -603,4 +612,5 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
     }
+    public void onBackPressed() {}
 }
