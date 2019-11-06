@@ -13,13 +13,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="102dp"
-            android:background="@drawable/background_main_header" />
+            android:background="@drawable/background_main_header2" />
 
-<!--        <RelativeLayout-->
-<!--            android:id="@+id/header"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="102dp"-->
-<!--            android:background="@drawable/img_header_background" />-->
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:background="@drawable/img_header_background" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -27,6 +27,7 @@
             android:layout_height="102dp"
             android:layout_alignParentTop="true"
             android:background="@android:color/transparent">
+
 
             <include layout="@layout/toolbar_back" />
 
@@ -59,10 +60,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginStart="@dimen/_20dp"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:layout_marginEnd="@dimen/_20dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp">
 
                     <!--<RelativeLayout
                         android:id="@+id/rl1"
@@ -122,6 +123,7 @@
                     android:layout_width="@dimen/_10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
+                    android:gravity="right"
                     android:orientation="horizontal">
 
                     <TextView
@@ -130,9 +132,9 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="end"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="100"
-                        android:gravity="end|center"
+                        android:gravity="start|center"
                         android:text="تاریخچه باشگاه تراکتورسازی تبریز"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp" />
@@ -201,10 +203,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginStart="@dimen/_20dp"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:layout_marginEnd="@dimen/_20dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp">
 
                     <RelativeLayout
                         android:id="@+id/rl12"
@@ -214,7 +216,7 @@
                         <com.daimajia.slider.library.SliderLayout
                             android:id="@+id/slider2"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/slider_height_app"
+                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:background="@android:color/transparent" />
 
@@ -251,9 +253,9 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="end"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="100"
-                        android:gravity="end|center"
+                        android:gravity="start|center"
                         android:text="معرفی بازیکنان"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp" />

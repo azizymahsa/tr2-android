@@ -71,7 +71,7 @@
                 
                 android:padding="5dp"
                 android:layout_centerVertical="true"
-                android:text="عنوان"
+                android:text=""
                 android:visibility="visible"
                 android:textStyle="bold"
                 android:textColor="@color/textColorTitle"

@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.apiServices.model.league.response;
+package ir.traap.tractor.android.apiServices.model.league.getLeagues.response;
 
 
 import java.util.List;

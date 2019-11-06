@@ -108,9 +108,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
         {
+
             AdpPushClient.get().register(Prefs.getString("mobile", ""));
             Intent myIntent = new Intent(this, PushMessageReceiver.class);
             PendingIntent.getBroadcast(this, 0, myIntent, 0);
+
+
         }
         else
         {
@@ -757,14 +760,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onLeageClick()
     {
-        isMainFragment = true;
+       /* this.isMainFragment = true;
 
         fragment = LeagueTableFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment)
-                .commit();
+                .commit();*/
+        isMainFragment = false;
+               fragment = LeagueTableFragment.newInstance(this);
+               transaction = fragmentManager.beginTransaction();
+               transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+               transaction.replace(R.id.main_container, fragment)
+                        .commit();
     }
 
     @Override

@@ -101,6 +101,7 @@ public class Const
 
     //Leagues
     public final static String GET_Leage = SubBASEURL + "v1/livescore/get_leagues/";
+    public final static String Get_Past_result = SubBASEURL + "v1/livescore/get_past_result/";
 
     //Predict
     public final static String GET_PREDICT = SubBASEURL + "v1/predict/";

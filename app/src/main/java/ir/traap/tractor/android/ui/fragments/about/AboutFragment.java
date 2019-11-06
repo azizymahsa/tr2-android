@@ -30,7 +30,8 @@ public class AboutFragment
 
     private View view;
     private Toolbar mToolbar;
-    private TextView tvUserName,tvPhone;
+    private TextView tvTitle, tvUserName,tvPhone;
+    private View imgBack, imgMenu;
     private MainActionView mainView;
     private ImageView ivInsta, ivTwit, ivTele;
     private CircularProgressButton btnHistory;
@@ -72,17 +73,36 @@ public class AboutFragment
 
     private void initViews()
     {
-        ivTwit = view.findViewById(R.id.ivTwit);
-        ivTele = view.findViewById(R.id.ivTele);
-        ivInsta = view.findViewById(R.id.ivInsta);
-        btnHistory = view.findViewById(R.id.btnHistory);
-        tvPhone = view.findViewById(R.id.tvPhone);
+        try
+        {
+            ivTwit = view.findViewById(R.id.ivTwit);
+            ivTele = view.findViewById(R.id.ivTele);
+            ivInsta = view.findViewById(R.id.ivInsta);
+            btnHistory = view.findViewById(R.id.btnHistory);
+            tvPhone = view.findViewById(R.id.tvPhone);
 
-        ivTwit.setOnClickListener(this);
-        ivTele.setOnClickListener(this);
-        ivInsta.setOnClickListener(this);
-        btnHistory.setOnClickListener(this);
-        tvPhone.setOnClickListener(this);
+            ivTwit.setOnClickListener(this);
+            ivTele.setOnClickListener(this);
+            ivInsta.setOnClickListener(this);
+            btnHistory.setOnClickListener(this);
+            tvPhone.setOnClickListener(this);
+            //toolbar
+            tvTitle = view.findViewById(R.id.tvTitle);
+            tvTitle.setText("درباره ما");
+            imgMenu=view.findViewById(R.id.imgMenu);
+
+            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+            imgBack = view.findViewById(R.id.imgBack);
+            imgBack.setOnClickListener(v ->
+            {
+                getActivity().onBackPressed();
+            });
+
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
     }
 
     @Override
@@ -149,7 +169,12 @@ public class AboutFragment
                 //mainView.onPaymentWithoutCard();
                 break;
             case R.id.tvPhone:
-                if (tvPhone.getText().toString() == null) {//44890412
+                if (tvPhone.getText().toString() == null)
+                {//44890412
+                    Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "021-44890412", null));
+                    startActivity(intent2);
+                } else
+                {
                     Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "021-44890412", null));
                     startActivity(intent2);
                 }/*else {

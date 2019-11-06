@@ -603,4 +603,5 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
     }
+    public void onBackPressed() {}
 }
