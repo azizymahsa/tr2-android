@@ -19,11 +19,12 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 
 public class AboutFragment
-        extends Fragment implements View.OnClickListener
+        extends BaseFragment implements View.OnClickListener
 {
 
 

@@ -451,7 +451,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:textSize="@dimen/textSize_12dp"
-                                android:textColor="@color/currentColor"
+                                android:textColor="@color/textColorPrimary"
                                 android:text="چاپ رسید در دستگاه کارت خوان"
                                 android:textAppearance="@style/IranSansBold"
                                 />
@@ -459,7 +459,7 @@
                                 android:id="@+id/cbPrint"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:buttonTint="@color/currentColor"/>
+                                android:buttonTint="@color/textColorPrimary"/>
                         </LinearLayout>
                         <Space
                             android:layout_width="0dp"

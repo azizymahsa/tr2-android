@@ -83,7 +83,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="خرید شارژ آنلاین همراه اول"
-                        android:textColor="@color/currentColor"
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/textSize_14dp"
                         android:visibility="gone"/>
 
@@ -161,7 +161,7 @@
                     android:maxLines="1"
                     android:textAppearance="@style/IranSansBold"
                     android:text="خرید شارژ آنلاین همراه اول"
-                    android:textColor="@color/currentColor"
+                    android:textColor="@color/textColorPrimary"
                     android:textSize="18dp"
                     android:visibility="gone"
                     android:gravity="center"

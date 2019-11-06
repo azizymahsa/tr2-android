@@ -80,7 +80,7 @@
                     <!--                    android:layout_height="wrap_content"-->
                     <!--                    android:textAppearance="@style/IconFonts"-->
                     <!--                    android:textSize="@dimen/_20dp"-->
-                    <!--                    android:textColor="@color/currentColor"-->
+                    <!--                    android:textColor="@color/textColorPrimary"-->
                     <!--                    android:visibility="gone" />-->
 
                     <Space
@@ -215,10 +215,10 @@
                         <!--                        android:layout_width="wrap_content"-->
                         <!--                        android:layout_height="match_parent"-->
                         <!--                        android:gravity="center"-->
-                        <!--                        android:minWidth="@dimen/_20sdp"-->
+                        <!--                        android:minWidth="@dimen/_20dp"-->
                         <!--                        android:textAppearance="@style/IconFonts"-->
                         <!--                        android:textSize="@dimen/_20dp"-->
-                        <!--                        android:textColor="@color/currentColor"-->
+                        <!--                        android:textColor="@color/textColorPrimary"-->
                         <!--                        android:visibility="gone" />-->
 
                     </LinearLayout>
@@ -275,10 +275,10 @@
                     <!--                    android:text="@string/money_icon"-->
                     <!--                    android:layout_width="wrap_content"-->
                     <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:minWidth="@dimen/_20sdp"-->
+                    <!--                    android:minWidth="@dimen/_20dp"-->
                     <!--                    android:textAppearance="@style/IconFonts"-->
-                    <!--                    android:textSize="@dimen/_20sdp"-->
-                    <!--                    android:textColor="@color/currentColor"-->
+                    <!--                    android:textSize="@dimen/_20dp"-->
+                    <!--                    android:textColor="@color/textColorPrimary"-->
                     <!--                    android:visibility="gone" />-->
 
                     <Space
@@ -502,7 +502,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:text="تایید کارت به کارت"
-                        android:textColor="@color/currentColor"
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/_14sdp" />
 
                     <!--                <TextView-->
@@ -510,8 +510,8 @@
                     <!--                    android:layout_height="wrap_content"-->
                     <!--                    android:textAppearance="@style/IconFonts"-->
                     <!--                    android:text="@string/credit_card_icon"-->
-                    <!--                    android:textColor="@color/currentColor"-->
-                    <!--                    android:textSize="@dimen/_20sdp" />-->
+                    <!--                    android:textColor="@color/textColorPrimary"-->
+                    <!--                    android:textSize="@dimen/_20dp" />-->
 
                 </LinearLayout>
 
@@ -522,7 +522,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
                     android:orientation="vertical"
-                    app:corner_radius="@dimen/_15sdp">
+                    app:corner_radius="@dimen/radius_15dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -574,7 +574,7 @@
                         android:layout_marginEnd="10dp"
                         android:textAppearance="@style/IranSansBold"
                         android:text="50,000,000 ریال"
-                        android:textColor="@color/currentColor"
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/textSize_16dp" />
 
                     <TextView
@@ -583,7 +583,7 @@
                         android:layout_marginEnd="10dp"
                         android:textAppearance="@style/IranSansBold"
                         android:text="مبلغ (ریال): "
-                        android:textColor="@color/currentColor"
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/textSize_16dp" />
 
                 </LinearLayout>
@@ -648,14 +648,14 @@
                         android:gravity="center"
                         android:textAppearance="@style/IranSansBold"
                         android:text="افزودن به کارت های مقصد"
-                        android:textColor="@color/currentColor"
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/textSize_12dp" />
 
                     <CheckBox
                         android:id="@+id/cbAddFavoriteCard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/currentColor" />
+                        android:buttonTint="@color/textColorPrimary" />
 
                 </LinearLayout>
 
