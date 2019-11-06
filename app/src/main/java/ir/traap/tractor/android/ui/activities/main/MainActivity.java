@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -101,6 +102,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //------------------test------------------------
+//        Intent intent = getIntent();
+//        String action = intent.getAction();
+//        Uri data = intent.getData();
+//
+//        try
+//        {
+//            if (intent != null)
+//            {
+//                showAlert(this, "action= " + action + "\n" + "data= " + data.getQuery(), 0);
+//            }
+//            else
+//            {
+//                showError(this, "Null");
+//            }
+//        }
+//        catch (NullPointerException e)
+//        {
+//            showError(this, "Null");
+//        }
+
+        //------------------test------------------------
 
         mSavedInstanceState = savedInstanceState;
 
