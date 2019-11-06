@@ -1,9 +1,11 @@
 package ir.traap.tractor.android.ui.fragments.leaguse.pastResult;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -33,19 +35,20 @@ public class PastResultFragment
         extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
         OnServiceStatus<WebServiceClass<ResponsePastResult>>//, OnBackPressed
 {
-    private  String teamId="";
+    private String teamId = "";
     private View rootView;
 
     private MainActionView mainView;
 
     private Toolbar mToolbar;
-    private TextView tvTitle,tvUserName;
-    private View imgBack,imgMenu;
+    private TextView tvTitle, tvUserName;
+    private View imgBack, imgMenu;
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
     private RecyclerView leagRecycler;
     private PastResultAdapter fixTableAdapter;
+
     public PastResultFragment()
     {
     }
@@ -62,8 +65,8 @@ public class PastResultFragment
 
     public PastResultFragment(MainActionView mainView, String teamId)
     {
-        this.mainView=mainView;
-        this.teamId=teamId;
+        this.mainView = mainView;
+        this.teamId = teamId;
 
     }
 
@@ -95,24 +98,25 @@ public class PastResultFragment
     {
         try
         {
-        //  mToolbar = rootView.findViewById(R.id.toolbar);
-        leagRecycler = rootView.findViewById(R.id.leagRecycler);
-        //toolbar
-        tvTitle = rootView.findViewById(R.id.tvTitle);
+            //  mToolbar = rootView.findViewById(R.id.toolbar);
+            leagRecycler = rootView.findViewById(R.id.leagRecycler);
+            //toolbar
+            tvTitle = rootView.findViewById(R.id.tvTitle);
             imgMenu = rootView.findViewById(R.id.imgMenu);
 
-        imgMenu.setOnClickListener(v -> mainView.openDrawer());
-        imgBack = rootView.findViewById(R.id.imgBack);
-        imgBack.setOnClickListener(v ->
+            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+            imgBack = rootView.findViewById(R.id.imgBack);
+            imgBack.setOnClickListener(v ->
+            {
+                getActivity().onBackPressed();
+            });
+
+            tvTitle.setText("برنامه بازی");
+
+        } catch (Exception e)
         {
-            getActivity().onBackPressed();
-        });
 
-        tvTitle.setText("برنامه بازی");
-    } catch (Exception e)
-    {
-
-    }
+        }
     }
 
     @Override
@@ -154,6 +158,7 @@ public class PastResultFragment
 
     private void sendRequest()
     {
+        mainView.showLoading();
         RequestPastResult request = new RequestPastResult();
         request.setTeam(teamId);
         SingletonService.getInstance().getLiveScoreService().PastResultService(PastResultFragment.this, request);
@@ -163,33 +168,41 @@ public class PastResultFragment
     @Override
     public void onReady(WebServiceClass<ResponsePastResult> response)
     {
-        if (response == null || response.info == null)
+        try
         {
-            return;
-        }
-        if (response.info.statusCode != 200)
+            mainView.hideLoading();
+            if (response == null || response.info == null)
+            {
+                return;
+            }
+            if (response.info.statusCode != 200)
+            {
+
+
+                return;
+            }
+            if (response.info.statusCode == 200)
+            {
+
+
+                leagRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+                fixTableAdapter = new PastResultAdapter(response.data.getResults(), getActivity());
+                //fixTableAdapter.setClickListener(this);
+                leagRecycler.setAdapter(fixTableAdapter);
+
+            }
+        } catch (Exception e)
         {
-
-
-            return;
-        }
-        if (response.info.statusCode == 200)
-        {
-
-
-
-            leagRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-            fixTableAdapter = new PastResultAdapter(response.data.getResults(), getActivity());
-            //fixTableAdapter.setClickListener(this);
-            leagRecycler.setAdapter(fixTableAdapter);
-
+            mainView.showError(e.getMessage());
+            mainView.hideLoading();
         }
     }
 
     @Override
     public void onError(String message)
     {
-
+        mainView.showError(message);
+        mainView.hideLoading();
     }
 
     @Override

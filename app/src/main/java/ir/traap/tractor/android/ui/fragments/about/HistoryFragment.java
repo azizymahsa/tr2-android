@@ -42,6 +42,7 @@ import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 public class HistoryFragment
         extends BaseFragment implements View.OnClickListener
 {
+    public static HistoryFragment historyFragment;
 
     private Toolbar mToolbar;
     private TextView tvTitle,tvUserName;
@@ -262,6 +263,7 @@ public class HistoryFragment
 
     private void sendRequest()
     {
+        mainView.showLoading();
         SingletonService.getInstance().getMenuService().getHistory(new OnServiceStatus<WebServiceClass<ResponseHistory>>()
         {
             @Override
@@ -269,6 +271,8 @@ public class HistoryFragment
             {
                 try
                 {
+                    mainView.hideLoading();
+
                     if (response.info.statusCode == 200)
                     {
                         if (response.data.getImages().size() > 0)
@@ -281,10 +285,13 @@ public class HistoryFragment
                         }
                     } else
                     {
+                        mainView.hideLoading();
                         mainView.showError(response.info.message);
                     }
                 } catch (Exception e)
                 {
+                    mainView.hideLoading();
+
                     mainView.showError(e.getMessage());
                 }
             }
@@ -292,6 +299,8 @@ public class HistoryFragment
             @Override
             public void onError(String message)
             {
+                mainView.hideLoading();
+
                 mainView.showError(message);
 
             }

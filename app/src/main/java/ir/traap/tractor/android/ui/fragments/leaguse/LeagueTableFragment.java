@@ -2,9 +2,11 @@ package ir.traap.tractor.android.ui.fragments.leaguse;
 
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +45,8 @@ public class LeagueTableFragment
     private MainActionView mainView;
 
     private Toolbar mToolbar;
-    private TextView tvTitle,tvUserName;
-    private View imgBack,imgMenu;
+    private TextView tvTitle, tvUserName;
+    private View imgBack, imgMenu;
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
@@ -88,7 +90,7 @@ public class LeagueTableFragment
             leagRecycler = rootView.findViewById(R.id.leagRecycler);
             //toolbar
             tvTitle = rootView.findViewById(R.id.tvTitle);
-            imgMenu=rootView.findViewById(R.id.imgMenu);
+            imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
             imgBack = rootView.findViewById(R.id.imgBack);
@@ -98,6 +100,7 @@ public class LeagueTableFragment
             });
 
             tvTitle.setText("برنامه بازی");
+
         } catch (Exception e)
         {
 
@@ -143,6 +146,7 @@ public class LeagueTableFragment
 
     private void sendRequest()
     {
+        mainView.showLoading();
         GetLeagueRequest request = new GetLeagueRequest();
         request.setLeague("24");
         SingletonService.getInstance().getLiveScoreService().LeaguesService(LeagueTableFragment.this, request);
@@ -152,52 +156,63 @@ public class LeagueTableFragment
     @Override
     public void onReady(WebServiceClass<ResponseLeage> response)
     {
-        if (response == null || response.info == null)
+        mainView.hideLoading();
+        try
         {
-            return;
-        }
-        if (response.info.statusCode != 200)
-        {
-
-
-            return;
-        }
-        if (response.info.statusCode == 200)
-        {
-            //scrollView
-            for (int i = 0; i < response.data.getResults().size(); i++)
+            if (response == null || response.info == null)
             {
-                Result responseLeage = response.data.getResults().get(i);
-                data.add(new DataBean(
-                        responseLeage.getTeamId(),
-                        //title
-                        responseLeage.getName(),
-                        responseLeage.getMatches(),
-                        responseLeage.getWon(),
-                        responseLeage.getDrawn(),
-                        responseLeage.getLost(),
-                        responseLeage.getGoalsScored(),
-                        responseLeage.getGoalsConceded(),
-                        responseLeage.getGoalDiff(),
-                        responseLeage.getPoints(),
-                        responseLeage.getTeamLogo()));
+                return;
             }
-            fixTableAdapter = new FixTableAdapter(data, this.getContext());
-            leagRecycler.setAdapter(fixTableAdapter);
+            if (response.info.statusCode != 200)
+            {
 
 
-            // RecyclerView recyclerView = findViewById(R.id.rvAnimals);
-            leagRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-            fixTableAdapter = new FixTableAdapter(data, getActivity());
-            fixTableAdapter.setClickListener(this);
-            leagRecycler.setAdapter(fixTableAdapter);
+                return;
+            }
+            if (response.info.statusCode == 200)
+            {
+                //scrollView
+                for (int i = 0; i < response.data.getResults().size(); i++)
+                {
+                    Result responseLeage = response.data.getResults().get(i);
+                    data.add(new DataBean(
+                            responseLeage.getTeamId(),
+                            //title
+                            responseLeage.getName(),
+                            responseLeage.getMatches(),
+                            responseLeage.getWon(),
+                            responseLeage.getDrawn(),
+                            responseLeage.getLost(),
+                            responseLeage.getGoalsScored(),
+                            responseLeage.getGoalsConceded(),
+                            responseLeage.getGoalDiff(),
+                            responseLeage.getPoints(),
+                            responseLeage.getTeamLogo()));
+                }
+                fixTableAdapter = new FixTableAdapter(data, this.getContext());
+                leagRecycler.setAdapter(fixTableAdapter);
 
+
+                // RecyclerView recyclerView = findViewById(R.id.rvAnimals);
+                leagRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+                fixTableAdapter = new FixTableAdapter(data, getActivity());
+                fixTableAdapter.setClickListener(this);
+                leagRecycler.setAdapter(fixTableAdapter);
+
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+            mainView.showError(e.getMessage());
+            mainView.hideLoading();
         }
     }
 
     @Override
     public void onError(String message)
     {
+        mainView.showError(message);
+        mainView.hideLoading();
 
     }
 
