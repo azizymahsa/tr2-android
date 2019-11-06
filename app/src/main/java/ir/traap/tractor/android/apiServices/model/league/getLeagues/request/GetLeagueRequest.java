@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.apiServices.model.league.request;
+package ir.traap.tractor.android.apiServices.model.league.getLeagues.request;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

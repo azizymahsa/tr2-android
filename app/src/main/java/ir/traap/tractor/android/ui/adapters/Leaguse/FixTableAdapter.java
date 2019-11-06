@@ -1,51 +1,64 @@
 package ir.traap.tractor.android.ui.adapters.Leaguse;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.feng.fixtablelayout.inter.IDataAdapter;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
 
 
-public class FixTableAdapter  extends RecyclerView.Adapter<FixTableAdapter.ViewHolder>{
+public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHolder>
+{
     private final Context mContext;
     // private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private  List<DataBean> mData;
+    private List<DataBean> mData;
 
 
-    public FixTableAdapter(String[] title, List<DataBean> mData, Context mContext) {
-        this.mContext=mContext;
+    public FixTableAdapter(List<DataBean> mData, Context mContext)
+    {
+        this.mContext = mContext;
         this.mInflater = LayoutInflater.from(mContext);
         this.mData = mData;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
         View view = mInflater.inflate(R.layout.row_calculate_credit, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position)
+    {
 
         DataBean item = mData.get(position);
+        /*holder.llItem.setBackgroundColor(Color.TRANSPARENT);
 
+        holder.llItem.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                holder.llItem.setBackgroundColor(Color.rgb(136,136,136));
+
+            }
+        });*/
         holder.teamTitle.setText(item.teamTitle);
         holder.matches.setText(item.matches);
         holder.won.setText(item.won);
@@ -61,21 +74,26 @@ public class FixTableAdapter  extends RecyclerView.Adapter<FixTableAdapter.ViewH
         holder.ivTeam.setVisibility(View.VISIBLE);
 
 
-        try {
-            Picasso.with(mContext).load(item.imageLogo).into(holder.ivTeam, new Callback() {
+        try
+        {
+            Picasso.with(mContext).load(item.imageLogo).into(holder.ivTeam, new Callback()
+            {
                 @Override
-                public void onSuccess() {
-                   // holder.progressBar.setVisibility(View.GONE);
+                public void onSuccess()
+                {
+                    // holder.progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
-                public void onError() {
+                public void onError()
+                {
                     //holder.progressBar.setVisibility(View.GONE);
                     Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.ivTeam);
                 }
             });
-        } catch (Exception e1) {
-          //  holder.progressBar.setVisibility(View.GONE);
+        } catch (Exception e1)
+        {
+            //  holder.progressBar.setVisibility(View.GONE);
             Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.ivTeam);
         }
 
@@ -84,14 +102,15 @@ public class FixTableAdapter  extends RecyclerView.Adapter<FixTableAdapter.ViewH
 
     // total number of rows
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return mData.size();
     }
 
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-      //  TextView myTextView;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    {
         TextView teamTitle;
         TextView matches;
         TextView won;
@@ -105,7 +124,10 @@ public class FixTableAdapter  extends RecyclerView.Adapter<FixTableAdapter.ViewH
         TextView point;
 
         ImageView ivTeam;
-        ViewHolder(View itemView) {
+        LinearLayout llItem;
+
+        ViewHolder(View itemView)
+        {
             super(itemView);
             teamTitle = itemView.findViewById(R.id.tvTeam);
             matches = itemView.findViewById(R.id.tvmatch);
@@ -120,27 +142,33 @@ public class FixTableAdapter  extends RecyclerView.Adapter<FixTableAdapter.ViewH
             point = itemView.findViewById(R.id.tvPoint);
 
             ivTeam = itemView.findViewById(R.id.ivTeam);
+
+            llItem = itemView.findViewById(R.id.llItem);
             itemView.setOnClickListener(this);
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(View view)
+        {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
     // convenience method for getting data at click position
-   /* String getItem(int id) {
+    public DataBean getItem(int id)
+    {
         return mData.get(id);
-    }*/
+    }
 
     // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(LeagueTableFragment itemClickListener)
+    {
         this.mClickListener = itemClickListener;
     }
 
     // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
+    public interface ItemClickListener
+    {
         void onItemClick(View view, int position);
     }
 }

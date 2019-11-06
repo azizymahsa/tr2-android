@@ -46,7 +46,24 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:orientation="horizontal">
 
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
 
                     <RelativeLayout
@@ -55,51 +72,64 @@
                         android:layout_height="match_parent">
 
                         <ImageView
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/_100dp"
                             android:layout_height="@dimen/_100dp"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/logo_leage" />
+                            android:layout_alignParentStart="true"
+                            android:background="@drawable/circle_background_boeder_gray"
+                            android:padding="2dp"
+                            android:src="@drawable/img_tractor" />
 
                     </RelativeLayout>
 
+                </LinearLayout>
 
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
                 android:layout_marginBottom="@dimen/_10dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <include
-                    android:layout_width="match_parent"
+                <Space
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    layout="@layout/row_calculate_credit" />
+                    android:layout_weight="10" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/grayColor" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/leagRecycler"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    />
+                    android:layout_weight="100"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/leagRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                    </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+                </LinearLayout>
 
 
             </LinearLayout>
 
 
-
-
-
-
-        </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
+
+
 </LinearLayout>
 
 
-
-  <!---->
+    <!---->

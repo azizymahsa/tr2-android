@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
@@ -29,20 +28,15 @@ import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.getHistory.ResponseHistory;
 import ir.traap.tractor.android.ui.base.BaseFragment;
-import ir.traap.tractor.android.ui.fragments.about.ImageSliderView;
-import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
-import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.getHistory.PlayersCurrent;
-import ir.traap.tractor.android.apiServices.model.getHistory.ResponseHistory;
-import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
+
 import ir.traap.tractor.android.ui.adapters.aboutUs.ExpandableListPlayerHistoryAdapter;
 import ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView;
 import ir.traap.tractor.android.ui.adapters.aboutUs.ExpandableListHistoryAdapter;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.others.MyCustomSliderView;
-import ir.traap.tractor.android.utilities.Logger;
+
 
 
 public class HistoryFragment
@@ -50,7 +44,8 @@ public class HistoryFragment
 {
 
     private Toolbar mToolbar;
-    private TextView tvUserName;
+    private TextView tvTitle,tvUserName;
+    private View imgBack,imgMenu;
     private View view;
     private com.daimajia.slider.library.SliderLayout mDemoSlider;
     private com.daimajia.slider.library.SliderLayout mDemoSlider2;
@@ -71,7 +66,6 @@ public class HistoryFragment
     private WebServiceClass<ResponseHistory> responseHistory = new WebServiceClass<>();
 
 
-
     private void setMainView(MainActionView mainView)
     {
         this.mainView = mainView;
@@ -79,7 +73,7 @@ public class HistoryFragment
 
     public HistoryFragment(MainActionView mainView)
     {
-        this.mainView=mainView;
+        this.mainView = mainView;
     }
 
     public static HistoryFragment newInstance(MainActionView mainView)
@@ -122,7 +116,7 @@ public class HistoryFragment
         mDemoSlider.setCustomIndicator(pagerIndicator);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
 
-       // mDemoSlider.setCurrentPosition(response.indexOf(matchCurrent));
+        // mDemoSlider.setCurrentPosition(response.indexOf(matchCurrent));
         mDemoSlider.stopAutoCycle();
 
     }
@@ -252,16 +246,13 @@ public class HistoryFragment
             listDataChild.put(listDataGroup.get(i), response.data.getHistory().get(i).getBody());
         }
 
-            if (response.data != null)
-            {
-                listDataGroup2.add("بازیکنان کنونی");
-                listDataGroup2.add("بازیکنان برجسته پیشین");
-            }
-            listPlayerCurrent.put(listDataGroup2.get(0), response.data.getPlayersCurrent());
-            listPlayerCurrent.put(listDataGroup2.get(1), response.data.getPlayers());
-
-
-
+        if (response.data != null)
+        {
+            listDataGroup2.add("بازیکنان کنونی");
+            listDataGroup2.add("بازیکنان برجسته پیشین");
+        }
+        listPlayerCurrent.put(listDataGroup2.get(0), response.data.getPlayersCurrent());
+        listPlayerCurrent.put(listDataGroup2.get(1), response.data.getPlayers());
 
 
         // notify the adapter
@@ -309,7 +300,7 @@ public class HistoryFragment
     }
 
     private void setSlider2(WebServiceClass<ResponseHistory> response)
-      {
+    {
         for (int i = 1; i < response.data.getImages().size(); i++)
         {
             if (response.data.getImages().get(i).getRowNumber() == 2)
@@ -362,11 +353,28 @@ public class HistoryFragment
 
     private void initViews()
     {
-        mDemoSlider = view.findViewById(R.id.slider);
-        mDemoSlider2 = view.findViewById(R.id.slider2);
-        expandableListView = view.findViewById(R.id.expandableListView);
-        expandableListView2 = view.findViewById(R.id.expandableListView2);
+        try
+        {
+            mDemoSlider = view.findViewById(R.id.slider);
+            mDemoSlider2 = view.findViewById(R.id.slider2);
+            expandableListView = view.findViewById(R.id.expandableListView);
+            expandableListView2 = view.findViewById(R.id.expandableListView2);
+            //toolbar
+            tvTitle = view.findViewById(R.id.tvTitle);
+            imgMenu=view.findViewById(R.id.imgMenu);
 
+            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+            imgBack = view.findViewById(R.id.imgBack);
+            imgBack.setOnClickListener(v ->
+            {
+                getActivity().onBackPressed();
+            });
+
+            tvTitle.setText("تاریخچه");
+        } catch (Exception e)
+        {
+
+        }
     }
 
     @Override
@@ -380,11 +388,9 @@ public class HistoryFragment
 
         /*Toolbars*/
         mToolbar = view.findViewById(R.id.toolbar);
-        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvUserName = view.findViewById(R.id.tvUserName);
+
         tvUserName.setText(Prefs.getString("mobile", ""));
-        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvTitle.setText("تاریخچه تراپ");
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
         {

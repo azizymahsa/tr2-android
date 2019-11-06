@@ -5,6 +5,7 @@ package ir.traap.tractor.android.ui.adapters.Leaguse;
  */
 
 public class DataBean {
+    public String teamId;
     public String teamTitle;
     public String matches;
     public String won;
@@ -16,7 +17,7 @@ public class DataBean {
     public String point;
     public String imageLogo;
 
-    public DataBean(
+    public DataBean(String teamId,
             String teamTitle, String matches, String won, String drawn, String lost, String goals_score, String goals_canceded,
             String goals_diff, String point,String imageLogo) {
         this.teamTitle = teamTitle;
@@ -29,5 +30,6 @@ public class DataBean {
         this.goals_diff = goals_diff;
         this.point = point;
         this.imageLogo = imageLogo;
+        this.teamId = teamId;
     }
 }
