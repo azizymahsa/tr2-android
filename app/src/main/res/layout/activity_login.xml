@@ -48,7 +48,7 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/ic_logo_main"
                     android:gravity="center"
-                    android:textColor="@color/currentColor"
+                    android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/iconSize_45dp"
 
                     />
@@ -63,7 +63,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="end"
-                android:layout_margin="@dimen/_10sdp"
+                android:layout_margin="10dp"
                 android:text="@string/enter"
                 android:textColor="@color/textColorSecondary"
                 android:textSize="@dimen/_14sdp"
@@ -223,7 +223,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10dp"
-                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_20dp"
                     android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/textSize_12dp" />
                 <TextView
@@ -232,7 +232,7 @@
                     android:layout_height="@dimen/_20dp"
                     android:gravity="center"
                     android:layout_margin="@dimen/_10dp"
-                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_20dp"
                     android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/textSize_12dp"
                     android:text="ارسال مجدد کد"
@@ -245,7 +245,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10dp"
-                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_20dp"
                     android:text="ارسال مجدد کد: "
                     android:gravity="center"
                     android:textColor="@color/textColorSecondary"

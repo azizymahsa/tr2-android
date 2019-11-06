@@ -83,7 +83,7 @@ public class SelectPositionFragment
     private String positionName;
     private ReservationMatchImpl reservationMatch;
 
-
+    
     public SelectPositionFragment()
     {
     }

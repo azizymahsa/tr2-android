@@ -7,11 +7,14 @@ import android.app.DialogFragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.traap.tractor.android.R;
@@ -23,6 +26,8 @@ import ir.traap.tractor.android.R;
 public class MessageAlertDialog extends DialogFragment implements View.OnClickListener
 {
     private OnConfirmListener listener;
+
+    private View rootView;
 
     private Dialog dialog;
     private Activity activity;
@@ -101,6 +106,18 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
 
         return dialog;
     }
+
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
+//    {
+//        rootView = inflater.inflate(R.layout.alert_dialog_layout, container, true);
+////        getDialog().requestWindowFeature(STYLE_NO_TITLE);
+//        setCancelable(isCancelable);
+//        getDialog().setCanceledOnTouchOutside(isCancelable);
+//
+//        return rootView;
+//    }
 
     @Override
     public void onClick(View v)

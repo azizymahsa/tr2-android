@@ -28,6 +28,7 @@ import java.util.List;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.getHistory.ResponseHistory;
+import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.about.ImageSliderView;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
@@ -45,7 +46,7 @@ import ir.traap.tractor.android.utilities.Logger;
 
 
 public class HistoryFragment
-        extends Fragment implements View.OnClickListener
+        extends BaseFragment implements View.OnClickListener
 {
 
     private Toolbar mToolbar;
