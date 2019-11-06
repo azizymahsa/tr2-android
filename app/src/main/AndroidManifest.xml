@@ -65,7 +65,18 @@
             android:screenOrientation="portrait" />
 
         <activity android:name="ir.traap.tractor.android.ui.activities.main.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="traap" />
+
+            </intent-filter>
+
+        </activity>
 
         <activity android:name=".ui.activities.login.user.UserActivity"
             android:screenOrientation="portrait" />
