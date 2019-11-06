@@ -26,11 +26,16 @@ import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.buyTicket.InfoViewer;
 import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
+import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchResponse;
+import ir.traap.tractor.android.apiServices.model.paymentMatch.Viewers;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
+import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
+import ir.traap.tractor.android.utilities.Tools;
 
 public class CompeletInfoFragment
-        extends Fragment implements View.OnClickListener, View.OnFocusChangeListener
+        extends Fragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener
 {
     private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
@@ -55,8 +60,9 @@ public class CompeletInfoFragment
     public String namePosition;
     String positionName;
     Integer selectPositionId, amountForPay;
-    List<InfoViewer> infoViewers = new ArrayList<>();
+    List<Viewers> infoViewers = new ArrayList<>();
     private List<Integer> ticketIdList;
+    private PaymentTicketImpl paymentTicket;
 
     public CompeletInfoFragment() {
     }
@@ -255,6 +261,7 @@ public class CompeletInfoFragment
                 //  mainView.backToMainFragment();
             }
         };
+        paymentTicket = new PaymentTicketImpl();
         initView();
 
         return view;
@@ -321,22 +328,26 @@ public class CompeletInfoFragment
                     cbCondition.setChecked(true);
                     llConfirm.setVisibility(View.VISIBLE);
                     llInVisible.setVisibility(View.GONE);
+                    infoViewers.clear();
                 } else if (countRepetitive > count)
                 {
                     mainView.showError(getString(R.string.Error_nationall_code_input));
                     cbCondition.setChecked(true);
                     llConfirm.setVisibility(View.VISIBLE);
                     llInVisible.setVisibility(View.GONE);
+                    infoViewers.clear();
+
                 } else
                 {
+                    callPaymentTicketRequest();
                     //BuyTickets.buyTickets.setInfoViewers(infoViewers);
-                    BuyTickets.buyTickets.setUrlFromWebFragment("http://5.253.25.117:9000/api/v1/payment/ipg/AA5D62A484ECBCFA");
-                    BuyTickets.buyTickets.openWebPayment();
-                    onClickContinueBuyTicketListener.onContinueClicked();
+
 
                 }
                 break;
             case R.id.btnBackToDetail:
+                infoViewers.clear();
+
                 onClickContinueBuyTicketListener.onBackClicked();
 
                 break;
@@ -361,6 +372,12 @@ public class CompeletInfoFragment
                 }
                 break;
         }
+    }
+
+    private void callPaymentTicketRequest()
+    {
+        BuyTickets.buyTickets.showLoading();
+        paymentTicket.paymentTicketRequest(this,infoViewers,amountForPay);
     }
 
     private String PassengerOne() {
@@ -415,7 +432,7 @@ public class CompeletInfoFragment
             mainView.showError("اطلاعات ورودی نفر اول نامعتبر است");
             return "F";
         } else {
-            InfoViewer viewer= new InfoViewer();
+            Viewers viewer= new Viewers();
             viewer.setFirstName(etName_1.getText().toString());
             viewer.setLastName(etFamily_1.getText().toString());
             viewer.setNationalCode(etNationalCode_1.getText().toString());
@@ -480,7 +497,7 @@ public class CompeletInfoFragment
             mainView.showError("اطلاعات ورودی نفر دوم نامعتبر است");
             return "F";
         } else {
-            InfoViewer viewer= new InfoViewer();
+            Viewers viewer= new Viewers();
             viewer.setFirstName(etName_2.getText().toString());
             viewer.setLastName(etFamily_2.getText().toString());
             viewer.setNationalCode(etNationalCode_2.getText().toString());
@@ -545,7 +562,7 @@ public class CompeletInfoFragment
             mainView.showError("اطلاعات ورودی نفر سوم نامعتبر است");
             return "F";
         } else {
-            InfoViewer viewer= new InfoViewer();
+            Viewers viewer= new Viewers();
             viewer.setFirstName(etName_3.getText().toString());
             viewer.setLastName(etFamily_3.getText().toString());
             viewer.setNationalCode(etNationalCode_3.getText().toString());
@@ -610,7 +627,7 @@ public class CompeletInfoFragment
             mainView.showError("اطلاعات ورودی نفر چهارم نامعتبر است");
             return "F";
         } else {
-            InfoViewer viewer= new InfoViewer();
+            Viewers viewer= new Viewers();
             viewer.setFirstName(etName_4.getText().toString());
             viewer.setLastName(etFamily_4.getText().toString());
             viewer.setNationalCode(etNationalCode_4.getText().toString());
@@ -675,7 +692,7 @@ public class CompeletInfoFragment
             mainView.showError("اطلاعات ورودی نفر پنجم نامعتبر است");
             return "F";
         } else {
-            InfoViewer viewer= new InfoViewer();
+            Viewers viewer= new Viewers();
             viewer.setFirstName(etName_5.getText().toString());
             viewer.setLastName(etFamily_5.getText().toString());
             viewer.setNationalCode(etNationalCode_5.getText().toString());
@@ -1013,6 +1030,24 @@ public class CompeletInfoFragment
         }
 
 
+    }
+
+    @Override
+    public void onFinishedPaymentTicket(PaymentMatchResponse response)
+    {
+        BuyTickets.buyTickets.hideLoading();
+
+        BuyTickets.buyTickets.openWebPayment(response.getUrl());
+
+        onClickContinueBuyTicketListener.onContinueClicked();
+        getActivity().finish();
+    }
+
+    @Override
+    public void onErrorPaymentTicket(String error)
+    {
+        BuyTickets.buyTickets.hideLoading();
+        Tools.showToast(getContext(),error,R.color.red);
     }
 }
 

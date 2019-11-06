@@ -39,7 +39,5 @@ public interface MainActionView extends BaseView
 
     void onPredict(MatchItem matchPredict);
 
-    void openWeb(String url,boolean b);
-
     void onCash();
 }

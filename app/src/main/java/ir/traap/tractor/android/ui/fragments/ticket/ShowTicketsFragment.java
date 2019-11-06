@@ -17,16 +17,20 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 
 import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import ir.traap.tractor.android.apiServices.model.showTicket.ShowTicketItem;
 import ir.traap.tractor.android.ui.adapters.ticket.ShowTicketAdapter;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.fragments.ticket.ticketInfo.TicketInfoImpl;
+import ir.traap.tractor.android.ui.fragments.ticket.ticketInfo.TicketInfoInteractor;
 import ir.traap.tractor.android.utilities.ScreenShot;
+import ir.traap.tractor.android.utilities.Tools;
 
 /**
  * Created by MahtabAzizi on 10/28/2019.
  */
-public class ShowTicketsFragment extends Fragment implements View.OnClickListener
+public class ShowTicketsFragment extends Fragment implements View.OnClickListener, TicketInfoInteractor.OnFinishedTicketInfoListener
 {
 
     private View view;
@@ -39,8 +43,9 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
     private ShowTicketAdapter showTicketAdapter;
     private ArrayList<ShowTicketItem> ticketItems = new ArrayList<>();
     private MainActionView mainView;
-    private MessageAlertDialog.OnConfirmListener listener=null;
+    private MessageAlertDialog.OnConfirmListener listener = null;
     private LinearLayout llFram;
+    private TicketInfoImpl ticketInfo;
 
 
     public ShowTicketsFragment()
@@ -59,10 +64,22 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
 
         return fragment;
     }
+    public static ShowTicketsFragment newInstance(MainActionView mainActionView)
+    {
+        ShowTicketsFragment fragment = new ShowTicketsFragment();
+       // fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
+
+        fragment.setMainView(mainActionView);
+
+        return fragment;
+    }
+
+
     private void setMainView(MainActionView mainView)
     {
         this.mainView = mainView;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -76,17 +93,16 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.show_tickets_fragment, container, false);
-        listener=new MessageAlertDialog.OnConfirmListener()
+        listener = new MessageAlertDialog.OnConfirmListener()
         {
 
 
+            @Override
+            public void onConfirmClick()
+            {
+                mainView.backToMainFragment();
 
-           @Override
-           public void onConfirmClick()
-           {
-               mainView.backToMainFragment();
-
-           }
+            }
 
             @Override
             public void onCancelClick()
@@ -94,6 +110,7 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
                 mainView.backToMainFragment();
             }
         };
+        ticketInfo = new TicketInfoImpl();
         initView();
         return view;
     }
@@ -127,7 +144,6 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
         Prefs.getString("etNationalCode_1","");
         Prefs.getString("etFamily_1","");
         Prefs.getString("etName_1","");*/
-
 
 
     }
@@ -164,14 +180,14 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
 
                 //MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟");
                 MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
-                         false,"بله","بستن",listener);
+                        false, "بله", "بستن", listener);
                 dialog.show(getActivity().getFragmentManager(), "dialog");
 
 
                 break;
             case R.id.btnShareTicket:
                 new ScreenShot(llFram, getActivity());
-               // Tools.showToast(getContext(), "share");
+                // Tools.showToast(getContext(), "share");
                 break;
         }
     }
@@ -179,10 +195,12 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
 
     public void setSharedData()
     {
+        BuyTickets.buyTickets.showLoading();
+        ticketInfo.reservationRequest(this, 1212);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvTickets.setLayoutManager(linearLayoutManager);
 
-        for (int i = 0; i <Prefs.getInt("CountTicket",1) ; i++)
+      /*  for (int i = 0; i <Prefs.getInt("CountTicket",1) ; i++)
         {
             if(i==0)
                 ticketItems.add(new ShowTicketItem(Prefs.getString("etFamily_1","")+" "+Prefs.getString("etName_1",""), Prefs.getString("etNationalCode_1",""),"جایگاه "+Prefs.getInt("PositionId",1)));
@@ -200,10 +218,30 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
                 ticketItems.add(new ShowTicketItem(Prefs.getString("etFamily_5","")+" "+Prefs.getString("etName_4",""), Prefs.getString("etNationalCode_5",""),"جایگاه "+Prefs.getInt("PositionId",1)));
 
 
-        }
-        showTicketAdapter = new ShowTicketAdapter(ticketItems);
-        rvTickets.setAdapter(showTicketAdapter);
+        }*/
+        //showTicketAdapter = new ShowTicketAdapter(ticketItems);
+        //rvTickets.setAdapter(showTicketAdapter);
 
+
+    }
+
+    @Override
+    public void onFinishedTicketInfo(GetTicketInfoResponse response)
+    {
+
+        showTicketAdapter = new ShowTicketAdapter(response.getResults(), mainView);
+        rvTickets.setAdapter(showTicketAdapter);
+        BuyTickets.buyTickets.hideLoading();
+
+
+    }
+
+    @Override
+    public void onErrorTicketInfo(String error)
+    {
+
+        Tools.showToast(getContext(), error, R.color.red);
+        BuyTickets.buyTickets.hideLoading();
 
     }
 }

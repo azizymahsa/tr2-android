@@ -20,7 +20,10 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
+import ir.traap.tractor.android.apiServices.model.getTicketInfo.ResultTicketInfo;
 import ir.traap.tractor.android.apiServices.model.showTicket.ShowTicketItem;
+import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 /**
  * Created by MahtabAzizi on 10/28/2019.
@@ -29,22 +32,12 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
 {
     private Context context;
     private String nationalCode;
-    private List<ShowTicketItem> ticketItems;
-    /*private final List<RightelPackModel> data;
+    private List<ResultTicketInfo> ticketItems;
 
-    private Context context;
-    private DetailPackAdapter detailPackAdapter;
-    private SparseBooleanArray expandState = new SparseBooleanArray();
-    private DetailPackAdapter.GetPackInAdapter getPackInAdapter;
-    private String type;*/
 
-   //public ShowTicketAdapter(final List<RightelPackModel> data, DetailPackAdapter.GetPackInAdapter getPackInAdapter, String type)
-   public ShowTicketAdapter(final List<ShowTicketItem> ticketItems)
+    public ShowTicketAdapter(List<ResultTicketInfo> results, MainActionView mainView)
     {
-       /* this.data = data;
-        this.getPackInAdapter = getPackInAdapter;
-        this.type = type;*/
-        this.ticketItems = ticketItems;
+        this.ticketItems = results;
     }
 
 
@@ -60,24 +53,13 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
     @Override
     public void onBindViewHolder(final ShowTicketAdapter.ViewHolder holder, final int position)
     {
-        nationalCode="0480759294";
+        nationalCode=ticketItems.get(position).getNationalCode();
         setBarcode(nationalCode,holder);
-        holder.tvName.setText(ticketItems.get(position).getName());
+        holder.tvName.setText(ticketItems.get(position).getFirstName());
         holder.tvNationalCode.setText(ticketItems.get(position).getNationalCode());
-        holder.tvStation.setText(ticketItems.get(position).getStation());
-       /* final RightelPackModel item = data.get(position);
+        holder.tvLastName.setText(ticketItems.get(position).getLastName());
+        holder.tvClubName.setText(ticketItems.get(position).getStadiumName());
 
-        holder.tvTitle.setText(item.getTitle());
-        List<Detail> details = new ArrayList<>();
-
-        holder.buttonLayout.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(final View v)
-            {
-                onClickButton(holder.expandableLayout);
-            }
-        });*/
     }
     private void setBarcode(String nationalCode, ViewHolder holder)
     {
@@ -106,16 +88,20 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        public ImageView ivBarcode;
-        public TextView tvName,tvNationalCode,tvStation;
+        public ImageView ivBarcode,imgGuest,imgHost;
+        public TextView tvName,tvNationalCode,tvLastName,tvClubName,tvDate;
 
         public ViewHolder(View v)
         {
             super(v);
             ivBarcode = v.findViewById(R.id.ivBarcode);
             tvName = v.findViewById(R.id.tvName);
+            tvLastName=v.findViewById(R.id.tvLastName);
             tvNationalCode = v.findViewById(R.id.tvNationalCode);
-            tvStation = v.findViewById(R.id.tvStation);
+            tvClubName=v.findViewById(R.id.tvClubName);
+            tvDate=v.findViewById(R.id.tvDate);
+            imgGuest=v.findViewById(R.id.imgGuest);
+            imgHost=v.findViewById(R.id.imgHost);
            /* imgArrow = v.findViewById(R.id.imgArrow);
             tvTitle = v.findViewById(R.id.tvTitle);
             buttonLayout = v.findViewById(R.id.buttonLayout);*/

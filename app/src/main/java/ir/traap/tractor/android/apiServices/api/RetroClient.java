@@ -37,6 +37,8 @@ import ir.traap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoRequest;
+import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import ir.traap.tractor.android.apiServices.model.league.request.GetLeagueRequest;
 import ir.traap.tractor.android.apiServices.model.league.response.ResponseLeage;
 import ir.traap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
@@ -112,6 +114,11 @@ public interface RetroClient
     @POST(Const.GetBillCodePayCode)
     Single<Response<WebServiceClass<GetBillCodePayCodeResponse>>> getBillCodePayCode(
             @Body GetBillCodePayCodeRequest request
+    );
+
+    @POST(Const.GetTicketInfo)
+    Single<Response<WebServiceClass<GetTicketInfoResponse>>> getTicketInfo(
+            @Body GetTicketInfoRequest request
     );
 
 

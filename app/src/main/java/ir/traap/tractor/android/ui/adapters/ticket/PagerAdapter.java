@@ -6,16 +6,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import ir.traap.tractor.android.apiServices.model.buyTicket.InfoViewer;
-import ir.traap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentParentActionView;
-import ir.traap.tractor.android.ui.fragments.payment.WebViewFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
-import ir.traap.tractor.android.ui.fragments.ticket.CountTicketFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
@@ -31,7 +26,7 @@ public class PagerAdapter
     private int numTabs;
     private CompeletInfoFragment tab2;
     private ShowTicketsFragment tab4;
-    private WebViewFragment tab3;
+    private ShowTicketsFragment tab3;
 
 
     public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView
@@ -66,9 +61,10 @@ public class PagerAdapter
 
                // createInstance();
                 return tab2;
-            case 2://پرداخت
+      /*      case 2://پرداخت
 
 
+                tab3 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
 
                // tab3=WebViewFragment.newInstance("TAB3", buyTickets,mainActionView);
 
@@ -91,8 +87,8 @@ public class PagerAdapter
 
                 return tab3;
             case 3:
-                 tab4 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
-                return tab4;
+                tab4 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
+                return tab4;*/
 
 
             default:
@@ -105,13 +101,7 @@ public class PagerAdapter
         tab2.getDataFormBefore(selectPositionId,count,amountForPay,ticketIdList);
 
     }
-    public void webFragmentData(String url)
-    {
-       // tab3.setInfoViewers(infoViewers);
-        //tab3.webUrl(url);
 
-
-    }
 
     @Override
     public int getCount()
@@ -148,6 +138,6 @@ public class PagerAdapter
 
     public void createShareShowTicket()
     {
-        tab4.setSharedData();
+        tab3.setSharedData();
     }
 }

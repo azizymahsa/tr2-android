@@ -24,6 +24,7 @@ import ir.traap.tractor.android.apiServices.part.GetPackageMciService;
 import ir.traap.tractor.android.apiServices.part.GetPredictService;
 import ir.traap.tractor.android.apiServices.part.GetRightelPackService;
 import ir.traap.tractor.android.apiServices.part.GetShetabCardInfoService;
+import ir.traap.tractor.android.apiServices.part.GetTicketInfoService;
 import ir.traap.tractor.android.apiServices.part.GetVersionService;
 import ir.traap.tractor.android.apiServices.part.HotelService;
 import ir.traap.tractor.android.apiServices.part.LiveScoreService;
@@ -127,6 +128,12 @@ public class SingletonService
     {
         return new BillCodePayCodeService(serviceGenerator);
     }
+
+    public GetTicketInfoService getTicketInfoService()
+    {
+        return new GetTicketInfoService(serviceGenerator);
+    }
+
     public LiveScoreService getLiveScoreService()
     {
         return new LiveScoreService(serviceGenerator);

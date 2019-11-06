@@ -7,11 +7,12 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -58,22 +59,21 @@ import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.drawer.MenuDrawer;
 import ir.traap.tractor.android.ui.fragments.BarcodeReaderFragment;
 import ir.traap.tractor.android.ui.fragments.about.AboutFragment;
-import ir.traap.tractor.android.ui.fragments.about.HistoryFragment;
 import ir.traap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.traap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.main.MainFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
-import ir.traap.tractor.android.ui.fragments.payment.WebViewFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.traap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
+import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketActivity;
+import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.traap.tractor.android.utilities.Logger;
-import ir.traap.tractor.android.utilities.Utility;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -83,7 +83,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
-    private WebViewFragment webViewFragment;
 
     private Realm realm;
 
@@ -97,6 +96,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Bundle mSavedInstanceState;
 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
+    private boolean hasPaymentTicket=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -105,6 +105,28 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         setContentView(R.layout.activity_main);
 
         mSavedInstanceState = savedInstanceState;
+
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            Uri uri = intent.getData();
+            String refrenceNumber=uri.getEncodedPath().toString();
+            //String refrenceNumber = uri.getQueryParameter("RefrenceNumber");
+            Toast.makeText(this, refrenceNumber, Toast.LENGTH_SHORT).show();
+
+            hasPaymentTicket=true;
+
+
+            /*showLoading();
+            isMainFragment = false;
+            MatchItem matchBuyable = new MatchItem();
+            this.fragment = BuyTickets.newInstance(this, matchBuyable,refrenceNumber);
+
+            transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.replace(R.id.main_container, this.fragment)
+                    .commit();*/
+        }
 
         realm = Realm.getDefaultInstance();
 
@@ -776,27 +798,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         }, 200);
 */
     }
-    @Override
-    public void openWeb(String url, boolean b)
-    {
-       /* if (b)
-            Utility.openUrlCustomTab(MainActivity.this, url);
-        else
-        {
-            changeFragment(fragments.get(7), "7");
-
-            webViewFragment.webUrl(url);
-
-            new Handler().postDelayed(() -> {
-                layoutBehavior();
-                appBar.setExpanded(false, true);
-            }, 200);
-        }*/
-    }
 
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
-    {
+        {
+        if (hasPaymentTicket){
+           /* showLoading();
+            isMainFragment = false;
+            this.fragment = ShowTicketsFragment.newInstance(this);
+
+            transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.replace(R.id.main_container, this.fragment)
+                    .commit();*/
+            startActivity(new Intent(MainActivity.this, ShowTicketActivity.class));
+
+        }
         if (response == null || response.info == null)
         {
             startActivity(new Intent(this, LoginActivity.class));
