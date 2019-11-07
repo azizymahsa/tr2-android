@@ -217,7 +217,7 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onErrorTicketInfo(String error)
     {
-
+        ((TextView) findViewById(R.id.tvMessage)).setText("کاربر گرامی؛ متاسفانه خرید شما ناموفق بوده است.");
         Tools.showToast(this, error, R.color.red);
         hideLoading();
         //  BuyTicketsFragment.buyTicketsFragment.hideLoading();
