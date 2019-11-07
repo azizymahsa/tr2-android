@@ -5,16 +5,13 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -27,17 +24,15 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.buyTicket.InfoViewer;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
-import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import ir.traap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.adapters.ticket.PagerAdapter;
 import ir.traap.tractor.android.utilities.CustomViewPager;
 import ir.traap.tractor.android.utilities.Utility;
 
-public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
+public class BuyTicketsFragment extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
 {
-    public static BuyTickets buyTickets;
+    public static BuyTicketsFragment buyTicketsFragment;
     private static boolean paymentIsComplete=false;
     private View rootView;
 
@@ -60,35 +55,35 @@ public class BuyTickets extends BaseFragment implements OnClickContinueBuyTicket
     private String url="";
 
 
-    public BuyTickets()
+    public BuyTicketsFragment()
     {
 
     }
 
 
-    public static BuyTickets newInstance(MainActionView mainView, MatchItem matchBuyable)
+    public static BuyTicketsFragment newInstance(MainActionView mainView, MatchItem matchBuyable)
     {
-        buyTickets = new BuyTickets();
+        buyTicketsFragment = new BuyTicketsFragment();
         Bundle args = new Bundle();
         args.putParcelable("matchBuyable", matchBuyable);
 
-        buyTickets.setArguments(args);
-        buyTickets.setMainView(mainView);
-        return buyTickets;
+        buyTicketsFragment.setArguments(args);
+        buyTicketsFragment.setMainView(mainView);
+        return buyTicketsFragment;
     }
 
-    public static BuyTickets newInstance(MainActionView mainView, MatchItem matchBuyable, String refrenceNumber)
+    public static BuyTicketsFragment newInstance(MainActionView mainView, MatchItem matchBuyable, String refrenceNumber)
     {
 
-        buyTickets = new BuyTickets();
+        buyTicketsFragment = new BuyTicketsFragment();
         Bundle args = new Bundle();
         if (matchBuyable!=null)
         args.putParcelable("matchBuyable", matchBuyable);
 
-        buyTickets.setArguments(args);
-        buyTickets.setMainView(mainView);
+        buyTicketsFragment.setArguments(args);
+        buyTicketsFragment.setMainView(mainView);
         paymentIsComplete = true;
-        return buyTickets;
+        return buyTicketsFragment;
     }
 
     private void setMainView(MainActionView mainView)

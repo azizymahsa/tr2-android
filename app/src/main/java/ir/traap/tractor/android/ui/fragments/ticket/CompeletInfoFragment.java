@@ -24,7 +24,6 @@ import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
-import ir.traap.tractor.android.apiServices.model.buyTicket.InfoViewer;
 import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchResponse;
 import ir.traap.tractor.android.apiServices.model.paymentMatch.Viewers;
@@ -340,7 +339,7 @@ public class CompeletInfoFragment
                 } else
                 {
                     callPaymentTicketRequest();
-                    //BuyTickets.buyTickets.setInfoViewers(infoViewers);
+                    //BuyTicketsFragment.buyTicketsFragment.setInfoViewers(infoViewers);
 
 
                 }
@@ -376,7 +375,7 @@ public class CompeletInfoFragment
 
     private void callPaymentTicketRequest()
     {
-        BuyTickets.buyTickets.showLoading();
+        BuyTicketsFragment.buyTicketsFragment.showLoading();
         paymentTicket.paymentTicketRequest(this,infoViewers,amountForPay);
     }
 
@@ -1035,9 +1034,9 @@ public class CompeletInfoFragment
     @Override
     public void onFinishedPaymentTicket(PaymentMatchResponse response)
     {
-        BuyTickets.buyTickets.hideLoading();
+        BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
-        BuyTickets.buyTickets.openWebPayment(response.getUrl());
+        BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
 
         onClickContinueBuyTicketListener.onContinueClicked();
         getActivity().finish();
@@ -1046,7 +1045,7 @@ public class CompeletInfoFragment
     @Override
     public void onErrorPaymentTicket(String error)
     {
-        BuyTickets.buyTickets.hideLoading();
+        BuyTicketsFragment.buyTicketsFragment.hideLoading();
         Tools.showToast(getContext(),error,R.color.red);
     }
 }

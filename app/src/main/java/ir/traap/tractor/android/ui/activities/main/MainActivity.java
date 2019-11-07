@@ -11,9 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -71,9 +69,8 @@ import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCa
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.traap.tractor.android.ui.fragments.simcardPack.PackFragment;
-import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
-import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketActivity;
-import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
+import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
+import ir.traap.tractor.android.ui.activities.ticket.ShowTicketActivity;
 import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
 import ir.traap.tractor.android.utilities.Logger;
@@ -99,7 +96,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Bundle mSavedInstanceState;
 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
-    private boolean hasPaymentTicket=false;
+    private boolean hasPaymentTicket = false;
     private String refrenceNumber;
 
     @Override
@@ -107,6 +104,25 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        realm = Realm.getDefaultInstance();
+
+        mSavedInstanceState = savedInstanceState;
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
+        {
+            AdpPushClient.get().register(Prefs.getString("mobile", ""));
+            Intent myIntent = new Intent(this, PushMessageReceiver.class);
+            PendingIntent.getBroadcast(this, 0, myIntent, 0);
+        }
+        else
+        {
+            startService(new Intent(this, NotificationJobService.class));
+        }
+
+        mToolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
 
         //------------------test------------------------
 //        Intent intent = getIntent();
@@ -129,49 +145,27 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            showError(this, "Null");
 //        }
 
-        //------------------test------------------------
-
-        mSavedInstanceState = savedInstanceState;
-
+        //-----------------------test------------------------
 
         Intent intent = getIntent();
-        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-            Uri uri = intent.getData();
-             refrenceNumber=uri.getQueryParameter("refrencenumber").replace("/","");
-            //String refrenceNumber = uri.getQueryParameter("RefrenceNumber");
-            hasPaymentTicket=true;
 
+        if (Intent.ACTION_VIEW.equals(intent.getAction()))
+        {
+            Uri uri = intent.getData();
+            refrenceNumber = uri.getQueryParameter("refrencenumber").replace("/", "");
+            //String refrenceNumber = uri.getQueryParameter("RefrenceNumber");
+            hasPaymentTicket = true;
 
             /*showLoading();
             isMainFragment = false;
             MatchItem matchBuyable = new MatchItem();
-            this.fragment = BuyTickets.newInstance(this, matchBuyable,refrenceNumber);
+            this.fragment = BuyTicketsFragment.newInstance(this, matchBuyable,refrenceNumber);
 
             transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment)
                     .commit();*/
         }
-
-        realm = Realm.getDefaultInstance();
-
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
-        {
-
-            AdpPushClient.get().register(Prefs.getString("mobile", ""));
-            Intent myIntent = new Intent(this, PushMessageReceiver.class);
-            PendingIntent.getBroadcast(this, 0, myIntent, 0);
-
-
-        }
-        else
-        {
-            startService(new Intent(this, NotificationJobService.class));
-        }
-
-        mToolbar = findViewById(R.id.toolbar);
-
-        setSupportActionBar(mToolbar);
 
         drawerFragment = (MenuDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_menudrawer);
         drawerFragment.setUp(R.id.fragment_navigation_menudrawer, findViewById(R.id.drawer_layout), mToolbar);
@@ -359,8 +353,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             if (isMainFragment)
             {
                 super.onBackPressed();
-            }
-            else
+            } else
             {
 //                setCheckedBNV(bottomNavigationView, 2);
 
@@ -414,7 +407,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 7:
             {
-               // showToast(this, "درباره ما", R.color.green);
+                // showToast(this, "درباره ما", R.color.green);
                 isMainFragment = false;
 
                 fragment = AboutFragment.newInstance(this);
@@ -497,9 +490,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void hideLoading()
     {
-       findViewById(R.id.rlLoading).setVisibility(View.GONE);
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
         runOnUiThread(() ->
-       {
+        {
         });
     }
 
@@ -752,8 +745,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (mainFragment != null)
         {
             fragment = mainFragment;
-        }
-        else
+        } else
         {
             fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
         }
@@ -798,7 +790,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         showLoading();
         isMainFragment = false;
-        this.fragment = BuyTickets.newInstance(this, matchBuyable);
+        this.fragment = BuyTicketsFragment.newInstance(this, matchBuyable);
 
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -818,11 +810,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction.replace(R.id.main_container, fragment)
                 .commit();*/
         isMainFragment = false;
-               fragment = LeagueTableFragment.newInstance(this);
-               transaction = fragmentManager.beginTransaction();
-               transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-               transaction.replace(R.id.main_container, fragment)
-                        .commit();
+        fragment = LeagueTableFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, fragment)
+                .commit();
     }
 
     @Override
@@ -836,6 +828,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction.replace(R.id.main_container, this.fragment)
                 .commit();
     }
+
     @Override
     public void onCash()
     {
@@ -852,8 +845,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
+    {
+        if (hasPaymentTicket)
         {
-        if (hasPaymentTicket){
            /* showLoading();
             isMainFragment = false;
             this.fragment = ShowTicketsFragment.newInstance(this);
@@ -862,7 +856,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment)
                     .commit();*/
-           Intent intent= new Intent(MainActivity.this, ShowTicketActivity.class);
+            Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
 
             intent.putExtra("RefrenceNumber", refrenceNumber);
             startActivity(intent);
@@ -1005,7 +999,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            case R.id.btnBuyTicket:
 //
 //                isMainFragment = false;
-//                fragment = BuyTickets.newInstance(this);
+//                fragment = BuyTicketsFragment.newInstance(this);
 //                transaction = fragmentManager.beginTransaction();
 //                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 //                transaction.replace(R.id.main_container, fragment)

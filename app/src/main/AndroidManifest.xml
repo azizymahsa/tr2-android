@@ -60,12 +60,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.fragments.ticket.ShowTicketActivity"></activity>
+
+        <activity android:name=".ui.activities.ticket.ShowTicketActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name="ir.traap.tractor.android.ui.activities.login.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activities.main.MainActivity"
-            android:screenOrientation="portrait">
+
+        <activity android:name="ir.traap.tractor.android.ui.activities.main.MainActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -73,14 +76,10 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="traap" />
+
             </intent-filter>
+
         </activity>
-
-
-
-
-
-
 
         <activity android:name=".ui.activities.login.user.UserActivity"
             android:screenOrientation="portrait" />

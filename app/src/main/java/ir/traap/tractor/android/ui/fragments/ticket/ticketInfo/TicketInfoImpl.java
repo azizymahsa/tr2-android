@@ -22,14 +22,25 @@ public class TicketInfoImpl implements TicketInfoInteractor
             @Override
             public void onReady(WebServiceClass<GetTicketInfoResponse> response)
             {
-                try{
-
-                    if (response.info.statusCode==200){
-                        listener.onFinishedTicketInfo(response.data);
-                    }else {
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        if (response.data.getResults().size() != 0)
+                        {
+                            listener.onFinishedTicketInfo(response.data);
+                        }
+                        else
+                        {
+                            listener.onErrorTicketInfo("پرداخت ناموفق!");
+                        }
+                    }
+                    else
+                    {
                         listener.onErrorTicketInfo(response.info.message);
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                     listener.onErrorTicketInfo(e.getMessage());
                 }
@@ -41,6 +52,6 @@ public class TicketInfoImpl implements TicketInfoInteractor
                 listener.onErrorTicketInfo(message);
 
             }
-        },request);
+        }, request);
     }
 }

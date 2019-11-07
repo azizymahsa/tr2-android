@@ -10,7 +10,7 @@ import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentParentActionView;
 import ir.traap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
-import ir.traap.tractor.android.ui.fragments.ticket.BuyTickets;
+import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
@@ -22,20 +22,20 @@ public class PagerAdapter
     private final MainActionView mainActionView;
     private final OnClickContinueBuyTicket onClickContinueBuyTicket;
     private final MatchItem matchBuyable;
-    private BuyTickets buyTickets;
+    private BuyTicketsFragment buyTicketsFragment;
     private int numTabs;
     private CompeletInfoFragment tab2;
     private ShowTicketsFragment tab4;
     private ShowTicketsFragment tab3;
 
 
-    public PagerAdapter(FragmentManager fm, int numTabs, BuyTickets buyTickets, MainActionView mainActionView
+    public PagerAdapter(FragmentManager fm, int numTabs, BuyTicketsFragment buyTicketsFragment, MainActionView mainActionView
             , OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)
     {
         super(fm);
         this.numTabs = numTabs;
 
-        this.buyTickets = buyTickets;
+        this.buyTicketsFragment = buyTicketsFragment;
         this.mainActionView = mainActionView;
         this.onClickContinueBuyTicket = onClickContinueBuyTicket;
 
@@ -53,23 +53,23 @@ public class PagerAdapter
         switch (position)
         {
             case 0:
-                SelectPositionFragment tab1 = SelectPositionFragment.newInstance("TAB1",buyTickets,matchBuyable);
+                SelectPositionFragment tab1 = SelectPositionFragment.newInstance("TAB1", buyTicketsFragment,matchBuyable);
 
                 return tab1;
             case 1:
-                 tab2 = CompeletInfoFragment.newInstance("TAB2",buyTickets,mainActionView);
+                 tab2 = CompeletInfoFragment.newInstance("TAB2", buyTicketsFragment,mainActionView);
 
                // createInstance();
                 return tab2;
       /*      case 2://پرداخت
 
 
-                tab3 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
+                tab3 = ShowTicketsFragment.newInstance("TAB4", buyTicketsFragment, mainActionView);
 
-               // tab3=WebViewFragment.newInstance("TAB3", buyTickets,mainActionView);
+               // tab3=WebViewFragment.newInstance("TAB3", buyTicketsFragment,mainActionView);
 
-                //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTickets, this, onClickContinueBuyTicket);
-               // CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3", buyTickets, mainActionView);
+                //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTicketsFragment, this, onClickContinueBuyTicket);
+               // CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3", buyTicketsFragment, mainActionView);
                 //TicketPaymentInstance paymentInstance = new TicketPaymentInstance();
 //                paymentInstance.setFirstName();
 //                paymentInstance.setLastName();
@@ -82,12 +82,12 @@ public class PagerAdapter
 //                        "",
 //                        paymentInstance);
 
-                //ShowTicketsFragment tab3 =ShowTicketsFragment.newInstance("TAB3", buyTickets, mainActionView);
-               // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTickets,mainActionView);
+                //ShowTicketsFragment tab3 =ShowTicketsFragment.newInstance("TAB3", buyTicketsFragment, mainActionView);
+               // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTicketsFragment,mainActionView);
 
                 return tab3;
             case 3:
-                tab4 = ShowTicketsFragment.newInstance("TAB4", buyTickets, mainActionView);
+                tab4 = ShowTicketsFragment.newInstance("TAB4", buyTicketsFragment, mainActionView);
                 return tab4;*/
 
 

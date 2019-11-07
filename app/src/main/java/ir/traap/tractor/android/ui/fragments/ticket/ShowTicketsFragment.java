@@ -195,7 +195,7 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
 
     public void setSharedData()
     {
-        BuyTickets.buyTickets.showLoading();
+        BuyTicketsFragment.buyTicketsFragment.showLoading();
         ticketInfo.reservationRequest(this, 1212);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvTickets.setLayoutManager(linearLayoutManager);
@@ -231,7 +231,7 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
 
         showTicketAdapter = new ShowTicketAdapter(response.getResults(), mainView);
         rvTickets.setAdapter(showTicketAdapter);
-        BuyTickets.buyTickets.hideLoading();
+        BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
 
     }
@@ -241,7 +241,7 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
     {
 
         Tools.showToast(getContext(), error, R.color.red);
-        BuyTickets.buyTickets.hideLoading();
+        BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
     }
 }

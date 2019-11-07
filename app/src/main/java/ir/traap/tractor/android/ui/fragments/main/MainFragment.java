@@ -23,9 +23,11 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.iwgang.countdownview.CountdownView;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
@@ -41,6 +43,7 @@ import ir.traap.tractor.android.ui.activities.login.LoginActivity;
 import ir.traap.tractor.android.ui.adapters.MainServiceModelAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.others.MyCustomSliderView;
+import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.Tools;
 import ir.traap.tractor.android.utilities.Utility;
 import library.android.eniac.StartEniacBusActivity;
@@ -60,6 +63,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener,
         View.OnClickListener, OnServiceStatus<WebServiceClass<MachListResponse>>
 {
+    private View rootView;
+
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private MainServiceModelAdapter adapter;
@@ -82,6 +87,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private List<MatchItem> matchList;
     private MatchItem matchCurrent, matchBuyable, matchPredict;
     private TextView tvPopularPlayer;
+
+    private CountdownView countdownView;
 
     public MainFragment()
     {
@@ -127,7 +134,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         mDemoSlider = rootView.findViewById(R.id.slider);
 
@@ -154,13 +161,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(Prefs.getString("mobile", ""));
-        tvPopularPlayer=mToolbar.findViewById(R.id.tvPopularPlayer);
-        tvPopularPlayer.setText(Prefs.getString("PopularPlayer",""));
+        tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
+        tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
         btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
 
         rlPredict = rootView.findViewById(R.id.rlPredict);
+
+        countdownView = rootView.findViewById(R.id.countDown);
 
         rlF1 = rootView.findViewById(R.id.rlF1);
         rlF2 = rootView.findViewById(R.id.rlF2);
@@ -190,12 +199,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvF6.setText(footballServiceList.get(4).getTitle());
         tvF5.setText(footballServiceList.get(5).getTitle());
 
-        setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ","%20"));
-        setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ","%20"));
-        setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ","%20"));
-        setImageIntoIV(imgF3, footballServiceList.get(3).getImageName().replace(" ","%20"));
-        setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ","%20"));
-        setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ","%20"));
+        setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ", "%20"));
+        setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ", "%20"));
+        setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ", "%20"));
+        setImageIntoIV(imgF3, footballServiceList.get(3).getImageName().replace(" ", "%20"));
+        setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ", "%20"));
+        setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ", "%20"));
 
         rlPredict.setOnClickListener(v ->
         {
@@ -211,6 +220,27 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         mainView.showLoading();
 
         SingletonService.getInstance().getMatchListService().getMatchList(this);
+    }
+
+    public void startTimer(long time)
+    {
+        countdownView.start(time);
+        countdownView.setOnCountdownIntervalListener(1, new CountdownView.OnCountdownIntervalListener()
+        {
+            @Override
+            public void onInterval(CountdownView cv, long remainTime)
+            {
+
+            }
+        });
+        countdownView.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener()
+        {
+            @Override
+            public void onEnd(CountdownView cv)
+            {
+
+            }
+        });
     }
 
     private void setImageIntoIV(ImageView imageView, String link)
@@ -238,8 +268,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     newList.add(item);
                 }
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -285,7 +314,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private void setSlider()
     {
-        for (MatchItem matchItem: matchList)
+        for (MatchItem matchItem : matchList)
         {
             if (matchItem.getIsCurrent())
             {
@@ -295,6 +324,28 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             if (matchItem.getIsPredict())
             {
                 this.matchPredict = matchItem;
+
+                Timestamp myTimestamp = new Timestamp(System.currentTimeMillis());
+                long myTime = myTimestamp.getTime();
+                long matchTime = matchPredict.getMatchDatetime().longValue()*1000;
+                Logger.e("--Time--", "myTime:" + myTime + ", MatchTime: " + matchTime);
+                long time = matchTime - myTime ;
+                Logger.e("--diff Time--", "Time: " + time);
+
+                long predictTime = matchPredict.getPredictTime().longValue()*1000;
+                long remainPredictTime = predictTime - myTime;
+
+                if (remainPredictTime > 0)
+                {
+                    startTimer(time);
+                }
+                else
+                {
+                    rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+                    ((TextView)rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
+                }
+
+//                Timestamp timestamp = matchPredict.getMatchDatetime().intValue();
             }
 
             if (matchItem.getBuyEnable())
@@ -469,7 +520,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onSliderClick(BaseSliderView slider)
     {
-       mainView.onLeageClick();
+        mainView.onLeageClick();
     }
 
     @Override
@@ -594,8 +645,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             getActivity().finish();
 
             return;
-        }
-        else
+        } else
         {
             matchList = responseMatchList.data.getMatchList();
 
@@ -611,6 +661,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         mainView.hideLoading();
 
         showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+        Logger.e("--onError--", message);
     }
-    public void onBackPressed() {}
+
 }

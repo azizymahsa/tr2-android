@@ -5,20 +5,20 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by MahtabAzizi on 11/3/2019.
  */
 public class ReservationResponse
 {
+    @SerializedName("amount")
+    @Expose @Getter @Setter
+    private Integer amount;
+
     @SerializedName("results")
-    @Expose
+    @Expose @Getter @Setter
     private List<Integer> results = null;
 
-    public List<Integer> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Integer> results) {
-        this.results = results;
-    }
 }
