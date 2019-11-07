@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.fragments.ticket;
+package ir.traap.tractor.android.ui.activities.ticket;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +21,7 @@ import ir.traap.tractor.android.apiServices.model.showTicket.ShowTicketItem;
 import ir.traap.tractor.android.ui.adapters.ticket.ShowTicketAdapter;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.traap.tractor.android.ui.fragments.ticket.ticketInfo.TicketInfoImpl;
 import ir.traap.tractor.android.ui.fragments.ticket.ticketInfo.TicketInfoInteractor;
 import ir.traap.tractor.android.utilities.ScreenShot;
@@ -208,7 +209,7 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
         rvTickets.setAdapter(showTicketAdapter);
 
         hideLoading();
-        //BuyTickets.buyTickets.hideLoading();
+        //BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
 
     }
@@ -219,7 +220,7 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
 
         Tools.showToast(this, error, R.color.red);
         hideLoading();
-        //  BuyTickets.buyTickets.hideLoading();
+        //  BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
     }
 

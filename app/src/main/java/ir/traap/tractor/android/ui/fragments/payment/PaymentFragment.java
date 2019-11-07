@@ -181,7 +181,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
 //        return fragment;
 //    }
 
-//    public static PaymentFragment newInstance(int PAYMENT_STATUS, BuyTickets buyTickets,
+//    public static PaymentFragment newInstance(int PAYMENT_STATUS, BuyTicketsFragment buyTicketsFragment,
 //                                              PaymentParentActionView paymentParentActionView,
 //                                              OnClickContinueBuyTicket onClickContinueBuyTicket)
 //    {

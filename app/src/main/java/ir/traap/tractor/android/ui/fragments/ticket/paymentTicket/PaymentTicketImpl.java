@@ -25,14 +25,19 @@ public class PaymentTicketImpl implements PaymentTicketInteractor
             @Override
             public void onReady(WebServiceClass<PaymentMatchResponse> response)
             {
-                try{
-
-                    if (response.info.statusCode==200){
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
                         listener.onFinishedPaymentTicket(response.data);
-                    }else {
+                    }
+                    else
+                    {
                         listener.onErrorPaymentTicket(response.info.message);
                     }
-                }catch (Exception e){
+                }
+                catch (Exception e)
+                {
 
                     listener.onErrorPaymentTicket(e.getMessage());
                 }
@@ -44,10 +49,10 @@ public class PaymentTicketImpl implements PaymentTicketInteractor
                 listener.onErrorPaymentTicket(message);
 
             }
-        },request);
+        }, request);
 
     }
 
-    }
+}
 
 

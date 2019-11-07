@@ -41,6 +41,10 @@ public class MatchItem implements Parcelable
     @Expose @Getter @Setter
     private Integer id;
 
+    @SerializedName("predict_time")
+    @Expose @Getter @Setter
+    private Double predictTime;
+
     @SerializedName("buy_enable")
     @Expose @Getter @Setter
     private Boolean buyEnable;
