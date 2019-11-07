@@ -1617,7 +1617,13 @@ public class SelectPositionFragment
 
     private void callReservationRequest()
     {
-        reservationMatch.reservationRequest(this, matchId, count, stadiumPositionModels.get(selectPositionId).getId() - 1);
+        Logger.e("-stadiumPositionModels-", "size: " + stadiumPositionModels.size());
+        Logger.e("-callReservationRequest-", "pos: " + selectPositionId);
+        reservationMatch.reservationRequest(this,
+                matchId,
+                count,
+                stadiumPositionModels.get(selectPositionId - 1).getId());
+//                stadiumPositionModels.get(selectPositionId).getId() - 1);
     }
 
     private void setAmounts(int countTicket)

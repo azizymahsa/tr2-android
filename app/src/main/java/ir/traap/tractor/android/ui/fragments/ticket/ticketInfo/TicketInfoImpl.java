@@ -33,6 +33,7 @@ public class TicketInfoImpl implements TicketInfoInteractor
                         else
                         {
                             listener.onErrorTicketInfo("پرداخت ناموفق!");
+
                         }
                     }
                     else
