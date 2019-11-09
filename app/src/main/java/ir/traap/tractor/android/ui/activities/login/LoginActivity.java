@@ -152,21 +152,22 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         if (isCode && canEnter)
         {
             Intent intent = null;
-            switch (goToActivity)
-            {
-                case UserActivity:
-                    intent = new Intent(this, UserActivity.class);
-
-                    break;
-                case PassCodeActivity:
-                    if (Const.TEST)
-                        intent = new Intent(this, MainActivity.class);
-                    else
-
-                        //  intent = new Intent(this, PassCodeActivity.class);
-
-                        break;
-            }
+//            switch (goToActivity)
+//            {
+//                case UserActivity:
+//                    intent = new Intent(this, UserActivity.class);
+//
+//                    break;
+//                case PassCodeActivity:
+//                    if (Const.TEST)
+//                        intent = new Intent(this, MainActivity.class);
+//                    else
+//
+//                        //  intent = new Intent(this, PassCodeActivity.class);
+//
+//                        break;
+//            }
+            intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();

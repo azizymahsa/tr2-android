@@ -268,10 +268,10 @@ public class LeagueTableFragment
 
 
     @Override
-    public void onItemClick(View view, int position)
+    public void onItemClick(View view, int position, String logoPath)
 
     {
-        PastResultFragment pastResultFragment = new PastResultFragment(mainView, fixTableAdapter.getItem(position).teamId);
+        PastResultFragment pastResultFragment = PastResultFragment.newInstance(mainView, fixTableAdapter.getItem(position).teamId, logoPath);
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
         // Toast.makeText(getContext(), "You clicked " + fixTableAdapter.getItem(position).teamId + " on row number " + position, Toast.LENGTH_SHORT).show();

@@ -56,7 +56,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private MatchItem matchPredict;
 
     private LinearLayout llAwayResultList, llHomeResultList, llChart;
-    private TextView tvAwayHeader, tvHomeHeader, tvAway, tvHome, tvCupTitle, tvDate, tvMatchResult, tvPredictEmpty;
+    private TextView tvAwayHeader, tvHomeHeader, tvAway, tvHome, tvCupTitle, tvDate, tvMatchResult, tvPredictEmpty, tvAwayPredict, tvHomePredict;
     private ImageView imgHomeHeader, imgAwayHeader, imgHome, imgAway, imgHomePredict, imgAwayPredict;
 
     private EditText edtAwayPredict, edtHomePredict;
@@ -67,6 +67,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private Pie pieChart;
     private Cartesian cartesian;
+
+    private Boolean isPredictable;
 
     private MainActionView mainView;
 
@@ -79,12 +81,13 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     {
     }
 
-    public static PredictFragment newInstance(MainActionView mainView, MatchItem matchPredict)
+    public static PredictFragment newInstance(MainActionView mainView, MatchItem matchPredict, Boolean isPredictable)
     {
         PredictFragment f = new PredictFragment();
         f.setMainView(mainView);
         Bundle arg = new Bundle();
         arg.putParcelable("matchPredict", matchPredict);
+        arg.putBoolean("isPredictable", isPredictable);
 
         f.setArguments(arg);
 
@@ -105,6 +108,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         if (getArguments() != null)
         {
             matchPredict = getArguments().getParcelable("matchPredict");
+            isPredictable = getArguments().getBoolean("isPredictable");
         }
     }
 
@@ -154,6 +158,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         edtAwayPredict = rootView.findViewById(R.id.edtAwayPredict);
         edtHomePredict = rootView.findViewById(R.id.edtHomePredict);
+
+        tvAwayPredict = rootView.findViewById(R.id.tvAwayPredict);
+        tvHomePredict = rootView.findViewById(R.id.tvHomePredict);
 
         tvAwayHeader = rootView.findViewById(R.id.tvAwayHeader);
         tvHomeHeader = rootView.findViewById(R.id.tvHomeHeader);
@@ -297,6 +304,29 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             vAway2.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
             vHome.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
             vHome2.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
+
+//            if (!response.data.getYouPredict())
+//            {
+//
+//            }
+            if (response.data.getYouPredict())
+            {
+                String result[] = response.data.getYouPredictResult().split("\\|");
+                if (isPredictable)
+                {
+                    edtHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
+                    edtAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
+                }
+                else
+                {
+                    tvHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
+                    tvAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
+
+                    edtHomePredict.setVisibility(View.GONE);
+                    edtAwayPredict.setVisibility(View.GONE);
+                    btnSendPredict.setVisibility(View.GONE);
+                }
+            }
 
             tvMatchResult.setText(response.data.getAwayScore() + " : " + response.data.getHomeScore());
 

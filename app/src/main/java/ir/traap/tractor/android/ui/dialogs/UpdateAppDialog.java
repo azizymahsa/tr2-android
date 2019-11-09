@@ -158,7 +158,7 @@ public class UpdateAppDialog extends BaseDialog implements View.OnClickListener
             {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 {
-                    requestPermission();
+                    requestPermissionConfirm();
                 }
                 else
                 {
@@ -176,18 +176,42 @@ public class UpdateAppDialog extends BaseDialog implements View.OnClickListener
                 updateApp.onDetailUpdate();
                 break;
             case R.id.btnGooglePlayUpdate:
-                updateApp.onUpdateFromGooglePlay();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    requestPermissionGooglePlay();
+                }
+                else
+                {
+                    updateApp.onUpdateFromGooglePlay();
+                }
+                dismiss();
                 break;
             case R.id.btnCafeBazaarUpdate:
-                updateApp.onUpdateFromCafeBazaar();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    requestPermissionCafeBazaar();
+                }
+                else
+                {
+                    updateApp.onUpdateFromCafeBazaar();
+                }
+                dismiss();
                 break;
             case R.id.btnWebSite:
-                updateApp.onUpdateFromWebSite(webSiteLink);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    requestPermissionSite();
+                }
+                else
+                {
+                    updateApp.onUpdateFromWebSite(webSiteLink);
+                }
+                dismiss();
                 break;
         }
     }
 
-    private void requestPermission()
+    private void requestPermissionConfirm()
     {
         new TedPermission(SingletonContext.getInstance().getContext())
                 .setPermissionListener(new PermissionListener()
@@ -201,7 +225,91 @@ public class UpdateAppDialog extends BaseDialog implements View.OnClickListener
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
-                        requestPermission();
+                        requestPermissionConfirm();
+                    }
+                })
+                .setPermissions(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .check();
+    }
+
+    private void requestPermissionCafeBazaar()
+    {
+        new TedPermission(SingletonContext.getInstance().getContext())
+                .setPermissionListener(new PermissionListener()
+                {
+                    @Override
+                    public void onPermissionGranted()
+                    {
+                        updateApp.onUpdateFromCafeBazaar();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
+                        requestPermissionCafeBazaar();
+                    }
+                })
+                .setPermissions(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .check();
+    }
+
+    private void requestPermissionGooglePlay()
+    {
+        new TedPermission(SingletonContext.getInstance().getContext())
+                .setPermissionListener(new PermissionListener()
+                {
+                    @Override
+                    public void onPermissionGranted()
+                    {
+                        updateApp.onUpdateFromGooglePlay();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
+                        requestPermissionGooglePlay();
+                    }
+                })
+                .setPermissions(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .check();
+    }
+
+    private void requestPermissionDirect()
+    {
+        new TedPermission(SingletonContext.getInstance().getContext())
+                .setPermissionListener(new PermissionListener()
+                {
+                    @Override
+                    public void onPermissionGranted()
+                    {
+                        goAction();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
+                        requestPermissionDirect();
+                    }
+                })
+                .setPermissions(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .check();
+    }
+
+    private void requestPermissionSite()
+    {
+        new TedPermission(SingletonContext.getInstance().getContext())
+                .setPermissionListener(new PermissionListener()
+                {
+                    @Override
+                    public void onPermissionGranted()
+                    {
+                        updateApp.onUpdateFromWebSite(webSiteLink);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
+                        requestPermissionSite();
                     }
                 })
                 .setPermissions(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)

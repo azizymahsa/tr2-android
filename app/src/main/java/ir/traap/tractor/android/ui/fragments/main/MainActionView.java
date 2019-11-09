@@ -37,7 +37,7 @@ public interface MainActionView extends BaseView
     void onBuyTicketClick(MatchItem matchBuyable);
     void onLeageClick ();
 
-    void onPredict(MatchItem matchPredict);
+    void onPredict(MatchItem matchPredict, Boolean isPredictable);
 
     void onCash();
 }
