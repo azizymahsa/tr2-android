@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 
 import com.gastudio.downloadloadding.library.GADownloadingView;
 
@@ -27,9 +28,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
+import ir.traap.tractor.android.BuildConfig;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.models.otherModels.download.Download;
 import ir.traap.tractor.android.ui.activities.splash.UpdateAppAction;
+import ir.traap.tractor.android.utilities.Logger;
 import library.android.eniac.base.BaseDialog;
 
 /**
@@ -48,6 +51,7 @@ public class UpdateDownloadDialog extends BaseDialog
     private String fileName = "Traap.apk";
     private File dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
     private File outputFile = new File(dirPath, fileName);
+//    private File outputFile = new File(dirPath + "/" + fileName);
 
 
     public UpdateDownloadDialog(Activity activity, UpdateAppAction action)
@@ -82,12 +86,15 @@ public class UpdateDownloadDialog extends BaseDialog
         {
             if (isDownloaded)
             {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
                 {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
-                    intent.setData(Uri.fromFile(outputFile));
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+//                    intent.setData(Uri.fromFile(outputFile));
+
+                    intent.setDataAndType(Uri.fromFile(outputFile), "application/vnd.android.package-archive");
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivityForResult(intent, 1234);
+
+                    activity.startActivity(intent);
                 }
                 else
                 {
@@ -107,16 +114,24 @@ public class UpdateDownloadDialog extends BaseDialog
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1234 && resultCode == Activity.RESULT_OK)
         {
-            callInstallProcess();
+//            callInstallProcess();
         }
     }
 
     private void callInstallProcess()
     {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(outputFile),
-                "application/vnd.android.package-archive");
+        Uri uri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", outputFile.getAbsoluteFile());
+
+        Logger.e("--path--", uri.getPath());
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+
+//        intent.setDataAndType(Uri.fromFile(outputFile), "application/vnd.android.package-archive");
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
+
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
         activity.startActivity(intent);
     }
 
@@ -172,6 +187,8 @@ public class UpdateDownloadDialog extends BaseDialog
                             "application/vnd.android.package-archive");
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+                    Logger.e("-outputFile-", outputFile.getAbsolutePath());
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                     {
                         try
@@ -180,6 +197,8 @@ public class UpdateDownloadDialog extends BaseDialog
                         }
                         catch (android.os.FileUriExposedException e)
                         {
+                            Logger.e("--Exception--", e.getMessage().toString());
+                            e.printStackTrace();
                             action.showAlert("مشکل در نصب فایل!");
                             dismiss();
                         }

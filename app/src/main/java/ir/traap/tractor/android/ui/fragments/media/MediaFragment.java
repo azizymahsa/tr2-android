@@ -75,10 +75,10 @@ public class MediaFragment extends BaseFragment
         mToolbar = rootView.findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-//        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
-//        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-//        tvTitle.setText("رسانه");
+        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvTitle.setText("رسانه");
         tvUserName.setText(Prefs.getString("mobile", ""));
 
         initView();
