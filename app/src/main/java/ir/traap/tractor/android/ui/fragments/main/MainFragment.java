@@ -224,6 +224,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     public void startTimer(long time)
     {
+
         countdownView.start(time);
         countdownView.setOnCountdownIntervalListener(1, new CountdownView.OnCountdownIntervalListener()
         {
