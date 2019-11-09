@@ -1045,6 +1045,7 @@ public class CompeletInfoFragment
     @Override
     public void onErrorPaymentTicket(String error)
     {
+        infoViewers.clear();
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
         Tools.showToast(getContext(),error,R.color.red);
     }

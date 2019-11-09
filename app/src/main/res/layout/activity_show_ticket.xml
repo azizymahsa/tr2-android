@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    android:background="#fff"
+    >
 <androidx.core.widget.NestedScrollView
     android:id="@+id/nested"
     android:layout_width="match_parent"
@@ -199,6 +202,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llSuccessPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10dp"
@@ -215,28 +224,28 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="100"
                 android:orientation="vertical">
-                <TextView
+               <!-- <TextView
                     android:id="@+id/tvDescTicket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:layout_weight="100"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize_14dp"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:layout_gravity="right"/>
+                    android:layout_gravity="end"/>-->
 
                 <TextView
                     android:id="@+id/tvMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:layout_marginTop="@dimen/_10dp"
                     android:layout_weight="100"
                     android:text="@string/buy_ticket_description"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize_14dp"
-                    android:layout_gravity="right"/>
+                    android:layout_gravity="end"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -254,7 +263,7 @@
                         android:text="کد پیگیری پرداخت : "
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp"
-                        android:layout_gravity="right"/>
+                        android:layout_gravity="end"/>
                 </RelativeLayout>
                 <TextView
                     android:layout_width="wrap_content"
@@ -324,11 +333,11 @@
 
                     <include
                         android:id="@+id/btnBackToHome"
-                        layout="@layout/home_button"
+                        layout="@layout/return_button"
+                        android:layout_height="@dimen/_35dp"
                         android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp" />
+                        android:layout_gravity="end"
+                         />
 
                     <ImageView
                         android:id="@+id/btnShareTicket"
@@ -346,7 +355,9 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="100">
+                    android:layout_weight="100"
+                    android:visibility="gone"
+                    >
 
                     <include
                         android:id="@+id/btnPaymentConfirm"
@@ -363,10 +374,78 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="10" />
         </LinearLayout>
-    </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llErrorPayment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#fff"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_40dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/error_ticket_payment"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/textSize_14dp" />
+
+            <TextView
+                android:id="@+id/tvRefrenceNumberFromErrorPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                >
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100">
+
+                    <include
+                        android:id="@+id/btnReturn"
+                        layout="@layout/return_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35dp"
+                        android:layout_gravity="center"
+                        />
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+             </LinearLayout>
 
 
 </androidx.core.widget.NestedScrollView>
-<include layout="@layout/loading"
-android:visibility="gone"/>
+
+        <include layout="@layout/loading"
+        android:visibility="gone"/>
     </RelativeLayout>

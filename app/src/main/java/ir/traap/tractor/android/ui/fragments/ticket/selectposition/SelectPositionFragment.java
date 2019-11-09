@@ -60,7 +60,7 @@ public class SelectPositionFragment
     ImageView ivDefault, ivSelected;
     RelativeLayout rlImageViewsFull;
     private static final String KEY_MODEL = "KEY_MODEL";
-    private TextView tvTitle, tvAmountStation, tvAmountForPay, tvStadiumName, tvDateTime, tvCount, tvM, tvP;
+    private TextView tvTitle, tvAmountStation, tvAmountForPay, tvStadiumName, tvDateTime, tvCount, tvM, tvP,tvHome,tvGuest;
     private OnListFragmentInteractionListener interactionListener;
     private ArrayList<String> allBoxes;
     private Spinner spinnerAllBoxes;
@@ -72,7 +72,7 @@ public class SelectPositionFragment
     private List<AllBoxesResult> allBoxesResponse;
     ArrayList<StadiumPositionModel> stadiumPositionModels = new ArrayList<>();
     private int amountForPay;
-    private ImageView imgView, imgHost, imgGuest;
+    private ImageView imgView, imgHost, imgGuest,imgBackground;
     private ImageView imgViewSelected;
     private int count = 1;
     private Integer matchId = 1;
@@ -135,7 +135,10 @@ public class SelectPositionFragment
         tvP = view.findViewById(R.id.tvP);
         tvStadiumName = view.findViewById(R.id.tvStadiumName);
         tvDateTime = view.findViewById(R.id.tvDateTime);
+        imgBackground=view.findViewById(R.id.imgBackground);
         imgHost = view.findViewById(R.id.imgHost);
+        tvHome=view.findViewById(R.id.tvHome);
+        tvGuest=view.findViewById(R.id.tvGuest);
         imgGuest = view.findViewById(R.id.imgGuest);
         llSliderItemMatch = view.findViewById(R.id.llSliderItemMatch);
 
@@ -173,6 +176,10 @@ public class SelectPositionFragment
             tvStadiumName.setText(matchBuyable.getStadium().getName());
             setImageColor(imgHost, matchBuyable.getTeamHome().getLogo());
             setImageColor(imgGuest, matchBuyable.getTeamAway().getLogo());
+            setImageColor(imgBackground,matchBuyable.getCup().getImageName());
+
+            tvHome.setText(matchBuyable.getTeamHome().getName());
+            tvGuest.setText(matchBuyable.getTeamAway().getName());
             //  tvDateTime.setText(getDate(matchBuyable.getMatchDatetime()));
             tvDateTime.setText(matchBuyable.getMatchDatetimeStr());
 
@@ -1605,7 +1612,7 @@ public class SelectPositionFragment
             case R.id.tvP:
                 if (count == 5)
                 {
-                    Tools.showToast(getContext(), "حداکثر تعداد بلیط قابل خرید 5 عدد میباشد.");
+                    Tools.showToast(getContext(), "حداکثر تعداد بلیت قابل خرید 5 عدد میباشد.");
                 }
                 if (count < 5)
                     count++;

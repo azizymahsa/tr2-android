@@ -21,6 +21,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -58,6 +59,8 @@ import java.util.regex.Pattern;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.singleton.SingletonContext;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 
 public class Utility
@@ -72,6 +75,27 @@ public class Utility
             index += chunkSize;
         }
         return strings;
+    }
+
+    public static String getPersianDate(String dateFormatServer)
+    {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd" );
+        String date = dateFormat.format(dateFormatServer);  // formatted date in string
+        String[] splitsDate = date.split("-");
+
+        PersianDate persianDate = new PersianDate();
+        persianDate.setGrgYear(Integer.valueOf(splitsDate[0]));
+        persianDate.setGrgMonth(Integer.valueOf(splitsDate[1]));
+        persianDate.setGrgDay(Integer.valueOf(splitsDate[2]));
+
+
+        PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d");
+        pdformater1.format(persianDate);//1396/05/20
+
+        date = String.valueOf(pdformater1.format(persianDate));//1396/05/20
+
+        return date;
     }
 
     public static int dpToPx(int dp)

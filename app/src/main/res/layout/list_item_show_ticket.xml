@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="250dp"
+            android:layout_height="@dimen/_250dp_r"
             android:layout_weight="1.8"
             android:gravity="center"
             android:background="@drawable/dotted_line"
@@ -28,7 +28,7 @@
                 android:textSize="@dimen/textSize_12dp"
                 android:maxLines="1"
                 android:gravity="center"
-                android:text="test"
+                android:text=""
                 android:singleLine="true"/>
             <TextView
                 android:id="@+id/tvNationalCode"
@@ -37,24 +37,101 @@
                 android:textColor="@color/_title_black"
                 android:textSize="@dimen/textSize_14dp"
                 android:gravity="center"
-                android:text="0012225555"
+                android:text=""
                 android:maxLines="1"
                 android:textStyle="bold"
                 android:singleLine="true"/>
             <TextView
-                android:id="@+id/tvLastName"
+                android:id="@+id/tvPosition"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30dp"
                 android:textColor="@color/_title_black"
                 android:textSize="@dimen/textSize_14dp"
                 android:maxLines="1"
-                android:text="last name"
+                android:text=" "
                 android:textStyle="bold"
                 android:gravity="center"
                 android:singleLine="true"/>
-
-
             <LinearLayout
+                android:id="@+id/llCenterView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80dp"
+                android:layout_below="@+id/llHeaderWeekNo"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
+                    <ImageView
+                        android:id="@+id/imgGuest"
+                        android:layout_width="@dimen/_60dp"
+                        android:layout_height="@dimen/_45dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/img_tractor"/>
+
+                    <TextView
+                        android:id="@+id/tvGuest"
+                        android:layout_below="@+id/imgGuest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_alignLeft="@+id/imgGuest"
+                        android:textColor="@color/textColorSecondary"
+                        android:text=""/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_soccer" />
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
+                    <ImageView
+                        android:id="@+id/imgHost"
+                        android:layout_width="@dimen/_60dp"
+                        android:layout_height="@dimen/_45dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="-2dp"
+                        android:src="@drawable/img_tractor" />
+
+                    <TextView
+                        android:id="@+id/tvHome"
+                        android:layout_below="@+id/imgHost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_alignRight="@+id/imgHost"
+                        android:textColor="@color/textColorSecondary"
+                        android:text=""/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        <!--    <LinearLayout
                 android:id="@+id/llCenterView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_70dp"
@@ -109,7 +186,7 @@
 
                 </RelativeLayout>
 
-            </LinearLayout>
+            </LinearLayout>-->
             <TextView
                 android:id="@+id/tvClubName"
                 android:layout_width="match_parent"
@@ -117,7 +194,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="ورزشگاه یادگار امام"
+                android:text=""
                 android:textColor="@color/warmGray"
                 android:textSize="@dimen/textSize_14dp"
                 android:textStyle="bold" />
@@ -128,7 +205,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text=" چهارشنبه 10 آبان 1398"
+                android:text=" "
                 android:textColor="@color/_title_black"
                 android:textSize="@dimen/textSize_14dp"
                 android:textStyle="bold" />
@@ -170,7 +247,7 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="@dimen/_80dp"
-            android:layout_height="250dp"
+            android:layout_height="@dimen/_250dp_r"
             android:gravity="center"
             android:layout_marginEnd="@dimen/_10dp"
             android:background="@drawable/left_line_invisible"
