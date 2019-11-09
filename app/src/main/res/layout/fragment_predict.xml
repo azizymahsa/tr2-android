@@ -340,11 +340,23 @@
                     android:textSize="@dimen/textSize_18dp"
                     android:text="آمار پیش بینی شرکت کنندگان:"/>
 
-                <com.anychart.AnyChartView
-                    android:id="@+id/chartViewPie"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:background="@android:color/transparent"
-                    android:layout_height="@dimen/_200dp" />
+                    android:layout_height="wrap_content">
+
+                    <com.anychart.AnyChartView
+                        android:id="@+id/chartViewPie"
+                        android:layout_width="match_parent"
+                        android:background="@android:color/transparent"
+                        android:layout_height="@dimen/_200dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/white"/>
+
+                </RelativeLayout>
 
 <!--                <com.anychart.AnyChartView-->
 <!--                    android:id="@+id/chartViewColumn"-->

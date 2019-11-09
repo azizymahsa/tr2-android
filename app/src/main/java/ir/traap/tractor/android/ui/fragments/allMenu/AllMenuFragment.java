@@ -135,17 +135,15 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
         mToolbar = rootView.findViewById(R.id.toolbar);
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
-
         tvUserName.setText(Prefs.getString("mobile", ""));
 
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mainView.openDrawer();
-            }
-        });
+        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvTitle.setText("همه سرویسها");
+
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+
         return rootView;
     }
 

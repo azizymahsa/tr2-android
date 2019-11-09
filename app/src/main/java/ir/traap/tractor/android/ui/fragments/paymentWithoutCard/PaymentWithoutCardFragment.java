@@ -119,9 +119,12 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
         mToolbar = v.findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-//        mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(Prefs.getString("mobile", ""));
+
+        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvTitle.setText("پرداخت بدون کارت");
 
         initView();
 

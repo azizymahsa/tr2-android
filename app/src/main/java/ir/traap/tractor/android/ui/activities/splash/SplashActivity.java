@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -50,6 +51,7 @@ import ir.traap.tractor.android.ui.dialogs.DialogGetPermissionRequest;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.dialogs.UpdateAppDialog;
 import ir.traap.tractor.android.ui.dialogs.UpdateDownloadDialog;
+import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.Tools;
 import ir.traap.tractor.android.utilities.Utility;
 import okhttp3.OkHttpClient;
@@ -90,13 +92,16 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         try
         {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e)
+        }
+        catch (PackageManager.NameNotFoundException e)
         {
             e.printStackTrace();
         }
 
         ((TextView) findViewById(R.id.tvVersion)).setText("نسخه " + pInfo.versionName);
 
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -106,9 +111,10 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                 {
                     versionRequest();
                 }
-//                goToActivity();
+
             }
-        } else
+        }
+        else
         {
             if (Utility.isNetworkAvailable())
             {
@@ -257,10 +263,13 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         String fileName = "Traap.apk";
         File dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File outputFile = new File(dirPath, fileName);
+//        File outputFile = new File(dirPath + "/" + fileName);
         if (outputFile.exists())
         {
             outputFile.delete();
         }
+
+        Logger.e("-Save File-", outputFile.getAbsolutePath());
 
         OkHttpClient.Builder client = new OkHttpClient.Builder();
         client.connectTimeout(70, TimeUnit.SECONDS);
@@ -403,7 +412,11 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                         @Override
                         public void onConfirmClick()
                         {
-                            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+                            ActivityCompat.requestPermissions(SplashActivity.this,
+                                    new String[]{Manifest.permission.READ_PHONE_STATE,
+                                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                            Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    REQUEST_CODE);
                         }
 
                         @Override
@@ -417,7 +430,10 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 //            Tools.showToast(this, "برای ادامه کار حتما باید مجوز دسترسی به وضعیت دستگاه صادر شود.لطفا در تنظیمات برنامه مجوز مربوطه را صادر نمایید.");
         } else
         {
-            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE},
+                    REQUEST_CODE);
         }
     }
 
