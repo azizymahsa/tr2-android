@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
+    android:background="#fff"
     >
 <androidx.core.widget.NestedScrollView
     android:id="@+id/nested"
@@ -205,7 +206,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -332,11 +333,11 @@
 
                     <include
                         android:id="@+id/btnBackToHome"
-                        layout="@layout/home_button"
+                        layout="@layout/return_button"
+                        android:layout_height="@dimen/_35dp"
                         android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp" />
+                        android:layout_gravity="end"
+                         />
 
                     <ImageView
                         android:id="@+id/btnShareTicket"
@@ -354,7 +355,9 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="100">
+                    android:layout_weight="100"
+                    android:visibility="gone"
+                    >
 
                     <include
                         android:id="@+id/btnPaymentConfirm"
@@ -379,9 +382,9 @@
             android:orientation="vertical"
             android:background="#fff"
             android:gravity="center"
-            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_40dp"
             android:layout_gravity="center_horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"

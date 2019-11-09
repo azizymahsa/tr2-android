@@ -40,7 +40,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
     private TextView tvPopularPlayer;
     private View view;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private View btnShareTicket, btnPaymentConfirm, btnBackToHome;
+    private View btnShareTicket, btnPaymentConfirm, btnBackToHome,btnReturn;
     private TextView tvDescTicket;
     private String firstName, lastName;
     private RecyclerView rvTickets;
@@ -139,9 +139,12 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
 
         llSuccessPayment = findViewById(R.id.llSuccessPayment);
         llErrorPayment=findViewById(R.id.llErrorPayment);
-        //tvDescTicket = findViewById(R.id.tvDescTicket);
         btnShareTicket = findViewById(R.id.btnShareTicket);
         btnPaymentConfirm = findViewById(R.id.btnPaymentConfirm);
+
+        btnReturn=findViewById(R.id.btnReturn);
+        btnReturn.setOnClickListener(this);
+
         btnBackToHome = findViewById(R.id.btnBackToHome);
         rvTickets = findViewById(R.id.rvTickets);
         btnShareTicket.setOnClickListener(this);
@@ -232,8 +235,6 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         llErrorPayment.setVisibility(View.VISIBLE);
         Tools.showToast(this, error, R.color.red);
         hideLoading();
-        //  BuyTicketsFragment.buyTicketsFragment.hideLoading();
-
     }
 
 
