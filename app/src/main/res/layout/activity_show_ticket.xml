@@ -27,7 +27,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="102dp"
-                android:background="@drawable/background_main_header2" />
+                android:background="@drawable/background_main_header" />
 
             <RelativeLayout
                 android:id="@+id/header"

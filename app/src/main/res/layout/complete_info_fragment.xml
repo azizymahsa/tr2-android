@@ -930,7 +930,7 @@
                                         android:layout_marginTop="5dp"
                                         android:layout_marginBottom="5dp"
 
-                                        android:gravity="end"
+                                        android:gravity="right"
                                         android:text="صحت اطلاعات وارد شده را تایید می نمایم."
                                         android:textColor="@color/_title_black"
                                         android:textSize="@dimen/textSize_12dp" />

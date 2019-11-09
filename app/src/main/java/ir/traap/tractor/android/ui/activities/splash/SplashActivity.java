@@ -12,7 +12,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -95,6 +97,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
         ((TextView) findViewById(R.id.tvVersion)).setText("نسخه " + pInfo.versionName);
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             if (setPermission())
@@ -169,8 +172,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 //            showError(response.info.message);
             Tools.showToast(this, response.info.message, R.color.red);
             goToActivity();
-        }
-        else
+        } else
         {
             if (BuildConfig.VERSION_CODE >= response.data.getVersion())
             {
@@ -380,8 +382,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         if (result == mGranted && result2 == mGranted && result3 == mGranted)
         {
             return true;
-        }
-        else
+        } else
         {
             return false;
         }

@@ -55,7 +55,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
 
         if (!current.getIsActive())
         {
-            holder.lyItem.setAlpha(0.5f);
+            holder.lyItem.setAlpha(0.3f);
             holder.lyItem.setClickable(false);
         }
 //        if (current.getItemNumber() >= 0)

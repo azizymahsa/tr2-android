@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -27,7 +28,7 @@ import ir.traap.tractor.android.utilities.Logger;
 
 public class MenuDrawer extends Fragment
 {
-    private CardView cardProfile;
+    private RelativeLayout cardProfile;
 
     private static String TAG = MenuDrawer.class.getSimpleName();
 

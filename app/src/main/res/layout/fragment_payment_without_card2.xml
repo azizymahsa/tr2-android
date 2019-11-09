@@ -21,7 +21,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="102dp"
-                android:background="@drawable/background_main_header2" />
+                android:background="@drawable/background_main_header" />
 
             <RelativeLayout
                 android:id="@+id/header"
@@ -36,7 +36,7 @@
                 android:layout_alignParentTop="true"
                 android:background="@android:color/transparent">
 
-                <include layout="@layout/toolbar_main" />
+                <include layout="@layout/toolbar_back" />
 
             </androidx.appcompat.widget.Toolbar>
 

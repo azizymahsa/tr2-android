@@ -12,7 +12,7 @@
     <RelativeLayout
         android:id="@+id/rlRoot"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_170sdp"
+        android:layout_height="@dimen/_210sdp"
         android:visibility="visible">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -25,7 +25,7 @@
             android:scaleType="fitXY"
             app:riv_corner_radius="15dp"
             app:riv_border_width="1dp"
-            app:riv_border_color="@color/borderColorRed"
+            app:riv_border_color="@color/buttonMainBorderColor"
             app:riv_mutate_background="true"
             app:riv_oval="false"  />
 
@@ -46,9 +46,11 @@
 
         <RelativeLayout
             android:id="@+id/llHeaderWeekNo"
-            android:layout_width="@dimen/_90dp"
-            android:layout_height="@dimen/_45dp"
+            android:layout_width="@dimen/_80dp"
+            android:layout_height="@dimen/_50dp"
             android:gravity="center"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="3dp"
             android:background="@drawable/header_main_week_no_background"
             android:orientation="horizontal">
 
@@ -82,7 +84,7 @@
         <LinearLayout
             android:id="@+id/llCenterView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_70dp"
+            android:layout_height="@dimen/_80dp"
             android:layout_below="@+id/llHeaderWeekNo"
             android:orientation="horizontal">
 
@@ -93,11 +95,22 @@
 
                 <ImageView
                     android:id="@+id/imgGuest"
-                    android:layout_width="@dimen/_70dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_60dp"
+                    android:layout_height="@dimen/_50dp"
                     android:layout_alignParentEnd="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/img_guest_test" />
+
+                <TextView
+                    android:id="@+id/tvAway"
+                    android:layout_below="@+id/imgGuest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="16dp"
+                    android:textSize="@dimen/textSize_12dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:text="میهمان"/>
 
             </RelativeLayout>
 
@@ -140,11 +153,22 @@
 
                 <ImageView
                     android:id="@+id/imgHost"
-                    android:layout_width="@dimen/_70dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_60dp"
+                    android:layout_height="@dimen/_50dp"
                     android:layout_alignParentStart="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/img_tractor" />
+
+                <TextView
+                    android:id="@+id/tvHome"
+                    android:layout_below="@+id/imgHost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="16dp"
+                    android:textSize="@dimen/textSize_12dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:text="میزبان"/>
 
             </RelativeLayout>
 

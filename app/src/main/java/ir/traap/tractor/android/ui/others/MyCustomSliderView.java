@@ -2,7 +2,6 @@ package ir.traap.tractor.android.ui.others;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import lombok.Setter;
 
 public class MyCustomSliderView extends BaseSliderView
 {
-    private TextView tvHeaderText, tvHeaderSubText, tvStadiumName, tvDateTime, tvMatchResult;
+    private TextView tvHeaderText, tvHeaderSubText, tvStadiumName, tvDateTime, tvMatchResult, tvHome, tvAway;
     private ImageView imgGuest, imgHost, imgBackground, imgCenter;
     private RelativeLayout rlRoot;
 
@@ -32,7 +31,7 @@ public class MyCustomSliderView extends BaseSliderView
 
     @Getter @Setter
     @Nullable
-    private String imgAwayLink, imgHomeLink, imgBackgroundLink, headerDesc, stadiumName, dateTime, matchResult;
+    private String imgAwayLink, imgHomeLink, imgBackgroundLink, headerDesc, stadiumName, dateTime, matchResult, teamHomeName, teamAwayName;
 
     private ProgressBar progress;
 
@@ -52,6 +51,8 @@ public class MyCustomSliderView extends BaseSliderView
         imgHost = rootView.findViewById(R.id.imgHost);
         imgGuest = rootView.findViewById(R.id.imgGuest);
         tvHeaderText = rootView.findViewById(R.id.tvHeaderText);
+        tvHome = rootView.findViewById(R.id.tvHome);
+        tvAway = rootView.findViewById(R.id.tvAway);
         tvHeaderSubText = rootView.findViewById(R.id.tvHeaderSubText);
         tvStadiumName = rootView.findViewById(R.id.tvStadiumName);
         tvDateTime = rootView.findViewById(R.id.tvDateTime);
@@ -59,8 +60,8 @@ public class MyCustomSliderView extends BaseSliderView
 
         progress = rootView.findViewById(R.id.progress);
 
-        tvHeaderText.setTypeface(Typeface.SANS_SERIF);
-        tvHeaderSubText.setTypeface(Typeface.SANS_SERIF);
+//        tvHeaderText.setTypeface(Typeface.SANS_SERIF);
+//        tvHeaderSubText.setTypeface(Typeface.SANS_SERIF);
 
         progress.setVisibility(View.VISIBLE);
         bindAndShow();
@@ -95,6 +96,16 @@ public class MyCustomSliderView extends BaseSliderView
 //                tvHeaderText.setTextSize(mContext.getResources().getDimension(R.dimen.headerMainWeeklessTextSize));
                 tvHeaderSubText.setVisibility(View.GONE);
             }
+        }
+
+        if (getTeamHomeName() != null)
+        {
+            tvHome.setText(getTeamHomeName());
+        }
+
+        if (getTeamAwayName() != null)
+        {
+            tvAway.setText(getTeamAwayName());
         }
 
         if (getStadiumName() != null)
