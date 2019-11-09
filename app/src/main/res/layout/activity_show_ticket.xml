@@ -441,13 +441,11 @@
         </LinearLayout>
 
 
-
              </LinearLayout>
-
 
 
 </androidx.core.widget.NestedScrollView>
 
-<include layout="@layout/loading"
-android:visibility="gone"/>
+        <include layout="@layout/loading"
+        android:visibility="gone"/>
     </RelativeLayout>

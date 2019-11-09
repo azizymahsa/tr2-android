@@ -60,10 +60,15 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
     {
         nationalCode=ticketItems.get(position).getNationalCode();
         setBarcode(nationalCode,holder);
-        holder.tvName.setText(ticketItems.get(position).getFirstName());
-        holder.tvNationalCode.setText(ticketItems.get(position).getNationalCode());
-        holder.tvLastName.setText(ticketItems.get(position).getLastName());
+        holder.tvName.setText(ticketItems.get(position).getFirstName()+ "  "+ticketItems.get(position).getLastName());
+        holder.tvNationalCode.setText("کد ملی: "+ticketItems.get(position).getNationalCode());
+        holder.tvPosition.setText("جایگاه "+ticketItems.get(position).getBoxName());
         holder.tvClubName.setText(ticketItems.get(position).getStadiumName());
+
+        holder.tvHome.setText(ticketItems.get(position).getHomeName());
+        holder.tvGuest.setText(ticketItems.get(position).getAwayName());
+
+        holder.tvDate.setText(ticketItems.get(position).getMatchDate());
 
         if (ticketItems.get(position).getHomeLogo() != null)
         {
@@ -127,19 +132,21 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView ivBarcode,imgGuest,imgHost;
-        public TextView tvName,tvNationalCode,tvLastName,tvClubName,tvDate;
+        public TextView tvName,tvNationalCode,tvPosition,tvClubName,tvDate,tvHome,tvGuest;
 
         public ViewHolder(View v)
         {
             super(v);
             ivBarcode = v.findViewById(R.id.ivBarcode);
             tvName = v.findViewById(R.id.tvName);
-            tvLastName=v.findViewById(R.id.tvLastName);
+            tvPosition=v.findViewById(R.id.tvPosition);
             tvNationalCode = v.findViewById(R.id.tvNationalCode);
             tvClubName=v.findViewById(R.id.tvClubName);
             tvDate=v.findViewById(R.id.tvDate);
             imgGuest=v.findViewById(R.id.imgGuest);
             imgHost=v.findViewById(R.id.imgHost);
+            tvHome=v.findViewById(R.id.tvHome);
+            tvGuest=v.findViewById(R.id.tvGuest);
            /* imgArrow = v.findViewById(R.id.imgArrow);
             tvTitle = v.findViewById(R.id.tvTitle);
             buttonLayout = v.findViewById(R.id.buttonLayout);*/

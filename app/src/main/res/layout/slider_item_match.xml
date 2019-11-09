@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="ltr"
     android:paddingStart="8dp"
     android:paddingEnd="8dp"
@@ -13,14 +14,19 @@
         android:layout_height="@dimen/_180dp"
         android:visibility="visible">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
+            android:foreground="?attr/selectableItemBackground"
             android:background="@drawable/button_main_background_border"
-            android:scaleType="fitCenter" />
-
+            android:scaleType="fitXY"
+            app:riv_corner_radius="15dp"
+            app:riv_border_width="1dp"
+            app:riv_border_color="@color/buttonMainBorderColor"
+            app:riv_mutate_background="true"
+            app:riv_oval="false"  />
 
         <LinearLayout
             android:id="@+id/llCenterView"
@@ -114,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="استادیوم"
+                android:text=""
                 android:textColor="@color/textColorStadiumName"
                 android:textSize="@dimen/textSize_14dp" />
 
@@ -123,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="تاریخ"
+                android:text=""
                 android:textColor="@color/textColorSecondary"
                 android:textSize="@dimen/textSize_16dp" />
 
