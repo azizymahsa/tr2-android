@@ -2,6 +2,7 @@ package ir.traap.tractor.android.ui.adapters.ticket;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -30,6 +33,7 @@ import ir.traap.tractor.android.ui.fragments.main.MainActionView;
  */
 public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.ViewHolder>
 {
+    private final MainActionView mainView;
     private Context context;
     private String nationalCode;
     private List<ResultTicketInfo> ticketItems;
@@ -38,6 +42,7 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
     public ShowTicketAdapter(List<ResultTicketInfo> results, MainActionView mainView)
     {
         this.ticketItems = results;
+        this.mainView=mainView;
     }
 
 
@@ -60,7 +65,40 @@ public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.Vi
         holder.tvLastName.setText(ticketItems.get(position).getLastName());
         holder.tvClubName.setText(ticketItems.get(position).getStadiumName());
 
+        if (ticketItems.get(position).getHomeLogo() != null)
+        {
+            setImageBackground(holder.imgHost, ticketItems.get(position).getHomeLogo());
+        }
+
+        if (ticketItems.get(position).getAwayLogo() != null)
+        {
+            setImageBackground(holder.imgGuest, ticketItems.get(position).getAwayLogo());
+        }
+
     }
+
+    private void setImageBackground(ImageView image, String link)
+    {
+        try
+        {
+            Picasso.with(context).load(Uri.parse(link)).into(image, new Callback()
+            {
+                @Override
+                public void onSuccess() { }
+
+                @Override
+                public void onError()
+                {
+                    Picasso.with(context).load(R.drawable.img_failure).into(image);
+                }
+            });
+        }
+        catch (NullPointerException e)
+        {
+            Picasso.with(context).load(R.drawable.img_failure).into(image);
+        }
+    }
+
     private void setBarcode(String nationalCode, ViewHolder holder)
     {
         //String text="0480759294"; // Whatever you need to encode in the QR code

@@ -65,6 +65,7 @@
     <string name="Error_nationall_code_input">کد ملی تکراری است</string>
     <string name="Please_enter_first_name_in_Persian">لطفا نام خود را وارد نمایید</string>
     <string name="profile_desc">(وارد کردن شماره بازیکن محبوب به صورت اجباری، و بقیه موارد به صورت اختیاری می باشد.)</string>
+    <string name="error_ticket_payment">کاربر گرامی؛  متاسفانه خرید شما ناموفق بوده است.</string>
 
 
     <string-array name="string_array_alcohol">

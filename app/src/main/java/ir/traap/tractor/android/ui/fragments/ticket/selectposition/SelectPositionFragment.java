@@ -1605,7 +1605,7 @@ public class SelectPositionFragment
             case R.id.tvP:
                 if (count == 5)
                 {
-                    Tools.showToast(getContext(), "حداکثر تعداد بلیط قابل خرید 5 عدد میباشد.");
+                    Tools.showToast(getContext(), "حداکثر تعداد بلیت قابل خرید 5 عدد میباشد.");
                 }
                 if (count < 5)
                     count++;

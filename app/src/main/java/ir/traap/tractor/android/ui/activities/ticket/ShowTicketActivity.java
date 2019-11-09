@@ -19,6 +19,7 @@ import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import ir.traap.tractor.android.apiServices.model.showTicket.ShowTicketItem;
 import ir.traap.tractor.android.ui.adapters.ticket.ShowTicketAdapter;
+import ir.traap.tractor.android.ui.base.BaseActivity;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
@@ -27,7 +28,7 @@ import ir.traap.tractor.android.ui.fragments.ticket.ticketInfo.TicketInfoInterac
 import ir.traap.tractor.android.utilities.ScreenShot;
 import ir.traap.tractor.android.utilities.Tools;
 
-public class ShowTicketActivity extends AppCompatActivity implements View.OnClickListener, TicketInfoInteractor.OnFinishedTicketInfoListener
+public class ShowTicketActivity extends BaseActivity implements View.OnClickListener, TicketInfoInteractor.OnFinishedTicketInfoListener
 {
     private TextView btnBackToDetail, tvCountTicket, tvSelectPosition, tvFullInfo, tvPrintTicket;
     private ImageView ivCountTicket, ivSelectPosition, ivFullInfo, ivPrintTicket;
@@ -48,8 +49,9 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
     private ArrayList<ShowTicketItem> ticketItems = new ArrayList<>();
     private MainActionView mainView;
     private MessageAlertDialog.OnConfirmListener listener = null;
-    private LinearLayout llFram;
-    private String refrenceNumber;
+    private LinearLayout llSuccessPayment,llErrorPayment;
+    private String refrenceNumber="";
+    private TextView txRefrenceNumber,tvRefrenceNumberFromErrorPayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -115,7 +117,7 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onCancelClick()
             {
-                onBackPressed();
+                finish();
             }
         };
         ivCountTicket = findViewById(R.id.ivCountTicket);
@@ -130,9 +132,14 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
         vOneToTow = findViewById(R.id.vOneToTow);
         vTowToThree = findViewById(R.id.vTowToThree);
 
+        txRefrenceNumber=findViewById(R.id.txRefrenceNumber);
+        txRefrenceNumber.setText(" کد پیگیری پرداخت: "+refrenceNumber);
+        tvRefrenceNumberFromErrorPayment=findViewById(R.id.tvRefrenceNumberFromErrorPayment);
+        tvRefrenceNumberFromErrorPayment.setText(" کد پیگیری پرداخت: "+refrenceNumber);
 
-        llFram = findViewById(R.id.llFram);
-        tvDescTicket = findViewById(R.id.tvDescTicket);
+        llSuccessPayment = findViewById(R.id.llSuccessPayment);
+        llErrorPayment=findViewById(R.id.llErrorPayment);
+        //tvDescTicket = findViewById(R.id.tvDescTicket);
         btnShareTicket = findViewById(R.id.btnShareTicket);
         btnPaymentConfirm = findViewById(R.id.btnPaymentConfirm);
         btnBackToHome = findViewById(R.id.btnBackToHome);
@@ -187,7 +194,6 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btnBackToHome:
 
-                //MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟");
                 MessageAlertDialog dialog = new MessageAlertDialog(this, "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
                         false, "بله", "بستن", listener);
                 dialog.show(this.getFragmentManager(), "dialog");
@@ -195,8 +201,12 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
 
                 break;
             case R.id.btnShareTicket:
-                new ScreenShot(llFram, this);
+                new ScreenShot(llSuccessPayment, this);
                 // Tools.showToast(getContext(), "share");
+                break;
+
+            case R.id.btnReturn:
+                finish();
                 break;
         }
     }
@@ -207,9 +217,9 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
 
         showTicketAdapter = new ShowTicketAdapter(response.getResults(), mainView);
         rvTickets.setAdapter(showTicketAdapter);
-
+        llSuccessPayment.setVisibility(View.VISIBLE);
+        llErrorPayment.setVisibility(View.GONE);
         hideLoading();
-        //BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
 
     }
@@ -217,7 +227,9 @@ public class ShowTicketActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onErrorTicketInfo(String error)
     {
-        ((TextView) findViewById(R.id.tvMessage)).setText("کاربر گرامی؛ متاسفانه خرید شما ناموفق بوده است.");
+      //  ((TextView) findViewById(R.id.tvMessage)).setText("کاربر گرامی؛ متاسفانه خرید شما ناموفق بوده است.");
+        llSuccessPayment.setVisibility(View.GONE);
+        llErrorPayment.setVisibility(View.VISIBLE);
         Tools.showToast(this, error, R.color.red);
         hideLoading();
         //  BuyTicketsFragment.buyTicketsFragment.hideLoading();
