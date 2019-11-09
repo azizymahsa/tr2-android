@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private MainServiceModelAdapter adapter;
+
+    private Boolean isPredictable = true;
 
     private Toolbar mToolbar;
 
@@ -208,7 +211,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         rlPredict.setOnClickListener(v ->
         {
-            mainView.onPredict(matchPredict);
+            mainView.onPredict(matchPredict, isPredictable);
 //            matchCurrent
         });
 
@@ -338,10 +341,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 if (remainPredictTime > 0)
                 {
+
+                    isPredictable = true;
                     startTimer(time);
                 }
                 else
                 {
+                    isPredictable = false;
                     rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
                     ((TextView)rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
                 }
@@ -403,6 +409,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         mDemoSlider.setCurrentPosition(matchList.indexOf(matchCurrent));
         mDemoSlider.stopAutoCycle();
 
+        mainView.hideLoading();
     }
 
     @Override
@@ -648,14 +655,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             getActivity().finish();
 
             return;
-        } else
+        }
+        else
         {
             matchList = responseMatchList.data.getMatchList();
 
             setSlider();
         }
 
-        mainView.hideLoading();
+//        mainView.hideLoading();
     }
 
     @Override

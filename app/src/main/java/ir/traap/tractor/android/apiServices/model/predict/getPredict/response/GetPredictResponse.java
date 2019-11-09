@@ -1,5 +1,7 @@
 package ir.traap.tractor.android.apiServices.model.predict.getPredict.response;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,6 +15,11 @@ public class GetPredictResponse
     @SerializedName("you_predict")
     @Expose @Getter @Setter
     private Boolean youPredict;
+
+    @SerializedName("you_predict_result")
+    @Expose @Getter @Setter
+    @Nullable
+    private String youPredictResult = null;
 
     @SerializedName("home_team_logo")
     @Expose @Getter @Setter

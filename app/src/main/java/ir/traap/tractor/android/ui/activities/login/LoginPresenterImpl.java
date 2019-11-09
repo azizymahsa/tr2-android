@@ -168,7 +168,8 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     if (response.info.statusCode == 200)
                     {
                         setProfileData(response);
-                        loginView.onButtonActions(true, GoToActivity.UserActivity);
+//                        loginView.onButtonActions(true, GoToActivity.UserActivity);
+                        loginView.onButtonActions(true, GoToActivity.MainActivity);
                         loginView.hideLoading();
                     } else
                     {

@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
 
@@ -490,10 +491,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void hideLoading()
     {
-        findViewById(R.id.rlLoading).setVisibility(View.GONE);
-        runOnUiThread(() ->
-        {
-        });
+        new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 3000);
     }
 
     @Override
@@ -745,7 +743,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (mainFragment != null)
         {
             fragment = mainFragment;
-        } else
+        }
+        else
         {
             fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
         }
@@ -818,10 +817,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onPredict(MatchItem matchPredict)
+    public void onPredict(MatchItem matchPredict, Boolean isPredictable)
     {
         isMainFragment = false;
-        this.fragment = PredictFragment.newInstance(this, matchPredict);
+        this.fragment = PredictFragment.newInstance(this, matchPredict, isPredictable);
 
         transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
