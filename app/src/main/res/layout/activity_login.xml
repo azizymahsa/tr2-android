@@ -39,7 +39,7 @@
                     android:layout_width="@dimen/_150dp"
                     android:layout_height="@dimen/_150dp"
                     android:layout_centerInParent="true"
-                    />
+                    android:src="@drawable/ic_logo_main_traap"/>
 
                 <TextView
                     android:id="@+id/tv2"
@@ -48,10 +48,9 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/ic_logo_main"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:textColor="@color/textColorPrimary"
-                    android:textSize="@dimen/iconSize_45dp"
-
-                    />
+                    android:textSize="@dimen/iconSize_45dp" />
 
             </RelativeLayout>
 
@@ -62,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="end"
+                android:layout_gravity="right"
                 android:layout_margin="10dp"
                 android:text="@string/enter"
                 android:textColor="@color/textColorSecondary"
@@ -75,7 +74,7 @@
             android:id="@+id/tvDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="right"
             android:gravity="center"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"

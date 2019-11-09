@@ -25,7 +25,7 @@
         <LinearLayout
             android:id="@+id/llCenterView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_70dp"
+            android:layout_height="@dimen/_60dp"
             android:layout_below="@+id/llHeaderWeekNo"
             android:layout_marginTop="@dimen/_20dp"
             android:orientation="horizontal">
@@ -37,10 +37,20 @@
 
                 <ImageView
                     android:id="@+id/imgGuest"
-                    android:layout_width="@dimen/_70dp"
-                    android:layout_height="@dimen/_70dp"
-                    android:layout_alignParentEnd="true"
-                    />
+                    android:layout_width="@dimen/_60dp"
+                    android:layout_height="@dimen/_45dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/img_tractor"/>
+
+                <TextView
+                    android:id="@+id/tvGuest"
+                    android:layout_below="@+id/imgGuest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_alignLeft="@+id/imgGuest"
+                    android:textColor="@color/textColorSecondary"
+                    android:text="میهمان"/>
 
             </RelativeLayout>
 
@@ -71,10 +81,21 @@
 
                 <ImageView
                     android:id="@+id/imgHost"
-                    android:layout_width="@dimen/_70dp"
-                    android:layout_height="@dimen/_70dp"
-                    android:layout_alignParentStart="true"
+                    android:layout_width="@dimen/_60dp"
+                    android:layout_height="@dimen/_45dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="-2dp"
                     android:src="@drawable/img_tractor" />
+
+                <TextView
+                    android:id="@+id/tvHome"
+                    android:layout_below="@+id/imgHost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_alignRight="@+id/imgHost"
+                    android:textColor="@color/textColorSecondary"
+                    android:text="میزبان"/>
 
             </RelativeLayout>
 
@@ -92,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text=""
+                android:text="استادیوم"
                 android:textColor="@color/textColorStadiumName"
                 android:textSize="@dimen/textSize_14dp" />
 
@@ -101,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text=" "
+                android:text="تاریخ"
                 android:textColor="@color/textColorSecondary"
                 android:textSize="@dimen/textSize_16dp" />
 

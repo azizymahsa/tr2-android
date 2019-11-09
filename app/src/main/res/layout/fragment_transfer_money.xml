@@ -24,7 +24,7 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/background_main_header">
 
-            <include layout="@layout/toolbar_main" />
+            <include layout="@layout/toolbar_back" />
 
         </androidx.appcompat.widget.Toolbar>
 
