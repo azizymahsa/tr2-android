@@ -25,7 +25,6 @@ import java.util.List;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.ResultTicketInfo;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.utilities.Utility;
 
 /**
  * Created by MahtabAzizi on 10/28/2019.

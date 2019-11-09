@@ -110,15 +110,15 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onConfirmClick()
             {
-                mainView.backToMainFragment();
+                finish();
 
             }
 
             @Override
             public void onCancelClick()
             {
-                finish();
             }
+
         };
         ivCountTicket = findViewById(R.id.ivCountTicket);
         tvCountTicket = findViewById(R.id.tvCountTicket);

@@ -93,8 +93,6 @@ public class Utility
         PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d");
         pdformater1.format(persianDate);//1396/05/20
 
-        //PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
-        // date = String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
         date = String.valueOf(pdformater1.format(persianDate));//1396/05/20
 
         return date;
