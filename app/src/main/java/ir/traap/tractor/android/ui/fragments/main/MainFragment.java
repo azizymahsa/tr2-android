@@ -354,10 +354,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             }
 
             MyCustomSliderView textSliderView = new MyCustomSliderView(getActivity());
-            textSliderView.setStadiumName("ورزشگاه " + matchItem.getStadium().getName());
+            textSliderView.setStadiumName(matchItem.getStadium().getName());
             textSliderView.setDateTime(matchItem.getMatchDatetimeStr());
 //            textSliderView.setColorDateTime("#000");
 //            textSliderView.setColorStadiumName("#aaa");
+            textSliderView.setTeamHomeName(matchItem.getTeamHome().getName());
+            textSliderView.setTeamAwayName(matchItem.getTeamAway().getName());
             textSliderView.setHeaderDesc(matchItem.getDescription());
             textSliderView.setImgBackgroundLink(matchItem.getCup().getImageName());
             textSliderView.setImgAwayLink(matchItem.getTeamAway().getLogo());

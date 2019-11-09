@@ -24,7 +24,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="102dp"
-                android:background="@drawable/background_main_header2" />
+                android:background="@drawable/background_main_header" />
 
             <RelativeLayout
                 android:id="@+id/header"
@@ -219,24 +219,24 @@
                     android:id="@+id/tvDescTicket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:gravity="right"
                     android:layout_weight="100"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize_14dp"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:layout_gravity="end"/>
+                    android:layout_gravity="right"/>
 
                 <TextView
                     android:id="@+id/tvMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:gravity="right"
                     android:layout_marginTop="@dimen/_10dp"
                     android:layout_weight="100"
                     android:text="@string/buy_ticket_description"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize_14dp"
-                    android:layout_gravity="end"/>
+                    android:layout_gravity="right"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -254,7 +254,7 @@
                         android:text="کد پیگیری پرداخت : "
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize_14dp"
-                        android:layout_gravity="end"/>
+                        android:layout_gravity="right"/>
                 </RelativeLayout>
                 <TextView
                     android:layout_width="wrap_content"

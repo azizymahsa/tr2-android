@@ -18,7 +18,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="102dp"
-                android:background="@drawable/background_main_header2" />
+                android:background="@drawable/background_main_header" />
 
             <RelativeLayout
                 android:id="@+id/header"
@@ -120,7 +120,7 @@
                             android:id="@+id/tvVersion"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_gravity="end"
+                            android:layout_gravity="right"
                             android:layout_marginStart="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:layout_weight="1"
@@ -169,21 +169,21 @@
 
                             android:layout_width="@dimen/_40dp"
                             android:layout_height="@dimen/_40dp"
-                            android:layout_gravity="end"
+                            android:layout_gravity="right"
                             android:layout_marginTop="@dimen/_10dp"
                             android:layout_marginEnd="@dimen/_10dp"
-                            android:gravity="end"
+                            android:gravity="right"
                             android:src="@drawable/insta_icon" />
 
                         <ImageView
                             android:id="@+id/ivTele"
                             android:layout_width="@dimen/_40dp"
                             android:layout_height="@dimen/_40dp"
-                            android:layout_gravity="end"
+                            android:layout_gravity="right"
                             android:layout_marginTop="@dimen/_10dp"
                             android:layout_marginEnd="@dimen/_10dp"
 
-                            android:gravity="end"
+                            android:gravity="right"
                             android:src="@drawable/telegram_icon" />
 
 
@@ -192,9 +192,9 @@
 
                             android:layout_width="@dimen/_40dp"
                             android:layout_height="@dimen/_40dp"
-                            android:layout_gravity="end"
+                            android:layout_gravity="right"
                             android:layout_marginTop="@dimen/_10dp"
-                            android:gravity="end"
+                            android:gravity="right"
                             android:src="@drawable/twiter_icon" />
 
                     </LinearLayout>
@@ -228,7 +228,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_gravity="end"
+                            android:layout_gravity="right"
                             android:layout_marginTop="@dimen/_10dp"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:layout_weight="100"
@@ -308,7 +308,7 @@
 
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_gravity="end"
+                            android:layout_gravity="right"
                             android:layout_marginTop="@dimen/_10dp"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:layout_weight="100"

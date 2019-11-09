@@ -77,7 +77,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     public PredictFragment()
     {
-
     }
 
     public static PredictFragment newInstance(MainActionView mainView, MatchItem matchPredict)

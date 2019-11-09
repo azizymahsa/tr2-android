@@ -157,7 +157,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@drawable/background_spinner_custom"
-            android:gravity="end"
+            android:gravity="right"
             android:tag="irancell"/>
 
         <TextView

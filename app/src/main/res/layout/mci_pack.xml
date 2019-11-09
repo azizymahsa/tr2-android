@@ -236,7 +236,7 @@
                 android:layout_weight="100"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="end"
+                android:gravity="right"
                 android:backgroundTint="@color/textColorPrimary"
                 android:tag="mci"
                 android:background="@drawable/background_border_a" />

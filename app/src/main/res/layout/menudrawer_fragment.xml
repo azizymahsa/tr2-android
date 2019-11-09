@@ -68,16 +68,15 @@
 
     </RelativeLayout>
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:id="@+id/cardProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/radius_15dp"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true"
+        android:clickable="true"
         app:layout_anchor="@+id/nav_header_container"
-        app:layout_anchorGravity="bottom|center_horizontal">
+        android:background="@drawable/background_border_profile"
+        app:layout_anchorGravity="bottom|center_horizontal"
+        android:elevation="5dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,10 +85,34 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:paddingEnd="24dp"
+            android:layout_centerInParent="true"
             android:textColor="@color/textColorPrimary"
             android:paddingStart="24dp" />
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/cardProfile"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:cardBackgroundColor="@color/white"-->
+<!--        app:cardCornerRadius="@dimen/radius_15dp"-->
+<!--        app:cardElevation="5dp"-->
+<!--        app:cardUseCompatPadding="true"-->
+<!--        app:layout_anchor="@+id/nav_header_container"-->
+<!--        app:layout_anchorGravity="bottom|center_horizontal">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="@dimen/_40dp"-->
+<!--            android:text="حساب کاربری من"-->
+<!--            android:paddingBottom="8dp"-->
+<!--            android:paddingTop="8dp"-->
+<!--            android:paddingEnd="24dp"-->
+<!--            android:textColor="@color/textColorPrimary"-->
+<!--            android:paddingStart="24dp" />-->
+
+<!--    </androidx.cardview.widget.CardView>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
