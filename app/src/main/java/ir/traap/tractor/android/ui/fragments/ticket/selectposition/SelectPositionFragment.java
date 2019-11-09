@@ -60,7 +60,7 @@ public class SelectPositionFragment
     ImageView ivDefault, ivSelected;
     RelativeLayout rlImageViewsFull;
     private static final String KEY_MODEL = "KEY_MODEL";
-    private TextView tvTitle, tvAmountStation, tvAmountForPay, tvStadiumName, tvDateTime, tvCount, tvM, tvP;
+    private TextView tvTitle, tvAmountStation, tvAmountForPay, tvStadiumName, tvDateTime, tvCount, tvM, tvP,tvHome,tvGuest;
     private OnListFragmentInteractionListener interactionListener;
     private ArrayList<String> allBoxes;
     private Spinner spinnerAllBoxes;
@@ -136,6 +136,8 @@ public class SelectPositionFragment
         tvStadiumName = view.findViewById(R.id.tvStadiumName);
         tvDateTime = view.findViewById(R.id.tvDateTime);
         imgHost = view.findViewById(R.id.imgHost);
+        tvHome=view.findViewById(R.id.tvHome);
+        tvGuest=view.findViewById(R.id.tvGuest);
         imgGuest = view.findViewById(R.id.imgGuest);
         llSliderItemMatch = view.findViewById(R.id.llSliderItemMatch);
 
@@ -173,6 +175,9 @@ public class SelectPositionFragment
             tvStadiumName.setText(matchBuyable.getStadium().getName());
             setImageColor(imgHost, matchBuyable.getTeamHome().getLogo());
             setImageColor(imgGuest, matchBuyable.getTeamAway().getLogo());
+
+            tvHome.setText(matchBuyable.getTeamHome().getName());
+            tvGuest.setText(matchBuyable.getTeamAway().getName());
             //  tvDateTime.setText(getDate(matchBuyable.getMatchDatetime()));
             tvDateTime.setText(matchBuyable.getMatchDatetimeStr());
 

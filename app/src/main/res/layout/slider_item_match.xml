@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/rlRoot"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150dp"
+        android:layout_height="@dimen/_180dp"
         android:visibility="visible">
 
         <ImageView
@@ -25,9 +25,9 @@
         <LinearLayout
             android:id="@+id/llCenterView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_60dp"
+            android:layout_height="@dimen/_80dp"
             android:layout_below="@+id/llHeaderWeekNo"
-            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_10dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -106,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/llCenterView"
+            android:layout_marginBottom="@dimen/_10dp"
             android:orientation="vertical">
 
             <TextView
