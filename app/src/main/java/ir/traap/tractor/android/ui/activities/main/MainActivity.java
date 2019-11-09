@@ -56,7 +56,7 @@ import ir.traap.tractor.android.ui.activities.login.LoginActivity;
 import ir.traap.tractor.android.ui.base.BaseActivity;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.drawer.MenuDrawer;
-import ir.traap.tractor.android.ui.fragments.BarcodeReaderFragment;
+import ir.traap.tractor.android.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import ir.traap.tractor.android.ui.fragments.about.AboutFragment;
 import ir.traap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.traap.tractor.android.ui.fragments.billPay.BillFragment;

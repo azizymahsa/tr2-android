@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.fragments;
+package ir.traap.tractor.android.ui.fragments.barcodeReader;
 
 import android.os.Bundle;
 import android.os.Handler;
