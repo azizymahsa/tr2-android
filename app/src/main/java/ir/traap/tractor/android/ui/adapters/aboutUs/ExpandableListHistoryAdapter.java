@@ -1,7 +1,9 @@
 package ir.traap.tractor.android.ui.adapters.aboutUs;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +15,24 @@ import java.util.List;
 
 import ir.traap.tractor.android.R;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+
 public class ExpandableListHistoryAdapter
         extends BaseExpandableListAdapter
 {
 
     private Context context;
+    private Activity activity;
 
-    // group titles
     private List<String> listDataGroup;
 
-    // child data in format of header title, child title
-   // private HashMap<String, List<String>> listDataChild;
     private HashMap<String, String> listDataChild;
 
+
     public ExpandableListHistoryAdapter(Context context, List<String> listDataGroup,
-                                        HashMap<String, String> listChildData) {
+                                        HashMap<String, String> listChildData,Activity activity) {
         this.context = context;
+        this.activity = activity;
         this.listDataGroup = listDataGroup;
         this.listDataChild = listChildData;
     }
@@ -56,10 +60,29 @@ public class ExpandableListHistoryAdapter
             convertView = layoutInflater.inflate(R.layout.list_row_child, null);
         }
 
-        TextView textViewChild = convertView
+       TextView textViewChild = convertView
                 .findViewById(R.id.textViewChild);
 
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+           textViewChild.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
         textViewChild.setText(childText);
+
+
+
+
+      /*  WebView webView=convertView.findViewById(R.id.webview);
+        String youtContentStr = String.valueOf(Html
+                .fromHtml("<![CDATA[<body style=\"text-align:justify;color:#484848; \">"
+                        + childText
+                        + "</body>]]>"));
+        webView.loadData(youtContentStr, "text/html; charset=utf-8", "utf-8");
+        webView.setVerticalScrollBarEnabled(false);*/
+
         return convertView;
     }
 

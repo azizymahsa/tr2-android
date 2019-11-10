@@ -225,7 +225,7 @@ public class HistoryFragment
         listPlayerCurrent = new HashMap<String, List<PlayersCurrent>>();
 
         // initializing the adapter object
-        expandableListViewAdapter = new ExpandableListHistoryAdapter(getContext(), listDataGroup, listDataChild);
+        expandableListViewAdapter = new ExpandableListHistoryAdapter(getContext(), listDataGroup, listDataChild,getActivity());
         expandableListView.setAdapter(expandableListViewAdapter);
 
         expandableListViewAdapter2 = new ExpandableListPlayerHistoryAdapter(getContext(), listDataGroup2, listPlayerCurrent);
