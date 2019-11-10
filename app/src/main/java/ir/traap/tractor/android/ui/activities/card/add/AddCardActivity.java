@@ -96,7 +96,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
         tvTitle.setText("افزودن کارت");
 
-        tvUserName.setText(Prefs.getString("mobile", ""));
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         imgMenu.setVisibility(View.GONE);
         imgBack.setOnClickListener(v ->

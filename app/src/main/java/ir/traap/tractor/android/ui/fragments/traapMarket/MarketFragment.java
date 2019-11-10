@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
@@ -57,7 +58,7 @@ public class MarketFragment extends BaseFragment
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("تراپ\\u200cمارکت");
-        tvUserName.setText(Prefs.getString("mobile", ""));
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         initView();
 

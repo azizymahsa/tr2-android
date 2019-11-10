@@ -168,6 +168,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     .commit();*/
         }
 
+        if (!Prefs.getString("FULLName", "").equalsIgnoreCase(""))
+        {
+            TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
+        }
+        else
+        {
+            TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
+        }
+
         drawerFragment = (MenuDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_menudrawer);
         drawerFragment.setUp(R.id.fragment_navigation_menudrawer, findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
