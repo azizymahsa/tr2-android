@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pixplicity.easyprefs.library.Prefs;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.league.pastResult.request.RequestPastResult;
 import ir.traap.tractor.android.apiServices.model.league.pastResult.response.ResponsePastResult;
+import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.adapters.Leaguse.DataBean;
 import ir.traap.tractor.android.ui.adapters.Leaguse.pastResult.PastResultAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
@@ -49,6 +52,10 @@ public class PastResultFragment
     private RecyclerView leagRecycler;
     private PastResultAdapter fixTableAdapter;
 
+
+    private ImageView imgLogo;
+    private String logoPath;
+
     public PastResultFragment()
     {
     }
@@ -71,11 +78,13 @@ public class PastResultFragment
     }
 
 
-    public static PastResultFragment newInstance(MainActionView mainView)
+    public static PastResultFragment newInstance(MainActionView mainView, String teamId, String logoPath)
     {
         PastResultFragment f = new PastResultFragment();
-        Bundle args = new Bundle();
 
+        Bundle args = new Bundle();
+        args.putString("teamId", teamId);
+        args.putString("logoPath", logoPath);
 
         f.setArguments(args);
         f.setMainView(mainView);
@@ -91,6 +100,11 @@ public class PastResultFragment
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+        {
+            teamId = getArguments().getString("teamId");
+            logoPath = getArguments().getString("logoPath");
+        }
 
     }
 
@@ -126,6 +140,10 @@ public class PastResultFragment
             tvTitle.setText("برنامه بازی");
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+
+            imgLogo = rootView.findViewById(R.id.imgLogo);
+            Picasso.with(SingletonContext.getInstance().getContext()).load(logoPath).into(imgLogo);
+
         } catch (Exception e)
         {
 
