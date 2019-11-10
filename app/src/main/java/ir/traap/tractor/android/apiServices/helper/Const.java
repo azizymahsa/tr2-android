@@ -108,5 +108,5 @@ public class Const
     public final static String GET_PREDICT = SubBASEURL + "v1/predict/";
     public final static String SEND_PREDICT = SubBASEURL + "v1/predict/";
 
-
+    public final static String GET_RULS = SubBASEURL + "v1/match/";
 }

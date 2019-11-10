@@ -45,14 +45,13 @@ import ir.traap.tractor.android.utilities.NumberTextWatcher;
 import ir.traap.tractor.android.utilities.Utility;
 
 
-
 @SuppressLint("ValidFragment")
 public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimationEndListener,
         View.OnClickListener, OnServiceStatus<WebServiceClass<PaymentPrintPosResponse>>
 {
     private View v;
     private CircularProgressButton btnConfirm, btnPaymentConfirm, btnConfirm2;
-    private TextView  btnBackToDetail, btnBackToHome;
+    private TextView btnBackToDetail, btnBackToHome;
     private LinearLayout llDetailPayment, llPricePeyment, llPayment, llCvv2, llBtnConfirm, llBtnConfirm2;
     private EditText etAmountPayment, etQR, etPassPayment, etCvv2;
     private LinearLayout llBarcode, llList;
@@ -61,14 +60,15 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     private boolean isDetailPaymentList = false, isDetailPaymentBarcode = false;
     private ArchiveCardDBModel archiveCardDBModels;
     private String cvv2 = "";
-    private String cardNumberCheck="";
+    private String cardNumberCheck = "";
     private boolean continue_ = false;
     private CheckBox cbPrint;
     private LinearLayout llCheckBox;
     private MainActionView mainView;
 
     private Toolbar mToolbar;
-
+    private TextView tvTitle, tvUserName,tvPopularPlayer;
+    private View imgBack, imgMenu;
 
     public PaymentWithoutCardFragment()
     {
@@ -99,8 +99,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
                 isDetailPaymentList = false;
                 return v;
 
-            }
-            else
+            } else
             {
                 if (isDetailPaymentBarcode)
                 {
@@ -116,15 +115,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
 
         v = inflater.inflate(R.layout.fragment_payment_without_card, container, false);
 
-        mToolbar = v.findViewById(R.id.toolbar);
 
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
-        TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
-        tvUserName.setText(Prefs.getString("mobile", ""));
-
-        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvTitle.setText("پرداخت بدون کارت");
 
         initView();
 
@@ -147,7 +138,6 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     }
 
 
-
     @Override
     public void onResume()
     {
@@ -167,60 +157,82 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
         etAmountPayment.setText("");
 
 
-
-
     }
 
     public void initView()
     {
-
-        etAmountPayment = v.findViewById(R.id.etAmountPayment);
-        etLayoutCode = v.findViewById(R.id.etLayoutCode);
-        etQR = v.findViewById(R.id.etQR);
-        llCheckBox = v.findViewById(R.id.llCheckBox);
-        btnBackToHome = v.findViewById(R.id.btnBackToHome);
-        llBtnConfirm = v.findViewById(R.id.llBtnConfirm);
-        llBtnConfirm2 = v.findViewById(R.id.llBtnConfirm2);
-        btnConfirm2 = v.findViewById(R.id.btnConfirm2);
-        etCvv2 = v.findViewById(R.id.etCvv2);
-        llCvv2 = v.findViewById(R.id.llCvv2);
-        tipCvv2 = v.findViewById(R.id.tipCvv2);
-        cbPrint = v.findViewById(R.id.cbPrint);
-        llBarcode = v.findViewById(R.id.llBarcode);
-        llPayment = v.findViewById(R.id.llPayment);
-        etPassPayment = v.findViewById(R.id.etPassPayment);
-
-        llList = v.findViewById(R.id.llList);
-        llPaymentPass = v.findViewById(R.id.llPaymentPass);
-        etAmountPayment.addTextChangedListener(new NumberTextWatcher(etAmountPayment));
-
-
-        btnConfirm = v.findViewById(R.id.btnConfirm);
-        llDetailPayment = v.findViewById(R.id.llDetailPayment);
-        btnBackToDetail = v.findViewById(R.id.btnBackToDetail);
-        btnPaymentConfirm = v.findViewById(R.id.btnPaymentConfirm);
-        llPricePeyment = v.findViewById(R.id.llPricePeyment);
-        llPaymentPass.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
-        tipCvv2.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
-
-
-        btnConfirm.setText("ادامه");
-        btnPaymentConfirm.setText("تایید نهایی");
-        btnBackToDetail.setText("بازگشت");
-        btnBackToHome.setText("بازگشت");
-        btnConfirm.setOnClickListener(this);
-        btnBackToDetail.setOnClickListener(this);
-        btnPaymentConfirm.setOnClickListener(this);
-        btnBackToHome.setOnClickListener(this);
-        llBarcode.setOnClickListener(this);
-        llList.setOnClickListener(this);
-        btnConfirm2.setOnClickListener(this);
-        if (!cardNumberCheck.equals("003725"))
+        try
         {
-            llCvv2.setVisibility(View.VISIBLE);
+            etAmountPayment = v.findViewById(R.id.etAmountPayment);
+            etLayoutCode = v.findViewById(R.id.etLayoutCode);
+            etQR = v.findViewById(R.id.etQR);
+            llCheckBox = v.findViewById(R.id.llCheckBox);
+            btnBackToHome = v.findViewById(R.id.btnBackToHome);
+            llBtnConfirm = v.findViewById(R.id.llBtnConfirm);
+            llBtnConfirm2 = v.findViewById(R.id.llBtnConfirm2);
+            btnConfirm2 = v.findViewById(R.id.btnConfirm2);
+            etCvv2 = v.findViewById(R.id.etCvv2);
+            llCvv2 = v.findViewById(R.id.llCvv2);
+            tipCvv2 = v.findViewById(R.id.tipCvv2);
+            cbPrint = v.findViewById(R.id.cbPrint);
+            llBarcode = v.findViewById(R.id.llBarcode);
+            llPayment = v.findViewById(R.id.llPayment);
+            etPassPayment = v.findViewById(R.id.etPassPayment);
 
+            llList = v.findViewById(R.id.llList);
+            llPaymentPass = v.findViewById(R.id.llPaymentPass);
+            etAmountPayment.addTextChangedListener(new NumberTextWatcher(etAmountPayment));
+
+
+            btnConfirm = v.findViewById(R.id.btnConfirm);
+            llDetailPayment = v.findViewById(R.id.llDetailPayment);
+            btnBackToDetail = v.findViewById(R.id.btnBackToDetail);
+            btnPaymentConfirm = v.findViewById(R.id.btnPaymentConfirm);
+            llPricePeyment = v.findViewById(R.id.llPricePeyment);
+            llPaymentPass.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
+            tipCvv2.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
+
+
+            btnConfirm.setText("ادامه");
+            btnPaymentConfirm.setText("تایید نهایی");
+            btnBackToDetail.setText("بازگشت");
+            btnBackToHome.setText("بازگشت");
+            btnConfirm.setOnClickListener(this);
+            btnBackToDetail.setOnClickListener(this);
+            btnPaymentConfirm.setOnClickListener(this);
+            btnBackToHome.setOnClickListener(this);
+            llBarcode.setOnClickListener(this);
+            llList.setOnClickListener(this);
+            btnConfirm2.setOnClickListener(this);
+            if (!cardNumberCheck.equals("003725"))
+            {
+                llCvv2.setVisibility(View.VISIBLE);
+
+            }
+            //toolbar
+            mToolbar = v.findViewById(R.id.toolbar);
+
+            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+            TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
+            tvUserName.setText(Prefs.getString("mobile", ""));
+
+            tvTitle = v.findViewById(R.id.tvTitle);
+            tvTitle.setText("پرداخت بدون کارت");
+            imgMenu = v.findViewById(R.id.imgMenu);
+
+            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+            imgBack = v.findViewById(R.id.imgBack);
+            imgBack.setOnClickListener(v ->
+            {
+                getActivity().onBackPressed();
+            });
+            tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+
+        } catch (Exception e)
+        {
+            e.getMessage();
         }
-
 
     }
 
@@ -281,9 +293,6 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
                     getMerchantByCode(etQR.getText().toString());*/
 
 
-
-
-
                 break;
             case R.id.btnConfirm2:
 
@@ -323,7 +332,8 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
                     mainView.openBarcode(BarcodeType.Payment);
                     isDetailPaymentBarcode = true;
 
-                }catch (Exception e){
+                } catch (Exception e)
+                {
                     e.getMessage();
                 }
 
@@ -344,7 +354,6 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
                 //  getActivity().startActivityForResult(new Intent(getActivity(), MapActivity.class).putExtra("isSelect", true), 9090);
 
 
-
                 break;
 
 
@@ -357,7 +366,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
 
     public void backToHome()
     {
-        continue_=false;
+        continue_ = false;
         etQR.setEnabled(true);
         llPricePeyment.setVisibility(View.GONE);
         llDetailPayment.setVisibility(View.VISIBLE);
@@ -497,7 +506,6 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
         {
 
 
-
             @Override
             public void onReady(WebServiceClass<DecryptQrResponse> decryptQrResponse)
             {
@@ -594,7 +602,6 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     }
 
 
-
     @Override
     public void onReady(WebServiceClass<PaymentPrintPosResponse> posResponse)
     {
@@ -640,7 +647,8 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     public void showKeybord(final EditText ettext)
     {
         ettext.requestFocus();
-        ettext.postDelayed(() -> {
+        ettext.postDelayed(() ->
+                {
                     InputMethodManager keyboard = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     keyboard.showSoftInput(ettext, 0);
                 }

@@ -116,7 +116,7 @@
                                         android:inputType="number"
                                         android:maxLength="11"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etName_1"
@@ -128,7 +128,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etFamily_1"
@@ -140,7 +140,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
 
                                 </LinearLayout>
@@ -213,7 +213,7 @@
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/garbage_icon"
-                                android:visibility="gone"/>
+                                android:visibility="visible"/>
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -280,7 +280,7 @@
                                         android:inputType="number"
                                         android:maxLength="11"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etName_2"
@@ -292,7 +292,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etFamily_2"
@@ -304,7 +304,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
 
                                 </LinearLayout>
@@ -378,7 +378,7 @@
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/garbage_icon"
-                                android:visibility="gone"/>
+                                android:visibility="visible"/>
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -445,7 +445,7 @@
                                         android:inputType="number"
                                         android:maxLength="11"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etName_3"
@@ -457,7 +457,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etFamily_3"
@@ -469,7 +469,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
 
                                 </LinearLayout>
@@ -543,7 +543,7 @@
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/garbage_icon"
-                                android:visibility="gone"/>
+                                android:visibility="visible"/>
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -610,7 +610,7 @@
                                         android:inputType="number"
                                         android:maxLength="11"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etName_4"
@@ -622,7 +622,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etFamily_4"
@@ -634,7 +634,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
 
                                 </LinearLayout>
@@ -708,7 +708,7 @@
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/garbage_icon"
-                                android:visibility="gone"/>
+                                android:visibility="visible"/>
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -775,7 +775,7 @@
                                         android:inputType="number"
                                         android:maxLength="11"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etName_5"
@@ -787,7 +787,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
                                     <EditText
                                         android:id="@+id/etFamily_5"
@@ -799,7 +799,7 @@
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_10dp" />
+                                        android:textSize="@dimen/textSize_12dp" />
 
 
                                 </LinearLayout>

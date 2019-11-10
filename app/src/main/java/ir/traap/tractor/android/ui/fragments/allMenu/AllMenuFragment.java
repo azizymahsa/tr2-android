@@ -73,7 +73,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     private RecyclerView rvGrid;
     private String unicCode = "";
     private Toolbar mToolbar;
-    private TextView tvUserName;
+    private TextView tvTitle, tvUserName,tvPopularPlayer;
+    private View imgBack, imgMenu;
 
     public AllMenuFragment()
     {
@@ -108,10 +109,42 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
     public void initView()
     {
-        recyclerView = rootView.findViewById(R.id.recyclerView);
-        rvGrid = rootView.findViewById(R.id.rvGrid);
+        try
+        {
+            recyclerView = rootView.findViewById(R.id.recyclerView);
+            rvGrid = rootView.findViewById(R.id.rvGrid);
 
-        // ((TextView) rootView.findViewById(R.id.tvTitle)).setText("همه سرویسها");
+            //toolbar
+            mToolbar = rootView.findViewById(R.id.toolbar);
+            tvUserName = mToolbar.findViewById(R.id.tvUserName);
+
+            tvUserName.setText(Prefs.getString("mobile", ""));
+
+            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    mainView.openDrawer();
+                }
+            });
+            tvTitle = rootView.findViewById(R.id.tvTitle);
+            tvTitle.setText("همه سرویسها");
+            imgMenu = rootView.findViewById(R.id.imgMenu);
+
+            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+            imgBack = rootView.findViewById(R.id.imgBack);
+            imgBack.setOnClickListener(v ->
+            {
+                getActivity().onBackPressed();
+            });
+
+            tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
 
     }
 
@@ -133,16 +166,6 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
         request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
         SingletonService.getInstance().getMenuService().getMenuAll(AllMenuFragment.this, request);
 
-        mToolbar = rootView.findViewById(R.id.toolbar);
-        tvUserName = mToolbar.findViewById(R.id.tvUserName);
-        tvUserName.setText(Prefs.getString("mobile", ""));
-
-        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvTitle.setText("همه سرویسها");
-
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
-
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
 
         return rootView;
     }

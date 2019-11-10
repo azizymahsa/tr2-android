@@ -31,7 +31,7 @@ public class AboutFragment
 
     private View view;
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName,tvPhone;
+    private TextView tvTitle, tvUserName,tvPhone,tvPopularPlayer;
     private View imgBack, imgMenu;
     private MainActionView mainView;
     private ImageView ivInsta, ivTwit, ivTele;
@@ -88,8 +88,23 @@ public class AboutFragment
             btnHistory.setOnClickListener(this);
             tvPhone.setOnClickListener(this);
             //toolbar
-            tvTitle = view.findViewById(R.id.tvTitle);
-            tvTitle.setText("درباره ما");
+            mToolbar = view.findViewById(R.id.toolbar);
+            tvUserName = mToolbar.findViewById(R.id.tvUserName);
+            TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
+            tvTitle.setText("درباره تراپ");
+            mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
+
+            tvUserName.setText(Prefs.getString("mobile", ""));
+
+            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    mainView.openDrawer();
+                }
+            });
+
             imgMenu=view.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
@@ -99,7 +114,8 @@ public class AboutFragment
                 getActivity().onBackPressed();
             });
 
-
+            tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
         } catch (Exception e)
         {
             e.getMessage();
@@ -124,22 +140,7 @@ public class AboutFragment
 
         // initializing the views
         initViews();
-        mToolbar = view.findViewById(R.id.toolbar);
-        tvUserName = mToolbar.findViewById(R.id.tvUserName);
-        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvTitle.setText("درباره تراپ");
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
-        tvUserName.setText(Prefs.getString("mobile", ""));
-
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mainView.openDrawer();
-            }
-        });
 
         return view;
     }

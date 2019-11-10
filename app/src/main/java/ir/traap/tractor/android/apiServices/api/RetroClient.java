@@ -63,6 +63,7 @@ import ir.traap.tractor.android.apiServices.model.reservationmatch.ReservationRe
 import ir.traap.tractor.android.apiServices.model.reservationmatch.ReservationResponse;
 import ir.traap.tractor.android.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import ir.traap.tractor.android.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
+import ir.traap.tractor.android.apiServices.model.stadium_rules.ResponseStadiumRules;
 import ir.traap.tractor.android.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
 import ir.traap.tractor.android.apiServices.model.tourism.bus.getPaymentBus.request.RequestBusPayment;
 import ir.traap.tractor.android.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
@@ -71,6 +72,7 @@ import ir.traap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.req
 import ir.traap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
 import ir.traap.tractor.android.apiServices.model.verify.VerifyRequest;
 import ir.traap.tractor.android.apiServices.model.verify.VerifyResponse;
+import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -330,5 +332,9 @@ public interface RetroClient
     Single<Response<WebServiceClass<Object>>> sendPredict(
             @Body SendPredictRequest request
     );
+    @GET(Const.GET_RULS+"{id}/stadium_rules/")
+    Single<Response<WebServiceClass<ResponseStadiumRules>>> getRulsStadium(
+            @Path("id") Integer id
 
+    );
 }

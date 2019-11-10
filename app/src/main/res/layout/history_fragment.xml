@@ -8,34 +8,34 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="102dp"
+            android:background="@drawable/background_main_header2" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="102dp"
-                android:background="@drawable/background_main_header" />
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:background="@drawable/img_header_background" />
 
-            <RelativeLayout
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="102dp"
-                android:background="@drawable/img_header_background" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="102dp"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/transparent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent">
 
 
-                <include layout="@layout/toolbar_back" />
+            <include layout="@layout/toolbar_back" />
 
-            </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-        </RelativeLayout>
+    </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested"
@@ -132,7 +132,7 @@
                             android:id="@+id/tvDescTicket"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end"
                             android:layout_marginTop="@dimen/_10dp"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="100"
@@ -144,9 +144,9 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end"
                             android:layout_marginTop="@dimen/_10dp"
-                            android:gravity="right"
+                            android:gravity="end"
                             android:src="@drawable/icon_history" />
 
                     </LinearLayout>
@@ -254,7 +254,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end"
                             android:layout_marginTop="@dimen/_10dp"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="100"
@@ -266,9 +266,9 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end"
                             android:layout_marginTop="@dimen/_10dp"
-                            android:gravity="right"
+                            android:gravity="end"
                             android:src="@drawable/football_player" />
 
                     </LinearLayout>
