@@ -34,6 +34,7 @@ import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
 import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
+import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.enums.BarcodeType;
 import ir.traap.tractor.android.models.dbModels.ArchiveCardDBModel;
 import ir.traap.tractor.android.singleton.SingletonContext;
@@ -218,6 +219,8 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
 
             tvTitle = v.findViewById(R.id.tvTitle);
             tvTitle.setText("پرداخت بدون کارت");
+            tvUserName = v.findViewById(R.id.tvUserName);
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
             imgMenu = v.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());

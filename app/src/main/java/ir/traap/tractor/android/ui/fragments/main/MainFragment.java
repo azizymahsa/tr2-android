@@ -163,7 +163,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
-        tvUserName.setText(Prefs.getString("mobile", ""));
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
         tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
 

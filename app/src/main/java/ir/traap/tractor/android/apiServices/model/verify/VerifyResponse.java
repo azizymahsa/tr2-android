@@ -6,7 +6,8 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by MahtabAzizi on 10/16/2019.
  */
-public class VerifyResponse {
+public class VerifyResponse
+{
 
     @SerializedName("profile")
     @Expose
@@ -16,32 +17,24 @@ public class VerifyResponse {
     @Expose
     private String access;
 
-    @SerializedName("refresh")
-    @Expose
-    private String refresh;
-
-    public Profile getProfile() {
+    public Profile getProfile()
+    {
         return profile;
     }
 
-    public void setProfile(Profile profile) {
+    public void setProfile(Profile profile)
+    {
         this.profile = profile;
     }
 
-    public String getAccess() {
+    public String getAccess()
+    {
         return access;
     }
 
-    public void setAccess(String access) {
+    public void setAccess(String access)
+    {
         this.access = access;
-    }
-
-    public String getRefresh() {
-        return refresh;
-    }
-
-    public void setRefresh(String refresh) {
-        this.refresh = refresh;
     }
 
 }

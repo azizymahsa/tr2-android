@@ -27,6 +27,7 @@ import java.util.List;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.getHistory.ResponseHistory;
+import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
@@ -373,7 +374,7 @@ public class HistoryFragment
             mToolbar = view.findViewById(R.id.toolbar);
             tvUserName = view.findViewById(R.id.tvUserName);
 
-            tvUserName.setText(Prefs.getString("mobile", ""));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
             {

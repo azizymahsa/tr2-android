@@ -22,4 +22,6 @@ public class TrapConfig
     public static final String UNIQUE_CODE_HOTEL = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
     public static final String UNIQUE_CODE_BUS = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
     public static final String UNIQUE_CODE_Flight_All = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
+
+    public static String HEADER_USER_NAME = "";
 }

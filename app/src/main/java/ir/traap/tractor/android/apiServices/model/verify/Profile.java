@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by MahtabAzizi on 10/16/2019.
  */
-public class Profile {
-
+public class Profile
+{
     @SerializedName("key_invite")
     @Expose
     private String keyInvite;
@@ -36,59 +36,73 @@ public class Profile {
     @Expose
     private String englishName;
 
-    public String getKeyInvite() {
+    public String getKeyInvite()
+    {
         return keyInvite;
     }
 
-    public void setKeyInvite(String keyInvite) {
+    public void setKeyInvite(String keyInvite)
+    {
         this.keyInvite = keyInvite;
     }
 
-    public Integer getPopularPlayer() {
+    public Integer getPopularPlayer()
+    {
         return popularPlayer;
     }
 
-    public void setPopularPlayer(Integer popularPlayer) {
+    public void setPopularPlayer(Integer popularPlayer)
+    {
         this.popularPlayer = popularPlayer;
     }
 
-    public String getFirstName() {
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName)
+    {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public String getLastName()
+    {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
     }
 
-    public String getNationalCode() {
+    public String getNationalCode()
+    {
         return nationalCode;
     }
 
-    public void setNationalCode(String nationalCode) {
+    public void setNationalCode(String nationalCode)
+    {
         this.nationalCode = nationalCode;
     }
 
-    public Object getBirthday() {
+    public Object getBirthday()
+    {
         return birthday;
     }
 
-    public void setBirthday(Object birthday) {
+    public void setBirthday(Object birthday)
+    {
         this.birthday = birthday;
     }
 
-    public String getEnglishName() {
+    public String getEnglishName()
+    {
         return englishName;
     }
 
-    public void setEnglishName(String englishName) {
+    public void setEnglishName(String englishName)
+    {
         this.englishName = englishName;
     }
 }

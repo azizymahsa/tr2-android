@@ -27,6 +27,7 @@ import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.league.pastResult.request.RequestPastResult;
 import ir.traap.tractor.android.apiServices.model.league.pastResult.response.ResponsePastResult;
+import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.adapters.Leaguse.DataBean;
 import ir.traap.tractor.android.ui.adapters.Leaguse.pastResult.PastResultAdapter;
@@ -117,7 +118,7 @@ public class PastResultFragment
             mToolbar = rootView.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
 
-            tvUserName.setText(Prefs.getString("mobile", ""));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
             {

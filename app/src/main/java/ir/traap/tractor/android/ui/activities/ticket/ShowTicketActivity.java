@@ -18,6 +18,7 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import ir.traap.tractor.android.apiServices.model.showTicket.ShowTicketItem;
+import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.ui.adapters.ticket.ShowTicketAdapter;
 import ir.traap.tractor.android.ui.base.BaseActivity;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
@@ -83,7 +84,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         {
             tvTitle = findViewById(R.id.tvTitle);
             tvUserName = findViewById(R.id.tvUserName);
-            tvUserName.setText(Prefs.getString("mobile", ""));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
             imgMenu = findViewById(R.id.imgMenu);
 
             imgMenu.setVisibility(View.GONE);

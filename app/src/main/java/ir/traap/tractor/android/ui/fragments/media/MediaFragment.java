@@ -28,6 +28,7 @@ import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
 import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
+import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.enums.BarcodeType;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.base.BaseFragment;
@@ -79,7 +80,7 @@ public class MediaFragment extends BaseFragment
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("رسانه");
-        tvUserName.setText(Prefs.getString("mobile", ""));
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         initView();
 
