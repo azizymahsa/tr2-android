@@ -1187,7 +1187,9 @@ public class CompeletInfoFragment
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
         flagDelete = false;
-        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", response.getRules(), true, "تایید", "بستن", listener);
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "قوانین و مقررات", response.getRules(), true,
+                "تایید", "بستن", true, listener);
+
         dialog.show(getActivity().getFragmentManager(), "dialog");
     }
 

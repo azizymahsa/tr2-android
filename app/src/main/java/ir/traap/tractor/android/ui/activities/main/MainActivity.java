@@ -66,6 +66,7 @@ import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.main.MainFragment;
 import ir.traap.tractor.android.ui.fragments.media.MediaFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
+import ir.traap.tractor.android.ui.fragments.myProfile.MyProfileFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
@@ -168,7 +169,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     .commit();*/
         }
 
-        if (!Prefs.getString("FULLName", "").equalsIgnoreCase(""))
+        if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
         {
             TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
         }
@@ -211,7 +212,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         fragment = MarketFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
-                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                         transaction.replace(R.id.main_container, fragment)
                                 .commit();
@@ -229,7 +230,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         fragment = AllMenuFragment.newInstance(this);
 
                         transaction = fragmentManager.beginTransaction();
-                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                         transaction.replace(R.id.main_container, fragment)
                                 .commit();
                     }
@@ -254,7 +255,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         fragment = MediaFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
-                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                         transaction.replace(R.id.main_container, fragment)
                                 .commit();
@@ -271,7 +272,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         fragment = PaymentWithoutCardFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
-                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                         transaction.replace(R.id.main_container, fragment)
                                 .commit();
@@ -422,7 +423,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 fragment = AboutFragment.newInstance(this);
                 transaction = fragmentManager.beginTransaction();
-                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                 transaction.replace(R.id.main_container, fragment)
                         .commit();
@@ -487,8 +488,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onUserProfileClick()
     {
-        showToast(this, "حساب کاربری من", R.color.green);
-        //go to UserProfileActivity
+//        showToast(this, "حساب کاربری من", R.color.green);
+        //go to UserProfileActionProfileActivity
+
+        isMainFragment = false;
+        fragment = MyProfileFragment.newInstance(this);
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+        transaction.replace(R.id.main_container, fragment)
+                .commit();
     }
 
     @Override
@@ -511,7 +520,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         int idBillType = 5;
         fragment = BillFragment.newInstance(this, titleBill, idBillType);
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment)
                 .commit();
@@ -525,7 +534,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         fragment = ChargeFragment.newInstance(this);
 
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment)
                 .commit();
@@ -539,7 +548,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         fragment = PackFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment)
                 .commit();
@@ -592,7 +601,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         fragment = BarcodeReaderFragment.newInstance(this);
         //  transaction.commitAllowingStateLoss();
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment)
                 .commit();
@@ -607,7 +616,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         // fragment = PaymentWithoutCardFragment2.newInstance(this);
         fragment = PaymentWithoutCardFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment)
                 .commit();
@@ -620,7 +629,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         fragment = MoneyTransferFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment)
                 .commit();
@@ -758,7 +767,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
         }
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment)
                 .commit();
@@ -801,7 +810,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         this.fragment = BuyTicketsFragment.newInstance(this, matchBuyable);
 
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment)
                 .commit();
     }
@@ -820,7 +829,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         isMainFragment = false;
         fragment = LeagueTableFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, fragment)
                 .commit();
     }
@@ -832,7 +841,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         this.fragment = PredictFragment.newInstance(this, matchPredict, isPredictable);
 
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment)
                 .commit();
     }
@@ -895,7 +904,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             mainFragment = fragment;
 
             transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
             if (mSavedInstanceState == null)
             {

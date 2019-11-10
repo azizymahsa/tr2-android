@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:layoutDirection="ltr"
+    android:background="@drawable/background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="208dp"
+        android:background="@drawable/background_main_header">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent">
+
+            <include layout="@layout/toolbar_back" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="102dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:paddingBottom="16dp"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:background="@android:color/transparent">
+
+<!--            <com.google.android.material.card.MaterialCardView-->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:cardElevation="5dp"
+                app:contentPadding="8dp"
+                app:cardCornerRadius="5dp"
+                android:background="@android:color/transparent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent">
+
+                    <ImageView
+                        android:id="@+id/imgEditProfile"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:layout_width="@dimen/_50dp"
+                        android:layout_height="@dimen/_50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_edit_profile"
+                        android:padding="@dimen/_10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_70sdp"
+                        android:layout_marginBottom="16sp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvFullName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textColor="@color/textColorSecondary"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/tvMobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textStyle="bold"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/textHint"
+                            android:gravity="center"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@color/drawerSepratorColor"/>
+
+                        <RelativeLayout
+                            android:id="@+id/rlMyPredict"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/img1"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/arrowleft"
+                                android:tint="@color/textColorSecondary"/>
+
+                            <TextView
+                                android:layout_toRightOf="@+id/img1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical"
+                                android:layout_centerVertical="true"
+                                android:paddingEnd="10dp"
+                                android:text="پیش بینی های من"
+                                android:textSize="@dimen/textSize_18dp"
+                                android:layout_toLeftOf="@+id/menu_dr_icon"
+                                android:textColor="@color/textColorSecondary"/>
+
+                            <ImageView
+                                android:id="@+id/menu_dr_icon"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:padding="10dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_my_predict"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rlSoccerFavorite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/img2"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/arrowleft"
+                                android:tint="@color/textColorSecondary"/>
+
+                            <TextView
+                                android:layout_toRightOf="@+id/img2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical"
+                                android:layout_centerVertical="true"
+                                android:paddingEnd="10dp"
+                                android:text="بازیکن مورد علاقه"
+                                android:textSize="@dimen/textSize_18dp"
+                                android:layout_toLeftOf="@+id/icon2"
+                                android:textColor="@color/textColorSecondary"/>
+
+                            <ImageView
+                                android:id="@+id/icon2"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:padding="10dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_soccer_favorite"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rlMyShirt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/img3"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/arrowleft"
+                                android:tint="@color/textColorSecondary"/>
+
+                            <TextView
+                                android:layout_toRightOf="@+id/img3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical"
+                                android:layout_centerVertical="true"
+                                android:paddingEnd="10dp"
+                                android:text="پیراهن ورزشی من"
+                                android:textSize="@dimen/textSize_18dp"
+                                android:layout_toLeftOf="@+id/icon3"
+                                android:textColor="@color/textColorSecondary"/>
+
+                            <ImageView
+                                android:id="@+id/icon3"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:padding="10dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_my_shirt"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/cardInviteCode"
+                        android:text="کد عضویت شما در تراپ"
+                        android:layout_marginBottom="8dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/textColorSecondary"
+                        android:gravity="center"/>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardInviteCode"
+                            android:layout_width="@dimen/_120dp"
+                            android:layout_height="@dimen/_40dp"
+                            app:cardBackgroundColor="@color/btnColorSecondary"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="5dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            app:cardUseCompatPadding="false"
+                            app:layout_anchor="@+id/nav_header_container"
+                            app:layout_anchorGravity="bottom|center_horizontal">
+
+                            <TextView
+                                android:id="@+id/tvInviteCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="0000000"
+                                android:gravity="center"
+                                android:paddingBottom="8dp"
+                                android:paddingTop="8dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/textColorTitle" />
+
+                        </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            app:riv_corner_radius="30dip"
+            app:riv_border_width="2dip"
+            android:src="@drawable/ic_user_default"
+            app:riv_border_color="@color/borderColorGray"
+            app:riv_mutate_background="true"
+            app:riv_tile_mode="clamp"
+            app:riv_oval="true" />
+
+    </RelativeLayout>
+
+</FrameLayout>
+
+

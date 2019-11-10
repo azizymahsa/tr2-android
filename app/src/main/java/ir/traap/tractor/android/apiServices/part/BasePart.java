@@ -17,10 +17,10 @@ import ir.traap.tractor.android.apiServices.mock.MockProcessor;
 import ir.traap.tractor.android.apiServices.model.SingletonResponse;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.utilities.Logger;
+import ir.traap.tractor.android.utilities.Tools;
 import okhttp3.RequestBody;
 import okio.Buffer;
 import retrofit2.Response;
-
 
 /**
  * Created by Javad.Abadi on 3/26/2018.

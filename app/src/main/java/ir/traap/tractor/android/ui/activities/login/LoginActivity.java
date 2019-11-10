@@ -29,7 +29,6 @@ import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.helper.Const;
 import ir.traap.tractor.android.ui.base.BaseActivity;
 import ir.traap.tractor.android.ui.base.GoToActivity;
-import ir.traap.tractor.android.ui.activities.login.user.UserActivity;
 import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -154,8 +153,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             Intent intent = null;
 //            switch (goToActivity)
 //            {
-//                case UserActivity:
-//                    intent = new Intent(this, UserActivity.class);
+//                case UserProfileActionProfileActivity:
+//                    intent = new Intent(this, UserProfileActionProfileActivity.class);
 //
 //                    break;
 //                case PassCodeActivity:

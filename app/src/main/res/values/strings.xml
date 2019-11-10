@@ -11,6 +11,7 @@
     <string name="no_name">بدون نام</string>
     <string name="enter_first_name">نام خود را وارد نمایید</string>
     <string name="enter_last_name">نام خانوادگی خود را وارد نمایید</string>
+    <string name="enter_nick_name">نام مستعار خود را وارد نمایید</string>
     <string name="enter_passcode">رمز عبور دیبا خود را وارد نمایید.</string>
     <string name="pic_icon_R">&#xe907;</string>
 
@@ -33,7 +34,7 @@
     <string name="enter_national_code">کد ملی خود را وارد نمایید</string>
     <string name="enter_birthday">تاریخ تولد خود را وارد نمایید</string>
     <string name="enter_english_name">نام خود را به انگلیسی وارد نمایید</string>
-    <string name="enter_popular_player">شماره بازیکن محبوب خود را وارد نمایید (اجباری) </string>
+    <string name="enter_popular_player">شماره بازیکن محبوب خود را وارد نمایید</string>
     <string name="etMobileHint">شماره تلفن خود را وارد نمایید</string>
     <string name="etBillHint">شناسه قبض خود را وارد نمایید</string>
     <string name="amount">مبلغ</string>
@@ -64,7 +65,7 @@
     <string name="Error_edit_input">اطلاعات ورودی نامعتبر است</string>
     <string name="Error_nationall_code_input">کد ملی تکراری است</string>
     <string name="Please_enter_first_name_in_Persian">لطفا نام خود را وارد نمایید</string>
-    <string name="profile_desc">(وارد کردن شماره بازیکن محبوب به صورت اجباری، و بقیه موارد به صورت اختیاری می باشد.)</string>
+    <string name="profile_desc">وارد کردن تمامی موارد به صورت اختیاری می باشد</string>
     <string name="error_ticket_payment">کاربر گرامی؛  متاسفانه پرداخت شما ناموفق بوده است.</string>
 
 
