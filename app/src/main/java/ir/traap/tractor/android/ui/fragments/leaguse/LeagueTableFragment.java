@@ -29,6 +29,7 @@ import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import ir.traap.tractor.android.apiServices.model.league.getLeagues.response.ResponseLeage;
 import ir.traap.tractor.android.apiServices.model.league.getLeagues.response.Result;
+import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.ui.adapters.Leaguse.FixTableAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.leaguse.pastResult.PastResultFragment;
@@ -92,7 +93,7 @@ public class LeagueTableFragment
             mToolbar = rootView.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
 
-            tvUserName.setText(Prefs.getString("mobile", ""));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
             {

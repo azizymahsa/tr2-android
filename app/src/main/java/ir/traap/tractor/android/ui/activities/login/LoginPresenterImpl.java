@@ -192,25 +192,26 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         }, request);
 
     }
+
     private void setProfileData(WebServiceClass<VerifyResponse> response)
     {
+        Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
 
-                Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
-
-                Profile profile = response.data.getProfile();
-                Prefs.putString("firstName", profile.getFirstName());
-                Prefs.putString("lastName", profile.getLastName());
-                Prefs.putString("englishName", profile.getEnglishName());
-                if (profile.getBirthday() != null)
-                {
-                    Prefs.putString("birthday", profile.getBirthday().toString());
-                }
-                if (profile.getPopularPlayer() != null)
-                {
-                    Prefs.putInt("popularPlayer", profile.getPopularPlayer());
-                }
-                Prefs.putString("nationalCode", profile.getNationalCode());
-                Prefs.putString("keyInvite", profile.getKeyInvite());
+        Profile profile = response.data.getProfile();
+        Prefs.putString("firstName", profile.getFirstName());
+        Prefs.putString("lastName", profile.getLastName());
+        Prefs.putString("FULLName", profile.getFirstName() + " " + profile.getLastName());
+        Prefs.putString("englishName", profile.getEnglishName());
+        if (profile.getBirthday() != null)
+        {
+            Prefs.putString("birthday", profile.getBirthday().toString());
+        }
+        if (profile.getPopularPlayer() != null)
+        {
+            Prefs.putInt("popularPlayer", profile.getPopularPlayer());
+        }
+        Prefs.putString("nationalCode", profile.getNationalCode());
+        Prefs.putString("keyInvite", profile.getKeyInvite());
 
     }
 
@@ -331,8 +332,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                 PendingIntent.getBroadcast(appContext, 0, myIntent, 0);
 
 
-            }
-            else
+            } else
             {
                 appContext.startService(new Intent(appContext, NotificationJobService.class));
             }

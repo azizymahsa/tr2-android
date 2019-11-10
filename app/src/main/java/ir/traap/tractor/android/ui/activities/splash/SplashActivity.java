@@ -426,9 +426,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     {
         if (requestCode == REQUEST_CODE)
         {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)/* &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[2] == PackageManager.PERMISSION_GRANTED)*/
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
 //                startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 //                finish();
