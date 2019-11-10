@@ -27,14 +27,17 @@ import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchResponse;
 import ir.traap.tractor.android.apiServices.model.paymentMatch.Viewers;
+import ir.traap.tractor.android.apiServices.model.stadium_rules.ResponseStadiumRules;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
+import ir.traap.tractor.android.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
+import ir.traap.tractor.android.ui.fragments.ticket.rulesStadium.RulesStadiumInteractor;
 import ir.traap.tractor.android.utilities.Tools;
 
 public class CompeletInfoFragment
-        extends Fragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener
+        extends Fragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener
 {
     private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
@@ -55,19 +58,22 @@ public class CompeletInfoFragment
     private MessageAlertDialog.OnConfirmListener listener;
     private String textStation = "";
     ArrayList<String> numbers = new ArrayList<String>();
-    private int countRepetitive=0;
+    private int countRepetitive = 0;
     public String namePosition;
     String positionName;
     Integer selectPositionId, amountForPay;
     List<Viewers> infoViewers = new ArrayList<>();
     private List<Integer> ticketIdList;
     private PaymentTicketImpl paymentTicket;
+    private RulesStadiumImpl rulesStadium;
 
-    public CompeletInfoFragment() {
+    public CompeletInfoFragment()
+    {
     }
 
     public static CompeletInfoFragment newInstance(MainActionView mainActionView
-    ) {
+    )
+    {
         CompeletInfoFragment fragment = new CompeletInfoFragment();
         fragment.setMainView(mainActionView);
 
@@ -76,14 +82,16 @@ public class CompeletInfoFragment
     }
 
 
-    private void setMainView(MainActionView mainView) {
+    private void setMainView(MainActionView mainView)
+    {
         this.mainView = mainView;
     }
 
     /**
      * Receive the model list
      */
-    public static CompeletInfoFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MainActionView mainActionView) {
+    public static CompeletInfoFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MainActionView mainActionView)
+    {
         CompeletInfoFragment fragment = new CompeletInfoFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
 
@@ -91,41 +99,30 @@ public class CompeletInfoFragment
         return fragment;
     }
 
-    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket) {
+    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
+    {
         this.onClickContinueBuyTicketListener = onClickContinueBuyTicket;
     }
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        try {
-            SingletonService.getInstance().getMatchListService().getMatchList(new OnServiceStatus<WebServiceClass<MachListResponse>>() {
-                @Override
-                public void onReady(WebServiceClass<MachListResponse> response) {
-
-                }
-
-                @Override
-                public void onError(String message) {
-
-                }
-            });
-        } catch (Exception e) {
-            e.getMessage();
-        }
 
 
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
-       // initView();
+        // initView();
     }
 
 
-    public void initView() {
+    public void initView()
+    {
         etNationalCode_1 = view.findViewById(R.id.etNationalCode_1);
         etFamily_1 = view.findViewById(R.id.etFamily_1);
         etName_1 = view.findViewById(R.id.etName_1);
@@ -157,43 +154,43 @@ public class CompeletInfoFragment
         llBoxTicket4 = view.findViewById(R.id.llBoxTicket4);
         llBoxTicket5 = view.findViewById(R.id.llBoxTicket5);
 
-        if (textStation != null) {
+        if (textStation != null)
+        {
             tvStation_1.setText(textStation);
             tvStation_2.setText(textStation);
             tvStation_3.setText(textStation);
             tvStation_4.setText(textStation);
             tvStation_5.setText(textStation);
         }
-        if (count == 1) {
+        if (count == 1)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.GONE);
             llBoxTicket3.setVisibility(View.GONE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        } else if (count == 2) {
+        } else if (count == 2)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.GONE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        }else
-        if (count == 3)
+        } else if (count == 3)
         {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        }else
-        if (count == 4)
+        } else if (count == 4)
         {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.VISIBLE);
             llBoxTicket5.setVisibility(View.GONE);
-        }else
-        if (count == 5)
+        } else if (count == 5)
         {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
@@ -243,24 +240,29 @@ public class CompeletInfoFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         view = inflater.inflate(R.layout.complete_info_fragment, container, false);
-        listener = new MessageAlertDialog.OnConfirmListener() {
+        listener = new MessageAlertDialog.OnConfirmListener()
+        {
 
 
             @Override
-            public void onConfirmClick() {
+            public void onConfirmClick()
+            {
                 cbCondition.setChecked(true);
                 llConfirm.setVisibility(View.VISIBLE);
                 llInVisible.setVisibility(View.GONE);
             }
 
             @Override
-            public void onCancelClick() {
+            public void onCancelClick()
+            {
                 //  mainView.backToMainFragment();
             }
         };
         paymentTicket = new PaymentTicketImpl();
+        rulesStadium = new RulesStadiumImpl();
         initView();
 
         return view;
@@ -287,31 +289,27 @@ public class CompeletInfoFragment
         {
             case R.id.btnPaymentConfirm:
                 String flagValidations = "";
-                countRepetitive=0;
+                countRepetitive = 0;
                 numbers = new ArrayList<String>();
                 if (count == 1)
                 {
                     flagValidations = flagValidations + PassengerOne();
-                }else
-                if (count == 2)
+                } else if (count == 2)
                 {
                     flagValidations = flagValidations + PassengerOne();
                     flagValidations = flagValidations + PassengerSecond();
-                }else
-                if (count == 3)
+                } else if (count == 3)
                 {
                     flagValidations = flagValidations + PassengerOne();
                     flagValidations = flagValidations + PassengerSecond();
                     flagValidations = flagValidations + PassengerThird();
-                }else
-                if (count == 4)
+                } else if (count == 4)
                 {
                     flagValidations = flagValidations + PassengerOne();
                     flagValidations = flagValidations + PassengerSecond();
                     flagValidations = flagValidations + PassengerThird();
                     flagValidations = flagValidations + PassengerFourth();
-                }else
-                if (count == 5)
+                } else if (count == 5)
                 {
                     flagValidations = flagValidations + PassengerOne();
                     flagValidations = flagValidations + PassengerSecond();
@@ -352,11 +350,10 @@ public class CompeletInfoFragment
                 break;
 
             case R.id.txtCondition:
+                callRulsStadiumRequest();
 
                 //MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "قوانین و مقررات", "شرکت تراکتور سازی ...");
-                MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "قوانین و مقررات", "شرکت تراکتور سازی ...",
-                        true, "تایید", "بستن", listener);
-                dialog.show(getActivity().getFragmentManager(), "dialog");
+
                 break;
             case R.id.cbCondition:
                 if (((CheckBox) view).isChecked())
@@ -372,14 +369,19 @@ public class CompeletInfoFragment
                 break;
         }
     }
-
+    private void callRulsStadiumRequest()
+    {
+        BuyTicketsFragment.buyTicketsFragment.showLoading();
+        rulesStadium.rulesStadiumRequest(this, 1);
+    }
     private void callPaymentTicketRequest()
     {
         BuyTicketsFragment.buyTicketsFragment.showLoading();
-        paymentTicket.paymentTicketRequest(this,infoViewers,amountForPay);
+        paymentTicket.paymentTicketRequest(this, infoViewers, amountForPay);
     }
 
-    private String PassengerOne() {
+    private String PassengerOne()
+    {
         String flagValidations = "";
         if (etNationalCode_1.getText().toString() != null)
             if (isValidNationalCode(etNationalCode_1.getText().toString()))
@@ -418,7 +420,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_1.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_1",etName_1.getText().toString());
+                Prefs.putString("etName_1", etName_1.getText().toString());
 
             } else
             {
@@ -427,11 +429,13 @@ public class CompeletInfoFragment
             }
 
         }
-        if (flagValidations.contains("F")) {
+        if (flagValidations.contains("F"))
+        {
             mainView.showError("اطلاعات ورودی نفر اول نامعتبر است");
             return "F";
-        } else {
-            Viewers viewer= new Viewers();
+        } else
+        {
+            Viewers viewer = new Viewers();
             viewer.setFirstName(etName_1.getText().toString());
             viewer.setLastName(etFamily_1.getText().toString());
             viewer.setNationalCode(etNationalCode_1.getText().toString());
@@ -467,7 +471,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etFamily_2.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etFamily_2",etFamily_2.getText().toString());
+                Prefs.putString("etFamily_2", etFamily_2.getText().toString());
 
             } else
             {
@@ -483,7 +487,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_2.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_2",etName_2.getText().toString());
+                Prefs.putString("etName_2", etName_2.getText().toString());
 
             } else
             {
@@ -492,15 +496,17 @@ public class CompeletInfoFragment
             }
 
         }
-        if (flagValidations.contains("F")) {
+        if (flagValidations.contains("F"))
+        {
             mainView.showError("اطلاعات ورودی نفر دوم نامعتبر است");
             return "F";
-        } else {
-            Viewers viewer= new Viewers();
+        } else
+        {
+            Viewers viewer = new Viewers();
             viewer.setFirstName(etName_2.getText().toString());
             viewer.setLastName(etFamily_2.getText().toString());
             viewer.setNationalCode(etNationalCode_2.getText().toString());
-            if (!ticketIdList.isEmpty()&&ticketIdList.size()>=2)
+            if (!ticketIdList.isEmpty() && ticketIdList.size() >= 2)
                 viewer.setTicketId(ticketIdList.get(1));
             infoViewers.add(viewer);
             return "T";
@@ -532,7 +538,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etFamily_3.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etFamily_3",etFamily_3.getText().toString());
+                Prefs.putString("etFamily_3", etFamily_3.getText().toString());
 
             } else
             {
@@ -548,7 +554,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_3.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_3",etName_3.getText().toString());
+                Prefs.putString("etName_3", etName_3.getText().toString());
 
             } else
             {
@@ -557,15 +563,17 @@ public class CompeletInfoFragment
             }
 
         }
-        if (flagValidations.contains("F")) {
+        if (flagValidations.contains("F"))
+        {
             mainView.showError("اطلاعات ورودی نفر سوم نامعتبر است");
             return "F";
-        } else {
-            Viewers viewer= new Viewers();
+        } else
+        {
+            Viewers viewer = new Viewers();
             viewer.setFirstName(etName_3.getText().toString());
             viewer.setLastName(etFamily_3.getText().toString());
             viewer.setNationalCode(etNationalCode_3.getText().toString());
-            if (!ticketIdList.isEmpty()&&ticketIdList.size()>=3)
+            if (!ticketIdList.isEmpty() && ticketIdList.size() >= 3)
                 viewer.setTicketId(ticketIdList.get(2));
             infoViewers.add(viewer);
             return "T";
@@ -613,7 +621,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_4.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_4",etName_4.getText().toString());
+                Prefs.putString("etName_4", etName_4.getText().toString());
 
             } else
             {
@@ -622,15 +630,17 @@ public class CompeletInfoFragment
             }
 
         }
-        if (flagValidations.contains("F")) {
+        if (flagValidations.contains("F"))
+        {
             mainView.showError("اطلاعات ورودی نفر چهارم نامعتبر است");
             return "F";
-        } else {
-            Viewers viewer= new Viewers();
+        } else
+        {
+            Viewers viewer = new Viewers();
             viewer.setFirstName(etName_4.getText().toString());
             viewer.setLastName(etFamily_4.getText().toString());
             viewer.setNationalCode(etNationalCode_4.getText().toString());
-            if (!ticketIdList.isEmpty()&&ticketIdList.size()>=4)
+            if (!ticketIdList.isEmpty() && ticketIdList.size() >= 4)
                 viewer.setTicketId(ticketIdList.get(3));
             infoViewers.add(viewer);
             return "T";
@@ -678,7 +688,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + "T";
                 etName_5.setTextColor(Color.parseColor("#4d4d4d"));
-                Prefs.putString("etName_5",etName_5.getText().toString());
+                Prefs.putString("etName_5", etName_5.getText().toString());
 
             } else
             {
@@ -687,22 +697,23 @@ public class CompeletInfoFragment
             }
 
         }
-        if (flagValidations.contains("F")) {
+        if (flagValidations.contains("F"))
+        {
             mainView.showError("اطلاعات ورودی نفر پنجم نامعتبر است");
             return "F";
-        } else {
-            Viewers viewer= new Viewers();
+        } else
+        {
+            Viewers viewer = new Viewers();
             viewer.setFirstName(etName_5.getText().toString());
             viewer.setLastName(etFamily_5.getText().toString());
             viewer.setNationalCode(etNationalCode_5.getText().toString());
-            if (!ticketIdList.isEmpty()&&ticketIdList.size()>=5)
+            if (!ticketIdList.isEmpty() && ticketIdList.size() >= 5)
                 viewer.setTicketId(ticketIdList.get(4));
             infoViewers.add(viewer);
             return "T";
 
         }
     }
-
 
 
     private boolean isValidNationalCode(String nationalCode)
@@ -980,12 +991,13 @@ public class CompeletInfoFragment
         }
     }
 
-    public void getDataFormBefore(Integer selectPositionId, Integer count, Integer amountForPay, List<Integer> ticketIdList) {
+    public void getDataFormBefore(Integer selectPositionId, Integer count, Integer amountForPay, List<Integer> ticketIdList)
+    {
         this.selectPositionId = selectPositionId;
-        this.textStation = "جایگاه "+selectPositionId.toString();
+        this.textStation = "جایگاه " + selectPositionId.toString();
         this.count = count;
         this.amountForPay = amountForPay;
-        this.ticketIdList=ticketIdList;
+        this.ticketIdList = ticketIdList;
 
         if (view == null)
             return;
@@ -996,31 +1008,36 @@ public class CompeletInfoFragment
         tvStation_3.setText(textStation);
         tvStation_4.setText(textStation);
         tvStation_5.setText(textStation);
-        if (count == 1) {
+        if (count == 1)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.GONE);
             llBoxTicket3.setVisibility(View.GONE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        } else if (count == 2) {
+        } else if (count == 2)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.GONE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        } else if (count == 3) {
+        } else if (count == 3)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        } else if (count == 4) {
+        } else if (count == 4)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.VISIBLE);
             llBoxTicket5.setVisibility(View.GONE);
-        } else if (count == 5) {
+        } else if (count == 5)
+        {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
@@ -1047,7 +1064,24 @@ public class CompeletInfoFragment
     {
         infoViewers.clear();
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
-        Tools.showToast(getContext(),error,R.color.red);
+        Tools.showToast(getContext(), error, R.color.red);
+    }
+
+    @Override
+    public void onFinishedStadiumRules(ResponseStadiumRules response)
+    {
+        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+
+        //MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "قوانین و مقررات", response.getRules(), true, "تایید", "بستن", listener);
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", response.getRules(), true, "تایید", "بستن", listener);
+        dialog.show(getActivity().getFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onErrorStadiumRules(String error)
+    {
+        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        Tools.showToast(getContext(), error, R.color.red);
     }
 }
 

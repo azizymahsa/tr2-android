@@ -45,7 +45,7 @@ public class HistoryFragment
     public static HistoryFragment historyFragment;
 
     private Toolbar mToolbar;
-    private TextView tvTitle,tvUserName;
+    private TextView tvTitle,tvUserName,tvPopularPlayer;
     private View imgBack,imgMenu;
     private View view;
     private com.daimajia.slider.library.SliderLayout mDemoSlider;
@@ -369,6 +369,21 @@ public class HistoryFragment
             expandableListView = view.findViewById(R.id.expandableListView);
             expandableListView2 = view.findViewById(R.id.expandableListView2);
             //toolbar
+            /*Toolbars*/
+            mToolbar = view.findViewById(R.id.toolbar);
+            tvUserName = view.findViewById(R.id.tvUserName);
+
+            tvUserName.setText(Prefs.getString("mobile", ""));
+
+            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    mainView.openDrawer();
+                }
+            });
+
             tvTitle = view.findViewById(R.id.tvTitle);
             imgMenu=view.findViewById(R.id.imgMenu);
 
@@ -380,6 +395,8 @@ public class HistoryFragment
             });
 
             tvTitle.setText("تاریخچه");
+            tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
         } catch (Exception e)
         {
 
@@ -395,20 +412,7 @@ public class HistoryFragment
         // initializing the views
         initViews();
 
-        /*Toolbars*/
-        mToolbar = view.findViewById(R.id.toolbar);
-        tvUserName = view.findViewById(R.id.tvUserName);
 
-        tvUserName.setText(Prefs.getString("mobile", ""));
-
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mainView.openDrawer();
-            }
-        });
 
         return view;
     }

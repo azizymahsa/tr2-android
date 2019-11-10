@@ -45,7 +45,7 @@ public class LeagueTableFragment
     private MainActionView mainView;
 
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName;
+    private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
 
     /*scroll view*/
@@ -88,6 +88,20 @@ public class LeagueTableFragment
         try
         {
             leagRecycler = rootView.findViewById(R.id.leagRecycler);
+
+            mToolbar = rootView.findViewById(R.id.toolbar);
+            tvUserName = mToolbar.findViewById(R.id.tvUserName);
+
+            tvUserName.setText(Prefs.getString("mobile", ""));
+
+            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    mainView.openDrawer();
+                }
+            });
             //toolbar
             tvTitle = rootView.findViewById(R.id.tvTitle);
             imgMenu = rootView.findViewById(R.id.imgMenu);
@@ -100,7 +114,8 @@ public class LeagueTableFragment
             });
 
             tvTitle.setText("برنامه بازی");
-
+            tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
         } catch (Exception e)
         {
 
@@ -120,29 +135,10 @@ public class LeagueTableFragment
         initView();
         sendRequest();
 
-        //toolbars
-        toolbarCreate();
 
         return rootView;
     }
 
-    private void toolbarCreate()
-    {
-        mToolbar = rootView.findViewById(R.id.toolbar);
-        tvUserName = mToolbar.findViewById(R.id.tvUserName);
-
-        tvUserName.setText(Prefs.getString("mobile", ""));
-
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mainView.openDrawer();
-            }
-        });
-
-    }
 
     private void sendRequest()
     {
