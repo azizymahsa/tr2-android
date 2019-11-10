@@ -45,8 +45,8 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
     private ImageView ivCountTicket,ivSelectPosition,ivFullInfo,ivPrintTicket;
     private View vOneToTow,vZeroToOne,vTowToThree;
     private TextView tvTitle,tvUserName;
-    public String namePosition;
-    Integer selectPositionId,count,amountForPay;
+    public String namePosition,selectPositionId;
+    Integer count,amountForPay;
     private MatchItem matchBuyable;
     private List<InfoViewer> infoViewers;
     private List<Integer> ticketIdList;
@@ -403,7 +403,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
         }
     }
-    public void setData(Integer selectPositionId, int count, int amountForPay, List<Integer> results) {
+    public void setData(String selectPositionId, int count, int amountForPay, List<Integer> results) {
 
         this.selectPositionId = selectPositionId;
         this.count = count;

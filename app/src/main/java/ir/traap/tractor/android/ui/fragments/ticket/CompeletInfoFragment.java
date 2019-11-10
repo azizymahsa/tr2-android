@@ -60,8 +60,8 @@ public class CompeletInfoFragment
     ArrayList<String> numbers = new ArrayList<String>();
     private int countRepetitive = 0;
     public String namePosition;
-    String positionName;
-    Integer selectPositionId, amountForPay;
+    String positionName,selectPositionId;
+    Integer  amountForPay;
     List<Viewers> infoViewers = new ArrayList<>();
     private List<Integer> ticketIdList;
     private PaymentTicketImpl paymentTicket;
@@ -991,10 +991,10 @@ public class CompeletInfoFragment
         }
     }
 
-    public void getDataFormBefore(Integer selectPositionId, Integer count, Integer amountForPay, List<Integer> ticketIdList)
+    public void getDataFormBefore(String selectPositionId, Integer count, Integer amountForPay, List<Integer> ticketIdList)
     {
         this.selectPositionId = selectPositionId;
-        this.textStation = "جایگاه " + selectPositionId.toString();
+        this.textStation = "جایگاه " + selectPositionId;
         this.count = count;
         this.amountForPay = amountForPay;
         this.ticketIdList = ticketIdList;

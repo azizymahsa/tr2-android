@@ -6,11 +6,11 @@ package ir.traap.tractor.android.apiServices.model;
 public class StadiumPositionModel
 {
     String color;
-    Integer number;
+    String number;
     boolean isFull;
     Integer id;
 
-    public StadiumPositionModel(String color, Integer number,boolean isFull) {
+    public StadiumPositionModel(String color, String number,boolean isFull) {
         this.color = color;
         this.number = number;
         this.isFull=isFull;
@@ -44,11 +44,11 @@ public class StadiumPositionModel
         this.color = color;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 }

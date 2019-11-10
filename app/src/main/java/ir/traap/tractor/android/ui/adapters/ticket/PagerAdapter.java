@@ -96,7 +96,7 @@ public class PagerAdapter
         }
     }
 
-    public void compeletInfoFragmentData(Integer selectPositionId, Integer count, Integer amountForPay, List<Integer> ticketIdList)
+    public void compeletInfoFragmentData(String selectPositionId, Integer count, Integer amountForPay, List<Integer> ticketIdList)
     {
         tab2.getDataFormBefore(selectPositionId,count,amountForPay,ticketIdList);
 
