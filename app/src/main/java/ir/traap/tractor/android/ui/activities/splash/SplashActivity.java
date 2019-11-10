@@ -103,7 +103,6 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                 {
                     versionRequest();
                 }
-//                goToActivity();
             }
         } else
         {
@@ -123,7 +122,6 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             request.setVersion(BuildConfig.VERSION_CODE);
 
             SingletonService.getInstance().getVersionService().getVersionService(this, request);
-
         }, 4500);
     }
 
@@ -402,7 +400,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                         @Override
                         public void onConfirmClick()
                         {
-                            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+                            ActivityCompat.requestPermissions(SplashActivity.this,
+                                    new String[]{Manifest.permission.READ_PHONE_STATE},
+                                    REQUEST_CODE);
                         }
 
                         @Override
@@ -416,7 +416,8 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 //            Tools.showToast(this, "برای ادامه کار حتما باید مجوز دسترسی به وضعیت دستگاه صادر شود.لطفا در تنظیمات برنامه مجوز مربوطه را صادر نمایید.");
         } else
         {
-            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE},
+                    REQUEST_CODE);
         }
     }
 
@@ -437,7 +438,8 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                     versionRequest();
                 }
 //                goToActivity();
-            } else
+            }
+            else
             {
                 DialogGetPermissionRequest dialog = new DialogGetPermissionRequest(this, new DialogGetPermissionRequest.OnButtonClick()
                 {
