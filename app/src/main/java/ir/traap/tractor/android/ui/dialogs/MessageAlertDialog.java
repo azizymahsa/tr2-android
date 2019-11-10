@@ -7,14 +7,12 @@ import android.app.DialogFragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import ir.traap.tractor.android.R;
@@ -26,6 +24,8 @@ import ir.traap.tractor.android.R;
 public class MessageAlertDialog extends DialogFragment implements View.OnClickListener
 {
     private OnConfirmListener listener;
+
+    private Boolean isRightToLeft = false;
 
     private View rootView;
 
@@ -71,6 +71,19 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         this.btnCancelText = btnCancelText;
     }
 
+    public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable,
+                              String btnConfirmText, String btnCancelText, Boolean isRightToLeft, OnConfirmListener listener)
+    {
+        this.activity = activity;
+        this.listener = listener;
+        this.title = title;
+        this.messages = messages;
+        this.isCancelable = isCancelable;
+        this.btnConfirmText = btnConfirmText;
+        this.btnCancelText = btnCancelText;
+        this.isRightToLeft = isRightToLeft;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
@@ -100,6 +113,11 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
             tvTitle.setText(title);
         }
         tvMessage.setText(messages);
+
+        if (isRightToLeft)
+        {
+            tvMessage.setGravity(Gravity.RIGHT);
+        }
 
         btnConfirm.setOnClickListener(this);
         btnCancel.setOnClickListener(this);

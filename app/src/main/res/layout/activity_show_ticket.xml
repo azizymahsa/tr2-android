@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    android:background="#fff"
+    android:background="@drawable/background"
     >
 <androidx.core.widget.NestedScrollView
     android:id="@+id/nested"
@@ -29,11 +29,11 @@
                 android:layout_height="102dp"
                 android:background="@drawable/background_main_header" />
 
-            <RelativeLayout
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="102dp"
-                android:background="@drawable/img_header_background" />
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/header"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="102dp"-->
+<!--                android:background="@drawable/img_header_background" />-->
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"

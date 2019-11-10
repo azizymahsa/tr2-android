@@ -22,6 +22,7 @@
     <color name="lineDividerColor">#fff</color>
     <color name="btnColorSecondary">#d5282e</color>
     <color name="borderColorRed">#d5282e</color>
+    <color name="borderColorGray">#888</color>
     <color name="buttonMainBorderColor">#aaa</color>
     <color name="textColorLoading">#fff</color>
     <color name="buttonMainBackgroundColor">#fff</color>
