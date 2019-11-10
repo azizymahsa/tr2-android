@@ -46,13 +46,14 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
     private View vOneToTow,vZeroToOne,vTowToThree;
     private TextView tvTitle,tvUserName;
     public String namePosition;
-    Integer selectPositionId,count,amountForPay;
+    Integer selectPositionId,count,amountForPay,amountOneTicket;
     private MatchItem matchBuyable;
     private List<InfoViewer> infoViewers;
     private List<Integer> ticketIdList;
     private View imgBack,imgMenu;
     private TextView tvPopularPlayer;
     private String url="";
+    private Integer stadiumId;
 
 
     public BuyTicketsFragment()
@@ -143,7 +144,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
 
                 if (position == 1) {
 
-                    new Handler().postDelayed(() -> adapter.compeletInfoFragmentData(selectPositionId, count, amountForPay,ticketIdList), 200);
+                    new Handler().postDelayed(() -> adapter.compeletInfoFragmentData(selectPositionId, count, amountForPay,amountOneTicket,ticketIdList,stadiumId), 200);
                     //setDataToCompleteInfoFragment(namePosition);
                 }
                 if (position == 2)
@@ -403,12 +404,14 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
         }
     }
-    public void setData(Integer selectPositionId, int count, int amountForPay, List<Integer> results) {
+    public void setData(Integer selectPositionId, int count, int amountForPay,int amountOneTicket, List<Integer> results,Integer stadiumId) {
 
         this.selectPositionId = selectPositionId;
         this.count = count;
         this.amountForPay = amountForPay;
+        this.amountOneTicket=amountOneTicket;
         this.ticketIdList=results;
+        this.stadiumId=stadiumId;
 
     }
 
