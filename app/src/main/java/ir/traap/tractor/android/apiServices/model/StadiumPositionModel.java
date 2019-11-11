@@ -6,14 +6,25 @@ package ir.traap.tractor.android.apiServices.model;
 public class StadiumPositionModel
 {
     String color;
-    Integer number;
+    String number;
     boolean isFull;
     Integer id;
+    Integer amount;
 
-    public StadiumPositionModel(String color, Integer number,boolean isFull) {
+    public StadiumPositionModel(String color, String number,boolean isFull) {
         this.color = color;
         this.number = number;
         this.isFull=isFull;
+    }
+
+    public Integer getAmount()
+    {
+        return amount;
+    }
+
+    public void setAmount(Integer amount)
+    {
+        this.amount = amount;
     }
 
     public Integer getId()
@@ -44,11 +55,11 @@ public class StadiumPositionModel
         this.color = color;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 }

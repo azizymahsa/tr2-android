@@ -2,6 +2,7 @@ package ir.traap.tractor.android.ui.fragments.ticket;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,8 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
     private ImageView ivCountTicket,ivSelectPosition,ivFullInfo,ivPrintTicket;
     private View vOneToTow,vZeroToOne,vTowToThree;
     private TextView tvTitle,tvUserName;
-    public String namePosition;
-    Integer selectPositionId,count,amountForPay,amountOneTicket;
+    public String namePosition,selectPositionId;
+    Integer count,amountForPay,amountOneTicket;
     private MatchItem matchBuyable;
     private List<InfoViewer> infoViewers;
     private List<Integer> ticketIdList;
@@ -169,6 +170,22 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
              //   viewPager.setCurrentItem(3, true);
 
         }
+
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+               if (viewPager.getCurrentItem()==0){
+                    getActivity().onBackPressed();
+                }else
+               {
+                   onBackClicked();
+
+               }
+                return true;
+            }
+            return false;
+        });
         return rootView;
     }
 
@@ -404,7 +421,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
         }
     }
-    public void setData(Integer selectPositionId, int count, int amountForPay,int amountOneTicket, List<Integer> results,Integer stadiumId) {
+    public void setData(String selectPositionId, int count, int amountForPay,int amountOneTicket, List<Integer> results,Integer stadiumId) {
 
         this.selectPositionId = selectPositionId;
         this.count = count;
