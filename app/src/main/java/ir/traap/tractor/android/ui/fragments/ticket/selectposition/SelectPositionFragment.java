@@ -278,6 +278,8 @@ public class SelectPositionFragment
 
         stadiumPositionModels.add(new StadiumPositionModel("FFFFCC00", "CIP", true));
         stadiumPositionModels.add(new StadiumPositionModel("", "46", true));
+        stadiumPositionModels.add(new StadiumPositionModel("", "47", true));
+
 
         //////
 
@@ -1340,6 +1342,8 @@ public class SelectPositionFragment
                                     setImageIntoIV(imgView, R.drawable.ic_up_stadium_full);
 //                                    imgView.setImageResource(R.drawable.ic_up_stadium_full);
                                     break;
+                                case "47":
+                                    setImageIntoIV(imgView,R.drawable.ic_bottom_full);
 
                             }
 
