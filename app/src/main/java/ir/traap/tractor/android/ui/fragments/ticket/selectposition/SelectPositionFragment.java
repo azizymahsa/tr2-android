@@ -276,7 +276,7 @@ public class SelectPositionFragment
         /////CIP Up Down
         stadiumPositionModels.add(new StadiumPositionModel("FFA11919", "میهمان", true));
 
-        stadiumPositionModels.add(new StadiumPositionModel("", "CIP", true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFFFCC00", "CIP", true));
         stadiumPositionModels.add(new StadiumPositionModel("", "46", true));
 
         //////
@@ -299,7 +299,6 @@ public class SelectPositionFragment
                     positionId = stadiomModel.getId();
                 }
             }
-            Log.d("coloooooor",envelope.getHexCode());
 
             switch (envelope.getHexCode())
             {
@@ -537,7 +536,13 @@ public class SelectPositionFragment
                     setSpinnerPositionSelected(stadiumPositionModels.get(43).getNumber());
                     selectedIndex = allBoxes.indexOf(stadiumPositionModels.get(43).getNumber().toString());
                     break;
-               /* case "":
+
+                case "FFFFCC00":
+                    setCIPPositionSelected();
+                    setSpinnerPositionSelected(stadiumPositionModels.get(44).getNumber());
+                    selectedIndex = allBoxes.indexOf(stadiumPositionModels.get(44).getNumber().toString());
+                    break;
+               /* case "FF0F0060":
                     ivSelected.setImageResource(R.drawable.ic_fourteen_full);
                     ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
                     break;
@@ -550,6 +555,15 @@ public class SelectPositionFragment
 
             Logger.e("tesstt", envelope.getHexCode() + "");
         });
+    }
+
+    private void setCIPPositionSelected()
+    {
+        selectPositionId = 45;
+        ivSelected.setImageResource(R.drawable.ic_cip_selected);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        setAmounts(newResult);
+
     }
 
     private void setfourtythreePositionSelected()
@@ -1557,7 +1571,7 @@ public class SelectPositionFragment
                             setGuestPositionSelected();
                             break;
                         case "CIP":
-
+                            setCIPPositionSelected();
                             break;
                     }
 
