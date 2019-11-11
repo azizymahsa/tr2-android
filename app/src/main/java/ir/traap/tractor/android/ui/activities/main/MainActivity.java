@@ -75,6 +75,7 @@ import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
 import ir.traap.tractor.android.ui.activities.ticket.ShowTicketActivity;
 import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
+import ir.traap.tractor.android.ui.fragments.transaction.TransactionsListFragment;
 import ir.traap.tractor.android.utilities.Logger;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
@@ -384,7 +385,21 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             case 1:
             {
-                showToast(this, "لیست تراکنش ها", R.color.green);
+              //  showToast(this, "لیست تراکنش ها", R.color.green);
+                isMainFragment = false;
+
+                fragment = TransactionsListFragment.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment)
+                        .commit();
+
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                if (drawer.isDrawerOpen(GravityCompat.END))
+                {
+                    drawer.closeDrawer(GravityCompat.END);
+                }
                 break;
             }
             case 2:

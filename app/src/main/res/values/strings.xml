@@ -37,6 +37,8 @@
     <string name="enter_popular_player">شماره بازیکن محبوب خود را وارد نمایید</string>
     <string name="etMobileHint">شماره تلفن خود را وارد نمایید</string>
     <string name="etBillHint">شناسه قبض خود را وارد نمایید</string>
+    <string name="success">موفق</string>
+    <string name="un_success">ناموفق</string>
     <string name="amount">مبلغ</string>
     <string name="toDate">تا تاریخ</string>
     <string name="pay_code">شناسه پرداخت</string>

@@ -37,6 +37,7 @@ import ir.traap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import ir.traap.tractor.android.apiServices.model.getTransaction.ResponseTransaction;
 import ir.traap.tractor.android.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import ir.traap.tractor.android.apiServices.model.league.getLeagues.response.ResponseLeage;
 import ir.traap.tractor.android.apiServices.model.league.pastResult.request.RequestPastResult;
@@ -317,6 +318,9 @@ public interface RetroClient
 
     @GET(Const.GET_Match_List)
     Single<Response<WebServiceClass<MachListResponse>>> getMatchList();
+
+    @GET(Const.GET_Transaction_List)
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList();
 
 
     @GET(Const.GetHistory)
