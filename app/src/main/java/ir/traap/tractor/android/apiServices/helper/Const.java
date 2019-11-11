@@ -109,4 +109,6 @@ public class Const
     public final static String SEND_PREDICT = SubBASEURL + "v1/predict/";
 
     public final static String GET_RULS = SubBASEURL + "v1/match/";
+    //Transaction
+    public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
 }
