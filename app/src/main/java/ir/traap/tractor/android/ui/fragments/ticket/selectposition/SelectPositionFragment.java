@@ -299,6 +299,7 @@ public class SelectPositionFragment
                     positionId = stadiomModel.getId();
                 }
             }
+            Log.d("coloooooor",envelope.getHexCode());
 
             switch (envelope.getHexCode())
             {
@@ -952,7 +953,7 @@ public class SelectPositionFragment
 
             for (int i = 0; i < positionIdAllBoxes.size(); i++)
             {
-                if (numberPosition.equals(allBoxes.get(i)))
+                if (numberPosition.equals(allBoxes.get(i).replace("جایگاه ", "")))
                 {
                     spinnerAllBoxes.setSelection(i);
 
@@ -1385,7 +1386,9 @@ public class SelectPositionFragment
 
         for (int i = 0; i < result.size(); i++)
         {
-            allBoxes.add(result.get(i).getName());
+            allBoxes.add("جایگاه " + result.get(i).getName());
+            //allBoxes.add(result.get(i).getName());
+
             positionIdAllBoxes.add(result.get(i).getId());
         }
 
