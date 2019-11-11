@@ -891,6 +891,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
 
             intent.putExtra("RefrenceNumber", refrenceNumber);
+            intent.putExtra("isTransactionList",false);
+
             startActivity(intent);
 
         }

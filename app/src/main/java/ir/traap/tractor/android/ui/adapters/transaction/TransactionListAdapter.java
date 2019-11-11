@@ -109,12 +109,16 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             @Override
             public void onClick(View v)
             {
-                if (item.getTypeTransactionId()==12)
+                if (item.getStatus())
                 {
-                    Intent intent = new Intent(mContext, ShowTicketActivity.class);
+                    if (item.getTypeTransactionId() == 12)
+                    {
+                        Intent intent = new Intent(mContext, ShowTicketActivity.class);
 
-                    intent.putExtra("RefrenceNumber", item.getId().toString());
-                    mContext.startActivity(intent);
+                        intent.putExtra("RefrenceNumber", item.getId().toString());
+                        intent.putExtra("isTransactionList", true);
+                        mContext.startActivity(intent);
+                    }
                 }
             }
         });
