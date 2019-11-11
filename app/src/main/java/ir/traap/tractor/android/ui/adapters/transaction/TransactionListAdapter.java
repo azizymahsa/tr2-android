@@ -1,0 +1,170 @@
+package ir.traap.tractor.android.ui.adapters.transaction;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.apiServices.model.getTransaction.Result;
+import library.android.eniac.utility.Utility;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
+
+import static androidx.core.content.ContextCompat.getColor;
+
+
+public class TransactionListAdapter extends RecyclerView.Adapter<TransactionListAdapter.ViewHolder>
+{
+    private final Context mContext;
+    private final List<Result> mData;
+    private LayoutInflater mInflater;
+    private ItemClickListener mClickListener;
+
+
+    public TransactionListAdapter(List<Result> mData, Context mContext)
+    {
+        this.mContext = mContext;
+        this.mInflater = LayoutInflater.from(mContext);
+        this.mData = mData;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
+        View view = mInflater.inflate(R.layout.row_transaction_result, parent, false);
+        return new ViewHolder(view);
+    }
+
+    private String getDate(Date d)
+    {
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(d);  // formatted date in string
+        String[] splitsDate = date.split("-");
+
+        PersianDate persianDate = new PersianDate();
+        persianDate.setGrgYear(Integer.valueOf(splitsDate[0]));
+        persianDate.setGrgMonth(Integer.valueOf(splitsDate[1]));
+        persianDate.setGrgDay(Integer.valueOf(splitsDate[2]));
+
+//private String key_parse[] = {"yyyy", "MM", "dd", "HH", "mm", "ss"};
+        PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d H:i");
+        pdformater1.format(persianDate);//1396/05/20 15:21
+
+        //PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
+        // date = String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
+        date = String.valueOf(pdformater1.format(persianDate));//1396/05/20
+
+        return date;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position)
+    {
+
+        Result item = mData.get(position);
+
+
+        if (item.getStatus())
+        {
+            holder.txtStatus.setText(mContext.getString(R.string.success));
+            holder.txtCheck.setTextColor(getColor(mContext, R.color.green));
+            holder.ivFlagCheck.setImageResource(R.drawable.check_mark);
+
+        } else
+        {
+            holder.txtCheck.setTextColor(getColor(mContext, R.color.redBack));
+            holder.txtStatus.setText(mContext.getString(R.string.un_success));
+            holder.ivFlagCheck.setImageResource(R.drawable.un_check_mark);
+        }
+        holder.txtPrice.setText("قیمت: " + Utility.priceFormat(item.getAmount()+"") + " ریال");
+
+
+
+        String strDate = item.getCreateDate();//2019-11-07 16:08:36
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date = null;
+        try
+        {
+            date = dateFormat.parse(strDate);
+            Log.d("time:", getDate(date) + " $$$$$$$" + item.getCreateDate());
+            holder.txtDate.setText(getDate(date) + "");
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    // total number of rows
+    @Override
+    public int getItemCount()
+    {
+        return mData.size();
+    }
+
+
+    // stores and recycles views as they are scrolled off screen
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    {
+
+        TextView txtStatus;
+        TextView txtPrice;
+        TextView txtDate;
+        TextView txtCheck;
+
+
+        ImageView ivFlagCheck;
+        ImageView ivDec;
+        LinearLayout llItem;
+
+        ViewHolder(View itemView)
+        {
+            super(itemView);
+
+            txtStatus = itemView.findViewById(R.id.txtStatus);
+            txtPrice = itemView.findViewById(R.id.txtPrice);
+            txtDate = itemView.findViewById(R.id.txtDate);
+            txtCheck = itemView.findViewById(R.id.txtCheck);
+            ivFlagCheck = itemView.findViewById(R.id.ivFlagCheck);
+            ivDec = itemView.findViewById(R.id.ivDec);
+
+
+            llItem = itemView.findViewById(R.id.llItem);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view)
+        {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+        }
+    }
+
+
+    // parent activity will implement this method to respond to click events
+    public interface ItemClickListener
+    {
+        void onItemClick(View view, int position);
+    }
+}
+

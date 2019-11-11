@@ -37,6 +37,7 @@ import ir.traap.tractor.android.apiServices.part.SendPredictService;
 import ir.traap.tractor.android.apiServices.part.SheatcChangePassService;
 import ir.traap.tractor.android.apiServices.part.SheatcForgotPassService;
 import ir.traap.tractor.android.apiServices.part.GetMatchListService;
+import ir.traap.tractor.android.apiServices.part.TransactionService;
 import ir.traap.tractor.android.apiServices.part.VerifyService;
 import okhttp3.OkHttpClient;
 
@@ -85,7 +86,6 @@ public class SingletonService
     }
 
 
-
     public ServiceApplication getContext()
     {
         return serviceApplication;
@@ -97,8 +97,8 @@ public class SingletonService
     }
 
 
-
-    public LoginService getLoginService(){
+    public LoginService getLoginService()
+    {
         return new LoginService(serviceGenerator);
     }
 
@@ -106,21 +106,25 @@ public class SingletonService
     {
         return new GetCardListService(serviceGenerator);
     }
+
     public GetMatchListService getMatchListService()
     {
         return new GetMatchListService(serviceGenerator);
     }
 
 
-    public VerifyService getVerifyService(){
+    public VerifyService getVerifyService()
+    {
         return new VerifyService(serviceGenerator);
     }
 
-    public GetMyBillsService getMyBillsService(){
+    public GetMyBillsService getMyBillsService()
+    {
         return new GetMyBillsService(serviceGenerator);
     }
 
-    public GetAllBoxesService getAllBoxesService(){
+    public GetAllBoxesService getAllBoxesService()
+    {
         return new GetAllBoxesService(serviceGenerator);
     }
 
@@ -138,23 +142,32 @@ public class SingletonService
     {
         return new LiveScoreService(serviceGenerator);
     }
+
     public GetMenuService getMenuService()
     {
         return new GetMenuService(serviceGenerator);
     }
+
     public MerchantService getMerchantService()
     {
         return new MerchantService(serviceGenerator);
+    }
+
+    public TransactionService getTransactionService()
+    {
+        return new TransactionService(serviceGenerator);
     }
 
     public PackageBuyService packageBuyService()
     {
         return new PackageBuyService(serviceGenerator);
     }
+
     public ir.traap.tractor.android.apiServices.part.PaymentMatchService paymentMatch()
     {
         return new ir.traap.tractor.android.apiServices.part.PaymentMatchService(serviceGenerator);
     }
+
     public MobileChargeService getMobileCharge()
     {
         return new MobileChargeService(serviceGenerator);
