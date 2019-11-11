@@ -53,6 +53,8 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
     private LinearLayout llSuccessPayment,llErrorPayment;
     private String refrenceNumber="";
     private TextView txRefrenceNumber,tvRefrenceNumberFromErrorPayment;
+    private boolean isTransactionList=false;
+    private View llSelect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,6 +71,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
             } else
             {
                 refrenceNumber = extras.getString("RefrenceNumber");
+                isTransactionList=extras.getBoolean(            "isTransactionList",false);
             }
         }
         ticketInfo = new TicketInfoImpl();
@@ -99,7 +102,8 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
                finish();
             });
 
-            tvTitle.setText("خرید بلیت");
+
+            tvTitle.setText("صدور بلیت");
         } catch (Exception e)
         {
 
@@ -132,6 +136,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         vZeroToOne = findViewById(R.id.vZeroToOne);
         vOneToTow = findViewById(R.id.vOneToTow);
         vTowToThree = findViewById(R.id.vTowToThree);
+        llSelect=findViewById(R.id.llSelect);
 
         txRefrenceNumber=findViewById(R.id.txRefrenceNumber);
         txRefrenceNumber.setText(" کد پیگیری پرداخت: "+refrenceNumber);
@@ -151,6 +156,12 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         btnShareTicket.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
         btnBackToHome.setOnClickListener(this);
+
+        if(isTransactionList){
+            llSelect.setVisibility(View.GONE);
+        }else {
+            llSelect.setVisibility(View.VISIBLE);
+        }
 
         linearLayoutManager = new LinearLayoutManager(this);
         rvTickets.setLayoutManager(linearLayoutManager);

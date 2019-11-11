@@ -1,6 +1,7 @@
 package ir.traap.tractor.android.ui.adapters.transaction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import java.util.List;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.getTransaction.Result;
+import ir.traap.tractor.android.ui.activities.main.MainActivity;
+import ir.traap.tractor.android.ui.activities.ticket.ShowTicketActivity;
 import library.android.eniac.utility.Utility;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
@@ -35,6 +38,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
     private final List<Result> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private String refrenceNumber;
+    private Integer typeTransaction=0;
 
 
     public TransactionListAdapter(List<Result> mData, Context mContext)
@@ -96,6 +101,27 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         }
         holder.txtPrice.setText("قیمت: " + Utility.priceFormat(item.getAmount()+"") + " ریال");
 
+       // refrenceNumber=item.getId().toString();
+       // typeTransaction=item.getTypeTransactionId();
+
+        holder.llItem.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (item.getStatus())
+                {
+                    if (item.getTypeTransactionId() == 12)
+                    {
+                        Intent intent = new Intent(mContext, ShowTicketActivity.class);
+
+                        intent.putExtra("RefrenceNumber", item.getId().toString());
+                        intent.putExtra("isTransactionList", true);
+                        mContext.startActivity(intent);
+                    }
+                }
+            }
+        });
 
 
         String strDate = item.getCreateDate();//2019-11-07 16:08:36
@@ -156,7 +182,18 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         @Override
         public void onClick(View view)
         {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            switch (view.getId()){
+                case R.id.llItem:
+                    if (typeTransaction==12)
+                    {
+                        Intent intent = new Intent(mContext, ShowTicketActivity.class);
+
+                        intent.putExtra("RefrenceNumber", refrenceNumber);
+                        mContext.startActivity(intent);
+                    }
+                    break;
+            }
+            //if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
