@@ -131,7 +131,7 @@ public class MyCustomSliderView extends BaseSliderView
 //            Logger.e("--result test--", test2[1] + "  :  " + test2[0]);
             //---------test----------
             String result[] = getMatchResult().split("-");
-            tvMatchResult.setText(Integer.parseInt(result[1] )+ "  :  " + Integer.parseInt(result[0]));
+            tvMatchResult.setText(Integer.parseInt(result[1] )+ "  -  " + Integer.parseInt(result[0]));
 
             tvMatchResult.setVisibility(View.VISIBLE);
             imgCenter.setVisibility(View.GONE);
