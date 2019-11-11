@@ -9,11 +9,22 @@ public class StadiumPositionModel
     String number;
     boolean isFull;
     Integer id;
+    Integer amount;
 
     public StadiumPositionModel(String color, String number,boolean isFull) {
         this.color = color;
         this.number = number;
         this.isFull=isFull;
+    }
+
+    public Integer getAmount()
+    {
+        return amount;
+    }
+
+    public void setAmount(Integer amount)
+    {
+        this.amount = amount;
     }
 
     public Integer getId()

@@ -218,7 +218,7 @@ public class SelectPositionFragment
 
            return date;
        }*/
-    private String getDate(Double matchDatetime)
+/*    private String getDate(Double matchDatetime)
     {
         String shamsi = "";
         Date d = new Date((new Double(matchDatetime)).longValue());
@@ -241,7 +241,7 @@ public class SelectPositionFragment
         date = String.valueOf(pdformater2.format(persianDate));//۱۹ تیر ۹۶
 
         return date;
-    }
+    }*/
 
     private void setImageColor(ImageView imageView, String link)
     {
@@ -322,7 +322,8 @@ public class SelectPositionFragment
         stadiumPositionModels.add(new StadiumPositionModel("FF440000", "43", true));
 
         /////CIP Up Down
-        stadiumPositionModels.add(new StadiumPositionModel("", "میهمان", true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA11919", "میهمان", true));
+
         stadiumPositionModels.add(new StadiumPositionModel("", "CIP", true));
         stadiumPositionModels.add(new StadiumPositionModel("", "46", true));
 
@@ -347,13 +348,13 @@ public class SelectPositionFragment
                 }
             }
 
-
             switch (envelope.getHexCode())
             {
                 case "FF328DAA":
                     setOnePositionSelected();
                     setSpinnerPositionSelected(stadiumPositionModels.get(0).getNumber());
                     selectedIndex = allBoxes.indexOf(stadiumPositionModels.get(0).getNumber().toString());
+                    setAmounts(allBoxesResponse);
                     break;
                 case "FF953D3D":
                     setTowPositionSelected();
@@ -618,7 +619,13 @@ public class SelectPositionFragment
                     setfourtythreePositionSelected();
                     setSpinnerPositionSelected(stadiumPositionModels.get(42).getNumber());
                     selectedIndex = allBoxes.indexOf(stadiumPositionModels.get(42).getNumber().toString());
-                    Logger.e("--pos--", "pos: " + selectedIndex);
+                    setAmounts(newResult);
+                    break;
+
+                case "FFA11919":
+                    setGuestPositionSelected();
+                  //  setSpinnerPositionSelected(stadiumPositionModels.get(43).getNumber());
+                  //  selectedIndex = allBoxes.indexOf(stadiumPositionModels.get(43).getNumber().toString());
                     setAmounts(newResult);
                     break;
                /* case "":
@@ -647,8 +654,8 @@ public class SelectPositionFragment
     private void setGuestPositionSelected()
     {
         selectPositionId = 44;
-       /* ivSelected.setImageResource(R.drawable.ic_selected_);
-        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);*/
+        ivSelected.setImageResource(R.drawable.ic_guest_selected);
+        ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
 
     private void setfourtytwoPositionSelected()
@@ -1005,7 +1012,7 @@ public class SelectPositionFragment
                         }else {
                             selectPositionId = Integer.valueOf(numberPosition);
                         }
-                    setAmounts(newResult);
+                  setAmounts(newResult);
                 }
             }
         } catch (Exception e)
@@ -1061,9 +1068,9 @@ public class SelectPositionFragment
                         Logger.e("--AllBoxesResult size --", "size: " + newResult.size());
 
                         setDataSpinnerAllBoxes(newResult);
-                        setAmounts(newResult);
                         allBoxesResponse = newResult;
                         setFullPositions(newResult);
+                        setAmounts(newResult);
                     }
                     else
                     {
@@ -1121,7 +1128,7 @@ public class SelectPositionFragment
                             if (stadiomModel.getNumber().equals(result.getName()))
                             {
                                 stadiomModel.setId(result.getId());
-
+                                stadiomModel.setAmount(result.getTicketAmount());
                                 if (stadiomModel.isFull())
                                     stadiomModel.setFull(false);
                             }
@@ -1359,7 +1366,7 @@ public class SelectPositionFragment
 //                                    imgView.setImageResource(R.drawable.ic_cip_full);
                                     break;
                                 case "میهمان":
-                                    setImageIntoIV(imgView, R.drawable.ic_bottom_full);
+                                    setImageIntoIV(imgView, R.drawable.ic_full_guest);
 //                                    imgView.setImageResource(R.drawable.ic_bottom_full);
                                     break;
                                 case "46":
@@ -1406,7 +1413,7 @@ public class SelectPositionFragment
     {
 
 
-        for (AllBoxesResult item: results)
+     /*   for (AllBoxesResult item: results)
         {
             if (item.getName().equals(stadiumPositionModels.get(43).getNumber())){
 
@@ -1420,11 +1427,22 @@ public class SelectPositionFragment
             {
                 amountOneTicket=item.getTicketAmount();
             }
+        }*/
+
+     try
+     {
+         amountOneTicket = stadiumPositionModels.get(selectPositionId-1).getAmount();
+         amountForPay = amountOneTicket * count;
+//        tvAmountStation.setText("قیمت بلیت این جایگاه:" + Utility.priceFormat(results.get(0).getTicketAmount().toString()) + " ریال");
+         tvAmountStation.setText("قیمت بلیت این جایگاه:" + (amountOneTicket+ " ریال"));
+         tvAmountForPay.setText("مبلغ قابل پرداخت:" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+
+     }catch (Exception e){
+
+     }
 
 
-        }
-
-
+/*
 
 
 
@@ -1434,7 +1452,7 @@ public class SelectPositionFragment
         amountForPay = amountOneTicket * count;
 //        tvAmountStation.setText("قیمت بلیت این جایگاه:" + Utility.priceFormat(results.get(0).getTicketAmount().toString()) + " ریال");
         tvAmountStation.setText("قیمت بلیت این جایگاه:" + Utility.priceFormat(amountOneTicket.toString()) + " ریال");
-        tvAmountForPay.setText("مبلغ قابل پرداخت:" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+        tvAmountForPay.setText("مبلغ قابل پرداخت:" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");*/
     }
 
     private void setDataSpinnerAllBoxes(List<AllBoxesResult> result)
