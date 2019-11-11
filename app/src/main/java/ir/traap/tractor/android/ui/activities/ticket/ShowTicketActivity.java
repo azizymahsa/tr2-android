@@ -99,7 +99,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
                finish();
             });
 
-            tvTitle.setText("خرید بلیت");
+            tvTitle.setText("صدور بلیت");
         } catch (Exception e)
         {
 

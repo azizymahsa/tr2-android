@@ -280,6 +280,13 @@ public class CompeletInfoFragment
             @Override
             public void onCancelClick()
             {
+                if (flagDelete){
+
+                }else {
+                    cbCondition.setChecked(false);
+                    llConfirm.setVisibility(View.GONE);
+                    llInVisible.setVisibility(View.VISIBLE);
+                }
                 // mainView.backToMainFragment();
             }
         };
@@ -311,7 +318,12 @@ public class CompeletInfoFragment
         {
             case R.id.imgDelete1:
                 flagDelete = true;
-                showDialogDelete();
+                if (count==1){
+
+                }
+                else {
+                    showDialogDelete();
+                }
                 break;
             case R.id.imgDelete2:
                 flagDelete = true;
