@@ -11,6 +11,7 @@
     <string name="no_name">بدون نام</string>
     <string name="enter_first_name">نام خود را وارد نمایید</string>
     <string name="enter_last_name">نام خانوادگی خود را وارد نمایید</string>
+    <string name="enter_nick_name">نام مستعار خود را وارد نمایید</string>
     <string name="enter_passcode">رمز عبور دیبا خود را وارد نمایید.</string>
     <string name="pic_icon_R">&#xe907;</string>
 
@@ -33,15 +34,15 @@
     <string name="enter_national_code">کد ملی خود را وارد نمایید</string>
     <string name="enter_birthday">تاریخ تولد خود را وارد نمایید</string>
     <string name="enter_english_name">نام خود را به انگلیسی وارد نمایید</string>
-    <string name="enter_popular_player">شماره بازیکن محبوب خود را وارد نمایید (اجباری) </string>
+    <string name="enter_popular_player">شماره بازیکن محبوب خود را وارد نمایید</string>
     <string name="etMobileHint">شماره تلفن خود را وارد نمایید</string>
     <string name="etBillHint">شناسه قبض خود را وارد نمایید</string>
     <string name="amount">مبلغ</string>
     <string name="toDate">تا تاریخ</string>
     <string name="pay_code">شناسه پرداخت</string>
     <string name="bill_code">شناسه قبض</string>
-    <string name="bill_now">میان دوره :</string>
-    <string name="bill_end">پایان دوره :</string>
+    <string name="bill_now">میان دوره:</string>
+    <string name="bill_end">پایان دوره:</string>
 
     <string name="get_permission">با توجه به دستور بانک مرکزی و پلیس فتا مبنی بر افزایش امنیت انجام تراکنشهای بانکی در اپلیکیشن موبایل بانک، میبایست مجوز دسترسی به وضعیت دستگاه داده شود. \n برای ادامه کار لطفا مجوز مربوطه را تایید نمایید.</string>
 
@@ -49,7 +50,7 @@
     <string name="enter_card_number">لطفا شماره کارت را وارد نمایید.</string>
     <string name="enter_expire_month">لطفا ماه انقضا کارت را وارد نمایید.</string>
     <string name="enter_expire_year">لطفا سال انقضا کارت را وارد نمایید.</string>
-    <string name="select_position_tiitle">انتخاب از روی نقشه استادیوم :</string>
+    <string name="select_position_tiitle">انتخاب از روی نقشه استادیوم:</string>
     <string name="_confirm_next">تایید و مرحله بعد</string>
     <string name="_confirm_peyment">تایید و پرداخت</string>
     <string name="buy_ticket_description">کاربر گرامی؛ خرید با موفقیت انجام شد. </string>
@@ -64,7 +65,7 @@
     <string name="Error_edit_input">اطلاعات ورودی نامعتبر است</string>
     <string name="Error_nationall_code_input">کد ملی تکراری است</string>
     <string name="Please_enter_first_name_in_Persian">لطفا نام خود را وارد نمایید</string>
-    <string name="profile_desc">(وارد کردن شماره بازیکن محبوب به صورت اجباری، و بقیه موارد به صورت اختیاری می باشد.)</string>
+    <string name="profile_desc">وارد کردن تمامی موارد به صورت اختیاری می باشد</string>
     <string name="error_ticket_payment">کاربر گرامی؛  متاسفانه پرداخت شما ناموفق بوده است.</string>
 
 

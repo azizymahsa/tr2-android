@@ -83,6 +83,7 @@ public class SelectPositionFragment
     private int positionId, positionIdFromServer;
     private String positionName;
     private ReservationMatchImpl reservationMatch;
+    private Integer stadiumId=1;
     private String selectPosition;
 
 
@@ -175,6 +176,7 @@ public class SelectPositionFragment
         {
             llSliderItemMatch.setVisibility(View.VISIBLE);
             matchId = matchBuyable.getId();
+            stadiumId = matchBuyable.getStadium().getId();
             tvStadiumName.setText(matchBuyable.getStadium().getName());
             setImageColor(imgHost, matchBuyable.getTeamHome().getLogo());
             setImageColor(imgGuest, matchBuyable.getTeamAway().getLogo());
@@ -301,6 +303,7 @@ public class SelectPositionFragment
                     positionId = stadiomModel.getId();
                 }
             }
+
 
             switch (envelope.getHexCode())
             {
@@ -1593,8 +1596,6 @@ public class SelectPositionFragment
     }
 
 
-
-
     @Override
     public void onAttach(Context context)
     {
@@ -1675,7 +1676,7 @@ public class SelectPositionFragment
         }else {
             selectPosition=selectPositionId.toString();
         }
-        BuyTicketsFragment.buyTicketsFragment.setData(selectPosition, count, response.getAmount(), response.getResults());
+        BuyTicketsFragment.buyTicketsFragment.setData(selectPosition, count, response.getAmount(),amountOneTicket, response.getResults(),stadiumId);
         onClickContinueBuyTicketListener.onContinueClicked();
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
 

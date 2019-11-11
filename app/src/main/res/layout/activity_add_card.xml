@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlRoot"
     android:orientation="vertical"
+    android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,11 +26,11 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/background_main_header" />
 
-            <RelativeLayout
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/img_header_background" />
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/header"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/img_header_background" />-->
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"

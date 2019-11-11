@@ -168,10 +168,22 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     if (response.info.statusCode == 200)
                     {
                         setProfileData(response);
-//                        loginView.onButtonActions(true, GoToActivity.UserActivity);
+//                        loginView.onButtonActions(true, GoToActivity.UserProfileActionProfileActivity);
                         loginView.onButtonActions(true, GoToActivity.MainActivity);
                         loginView.hideLoading();
-                    } else
+
+                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
+                        {
+                            AdpPushClient.get().register(Prefs.getString("mobile", ""));
+                            Intent myIntent = new Intent(appContext, PushMessageReceiver.class);
+                            PendingIntent.getBroadcast(appContext, 0, myIntent, 0);
+                        }
+                        else
+                        {
+                            appContext.startService(new Intent(appContext, NotificationJobService.class));
+                        }
+                    }
+                    else
                     {
                         Tools.showToast(appContext, response.info.message, R.color.red);
                         loginView.hideLoading();
@@ -324,19 +336,8 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             countDownTimer.start();
             loginView.hideLoading();
 
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
-            {
-
-                AdpPushClient.get().register(Prefs.getString("mobile", ""));
-                Intent myIntent = new Intent(appContext, PushMessageReceiver.class);
-                PendingIntent.getBroadcast(appContext, 0, myIntent, 0);
-
-
-            } else
-            {
-                appContext.startService(new Intent(appContext, NotificationJobService.class));
-            }
-        } else
+        }
+        else
         {
             Tools.showToast(appContext, "خطایی رخ داده است", R.color.red);
             loginView.hideLoading();
@@ -369,7 +370,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         {
             if (response.getLastName() == null || response.getFirstName() == null)
             {
-                loginView.onButtonActions(true, GoToActivity.UserActivity);
+                loginView.onButtonActions(true, GoToActivity.UserProfileActionProfileActivity);
                 Prefs.putString("mobile", response.getMobile());
                 Prefs.putString("keyInvite", response.getKeyInvite());
             }

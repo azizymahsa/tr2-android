@@ -329,7 +329,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 }
             }
 
-            tvMatchResult.setText(response.data.getAwayScore() + " : " + response.data.getHomeScore());
+            tvMatchResult.setText(response.data.getAwayScore() + " - " + response.data.getHomeScore());
 
             if (response.data.getPredict() == null || response.data.getPredict().isEmpty() ||
                     response.data.getChart() == null || response.data.getChart().isEmpty())

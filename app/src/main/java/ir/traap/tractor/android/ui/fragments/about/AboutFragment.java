@@ -10,11 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -127,7 +125,7 @@ public class AboutFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.about_fragment, container, false);
+        view = inflater.inflate(R.layout.fragment_about, container, false);
         PackageInfo pInfo = null;
         try
         {
