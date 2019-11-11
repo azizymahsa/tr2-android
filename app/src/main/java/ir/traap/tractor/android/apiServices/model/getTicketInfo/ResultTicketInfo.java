@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class ResultTicketInfo
 {
-    @SerializedName("match_date")
+    @SerializedName("match_datetime_formatted")
     @Expose
     private String matchDate;
     @SerializedName("stadium_name")
