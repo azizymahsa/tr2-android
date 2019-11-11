@@ -8,7 +8,7 @@ public class Const
 
     //-----------------------------------------------------------------------------
     //public final static String BASEURL = "https://rest.diba24.app/";
-    public final static String BASEURL = "http://5.253.25.117:9009/";
+    public final static String BASEURL = "http://5.253.25.117:9000/";
     public final static String BASEURLTest = "http://diba.eniac-service.ir:8000/";
 
     private static final String SubBASEURL = "api/";

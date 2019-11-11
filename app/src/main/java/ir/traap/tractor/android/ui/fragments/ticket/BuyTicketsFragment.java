@@ -2,6 +2,7 @@ package ir.traap.tractor.android.ui.fragments.ticket;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,7 +109,6 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             rootView = null;
         }
 
-
         rootView = inflater.inflate(R.layout.fragment_buy_ticket, container, false);
         initView();
         // define TabLayout
@@ -168,6 +168,22 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
              //   viewPager.setCurrentItem(3, true);
 
         }
+
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+               if (viewPager.getCurrentItem()==0){
+                    getActivity().onBackPressed();
+                }else
+               {
+                   onBackClicked();
+
+               }
+                return true;
+            }
+            return false;
+        });
         return rootView;
     }
 
