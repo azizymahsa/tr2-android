@@ -136,7 +136,7 @@ public class PastResultFragment
                 getActivity().onBackPressed();
             });
 
-            tvTitle.setText("برنامه بازی");
+            tvTitle.setText("برنامه بازی ها");
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
 

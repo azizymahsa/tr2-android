@@ -41,18 +41,22 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_45sdp"
             android:background="@android:color/transparent">
 
 <!--            <com.google.android.material.card.MaterialCardView-->
-            <com.google.android.material.card.MaterialCardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/card"
+                style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                app:strokeColor="@color/borderColorGray"
                 app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
                 app:contentPadding="8dp"
                 app:cardCornerRadius="5dp"
+                app:cardMaxElevation="5dp"
                 android:background="@android:color/transparent">
 
                 <RelativeLayout
@@ -263,7 +267,7 @@
 
                 </RelativeLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
 

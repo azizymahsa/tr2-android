@@ -504,7 +504,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onUserProfileClick()
     {
 //        showToast(this, "حساب کاربری من", R.color.green);
-        //go to UserProfileActionProfileActivity
 
         isMainFragment = false;
         fragment = MyProfileFragment.newInstance(this);

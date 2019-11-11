@@ -82,12 +82,12 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
                 if (TextUtils.isEmpty(mobileNumber.getText().toString()))
                 {
-                    loginView.onError("لطفا شماره موبایل خود را وارد نمایید", this.getClass().getSimpleName(), false);
+                    loginView.onError("لطفا شماره تلفن همراه خود را وارد نمایید", this.getClass().getSimpleName(), false);
                     return;
                 }
                 if (mobileNumber.getText().toString().length() != 11)
                 {
-                    loginView.onError("لطفا شماره موبایل خود را صحیح وارد نمایید", this.getClass().getSimpleName(), false);
+                    loginView.onError("لطفا شماره تلفن همراه خود را صحیح وارد نمایید", this.getClass().getSimpleName(), false);
                     return;
                 }
                 if (!Utility.isNetworkAvailable())
@@ -168,7 +168,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     if (response.info.statusCode == 200)
                     {
                         setProfileData(response);
-//                        loginView.onButtonActions(true, GoToActivity.UserProfileActionProfileActivity);
+//                        loginView.onButtonActions(true, GoToActivity.UserProfileActivity);
                         loginView.onButtonActions(true, GoToActivity.MainActivity);
                         loginView.hideLoading();
 
@@ -185,6 +185,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     }
                     else
                     {
+                        codeView.setText("");
                         Tools.showToast(appContext, response.info.message, R.color.red);
                         loginView.hideLoading();
                     }
@@ -370,7 +371,11 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         {
             if (response.getLastName() == null || response.getFirstName() == null)
             {
+<<<<<<< HEAD
+                loginView.onButtonActions(true, GoToActivity.UserProfileActivity);
+=======
                 loginView.onButtonActions(true, GoToActivity.UserProfileActionProfileActivity);
+>>>>>>> 7383444b97d0aefe89d64b49d05c3488474645a0
                 Prefs.putString("mobile", response.getMobile());
                 Prefs.putString("keyInvite", response.getKeyInvite());
             }

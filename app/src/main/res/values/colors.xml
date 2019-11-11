@@ -67,5 +67,8 @@
     <color name="not_select_stadium">#d6d6d6</color>
     <color name="kellyGreen">#00a537</color>
 
+    <color name="shadowColor">#bbb</color>
+    <color name="navigationBarColor">#d5282e</color>
+
 
 </resources>

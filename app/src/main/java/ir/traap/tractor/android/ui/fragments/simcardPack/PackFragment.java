@@ -695,7 +695,7 @@ public class PackFragment
         setupRecycler();
         if (!Utility.mtnValidation(etMobileCharge.getText().toString()))
         {
-            mainView.showError("لطفا شماره موبایل ایرانسل را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه ایرانسل را صحیح وارد نمایید.");
             hideSoftKeyboard(etMobileCharge);
             return;
         }
@@ -729,7 +729,7 @@ public class PackFragment
         {
             hideSoftKeyboard(etMobileChargeRightel);
 
-            mainView.showError("لطفا شماره موبایل رایتل را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه رایتل را صحیح وارد نمایید.");
             return;
         }
         if (!Utility.isNetworkAvailable())
@@ -765,7 +765,7 @@ public class PackFragment
         setupRecycler();
         if (!Utility.mciValidation(etMCINumber.getText().toString()))
         {
-            mainView.showError("لطفا شماره موبایل همراه اول را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه همراه اول را صحیح وارد نمایید.");
             hideSoftKeyboard(etMCINumber);
 
             return;
