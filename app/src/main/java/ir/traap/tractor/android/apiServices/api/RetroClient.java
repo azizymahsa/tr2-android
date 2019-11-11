@@ -60,6 +60,9 @@ import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchRespo
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import ir.traap.tractor.android.apiServices.model.predict.sendPredict.request.SendPredictRequest;
+import ir.traap.tractor.android.apiServices.model.profile.getProfile.response.GetProfileResponse;
+import ir.traap.tractor.android.apiServices.model.profile.putProfile.request.SendProfileRequest;
+import ir.traap.tractor.android.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import ir.traap.tractor.android.apiServices.model.reservationmatch.ReservationRequest;
 import ir.traap.tractor.android.apiServices.model.reservationmatch.ReservationResponse;
 import ir.traap.tractor.android.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
@@ -73,7 +76,6 @@ import ir.traap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.req
 import ir.traap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
 import ir.traap.tractor.android.apiServices.model.verify.VerifyRequest;
 import ir.traap.tractor.android.apiServices.model.verify.VerifyResponse;
-import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -336,9 +338,17 @@ public interface RetroClient
     Single<Response<WebServiceClass<Object>>> sendPredict(
             @Body SendPredictRequest request
     );
-    @GET(Const.GET_RULS+"{id}/stadium_rules/")
+
+    @GET(Const.GET_RULES +"{id}/stadium_rules/")
     Single<Response<WebServiceClass<ResponseStadiumRules>>> getRulsStadium(
             @Path("id") Integer id
-
     );
+
+    @GET(Const.GET_PROFILE)
+    Single<Response<WebServiceClass<GetProfileResponse>>> getProfile();
+
+    @PUT(Const.PUT_PROFILE)
+    Single<Response<WebServiceClass<SendProfileResponse>>> sendProfile(
+            @Body SendProfileRequest request);
+
 }

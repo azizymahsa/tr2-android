@@ -79,6 +79,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         //etLayout = findViewById(R.id.etLayout);
         ivTitle = findViewById(R.id.flLogoToolbar);
         btnConfirm = findViewById(R.id.btnConfirm);
+        btnConfirm.setText(getString(R.string.login));
+
         tvCountDown = findViewById(R.id.tvCountDown);
         codeView = findViewById(R.id.codeView);
         // tvMenu = findViewById(R.id.tvMenu);
@@ -99,7 +101,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         loginPresenter.getMobile(etMobileNumber);
         btnConfirm.setOnClickListener(loginPresenter);
         btnConfirm.setTag("mobile");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " تلفن همراه خود را وارد کنید."));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " شماره شماره تلفن همراه خود را وارد کنید."));
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         loginPresenter.setScreenSize(displayMetrics.heightPixels, displayMetrics.widthPixels);
@@ -153,8 +155,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             Intent intent = null;
 //            switch (goToActivity)
 //            {
-//                case UserProfileActionProfileActivity:
-//                    intent = new Intent(this, UserProfileActionProfileActivity.class);
+//                case UserProfileActivity:
+//                    intent = new Intent(this, UserProfileActivity.class);
 //
 //                    break;
 //                case PassCodeActivity:
@@ -212,9 +214,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     public void mobileToCode()
     {
         countDownTimer.setVisibility(View.VISIBLE);
-        btnConfirm.setText(getString(R.string.send_code));
+//        btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setTag("code");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " کد فعالسازی خود را وارد کنید."));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " کد فعالسازی ارسال شده را وارد کنید."));
 
         tvPhoneNumber.setText("شماره تلفن همراه شما: " + etMobileNumber.getText().toString());
         YoYo.with(Techniques.SlideOutLeft)
@@ -257,7 +259,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     {
         countDownTimer.setVisibility(View.GONE);
         btnConfirm.setTag("mobile");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " تلفن همراه خود را وارد کنید"));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " شماره شماره تلفن همراه خود را وارد کنید"));
 
 
         YoYo.with(Techniques.SlideOutRight)
@@ -272,7 +274,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             @Override
             public void onAnimationEnd(Animator animation)
             {
-                btnConfirm.setText(getString(R.string.confirm));
+                btnConfirm.setText(getString(R.string.login));
                 llPin.setVisibility(View.GONE);
                 etMobileNumber.setVisibility(View.VISIBLE);
                 isCode = false;

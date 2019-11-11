@@ -22,6 +22,7 @@ import ir.traap.tractor.android.apiServices.part.GetMyBillsService;
 import ir.traap.tractor.android.apiServices.part.GetPackageIrancellService;
 import ir.traap.tractor.android.apiServices.part.GetPackageMciService;
 import ir.traap.tractor.android.apiServices.part.GetPredictService;
+import ir.traap.tractor.android.apiServices.part.GetProfileService;
 import ir.traap.tractor.android.apiServices.part.GetRightelPackService;
 import ir.traap.tractor.android.apiServices.part.GetShetabCardInfoService;
 import ir.traap.tractor.android.apiServices.part.GetTicketInfoService;
@@ -34,6 +35,7 @@ import ir.traap.tractor.android.apiServices.part.MobileChargeService;
 import ir.traap.tractor.android.apiServices.part.PackageBuyService;
 import ir.traap.tractor.android.apiServices.part.ReservationMatchService;
 import ir.traap.tractor.android.apiServices.part.SendPredictService;
+import ir.traap.tractor.android.apiServices.part.SendProfileService;
 import ir.traap.tractor.android.apiServices.part.SheatcChangePassService;
 import ir.traap.tractor.android.apiServices.part.SheatcForgotPassService;
 import ir.traap.tractor.android.apiServices.part.GetMatchListService;
@@ -266,6 +268,16 @@ public class SingletonService
     public SendPredictService sendPredictService()
     {
         return new SendPredictService(serviceGenerator);
+    }
+
+    public GetProfileService getProfileService()
+    {
+        return new GetProfileService(serviceGenerator);
+    }
+
+    public SendProfileService sendProfileService()
+    {
+        return new SendProfileService(serviceGenerator);
     }
 
 

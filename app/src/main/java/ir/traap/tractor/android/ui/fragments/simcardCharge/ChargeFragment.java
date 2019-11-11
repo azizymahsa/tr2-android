@@ -536,7 +536,7 @@ public class ChargeFragment extends BaseFragment
 //        Tools.showToast(getActivity(), "simcardType = " + simcardType);
         if (!Utility.mtnValidation(etMobileCharge.getText().toString()))
         {
-            mainView.showError("لطفا شماره موبایل ایرانسل را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه ایرانسل را صحیح وارد نمایید.");
             return;
         }
         if (TextUtils.isEmpty(etChargeAmount.getText().toString()))
@@ -696,7 +696,7 @@ public class ChargeFragment extends BaseFragment
     {
         if (!Utility.rightelValidation(etMobileChargeRightel.getText().toString()))
         {
-            mainView.showError("لطفا شماره موبایل رایتل را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه رایتل را صحیح وارد نمایید.");
             return;
         }
 
@@ -766,7 +766,7 @@ public class ChargeFragment extends BaseFragment
     {
         if (!Utility.mciValidation(etMCINumber.getText().toString()))
         {
-            mainView.showError("لطفا شماره موبایل همراه اول را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه همراه اول را صحیح وارد نمایید.");
 
             return;
         }

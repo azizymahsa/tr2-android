@@ -337,7 +337,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
                         case MOBILENUMBER:
                             if (etDestination2.getText().toString().length() < 11)
                             {
-                                mainView.showError("لطفا شماره موبایل را صحیح وارد نمایید.");
+                                mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
                                 return;
                             } else
                             {

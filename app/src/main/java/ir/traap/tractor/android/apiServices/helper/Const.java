@@ -9,10 +9,10 @@ public class Const
     //-----------------------------------------------------------------------------
     //public final static String BASEURL = "https://rest.diba24.app/";
     public final static String BASEURL = "http://5.253.25.117:9000/";
-    public final static String BASEURLTest = "http://diba.eniac-service.ir:8000/";
+//    public final static String BASEURLTest = "http://diba.eniac-service.ir:8000/";
 
     private static final String SubBASEURL = "api/";
-    private static final String SubBASEURLTest = "ApiDiba/";
+//    private static final String SubBASEURLTest = "ApiDiba/";
     //-----------------------------------------------------------------------------
 
     //Login
@@ -107,8 +107,14 @@ public class Const
     //Predict
     public final static String GET_PREDICT = SubBASEURL + "v1/predict/";
     public final static String SEND_PREDICT = SubBASEURL + "v1/predict/";
+    
+    //Rule
+    public final static String GET_RULES = SubBASEURL + "v1/match/";
 
-    public final static String GET_RULS = SubBASEURL + "v1/match/";
+    //Profile
+    public final static String GET_PROFILE = SubBASEURL + "v1/user/profile/";
+    public final static String PUT_PROFILE = SubBASEURL + "v1/user/profile/";
+
     //Transaction
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
 }

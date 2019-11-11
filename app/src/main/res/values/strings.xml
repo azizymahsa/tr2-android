@@ -7,7 +7,7 @@
     <string name="confirm">تایید</string>
     <string name="cancel">انصراف</string>
     <string name="error">خطا!</string>
-    <string name="enter_mobile_number">شماره همراه</string>
+    <string name="enter_mobile_number">شماره تلفن همراه</string>
     <string name="no_name">بدون نام</string>
     <string name="enter_first_name">نام خود را وارد نمایید</string>
     <string name="enter_last_name">نام خانوادگی خود را وارد نمایید</string>
@@ -69,6 +69,9 @@
     <string name="Please_enter_first_name_in_Persian">لطفا نام خود را وارد نمایید</string>
     <string name="profile_desc">وارد کردن تمامی موارد به صورت اختیاری می باشد</string>
     <string name="error_ticket_payment">کاربر گرامی؛  متاسفانه پرداخت شما ناموفق بوده است.</string>
+    <string name="networkError">خطای دسترسی به اینترنت</string>
+    <string name="networkErrorMessage">لطفا در تنظیمات برنامه اینترنت خود را بررسی نمایید.</string>
+    <string name="login">ورود</string>
 
 
     <string-array name="string_array_alcohol">

@@ -17,10 +17,8 @@ import com.pixplicity.easyprefs.library.Prefs;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.singleton.SingletonContext;
-import ir.traap.tractor.android.ui.activities.userProfile.UserProfileActionProfileActivity;
-import ir.traap.tractor.android.ui.activities.userProfile.UserProfileActionView;
+import ir.traap.tractor.android.ui.activities.userProfile.UserProfileActivity;
 import ir.traap.tractor.android.ui.base.BaseFragment;
-import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 
@@ -93,7 +91,7 @@ public class MyProfileFragment extends BaseFragment
 
         imgEditProfile.setOnClickListener(v ->
         {
-            startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActionProfileActivity.class));
+            startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
         });
 
         rlMyPredict.setOnClickListener(v ->
