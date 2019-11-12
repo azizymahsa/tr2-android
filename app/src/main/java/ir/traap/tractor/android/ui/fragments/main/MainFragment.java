@@ -43,7 +43,8 @@ import ir.traap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.activities.login.LoginActivity;
 import ir.traap.tractor.android.ui.activities.main.MainActivity;
-import ir.traap.tractor.android.ui.adapters.MainServiceModelAdapter;
+import ir.traap.tractor.android.ui.adapters.mainServiceModel.MainServiceModelAdapter;
+import ir.traap.tractor.android.ui.adapters.mainSlider.MainSliderAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.others.MyCustomSliderView;
 import ir.traap.tractor.android.utilities.Logger;
@@ -65,15 +66,16 @@ import library.android.service.model.flight.reservation.response.ReservationResp
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
         FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener,
-        View.OnClickListener
+        View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
         , OnServiceStatus<WebServiceClass<MachListResponse>>
 {
     private View rootView;
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView, sliderRecyclerView;
 //    private MultiSnapRecyclerView recyclerView;
-    private LinearLayoutManager layoutManager;
+    private LinearLayoutManager layoutManager, sliderLayoutManager;
     private MainServiceModelAdapter adapter;
+    private MainSliderAdapter sliderAdapter;
 
     private Boolean isPredictable = true;
 
@@ -166,6 +168,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         else
         {
             setSlider();
+
+            sliderAdapter = new MainSliderAdapter(getActivity(), matchList, this);
+            sliderAdapter.notifyDataSetChanged();
+
+            sliderRecyclerView.setAdapter(sliderAdapter);
         }
 
         list = fillMenuRecyclerList();
@@ -186,6 +193,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
+        sliderRecyclerView = rootView.findViewById(R.id.sliderRecyclerView);
+
         btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
 
         rlPredict = rootView.findViewById(R.id.rlPredict);
@@ -229,7 +238,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
         recyclerView.setLayoutManager(layoutManager);
+        sliderLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        sliderRecyclerView.setLayoutManager(sliderLayoutManager);
 
+//        SnapHelper snapHelper = new StartSnapHelper();
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(sliderRecyclerView);
 
         btnBuyTicket.setOnClickListener(this);
 
@@ -402,26 +416,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             mDemoSlider.addSlider(textSliderView);
         }
 
-        //---------------------old---------------------------
-//        for (int i = 1; i < 4; i++)
-//        {
-//            MyCustomSliderView textSliderView = new MyCustomSliderView(getActivity());
-////            textSliderView.setStadiumName("ورزشگاه یادگار امام تبریز");
-////            textSliderView.setDateTime("یکشنبه 12 آبان 1398 - 18:00");
-////            textSliderView.setColorDateTime("#000");
-////            textSliderView.setColorStadiumName("#aaa");
-//            textSliderView.setHeaderDesc(String.valueOf(i));
-////            textSliderView.setImgBackgroundLink();
-////            textSliderView.setImgAwayLink();
-////            textSliderView.setImgHomeLink();
-//
-//
-//
-//            textSliderView.setOnSliderClickListener(this);
-//
-//            mDemoSlider.addSlider(textSliderView);
-//        }
-        //---------------------old---------------------------
+        //---------------------new---------------------------
+        sliderAdapter = new MainSliderAdapter(getActivity(), matchList, this);
+        sliderAdapter.notifyDataSetChanged();
+        sliderRecyclerView.setAdapter(sliderAdapter);
+        sliderRecyclerView.smoothScrollToPosition(matchList.indexOf(matchCurrent));
+        //---------------------new---------------------------
+
 //            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.RotateDown);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         PagerIndicator pagerIndicator = new PagerIndicator(getActivity());
@@ -699,4 +700,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         Logger.e("--onError--", message);
     }
 
+    @Override
+    public void onSliderItemClick(View view, Integer id, Integer position)
+    {
+        mainView.onLeageClick();
+    }
 }
