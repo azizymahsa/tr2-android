@@ -64,6 +64,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         Prefs.putString("accessToken","");
         loginPresenter = new LoginPresenterImpl(getApplicationContext(), this, this);
         initView();
+        
 
         //-----------------test------------------
        /* Prefs.putString("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzExNDcyMDUsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiJjZDRhMTlmZTJhMmU0MGQxYWQwZTRhNjkxNWQ3OGNlZSJ9.yaa5Wy-iwcuAPu5tkzYiLg8QCcv1LM9zLg4yBK7zvsY");
@@ -101,7 +102,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         loginPresenter.getMobile(etMobileNumber);
         btnConfirm.setOnClickListener(loginPresenter);
         btnConfirm.setTag("mobile");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " شماره شماره تلفن همراه خود را وارد کنید."));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + "  شماره تلفن همراه خود را وارد کنید."));
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         loginPresenter.setScreenSize(displayMetrics.heightPixels, displayMetrics.widthPixels);
@@ -259,7 +260,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     {
         countDownTimer.setVisibility(View.GONE);
         btnConfirm.setTag("mobile");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " شماره شماره تلفن همراه خود را وارد کنید."));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + "  شماره تلفن همراه خود را وارد کنید."));
 
 
         YoYo.with(Techniques.SlideOutRight)

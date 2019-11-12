@@ -78,7 +78,7 @@ import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.traap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
 import ir.traap.tractor.android.ui.activities.ticket.ShowTicketActivity;
-import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
+import ir.traap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
 import ir.traap.tractor.android.ui.fragments.transaction.TransactionsListFragment;
 import ir.traap.tractor.android.utilities.Logger;
@@ -364,7 +364,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onBackPressed()
     {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.END))
+            {
+                drawer.closeDrawer(GravityCompat.END);
+            } else if (fragment instanceof BuyTicketsFragment && ((BuyTicketsFragment) fragment).getViewpager().getCurrentItem()!=0 ){
+
+                ((BuyTicketsFragment) fragment).onBackClicked();
+
+            } else{
+                if (isMainFragment)
+                {
+                    super.onBackPressed();
+                } else
+                {
+                    setCheckedBNV(bottomNavigationView, 2);
+
+                    backToMainFragment();
+                }
+            }
+
+        }
+    /*    DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.END))
         {
             drawer.closeDrawer(GravityCompat.END);
@@ -379,9 +401,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 backToMainFragment();
             }
-        }
+        }*/
 
-    }
+
 
     @Override
     public void onDrawerItemSelected(View view, int itemNumber)
