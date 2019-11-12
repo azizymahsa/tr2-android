@@ -1,10 +1,9 @@
-package ir.traap.tractor.android.ui.fragments.ticket.selectposition;
+package ir.traap.tractor.android.ui.fragments.ticket;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +20,7 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -43,14 +40,11 @@ import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.apiServices.model.reservationmatch.ReservationResponse;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.base.BaseFragment;
-import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
-import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
+import ir.traap.tractor.android.ui.fragments.ticket.selectposition.ReservationMatchImpl;
+import ir.traap.tractor.android.ui.fragments.ticket.selectposition.ReservationMatchInteractor;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.Tools;
-import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import library.android.eniac.utility.Utility;
-import saman.zamani.persiandate.PersianDate;
-import saman.zamani.persiandate.PersianDateFormat;
 
 public class SelectPositionFragment
         extends BaseFragment implements View.OnClickListener, ReservationMatchInteractor.OnFinishedReservationListener
@@ -1368,19 +1362,23 @@ public class SelectPositionFragment
 //        else
 //        {
 //        }
-        BitmapFactory.Options options = new BitmapFactory.Options();
+
+
+       BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        options.inSampleSize = 3;
+        options.inSampleSize =3;
 
         Bitmap mImageBitmap = BitmapFactory.decodeResource(getResources(), drawable, options);
 
-//        Picasso.with(SingletonContext.getInstance().getContext())
-//                .load(drawable)
-//                .into(imgView);
-        Glide.with(SingletonContext.getInstance().getContext())
+        Picasso.with(SingletonContext.getInstance().getContext())
+               .load(drawable)
+                .into(imgView);
+        //this code dont work for image larger
+   /*     Glide.with(SingletonContext.getInstance().getContext())
                 .load(mImageBitmap)
                 .into(imgView)
-                .clearOnDetach();
+                .clearOnDetach();*/
+
     }
 
     private void setAmounts(List<AllBoxesResult> results)

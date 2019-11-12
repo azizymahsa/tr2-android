@@ -73,7 +73,7 @@ import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.traap.tractor.android.ui.fragments.simcardPack.PackFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
 import ir.traap.tractor.android.ui.activities.ticket.ShowTicketActivity;
-import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
+import ir.traap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
 import ir.traap.tractor.android.ui.fragments.transaction.TransactionsListFragment;
 import ir.traap.tractor.android.utilities.Logger;

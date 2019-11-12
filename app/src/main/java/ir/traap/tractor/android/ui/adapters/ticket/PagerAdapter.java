@@ -12,7 +12,7 @@ import ir.traap.tractor.android.ui.fragments.payment.PaymentParentActionView;
 import ir.traap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
-import ir.traap.tractor.android.ui.fragments.ticket.selectposition.SelectPositionFragment;
+import ir.traap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
 
 public class PagerAdapter
