@@ -316,7 +316,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
         cardFragment = FavoriteCardFragment.newInstance(this);
 
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         if (transaction.isEmpty())
         {

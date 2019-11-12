@@ -1542,7 +1542,7 @@ public class PackFragment
 //                mobile);
 
         transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         if (transaction.isEmpty())
         {
