@@ -9,21 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.getTransaction.Result;
-import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import ir.traap.tractor.android.ui.activities.ticket.ShowTicketActivity;
 import library.android.eniac.utility.Utility;
 import saman.zamani.persiandate.PersianDate;
@@ -39,7 +30,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private String refrenceNumber;
-    private Integer typeTransaction=0;
+    private Integer typeTransaction = 0;
 
 
     public TransactionListAdapter(List<Result> mData, Context mContext)
@@ -58,8 +49,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
 
     private String getDate(Date d)
     {
-
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dateFormat.format(d);  // formatted date in string
         String[] splitsDate = date.split("-");
@@ -69,12 +58,9 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         persianDate.setGrgMonth(Integer.valueOf(splitsDate[1]));
         persianDate.setGrgDay(Integer.valueOf(splitsDate[2]));
 
-//private String key_parse[] = {"yyyy", "MM", "dd", "HH", "mm", "ss"};
         PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d H:i");
         pdformater1.format(persianDate);//1396/05/20 15:21
 
-        //PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
-        // date = String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
         date = String.valueOf(pdformater1.format(persianDate));//1396/05/20
 
         return date;
@@ -99,10 +85,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             holder.txtStatus.setText(mContext.getString(R.string.un_success));
             holder.ivFlagCheck.setImageResource(R.drawable.un_check_mark);
         }
-        holder.txtPrice.setText("قیمت: " + Utility.priceFormat(item.getAmount()+"") + " ریال");
+        holder.txtPrice.setText("قیمت: " + Utility.priceFormat(item.getAmount() + "") + " ریال");
 
-       // refrenceNumber=item.getId().toString();
-       // typeTransaction=item.getTypeTransactionId();
 
         holder.llItem.setOnClickListener(new View.OnClickListener()
         {
@@ -124,19 +108,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         });
 
 
-        String strDate = item.getCreateDate();//2019-11-07 16:08:36
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Date date = null;
-        try
-        {
-            date = dateFormat.parse(strDate);
-            Log.d("time:", getDate(date) + " $$$$$$$" + item.getCreateDate());
-            holder.txtDate.setText(getDate(date) + "");
-        } catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
-
+        holder.txtDate.setText(item.getCreate_date_formatted());
 
 
     }
@@ -182,9 +154,10 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         @Override
         public void onClick(View view)
         {
-            switch (view.getId()){
+            switch (view.getId())
+            {
                 case R.id.llItem:
-                    if (typeTransaction==12)
+                    if (typeTransaction == 12)
                     {
                         Intent intent = new Intent(mContext, ShowTicketActivity.class);
 

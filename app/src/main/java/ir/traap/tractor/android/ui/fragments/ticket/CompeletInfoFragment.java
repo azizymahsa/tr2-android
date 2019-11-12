@@ -62,8 +62,8 @@ public class CompeletInfoFragment
     ArrayList<String> numbers = new ArrayList<String>();
     private int countRepetitive = 0;
     public String namePosition;
-    String positionName,selectPositionId;
-    Integer  amountForPay;
+    String positionName, selectPositionId;
+    Integer amountForPay;
     List<Viewers> infoViewers = new ArrayList<>();
     private List<Integer> ticketIdList;
     private PaymentTicketImpl paymentTicket;
@@ -71,6 +71,7 @@ public class CompeletInfoFragment
     private Integer stadiumId;
     private Integer amountOneTicket;
     private boolean flagDelete = false;
+    private int flagNumberDelete = 0;
 
     public CompeletInfoFragment()
     {
@@ -280,9 +281,11 @@ public class CompeletInfoFragment
             @Override
             public void onCancelClick()
             {
-                if (flagDelete){
+                if (flagDelete)
+                {
 
-                }else {
+                } else
+                {
                     cbCondition.setChecked(false);
                     llConfirm.setVisibility(View.GONE);
                     llInVisible.setVisibility(View.VISIBLE);
@@ -317,30 +320,64 @@ public class CompeletInfoFragment
         switch (view.getId())
         {
             case R.id.imgDelete1:
-                flagDelete = true;
-                if (count==1){
+                if (count == 1)
+                {
+                   // imgDelete1.setVisibility(View.GONE);
 
-                }
-                else {
+                } else
+                {
+                    flagDelete = true;
+                    flagNumberDelete = 1;
                     showDialogDelete();
+
                 }
                 break;
             case R.id.imgDelete2:
-                flagDelete = true;
-                showDialogDelete();
+                if (count == 1)
+                {
+                  //  imgDelete2.setVisibility(View.GONE);
 
+                } else
+                {
+                    flagDelete = true;
+                    flagNumberDelete = 2;
+                    showDialogDelete();
+                }
                 break;
             case R.id.imgDelete3:
-                flagDelete = true;
-                showDialogDelete();
+                if (count == 1)
+                {
+                   // imgDelete3.setVisibility(View.GONE);
+
+                } else
+                {
+                    flagDelete = true;
+                    flagNumberDelete = 3;
+                    showDialogDelete();
+                }
                 break;
             case R.id.imgDelete4:
-                flagDelete = true;
-                showDialogDelete();
+                if (count == 1)
+                {
+                  //  imgDelete4.setVisibility(View.GONE);
+                } else
+                {
+                    flagDelete = true;
+                    flagNumberDelete = 4;
+                    showDialogDelete();
+                }
                 break;
             case R.id.imgDelete5:
-                flagDelete = true;
-                showDialogDelete();
+                if (count == 1)
+                {
+                    //imgDelete5.setVisibility(View.GONE);
+
+                } else
+                {
+                    flagDelete = true;
+                    flagNumberDelete = 5;
+                    showDialogDelete();
+                }
                 break;
             case R.id.btnPaymentConfirm:
                 checkValidation();
@@ -378,42 +415,95 @@ public class CompeletInfoFragment
 
     private void checkCondition()
     {
-        if (count == 2)
+
+        if (flagNumberDelete == 1)
         {
+
+            llBoxTicket1.setVisibility(View.GONE);
+            count = count - 1;
+            amountForPay = amountForPay - amountOneTicket;
+            if (count == 1)
+            {
+                goneImgDelete();
+
+            }
+        }
+        if (flagNumberDelete == 2)
+        {
+
             llBoxTicket2.setVisibility(View.GONE);
-            imgDelete1.setVisibility(View.GONE);
             count = count - 1;
-            infoViewers.clear();
             amountForPay = amountForPay - amountOneTicket;
-            clearAllEditText();
+            if (count == 1)
+            {
+                goneImgDelete();
+
+            }
         }
-        if (count == 3)
+        if (flagNumberDelete == 3)
         {
+
             llBoxTicket3.setVisibility(View.GONE);
-            imgDelete1.setVisibility(View.VISIBLE);
             count = count - 1;
-            infoViewers.clear();
             amountForPay = amountForPay - amountOneTicket;
-            clearAllEditText();
+            if (count == 1)
+            {
+                goneImgDelete();
+
+            }
         }
-        if (count == 4)
+        if (flagNumberDelete == 4)
         {
+
             llBoxTicket4.setVisibility(View.GONE);
-            imgDelete1.setVisibility(View.VISIBLE);
             count = count - 1;
-            infoViewers.clear();
             amountForPay = amountForPay - amountOneTicket;
-            clearAllEditText();
+            if (count == 1)
+            {
+                goneImgDelete();
+
+            }
         }
-        if (count == 5)
+        if (flagNumberDelete == 5)
         {
+
             llBoxTicket5.setVisibility(View.GONE);
-            imgDelete1.setVisibility(View.VISIBLE);
             count = count - 1;
-            infoViewers.clear();
             amountForPay = amountForPay - amountOneTicket;
-            clearAllEditText();
+            if (count == 1)
+            {
+                goneImgDelete();
+
+            }
         }
+
+    }
+
+    private void goneImgDelete()
+    {
+        if (llBoxTicket1.getVisibility() == View.VISIBLE)
+        {
+            imgDelete1.setVisibility(View.GONE);
+            return;
+        } else if (llBoxTicket2.getVisibility() == View.VISIBLE)
+        {
+            imgDelete2.setVisibility(View.GONE);
+            return;
+        } else if (llBoxTicket3.getVisibility() == View.VISIBLE)
+        {
+            imgDelete3.setVisibility(View.GONE);
+            return;
+        } else if (llBoxTicket4.getVisibility() == View.VISIBLE)
+        {
+            imgDelete4.setVisibility(View.GONE);
+            return;
+        } else if (llBoxTicket5.getVisibility() == View.VISIBLE)
+        {
+            imgDelete5.setVisibility(View.GONE);
+            return;
+        }
+
+
     }
 
     private void clearAllEditText()
@@ -446,29 +536,119 @@ public class CompeletInfoFragment
         numbers = new ArrayList<String>();
         if (count == 1)
         {
-            flagValidations = flagValidations + PassengerOne();
+            if (llBoxTicket1.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerOne();
+            }
+            if (llBoxTicket2.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerSecond();
+            }
+            if (llBoxTicket3.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerThird();
+            }
+            if (llBoxTicket4.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFourth();
+            }
+            if (llBoxTicket5.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFifth();
+            }
+
         } else if (count == 2)
         {
-            flagValidations = flagValidations + PassengerOne();
-            flagValidations = flagValidations + PassengerSecond();
+            if (llBoxTicket1.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerOne();
+            }
+            if (llBoxTicket2.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerSecond();
+            }
+            if (llBoxTicket3.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerThird();
+            }
+            if (llBoxTicket4.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFourth();
+            }
+            if (llBoxTicket5.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFifth();
+            }
+
         } else if (count == 3)
         {
-            flagValidations = flagValidations + PassengerOne();
-            flagValidations = flagValidations + PassengerSecond();
-            flagValidations = flagValidations + PassengerThird();
+
+            if (llBoxTicket1.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerOne();
+            }
+            if (llBoxTicket2.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerSecond();
+            }
+            if (llBoxTicket3.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerThird();
+            }
+            if (llBoxTicket4.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFourth();
+            }
+            if (llBoxTicket5.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFifth();
+            }
         } else if (count == 4)
         {
-            flagValidations = flagValidations + PassengerOne();
-            flagValidations = flagValidations + PassengerSecond();
-            flagValidations = flagValidations + PassengerThird();
-            flagValidations = flagValidations + PassengerFourth();
+
+            if (llBoxTicket1.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerOne();
+            }
+            if (llBoxTicket2.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerSecond();
+            }
+            if (llBoxTicket3.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerThird();
+            }
+            if (llBoxTicket4.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFourth();
+            }
+            if (llBoxTicket5.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFifth();
+            }
         } else if (count == 5)
         {
-            flagValidations = flagValidations + PassengerOne();
-            flagValidations = flagValidations + PassengerSecond();
-            flagValidations = flagValidations + PassengerThird();
-            flagValidations = flagValidations + PassengerFourth();
-            flagValidations = flagValidations + PassengerFifth();
+
+            if (llBoxTicket1.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerOne();
+            }
+            if (llBoxTicket2.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerSecond();
+            }
+            if (llBoxTicket3.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerThird();
+            }
+            if (llBoxTicket4.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFourth();
+            }
+            if (llBoxTicket5.getVisibility() == View.VISIBLE)
+            {
+                flagValidations = flagValidations + PassengerFifth();
+            }
         }
 
 
@@ -490,6 +670,8 @@ public class CompeletInfoFragment
         } else
         {
             callPaymentTicketRequest();
+            clearAllEditText();
+
             //BuyTicketsFragment.buyTicketsFragment.setInfoViewers(infoViewers);
 
 
@@ -559,7 +741,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نفر اول نامعتبر است");
+            mainView.showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -626,7 +808,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نفر دوم نامعتبر است");
+            mainView.showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -693,7 +875,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نفر سوم نامعتبر است");
+            mainView.showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -760,7 +942,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نفر چهارم نامعتبر است");
+            mainView.showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -827,7 +1009,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نفر پنجم نامعتبر است");
+            mainView.showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -1150,6 +1332,7 @@ public class CompeletInfoFragment
         } else if (count == 2)
         {
             imgDelete1.setVisibility(View.VISIBLE);
+            imgDelete2.setVisibility(View.VISIBLE);
 
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
@@ -1159,6 +1342,8 @@ public class CompeletInfoFragment
         } else if (count == 3)
         {
             imgDelete1.setVisibility(View.VISIBLE);
+            imgDelete2.setVisibility(View.VISIBLE);
+            imgDelete3.setVisibility(View.VISIBLE);
 
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
@@ -1168,6 +1353,9 @@ public class CompeletInfoFragment
         } else if (count == 4)
         {
             imgDelete1.setVisibility(View.VISIBLE);
+            imgDelete2.setVisibility(View.VISIBLE);
+            imgDelete3.setVisibility(View.VISIBLE);
+            imgDelete4.setVisibility(View.VISIBLE);
 
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
@@ -1177,6 +1365,10 @@ public class CompeletInfoFragment
         } else if (count == 5)
         {
             imgDelete1.setVisibility(View.VISIBLE);
+            imgDelete2.setVisibility(View.VISIBLE);
+            imgDelete3.setVisibility(View.VISIBLE);
+            imgDelete4.setVisibility(View.VISIBLE);
+            imgDelete5.setVisibility(View.VISIBLE);
 
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
