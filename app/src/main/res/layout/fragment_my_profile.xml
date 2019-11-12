@@ -57,6 +57,8 @@
                 app:contentPadding="8dp"
                 app:cardCornerRadius="5dp"
                 app:cardMaxElevation="5dp"
+                android:elevation="5dp"
+                android:translationZ="5dp"
                 android:background="@android:color/transparent">
 
                 <RelativeLayout

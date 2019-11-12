@@ -538,6 +538,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         transaction.replace(R.id.main_container, fragment)
                 .commit();
+
     }
 
     @Override

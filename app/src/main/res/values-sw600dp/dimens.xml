@@ -73,4 +73,6 @@
     <item name="mdtp_text_size_multiplier_outer" format="float" type="string">0.08</item>
 
     <dimen name="slider_height" >350dp</dimen>
+    <dimen name="header_week_no_width">100dp</dimen>
+    <dimen name="header_week_no_height">70dp</dimen>
 </resources>
