@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -28,6 +29,6 @@ public class MachListResponse
 
     @SerializedName("results")
     @Expose @Getter @Setter
-    private List<MatchItem> matchList;
+    private ArrayList<MatchItem> matchList;
 
 }

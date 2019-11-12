@@ -9,5 +9,5 @@
     android:textColor="@color/textColorTitle"
     android:gravity="center"
     android:textSize="15sp"
-    android:background="@color/textColorPrimary"
+    android:background="@layout/spinner_item_divider"
     android:drawableBottom="@color/textColorTitle"/>

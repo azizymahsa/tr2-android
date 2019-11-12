@@ -20,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.adpdigital.push.AdpPushClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,6 +33,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
@@ -40,11 +42,13 @@ import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.contact.OnSelectContact;
+import ir.traap.tractor.android.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
 import ir.traap.tractor.android.apiServices.model.getBankList.response.Bank;
 import ir.traap.tractor.android.apiServices.model.getBankList.response.BankListResponse;
 import ir.traap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.traap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.traap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
+import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.enums.BarcodeType;
@@ -54,6 +58,7 @@ import ir.traap.tractor.android.notification.PushMessageReceiver;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.activities.card.add.AddCardActivity;
 import ir.traap.tractor.android.ui.activities.login.LoginActivity;
+import ir.traap.tractor.android.ui.adapters.allMenu.AllMenuServiceModelAdapter;
 import ir.traap.tractor.android.ui.base.BaseActivity;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.drawer.MenuDrawer;
@@ -86,6 +91,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
+    public static ArrayList<MatchItem> matchList;
+    public static ArrayList<GetMenuItemResponse> allServiceList;
 
     private Realm realm;
 
@@ -101,6 +108,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
     private boolean hasPaymentTicket = false;
     private String refrenceNumber;
+    private Boolean isCompleteThreadMatch = false, isCompleteThreadAllServices = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -215,7 +223,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                        transaction.replace(R.id.main_container, fragment)
+                        transaction.replace(R.id.main_container, fragment, "marketFragment")
                                 .commit();
                     }
                     break;
@@ -228,11 +236,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         isMainFragment = false;
 
-                        fragment = AllMenuFragment.newInstance(this);
+                        fragment = AllMenuFragment.newInstance(this, allServiceList);
 
                         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                        transaction.replace(R.id.main_container, fragment)
+                        transaction.replace(R.id.main_container, fragment, "allMenuFragment")
                                 .commit();
                     }
                     break;
@@ -258,7 +266,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                        transaction.replace(R.id.main_container, fragment)
+                        transaction.replace(R.id.main_container, fragment, "mediaFragment")
                                 .commit();
                     }
                     break;
@@ -275,7 +283,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                        transaction.replace(R.id.main_container, fragment)
+                        transaction.replace(R.id.main_container, fragment, "paymentWithoutCardFragment")
                                 .commit();
                     }
                     break;
@@ -414,7 +422,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 transaction = fragmentManager.beginTransaction();
 //                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                transaction.replace(R.id.main_container, fragment)
+                transaction.replace(R.id.main_container, fragment, "transactionsListFragment")
                         .commit();
 
                 DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -462,7 +470,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 transaction = fragmentManager.beginTransaction();
 //                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                transaction.replace(R.id.main_container, fragment)
+                transaction.replace(R.id.main_container, fragment, "aboutFragment")
                         .commit();
 
                 break;
@@ -532,7 +540,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, fragment, "myProfileFragment")
                 .commit();
     }
 
@@ -545,7 +553,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void hideLoading()
     {
-        new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 3000);
+//        new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 3000);
+        if (isCompleteThreadAllServices && isCompleteThreadMatch)
+        {
+            Logger.e("isCompleteThreadAllServices", String.valueOf(isCompleteThreadAllServices));
+            Logger.e("isCompleteThreadMatch", String.valueOf(isCompleteThreadMatch));
+
+            findViewById(R.id.rlLoading).setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -558,7 +573,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, fragment, "billFragment")
                 .commit();
 
     }
@@ -573,7 +588,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, fragment, "chargeFragment")
                 .commit();
 
     }
@@ -587,7 +602,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, fragment, "packFragment")
                 .commit();
     }
 
@@ -640,7 +655,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, fragment, "barcodeReaderFragment")
                 .commit();
 
     }
@@ -655,7 +670,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, fragment, "paymentWithoutCardFragment")
                 .commit();
     }
 
@@ -668,7 +683,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, fragment, "moneyTransferFragment")
                 .commit();
     }
 
@@ -794,19 +809,30 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         setCheckedBNV(bottomNavigationView, 2);
 
         isMainFragment = true;
+        transaction = fragmentManager.beginTransaction();
 
         if (mainFragment != null)
         {
+            Logger.e("--mainFragment--", "not null");
+
+//            Fragment currentFragment = fragmentManager.findFragmentById(R.id.main_container);
+//            transaction.hide(currentFragment);
+//
+////            Fragment existingFragment = fragmentManager.findFragmentByTag("mainFragment");
+//            transaction.show(mainFragment);
+//            transaction.commit();
+
             fragment = mainFragment;
+//            fragment = existingFragment;
         }
         else
         {
-            fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
-        }
-        transaction = fragmentManager.beginTransaction();
+            Logger.e("--mainFragment--", "--null--");
+            fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.main_container, fragment)
+        }
+        transaction.replace(R.id.main_container, fragment,"mainFragment")
                 .commit();
     }
 
@@ -848,7 +874,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment)
+        transaction.replace(R.id.main_container, this.fragment,"buyTicketsFragment")
                 .commit();
     }
 
@@ -867,7 +893,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         fragment = LeagueTableFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, fragment)
+        transaction.replace(R.id.main_container, fragment,"leagueTableFragment")
                 .commit();
     }
 
@@ -879,7 +905,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment)
+        transaction.replace(R.id.main_container, this.fragment,"predictFragment")
                 .commit();
     }
 
@@ -930,7 +956,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             finish();
 
             return;
-        } else
+        }
+        else
         {
             chosenServiceList = response.data.getChosenServiceList();
             footballServiceList = response.data.getFootballServiceList();
@@ -938,103 +965,233 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             Logger.e("--List size--", "chosenServiceList: " + chosenServiceList.size() +
                     "footballServiceList: " + footballServiceList.size());
 
-            fragmentManager = getSupportFragmentManager();
-            fragment = MainFragment.newInstance(this, footballServiceList, chosenServiceList);
-            mainFragment = fragment;
+            getBankList();
 
-            transaction = fragmentManager.beginTransaction();
-//            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-            if (mSavedInstanceState == null)
-            {
-                transaction.add(R.id.main_container, fragment)
-                        .commit();
-            } else
-            {
-                transaction.replace(R.id.main_container, fragment)
-                        .commit();
-            }
-
-            SingletonService.getInstance().getBankListService().getBankListService(new OnServiceStatus<WebServiceClass<BankListResponse>>()
-            {
-                @Override
-                public void onReady(WebServiceClass<BankListResponse> responseBankList)
-                {
-                    hideLoading();
-
-                    if (responseBankList == null || responseBankList.info == null)
-                    {
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        finish();
-
-                        return;
-                    }
-                    if (responseBankList.info.statusCode != 200)
-                    {
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        finish();
-
-                        return;
-                    } else
-                    {
-                        Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
-
-                        try
-                        {
-                            realm.executeTransaction(realm1 ->
-                            {
-                                realm1.delete(BankDB.class);
-                            });
-                        } catch (RealmException ex)
-                        {
-                            Logger.e("--BankDB Delete--", "false");
-
-                            ex.printStackTrace();
-                        }
-
-                        for (Bank bank : responseBankList.data.getBankList())
-                        {
-                            realm.executeTransaction(realm ->
-                            {
-                                try
-                                {
-                                    BankDB bankDB = realm.createObject(BankDB.class);
-                                    int maxId = 0;
-                                    if (realm.where(BankDB.class).findAll().size() != 0)
-                                    {
-                                        maxId = realm.where(BankDB.class).max("_ID").intValue();
-                                    }
-                                    bankDB.set_ID(maxId + 1);
-                                    bankDB.setId(bank.getId());
-                                    bankDB.setBankBin(bank.getBankBin());
-                                    bankDB.setBankName(bank.getBankName());
-                                    bankDB.setColorNumber(bank.getColorNumber());
-                                    bankDB.setColorText(bank.getColorText());
-                                    bankDB.setImageCard(bank.getImageCard());
-                                    bankDB.setImageCardBack(bank.getImageCardBack());
-                                    bankDB.setOrderItem(bank.getOrderItem());
-                                } catch (RealmException e)
-                                {
-                                    e.printStackTrace();
-                                }
-                            });
-                        }
-
-                        Logger.e("--BankDB size after delete--", "size: " + realm.where(BankDB.class).findAll().size());
-
-                    }
-                }
-
-                @Override
-                public void onError(String message)
-                {
-                    hideLoading();
-
-                    showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                }
-            });
         }
 
+    }
+
+    private Boolean getMatchList()
+    {
+        isCompleteThreadMatch = false;
+
+        SingletonService.getInstance().getMatchListService().getMatchList(new OnServiceStatus<WebServiceClass<MachListResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<MachListResponse> responseMatchList)
+            {
+                isCompleteThreadMatch = true;
+
+                hideLoading();
+
+                if (responseMatchList == null || responseMatchList.info == null)
+                {
+//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                    finish();
+
+                    return;
+                }
+                if (responseMatchList.info.statusCode != 200)
+                {
+//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                    finish();
+
+                    return;
+                }
+                else
+                {
+                    matchList = (ArrayList<MatchItem>) responseMatchList.data.getMatchList();
+
+                    fragmentManager = getSupportFragmentManager();
+                    fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
+
+                    mainFragment = fragment;
+
+                    transaction = fragmentManager.beginTransaction();
+//            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                    if (mSavedInstanceState == null)
+                    {
+                        transaction.add(R.id.main_container, fragment, "mainFragment")
+                                .commit();
+                    }
+                    else
+                    {
+                        transaction.replace(R.id.main_container, fragment, "mainFragment")
+                                .commit();
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                isCompleteThreadMatch = true;
+
+                hideLoading();
+
+//                showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                Logger.e("--onError--", message);
+            }
+        });
+
+        return isCompleteThreadMatch;
+    }
+
+    private void getBankList()
+    {
+        SingletonService.getInstance().getBankListService().getBankListService(new OnServiceStatus<WebServiceClass<BankListResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<BankListResponse> responseBankList)
+            {
+//                hideLoading();
+
+                if (responseBankList == null || responseBankList.info == null)
+                {
+//                    Prefs.clear();
+                    isCompleteThreadAllServices = true;
+                    isCompleteThreadMatch = true;
+                    hideLoading();
+
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+
+                    return;
+                }
+                if (responseBankList.info.statusCode != 200)
+                {
+//                    Prefs.clear();
+                    isCompleteThreadAllServices = true;
+                    isCompleteThreadMatch = true;
+                    hideLoading();
+
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+
+                    return;
+                }
+                else
+                {
+                    Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
+
+                    try
+                    {
+                        realm.executeTransaction(realm1 ->
+                        {
+                            realm1.delete(BankDB.class);
+                        });
+                    } catch (RealmException ex)
+                    {
+                        Logger.e("--BankDB Delete--", "false");
+
+                        ex.printStackTrace();
+                    }
+
+                    for (Bank bank : responseBankList.data.getBankList())
+                    {
+                        realm.executeTransaction(realm ->
+                        {
+                            try
+                            {
+                                BankDB bankDB = realm.createObject(BankDB.class);
+                                int maxId = 0;
+                                if (realm.where(BankDB.class).findAll().size() != 0)
+                                {
+                                    maxId = realm.where(BankDB.class).max("_ID").intValue();
+                                }
+                                bankDB.set_ID(maxId + 1);
+                                bankDB.setId(bank.getId());
+                                bankDB.setBankBin(bank.getBankBin());
+                                bankDB.setBankName(bank.getBankName());
+                                bankDB.setColorNumber(bank.getColorNumber());
+                                bankDB.setColorText(bank.getColorText());
+                                bankDB.setImageCard(bank.getImageCard());
+                                bankDB.setImageCardBack(bank.getImageCardBack());
+                                bankDB.setOrderItem(bank.getOrderItem());
+                            } catch (RealmException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+
+                    Logger.e("--BankDB size after delete--", "size: " + realm.where(BankDB.class).findAll().size());
+
+                    getMatchList();
+                    getAllServicesList();
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                hideLoading();
+
+                showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
+            }
+        });
+    }
+
+    private Boolean getAllServicesList()
+    {
+        isCompleteThreadAllServices = false;
+
+
+        GetMenuRequest request = new GetMenuRequest();
+        request.setDeviceType(TrapConfig.AndroidDeviceType);
+        request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
+        SingletonService.getInstance().getMenuService().getMenuAll(new OnServiceStatus<WebServiceClass<GetAllMenuResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetAllMenuResponse> response)
+            {
+                try
+                {
+                    isCompleteThreadAllServices = true;
+                    hideLoading();
+
+
+                    if (response == null || response.info == null)
+                    {
+                        // startActivity(new Intent(this, A.class));
+                        return;
+                    }
+                    if (response.info.statusCode != 200)
+                    {
+                        // startActivity(new Intent(this, LoginActivity.class));
+                        //  finish();
+
+                        return;
+                    }
+                    if (response.info.statusCode == 200)
+                    {
+                        allServiceList = response.data.getResults();
+                    }
+                }
+                catch (Exception e)
+                {
+//                    mainView.showError(e.getMessage());
+                    e.printStackTrace();
+                    hideLoading();
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                isCompleteThreadAllServices = true;
+                hideLoading();
+
+                Logger.e("--onError--", message);
+            }
+        }, request);
+
+
+        return isCompleteThreadAllServices;
     }
 
     @Override

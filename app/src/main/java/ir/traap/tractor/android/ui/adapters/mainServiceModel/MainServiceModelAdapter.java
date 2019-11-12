@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.adapters;
+package ir.traap.tractor.android.ui.adapters.mainServiceModel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -127,7 +127,7 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
         public void onChosenItemClick(View view, Integer id);
     }
 
-//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
+//    public void SetOnItemClickListener(final OnSliderItemClickListener mItemClickListener)
 //    {
 //        this.mItemClickListener = mItemClickListener;
 //    }

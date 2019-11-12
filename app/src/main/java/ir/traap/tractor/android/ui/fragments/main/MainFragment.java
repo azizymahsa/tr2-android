@@ -2,14 +2,15 @@ package ir.traap.tractor.android.ui.fragments.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +42,13 @@ import ir.traap.tractor.android.models.otherModels.mainService.MainServiceModelI
 import ir.traap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.activities.login.LoginActivity;
-import ir.traap.tractor.android.ui.adapters.MainServiceModelAdapter;
+import ir.traap.tractor.android.ui.activities.main.MainActivity;
+import ir.traap.tractor.android.ui.adapters.mainServiceModel.MainServiceModelAdapter;
+import ir.traap.tractor.android.ui.adapters.mainSlider.MainSliderAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.others.MyCustomSliderView;
 import ir.traap.tractor.android.utilities.Logger;
+import ir.traap.tractor.android.utilities.StartSnapHelper;
 import ir.traap.tractor.android.utilities.Tools;
 import ir.traap.tractor.android.utilities.Utility;
 import library.android.eniac.StartEniacBusActivity;
@@ -62,13 +66,16 @@ import library.android.service.model.flight.reservation.response.ReservationResp
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
         FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener,
-        View.OnClickListener, OnServiceStatus<WebServiceClass<MachListResponse>>
+        View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
+        , OnServiceStatus<WebServiceClass<MachListResponse>>
 {
     private View rootView;
 
-    private RecyclerView recyclerView;
-    private LinearLayoutManager layoutManager;
+    private RecyclerView recyclerView, sliderRecyclerView;
+//    private MultiSnapRecyclerView recyclerView;
+    private LinearLayoutManager layoutManager, sliderLayoutManager;
     private MainServiceModelAdapter adapter;
+    private MainSliderAdapter sliderAdapter;
 
     private Boolean isPredictable = true;
 
@@ -87,7 +94,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private MainActionView mainView;
     private View btnBuyTicket;
 
-    private List<MatchItem> matchList;
+    private ArrayList<MatchItem> matchList;
     private MatchItem matchCurrent, matchBuyable, matchPredict;
     private TextView tvPopularPlayer;
 
@@ -100,7 +107,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     public static MainFragment newInstance(MainActionView mainActionView,
                                            ArrayList<GetMenuItemResponse> footballServiceList,
-                                           ArrayList<GetMenuItemResponse> chosenServiceList
+                                           ArrayList<GetMenuItemResponse> chosenServiceList,
+                                           ArrayList<MatchItem> matchList
     )
     {
         MainFragment fragment = new MainFragment();
@@ -109,6 +117,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         Bundle args = new Bundle();
         args.putParcelableArrayList("chosenServiceList", chosenServiceList);
         args.putParcelableArrayList("footballServiceList", footballServiceList);
+        args.putParcelableArrayList("matchList", matchList);
 
         fragment.setArguments(args);
 
@@ -129,6 +138,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             chosenServiceList = getArguments().getParcelableArrayList("chosenServiceList");
             footballServiceList = getArguments().getParcelableArrayList("footballServiceList");
+            matchList = getArguments().getParcelableArrayList("matchList");
         }
     }
 
@@ -143,18 +153,33 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         initView(rootView);
 
-        btnBuyTicket.setOnClickListener(this);
+        return rootView;
+    }
 
-        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
-        recyclerView.setLayoutManager(layoutManager);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+
+        if (matchList == null)
+        {
+            getSliderData();
+        }
+        else
+        {
+            setSlider();
+
+            sliderAdapter = new MainSliderAdapter(getActivity(), matchList, this);
+            sliderAdapter.notifyDataSetChanged();
+
+            sliderRecyclerView.setAdapter(sliderAdapter);
+        }
 
         list = fillMenuRecyclerList();
 
         adapter = new MainServiceModelAdapter(getActivity(), list, this);
         recyclerView.setAdapter(adapter);
 
-
-        return rootView;
     }
 
     private void initView(View rootView)
@@ -168,6 +193,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
+        sliderRecyclerView = rootView.findViewById(R.id.sliderRecyclerView);
+
         btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
 
         rlPredict = rootView.findViewById(R.id.rlPredict);
@@ -209,13 +236,23 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ", "%20"));
         setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ", "%20"));
 
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
+        recyclerView.setLayoutManager(layoutManager);
+        sliderLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        sliderRecyclerView.setLayoutManager(sliderLayoutManager);
+
+//        SnapHelper snapHelper = new StartSnapHelper();
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(sliderRecyclerView);
+
+        btnBuyTicket.setOnClickListener(this);
+
         rlPredict.setOnClickListener(v ->
         {
             mainView.onPredict(matchPredict, isPredictable);
 //            matchCurrent
         });
 
-        getSliderData();
     }
 
     private void getSliderData()
@@ -379,26 +416,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             mDemoSlider.addSlider(textSliderView);
         }
 
-        //---------------------old---------------------------
-//        for (int i = 1; i < 4; i++)
-//        {
-//            MyCustomSliderView textSliderView = new MyCustomSliderView(getActivity());
-////            textSliderView.setStadiumName("ورزشگاه یادگار امام تبریز");
-////            textSliderView.setDateTime("یکشنبه 12 آبان 1398 - 18:00");
-////            textSliderView.setColorDateTime("#000");
-////            textSliderView.setColorStadiumName("#aaa");
-//            textSliderView.setHeaderDesc(String.valueOf(i));
-////            textSliderView.setImgBackgroundLink();
-////            textSliderView.setImgAwayLink();
-////            textSliderView.setImgHomeLink();
-//
-//
-//
-//            textSliderView.setOnSliderClickListener(this);
-//
-//            mDemoSlider.addSlider(textSliderView);
-//        }
-        //---------------------old---------------------------
+        //---------------------new---------------------------
+        sliderAdapter = new MainSliderAdapter(getActivity(), matchList, this);
+        sliderAdapter.notifyDataSetChanged();
+        sliderRecyclerView.setAdapter(sliderAdapter);
+        sliderRecyclerView.smoothScrollToPosition(matchList.indexOf(matchCurrent));
+        //---------------------new---------------------------
+
 //            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.RotateDown);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         PagerIndicator pagerIndicator = new PagerIndicator(getActivity());
@@ -659,6 +683,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         else
         {
             matchList = responseMatchList.data.getMatchList();
+            MainActivity.matchList = matchList;
 
             setSlider();
         }
@@ -675,4 +700,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         Logger.e("--onError--", message);
     }
 
+    @Override
+    public void onSliderItemClick(View view, Integer id, Integer position)
+    {
+        mainView.onLeageClick();
+    }
 }

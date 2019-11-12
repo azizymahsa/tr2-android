@@ -29,11 +29,13 @@ import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.allService.response.SubMenu;
 import ir.traap.tractor.android.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
+import ir.traap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.traap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
 import ir.traap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.models.otherModels.mainService.MainServiceModelItem;
 import ir.traap.tractor.android.singleton.SingletonContext;
+import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import ir.traap.tractor.android.ui.adapters.allMenu.AllMenuServiceModelAdapter;
 //import ir.traap.tractor.android.ui.adapters.AllMenuServiceModelAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
@@ -60,7 +62,9 @@ import library.android.service.model.flight.reservation.response.ReservationResp
  */
 
 public class AllMenuFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
-        ItemRecyclerViewAdapter.OnItemClickListenerItem, TextWatcher, OnServiceStatus<WebServiceClass<GetAllMenuResponse>>, onConfirmUserPassGDS, AllMenuServiceModelAdapter.OnItemAllMenuClickListener, HotelReservationData, BusLockSeat, FlightReservationData
+        ItemRecyclerViewAdapter.OnItemClickListenerItem, TextWatcher,
+        OnServiceStatus<WebServiceClass<GetAllMenuResponse>>,
+        onConfirmUserPassGDS, AllMenuServiceModelAdapter.OnItemAllMenuClickListener, HotelReservationData, BusLockSeat, FlightReservationData
 {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -82,11 +86,11 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     }
 
 
-    public static AllMenuFragment newInstance(MainActionView mainView)
+    public static AllMenuFragment newInstance(MainActionView mainView, ArrayList<GetMenuItemResponse> allServicesList)
     {
         AllMenuFragment f = new AllMenuFragment();
         Bundle args = new Bundle();
-//        args.putParcelableArrayList("chosenServiceList", chosenServiceList);
+        args.putParcelableArrayList("allServicesList", allServicesList);
 //        args.putParcelableArrayList("footballServiceList", footballServiceList);
 
         f.setArguments(args);
@@ -103,6 +107,10 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+        {
+            chosenServiceList = getArguments().getParcelableArrayList("allServicesList");
+        }
         // View rootView = inflater.inflate(R.layout.fragment_all_menu, container, false);
 
     }
@@ -160,11 +168,26 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
         rootView = inflater.inflate(R.layout.fragment_all_menu, container, false);
         initView();
-        mainView.showLoading();
-        ir.traap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest request = new ir.traap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest();
-        request.setDeviceType(TrapConfig.AndroidDeviceType);
-        request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
-        SingletonService.getInstance().getMenuService().getMenuAll(AllMenuFragment.this, request);
+
+        if (chosenServiceList == null)
+        {
+            mainView.showLoading();
+
+            GetMenuRequest request = new GetMenuRequest();
+            request.setDeviceType(TrapConfig.AndroidDeviceType);
+            request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
+            SingletonService.getInstance().getMenuService().getMenuAll(AllMenuFragment.this, request);
+        }
+        else
+        {
+            layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
+            recyclerView.setLayoutManager(layoutManager);
+
+            list = fillMenuRecyclerList();
+
+            adapter = new AllMenuServiceModelAdapter(getActivity(), list, this);
+            recyclerView.setAdapter(adapter);
+        }
 
 
         return rootView;
@@ -226,6 +249,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             if (response.info.statusCode == 200)
             {
                 chosenServiceList = response.data.getResults();
+                MainActivity.allServiceList = chosenServiceList;
 
                 layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
                 recyclerView.setLayoutManager(layoutManager);
@@ -330,9 +354,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        YoYo.with(Techniques.FadeIn)
-                .duration(700)
-                .playOn(rootView);
+//        YoYo.with(Techniques.FadeIn)
+//                .duration(700)
+//                .playOn(rootView);
     }
 
 
