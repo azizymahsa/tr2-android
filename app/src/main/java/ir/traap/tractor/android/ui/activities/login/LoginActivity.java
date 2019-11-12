@@ -259,7 +259,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     {
         countDownTimer.setVisibility(View.GONE);
         btnConfirm.setTag("mobile");
-        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " شماره شماره تلفن همراه خود را وارد کنید"));
+        tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + " شماره شماره تلفن همراه خود را وارد کنید."));
 
 
         YoYo.with(Techniques.SlideOutRight)

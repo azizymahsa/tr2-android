@@ -2,6 +2,7 @@ package ir.traap.tractor.android.ui.fragments.myProfile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -27,6 +29,7 @@ public class MyProfileFragment extends BaseFragment
 {
     private View rootView;
     private MainActionView mainView;
+    private CardView cardView;
 
     private Toolbar mToolbar;
     private TextView tvFullName, tvMobile, tvInviteCode;
@@ -77,6 +80,8 @@ public class MyProfileFragment extends BaseFragment
 
     public void initView()
     {
+        cardView = rootView.findViewById(R.id.card);
+
         tvFullName = rootView.findViewById(R.id.tvFullName);
         tvMobile = rootView.findViewById(R.id.tvMobile);
         tvInviteCode = rootView.findViewById(R.id.tvInviteCode);
