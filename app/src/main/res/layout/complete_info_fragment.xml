@@ -114,7 +114,7 @@
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="11"                                        android:textColor="@color/_title_black"
+                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
@@ -278,7 +278,7 @@
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="11"                                        android:textColor="@color/_title_black"
+                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
@@ -443,7 +443,7 @@
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="11"                                        android:textColor="@color/_title_black"
+                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
@@ -608,7 +608,7 @@
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="11"                                        android:textColor="@color/_title_black"
+                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
@@ -773,7 +773,7 @@
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="11"                                        android:textColor="@color/_title_black"
+                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 

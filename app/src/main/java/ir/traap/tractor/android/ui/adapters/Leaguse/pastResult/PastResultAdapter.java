@@ -84,20 +84,21 @@ public class PastResultAdapter extends RecyclerView.Adapter<PastResultAdapter.Vi
 
         holder.tvNameAway.setText(item.getAwayName());
         holder.tvNameHome.setText(item.getHomeName());
+        holder.txtCompetition_name.setText(item.getCompetitionName());
 
 
-        String strDate = item.getDate();//"2013-05-15T10:00:00-0700";
+       /* String strDate = item.getDate();//"2013-05-15T10:00:00-0700";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         Date date = null;
         try
         {
             date = dateFormat.parse(strDate);
-            Log.d("time:",getDate(date)+" $$$$$$$"+item.getDate());
-            holder.tvDateLeage.setText(getDate(date)+"");
-        } catch (ParseException e)
+            Log.d("time:",getDate(date)+" $$$$$$$"+item.getDate());*/
+            holder.tvDateLeage.setText(item.getDateFormatted());
+        /*} catch (ParseException e)
         {
             e.printStackTrace();
-        }
+        }*/
         //-----------------------------------------------------------------------------------------------
         try
         {
@@ -179,6 +180,7 @@ public class PastResultAdapter extends RecyclerView.Adapter<PastResultAdapter.Vi
         TextView ftScoreHome;
 
         TextView tvDateLeage;
+        TextView txtCompetition_name;
 
         ImageView ivNameAway;
         ImageView ivNameHome;
@@ -191,6 +193,7 @@ public class PastResultAdapter extends RecyclerView.Adapter<PastResultAdapter.Vi
             tvNameHome = itemView.findViewById(R.id.tvNameHome);
             ivNameAway = itemView.findViewById(R.id.ivNameAway);
             ivNameHome = itemView.findViewById(R.id.ivNameHome);
+            txtCompetition_name = itemView.findViewById(R.id.txtCompetition_name);
 
             ftScoreAway = itemView.findViewById(R.id.ftScoreAway);
             ftScoreHome = itemView.findViewById(R.id.ftScoreHome);

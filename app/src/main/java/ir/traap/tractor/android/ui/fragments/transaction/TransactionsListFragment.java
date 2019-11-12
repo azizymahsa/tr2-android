@@ -62,9 +62,7 @@ public class TransactionsListFragment
         TransactionsListFragment f = new TransactionsListFragment();
 
         Bundle args = new Bundle();
-        /*args.putString("teamId", teamId);
-        args.putString("logoPath", logoPath);
-*/
+
         f.setArguments(args);
         f.setMainView(mainView);
         return f;

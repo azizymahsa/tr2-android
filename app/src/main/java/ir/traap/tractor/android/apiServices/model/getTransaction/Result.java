@@ -26,9 +26,22 @@ public class Result {
     @SerializedName("create_date")
     @Expose
     private String createDate;
+    @SerializedName("create_date_formatted")
+    @Expose
+    private String create_date_formatted;
     @SerializedName("type_transaction_id")
     @Expose
     private Integer typeTransactionId;
+
+    public String getCreate_date_formatted()
+    {
+        return create_date_formatted;
+    }
+
+    public void setCreate_date_formatted(String create_date_formatted)
+    {
+        this.create_date_formatted = create_date_formatted;
+    }
 
     public Integer getId() {
         return id;
