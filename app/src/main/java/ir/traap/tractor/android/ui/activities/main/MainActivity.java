@@ -356,7 +356,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onBackPressed()
     {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.END))
+            {
+                drawer.closeDrawer(GravityCompat.END);
+            } else if (fragment instanceof BuyTicketsFragment && ((BuyTicketsFragment) fragment).getViewpager().getCurrentItem()!=0 ){
+
+                ((BuyTicketsFragment) fragment).onBackClicked();
+
+            } else{
+                if (isMainFragment)
+                {
+                    super.onBackPressed();
+                } else
+                {
+                    setCheckedBNV(bottomNavigationView, 2);
+
+                    backToMainFragment();
+                }
+            }
+
+        }
+    /*    DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.END))
         {
             drawer.closeDrawer(GravityCompat.END);
@@ -371,9 +393,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 backToMainFragment();
             }
-        }
+        }*/
 
-    }
+
 
     @Override
     public void onDrawerItemSelected(View view, int itemNumber)

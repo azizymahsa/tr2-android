@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebBackForwardList;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -171,7 +172,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
 
         }
 
-        rootView.setFocusableInTouchMode(true);
+    /*    rootView.setFocusableInTouchMode(true);
         rootView.requestFocus();
         rootView.setOnKeyListener((v, keyCode, event) -> {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
@@ -185,7 +186,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
                 return true;
             }
             return false;
-        });
+        });*/
         return rootView;
     }
 
@@ -476,5 +477,10 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
     public void startAddCardActivity()
     {
 
+    }
+
+    public CustomViewPager getViewpager()
+    {
+        return viewPager;
     }
 }
