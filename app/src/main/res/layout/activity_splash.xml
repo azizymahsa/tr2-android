@@ -37,7 +37,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_10sdp"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="lottie/splash.json"
+        app:lottie_fileName="lottie/splash_new.json"
         app:lottie_loop="false" />
 
     <LinearLayout
