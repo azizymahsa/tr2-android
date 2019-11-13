@@ -276,15 +276,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
                         setCheckedBNV(bottomNavigationView, 0);
-
                         isMainFragment = false;
+
+                        fragment = MediaFragment.newInstance(this);
+                        transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                        transaction.replace(R.id.main_container, fragment, "mediaFragment")
+                                .commit();
+                       /* isMainFragment = false;
 
                         fragment = PaymentWithoutCardFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                         transaction.replace(R.id.main_container, fragment, "paymentWithoutCardFragment")
-                                .commit();
+                                .commit();*/
                     }
                     break;
                 }
