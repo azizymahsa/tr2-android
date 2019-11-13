@@ -371,11 +371,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         {
             if (response.getLastName() == null || response.getFirstName() == null)
             {
-<<<<<<< HEAD
                 loginView.onButtonActions(true, GoToActivity.UserProfileActivity);
-=======
-                loginView.onButtonActions(true, GoToActivity.UserProfileActionProfileActivity);
->>>>>>> 7383444b97d0aefe89d64b49d05c3488474645a0
                 Prefs.putString("mobile", response.getMobile());
                 Prefs.putString("keyInvite", response.getKeyInvite());
             }
