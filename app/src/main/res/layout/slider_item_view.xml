@@ -13,8 +13,8 @@
 
     <RelativeLayout
         android:id="@+id/rlRoot"
-        android:layout_width="@dimen/_250sdp"
-        android:layout_height="@dimen/_210sdp"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/slider_height"
         android:visibility="visible">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -60,7 +60,7 @@
                 android:id="@+id/tvHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="4dp"
                 android:gravity="bottom"
@@ -74,7 +74,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom|center_horizontal"
-                android:layout_toEndOf="@+id/tvHeaderText"
+                android:layout_toRightOf="@+id/tvHeaderText"
                 android:gravity="bottom"
                 android:layout_marginBottom="4dp"
                 android:text="/30"
@@ -95,24 +95,33 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3">
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_horizontal">
+
                 <ImageView
                     android:id="@+id/imgGuest"
                     android:layout_width="@dimen/_60dp"
                     android:layout_height="@dimen/_50dp"
-                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/img_guest_test" />
 
                 <TextView
                     android:id="@+id/tvAway"
                     android:layout_below="@+id/imgGuest"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:gravity="right"
-                    android:paddingRight="16dp"
                     android:textSize="@dimen/textSize_12dp"
                     android:textColor="@color/textColorSecondary"
                     android:text="میهمان"/>
+
+            </RelativeLayout>
+
 
             </RelativeLayout>
 
@@ -123,10 +132,10 @@
 
                 <ImageView
                     android:id="@+id/imgCenter"
-                    android:layout_width="@dimen/_45sdp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_soccer" />
+                    android:src="@drawable/ic_soccer2" />
 
                 <TextView
                     android:id="@+id/tvMatchResult"
@@ -153,24 +162,32 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3">
 
-                <ImageView
-                    android:id="@+id/imgHost"
-                    android:layout_width="@dimen/_60dp"
-                    android:layout_height="@dimen/_50dp"
-                    android:layout_alignParentStart="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/img_tractor" />
-
-                <TextView
-                    android:id="@+id/tvHome"
-                    android:layout_below="@+id/imgHost"
-                    android:layout_width="match_parent"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="16dp"
-                    android:textSize="@dimen/textSize_12dp"
-                    android:textColor="@color/textColorSecondary"
-                    android:text="میزبان"/>
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:id="@+id/imgHost"
+                        android:layout_width="@dimen/_60dp"
+                        android:layout_height="@dimen/_50dp"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/img_tractor" />
+
+                    <TextView
+                        android:id="@+id/tvHome"
+                        android:layout_below="@+id/imgHost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="left"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:textColor="@color/textColorSecondary"
+                        android:text="میزبان"/>
+
+                </RelativeLayout>
 
             </RelativeLayout>
 

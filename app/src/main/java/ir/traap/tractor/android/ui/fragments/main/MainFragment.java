@@ -65,7 +65,7 @@ import library.android.service.model.bus.searchBus.response.Company;
 import library.android.service.model.flight.reservation.response.ReservationResponse;
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
-        FlightReservationData, BusLockSeat, HotelReservationData, BaseSliderView.OnSliderClickListener,
+        FlightReservationData, BusLockSeat, HotelReservationData,
         View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
         , OnServiceStatus<WebServiceClass<MachListResponse>>
 {
@@ -86,8 +86,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private ImageView imgF1, imgF2, imgF3, imgF4, imgF5, imgF6;
 
     private List<MainServiceModelItem> list = new ArrayList<>();
-
-    private SliderLayout mDemoSlider;
 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
@@ -149,8 +147,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mDemoSlider = rootView.findViewById(R.id.slider);
-
         initView(rootView);
 
         return rootView;
@@ -169,10 +165,10 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             setSlider();
 
-            sliderAdapter = new MainSliderAdapter(getActivity(), matchList, this);
-            sliderAdapter.notifyDataSetChanged();
-
-            sliderRecyclerView.setAdapter(sliderAdapter);
+//            sliderAdapter = new MainSliderAdapter(getActivity(), matchList, this);
+//            sliderAdapter.notifyDataSetChanged();
+//
+//            sliderRecyclerView.setAdapter(sliderAdapter);
         }
 
         list = fillMenuRecyclerList();
@@ -252,7 +248,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             mainView.onPredict(matchPredict, isPredictable);
 //            matchCurrent
         });
-
     }
 
     private void getSliderData()
@@ -314,42 +309,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             e.printStackTrace();
         }
 
-//        MainServiceModelItem item = new MainServiceModelItem();
-//
-//        item.setId(1);
-//        item.setTitle("بلیت هواپیما");
-//        newList.add(item);
-//
-//        item = new MainServiceModelItem();
-//        item.setId(2);
-//        item.setTitle("رزرو هتل");
-//        newList.add(item);
-//
-//        item = new MainServiceModelItem();
-//        item.setId(3);
-//        item.setTitle("بلیت اتوبوس");
-//        newList.add(item);
-//
-//        item = new MainServiceModelItem();
-//        item.setId(4);
-//        item.setTitle("پرداخت قبض");
-//        newList.add(item);
-//
-//        item = new MainServiceModelItem();
-//        item.setId(5);
-//        item.setTitle("بسته");
-//        newList.add(item);
-//
-//        item = new MainServiceModelItem();
-//        item.setId(6);
-//        item.setTitle("شارژ");
-//        newList.add(item);
-//
-//        item = new MainServiceModelItem();
-//        item.setId(7);
-//        item.setTitle("کارت به کارت");
-//        newList.add(item);
-
         return newList;
     }
 
@@ -397,64 +356,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 this.matchBuyable = matchItem;
             }
 
-            MyCustomSliderView textSliderView = new MyCustomSliderView(getActivity());
-            textSliderView.setStadiumName(matchItem.getStadium().getName());
-            textSliderView.setDateTime(matchItem.getMatchDatetimeStr());
-//            textSliderView.setColorDateTime("#000");
-//            textSliderView.setColorStadiumName("#aaa");
-            textSliderView.setTeamHomeName(matchItem.getTeamHome().getName());
-            textSliderView.setTeamAwayName(matchItem.getTeamAway().getName());
-            textSliderView.setHeaderDesc(matchItem.getDescription());
-            textSliderView.setImgBackgroundLink(matchItem.getCup().getImageName());
-            textSliderView.setImgAwayLink(matchItem.getTeamAway().getLogo());
-            textSliderView.setImgHomeLink(matchItem.getTeamHome().getLogo());
-            textSliderView.setMatchResult(matchItem.getResult());
-//            Logger.e("--result--","R: "+ matchItem.getResult());
-
-            textSliderView.setOnSliderClickListener(this);
-
-            mDemoSlider.addSlider(textSliderView);
         }
 
         //---------------------new---------------------------
         sliderAdapter = new MainSliderAdapter(getActivity(), matchList, this);
-        sliderAdapter.notifyDataSetChanged();
         sliderRecyclerView.setAdapter(sliderAdapter);
+        sliderAdapter.notifyDataSetChanged();
         sliderRecyclerView.smoothScrollToPosition(matchList.indexOf(matchCurrent));
         //---------------------new---------------------------
 
-//            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.RotateDown);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        PagerIndicator pagerIndicator = new PagerIndicator(getActivity());
-        pagerIndicator.setDefaultIndicatorColor(R.color.currentColor, R.color.grayColor);
-        mDemoSlider.setCustomIndicator(pagerIndicator);
-        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-
-        mDemoSlider.setCurrentPosition(matchList.indexOf(matchCurrent));
-        mDemoSlider.stopAutoCycle();
-
         mainView.hideLoading();
-    }
-
-    @Override
-    public void onAttach(Context context)
-    {
-        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener)
-//        {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else
-//        {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-    }
-
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-//        mListener = null;
     }
 
 
@@ -549,12 +460,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     public void hotelConfirmToSendSmsListener(Boolean aBoolean)
     {
 
-    }
-
-    @Override
-    public void onSliderClick(BaseSliderView slider)
-    {
-        mainView.onLeageClick();
     }
 
     @Override

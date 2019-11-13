@@ -66,10 +66,10 @@
                 android:layout_weight="2">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_soccer" />
+                    android:src="@drawable/ic_soccer2" />
 
                 <ProgressBar
                     android:id="@+id/progress"
