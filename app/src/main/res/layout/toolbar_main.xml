@@ -58,7 +58,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:foreground="?attr/selectableItemBackground"
             android:layout_centerVertical="true"
-            android:background="@drawable/button_main_header_background"/>
+            android:background="@drawable/button_buy_ticket"/>
 
         <RelativeLayout
             android:id="@+id/rlShirt"

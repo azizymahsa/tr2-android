@@ -109,6 +109,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         tvResend.setOnClickListener(view -> {
             loginPresenter.sendMobileRequest();
             tvResend.setVisibility(View.GONE);
+            codeView.setText("");
             tvCountDown.setVisibility(View.VISIBLE);
         });
 

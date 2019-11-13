@@ -209,9 +209,11 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.btnBackToHome:
 
-                MessageAlertDialog dialog = new MessageAlertDialog(this, "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
+                finish();
+
+              /*  MessageAlertDialog dialog = new MessageAlertDialog(this, "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
                         false, "بله", "بستن", listener);
-                dialog.show(this.getFragmentManager(), "dialog");
+                dialog.show(this.getFragmentManager(), "dialog");*/
 
 
                 break;
