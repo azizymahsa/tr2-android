@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
     private String messages, title;
     private TextView tvMessage, tvTitle;
     private RelativeLayout rlCancel;
+    private Space spaceCancel;
     private Boolean isCancelable;
     private String btnConfirmText = "";
     private String btnCancelText = "";
@@ -99,10 +101,12 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         btnConfirm = dialog.findViewById(R.id.btnConfirm);
         btnCancel = dialog.findViewById(R.id.btnCancel);
         rlCancel = dialog.findViewById(R.id.rlCancel);
+        spaceCancel = dialog.findViewById(R.id.spaceCancel);
 
         if (!isCancelable)
         {
             rlCancel.setVisibility(View.GONE);
+            spaceCancel.setVisibility(View.GONE);
         }
         if (title.equalsIgnoreCase(""))
         {

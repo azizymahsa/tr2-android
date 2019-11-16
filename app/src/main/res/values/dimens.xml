@@ -63,7 +63,7 @@
 
     <dimen name="icon_size">24sp</dimen>
     <dimen name="slider_height" >220dp</dimen>
-    <dimen name="slider_height_app">220dp</dimen>
+    <dimen name="slider_height_app">250dp</dimen>
     <dimen name="_14sdp" >14sp</dimen>
     <dimen name="_12sdp" >12sp</dimen>
     <dimen name="_2sdp" >2dp</dimen>

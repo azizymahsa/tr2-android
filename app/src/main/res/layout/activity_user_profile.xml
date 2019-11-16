@@ -327,7 +327,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right|center"
-                            android:nextFocusDown="@+id/etNickName"
+                            android:nextFocusDown="@+id/etNationalCode"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:paddingTop="8dp"
@@ -503,6 +503,7 @@
                             android:nextFocusDown="@+id/etInvite"
                             android:inputType="number"
                             android:maxLines="1"
+                            android:maxLength="2"
                             android:paddingTop="8dp"
                             android:singleLine="true"
                             android:textSize="@dimen/textSize_12dp"
@@ -537,7 +538,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabelProfile">
 
-                        <EditText
+                        <ir.traap.tractor.android.utilities.ClearableEditText
                             android:id="@+id/etInvite"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
