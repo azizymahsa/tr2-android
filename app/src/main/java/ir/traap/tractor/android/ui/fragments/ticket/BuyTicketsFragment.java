@@ -151,16 +151,6 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
                 }
                 if (position == 2)
                     adapter.createShareShowTicket();
-            /*    if (position ==2){
-
-                    new Handler().postDelayed(() -> adapter.webFragmentData(url), 200);
-                }*/
-             /*   if (position == 2) {
-
-                    new Handler().postDelayed(() -> adapter.paymentFragmentData(infoViewers), 200);
-                }
-                if (position == 3)
-                    adapter.createShareShowTicket();*/
 
             }
         });
@@ -172,21 +162,6 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
 
         }
 
-    /*    rootView.setFocusableInTouchMode(true);
-        rootView.requestFocus();
-        rootView.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-               if (viewPager.getCurrentItem()==0){
-                    getActivity().onBackPressed();
-                }else
-               {
-                   onBackClicked();
-
-               }
-                return true;
-            }
-            return false;
-        });*/
         return rootView;
     }
 

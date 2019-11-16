@@ -35,6 +35,7 @@ import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.leaguse.pastResult.PastResultFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.adapters.Leaguse.DataBean;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment;
 
 
 public class LeagueTableFragment
@@ -70,6 +71,15 @@ public class LeagueTableFragment
         f.setArguments(args);
         f.setMainView(mainView);
         return f;
+    }
+
+    public static LeagueTableFragment newInstance(String tab3, MatchScheduleFragment matchScheduleFragment, MainActionView mainActionView)
+    {
+        LeagueTableFragment fragment = new LeagueTableFragment();
+
+
+        return fragment;
+
     }
 
     private void setMainView(MainActionView mainView)

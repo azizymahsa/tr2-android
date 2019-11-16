@@ -69,6 +69,7 @@ import ir.traap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.main.MainFragment;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment;
 import ir.traap.tractor.android.ui.fragments.media.MediaFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.traap.tractor.android.ui.fragments.myProfile.MyProfileFragment;
@@ -897,7 +898,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction.replace(R.id.main_container, fragment)
                 .commit();*/
         isMainFragment = false;
-        fragment = LeagueTableFragment.newInstance(this);
+        fragment = MatchScheduleFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, fragment,"leagueTableFragment")
