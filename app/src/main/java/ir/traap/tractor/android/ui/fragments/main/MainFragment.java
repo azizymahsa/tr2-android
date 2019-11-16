@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +65,7 @@ import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
 import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
 import library.android.service.model.bus.searchBus.response.Company;
 import library.android.service.model.flight.reservation.response.ReservationResponse;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
         FlightReservationData, BusLockSeat, HotelReservationData,
@@ -76,6 +79,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private LinearLayoutManager layoutManager, sliderLayoutManager;
     private MainServiceModelAdapter adapter;
     private MainSliderAdapter sliderAdapter;
+
+    private ScrollingPagerIndicator indicator;
 
     private Boolean isPredictable = true;
 
@@ -97,6 +102,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private TextView tvPopularPlayer;
 
     private CountdownView countdownView;
+    private int matchCurrentPos = 0;
+    private boolean isFirstLoad = true;
 
     public MainFragment()
     {
@@ -197,6 +204,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         countdownView = rootView.findViewById(R.id.countDown);
 
+        indicator = rootView.findViewById(R.id.indicator);
+
         rlF1 = rootView.findViewById(R.id.rlF1);
         rlF2 = rootView.findViewById(R.id.rlF2);
         rlF3 = rootView.findViewById(R.id.rlF3);
@@ -238,8 +247,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         sliderRecyclerView.setLayoutManager(sliderLayoutManager);
 
 //        SnapHelper snapHelper = new StartSnapHelper();
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(sliderRecyclerView);
+//        SnapHelper snapHelper = new LinearSnapHelper();
+//        snapHelper.attachToRecyclerView(sliderRecyclerView);
 
         btnBuyTicket.setOnClickListener(this);
 
@@ -314,11 +323,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private void setSlider()
     {
+        int index = -1;
         for (MatchItem matchItem : matchList)
         {
+            index++;
             if (matchItem.getIsCurrent())
             {
+                matchCurrentPos = index;
                 this.matchCurrent = matchItem;
+                Logger.e("--matchCurrentPos--", "pos: " + matchCurrentPos);
             }
 
             if (matchItem.getIsPredict())
@@ -361,9 +374,21 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         //---------------------new---------------------------
         sliderAdapter = new MainSliderAdapter(getActivity(), matchList, this);
         sliderRecyclerView.setAdapter(sliderAdapter);
-        sliderAdapter.notifyDataSetChanged();
-        sliderRecyclerView.smoothScrollToPosition(matchList.indexOf(matchCurrent));
-        //---------------------new---------------------------
+
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(sliderRecyclerView);
+        indicator.attachToRecyclerView(sliderRecyclerView);
+//        sliderRecyclerView.setOnFlingListener(snapHelper);
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                sliderRecyclerView.smoothScrollToPosition(matchCurrentPos);
+//                sliderRecyclerView.scrollToPosition(matchCurrentPos);
+            }
+        }, 200);
 
         mainView.hideLoading();
     }

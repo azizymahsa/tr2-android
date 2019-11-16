@@ -45,8 +45,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_45sdp"
-                android:background="@android:color/transparent">
+                android:layout_marginTop="@dimen/_45sdp">
 
                 <!--            <com.google.android.material.card.MaterialCardView-->
                 <androidx.cardview.widget.CardView
@@ -62,13 +61,11 @@
                     app:cardCornerRadius="5dp"
                     app:cardMaxElevation="5dp"
                     android:elevation="5dp"
-                    android:translationZ="5dp"
-                    android:background="@android:color/transparent">
+                    android:translationZ="5dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/transparent">
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imgEditProfile"
@@ -251,7 +248,7 @@
                                 <androidx.cardview.widget.CardView
                                     android:id="@+id/cardInviteCode"
                                     android:layout_width="@dimen/_120dp"
-                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_height="@dimen/_35dp"
                                     app:cardBackgroundColor="@color/btnColorSecondary"
                                     app:cardCornerRadius="20dp"
                                     app:cardElevation="5dp"

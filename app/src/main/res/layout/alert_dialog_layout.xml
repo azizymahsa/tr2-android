@@ -92,11 +92,17 @@
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
 
+        <Space
+            android:id="@+id/spaceCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
         <RelativeLayout
             android:id="@+id/rlCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="4">
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/btnCancel"
@@ -117,10 +123,15 @@
 
         </RelativeLayout>
 
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="4">
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/btnConfirm"
@@ -140,6 +151,11 @@
                 app:spinning_bar_width="2dp" />
 
         </RelativeLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
