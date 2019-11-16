@@ -84,7 +84,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etBirthDay = findViewById(R.id.etBirthDay);
 
         flLogoToolbar = findViewById(R.id.flLogoToolbar);
-        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
+//        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
 
         flLogoToolbar.setVisibility(View.GONE);
 

@@ -70,7 +70,7 @@
     <RelativeLayout
         android:id="@+id/cardProfile"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35dp"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         app:layout_anchor="@+id/nav_header_container"
