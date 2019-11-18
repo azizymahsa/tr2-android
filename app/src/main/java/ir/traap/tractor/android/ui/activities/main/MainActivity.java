@@ -3,6 +3,8 @@ package ir.traap.tractor.android.ui.activities.main;
 //import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -23,6 +26,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.adpdigital.push.AdpPushClient;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -83,6 +88,7 @@ import ir.traap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
 import ir.traap.tractor.android.ui.fragments.transaction.TransactionsListFragment;
 import ir.traap.tractor.android.utilities.Logger;
+import ir.traap.tractor.android.utilities.Utility;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -110,6 +116,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private boolean hasPaymentTicket = false;
     private String refrenceNumber;
     private Boolean isCompleteThreadMatch = false, isCompleteThreadAllServices = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -354,6 +361,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         }
     }
+
+
 
     private void setCheckedBNV(BottomNavigationView bottomNavigationView, int index)
     {
