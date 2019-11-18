@@ -94,6 +94,10 @@ android {
         implementation 'com.airbnb.android:lottie:2.7.0'
         //----------------------lottie end-------------------
 
+        //----------------------intro guide view start-----------------
+        implementation 'com.github.mreram:showcaseview:1.1'
+        //----------------------intro guide view end-------------------
+
 
         //----------------------PageIndicatorView start---------------
 //    implementation 'com.romandanylyk:pageindicatorview:1.0.1'
