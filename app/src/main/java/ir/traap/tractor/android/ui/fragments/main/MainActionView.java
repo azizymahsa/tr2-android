@@ -1,5 +1,7 @@
 package ir.traap.tractor.android.ui.fragments.main;
 
+import java.util.ArrayList;
+
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.enums.BarcodeType;
 import ir.traap.tractor.android.ui.base.BaseView;
@@ -35,7 +37,7 @@ public interface MainActionView extends BaseView
     void startAddCardActivity();
 
     void onBuyTicketClick(MatchItem matchBuyable);
-    void onLeageClick ();
+    void onLeageClick (ArrayList<MatchItem> matchBuyable);
 
     void onPredict(MatchItem matchPredict, Boolean isPredictable);
 
