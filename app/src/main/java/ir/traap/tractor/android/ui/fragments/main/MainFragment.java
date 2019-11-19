@@ -30,6 +30,7 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
@@ -91,6 +92,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private View rlIntro;
     private RelativeLayout llRoot;
     private ScrollingPagerIndicator indicator;
+    private BottomNavigationView bottomNavigationView;
 
     private Boolean isPredictable = true;
 
@@ -191,7 +193,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         // onHome();
 
-        Prefs.putBoolean("intro", false);
+        Prefs.putBoolean("intro", true);
         tvShowIntro.setOnClickListener(view ->
         {
             YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
@@ -259,21 +261,27 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     {
                         intro(btnBuyTicket, "خرید بلیت ", "شما میتوانید از این قسمت  \n  بلیت خریداری کنید", 2);
                     }
-                    /*else if (type == 2)
+                    else if (type == 2)
                     {
-                        intro(flLogoToolbar, "تراکنش ها", "شما میتوانید از این قسمت  \n  به لیست تراکنش ها دسترسی پیدا کنید", 3);
+
+                        intro(getActivity().findViewById(R.id.tab_market), "تراپ مارکت", "شما میتوانید از این قسمت  \n  به مارکت دسترسی پیدا کنید", 3);
 
                     } else if (type == 3)
                     {
-                        intro(ivMessage, "پیام ها", "شما میتوانید از این قسمت  \n  به لیست پیام ها دسترسی پیدا کنید", 4);
+                        intro(getActivity().findViewById(R.id.tab_all_services), "سرویس ها", "شما میتوانید از این قسمت  \n  به سرویس ها دسترسی پیدا کنید", 4);
                     } else if (type == 4)
                     {
-                        intro(rvListCard, "کارت ها", "شما میتوانید از این قسمت  \n  کارت جدید خود را اضافه کنید", 5);
+                        intro(getActivity().findViewById(R.id.tab_home), "خانه", "شما میتوانید از این قسمت  \n  به خانه دسترسی پیدا کنید", 5);
                     } else if (type == 5)
                     {
-                        intro(frameLayout, "منو", "شما میتوانید از این قسمت  \n به منو امکانات دسترسی پیدا کنید.", 6);
+                        intro(getActivity().findViewById(R.id.tab_media), "رسانه", "شما میتوانید از این قسمت  \n به رسانه دسترسی پیدا کنید.", 6);
 
-                    }*/
+                    }
+                    else if (type == 6)
+                    {
+                        intro(getActivity().findViewById(R.id.tab_payment), "پرداخت", "شما میتوانید از این قسمت  \n به صفحه پرداخت دسترسی پیدا کنید.", 7);
+
+                    }
 
                 })
                 .build()
@@ -316,6 +324,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvCancelIntro = rootView.findViewById(R.id.tvCancelIntro);
         rlIntro = rootView.findViewById(R.id.rlIntro);
         tvIntroTitle = rootView.findViewById(R.id.tvIntroTitle);
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
+
 
         imgMenu= mToolbar.findViewById(R.id.imgMenu);
         imgMenu.setOnClickListener(v -> mainView.openDrawer());
