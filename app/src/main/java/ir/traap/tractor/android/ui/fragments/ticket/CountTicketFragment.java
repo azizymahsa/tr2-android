@@ -26,9 +26,9 @@ import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
 import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
-public class CountTicketFragment
-        extends Fragment implements View.OnClickListener
-{
+public class CountTicketFragment{}
+      //  extends Fragment implements View.OnClickListener
+/*{
 
     private static final String KEY_MODEL = "KEY_MODEL";
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
@@ -46,9 +46,9 @@ public class CountTicketFragment
     {
     }
 
-    /**
+    *//**
      * Receive the model list
-     */
+     *//*
     public static CountTicketFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         CountTicketFragment fragment = new CountTicketFragment();
@@ -87,7 +87,7 @@ public class CountTicketFragment
             Picasso.with(getContext()).load(R.drawable.img_failure).into(imageView);
         }
     }
-/*
+*//*
 public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         ItemFragment fragment = new ItemFragment();
         Bundle args = new Bundle();
@@ -95,7 +95,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         fragment.setArguments(args);
         return fragment;
     }
-*/
+*//*
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -112,7 +112,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
             public void onReady(WebServiceClass<MachListResponse> response)
             {
                 progress.setVisibility(View.GONE);
-               /* if (response.info.statusCode == 200)
+               *//* if (response.info.statusCode == 200)
                     if (response.data.getResults().size() > 0)
                     {
                         tvStadiumName.setText(response.data.getResults().get(0).getStadium().getName());
@@ -121,7 +121,7 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
                         setImageColor(imgGuest, response.data.getResults().get(0).getTeamAway().getLogo());
 
                         tvDateTime.setText(getDate(response.data.getResults().get(0).getMatchDatetime()));
-                    }*/
+                    }*//*
             }
 
             @Override
@@ -220,5 +220,5 @@ public static SelectPositionFragment newInstance(SubMenuModel[] subMenuModels) {
         tvCount.setText(String.valueOf(count));
 
     }
-}
+}*/
 

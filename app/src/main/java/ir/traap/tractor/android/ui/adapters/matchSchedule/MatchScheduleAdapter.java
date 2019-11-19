@@ -8,33 +8,70 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment;
 import ir.traap.tractor.android.ui.fragments.matchSchedule.NextMatchesFragment;
 import ir.traap.tractor.android.ui.fragments.matchSchedule.PastMatchesFragment;
+import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
+import ir.traap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
+import ir.traap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
+import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
 
 /**
  * Created by MahtabAzizi on 11/16/2019.
  */
 public class MatchScheduleAdapter  extends FragmentStatePagerAdapter
 {
-    private final MatchScheduleFragment matchScheduleFragment;
-    private final MainActionView mainActionView;
-    private int numTabs;
-    private LeagueTableFragment tabLeague;
-    private PastMatchesFragment tabPastMatches;
-    private NextMatchesFragment tabNextMatches;
 
-    public MatchScheduleAdapter(FragmentManager fragmentManager, int tabCount, MatchScheduleFragment matchScheduleFragment, MainActionView mainActionView)
+    private final MainActionView mainActionView;
+    private  List<MatchItem> nextMatchesList=new ArrayList<>();
+    private  List<MatchItem> pastMatchesList=new ArrayList<>();
+    private int numTabs;
+
+
+
+    public MatchScheduleAdapter(FragmentManager fm, int numTabs, MainActionView mainActionView,
+                                List<MatchItem> nextMatchesList, List<MatchItem> pastMatchesList)
     {
-        super(fragmentManager);
+        super(fm);
         this.numTabs = numTabs;
 
-        this.matchScheduleFragment = matchScheduleFragment;
         this.mainActionView = mainActionView;
+        this.nextMatchesList = nextMatchesList;
+        this.pastMatchesList = pastMatchesList;
 
     }
+
+    @Override
+    public Fragment getItem(int position)
+    {
+        switch (position)
+        {
+            case 2:
+                LeagueTableFragment tab1 = LeagueTableFragment.newInstance(mainActionView);
+
+                return tab1;
+            case 0:
+                PastMatchesFragment tab2 = PastMatchesFragment.newInstance(pastMatchesList,mainActionView);
+
+                return tab2;
+
+            case 1:
+                NextMatchesFragment tab3 = NextMatchesFragment.newInstance(nextMatchesList,mainActionView);
+
+                return tab3;
+
+            default:
+                throw new RuntimeException("Tab position invalid " + position);
+        }
+    }
+
+
 
     @Override
     public int getCount()
@@ -42,30 +79,7 @@ public class MatchScheduleAdapter  extends FragmentStatePagerAdapter
         return numTabs;
     }
 
-    @NonNull
-    @Override
-    public Fragment getItem(int position)
-    {
-        switch (position)
-        {
-            case 0:
-                tabNextMatches = NextMatchesFragment.newInstance("TAB1", matchScheduleFragment, mainActionView);
 
-                return tabNextMatches;
-            case 1:
-                tabPastMatches = PastMatchesFragment.newInstance("TAB2", matchScheduleFragment, mainActionView);
-
-                // createInstance();
-                return tabPastMatches;
-            case 2:
-                tabLeague = LeagueTableFragment.newInstance("TAB3", matchScheduleFragment, mainActionView);
-
-                // createInstance();
-                return tabLeague;
-
-            default:
-                throw new RuntimeException("Tab position invalid " + position);
-        }
-    }
 
 }
+
