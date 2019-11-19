@@ -63,4 +63,5 @@ values-sw480dp          5.1”  480x800 mdpi -->
     <dimen name="_10dp_w">0dp</dimen>
     <dimen name="textSize_18dp_card">25dp</dimen>
     <dimen name="margin_10dp_w">0dp</dimen>
+    <dimen name="_5dp">12dp</dimen>
 </resources>

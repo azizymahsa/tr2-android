@@ -101,7 +101,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvTitle.setText("رسانه");
+       // tvTitle.setText("رسانه");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         initView();
@@ -202,4 +202,5 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             }
         }
     }
+
 }

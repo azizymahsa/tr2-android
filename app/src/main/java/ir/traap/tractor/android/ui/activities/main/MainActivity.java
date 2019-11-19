@@ -891,14 +891,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onLeageClick(ArrayList<MatchItem> matchBuyable)
     {
-       /* this.isMainFragment = true;
 
-        fragment = LeagueTableFragment.newInstance(this);
-        transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        transaction.replace(R.id.main_container, fragment)
-                .commit();*/
         isMainFragment = false;
         fragment = MatchScheduleFragment.newInstance(this,matchBuyable);
         transaction = fragmentManager.beginTransaction();

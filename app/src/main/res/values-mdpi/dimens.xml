@@ -62,4 +62,5 @@
     <dimen name="_10dp_w">0dp</dimen>
     <dimen name="textSize_18dp_card">18dp</dimen>
     <dimen name="margin_10dp_w">0dp</dimen>
+    <dimen name="_5dp">5dp</dimen>
 </resources>
