@@ -48,7 +48,8 @@
             android:layout_height="@dimen/_30dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:scaleType="center"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/icon_match" />
     </LinearLayout>
     <View
