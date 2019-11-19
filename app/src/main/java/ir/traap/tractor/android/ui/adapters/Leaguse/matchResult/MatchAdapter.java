@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 
@@ -28,17 +28,20 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
 
     private List<MatchItem> pastMatchesList = new ArrayList<>();
     private View view;
+    private ItemClickListener mClickListener;
 
     public MatchAdapter(List<MatchItem> pastMatchesList)
     {
         this.pastMatchesList = pastMatchesList;
     }
 
-    public MatchAdapter(List<MatchItem> pastMatchesList, Context context)
+    public MatchAdapter(List<MatchItem> pastMatchesList, Context context,ItemClickListener mClickListener)
     {
         this.pastMatchesList = pastMatchesList;
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext);
+        this.mClickListener = mClickListener;
+
     }
 
     @Override
@@ -56,7 +59,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
         MatchItem item = pastMatchesList.get(position);
 
         holder.tvLeageName.setText(item.getCup().getName());
-        holder.tvStadiumname.setText("ورزشگاه "+item.getStadium().getName());
+        holder.tvStadiumname.setText("ورزشگاه " + item.getStadium().getName());
         holder.tvDate.setText(item.getMatchDatetimeStr());
 
 
@@ -67,13 +70,13 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
                 @Override
                 public void onSuccess()
                 {
-                   // holder.progress.setVisibility(View.GONE);
+                    // holder.progress.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onError()
                 {
-                   // holder.progressBar.setVisibility(View.GONE);
+                    // holder.progressBar.setVisibility(View.GONE);
                     Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.imgHost);
                 }
             });
@@ -108,18 +111,17 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
         }
         holder.tvAway.setText(item.getTeamAway().getName());
         //-----------------------------------------------------------------------------------------------
-       try
+        try
         {
             if (item.getResult() != null)
             {
 
                 String result[] = item.getResult().split("-");
-                holder.tvMatchResult.setText(Integer.parseInt(result[1] )+ "  -  " + Integer.parseInt(result[0]));
+                holder.tvMatchResult.setText(Integer.parseInt(result[1]) + "  -  " + Integer.parseInt(result[0]));
 
                 holder.tvMatchResult.setVisibility(View.VISIBLE);
                 holder.imgCenter.setVisibility(View.GONE);
-            }
-            else
+            } else
             {
                 holder.tvMatchResult.setVisibility(View.GONE);
                 holder.imgCenter.setVisibility(View.VISIBLE);
@@ -135,7 +137,10 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
 
         //-----------------------------------------------------------------------------------------------
         holder.progress.setVisibility(View.GONE);
-
+        if (item.getBuyEnable())
+            holder.lnrBuyEnable.setVisibility(View.VISIBLE);
+        else
+            holder.lnrBuyEnable.setVisibility(View.GONE);
 
 
     }
@@ -149,12 +154,15 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
 
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
 
         TextView tvLeageName;
         TextView tvStadiumname;
         TextView tvDate;
+
+        TextView tvPredictResult;
+        TextView tvBuyTicket;
 
         TextView tvHome;
         TextView tvAway;
@@ -165,12 +173,16 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
         ImageView imgHost;
         ImageView imgGuest;
         ImageView imgCenter;
+        LinearLayout lnrBuyEnable;
 
         ViewHolder(View itemView)
         {
             super(itemView);
             tvLeageName = itemView.findViewById(R.id.tvLeageName);
             tvStadiumname = itemView.findViewById(R.id.tvStadiumname);
+
+            tvPredictResult = itemView.findViewById(R.id.tvPredictResult);
+            tvBuyTicket = itemView.findViewById(R.id.tvBuyTicket);
 
             tvDate = itemView.findViewById(R.id.tvDate);
 
@@ -182,17 +194,35 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             imgCenter = itemView.findViewById(R.id.imgCenter);
             tvMatchResult = itemView.findViewById(R.id.tvMatchResult);
             progress = itemView.findViewById(R.id.progress);
+            lnrBuyEnable = itemView.findViewById(R.id.lnrBuyEnable);
 
+            tvBuyTicket.setOnClickListener(this);
+            tvPredictResult.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View v)
+        {
+            switch (v.getId())
+            {
+                case R.id.tvBuyTicket:
+                    if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition(),pastMatchesList.get(getAdapterPosition()));
+                    break;
+                case R.id.tvPredictResult:
+                    if (mClickListener != null) mClickListener.onItemPredictClick(view, getAdapterPosition(),pastMatchesList.get(getAdapterPosition()));
+
+                    break;
+            }
+        }
     }
 
 
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener
     {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, int position, MatchItem matchItem);
+        void onItemPredictClick(View view, int position, MatchItem matchItem);
     }
 }
 

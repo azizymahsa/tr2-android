@@ -96,7 +96,6 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
         tabLayout.addTab(tabLayout.newTab().setText("بازی های گذشته"));
         tabLayout.addTab(tabLayout.newTab().setText("جدول لیگ برتر"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        MatchItem matchItem = new MatchItem();
         final MatchScheduleAdapter adapter = new MatchScheduleAdapter
                 (getFragmentManager(), tabLayout.getTabCount(), mainView,nextMatchesList,pastMatchesList);
 
@@ -105,7 +104,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
         viewPager.setPagingEnabled(false);
 
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+   /*     viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
             public void onPageScrollStateChanged(int state)
             {
@@ -122,7 +121,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
 
             }
-        });
+        });*/
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -212,7 +211,6 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
             public void onTabSelected(TabLayout.Tab tab)
             {
                 viewPager.setCurrentItem(tab.getPosition());
-                Toast.makeText(getActivity(), "Tab selected " + tab.getPosition(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -247,7 +245,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
                 tvLastSchecdule.setBackgroundColor(Color.TRANSPARENT);
                 tvNowSchedule.setBackgroundColor(Color.TRANSPARENT);
                 tvLastSchecdule.setTextColor(getResources().getColor(R.color._disable_color));
-                tvTableLeage.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+                tvTableLeage.setTextColor(getResources().getColor(R.color.borderColorRed));
                 tvNowSchedule.setTextColor(getResources().getColor(R.color._disable_color));
 
                 break;
@@ -256,7 +254,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
                 tvLastSchecdule.setBackgroundResource(R.drawable.background_border_a);
                 tvTableLeage.setBackgroundColor(Color.TRANSPARENT);
                 tvNowSchedule.setBackgroundColor(Color.TRANSPARENT);
-                tvLastSchecdule.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+                tvLastSchecdule.setTextColor(getResources().getColor(R.color.borderColorRed));
                 tvTableLeage.setTextColor(getResources().getColor(R.color._disable_color));
                 tvNowSchedule.setTextColor(getResources().getColor(R.color._disable_color));
 
@@ -269,7 +267,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
                 tvLastSchecdule.setTextColor(getResources().getColor(R.color._disable_color));
                 tvTableLeage.setTextColor(getResources().getColor(R.color._disable_color));
-                tvNowSchedule.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+                tvNowSchedule.setTextColor(getResources().getColor(R.color.borderColorRed));
                 break;
         }
     }

@@ -60,4 +60,6 @@
     <dimen name="_10dp_w">40dp</dimen>
     <dimen name="textSize_18dp_card">30dp</dimen>
     <dimen name="margin_10dp_w">25dp</dimen>
+    <dimen name="_5dp">15dp</dimen>
+
 </resources>
