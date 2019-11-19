@@ -102,7 +102,7 @@
                         android:background="@drawable/background_border_a"
                         android:gravity="center"
                         android:text="بازی های گذشته "
-                        android:textColor="@color/g_btn_gradient_lighter"
+                        android:textColor="@color/borderColorRed"
                         android:textSize="@dimen/textSize_12dp" />
                 </LinearLayout>
 

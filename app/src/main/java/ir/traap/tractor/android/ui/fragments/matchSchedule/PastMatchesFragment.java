@@ -38,7 +38,7 @@ import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 /**
  * Created by MahtabAzizi on 11/16/2019.
  */
-public class PastMatchesFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener
+public class PastMatchesFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener,MatchAdapter.ItemClickListener
 {
     private View rootView;
 
@@ -117,12 +117,12 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
     private void addDataRecyclerList()
     {
 
-        mAdapter = new MatchAdapter(pastMatchesList,getContext());
+        mAdapter = new MatchAdapter(pastMatchesList,getContext(),this);
         recyclerView.setAdapter(mAdapter);
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new MatchAdapter(pastMatchesList, getActivity());
+        mAdapter = new MatchAdapter(pastMatchesList, getActivity(),this);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -178,4 +178,15 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
     }
 
 
+    @Override
+    public void onItemClick(View view, int position, MatchItem matchItem)
+    {
+
+    }
+
+    @Override
+    public void onItemPredictClick(View view, int position, MatchItem matchItem)
+    {
+
+    }
 }
