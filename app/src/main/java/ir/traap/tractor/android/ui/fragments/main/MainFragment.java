@@ -1,7 +1,10 @@
 package ir.traap.tractor.android.ui.fragments.main;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,11 +22,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
@@ -66,6 +73,8 @@ import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
 import library.android.service.model.bus.searchBus.response.Company;
 import library.android.service.model.flight.reservation.response.ReservationResponse;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
+import smartdevelop.ir.eram.showcaseviewlib.GuideView;
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
         FlightReservationData, BusLockSeat, HotelReservationData,
@@ -79,8 +88,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private LinearLayoutManager layoutManager, sliderLayoutManager;
     private MainServiceModelAdapter adapter;
     private MainSliderAdapter sliderAdapter;
-
+    private TextView tvShowIntro,tvCancelIntro,tvIntroTitle;
+    private View rlIntro;
+    private RelativeLayout llRoot;
     private ScrollingPagerIndicator indicator;
+    private BottomNavigationView bottomNavigationView;
 
     private Boolean isPredictable = true;
 
@@ -104,6 +116,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private CountdownView countdownView;
     private int matchCurrentPos = 0;
     private boolean isFirstLoad = true;
+    private ImageView imgMenu;
 
     public MainFragment()
     {
@@ -160,6 +173,123 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
     @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (Prefs.getBoolean("intro", true))
+        {
+            startIntro();
+
+        } else
+        {
+
+            Utility.disableEnableControls(true, llRoot);
+
+        }
+
+    }
+
+    private void startIntro()
+    {
+        // onHome();
+
+        Prefs.putBoolean("intro", false);
+        tvShowIntro.setOnClickListener(view ->
+        {
+            YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
+            {
+                @Override
+                public void onAnimationEnd(Animator animation)
+                {
+                    super.onAnimationEnd(animation);
+                    rlIntro.setVisibility(View.GONE);
+                    Utility.disableEnableControls(true, llRoot);
+
+                    intro(imgMenu, "منو", "شما میتوانید از این قسمت  \n  به منو دسترسی پیدا کنید", 1);
+
+
+                }
+            })
+                    .duration(500)
+                    .playOn(rlIntro);
+        });
+        tvCancelIntro.setOnClickListener(view -> {
+            YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
+            {
+                @Override
+                public void onAnimationEnd(Animator animation)
+                {
+                    super.onAnimationEnd(animation);
+                    Utility.disableEnableControls(true, llRoot);
+                    rlIntro.setVisibility(View.GONE);
+
+
+                }
+            })
+                    .duration(500)
+                    .playOn(rlIntro);
+        });
+
+
+        tvIntroTitle.setText("سلام " + Prefs.getString("firstName", "") + " " + Prefs.getString("lastName", "") + " خوش آمدید!");
+        new Handler().postDelayed(() -> {
+            rlIntro.setVisibility(View.VISIBLE);
+            YoYo.with(Techniques.FadeIn)
+                    .duration(500)
+                    .playOn(rlIntro);
+        }, 1000);
+
+
+    }
+
+    private void intro(View view, String title, String text, final int type)
+    {
+
+        new GuideView.Builder(getContext())
+                .setTitle(title)
+                .setContentText(text)
+                .setTargetView(view)
+                .setTitleTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))
+                .setContentTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))
+                .setDismissType(DismissType.anywhere)
+                .setContentTextSize(12)//optional
+                .setTitleTextSize(14)//optional
+                .setGuideListener(view1 ->
+                {
+
+                    if (type == 1)
+                    {
+                        intro(btnBuyTicket, "خرید بلیت ", "شما میتوانید از این قسمت  \n  بلیت خریداری کنید", 2);
+                    }
+                    else if (type == 2)
+                    {
+
+                        intro(getActivity().findViewById(R.id.tab_market), "تراپ مارکت", "شما میتوانید از این قسمت  \n  به مارکت دسترسی پیدا کنید", 3);
+
+                    } else if (type == 3)
+                    {
+                        intro(getActivity().findViewById(R.id.tab_all_services), "سرویس ها", "شما میتوانید از این قسمت  \n  به سرویس ها دسترسی پیدا کنید", 4);
+                    } else if (type == 4)
+                    {
+                        intro(getActivity().findViewById(R.id.tab_home), "خانه", "شما میتوانید از این قسمت  \n  به خانه دسترسی پیدا کنید", 5);
+                    } else if (type == 5)
+                    {
+                        intro(getActivity().findViewById(R.id.tab_media), "رسانه", "شما میتوانید از این قسمت  \n به رسانه دسترسی پیدا کنید.", 6);
+
+                    }
+                    else if (type == 6)
+                    {
+                        intro(getActivity().findViewById(R.id.tab_payment), "پرداخت", "شما میتوانید از این قسمت  \n به صفحه پرداخت دسترسی پیدا کنید.", 7);
+
+                    }
+
+                })
+                .build()
+                .show();
+    }
+
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
@@ -189,7 +319,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         mToolbar = rootView.findViewById(R.id.toolbar);
 
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+        llRoot = rootView.findViewById(R.id.rlRoot);
+        tvShowIntro = rootView.findViewById(R.id.tvShowIntro);
+        tvCancelIntro = rootView.findViewById(R.id.tvCancelIntro);
+        rlIntro = rootView.findViewById(R.id.rlIntro);
+        tvIntroTitle = rootView.findViewById(R.id.tvIntroTitle);
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
+
+
+        imgMenu= mToolbar.findViewById(R.id.imgMenu);
+        imgMenu.setOnClickListener(v -> mainView.openDrawer());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
@@ -392,7 +531,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         mainView.hideLoading();
     }
-
 
     @Override
     public void onGdsFlight(GetUserPassResponse response)

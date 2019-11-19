@@ -2,7 +2,6 @@ package ir.traap.tractor.android.ui.fragments.myProfile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +18,11 @@ import com.pixplicity.easyprefs.library.Prefs;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.singleton.SingletonContext;
+import ir.traap.tractor.android.ui.activities.login.LoginActivity;
+import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import ir.traap.tractor.android.ui.activities.userProfile.UserProfileActivity;
 import ir.traap.tractor.android.ui.base.BaseFragment;
+import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 
@@ -34,9 +36,8 @@ public class MyProfileFragment extends BaseFragment
     private Toolbar mToolbar;
     private TextView tvFullName, tvMobile, tvInviteCode;
 
-    private ImageView imgEditProfile;
 
-    private RelativeLayout rlMyPredict, rlSoccerFavorite, rlMyShirt;
+    private RelativeLayout rlEditProfile, rlMyPredict, rlMyFavorite, rlExit;
 
 
     public MyProfileFragment()
@@ -85,16 +86,23 @@ public class MyProfileFragment extends BaseFragment
         tvFullName = rootView.findViewById(R.id.tvFullName);
         tvMobile = rootView.findViewById(R.id.tvMobile);
         tvInviteCode = rootView.findViewById(R.id.tvInviteCode);
-        imgEditProfile = rootView.findViewById(R.id.imgEditProfile);
+        rlEditProfile = rootView.findViewById(R.id.rlEditProfile);
         rlMyPredict = rootView.findViewById(R.id.rlMyPredict);
-        rlSoccerFavorite = rootView.findViewById(R.id.rlSoccerFavorite);
-        rlMyShirt = rootView.findViewById(R.id.rlMyShirt);
+        rlMyFavorite = rootView.findViewById(R.id.rlMyFavorite);
+        rlExit = rootView.findViewById(R.id.rlExit);
 
-        tvFullName.setText(Prefs.getString("FULLName", ""));
+        if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase(""))
+        {
+            tvFullName.setVisibility(View.GONE);
+        }
+        else
+        {
+            tvFullName.setText(Prefs.getString("FULLName", ""));
+        }
         tvMobile.setText(Prefs.getString("mobile", ""));
         tvInviteCode.setText(Prefs.getString("keyInvite", ""));
 
-        imgEditProfile.setOnClickListener(v ->
+        rlEditProfile.setOnClickListener(v ->
         {
             startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
         });
@@ -104,14 +112,35 @@ public class MyProfileFragment extends BaseFragment
 
         });
 
-        rlSoccerFavorite.setOnClickListener(v ->
+        rlMyFavorite.setOnClickListener(v ->
         {
 
         });
 
-        rlMyShirt.setOnClickListener(v ->
+        rlExit.setOnClickListener(v ->
         {
+            MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "آیا می خواهید از حساب کاربری خود خارج شوید؟",
+                    true, "خروج", "انصراف", new MessageAlertDialog.OnConfirmListener()
+            {
+                @Override
+                public void onConfirmClick()
+                {
+                    Intent intent = new Intent();
+                    String mobile = Prefs.getString("mobile", "");
+                    Prefs.clear();
+                    Prefs.putString("mobile", mobile);
+                    getActivity().finish();
+                    intent.setClass(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
 
+                @Override
+                public void onCancelClick()
+                {
+
+                }
+            });
+            dialog.show(getActivity().getFragmentManager(), "messageDialog");
         });
 
     }
