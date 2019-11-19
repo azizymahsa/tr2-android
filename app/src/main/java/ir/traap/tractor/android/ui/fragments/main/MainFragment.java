@@ -389,7 +389,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //        SnapHelper snapHelper = new LinearSnapHelper();
 //        snapHelper.attachToRecyclerView(sliderRecyclerView);
 
-    //    btnBuyTicket.setOnClickListener(this);
+        btnBuyTicket.setOnClickListener(this);
 
         rlPredict.setOnClickListener(v ->
         {
