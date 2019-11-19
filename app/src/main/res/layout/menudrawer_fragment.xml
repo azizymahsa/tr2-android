@@ -70,7 +70,7 @@
     <RelativeLayout
         android:id="@+id/cardProfile"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_35dp"
+        android:layout_height="wrap_content"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         app:layout_anchor="@+id/nav_header_container"
@@ -80,14 +80,14 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_40dp"
+            android:layout_height="@dimen/_35dp"
             android:text="حساب کاربری من"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="24dp"
+            android:paddingRight="24dp"
+            android:paddingLeft="24dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:layout_centerInParent="true"
-            android:textColor="@color/textColorPrimary"
-            android:paddingStart="24dp" />
+            android:textColor="@color/textColorPrimary" />
 
     </RelativeLayout>
 
