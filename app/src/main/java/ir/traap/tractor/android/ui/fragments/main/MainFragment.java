@@ -633,6 +633,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onSliderItemClick(View view, Integer id, Integer position)
     {
-        mainView.onLeageClick();
+        mainView.onLeageClick( matchList);
     }
 }

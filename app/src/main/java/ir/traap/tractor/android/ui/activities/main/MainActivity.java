@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
 
@@ -20,7 +19,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.adpdigital.push.AdpPushClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,7 +31,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
@@ -58,7 +55,6 @@ import ir.traap.tractor.android.notification.PushMessageReceiver;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.activities.card.add.AddCardActivity;
 import ir.traap.tractor.android.ui.activities.login.LoginActivity;
-import ir.traap.tractor.android.ui.adapters.allMenu.AllMenuServiceModelAdapter;
 import ir.traap.tractor.android.ui.base.BaseActivity;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.drawer.MenuDrawer;
@@ -66,7 +62,6 @@ import ir.traap.tractor.android.ui.fragments.barcodeReader.BarcodeReaderFragment
 import ir.traap.tractor.android.ui.fragments.about.AboutFragment;
 import ir.traap.tractor.android.ui.fragments.allMenu.AllMenuFragment;
 import ir.traap.tractor.android.ui.fragments.billPay.BillFragment;
-import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.main.MainFragment;
 import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment;
@@ -887,7 +882,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onLeageClick()
+    public void onLeageClick(ArrayList<MatchItem> matchBuyable)
     {
        /* this.isMainFragment = true;
 
@@ -898,7 +893,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction.replace(R.id.main_container, fragment)
                 .commit();*/
         isMainFragment = false;
-        fragment = MatchScheduleFragment.newInstance(this);
+        fragment = MatchScheduleFragment.newInstance(this,matchBuyable);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, fragment,"leagueTableFragment")

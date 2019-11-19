@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +40,7 @@ import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment
 
 
 public class LeagueTableFragment
-        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
+        extends Fragment implements OnAnimationEndListener, View.OnClickListener,
         OnServiceStatus<WebServiceClass<ResponseLeage>>, FixTableAdapter.ItemClickListener
 {
     private View rootView;

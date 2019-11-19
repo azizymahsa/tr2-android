@@ -61,34 +61,10 @@ public class PagerAdapter
 
                // createInstance();
                 return tab2;
-      /*      case 2://پرداخت
-
-
-                tab3 = ShowTicketsFragment.newInstance("TAB4", buyTicketsFragment, mainActionView);
-
-               // tab3=WebViewFragment.newInstance("TAB3", buyTicketsFragment,mainActionView);
-
-                //  PaymentFragment tab3 = PaymentFragment.newInstance(8, buyTicketsFragment, this, onClickContinueBuyTicket);
-               // CompeletInfoFragment tab3 = CompeletInfoFragment.newInstance("TAB3", buyTicketsFragment, mainActionView);
-                //TicketPaymentInstance paymentInstance = new TicketPaymentInstance();
-//                paymentInstance.setFirstName();
-//                paymentInstance.setLastName();
-//                paymentInstance.setNationalCode();
-//                paymentInstance.setTicketId();
-//                PaymentFragment tab3 = PaymentFragment.newInstance(this,
-//                        "",
-//                        "",
-//                        0,
-//                        "",
-//                        paymentInstance);
-
-                //ShowTicketsFragment tab3 =ShowTicketsFragment.newInstance("TAB3", buyTicketsFragment, mainActionView);
-               // ShowTicketsFragment tab3 = ShowTicketsFragment.newInstance("TAB4",buyTicketsFragment,mainActionView);
+            case 2:
+                SelectPositionFragment tab3 = SelectPositionFragment.newInstance("TAB3", buyTicketsFragment,matchBuyable);
 
                 return tab3;
-            case 3:
-                tab4 = ShowTicketsFragment.newInstance("TAB4", buyTicketsFragment, mainActionView);
-                return tab4;*/
 
 
             default:
