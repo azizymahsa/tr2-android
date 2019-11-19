@@ -193,7 +193,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         // onHome();
 
-        Prefs.putBoolean("intro", true);
+        Prefs.putBoolean("intro", false);
         tvShowIntro.setOnClickListener(view ->
         {
             YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
