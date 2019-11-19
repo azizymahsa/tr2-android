@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.adapters.allMenu;
+package ir.traap.tractor.android.ui.adapters.media;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,19 +20,21 @@ import java.util.List;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.allService.response.SubMenu;
 import ir.traap.tractor.android.models.otherModels.mainService.MainServiceModelItem;
+import ir.traap.tractor.android.models.otherModels.mediaModel.MediaModel;
+import ir.traap.tractor.android.ui.adapters.mainSlider.MainSliderAdapter;
 
-public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServiceModelAdapter.ViewHolder>
+public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>
 {
-    private AllMenuServiceModelAdapter.OnItemAllMenuClickListener mItemClickListener;
+    private OnItemAllMenuClickListener mItemClickListener;
     private Context mContext;
-    private List<MainServiceModelItem> list;
+    private List<MediaModel> list;
     private int row_index = 0;
     private View view;
 
-    public AllMenuServiceModelAdapter(Context mContext, List<MainServiceModelItem> list, OnItemAllMenuClickListener mItemClickListener)
+    public MediaAdapter(Context mContext, List<MediaModel> list, OnItemAllMenuClickListener mItemClickListener)
     {
-        this.mItemClickListener = mItemClickListener;
         this.mContext = mContext;
+        this.mItemClickListener = mItemClickListener;
         this.list = list;
     }
 
@@ -42,7 +44,7 @@ public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServ
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.adapter_main_service_model, null);
+                R.layout.adapter_media_item, null);
 
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 
@@ -53,27 +55,18 @@ public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServ
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        MainServiceModelItem item = list.get(position);
+        MediaModel item = list.get(position);
 
         holder.tvTitle.setText(item.getTitle());
-        holder.rootView.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                row_index = position;
-                mItemClickListener.OnItemAllMenuClick(view, item.getId(), item.getSubMenu());
-                notifyDataSetChanged();
-
-            }
-        });
         if (row_index == 0)
-            mItemClickListener.OnItemAllMenuClick(view, list.get(0).getId(), list.get(0).getSubMenu());
+        {
+            mItemClickListener.OnItemAllMenuClick(view, list.get(0).getId());
+        }
         if (row_index == position)
         {
             try
             {
-                Picasso.with(mContext).load(item.getLogo_selected()).into(holder.image, new Callback()
+                Picasso.with(mContext).load(item.getIconDrawableSelected()).into(holder.image, new Callback()
                 {
                     @Override
                     public void onSuccess()
@@ -94,11 +87,12 @@ public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServ
                 holder.progressBar.setVisibility(View.GONE);
                 Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.image);
             }
-        } else
+        }
+        else
         {
             try
             {
-                Picasso.with(mContext).load(item.getImageLink()).into(holder.image, new Callback()
+                Picasso.with(mContext).load(item.getIconDrawable()).into(holder.image, new Callback()
                 {
                     @Override
                     public void onSuccess()
@@ -113,18 +107,13 @@ public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServ
                         Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.image);
                     }
                 });
-            } catch (Exception e1)
+            }
+            catch (Exception e1)
             {
                 holder.progressBar.setVisibility(View.GONE);
                 Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.image);
             }
         }
-        //------------test--------------------
-//        holder.progressBar.setVisibility(View.GONE);
-//        Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.image);
-        //------------test--------------------
-
-
     }
 
     @Override
@@ -134,7 +123,7 @@ public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServ
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         public TextView tvTitle;
         public ImageView image;
@@ -150,24 +139,29 @@ public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServ
             image = itemView.findViewById(R.id.image);
             progressBar = itemView.findViewById(R.id.progress);
 
+            rootView.setOnClickListener(this);
 
         }
 
-      /*  @Override
-        public void onClick(View view) {
-            if (mItemClickListener != null) {
-
+        @Override
+        public void onClick(View view)
+        {
+            if (mItemClickListener != null)
+            {
+                row_index = getAdapterPosition();
+                mItemClickListener.OnItemAllMenuClick(view, list.get(getAdapterPosition()).getId());
+                notifyDataSetChanged();
             }
-        }*/
+        }
     }
 
 
     public interface OnItemAllMenuClickListener
     {
-        public void OnItemAllMenuClick(View view, Integer id, List<SubMenu> list);
+        public void OnItemAllMenuClick(View view, Integer id);
     }
 
-//    public void SetOnItemClickListener(final OnSliderItemClickListener mItemClickListener)
+//    public void SetOnItemClickListener(final OnItemAllMenuClickListener mItemClickListener)
 //    {
 //        this.mItemClickListener = mItemClickListener;
 //    }

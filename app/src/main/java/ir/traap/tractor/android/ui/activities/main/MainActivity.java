@@ -217,9 +217,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 case R.id.tab_market:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 0);
+                        setCheckedBNV(bottomNavigationView, 4);
                         isMainFragment = false;
 
                         fragment = MarketFragment.newInstance(this);
@@ -281,20 +281,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 
-                        fragment = MediaFragment.newInstance(this);
-                        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                        transaction.replace(R.id.main_container, fragment, "mediaFragment")
-                                .commit();
-                       /* isMainFragment = false;
-
                         fragment = PaymentWithoutCardFragment.newInstance(this);
                         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                         transaction.replace(R.id.main_container, fragment, "paymentWithoutCardFragment")
-                                .commit();*/
+                                .commit();
                     }
                     break;
                 }
