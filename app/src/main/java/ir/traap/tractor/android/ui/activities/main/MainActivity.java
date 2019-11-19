@@ -500,7 +500,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 9:
             {
-                showToast(this, "پشتیبانی", R.color.green);
+                showToast(this, "ارتباط با پشتیبانی", R.color.green);
 
                 break;
             }
@@ -542,6 +542,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 return;
 
+            }
+            case 13:
+            {
+                showToast(this, "جدول لیگ برتر", R.color.green);
+
+                break;
             }
 
         }
