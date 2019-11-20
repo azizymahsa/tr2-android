@@ -492,6 +492,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 10:
             {
+                if (fragment instanceof MainFragment)
                 ((MainFragment) fragment).requestGetHelpMenu();
 
                 break;
