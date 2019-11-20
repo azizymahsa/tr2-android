@@ -352,3 +352,8 @@ allprojects {
 configurations.all { exclude group: 'com.android.support', module: 'support-v13' }
 
 apply plugin: 'com.google.gms.google-services'
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
+}
