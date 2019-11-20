@@ -2,12 +2,10 @@ package ir.traap.tractor.android.ui.fragments.main;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,14 +20,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.Indicators.PagerIndicator;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
@@ -44,6 +37,9 @@ import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.getMenu.response.GetMenuItemResponse;
+import ir.traap.tractor.android.apiServices.model.getMenuHelp.GetMenuHelpRequest;
+import ir.traap.tractor.android.apiServices.model.getMenuHelp.GetMenuHelpResponse;
+import ir.traap.tractor.android.apiServices.model.getMenuHelp.ResultHelpMenu;
 import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.conf.TrapConfig;
@@ -55,9 +51,7 @@ import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import ir.traap.tractor.android.ui.adapters.mainServiceModel.MainServiceModelAdapter;
 import ir.traap.tractor.android.ui.adapters.mainSlider.MainSliderAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
-import ir.traap.tractor.android.ui.others.MyCustomSliderView;
 import ir.traap.tractor.android.utilities.Logger;
-import ir.traap.tractor.android.utilities.StartSnapHelper;
 import ir.traap.tractor.android.utilities.Tools;
 import ir.traap.tractor.android.utilities.Utility;
 import library.android.eniac.StartEniacBusActivity;
@@ -84,11 +78,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private View rootView;
 
     private RecyclerView recyclerView, sliderRecyclerView;
-//    private MultiSnapRecyclerView recyclerView;
+    //    private MultiSnapRecyclerView recyclerView;
     private LinearLayoutManager layoutManager, sliderLayoutManager;
     private MainServiceModelAdapter adapter;
     private MainSliderAdapter sliderAdapter;
-    private TextView tvShowIntro,tvCancelIntro,tvIntroTitle;
+    private TextView tvShowIntro, tvCancelIntro, tvIntroTitle;
     private View rlIntro;
     private RelativeLayout llRoot;
     private ScrollingPagerIndicator indicator;
@@ -117,6 +111,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private int matchCurrentPos = 0;
     private boolean isFirstLoad = true;
     private ImageView imgMenu;
+    private List<ResultHelpMenu> helpMenuResult;
 
     public MainFragment()
     {
@@ -172,13 +167,114 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         return rootView;
     }
 
+    public void showIntro(List<ResultHelpMenu> results)
+    {
+        helpMenuResult = results;
+
+        YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
+        {
+            @Override
+            public void onAnimationEnd(Animator animation)
+            {
+                super.onAnimationEnd(animation);
+                rlIntro.setVisibility(View.GONE);
+                Utility.disableEnableControls(true, llRoot);
+
+                for (int i = 0; i < results.size(); i++)
+                {
+                    if (results.get(i).getCode() == 1)
+                    {
+
+                        intro(imgMenu, results.get(i).getTitle(), results.get(i).getDescription(), 1);
+
+                    }
+                }
+
+
+            }
+        })
+                .duration(500)
+                .playOn(rlIntro);
+    }
+
+    public void requestGetHelpMenu()
+    {
+        GetMenuHelpRequest request = new GetMenuHelpRequest();
+        SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetMenuHelpResponse> response)
+            {
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+
+                        showIntro(response.data.getResults());
+
+                    } else
+                    {
+                        Utility.disableEnableControls(true, llRoot);
+                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                Utility.disableEnableControls(true, llRoot);
+
+                Tools.showToast(getActivity(), message, R.color.red);
+            }
+        }, request);
+    }
+
     @Override
     public void onResume()
     {
         super.onResume();
         if (Prefs.getBoolean("intro", true))
         {
-            startIntro();
+            GetMenuHelpRequest request = new GetMenuHelpRequest();
+            SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>()
+            {
+                @Override
+                public void onReady(WebServiceClass<GetMenuHelpResponse> response)
+                {
+                    try
+                    {
+
+                        if (response.info.statusCode == 200)
+                        {
+
+                            startIntro(response.data.getResults());
+
+                        } else
+                        {
+                            Utility.disableEnableControls(true, llRoot);
+                            Tools.showToast(getContext(), response.info.message, R.color.red);
+                        }
+                    } catch (Exception e)
+                    {
+                        Tools.showToast(getContext(), e.getMessage(), R.color.red);
+
+                    }
+                }
+
+                @Override
+                public void onError(String message)
+                {
+                    Utility.disableEnableControls(true, llRoot);
+
+                    Tools.showToast(getActivity(), message, R.color.red);
+                }
+            }, request);
 
         } else
         {
@@ -189,31 +285,18 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     }
 
-    private void startIntro()
+    private void startIntro(List<ResultHelpMenu> results)
     {
         // onHome();
 
         Prefs.putBoolean("intro", false);
+        helpMenuResult = results;
         tvShowIntro.setOnClickListener(view ->
         {
-            YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
-            {
-                @Override
-                public void onAnimationEnd(Animator animation)
-                {
-                    super.onAnimationEnd(animation);
-                    rlIntro.setVisibility(View.GONE);
-                    Utility.disableEnableControls(true, llRoot);
-
-                    intro(imgMenu, "منو", "شما میتوانید از این قسمت  \n  به منو دسترسی پیدا کنید", 1);
-
-
-                }
-            })
-                    .duration(500)
-                    .playOn(rlIntro);
+            showIntro(results);
         });
-        tvCancelIntro.setOnClickListener(view -> {
+        tvCancelIntro.setOnClickListener(view ->
+        {
             YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
             {
                 @Override
@@ -232,7 +315,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
         tvIntroTitle.setText("سلام " + Prefs.getString("firstName", "") + " " + Prefs.getString("lastName", "") + " خوش آمدید!");
-        new Handler().postDelayed(() -> {
+        new Handler().postDelayed(() ->
+        {
             rlIntro.setVisibility(View.VISIBLE);
             YoYo.with(Techniques.FadeIn)
                     .duration(500)
@@ -256,12 +340,70 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 .setTitleTextSize(14)//optional
                 .setGuideListener(view1 ->
                 {
-
-                    if (type == 1)
+                    try
                     {
-                        intro(btnBuyTicket, "خرید بلیت ", "شما میتوانید از این قسمت  \n  بلیت خریداری کنید", 2);
+                        for (int i = 0; i < helpMenuResult.size(); i++)
+                        {
+                            if (type == 1)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 2)
+                                {
+                                    intro(btnBuyTicket, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 2);
+                                }
+                            } else if (type == 2)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 3)
+                                {
+                                    intro(sliderRecyclerView, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 3);
+                                }
+                            } else if (type == 3)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 4)
+                                {
+                                    intro(getActivity().findViewById(R.id.tab_all_services), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 4);
+                                }
+                            } else if (type == 4)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 5)
+                                {
+                                    intro(getActivity().findViewById(R.id.tab_media), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 5);
+                                }
+                            } else if (type == 5)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 6)
+                                {
+                                    intro(getActivity().findViewById(R.id.tab_payment), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 6);
+                                }
+                            } else if (type == 6)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 7)
+                                {
+                                    intro(getActivity().findViewById(R.id.tab_market), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 7);
+                                }
+                            } else if (type == 7)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 8)
+                                {
+                                    intro(rlPredict, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 8);
+                                }
+                            } else if (type == 8)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 9)
+                                {
+                                    intro(recyclerView, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 9);
+                                }
+                            }
+
+                        }
+
+                    } catch (Exception e)
+                    {
+
                     }
-                    else if (type == 2)
+
+
+
+            /*        else if (type == 2)
                     {
 
                         intro(getActivity().findViewById(R.id.tab_market), "تراپ مارکت", "شما میتوانید از این قسمت  \n  به مارکت دسترسی پیدا کنید", 3);
@@ -281,7 +423,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     {
                         intro(getActivity().findViewById(R.id.tab_payment), "پرداخت", "شما میتوانید از این قسمت  \n به صفحه پرداخت دسترسی پیدا کنید.", 7);
 
-                    }
+                    }*/
 
                 })
                 .build()
@@ -297,8 +439,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         if (matchList == null)
         {
             getSliderData();
-        }
-        else
+        } else
         {
             setSlider();
 
@@ -327,7 +468,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
 
 
-        imgMenu= mToolbar.findViewById(R.id.imgMenu);
+        imgMenu = mToolbar.findViewById(R.id.imgMenu);
         imgMenu.setOnClickListener(v -> mainView.openDrawer());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -479,12 +620,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 Timestamp myTimestamp = new Timestamp(System.currentTimeMillis());
                 long myTime = myTimestamp.getTime();
-                long matchTime = matchPredict.getMatchDatetime().longValue()*1000;
+                long matchTime = matchPredict.getMatchDatetime().longValue() * 1000;
                 Logger.e("--Time--", "myTime:" + myTime + ", MatchTime: " + matchTime);
-                long time = matchTime - myTime ;
+                long time = matchTime - myTime;
                 Logger.e("--diff Time--", "Time: " + time);
 
-                long predictTime = matchPredict.getPredictTime().longValue()*1000;
+                long predictTime = matchPredict.getPredictTime().longValue() * 1000;
                 long remainPredictTime = predictTime - myTime;
 
                 if (remainPredictTime > 0)
@@ -492,12 +633,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                     isPredictable = true;
                     startTimer(time);
-                }
-                else
+                } else
                 {
                     isPredictable = false;
                     rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
-                    ((TextView)rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
+                    ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
                 }
 
 //                Timestamp timestamp = matchPredict.getMatchDatetime().intValue();
@@ -747,8 +887,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             getActivity().finish();
 
             return;
-        }
-        else
+        } else
         {
             matchList = responseMatchList.data.getMatchList();
             MainActivity.matchList = matchList;
@@ -771,6 +910,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onSliderItemClick(View view, Integer id, Integer position)
     {
-        mainView.onLeageClick( matchList);
+        mainView.onLeageClick(matchList);
     }
 }

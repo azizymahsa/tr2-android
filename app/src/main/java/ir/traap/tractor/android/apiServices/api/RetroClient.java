@@ -33,6 +33,7 @@ import ir.traap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneB
 import ir.traap.tractor.android.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillResponse;
 import ir.traap.tractor.android.apiServices.model.getMenu.request.GetMenuRequest;
 import ir.traap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
+import ir.traap.tractor.android.apiServices.model.getMenuHelp.GetMenuHelpResponse;
 import ir.traap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import ir.traap.tractor.android.apiServices.model.getPackageMci.response.GetPackageMciResponse;
@@ -96,6 +97,8 @@ public interface RetroClient
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
 
+    @GET(Const.GetMenuHelp)
+    Single<Response<WebServiceClass<GetMenuHelpResponse>>> getMenuHelp();
 
     @GET(Const.BANK_LIST)
     Single<Response<WebServiceClass<BankListResponse>>> getBankList();

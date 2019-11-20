@@ -488,12 +488,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             case 9:
             {
                 showToast(this, "ارتباط با پشتیبانی", R.color.green);
-
                 break;
             }
             case 10:
             {
-                showToast(this, "راهنما", R.color.green);
+                if (fragment instanceof MainFragment)
+                ((MainFragment) fragment).requestGetHelpMenu();
 
                 break;
             }
