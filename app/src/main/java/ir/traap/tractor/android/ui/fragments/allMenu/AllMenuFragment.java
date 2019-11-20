@@ -64,7 +64,8 @@ import library.android.service.model.flight.reservation.response.ReservationResp
 public class AllMenuFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
         ItemRecyclerViewAdapter.OnItemClickListenerItem, TextWatcher,
         OnServiceStatus<WebServiceClass<GetAllMenuResponse>>,
-        onConfirmUserPassGDS, AllMenuServiceModelAdapter.OnItemAllMenuClickListener, HotelReservationData, BusLockSeat, FlightReservationData
+        onConfirmUserPassGDS, AllMenuServiceModelAdapter.OnItemAllMenuClickListener,
+        HotelReservationData, BusLockSeat, FlightReservationData
 {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;

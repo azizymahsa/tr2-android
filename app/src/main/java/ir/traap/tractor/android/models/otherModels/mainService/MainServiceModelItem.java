@@ -23,6 +23,7 @@ public class MainServiceModelItem
 
     @Getter @Setter @Expose
     private String logo_selected;
+
     @Expose @Getter @Setter
     private List<ir.traap.tractor.android.apiServices.model.allService.response.SubMenu> SubMenu;
 }

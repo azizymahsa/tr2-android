@@ -15,39 +15,61 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
+import ir.traap.tractor.android.apiServices.model.allService.response.SubMenu;
 import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
 import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.enums.BarcodeType;
+import ir.traap.tractor.android.models.otherModels.mainService.MainServiceModelItem;
+import ir.traap.tractor.android.models.otherModels.mediaModel.MediaModel;
 import ir.traap.tractor.android.singleton.SingletonContext;
+import ir.traap.tractor.android.ui.adapters.allMenu.AllMenuServiceModelAdapter;
+import ir.traap.tractor.android.ui.adapters.media.MediaAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.dialogs.PaymentResultDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.NumberTextWatcher;
 import ir.traap.tractor.android.utilities.Utility;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 
 @SuppressLint("ValidFragment")
-public class MediaFragment extends BaseFragment
+public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAllMenuClickListener
 {
     private View rootView;
     private MainActionView mainView;
 
     private Toolbar mToolbar;
 
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+    private MediaAdapter adapter;
+
+    private Fragment fragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
 
     public MediaFragment()
     {
@@ -90,25 +112,95 @@ public class MediaFragment extends BaseFragment
 
     public void initView()
     {
-        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد", false,
-                new MessageAlertDialog.OnConfirmListener()
-                {
-                    @Override
-                    public void onConfirmClick()
-                    {
-                        mainView.backToMainFragment();
-                    }
 
-                    @Override
-                    public void onCancelClick()
-                    {
+        fragmentManager = getChildFragmentManager();
 
-                    }
-                });
-        dialog.setCancelable(false);
-        dialog.show(getActivity().getFragmentManager(), "messageDialog");
+//        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد", false,
+//                new MessageAlertDialog.OnConfirmListener()
+//                {
+//                    @Override
+//                    public void onConfirmClick()
+//                    {
+//                        mainView.backToMainFragment();
+//                    }
+//
+//                    @Override
+//                    public void onCancelClick()
+//                    {
+//
+//                    }
+//                });
+//        dialog.setCancelable(false);
+//        dialog.show(getActivity().getFragmentManager(), "messageDialog");
 
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
+        recyclerView.setLayoutManager(layoutManager);
 
+        List<MediaModel> list = new ArrayList<>();
+
+        MediaModel item = new MediaModel();
+        item.setId(1);
+        item.setTitle("اخبار");
+        item.setIconDrawable(R.drawable.ic_news);
+        item.setIconDrawableSelected(R.drawable.ic_news_selected);
+        list.add(item);
+
+        item = new MediaModel();
+        item.setId(2);
+        item.setTitle("عکس");
+        item.setIconDrawable(R.drawable.ic_image);
+        item.setIconDrawableSelected(R.drawable.ic_image_selected);
+        list.add(item);
+
+        item = new MediaModel();
+        item.setId(3);
+        item.setTitle("فیلم");
+        item.setIconDrawable(R.drawable.ic_movie);
+        item.setIconDrawableSelected(R.drawable.ic_movie_selected);
+        list.add(item);
+
+        adapter = new MediaAdapter(getActivity(), list, MediaFragment.this);
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void OnItemAllMenuClick(View view, Integer id)
+    {
+        switch (id)
+        {
+            case 1://اخبار
+            {
+//                fragment = MarketFragment.newInstance(this);
+//                transaction = fragmentManager.beginTransaction();
+////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//                transaction.replace(R.id.main_container, fragment, "marketFragment")
+//                        .commit();
+                break;
+            }
+            case 2://عکس
+            {
+//                fragment = MarketFragment.newInstance(this);
+//                transaction = fragmentManager.beginTransaction();
+////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//                transaction.replace(R.id.main_container, fragment, "marketFragment")
+//                        .commit();
+                break;
+            }
+            case 3://فیلم
+            {
+//                fragment = MarketFragment.newInstance(this);
+//                transaction = fragmentManager.beginTransaction();
+////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//                transaction.replace(R.id.main_container, fragment, "marketFragment")
+//                        .commit();
+                break;
+            }
+        }
     }
 
 }
