@@ -1,26 +1,17 @@
 package ir.traap.tractor.android.ui.adapters.matchSchedule;
 
-import android.view.View;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
-import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment;
 import ir.traap.tractor.android.ui.fragments.matchSchedule.NextMatchesFragment;
 import ir.traap.tractor.android.ui.fragments.matchSchedule.PastMatchesFragment;
-import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
-import ir.traap.tractor.android.ui.fragments.ticket.CompeletInfoFragment;
-import ir.traap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
-import ir.traap.tractor.android.ui.fragments.ticket.ShowTicketsFragment;
 
 /**
  * Created by MahtabAzizi on 11/16/2019.

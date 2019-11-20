@@ -3,8 +3,6 @@ package ir.traap.tractor.android.ui.activities.main;
 //import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -14,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -24,8 +21,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.adpdigital.push.AdpPushClient;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -73,6 +68,8 @@ import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment
 import ir.traap.tractor.android.ui.fragments.media.MediaFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.traap.tractor.android.ui.fragments.myProfile.MyProfileFragment;
+import ir.traap.tractor.android.ui.fragments.paymentGateWay.PaymentGatewayFragment;
+import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
@@ -83,7 +80,6 @@ import ir.traap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
 import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
 import ir.traap.tractor.android.ui.fragments.transaction.TransactionsListFragment;
 import ir.traap.tractor.android.utilities.Logger;
-import ir.traap.tractor.android.utilities.Utility;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -228,6 +224,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         transaction.replace(R.id.main_container, fragment, "marketFragment")
                                 .commit();
+                     /*   setCheckedBNV(bottomNavigationView, 4);
+                        isMainFragment = false;
+
+                        fragment = SelectPaymentGatewayFragment.newInstance(this);
+                        transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                        transaction.replace(R.id.main_container, fragment, "marketFragment")
+                                .commit();*/
                     }
                     break;
                 }
@@ -476,7 +481,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 transaction.replace(R.id.main_container, fragment, "aboutFragment")
                         .commit();
+               /* isMainFragment = false;
 
+                fragment = PaymentGateWayDialog.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "aboutFragment")
+                        .commit();*/
                 break;
             }
             case 8:

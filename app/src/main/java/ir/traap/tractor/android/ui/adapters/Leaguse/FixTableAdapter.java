@@ -1,7 +1,6 @@
 package ir.traap.tractor.android.ui.adapters.Leaguse;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
-import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
 
 
 public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHolder>

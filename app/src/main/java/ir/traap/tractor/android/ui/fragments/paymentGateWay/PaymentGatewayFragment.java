@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.fragments.matchSchedule;
+package ir.traap.tractor.android.ui.fragments.paymentGateWay;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,9 +21,9 @@ import ir.traap.tractor.android.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 /**
- * Created by MahtabAzizi on 11/16/2019.
+ * Created by MahsaAzizi on 11/20/2019.
  */
-public class PastMatchesFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener,MatchAdapter.ItemClickListener
+public class PaymentGatewayFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener,MatchAdapter.ItemClickListener
 {
     private View rootView;
 
@@ -31,31 +31,25 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private List<MatchItem> pastMatchesList = new ArrayList<>();
-    private MatchAdapter mAdapter;
+  //  private List<MatchItem> pastMatchesList = new ArrayList<>();
+  //  private MatchAdapter mAdapter;
 
 
-    public PastMatchesFragment()
+    public PaymentGatewayFragment()
     {
 
     }
 
 
-    public static PastMatchesFragment newInstance(List<MatchItem> pastMatchesList, MainActionView mainActionView)
+    public static PaymentGatewayFragment newInstance( MainActionView mainActionView)
     {
-        PastMatchesFragment fragment = new PastMatchesFragment();
+        PaymentGatewayFragment fragment = new PaymentGatewayFragment();
         Bundle args = new Bundle();
 
         fragment.setMainView(mainActionView);
-        fragment.setData(pastMatchesList);
         return fragment;
     }
 
-    private void setData(List<MatchItem> pastMatchesList)
-    {
-        this.pastMatchesList = pastMatchesList;
-    }
 
 
     private void setMainView(MainActionView mainView)
@@ -74,7 +68,7 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
     {
         try
         {
-            recyclerView = rootView.findViewById(R.id.rclPast);
+          //  recyclerView = rootView.findViewById(R.id.rclPast);
 
 
         } catch (Exception e)
@@ -92,7 +86,7 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
             rootView = null;
         }
 
-        rootView = inflater.inflate(R.layout.past_match_fragment, container, false);
+        rootView = inflater.inflate(R.layout.fragment_payment_gateway, container, false);
         initView();
         addDataRecyclerList();
 
@@ -102,13 +96,13 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
     private void addDataRecyclerList()
     {
 
-        mAdapter = new MatchAdapter(pastMatchesList,getContext(),this);
+       /* mAdapter = new MatchAdapter(pastMatchesList,getContext(),this);
         recyclerView.setAdapter(mAdapter);
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new MatchAdapter(pastMatchesList, getActivity(),this);
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);*/
     }
 
 
