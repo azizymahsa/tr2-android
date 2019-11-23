@@ -69,6 +69,7 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
         holder.goals_canceded.setText(item.goals_canceded);
         holder.goals_diff.setText(item.goals_diff);
         holder.point.setText(item.point);
+        holder.tvNumber.setText(position+1+"");
 
         holder.ivTeam.setVisibility(View.VISIBLE);
 
@@ -110,6 +111,7 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
+        TextView tvNumber;
         TextView teamTitle;
         TextView matches;
         TextView won;
@@ -128,6 +130,7 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
         ViewHolder(View itemView)
         {
             super(itemView);
+            tvNumber = itemView.findViewById(R.id.tvNumber);
             teamTitle = itemView.findViewById(R.id.tvTeam);
             matches = itemView.findViewById(R.id.tvmatch);
             won = itemView.findViewById(R.id.tvWon);
