@@ -489,12 +489,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             case 9:
             {
                 showToast(this, "ارتباط با پشتیبانی", R.color.green);
-
                 break;
             }
             case 10:
             {
-                showToast(this, "راهنما", R.color.green);
+                if (fragment instanceof MainFragment)
+                ((MainFragment) fragment).requestGetHelpMenu();
 
                 break;
             }
@@ -930,24 +930,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
-        if (hasPaymentTicket)
-        {
-           /* showLoading();
-            isMainFragment = false;
-            this.fragment = ShowTicketsFragment.newInstance(this);
 
-            transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            transaction.replace(R.id.main_container, this.fragment)
-                    .commit();*/
-            Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
-
-            intent.putExtra("RefrenceNumber", refrenceNumber);
-            intent.putExtra("isTransactionList",false);
-
-            startActivity(intent);
-
-        }
         if (response == null || response.info == null)
         {
             startActivity(new Intent(this, LoginActivity.class));
@@ -974,6 +957,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         }
 
     }
+
+
 
     private Boolean getMatchList()
     {
@@ -1026,7 +1011,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     }
 
                 }
-
+                showTicket();
             }
 
             @Override
@@ -1042,6 +1027,28 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         });
 
         return isCompleteThreadMatch;
+    }
+
+    private void showTicket()
+    {
+        if (hasPaymentTicket)
+        {
+           /* showLoading();
+            isMainFragment = false;
+            this.fragment = ShowTicketsFragment.newInstance(this);
+
+            transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.replace(R.id.main_container, this.fragment)
+                    .commit();*/
+            Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
+
+            intent.putExtra("RefrenceNumber", refrenceNumber);
+            intent.putExtra("isTransactionList",false);
+
+            startActivity(intent);
+
+        }
     }
 
     private void getBankList()

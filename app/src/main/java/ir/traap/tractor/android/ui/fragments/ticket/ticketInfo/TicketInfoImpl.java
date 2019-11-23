@@ -29,14 +29,13 @@ public class TicketInfoImpl implements TicketInfoInteractor
                 {
                     if (response.info.statusCode == 200)
                     {
-                        if (response.data.getResults().size() != 0)
+                        if (response.data.getResults().isEmpty())
                         {
-                            listener.onFinishedTicketInfo(response.data);
+                            listener.onErrorTicketInfo("پرداخت ناموفق!");
                         }
                         else
                         {
-                           // listener.onErrorTicketInfo("پرداخت ناموفق!");
-
+                            listener.onFinishedTicketInfo(response.data);
                         }
                     }
                     else

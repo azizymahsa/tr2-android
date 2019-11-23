@@ -17,6 +17,7 @@ import ir.traap.tractor.android.apiServices.part.GetAllBoxesService;
 import ir.traap.tractor.android.apiServices.part.GetBillInfoService;
 import ir.traap.tractor.android.apiServices.part.GetCardListService;
 import ir.traap.tractor.android.apiServices.part.GetHappyCardInfoService;
+import ir.traap.tractor.android.apiServices.part.GetMenuHelpService;
 import ir.traap.tractor.android.apiServices.part.GetMenuService;
 import ir.traap.tractor.android.apiServices.part.GetMyBillsService;
 import ir.traap.tractor.android.apiServices.part.GetPackageIrancellService;
@@ -123,6 +124,10 @@ public class SingletonService
     public GetMyBillsService getMyBillsService()
     {
         return new GetMyBillsService(serviceGenerator);
+    }
+
+    public GetMenuHelpService getMenuHelpService(){
+        return new GetMenuHelpService(serviceGenerator);
     }
 
     public GetAllBoxesService getAllBoxesService()
