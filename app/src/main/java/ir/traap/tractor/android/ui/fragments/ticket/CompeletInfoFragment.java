@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -31,11 +33,13 @@ import ir.traap.tractor.android.apiServices.model.paymentMatch.Viewers;
 import ir.traap.tractor.android.apiServices.model.stadium_rules.ResponseStadiumRules;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
 import ir.traap.tractor.android.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
 import ir.traap.tractor.android.ui.fragments.ticket.rulesStadium.RulesStadiumInteractor;
 import ir.traap.tractor.android.utilities.Tools;
+import library.android.eniac.utility.Utility;
 
 public class CompeletInfoFragment
         extends Fragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener
@@ -1385,10 +1389,18 @@ public class CompeletInfoFragment
     {
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
-        BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
+  //  public SelectPaymentGatewayFragment(String url,MainAc,tionView mainView,int imageDrawable,String title,String amount)count
+//String title="با انجام این پرداخت، مبلغ 250,000 ریال  بابت \"خرید 5 بلیت بازی تیم های تراکتور و استقلال\" از حساب شما کسر خواهد شد";
+String title="با انجام این پرداخت ، مبلغ"+Utility.priceFormat(Integer.toString(amountForPay))+"ریال بابت خرید"+" "+count+" "+"بلیت بازی ازحساب شما کسر خواهد شد.";
+        SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(response.getUrl(),mainView, R.drawable.icon_payment_ticket,title , Utility.priceFormat(Integer.toString(amountForPay)));
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, fragment2);
+        fragmentTransaction.commit();
+      /* BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
 
-        onClickContinueBuyTicketListener.onContinueClicked();
-        getActivity().finish();
+       // onClickContinueBuyTicketListener.onContinueClicked();
+        getActivity().finish();*/
     }
 
     @Override

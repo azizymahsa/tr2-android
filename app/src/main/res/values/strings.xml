@@ -72,6 +72,7 @@
     <string name="networkError">خطای دسترسی به اینترنت</string>
     <string name="networkErrorMessage">لطفا در تنظیمات برنامه اینترنت خود را بررسی نمایید.</string>
     <string name="login">ورود</string>
+    <string name="_select_gateway">درگاه مورد نظر خود را انتخاب نمایید:</string>
 
 
     <string-array name="string_array_alcohol">

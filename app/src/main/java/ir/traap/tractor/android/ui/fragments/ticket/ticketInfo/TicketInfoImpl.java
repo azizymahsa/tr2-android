@@ -1,5 +1,7 @@
 package ir.traap.tractor.android.ui.fragments.ticket.ticketInfo;
 
+import android.util.Log;
+
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
@@ -22,6 +24,7 @@ public class TicketInfoImpl implements TicketInfoInteractor
             @Override
             public void onReady(WebServiceClass<GetTicketInfoResponse> response)
             {
+
                 try
                 {
                     if (response.info.statusCode == 200)
