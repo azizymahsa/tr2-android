@@ -3,8 +3,8 @@ package ir.traap.tractor.android.apiServices.part;
 import ir.traap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.traap.tractor.android.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import ir.traap.tractor.android.apiServices.model.league.pastResult.request.RequestPastResult;
-import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
-import ir.traap.tractor.android.ui.fragments.leaguse.pastResult.PastResultFragment;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
 
 
 public class LiveScoreService extends BasePart

@@ -4,35 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.traap.tractor.android.R;
-import ir.traap.tractor.android.apiServices.generator.SingletonService;
-import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
-import ir.traap.tractor.android.apiServices.model.WebServiceClass;
-import ir.traap.tractor.android.apiServices.model.league.getLeagues.request.GetLeagueRequest;
-import ir.traap.tractor.android.apiServices.model.league.getLeagues.response.ResponseLeage;
-import ir.traap.tractor.android.apiServices.model.league.getLeagues.response.Result;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
-import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.ui.adapters.Leaguse.DataBean;
-import ir.traap.tractor.android.ui.adapters.Leaguse.FixTableAdapter;
 import ir.traap.tractor.android.ui.adapters.Leaguse.matchResult.MatchAdapter;
-import ir.traap.tractor.android.ui.base.BaseFragment;
-import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
-import ir.traap.tractor.android.ui.fragments.leaguse.pastResult.PastResultFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 /**

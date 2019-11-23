@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.fragments.leaguse.pastResult;
+package ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.pastResult;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
