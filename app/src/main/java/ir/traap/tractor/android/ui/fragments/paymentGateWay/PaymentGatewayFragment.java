@@ -86,7 +86,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
         {
             rbMellat = rootView.findViewById(R.id.rbMellat);
             rbMellat.setEnabled(true);
-
+            rbMellat.setChecked(true);
             rbSaman = rootView.findViewById(R.id.rbSaman);
             rbTejarat = rootView.findViewById(R.id.rbTejarat);
 
@@ -103,8 +103,15 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             rbTejarat.setOnClickListener(this);
 
 
-            llConfirm.setVisibility(View.GONE);
-            llInVisible.setVisibility(View.VISIBLE);
+            llConfirm.setVisibility(View.VISIBLE);
+            llInVisible.setVisibility(View.GONE);
+
+            rbSaman.setEnabled(false);
+            rbSaman.setSelected(false);
+            rbSaman.setChecked(false);
+            rbTejarat.setEnabled(false);
+            rbTejarat.setSelected(false);
+            rbTejarat.setChecked(false);
         } catch (Exception e)
         {
 
@@ -115,7 +122,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     {
         if (v.getId() == R.id.btnBuy)
         {
-            if(rbMellat.isChecked())
+            if (rbMellat.isChecked())
             {
                 // BuyTicketsFragment.buyTicketsFragment.openWebPayment(url);
                 Utility.openUrlCustomTab(getActivity(), url);
@@ -135,7 +142,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
         } else if (v.getId() == R.id.btnBack)
         {
-          //  mainView.backToMainFragment();
+            //  mainView.backToMainFragment();
             MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
                     false, "بله", "بستن", listener);
             dialog.show(getActivity().getFragmentManager(), "dialog");
@@ -237,12 +244,14 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
                 llInVisible.setVisibility(View.GONE);
                 break;
             case R.id.rbSaman:
-                rbMellat.setEnabled(false);
-
+                rbSaman.setEnabled(false);
+                rbSaman.setSelected(false);
+                rbSaman.setChecked(false);
                 break;
             case R.id.rbTejarat:
-                rbMellat.setEnabled(false);
-
+                rbTejarat.setEnabled(false);
+                rbTejarat.setSelected(false);
+                rbTejarat.setChecked(false);
                 break;
 
 
