@@ -1,9 +1,12 @@
 package ir.traap.tractor.android.ui.fragments.paymentGateWay;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,17 +16,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.ui.adapters.Leaguse.DataBean;
 import ir.traap.tractor.android.ui.adapters.Leaguse.matchResult.MatchAdapter;
+import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
+import ir.traap.tractor.android.utilities.Utility;
+
+import static ir.traap.tractor.android.utilities.Tools.showToast;
 
 /**
  * Created by MahsaAzizi on 11/20/2019.
  */
-public class PaymentGatewayFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener,MatchAdapter.ItemClickListener
+public class PaymentGatewayFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener
 {
     private View rootView;
 
@@ -31,8 +40,15 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
-  //  private List<MatchItem> pastMatchesList = new ArrayList<>();
-  //  private MatchAdapter mAdapter;
+    private String url;
+    private CircularProgressButton btnBuy;
+    private TextView btnBack;
+    private RadioButton rbMellat, rbSaman, rbTejarat;
+    private MessageAlertDialog.OnConfirmListener listener = null;
+    private View llConfirm, llInVisible;
+
+    //  private List<MatchItem> pastMatchesList = new ArrayList<>();
+    //  private MatchAdapter mAdapter;
 
 
     public PaymentGatewayFragment()
@@ -41,20 +57,20 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     }
 
 
-    public static PaymentGatewayFragment newInstance( MainActionView mainActionView)
+    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url)
     {
         PaymentGatewayFragment fragment = new PaymentGatewayFragment();
         Bundle args = new Bundle();
 
-        fragment.setMainView(mainActionView);
+        fragment.setMainView(mainActionView, url);
         return fragment;
     }
 
 
-
-    private void setMainView(MainActionView mainView)
+    private void setMainView(MainActionView mainView, String url)
     {
         this.mainView = mainView;
+        this.url = url;
     }
 
     @Override
@@ -68,14 +84,63 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     {
         try
         {
-          //  recyclerView = rootView.findViewById(R.id.rclPast);
+            rbMellat = rootView.findViewById(R.id.rbMellat);
+            rbMellat.setEnabled(true);
+
+            rbSaman = rootView.findViewById(R.id.rbSaman);
+            rbTejarat = rootView.findViewById(R.id.rbTejarat);
+
+            llConfirm = rootView.findViewById(R.id.llConfirm);
+            llInVisible = rootView.findViewById(R.id.llInVisible);
+
+            btnBuy = rootView.findViewById(R.id.btnBuy);
+            btnBuy.setOnClickListener(clickListener);
+            btnBack = rootView.findViewById(R.id.btnBack);
+            btnBack.setOnClickListener(clickListener);
+
+            rbMellat.setOnClickListener(this);
+            rbSaman.setOnClickListener(this);
+            rbTejarat.setOnClickListener(this);
 
 
+            llConfirm.setVisibility(View.GONE);
+            llInVisible.setVisibility(View.VISIBLE);
         } catch (Exception e)
         {
 
         }
     }
+
+    View.OnClickListener clickListener = v ->
+    {
+        if (v.getId() == R.id.btnBuy)
+        {
+            if(rbMellat.isChecked())
+            {
+                // BuyTicketsFragment.buyTicketsFragment.openWebPayment(url);
+                Utility.openUrlCustomTab(getActivity(), url);
+                getActivity().finish();
+                //  BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
+
+                //onClickContinueBuyTicketListener.onContinueClicked();
+                // getActivity().finish();
+                llConfirm.setVisibility(View.VISIBLE);
+                llInVisible.setVisibility(View.GONE);
+
+            } else
+            {
+                llConfirm.setVisibility(View.GONE);
+                llInVisible.setVisibility(View.VISIBLE);
+            }
+
+        } else if (v.getId() == R.id.btnBack)
+        {
+          //  mainView.backToMainFragment();
+            MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
+                    false, "بله", "بستن", listener);
+            dialog.show(getActivity().getFragmentManager(), "dialog");
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,6 +152,25 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
         }
 
         rootView = inflater.inflate(R.layout.fragment_payment_gateway, container, false);
+
+        listener = new MessageAlertDialog.OnConfirmListener()
+        {
+
+
+            @Override
+            public void onConfirmClick()
+            {
+                mainView.backToMainFragment();
+
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+                mainView.backToMainFragment();
+            }
+        };
         initView();
         addDataRecyclerList();
 
@@ -145,14 +229,24 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     @Override
     public void onClick(View view)
     {
-       /* switch (view.getId())
+        switch (view.getId())
         {
-            case R.id.btnConfirm:
+            case R.id.rbMellat:
+                rbMellat.setEnabled(true);
+                llConfirm.setVisibility(View.VISIBLE);
+                llInVisible.setVisibility(View.GONE);
+                break;
+            case R.id.rbSaman:
+                rbMellat.setEnabled(false);
+
+                break;
+            case R.id.rbTejarat:
+                rbMellat.setEnabled(false);
 
                 break;
 
 
-        }*/
+        }
 
     }
 

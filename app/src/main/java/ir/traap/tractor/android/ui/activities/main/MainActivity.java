@@ -68,8 +68,6 @@ import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment
 import ir.traap.tractor.android.ui.fragments.media.MediaFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.traap.tractor.android.ui.fragments.myProfile.MyProfileFragment;
-import ir.traap.tractor.android.ui.fragments.paymentGateWay.PaymentGatewayFragment;
-import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
@@ -224,15 +222,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         transaction.replace(R.id.main_container, fragment, "marketFragment")
                                 .commit();
-                     /*   setCheckedBNV(bottomNavigationView, 4);
-                        isMainFragment = false;
-
-                        fragment = SelectPaymentGatewayFragment.newInstance(this);
-                        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                        transaction.replace(R.id.main_container, fragment, "marketFragment")
-                                .commit();*/
                     }
                     break;
                 }

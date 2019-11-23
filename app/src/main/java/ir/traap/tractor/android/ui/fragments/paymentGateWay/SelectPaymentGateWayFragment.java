@@ -2,10 +2,13 @@ package ir.traap.tractor.android.ui.fragments.paymentGateWay;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,10 +16,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pixplicity.easyprefs.library.Prefs;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
@@ -25,6 +30,8 @@ import ir.traap.tractor.android.models.otherModels.paymentInstance.SimChargePaym
 import ir.traap.tractor.android.ui.adapters.paymentGateway.SelectPaymentAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
+import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.traap.tractor.android.utilities.CustomViewPager;
 
 /**
@@ -34,6 +41,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 {
 
     private static SelectPaymentGatewayFragment matchScheduleFragment;
+    private String url = "";
     private MainActionView mainView;
     private View rootView;
     private TabLayout tabLayout;
@@ -42,18 +50,28 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     List<MatchItem> pastMatchesList, nextMatchesList;
     private View imgBack, imgMenu;
     private ArrayList<MatchItem> matchBuyable;
+    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
 
-    private  String amount="20000";
-    private  String title="پرداخت";
-    private  int imageDrawable=1;
-    private  String mobile="09029262658";
-    private TextView tvWallet,tvCardsShetab,tvGateway;
+    private String amount = "20000";
+    private String title = "پرداخت";
+    private int imageDrawable = 1;
+    private String mobile = "09029262658";
+    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay;
+    private ImageView imgLogo;
+    private CircularProgressButton btnBuy, btnBack;
+
+    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount)
+    {
+        this.url = url;
+        this.mainView = mainView;
+        this.imageDrawable = imageDrawable;
+        this.title = title;
+        this.amount = amount;
+    }
 
     public SelectPaymentGatewayFragment()
     {
-
     }
-
 
     public static SelectPaymentGatewayFragment newInstance(MainActionView mainView)
     {
@@ -80,10 +98,30 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
         rootView = inflater.inflate(R.layout.select_payment_fragment, container, false);
         initView();
-        sendRequest();
+
+       /* tvAmount .setText(amount);
+        tvTitlePay .setText(title);
+        if(imageDrawable==1)
+        imgLogo.setImageResource(R.drawable.icon_payment_ticket);// imageDrawable = R.drawable.irancell;*/
+        setContent();
+        createTabLayout();
 
 
         return rootView;
+    }
+
+    private void setContent()
+    {
+        tvAmount.setText(amount);
+        tvTitlePay.setText(title);
+
+        if (imageDrawable == 0)
+        {
+            imgLogo.setVisibility(View.GONE);
+        } else
+        {
+            Picasso.with(getActivity()).load(imageDrawable).into(imgLogo);
+        }
     }
 
     private void createTabLayout()
@@ -102,41 +140,16 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         paymentInstance.setTypeCharge(Integer.valueOf(1));
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
-                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount,title,imageDrawable,mobile,paymentInstance);
+                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, paymentInstance, url);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();
         viewPager.setPagingEnabled(false);
 
-
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void sendRequest()
-    {
-        // mainView.showLoading();
-       /* ArrayList<MatchItem> result = matchBuyable;
-        // if (response.info.statusCode == 200)
-        if (result.size() > 0)
-        {
-            pastMatchesList = new ArrayList<>();
-            nextMatchesList = new ArrayList<>();
-            for (int i = 0; i < result.size(); i++)
-            {
-                if (result.get(i).getResult() != null)
-                {
-                    pastMatchesList.add(result.get(i));
-                } else
-                {
-                    nextMatchesList.add(result.get(i));
-
-                }
-            }
-        }*/
-        // mainView.hideLoading();
-        createTabLayout();
-    }
 
     private void initView()
     {
@@ -160,9 +173,14 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             });
 
             tvTitle.setText("پرداخت");
+            tvAmount = rootView.findViewById(R.id.tvAmount);
+            tvTitlePay = rootView.findViewById(R.id.tvTitlePay);
+            imgLogo = rootView.findViewById(R.id.imgLogo);
+
+
         } catch (Exception e)
         {
-
+            Log.e(getActivity().getPackageName(), e.getMessage());
         }
         tabLayout = rootView.findViewById(R.id.tab_layout);
         viewPager = rootView.findViewById(R.id.pager);
@@ -225,35 +243,36 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     {
         switch (v.getId())
         {
+
             case R.id.tvGateway:
-                viewPager.setCurrentItem(2, true);
+                viewPager.setCurrentItem(0, true);
                 tvGateway.setBackgroundResource(R.drawable.background_border_a);
                 tvWallet.setBackgroundColor(Color.TRANSPARENT);
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
-                tvWallet.setTextColor(getResources().getColor(R.color._disable_color));
+                tvWallet.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 tvGateway.setTextColor(getResources().getColor(R.color.borderColorRed));
-                tvCardsShetab.setTextColor(getResources().getColor(R.color._disable_color));
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
 
                 break;
             case R.id.tvWallet:
-                viewPager.setCurrentItem(0, true);
+                /*viewPager.setCurrentItem(2, true);
                 tvWallet.setBackgroundResource(R.drawable.background_border_a);
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
                 tvGateway.setBackgroundColor(Color.TRANSPARENT);
                 tvWallet.setTextColor(getResources().getColor(R.color.borderColorRed));
-                tvCardsShetab.setTextColor(getResources().getColor(R.color._disable_color));
-                tvGateway.setTextColor(getResources().getColor(R.color._disable_color));
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));*/
 
                 break;
             case R.id.tvCardsShetab:
-                viewPager.setCurrentItem(1, true);
+               /* viewPager.setCurrentItem(1, true);
                 tvCardsShetab.setBackgroundResource(R.drawable.background_border_a);
                 tvWallet.setBackgroundColor(Color.TRANSPARENT);
                 tvGateway.setBackgroundColor(Color.TRANSPARENT);
 
-                tvGateway.setTextColor(getResources().getColor(R.color._disable_color));
-                tvWallet.setTextColor(getResources().getColor(R.color._disable_color));
-                tvCardsShetab.setTextColor(getResources().getColor(R.color.borderColorRed));
+                tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                tvWallet.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.borderColorRed));*/
                 break;
         }
     }
