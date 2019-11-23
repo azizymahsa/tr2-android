@@ -400,12 +400,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                             {
                                 if (helpMenuResult.get(i).getCode() == 9)
                                 {
+                                    int iFromService = i;
                                     try
                                     {
                                         focusOnServiceViewList();
                                         new Handler().postDelayed(() ->
                                         {
-                                            intro(recyclerView, helpMenuResult.get(8).getTitle(), helpMenuResult.get(8).getDescription(), 9);
+                                            intro(recyclerView, helpMenuResult.get(iFromService).getTitle(), helpMenuResult.get(iFromService).getDescription(), 9);
 
                                         }, 1000);
                                     } catch (Exception e)
