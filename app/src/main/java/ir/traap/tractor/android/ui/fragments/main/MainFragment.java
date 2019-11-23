@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,6 +78,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 {
     private View rootView;
 
+    private NestedScrollView nestedScroll;
     private RecyclerView recyclerView, sliderRecyclerView;
     //    private MultiSnapRecyclerView recyclerView;
     private LinearLayoutManager layoutManager, sliderLayoutManager;
@@ -169,6 +171,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     public void showIntro(List<ResultHelpMenu> results)
     {
+        try
+        {
+            nestedScroll.scrollTo(0, 0);
+        } catch (Exception e)
+        {
+
+        }
+
         helpMenuResult = results;
 
         YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
@@ -333,8 +343,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 .setTitle(title)
                 .setContentText(text)
                 .setTargetView(view)
-                .setTitleTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))
-                .setContentTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))
+                /* .setTitleTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))
+                 .setContentTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))*/
                 .setDismissType(DismissType.anywhere)
                 .setContentTextSize(12)//optional
                 .setTitleTextSize(14)//optional
@@ -390,7 +400,20 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                             {
                                 if (helpMenuResult.get(i).getCode() == 9)
                                 {
-                                    intro(recyclerView, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 9);
+                                    try
+                                    {
+                                        focusOnServiceViewList();
+                                        new Handler().postDelayed(() ->
+                                        {
+                                            intro(recyclerView, helpMenuResult.get(8).getTitle(), helpMenuResult.get(8).getDescription(), 9);
+
+                                        }, 1000);
+                                    } catch (Exception e)
+                                    {
+
+                                    }
+
+
                                 }
                             }
 
@@ -401,35 +424,22 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                     }
 
-
-
-            /*        else if (type == 2)
-                    {
-
-                        intro(getActivity().findViewById(R.id.tab_market), "تراپ مارکت", "شما میتوانید از این قسمت  \n  به مارکت دسترسی پیدا کنید", 3);
-
-                    } else if (type == 3)
-                    {
-                        intro(getActivity().findViewById(R.id.tab_all_services), "سرویس ها", "شما میتوانید از این قسمت  \n  به سرویس ها دسترسی پیدا کنید", 4);
-                    } else if (type == 4)
-                    {
-                        intro(getActivity().findViewById(R.id.tab_home), "خانه", "شما میتوانید از این قسمت  \n  به خانه دسترسی پیدا کنید", 5);
-                    } else if (type == 5)
-                    {
-                        intro(getActivity().findViewById(R.id.tab_media), "رسانه", "شما میتوانید از این قسمت  \n به رسانه دسترسی پیدا کنید.", 6);
-
-                    }
-                    else if (type == 6)
-                    {
-                        intro(getActivity().findViewById(R.id.tab_payment), "پرداخت", "شما میتوانید از این قسمت  \n به صفحه پرداخت دسترسی پیدا کنید.", 7);
-
-                    }*/
-
                 })
                 .build()
                 .show();
     }
 
+    private final void focusOnServiceViewList()
+    {
+        nestedScroll.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                nestedScroll.scrollTo(0, recyclerView.getBottom());
+            }
+        });
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
@@ -468,6 +478,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
 
 
+        nestedScroll = rootView.findViewById(R.id.nestedScroll);
         imgMenu = mToolbar.findViewById(R.id.imgMenu);
         imgMenu.setOnClickListener(v -> mainView.openDrawer());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
