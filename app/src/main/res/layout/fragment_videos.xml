@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="جدید ترین ها"
+        android:layout_gravity="end"
+        android:textColor="@color/black"
+        android:layout_margin="@dimen/_20dp"
+        android:textSize="@dimen/textSize_16dp"
+        />
+    <com.yarolegovich.discretescrollview.DiscreteScrollView
+        android:id="@+id/dsNewestVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dsv_orientation="horizontal" />
+
+    <LinearLayout
+        android:id="@+id/llIndicator"
+        android:layout_below="@+id/dsNewestVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_gravity="center|bottom"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="@dimen/_3sdp"
+            app:spi_dotColor="@color/grayColor"
+            app:spi_dotSelectedColor="@color/textColorPrimary"
+            app:spi_dotSelectedSize="@dimen/_8sdp"
+            app:spi_dotSize="@dimen/_4sdp"
+            app:spi_dotSpacing="@dimen/_5sdp" />
+
+    </LinearLayout>
+</LinearLayout>

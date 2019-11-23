@@ -49,6 +49,7 @@ import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.dialogs.PaymentResultDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
+import ir.traap.tractor.android.ui.fragments.videos.VideosFragment;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.NumberTextWatcher;
 import ir.traap.tractor.android.utilities.Utility;
@@ -192,12 +193,12 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             }
             case 3://فیلم
             {
-//                fragment = MarketFragment.newInstance(this);
-//                transaction = fragmentManager.beginTransaction();
-////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//
-//                transaction.replace(R.id.main_container, fragment, "marketFragment")
-//                        .commit();
+                fragment = VideosFragment.newInstance(mainView);
+               transaction = fragmentManager.beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "videosFragment")
+                        .commit();
                 break;
             }
         }
