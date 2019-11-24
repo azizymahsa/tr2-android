@@ -1,7 +1,6 @@
 package ir.traap.tractor.android.ui.adapters.Leaguse;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
-import ir.traap.tractor.android.ui.fragments.leaguse.LeagueTableFragment;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
 
 
 public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHolder>
@@ -70,6 +69,7 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
         holder.goals_canceded.setText(item.goals_canceded);
         holder.goals_diff.setText(item.goals_diff);
         holder.point.setText(item.point);
+        holder.tvNumber.setText(position+1+"");
 
         holder.ivTeam.setVisibility(View.VISIBLE);
 
@@ -111,6 +111,7 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
+        TextView tvNumber;
         TextView teamTitle;
         TextView matches;
         TextView won;
@@ -129,6 +130,7 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
         ViewHolder(View itemView)
         {
             super(itemView);
+            tvNumber = itemView.findViewById(R.id.tvNumber);
             teamTitle = itemView.findViewById(R.id.tvTeam);
             matches = itemView.findViewById(R.id.tvmatch);
             won = itemView.findViewById(R.id.tvWon);

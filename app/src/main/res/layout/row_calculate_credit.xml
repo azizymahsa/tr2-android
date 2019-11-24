@@ -43,7 +43,7 @@
         android:id="@+id/tvGoalDiff"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.9"
+        android:layout_weight="0.8"
         android:gravity="center"
         android:text="تفاضل"
         android:textColor="@color/black"
@@ -58,7 +58,7 @@
         android:id="@+id/tvGoalConceded"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.9"
+        android:layout_weight="0.6"
         android:gravity="center"
         android:text="گل خورده"
         android:textColor="@color/black"
@@ -73,7 +73,7 @@
         android:id="@+id/tvGoulScore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.9"
+        android:layout_weight="0.6"
         android:gravity="center"
         android:text="گل زده"
         android:textColor="@color/black"
@@ -154,6 +154,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="تیم"
+        android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/textSize_10dp" />
     <ImageView
@@ -163,5 +164,23 @@
         android:src="@drawable/logo_leage"
         android:visibility="invisible"
         />
+   />
 </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_10dp" />
+    </LinearLayout>
+
 </LinearLayout>

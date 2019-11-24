@@ -1,14 +1,11 @@
-package ir.traap.tractor.android.ui.fragments.leaguse;
+package ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse;
 
 import android.os.Bundle;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -32,8 +29,7 @@ import ir.traap.tractor.android.apiServices.model.league.getLeagues.response.Res
 import ir.traap.tractor.android.apiServices.model.league.getLeagues.response.Result;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.ui.adapters.Leaguse.FixTableAdapter;
-import ir.traap.tractor.android.ui.base.BaseFragment;
-import ir.traap.tractor.android.ui.fragments.leaguse.pastResult.PastResultFragment;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.adapters.Leaguse.DataBean;
 import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment;

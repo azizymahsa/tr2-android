@@ -9,13 +9,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
-import com.pixplicity.easyprefs.library.Prefs;
-
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.dialogs.paymentGateway.PaymentGateWayDialog;
 
 
 @SuppressLint("ValidFragment")
@@ -86,8 +85,6 @@ public class MarketFragment extends BaseFragment
 
         dialog.setCancelable(false);
         dialog.show(getActivity().getFragmentManager(), "messageDialog");
-
-
     }
 
 }
