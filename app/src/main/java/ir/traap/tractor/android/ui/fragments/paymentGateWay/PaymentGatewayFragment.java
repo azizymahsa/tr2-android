@@ -1,7 +1,7 @@
 package ir.traap.tractor.android.ui.fragments.paymentGateWay;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +22,8 @@ import ir.traap.tractor.android.ui.adapters.Leaguse.DataBean;
 import ir.traap.tractor.android.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
+import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.Utility;
-
-import static ir.traap.tractor.android.utilities.Tools.showToast;
 
 /**
  * Created by MahsaAzizi on 11/20/2019.
@@ -46,9 +42,6 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     private RadioButton rbMellat, rbSaman, rbTejarat;
     private MessageAlertDialog.OnConfirmListener listener = null;
     private View llConfirm, llInVisible;
-
-    //  private List<MatchItem> pastMatchesList = new ArrayList<>();
-    //  private MatchAdapter mAdapter;
 
 
     public PaymentGatewayFragment()
@@ -114,7 +107,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             rbTejarat.setChecked(false);
         } catch (Exception e)
         {
-
+           Logger.e("---Exception---",e.getMessage());
         }
     }
 

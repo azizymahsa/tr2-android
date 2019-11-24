@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.tabs.TabLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -33,6 +35,7 @@ import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.traap.tractor.android.utilities.CustomViewPager;
+import ir.traap.tractor.android.utilities.Logger;
 
 /**
  * Created by MahtabAzizi on 11/16/2019.
@@ -175,7 +178,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
             tvTitle.setText("برنامه بازی ها");
         } catch (Exception e)
         {
-
+            Logger.d("--Exception--",e.getMessage());
         }
         tabLayout = rootView.findViewById(R.id.tab_layout);
         viewPager = rootView.findViewById(R.id.pager);
@@ -240,34 +243,65 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
         switch (v.getId())
         {
             case R.id.tvTableLeage:
-                viewPager.setCurrentItem(2, true);
-                tvTableLeage.setBackgroundResource(R.drawable.background_border_a);
-                tvLastSchecdule.setBackgroundColor(Color.TRANSPARENT);
-                tvNowSchedule.setBackgroundColor(Color.TRANSPARENT);
-                tvLastSchecdule.setTextColor(getResources().getColor(R.color._disable_color));
-                tvTableLeage.setTextColor(getResources().getColor(R.color.borderColorRed));
-                tvNowSchedule.setTextColor(getResources().getColor(R.color._disable_color));
+                new Handler().postDelayed(() ->
+                {
+                    tvTableLeage.setVisibility(View.VISIBLE);
+                    YoYo.with(Techniques.FadeIn)
+                            .duration(500)
+                            .playOn(tvTableLeage);
+
+                    tvTableLeage.setBackgroundResource(R.drawable.background_border_a);
+                    tvLastSchecdule.setBackgroundColor(Color.TRANSPARENT);
+                    tvNowSchedule.setBackgroundColor(Color.TRANSPARENT);
+                    tvLastSchecdule.setTextColor(getResources().getColor(R.color._disable_color));
+                    tvTableLeage.setTextColor(getResources().getColor(R.color.borderColorRed));
+                    tvNowSchedule.setTextColor(getResources().getColor(R.color._disable_color));
+                    viewPager.setCurrentItem(2, true);
+
+                }, 1000);
+
 
                 break;
             case R.id.tvLastSchecdule:
-                viewPager.setCurrentItem(0, true);
-                tvLastSchecdule.setBackgroundResource(R.drawable.background_border_a);
-                tvTableLeage.setBackgroundColor(Color.TRANSPARENT);
-                tvNowSchedule.setBackgroundColor(Color.TRANSPARENT);
-                tvLastSchecdule.setTextColor(getResources().getColor(R.color.borderColorRed));
-                tvTableLeage.setTextColor(getResources().getColor(R.color._disable_color));
-                tvNowSchedule.setTextColor(getResources().getColor(R.color._disable_color));
+                new Handler().postDelayed(() ->
+                {
+                    tvLastSchecdule.setVisibility(View.VISIBLE);
+                    YoYo.with(Techniques.FadeIn)
+                            .duration(500)
+                            .playOn(tvLastSchecdule);
+                    tvLastSchecdule.setBackgroundResource(R.drawable.background_border_a);
+                    tvTableLeage.setBackgroundColor(Color.TRANSPARENT);
+                    tvNowSchedule.setBackgroundColor(Color.TRANSPARENT);
+                    tvLastSchecdule.setTextColor(getResources().getColor(R.color.borderColorRed));
+                    tvTableLeage.setTextColor(getResources().getColor(R.color._disable_color));
+                    tvNowSchedule.setTextColor(getResources().getColor(R.color._disable_color));
+
+                    viewPager.setCurrentItem(0, true);
+
+                }, 1000);
+
 
                 break;
             case R.id.tvNowSchedule:
-                viewPager.setCurrentItem(1, true);
-                tvNowSchedule.setBackgroundResource(R.drawable.background_border_a);
-                tvLastSchecdule.setBackgroundColor(Color.TRANSPARENT);
-                tvTableLeage.setBackgroundColor(Color.TRANSPARENT);
+                new Handler().postDelayed(() ->
+                {
+                    tvNowSchedule.setVisibility(View.VISIBLE);
+                    YoYo.with(Techniques.FadeIn)
+                            .duration(500)
+                            .playOn(tvNowSchedule);
 
-                tvLastSchecdule.setTextColor(getResources().getColor(R.color._disable_color));
-                tvTableLeage.setTextColor(getResources().getColor(R.color._disable_color));
-                tvNowSchedule.setTextColor(getResources().getColor(R.color.borderColorRed));
+                    tvNowSchedule.setBackgroundResource(R.drawable.background_border_a);
+                    tvLastSchecdule.setBackgroundColor(Color.TRANSPARENT);
+                    tvTableLeage.setBackgroundColor(Color.TRANSPARENT);
+
+                    tvLastSchecdule.setTextColor(getResources().getColor(R.color._disable_color));
+                    tvTableLeage.setTextColor(getResources().getColor(R.color._disable_color));
+                    tvNowSchedule.setTextColor(getResources().getColor(R.color.borderColorRed));
+
+                    viewPager.setCurrentItem(1, true);
+
+                }, 1000);
+
                 break;
         }
     }
