@@ -11,21 +11,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import ir.traap.tractor.android.R;
-import ir.traap.tractor.android.apiServices.model.getTicketInfo.ResultTicketInfo;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Recent;
-import ir.traap.tractor.android.ui.adapters.ticket.ShowTicketAdapter;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 /**
@@ -60,11 +51,9 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
     public void onBindViewHolder(final NewestVideosAdapter.ViewHolder holder, final int position)
     {
         Recent recentItem = recent.get(position);
-        //holder.tvTitleVideo.setText(recentItem.getTitle());
-        //holder.tvLike.setText(recentItem.getLikes().toString());
-        setImageBackground(holder.ivNewestVideo,recentItem.getBigPoster());
-
-
+        holder.tvTitleVideo.setText(recentItem.getTitle());
+        holder.tvLike.setText(recentItem.getLikes().toString());
+        setImageBackground(holder.ivNewestVideo,recentItem.getBigPoster().replace("\\", ""));
 
     }
 
@@ -72,7 +61,8 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
     {
         try
         {
-            Picasso.with(context).load(Uri.parse(link)).into(image, new Callback()
+            Glide.with(context).load(Uri.parse(link)).into(image);
+       /*     Picasso.with(context).load(Uri.parse(link)).into(image, new Callback()
             {
                 @Override
                 public void onSuccess() { }
@@ -82,7 +72,7 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
                 {
                     Picasso.with(context).load(R.drawable.img_failure).into(image);
                 }
-            });
+            });*/
         }
         catch (NullPointerException e)
         {
@@ -102,14 +92,14 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         public RoundedImageView ivNewestVideo;
-      //  public TextView tvTitleVideo,tvLike;
+        public TextView tvTitleVideo,tvLike;
 
         public ViewHolder(View v)
         {
             super(v);
-           // tvTitleVideo=v.findViewById(R.id.tvTitleVideo);
+            tvTitleVideo=v.findViewById(R.id.tvTitleVideo);
             ivNewestVideo=v.findViewById(R.id.ivNewestVideo);
-           // tvLike=v.findViewById(R.id.tvLike);
+            tvLike=v.findViewById(R.id.tvLike);
 
         }
     }

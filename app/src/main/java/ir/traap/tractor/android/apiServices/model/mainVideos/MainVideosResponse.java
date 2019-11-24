@@ -24,7 +24,7 @@ public class MainVideosResponse
 
     @SerializedName("favorites")
     @Expose
-    private List<Object> favorites = null;
+    private List<Favorite> favorites = null;
 
 
     public List<Recent> getRecent() {
@@ -43,11 +43,11 @@ public class MainVideosResponse
         this.category = category;
     }
 
-    public List<Object> getFavorites() {
+    public List<Favorite> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(List<Object> favorites) {
+    public void setFavorites(List<Favorite> favorites) {
         this.favorites = favorites;
     }
 
