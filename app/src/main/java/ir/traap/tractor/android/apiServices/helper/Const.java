@@ -117,4 +117,7 @@ public class Const
 
     //Transaction
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
+
+    //video
+    public final static String Get_Main_Video=SubBASEURL+ "v1/video/video_main/";
 }

@@ -45,6 +45,7 @@ import ir.traap.tractor.android.apiServices.model.league.pastResult.request.Requ
 import ir.traap.tractor.android.apiServices.model.league.pastResult.response.ResponsePastResult;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
+import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
 import ir.traap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import ir.traap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.traap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -96,6 +97,9 @@ public interface RetroClient
 
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
+
+    @GET(Const.Get_Main_Video)
+    Single<Response<WebServiceClass<MainVideosResponse>>> getMainVideos();
 
     @GET(Const.GetMenuHelp)
     Single<Response<WebServiceClass<GetMenuHelpResponse>>> getMenuHelp();
