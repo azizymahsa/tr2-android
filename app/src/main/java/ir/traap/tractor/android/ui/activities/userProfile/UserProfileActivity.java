@@ -47,13 +47,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 {
     private Toolbar mToolbar;
     private CircularProgressButton btnConfirm;
-    private EditText etFirstName, etLastName, etInvite, etFirstNameUS, etNationalCode, etBirthDay;
+    private EditText etFirstName, etLastName, etFirstNameUS, etNationalCode, etBirthDay;
     private ClearableEditText etPopularPlayer;
     private TextView tvMenu;
     //    private ImageView ivProfile;
     private File userPic;
     private boolean isChangePic = false;
-    private FrameLayout flLogoToolbar;
+//    private FrameLayout flLogoToolbar;
     private String popularPlayer;
 
 
@@ -78,15 +78,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
         etPopularPlayer = findViewById(R.id.etPopularPlayer);
-        etInvite = findViewById(R.id.etInvite);
         etFirstNameUS = findViewById(R.id.etFirstNameUS);
         etNationalCode = findViewById(R.id.etNationalCode);
         etBirthDay = findViewById(R.id.etBirthDay);
 
-        flLogoToolbar = findViewById(R.id.flLogoToolbar);
+//        flLogoToolbar = findViewById(R.id.flLogoToolbar);
 //        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
 
-        flLogoToolbar.setVisibility(View.GONE);
+//        flLogoToolbar.setVisibility(View.GONE);
 
         etFirstName.requestFocus();
 
@@ -110,19 +109,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 etLastName.getText().toString().trim().equalsIgnoreCase("") &&
                 etBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
                 (etPopularPlayer.getText().toString().trim().equalsIgnoreCase("") ||
-                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0"))&&
-                etInvite.getText().toString().trim().equalsIgnoreCase("") )
+                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
         {
             showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
         }
         else
         {
-            Integer inviteCode = 0;
-            if (!etInvite.getText().toString().equalsIgnoreCase(""))
-            {
-                inviteCode = Integer.parseInt(etInvite.getText().toString());
-            }
-
             Integer popularPlayer = 0;
             if (!etPopularPlayer.getText().toString().equalsIgnoreCase(""))
             {
@@ -130,12 +122,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
 
 
-
-
             SendProfileRequest request = new SendProfileRequest();
 
             request.setPopularPlayer(popularPlayer);
-            request.setKeyInvite(inviteCode);
             request.setFirstName(etFirstName.getText().toString());
             request.setLastName(etLastName.getText().toString());
             request.setEnglishName(etFirstNameUS.getText().toString());
@@ -195,7 +184,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         etFirstName.setText(Prefs.getString("firstName", ""));
         etLastName.setText(Prefs.getString("lastName", ""));
-        // etInvite.setText(Prefs.getString("keyInvite", ""));
 
         SingletonService.getInstance().getProfileService().getProfileService(this);
     }
