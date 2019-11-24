@@ -301,6 +301,9 @@ android {
         implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
         //---------------------shadow-layout end---------------------------
 
+        implementation 'com.github.moeidheidari:banner:1.04'
+
+
 //        implementation 'co.infinum:goldfinger:1.1.1'
 
 //        implementation 'com.ramotion.cardslider:card-slider:0.3.0'
