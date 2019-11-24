@@ -6,16 +6,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
-import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import ir.traap.tractor.android.models.otherModels.paymentInstance.SimPackPaymentInstance;
-import ir.traap.tractor.android.models.otherModels.paymentInstance.TicketPaymentInstance;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.fragments.matchSchedule.NextMatchesFragment;
-import ir.traap.tractor.android.ui.fragments.matchSchedule.PastMatchesFragment;
-import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentParentActionView;
 import ir.traap.tractor.android.ui.fragments.paymentGateWay.PaymentGatewayFragment;

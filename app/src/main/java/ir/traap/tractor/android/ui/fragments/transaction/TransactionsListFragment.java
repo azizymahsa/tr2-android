@@ -38,7 +38,7 @@ public class TransactionsListFragment
     private MainActionView mainView;
 
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName,tvPopularPlayer;
+    private TextView tvTitle, tvUserName,tvPopularPlayer,tvCount;
     private View imgBack, imgMenu;
 
     /*scroll view*/
@@ -89,6 +89,7 @@ public class TransactionsListFragment
         try
         {
             transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
+            tvCount = rootView.findViewById(R.id.tvCount);
             //Toolbar Create
             mToolbar = rootView.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -168,7 +169,7 @@ public class TransactionsListFragment
                     if (response.info.statusCode == 200)
                     {
 
-
+                        tvCount.setText(response.data.getResults().size()+ "مورد خرید بلیت یافت شد.");
                         transactionRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
                         fixTableAdapter = new TransactionListAdapter(response.data.getResults(), getActivity());
                         //fixTableAdapter.setClickListener(this);
