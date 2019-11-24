@@ -301,6 +301,10 @@ android {
         implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
         //---------------------shadow-layout end---------------------------
 
+        //------------------------CoverFlow start-------------------------
+        implementation 'com.github.crosswall:Android-Coverflow:release-v1.0.5'
+        //------------------------CoverFlow end---------------------------
+
 //        implementation 'co.infinum:goldfinger:1.1.1'
 
 //        implementation 'com.ramotion.cardslider:card-slider:0.3.0'

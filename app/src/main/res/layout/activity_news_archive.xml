@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activities.news.archive.NewsArchiveActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        android:layout_marginBottom="4dp"
+        android:elevation="3dp"
+        android:background="@drawable/background_main_header"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <include layout="@layout/toolbar_back" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/btnFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:background="@drawable/background_border_a">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="فیلتر"
+                        android:paddingLeft="24dp"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="@dimen/textSize_14dp"/>
+
+                    <ImageView
+                        android:id="@+id/imgFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_filter"
+                        android:paddingRight="16dp"
+                        android:tint="@color/textColorPrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toLeftOf="@+id/btnFilter"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:background="@drawable/background_border_gray">
+
+                    <ir.traap.tractor.android.utilities.ClearableEditText
+                        android:id="@+id/etFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center_vertical"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:singleLine="true"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:hint="جستجو"
+                        android:drawableRight="@drawable/ic_search"
+                        android:textColorHint="color/warmGray"
+                        android:textColor="@color/textColorSecondary" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id = "@+id/tabFollowLayout"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                app:tabMode="fixed"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+            <ir.traap.tractor.android.utilities.MyCustomViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
