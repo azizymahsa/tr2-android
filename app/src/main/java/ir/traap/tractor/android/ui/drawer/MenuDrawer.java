@@ -91,7 +91,7 @@ public class MenuDrawer extends Fragment
 //        dataList.add(new MenuItems(3, "جشنواره", R.drawable.ic_logo_red));
         dataList.add(new MenuItems(4, "کیف پول", R.drawable.ic_wallet, false));
         dataList.add(new MenuItems(5, "مدیریت کارت ها", R.drawable.ic_card_management, false));
-        dataList.add(new MenuItems(13, "جدول لیگ برتر", R.drawable.icon_leag, true));
+        dataList.add(new MenuItems(13, "جدول لیگ برتر", R.drawable.icon_leag, false));
         dataList.add(new MenuItems(6, "دعوت از دوستان", R.drawable.ic_invite_friends, false));
         dataList.add(new MenuItems(8, "تنظیمات", R.drawable.ic_setting, false));
         dataList.add(new MenuItems(10, "راهنما", R.drawable.ic_help, true));

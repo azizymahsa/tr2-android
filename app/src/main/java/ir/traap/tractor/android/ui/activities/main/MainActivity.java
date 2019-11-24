@@ -544,15 +544,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 13:
             {
-                //showToast(this, "جدول لیگ برتر", R.color.green);
+                showToast(this, "جدول لیگ برتر", R.color.green);
 
-                isMainFragment = false;
+                /*isMainFragment = false;
                 //fragment = MatchScheduleFragment.newInstance(this,matchBuyable);
                 fragment = LeagueTableFragment.newInstance(this);
                 transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 transaction.replace(R.id.main_container, fragment,"leagueTableFragment")
-                        .commit();
+                        .commit();*/
                 break;
             }
 
