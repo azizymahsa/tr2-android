@@ -60,7 +60,8 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
     public void onBindViewHolder(final NewestVideosAdapter.ViewHolder holder, final int position)
     {
         Recent recentItem = recent.get(position);
-        holder.tvTitleVideo.setText(recentItem.getTitle());
+        //holder.tvTitleVideo.setText(recentItem.getTitle());
+        //holder.tvLike.setText(recentItem.getLikes().toString());
         setImageBackground(holder.ivNewestVideo,recentItem.getBigPoster());
 
 
@@ -101,13 +102,14 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         public RoundedImageView ivNewestVideo;
-        public TextView tvTitleVideo;
+      //  public TextView tvTitleVideo,tvLike;
 
         public ViewHolder(View v)
         {
             super(v);
-            tvTitleVideo=v.findViewById(R.id.tvTitleVideo);
+           // tvTitleVideo=v.findViewById(R.id.tvTitleVideo);
             ivNewestVideo=v.findViewById(R.id.ivNewestVideo);
+           // tvLike=v.findViewById(R.id.tvLike);
 
         }
     }

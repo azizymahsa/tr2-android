@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.yarolegovich.discretescrollview.DiscreteScrollView;
+import com.example.moeidbannerlibrary.banner.BannerLayout;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
@@ -34,7 +34,7 @@ public class VideosFragment extends BaseFragment
 {
     private MainActionView mainView;
     private View rootView;
-    private DiscreteScrollView scrollViewNewestVideo;
+    private BannerLayout bNewestVideo;
     private ScrollingPagerIndicator indicator;
     private LinearLayoutManager sliderLayoutManager;
 
@@ -74,24 +74,12 @@ public class VideosFragment extends BaseFragment
         mainView.showLoading();
         //((TextView) rootView.findViewById(R.id.tvTitle));
 
-        scrollViewNewestVideo = rootView.findViewById(R.id.dsNewestVideo);
+        bNewestVideo = rootView.findViewById(R.id.bNewestVideo);
         indicator = rootView.findViewById(R.id.indicator);
 
-      //  scrollViewNewestVideo.setOrientation(DSVOrientation o); //Sets an orientation of the view
-        scrollViewNewestVideo.setOffscreenItems(3); //Reserve extra space equal to (childSize * count) on each side of the view
-        scrollViewNewestVideo.setOverScrollEnabled(true); //Can also be set using android:overScrollMode xml attribute
-
-        scrollViewNewestVideo.getCurrentItem(); //returns adapter position of the currently selected item or -1 if adapter is empty.
-      /*  scrollViewNewestVideo.scrollToPosition(int position); //position becomes selected
-        scrollViewNewestVideo.smoothScrollToPosition(int position); //position becomes selected with animated scroll
-     */   scrollViewNewestVideo.setItemTransitionTimeMillis(2000); //determines how much time it takes to change the item on fling,
-        scrollViewNewestVideo.setSlideOnFling(true);
 
         requestMainVideos();
-        
-       /* scrollView.setOrientation(DSVOrientation o); //Sets an orientation of the view
-        scrollView.setOffscreenItems(count); //Reserve extra space equal to (childSize * count) on each side of the view
-        scrollView.setOverScrollEnabled(enabled);*/
+
         return rootView;
     }
 
@@ -131,9 +119,7 @@ public class VideosFragment extends BaseFragment
 
     private void onGetMainVideosSuccess(MainVideosResponse mainVideosResponse)
     {
-        scrollViewNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(),mainView));
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(scrollViewNewestVideo);
-        indicator.attachToRecyclerView(scrollViewNewestVideo);
+        bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(),mainView));
+
     }
 }
