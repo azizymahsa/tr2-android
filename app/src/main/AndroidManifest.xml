@@ -92,7 +92,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory,android:supportsRtl">
-        <activity android:name=".ui.activities.news.archive.NewsArchiveActivity"></activity>
+        <activity android:name=".ui.activities.news.archive.NewsArchiveActivity"/>
+        <activity android:name=".ui.activities.video.VideoDetailActivity"/>
         <activity android:name=".ui.activities.video.VideoActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

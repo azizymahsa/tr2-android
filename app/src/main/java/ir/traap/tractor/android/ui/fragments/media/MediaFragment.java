@@ -1,63 +1,31 @@
 package ir.traap.tractor.android.ui.fragments.media;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.pixplicity.easyprefs.library.Prefs;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
-import ir.traap.tractor.android.apiServices.generator.SingletonService;
-import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
-import ir.traap.tractor.android.apiServices.model.WebServiceClass;
-import ir.traap.tractor.android.apiServices.model.allService.response.SubMenu;
-import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
-import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
-import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategory;
-import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
-import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import ir.traap.tractor.android.conf.TrapConfig;
-import ir.traap.tractor.android.enums.BarcodeType;
-import ir.traap.tractor.android.models.otherModels.mainService.MainServiceModelItem;
 import ir.traap.tractor.android.models.otherModels.mediaModel.MediaModel;
-import ir.traap.tractor.android.singleton.SingletonContext;
-import ir.traap.tractor.android.ui.adapters.allMenu.AllMenuServiceModelAdapter;
 import ir.traap.tractor.android.ui.adapters.media.MediaAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
-import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
-import ir.traap.tractor.android.ui.dialogs.PaymentResultDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
-import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveCategoryFragment;
 import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
-import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
 import ir.traap.tractor.android.ui.fragments.videos.VideosFragment;
-import ir.traap.tractor.android.utilities.Logger;
-import ir.traap.tractor.android.utilities.NumberTextWatcher;
-import ir.traap.tractor.android.utilities.Utility;
-import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 
 @SuppressLint("ValidFragment")
