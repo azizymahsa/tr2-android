@@ -6,8 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -22,9 +27,12 @@ import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Favorite;
+import ir.traap.tractor.android.apiServices.model.mainVideos.ListCategory;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideoRequest;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
+import ir.traap.tractor.android.ui.adapters.video.CategoryAdapter;
 import ir.traap.tractor.android.ui.adapters.video.NewestVideosAdapter;
+import ir.traap.tractor.android.ui.adapters.video.VideosCategoryTitleAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.utilities.Tools;
@@ -32,12 +40,16 @@ import ir.traap.tractor.android.utilities.Tools;
 /**
  * Created by MahtabAzizi on 11/23/2019.
  */
-public class VideosFragment extends BaseFragment
+public class VideosFragment extends BaseFragment implements VideosCategoryTitleAdapter.TitleCategoryListener
 {
     private MainActionView mainView;
     private View rootView;
     private BannerLayout bNewestVideo;
     private RoundedImageView ivFavorite1,ivFavorite2,ivFavorite3;
+    private RecyclerView rvCategoryTitles,rvCategories;
+    private VideosCategoryTitleAdapter videoCategoryTitleAdapter;
+    private Integer idCategoryTitle=0;
+    private CategoryAdapter categoryAdapter;
 
     public VideosFragment()
     {
@@ -77,7 +89,13 @@ public class VideosFragment extends BaseFragment
         ivFavorite1=rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2=rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3=rootView.findViewById(R.id.ivFavorite3);
+        rvCategoryTitles=rootView.findViewById(R.id.rvCategoryTitles);
+        rvCategories=rootView.findViewById(R.id.rvCategories);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
+        rvCategoryTitles.setLayoutManager(layoutManager);
 
+        LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
+        rvCategories.setLayoutManager(layoutManagerCategory);
         requestMainVideos();
 
         return rootView;
@@ -121,6 +139,10 @@ public class VideosFragment extends BaseFragment
     {
         bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(),mainView));
         setDataFavoriteList(mainVideosResponse);
+        videoCategoryTitleAdapter=new VideosCategoryTitleAdapter(mainVideosResponse.getListCategories(),mainView,this);
+        rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
+        categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(),mainView);
+        rvCategories.setAdapter(categoryAdapter);
 
     }
 
@@ -157,5 +179,13 @@ public class VideosFragment extends BaseFragment
         {
             Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
         }
+    }
+
+    @Override
+    public void onItemTitleCategoryClick(ListCategory category)
+    {
+        idCategoryTitle=category.getId();
+        //Toast.makeText(getContext(), category.getTitle(), Toast.LENGTH_SHORT).show();
+      //  videoCategoryTitleAdapter.notifyDataSetChanged();
     }
 }
