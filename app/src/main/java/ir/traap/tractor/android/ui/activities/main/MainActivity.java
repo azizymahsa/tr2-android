@@ -65,6 +65,7 @@ import ir.traap.tractor.android.ui.fragments.billPay.BillFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.main.MainFragment;
 import ir.traap.tractor.android.ui.fragments.matchSchedule.MatchScheduleFragment;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.ui.fragments.media.MediaFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.traap.tractor.android.ui.fragments.myProfile.MyProfileFragment;
@@ -72,6 +73,7 @@ import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCa
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
 import ir.traap.tractor.android.ui.fragments.simcardPack.PackFragment;
+import ir.traap.tractor.android.ui.fragments.support.SupportFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
 import ir.traap.tractor.android.ui.activities.ticket.ShowTicketActivity;
 import ir.traap.tractor.android.ui.fragments.ticket.SelectPositionFragment;
@@ -105,6 +107,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private boolean hasPaymentTicket = false;
     private String refrenceNumber;
     private Boolean isCompleteThreadMatch = false, isCompleteThreadAllServices = false;
+    private ArrayList<MatchItem> matchBuyable;
 
 
     @Override
@@ -488,7 +491,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 9:
             {
-                showToast(this, "ارتباط با پشتیبانی", R.color.green);
+               // showToast(this, "ارتباط با پشتیبانی", R.color.green);
+                isMainFragment = false;
+
+                fragment = SupportFragment.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "SupportFragment")
+                        .commit();
                 break;
             }
             case 10:
@@ -535,6 +546,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 showToast(this, "جدول لیگ برتر", R.color.green);
 
+                /*isMainFragment = false;
+                //fragment = MatchScheduleFragment.newInstance(this,matchBuyable);
+                fragment = LeagueTableFragment.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.main_container, fragment,"leagueTableFragment")
+                        .commit();*/
                 break;
             }
 
@@ -892,7 +909,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onLeageClick(ArrayList<MatchItem> matchBuyable)
     {
-
+        this.matchBuyable=matchBuyable;
         isMainFragment = false;
         fragment = MatchScheduleFragment.newInstance(this,matchBuyable);
         transaction = fragmentManager.beginTransaction();

@@ -301,6 +301,9 @@ android {
         implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
         //---------------------shadow-layout end---------------------------
 
+        implementation 'com.github.moeidheidari:banner:1.04'
+
+
         //------------------------CoverFlow start-------------------------
         implementation 'com.github.crosswall:Android-Coverflow:release-v1.0.5'
         //------------------------CoverFlow end---------------------------

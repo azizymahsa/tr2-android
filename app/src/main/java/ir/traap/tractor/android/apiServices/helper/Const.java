@@ -28,7 +28,7 @@ public class Const
     //stadium
     public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
     public final static String ReservationMatch = SubBASEURL + "v1/match/reservation/";
-    public final static String PaymentMatch = SubBASEURL + "v1/match/payment_ipg/";
+    public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
     public final static String GetTicketInfo = SubBASEURL + "v1/match/ticket_info/";
 
 
@@ -117,4 +117,11 @@ public class Const
 
     //Transaction
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
+
+    //video
+    public final static String Get_Main_Video=SubBASEURL+ "v1/video/video_main/";
+
+    //News
+    public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";
+    public final static String Get_NEWS_ARCHIVE_CATEGORY = SubBASEURL + "v1/news/category/";
 }

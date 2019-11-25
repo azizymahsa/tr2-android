@@ -33,7 +33,7 @@ import ir.traap.tractor.android.apiServices.model.paymentMatch.Viewers;
 import ir.traap.tractor.android.apiServices.model.stadium_rules.ResponseStadiumRules;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
+import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGateWayFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
 import ir.traap.tractor.android.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
@@ -1389,10 +1389,10 @@ public class CompeletInfoFragment
     {
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
-  //  public SelectPaymentGatewayFragment(String url,MainAc,tionView mainView,int imageDrawable,String title,String amount)count
+  //  public SelectPaymentGateWayFragment(String url,MainAc,tionView mainView,int imageDrawable,String title,String amount)count
 //String title="با انجام این پرداخت، مبلغ 250,000 ریال  بابت \"خرید 5 بلیت بازی تیم های تراکتور و استقلال\" از حساب شما کسر خواهد شد";
 String title="با انجام این پرداخت ، مبلغ"+Utility.priceFormat(Integer.toString(amountForPay))+"ریال بابت خرید"+" "+count+" "+"بلیت بازی ازحساب شما کسر خواهد شد.";
-        SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(response.getUrl(),mainView, R.drawable.icon_payment_ticket,title , Utility.priceFormat(Integer.toString(amountForPay)));
+        SelectPaymentGateWayFragment fragment2 = new SelectPaymentGateWayFragment(response.getUrl(),mainView, R.drawable.icon_payment_ticket,title , Utility.priceFormat(Integer.toString(amountForPay)));
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment2);

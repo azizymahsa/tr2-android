@@ -35,6 +35,7 @@ import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.allService.response.SubMenu;
 import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
 import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
+import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategory;
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import ir.traap.tractor.android.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import ir.traap.tractor.android.conf.TrapConfig;
@@ -48,7 +49,11 @@ import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.dialogs.PaymentResultDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
+import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveCategoryFragment;
+import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
 import ir.traap.tractor.android.ui.fragments.traapMarket.MarketFragment;
+import ir.traap.tractor.android.ui.fragments.videos.VideosFragment;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.NumberTextWatcher;
 import ir.traap.tractor.android.utilities.Utility;
@@ -56,7 +61,7 @@ import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 
 @SuppressLint("ValidFragment")
-public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAllMenuClickListener
+public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAllMenuClickListener, NewsActionView
 {
     private View rootView;
     private MainActionView mainView;
@@ -172,12 +177,12 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         {
             case 1://اخبار
             {
-//                fragment = MarketFragment.newInstance(this);
-//                transaction = fragmentManager.beginTransaction();
-////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//
-//                transaction.replace(R.id.main_container, fragment, "marketFragment")
-//                        .commit();
+                fragment = NewsArchiveFragment.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "newsArchiveCategoryFragment")
+                        .commit();
                 break;
             }
             case 2://عکس
@@ -192,15 +197,44 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             }
             case 3://فیلم
             {
-//                fragment = MarketFragment.newInstance(this);
-//                transaction = fragmentManager.beginTransaction();
-////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//
-//                transaction.replace(R.id.main_container, fragment, "marketFragment")
-//                        .commit();
+                fragment = VideosFragment.newInstance(mainView);
+               transaction = fragmentManager.beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "videosFragment")
+                        .commit();
                 break;
             }
         }
     }
 
+    @Override
+    public void backToMainNewsFragment()
+    {
+
+    }
+
+    @Override
+    public void openDrawer()
+    {
+
+    }
+
+    @Override
+    public void closeDrawer()
+    {
+
+    }
+
+    @Override
+    public void showLoading()
+    {
+
+    }
+
+    @Override
+    public void hideLoading()
+    {
+
+    }
 }

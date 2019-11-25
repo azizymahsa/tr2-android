@@ -45,6 +45,9 @@ import ir.traap.tractor.android.apiServices.model.league.pastResult.request.Requ
 import ir.traap.tractor.android.apiServices.model.league.pastResult.response.ResponsePastResult;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
+import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
+import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
+import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
 import ir.traap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import ir.traap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.traap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -84,6 +87,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RetroClient
 {
@@ -96,6 +100,9 @@ public interface RetroClient
 
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
+
+    @GET(Const.Get_Main_Video)
+    Single<Response<WebServiceClass<MainVideosResponse>>> getMainVideos();
 
     @GET(Const.GetMenuHelp)
     Single<Response<WebServiceClass<GetMenuHelpResponse>>> getMenuHelp();
@@ -352,6 +359,16 @@ public interface RetroClient
 
     @PUT(Const.PUT_PROFILE)
     Single<Response<WebServiceClass<SendProfileResponse>>> sendProfile(
-            @Body SendProfileRequest request);
+            @Body SendProfileRequest request
+    );
+
+    @GET(Const.Get_NEWS_ARCHIVE_CATEGORY)
+    Single<Response<WebServiceClass<NewsArchiveCategoryResponse>>> getNewsArchiveCategory();
+
+    @GET(Const.Get_NEWS_ARCHIVE_BY_ID)
+    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryById(
+            @Query("category") String categoryId
+    );
+
 
 }

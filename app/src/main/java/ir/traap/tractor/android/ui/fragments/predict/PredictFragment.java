@@ -77,6 +77,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private Toolbar mToolbar;
 
+    private View rootView;
+
 
     public PredictFragment()
     {
@@ -99,8 +101,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     {
         this.mainView = mainView;
     }
-
-    private View rootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)

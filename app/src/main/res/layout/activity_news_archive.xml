@@ -98,7 +98,7 @@
                         android:textSize="@dimen/textSize_12dp"
                         android:hint="جستجو"
                         android:drawableRight="@drawable/ic_search"
-                        android:textColorHint="color/warmGray"
+                        android:textColorHint="@color/warmGray"
                         android:textColor="@color/textColorSecondary" />
 
                 </LinearLayout>
