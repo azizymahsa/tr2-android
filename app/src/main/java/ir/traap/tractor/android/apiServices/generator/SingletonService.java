@@ -9,6 +9,7 @@ import ir.traap.tractor.android.apiServices.part.AddCardService;
 import ir.traap.tractor.android.apiServices.part.BankListService;
 import ir.traap.tractor.android.apiServices.part.BillCodePayCodeService;
 import ir.traap.tractor.android.apiServices.part.BusService;
+import ir.traap.tractor.android.apiServices.part.CategoryByIdVideosService;
 import ir.traap.tractor.android.apiServices.part.DeleteCardService;
 import ir.traap.tractor.android.apiServices.part.DoTransferCardService;
 import ir.traap.tractor.android.apiServices.part.EditCardService;
@@ -250,6 +251,11 @@ public class SingletonService
     public EditCardService editCardService()
     {
         return new EditCardService(serviceGenerator);
+    }
+
+    public CategoryByIdVideosService categoryByIdVideosService()
+    {
+        return new CategoryByIdVideosService(serviceGenerator);
     }
 
     public BankListService getBankListService()

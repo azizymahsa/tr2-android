@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="@dimen/_50dp"
         android:layout_height="@dimen/_50dp"
-        android:src="@drawable/un_select_step"
+        android:src="@drawable/ic_play_video"
         android:layout_centerInParent="true"
         />
 </RelativeLayout>

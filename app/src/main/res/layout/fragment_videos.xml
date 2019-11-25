@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    >
 
 <LinearLayout
     android:orientation="vertical"
@@ -125,7 +127,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    android:src="@drawable/un_select_step"
+                    android:src="@drawable/ic_play_video"
                     android:layout_centerInParent="true"
                     />
             </RelativeLayout>
@@ -150,7 +152,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    android:src="@drawable/un_select_step"
+                    android:src="@drawable/ic_play_video"
                     android:layout_centerInParent="true"
                     />
             </RelativeLayout>
@@ -174,7 +176,7 @@
             <ImageView
                 android:layout_width="@dimen/_40dp"
                 android:layout_height="@dimen/_40dp"
-                android:src="@drawable/un_select_step"
+                android:src="@drawable/ic_play_video"
                 android:layout_centerInParent="true"
                 />
         </RelativeLayout>
