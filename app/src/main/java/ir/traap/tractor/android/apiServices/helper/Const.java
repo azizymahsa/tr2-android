@@ -23,7 +23,7 @@ public class Const
     //Menu
     public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
     public final static String GetMenuAll = SubBASEURL + "v1/menu/get_all_services/";
-    public final static String GetMenuHelp=SubBASEURL +"v1/menu/help/";
+    public final static String GetMenuHelp = SubBASEURL + "v1/menu/help/";
 
     //stadium
     public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
@@ -107,7 +107,7 @@ public class Const
     //Predict
     public final static String GET_PREDICT = SubBASEURL + "v1/predict/";
     public final static String SEND_PREDICT = SubBASEURL + "v1/predict/";
-    
+
     //Rule
     public final static String GET_RULES = SubBASEURL + "v1/match/";
 
@@ -119,6 +119,12 @@ public class Const
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
 
     //video
-    public final static String Get_Main_Video=SubBASEURL+ "v1/video/video_main/";
-    public final static String Get_Category_By_Id_Video=SubBASEURL+ "v1/video/{id}/recent_by_category/";
+    public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
+    public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
+
+    //News
+    public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";
+    public final static String Get_NEWS_ARCHIVE_CATEGORY = SubBASEURL + "v1/news/category/";
+
+
 }

@@ -93,7 +93,8 @@ public class MyProfileFragment extends BaseFragment
 
         if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase(""))
         {
-            tvFullName.setVisibility(View.GONE);
+            tvFullName.setText(Prefs.getString("mobile", ""));
+            tvMobile.setVisibility(View.GONE);
         }
         else
         {

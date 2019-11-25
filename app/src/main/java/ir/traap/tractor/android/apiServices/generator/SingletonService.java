@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import ir.traap.tractor.android.apiServices.ServiceApplication;
 import ir.traap.tractor.android.apiServices.di.component.NetComponent;
-//import library.android.service.generator.DaggerComponentService;
 import ir.traap.tractor.android.apiServices.part.AddCardService;
 import ir.traap.tractor.android.apiServices.part.BankListService;
 import ir.traap.tractor.android.apiServices.part.BillCodePayCodeService;
@@ -35,6 +34,7 @@ import ir.traap.tractor.android.apiServices.part.LiveScoreService;
 import ir.traap.tractor.android.apiServices.part.LoginService;
 import ir.traap.tractor.android.apiServices.part.MerchantService;
 import ir.traap.tractor.android.apiServices.part.MobileChargeService;
+import ir.traap.tractor.android.apiServices.part.NewsService;
 import ir.traap.tractor.android.apiServices.part.PackageBuyService;
 import ir.traap.tractor.android.apiServices.part.ReservationMatchService;
 import ir.traap.tractor.android.apiServices.part.SendPredictService;
@@ -296,6 +296,11 @@ public class SingletonService
     public SendProfileService sendProfileService()
     {
         return new SendProfileService(serviceGenerator);
+    }
+
+    public NewsService getNewsService()
+    {
+        return new NewsService(serviceGenerator);
     }
 
 

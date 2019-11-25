@@ -6,10 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,14 +25,14 @@ import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
-import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Favorite;
-import ir.traap.tractor.android.apiServices.model.mainVideos.ListCategory;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideoRequest;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
-import ir.traap.tractor.android.ui.adapters.video.CategoryAdapter;
 import ir.traap.tractor.android.ui.adapters.video.NewestVideosAdapter;
+import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
+import ir.traap.tractor.android.apiServices.model.mainVideos.ListCategory;
+import ir.traap.tractor.android.ui.adapters.video.CategoryAdapter;
 import ir.traap.tractor.android.ui.adapters.video.VideosCategoryTitleAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
@@ -181,7 +180,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
                 }
             });*/
-        } catch (NullPointerException e)
+        }
+        catch (NullPointerException e)
         {
             Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
         }

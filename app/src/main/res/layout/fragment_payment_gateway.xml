@@ -134,7 +134,7 @@
                             android:background="@drawable/background_disable_rec"
                             android:scaleType="fitCenter"
                             android:padding="3dp"
-                            android:src="@drawable/ic_banklogo_tejarat"
+                            app:srcCompat="@drawable/ic_banklogo_tejarat"
                             android:tint="@color/_disable_color"
                             android:visibility="visible" />
 
@@ -179,7 +179,7 @@
                             android:background="@drawable/background_disable_rec"
                             android:scaleType="fitCenter"
                             android:padding="3dp"
-                            android:src="@drawable/ic_banklogo_saman"
+                            app:srcCompat="@drawable/ic_banklogo_saman"
                             android:tint="@color/_disable_color"
                             android:visibility="visible" />
 
@@ -223,7 +223,7 @@
                             android:background="@drawable/background_disable_rec"
                             android:scaleType="fitCenter"
                             android:padding="3dp"
-                            android:src="@drawable/ic_banklogo_mellat"
+                            app:srcCompat="@drawable/ic_banklogo_mellat"
                             android:visibility="visible" />
 
                         <TextView
@@ -241,7 +241,6 @@
                         android:layout_gravity="center"
                         android:enabled="true"
                         android:clickable="true"
-
                         android:buttonTint="@color/textColorPrimary" />
                 </LinearLayout>
 

@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 import com.squareup.picasso.Callback;
@@ -31,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
-import ir.traap.tractor.android.apiServices.model.StadiumPositionModel;
+import ir.traap.tractor.android.models.otherModels.ticket.StadiumPositionModel;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.getAllBoxes.AllBoxesResult;
 import ir.traap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest;
