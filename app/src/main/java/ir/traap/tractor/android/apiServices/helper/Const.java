@@ -23,12 +23,11 @@ public class Const
     //Menu
     public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
     public final static String GetMenuAll = SubBASEURL + "v1/menu/get_all_services/";
-    public final static String GetMenuHelp=SubBASEURL +"v1/menu/help/";
+    public final static String GetMenuHelp = SubBASEURL + "v1/menu/help/";
 
     //stadium
     public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
     public final static String ReservationMatch = SubBASEURL + "v1/match/reservation/";
-    public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
     public final static String GetTicketInfo = SubBASEURL + "v1/match/ticket_info/";
 
 
@@ -83,7 +82,9 @@ public class Const
     //Pos
     public final static String DECRYPTQRCODE = SubBASEURL + "v1/payment/decrypt_qr_code/";
     public final static String PAYMENT_PRINT_pOS = SubBASEURL + "v1/payment/payment_print_pos/";
-
+    //payment
+    public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
+    public final static String PaymentWallet = SubBASEURL + "v1/match/wallet/payment/";
 
     //Bank List
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";
@@ -107,7 +108,7 @@ public class Const
     //Predict
     public final static String GET_PREDICT = SubBASEURL + "v1/predict/";
     public final static String SEND_PREDICT = SubBASEURL + "v1/predict/";
-    
+
     //Rule
     public final static String GET_RULES = SubBASEURL + "v1/match/";
 
@@ -119,5 +120,5 @@ public class Const
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
 
     //video
-    public final static String Get_Main_Video=SubBASEURL+ "v1/video/video_main/";
+    public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
 }

@@ -79,7 +79,6 @@ public class SupportFragment
 
             tvPhone = view.findViewById(R.id.tvPhone);
 
-
             tvPhone.setOnClickListener(this);
             //toolbar
             mToolbar = view.findViewById(R.id.toolbar);

@@ -25,6 +25,7 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
+import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchRequest;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import ir.traap.tractor.android.ui.adapters.paymentGateway.SelectPaymentAdapter;
@@ -41,6 +42,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 {
 
     private static SelectPaymentGatewayFragment matchScheduleFragment;
+    private  PaymentMatchRequest paymentMatchRequest;
     private String url = "";
     private MainActionView mainView;
     private View rootView;
@@ -60,13 +62,14 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private ImageView imgLogo;
     private CircularProgressButton btnBuy, btnBack;
 
-    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount)
+    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount,PaymentMatchRequest paymentMatchRequest)
     {
         this.url = url;
         this.mainView = mainView;
         this.imageDrawable = imageDrawable;
         this.title = title;
         this.amount = amount;
+        this.paymentMatchRequest = paymentMatchRequest;
     }
 
     public SelectPaymentGatewayFragment()
@@ -140,7 +143,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         paymentInstance.setTypeCharge(Integer.valueOf(1));
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
-                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, paymentInstance, url);
+                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, paymentInstance, url, paymentMatchRequest);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();
@@ -255,13 +258,13 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
                 break;
             case R.id.tvWallet:
-                /*viewPager.setCurrentItem(2, true);
+                viewPager.setCurrentItem(2, true);
                 tvWallet.setBackgroundResource(R.drawable.background_border_a);
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
                 tvGateway.setBackgroundColor(Color.TRANSPARENT);
                 tvWallet.setTextColor(getResources().getColor(R.color.borderColorRed));
                 tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
-                tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));*/
+                tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
 
                 break;
             case R.id.tvCardsShetab:

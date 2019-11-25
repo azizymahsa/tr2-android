@@ -78,6 +78,7 @@ import ir.traap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.req
 import ir.traap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
 import ir.traap.tractor.android.apiServices.model.verify.VerifyRequest;
 import ir.traap.tractor.android.apiServices.model.verify.VerifyResponse;
+import ir.traap.tractor.android.apiServices.model.paymentWallet.ResponsePaymentWallet;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -120,6 +121,11 @@ public interface RetroClient
 
     @POST(Const.PaymentMatch)
     Single<Response<WebServiceClass<PaymentMatchResponse>>> paymentMatch(
+            @Body PaymentMatchRequest request
+    );
+
+    @POST(Const.PaymentWallet)
+    Single<Response<WebServiceClass<ResponsePaymentWallet>>> paymentWallet(
             @Body PaymentMatchRequest request
     );
 
