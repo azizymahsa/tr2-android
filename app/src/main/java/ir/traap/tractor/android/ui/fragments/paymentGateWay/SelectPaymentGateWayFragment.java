@@ -37,10 +37,10 @@ import ir.traap.tractor.android.utilities.CustomViewPager;
 /**
  * Created by MahsaAzizi on 11/20/2019.
  */
-public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener
+public class SelectPaymentGateWayFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener
 {
 
-    private static SelectPaymentGatewayFragment matchScheduleFragment;
+    private static SelectPaymentGateWayFragment matchScheduleFragment;
     private String url = "";
     private MainActionView mainView;
     private View rootView;
@@ -60,7 +60,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private ImageView imgLogo;
     private CircularProgressButton btnBuy, btnBack;
 
-    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount)
+    public SelectPaymentGateWayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount)
     {
         this.url = url;
         this.mainView = mainView;
@@ -69,13 +69,13 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         this.amount = amount;
     }
 
-    public SelectPaymentGatewayFragment()
+    public SelectPaymentGateWayFragment()
     {
     }
 
-    public static SelectPaymentGatewayFragment newInstance(MainActionView mainView)
+    public static SelectPaymentGateWayFragment newInstance(MainActionView mainView)
     {
-        matchScheduleFragment = new SelectPaymentGatewayFragment();
+        matchScheduleFragment = new SelectPaymentGateWayFragment();
         return matchScheduleFragment;
     }
 

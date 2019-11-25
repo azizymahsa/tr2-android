@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    >
+
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -120,7 +127,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    android:src="@drawable/un_select_step"
+                    android:src="@drawable/ic_play_video"
                     android:layout_centerInParent="true"
                     />
             </RelativeLayout>
@@ -145,7 +152,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    android:src="@drawable/un_select_step"
+                    android:src="@drawable/ic_play_video"
                     android:layout_centerInParent="true"
                     />
             </RelativeLayout>
@@ -169,65 +176,50 @@
             <ImageView
                 android:layout_width="@dimen/_40dp"
                 android:layout_height="@dimen/_40dp"
-                android:src="@drawable/un_select_step"
+                android:src="@drawable/ic_play_video"
                 android:layout_centerInParent="true"
                 />
         </RelativeLayout>
     </LinearLayout>
-   <!-- <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="2" >
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_gravity="center"
+        android:gravity="right"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="@dimen/_10dp"
+        android:layout_marginLeft="@dimen/_10dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="3"
-        app:layout_left="3"
-        app:layout_right="4"
-        app:layout_top="1"
-        android:background="#00ff00"
-        android:text="TextView" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="دسته بندی ها"
+            android:textColor="@color/black"
+            android:layout_marginRight="@dimen/_10dp"
+            android:layout_marginLeft="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:textSize="@dimen/textSize_18dp"
+            android:gravity="right"
+            />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="4"
-        app:layout_left="0"
-        app:layout_right="3"
-        app:layout_top="1"
-        android:background="#0000ff"
-        android:text="TextView" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategoryTitles"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_border_gray"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="4"
-        app:layout_left="3"
-        app:layout_right="4"
-        app:layout_top="3"
-        android:background="#ffff00"
-        android:text="TextView" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="6"
-        app:layout_left="0"
-        app:layout_right="1"
-        app:layout_top="4"
-        android:background="#ff00ff"
-        android:text="TextView" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="6"
-        app:layout_left="1"
-        app:layout_right="4"
-        app:layout_top="4"
-        android:background="#ffffff"
-        android:text="TextView" />
-    </GridLayout>
--->
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>

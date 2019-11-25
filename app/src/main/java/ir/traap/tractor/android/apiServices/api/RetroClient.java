@@ -14,6 +14,7 @@ import ir.traap.tractor.android.apiServices.model.card.Result;
 import ir.traap.tractor.android.apiServices.model.card.addCard.request.AddCardRequest;
 import ir.traap.tractor.android.apiServices.model.card.editCard.request.EditCardRequest;
 import ir.traap.tractor.android.apiServices.model.card.getCardList.GetCardListResponse;
+import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import ir.traap.tractor.android.apiServices.model.doTransferCard.request.DoTransferRequest;
 import ir.traap.tractor.android.apiServices.model.doTransferCard.response.DoTransferResponse;
 import ir.traap.tractor.android.apiServices.model.getAllBoxes.GetAllBoxesRequest;
@@ -100,6 +101,13 @@ public interface RetroClient
 
     @GET(Const.Get_Main_Video)
     Single<Response<WebServiceClass<MainVideosResponse>>> getMainVideos();
+
+
+    @GET(Const.Get_Category_By_Id_Video)
+    Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
+            @Path("id") Integer categoryId
+            );
+
 
     @GET(Const.GetMenuHelp)
     Single<Response<WebServiceClass<GetMenuHelpResponse>>> getMenuHelp();
