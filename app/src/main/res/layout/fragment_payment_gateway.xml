@@ -241,7 +241,6 @@
                         android:layout_gravity="center"
                         android:enabled="true"
                         android:clickable="true"
-
                         android:buttonTint="@color/textColorPrimary" />
                 </LinearLayout>
 
