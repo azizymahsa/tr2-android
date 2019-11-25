@@ -1389,7 +1389,7 @@ public class CompeletInfoFragment
     {
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
-  //  public SelectPaymentGatewayFragment(String url,MainAc,tionView mainView,int imageDrawable,String title,String amount)count
+  //  public SelectPaymentGateWayFragment(String url,MainAc,tionView mainView,int imageDrawable,String title,String amount)count
 //String title="با انجام این پرداخت، مبلغ 250,000 ریال  بابت \"خرید 5 بلیت بازی تیم های تراکتور و استقلال\" از حساب شما کسر خواهد شد";
 String title="با انجام این پرداخت ، مبلغ"+Utility.priceFormat(Integer.toString(amountForPay))+"ریال بابت خرید"+" "+count+" "+"بلیت بازی ازحساب شما کسر خواهد شد.";
         SelectPaymentGateWayFragment fragment2 = new SelectPaymentGateWayFragment(response.getUrl(),mainView, R.drawable.icon_payment_ticket,title , Utility.priceFormat(Integer.toString(amountForPay)));

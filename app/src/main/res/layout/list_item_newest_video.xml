@@ -35,7 +35,7 @@ android:layoutDirection="ltr"
             android:id="@+id/tvLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
+            android:layout_marginRight="@dimen/_5dp"
             android:text=""
             android:layout_centerInParent="true"
             android:textColor="@color/g_txt_white"
@@ -46,13 +46,14 @@ android:layoutDirection="ltr"
             />
         <ImageView
             android:id="@+id/imgLike"
-            android:layout_width="@dimen/_25dp"
-            android:layout_height="@dimen/_25dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="2dp"
+            android:layout_width="@dimen/_30dp"
+            android:layout_height="@dimen/_30dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_like_white"
+            app:srcCompat="@drawable/ic_arrow_left"
             />
     </RelativeLayout>
 
