@@ -3,6 +3,7 @@ package ir.traap.tractor.android.apiServices.model.mainVideos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,38 +17,38 @@ public class MainVideosResponse
 
     @SerializedName("recent")
     @Expose
-    private List<Recent> recent = null;
+    private ArrayList<Category> recent = null;
 
     @SerializedName("category")
     @Expose
-    private List<Category> category = null;
+    private ArrayList<Category> category = null;
 
     @SerializedName("favorites")
     @Expose
-    private List<Favorite> favorites = null;
+    private ArrayList<Category> favorites = null;
 
 
-    public List<Recent> getRecent() {
+    public ArrayList<Category> getRecent() {
         return recent;
     }
 
-    public void setRecent(List<Recent> recent) {
+    public void setRecent(ArrayList<Category> recent) {
         this.recent = recent;
     }
 
-    public List<Category> getCategory() {
+    public ArrayList<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(List<Category> category) {
+    public void setCategory(ArrayList<Category> category) {
         this.category = category;
     }
 
-    public List<Favorite> getFavorites() {
+    public ArrayList<Category> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(List<Favorite> favorites) {
+    public void setFavorites(ArrayList<Category> favorites) {
         this.favorites = favorites;
     }
 

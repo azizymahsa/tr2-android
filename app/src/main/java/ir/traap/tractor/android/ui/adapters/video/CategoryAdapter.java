@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
@@ -26,13 +26,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 {
     private final MainActionView mainView;
     private Context context;
-    private List<Category> categories;
-    private TitleCategoryListener listener;
+    private ArrayList<Category> categories;
+    private CategoryListener listener;
 
-    public CategoryAdapter(List<Category> categories, MainActionView mainView)
+    public CategoryAdapter(ArrayList<Category> categories, MainActionView mainView,CategoryListener listener)
     {
         this.categories=categories;
         this.mainView=mainView;
+        this.listener=listener;
     }
 
 
@@ -51,6 +52,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         Category category = categories.get(position);
 
         setImageBackground(holder.ivCategory,category.getBigPoster().replace("\\", ""));
+        holder.ivCategory.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onItemCategoryClick(position,category,categories);
+            }
+        });
 
     }
 
@@ -95,7 +104,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         }
     }
-    public interface TitleCategoryListener {
-        void onItemTitleCategoryClick(Category category);
+    public interface CategoryListener {
+        void onItemCategoryClick(int position, Category category, ArrayList<Category> categories);
     }
 }
