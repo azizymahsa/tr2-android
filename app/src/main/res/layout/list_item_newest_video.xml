@@ -3,7 +3,9 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:orientation="vertical"
 android:layout_width="@dimen/_150dp"
-android:layout_height="@dimen/_100dp">
+android:layout_height="@dimen/_100dp"
+android:layoutDirection="ltr"
+    >
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/ivNewestVideo"
         android:layout_width="@dimen/_260sdp"
@@ -69,6 +71,11 @@ android:layout_height="@dimen/_100dp">
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/ivNewestVideo"
         />
-
+    <ImageView
+        android:layout_width="@dimen/_30dp"
+        android:layout_height="@dimen/_30dp"
+        android:src="@drawable/ic_play_video"
+        android:layout_centerInParent="true"
+        />
 
 </RelativeLayout>

@@ -52,6 +52,7 @@ import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import ir.traap.tractor.android.ui.adapters.mainServiceModel.MainServiceModelAdapter;
 import ir.traap.tractor.android.ui.adapters.mainSlider.MainSliderAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
+import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.Tools;
 import ir.traap.tractor.android.utilities.Utility;
@@ -526,6 +527,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvF6.setText(footballServiceList.get(4).getTitle());
         tvF5.setText(footballServiceList.get(5).getTitle());
 
+        rlF1.setOnClickListener(this);
+        rlF2.setOnClickListener(this);
+        rlF3.setOnClickListener(this);
+        rlF4.setOnClickListener(this);
+        rlF5.setOnClickListener(this);
+        rlF6.setOnClickListener(this);
+
         setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ", "%20"));
         setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ", "%20"));
         setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ", "%20"));
@@ -870,6 +878,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         switch (v.getId())
         {
             case R.id.btnBuyTicket:
+            {
                 mainView.onBuyTicketClick(matchBuyable);
                 //---------------test------------------
 //                Intent i = new Intent(Intent.ACTION_VIEW);
@@ -880,6 +889,42 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 //---------------test------------------
                 break;
+            }
+            case R.id.rlF1:
+            {
+                mainView.onFootBallServiceOne();
+                break;
+            }
+
+            case R.id.rlF2:
+            {
+
+                break;
+            }
+
+            case R.id.rlF3:
+            {
+
+                break;
+            }
+
+            case R.id.rlF4:
+            {
+
+                break;
+            }
+
+            case R.id.rlF5:
+            {
+
+                break;
+            }
+
+            case R.id.rlF6:
+            {
+
+                break;
+            }
         }
     }
 

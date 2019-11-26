@@ -1306,6 +1306,42 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
+    public void onFootBallServiceOne()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceTwo()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceThree()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceFour()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceFive()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceSix()
+    {
+
+    }
+
+    @Override
     public void onBill()
     {
 

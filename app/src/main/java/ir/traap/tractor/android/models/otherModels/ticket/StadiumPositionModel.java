@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.apiServices.model;
+package ir.traap.tractor.android.models.otherModels.ticket;
 
 /**
  * Created by MahtabAzizi on 10/30/2019.

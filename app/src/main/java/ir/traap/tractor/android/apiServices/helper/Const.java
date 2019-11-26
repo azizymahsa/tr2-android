@@ -121,4 +121,11 @@ public class Const
 
     //video
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
+    public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
+
+    //News
+    public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";
+    public final static String Get_NEWS_ARCHIVE_CATEGORY = SubBASEURL + "v1/news/category/";
+
+
 }
