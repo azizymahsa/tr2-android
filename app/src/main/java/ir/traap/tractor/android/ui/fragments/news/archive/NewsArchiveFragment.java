@@ -1,5 +1,6 @@
 package ir.traap.tractor.android.ui.fragments.news.archive;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.daimajia.slider.library.Transformers.RotateUpTransformer;
@@ -32,6 +35,7 @@ import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategory;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
 import ir.traap.tractor.android.conf.TrapConfig;
+import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.activities.userProfile.UserProfileActivity;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
@@ -113,7 +117,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     private void setPager(boolean pagerWithFilter)
     {
         MyCustomViewPager pager = rootView.findViewById(R.id.view_pager);
-        SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), newsArchiveCategoryList, pagerWithFilter, 0);
+        SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), newsArchiveCategoryList, pagerWithFilter);
 
         pager.setAdapter(adapter);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -122,10 +126,16 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 //        }
 
         TabLayout tabLayout = rootView.findViewById(R.id.tabLayout);
+//        tabLayout.setSelectedTabIndicator(getResources().getDrawable());
         tabLayout.setupWithViewPager(pager);
+
+        for (int i = 0; i < tabLayout.getTabCount(); i++)
+        {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(adapter.getTabView(i));
+        }
+
         pager.setCurrentItem(newsArchiveCategoryList.size()-1);
-
-
     }
 
 
@@ -163,11 +173,11 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     {
         private ArrayList<NewsArchiveCategory> newsArchiveCategories;
         private boolean pagerWithFilter = false;
+        private Context context = SingletonContext.getInstance().getContext();
 
-        public SamplePagerAdapter(@NonNull FragmentManager fm, ArrayList<NewsArchiveCategory> newsArchiveCategories, boolean pagerWithFilter, int behavior)
+        public SamplePagerAdapter(@NonNull FragmentManager fm, ArrayList<NewsArchiveCategory> newsArchiveCategories, boolean pagerWithFilter)
         {
-//            super(fm);
-            super(fm, behavior);
+            super(fm, 0);
             this.newsArchiveCategories = newsArchiveCategories;
             this.pagerWithFilter = pagerWithFilter;
         }
@@ -189,8 +199,9 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             }
             else
             {
-                Logger.e("--nID--", String.valueOf(newsArchiveCategoryList.get(position).getId()));
-                return NewsArchiveCategoryFragment.newInstance(newsArchiveCategoryList.get(position).getId());
+                int Id =  newsArchiveCategoryList.get(position).getId();
+                Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
+                return NewsArchiveCategoryFragment.newInstance(Id);
             }
         }
 
@@ -202,14 +213,15 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
         public View getTabView(int position)
         {
-            // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView
-            View v = LayoutInflater.from(getActivity()).inflate(R.layout.tab_category_content, null);
-            Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_bold.ttf");
+            // Given you have a custom layout in `res/layout/tab_category_content.xml` with a TextView
+            View v = LayoutInflater.from(context).inflate(R.layout.tab_category_content, null);
 
-            TextView tv = (TextView) v.findViewById(R.id.textView);
+            Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf");
+
+            TextView tv = v.findViewById(R.id.textView);
             tv.setText(getPageTitle(position));
             tv.setGravity(Gravity.CENTER_HORIZONTAL);
-            tv.setTextColor(getResources().getColorStateList(R.color.textHint));
+            tv.setTextColor(context.getResources().getColorStateList(R.color.textColorSecondary));
             tv.setTypeface(font);
             return v;
         }

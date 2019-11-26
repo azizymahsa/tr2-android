@@ -5,6 +5,7 @@
     <color name="colorAccent">#f58232</color>
 
     <color name="textColorTitle">#fff</color>
+    <color name="textColorSubTitle">#777</color>
     <color name="textColorPrimary">#d5282e</color>
     <color name="textColorSecondary">#000</color>
 
