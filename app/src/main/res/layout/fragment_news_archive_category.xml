@@ -7,7 +7,7 @@
     android:layoutDirection="ltr"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -17,8 +17,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_margin="16dp"/>
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/textColorPrimary"
+            android:layout_marginTop="16dp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:maxLines="2"
+            android:gravity="center"
+            android:textSize="@dimen/textSize_14dp"
+            android:text="هیچ اخباری در این گروه یافت نشد."/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -28,6 +43,6 @@
 
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

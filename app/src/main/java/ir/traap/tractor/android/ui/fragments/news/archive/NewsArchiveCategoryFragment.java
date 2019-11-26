@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
     private NewsArchiveAdapter adapter;
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
+    private TextView tvEmpty;
 
     private ArrayList<NewsArchiveListById> newsArchiveContent = new ArrayList<>();
 
@@ -96,6 +98,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         rootView = inflater.inflate(R.layout.fragment_news_archive_category, container, false);
 
         progressBar = rootView.findViewById(R.id.progressbar);
+        tvEmpty = rootView.findViewById(R.id.tvEmpty);
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
@@ -121,11 +124,6 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         }
 
         return rootView;
-    }
-
-    private void initContentView()
-    {
-
     }
 
     private void initContentFilteredView()
@@ -157,7 +155,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 
             if (newsArchiveContent.isEmpty())
             {
-
+                tvEmpty.setVisibility(View.VISIBLE);
             }
         }
 
