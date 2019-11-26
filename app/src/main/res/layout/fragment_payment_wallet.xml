@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text=" ریال"
+                    android:textColor="@color/chargePackTextColor"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10dp"
+                    android:text=""
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="@dimen/textSize_14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="مبلغ قابل پرداخت :"
+                    android:textColor="@color/chargePackTextColor"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_180dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:padding="3dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/wallet_cart" />
+                </RelativeLayout>
+
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etLayoutPass"
+                            android:layout_width="@dimen/_180sdp"
+                            android:layout_height="@dimen/_45sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="5dp"
+                            android:theme="@style/EditTextHint"
+                            app:hintTextAppearance="@style/TextLabel">
+                            <EditText
+                                android:id="@+id/etPin2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/textColorSecondary"
+                                android:gravity="start|center"
+                                android:hint="رمز کارت را وارد نمایید"
+                                android:inputType="numberPassword"
+                                android:maxLines="1"
+                                android:maxLength="6"
+                                android:nextFocusDown="@+id/etNewPass"
+                                android:singleLine="true"
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_14dp" />
+                           <!-- <EditText
+                                android:id="@+id/etPin2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/textColorSecondary"
+                                android:gravity="start|center"
+                                android:hint="رمز کارت را وارد نمایید"
+                                android:inputType="numberPassword"
+                                android:maxLines="1"
+                                android:nextFocusDown="@+id/etNewPass"
+                                android:singleLine="true"
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/_10sdp" />-->
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="100">
+
+                    <include
+                        android:id="@+id/btnBack"
+                        layout="@layout/return_button" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/llConfirm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="100">
+
+                    <include
+                        android:id="@+id/btnBuy"
+                        layout="@layout/circular_progress_button_peyment"
+                         />
+
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/llInVisible"
+                    android:layout_width="0dp"
+                    android:visibility="gone"
+
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100">
+
+                    <include
+                        android:id="@+id/btnInVisible"
+                        layout="@layout/circular_progress_button_in_visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35dp"
+                        android:layout_gravity="center" />
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

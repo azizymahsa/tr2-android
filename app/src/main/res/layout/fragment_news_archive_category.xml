@@ -18,10 +18,10 @@
             android:layout_height="wrap_content"
             android:visibility="visible"
             android:layout_gravity="center"
-            android:layout_margin="32dp"/>
+            android:layout_margin="16dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/recyclerView"
             android:background="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
