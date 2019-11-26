@@ -166,8 +166,8 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             case 3://فیلم
             {
                 fragment = VideosFragment.newInstance(mainView);
-               transaction = fragmentManager.beginTransaction();
-                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                transaction = fragmentManager.beginTransaction();
+//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                 transaction.replace(R.id.main_container, fragment, "videosFragment")
                         .commit();
