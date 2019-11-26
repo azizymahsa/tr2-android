@@ -28,6 +28,7 @@ import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
+import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchRequest;
 import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchResponse;
 import ir.traap.tractor.android.apiServices.model.paymentMatch.Viewers;
 import ir.traap.tractor.android.apiServices.model.stadium_rules.ResponseStadiumRules;
@@ -76,6 +77,7 @@ public class CompeletInfoFragment
     private Integer amountOneTicket;
     private boolean flagDelete = false;
     private int flagNumberDelete = 0;
+    private PaymentMatchRequest paymentMatchRequest;
 
     public CompeletInfoFragment()
     {
@@ -86,7 +88,6 @@ public class CompeletInfoFragment
     {
         CompeletInfoFragment fragment = new CompeletInfoFragment();
         fragment.setMainView(mainActionView);
-
 
         return fragment;
     }
@@ -255,6 +256,7 @@ public class CompeletInfoFragment
 
         txtCondition.setOnClickListener(this);
 
+
     }
 
 
@@ -326,7 +328,7 @@ public class CompeletInfoFragment
             case R.id.imgDelete1:
                 if (count == 1)
                 {
-                   // imgDelete1.setVisibility(View.GONE);
+                    // imgDelete1.setVisibility(View.GONE);
 
                 } else
                 {
@@ -339,7 +341,7 @@ public class CompeletInfoFragment
             case R.id.imgDelete2:
                 if (count == 1)
                 {
-                  //  imgDelete2.setVisibility(View.GONE);
+                    //  imgDelete2.setVisibility(View.GONE);
 
                 } else
                 {
@@ -351,7 +353,7 @@ public class CompeletInfoFragment
             case R.id.imgDelete3:
                 if (count == 1)
                 {
-                   // imgDelete3.setVisibility(View.GONE);
+                    // imgDelete3.setVisibility(View.GONE);
 
                 } else
                 {
@@ -363,7 +365,7 @@ public class CompeletInfoFragment
             case R.id.imgDelete4:
                 if (count == 1)
                 {
-                  //  imgDelete4.setVisibility(View.GONE);
+                    //  imgDelete4.setVisibility(View.GONE);
                 } else
                 {
                     flagDelete = true;
@@ -1315,6 +1317,8 @@ public class CompeletInfoFragment
         this.ticketIdList = ticketIdList;
         this.stadiumId = stadiumId;
 
+      //  this.paymentMatchRequest = paymentMatchRequest;
+
         if (view == null)
             return;
 
@@ -1389,10 +1393,14 @@ public class CompeletInfoFragment
     {
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
-  //  public SelectPaymentGateWayFragment(String url,MainAc,tionView mainView,int imageDrawable,String title,String amount)count
-//String title="با انجام این پرداخت، مبلغ 250,000 ریال  بابت \"خرید 5 بلیت بازی تیم های تراکتور و استقلال\" از حساب شما کسر خواهد شد";
-String title="با انجام این پرداخت ، مبلغ"+Utility.priceFormat(Integer.toString(amountForPay))+"ریال بابت خرید"+" "+count+" "+"بلیت بازی ازحساب شما کسر خواهد شد.";
-        SelectPaymentGateWayFragment fragment2 = new SelectPaymentGateWayFragment(response.getUrl(),mainView, R.drawable.icon_payment_ticket,title , Utility.priceFormat(Integer.toString(amountForPay)));
+        paymentMatchRequest=new PaymentMatchRequest();
+        paymentMatchRequest.setAmount(amountForPay);
+        paymentMatchRequest.setViewers(infoViewers);
+
+        String title = "با انجام این پرداخت ، مبلغ" + Utility.priceFormat(Integer.toString(amountForPay)) + "ریال بابت خرید" + " " + count + " " + "بلیت بازی ازحساب شما کسر خواهد شد.";
+        SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(response.getUrl(), mainView, R.drawable.icon_payment_ticket,
+                title, Utility.priceFormat(Integer.toString(amountForPay)),
+                paymentMatchRequest);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment2);
