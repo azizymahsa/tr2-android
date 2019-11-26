@@ -127,7 +127,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    android:src="@drawable/un_select_step"
+                    android:src="@drawable/ic_play_video"
                     android:layout_centerInParent="true"
                     />
 
@@ -153,7 +153,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    android:src="@drawable/un_select_step"
+                    android:src="@drawable/ic_play_video"
                     android:layout_centerInParent="true"
                     />
             </RelativeLayout>
@@ -177,67 +177,11 @@
             <ImageView
                 android:layout_width="@dimen/_40dp"
                 android:layout_height="@dimen/_40dp"
-                android:src="@drawable/un_select_step"
+                android:src="@drawable/ic_play_video"
                 android:layout_centerInParent="true"
                 />
         </RelativeLayout>
     </LinearLayout>
-   <!-- <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="2" >
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="3"
-        app:layout_left="3"
-        app:layout_right="4"
-        app:layout_top="1"
-        android:background="#00ff00"
-        android:text="TextView" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="4"
-        app:layout_left="0"
-        app:layout_right="3"
-        app:layout_top="1"
-        android:background="#0000ff"
-        android:text="TextView" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="4"
-        app:layout_left="3"
-        app:layout_right="4"
-        app:layout_top="3"
-        android:background="#ffff00"
-        android:text="TextView" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="6"
-        app:layout_left="0"
-        app:layout_right="1"
-        app:layout_top="4"
-        android:background="#ff00ff"
-        android:text="TextView" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_bottom="6"
-        app:layout_left="1"
-        app:layout_right="4"
-        app:layout_top="4"
-        android:background="#ffffff"
-        android:text="TextView" />
-    </GridLayout>
--->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

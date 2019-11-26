@@ -1,9 +1,13 @@
 package ir.traap.tractor.android.apiServices.model.mainVideos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Category {
+public class Category implements Parcelable
+{
 
 @SerializedName("title")
 @Expose
@@ -47,6 +51,7 @@ private Integer likes;
 @SerializedName("is_liked")
 @Expose
 private Boolean isLiked;
+
 
 public String getTitle() {
 return title;
@@ -160,4 +165,66 @@ public void setIsLiked(Boolean isLiked) {
 this.isLiked = isLiked;
 }
 
+
+    @Override
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeString(this.title);
+        dest.writeString(this.caption);
+        dest.writeValue(this.id);
+        dest.writeString(this.bigPoster);
+        dest.writeString(this.smallPoster);
+        dest.writeString(this.frame);
+        dest.writeValue(this.categoryId);
+        dest.writeString(this.createDate);
+        dest.writeString(this.updateDate);
+        dest.writeString(this.createDateFormatted);
+        dest.writeString(this.updateDateFormatted);
+        dest.writeValue(this.isBookmarked);
+        dest.writeValue(this.likes);
+        dest.writeValue(this.isLiked);
+    }
+
+    public Category()
+    {
+    }
+
+    protected Category(Parcel in)
+    {
+        this.title = in.readString();
+        this.caption = in.readString();
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.bigPoster = in.readString();
+        this.smallPoster = in.readString();
+        this.frame = in.readString();
+        this.categoryId = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.createDate = in.readString();
+        this.updateDate = in.readString();
+        this.createDateFormatted = in.readString();
+        this.updateDateFormatted = in.readString();
+        this.isBookmarked = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.likes = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.isLiked = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>()
+    {
+        @Override
+        public Category createFromParcel(Parcel source)
+        {
+            return new Category(source);
+        }
+
+        @Override
+        public Category[] newArray(int size)
+        {
+            return new Category[size];
+        }
+    };
 }
