@@ -193,6 +193,8 @@
                 android:layout_height="@dimen/_70dp"
                 android:layout_marginBottom="@dimen/_5dp"
                 android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+
                 android:layout_weight="1">
 
                 <com.makeramen.roundedimageview.RoundedImageView
@@ -227,8 +229,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginBottom="@dimen/_5dp"
                     android:adjustViewBounds="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:scaleType="fitXY"
@@ -255,8 +255,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginBottom="@dimen/_5dp"
                     android:adjustViewBounds="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:scaleType="fitXY"
@@ -285,8 +283,6 @@
                     android:adjustViewBounds="true"
                     android:layout_centerInParent="true"
                     android:foreground="?attr/selectableItemBackground"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginBottom="@dimen/_5dp"
                     android:scaleType="fitXY"
                     app:riv_corner_radius="15dp"
                     app:riv_mutate_background="true"
