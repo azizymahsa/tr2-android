@@ -24,17 +24,13 @@ import java.util.List;
 import java.util.Collections;
 
 import ir.traap.tractor.android.R;
-import ir.traap.tractor.android.apiServices.generator.SingletonService;
-import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
-import ir.traap.tractor.android.apiServices.model.WebServiceClass;
-import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchRequest;
 import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchResponse;
 import ir.traap.tractor.android.apiServices.model.paymentMatch.Viewers;
 import ir.traap.tractor.android.apiServices.model.stadium_rules.ResponseStadiumRules;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGateWayFragment;
+import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
 import ir.traap.tractor.android.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,14 +30,13 @@ import ir.traap.tractor.android.models.otherModels.paymentInstance.SimChargePaym
 import ir.traap.tractor.android.ui.adapters.paymentGateway.SelectPaymentAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.fragments.ticket.BuyTicketsFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.traap.tractor.android.utilities.CustomViewPager;
 
 /**
  * Created by MahsaAzizi on 11/20/2019.
  */
-public class SelectPaymentGateWayFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener
+public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener
 {
 
     private static SelectPaymentGatewayFragment matchScheduleFragment;
@@ -62,7 +60,7 @@ public class SelectPaymentGateWayFragment extends BaseFragment implements OnAnim
     private ImageView imgLogo;
     private CircularProgressButton btnBuy, btnBack;
 
-    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount,PaymentMatchRequest paymentMatchRequest)
+    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
     {
         this.url = url;
         this.mainView = mainView;
@@ -72,13 +70,13 @@ public class SelectPaymentGateWayFragment extends BaseFragment implements OnAnim
         this.paymentMatchRequest = paymentMatchRequest;
     }
 
-    public SelectPaymentGateWayFragment()
+    public SelectPaymentGatewayFragment()
     {
     }
 
-    public static SelectPaymentGateWayFragment newInstance(MainActionView mainView)
+    public static SelectPaymentGatewayFragment newInstance(MainActionView mainView)
     {
-        matchScheduleFragment = new SelectPaymentGateWayFragment();
+        matchScheduleFragment = new SelectPaymentGatewayFragment();
         return matchScheduleFragment;
     }
 
