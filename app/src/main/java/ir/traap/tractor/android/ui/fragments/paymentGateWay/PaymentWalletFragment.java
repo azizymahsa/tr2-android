@@ -259,7 +259,6 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
 
             intent.putExtra("RefrenceNumber",  response.getRefNumber());
             intent.putExtra("isTransactionList",false);
-
             startActivity(intent);
         }
 

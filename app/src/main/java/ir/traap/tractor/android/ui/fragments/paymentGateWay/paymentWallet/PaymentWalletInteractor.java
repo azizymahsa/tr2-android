@@ -1,10 +1,6 @@
 package ir.traap.tractor.android.ui.fragments.paymentGateWay.paymentWallet;
 
-import java.util.List;
-
 import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchRequest;
-import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchResponse;
-import ir.traap.tractor.android.apiServices.model.paymentMatch.Viewers;
 import ir.traap.tractor.android.apiServices.model.paymentWallet.ResponsePaymentWallet;
 
 /**
