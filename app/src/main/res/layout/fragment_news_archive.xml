@@ -50,7 +50,7 @@
                     android:layout_height="@dimen/_40dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_alignParentRight="true"
                     android:gravity="center"
@@ -79,7 +79,7 @@
                     android:id="@+id/llSearch"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_toLeftOf="@+id/btnFilter"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -105,11 +105,27 @@
 
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/textHint"/>
+
             <com.google.android.material.tabs.TabLayout
                 android:id = "@+id/tabLayout"
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:tabIndicatorHeight="0dp"
+                style="@style/TabLayoutStyle"
+                app:tabBackground="@drawable/tab_background"
+                app:tabTextColor="@drawable/tab_text_color"
                 app:tabMode="scrollable"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/textHint"/>
 
             <ir.traap.tractor.android.utilities.MyCustomViewPager
                 android:id="@+id/view_pager"

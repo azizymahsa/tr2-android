@@ -69,6 +69,8 @@ import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.LeagueTableFr
 import ir.traap.tractor.android.ui.fragments.media.MediaFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.traap.tractor.android.ui.fragments.myProfile.MyProfileFragment;
+import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
+import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
@@ -942,6 +944,79 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         }, 200);
 */
+    }
+
+    @Override
+    public void onFootBallServiceOne()
+    {
+        isMainFragment = false;
+        this.fragment = NewsArchiveFragment.newInstance(new NewsActionView()
+        {
+            @Override
+            public void backToMainNewsFragment()
+            {
+
+            }
+
+            @Override
+            public void openDrawer()
+            {
+
+            }
+
+            @Override
+            public void closeDrawer()
+            {
+
+            }
+
+            @Override
+            public void showLoading()
+            {
+
+            }
+
+            @Override
+            public void hideLoading()
+            {
+
+            }
+        });
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment,"newsArchiveCategoryFragment")
+                .commit();
+    }
+
+    @Override
+    public void onFootBallServiceTwo()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceThree()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceFour()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceFive()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceSix()
+    {
+
     }
 
     @Override
