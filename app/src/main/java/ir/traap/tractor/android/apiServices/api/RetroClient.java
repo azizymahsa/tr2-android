@@ -119,7 +119,7 @@ public interface RetroClient
     );
 
     @GET(Const.Archive_Video)
-    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchiveVideos();
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchiveVideos(@Query("category_id") int categoryId);
     /*photos*/
     @GET(Const.Get_Main_Photo)
     Single<Response<WebServiceClass<MainVideosResponse>>> getMainPhotos();

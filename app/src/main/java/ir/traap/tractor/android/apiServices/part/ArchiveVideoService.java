@@ -22,9 +22,9 @@ public class ArchiveVideoService extends BasePart
         return this;
     }
 
-    public void getArchiveVideo(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, ArchiveVideoRequest request)
+    public void getArchiveVideo(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, ArchiveVideoRequest request,int categoryId)
     {
-        start(getServiceGenerator().createService().getArchiveVideos(), listener);
+        start(getServiceGenerator().createService().getArchiveVideos(categoryId), listener);
     }
     public void getArchivePhoto(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, ArchiveVideoRequest request)
     {

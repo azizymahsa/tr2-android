@@ -1,7 +1,6 @@
 package ir.traap.tractor.android.ui.adapters.video;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +60,7 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
             public void onClick(View view) {
                 selectedPosition=position;
                 notifyDataSetChanged();
-                listener.onItemTitleCategoryClick(category);
+                listener.onItemTitleCategoryClick(category,position);
             }
         });
         if(selectedPosition==position){
@@ -97,6 +96,6 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
         }
     }
     public interface TitleCategoryListener {
-        void onItemTitleCategoryClick(ListCategory category);
+        void onItemTitleCategoryClick(ListCategory category, int position);
     }
 }
