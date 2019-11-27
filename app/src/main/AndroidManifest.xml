@@ -94,8 +94,13 @@
         tools:replace="android:appComponentFactory,android:supportsRtl">
         <activity android:name=".ui.activities.video.VideoArchiveActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activities.photo.PhotoArchiveActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.news.archive.NewsArchiveActivity" />
         <activity android:name=".ui.activities.video.VideoDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.photo.PhotoDetailActivity"
             android:screenOrientation="portrait" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"

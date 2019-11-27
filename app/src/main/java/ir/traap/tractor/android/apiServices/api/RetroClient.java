@@ -128,7 +128,8 @@ public interface RetroClient
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(
             @Path("id") Integer categoryId
     );
-
+    @GET(Const.Archive_Photo)
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos();
 
 
     @GET(Const.GetMenuHelp)
