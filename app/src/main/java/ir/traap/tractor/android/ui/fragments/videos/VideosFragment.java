@@ -205,7 +205,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     }
 
     @Override
-    public void onItemTitleCategoryClick(ListCategory category)
+    public void onItemTitleCategoryClick(ListCategory category, int position)
     {
         mainView.showLoading();
         idCategoryTitle = category.getId();

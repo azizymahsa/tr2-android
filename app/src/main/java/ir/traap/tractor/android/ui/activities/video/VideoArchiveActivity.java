@@ -1,12 +1,10 @@
 package ir.traap.tractor.android.ui.activities.video;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,7 +16,6 @@ import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
-import ir.traap.tractor.android.apiServices.model.archiveVideo.ArchiveVideo;
 import ir.traap.tractor.android.apiServices.model.archiveVideo.ArchiveVideoRequest;
 import ir.traap.tractor.android.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
@@ -37,6 +34,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
     private ArrayList<ListCategory> categoryTitleList;
     private RecyclerView rvCategoryTitles,rvArchiveVideo;
     private VideosCategoryTitleAdapter videoCategoryTitleAdapter;
+    private int position=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,10 +53,10 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
             }
         }
         initView();
-        requestArchiveVideo();
+        requestArchiveVideo(position);
     }
 
-    private void requestArchiveVideo()
+    private void requestArchiveVideo(int position)
     {
        ArchiveVideoRequest request = new ArchiveVideoRequest();
 
@@ -93,7 +91,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
                // mainView.hideLoading();
                 Tools.showToast(getApplication(), message, R.color.red);
             }
-        }, request);
+        }, request,categoryTitleList.get(position).getId());
     }
 
     private void onGetArchiveVideoSuccess(ArchiveVideoResponse data)
@@ -137,8 +135,9 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
     }
 
     @Override
-    public void onItemTitleCategoryClick(ListCategory category)
+    public void onItemTitleCategoryClick(ListCategory category, int position)
     {
+        requestArchiveVideo(position);
 
     }
 
