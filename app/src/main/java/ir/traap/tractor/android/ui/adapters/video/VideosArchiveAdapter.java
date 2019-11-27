@@ -14,10 +14,12 @@ import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.archiveVideo.ArchiveVideo;
+import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 /**
@@ -26,10 +28,10 @@ import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 public class VideosArchiveAdapter extends RecyclerView.Adapter<VideosArchiveAdapter.ViewHolder>
 {
     private Context context;
-    private List<ArchiveVideo> recent;
+    private ArrayList<Category> recent;
     private ArchiveVideoListener listener;
 
-    public VideosArchiveAdapter(List<ArchiveVideo> recent,ArchiveVideoListener listener)
+    public VideosArchiveAdapter(ArrayList<Category> recent, ArchiveVideoListener listener)
     {
         this.recent=recent;
         this.listener=listener;
@@ -48,7 +50,7 @@ public class VideosArchiveAdapter extends RecyclerView.Adapter<VideosArchiveAdap
     @Override
     public void onBindViewHolder(final VideosArchiveAdapter.ViewHolder holder, final int position)
     {
-        ArchiveVideo recentItem = recent.get(position);
+        Category recentItem = recent.get(position);
         holder.tvTitleVideo.setText(recentItem.getTitle());
         setImageBackground(holder.ivArchiveVideo,recentItem.getBigPoster().replace("\\", ""));
         holder.ivArchiveVideo.setOnClickListener(new View.OnClickListener()
@@ -56,7 +58,7 @@ public class VideosArchiveAdapter extends RecyclerView.Adapter<VideosArchiveAdap
             @Override
             public void onClick(View v)
             {
-                listener.onItemArchiveVideoClick(position,recentItem);
+                listener.onItemArchiveVideoClick(position,recentItem,recent);
             }
         });
 
@@ -109,7 +111,7 @@ public class VideosArchiveAdapter extends RecyclerView.Adapter<VideosArchiveAdap
     }
 
     public interface ArchiveVideoListener {
-        void onItemArchiveVideoClick(int position, ArchiveVideo category);
+        void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent);
     }
 
 }

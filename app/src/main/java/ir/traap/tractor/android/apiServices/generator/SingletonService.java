@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import ir.traap.tractor.android.apiServices.ServiceApplication;
 import ir.traap.tractor.android.apiServices.di.component.NetComponent;
 import ir.traap.tractor.android.apiServices.part.AddCardService;
+import ir.traap.tractor.android.apiServices.part.ArchiveVideoService;
 import ir.traap.tractor.android.apiServices.part.BankListService;
 import ir.traap.tractor.android.apiServices.part.BillCodePayCodeService;
 import ir.traap.tractor.android.apiServices.part.BusService;
@@ -139,6 +140,10 @@ public class SingletonService
         return new GetMainVideosService(serviceGenerator);
     }
 
+    public ArchiveVideoService getArchiveVideoService()
+    {
+        return new ArchiveVideoService(serviceGenerator);
+    }
 
     public GetMenuHelpService getMenuHelpService(){
         return new GetMenuHelpService(serviceGenerator);
