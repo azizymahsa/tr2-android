@@ -142,14 +142,14 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosCategory
 
     private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
-        Intent intent = new Intent(this, PhotoDetailActivity.class);
+        /*Intent intent = new Intent(this, PhotoDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Photos", categoriesList);
         intent.putExtra("IdPhotoCategory",idVideo);
         intent.putExtra("IdPhoto",id);
         intent.putExtra("positionPhoto",position);
 
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     @Override

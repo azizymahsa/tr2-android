@@ -289,7 +289,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
                 position=0;
                 idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
                 id=mainVideosResponse.getFavorites().get(position).getId();
-                openPhotoDetail(categoriesList,position,idVideo,id);
+              //  openPhotoDetail(categoriesList,position,idVideo,id);
                 break;
 
             case R.id.ivFavorite2:
@@ -297,7 +297,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
                 position=1;
                 idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
                 id=mainVideosResponse.getFavorites().get(position).getId();
-                openPhotoDetail(categoriesList,position,idVideo,id);
+             //   openPhotoDetail(categoriesList,position,idVideo,id);
                 break;
 
             case R.id.ivFavorite3:
@@ -305,7 +305,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
                 position=2;
                 idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
                 id=mainVideosResponse.getFavorites().get(position).getId();
-                openPhotoDetail(categoriesList,position,idVideo,id);
+               // openPhotoDetail(categoriesList,position,idVideo,id);
                 break;
             case R.id.tvArchiveVideo:
                 ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();

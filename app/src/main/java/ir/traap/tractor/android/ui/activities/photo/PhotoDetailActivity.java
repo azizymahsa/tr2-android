@@ -47,7 +47,7 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_detail);
+        setContentView(R.layout.activity_photo_detail);
         if (savedInstanceState == null)
         {
             Bundle extras = getIntent().getExtras();
@@ -72,7 +72,7 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
         try
         {
             tvTitle = findViewById(R.id.tvTitle);
-            tvTitle.setText("محتوای یک فیلم");
+            tvTitle.setText("محتوای یک عکس");
 
             tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -177,7 +177,7 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
     {
         videoItem=videosList.get(positionVideo);
 
-        urlVideo=videoItem.getFrame().replace("\\", "");
+      //  urlVideo=videoItem.getFrame().replace("\\", "");
         tvLike.setText(videoItem.getLikes().toString());
         likeCount=videoItem.getLikes();
         if (videoItem.getIsLiked()){
