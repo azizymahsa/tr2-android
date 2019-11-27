@@ -26,5 +26,9 @@ public class GetMainVideosService extends BasePart
     {
         start(getServiceGenerator().createService().getMainVideos(), listener);
     }
+    public void getMainPhotos(OnServiceStatus<WebServiceClass<MainVideosResponse>> listener, MainVideoRequest request)
+    {
+        start(getServiceGenerator().createService().getMainPhotos(), listener);
+    }
 }
 
