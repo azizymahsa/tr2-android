@@ -22,6 +22,8 @@ import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
+import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoRequest;
+import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.ui.base.BaseActivity;
@@ -34,11 +36,13 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     private View imgBack, imgMenu;
     private RoundedImageView ivVideo,ivRelated1,ivRelated2,ivRelated3,ivRelated4;
     private ImageView imgBookmark,imgLike;
-    private int positionVideo,idVideo;
+    private int positionVideo,idVideoCategory;
     private ArrayList<Category> videosList;
     private Category videoItem;
-    private RelativeLayout rlVideo;
+    private RelativeLayout rlVideo,rlLike;
     private String urlVideo;
+    private int idVideo;
+    private Integer likeCount=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,10 +57,9 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
             } else
             {
-               // videosList = extras.getParcelableArray("Videos");
-                 videosList = extras.getParcelableArrayList("Videos");
-               // videosList=(ArrayList)extras.getParcelable("Videos");
-                idVideo=extras.getInt(            "IdVideo",0);
+                videosList = extras.getParcelableArrayList("Videos");
+                idVideoCategory=extras.getInt("IdVideoCategory",0);
+                idVideo=extras.getInt("IdVideo",0);
                 positionVideo=extras.getInt("positionVideo",0);
             }
         }
@@ -98,7 +101,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         imgLike=findViewById(R.id.imgLike);
         tvLike=findViewById(R.id.tvLike);
         rlVideo=findViewById(R.id.rlVideo);
-
+        rlLike=findViewById(R.id.rlLike);
         ivRelated1=findViewById(R.id.ivRelated1);
         ivRelated2=findViewById(R.id.ivRelated2);
         ivRelated3=findViewById(R.id.ivRelated3);
@@ -109,21 +112,21 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         ivRelated3.setOnClickListener(this);
         ivRelated4.setOnClickListener(this);
 
-
-
+        //imgLike.setOnClickListener(this);
 
         setDataItems();
 
-        requestGetRelatedVideos(idVideo);
+        requestGetRelatedVideos(idVideoCategory);
         rlVideo.setOnClickListener(this);
+        rlLike.setOnClickListener(this);
 
     }
 
-    private void requestGetRelatedVideos(int idVideo)
+    private void requestGetRelatedVideos(int idVideoCategory)
     {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
 
-        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idVideo,request,new    OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idVideoCategory,request,new    OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
@@ -176,10 +179,15 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
         urlVideo=videoItem.getFrame().replace("\\", "");
         tvLike.setText(videoItem.getLikes().toString());
+        likeCount=videoItem.getLikes();
         if (videoItem.getIsLiked()){
             imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+            tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+
         }else {
             imgLike.setColorFilter(getResources().getColor(R.color.gray));
+            tvLike.setTextColor(getResources().getColor(R.color.gray));
+
         }
         if (videoItem.getIsBookmarked()){
             imgBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
@@ -222,7 +230,73 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.rlVideo:
                 playVideo(urlVideo);
                 break;
+            case R.id.rlLike:
+                imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                requestLikeVideo();
+                break;
         }
+    }
+
+    private void requestLikeVideo()
+    {
+        //rlLike.setClickable(false);
+        LikeVideoRequest request = new LikeVideoRequest();
+
+        SingletonService.getInstance().getLikeVideoService().likeVideoService(idVideo,request,new    OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<LikeVideoResponse> response)
+            {
+               // rlLike.setClickable(true);
+
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+
+                        setLiked(response.data);
+
+                    } else
+                    {
+                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                //  mainView.hideLoading();
+                Tools.showToast(getApplicationContext(), message, R.color.red);
+                //rlLike.setClickable(true);
+
+            }
+        });
+    }
+
+    private void setLiked(LikeVideoResponse data)
+    {
+        if (data.getIsLiked())
+        {
+            imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+            tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+            likeCount=likeCount+1;
+            tvLike.setText(likeCount+"");
+
+        }else {
+            imgLike.setColorFilter(getResources().getColor(R.color.gray));
+            tvLike.setTextColor(getResources().getColor(R.color.gray));
+            likeCount=likeCount-1;
+            tvLike.setText(likeCount+"");
+        }
+        //tvLike.setText();
+
     }
 
     private void playVideo(String urlVideo)

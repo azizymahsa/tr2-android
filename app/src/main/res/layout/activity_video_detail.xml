@@ -47,10 +47,12 @@
             android:layout_height="wrap_content"
             >
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:id="@+id/rlLike"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10dp"
                 android:layout_marginEnd="@dimen/_10dp"
+                android:padding="3dp"
                 android:layout_alignParentLeft="true"
                 >
                 <TextView
@@ -88,6 +90,7 @@
                 android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_like_white"
                 android:tint="@color/gray"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
