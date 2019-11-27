@@ -103,14 +103,23 @@ public interface RetroClient
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
 
+    /*videos*/
     @GET(Const.Get_Main_Video)
     Single<Response<WebServiceClass<MainVideosResponse>>> getMainVideos();
 
     @GET(Const.Get_Category_By_Id_Video)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
             @Path("id") Integer categoryId
-            );
+    );
 
+    /*photos*/
+    @GET(Const.Get_Main_Photo)
+    Single<Response<WebServiceClass<MainVideosResponse>>> getMainPhotos();
+
+    @GET(Const.Get_Category_By_Id_Photo)
+    Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(
+            @Path("id") Integer categoryId
+    );
 
     @GET(Const.GetMenuHelp)
     Single<Response<WebServiceClass<GetMenuHelpResponse>>> getMenuHelp();
@@ -138,7 +147,6 @@ public interface RetroClient
     Single<Response<WebServiceClass<ResponsePaymentWallet>>> paymentWallet(
             @Body PaymentMatchRequest request
     );
-
 
 
     @POST(Const.GetBillCodePayCode)
@@ -362,7 +370,7 @@ public interface RetroClient
             @Body SendPredictRequest request
     );
 
-    @GET(Const.GET_RULES +"{id}/stadium_rules/")
+    @GET(Const.GET_RULES + "{id}/stadium_rules/")
     Single<Response<WebServiceClass<ResponseStadiumRules>>> getRulsStadium(
             @Path("id") Integer id
     );
