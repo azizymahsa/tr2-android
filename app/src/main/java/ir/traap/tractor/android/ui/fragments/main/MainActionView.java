@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.enums.BarcodeType;
+import ir.traap.tractor.android.enums.MediaPosition;
+import ir.traap.tractor.android.enums.NewsParent;
 import ir.traap.tractor.android.ui.base.BaseView;
 
 public interface MainActionView extends BaseView
@@ -55,4 +57,6 @@ public interface MainActionView extends BaseView
     void onFootBallServiceFive();
 
     void onFootBallServiceSix();
+
+    void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition);
 }

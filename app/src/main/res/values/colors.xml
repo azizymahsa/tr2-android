@@ -70,6 +70,7 @@
 
     <color name="shadowColor">#bbb</color>
     <color name="navigationBarColor">#d5282e</color>
+    <color name="backgroundNewsTitle">#aa000000</color>
 
 
 </resources>

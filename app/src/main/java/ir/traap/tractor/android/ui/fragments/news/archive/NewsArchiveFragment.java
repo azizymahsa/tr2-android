@@ -1,14 +1,13 @@
 package ir.traap.tractor.android.ui.fragments.news.archive;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,16 +16,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.viewpager.widget.ViewPager;
 
-import com.daimajia.slider.library.Transformers.RotateUpTransformer;
 import com.google.android.material.tabs.TabLayout;
-import com.orm.util.Collection;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
@@ -35,13 +29,15 @@ import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategory;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
 import ir.traap.tractor.android.conf.TrapConfig;
+import ir.traap.tractor.android.enums.MediaPosition;
+import ir.traap.tractor.android.enums.NewsParent;
 import ir.traap.tractor.android.singleton.SingletonContext;
-import ir.traap.tractor.android.ui.activities.userProfile.UserProfileActivity;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
+import ir.traap.tractor.android.ui.fragments.news.NewsArchiveActionView;
+import ir.traap.tractor.android.ui.fragments.news.NewsMainActionView;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.MyCustomViewPager;
-import ir.traap.tractor.android.utilities.Tools;
 
 public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<NewsArchiveCategoryResponse>>
 {
@@ -49,28 +45,37 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private View rootView;
 
-    private NewsActionView mainNewsView;
+    private NewsArchiveActionView mainNewsView;
     private ArrayList<NewsArchiveCategory> newsArchiveCategoryList;
     private boolean pagerWithFilter = false;
+    private NewsParent parent;
+    private MediaPosition mediaPosition;
 
     public NewsArchiveFragment()
     {
     }
 
-    public static NewsArchiveFragment newInstance(NewsActionView mainNewsView)
+    public static NewsArchiveFragment newInstance(NewsParent parent, MediaPosition mediaPosition, NewsArchiveActionView mainNewsView)
     {
         NewsArchiveFragment fragment = new NewsArchiveFragment();
         fragment.setMainNewsView(mainNewsView);
+        fragment.setParent(parent);
+        fragment.setMediaPosition(mediaPosition);
 
         Bundle arg = new Bundle();
+
 //        arg.putParcelable("matchPredict", matchPredict);
 //        arg.putBoolean("isPredictable", isPredictable);
+        fragment.setArguments(arg);
 
         return fragment;
     }
 
+    private void setParent(NewsParent parent) { this.parent = parent; }
 
-    private void setMainNewsView(NewsActionView mainNewsView)
+    private void setMediaPosition(MediaPosition mediaPosition) { this.mediaPosition = mediaPosition; }
+
+    private void setMainNewsView(NewsArchiveActionView mainNewsView)
     {
         this.mainNewsView = mainNewsView;
     }
@@ -102,10 +107,18 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو اخبار");
         rootView.findViewById(R.id.imgBack).setOnClickListener(v ->
         {
-            mainNewsView.backToMainNewsFragment();
+            if (parent == NewsParent.MainFragment)
+            {
+//                mainNewsView.backToMainFragment();
+                mainNewsView.backToMainNewsFragment();
+            }
+            else
+            {
+                mainNewsView.backToMediaFragment(mediaPosition);
+            }
         });
 
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainNewsView.openDrawer());
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainNewsView.openDrawerNews());
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
@@ -116,6 +129,8 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private void setPager(boolean pagerWithFilter)
     {
+        Collections.reverse(newsArchiveCategoryList);
+
         MyCustomViewPager pager = rootView.findViewById(R.id.view_pager);
         SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), newsArchiveCategoryList, pagerWithFilter);
 
@@ -149,7 +164,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         else
         {
             newsArchiveCategoryList = response.data.getNewsArchiveCategoryList();
-            Collections.reverse(newsArchiveCategoryList);
+//            Collections.reverse(newsArchiveCategoryList);
 
             setPager(pagerWithFilter);
         }
@@ -175,6 +190,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         private boolean pagerWithFilter = false;
         private Context context = SingletonContext.getInstance().getContext();
 
+        @SuppressLint("WrongConstant")
         public SamplePagerAdapter(@NonNull FragmentManager fm, ArrayList<NewsArchiveCategory> newsArchiveCategories, boolean pagerWithFilter)
         {
             super(fm, 0);
@@ -201,7 +217,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             {
                 int Id =  newsArchiveCategoryList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
-                return NewsArchiveCategoryFragment.newInstance(Id);
+                return NewsArchiveCategoryFragment.newInstance(Id, true, null);
             }
         }
 

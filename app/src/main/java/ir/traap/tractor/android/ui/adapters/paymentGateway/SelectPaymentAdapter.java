@@ -7,12 +7,14 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
+import ir.traap.tractor.android.apiServices.model.paymentMatch.PaymentMatchRequest;
 import ir.traap.tractor.android.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import ir.traap.tractor.android.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentFragment;
 import ir.traap.tractor.android.ui.fragments.payment.PaymentParentActionView;
 import ir.traap.tractor.android.ui.fragments.paymentGateWay.PaymentGatewayFragment;
+import ir.traap.tractor.android.ui.fragments.paymentGateWay.PaymentWalletFragment;
 
 /**
  * Created by MahsaAzizi on 11/20/2019.
@@ -26,6 +28,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     private final String url;
     private final int imageDrawable;
     private final String mobile;
+    private final PaymentMatchRequest paymentMatchRequest;
     private  List<MatchItem> nextMatchesList=new ArrayList<>();
     private  List<MatchItem> pastMatchesList=new ArrayList<>();
     private int numTabs;
@@ -53,7 +56,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     }*/
     public SelectPaymentAdapter(FragmentManager fm, int numTabs, MainActionView mainActionView,
                                 String amount,String title,int imageDrawable,
-                                String mobile,SimChargePaymentInstance simPackPaymentInstance,String url)
+                                String mobile,SimChargePaymentInstance simPackPaymentInstance,String url,PaymentMatchRequest paymentMatchRequest)
     {
         super(fm);
         this.numTabs = numTabs;
@@ -64,6 +67,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         this.imageDrawable = imageDrawable;
         this.mobile = mobile;
         this.url = url;
+        this.paymentMatchRequest = paymentMatchRequest;
 
         this.paymentInstance = simPackPaymentInstance;
     }
@@ -73,8 +77,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         switch (position)
         {
             case 2:
-                PaymentFragment tab2 = PaymentFragment.newInstance(this, amount, title, imageDrawable,
-                        mobile, paymentInstance);
+                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(mainActionView, paymentMatchRequest );
 
                 return tab2;
             case 0:

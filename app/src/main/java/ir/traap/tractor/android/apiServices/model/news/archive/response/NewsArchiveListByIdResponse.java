@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import ir.traap.tractor.android.apiServices.model.news.main.News;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ public class NewsArchiveListByIdResponse
 
     @Expose @Getter @Setter
     @SerializedName("results")
-    private ArrayList<NewsArchiveListById> newsArchiveListById;
+    private ArrayList<News> newsArchiveListById;
 
     @Expose @Getter @Setter
     @SerializedName("previous")

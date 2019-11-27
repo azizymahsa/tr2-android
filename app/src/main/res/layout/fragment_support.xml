@@ -216,7 +216,6 @@
                                         android:layout_height="@dimen/_40dp"
                                         android:layout_gravity="right"
                                         android:gravity="right"
-                                        android:padding="@dimen/_5dp"
                                         android:src="@drawable/phone_sms" />
 
 

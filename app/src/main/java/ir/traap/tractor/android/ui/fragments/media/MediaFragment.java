@@ -19,12 +19,17 @@ import java.util.List;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.conf.TrapConfig;
+import ir.traap.tractor.android.enums.MediaPosition;
+import ir.traap.tractor.android.enums.NewsParent;
 import ir.traap.tractor.android.models.otherModels.mediaModel.MediaModel;
+import ir.traap.tractor.android.ui.activities.main.MainActivity;
 import ir.traap.tractor.android.ui.adapters.media.MediaAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
 import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
+import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainContentFragment;
+import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainFragment;
 import ir.traap.tractor.android.ui.fragments.videos.VideosFragment;
 
 
@@ -44,15 +49,18 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 
+    private MediaPosition mediaPosition;
+
     public MediaFragment()
     {
 
     }
 
-    public static MediaFragment newInstance(MainActionView mainView)
+    public static MediaFragment newInstance(MediaPosition mediaPosition, MainActionView mainView)
     {
         MediaFragment f = new MediaFragment();
         f.setMainView(mainView);
+        f.setMediaPosition(mediaPosition);
         return f;
     }
 
@@ -60,6 +68,12 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     {
         this.mainView = mainView;
     }
+
+    private void setMediaPosition(MediaPosition mediaPosition)
+    {
+        this.mediaPosition = mediaPosition;
+    }
+
 
 
     @Override
@@ -87,24 +101,6 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     {
 
         fragmentManager = getChildFragmentManager();
-
-//        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد", false,
-//                new MessageAlertDialog.OnConfirmListener()
-//                {
-//                    @Override
-//                    public void onConfirmClick()
-//                    {
-//                        mainView.backToMainFragment();
-//                    }
-//
-//                    @Override
-//                    public void onCancelClick()
-//                    {
-//
-//                    }
-//                });
-//        dialog.setCancelable(false);
-//        dialog.show(getActivity().getFragmentManager(), "messageDialog");
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
@@ -136,6 +132,9 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         adapter = new MediaAdapter(getActivity(), list, MediaFragment.this);
         recyclerView.setAdapter(adapter);
 
+        //MediaPosition.valueOf(mediaPosition.name()).ordinal()
+        recyclerView.scrollToPosition(mediaPosition.ordinal()-1);
+
     }
 
     @Override
@@ -145,11 +144,13 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         {
             case 1://اخبار
             {
-                fragment = NewsArchiveFragment.newInstance(this);
+//                fragment = NewsArchiveFragment.newInstance(this);
+                fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
                 transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                transaction.replace(R.id.main_container, fragment, "newsArchiveCategoryFragment")
+//                transaction.replace(R.id.main_container, fragment, "newsArchiveCategoryFragment")
+                transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
                         .commit();
                 break;
             }
@@ -183,13 +184,19 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     }
 
     @Override
-    public void openDrawer()
+    public void onNewsArchiveFragment(NewsParent parent)
+    {
+        mainView.onNewsArchiveClick(parent, MediaPosition.News);
+    }
+
+    @Override
+    public void openDrawerNews()
     {
 
     }
 
     @Override
-    public void closeDrawer()
+    public void closeDrawerNews()
     {
 
     }

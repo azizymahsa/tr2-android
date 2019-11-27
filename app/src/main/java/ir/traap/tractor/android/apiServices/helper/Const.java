@@ -28,7 +28,6 @@ public class Const
     //stadium
     public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
     public final static String ReservationMatch = SubBASEURL + "v1/match/reservation/";
-    public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
     public final static String GetTicketInfo = SubBASEURL + "v1/match/ticket_info/";
 
 
@@ -83,7 +82,9 @@ public class Const
     //Pos
     public final static String DECRYPTQRCODE = SubBASEURL + "v1/payment/decrypt_qr_code/";
     public final static String PAYMENT_PRINT_pOS = SubBASEURL + "v1/payment/payment_print_pos/";
-
+    //payment
+    public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
+    public final static String PaymentWallet = SubBASEURL + "v1/match/wallet/payment/";
 
     //Bank List
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";
@@ -123,6 +124,7 @@ public class Const
     public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
 
     //News
+    public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";
     public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";
     public final static String Get_NEWS_ARCHIVE_CATEGORY = SubBASEURL + "v1/news/category/";
 
