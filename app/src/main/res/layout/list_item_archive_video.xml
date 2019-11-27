@@ -7,7 +7,7 @@
     android:layoutDirection="ltr"
     >
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/ivNewestVideo"
+        android:id="@+id/ivArchiveVideo"
         android:layout_width="@dimen/_260sdp"
         android:layout_height="@dimen/_100dp"
         android:layout_alignParentLeft="true"
