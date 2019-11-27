@@ -123,6 +123,9 @@ public class Const
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
     public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
     public final static String Like_Video=SubBASEURL+"v1/video/{id}/like/";
+    //photos
+    public final static String Get_Main_Photo = SubBASEURL + "v1/photo/photo_main/";
+    public final static String Get_Category_By_Id_Photo = SubBASEURL + "v1/photo/{id}/recent_by_category/";
 
     //News
     public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";

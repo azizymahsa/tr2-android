@@ -9,53 +9,66 @@ import com.google.gson.annotations.SerializedName;
 public class Category implements Parcelable
 {
 
-@SerializedName("title")
-@Expose
-private String title;
-@SerializedName("caption")
-@Expose
-private String caption;
-@SerializedName("id")
-@Expose
-private Integer id;
-@SerializedName("big_poster")
-@Expose
-private String bigPoster;
-@SerializedName("small_poster")
-@Expose
-private String smallPoster;
-@SerializedName("frame")
-@Expose
-private String frame;
-@SerializedName("category_id")
-@Expose
-private Integer categoryId;
-@SerializedName("create_date")
-@Expose
-private String createDate;
-@SerializedName("update_date")
-@Expose
-private String updateDate;
-@SerializedName("create_date_formatted")
-@Expose
-private String createDateFormatted;
-@SerializedName("update_date_formatted")
-@Expose
-private String updateDateFormatted;
-@SerializedName("is_bookmarked")
-@Expose
-private Boolean isBookmarked;
-@SerializedName("likes")
-@Expose
-private Integer likes;
-@SerializedName("is_liked")
-@Expose
-private Boolean isLiked;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("caption")
+    @Expose
+    private String caption;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("big_poster")
+    @Expose
+    private String bigPoster;
+    @SerializedName("small_poster")
+    @Expose
+    private String smallPoster;
+    @SerializedName("frame")
+    @Expose
+    private String frame;
+    @SerializedName("category_id")
+    @Expose
+    private Integer categoryId;
+    @SerializedName("create_date")
+    @Expose
+    private String createDate;
+    @SerializedName("update_date")
+    @Expose
+    private String updateDate;
+    @SerializedName("create_date_formatted")
+    @Expose
+    private String createDateFormatted;
+    @SerializedName("update_date_formatted")
+    @Expose
+    private String updateDateFormatted;
+    @SerializedName("is_bookmarked")
+    @Expose
+    private Boolean isBookmarked;
+    @SerializedName("likes")
+    @Expose
+    private Integer likes;
+    @SerializedName("is_liked")
+    @Expose
+    private Boolean isLiked;
+    @SerializedName("cover")
+    @Expose
+    private String cover;
 
+    public String getCover()
+    {
+        return cover;
+    }
 
-public String getTitle() {
-return title;
-}
+    public void setCover(String cover)
+    {
+        this.cover = cover;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
 
 public void setTitle(String title) {
 this.title = title;

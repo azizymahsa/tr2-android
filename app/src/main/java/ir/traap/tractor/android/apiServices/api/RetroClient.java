@@ -104,18 +104,28 @@ public interface RetroClient
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
 
+    /*videos*/
     @GET(Const.Get_Main_Video)
     Single<Response<WebServiceClass<MainVideosResponse>>> getMainVideos();
 
     @GET(Const.Get_Category_By_Id_Video)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
             @Path("id") Integer categoryId
-            );
-
+    );
     @POST(Const.Like_Video)
     Single<Response<WebServiceClass<LikeVideoResponse>>> likeVideo(
             @Path("id") Integer videoId
     );
+
+    /*photos*/
+    @GET(Const.Get_Main_Photo)
+    Single<Response<WebServiceClass<MainVideosResponse>>> getMainPhotos();
+
+    @GET(Const.Get_Category_By_Id_Photo)
+    Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(
+            @Path("id") Integer categoryId
+    );
+
 
 
     @GET(Const.GetMenuHelp)
