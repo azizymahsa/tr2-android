@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="@dimen/_150dp"
+    android:layout_height="@dimen/_100dp"
+    android:layoutDirection="ltr"
+    >
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivNewestVideo"
+        android:layout_width="@dimen/_260sdp"
+        android:layout_height="@dimen/_100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/gray"
+        android:adjustViewBounds="true"
+        android:layout_centerInParent="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="fitXY"
+        app:riv_corner_radius="15dp"
+        app:riv_mutate_background="true"
+        app:riv_oval="false"
+        />
+    <TextView
+        android:id="@+id/tvTitleVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_10dp"
+        android:layout_marginLeft="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_5dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize_10dp"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/ivNewestVideo"
+        />
+    <ImageView
+        android:layout_width="@dimen/_30dp"
+        android:layout_height="@dimen/_30dp"
+        android:src="@drawable/ic_play_video"
+        android:layout_centerInParent="true"
+        />
+
+</RelativeLayout>

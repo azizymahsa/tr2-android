@@ -46,6 +46,7 @@ import ir.traap.tractor.android.apiServices.model.league.pastResult.request.Requ
 import ir.traap.tractor.android.apiServices.model.league.pastResult.response.ResponsePastResult;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
+import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
 import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
@@ -110,6 +111,11 @@ public interface RetroClient
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
             @Path("id") Integer categoryId
             );
+
+    @POST(Const.Like_Video)
+    Single<Response<WebServiceClass<LikeVideoResponse>>> likeVideo(
+            @Path("id") Integer videoId
+    );
 
 
     @GET(Const.GetMenuHelp)

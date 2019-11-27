@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -31,6 +32,7 @@ import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryById
 import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideoRequest;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
+import ir.traap.tractor.android.ui.activities.video.VideoArchiveActivity;
 import ir.traap.tractor.android.ui.activities.video.VideoDetailActivity;
 import ir.traap.tractor.android.ui.adapters.video.NewestVideosAdapter;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
@@ -58,6 +60,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private ArrayList<Category> categoriesList;
     private int position=0;
     private Integer idVideo;
+    private Integer id;
+    private TextView tvArchiveVideo;
 
     public VideosFragment()
     {
@@ -99,6 +103,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
+        tvArchiveVideo=rootView.findViewById(R.id.tvArchiveVideo);
         rvCategories = rootView.findViewById(R.id.rvCategories);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         rvCategoryTitles.setLayoutManager(layoutManager);
@@ -106,6 +111,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         ivFavorite1.setOnClickListener(this);
         ivFavorite2.setOnClickListener(this);
         ivFavorite3.setOnClickListener(this);
+        tvArchiveVideo.setOnClickListener(this);
         LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
         rvCategories.setLayoutManager(layoutManagerCategory);
         requestMainVideos();
@@ -258,33 +264,42 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             case R.id.ivFavorite1:
                 categoriesList=mainVideosResponse.getFavorites();
                 position=0;
-                idVideo=mainVideosResponse.getFavorites().get(0).getCategoryId();
-              openVideoDetail(categoriesList,position,idVideo);
+                idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
+                id=mainVideosResponse.getFavorites().get(position).getId();
+              openVideoDetail(categoriesList,position,idVideo,id);
                 break;
 
             case R.id.ivFavorite2:
                 categoriesList=mainVideosResponse.getFavorites();
                 position=1;
                 idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
-                openVideoDetail(categoriesList,position,idVideo);
+                id=mainVideosResponse.getFavorites().get(position).getId();
+                openVideoDetail(categoriesList,position,idVideo,id);
                 break;
 
             case R.id.ivFavorite3:
                 categoriesList=mainVideosResponse.getFavorites();
                 position=2;
                 idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
-                openVideoDetail(categoriesList,position,idVideo);
+                id=mainVideosResponse.getFavorites().get(position).getId();
+                openVideoDetail(categoriesList,position,idVideo,id);
+                break;
+            case R.id.tvArchiveVideo:
+                ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
+                Intent intent = new Intent(getActivity(), VideoArchiveActivity.class);
+                intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
+                startActivity(intent);
                 break;
         }
     }
 
-    private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo)
+    private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo,Integer id)
     {
         Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Videos", categoriesList);
-       // intent.putExtra("Videos", (ArrayList) categoriesList);
-        intent.putExtra("IdVideo",idVideo);
+        intent.putExtra("IdVideoCategory",idVideo);
+        intent.putExtra("IdVideo",id);
         intent.putExtra("positionVideo",position);
 
         startActivity(intent);
@@ -294,13 +309,13 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     public void onItemNewestVideoClick(int position, Category category)
     {
         categoriesList=mainVideosResponse.getRecent();
-        openVideoDetail(categoriesList,position,category.getCategoryId());
+        openVideoDetail(categoriesList,position,category.getCategoryId(),category.getId());
     }
 
     @Override
     public void onItemCategoryClick(int position, Category category, ArrayList<Category> categories)
     {
         categoriesList=categories;
-        openVideoDetail(categoriesList,position,category.getCategoryId());
+        openVideoDetail(categoriesList,position,category.getCategoryId(),category.getId());
     }
 }

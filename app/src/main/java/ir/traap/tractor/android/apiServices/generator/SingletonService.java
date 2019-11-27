@@ -30,6 +30,7 @@ import ir.traap.tractor.android.apiServices.part.GetShetabCardInfoService;
 import ir.traap.tractor.android.apiServices.part.GetTicketInfoService;
 import ir.traap.tractor.android.apiServices.part.GetVersionService;
 import ir.traap.tractor.android.apiServices.part.HotelService;
+import ir.traap.tractor.android.apiServices.part.LikeVideoService;
 import ir.traap.tractor.android.apiServices.part.LiveScoreService;
 import ir.traap.tractor.android.apiServices.part.LoginService;
 import ir.traap.tractor.android.apiServices.part.MerchantService;
@@ -110,6 +111,11 @@ public class SingletonService
     public GetCardListService getCardListService()
     {
         return new GetCardListService(serviceGenerator);
+    }
+
+    public LikeVideoService getLikeVideoService()
+    {
+        return new LikeVideoService(serviceGenerator);
     }
 
     public GetMatchListService getMatchListService()

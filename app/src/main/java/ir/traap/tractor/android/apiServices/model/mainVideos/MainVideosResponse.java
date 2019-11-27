@@ -13,7 +13,7 @@ public class MainVideosResponse
 {
     @SerializedName("list_categories")
     @Expose
-    private List<ListCategory> listCategories = null;
+    private ArrayList<ListCategory> listCategories = null;
 
     @SerializedName("recent")
     @Expose
@@ -52,11 +52,11 @@ public class MainVideosResponse
         this.favorites = favorites;
     }
 
-    public List<ListCategory> getListCategories() {
+    public ArrayList<ListCategory> getListCategories() {
         return listCategories;
     }
 
-    public void setListCategories(List<ListCategory> listCategories) {
+    public void setListCategories(ArrayList<ListCategory> listCategories) {
         this.listCategories = listCategories;
     }
 }
