@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:orientation="vertical"
-android:layout_width="@dimen/_150dp"
-android:layout_height="@dimen/_100dp"
-android:layoutDirection="ltr"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="@dimen/_150dp"
+    android:layout_height="@dimen/_100dp"
+    android:layoutDirection="ltr"
     >
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/ivNewestVideo"
+        android:id="@+id/ivArchiveVideo"
         android:layout_width="@dimen/_260sdp"
         android:layout_height="@dimen/_100dp"
         android:layout_alignParentLeft="true"
@@ -22,41 +22,6 @@ android:layoutDirection="ltr"
         app:riv_mutate_background="true"
         app:riv_oval="false"
         />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10dp"
-        android:layout_marginEnd="@dimen/_10dp"
-        android:layout_alignLeft="@+id/ivNewestVideo"
-        android:layout_alignParentTop="true"
-        >
-        <TextView
-            android:id="@+id/tvLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/_5dp"
-            android:text=""
-            android:layout_centerInParent="true"
-            android:textColor="@color/g_txt_white"
-            android:textSize="@dimen/textSize_12dp"
-            android:layout_toRightOf="@id/imgLike"
-
-
-            />
-        <ImageView
-            android:id="@+id/imgLike"
-            android:layout_width="@dimen/_30dp"
-            android:layout_height="@dimen/_30dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="5dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_like_white"
-            />
-    </RelativeLayout>
-
     <TextView
         android:id="@+id/tvTitleVideo"
         android:layout_width="wrap_content"

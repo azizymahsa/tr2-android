@@ -46,6 +46,7 @@ import ir.traap.tractor.android.apiServices.model.league.pastResult.request.Requ
 import ir.traap.tractor.android.apiServices.model.league.pastResult.response.ResponsePastResult;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
+import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
 import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
@@ -111,6 +112,10 @@ public interface RetroClient
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
             @Path("id") Integer categoryId
     );
+    @POST(Const.Like_Video)
+    Single<Response<WebServiceClass<LikeVideoResponse>>> likeVideo(
+            @Path("id") Integer videoId
+    );
 
     /*photos*/
     @GET(Const.Get_Main_Photo)
@@ -120,6 +125,8 @@ public interface RetroClient
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(
             @Path("id") Integer categoryId
     );
+
+
 
     @GET(Const.GetMenuHelp)
     Single<Response<WebServiceClass<GetMenuHelpResponse>>> getMenuHelp();
@@ -147,6 +154,7 @@ public interface RetroClient
     Single<Response<WebServiceClass<ResponsePaymentWallet>>> paymentWallet(
             @Body PaymentMatchRequest request
     );
+
 
 
     @POST(Const.GetBillCodePayCode)
@@ -370,7 +378,7 @@ public interface RetroClient
             @Body SendPredictRequest request
     );
 
-    @GET(Const.GET_RULES + "{id}/stadium_rules/")
+    @GET(Const.GET_RULES +"{id}/stadium_rules/")
     Single<Response<WebServiceClass<ResponseStadiumRules>>> getRulsStadium(
             @Path("id") Integer id
     );

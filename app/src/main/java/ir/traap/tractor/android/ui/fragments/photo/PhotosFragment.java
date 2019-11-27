@@ -19,6 +19,7 @@ import com.example.moeidbannerlibrary.banner.BannerLayout;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
@@ -27,6 +28,7 @@ import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
+import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Favorite;
 import ir.traap.tractor.android.apiServices.model.mainVideos.ListCategory;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideoRequest;
@@ -163,7 +165,7 @@ public class PhotosFragment extends BaseFragment implements PhotosCategoryTitleA
     {
         if (!mainPhotosResponse.getFavorites().isEmpty())
         {
-            List<Favorite> favoriteList = mainPhotosResponse.getFavorites();
+            ArrayList<Category> favoriteList = mainPhotosResponse.getFavorites();
             setImageBackground(ivFavorite1, favoriteList.get(0).getCover().replace("\\", ""));
             setImageBackground(ivFavorite2, favoriteList.get(1).getCover().replace("\\", ""));
             setImageBackground(ivFavorite3, favoriteList.get(2).getCover().replace("\\", ""));

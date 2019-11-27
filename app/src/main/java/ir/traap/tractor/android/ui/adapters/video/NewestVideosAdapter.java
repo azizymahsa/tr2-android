@@ -16,6 +16,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Recent;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
@@ -26,15 +27,18 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
 {
     private final MainActionView mainView;
     private Context context;
-    private List<Recent> recent;
+    private List<Category> recent;
+    private NewestVideoListener listener;
 
 
 
 
-    public NewestVideosAdapter(List<Recent> recent, MainActionView mainView)
+
+    public NewestVideosAdapter(List<Category> recent, MainActionView mainView,NewestVideoListener listener)
     {
         this.recent=recent;
         this.mainView=mainView;
+        this.listener=listener;
     }
 
 
@@ -50,10 +54,18 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
     @Override
     public void onBindViewHolder(final NewestVideosAdapter.ViewHolder holder, final int position)
     {
-        Recent recentItem = recent.get(position);
+        Category recentItem = recent.get(position);
         holder.tvTitleVideo.setText(recentItem.getTitle());
         holder.tvLike.setText(recentItem.getLikes().toString());
         setImageBackground(holder.ivNewestVideo,recentItem.getBigPoster().replace("\\", ""));
+        holder.ivNewestVideo.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onItemNewestVideoClick(position,recentItem);
+            }
+        });
 
     }
 
@@ -102,6 +114,10 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
             tvLike=v.findViewById(R.id.tvLike);
 
         }
+    }
+
+    public interface NewestVideoListener {
+        void onItemNewestVideoClick(int position, Category category);
     }
 
 }

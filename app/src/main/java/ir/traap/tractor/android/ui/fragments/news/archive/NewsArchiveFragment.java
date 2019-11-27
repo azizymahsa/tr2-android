@@ -131,8 +131,8 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
         for (int i = 0; i < tabLayout.getTabCount(); i++)
         {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(adapter.getTabView(i));
+          /*  TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(adapter.getTabView(i));*/
         }
 
         pager.setCurrentItem(newsArchiveCategoryList.size()-1);

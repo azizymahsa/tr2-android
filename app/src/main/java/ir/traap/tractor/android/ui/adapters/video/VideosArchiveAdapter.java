@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.adapters.photo;
+package ir.traap.tractor.android.ui.adapters.video;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,51 +14,51 @@ import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
-import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
-import ir.traap.tractor.android.apiServices.model.mainVideos.Recent;
+import ir.traap.tractor.android.apiServices.model.archiveVideo.ArchiveVideo;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 /**
- * Created by MahtabAzizi on 11/23/2019.
+ * Created by MahtabAzizi on 11/27/2019.
  */
-public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapter.ViewHolder>
+public class VideosArchiveAdapter extends RecyclerView.Adapter<VideosArchiveAdapter.ViewHolder>
 {
-    private final MainActionView mainView;
     private Context context;
-    private ArrayList<Category> recent;
+    private List<ArchiveVideo> recent;
+    private ArchiveVideoListener listener;
 
-
-
-
-    public NewestPhotosAdapter(ArrayList<Category> recent, MainActionView mainView)
+    public VideosArchiveAdapter(List<ArchiveVideo> recent,ArchiveVideoListener listener)
     {
         this.recent=recent;
-        this.mainView=mainView;
+        this.listener=listener;
     }
 
 
-
-
     @Override
-    public NewestPhotosAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
+    public VideosArchiveAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
     {
         this.context = parent.getContext();
-        return new NewestPhotosAdapter.ViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.list_item_newest_video, parent, false));
+        return new VideosArchiveAdapter.ViewHolder(LayoutInflater.from(context)
+                .inflate(R.layout.list_item_archive_video, parent, false));
     }
 
 
     @Override
-    public void onBindViewHolder(final NewestPhotosAdapter.ViewHolder holder, final int position)
+    public void onBindViewHolder(final VideosArchiveAdapter.ViewHolder holder, final int position)
     {
-        Category recentItem = recent.get(position);
+        ArchiveVideo recentItem = recent.get(position);
         holder.tvTitleVideo.setText(recentItem.getTitle());
-     //   holder.tvLike.setText(recentItem.getLikes().toString());
-        setImageBackground(holder.ivNewestVideo,recentItem.getCover().replace("\\", ""));
+        setImageBackground(holder.ivArchiveVideo,recentItem.getBigPoster().replace("\\", ""));
+        holder.ivArchiveVideo.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onItemArchiveVideoClick(position,recentItem);
+            }
+        });
 
     }
 
@@ -96,21 +96,20 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        public RoundedImageView ivNewestVideo;
-        public TextView tvTitleVideo,tvLike;
-        public ImageView imgLike;
+        public RoundedImageView ivArchiveVideo;
+        public TextView tvTitleVideo;
 
         public ViewHolder(View v)
         {
             super(v);
             tvTitleVideo=v.findViewById(R.id.tvTitleVideo);
-            ivNewestVideo=v.findViewById(R.id.ivNewestVideo);
-            tvLike=v.findViewById(R.id.tvLike);
-            imgLike=v.findViewById(R.id.imgLike);
-            tvLike.setVisibility(View.GONE);
-            imgLike.setVisibility(View.GONE);
+            ivArchiveVideo=v.findViewById(R.id.ivArchiveVideo);
 
         }
+    }
+
+    public interface ArchiveVideoListener {
+        void onItemArchiveVideoClick(int position, ArchiveVideo category);
     }
 
 }

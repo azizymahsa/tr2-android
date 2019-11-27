@@ -92,13 +92,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory,android:supportsRtl">
-        <activity android:name=".ui.activities.news.archive.NewsArchiveActivity"/>
-        <activity android:name=".ui.activities.video.VideoDetailActivity"/>
-        <activity android:name=".ui.activities.video.VideoActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- android:appComponentFactory="whateverString" -->
+        <activity android:name=".ui.activities.video.VideoArchiveActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activities.news.archive.NewsArchiveActivity" />
+        <activity android:name=".ui.activities.video.VideoDetailActivity"
+            android:screenOrientation="portrait" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD0Sz5c524BMxUW_YzlRW7K7g8R1jrzD7o" />

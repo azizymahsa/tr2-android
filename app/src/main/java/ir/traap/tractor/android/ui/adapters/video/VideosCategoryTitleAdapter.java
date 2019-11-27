@@ -20,7 +20,7 @@ import ir.traap.tractor.android.ui.fragments.main.MainActionView;
  */
 public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCategoryTitleAdapter.ViewHolder>
 {
-    private final MainActionView mainView;
+    private  MainActionView mainView;
     private Context context;
     private List<ListCategory> categories;
     private TitleCategoryListener listener;
@@ -32,6 +32,11 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
         this.listener=listener;
         this.categories=categories;
         this.mainView=mainView;
+    }
+    public VideosCategoryTitleAdapter(List<ListCategory> categories,TitleCategoryListener listener)
+    {
+        this.listener=listener;
+        this.categories=categories;
     }
 
 
