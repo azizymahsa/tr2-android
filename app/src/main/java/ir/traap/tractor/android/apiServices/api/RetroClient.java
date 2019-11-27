@@ -6,6 +6,7 @@ import ir.traap.tractor.android.apiServices.model.GlobalResponse;
 import ir.traap.tractor.android.apiServices.model.GlobalResponse2;
 import ir.traap.tractor.android.apiServices.model.GlobalResponse3;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
+import ir.traap.tractor.android.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import ir.traap.tractor.android.apiServices.model.billPayment.request.BillPaymentRequest;
 import ir.traap.tractor.android.apiServices.model.billPayment.response.BillPaymentResponse;
 import ir.traap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
@@ -117,6 +118,8 @@ public interface RetroClient
             @Path("id") Integer videoId
     );
 
+    @GET(Const.Archive_Video)
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchiveVideos();
 
     @GET(Const.GetMenuHelp)
     Single<Response<WebServiceClass<GetMenuHelpResponse>>> getMenuHelp();

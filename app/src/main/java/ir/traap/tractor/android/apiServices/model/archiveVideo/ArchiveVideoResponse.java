@@ -3,7 +3,10 @@ package ir.traap.tractor.android.apiServices.model.archiveVideo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
 
 /**
  * Created by MahtabAzizi on 11/27/2019.
@@ -21,7 +24,7 @@ public class ArchiveVideoResponse
     private Object previous;
     @SerializedName("results")
     @Expose
-    private List<ArchiveVideo> results = null;
+    private ArrayList<Category> results = null;
 
     public Integer getCount() {
         return count;
@@ -47,11 +50,11 @@ public class ArchiveVideoResponse
         this.previous = previous;
     }
 
-    public List<ArchiveVideo> getResults() {
+    public ArrayList<Category> getResults() {
         return results;
     }
 
-    public void setResults(List<ArchiveVideo> results) {
+    public void setResults(ArrayList<Category> results) {
         this.results = results;
     }
 
