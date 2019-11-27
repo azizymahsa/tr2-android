@@ -127,6 +127,7 @@ public class Const
     //photos
     public final static String Get_Main_Photo = SubBASEURL + "v1/photo/photo_main/";
     public final static String Get_Category_By_Id_Photo = SubBASEURL + "v1/photo/{id}/recent_by_category/";
+    public final static String Archive_Photo=SubBASEURL+"v1/photo/";
 
     //News
     public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";
