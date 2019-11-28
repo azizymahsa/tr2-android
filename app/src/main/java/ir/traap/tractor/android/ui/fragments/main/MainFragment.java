@@ -170,279 +170,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         return rootView;
     }
 
-    public void showIntro(List<ResultHelpMenu> results)
-    {
-        try
-        {
-            nestedScroll.scrollTo(0, 0);
-        } catch (Exception e)
-        {
-
-        }
-
-        helpMenuResult = results;
-
-        YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
-        {
-            @Override
-            public void onAnimationEnd(Animator animation)
-            {
-                super.onAnimationEnd(animation);
-                rlIntro.setVisibility(View.GONE);
-                Utility.disableEnableControls(true, llRoot);
-
-                for (int i = 0; i < results.size(); i++)
-                {
-                    if (results.get(i).getCode() == 1)
-                    {
-
-                        intro(imgMenu, results.get(i).getTitle(), results.get(i).getDescription(), 1);
-
-                    }
-                }
-
-
-            }
-        })
-                .duration(500)
-                .playOn(rlIntro);
-    }
-
-    public void requestGetHelpMenu()
-    {
-        GetMenuHelpRequest request = new GetMenuHelpRequest();
-        SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>()
-        {
-            @Override
-            public void onReady(WebServiceClass<GetMenuHelpResponse> response)
-            {
-                try
-                {
-
-                    if (response.info.statusCode == 200)
-                    {
-
-                        showIntro(response.data.getResults());
-
-                    } else
-                    {
-                        Utility.disableEnableControls(true, llRoot);
-                        Tools.showToast(getContext(), response.info.message, R.color.red);
-                    }
-                } catch (Exception e)
-                {
-                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
-
-                }
-            }
-
-            @Override
-            public void onError(String message)
-            {
-                Utility.disableEnableControls(true, llRoot);
-
-                Tools.showToast(getActivity(), message, R.color.red);
-            }
-        }, request);
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        if (Prefs.getBoolean("intro", true))
-        {
-            GetMenuHelpRequest request = new GetMenuHelpRequest();
-            SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>()
-            {
-                @Override
-                public void onReady(WebServiceClass<GetMenuHelpResponse> response)
-                {
-                    try
-                    {
-
-                        if (response.info.statusCode == 200)
-                        {
-
-                            startIntro(response.data.getResults());
-
-                        } else
-                        {
-                            Utility.disableEnableControls(true, llRoot);
-                            Tools.showToast(getContext(), response.info.message, R.color.red);
-                        }
-                    } catch (Exception e)
-                    {
-                        Tools.showToast(getContext(), e.getMessage(), R.color.red);
-
-                    }
-                }
-
-                @Override
-                public void onError(String message)
-                {
-                    Utility.disableEnableControls(true, llRoot);
-
-                    Tools.showToast(getActivity(), message, R.color.red);
-                }
-            }, request);
-
-        } else
-        {
-
-            Utility.disableEnableControls(true, llRoot);
-
-        }
-
-    }
-
-    private void startIntro(List<ResultHelpMenu> results)
-    {
-        // onHome();
-
-        Prefs.putBoolean("intro", false);
-        helpMenuResult = results;
-        tvShowIntro.setOnClickListener(view ->
-        {
-            showIntro(results);
-        });
-        tvCancelIntro.setOnClickListener(view ->
-        {
-            YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
-            {
-                @Override
-                public void onAnimationEnd(Animator animation)
-                {
-                    super.onAnimationEnd(animation);
-                    Utility.disableEnableControls(true, llRoot);
-                    rlIntro.setVisibility(View.GONE);
-
-
-                }
-            })
-                    .duration(500)
-                    .playOn(rlIntro);
-        });
-
-
-        tvIntroTitle.setText("سلام " + Prefs.getString("firstName", "") + " " + Prefs.getString("lastName", "") + " خوش آمدید!");
-        new Handler().postDelayed(() ->
-        {
-            rlIntro.setVisibility(View.VISIBLE);
-            YoYo.with(Techniques.FadeIn)
-                    .duration(500)
-                    .playOn(rlIntro);
-        }, 1000);
-
-
-    }
-
-    private void intro(View view, String title, String text, final int type)
-    {
-
-        new GuideView.Builder(getContext())
-                .setTitle(title)
-                .setContentText(text)
-                .setTargetView(view)
-                /* .setTitleTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))
-                 .setContentTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))*/
-                .setDismissType(DismissType.anywhere)
-                .setContentTextSize(12)//optional
-                .setTitleTextSize(14)//optional
-                .setGuideListener(view1 ->
-                {
-                    try
-                    {
-                        for (int i = 0; i < helpMenuResult.size(); i++)
-                        {
-                            if (type == 1)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 2)
-                                {
-                                    intro(btnBuyTicket, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 2);
-                                }
-                            } else if (type == 2)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 3)
-                                {
-                                    intro(sliderRecyclerView, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 3);
-                                }
-                            } else if (type == 3)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 4)
-                                {
-                                    intro(getActivity().findViewById(R.id.tab_all_services), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 4);
-                                }
-                            } else if (type == 4)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 5)
-                                {
-                                    intro(getActivity().findViewById(R.id.tab_media), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 5);
-                                }
-                            } else if (type == 5)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 6)
-                                {
-                                    intro(getActivity().findViewById(R.id.tab_payment), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 6);
-                                }
-                            } else if (type == 6)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 7)
-                                {
-                                    intro(getActivity().findViewById(R.id.tab_market), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 7);
-                                }
-                            } else if (type == 7)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 8)
-                                {
-                                    intro(rlPredict, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 8);
-                                }
-                            } else if (type == 8)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 9)
-                                {
-                                    int iFromService = i;
-                                    try
-                                    {
-                                        focusOnServiceViewList();
-                                        new Handler().postDelayed(() ->
-                                        {
-                                            intro(recyclerView, helpMenuResult.get(iFromService).getTitle(), helpMenuResult.get(iFromService).getDescription(), 9);
-
-                                        }, 1000);
-                                    } catch (Exception e)
-                                    {
-
-                                    }
-
-
-                                }
-                            }
-
-                        }
-
-                    } catch (Exception e)
-                    {
-
-                    }
-
-                })
-                .build()
-                .show();
-    }
-
-    private final void focusOnServiceViewList()
-    {
-        nestedScroll.post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                nestedScroll.scrollTo(0, recyclerView.getBottom());
-            }
-        });
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
@@ -465,7 +192,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         adapter = new MainServiceModelAdapter(getActivity(), list, this);
         recyclerView.setAdapter(adapter);
-
     }
 
     private void initView(View rootView)
@@ -478,7 +204,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         rlIntro = rootView.findViewById(R.id.rlIntro);
         tvIntroTitle = rootView.findViewById(R.id.tvIntroTitle);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
-
 
         nestedScroll = rootView.findViewById(R.id.nestedScroll);
         imgMenu = mToolbar.findViewById(R.id.imgMenu);
@@ -931,6 +656,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onReady(WebServiceClass<MachListResponse> responseMatchList)
     {
+        mainView.hideLoading();
+
         if (responseMatchList == null || responseMatchList.info == null)
         {
             startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -944,15 +671,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             getActivity().finish();
 
             return;
-        } else
+        }
+        else
         {
             matchList = responseMatchList.data.getMatchList();
             MainActivity.matchList = matchList;
 
             setSlider();
         }
-
-//        mainView.hideLoading();
     }
 
     @Override
@@ -969,4 +695,234 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         mainView.onLeageClick(matchList);
     }
+
+    public void showIntro(List<ResultHelpMenu> results)
+    {
+        try
+        {
+            nestedScroll.scrollTo(0, 0);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        helpMenuResult = results;
+
+        YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
+        {
+            @Override
+            public void onAnimationEnd(Animator animation)
+            {
+                super.onAnimationEnd(animation);
+                rlIntro.setVisibility(View.GONE);
+                Utility.disableEnableControls(true, llRoot);
+
+                for (int i = 0; i < results.size(); i++)
+                {
+                    if (results.get(i).getCode() == 1)
+                    {
+                        intro(imgMenu, results.get(i).getTitle(), results.get(i).getDescription(), 1);
+                    }
+                }
+            }
+        })
+                .duration(500)
+                .playOn(rlIntro);
+    }
+
+    public void requestGetHelpMenu()
+    {
+        GetMenuHelpRequest request = new GetMenuHelpRequest();
+        SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetMenuHelpResponse> response)
+            {
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        showIntro(response.data.getResults());
+                    }
+                    else
+                    {
+                        Utility.disableEnableControls(true, llRoot);
+                        showError(getActivity(), response.info.message);
+                    }
+                }
+                catch (Exception e)
+                {
+                    showError(getActivity(), e.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                Utility.disableEnableControls(true, llRoot);
+
+                showError(getActivity(), message);
+            }
+        }, request);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (Prefs.getBoolean("intro", true))
+        {
+            requestGetHelpMenu();
+
+        }
+        else
+        {
+            Utility.disableEnableControls(true, llRoot);
+        }
+    }
+
+
+    private void startIntro(List<ResultHelpMenu> results)
+    {
+        // onHome();
+
+        Prefs.putBoolean("intro", false);
+        helpMenuResult = results;
+        tvShowIntro.setOnClickListener(view ->
+        {
+            showIntro(results);
+        });
+        tvCancelIntro.setOnClickListener(view ->
+        {
+            YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
+            {
+                @Override
+                public void onAnimationEnd(Animator animation)
+                {
+                    super.onAnimationEnd(animation);
+                    Utility.disableEnableControls(true, llRoot);
+                    rlIntro.setVisibility(View.GONE);
+                }
+            })
+                    .duration(500)
+                    .playOn(rlIntro);
+        });
+
+
+        tvIntroTitle.setText("سلام " + Prefs.getString("firstName", "") + " " + Prefs.getString("lastName", "") + " خوش آمدید!");
+        new Handler().postDelayed(() ->
+        {
+            rlIntro.setVisibility(View.VISIBLE);
+            YoYo.with(Techniques.FadeIn)
+                    .duration(500)
+                    .playOn(rlIntro);
+        }, 1000);
+    }
+
+    private void intro(View view, String title, String text, final int type)
+    {
+        new GuideView.Builder(getContext())
+                .setTitle(title)
+                .setContentText(text)
+                .setTargetView(view)
+                /* .setTitleTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))
+                 .setContentTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"))*/
+                .setDismissType(DismissType.anywhere)
+                .setContentTextSize(12)//optional
+                .setTitleTextSize(14)//optional
+                .setGuideListener(view1 ->
+                {
+                    try
+                    {
+                        for (int i = 0; i < helpMenuResult.size(); i++)
+                        {
+                            if (type == 1)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 2)
+                                {
+                                    intro(btnBuyTicket, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 2);
+                                }
+                            } else if (type == 2)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 3)
+                                {
+                                    intro(sliderRecyclerView, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 3);
+                                }
+                            } else if (type == 3)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 4)
+                                {
+                                    intro(getActivity().findViewById(R.id.tab_all_services), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 4);
+                                }
+                            } else if (type == 4)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 5)
+                                {
+                                    intro(getActivity().findViewById(R.id.tab_media), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 5);
+                                }
+                            } else if (type == 5)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 6)
+                                {
+                                    intro(getActivity().findViewById(R.id.tab_payment), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 6);
+                                }
+                            } else if (type == 6)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 7)
+                                {
+                                    intro(getActivity().findViewById(R.id.tab_market), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 7);
+                                }
+                            } else if (type == 7)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 8)
+                                {
+                                    intro(rlPredict, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 8);
+                                }
+                            } else if (type == 8)
+                            {
+                                if (helpMenuResult.get(i).getCode() == 9)
+                                {
+                                    int iFromService = i;
+                                    try
+                                    {
+                                        focusOnServiceViewList();
+                                        new Handler().postDelayed(() ->
+                                        {
+                                            intro(recyclerView, helpMenuResult.get(iFromService).getTitle(), helpMenuResult.get(iFromService).getDescription(), 9);
+
+                                        }, 1000);
+                                    } catch (Exception e)
+                                    {
+
+                                    }
+
+
+                                }
+                            }
+
+                        }
+
+                    } catch (Exception e)
+                    {
+
+                    }
+
+                })
+                .build()
+                .show();
+    }
+
+    private final void focusOnServiceViewList()
+    {
+        nestedScroll.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                nestedScroll.scrollTo(0, recyclerView.getBottom());
+            }
+        });
+    }
+
 }

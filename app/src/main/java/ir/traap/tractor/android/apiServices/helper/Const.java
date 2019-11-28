@@ -132,6 +132,7 @@ public class Const
     public final static String Like_Photo=SubBASEURL+"v1/photo/{id}/like/";
 
     //News
+    public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";
     public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";
     public final static String Get_NEWS_ARCHIVE_CATEGORY = SubBASEURL + "v1/news/category/";
 

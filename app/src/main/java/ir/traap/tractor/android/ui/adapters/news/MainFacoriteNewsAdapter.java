@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,22 +18,18 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
-import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
-import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListById;
 import ir.traap.tractor.android.apiServices.model.news.main.News;
-import ir.traap.tractor.android.utilities.Logger;
 
-public class NewsArchiveAdapter extends RecyclerView.Adapter<NewsArchiveAdapter.ViewHolder>
+public class MainFacoriteNewsAdapter extends RecyclerView.Adapter<MainFacoriteNewsAdapter.ViewHolder>
 {
     private OnSliderItemClickListener mItemClickListener;
     private Context mContext;
     private List<News> list;
 
-    public NewsArchiveAdapter(Context mContext, List<News> list)
+    public MainFacoriteNewsAdapter(Context mContext, List<News> list)
     {
         this.mContext = mContext;
         this.list = list;
-        Logger.e("+++ adapter size +++", "size=" + list.size());
     }
 
     @NonNull
@@ -43,7 +37,7 @@ public class NewsArchiveAdapter extends RecyclerView.Adapter<NewsArchiveAdapter.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.adapter_news_archive, null);
+                R.layout.adapter_main_favorite_news_item, null);
 
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 
@@ -54,26 +48,22 @@ public class NewsArchiveAdapter extends RecyclerView.Adapter<NewsArchiveAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        News item = list.get(position);
+        News news = list.get(position);
 
-        if (item.getCreateDate() != null)
+        if (news.getTitle() != null)
         {
-            holder.tvDate.setText(item.getCreateDate());
+            holder.tvTitle.setText(news.getTitle());
         }
 
-        if (item.getTitle() != null)
+        if (news.getImageName().getThumbnailLarge() != null)
         {
-            holder.tvTitle.setText(item.getTitle());
+            setImageBackground(holder.progress, holder.imgBackground, news.getImageName().getThumbnailLarge());
         }
 
-        if (item.getImageName() != null)
-        {
-            setImageBackground(holder.progress, holder.imageView, item.getImageName().getThumbnailSmall());
-        }
     }
 
 
-    private void setImageBackground(ProgressBar progress, ImageView imageView, String link)
+    private void setImageBackground(ProgressBar progressBar, ImageView imageView, String link)
     {
         try
         {
@@ -82,21 +72,21 @@ public class NewsArchiveAdapter extends RecyclerView.Adapter<NewsArchiveAdapter.
                 @Override
                 public void onSuccess()
                 {
-                    progress.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onError()
                 {
                     Picasso.with(mContext).load(R.drawable.img_failure).into(imageView);
-                    progress.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         }
         catch (NullPointerException e)
         {
             Picasso.with(mContext).load(R.drawable.img_failure).into(imageView);
-            progress.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -108,17 +98,19 @@ public class NewsArchiveAdapter extends RecyclerView.Adapter<NewsArchiveAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener
     {
-        private TextView tvTitle, tvDate;
-        private ImageView imageView;
+        private TextView tvTitle;
+        private ImageView imgBackground;
+//        private RelativeLayout llRoot;
         private ProgressBar progress;
 
         public ViewHolder(@NonNull View rootView)
         {
             super(rootView);
 
-            imageView = rootView.findViewById(R.id.image);
+//            llRoot = rootView.findViewById(R.id.root);
+            imgBackground = rootView.findViewById(R.id.image);
             tvTitle = rootView.findViewById(R.id.tvTitle);
-            tvDate = rootView.findViewById(R.id.tvDate);
+
             progress = rootView.findViewById(R.id.progress);
 
             rootView.setOnClickListener(this);
@@ -129,7 +121,7 @@ public class NewsArchiveAdapter extends RecyclerView.Adapter<NewsArchiveAdapter.
         {
             if (mItemClickListener != null)
             {
-                mItemClickListener.onSliderItemClick(list.get(getAdapterPosition()).getId(), list.get(getAdapterPosition()),  getAdapterPosition());
+                mItemClickListener.onSliderItemClick(view,  list.get(getAdapterPosition()).getId(), getAdapterPosition());
             }
         }
     }
@@ -137,7 +129,7 @@ public class NewsArchiveAdapter extends RecyclerView.Adapter<NewsArchiveAdapter.
 
     public interface OnSliderItemClickListener
     {
-        public void onSliderItemClick(Integer id, News newsArchiveContent, Integer position);
+        public void onSliderItemClick(View view, Integer id, Integer position);
     }
 
     public void SetOnItemClickListener(final OnSliderItemClickListener mItemClickListener)
