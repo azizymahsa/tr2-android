@@ -23,11 +23,11 @@ import ir.traap.tractor.android.apiServices.model.mainVideos.Recent;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 /**
- * Created by MahtabAzizi on 11/23/2019.
+ * Created by MahsaAzizi on 11/23/2019.
  */
 public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapter.ViewHolder>
 {
-    private final MainActionView mainView;
+    private  MainActionView mainView;
     private Context context;
     private ArrayList<Category> recent;
 
@@ -40,7 +40,11 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
         this.mainView=mainView;
     }
 
-
+    public NewestPhotosAdapter(ArrayList<Category> recent)
+    {
+        this.recent=recent;
+        // this.mainView=mainView;
+    }
 
 
     @Override
