@@ -51,6 +51,7 @@ import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
 import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import ir.traap.tractor.android.apiServices.model.news.main.NewsMainResponse;
 import ir.traap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import ir.traap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.traap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -397,6 +398,9 @@ public interface RetroClient
 
     @GET(Const.Get_NEWS_ARCHIVE_CATEGORY)
     Single<Response<WebServiceClass<NewsArchiveCategoryResponse>>> getNewsArchiveCategory();
+
+    @GET(Const.NEWS_MAIN)
+    Single<Response<WebServiceClass<NewsMainResponse>>> getNewsMain();
 
     @GET(Const.Get_NEWS_ARCHIVE_BY_ID)
     Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryById(

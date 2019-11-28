@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -124,6 +126,9 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
 
         adapter = new CardViewPagerAdapter(cardList, this);
         rvListCard.setAdapter(adapter);
+
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(rvListCard);
 
         indicator.attachToRecyclerView(rvListCard);
 
