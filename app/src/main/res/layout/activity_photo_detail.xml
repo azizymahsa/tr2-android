@@ -142,20 +142,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_alignParentBottom="true"
+                android:gravity="end"
+
                 android:background="@drawable/background_news_title">
 
                 <TextView
                     android:id="@+id/tvCaption"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:maxLines="2"
-                    android:text="عنوان"
-                    android:textColor="@color/textColorTitle"
-                    android:textSize="@dimen/textSize_12dp"
-                    android:textStyle="bold" />
+                    android:layout_marginRight="@dimen/_5dp"
+                    android:text="hfgjngjfjf"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/textSize_16dp" />
 
             </RelativeLayout>
 
