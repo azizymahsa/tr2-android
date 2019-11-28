@@ -1,5 +1,6 @@
 package ir.traap.tractor.android.ui.activities.photo;
 
+import android.app.AlertDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +8,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.example.moeidbannerlibrary.banner.BannerLayout;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
@@ -24,24 +29,35 @@ import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryById
 import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoRequest;
 import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
+import ir.traap.tractor.android.apiServices.model.photo.response.Content;
+import ir.traap.tractor.android.apiServices.model.photo.response.PhotosByIdResponse;
 import ir.traap.tractor.android.conf.TrapConfig;
+import ir.traap.tractor.android.ui.adapters.photo.AlbumDetailsItemAdapter;
+import ir.traap.tractor.android.ui.adapters.photo.NewestPhotosAdapter;
 import ir.traap.tractor.android.ui.base.BaseActivity;
+import ir.traap.tractor.android.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
 import ir.traap.tractor.android.utilities.Tools;
 import ir.traap.tractor.android.utilities.Utility;
 
-public class PhotoDetailActivity extends BaseActivity implements View.OnClickListener
+public class AlbumDetailActivity extends BaseActivity implements View.OnClickListener, AlbumDetailsItemAdapter.OnItemAllMenuClickListener
 {
-    private TextView tvTitle, tvUserName,tvPopularPlayer,tvDate,tvTitleVideo,tvDesc,tvLike;
+    private TextView tvTitle, tvUserName, tvPopularPlayer, tvLike;
     private View imgBack, imgMenu;
-    private RoundedImageView ivVideo,ivRelated1,ivRelated2,ivRelated3,ivRelated4;
-    private ImageView imgBookmark,imgLike;
-    private int positionVideo,idVideoCategory;
+    private RoundedImageView ivPhoto;
+    private ImageView imgBookmark, imgLike;
+    private int positionVideo, idVideoCategory;
     private ArrayList<Category> videosList;
     private Category videoItem;
-    private RelativeLayout rlVideo,rlLike;
+    private RelativeLayout rlLike;
     private String urlVideo;
     private int idVideo;
-    private Integer likeCount=0;
+    private Integer likeCount = 0;
+    private BannerLayout bRelatedAlbums;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+    private AlbumDetailsItemAdapter adapter;
+    private TextView titleAlbum, tvCaption;
+    private Integer idPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,9 +74,9 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
             {
 
                 videosList = extras.getParcelableArrayList("Photos");
-                idVideoCategory=extras.getInt("IdVideoCategory",0);
-                idVideo=extras.getInt("IdPhoto",0);
-                positionVideo=extras.getInt("positionPhoto",0);
+                idVideoCategory = extras.getInt("IdVideoCategory", 0);
+                idVideo = extras.getInt("IdPhoto", 0);
+                positionVideo = extras.getInt("positionPhoto", 0);
             }
         }
 
@@ -71,6 +87,11 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
     {
         try
         {
+            bRelatedAlbums = findViewById(R.id.bRelatedAlbums);
+            recyclerView = findViewById(R.id.recyclerView);
+            titleAlbum = findViewById(R.id.titleAlbum);
+            tvCaption = findViewById(R.id.tvCaption);
+
             tvTitle = findViewById(R.id.tvTitle);
             tvTitle.setText("محتوای یک عکس");
 
@@ -88,45 +109,98 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
             {
                 finish();
             });
+
+
         } catch (Exception e)
         {
 
         }
 
-        tvDate=findViewById(R.id.tvDate);
-        tvTitleVideo=findViewById(R.id.tvTitleVideo);
-        tvDesc=findViewById(R.id.tvDesc);
-        ivVideo=findViewById(R.id.ivVideo);
-        imgBookmark=findViewById(R.id.imgBookmark);
-        imgLike=findViewById(R.id.imgLike);
-        tvLike=findViewById(R.id.tvLike);
-        rlVideo=findViewById(R.id.rlVideo);
-        rlLike=findViewById(R.id.rlLike);
-        ivRelated1=findViewById(R.id.ivRelated1);
-        ivRelated2=findViewById(R.id.ivRelated2);
-        ivRelated3=findViewById(R.id.ivRelated3);
-        ivRelated4=findViewById(R.id.ivRelated4);
-
-        ivRelated1.setOnClickListener(this);
-        ivRelated2.setOnClickListener(this);
-        ivRelated3.setOnClickListener(this);
-        ivRelated4.setOnClickListener(this);
-
-        //imgLike.setOnClickListener(this);
+        ivPhoto = findViewById(R.id.ivPhoto);
+        imgBookmark = findViewById(R.id.imgBookmark);
+        imgLike = findViewById(R.id.imgLike);
+        tvLike = findViewById(R.id.tvLike);
+        rlLike = findViewById(R.id.rlLike);
+        rlLike.setOnClickListener(this);
 
         setDataItems();
 
-        requestGetRelatedVideos(idVideoCategory);
-        rlVideo.setOnClickListener(this);
-        rlLike.setOnClickListener(this);
+        requestGetRelatedVideos(idVideo);
 
+
+        sendRequestListPhotos(idVideo);
+
+
+    }
+
+    private void sendRequestListPhotos(int idVideoCategory)
+    {
+        CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
+
+        SingletonService.getInstance().categoryByIdVideosService().photosByIdPhotosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<PhotosByIdResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<PhotosByIdResponse> response)
+            {
+                //mainView.hideLoading();
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+
+                        setRelatedPhotosData(response.data);
+
+                    } else
+                    {
+                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                //  mainView.hideLoading();
+                Tools.showToast(getApplicationContext(), message, R.color.red);
+            }
+        });
+    }
+
+    private void setRelatedPhotosData(PhotosByIdResponse data)
+    {
+        //recycler
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        titleAlbum.setText(data.getTitle() + "");
+        tvCaption.setText(data.getCaption() + "");
+        for (int i = 0; i < data.getContent().size(); i++)
+        {
+            if (data.getContent().get(i).getIsCover())
+            {
+                setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
+                idPhoto=data.getContent().get(i).getId();
+                likeCount=data.getContent().get(i).getLikes();
+                tvLike.setText(likeCount + "");
+
+            }
+
+        }
+
+        adapter = new AlbumDetailsItemAdapter(this, data.getContent(), this);
+        recyclerView.setAdapter(adapter);
     }
 
     private void requestGetRelatedVideos(int idVideoCategory)
     {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
 
-        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idVideoCategory,request,new    OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
@@ -154,7 +228,7 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onError(String message)
             {
-              //  mainView.hideLoading();
+                //  mainView.hideLoading();
                 Tools.showToast(getApplicationContext(), message, R.color.red);
             }
         });
@@ -164,21 +238,27 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
     {
         if (!data.getResults().isEmpty())
         {
+            bRelatedAlbums.setAdapter(new NewestPhotosAdapter(data.getResults()));
             List<Category> relatedList = data.getResults();
-            setImageBackground(ivRelated1, relatedList.get(0).getBigPoster().replace("\\", ""));
-            setImageBackground(ivRelated2, relatedList.get(1).getBigPoster().replace("\\", ""));
-            setImageBackground(ivRelated3, relatedList.get(2).getBigPoster().replace("\\", ""));
-            setImageBackground(ivRelated4, relatedList.get(3).getBigPoster().replace("\\", ""));
+
+           /* for (int i = 0; i < relatedList.size(); i++)
+            {
+                // setImageBackground(ivRelated1, relatedList.get(i).getCover().replace("\\", ""));
+               *//* setImageBackground(ivRelated2, relatedList.get(1).getCover().replace("\\", ""));
+                setImageBackground(ivRelated3, relatedList.get(2).getCover().replace("\\", ""));
+                setImageBackground(ivRelated4, relatedList.get(3).getCover().replace("\\", ""));*//*
+            }*/
+
 
         }
     }
 
     private void setDataItems()
     {
-        videoItem=videosList.get(positionVideo);
+       // videoItem = videosList.get(positionVideo);
 
-      //  urlVideo=videoItem.getFrame().replace("\\", "");
-        tvLike.setText(videoItem.getLikes().toString());
+       /* urlVideo=videoItem.getFrame().replace("\\", "");
+       tvLike.setText(videoItem.getLikes().toString());
         likeCount=videoItem.getLikes();
         if (videoItem.getIsLiked()){
             imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
@@ -193,11 +273,11 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
             imgBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
         }else {
           imgBookmark.setColorFilter(getResources().getColor(R.color.gray));
-        }
-        tvDate.setText(videoItem.getCreateDateFormatted());
-        tvTitleVideo.setText(videoItem.getTitle());
-        tvDesc.setText(videoItem.getCaption());
-        setImageBackground(ivVideo,videoItem.getBigPoster().replace("\\", ""));
+        }*/
+        //  tvDate.setText(videoItem.getCreateDateFormatted()+"");
+        //  tvTitleVideo.setText(videoItem.getTitle()+"");
+        //  tvDesc.setText(videoItem.getCaption()+"");
+        // setImageBackground(ivPhoto,videoItem.getCover().replace("\\", ""));
     }
 
     private void setImageBackground(ImageView image, String link)
@@ -205,19 +285,8 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
         try
         {
             Glide.with(this).load(Uri.parse(link)).into(image);
-         /*   Picasso.with(getContext()).load(Uri.parse(link)).into(image, new Callback()
-            {
-                @Override
-                public void onSuccess() { }
 
-                @Override
-                public void onError()
-                {
-                    Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
-                }
-            });*/
-        }
-        catch (NullPointerException e)
+        } catch (NullPointerException e)
         {
             Picasso.with(this).load(R.drawable.img_failure).into(image);
         }
@@ -226,10 +295,11 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v)
     {
-        switch (v.getId()){
-            case R.id.rlVideo:
+        switch (v.getId())
+        {
+           /* case R.id.rlVideo:
                 playVideo(urlVideo);
-                break;
+                break;*/
             case R.id.rlLike:
                 imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                 tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
@@ -243,12 +313,12 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
         //rlLike.setClickable(false);
         LikeVideoRequest request = new LikeVideoRequest();
 
-        SingletonService.getInstance().getLikeVideoService().likeVideoService(idVideo,request,new    OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
+        SingletonService.getInstance().getLikeVideoService().likePhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<LikeVideoResponse> response)
             {
-               // rlLike.setClickable(true);
+                // rlLike.setClickable(true);
 
                 try
                 {
@@ -286,14 +356,15 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
         {
             imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
             tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
-            likeCount=likeCount+1;
-            tvLike.setText(likeCount+"");
+            likeCount = likeCount + 1;
+            tvLike.setText(likeCount + "");
 
-        }else {
+        } else
+        {
             imgLike.setColorFilter(getResources().getColor(R.color.gray));
             tvLike.setTextColor(getResources().getColor(R.color.gray));
-            likeCount=likeCount-1;
-            tvLike.setText(likeCount+"");
+            likeCount = likeCount - 1;
+            tvLike.setText(likeCount + "");
         }
         //tvLike.setText();
 
@@ -301,6 +372,22 @@ public class PhotoDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void playVideo(String urlVideo)
     {
-        Utility.openUrlCustomTab(this,urlVideo);
+        Utility.openUrlCustomTab(this, urlVideo);
+    }
+
+    @Override
+    public void OnItemAllMenuClick(View view, Integer id, Content content)
+    {
+        titleAlbum.setText(content.getTitle() + "");
+        tvCaption.setText(content.getCaption() + "");
+        idPhoto=content.getId();
+        likeCount=content.getLikes();
+        tvLike.setText(likeCount + "");
+
+        setImageBackground(ivPhoto, content.getImageName().getThumbnailLarge().replace("\\", ""));
+
+
+
+
     }
 }

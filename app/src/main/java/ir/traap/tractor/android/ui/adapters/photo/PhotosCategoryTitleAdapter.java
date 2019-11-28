@@ -8,10 +8,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.mainVideos.ListCategory;
+import ir.traap.tractor.android.ui.activities.photo.PhotoArchiveActivity;
 import ir.traap.tractor.android.ui.adapters.video.VideosCategoryTitleAdapter;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.photo.PhotosFragment;
@@ -21,6 +23,7 @@ import ir.traap.tractor.android.ui.fragments.photo.PhotosFragment;
  */
 public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCategoryTitleAdapter.ViewHolder>
 {
+    private  boolean flag=true;
     private  MainActionView mainView;
     private Context context;
     private List<ListCategory> categories;
@@ -39,6 +42,17 @@ public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCateg
         this.listener=listener;
         this.categories=categories;
     }
+
+
+
+    public PhotosCategoryTitleAdapter(ArrayList<ListCategory> categories, PhotoArchiveActivity mainView, boolean flag)
+    {
+      //  this.listener=listener;
+        this.categories=categories;
+        this.flag=flag;
+    }
+
+
 
 
     @Override
@@ -62,6 +76,7 @@ public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCateg
             public void onClick(View view) {
                 selectedPosition=position;
                 notifyDataSetChanged();
+                if(flag)
                 listener.onItemTitleCategoryClick(category);
             }
         });
