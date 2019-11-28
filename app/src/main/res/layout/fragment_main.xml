@@ -68,7 +68,7 @@
                     android:layout_below="@+id/sliderRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:layout_gravity="center|bottom"
                     android:layout_marginTop="5dp"
                     android:orientation="vertical">
@@ -230,6 +230,7 @@
                             android:layout_alignParentBottom="true"
                             android:gravity="start"
                             android:textStyle="bold"
+                            android:visibility="gone"
                             android:text="بزودی..."
                             android:layout_marginBottom="4dp"
                             android:layout_marginEnd="4dp"

@@ -55,6 +55,8 @@ import ir.traap.tractor.android.apiServices.model.getMyBill.GetMyBillRequest;
 import ir.traap.tractor.android.apiServices.model.getMyBill.GetMyBillResponse;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.enums.BarcodeType;
+import ir.traap.tractor.android.enums.MediaPosition;
+import ir.traap.tractor.android.enums.NewsParent;
 import ir.traap.tractor.android.models.dbModels.ArchiveCardDBModel;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.adapters.MyBillsAdapter;
@@ -1340,6 +1342,13 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     {
 
     }
+
+    @Override
+    public void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
 
     @Override
     public void onBill()

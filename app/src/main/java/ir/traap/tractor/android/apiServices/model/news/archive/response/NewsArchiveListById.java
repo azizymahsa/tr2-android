@@ -8,7 +8,6 @@ import lombok.Setter;
 
 public class NewsArchiveListById
 {
-
     @Expose @Getter @Setter
     @SerializedName("dislikes")
     private int dislikes;

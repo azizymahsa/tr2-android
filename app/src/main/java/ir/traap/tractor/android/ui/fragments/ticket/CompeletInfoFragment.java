@@ -30,7 +30,7 @@ import ir.traap.tractor.android.apiServices.model.paymentMatch.Viewers;
 import ir.traap.tractor.android.apiServices.model.stadium_rules.ResponseStadiumRules;
 import ir.traap.tractor.android.ui.dialogs.MessageAlertDialog;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
+import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGateWayFragment;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import ir.traap.tractor.android.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
 import ir.traap.tractor.android.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
@@ -1394,7 +1394,7 @@ public class CompeletInfoFragment
         paymentMatchRequest.setViewers(infoViewers);
 
         String title = "با انجام این پرداخت ، مبلغ" + Utility.priceFormat(Integer.toString(amountForPay)) + "ریال بابت خرید" + " " + count + " " + "بلیت بازی ازحساب شما کسر خواهد شد.";
-        SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(response.getUrl(), mainView, R.drawable.icon_payment_ticket,
+        SelectPaymentGateWayFragment fragment2 = new SelectPaymentGateWayFragment(response.getUrl(), mainView, R.drawable.icon_payment_ticket,
                 title, Utility.priceFormat(Integer.toString(amountForPay)),
                 paymentMatchRequest);
         FragmentManager fragmentManager = getFragmentManager();

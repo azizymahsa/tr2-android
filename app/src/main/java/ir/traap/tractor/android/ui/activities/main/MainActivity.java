@@ -47,8 +47,11 @@ import ir.traap.tractor.android.apiServices.model.getMenu.response.GetMenuItemRe
 import ir.traap.tractor.android.apiServices.model.getMenu.response.GetMenuResponse;
 import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
+import ir.traap.tractor.android.apiServices.model.news.main.NewsMainResponse;
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.enums.BarcodeType;
+import ir.traap.tractor.android.enums.MediaPosition;
+import ir.traap.tractor.android.enums.NewsParent;
 import ir.traap.tractor.android.models.dbModels.BankDB;
 import ir.traap.tractor.android.notification.NotificationJobService;
 import ir.traap.tractor.android.notification.PushMessageReceiver;
@@ -70,7 +73,11 @@ import ir.traap.tractor.android.ui.fragments.media.MediaFragment;
 import ir.traap.tractor.android.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import ir.traap.tractor.android.ui.fragments.myProfile.MyProfileFragment;
 import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
+import ir.traap.tractor.android.ui.fragments.news.NewsArchiveActionView;
+import ir.traap.tractor.android.ui.fragments.news.NewsMainActionView;
 import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
+import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainContentFragment;
+import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
@@ -88,11 +95,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         , SelectPositionFragment.OnListFragmentInteractionListener
 {
     private Boolean isMainFragment = true;
+    private Boolean isNewsFragment = false;
 
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
     public static ArrayList<MatchItem> matchList;
     public static ArrayList<GetMenuItemResponse> allServiceList;
+    public static NewsMainResponse newsMainResponse;
 
     private Realm realm;
 
@@ -108,7 +117,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
     private boolean hasPaymentTicket = false;
     private String refrenceNumber;
-    private Boolean isCompleteThreadMatch = false, isCompleteThreadAllServices = false;
+    private Boolean isCompleteThreadMatch = false;
+    private Boolean isCompleteThreadAllServices = false;
+    private Boolean isCompleteThreadNews = false;
     private ArrayList<MatchItem> matchBuyable;
 
 
@@ -199,7 +210,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        {
 //            View containerView = findViewById(R.id.fragment_navigation_menudrawer);
 //            DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
-//            mDrawerLayout.openDrawer(containerView);
+//            mDrawerLayout.openDrawerNews(containerView);
 //
 //        });
 
@@ -264,7 +275,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         setCheckedBNV(bottomNavigationView, 1);
                         isMainFragment = false;
 
-                        fragment = MediaFragment.newInstance(this);
+                        fragment = MediaFragment.newInstance(MediaPosition.News, this);
                         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -392,7 +403,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     /*    DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.END))
         {
-            drawer.closeDrawer(GravityCompat.END);
+            drawer.closeDrawerNews(GravityCompat.END);
         } else
         {
             if (isMainFragment)
@@ -584,10 +595,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void hideLoading()
     {
 //        new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 3000);
-        if (isCompleteThreadAllServices && isCompleteThreadMatch)
+        if (isCompleteThreadAllServices && isCompleteThreadMatch && isCompleteThreadNews)
         {
-            Logger.e("isCompleteThreadAllServices", String.valueOf(isCompleteThreadAllServices));
-            Logger.e("isCompleteThreadMatch", String.valueOf(isCompleteThreadMatch));
+//            Logger.e("isCompleteThreadAllServices", String.valueOf(isCompleteThreadAllServices));
+//            Logger.e("isCompleteThreadMatch", String.valueOf(isCompleteThreadMatch));
 
             findViewById(R.id.rlLoading).setVisibility(View.GONE);
         }
@@ -839,6 +850,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         setCheckedBNV(bottomNavigationView, 2);
 
         isMainFragment = true;
+        isNewsFragment = false;
         transaction = fragmentManager.beginTransaction();
 
         if (mainFragment != null)
@@ -882,11 +894,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             drawer.closeDrawer(GravityCompat.END);
         }
-//        showToast(this, "closeDrawer", R.color.gray);
+//        showToast(this, "closeDrawerNews", R.color.gray);
 //
 //        View containerView = findViewById(R.id.fragment_navigation_menudrawer);
 //        DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
-//        mDrawerLayout.closeDrawer(containerView);
+//        mDrawerLayout.closeDrawerNews(containerView);
     }
 
     @Override
@@ -950,24 +962,37 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onFootBallServiceOne()
     {
         isMainFragment = false;
-        this.fragment = NewsArchiveFragment.newInstance(new NewsActionView()
+        fragment = NewsMainFragment.newInstance(new NewsMainActionView()
         {
+            @Override
+            public void backToMainFragment()
+            {
+                MainActivity.this.backToMainFragment();
+            }
+
             @Override
             public void backToMainNewsFragment()
             {
-
+                openMainNewsFragment();
             }
 
             @Override
-            public void openDrawer()
+            public void onNewsArchiveFragment(NewsParent parent)
             {
+                onNewsArchiveClick(parent, MediaPosition.News);
+            }
 
+
+            @Override
+            public void openDrawerNews()
+            {
+                openDrawer();
             }
 
             @Override
-            public void closeDrawer()
+            public void closeDrawerNews()
             {
-
+                closeDrawer();
             }
 
             @Override
@@ -982,10 +1007,62 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             }
         });
-
         transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment,"newsArchiveCategoryFragment")
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, fragment, "newsMainFragment")
+                .commit();
+    }
+
+    private void openMainNewsFragment()
+    {
+        fragment = NewsMainFragment.newInstance(new NewsMainActionView()
+        {
+            @Override
+            public void backToMainFragment()
+            {
+                MainActivity.this.backToMainFragment();
+            }
+
+            @Override
+            public void backToMainNewsFragment()
+            {
+                openMainNewsFragment();
+            }
+
+            @Override
+            public void onNewsArchiveFragment(NewsParent parent)
+            {
+                onNewsArchiveClick(parent, MediaPosition.News);
+            }
+
+            @Override
+            public void openDrawerNews()
+            {
+                openDrawer();
+            }
+
+            @Override
+            public void closeDrawerNews()
+            {
+                closeDrawer();
+            }
+
+            @Override
+            public void showLoading()
+            {
+
+            }
+
+            @Override
+            public void hideLoading()
+            {
+
+            }
+        });
+        transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+        transaction.replace(R.id.main_container, fragment, "newsMainFragment")
                 .commit();
     }
 
@@ -1017,6 +1094,66 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onFootBallServiceSix()
     {
 
+    }
+
+    @Override
+    public void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition)
+    {
+        isMainFragment = false;
+        this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, new NewsArchiveActionView()
+        {
+            @Override
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
+                fragment = MediaFragment.newInstance(mediaPosition, MainActivity.this);
+                transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "mediaFragment")
+                        .commit();
+            }
+
+            @Override
+            public void backToMainNewsFragment()
+            {
+                openMainNewsFragment();
+            }
+
+            @Override
+            public void onNewsArchiveFragment(NewsParent parent)
+            {
+//                onNewsArchiveClick(NewsParent.MainFragment);
+            }
+
+            @Override
+            public void openDrawerNews()
+            {
+                openDrawer();
+            }
+
+            @Override
+            public void closeDrawerNews()
+            {
+                closeDrawer();
+            }
+
+            @Override
+            public void showLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
+        });
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment,"newsArchiveCategoryFragment")
+                .commit();
     }
 
     @Override
@@ -1157,6 +1294,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                    Prefs.clear();
                     isCompleteThreadAllServices = true;
                     isCompleteThreadMatch = true;
+                    isCompleteThreadNews = true;
                     hideLoading();
 
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -1169,6 +1307,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                    Prefs.clear();
                     isCompleteThreadAllServices = true;
                     isCompleteThreadMatch = true;
+                    isCompleteThreadNews = true;
                     hideLoading();
 
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -1225,6 +1364,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                     getMatchList();
                     getAllServicesList();
+                    getNewsMainContent();
                 }
             }
 
@@ -1238,10 +1378,60 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         });
     }
 
+    private Boolean getNewsMainContent()
+    {
+        isCompleteThreadNews = false;
+
+        SingletonService.getInstance().getNewsService().getNewsMain(new OnServiceStatus<WebServiceClass<NewsMainResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<NewsMainResponse> response)
+            {
+                try
+                {
+                    isCompleteThreadNews = true;
+                    hideLoading();
+                    if (response == null || response.info == null)
+                    {
+                        // startActivity(new Intent(this, A.class));
+                        return;
+                    }
+                    if (response.info.statusCode != 200)
+                    {
+                        // startActivity(new Intent(this, LoginActivity.class));
+                        //  finish();
+
+                        return;
+                    }
+                    if (response.info.statusCode == 200)
+                    {
+                        newsMainResponse = response.data;
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                    hideLoading();
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                isCompleteThreadNews = true;
+                hideLoading();
+
+                Logger.e("--onError--", message);
+            }
+        });
+
+        return isCompleteThreadNews;
+    }
+
     private Boolean getAllServicesList()
     {
         isCompleteThreadAllServices = false;
-
 
         GetMenuRequest request = new GetMenuRequest();
         request.setDeviceType(TrapConfig.AndroidDeviceType);
