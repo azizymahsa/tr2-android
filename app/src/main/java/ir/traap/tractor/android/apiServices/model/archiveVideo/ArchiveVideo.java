@@ -1,11 +1,13 @@
-package ir.traap.tractor.android.apiServices.model.mainVideos;
+package ir.traap.tractor.android.apiServices.model.archiveVideo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Recent
+/**
+ * Created by MahtabAzizi on 11/27/2019.
+ */
+public class ArchiveVideo
 {
-
     @SerializedName("title")
     @Expose
     private String title;
@@ -39,9 +41,6 @@ public class Recent
     @SerializedName("update_date_formatted")
     @Expose
     private String updateDateFormatted;
-    @SerializedName("cover")
-    @Expose
-    private String cover;
     @SerializedName("is_bookmarked")
     @Expose
     private Boolean isBookmarked;
@@ -52,154 +51,115 @@ public class Recent
     @Expose
     private Boolean isLiked;
 
-    public String getCover()
-    {
-        return cover;
-    }
-
-    public void setCover(String cover)
-    {
-        this.cover = cover;
-    }
-
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getCaption()
-    {
+    public String getCaption() {
         return caption;
     }
 
-    public void setCaption(String caption)
-    {
+    public void setCaption(String caption) {
         this.caption = caption;
     }
 
-    public Integer getId()
-    {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id)
-    {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getBigPoster()
-    {
+    public String getBigPoster() {
         return bigPoster;
     }
 
-    public void setBigPoster(String bigPoster)
-    {
+    public void setBigPoster(String bigPoster) {
         this.bigPoster = bigPoster;
     }
 
-    public String getSmallPoster()
-    {
+    public String getSmallPoster() {
         return smallPoster;
     }
 
-    public void setSmallPoster(String smallPoster)
-    {
+    public void setSmallPoster(String smallPoster) {
         this.smallPoster = smallPoster;
     }
 
-    public String getFrame()
-    {
+    public String getFrame() {
         return frame;
     }
 
-    public void setFrame(String frame)
-    {
+    public void setFrame(String frame) {
         this.frame = frame;
     }
 
-    public Integer getCategoryId()
-    {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId)
-    {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
-    public String getCreateDate()
-    {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate)
-    {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public String getUpdateDate()
-    {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(String updateDate)
-    {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 
-    public String getCreateDateFormatted()
-    {
+    public String getCreateDateFormatted() {
         return createDateFormatted;
     }
 
-    public void setCreateDateFormatted(String createDateFormatted)
-    {
+    public void setCreateDateFormatted(String createDateFormatted) {
         this.createDateFormatted = createDateFormatted;
     }
 
-    public String getUpdateDateFormatted()
-    {
+    public String getUpdateDateFormatted() {
         return updateDateFormatted;
     }
 
-    public void setUpdateDateFormatted(String updateDateFormatted)
-    {
+    public void setUpdateDateFormatted(String updateDateFormatted) {
         this.updateDateFormatted = updateDateFormatted;
     }
 
-    public Boolean getIsBookmarked()
-    {
+    public Boolean getIsBookmarked() {
         return isBookmarked;
     }
 
-    public void setIsBookmarked(Boolean isBookmarked)
-    {
+    public void setIsBookmarked(Boolean isBookmarked) {
         this.isBookmarked = isBookmarked;
     }
 
-    public Integer getLikes()
-    {
+    public Integer getLikes() {
         return likes;
     }
 
-    public void setLikes(Integer likes)
-    {
+    public void setLikes(Integer likes) {
         this.likes = likes;
     }
 
-    public Boolean getIsLiked()
-    {
+    public Boolean getIsLiked() {
         return isLiked;
     }
 
-    public void setIsLiked(Boolean isLiked)
-    {
+    public void setIsLiked(Boolean isLiked) {
         this.isLiked = isLiked;
     }
-
 }

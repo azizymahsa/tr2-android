@@ -28,6 +28,7 @@ import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
 import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
+import ir.traap.tractor.android.ui.fragments.photo.PhotosFragment;
 import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainContentFragment;
 import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainFragment;
 import ir.traap.tractor.android.ui.fragments.videos.VideosFragment;
@@ -88,7 +89,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-       // tvTitle.setText("رسانه");
+        tvTitle.setText("رسانه");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         initView();
@@ -156,12 +157,12 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             }
             case 2://عکس
             {
-//                fragment = MarketFragment.newInstance(this);
-//                transaction = fragmentManager.beginTransaction();
-////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//
-//                transaction.replace(R.id.main_container, fragment, "marketFragment")
-//                        .commit();
+                fragment = PhotosFragment.newInstance(mainView);
+                transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "marketFragment")
+                        .commit();
                 break;
             }
             case 3://فیلم

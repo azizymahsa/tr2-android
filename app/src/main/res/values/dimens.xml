@@ -62,7 +62,7 @@
     <dimen name="gmdtp_material_button_textpadding_horizontal">8dp</dimen>
 
     <dimen name="icon_size">24sp</dimen>
-    <dimen name="news_favorite_height" >190dp</dimen>
+    <dimen name="news_favorite_height" >160dp</dimen>
     <dimen name="news_favorite_title_height" >75dp</dimen>
     <dimen name="slider_height" >190dp</dimen>
     <dimen name="slider_height_app">220dp</dimen>

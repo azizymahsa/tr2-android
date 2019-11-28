@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.activities.video;
+package ir.traap.tractor.android.ui.activities.photo;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
@@ -28,7 +29,7 @@ import ir.traap.tractor.android.ui.base.BaseActivity;
 import ir.traap.tractor.android.utilities.Tools;
 import ir.traap.tractor.android.utilities.Utility;
 
-public class VideoDetailActivity extends BaseActivity implements View.OnClickListener
+public class PhotoDetailActivity extends BaseActivity implements View.OnClickListener
 {
     private TextView tvTitle, tvUserName,tvPopularPlayer,tvDate,tvTitleVideo,tvDesc,tvLike;
     private View imgBack, imgMenu;
@@ -41,13 +42,12 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     private String urlVideo;
     private int idVideo;
     private Integer likeCount=0;
-    private ArrayList<Category> relatedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_detail);
+        setContentView(R.layout.activity_photo_detail);
         if (savedInstanceState == null)
         {
             Bundle extras = getIntent().getExtras();
@@ -56,10 +56,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
             } else
             {
-                videosList = extras.getParcelableArrayList("Videos");
+
+                videosList = extras.getParcelableArrayList("Photos");
                 idVideoCategory=extras.getInt("IdVideoCategory",0);
-                idVideo=extras.getInt("IdVideo",0);
-                positionVideo=extras.getInt("positionVideo",0);
+                idVideo=extras.getInt("IdPhoto",0);
+                positionVideo=extras.getInt("positionPhoto",0);
             }
         }
 
@@ -71,7 +72,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         try
         {
             tvTitle = findViewById(R.id.tvTitle);
-            tvTitle.setText("محتوای یک فیلم");
+            tvTitle.setText("محتوای یک عکس");
 
             tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -113,7 +114,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
         //imgLike.setOnClickListener(this);
 
-        setDataItems(videosList,idVideoCategory,idVideo,positionVideo);
+        setDataItems();
 
         requestGetRelatedVideos(idVideoCategory);
         rlVideo.setOnClickListener(this);
@@ -163,7 +164,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     {
         if (!data.getResults().isEmpty())
         {
-            relatedList = data.getResults();
+            List<Category> relatedList = data.getResults();
             setImageBackground(ivRelated1, relatedList.get(0).getBigPoster().replace("\\", ""));
             setImageBackground(ivRelated2, relatedList.get(1).getBigPoster().replace("\\", ""));
             setImageBackground(ivRelated3, relatedList.get(2).getBigPoster().replace("\\", ""));
@@ -172,11 +173,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void setDataItems(ArrayList<Category> videosList, int idVideoCategory, int idVideo, int positionVideo)
+    private void setDataItems()
     {
-        videoItem= videosList.get(positionVideo);
+        videoItem=videosList.get(positionVideo);
 
-        urlVideo=videoItem.getFrame().replace("\\", "");
+      //  urlVideo=videoItem.getFrame().replace("\\", "");
         tvLike.setText(videoItem.getLikes().toString());
         likeCount=videoItem.getLikes();
         if (videoItem.getIsLiked()){
@@ -234,27 +235,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
                 tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
                 requestLikeVideo();
                 break;
-            case R.id.ivRelated1:
-                onRelatedClick(0);
-                break;
-            case R.id.ivRelated2:
-                onRelatedClick(1);
-                break;
-            case R.id.ivRelated3:
-                onRelatedClick(2);
-                break;
-            case R.id.ivRelated4:
-                onRelatedClick(3);
-                break;
         }
-    }
-
-    private void onRelatedClick(int position)
-    {
-        setDataItems(relatedList,relatedList.get(position).getCategoryId(), relatedList.get(position).getId()
-                ,position);
-
-        requestGetRelatedVideos(relatedList.get(position).getCategoryId());
     }
 
     private void requestLikeVideo()

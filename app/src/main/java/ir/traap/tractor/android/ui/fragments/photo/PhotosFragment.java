@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.fragments.videos;
+package ir.traap.tractor.android.ui.fragments.photo;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,49 +28,77 @@ import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
+import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
+import ir.traap.tractor.android.apiServices.model.mainVideos.Favorite;
+import ir.traap.tractor.android.apiServices.model.mainVideos.ListCategory;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideoRequest;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
-import ir.traap.tractor.android.ui.activities.video.VideoArchiveActivity;
+import ir.traap.tractor.android.ui.activities.photo.PhotoArchiveActivity;
+import ir.traap.tractor.android.ui.activities.photo.PhotoDetailActivity;
 import ir.traap.tractor.android.ui.activities.video.VideoDetailActivity;
-import ir.traap.tractor.android.ui.adapters.video.NewestVideosAdapter;
-import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
-import ir.traap.tractor.android.apiServices.model.mainVideos.ListCategory;
+import ir.traap.tractor.android.ui.adapters.photo.CategoryPhotosAdapter;
+import ir.traap.tractor.android.ui.adapters.photo.NewestPhotosAdapter;
+import ir.traap.tractor.android.ui.adapters.photo.PhotosArchiveAdapter;
+import ir.traap.tractor.android.ui.adapters.photo.PhotosCategoryTitleAdapter;
 import ir.traap.tractor.android.ui.adapters.video.CategoryAdapter;
+import ir.traap.tractor.android.ui.adapters.video.NewestVideosAdapter;
 import ir.traap.tractor.android.ui.adapters.video.VideosCategoryTitleAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.utilities.Tools;
 
 /**
- * Created by MahtabAzizi on 11/23/2019.
+ * Created by MahsaAzizi on 11/27/2019.
  */
-public class VideosFragment extends BaseFragment implements VideosCategoryTitleAdapter.TitleCategoryListener, View.OnClickListener, NewestVideosAdapter.NewestVideoListener, CategoryAdapter.CategoryListener
+public class PhotosFragment extends BaseFragment  implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchiveVideoListener
 {
+    /*private MainActionView mainView;
+    private View rootView;
+    private BannerLayout bNewestVideo;
+    private RoundedImageView ivFavorite1, ivFavorite2, ivFavorite3;
+    private RecyclerView rvCategoryTitles, rvGrideCategories;
+    private PhotosCategoryTitleAdapter photoCategoryTitleAdapter;
+    private Integer idCategoryTitle = 0;
+    private CategoryPhotosAdapter categoryAdapter;
+    private TextView tvArchiveVideo;
+    private MainVideosResponse mainVideosResponse;*/
+
+
     private MainActionView mainView;
     private View rootView;
     private BannerLayout bNewestVideo;
     private RoundedImageView ivFavorite1, ivFavorite2, ivFavorite3;
-    private RecyclerView rvCategoryTitles, rvCategories;
-    private VideosCategoryTitleAdapter videoCategoryTitleAdapter;
+    private RecyclerView rvCategoryTitles, rvGrideCategories;
+    private PhotosCategoryTitleAdapter photoCategoryTitleAdapter;
     private Integer idCategoryTitle = 0;
-    private CategoryAdapter categoryAdapter;
+    private CategoryPhotosAdapter categoryAdapter;
     private MainVideosResponse mainVideosResponse;
     private ArrayList<Category> categoriesList;
     private int position=0;
     private Integer idVideo;
     private Integer id;
     private TextView tvArchiveVideo;
-
-    public VideosFragment()
+    public PhotosFragment()
     {
 
     }
-
-    public static VideosFragment newInstance(MainActionView mainView)
+    private void openPhotoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
-        VideosFragment fragment = new VideosFragment();
+      //  Intent intent = new Intent(this, PhotoDetailActivity.class);
+        Intent intent = new Intent(getActivity(), PhotoDetailActivity.class);
+
+        intent.putParcelableArrayListExtra("Photos", categoriesList);
+        intent.putExtra("IdVideoCategory",idVideo);
+        intent.putExtra("IdPhoto",id);
+        intent.putExtra("positionPhoto",position);
+
+        startActivity(intent);
+    }
+    public static PhotosFragment newInstance(MainActionView mainView)
+    {
+        PhotosFragment fragment = new PhotosFragment();
         fragment.setMainView(mainView);
         return fragment;
     }
@@ -95,7 +123,9 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     {
         if (rootView != null)
             return rootView;
-        rootView = inflater.inflate(R.layout.fragment_videos, container, false);
+        rootView = inflater.inflate(R.layout.fragment_photos, container, false);
+
+
 
         mainView.showLoading();
         bNewestVideo = rootView.findViewById(R.id.bNewestVideo);
@@ -104,7 +134,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo=rootView.findViewById(R.id.tvArchiveVideo);
-        rvCategories = rootView.findViewById(R.id.rvCategories);
+        rvGrideCategories = rootView.findViewById(R.id.rvCategories);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         rvCategoryTitles.setLayoutManager(layoutManager);
 
@@ -112,8 +142,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         ivFavorite2.setOnClickListener(this);
         ivFavorite3.setOnClickListener(this);
         tvArchiveVideo.setOnClickListener(this);
-        LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
-        rvCategories.setLayoutManager(layoutManagerCategory);
+        rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
         requestMainVideos();
 
         return rootView;
@@ -123,7 +152,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     {
         MainVideoRequest request = new MainVideoRequest();
 
-        SingletonService.getInstance().getMainVideosService().getMainVideos(new OnServiceStatus<WebServiceClass<MainVideosResponse>>()
+        SingletonService.getInstance().getMainVideosService().getMainPhotos(new OnServiceStatus<WebServiceClass<MainVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<MainVideosResponse> response)
@@ -134,7 +163,6 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
                     if (response.info.statusCode == 200)
                     {
-
                         mainVideosResponse=response.data;
                         onGetMainVideosSuccess(response.data);
 
@@ -158,25 +186,27 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         }, request);
     }
 
-    private void onGetMainVideosSuccess(MainVideosResponse mainVideosResponse)
+    private void onGetMainVideosSuccess(MainVideosResponse mainPhotosResponse)
     {
-        bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(), mainView,this));
-        setDataFavoriteList(mainVideosResponse);
-        videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(mainVideosResponse.getListCategories(), mainView, this);
-        rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
-        categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), mainView,this);
-        rvCategories.setAdapter(categoryAdapter);
+        bNewestVideo.setAdapter(new NewestPhotosAdapter(mainPhotosResponse.getRecent(), mainView));
+        setDataFavoriteList(mainPhotosResponse);
+        photoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(mainPhotosResponse.getListCategories(), mainView, this);
+        rvCategoryTitles.setAdapter(photoCategoryTitleAdapter);
+        categoryAdapter = new CategoryPhotosAdapter(mainPhotosResponse.getCategory(), mainView);
+        rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+        rvGrideCategories.setAdapter(categoryAdapter);
 
     }
 
-    private void setDataFavoriteList(MainVideosResponse mainVideosResponse)
+    private void setDataFavoriteList(MainVideosResponse mainPhotosResponse)
     {
-        if (!mainVideosResponse.getFavorites().isEmpty())
+        if (!mainPhotosResponse.getFavorites().isEmpty())
         {
-            List<Category> favoriteList = mainVideosResponse.getFavorites();
-            setImageBackground(ivFavorite1, favoriteList.get(0).getBigPoster().replace("\\", ""));
-            setImageBackground(ivFavorite2, favoriteList.get(1).getBigPoster().replace("\\", ""));
-            setImageBackground(ivFavorite3, favoriteList.get(2).getBigPoster().replace("\\", ""));
+            ArrayList<Category> favoriteList = mainPhotosResponse.getFavorites();
+            setImageBackground(ivFavorite1, favoriteList.get(0).getCover().replace("\\", ""));
+            setImageBackground(ivFavorite2, favoriteList.get(1).getCover().replace("\\", ""));
+            setImageBackground(ivFavorite3, favoriteList.get(2).getCover().replace("\\", ""));
         }
 
     }
@@ -205,7 +235,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     }
 
     @Override
-    public void onItemTitleCategoryClick(ListCategory category, int position)
+    public void onItemTitleCategoryClick(ListCategory category)
     {
         mainView.showLoading();
         idCategoryTitle = category.getId();
@@ -217,7 +247,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
 
-        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idCategoryTitle,request,new    OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService(idCategoryTitle,request,new    OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
@@ -250,13 +280,6 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             }
         });
     }
-
-    private void setCategoryListData(CategoryByIdVideosResponse data)
-    {
-        categoryAdapter = new CategoryAdapter(data.getResults(), mainView,this);
-        rvCategories.setAdapter(categoryAdapter);
-    }
-
     @Override
     public void onClick(View v)
     {
@@ -266,7 +289,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 position=0;
                 idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
                 id=mainVideosResponse.getFavorites().get(position).getId();
-              openVideoDetail(categoriesList,position,idVideo,id);
+              //  openPhotoDetail(categoriesList,position,idVideo,id);
                 break;
 
             case R.id.ivFavorite2:
@@ -274,7 +297,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 position=1;
                 idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
                 id=mainVideosResponse.getFavorites().get(position).getId();
-                openVideoDetail(categoriesList,position,idVideo,id);
+             //   openPhotoDetail(categoriesList,position,idVideo,id);
                 break;
 
             case R.id.ivFavorite3:
@@ -282,40 +305,29 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 position=2;
                 idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
                 id=mainVideosResponse.getFavorites().get(position).getId();
-                openVideoDetail(categoriesList,position,idVideo,id);
+               // openPhotoDetail(categoriesList,position,idVideo,id);
                 break;
             case R.id.tvArchiveVideo:
                 ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
-                Intent intent = new Intent(getActivity(), VideoArchiveActivity.class);
+                Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
                 intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
                 startActivity(intent);
                 break;
         }
     }
 
-    private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo,Integer id)
-    {
-        Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
-
-        intent.putParcelableArrayListExtra("Videos", categoriesList);
-        intent.putExtra("IdVideoCategory",idVideo);
-        intent.putExtra("IdVideo",id);
-        intent.putExtra("positionVideo",position);
-
-        startActivity(intent);
-    }
-
     @Override
-    public void onItemNewestVideoClick(int position, Category category)
+    public void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent)
     {
-        categoriesList=mainVideosResponse.getRecent();
-        openVideoDetail(categoriesList,position,category.getCategoryId(),category.getId());
+        openPhotoDetail(recent,position,category.getCategoryId(),category.getId());
     }
-
-    @Override
-    public void onItemCategoryClick(int position, Category category, ArrayList<Category> categories)
+    private void setCategoryListData(CategoryByIdVideosResponse data)
     {
-        categoriesList=categories;
-        openVideoDetail(categoriesList,position,category.getCategoryId(),category.getId());
+        categoryAdapter = new CategoryPhotosAdapter(data.getResults(), mainView);
+        rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        rvGrideCategories.setAdapter(categoryAdapter);
+
+       // rvGrid.setLayoutManager(new GridLayoutManager(getContext(), 3));
+       // rvGrid.setAdapter(new ItemRecyclerViewAdapter(getContext(), list, this));//, interactionListener));
     }
 }

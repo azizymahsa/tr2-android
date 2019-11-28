@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import ir.traap.tractor.android.apiServices.ServiceApplication;
 import ir.traap.tractor.android.apiServices.di.component.NetComponent;
 import ir.traap.tractor.android.apiServices.part.AddCardService;
+import ir.traap.tractor.android.apiServices.part.ArchiveVideoService;
 import ir.traap.tractor.android.apiServices.part.BankListService;
 import ir.traap.tractor.android.apiServices.part.BillCodePayCodeService;
 import ir.traap.tractor.android.apiServices.part.BusService;
@@ -30,6 +31,7 @@ import ir.traap.tractor.android.apiServices.part.GetShetabCardInfoService;
 import ir.traap.tractor.android.apiServices.part.GetTicketInfoService;
 import ir.traap.tractor.android.apiServices.part.GetVersionService;
 import ir.traap.tractor.android.apiServices.part.HotelService;
+import ir.traap.tractor.android.apiServices.part.LikeVideoService;
 import ir.traap.tractor.android.apiServices.part.LiveScoreService;
 import ir.traap.tractor.android.apiServices.part.LoginService;
 import ir.traap.tractor.android.apiServices.part.MerchantService;
@@ -112,6 +114,11 @@ public class SingletonService
         return new GetCardListService(serviceGenerator);
     }
 
+    public LikeVideoService getLikeVideoService()
+    {
+        return new LikeVideoService(serviceGenerator);
+    }
+
     public GetMatchListService getMatchListService()
     {
         return new GetMatchListService(serviceGenerator);
@@ -133,6 +140,10 @@ public class SingletonService
         return new GetMainVideosService(serviceGenerator);
     }
 
+    public ArchiveVideoService getArchiveVideoService()
+    {
+        return new ArchiveVideoService(serviceGenerator);
+    }
 
     public GetMenuHelpService getMenuHelpService(){
         return new GetMenuHelpService(serviceGenerator);

@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.adapters.video;
+package ir.traap.tractor.android.ui.adapters.photo;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,12 +12,14 @@ import java.util.List;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.mainVideos.ListCategory;
+import ir.traap.tractor.android.ui.adapters.video.VideosCategoryTitleAdapter;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
+import ir.traap.tractor.android.ui.fragments.photo.PhotosFragment;
 
 /**
- * Created by MahtabAzizi on 11/25/2019.
+ * Created by MahsaAzizi on 11/25/2019.
  */
-public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCategoryTitleAdapter.ViewHolder>
+public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCategoryTitleAdapter.ViewHolder>
 {
     private  MainActionView mainView;
     private Context context;
@@ -26,13 +28,13 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
     private boolean isClicked=false;
     private int selectedPosition=0;
 
-    public VideosCategoryTitleAdapter(List<ListCategory> categories, MainActionView mainView,TitleCategoryListener listener)
+    public PhotosCategoryTitleAdapter(List<ListCategory> categories, MainActionView mainView,TitleCategoryListener listener)
     {
         this.listener=listener;
         this.categories=categories;
         this.mainView=mainView;
     }
-    public VideosCategoryTitleAdapter(List<ListCategory> categories,TitleCategoryListener listener)
+    public PhotosCategoryTitleAdapter(List<ListCategory> categories,TitleCategoryListener listener)
     {
         this.listener=listener;
         this.categories=categories;
@@ -40,10 +42,10 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
 
 
     @Override
-    public VideosCategoryTitleAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
+    public PhotosCategoryTitleAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
     {
         this.context = parent.getContext();
-        return new VideosCategoryTitleAdapter.ViewHolder(LayoutInflater.from(context)
+        return new PhotosCategoryTitleAdapter.ViewHolder(LayoutInflater.from(context)
                 .inflate(R.layout.list_item_category_title_video, parent, false));
     }
 
@@ -53,14 +55,14 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
     {
         ListCategory category = categories.get(position);
         holder.tvTitle.setText(category.getTitle());
-    //    holder.tvTitle.setTextColor(context.getResources().getColor(R.color.black));
+        //    holder.tvTitle.setTextColor(context.getResources().getColor(R.color.black));
 
         holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectedPosition=position;
                 notifyDataSetChanged();
-                listener.onItemTitleCategoryClick(category,position);
+                listener.onItemTitleCategoryClick(category);
             }
         });
         if(selectedPosition==position){
@@ -96,6 +98,6 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
         }
     }
     public interface TitleCategoryListener {
-        void onItemTitleCategoryClick(ListCategory category, int position);
+        void onItemTitleCategoryClick(ListCategory category);
     }
 }

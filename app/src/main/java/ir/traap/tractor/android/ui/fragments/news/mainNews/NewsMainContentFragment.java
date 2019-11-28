@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,15 +26,17 @@ import androidx.recyclerview.widget.SnapHelper;
 import com.example.moeidbannerlibrary.banner.BannerLayout;
 import com.google.android.material.tabs.TabLayout;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
-import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategory;
 import ir.traap.tractor.android.apiServices.model.news.main.Categories;
 import ir.traap.tractor.android.apiServices.model.news.main.News;
 import ir.traap.tractor.android.apiServices.model.news.main.NewsMainResponse;
@@ -40,14 +44,14 @@ import ir.traap.tractor.android.enums.NewsParent;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.activities.login.LoginActivity;
 import ir.traap.tractor.android.ui.activities.main.MainActivity;
-import ir.traap.tractor.android.ui.adapters.news.MainNewsAdapter;
+import ir.traap.tractor.android.ui.adapters.news.MainFacoriteNewsAdapter;
+import ir.traap.tractor.android.ui.adapters.news.MainNewestNewsAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
 import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveCategoryFragment;
-import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.MyCustomViewPager;
-import ir.traap.tractor.android.utilities.StartSnapHelper;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 
 @SuppressLint("newsMainContentFragment")
@@ -56,7 +60,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private View rootView;
     private NewsActionView mainView;
 
-    private MainNewsAdapter favNewsAdapter, newestNewsAdapter;
+    private MainFacoriteNewsAdapter favNewsAdapter;
+    private MainNewestNewsAdapter newestNewsAdapter;
 
     private TextView tvNewsArchive;
     private NewsParent parent;
@@ -66,8 +71,11 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private List<News> latestNewsList;
     private List<News> favoriteNewsList;
 
-    private LinearLayoutManager favLayoutManager, newestLayoutManager;;
-    private RecyclerView newestRecyclerView, favRecyclerView;
+    private RelativeLayout rlArrowLeft, rlArrowRight;
+
+    private LinearLayoutManager favLayoutManager;;
+    private RecyclerView favRecyclerView;
+    private ScrollingPagerIndicator indicator;
 
     private BannerLayout bNewestNews;
 
@@ -147,8 +155,24 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
     private void initView(View rootView)
     {
+        rlArrowLeft = rootView.findViewById(R.id.rlArrowLeft);
+        rlArrowRight = rootView.findViewById(R.id.rlArrowRight);
+
+        rlArrowLeft.setOnClickListener(v ->
+        {
+            onSlideLeft();
+        });
+
+        rlArrowRight.setOnClickListener(v ->
+        {
+            onSlideRight();
+        });
+
         favRecyclerView = rootView.findViewById(R.id.favRecyclerView);
+        indicator = rootView.findViewById(R.id.indicator);
+
         bNewestNews = rootView.findViewById(R.id.bNewestNews);
+//        bNewestNews.setAdapter();
 
         tvNewsArchive = rootView.findViewById(R.id.tvNewsArchive);
         tvNewsArchive.setOnClickListener(v ->
@@ -156,7 +180,49 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             mainView.onNewsArchiveFragment(parent);
         });
 
+
     }
+
+
+    public void onSlideRight()
+    {
+        if (favLayoutManager.findFirstCompletelyVisibleItemPosition() == Objects.requireNonNull(favRecyclerView.getAdapter()).getItemCount())
+        {
+            return;
+        }
+        int newPos = favLayoutManager.findFirstCompletelyVisibleItemPosition() + 1;
+
+        favRecyclerView.smoothScrollToPosition(newPos);
+
+//        if (newPos == Objects.requireNonNull(favRecyclerView.getAdapter()).getItemCount())
+//        {
+//            rlArrowRight.setVisibility(View.INVISIBLE);
+//        }
+//        else
+//        {
+//            rlArrowRight.setVisibility(View.VISIBLE);
+//        }
+    }
+
+    public void onSlideLeft()
+    {
+        if (favLayoutManager.findFirstCompletelyVisibleItemPosition() == 0)
+            return;
+
+        int newPos = favLayoutManager.findFirstCompletelyVisibleItemPosition() - 1;
+
+        favRecyclerView.smoothScrollToPosition(newPos);
+
+//        if (newPos == 0)
+//        {
+//            rlArrowLeft.setVisibility(View.INVISIBLE);
+//        }
+//        else
+//        {
+//            rlArrowLeft.setVisibility(View.VISIBLE);
+//        }
+    }
+
 
 
     @Override
@@ -195,18 +261,54 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
     private void setContent()
     {
-        favNewsAdapter = new MainNewsAdapter(getActivity(), favoriteNewsList);
+        newestNewsAdapter = new MainNewestNewsAdapter(getActivity(), latestNewsList);
+//        newestLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+//        newestRecyclerView.setLayoutManager(newestLayoutManager);
+        bNewestNews.setAdapter(newestNewsAdapter);
+
+        favNewsAdapter = new MainFacoriteNewsAdapter(getActivity(), favoriteNewsList);
         favLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         favRecyclerView.setLayoutManager(favLayoutManager);
         favRecyclerView.setAdapter(favNewsAdapter);
+        indicator.attachToRecyclerView(favRecyclerView);
 
-        SnapHelper snapHelper = new StartSnapHelper();
+//        SnapHelper snapHelper = new StartSnapHelper();
+        SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(favRecyclerView);
 
         favNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
-
+            //go to details
         });
+
+//        favRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+//        {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
+//            {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+//                {
+//                    if (favLayoutManager.findFirstVisibleItemPosition() == 0)
+//                    {
+//                        rlArrowLeft.setVisibility(View.INVISIBLE);
+//                    }
+//                    else
+//                    {
+//                        rlArrowLeft.setVisibility(View.VISIBLE);
+//                    }
+//
+//                    if (favLayoutManager.findFirstVisibleItemPosition() == favLayoutManager.getItemCount() )
+//                    {
+//                        rlArrowRight.setVisibility(View.INVISIBLE);
+//                    }
+//                    else
+//                    {
+//                        rlArrowRight.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//            }
+//        });
 
         setPager();
     }

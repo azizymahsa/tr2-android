@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.ui.adapters.video;
+package ir.traap.tractor.android.ui.adapters.photo;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
@@ -20,29 +19,28 @@ import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 /**
- * Created by MahtabAzizi on 11/25/2019.
+ * Created by MahsaAzizi on 11/27/2019.
  */
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>
+public class CategoryPhotosAdapter extends RecyclerView.Adapter<CategoryPhotosAdapter.ViewHolder>
 {
     private final MainActionView mainView;
     private Context context;
-    private ArrayList<Category> categories;
-    private CategoryListener listener;
+    private List<Category> categories;
+    private TitleCategoryListener listener;
 
-    public CategoryAdapter(ArrayList<Category> categories, MainActionView mainView,CategoryListener listener)
+    public CategoryPhotosAdapter(List<Category> categories, MainActionView mainView)
     {
         this.categories=categories;
         this.mainView=mainView;
-        this.listener=listener;
     }
 
 
     @Override
-    public CategoryAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
+    public CategoryPhotosAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
     {
         this.context = parent.getContext();
-        return new CategoryAdapter.ViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.list_item_category_video, parent, false));
+        return new CategoryPhotosAdapter.ViewHolder(LayoutInflater.from(context)
+                .inflate(R.layout.list_item_category_photo, parent, false));
     }
 
 
@@ -51,15 +49,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     {
         Category category = categories.get(position);
 
-        setImageBackground(holder.ivCategory,category.getBigPoster().replace("\\", ""));
-        holder.ivCategory.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                listener.onItemCategoryClick(position,category,categories);
-            }
-        });
+        setImageBackground(holder.ivCategory,category.getCover().replace("\\", ""));
 
     }
 
@@ -95,7 +85,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        public ImageView ivCategory;
+        public com.makeramen.roundedimageview.RoundedImageView ivCategory;
 
         public ViewHolder(View v)
         {
@@ -104,7 +94,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         }
     }
-    public interface CategoryListener {
-        void onItemCategoryClick(int position, Category category, ArrayList<Category> categories);
+    public interface TitleCategoryListener {
+        void onItemTitleCategoryClick(Category category);
     }
 }

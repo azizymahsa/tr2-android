@@ -6,6 +6,7 @@ import ir.traap.tractor.android.apiServices.model.GlobalResponse;
 import ir.traap.tractor.android.apiServices.model.GlobalResponse2;
 import ir.traap.tractor.android.apiServices.model.GlobalResponse3;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
+import ir.traap.tractor.android.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import ir.traap.tractor.android.apiServices.model.billPayment.request.BillPaymentRequest;
 import ir.traap.tractor.android.apiServices.model.billPayment.response.BillPaymentResponse;
 import ir.traap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
@@ -46,6 +47,7 @@ import ir.traap.tractor.android.apiServices.model.league.pastResult.request.Requ
 import ir.traap.tractor.android.apiServices.model.league.pastResult.response.ResponsePastResult;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import ir.traap.tractor.android.apiServices.model.getTicketInfo.GetTicketInfoResponse;
+import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
 import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
@@ -104,13 +106,31 @@ public interface RetroClient
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
 
+    /*videos*/
     @GET(Const.Get_Main_Video)
     Single<Response<WebServiceClass<MainVideosResponse>>> getMainVideos();
 
     @GET(Const.Get_Category_By_Id_Video)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
             @Path("id") Integer categoryId
-            );
+    );
+    @POST(Const.Like_Video)
+    Single<Response<WebServiceClass<LikeVideoResponse>>> likeVideo(
+            @Path("id") Integer videoId
+    );
+
+    @GET(Const.Archive_Video)
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchiveVideos(@Query("category_id") int categoryId);
+    /*photos*/
+    @GET(Const.Get_Main_Photo)
+    Single<Response<WebServiceClass<MainVideosResponse>>> getMainPhotos();
+
+    @GET(Const.Get_Category_By_Id_Photo)
+    Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(
+            @Path("id") Integer categoryId
+    );
+    @GET(Const.Archive_Photo)
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos();
 
 
     @GET(Const.GetMenuHelp)

@@ -3,161 +3,203 @@ package ir.traap.tractor.android.apiServices.model.mainVideos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Favorite {
+public class Favorite
+{
 
-@SerializedName("title")
-@Expose
-private String title;
-@SerializedName("caption")
-@Expose
-private String caption;
-@SerializedName("id")
-@Expose
-private Integer id;
-@SerializedName("big_poster")
-@Expose
-private String bigPoster;
-@SerializedName("small_poster")
-@Expose
-private String smallPoster;
-@SerializedName("frame")
-@Expose
-private String frame;
-@SerializedName("category_id")
-@Expose
-private Integer categoryId;
-@SerializedName("create_date")
-@Expose
-private String createDate;
-@SerializedName("update_date")
-@Expose
-private String updateDate;
-@SerializedName("create_date_formatted")
-@Expose
-private String createDateFormatted;
-@SerializedName("update_date_formatted")
-@Expose
-private String updateDateFormatted;
-@SerializedName("is_bookmarked")
-@Expose
-private Boolean isBookmarked;
-@SerializedName("likes")
-@Expose
-private Integer likes;
-@SerializedName("is_liked")
-@Expose
-private Boolean isLiked;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("caption")
+    @Expose
+    private String caption;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("big_poster")
+    @Expose
+    private String bigPoster;
+    @SerializedName("small_poster")
+    @Expose
+    private String smallPoster;
+    @SerializedName("frame")
+    @Expose
+    private String frame;
+    @SerializedName("category_id")
+    @Expose
+    private Integer categoryId;
+    @SerializedName("create_date")
+    @Expose
+    private String createDate;
+    @SerializedName("update_date")
+    @Expose
+    private String updateDate;
+    @SerializedName("create_date_formatted")
+    @Expose
+    private String createDateFormatted;
+    @SerializedName("update_date_formatted")
+    @Expose
+    private String updateDateFormatted;
+    @SerializedName("is_bookmarked")
+    @Expose
+    private Boolean isBookmarked;
+    @SerializedName("likes")
+    @Expose
+    private Integer likes;
+    @SerializedName("is_liked")
+    @Expose
+    private Boolean isLiked;
+    @SerializedName("cover")
+    @Expose
+    private String cover;
 
-public String getTitle() {
-return title;
-}
+    public String getCover()
+    {
+        return cover;
+    }
 
-public void setTitle(String title) {
-this.title = title;
-}
+    public void setCover(String cover)
+    {
+        this.cover = cover;
+    }
 
-public String getCaption() {
-return caption;
-}
+    public String getTitle()
+    {
+        return title;
+    }
 
-public void setCaption(String caption) {
-this.caption = caption;
-}
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
 
-public Integer getId() {
-return id;
-}
+    public String getCaption()
+    {
+        return caption;
+    }
 
-public void setId(Integer id) {
-this.id = id;
-}
+    public void setCaption(String caption)
+    {
+        this.caption = caption;
+    }
 
-public String getBigPoster() {
-return bigPoster;
-}
+    public Integer getId()
+    {
+        return id;
+    }
 
-public void setBigPoster(String bigPoster) {
-this.bigPoster = bigPoster;
-}
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
 
-public String getSmallPoster() {
-return smallPoster;
-}
+    public String getBigPoster()
+    {
+        return bigPoster;
+    }
 
-public void setSmallPoster(String smallPoster) {
-this.smallPoster = smallPoster;
-}
+    public void setBigPoster(String bigPoster)
+    {
+        this.bigPoster = bigPoster;
+    }
 
-public String getFrame() {
-return frame;
-}
+    public String getSmallPoster()
+    {
+        return smallPoster;
+    }
 
-public void setFrame(String frame) {
-this.frame = frame;
-}
+    public void setSmallPoster(String smallPoster)
+    {
+        this.smallPoster = smallPoster;
+    }
 
-public Integer getCategoryId() {
-return categoryId;
-}
+    public String getFrame()
+    {
+        return frame;
+    }
 
-public void setCategoryId(Integer categoryId) {
-this.categoryId = categoryId;
-}
+    public void setFrame(String frame)
+    {
+        this.frame = frame;
+    }
 
-public String getCreateDate() {
-return createDate;
-}
+    public Integer getCategoryId()
+    {
+        return categoryId;
+    }
 
-public void setCreateDate(String createDate) {
-this.createDate = createDate;
-}
+    public void setCategoryId(Integer categoryId)
+    {
+        this.categoryId = categoryId;
+    }
 
-public String getUpdateDate() {
-return updateDate;
-}
+    public String getCreateDate()
+    {
+        return createDate;
+    }
 
-public void setUpdateDate(String updateDate) {
-this.updateDate = updateDate;
-}
+    public void setCreateDate(String createDate)
+    {
+        this.createDate = createDate;
+    }
 
-public String getCreateDateFormatted() {
-return createDateFormatted;
-}
+    public String getUpdateDate()
+    {
+        return updateDate;
+    }
 
-public void setCreateDateFormatted(String createDateFormatted) {
-this.createDateFormatted = createDateFormatted;
-}
+    public void setUpdateDate(String updateDate)
+    {
+        this.updateDate = updateDate;
+    }
 
-public String getUpdateDateFormatted() {
-return updateDateFormatted;
-}
+    public String getCreateDateFormatted()
+    {
+        return createDateFormatted;
+    }
 
-public void setUpdateDateFormatted(String updateDateFormatted) {
-this.updateDateFormatted = updateDateFormatted;
-}
+    public void setCreateDateFormatted(String createDateFormatted)
+    {
+        this.createDateFormatted = createDateFormatted;
+    }
 
-public Boolean getIsBookmarked() {
-return isBookmarked;
-}
+    public String getUpdateDateFormatted()
+    {
+        return updateDateFormatted;
+    }
 
-public void setIsBookmarked(Boolean isBookmarked) {
-this.isBookmarked = isBookmarked;
-}
+    public void setUpdateDateFormatted(String updateDateFormatted)
+    {
+        this.updateDateFormatted = updateDateFormatted;
+    }
 
-public Integer getLikes() {
-return likes;
-}
+    public Boolean getIsBookmarked()
+    {
+        return isBookmarked;
+    }
 
-public void setLikes(Integer likes) {
-this.likes = likes;
-}
+    public void setIsBookmarked(Boolean isBookmarked)
+    {
+        this.isBookmarked = isBookmarked;
+    }
 
-public Boolean getIsLiked() {
-return isLiked;
-}
+    public Integer getLikes()
+    {
+        return likes;
+    }
 
-public void setIsLiked(Boolean isLiked) {
-this.isLiked = isLiked;
-}
+    public void setLikes(Integer likes)
+    {
+        this.likes = likes;
+    }
+
+    public Boolean getIsLiked()
+    {
+        return isLiked;
+    }
+
+    public void setIsLiked(Boolean isLiked)
+    {
+        this.isLiked = isLiked;
+    }
 
 }

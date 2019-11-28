@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,16 +18,15 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
-import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
 import ir.traap.tractor.android.apiServices.model.news.main.News;
 
-public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.ViewHolder>
+public class MainNewestNewsAdapter extends RecyclerView.Adapter<MainNewestNewsAdapter.ViewHolder>
 {
     private OnSliderItemClickListener mItemClickListener;
     private Context mContext;
     private List<News> list;
 
-    public MainNewsAdapter(Context mContext, List<News> list)
+    public MainNewestNewsAdapter(Context mContext, List<News> list)
     {
         this.mContext = mContext;
         this.list = list;
@@ -39,7 +37,7 @@ public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.adapter_main_news_item, null);
+                R.layout.adapter_main_newest_news_item, null);
 
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 
@@ -102,14 +100,14 @@ public class MainNewsAdapter extends RecyclerView.Adapter<MainNewsAdapter.ViewHo
     {
         private TextView tvTitle;
         private ImageView imgBackground;
-        private LinearLayout llRoot;
+//        private RelativeLayout llRoot;
         private ProgressBar progress;
 
         public ViewHolder(@NonNull View rootView)
         {
             super(rootView);
 
-            llRoot = rootView.findViewById(R.id.root);
+//            llRoot = rootView.findViewById(R.id.root);
             imgBackground = rootView.findViewById(R.id.image);
             tvTitle = rootView.findViewById(R.id.tvTitle);
 

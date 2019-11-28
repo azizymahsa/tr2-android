@@ -1,7 +1,6 @@
-package ir.traap.tractor.android.ui.adapters.video;
+package ir.traap.tractor.android.ui.adapters.photo;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,56 +13,49 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
-import java.util.List;
+
+import java.util.ArrayList;
+
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
-import ir.traap.tractor.android.apiServices.model.mainVideos.Recent;
-import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 
 /**
- * Created by MahtabAzizi on 11/23/2019.
+ * Created by MahtabAzizi on 11/27/2019.
  */
-public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapter.ViewHolder>
+public class PhotosArchiveAdapter extends RecyclerView.Adapter<PhotosArchiveAdapter.ViewHolder>
 {
-    private final MainActionView mainView;
     private Context context;
-    private List<Category> recent;
-    private NewestVideoListener listener;
+    private ArrayList<Category> recent;
+    private ArchiveVideoListener listener;
 
-
-
-
-
-    public NewestVideosAdapter(List<Category> recent, MainActionView mainView,NewestVideoListener listener)
+    public PhotosArchiveAdapter(ArrayList<Category> recent, ArchiveVideoListener listener)
     {
         this.recent=recent;
-        this.mainView=mainView;
         this.listener=listener;
     }
 
 
     @Override
-    public NewestVideosAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
+    public PhotosArchiveAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
     {
         this.context = parent.getContext();
-        return new NewestVideosAdapter.ViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.list_item_newest_video, parent, false));
+        return new PhotosArchiveAdapter.ViewHolder(LayoutInflater.from(context)
+                .inflate(R.layout.list_item_archive_photo, parent, false));
     }
 
 
     @Override
-    public void onBindViewHolder(final NewestVideosAdapter.ViewHolder holder, final int position)
+    public void onBindViewHolder(final PhotosArchiveAdapter.ViewHolder holder, final int position)
     {
         Category recentItem = recent.get(position);
         holder.tvTitleVideo.setText(recentItem.getTitle());
-        holder.tvLike.setText(recentItem.getLikes().toString());
-        setImageBackground(holder.ivNewestVideo,recentItem.getBigPoster().replace("\\", ""));
-        holder.ivNewestVideo.setOnClickListener(new View.OnClickListener()
+        setImageBackground(holder.ivArchiveVideo,recentItem.getCover().replace("\\", ""));
+        holder.ivArchiveVideo.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                listener.onItemNewestVideoClick(position,recentItem);
+                listener.onItemArchiveVideoClick(position,recentItem,recent);
             }
         });
 
@@ -103,21 +95,20 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        public RoundedImageView ivNewestVideo;
-        public TextView tvTitleVideo,tvLike;
+        public RoundedImageView ivArchiveVideo;
+        public TextView tvTitleVideo;
 
         public ViewHolder(View v)
         {
             super(v);
             tvTitleVideo=v.findViewById(R.id.tvTitleVideo);
-            ivNewestVideo=v.findViewById(R.id.ivNewestVideo);
-            tvLike=v.findViewById(R.id.tvLike);
+            ivArchiveVideo=v.findViewById(R.id.ivArchiveVideo);
 
         }
     }
 
-    public interface NewestVideoListener {
-        void onItemNewestVideoClick(int position, Category category);
+    public interface ArchiveVideoListener {
+        void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent);
     }
 
 }
