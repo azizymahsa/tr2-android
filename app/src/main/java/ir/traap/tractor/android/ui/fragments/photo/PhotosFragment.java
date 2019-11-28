@@ -22,7 +22,6 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
@@ -31,20 +30,15 @@ import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.Category;
-import ir.traap.tractor.android.apiServices.model.mainVideos.Favorite;
 import ir.traap.tractor.android.apiServices.model.mainVideos.ListCategory;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideoRequest;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
 import ir.traap.tractor.android.ui.activities.photo.PhotoArchiveActivity;
-import ir.traap.tractor.android.ui.activities.photo.PhotoDetailActivity;
-import ir.traap.tractor.android.ui.activities.video.VideoDetailActivity;
+import ir.traap.tractor.android.ui.activities.photo.AlbumDetailActivity;
 import ir.traap.tractor.android.ui.adapters.photo.CategoryPhotosAdapter;
 import ir.traap.tractor.android.ui.adapters.photo.NewestPhotosAdapter;
 import ir.traap.tractor.android.ui.adapters.photo.PhotosArchiveAdapter;
 import ir.traap.tractor.android.ui.adapters.photo.PhotosCategoryTitleAdapter;
-import ir.traap.tractor.android.ui.adapters.video.CategoryAdapter;
-import ir.traap.tractor.android.ui.adapters.video.NewestVideosAdapter;
-import ir.traap.tractor.android.ui.adapters.video.VideosCategoryTitleAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
 import ir.traap.tractor.android.utilities.Tools;
@@ -84,10 +78,10 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
     {
 
     }
-    private void openPhotoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
+    private void openAlbumDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
-      //  Intent intent = new Intent(this, PhotoDetailActivity.class);
-        Intent intent = new Intent(getActivity(), PhotoDetailActivity.class);
+      //  Intent intent = new Intent(this, AlbumDetailActivity.class);
+        Intent intent = new Intent(getActivity(), AlbumDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Photos", categoriesList);
         intent.putExtra("IdVideoCategory",idVideo);
@@ -287,17 +281,17 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
             case R.id.ivFavorite1:
                 categoriesList=mainVideosResponse.getFavorites();
                 position=0;
-                idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
+                idVideo=mainVideosResponse.getFavorites().get(position).getId();//getCategoryId();
                 id=mainVideosResponse.getFavorites().get(position).getId();
-              //  openPhotoDetail(categoriesList,position,idVideo,id);
+                openAlbumDetail(categoriesList,position,idVideo,id);
                 break;
 
             case R.id.ivFavorite2:
                 categoriesList=mainVideosResponse.getFavorites();
                 position=1;
-                idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
+                idVideo=mainVideosResponse.getFavorites().get(position).getId();//getCategoryId();
                 id=mainVideosResponse.getFavorites().get(position).getId();
-             //   openPhotoDetail(categoriesList,position,idVideo,id);
+                openAlbumDetail(categoriesList,position,idVideo,id);
                 break;
 
             case R.id.ivFavorite3:
@@ -305,7 +299,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
                 position=2;
                 idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
                 id=mainVideosResponse.getFavorites().get(position).getId();
-               // openPhotoDetail(categoriesList,position,idVideo,id);
+                openAlbumDetail(categoriesList,position,idVideo,id);
                 break;
             case R.id.tvArchiveVideo:
                 ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
@@ -319,7 +313,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
     @Override
     public void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent)
     {
-        openPhotoDetail(recent,position,category.getCategoryId(),category.getId());
+        openAlbumDetail(recent,position,category.getCategoryId(),category.getId());
     }
     private void setCategoryListData(CategoryByIdVideosResponse data)
     {

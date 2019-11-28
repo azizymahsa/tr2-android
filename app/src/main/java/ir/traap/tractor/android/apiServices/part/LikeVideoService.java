@@ -27,4 +27,8 @@ public class LikeVideoService extends BasePart
     {
         start(getServiceGenerator().createService().likeVideo(videoId), listener);
     }
+    public void likePhotoService(Integer videoId, LikeVideoRequest request, OnServiceStatus<WebServiceClass<LikeVideoResponse>> listener)
+    {
+        start(getServiceGenerator().createService().likePhoto(videoId), listener);
+    }
 }
