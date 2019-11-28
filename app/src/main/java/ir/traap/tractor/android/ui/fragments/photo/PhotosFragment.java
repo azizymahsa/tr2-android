@@ -22,6 +22,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
@@ -46,7 +47,7 @@ import ir.traap.tractor.android.utilities.Tools;
 /**
  * Created by MahsaAzizi on 11/27/2019.
  */
-public class PhotosFragment extends BaseFragment  implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchiveVideoListener
+public class PhotosFragment extends BaseFragment  implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchiveVideoListener,CategoryPhotosAdapter.TitleCategoryListener
 {
     /*private MainActionView mainView;
     private View rootView;
@@ -186,7 +187,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
         setDataFavoriteList(mainPhotosResponse);
         photoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(mainPhotosResponse.getListCategories(), mainView, this);
         rvCategoryTitles.setAdapter(photoCategoryTitleAdapter);
-        categoryAdapter = new CategoryPhotosAdapter(mainPhotosResponse.getCategory(), mainView);
+        categoryAdapter = new CategoryPhotosAdapter(mainPhotosResponse.getCategory(), mainView,this);
         rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         rvGrideCategories.setAdapter(categoryAdapter);
@@ -231,9 +232,17 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
     @Override
     public void onItemTitleCategoryClick(ListCategory category)
     {
+       /* ArrayList<Category> categoriesList=new ArrayList<>();
+        Category category1=new Category();
+        category1.setId(category.getId());
+        category1.setTitle(category.getTitle());
+        categoriesList.add(category1);
+        ///*/
         mainView.showLoading();
         idCategoryTitle = category.getId();
         requestGetCategoryById(idCategoryTitle);
+      //  openAlbumDetail(categoriesList,position,category.getId(),category.getId());
+
     }
 
     private void requestGetCategoryById(Integer idCategoryTitle)
@@ -313,15 +322,29 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
     @Override
     public void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent)
     {
-        openAlbumDetail(recent,position,category.getCategoryId(),category.getId());
+        openAlbumDetail(recent,position,category.getId(),category.getId());
     }
     private void setCategoryListData(CategoryByIdVideosResponse data)
     {
-        categoryAdapter = new CategoryPhotosAdapter(data.getResults(), mainView);
+        categoryAdapter = new CategoryPhotosAdapter(data.getResults(), mainView,this);
         rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rvGrideCategories.setAdapter(categoryAdapter);
 
        // rvGrid.setLayoutManager(new GridLayoutManager(getContext(), 3));
        // rvGrid.setAdapter(new ItemRecyclerViewAdapter(getContext(), list, this));//, interactionListener));
+    }
+
+    //onClick Archive
+    @Override
+    public void onItemTitleCategoryClick(Category category)
+    {
+         ArrayList<Category> categoriesList=new ArrayList<>();
+        Category category1=new Category();
+        category1.setId(category.getId());
+        category1.setTitle(category.getTitle());
+        categoriesList.add(category1);
+
+        openAlbumDetail(categoriesList,position,category.getId(),category.getId());
+
     }
 }

@@ -5,6 +5,7 @@ import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
+import ir.traap.tractor.android.apiServices.model.photo.response.PhotosByIdResponse;
 
 /**
  * Created by MahtabAzizi on 11/25/2019.
@@ -31,5 +32,9 @@ public class CategoryByIdVideosService extends BasePart
     public void categoryByIdPhotosService(Integer categoryId, CategoryByIdVideosRequest request, OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>> listener)
     {
         start(getServiceGenerator().createService().getCategoryByIdPhotos(categoryId), listener);
+    }
+    public void photosByIdPhotosService(Integer categoryId, CategoryByIdVideosRequest request, OnServiceStatus<WebServiceClass<PhotosByIdResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getPhotosById(categoryId), listener);
     }
 }

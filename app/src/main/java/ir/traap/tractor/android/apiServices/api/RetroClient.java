@@ -51,6 +51,7 @@ import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
 import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import ir.traap.tractor.android.apiServices.model.photo.response.PhotosByIdResponse;
 import ir.traap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import ir.traap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.traap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -129,6 +130,10 @@ public interface RetroClient
 
     @GET(Const.Get_Category_By_Id_Photo)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(
+            @Path("id") Integer categoryId
+    );
+    @GET(Const.Get_Photos_By_Id)
+    Single<Response<WebServiceClass<PhotosByIdResponse>>> getPhotosById(
             @Path("id") Integer categoryId
     );
 
