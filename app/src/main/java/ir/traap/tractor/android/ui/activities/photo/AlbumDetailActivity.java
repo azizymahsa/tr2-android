@@ -125,10 +125,10 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
         setDataItems();
 
-        requestGetRelatedVideos(idVideoCategory);
+        requestGetRelatedVideos(idVideo);
 
 
-        sendRequestListPhotos(idVideoCategory);
+        sendRequestListPhotos(idVideo);
 
 
     }

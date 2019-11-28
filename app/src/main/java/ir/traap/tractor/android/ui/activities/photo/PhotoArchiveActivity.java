@@ -27,7 +27,7 @@ import ir.traap.tractor.android.ui.adapters.photo.PhotosCategoryTitleAdapter;
 import ir.traap.tractor.android.ui.base.BaseActivity;
 import ir.traap.tractor.android.utilities.Tools;
 
-public class PhotoArchiveActivity extends BaseActivity implements PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchiveVideoListener
+public class PhotoArchiveActivity extends BaseActivity implements  PhotosArchiveAdapter.ArchiveVideoListener
 {
 
     private TextView tvTitle, tvUserName, tvPopularPlayer;
@@ -130,15 +130,11 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosCategory
         rvCategoryTitles.setLayoutManager(layoutManager);
         LinearLayoutManager layoutManagerArchive = new LinearLayoutManager(getApplicationContext());
         rvArchiveVideo.setLayoutManager(layoutManagerArchive);
-        videoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(categoryTitleList,  this);
+        videoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(categoryTitleList,  this,false);
         rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
     }
 
-    @Override
-    public void onItemTitleCategoryClick(ListCategory category)
-    {
 
-    }
 
     private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
