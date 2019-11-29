@@ -14,6 +14,10 @@ public class NewsDetailsPositionIdsModel implements Parcelable
     @Getter @Setter
     private Integer Position;
 
+    public NewsDetailsPositionIdsModel()
+    {
+    }
+
     protected NewsDetailsPositionIdsModel(Parcel in)
     {
         if (in.readByte() == 0)

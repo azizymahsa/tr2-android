@@ -18,15 +18,16 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ir.traap.tractor.android.R;
+import ir.traap.tractor.android.apiServices.model.news.details.getContent.response.RelatedNews;
 import ir.traap.tractor.android.apiServices.model.news.main.News;
 
-public class MainFacoriteNewsAdapter extends RecyclerView.Adapter<MainFacoriteNewsAdapter.ViewHolder>
+public class NewsDetailsRelatedAdapter extends RecyclerView.Adapter<NewsDetailsRelatedAdapter.ViewHolder>
 {
     private OnSliderItemClickListener mItemClickListener;
     private Context mContext;
-    private List<News> list;
+    private List<RelatedNews> list;
 
-    public MainFacoriteNewsAdapter(Context mContext, List<News> list)
+    public NewsDetailsRelatedAdapter(Context mContext, List<RelatedNews> list)
     {
         this.mContext = mContext;
         this.list = list;
@@ -37,7 +38,7 @@ public class MainFacoriteNewsAdapter extends RecyclerView.Adapter<MainFacoriteNe
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.adapter_main_favorite_news_item, null);
+                R.layout.adapter_news_details_related_item, null);
 
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 
@@ -48,7 +49,7 @@ public class MainFacoriteNewsAdapter extends RecyclerView.Adapter<MainFacoriteNe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        News news = list.get(position);
+        RelatedNews news = list.get(position);
 
         if (news.getTitle() != null)
         {

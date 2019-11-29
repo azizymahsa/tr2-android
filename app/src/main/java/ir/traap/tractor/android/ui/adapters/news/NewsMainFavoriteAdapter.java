@@ -20,13 +20,13 @@ import java.util.List;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.news.main.News;
 
-public class MainNewestNewsAdapter extends RecyclerView.Adapter<MainNewestNewsAdapter.ViewHolder>
+public class NewsMainFavoriteAdapter extends RecyclerView.Adapter<NewsMainFavoriteAdapter.ViewHolder>
 {
     private OnSliderItemClickListener mItemClickListener;
     private Context mContext;
     private List<News> list;
 
-    public MainNewestNewsAdapter(Context mContext, List<News> list)
+    public NewsMainFavoriteAdapter(Context mContext, List<News> list)
     {
         this.mContext = mContext;
         this.list = list;
@@ -37,7 +37,7 @@ public class MainNewestNewsAdapter extends RecyclerView.Adapter<MainNewestNewsAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.adapter_main_newest_news_item, null);
+                R.layout.adapter_main_favorite_news_item, null);
 
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 

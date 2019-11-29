@@ -1,5 +1,6 @@
 package ir.traap.tractor.android.ui.fragments.news.archive;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategory;
 import ir.traap.tractor.android.apiServices.model.news.main.News;
+import ir.traap.tractor.android.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
+import ir.traap.tractor.android.ui.activities.news.details.NewsDetailsActivity;
 import ir.traap.tractor.android.ui.adapters.news.NewsArchiveAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.utilities.Logger;
@@ -31,7 +34,7 @@ import ir.traap.tractor.android.utilities.Tools;
 public class NewsArchiveCategoryFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<NewsArchiveListByIdResponse>>
 {
     private View rootView;
-    private NewsArchiveCategory archiveCategory;
+//    private NewsArchiveCategory archiveCategory;
     private int Id;
     private boolean pagerWithFilter = false;
     private boolean getFromId ;
@@ -147,7 +150,21 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 
                 adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
                 {
-                    //Go To Details
+                    List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+                    for (int i = 0 ; i < newsContentList.size(); i++)
+                    {
+                        NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+                        model.setId(newsContentList.get(i).getId());
+                        model.setPosition(i);
+
+                        positionIdsList.add(model);
+                    }
+
+                    Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+                    intent.putExtra("currentId", id);
+                    intent.putExtra("currentPosition", position);
+                    intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
+                    startActivity(intent);
                 });
 
                 adapter.notifyDataSetChanged();
@@ -184,7 +201,21 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 
             adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
             {
-                //Go To Details
+                List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+                for (int i = 0 ; i < newsContentList.size(); i++)
+                {
+                    NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+                    model.setId(newsContentList.get(i).getId());
+                    model.setPosition(i);
+
+                    positionIdsList.add(model);
+                }
+
+                Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+                intent.putExtra("currentId", id);
+                intent.putExtra("currentPosition", position);
+                intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
+                startActivity(intent);
             });
 
             adapter.notifyDataSetChanged();

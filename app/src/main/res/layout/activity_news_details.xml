@@ -51,33 +51,75 @@
                 android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvNextNews"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="@dimen/_80dp"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:text="خبر بعدی"
-                    android:textColor="@color/textColorSecondary"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:padding="8dp"
-                    android:layout_marginRight="8dp"
-                    android:textSize="@dimen/textSize_14dp"
-                    android:gravity="right" />
+                    android:layout_alignParentRight="true">
 
-                <TextView
-                    android:id="@+id/tvPrevNews"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tvNextNews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:text="خبر بعدی"
+                        android:textColor="@color/textColorSecondary"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:padding="8dp"
+                        android:layout_marginRight="8dp"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:visibility="visible"
+                        android:gravity="right" />
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/aviNext"
+                        style="@style/AVLoadingIndicatorView"
+                        android:layout_width="26dp"
+                        android:layout_centerInParent="true"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:visibility="invisible"
+                        app:indicatorColor="@color/aviColor"
+                        app:indicatorName="BallPulseIndicator" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="@dimen/_80dp"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:text="خبر قبلی"
-                    android:textColor="@color/textColorSecondary"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:padding="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="@dimen/textSize_14dp"
-                    android:gravity="left" />
+                    android:layout_alignParentLeft="true">
+
+                    <TextView
+                        android:id="@+id/tvPrevNews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:text="خبر قبلی"
+                        android:textStyle="bold"
+                        android:textColor="@color/textColorSecondary"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:padding="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:gravity="left" />
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/aviPrev"
+                        style="@style/AVLoadingIndicatorView"
+                        android:layout_width="26dp"
+                        android:layout_centerInParent="true"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:visibility="invisible"
+                        app:indicatorColor="@color/aviColor"
+                        app:indicatorName="BallPulseIndicator" />
+
+                </RelativeLayout>
+
 
             </RelativeLayout>
 
