@@ -25,13 +25,15 @@ import ir.traap.tractor.android.apiServices.model.news.details.getContent.respon
 import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.models.otherModels.newsModel.NewsDetailsFromRelatedNews;
 import ir.traap.tractor.android.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
+import ir.traap.tractor.android.ui.activities.news.NewsDetailsAction;
 import ir.traap.tractor.android.ui.base.BaseActivity;
 import ir.traap.tractor.android.ui.fragments.news.details.contentNews.NewsDetailsContentFragment;
 import ir.traap.tractor.android.ui.fragments.news.details.relatedNews.NewsRelatedContentFragment;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.Tools;
 
-public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus<WebServiceClass<GetNewsDetailsResponse>>
+public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus<WebServiceClass<GetNewsDetailsResponse>>,
+        NewsDetailsAction
 {
     private Toolbar mToolbar;
     private List<NewsDetailsPositionIdsModel> positionIdsList;
@@ -129,6 +131,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     private void getData(Integer currentId)
     {
         //show Loading
+        showLoading();
         if (currentPosition == 0)
         {
             disableBtnPrev();
@@ -187,6 +190,8 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     public void onReady(WebServiceClass<GetNewsDetailsResponse> response)
     {
 //            hideLoading();
+        hideLoading();
+
         if (response.info.statusCode != 200)
         {
             showError(this, response.info.message);
@@ -214,6 +219,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     public void onError(String message)
     {
 //            hideLoading();
+        hideLoading();
 
         if (Tools.isNetworkAvailable(this))
         {
@@ -298,16 +304,14 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
 
     private void setContentData()
     {
-        newsDetailFragment = NewsDetailsContentFragment.newInstance(currentContent);
+        newsDetailFragment = NewsDetailsContentFragment.newInstance(this, currentContent);
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.newsDetailContainer, newsDetailFragment, "newsDetailsContentFragment")
                 .commit();
 
-
-
-        newsRelatedFragment = NewsRelatedContentFragment.newInstance(currentContent.getRelatedNews());
+        newsRelatedFragment = NewsRelatedContentFragment.newInstance(this, currentContent.getRelatedNews());
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -331,6 +335,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         positionIdsList = relatedNews.getPositionIdsList();
 
         //show Loading
+        showLoading();
 
         getData(currentId);
     }
@@ -340,5 +345,19 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void showLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+        findViewById(R.id.root).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
+        findViewById(R.id.root).setVisibility(View.VISIBLE);
     }
 }

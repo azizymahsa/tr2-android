@@ -28,8 +28,10 @@ import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
 import ir.traap.tractor.android.apiServices.model.news.details.sendRate.LikeNewsDetailResponse;
+import ir.traap.tractor.android.ui.activities.news.NewsDetailsAction;
 import ir.traap.tractor.android.ui.adapters.news.NewsDetailsImageAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
+import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
 import ir.traap.tractor.android.utilities.JustifiedTextView;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.Tools;
@@ -55,18 +57,27 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
     private RecyclerView rcImageGallery;
     private ScrollingPagerIndicator indicator;
 
+    private NewsDetailsAction actionView;
+
     public NewsDetailsContentFragment() { }
 
-    public static NewsDetailsContentFragment newInstance(GetNewsDetailsResponse content)
+    public static NewsDetailsContentFragment newInstance(NewsDetailsAction actionView, GetNewsDetailsResponse content)
     {
         NewsDetailsContentFragment f = new NewsDetailsContentFragment();
+        f.setActionView(actionView);
 
         Bundle arg = new Bundle();
-        arg.putParcelable("content", (Parcelable) content);
+        arg.putParcelable("content", content);
 
         f.setArguments(arg);
         return f;
     }
+
+    private void setActionView(NewsDetailsAction actionView)
+    {
+        this.actionView = actionView;
+    }
+
 
     @Override
     public void onAttach(@NonNull Context context)

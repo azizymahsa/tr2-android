@@ -41,6 +41,7 @@ import ir.traap.tractor.android.models.otherModels.newsModel.NewsDetailsPosition
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.activities.login.LoginActivity;
 import ir.traap.tractor.android.ui.activities.main.MainActivity;
+import ir.traap.tractor.android.ui.activities.news.NewsDetailsAction;
 import ir.traap.tractor.android.ui.adapters.news.NewsDetailsRelatedAdapter;
 import ir.traap.tractor.android.ui.adapters.news.NewsMainFavoriteAdapter;
 import ir.traap.tractor.android.ui.adapters.news.NewsMainNewestAdapter;
@@ -62,10 +63,11 @@ public class NewsRelatedContentFragment extends BaseFragment
     private NewsDetailsRelatedAdapter adapter;
 
     private BannerLayout bRelatedNews;
+    private NewsDetailsAction actionView;
 
     public NewsRelatedContentFragment() { }
 
-    public static NewsRelatedContentFragment newInstance(List<RelatedNews> relatedNews)
+    public static NewsRelatedContentFragment newInstance(NewsDetailsAction actionView, List<RelatedNews> relatedNews)
     {
         NewsRelatedContentFragment f = new NewsRelatedContentFragment();
 
@@ -74,6 +76,11 @@ public class NewsRelatedContentFragment extends BaseFragment
 
         f.setArguments(arg);
         return f;
+    }
+
+    private void setActionView(NewsDetailsAction actionView)
+    {
+        this.actionView = actionView;
     }
 
     @Override
