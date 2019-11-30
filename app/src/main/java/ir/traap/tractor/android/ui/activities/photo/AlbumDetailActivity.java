@@ -1,6 +1,7 @@
 package ir.traap.tractor.android.ui.activities.photo;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -58,6 +59,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private AlbumDetailsItemAdapter adapter;
     private TextView titleAlbum, tvCaption;
     private Integer idPhoto;
+    private String largeImageClick = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -117,6 +119,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
         ivPhoto = findViewById(R.id.ivPhoto);
+        ivPhoto.setOnClickListener(this);
         imgBookmark = findViewById(R.id.imgBookmark);
         imgLike = findViewById(R.id.imgLike);
         tvLike = findViewById(R.id.tvLike);
@@ -184,8 +187,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             if (data.getContent().get(i).getIsCover())
             {
                 setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
-                idPhoto=data.getContent().get(i).getId();
-                likeCount=data.getContent().get(i).getLikes();
+                idPhoto = data.getContent().get(i).getId();
+                likeCount = data.getContent().get(i).getLikes();
                 tvLike.setText(likeCount + "");
 
             }
@@ -255,7 +258,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void setDataItems()
     {
-       // videoItem = videosList.get(positionVideo);
+        // videoItem = videosList.get(positionVideo);
 
        /* urlVideo=videoItem.getFrame().replace("\\", "");
        tvLike.setText(videoItem.getLikes().toString());
@@ -304,6 +307,15 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                 imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                 tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
                 requestLikeVideo();
+                break;
+            case R.id.ivPhoto:
+
+                Intent intent = new Intent(this, ShowBigPhotoActivity.class);
+
+                intent.putExtra("SRCImage", largeImageClick);
+                intent.putExtra("LikeCount", likeCount);
+                intent.putExtra("idPhoto", idPhoto);
+                startActivity(intent);
                 break;
         }
     }
@@ -380,13 +392,12 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     {
         titleAlbum.setText(content.getTitle() + "");
         tvCaption.setText(content.getCaption() + "");
-        idPhoto=content.getId();
-        likeCount=content.getLikes();
+        idPhoto = content.getId();
+        likeCount = content.getLikes();
         tvLike.setText(likeCount + "");
+        largeImageClick = content.getImageName().getThumbnailLarge();
 
         setImageBackground(ivPhoto, content.getImageName().getThumbnailLarge().replace("\\", ""));
-
-
 
 
     }
