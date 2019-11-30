@@ -30,6 +30,28 @@
         android:padding="3dp"
         android:layout_alignParentEnd="true"
         >
+        <ImageView
+            android:id="@+id/btnBookmark"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:src="@drawable/ic_share_36dp"
+            android:padding="@dimen/_5sdp"
+            android:tint="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_toRightOf="@id/btnSharePic"
+
+            />
+        <ImageView
+            android:id="@+id/btnSharePic"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:src="@drawable/ic_share_36dp"
+            android:padding="@dimen/_5sdp"
+            android:tint="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_toRightOf="@id/tvLike"
+
+            />
         <TextView
             android:id="@+id/tvLike"
             android:layout_width="wrap_content"
@@ -63,6 +85,7 @@
         >
 
         <RelativeLayout
+            android:id="@+id/rlPic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
