@@ -92,7 +92,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
             //imgMenu.setOnClickListener(v -> mainView.openDrawerNews());
 
             tvPopularPlayer = findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
             imgBack = findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
@@ -247,6 +247,15 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         llErrorPayment.setVisibility(View.VISIBLE);
         Tools.showToast(this, error, R.color.red);
         hideLoading();
+    }
+
+    @Override
+    public void onErrorTicketInfo()
+    {
+        llSuccessPayment.setVisibility(View.GONE);
+        llErrorPayment.setVisibility(View.VISIBLE);
+        hideLoading();
+
     }
 
 

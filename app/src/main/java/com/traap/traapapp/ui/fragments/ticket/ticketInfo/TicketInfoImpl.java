@@ -29,7 +29,7 @@ public class TicketInfoImpl implements TicketInfoInteractor
                     {
                         if (response.data.getResults().isEmpty())
                         {
-                            listener.onErrorTicketInfo("پرداخت ناموفق!");
+                            listener.onErrorTicketInfo();
                         }
                         else
                         {

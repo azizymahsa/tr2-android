@@ -102,7 +102,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             imgMenu.setVisibility(View.GONE);
 
             tvPopularPlayer = findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
             imgBack = findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->

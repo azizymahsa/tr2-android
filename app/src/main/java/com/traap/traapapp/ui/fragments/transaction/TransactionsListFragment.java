@@ -116,7 +116,7 @@ public class TransactionsListFragment
 
             tvTitle.setText("سوابق خرید و تراکنش");
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
 
         } catch (Exception e)
