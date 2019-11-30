@@ -85,6 +85,7 @@ import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.traapMarket.MarketFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
+import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
 import com.traap.traapapp.utilities.Logger;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
@@ -1159,6 +1160,18 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .commit();
     }
 
+    @Override
+    public void onMainVideoClick()
+    {
+        isMainFragment = false;
+        this.fragment = VideosMainFragment.newInstance(this);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "videosMainFragment")
+                .commit();
+
+    }
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {

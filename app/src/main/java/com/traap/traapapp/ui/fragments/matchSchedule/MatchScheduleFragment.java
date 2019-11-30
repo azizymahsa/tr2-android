@@ -159,7 +159,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
 
             tvPopularPlayer = rootView.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->

@@ -288,14 +288,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     {
         if (response.info.statusCode == 200)
         {
-            if (response.data.getPopularPlayer() != 0)
+          /*  if (response.data.getPopularPlayer() != 0)
             {
                 Prefs.putInt("favPlayerNo", response.data.getPopularPlayer());
             }
-
+*/
             etFirstName.setText(response.data.getFirstName());
             etLastName.setText(response.data.getLastName());
-            etPopularPlayer.setText(response.data.getPopularPlayer().toString());
+          //  etPopularPlayer.setText(response.data.getPopularPlayer().toString());
             etBirthDay.setText(response.data.getBirthday());
             etFirstNameUS.setText(response.data.getEnglishName());
             etNationalCode.setText(response.data.getNationalCode());

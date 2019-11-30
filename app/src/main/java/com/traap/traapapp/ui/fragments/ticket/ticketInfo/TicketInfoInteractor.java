@@ -13,6 +13,8 @@ public interface TicketInfoInteractor
     interface OnFinishedTicketInfoListener {
         void onFinishedTicketInfo(GetTicketInfoResponse response);
         void onErrorTicketInfo(String error);
+
+        void onErrorTicketInfo();
     }
 
 }

@@ -59,4 +59,6 @@ public interface MainActionView extends BaseView
     void onFootBallServiceSix();
 
     void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition);
+
+    void onMainVideoClick();
 }
