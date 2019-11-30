@@ -34,17 +34,18 @@ import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.ui.adapters.photo.AlbumDetailsItemAdapter;
 import ir.traap.tractor.android.ui.adapters.photo.NewestPhotosAdapter;
 import ir.traap.tractor.android.ui.base.BaseActivity;
+import ir.traap.tractor.android.utilities.ScreenShot;
 import ir.traap.tractor.android.utilities.Tools;
 import ir.traap.tractor.android.utilities.Utility;
 
 public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickListener, AlbumDetailsItemAdapter.OnItemAllMenuClickListener
 {
-    private TextView  tvLike;
+    private TextView tvLike;
     private TextView imgBack;
     private RoundedImageView ivPhoto;
-    private ImageView imgBookmark, imgLike;
+    private ImageView btnSharePic, imgLike;
 
-    private RelativeLayout rlLike;
+    private RelativeLayout rlLike,rlPic;
 
     private int likeCount = 0;
 
@@ -96,12 +97,15 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         }
 
         ivPhoto = findViewById(R.id.ivPhoto);
-        ivPhoto.setOnClickListener(this);
-        imgBookmark = findViewById(R.id.imgBookmark);
+        btnSharePic = findViewById(R.id.btnSharePic);
         imgLike = findViewById(R.id.imgLike);
         tvLike = findViewById(R.id.tvLike);
         rlLike = findViewById(R.id.rlLike);
+        rlPic = findViewById(R.id.rlPic);
+
         rlLike.setOnClickListener(this);
+        btnSharePic.setOnClickListener(this);
+        ivPhoto.setOnClickListener(this);
 
 
     }
@@ -129,6 +133,10 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                 imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                 tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
                 requestLikeVideo();
+                break;
+            case R.id.btnSharePic:
+                new ScreenShot(rlPic, this);
+
                 break;
 
         }
