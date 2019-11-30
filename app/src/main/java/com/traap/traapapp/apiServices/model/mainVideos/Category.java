@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.traap.traapapp.apiServices.model.photo.response.ImageName;
 
 public class Category implements Parcelable
 {
@@ -54,6 +55,19 @@ public class Category implements Parcelable
     @SerializedName("cover")
     @Expose
     private String cover;
+    @SerializedName("image_name")
+    @Expose
+    private ImageName imageName;
+
+    public ImageName getImageName()
+    {
+        return imageName;
+    }
+
+    public void setImageName(ImageName imageName)
+    {
+        this.imageName = imageName;
+    }
 
     public String getCover()
     {

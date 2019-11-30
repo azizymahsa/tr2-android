@@ -20,18 +20,20 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 
 /**
- * Created by MahtabAzizi on 11/27/2019.
+ * Created by MahsaAzizi on 11/27/2019.
  */
 public class PhotosArchiveAdapter extends RecyclerView.Adapter<PhotosArchiveAdapter.ViewHolder>
 {
+    private  Boolean FLAG_Favorite=false;
     private Context context;
     private ArrayList<Category> recent;
     private ArchiveVideoListener listener;
 
-    public PhotosArchiveAdapter(ArrayList<Category> recent, ArchiveVideoListener listener)
+    public PhotosArchiveAdapter(ArrayList<Category> recent,Boolean FLAG_Favorite, ArchiveVideoListener listener)
     {
-        this.recent=recent;
-        this.listener=listener;
+        this.recent = recent;
+        this.listener = listener;
+        this.FLAG_Favorite = FLAG_Favorite;
     }
 
 
@@ -49,13 +51,17 @@ public class PhotosArchiveAdapter extends RecyclerView.Adapter<PhotosArchiveAdap
     {
         Category recentItem = recent.get(position);
         holder.tvTitleVideo.setText(recentItem.getTitle());
-        setImageBackground(holder.ivArchiveVideo,recentItem.getCover().replace("\\", ""));
+        if (FLAG_Favorite)
+            setImageBackground(holder.ivArchiveVideo, recentItem.getImageName().getThumbnailLarge().replace("\\", ""));
+        else
+            setImageBackground(holder.ivArchiveVideo, recentItem.getCover().replace("\\", ""));
+
         holder.ivArchiveVideo.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                listener.onItemArchiveVideoClick(position,recentItem,recent);
+                listener.onItemArchiveVideoClick(position, recentItem, recent);
             }
         });
 
@@ -77,13 +83,11 @@ public class PhotosArchiveAdapter extends RecyclerView.Adapter<PhotosArchiveAdap
                     Picasso.with(context).load(R.drawable.img_failure).into(image);
                 }
             });*/
-        }
-        catch (NullPointerException e)
+        } catch (NullPointerException e)
         {
             Picasso.with(context).load(R.drawable.img_failure).into(image);
         }
     }
-
 
 
     @Override
@@ -101,13 +105,14 @@ public class PhotosArchiveAdapter extends RecyclerView.Adapter<PhotosArchiveAdap
         public ViewHolder(View v)
         {
             super(v);
-            tvTitleVideo=v.findViewById(R.id.tvTitleVideo);
-            ivArchiveVideo=v.findViewById(R.id.ivArchiveVideo);
+            tvTitleVideo = v.findViewById(R.id.tvTitleVideo);
+            ivArchiveVideo = v.findViewById(R.id.ivArchiveVideo);
 
         }
     }
 
-    public interface ArchiveVideoListener {
+    public interface ArchiveVideoListener
+    {
         void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent);
     }
 

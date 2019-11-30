@@ -74,7 +74,6 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -98,42 +97,47 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
     public void initView()
     {
+        try
+        {
 
-        fragmentManager = getChildFragmentManager();
+            fragmentManager = getChildFragmentManager();
 
-        recyclerView = rootView.findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
-        recyclerView.setLayoutManager(layoutManager);
+            recyclerView = rootView.findViewById(R.id.recyclerView);
+            layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
+            recyclerView.setLayoutManager(layoutManager);
 
-        List<MediaModel> list = new ArrayList<>();
+            List<MediaModel> list = new ArrayList<>();
 
-        MediaModel item = new MediaModel();
-        item.setId(1);
-        item.setTitle("اخبار");
-        item.setIconDrawable(R.drawable.ic_news);
-        item.setIconDrawableSelected(R.drawable.ic_news_selected);
-        list.add(item);
+            MediaModel item = new MediaModel();
+            item.setId(1);
+            item.setTitle("اخبار");
+            item.setIconDrawable(R.drawable.ic_news);
+            item.setIconDrawableSelected(R.drawable.ic_news_selected);
+            list.add(item);
 
-        item = new MediaModel();
-        item.setId(2);
-        item.setTitle("عکس");
-        item.setIconDrawable(R.drawable.ic_image);
-        item.setIconDrawableSelected(R.drawable.ic_image_selected);
-        list.add(item);
+            item = new MediaModel();
+            item.setId(2);
+            item.setTitle("عکس");
+            item.setIconDrawable(R.drawable.ic_image);
+            item.setIconDrawableSelected(R.drawable.ic_image_selected);
+            list.add(item);
 
-        item = new MediaModel();
-        item.setId(3);
-        item.setTitle("فیلم");
-        item.setIconDrawable(R.drawable.ic_movie);
-        item.setIconDrawableSelected(R.drawable.ic_movie_selected);
-        list.add(item);
+            item = new MediaModel();
+            item.setId(3);
+            item.setTitle("فیلم");
+            item.setIconDrawable(R.drawable.ic_movie);
+            item.setIconDrawableSelected(R.drawable.ic_movie_selected);
+            list.add(item);
 
-        adapter = new MediaAdapter(getActivity(), list, MediaFragment.this);
-        recyclerView.setAdapter(adapter);
+            adapter = new MediaAdapter(getActivity(), list, MediaFragment.this);
+            recyclerView.setAdapter(adapter);
 
-        //MediaPosition.valueOf(mediaPosition.name()).ordinal()
-        recyclerView.scrollToPosition(mediaPosition.ordinal()-1);
-
+            //MediaPosition.valueOf(mediaPosition.name()).ordinal()
+            recyclerView.scrollToPosition(mediaPosition.ordinal() - 1);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
     }
 
     @Override

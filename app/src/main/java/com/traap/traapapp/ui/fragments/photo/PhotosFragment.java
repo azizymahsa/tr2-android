@@ -303,6 +303,8 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
                 ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
                 Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
                 intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
+                intent.putExtra("FLAG_Favorite",false);
+
                 startActivity(intent);
                 break;
             case R.id.tvMyFavoritePhoto:
