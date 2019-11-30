@@ -79,7 +79,8 @@
 -keep enum com.wooplr.spotlight.**
 -keep class net.sqlcipher.database.** { *; }
 
-
+-keep class com.wang.avi.** { *; }
+-keep class com.wang.avi.indicators.** { *; }
 
 
 -keep class eniac.shetac.model.db.ArchiveCardDBModel { *; }
