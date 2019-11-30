@@ -36,10 +36,10 @@ import ir.traap.tractor.android.utilities.CustomViewPager;
 /**
  * Created by MahsaAzizi on 11/20/2019.
  */
-public class SelectPaymentGateWayFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener
+public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener
 {
 
-    private static SelectPaymentGateWayFragment matchScheduleFragment;
+    private static SelectPaymentGatewayFragment matchScheduleFragment;
     private  PaymentMatchRequest paymentMatchRequest;
     private String url = "";
     private MainActionView mainView;
@@ -60,7 +60,7 @@ public class SelectPaymentGateWayFragment extends BaseFragment implements OnAnim
     private ImageView imgLogo;
     private CircularProgressButton btnBuy, btnBack;
 
-    public SelectPaymentGateWayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
+    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
     {
         this.url = url;
         this.mainView = mainView;
@@ -70,13 +70,13 @@ public class SelectPaymentGateWayFragment extends BaseFragment implements OnAnim
         this.paymentMatchRequest = paymentMatchRequest;
     }
 
-    public SelectPaymentGateWayFragment()
+    public SelectPaymentGatewayFragment()
     {
     }
 
-    public static SelectPaymentGateWayFragment newInstance(MainActionView mainView)
+    public static SelectPaymentGatewayFragment newInstance(MainActionView mainView)
     {
-        matchScheduleFragment = new SelectPaymentGateWayFragment();
+        matchScheduleFragment = new SelectPaymentGatewayFragment();
         return matchScheduleFragment;
     }
 

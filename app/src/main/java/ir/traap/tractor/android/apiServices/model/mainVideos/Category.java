@@ -179,6 +179,10 @@ this.isLiked = isLiked;
 }
 
 
+    public Category()
+    {
+    }
+
     @Override
     public int describeContents()
     {
@@ -202,10 +206,7 @@ this.isLiked = isLiked;
         dest.writeValue(this.isBookmarked);
         dest.writeValue(this.likes);
         dest.writeValue(this.isLiked);
-    }
-
-    public Category()
-    {
+        dest.writeString(this.cover);
     }
 
     protected Category(Parcel in)
@@ -224,9 +225,10 @@ this.isLiked = isLiked;
         this.isBookmarked = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.likes = (Integer) in.readValue(Integer.class.getClassLoader());
         this.isLiked = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.cover = in.readString();
     }
 
-    public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>()
+    public static final Creator<Category> CREATOR = new Creator<Category>()
     {
         @Override
         public Category createFromParcel(Parcel source)

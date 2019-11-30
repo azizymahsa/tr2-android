@@ -28,10 +28,11 @@ public class CategoryPhotosAdapter extends RecyclerView.Adapter<CategoryPhotosAd
     private List<Category> categories;
     private TitleCategoryListener listener;
 
-    public CategoryPhotosAdapter(List<Category> categories, MainActionView mainView)
+    public CategoryPhotosAdapter(List<Category> categories, MainActionView mainView,TitleCategoryListener listener)
     {
         this.categories=categories;
         this.mainView=mainView;
+        this.listener=listener;
     }
 
 
@@ -50,7 +51,14 @@ public class CategoryPhotosAdapter extends RecyclerView.Adapter<CategoryPhotosAd
         Category category = categories.get(position);
 
         setImageBackground(holder.ivCategory,category.getCover().replace("\\", ""));
-
+        holder.ivCategory.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onItemTitleCategoryClick(category);
+            }
+        });
     }
 
     private void setImageBackground(ImageView image, String link)
@@ -82,6 +90,8 @@ public class CategoryPhotosAdapter extends RecyclerView.Adapter<CategoryPhotosAd
 
         return categories.size();
     }
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {

@@ -54,6 +54,7 @@ import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArc
 import ir.traap.tractor.android.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
 import ir.traap.tractor.android.apiServices.model.news.details.sendRate.LikeNewsDetailResponse;
 import ir.traap.tractor.android.apiServices.model.news.main.NewsMainResponse;
+import ir.traap.tractor.android.apiServices.model.photo.response.PhotosByIdResponse;
 import ir.traap.tractor.android.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import ir.traap.tractor.android.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import ir.traap.tractor.android.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -116,13 +117,16 @@ public interface RetroClient
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
             @Path("id") Integer categoryId
     );
+
     @POST(Const.Like_Video)
     Single<Response<WebServiceClass<LikeVideoResponse>>> likeVideo(
             @Path("id") Integer videoId
     );
 
+
     @GET(Const.Archive_Video)
     Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchiveVideos(@Query("category_id") int categoryId);
+
     /*photos*/
     @GET(Const.Get_Main_Photo)
     Single<Response<WebServiceClass<MainVideosResponse>>> getMainPhotos();
@@ -131,9 +135,18 @@ public interface RetroClient
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(
             @Path("id") Integer categoryId
     );
+    @GET(Const.Get_Photos_By_Id)
+    Single<Response<WebServiceClass<PhotosByIdResponse>>> getPhotosById(
+            @Path("id") Integer categoryId
+    );
+
     @GET(Const.Archive_Photo)
     Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos();
 
+    @POST(Const.Like_Photo)
+    Single<Response<WebServiceClass<LikeVideoResponse>>> likePhoto(
+            @Path("id") Integer videoId
+    );
 
     @GET(Const.GetMenuHelp)
     Single<Response<WebServiceClass<GetMenuHelpResponse>>> getMenuHelp();
