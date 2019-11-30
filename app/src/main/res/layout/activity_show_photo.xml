@@ -31,6 +31,17 @@
         android:layout_alignParentEnd="true"
         >
         <ImageView
+            android:id="@+id/btnBookmark"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:src="@drawable/ic_share_36dp"
+            android:padding="@dimen/_5sdp"
+            android:tint="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_toRightOf="@id/btnSharePic"
+
+            />
+        <ImageView
             android:id="@+id/btnSharePic"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"

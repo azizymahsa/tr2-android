@@ -3,6 +3,8 @@ package ir.traap.tractor.android.apiServices.part;
 import ir.traap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
+import ir.traap.tractor.android.apiServices.model.bookMarkPhoto.BookMarkPhotoRequest;
+import ir.traap.tractor.android.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
 import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoRequest;
 import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoResponse;
 
@@ -30,5 +32,9 @@ public class LikeVideoService extends BasePart
     public void likePhotoService(Integer videoId, LikeVideoRequest request, OnServiceStatus<WebServiceClass<LikeVideoResponse>> listener)
     {
         start(getServiceGenerator().createService().likePhoto(videoId), listener);
+    }
+    public void bookMarkPhotoService(Integer videoId, BookMarkPhotoRequest request, OnServiceStatus<WebServiceClass<BookMarkPhotoResponse>> listener)
+    {
+        start(getServiceGenerator().createService().bookMarkPhoto(videoId), listener);
     }
 }

@@ -23,6 +23,8 @@ import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.generator.SingletonService;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
+import ir.traap.tractor.android.apiServices.model.bookMarkPhoto.BookMarkPhotoRequest;
+import ir.traap.tractor.android.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import ir.traap.tractor.android.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoRequest;
@@ -43,9 +45,9 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
     private TextView tvLike;
     private TextView imgBack;
     private RoundedImageView ivPhoto;
-    private ImageView btnSharePic, imgLike;
+    private ImageView btnSharePic, imgLike, btnBookmark;
 
-    private RelativeLayout rlLike,rlPic;
+    private RelativeLayout rlLike, rlPic;
 
     private int likeCount = 0;
 
@@ -91,22 +93,22 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             });
 
 
+            ivPhoto = findViewById(R.id.ivPhoto);
+            btnSharePic = findViewById(R.id.btnSharePic);
+            imgLike = findViewById(R.id.imgLike);
+            tvLike = findViewById(R.id.tvLike);
+            rlLike = findViewById(R.id.rlLike);
+            rlPic = findViewById(R.id.rlPic);
+            btnBookmark = findViewById(R.id.btnBookmark);
+
+            rlLike.setOnClickListener(this);
+            btnSharePic.setOnClickListener(this);
+            ivPhoto.setOnClickListener(this);
+            btnBookmark.setOnClickListener(this);
         } catch (Exception e)
         {
-
+            e.getMessage();
         }
-
-        ivPhoto = findViewById(R.id.ivPhoto);
-        btnSharePic = findViewById(R.id.btnSharePic);
-        imgLike = findViewById(R.id.imgLike);
-        tvLike = findViewById(R.id.tvLike);
-        rlLike = findViewById(R.id.rlLike);
-        rlPic = findViewById(R.id.rlPic);
-
-        rlLike.setOnClickListener(this);
-        btnSharePic.setOnClickListener(this);
-        ivPhoto.setOnClickListener(this);
-
 
     }
 
@@ -132,19 +134,80 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             case R.id.rlLike:
                 imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                 tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
-                requestLikeVideo();
+                requestLike();
                 break;
             case R.id.btnSharePic:
                 new ScreenShot(rlPic, this);
+
+                break;
+            case R.id.btnBookmark:
+                btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
+
+                requestBookMark();
 
                 break;
 
         }
     }
 
-    private void requestLikeVideo()
+    private void requestBookMark()
     {
-        //rlLike.setClickable(false);
+        BookMarkPhotoRequest request = new BookMarkPhotoRequest();
+
+        SingletonService.getInstance().getLikeVideoService().bookMarkPhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<BookMarkPhotoResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<BookMarkPhotoResponse> response)
+            {
+
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+
+                        setBookMark(response.data);
+
+                    } else
+                    {
+                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                Tools.showToast(getApplicationContext(), message, R.color.red);
+
+            }
+        });
+    }
+
+    private void setBookMark(BookMarkPhotoResponse data)
+    {
+        if (data.getBookMarked())
+        {
+            btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
+            /*tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+            likeCount = likeCount + 1;
+            tvLike.setText(likeCount + "");*/
+
+        } else
+        {
+            btnBookmark.setColorFilter(getResources().getColor(R.color.white));
+           /* tvLike.setTextColor(getResources().getColor(R.color.gray));
+            likeCount = likeCount - 1;
+            tvLike.setText(likeCount + "");*/
+        }
+    }
+
+    private void requestLike()
+    {
         LikeVideoRequest request = new LikeVideoRequest();
 
         SingletonService.getInstance().getLikeVideoService().likePhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>()

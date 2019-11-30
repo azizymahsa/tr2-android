@@ -9,6 +9,7 @@ import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import ir.traap.tractor.android.apiServices.model.billPayment.request.BillPaymentRequest;
 import ir.traap.tractor.android.apiServices.model.billPayment.response.BillPaymentResponse;
+import ir.traap.tractor.android.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
 import ir.traap.tractor.android.apiServices.model.buyPackage.request.PackageBuyRequest;
 import ir.traap.tractor.android.apiServices.model.buyPackage.response.PackageBuyResponse;
 import ir.traap.tractor.android.apiServices.model.card.Result;
@@ -145,6 +146,11 @@ public interface RetroClient
 
     @POST(Const.Like_Photo)
     Single<Response<WebServiceClass<LikeVideoResponse>>> likePhoto(
+            @Path("id") Integer videoId
+    );
+
+    @POST(Const.bookMark_Photo)
+    Single<Response<WebServiceClass<BookMarkPhotoResponse>>> bookMarkPhoto(
             @Path("id") Integer videoId
     );
 
