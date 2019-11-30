@@ -114,7 +114,7 @@ public class TransactionsListFragment
                 getActivity().onBackPressed();
             });
 
-            tvTitle.setText(" گزارشات خرید و تراکنش");
+            tvTitle.setText("سوابق خرید و تراکنش");
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
 
