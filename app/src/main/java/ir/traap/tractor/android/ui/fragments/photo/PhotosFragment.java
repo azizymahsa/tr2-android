@@ -49,17 +49,6 @@ import ir.traap.tractor.android.utilities.Tools;
  */
 public class PhotosFragment extends BaseFragment  implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchiveVideoListener,CategoryPhotosAdapter.TitleCategoryListener
 {
-    /*private MainActionView mainView;
-    private View rootView;
-    private BannerLayout bNewestVideo;
-    private RoundedImageView ivFavorite1, ivFavorite2, ivFavorite3;
-    private RecyclerView rvCategoryTitles, rvGrideCategories;
-    private PhotosCategoryTitleAdapter photoCategoryTitleAdapter;
-    private Integer idCategoryTitle = 0;
-    private CategoryPhotosAdapter categoryAdapter;
-    private TextView tvArchiveVideo;
-    private MainVideosResponse mainVideosResponse;*/
-
 
     private MainActionView mainView;
     private View rootView;
@@ -74,14 +63,13 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
     private int position=0;
     private Integer idVideo;
     private Integer id;
-    private TextView tvArchiveVideo;
+    private TextView tvArchiveVideo,tvMyFavoritePhoto;
     public PhotosFragment()
     {
 
     }
     private void openAlbumDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
-      //  Intent intent = new Intent(this, AlbumDetailActivity.class);
         Intent intent = new Intent(getActivity(), AlbumDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Photos", categoriesList);
@@ -129,6 +117,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo=rootView.findViewById(R.id.tvArchiveVideo);
+        tvMyFavoritePhoto=rootView.findViewById(R.id.tvMyFavoritePhoto);
         rvGrideCategories = rootView.findViewById(R.id.rvCategories);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         rvCategoryTitles.setLayoutManager(layoutManager);
@@ -137,6 +126,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
         ivFavorite2.setOnClickListener(this);
         ivFavorite3.setOnClickListener(this);
         tvArchiveVideo.setOnClickListener(this);
+        tvMyFavoritePhoto.setOnClickListener(this);
         rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
         requestMainVideos();
 
@@ -315,6 +305,11 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
                 Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
                 intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
                 startActivity(intent);
+                break;
+            case R.id.tvMyFavoritePhoto:
+                Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
+                intent1.putExtra("FLAG_Favorite",true);
+                startActivity(intent1);
                 break;
         }
     }
