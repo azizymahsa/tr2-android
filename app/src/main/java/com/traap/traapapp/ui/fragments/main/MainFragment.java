@@ -622,6 +622,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             case R.id.rlF2:
             {
 
+                mainView.onMainVideoClick();
                 break;
             }
 
