@@ -26,6 +26,7 @@ import ir.traap.tractor.android.conf.TrapConfig;
 import ir.traap.tractor.android.models.otherModels.newsModel.NewsDetailsFromRelatedNews;
 import ir.traap.tractor.android.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
 import ir.traap.tractor.android.ui.base.BaseActivity;
+import ir.traap.tractor.android.ui.fragments.news.details.contentNews.NewsDetailsContentFragment;
 import ir.traap.tractor.android.ui.fragments.news.details.relatedNews.NewsRelatedContentFragment;
 import ir.traap.tractor.android.utilities.Logger;
 import ir.traap.tractor.android.utilities.Tools;
@@ -297,12 +298,29 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
 
     private void setContentData()
     {
+        newsDetailFragment = NewsDetailsContentFragment.newInstance(currentContent);
+        transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+        transaction.replace(R.id.newsDetailContainer, newsDetailFragment, "newsDetailsContentFragment")
+                .commit();
+
+
+
         newsRelatedFragment = NewsRelatedContentFragment.newInstance(currentContent.getRelatedNews());
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.newsRelatedContainer, newsRelatedFragment, "newsRelatedContentFragment")
                 .commit();
+
+
+//        newsCommentFragment = NewsRelatedContentFragment.newInstance(currentContent.getRelatedNews());
+//        transaction = fragmentManager.beginTransaction();
+////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//        transaction.replace(R.id.newsRelatedContainer, newsRelatedFragment, "newsCommentFragment")
+//                .commit();
     }
 
     @Subscribe

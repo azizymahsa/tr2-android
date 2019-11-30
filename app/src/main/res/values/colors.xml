@@ -11,6 +11,7 @@
 
     <color name="textHint">#aaa</color>
 
+    <color name="imageLikedTintColor">#d5282e</color>
     <color name="backgroundButton">#d5282e</color>
     <color name="mainMenuColor">#fff</color>
     <color name="drawer_background">#fff</color>

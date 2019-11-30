@@ -11,13 +11,13 @@ import lombok.Setter;
 
 public class News implements Parcelable
 {
-    @Expose @Getter @Setter
-    @SerializedName("dislikes")
-    private int dislikes;
-
-    @Expose @Getter @Setter
-    @SerializedName("likes")
-    private int likes;
+//    @Expose @Getter @Setter
+//    @SerializedName("dislikes")
+//    private int dislikes;
+//
+//    @Expose @Getter @Setter
+//    @SerializedName("likes")
+//    private int likes;
 
     @Expose @Getter @Setter
     @SerializedName("create_date")
@@ -45,8 +45,8 @@ public class News implements Parcelable
 
     protected News(Parcel in)
     {
-        dislikes = in.readInt();
-        likes = in.readInt();
+//        dislikes = in.readInt();
+//        likes = in.readInt();
         createDate = in.readString();
         subtitle = in.readString();
         title = in.readString();
@@ -78,8 +78,8 @@ public class News implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeInt(dislikes);
-        dest.writeInt(likes);
+//        dest.writeInt(dislikes);
+//        dest.writeInt(likes);
         dest.writeString(createDate);
         dest.writeString(subtitle);
         dest.writeString(title);

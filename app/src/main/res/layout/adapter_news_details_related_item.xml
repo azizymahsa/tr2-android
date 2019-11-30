@@ -44,6 +44,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:maxLines="2"
+                android:gravity="right"
                 android:text="عنوان"
                 android:textColor="@color/textColorTitle"
                 android:textSize="@dimen/textSize_10dp"

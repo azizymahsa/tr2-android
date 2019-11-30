@@ -44,6 +44,7 @@ import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
 import ir.traap.tractor.android.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
+import ir.traap.tractor.android.apiServices.model.news.details.sendRate.LikeNewsDetailResponse;
 import ir.traap.tractor.android.apiServices.model.news.main.NewsMainResponse;
 
 
@@ -80,6 +81,11 @@ public class NewsService extends BasePart
     public void getNewsDetails(Integer id, OnServiceStatus<WebServiceClass<GetNewsDetailsResponse>> listener)
     {
         start(getServiceGenerator().createService().getNewsDetails(id), listener);
+    }
+
+    public void likeNews(Integer id, OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>> listener)
+    {
+        start(getServiceGenerator().createService().likeNews(id), listener);
     }
 
 }

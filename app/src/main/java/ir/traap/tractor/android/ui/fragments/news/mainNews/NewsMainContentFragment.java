@@ -139,7 +139,6 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             mainView.showLoading();
             SingletonService.getInstance().getNewsService().getNewsMain(this);
         }
-
     }
 
     @Override
@@ -184,7 +183,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     }
 
 
-    public void onSlideRight()
+    private void onSlideRight()
     {
         if (favLayoutManager.findFirstCompletelyVisibleItemPosition() == Objects.requireNonNull(favRecyclerView.getAdapter()).getItemCount())
         {
@@ -204,7 +203,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 //        }
     }
 
-    public void onSlideLeft()
+    private void onSlideLeft()
     {
         if (favLayoutManager.findFirstCompletelyVisibleItemPosition() == 0)
             return;
