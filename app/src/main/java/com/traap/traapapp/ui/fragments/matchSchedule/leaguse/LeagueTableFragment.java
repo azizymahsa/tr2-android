@@ -123,7 +123,7 @@ public class LeagueTableFragment
 
             tvTitle.setText("برنامه بازی ها");
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
         } catch (Exception e)
         {
 

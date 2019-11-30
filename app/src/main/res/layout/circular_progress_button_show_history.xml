@@ -15,4 +15,5 @@
     app:initialCornerAngle="50dp"
     app:spinning_bar_color="@color/textColorButton"
     app:finalCornerAngle="80dp"
+    android:visibility="gone"
     android:transitionName="transition"/>

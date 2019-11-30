@@ -209,7 +209,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-        tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+        tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
         sliderRecyclerView = rootView.findViewById(R.id.sliderRecyclerView);
@@ -622,6 +622,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             case R.id.rlF2:
             {
 
+                mainView.onMainVideoClick();
                 break;
             }
 

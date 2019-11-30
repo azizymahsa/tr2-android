@@ -138,7 +138,7 @@ public class PastResultFragment
 
             tvTitle.setText("برنامه بازی ها");
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", ""));
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
             imgLogo = rootView.findViewById(R.id.imgLogo);
             Picasso.with(SingletonContext.getInstance().getContext()).load(logoPath).into(imgLogo);

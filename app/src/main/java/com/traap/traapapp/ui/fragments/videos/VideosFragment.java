@@ -40,6 +40,7 @@ import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.ui.adapters.video.CategoryAdapter;
 import com.traap.traapapp.ui.adapters.video.VideosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Tools;
 
@@ -61,7 +62,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private int position=0;
     private Integer idVideo;
     private Integer id;
-    private TextView tvArchiveVideo;
+    private TextView tvArchiveVideo,tvMyFavoriteVideo;
 
     public VideosFragment()
     {
@@ -105,9 +106,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo=rootView.findViewById(R.id.tvArchiveVideo);
         rvCategories = rootView.findViewById(R.id.rvCategories);
+        tvMyFavoriteVideo=rootView.findViewById(R.id.tvMyFavoriteVideo);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         rvCategoryTitles.setLayoutManager(layoutManager);
-
+        tvMyFavoriteVideo.setOnClickListener(this);
         ivFavorite1.setOnClickListener(this);
         ivFavorite2.setOnClickListener(this);
         ivFavorite3.setOnClickListener(this);
@@ -117,6 +119,28 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         requestMainVideos();
 
         return rootView;
+    }
+
+
+    public void showComingSoonDialog(){
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد.", false,
+                new MessageAlertDialog.OnConfirmListener()
+                {
+                    @Override
+                    public void onConfirmClick()
+                    {
+
+                    }
+
+                    @Override
+                    public void onCancelClick()
+                    {
+
+                    }
+                });
+
+        dialog.setCancelable(false);
+        dialog.show(getActivity().getFragmentManager(), "messageDialog");
     }
 
     private void requestMainVideos()
@@ -289,6 +313,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 Intent intent = new Intent(getActivity(), VideoArchiveActivity.class);
                 intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
                 startActivity(intent);
+                break;
+
+            case R.id.tvMyFavoriteVideo:
+                showComingSoonDialog();
                 break;
         }
     }

@@ -244,4 +244,10 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
     }
+
+    @Override
+    public void onErrorTicketInfo()
+    {
+
+    }
 }
