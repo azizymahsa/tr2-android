@@ -25,8 +25,6 @@ import java.util.concurrent.TimeUnit;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 
-import com.traap.traapapp.BuildConfig;
-import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.ServiceApplication;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.singleton.SingletonContext;
