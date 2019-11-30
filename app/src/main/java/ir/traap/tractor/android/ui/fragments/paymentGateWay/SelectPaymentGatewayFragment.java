@@ -8,19 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.List;
-
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ir.traap.tractor.android.R;
 import ir.traap.tractor.android.apiServices.model.matchList.MatchItem;
@@ -30,7 +24,6 @@ import ir.traap.tractor.android.models.otherModels.paymentInstance.SimChargePaym
 import ir.traap.tractor.android.ui.adapters.paymentGateway.SelectPaymentAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.main.MainActionView;
-import ir.traap.tractor.android.ui.fragments.ticket.OnClickContinueBuyTicket;
 import ir.traap.tractor.android.utilities.CustomViewPager;
 
 /**
@@ -47,10 +40,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    List<MatchItem> pastMatchesList, nextMatchesList;
     private View imgBack, imgMenu;
     private ArrayList<MatchItem> matchBuyable;
-    private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
 
     private String amount = "20000";
     private String title = "پرداخت";
@@ -58,7 +49,6 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private String mobile = "09029262658";
     private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay;
     private ImageView imgLogo;
-    private CircularProgressButton btnBuy, btnBack;
 
     public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
     {
@@ -100,10 +90,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         rootView = inflater.inflate(R.layout.select_payment_fragment, container, false);
         initView();
 
-       /* tvAmount .setText(amount);
-        tvTitlePay .setText(title);
-        if(imageDrawable==1)
-        imgLogo.setImageResource(R.drawable.icon_payment_ticket);// imageDrawable = R.drawable.irancell;*/
+
         setContent();
         createTabLayout();
 
@@ -170,7 +157,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
-                getActivity().onBackPressed();
+                //getActivity().onBackPressed();
+                mainView.backToMainFragment();
             });
 
             tvTitle.setText("پرداخت");
@@ -256,14 +244,14 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
                 break;
             case R.id.tvWallet:
-                viewPager.setCurrentItem(2, true);
+               /* viewPager.setCurrentItem(2, true);
                 tvWallet.setBackgroundResource(R.drawable.background_border_a);
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
                 tvGateway.setBackgroundColor(Color.TRANSPARENT);
                 tvWallet.setTextColor(getResources().getColor(R.color.borderColorRed));
                 tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
-
+*/
                 break;
             case R.id.tvCardsShetab:
                /* viewPager.setCurrentItem(1, true);
@@ -284,5 +272,14 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
     }
 
-
+    public CustomViewPager getViewpager()
+    {
+        return viewPager;
+    }
+   /* @Override
+    public void onBackClicked()
+    {
+        viewPager.setCurrentItem(getItem(-1), true);
+        checkPositionFromSetSelected();
+    }*/
 }

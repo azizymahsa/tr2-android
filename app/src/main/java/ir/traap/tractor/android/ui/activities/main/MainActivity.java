@@ -78,6 +78,7 @@ import ir.traap.tractor.android.ui.fragments.news.NewsMainActionView;
 import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
 import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainContentFragment;
 import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainFragment;
+import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
@@ -138,8 +139,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             AdpPushClient.get().register(Prefs.getString("mobile", ""));
             Intent myIntent = new Intent(this, PushMessageReceiver.class);
             PendingIntent.getBroadcast(this, 0, myIntent, 0);
-        }
-        else
+        } else
         {
             startService(new Intent(this, NotificationJobService.class));
         }
@@ -194,8 +194,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
         {
             TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
-        }
-        else
+        } else
         {
             TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
         }
@@ -360,7 +359,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
 
-
     private void setCheckedBNV(BottomNavigationView bottomNavigationView, int index)
     {
         for (int i = 0; i < 5; i++)
@@ -378,16 +376,24 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onBackPressed()
     {
-
+        try
+        {
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             if (drawer.isDrawerOpen(GravityCompat.END))
             {
                 drawer.closeDrawer(GravityCompat.END);
-            } else if (fragment instanceof BuyTicketsFragment && ((BuyTicketsFragment) fragment).getViewpager().getCurrentItem()!=0 ){
+            } /*else if (fragment instanceof SelectPaymentGatewayFragment && ((SelectPaymentGatewayFragment) fragment).getViewpager().getCurrentItem()!=0 ){
+
+                //((SelectPaymentGatewayFragment) fragment).onBackClicked();
+                backToMainFragment();
+
+            }*/ else if (fragment instanceof BuyTicketsFragment && ((BuyTicketsFragment) fragment).getViewpager().getCurrentItem() != 0)
+            {
 
                 ((BuyTicketsFragment) fragment).onBackClicked();
 
-            } else{
+            } else
+            {
                 if (isMainFragment)
                 {
                     super.onBackPressed();
@@ -398,8 +404,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     backToMainFragment();
                 }
             }
-
+        } catch (Exception e)
+        {
+            e.getMessage();
         }
+    }
     /*    DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.END))
         {
@@ -418,7 +427,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         }*/
 
 
-
     @Override
     public void onDrawerItemSelected(View view, int itemNumber)
     {
@@ -429,7 +437,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             case 1:
             {
-              //  showToast(this, "لیست تراکنش ها", R.color.green);
+                //  showToast(this, "لیست تراکنش ها", R.color.green);
                 isMainFragment = false;
 
                 fragment = TransactionsListFragment.newInstance(this);
@@ -504,7 +512,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 9:
             {
-               // showToast(this, "ارتباط با پشتیبانی", R.color.green);
+                // showToast(this, "ارتباط با پشتیبانی", R.color.green);
                 isMainFragment = false;
 
                 fragment = SupportFragment.newInstance(this);
@@ -518,7 +526,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             case 10:
             {
                 if (fragment instanceof MainFragment)
-                ((MainFragment) fragment).requestGetHelpMenu();
+                    ((MainFragment) fragment).requestGetHelpMenu();
 
                 break;
             }
@@ -866,15 +874,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             fragment = mainFragment;
 //            fragment = existingFragment;
-        }
-        else
+        } else
         {
             Logger.e("--mainFragment--", "--null--");
             fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         }
-        transaction.replace(R.id.main_container, fragment,"mainFragment")
+        transaction.replace(R.id.main_container, fragment, "mainFragment")
                 .commit();
     }
 
@@ -916,19 +923,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment,"buyTicketsFragment")
+        transaction.replace(R.id.main_container, this.fragment, "buyTicketsFragment")
                 .commit();
     }
 
     @Override
     public void onLeageClick(ArrayList<MatchItem> matchBuyable)
     {
-        this.matchBuyable=matchBuyable;
+        this.matchBuyable = matchBuyable;
         isMainFragment = false;
-        fragment = MatchScheduleFragment.newInstance(this,matchBuyable);
+        fragment = MatchScheduleFragment.newInstance(this, matchBuyable);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, fragment,"leagueTableFragment")
+        transaction.replace(R.id.main_container, fragment, "leagueTableFragment")
                 .commit();
     }
 
@@ -940,7 +947,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment,"predictFragment")
+        transaction.replace(R.id.main_container, this.fragment, "predictFragment")
                 .commit();
     }
 
@@ -1152,7 +1159,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment,"newsArchiveCategoryFragment")
+        transaction.replace(R.id.main_container, this.fragment, "newsArchiveCategoryFragment")
                 .commit();
     }
 
@@ -1172,8 +1179,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             finish();
 
             return;
-        }
-        else
+        } else
         {
             chosenServiceList = response.data.getChosenServiceList();
             footballServiceList = response.data.getFootballServiceList();
@@ -1186,7 +1192,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         }
 
     }
-
 
 
     private Boolean getMatchList()
@@ -1215,8 +1220,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                    finish();
 
                     return;
-                }
-                else
+                } else
                 {
                     matchList = (ArrayList<MatchItem>) responseMatchList.data.getMatchList();
 
@@ -1232,8 +1236,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     {
                         transaction.add(R.id.main_container, fragment, "mainFragment")
                                 .commit();
-                    }
-                    else
+                    } else
                     {
                         transaction.replace(R.id.main_container, fragment, "mainFragment")
                                 .commit();
@@ -1273,7 +1276,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
 
             intent.putExtra("RefrenceNumber", refrenceNumber);
-            intent.putExtra("isTransactionList",false);
+            intent.putExtra("isTransactionList", false);
 
             startActivity(intent);
 
@@ -1314,8 +1317,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     finish();
 
                     return;
-                }
-                else
+                } else
                 {
                     Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
 
@@ -1408,8 +1410,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         newsMainResponse = response.data;
                         return;
                     }
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                     hideLoading();
@@ -1463,8 +1464,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     {
                         allServiceList = response.data.getResults();
                     }
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
 //                    mainView.showError(e.getMessage());
                     e.printStackTrace();

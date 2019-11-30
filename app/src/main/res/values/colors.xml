@@ -10,6 +10,7 @@
     <color name="textColorSecondary">#000</color>
 
     <color name="textHint">#aaa</color>
+    <color name="transparentGray">#70000000</color>
 
     <color name="imageLikedTintColor">#d5282e</color>
     <color name="backgroundButton">#d5282e</color>
