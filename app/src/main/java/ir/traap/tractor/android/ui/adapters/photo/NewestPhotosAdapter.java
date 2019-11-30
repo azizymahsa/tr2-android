@@ -102,7 +102,7 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
     {
         public RoundedImageView ivNewestVideo;
         public TextView tvTitleVideo,tvLike;
-        public ImageView imgLike;
+        public ImageView imgLike,imgIcon;
 
         public ViewHolder(View v)
         {
@@ -111,8 +111,10 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
             ivNewestVideo=v.findViewById(R.id.ivNewestVideo);
             tvLike=v.findViewById(R.id.tvLike);
             imgLike=v.findViewById(R.id.imgLike);
+            imgIcon=v.findViewById(R.id.imgIcon);
             tvLike.setVisibility(View.GONE);
             imgLike.setVisibility(View.GONE);
+            imgIcon.setVisibility(View.GONE);
 
         }
     }

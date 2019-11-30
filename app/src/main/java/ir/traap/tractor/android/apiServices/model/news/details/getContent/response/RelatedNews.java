@@ -1,4 +1,4 @@
-package ir.traap.tractor.android.apiServices.model.news.main;
+package ir.traap.tractor.android.apiServices.model.news.details.getContent.response;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,18 +6,20 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import ir.traap.tractor.android.apiServices.model.news.main.ImageName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class News implements Parcelable
+public class RelatedNews implements Parcelable
 {
-//    @Expose @Getter @Setter
-//    @SerializedName("dislikes")
-//    private int dislikes;
-//
-//    @Expose @Getter @Setter
-//    @SerializedName("likes")
-//    private int likes;
+
+    @Expose @Getter @Setter
+    @SerializedName("dislikes")
+    private int dislikes;
+
+    @Expose @Getter @Setter
+    @SerializedName("likes")
+    private int likes;
 
     @Expose @Getter @Setter
     @SerializedName("create_date")
@@ -43,10 +45,10 @@ public class News implements Parcelable
     @SerializedName("id")
     private int id;
 
-    protected News(Parcel in)
+    protected RelatedNews(Parcel in)
     {
-//        dislikes = in.readInt();
-//        likes = in.readInt();
+        dislikes = in.readInt();
+        likes = in.readInt();
         createDate = in.readString();
         subtitle = in.readString();
         title = in.readString();
@@ -54,18 +56,18 @@ public class News implements Parcelable
         id = in.readInt();
     }
 
-    public static final Creator<News> CREATOR = new Creator<News>()
+    public static final Creator<RelatedNews> CREATOR = new Creator<RelatedNews>()
     {
         @Override
-        public News createFromParcel(Parcel in)
+        public RelatedNews createFromParcel(Parcel in)
         {
-            return new News(in);
+            return new RelatedNews(in);
         }
 
         @Override
-        public News[] newArray(int size)
+        public RelatedNews[] newArray(int size)
         {
-            return new News[size];
+            return new RelatedNews[size];
         }
     };
 
@@ -78,8 +80,8 @@ public class News implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-//        dest.writeInt(dislikes);
-//        dest.writeInt(likes);
+        dest.writeInt(dislikes);
+        dest.writeInt(likes);
         dest.writeString(createDate);
         dest.writeString(subtitle);
         dest.writeString(title);

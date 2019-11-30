@@ -135,6 +135,8 @@ public class Const
     public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";
     public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";
     public final static String Get_NEWS_ARCHIVE_CATEGORY = SubBASEURL + "v1/news/category/";
+    public final static String Get_NEWS_DETAILS = SubBASEURL + "v1/news/";
+    public final static String NEWS_DETAILS_LIKE = SubBASEURL + "v1/news/";
 
 
 }

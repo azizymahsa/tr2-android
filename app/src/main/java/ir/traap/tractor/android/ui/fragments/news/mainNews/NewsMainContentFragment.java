@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +26,6 @@ import androidx.recyclerview.widget.SnapHelper;
 import com.example.moeidbannerlibrary.banner.BannerLayout;
 import com.google.android.material.tabs.TabLayout;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,11 +39,13 @@ import ir.traap.tractor.android.apiServices.model.news.main.Categories;
 import ir.traap.tractor.android.apiServices.model.news.main.News;
 import ir.traap.tractor.android.apiServices.model.news.main.NewsMainResponse;
 import ir.traap.tractor.android.enums.NewsParent;
+import ir.traap.tractor.android.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
 import ir.traap.tractor.android.singleton.SingletonContext;
 import ir.traap.tractor.android.ui.activities.login.LoginActivity;
 import ir.traap.tractor.android.ui.activities.main.MainActivity;
-import ir.traap.tractor.android.ui.adapters.news.MainFacoriteNewsAdapter;
-import ir.traap.tractor.android.ui.adapters.news.MainNewestNewsAdapter;
+import ir.traap.tractor.android.ui.activities.news.details.NewsDetailsActivity;
+import ir.traap.tractor.android.ui.adapters.news.NewsMainFavoriteAdapter;
+import ir.traap.tractor.android.ui.adapters.news.NewsMainNewestAdapter;
 import ir.traap.tractor.android.ui.base.BaseFragment;
 import ir.traap.tractor.android.ui.fragments.news.NewsActionView;
 import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveCategoryFragment;
@@ -60,8 +60,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private View rootView;
     private NewsActionView mainView;
 
-    private MainFacoriteNewsAdapter favNewsAdapter;
-    private MainNewestNewsAdapter newestNewsAdapter;
+    private NewsMainFavoriteAdapter favNewsAdapter;
+    private NewsMainNewestAdapter newestNewsAdapter;
 
     private TextView tvNewsArchive;
     private NewsParent parent;
@@ -139,7 +139,6 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             mainView.showLoading();
             SingletonService.getInstance().getNewsService().getNewsMain(this);
         }
-
     }
 
     @Override
@@ -184,7 +183,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     }
 
 
-    public void onSlideRight()
+    private void onSlideRight()
     {
         if (favLayoutManager.findFirstCompletelyVisibleItemPosition() == Objects.requireNonNull(favRecyclerView.getAdapter()).getItemCount())
         {
@@ -204,7 +203,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 //        }
     }
 
-    public void onSlideLeft()
+    private void onSlideLeft()
     {
         if (favLayoutManager.findFirstCompletelyVisibleItemPosition() == 0)
             return;
@@ -261,12 +260,31 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
     private void setContent()
     {
-        newestNewsAdapter = new MainNewestNewsAdapter(getActivity(), latestNewsList);
+        newestNewsAdapter = new NewsMainNewestAdapter(getActivity(), latestNewsList);
 //        newestLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 //        newestRecyclerView.setLayoutManager(newestLayoutManager);
         bNewestNews.setAdapter(newestNewsAdapter);
 
-        favNewsAdapter = new MainFacoriteNewsAdapter(getActivity(), favoriteNewsList);
+        newestNewsAdapter.SetOnItemClickListener((view, id, position) ->
+        {
+            List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+            for (int i = 0 ; i < latestNewsList.size(); i++)
+            {
+                NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+                model.setId(latestNewsList.get(i).getId());
+                model.setPosition(i);
+
+                positionIdsList.add(model);
+            }
+
+            Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+            intent.putExtra("currentId", id);
+            intent.putExtra("currentPosition", position);
+            intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
+            startActivity(intent);
+        });
+
+        favNewsAdapter = new NewsMainFavoriteAdapter(getActivity(), favoriteNewsList);
         favLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         favRecyclerView.setLayoutManager(favLayoutManager);
         favRecyclerView.setAdapter(favNewsAdapter);
@@ -278,7 +296,21 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
         favNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
-            //go to details
+            List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+            for (int i = 0 ; i < favoriteNewsList.size(); i++)
+            {
+                NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+                model.setId(favoriteNewsList.get(i).getId());
+                model.setPosition(i);
+
+                positionIdsList.add(model);
+            }
+
+            Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+            intent.putExtra("currentId", id);
+            intent.putExtra("currentPosition", position);
+            intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
+            startActivity(intent);
         });
 
 //        favRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
