@@ -25,22 +25,24 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
  */
 public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapter.ViewHolder>
 {
-    private  MainActionView mainView;
+    private NewestPhotosAdapter.OnItemTopListPhotoClickListener mItemClickListener;
+    private MainActionView mainView;
     private Context context;
     private ArrayList<Category> recent;
 
 
-
-
-    public NewestPhotosAdapter(ArrayList<Category> recent, MainActionView mainView)
+    public NewestPhotosAdapter(ArrayList<Category> recent, MainActionView mainView, NewestPhotosAdapter.OnItemTopListPhotoClickListener mItemClickListener)
     {
-        this.recent=recent;
-        this.mainView=mainView;
+        this.recent = recent;
+        this.mainView = mainView;
+        this.mItemClickListener = mItemClickListener;
     }
 
     public NewestPhotosAdapter(ArrayList<Category> recent)
     {
-        this.recent=recent;
+        this.recent = recent;
+        this.mItemClickListener = mItemClickListener;
+
         // this.mainView=mainView;
     }
 
@@ -59,8 +61,17 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
     {
         Category recentItem = recent.get(position);
         holder.tvTitleVideo.setText(recentItem.getTitle());
-     //   holder.tvLike.setText(recentItem.getLikes().toString());
-        setImageBackground(holder.ivNewestVideo,recentItem.getCover().replace("\\", ""));
+        setImageBackground(holder.ivNewestVideo, recentItem.getCover().replace("\\", ""));
+        holder.ivNewestVideo.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (mItemClickListener != null)
+                    mItemClickListener.OnItemTopPhotoClick(view, recentItem);
+
+            }
+        });
 
     }
 
@@ -80,13 +91,11 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
                     Picasso.with(context).load(R.drawable.img_failure).into(image);
                 }
             });*/
-        }
-        catch (NullPointerException e)
+        } catch (NullPointerException e)
         {
             Picasso.with(context).load(R.drawable.img_failure).into(image);
         }
     }
-
 
 
     @Override
@@ -99,22 +108,27 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         public RoundedImageView ivNewestVideo;
-        public TextView tvTitleVideo,tvLike;
-        public ImageView imgLike,imgIcon;
+        public TextView tvTitleVideo, tvLike;
+        public ImageView imgLike, imgIcon;
 
         public ViewHolder(View v)
         {
             super(v);
-            tvTitleVideo=v.findViewById(R.id.tvTitleVideo);
-            ivNewestVideo=v.findViewById(R.id.ivNewestVideo);
-            tvLike=v.findViewById(R.id.tvLike);
-            imgLike=v.findViewById(R.id.imgLike);
-            imgIcon=v.findViewById(R.id.imgIcon);
+            tvTitleVideo = v.findViewById(R.id.tvTitleVideo);
+            ivNewestVideo = v.findViewById(R.id.ivNewestVideo);
+            tvLike = v.findViewById(R.id.tvLike);
+            imgLike = v.findViewById(R.id.imgLike);
+            imgIcon = v.findViewById(R.id.imgIcon);
             tvLike.setVisibility(View.GONE);
             imgLike.setVisibility(View.GONE);
             imgIcon.setVisibility(View.GONE);
 
         }
+    }
+
+    public interface OnItemTopListPhotoClickListener
+    {
+        public void OnItemTopPhotoClick(View view, Category recentItem);
     }
 
 }

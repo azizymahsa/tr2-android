@@ -33,6 +33,7 @@ import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
+import com.traap.traapapp.apiServices.model.photo.response.ImageName;
 import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
 import com.traap.traapapp.ui.adapters.photo.CategoryPhotosAdapter;
@@ -46,7 +47,8 @@ import com.traap.traapapp.utilities.Tools;
 /**
  * Created by MahsaAzizi on 11/27/2019.
  */
-public class PhotosFragment extends BaseFragment  implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchiveVideoListener,CategoryPhotosAdapter.TitleCategoryListener
+public class PhotosFragment extends BaseFragment  implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchiveVideoListener
+        ,CategoryPhotosAdapter.TitleCategoryListener,NewestPhotosAdapter.OnItemTopListPhotoClickListener
 {
 
     private MainActionView mainView;
@@ -172,7 +174,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
 
     private void onGetMainVideosSuccess(MainVideosResponse mainPhotosResponse)
     {
-        bNewestVideo.setAdapter(new NewestPhotosAdapter(mainPhotosResponse.getRecent(), mainView));
+        bNewestVideo.setAdapter(new NewestPhotosAdapter(mainPhotosResponse.getRecent(), mainView,this));
         setDataFavoriteList(mainPhotosResponse);
         photoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(mainPhotosResponse.getListCategories(), mainView, this);
         rvCategoryTitles.setAdapter(photoCategoryTitleAdapter);
@@ -338,6 +340,23 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
         Category category1=new Category();
         category1.setId(category.getId());
         category1.setTitle(category.getTitle());
+        categoriesList.add(category1);
+
+        openAlbumDetail(categoriesList,position,category.getId(),category.getId());
+
+    }
+
+    @Override
+    public void OnItemTopPhotoClick(View view, Category category)
+    {
+        ArrayList<Category> categoriesList=new ArrayList<>();
+        Category category1=new Category();
+        category1.setId(category.getId());
+        category1.setTitle(category.getTitle());
+        category1.setCover(category.getCover());
+        ImageName imageName=new ImageName();
+        imageName.setThumbnailLarge(category.getCover());
+        category1.setImageName(imageName);
         categoriesList.add(category1);
 
         openAlbumDetail(categoriesList,position,category.getId(),category.getId());
