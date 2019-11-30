@@ -51,7 +51,9 @@
             android:layout_marginTop="@dimen/_24sdp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
-            android:background="@color/drawerSepratorColor" />
+            android:background="@color/drawerSepratorColor"
+            android:visibility="gone"
+            />
 
         <ScrollView
             android:layout_below="@id/separator"
