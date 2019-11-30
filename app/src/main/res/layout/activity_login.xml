@@ -9,7 +9,7 @@
     android:focusableInTouchMode="true"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".ui.activities.login.LoginActivity">
+    tools:context="com.traap.traapapp.ui.activities.login.LoginActivity">
 
     <include
         android:id="@+id/toolbar_container"
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <ir.traap.tractor.android.utilities.ClearableEditText
+                    <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etMobileNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

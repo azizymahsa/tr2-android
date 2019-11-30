@@ -348,7 +348,7 @@
                             android:theme="@style/EditTextHint"
                             app:hintTextAppearance="@style/TextLabel">
 
-                           <ir.traap.tractor.android.utilities.ClearableEditText
+                           <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etMobile"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -380,7 +380,7 @@
                             android:visibility="gone"
                             app:hintTextAppearance="@style/TextLabel">
 
-                            <ir.traap.tractor.android.utilities.ClearableEditText
+                            <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etDestination2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -527,7 +527,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabel">
 
-                        <ir.traap.tractor.android.utilities.ClearableEditText
+                        <com.traap.traapapp.utilities.ClearableEditText
                             android:id="@+id/etBillId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -574,7 +574,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabel">
 
-                        <ir.traap.tractor.android.utilities.ClearableEditText
+                        <com.traap.traapapp.utilities.ClearableEditText
                             android:id="@+id/etPayId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1177,7 +1177,7 @@
                         android:theme="@style/EditTextHint"
                         app:hintTextAppearance="@style/TextLabel">
 
-                        <ir.traap.tractor.android.utilities.ClearableEditText
+                        <com.traap.traapapp.utilities.ClearableEditText
                             android:id="@+id/etTitleAddMyBill"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1368,7 +1368,7 @@
                     android:theme="@style/EditTextHint"
                     app:hintTextAppearance="@style/TextLabel">
 
-                    <ir.traap.tractor.android.utilities.ClearableEditText
+                    <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etPass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1422,7 +1422,7 @@
                     android:theme="@style/EditTextHint"
                     app:hintTextAppearance="@style/TextLabel">
 
-                    <ir.traap.tractor.android.utilities.ClearableEditText
+                    <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etCvv2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -85,7 +85,7 @@
                     android:orientation="horizontal"
                     android:background="@drawable/background_border_gray">
 
-                    <ir.traap.tractor.android.utilities.ClearableEditText
+                    <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                 android:layout_height="1dp"
                 android:background="@color/textHint"/>
 
-            <ir.traap.tractor.android.utilities.MyCustomViewPager
+            <com.traap.traapapp.utilities.MyCustomViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.video.VideoActivity">
+    tools:context="com.traap.traapapp.ui.activities.video.VideoActivity">
       <WebView
         android:id="@+id/webView"
         android:visibility="gone"

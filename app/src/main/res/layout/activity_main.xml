@@ -9,7 +9,7 @@
     android:background="@drawable/background"
     android:layoutDirection="ltr"
     android:fitsSystemWindows="true"
-    tools:context=".ui.activities.main.MainActivity">
+    tools:context="com.traap.traapapp.ui.activities.main.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation_menudrawer"
-        android:name="ir.traap.tractor.android.ui.drawer.MenuDrawer"
+        android:name="com.traap.traapapp.ui.drawer.MenuDrawer"
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="right"
