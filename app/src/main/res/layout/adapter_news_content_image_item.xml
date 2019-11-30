@@ -30,28 +30,6 @@
             app:riv_mutate_background="true"
             app:riv_oval="false" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/news_favorite_title_height"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/background_news_title">
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:gravity="right"
-                android:maxLines="2"
-                android:text="عنوان"
-                android:textColor="@color/textColorTitle"
-                android:textSize="@dimen/textSize_14dp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
     </RelativeLayout>
 
 </RelativeLayout>
