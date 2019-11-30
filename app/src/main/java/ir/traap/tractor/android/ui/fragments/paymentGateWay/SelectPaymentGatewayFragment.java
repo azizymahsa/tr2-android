@@ -256,14 +256,14 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
                 break;
             case R.id.tvWallet:
-                viewPager.setCurrentItem(2, true);
+               /* viewPager.setCurrentItem(2, true);
                 tvWallet.setBackgroundResource(R.drawable.background_border_a);
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
                 tvGateway.setBackgroundColor(Color.TRANSPARENT);
                 tvWallet.setTextColor(getResources().getColor(R.color.borderColorRed));
                 tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
-
+*/
                 break;
             case R.id.tvCardsShetab:
                /* viewPager.setCurrentItem(1, true);
