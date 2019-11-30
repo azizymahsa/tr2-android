@@ -605,9 +605,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                 Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/earthquake");
                 break;
             }
-            case 28: //بیمه انفرادی و گروهی
+            case 28: //بیمه درمان
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/others");
+                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/health");
                 break;
             }
             //الوپارک
