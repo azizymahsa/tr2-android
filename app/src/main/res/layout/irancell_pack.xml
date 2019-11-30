@@ -51,7 +51,7 @@
             android:hint="شماره موبایل"
             android:theme="@style/EditTextHint">
 
-            <ir.traap.tractor.android.utilities.ClearableEditText
+            <com.traap.traapapp.utilities.ClearableEditText
                 android:id="@+id/etMobileCharge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

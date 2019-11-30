@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.payment.PaymentFragment">
+    tools:context="com.traap.traapapp.ui.fragments.payment.PaymentFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                     android:textColorHint="@color/textColorHint"
                     android:theme="@style/EditTextHint">
 
-                    <ir.traap.tractor.android.utilities.ClearableEditText
+                    <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etPass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                     android:textColorHint="@color/textColorHint"
                     android:theme="@style/EditTextHint">
 
-                    <ir.traap.tractor.android.utilities.ClearableEditText
+                    <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etCvv2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

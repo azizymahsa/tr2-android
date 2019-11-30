@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.main.MainFragment">
+    tools:context="com.traap.traapapp.ui.fragments.main.MainFragment">
 
     <RelativeLayout
         android:id="@+id/rlRoot"

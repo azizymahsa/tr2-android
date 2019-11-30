@@ -74,7 +74,7 @@
                     android:hint="شماره موبایل"
                     android:theme="@style/EditTextHint">
 
-                    <ir.traap.tractor.android.utilities.ClearableEditText
+                    <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etMCINumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     android:hint="مبلغ (ریال)"
                     android:theme="@style/EditTextHint">
 
-                    <ir.traap.tractor.android.utilities.ClearableEditText
+                    <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etMCIAmount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

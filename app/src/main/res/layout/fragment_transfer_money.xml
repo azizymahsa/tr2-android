@@ -164,7 +164,7 @@
                             android:hint="شماره کارت مقصد"
                             android:theme="@style/EditTextHint3">
 
-                            <ir.traap.tractor.android.utilities.ClearableEditText
+                            <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etDestination"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                             android:theme="@style/EditTextHint"
                             android:visibility="gone">
 
-                            <ir.traap.tractor.android.utilities.ClearableEditText
+                            <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etDestination2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -256,7 +256,7 @@
 
                         android:theme="@style/EditTextHint">
 
-                        <ir.traap.tractor.android.utilities.ClearableEditText
+                        <com.traap.traapapp.utilities.ClearableEditText
                             android:id="@+id/etAmount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -360,7 +360,7 @@
                         android:hint="رمز دوم کارت را وارد نمایید"
                         android:theme="@style/EditTextHint">
 
-                        <ir.traap.tractor.android.utilities.ClearableEditText
+                        <com.traap.traapapp.utilities.ClearableEditText
                             android:id="@+id/etPass"
                             android:gravity="end|center"
                             android:layout_width="match_parent"
@@ -408,7 +408,7 @@
                         android:hint="شماره cvv2 را وارد نمایید"
                         android:theme="@style/EditTextHint">
 
-                        <ir.traap.tractor.android.utilities.ClearableEditText
+                        <com.traap.traapapp.utilities.ClearableEditText
                             android:id="@+id/etCvv2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -611,7 +611,7 @@
                         android:hint="کد معتبر سازی از بانک کشاورزی را وارد نمایید"
                         android:theme="@style/EditTextHint">
 
-                        <ir.traap.tractor.android.utilities.ClearableEditText
+                        <com.traap.traapapp.utilities.ClearableEditText
                             android:id="@+id/etKeshavarszi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
