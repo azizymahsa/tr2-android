@@ -193,16 +193,12 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         if (data.getBookMarked())
         {
             btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
-            /*tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
-            likeCount = likeCount + 1;
-            tvLike.setText(likeCount + "");*/
+
 
         } else
         {
             btnBookmark.setColorFilter(getResources().getColor(R.color.white));
-           /* tvLike.setTextColor(getResources().getColor(R.color.gray));
-            likeCount = likeCount - 1;
-            tvLike.setText(likeCount + "");*/
+
         }
     }
 

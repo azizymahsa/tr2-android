@@ -151,7 +151,7 @@ public interface RetroClient
 
     @POST(Const.bookMark_Photo)
     Single<Response<WebServiceClass<BookMarkPhotoResponse>>> bookMarkPhoto(
-            @Path("id") Integer videoId
+            @Path("id") Integer photoId
     );
 
     @GET(Const.GetMenuHelp)
