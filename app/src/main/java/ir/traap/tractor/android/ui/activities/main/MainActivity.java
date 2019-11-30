@@ -78,7 +78,6 @@ import ir.traap.tractor.android.ui.fragments.news.NewsMainActionView;
 import ir.traap.tractor.android.ui.fragments.news.archive.NewsArchiveFragment;
 import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainContentFragment;
 import ir.traap.tractor.android.ui.fragments.news.mainNews.NewsMainFragment;
-import ir.traap.tractor.android.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import ir.traap.tractor.android.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import ir.traap.tractor.android.ui.fragments.predict.PredictFragment;
 import ir.traap.tractor.android.ui.fragments.simcardCharge.ChargeFragment;
