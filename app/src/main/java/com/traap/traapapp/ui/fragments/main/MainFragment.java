@@ -771,13 +771,56 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         super.onResume();
         if (Prefs.getBoolean("intro", true))
         {
-            requestGetHelpMenu();
+          requestShowTutorialIntro();
 
         }
         else
         {
             Utility.disableEnableControls(true, llRoot);
         }
+    }
+
+    private void requestShowTutorialIntro()
+    {
+        if (Prefs.getBoolean("intro", true))
+        {
+            GetMenuHelpRequest request = new GetMenuHelpRequest();
+            SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>()
+            {
+                @Override
+                public void onReady(WebServiceClass<GetMenuHelpResponse> response)
+                {
+                    try
+                    {
+
+                        if (response.info.statusCode == 200)
+                        {
+
+                            startIntro(response.data.getResults());
+
+                        } else
+                        {
+                            Utility.disableEnableControls(true, llRoot);
+                            Tools.showToast(getContext(), response.info.message, R.color.red);
+                        }
+                    } catch (Exception e)
+                    {
+                        Tools.showToast(getContext(), e.getMessage(), R.color.red);
+
+                    }
+                }
+
+                @Override
+                public void onError(String message)
+                {
+                    Utility.disableEnableControls(true, llRoot);
+
+                    Tools.showToast(getActivity(), message, R.color.red);
+                }
+            }, request);
+
+        }
+
     }
 
 

@@ -419,7 +419,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         public View getTabView(int position)
         {
             // Given you have a custom layout in `res/layout/tab_category_content.xml` with a TextView
-            View v = LayoutInflater.from(context).inflate(R.layout.tab_category_content, null);
+            View v = LayoutInflater.from(context).inflate(R.layout.tab_category_content, null, false);
 
             Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf");
 
