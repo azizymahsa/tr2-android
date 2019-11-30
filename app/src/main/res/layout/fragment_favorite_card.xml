@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.favoriteCard.FavoriteCardFragment">
+    tools:context="com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardFragment">
 
     <RelativeLayout
         android:id="@+id/rlVpager"
