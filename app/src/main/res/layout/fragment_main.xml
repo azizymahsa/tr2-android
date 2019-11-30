@@ -284,6 +284,7 @@
                             android:text="بزودی..."
                             android:layout_marginBottom="4dp"
                             android:layout_marginEnd="4dp"
+                            android:visibility="gone"
                             android:textColor="@color/textColorTitle"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
