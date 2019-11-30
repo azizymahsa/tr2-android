@@ -144,6 +144,9 @@ public interface RetroClient
     @GET(Const.Archive_Photo)
     Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos();
 
+    @GET(Const.List_Bookmark_Photo)
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getListBookmarkPhotos();
+
     @POST(Const.Like_Photo)
     Single<Response<WebServiceClass<LikeVideoResponse>>> likePhoto(
             @Path("id") Integer videoId
