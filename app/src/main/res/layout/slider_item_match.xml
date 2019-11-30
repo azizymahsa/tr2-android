@@ -32,8 +32,7 @@
             android:id="@+id/llCenterView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_80dp"
-            android:layout_below="@+id/llHeaderWeekNo"
-            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_5dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -43,8 +42,8 @@
 
                 <ImageView
                     android:id="@+id/imgGuest"
-                    android:layout_width="@dimen/_60dp"
-                    android:layout_height="@dimen/_45dp"
+                    android:layout_width="@dimen/_70dp"
+                    android:layout_height="@dimen/_60dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/img_tractor"/>
 
@@ -55,18 +54,20 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_alignLeft="@+id/imgGuest"
-                    android:textColor="@color/textColorSecondary"
-                    android:text="میهمان"/>
+                    android:textColor="@color/warmGray"
+                    android:text="میهمان"
+                    android:textSize="@dimen/textSize_12dp"
+                    />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
+                android:layout_weight="1.5">
 
                 <ImageView
-                    android:layout_width="@dimen/_35sdp"
+                    android:layout_width="@dimen/_30dp"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_soccer2" />
@@ -87,8 +88,8 @@
 
                 <ImageView
                     android:id="@+id/imgHost"
-                    android:layout_width="@dimen/_60dp"
-                    android:layout_height="@dimen/_45dp"
+                    android:layout_width="@dimen/_80dp"
+                    android:layout_height="@dimen/_60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="-2dp"
                     android:src="@drawable/img_tractor" />
@@ -100,8 +101,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_alignRight="@+id/imgHost"
-                    android:textColor="@color/textColorSecondary"
-                    android:text="میزبان"/>
+                    android:textColor="@color/warmGray"
+                    android:text="میزبان"
+                    android:textSize="@dimen/textSize_12dp"
+                    />
 
             </RelativeLayout>
 
@@ -111,7 +114,8 @@
             android:id="@+id/llText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/llCenterView"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_5dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:orientation="vertical">
 

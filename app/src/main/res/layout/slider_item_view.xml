@@ -100,8 +100,8 @@
 
                 <ImageView
                     android:id="@+id/imgGuest"
-                    android:layout_width="@dimen/_60dp"
-                    android:layout_height="@dimen/_50dp"
+                    android:layout_width="@dimen/_80dp"
+                    android:layout_height="@dimen/_60dp"
                     android:layout_centerHorizontal="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/img_guest_test" />
@@ -129,7 +129,7 @@
 
                 <ImageView
                     android:id="@+id/imgCenter"
-                    android:layout_width="@dimen/_35sdp"
+                    android:layout_width="@dimen/_30dp"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_soccer2" />
@@ -167,8 +167,8 @@
 
                     <ImageView
                         android:id="@+id/imgHost"
-                        android:layout_width="@dimen/_60dp"
-                        android:layout_height="@dimen/_50dp"
+                        android:layout_width="@dimen/_80dp"
+                        android:layout_height="@dimen/_60dp"
                         android:layout_centerHorizontal="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/img_tractor" />
