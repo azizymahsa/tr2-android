@@ -27,6 +27,7 @@ import ir.traap.tractor.android.models.otherModels.newsModel.NewsDetailsFromRela
 import ir.traap.tractor.android.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
 import ir.traap.tractor.android.ui.activities.news.NewsDetailsAction;
 import ir.traap.tractor.android.ui.base.BaseActivity;
+import ir.traap.tractor.android.ui.fragments.news.details.commentNews.NewsDetailsCommentFragment;
 import ir.traap.tractor.android.ui.fragments.news.details.contentNews.NewsDetailsContentFragment;
 import ir.traap.tractor.android.ui.fragments.news.details.relatedNews.NewsRelatedContentFragment;
 import ir.traap.tractor.android.utilities.Logger;
@@ -307,24 +308,24 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         newsDetailFragment = NewsDetailsContentFragment.newInstance(this, currentContent);
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
         transaction.replace(R.id.newsDetailContainer, newsDetailFragment, "newsDetailsContentFragment")
                 .commit();
+
+
 
         newsRelatedFragment = NewsRelatedContentFragment.newInstance(this, currentContent.getRelatedNews());
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
         transaction.replace(R.id.newsRelatedContainer, newsRelatedFragment, "newsRelatedContentFragment")
                 .commit();
 
 
-//        newsCommentFragment = NewsRelatedContentFragment.newInstance(currentContent.getRelatedNews());
-//        transaction = fragmentManager.beginTransaction();
-////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//
-//        transaction.replace(R.id.newsRelatedContainer, newsRelatedFragment, "newsCommentFragment")
-//                .commit();
+
+        newsCommentFragment = NewsDetailsCommentFragment.newInstance(this, currentContent.getId());
+        transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.newsRelatedContainer, newsCommentFragment, "newsCommentFragment")
+                .commit();
     }
 
     @Subscribe

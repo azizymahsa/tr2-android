@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     android:layoutDirection="ltr"
     tools:context=".ui.activities.news.details.NewsDetailsActivity">
@@ -59,22 +60,32 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
-                        android:layout_width="@dimen/_80dp"
+                        android:layout_width="@dimen/_100dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true">
 
+                        <ImageView
+                            android:id="@+id/imgRight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="8dp"
+                            app:srcCompat="@drawable/ic_arrow_right"/>
+
                         <TextView
                             android:id="@+id/tvNextNews"
+                            android:layout_toLeftOf="@+id/imgRight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:foreground="?attr/selectableItemBackground"
                             android:text="خبر بعدی"
                             android:textColor="@color/textColorSecondary"
                             android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:padding="8dp"
-                            android:layout_marginRight="8dp"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
                             android:textStyle="bold"
                             android:textSize="@dimen/textSize_14dp"
                             android:visibility="visible"
@@ -94,13 +105,23 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_width="@dimen/_80dp"
+                        android:layout_width="@dimen/_100dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true">
 
+                        <ImageView
+                            android:id="@+id/imgLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="8dp"
+                            app:srcCompat="@drawable/ic_arrow_left"/>
+
                         <TextView
                             android:id="@+id/tvPrevNews"
+                            android:layout_toRightOf="@+id/imgLeft"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:foreground="?attr/selectableItemBackground"
@@ -108,9 +129,9 @@
                             android:textStyle="bold"
                             android:textColor="@color/textColorSecondary"
                             android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:padding="8dp"
-                            android:layout_marginLeft="8dp"
+                            android:paddingTop="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="8dp"
                             android:textSize="@dimen/textSize_14dp"
                             android:gravity="left" />
 

@@ -127,7 +127,7 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
         public void onChosenItemClick(View view, Integer id);
     }
 
-//    public void SetOnItemClickListener(final OnSliderItemClickListener mItemClickListener)
+//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
 //    {
 //        this.mItemClickListener = mItemClickListener;
 //    }

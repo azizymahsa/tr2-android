@@ -221,7 +221,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
         public void onSliderItemClick(View view, Integer id, Integer position);
     }
 
-//    public void SetOnItemClickListener(final OnSliderItemClickListener mItemClickListener)
+//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
 //    {
 //        this.mItemClickListener = mItemClickListener;
 //    }

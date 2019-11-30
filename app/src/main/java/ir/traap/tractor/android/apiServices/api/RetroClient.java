@@ -1,5 +1,8 @@
 package ir.traap.tractor.android.apiServices.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Single;
 import ir.traap.tractor.android.apiServices.helper.Const;
 import ir.traap.tractor.android.apiServices.model.GlobalResponse;
@@ -51,7 +54,9 @@ import ir.traap.tractor.android.apiServices.model.likeVideo.LikeVideoResponse;
 import ir.traap.tractor.android.apiServices.model.mainVideos.MainVideosResponse;
 import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import ir.traap.tractor.android.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
 import ir.traap.tractor.android.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
+import ir.traap.tractor.android.apiServices.model.news.details.sendComment.request.SendCommentNewsRequest;
 import ir.traap.tractor.android.apiServices.model.news.details.sendRate.LikeNewsDetailResponse;
 import ir.traap.tractor.android.apiServices.model.news.main.NewsMainResponse;
 import ir.traap.tractor.android.apiServices.model.photo.response.PhotosByIdResponse;
@@ -429,6 +434,17 @@ public interface RetroClient
 
     @POST(Const.NEWS_DETAILS_LIKE +"{id}/rate/")
     Single<Response<WebServiceClass<LikeNewsDetailResponse>>> likeNews(
+            @Path("id") Integer id
+    );
+
+    @POST(Const.NEWS_DETAILS_SEND_COMMENT +"{id}/comment/")
+    Single<Response<WebServiceClass<Object>>> sendNewsComment(
+            @Path("id") Integer id,
+            @Body SendCommentNewsRequest request
+    );
+
+    @GET(Const.NEWS_DETAILS_GET_COMMENT + "{id}/comment/")
+    Single<Response<WebServiceClass<ArrayList<GetNewsCommentResponse>>>> getNewsComment(
             @Path("id") Integer id
     );
 

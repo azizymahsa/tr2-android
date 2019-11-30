@@ -37,13 +37,18 @@ public class MerchantService
 package ir.traap.tractor.android.apiServices.part;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ir.traap.tractor.android.apiServices.generator.ServiceGenerator;
 import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
 import ir.traap.tractor.android.apiServices.model.WebServiceClass;
 import ir.traap.tractor.android.apiServices.model.matchList.MachListResponse;
 import ir.traap.tractor.android.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import ir.traap.tractor.android.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import ir.traap.tractor.android.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
 import ir.traap.tractor.android.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
+import ir.traap.tractor.android.apiServices.model.news.details.sendComment.request.SendCommentNewsRequest;
 import ir.traap.tractor.android.apiServices.model.news.details.sendRate.LikeNewsDetailResponse;
 import ir.traap.tractor.android.apiServices.model.news.main.NewsMainResponse;
 
@@ -86,6 +91,16 @@ public class NewsService extends BasePart
     public void likeNews(Integer id, OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>> listener)
     {
         start(getServiceGenerator().createService().likeNews(id), listener);
+    }
+
+    public void sendNewsComment(Integer id, SendCommentNewsRequest request, OnServiceStatus<WebServiceClass<Object>> listener)
+    {
+        start(getServiceGenerator().createService().sendNewsComment(id, request), listener);
+    }
+
+    public void getNewsComment(Integer id, OnServiceStatus<WebServiceClass<ArrayList<GetNewsCommentResponse>>> listener)
+    {
+        start(getServiceGenerator().createService().getNewsComment(id), listener);
     }
 
 }
