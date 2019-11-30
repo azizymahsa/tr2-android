@@ -130,6 +130,7 @@ public class Const
     public final static String Get_Photos_By_Id = SubBASEURL + "v1/photo/{id}/";
     public final static String Archive_Photo=SubBASEURL+"v1/photo/";
     public final static String Like_Photo=SubBASEURL+"v1/photo/{id}/like/";
+    public final static String bookMark_Photo=SubBASEURL+"v1/photo/{id}/bookmark/";
 
     //News
     public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";

@@ -9,6 +9,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.billPayment.request.BillPaymentRequest;
 import com.traap.traapapp.apiServices.model.billPayment.response.BillPaymentResponse;
+import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
 import com.traap.traapapp.apiServices.model.buyPackage.request.PackageBuyRequest;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.card.Result;
@@ -146,6 +147,11 @@ public interface RetroClient
     @POST(Const.Like_Photo)
     Single<Response<WebServiceClass<LikeVideoResponse>>> likePhoto(
             @Path("id") Integer videoId
+    );
+
+    @POST(Const.bookMark_Photo)
+    Single<Response<WebServiceClass<BookMarkPhotoResponse>>> bookMarkPhoto(
+            @Path("id") Integer photoId
     );
 
     @GET(Const.GetMenuHelp)
