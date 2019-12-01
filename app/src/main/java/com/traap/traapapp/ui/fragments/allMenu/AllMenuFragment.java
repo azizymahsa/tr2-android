@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.allMenu;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,6 +35,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.allMenu.AllMenuServiceModelAdapter;
 //import com.traap.traapapp.ui.adapters.AllMenuServiceModelAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -78,6 +80,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     private Toolbar mToolbar;
     private TextView tvTitle, tvUserName,tvPopularPlayer;
     private View imgBack, imgMenu;
+    private View rlShirt;
 
     public AllMenuFragment()
     {
@@ -126,7 +129,15 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-
+            rlShirt=rootView.findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                }
+            });
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
             {
                 @Override

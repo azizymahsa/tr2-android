@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.ticket;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.buyTicket.InfoViewer;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.ticket.PagerAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -54,6 +57,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
     private TextView tvPopularPlayer;
     private String url="";
     private Integer stadiumId;
+    private View rlShirt;
 
 
     public BuyTicketsFragment()
@@ -171,6 +175,8 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
     {
         try
         {
+            rlShirt=rootView.findViewById(R.id.rlShirt);
+
             tvTitle=rootView.findViewById(R.id.tvTitle);
             tvUserName=rootView.findViewById(R.id.tvUserName);
             tvUserName.setText(Prefs.getString("mobile", ""));
@@ -181,6 +187,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             tvPopularPlayer=rootView.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer","12"));
 
+            rlShirt.setOnClickListener(this);
             imgBack=rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
@@ -243,6 +250,10 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
                 break;
             case R.id.llFullInfo:
                 // mainView.onPackSimCard();
+                break;
+            case R.id.rlShirt:
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+
                 break;
 
 

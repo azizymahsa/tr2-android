@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.videos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 
@@ -29,6 +32,7 @@ public class VideosMainFragment  extends BaseFragment
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private View rlShirt;
 
     public VideosMainFragment()
     {
@@ -61,6 +65,16 @@ public class VideosMainFragment  extends BaseFragment
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("فیلم");
+
+        rlShirt=rootView.findViewById(R.id.rlShirt);
+        rlShirt.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+            }
+        });
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         fragmentManager = getChildFragmentManager();
