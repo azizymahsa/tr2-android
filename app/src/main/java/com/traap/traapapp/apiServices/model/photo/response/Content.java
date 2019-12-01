@@ -41,6 +41,20 @@ public class Content implements Serializable
     @SerializedName("image_name")
     @Expose
     private ImageName imageName;
+    @SerializedName("cover")
+    @Expose
+    private String cover;
+
+    public String getCover()
+    {
+        return cover;
+    }
+
+    public void setCover(String cover)
+    {
+        this.cover = cover;
+    }
+
     private final static long serialVersionUID = -8818234929390553252L;
 
     public String getTitle() {
