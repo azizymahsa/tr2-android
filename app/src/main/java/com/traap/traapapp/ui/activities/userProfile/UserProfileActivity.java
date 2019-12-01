@@ -128,7 +128,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             request.setFirstName(etFirstName.getText().toString());
             request.setLastName(etLastName.getText().toString());
             request.setEnglishName(etFirstNameUS.getText().toString());
-            request.setBirthday(etBirthDay.getText().toString());
+
+            request.setBirthday(etBirthDay.getText().toString().equalsIgnoreCase("") ?
+                    null :
+                    etBirthDay.getText().toString()
+            );
+
             request.setNationalCode(etNationalCode.getText().toString());
 
             SingletonService.getInstance().sendProfileService().sendProfileService(request,
