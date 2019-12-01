@@ -316,7 +316,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 break;
 
             case R.id.tvMyFavoriteVideo:
-                showComingSoonDialog();
+                //showComingSoonDialog();
+                Intent intent1 = new Intent(getActivity(), VideoArchiveActivity.class);
+                intent1.putExtra("FLAG_Favorite",true);
+                startActivity(intent1);
                 break;
         }
     }

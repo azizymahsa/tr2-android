@@ -26,6 +26,10 @@ public class ArchiveVideoService extends BasePart
     {
         start(getServiceGenerator().createService().getArchiveVideos(categoryId), listener);
     }
+    public void getBookMarkVideo(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, ArchiveVideoRequest request)
+    {
+        start(getServiceGenerator().createService().getListBookmarkVideos(), listener);
+    }
     public void getArchivePhoto(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, ArchiveVideoRequest request)
     {
         start(getServiceGenerator().createService().getArchivePhotos(), listener);
