@@ -38,8 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="@dimen/_20dp"
-            android:layout_marginRight="@dimen/_20dp"
+
             android:layout_marginTop="@dimen/_20dp">
 
 
@@ -50,22 +49,29 @@
         android:layout_gravity="center"
         android:gravity="right"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="@dimen/_10dp"
-        android:layout_marginLeft="@dimen/_10dp"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/textHint"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCategoryTitles"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/background_border_gray"
             />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/textHint"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvArchiveVideo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_20dp"
             android:layout_marginBottom="@dimen/_10dp"
+            android:layout_marginLeft="@dimen/_20dp"
+            android:layout_marginRight="@dimen/_20dp"
             />
     </LinearLayout>
         </LinearLayout>
