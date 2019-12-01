@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
+import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
@@ -42,26 +44,46 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     private RadioButton rbMellat, rbSaman, rbTejarat;
     private MessageAlertDialog.OnConfirmListener listener = null;
     private View llConfirm, llInVisible;
-
-
+    private String amount = "20000";
+    private String title = "پرداخت";
+    private int imageDrawable = 1;
+    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay;
+    private ImageView imgLogo;
     public PaymentGatewayFragment()
     {
 
     }
 
+    private void setContent()
+    {
+        tvAmount.setText(amount);
+        tvTitlePay.setText(title);
 
-    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url)
+        if (imageDrawable == 0)
+        {
+            imgLogo.setVisibility(View.GONE);
+        } else
+        {
+            Picasso.with(getActivity()).load(imageDrawable).into(imgLogo);
+        }
+    }
+
+
+    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title)
     {
         PaymentGatewayFragment fragment = new PaymentGatewayFragment();
         Bundle args = new Bundle();
 
-        fragment.setMainView(mainActionView, url);
+        fragment.setMainView(mainActionView, url, imageDrawable, amount, title);
         return fragment;
     }
 
 
-    private void setMainView(MainActionView mainView, String url)
+    private void setMainView(MainActionView mainView, String url, int imageDrawable, String amount, String title)
     {
+        this.imageDrawable = imageDrawable;
+        this.title = title;
+        this.amount = amount;
         this.mainView = mainView;
         this.url = url;
     }
@@ -86,6 +108,10 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             llConfirm = rootView.findViewById(R.id.llConfirm);
             llInVisible = rootView.findViewById(R.id.llInVisible);
 
+            tvAmount = rootView.findViewById(R.id.tvAmount);
+            tvTitlePay = rootView.findViewById(R.id.tvTitlePay);
+            imgLogo = rootView.findViewById(R.id.imgLogo);
+
             btnBuy = rootView.findViewById(R.id.btnBuy);
             btnBuy.setOnClickListener(clickListener);
             btnBack = rootView.findViewById(R.id.btnBack);
@@ -107,7 +133,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             rbTejarat.setChecked(false);
         } catch (Exception e)
         {
-           Logger.e("---Exception---",e.getMessage());
+            Logger.e("---Exception---", e.getMessage());
         }
     }
 
@@ -172,6 +198,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             }
         };
         initView();
+        setContent();
         addDataRecyclerList();
 
         return rootView;
