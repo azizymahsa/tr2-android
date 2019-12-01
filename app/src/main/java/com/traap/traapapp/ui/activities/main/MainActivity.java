@@ -987,6 +987,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 onNewsArchiveClick(parent, MediaPosition.News);
             }
 
+            @Override
+            public void onNewsFavoriteFragment(NewsParent parent)
+            {
+                onNewsFavoriteClick(parent, MediaPosition.News);
+            }
+
 
             @Override
             public void openDrawerNews()
@@ -1038,6 +1044,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             public void onNewsArchiveFragment(NewsParent parent)
             {
                 onNewsArchiveClick(parent, MediaPosition.News);
+            }
+
+            @Override
+            public void onNewsFavoriteFragment(NewsParent parent)
+            {
+                onNewsFavoriteClick(parent, MediaPosition.News);
             }
 
             @Override
@@ -1105,7 +1117,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, new NewsArchiveActionView()
+        this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, false, new NewsArchiveActionView()
         {
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
@@ -1128,6 +1140,78 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             public void onNewsArchiveFragment(NewsParent parent)
             {
 //                onNewsArchiveClick(NewsParent.MainFragment);
+            }
+
+            @Override
+            public void onNewsFavoriteFragment(NewsParent parent)
+            {
+
+            }
+
+            @Override
+            public void openDrawerNews()
+            {
+                openDrawer();
+            }
+
+            @Override
+            public void closeDrawerNews()
+            {
+                closeDrawer();
+            }
+
+            @Override
+            public void showLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
+        });
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "newsArchiveCategoryFragment")
+                .commit();
+    }
+
+    @Override
+    public void onNewsFavoriteClick(NewsParent parent, MediaPosition mediaPosition)
+    {
+        isMainFragment = false;
+        this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, true, new NewsArchiveActionView()
+        {
+            @Override
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
+                fragment = MediaFragment.newInstance(mediaPosition, MainActivity.this);
+                transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "mediaFragment")
+                        .commit();
+            }
+
+            @Override
+            public void backToMainNewsFragment()
+            {
+                openMainNewsFragment();
+            }
+
+            @Override
+            public void onNewsArchiveFragment(NewsParent parent)
+            {
+                onNewsArchiveClick(NewsParent.MainFragment, MediaPosition.News);
+            }
+
+            @Override
+            public void onNewsFavoriteFragment(NewsParent parent)
+            {
+
             }
 
             @Override

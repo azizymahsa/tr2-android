@@ -9,6 +9,8 @@
     <color name="textColorPrimary">#d5282e</color>
     <color name="textColorSecondary">#000</color>
 
+    <color name="imageColorBorder">#d5282e</color>
+
     <color name="textHint">#aaa</color>
     <color name="transparentGray">#70000000</color>
 
