@@ -44,6 +44,7 @@ import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPacka
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
+import com.traap.traapapp.apiServices.model.invite.InviteResponse;
 import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
 import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPastResult;
@@ -427,6 +428,9 @@ public interface RetroClient
 
     @GET(Const.GET_PROFILE)
     Single<Response<WebServiceClass<GetProfileResponse>>> getProfile();
+
+    @GET(Const.GET_Invite)
+    Single<Response<WebServiceClass<InviteResponse>>> getInvite();
 
     @PUT(Const.PUT_PROFILE)
     Single<Response<WebServiceClass<SendProfileResponse>>> sendProfile(
