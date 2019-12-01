@@ -120,8 +120,6 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
-        rlShirt=rootView.findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(this);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo=rootView.findViewById(R.id.tvArchiveVideo);
         tvMyFavoritePhoto=rootView.findViewById(R.id.tvMyFavoritePhoto);
@@ -320,10 +318,6 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
                 Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
                 intent1.putExtra("FLAG_Favorite",true);
                 startActivity(intent1);
-                break;
-            case R.id.rlShirt:
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
-
                 break;
         }
     }
