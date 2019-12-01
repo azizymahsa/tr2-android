@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.about;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -17,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -30,10 +32,10 @@ public class AboutFragment
 
     private View view;
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName,tvPhone,tvPopularPlayer;
+    private TextView tvTitle, tvUserName, tvPhone, tvPopularPlayer;
     private View imgBack, imgMenu;
     private MainActionView mainView;
-    private ImageView ivInsta, ivTwit, ivTele;
+    private ImageView ivInsta, ivTwit, ivTele, ivWeb;
     private CircularProgressButton btnHistory;
 
 
@@ -75,12 +77,14 @@ public class AboutFragment
     {
         try
         {
+            ivWeb = view.findViewById(R.id.ivWeb);
             ivTwit = view.findViewById(R.id.ivTwit);
             ivTele = view.findViewById(R.id.ivTele);
             ivInsta = view.findViewById(R.id.ivInsta);
             btnHistory = view.findViewById(R.id.btnHistory);
             tvPhone = view.findViewById(R.id.tvPhone);
 
+            ivWeb.setOnClickListener(this);
             ivTwit.setOnClickListener(this);
             ivTele.setOnClickListener(this);
             ivInsta.setOnClickListener(this);
@@ -104,7 +108,7 @@ public class AboutFragment
                 }
             });
 
-            imgMenu=view.findViewById(R.id.imgMenu);
+            imgMenu = view.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
             imgBack = view.findViewById(R.id.imgBack);
@@ -163,11 +167,56 @@ public class AboutFragment
     {
         switch (view.getId())
         {
+
+            case R.id.ivWeb:
+
+                try
+                {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.traap.ir"));
+                    startActivity(browserIntent);
+                } catch (Exception e)
+                {
+                    e.getMessage();
+                }
+                break;
+            case R.id.ivTwit:
+                try
+                {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + "traapapp")));
+                } catch (Exception e)
+                {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/" + "traapapp")));
+                }
+                break;
+            case R.id.ivTele:
+                try
+                {
+                    Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/@traapapp"));
+                    startActivity(telegram);
+                } catch (Exception e)
+                {
+                    e.getMessage();
+                }
+                break;
+            case R.id.ivInsta:
+                Uri uri = Uri.parse("http://instagram.com/traapapp");
+                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                likeIng.setPackage("com.instagram.android");
+
+                try
+                {
+                    startActivity(likeIng);
+                } catch (ActivityNotFoundException e)
+                {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://instagram.com/traapapp")));
+                }
+                break;
             case R.id.btnHistory:
                 HistoryFragment historyFragment = new HistoryFragment(mainView);
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, historyFragment).commit();
-                //mainView.onPaymentWithoutCard();
                 break;
             case R.id.tvPhone:
                 if (tvPhone.getText().toString() == null)
