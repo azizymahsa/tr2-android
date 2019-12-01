@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.TransactionTooLargeException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +81,9 @@ public class SelectPositionFragment
     private ReservationMatchImpl reservationMatch;
     private Integer stadiumId=1;
     private String selectPosition;
+    private Handler handler;
+    private Integer timeForRequestGetData=5000;
+    private Runnable ticketInfoRunnable;
 
 
     public SelectPositionFragment()
@@ -126,6 +132,15 @@ public class SelectPositionFragment
         View view = inflater.inflate(R.layout.select_position_fragment, container, false);
         Context context = view.getContext();
         reservationMatch = new ReservationMatchImpl();
+        handler = new Handler();
+        ticketInfoRunnable = new Runnable() {
+            @Override
+            public void run() {
+                BuyTicketsFragment.buyTicketsFragment.showLoading();
+
+                getAllBoxesRequest();
+            }
+        };
         tvCount = view.findViewById(R.id.tvCount);
         tvM = view.findViewById(R.id.tvM);
         tvP = view.findViewById(R.id.tvP);
@@ -1630,7 +1645,10 @@ public class SelectPositionFragment
                 break;*/
             case R.id.tvM:
                 if (count > 1)
+                {
                     count--;
+                    setTimerForRequestGetStadiumData();
+                }
                 break;
             case R.id.tvP:
                 if (count == 5)
@@ -1638,11 +1656,21 @@ public class SelectPositionFragment
                     Tools.showToast(getContext(), "حداکثر تعداد بلیت قابل خرید 5 عدد میباشد.");
                 }
                 if (count < 5)
+                {
                     count++;
+                    setTimerForRequestGetStadiumData();
+                }
                 break;
         }
         setAmounts(count);
         tvCount.setText(String.valueOf(count));
+    }
+
+    public void setTimerForRequestGetStadiumData(){
+
+
+        handler.removeCallbacks(ticketInfoRunnable);
+        handler.postDelayed(ticketInfoRunnable, timeForRequestGetData);
     }
 
     private void callReservationRequest()
