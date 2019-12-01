@@ -123,6 +123,16 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
             tvMessage.setGravity(Gravity.RIGHT);
         }
 
+        if (!btnConfirmText.equalsIgnoreCase(""))
+        {
+            btnConfirm.setText(btnConfirmText);
+        }
+
+        if (!btnCancelText.equalsIgnoreCase(""))
+        {
+            btnCancel.setText(btnCancelText);
+        }
+
         btnConfirm.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
 
