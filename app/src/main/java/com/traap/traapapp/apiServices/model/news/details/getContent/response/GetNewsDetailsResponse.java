@@ -47,6 +47,10 @@ public class GetNewsDetailsResponse implements Parcelable
     private Boolean liked;
 
     @Expose @Getter @Setter
+    @SerializedName("bookmarked")
+    private Boolean bookmarked;
+
+    @Expose @Getter @Setter
     @SerializedName("update_date")
     private String updateDate;
 

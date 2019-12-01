@@ -38,94 +38,102 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+            <LinearLayout
+                android:id="@+id/llFilterAndTab"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/btnFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_40dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:background="@drawable/background_border_a">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="فیلتر"
-                        android:paddingLeft="24dp"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="@dimen/textSize_14dp"/>
-
-                    <ImageView
-                        android:id="@+id/imgFilter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_filter"
-                        android:paddingRight="16dp"
-                        android:tint="@color/textColorPrimary"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llSearch"
+                <RelativeLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toLeftOf="@+id/btnFilter"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:background="@drawable/background_border_gray">
+                    android:layout_height="wrap_content">
 
-                    <com.traap.traapapp.utilities.ClearableEditText
-                        android:id="@+id/etFirstName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right|center_vertical"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:layout_marginLeft="8dp"
+                    <LinearLayout
+                        android:id="@+id/btnFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_40dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:layout_marginRight="8dp"
-                        android:singleLine="true"
-                        android:textSize="@dimen/textSize_12dp"
-                        android:hint="جستجو"
-                        android:drawableRight="@drawable/ic_search"
-                        android:textColorHint="@color/warmGray"
-                        android:textColor="@color/textColorSecondary" />
+                        android:layout_marginLeft="16dp"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:background="@drawable/background_border_a">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="فیلتر"
+                            android:paddingLeft="24dp"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="@dimen/textSize_14dp"/>
 
-            </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/imgFilter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_filter"
+                            android:paddingRight="16dp"
+                            android:tint="@color/textColorPrimary"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/textHint"/>
+                    </LinearLayout>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id = "@+id/tabLayout"
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                app:tabIndicatorHeight="0dp"
-                style="@style/TabLayoutStyle"
-                app:tabBackground="@drawable/tab_background"
-                app:tabTextColor="@drawable/tab_text_color"
-                app:tabMode="scrollable"/>
+                    <LinearLayout
+                        android:id="@+id/llSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toLeftOf="@+id/btnFilter"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:background="@drawable/background_border_gray">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/textHint"/>
+                        <com.traap.traapapp.utilities.ClearableEditText
+                            android:id="@+id/etFirstName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right|center_vertical"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/textSize_12dp"
+                            android:hint="جستجو"
+                            android:drawableRight="@drawable/ic_search"
+                            android:textColorHint="@color/warmGray"
+                            android:textColor="@color/textColorSecondary" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/textHint"/>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id = "@+id/tabLayout"
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    app:tabIndicatorHeight="0dp"
+                    style="@style/TabLayoutStyle"
+                    app:tabBackground="@drawable/tab_background"
+                    app:tabTextColor="@drawable/tab_text_color"
+                    app:tabMode="scrollable"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/textHint"/>
+
+            </LinearLayout>
 
             <com.traap.traapapp.utilities.MyCustomViewPager
                 android:id="@+id/view_pager"

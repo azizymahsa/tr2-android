@@ -9,6 +9,8 @@ public interface NewsActionView extends BaseView
 
     void onNewsArchiveFragment(NewsParent parent);
 
+    void onNewsFavoriteFragment(NewsParent parent);
+
     void openDrawerNews();
 
     void closeDrawerNews();

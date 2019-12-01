@@ -193,6 +193,12 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     }
 
     @Override
+    public void onNewsFavoriteFragment(NewsParent parent)
+    {
+        mainView.onNewsFavoriteClick(parent, MediaPosition.News);
+    }
+
+    @Override
     public void openDrawerNews()
     {
 

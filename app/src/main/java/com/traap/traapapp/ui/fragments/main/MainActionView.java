@@ -60,5 +60,7 @@ public interface MainActionView extends BaseView
 
     void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition);
 
+    void onNewsFavoriteClick(NewsParent parent, MediaPosition mediaPosition);
+
     void onMainVideoClick();
 }

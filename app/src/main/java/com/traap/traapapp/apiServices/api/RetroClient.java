@@ -458,11 +458,19 @@ public interface RetroClient
             @Path("id") Integer id
     );
 
-    @POST(Const.NEWS_DETAILS_GET_COMMENT +"comments/{id}/rate/")
+    @POST(Const.NEWS_DETAILS_LIKE_COMMENT +"comments/{id}/rate/")
     Single<Response<WebServiceClass<LikeNewsDetailResponse>>> likeNewsComment(
             @Path("id") Integer id,
             @Body LikeNewsDetailRequest request
     );
+
+    @POST(Const.NEWS_DETAILS_SET_BOOKMARK +"{id}/bookmark/")
+    Single<Response<WebServiceClass<Object>>> bookmarkNews(
+            @Path("id") Integer id
+    );
+
+    @GET(Const.NEWS_DETAILS_GET_BOOKMARK)
+    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsBookmarks();
 
 
 }

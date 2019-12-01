@@ -90,6 +90,12 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
     }
 
     @Override
+    public void onNewsFavoriteFragment(NewsParent parent)
+    {
+        mainView.onNewsFavoriteFragment(parent);
+    }
+
+    @Override
     public void openDrawerNews()
     {
         mainView.openDrawerNews();

@@ -53,7 +53,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
 
     private TextView tvTitle, tvLikeCounter, tvDateTime, tvSource, tvNewsArchive;
     private JustifiedTextView tvSubTitle, tvBody;
-    private ImageView imgLike;
+    private ImageView imgLike, imgBookmark;
 
     private NewsDetailsImageAdapter adapter;
     private GetNewsDetailsResponse content;
@@ -116,6 +116,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         tvBody = rootView.findViewById(R.id.tvBody);
         tvLikeCounter = rootView.findViewById(R.id.tvLikeCounter);
         imgLike = rootView.findViewById(R.id.imgLike);
+        imgBookmark = rootView.findViewById(R.id.imgBookmark);
         tvSource = rootView.findViewById(R.id.tvSource);
         tvDateTime = rootView.findViewById(R.id.tvDate);
 
@@ -124,6 +125,15 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
 
         tvTitle.setText(content.getTitle());
         tvLikeCounter.setText(String.valueOf(content.getLikeCounter()));
+
+        if (content.getBookmarked())
+        {
+            imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+        }
+        else
+        {
+            imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
+        }
 
         try
         {
@@ -135,14 +145,14 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
             }
             else
             {
-                imgLike.setColorFilter(getResources().getColor(R.color.gray));
-                tvLikeCounter.setTextColor(getResources().getColor(R.color.gray));
+                imgLike.setColorFilter(getResources().getColor(R.color.textHint));
+                tvLikeCounter.setTextColor(getResources().getColor(R.color.textHint));
             }
         }
         catch (Exception e)
         {
-            imgLike.setColorFilter(getResources().getColor(R.color.gray));
-            tvLikeCounter.setTextColor(getResources().getColor(R.color.gray));
+            imgLike.setColorFilter(getResources().getColor(R.color.textHint));
+            tvLikeCounter.setTextColor(getResources().getColor(R.color.textHint));
         }
 
         tvSource.setText("منبع: " + content.getSource());
@@ -186,6 +196,31 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
             like = !like;
             request.setLike(like);
             SingletonService.getInstance().getNewsService().likeNews(content.getId(), request, this);
+        });
+
+        imgBookmark.setOnClickListener(v ->
+        {
+            SingletonService.getInstance().getNewsService().setBookmarkNews(content.getId(), new OnServiceStatus<WebServiceClass<Object>>()
+            {
+                @Override
+                public void onReady(WebServiceClass<Object> response)
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+                    }
+                    else
+                    {
+                        showAlert(context, response.info.message, R.string.error);
+                    }
+                }
+
+                @Override
+                public void onError(String message)
+                {
+                    showAlert(context, "خطای ارتباط با سرور!", R.string.error);
+                }
+            });
         });
 
         adapter = new NewsDetailsImageAdapter(context, content.getImages());
@@ -275,15 +310,17 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
             {
                 imgLike.setColorFilter(getResources().getColor(R.color.imageLikedNewsTintColor));
                 tvLikeCounter.setTextColor(getResources().getColor(R.color.imageLikedNewsTintColor));
-                int likeCounter = content.getLikeCounter() + 1;
+                int likeCounter = response.data.getLikeCount();
                 tvLikeCounter.setText(String.valueOf(likeCounter));
+                content.setLikeCounter(likeCounter);
             }
             else
             {
-                imgLike.setColorFilter(getResources().getColor(R.color.gray));
-                tvLikeCounter.setTextColor(getResources().getColor(R.color.gray));
-                int likeCounter = content.getLikeCounter() - 1;
+                imgLike.setColorFilter(getResources().getColor(R.color.textHint));
+                tvLikeCounter.setTextColor(getResources().getColor(R.color.textHint));
+                int likeCounter = response.data.getLikeCount();
                 tvLikeCounter.setText(String.valueOf(likeCounter));
+                content.setLikeCounter(likeCounter);
             }
         }
     }

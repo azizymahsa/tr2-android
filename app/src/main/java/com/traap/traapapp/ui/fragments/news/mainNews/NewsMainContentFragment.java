@@ -63,7 +63,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private NewsMainFavoriteAdapter favNewsAdapter;
     private NewsMainNewestAdapter newestNewsAdapter;
 
-    private TextView tvNewsArchive;
+    private TextView tvNewsArchive, tvMyFavoriteNews;
     private NewsParent parent;
 
     private NewsMainResponse newsMainResponse;
@@ -177,6 +177,12 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         tvNewsArchive.setOnClickListener(v ->
         {
             mainView.onNewsArchiveFragment(parent);
+        });
+
+        tvMyFavoriteNews = rootView.findViewById(R.id.tvMyFavoriteNews);
+        tvMyFavoriteNews.setOnClickListener(v ->
+        {
+            mainView.onNewsFavoriteFragment(parent);
         });
 
 
@@ -407,7 +413,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             int Id =  categoriesList.get(position).getId();
             Logger.e("-getNews " + position +" size-", categoriesList.get(position).getTitle() + " size: " +  categoriesList.get(position).getNews().size());
 
-            return NewsArchiveCategoryFragment.newInstance(Id, false, categoriesList.get(position).getNews());
+            return NewsArchiveCategoryFragment.newInstance(Id, false, false, categoriesList.get(position).getNews());
         }
 
         @Override
