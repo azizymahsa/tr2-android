@@ -392,7 +392,23 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 if (isMainFragment)
                 {
-                    super.onBackPressed();
+//                    super.onBackPressed();
+                    MessageAlertDialog exitDialog = new MessageAlertDialog(this, "", "آیا بابت خروج از برنامه اطمینان دارید؟",
+                            true, "بله", "خیر", new MessageAlertDialog.OnConfirmListener()
+                    {
+                        @Override
+                        public void onConfirmClick()
+                        {
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancelClick() {}
+                    });
+                    exitDialog.show(getFragmentManager(), "exitDialog");
                 } else
                 {
                     setCheckedBNV(bottomNavigationView, 2);
