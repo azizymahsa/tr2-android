@@ -312,7 +312,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
         } else
         {
-            btnBookmark.setColorFilter(getResources().getColor(R.color.white));
+            btnBookmark.setColorFilter(getResources().getColor(R.color.gray));
 
         }
     }
