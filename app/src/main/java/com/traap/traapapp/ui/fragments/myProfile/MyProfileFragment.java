@@ -15,6 +15,13 @@ import androidx.cardview.widget.CardView;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
+import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
+import com.traap.traapapp.apiServices.model.invite.InviteResponse;
+import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
@@ -22,6 +29,7 @@ import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Tools;
 
 
 @SuppressLint("ValidFragment")
@@ -93,8 +101,7 @@ public class MyProfileFragment extends BaseFragment
         {
             tvFullName.setText(Prefs.getString("mobile", ""));
             tvMobile.setVisibility(View.GONE);
-        }
-        else
+        } else
         {
             tvFullName.setText(Prefs.getString("FULLName", ""));
         }
@@ -113,6 +120,12 @@ public class MyProfileFragment extends BaseFragment
 
         rlMyFavorite.setOnClickListener(v ->
         {
+
+        });
+        tvInviteCode.setOnClickListener(v ->
+        {
+//Prefs.getString("keyInvite", "")
+            sendRequestInvite();
 
         });
 
@@ -142,6 +155,50 @@ public class MyProfileFragment extends BaseFragment
             dialog.show(getActivity().getFragmentManager(), "messageDialog");
         });
 
+    }
+
+    private void sendRequestInvite()
+    {
+        CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
+       // SingletonService.getInstance().getProfileService().getProfileService(this);
+
+        SingletonService.getInstance().getProfileService().getInviteService(new OnServiceStatus<WebServiceClass<InviteResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<InviteResponse> response)
+            {
+                mainView.hideLoading();
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+                        //share text
+                        String shareBody = response.data.getInvite_text();
+                        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                        sharingIntent.setType("text/plain");
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "دعوت از دوستان");
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        startActivity(Intent.createChooser(sharingIntent, response.data.getInvite_text()));
+
+                    } else
+                    {
+                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                mainView.hideLoading();
+                Tools.showToast(getActivity(), message, R.color.red);
+            }
+        });
     }
 
 }

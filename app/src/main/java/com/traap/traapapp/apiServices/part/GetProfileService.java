@@ -3,6 +3,7 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.invite.InviteResponse;
 import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
 
 /**
@@ -24,5 +25,9 @@ public class GetProfileService extends BasePart
     public void getProfileService(OnServiceStatus<WebServiceClass<GetProfileResponse>> listener)
     {
         start(getServiceGenerator().createService().getProfile(), listener);
+    }
+    public void getInviteService(OnServiceStatus<WebServiceClass<InviteResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getInvite(), listener);
     }
 }
