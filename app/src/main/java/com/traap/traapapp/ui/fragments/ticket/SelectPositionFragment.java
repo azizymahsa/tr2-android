@@ -83,7 +83,7 @@ public class SelectPositionFragment
     private String selectPosition;
     private Handler handler;
     private Integer timeForRequestGetData=5000;
-    private Runnable ticketInfoRunnable;
+    private Runnable stadiumInfoRunnable;
 
 
     public SelectPositionFragment()
@@ -133,7 +133,7 @@ public class SelectPositionFragment
         Context context = view.getContext();
         reservationMatch = new ReservationMatchImpl();
         handler = new Handler();
-        ticketInfoRunnable = new Runnable() {
+        stadiumInfoRunnable = new Runnable() {
             @Override
             public void run() {
                 BuyTicketsFragment.buyTicketsFragment.showLoading();
@@ -1669,8 +1669,8 @@ public class SelectPositionFragment
     public void setTimerForRequestGetStadiumData(){
 
 
-        handler.removeCallbacks(ticketInfoRunnable);
-        handler.postDelayed(ticketInfoRunnable, timeForRequestGetData);
+        handler.removeCallbacks(stadiumInfoRunnable);
+        handler.postDelayed(stadiumInfoRunnable, timeForRequestGetData);
     }
 
     private void callReservationRequest()
