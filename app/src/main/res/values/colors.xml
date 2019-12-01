@@ -12,7 +12,11 @@
     <color name="textHint">#aaa</color>
     <color name="transparentGray">#70000000</color>
 
-    <color name="imageLikedTintColor">#d5282e</color>
+    <color name="imageBookmarkNewsTintColor">#edcb62</color>
+    <color name="imageLikedNewsTintColor">#d5282e</color>
+    <color name="imageLikedTintColor">#00a537</color>
+    <color name="imageDislikedTintColor">#d5282e</color>
+
     <color name="backgroundButton">#d5282e</color>
     <color name="mainMenuColor">#fff</color>
     <color name="drawer_background">#fff</color>

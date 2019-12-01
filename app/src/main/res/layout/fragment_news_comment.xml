@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_35dp"
+                android:src="@drawable/ic_comment"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/img1"
+                android:layout_centerVertical="true"
+                android:text="نظر شما"
+                android:gravity="right"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                android:textSize="@dimen/textSize_14dp"
+                android:textColor="@color/textColorSecondary"/>
+
+        </RelativeLayout>
+
+        <com.traap.traapapp.utilities.ClearableEditText
+            android:id="@+id/edtComment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_90sdp"
+            android:background="@drawable/background_rectangle_white_8dp"
+            android:gravity="right"
+            android:inputType="text"
+            android:padding="6dp"
+            android:maxLength="400"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="@dimen/textSize_12dp"
+            android:hint="متن نظر شما"
+            android:textColorHint="@color/textHint"
+            android:textColor="@color/textColorSecondary"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"/>
+
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                android:id="@+id/btnSendComment"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35dp"
+                android:layout_weight="3"
+                android:layout_gravity="center"
+                android:background="@drawable/background_button_login"
+                android:text="تایید"
+                android:textColor="@color/textColorButton"
+                android:textSize="@dimen/textSize_14dp"
+                android:textStyle="bold"
+                android:transitionName="transition"
+                app:finalCornerAngle="50dp"
+                app:spinning_bar_color="@color/white"
+                app:initialCornerAngle="50dp"
+                app:spinning_bar_width="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llCommentList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="نظر کاربران"
+                android:gravity="right"
+                android:layout_marginBottom="8dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                android:textSize="@dimen/textSize_14dp"
+                android:textColor="@color/textColorSecondary"/>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35dp"
+                android:layout_marginBottom="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcCommentList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

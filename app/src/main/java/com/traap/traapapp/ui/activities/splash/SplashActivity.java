@@ -439,22 +439,41 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             }
             else
             {
-                DialogGetPermissionRequest dialog = new DialogGetPermissionRequest(this, new DialogGetPermissionRequest.OnButtonClick()
+//                DialogGetPermissionRequest dialog = new DialogGetPermissionRequest(this, new DialogGetPermissionRequest.OnButtonClick()
+//                {
+//                    @Override
+//                    public void onPositiveButton()
+//                    {
+//                        requestPermissions();
+//                    }
+//
+//                    @Override
+//                    public void onNegativeButton()
+//                    {
+//                        finish();
+//                    }
+//                });
+//
+//                dialog.show(getFragmentManager(), "dialogGetPermissionRequest");
+
+                MessageAlertDialog dialog1 = new MessageAlertDialog(this, "هشدار!",
+                        getResources().getString(R.string.get_permission), true, "بله", "خیر",
+                        true, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
-                    public void onPositiveButton()
+                    public void onConfirmClick()
                     {
                         requestPermissions();
                     }
 
                     @Override
-                    public void onNegativeButton()
+                    public void onCancelClick()
                     {
                         finish();
                     }
                 });
-
-                dialog.show(getFragmentManager(), "dialogGetPermissionRequest");
+                dialog1.setCancelable(false);
+                dialog1.show(getFragmentManager(), "dialogGetPermissionRequest");
             }
             return;
         }

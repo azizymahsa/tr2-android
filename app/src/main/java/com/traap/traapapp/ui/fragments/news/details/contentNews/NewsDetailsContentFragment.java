@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,19 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
-import com.traap.traapapp.apiServices.model.news.details.sendRate.LikeNewsDetailResponse;
+import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
+import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
+import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
+import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
 import com.traap.traapapp.ui.activities.news.NewsDetailsAction;
 import com.traap.traapapp.ui.adapters.news.NewsDetailsImageAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.utilities.JustifiedTextView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+
+import org.greenrobot.eventbus.EventBus;
+
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 
@@ -42,7 +49,9 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
     private View rootView;
     private Context context;
 
-    private TextView tvTitle, tvLikeCounter, tvDateTime, tvSource;
+    private Boolean like = false;
+
+    private TextView tvTitle, tvLikeCounter, tvDateTime, tvSource, tvNewsArchive;
     private JustifiedTextView tvSubTitle, tvBody;
     private ImageView imgLike;
 
@@ -102,6 +111,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         rootView = inflater.inflate(R.layout.fragment_news_details_content, container, false);
 
         tvTitle = rootView.findViewById(R.id.tvTitle);
+        tvNewsArchive = rootView.findViewById(R.id.tvNewsArchive);
         tvSubTitle = rootView.findViewById(R.id.tvSubTitle);
         tvBody = rootView.findViewById(R.id.tvBody);
         tvLikeCounter = rootView.findViewById(R.id.tvLikeCounter);
@@ -117,10 +127,11 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
 
         try
         {
+            like = content.getLiked();
             if (content.getLiked())
             {
-                imgLike.setColorFilter(getResources().getColor(R.color.imageLikedTintColor));
-                tvLikeCounter.setTextColor(getResources().getColor(R.color.imageLikedTintColor));
+                imgLike.setColorFilter(getResources().getColor(R.color.imageLikedNewsTintColor));
+                tvLikeCounter.setTextColor(getResources().getColor(R.color.imageLikedNewsTintColor));
             }
             else
             {
@@ -158,10 +169,23 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
 //        {
 //
 //        }
+        tvNewsArchive.setOnClickListener(v ->
+        {
+            NewsArchiveClickModel fromNewsDetails = new NewsArchiveClickModel();
+            fromNewsDetails.setFromNewsDetails(true);
+
+            //onNewsArchiveClick in MainActivity
+            SingletonNewsArchiveClick.getInstance().setNewsArchiveClickModel(fromNewsDetails);
+            getActivity().finish();
+
+        });
 
         rootView.findViewById(R.id.rlLike).setOnClickListener(v ->
         {
-            SingletonService.getInstance().getNewsService().likeNews(content.getId(), this);
+            LikeNewsDetailRequest request = new LikeNewsDetailRequest();
+            like = !like;
+            request.setLike(like);
+            SingletonService.getInstance().getNewsService().likeNews(content.getId(), request, this);
         });
 
         adapter = new NewsDetailsImageAdapter(context, content.getImages());
@@ -249,8 +273,8 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         {
             if (response.data.getIsLiked())
             {
-                imgLike.setColorFilter(getResources().getColor(R.color.imageLikedTintColor));
-                tvLikeCounter.setTextColor(getResources().getColor(R.color.imageLikedTintColor));
+                imgLike.setColorFilter(getResources().getColor(R.color.imageLikedNewsTintColor));
+                tvLikeCounter.setTextColor(getResources().getColor(R.color.imageLikedNewsTintColor));
                 int likeCounter = content.getLikeCounter() + 1;
                 tvLikeCounter.setText(String.valueOf(likeCounter));
             }

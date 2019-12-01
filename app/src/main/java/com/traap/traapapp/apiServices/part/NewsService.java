@@ -1,17 +1,17 @@
 /*
-package ir.traap.tractor.android.apiServices.part;
+package com.traap.traapapp.apiServices.part;
 
 
-import ir.traap.tractor.android.apiServices.generator.ServiceGenerator;
-import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
-import ir.traap.tractor.android.apiServices.model.GlobalResponse;
-import ir.traap.tractor.android.apiServices.model.GlobalResponse2;
-import ir.traap.tractor.android.apiServices.model.WebServiceClass;
-import ir.traap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
-import ir.traap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
-import ir.traap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
-import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
-import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
+import com.traap.traapapp.apiServices.generator.ServiceGenerator;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.GlobalResponse;
+import com.traap.traapapp.apiServices.model.GlobalResponse2;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
+import com.traap.traapapp.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
+import com.traap.traapapp.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
+import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrRequest;
+import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrResponse;
 
 public class MerchantService
         extends BasePart
@@ -42,9 +42,13 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
-import com.traap.traapapp.apiServices.model.news.details.sendRate.LikeNewsDetailResponse;
+import com.traap.traapapp.apiServices.model.news.details.sendComment.request.SendCommentNewsRequest;
+import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
+import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
+import java.util.ArrayList;
 
 
 public class NewsService extends BasePart
@@ -82,9 +86,24 @@ public class NewsService extends BasePart
         start(getServiceGenerator().createService().getNewsDetails(id), listener);
     }
 
-    public void likeNews(Integer id, OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>> listener)
+    public void likeNews(Integer id, LikeNewsDetailRequest request ,OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>> listener)
     {
-        start(getServiceGenerator().createService().likeNews(id), listener);
+        start(getServiceGenerator().createService().likeNews(id, request), listener);
+    }
+
+    public void sendNewsComment(Integer id, SendCommentNewsRequest request, OnServiceStatus<WebServiceClass<Object>> listener)
+    {
+        start(getServiceGenerator().createService().sendNewsComment(id, request), listener);
+    }
+
+    public void getNewsComment(Integer id, OnServiceStatus<WebServiceClass<ArrayList<GetNewsCommentResponse>>> listener)
+    {
+        start(getServiceGenerator().createService().getNewsComment(id), listener);
+    }
+
+    public void setLikeDislikeComment(Integer id, LikeNewsDetailRequest request, OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>> listener)
+    {
+        start(getServiceGenerator().createService().likeNewsComment(id, request), listener);
     }
 
 }

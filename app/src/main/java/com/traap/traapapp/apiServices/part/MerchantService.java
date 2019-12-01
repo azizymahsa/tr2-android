@@ -1,17 +1,17 @@
 /*
-package ir.traap.tractor.android.apiServices.part;
+package com.traap.traapapp.apiServices.part;
 
 
-import ir.traap.tractor.android.apiServices.generator.ServiceGenerator;
-import ir.traap.tractor.android.apiServices.listener.OnServiceStatus;
-import ir.traap.tractor.android.apiServices.model.GlobalResponse;
-import ir.traap.tractor.android.apiServices.model.GlobalResponse2;
-import ir.traap.tractor.android.apiServices.model.WebServiceClass;
-import ir.traap.tractor.android.apiServices.model.tourism.GetUserPassResponse;
-import ir.traap.tractor.android.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
-import ir.traap.tractor.android.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
-import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrRequest;
-import ir.traap.tractor.android.apiServices.model.getDecQrCode.DecryptQrResponse;
+import com.traap.traapapp.apiServices.generator.ServiceGenerator;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.GlobalResponse;
+import com.traap.traapapp.apiServices.model.GlobalResponse2;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
+import com.traap.traapapp.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
+import com.traap.traapapp.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
+import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrRequest;
+import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrResponse;
 
 public class MerchantService
         extends BasePart

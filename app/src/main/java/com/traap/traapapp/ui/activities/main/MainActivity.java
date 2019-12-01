@@ -34,6 +34,8 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
+
+import com.traap.traapapp.BuildConfig;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -53,9 +55,11 @@ import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.dbModels.BankDB;
+import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
 import com.traap.traapapp.notification.NotificationJobService;
 import com.traap.traapapp.notification.PushMessageReceiver;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
 import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
@@ -329,30 +333,25 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     protected void onResume()
     {
         super.onResume();
-        if (fragment == null)
+        try
         {
-//            fragment = MainFragment.newInstance(this, chosenServiceList, footballServiceList);
-//            transaction = fragmentManager.beginTransaction();
-//            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//            try
-//            {
-//                if (mSavedInstanceState == null)
-//                {
-//                    transaction.add(R.id.main_container, fragment)
-//                            .commit();
-////
-//                } else
-//                {
-//                    transaction.replace(R.id.main_container, fragment)
-//                            .commit();
-//                }
-//            }
-//            catch (IllegalStateException e)
-//            {
-//                e.printStackTrace();
-//            }
-
+            NewsArchiveClickModel fromNewsDetails = SingletonNewsArchiveClick.getInstance().getNewsArchiveClickModel();
+            if (fromNewsDetails != null)
+            {
+//                showError("Archive: " + fromNewsDetails.getFromNewsDetails());
+                if (fromNewsDetails.getFromNewsDetails())
+                {
+                    fromNewsDetails.setFromNewsDetails(false);
+                    SingletonNewsArchiveClick.getInstance().setNewsArchiveClickModel(fromNewsDetails);
+                    onNewsArchiveClick(NewsParent.MainFragment, MediaPosition.News);
+                }
+            }
         }
+        catch (Exception e)
+        {
+//            showError("Error " );
+        }
+
     }
 
 
@@ -775,8 +774,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnSelectContact event)
     {
-        showToast(this, "hoooraaa", R.color.gray);
-
+        if (BuildConfig.DEBUG)
+        {
+            showToast(this, "hoooraaa", R.color.gray);
+        }
     }
 
     @Override
