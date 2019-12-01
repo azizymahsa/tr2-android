@@ -519,9 +519,9 @@
         android:id="@+id/rlIntro"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#e5000000"
+        android:background="#cc000000"
         android:clickable="true"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="@dimen/_80dp"
@@ -530,7 +530,7 @@
             android:layout_centerInParent="true"
             android:layout_marginBottom="@dimen/_20dp"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_logo_main" />
+            android:src="@drawable/ic_logo_main_traap" />
 
         <TextView
             android:id="@+id/tvIntroTitle"
