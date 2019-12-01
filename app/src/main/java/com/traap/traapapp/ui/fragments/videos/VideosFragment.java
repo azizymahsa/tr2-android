@@ -32,6 +32,8 @@ import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideos
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.activities.video.VideoArchiveActivity;
 import com.traap.traapapp.ui.activities.video.VideoDetailActivity;
 import com.traap.traapapp.ui.adapters.video.NewestVideosAdapter;
@@ -63,6 +65,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private Integer idVideo;
     private Integer id;
     private TextView tvArchiveVideo,tvMyFavoriteVideo;
+    private View rlShirt;
 
     public VideosFragment()
     {
@@ -103,6 +106,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
+        rlShirt=rootView.findViewById(R.id.rlShirt);
+        rlShirt.setOnClickListener(this);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo=rootView.findViewById(R.id.tvArchiveVideo);
         rvCategories = rootView.findViewById(R.id.rvCategories);
@@ -320,6 +325,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 Intent intent1 = new Intent(getActivity(), VideoArchiveActivity.class);
                 intent1.putExtra("FLAG_Favorite",true);
                 startActivity(intent1);
+                break;
+            case R.id.rlShirt:
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.media;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,9 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.mediaModel.MediaModel;
+import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.media.MediaAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -49,6 +52,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     private FragmentTransaction transaction;
 
     private MediaPosition mediaPosition;
+    private View rlShirt;
 
     public MediaFragment()
     {
@@ -87,6 +91,15 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("رسانه");
+        rlShirt=rootView.findViewById(R.id.rlShirt);
+        rlShirt.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            { startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+
+            }
+        });
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         initView();

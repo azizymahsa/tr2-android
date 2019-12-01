@@ -34,8 +34,10 @@ import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.photo.response.ImageName;
+import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.photo.CategoryPhotosAdapter;
 import com.traap.traapapp.ui.adapters.photo.NewestPhotosAdapter;
 import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
@@ -65,6 +67,8 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
     private Integer idVideo;
     private Integer id;
     private TextView tvArchiveVideo,tvMyFavoritePhoto;
+    private View rlShirt;
+
     public PhotosFragment()
     {
 
@@ -116,6 +120,8 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
+        rlShirt=rootView.findViewById(R.id.rlShirt);
+        rlShirt.setOnClickListener(this);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo=rootView.findViewById(R.id.tvArchiveVideo);
         tvMyFavoritePhoto=rootView.findViewById(R.id.tvMyFavoritePhoto);
@@ -278,6 +284,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
     public void onClick(View v)
     {
         switch (v.getId()){
+
             case R.id.ivFavorite1:
                 categoriesList=mainVideosResponse.getFavorites();
                 position=0;
@@ -313,6 +320,10 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
                 Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
                 intent1.putExtra("FLAG_Favorite",true);
                 startActivity(intent1);
+                break;
+            case R.id.rlShirt:
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+
                 break;
         }
     }
