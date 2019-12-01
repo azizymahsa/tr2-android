@@ -115,6 +115,7 @@ public class Const
     //Profile
     public final static String GET_PROFILE = SubBASEURL + "v1/user/profile/";
     public final static String PUT_PROFILE = SubBASEURL + "v1/user/profile/";
+    public final static String GET_Invite = SubBASEURL + "v1/user/share_text_invite_friend/";
 
     //Transaction
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
