@@ -11,4 +11,9 @@ public class LikeNewsDetailResponse
     @SerializedName("liked")
     @Expose @Getter @Setter
     private Boolean isLiked;
+
+    @SerializedName("likes")
+    @Expose @Getter @Setter
+    private Integer likeCount;
+
 }

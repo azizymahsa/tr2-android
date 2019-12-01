@@ -1350,6 +1350,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
+    public void onNewsFavoriteClick(NewsParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
     public void onMainVideoClick()
     {
 

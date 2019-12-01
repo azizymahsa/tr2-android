@@ -46,6 +46,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     private NewsArchiveActionView mainNewsView;
     private ArrayList<NewsArchiveCategory> newsArchiveCategoryList;
     private boolean pagerWithFilter = false;
+    private boolean pagerFromFavorite = false;
     private NewsParent parent;
     private MediaPosition mediaPosition;
 
@@ -53,7 +54,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     {
     }
 
-    public static NewsArchiveFragment newInstance(NewsParent parent, MediaPosition mediaPosition, NewsArchiveActionView mainNewsView)
+    public static NewsArchiveFragment newInstance(NewsParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite, NewsArchiveActionView mainNewsView)
     {
         NewsArchiveFragment fragment = new NewsArchiveFragment();
         fragment.setMainNewsView(mainNewsView);
@@ -62,7 +63,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
         Bundle arg = new Bundle();
 
-//        arg.putParcelable("matchPredict", matchPredict);
+        arg.putBoolean("pagerFromFavorite", pagerFromFavorite);
 //        arg.putBoolean("isPredictable", isPredictable);
         fragment.setArguments(arg);
 
@@ -84,7 +85,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
         {
-//            matchPredict = getArguments().getParcelable("matchPredict");
+            pagerFromFavorite = getArguments().getBoolean("pagerFromFavorite");
 //            isPredictable = getArguments().getBoolean("isPredictable");
         }
     }
@@ -120,35 +121,51 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
-        SingletonService.getInstance().getNewsService().getNewsArchiveCategory(this);
+
+        if (!pagerFromFavorite)
+        {
+            SingletonService.getInstance().getNewsService().getNewsArchiveCategory(this);
+        }
+        else
+        {
+            setPager(false, true);
+        }
 
         return rootView;
     }
 
-    private void setPager(boolean pagerWithFilter)
+    private void setPager(boolean pagerWithFilter, boolean pagerFromFavorite)
     {
-        Collections.reverse(newsArchiveCategoryList);
-
         MyCustomViewPager pager = rootView.findViewById(R.id.view_pager);
-        SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), newsArchiveCategoryList, pagerWithFilter);
 
-        pager.setAdapter(adapter);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-//        {
-//            pager.setPageTransformer(true, (ViewPager.PageTransformer) new RotateUpTransformer());
-//        }
-
-        TabLayout tabLayout = rootView.findViewById(R.id.tabLayout);
-//        tabLayout.setSelectedTabIndicator(getResources().getDrawable());
-        tabLayout.setupWithViewPager(pager);
-
-        for (int i = 0; i < tabLayout.getTabCount(); i++)
+        if (pagerFromFavorite)
         {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(adapter.getTabView(i));
+            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), null, pagerFromFavorite, pagerWithFilter);
+
+            pager.setAdapter(adapter);
+
+            pager.setCurrentItem(0);
+        }
+        else
+        {
+            Collections.reverse(newsArchiveCategoryList);
+
+            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), newsArchiveCategoryList, pagerFromFavorite, pagerWithFilter);
+
+            pager.setAdapter(adapter);
+
+            TabLayout tabLayout = rootView.findViewById(R.id.tabLayout);
+            tabLayout.setupWithViewPager(pager);
+
+            for (int i = 0; i < tabLayout.getTabCount(); i++)
+            {
+                TabLayout.Tab tab = tabLayout.getTabAt(i);
+                tab.setCustomView(adapter.getTabView(i));
+            }
+
+            pager.setCurrentItem(newsArchiveCategoryList.size()-1);
         }
 
-        pager.setCurrentItem(newsArchiveCategoryList.size()-1);
     }
 
 
@@ -162,9 +179,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         else
         {
             newsArchiveCategoryList = response.data.getNewsArchiveCategoryList();
-//            Collections.reverse(newsArchiveCategoryList);
-
-            setPager(pagerWithFilter);
+            setPager(pagerWithFilter, pagerFromFavorite);
         }
     }
 
@@ -186,21 +201,33 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     {
         private ArrayList<NewsArchiveCategory> newsArchiveCategories;
         private boolean pagerWithFilter = false;
+        private boolean pagerFromFavorite = false;
         private Context context = SingletonContext.getInstance().getContext();
 
         @SuppressLint("WrongConstant")
-        public SamplePagerAdapter(@NonNull FragmentManager fm, ArrayList<NewsArchiveCategory> newsArchiveCategories, boolean pagerWithFilter)
+        public SamplePagerAdapter(@NonNull FragmentManager fm,
+                                  ArrayList<NewsArchiveCategory> newsArchiveCategories,
+                                  boolean pagerFromFavorite,
+                                  boolean pagerWithFilter)
         {
             super(fm, 0);
             this.newsArchiveCategories = newsArchiveCategories;
             this.pagerWithFilter = pagerWithFilter;
+            this.pagerFromFavorite = pagerFromFavorite;
         }
 
         @Nullable
         @Override
         public CharSequence getPageTitle(int position)
         {
-            return newsArchiveCategories.get(position).getTitle();
+            try
+            {
+                return newsArchiveCategories.get(position).getTitle();
+            }
+            catch (NullPointerException e)
+            {
+                return "";
+            }
         }
 
         @NonNull
@@ -211,18 +238,31 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             {
                 return NewsArchiveCategoryFragment.newInstance(pagerWithFilter);
             }
+            else if (pagerFromFavorite)
+            {
+                rootView.findViewById(R.id.llFilterAndTab).setVisibility(View.GONE);
+
+                return NewsArchiveCategoryFragment.newInstance(0, false, true, null);
+            }
             else
             {
                 int Id =  newsArchiveCategoryList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
-                return NewsArchiveCategoryFragment.newInstance(Id, true, null);
+                return NewsArchiveCategoryFragment.newInstance(Id, true, false, null);
             }
         }
 
         @Override
         public int getCount()
         {
-            return newsArchiveCategories.size();
+            try
+            {
+                return newsArchiveCategories.size();
+            }
+            catch (NullPointerException e)
+            {
+                return 1;
+            }
         }
 
         public View getTabView(int position)
