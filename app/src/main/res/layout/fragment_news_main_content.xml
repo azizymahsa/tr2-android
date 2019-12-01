@@ -71,7 +71,7 @@
                         android:background="@drawable/background_border_a" />
 
                     <TextView
-                        android:id="@+id/tvMyFavoriteVideo"
+                        android:id="@+id/tvMyFavoriteNews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:foreground="?attr/selectableItemBackground"
@@ -191,7 +191,8 @@
                     android:layout_height = "wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:layoutDirection="rtl"
+                    app:tabGravity="center"
+                    android:layout_gravity="center"
                     app:tabIndicatorHeight="0dp"
                     style="@style/TabLayoutStyle"
                     app:tabBackground="@drawable/tab_background"

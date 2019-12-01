@@ -36,6 +36,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 //    private NewsArchiveCategory archiveCategory;
     private int Id;
     private boolean pagerWithFilter = false;
+    private boolean getFromFav = false;
     private boolean getFromId ;
 
     private ProgressBar progressBar;
@@ -51,13 +52,14 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
     {
     }
 
-    public static NewsArchiveCategoryFragment newInstance(int Id, boolean getFromId, @Nullable List<News> newsContentList)
+    public static NewsArchiveCategoryFragment newInstance(int Id, boolean getFromId, boolean getFromFav, @Nullable List<News> newsContentList)
     {
         NewsArchiveCategoryFragment fragment = new NewsArchiveCategoryFragment();
 
         Bundle arg = new Bundle();
         arg.putInt("Id", Id);
         arg.putBoolean("pagerWithFilter", false);
+        arg.putBoolean("getFromFav", getFromFav);
         arg.putBoolean("getFromId", getFromId);
         if (!getFromId)
         {
@@ -78,6 +80,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 //        arg.putParcelable("NewsArchiveCategory", archiveCategory);
 
         arg.putBoolean("pagerWithFilter", pagerWithFilter);
+        arg.putBoolean("getFromFav", false);
 
         fragment.setArguments(arg);
         return fragment;
@@ -91,6 +94,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         if (getArguments() != null)
         {
             Id = getArguments().getInt("Id", 0);
+            getFromFav = getArguments().getBoolean("getFromFav");
             pagerWithFilter = getArguments().getBoolean("pagerWithFilter");
             getFromId = getArguments().getBoolean("getFromId");
             newsContentList = getArguments().getParcelableArrayList("newsContentList");
@@ -128,6 +132,11 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         if (pagerWithFilter)
         {
 
+        }
+        else if (getFromFav)
+        {
+            //getFromFav
+            SingletonService.getInstance().getNewsService().getNewsBookmarks(this);
         }
         else
         {

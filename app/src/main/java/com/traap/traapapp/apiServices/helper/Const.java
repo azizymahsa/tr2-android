@@ -144,6 +144,9 @@ public class Const
     public final static String NEWS_DETAILS_LIKE = SubBASEURL + "v1/news/";
     public final static String NEWS_DETAILS_SEND_COMMENT = SubBASEURL + "v1/news/";
     public final static String NEWS_DETAILS_GET_COMMENT = SubBASEURL + "v1/news/";
+    public final static String NEWS_DETAILS_LIKE_COMMENT = SubBASEURL + "v1/news/";
+    public final static String NEWS_DETAILS_SET_BOOKMARK = SubBASEURL + "v1/news/";
+    public final static String NEWS_DETAILS_GET_BOOKMARK = SubBASEURL + "v1/news/bookmarks/";
 
 
 }

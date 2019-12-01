@@ -96,6 +96,11 @@ public class NewsService extends BasePart
         start(getServiceGenerator().createService().sendNewsComment(id, request), listener);
     }
 
+    public void setBookmarkNews(Integer id, OnServiceStatus<WebServiceClass<Object>> listener)
+    {
+        start(getServiceGenerator().createService().bookmarkNews(id), listener);
+    }
+
     public void getNewsComment(Integer id, OnServiceStatus<WebServiceClass<ArrayList<GetNewsCommentResponse>>> listener)
     {
         start(getServiceGenerator().createService().getNewsComment(id), listener);
@@ -104,6 +109,11 @@ public class NewsService extends BasePart
     public void setLikeDislikeComment(Integer id, LikeNewsDetailRequest request, OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>> listener)
     {
         start(getServiceGenerator().createService().likeNewsComment(id, request), listener);
+    }
+
+    public void getNewsBookmarks(OnServiceStatus<WebServiceClass<NewsArchiveListByIdResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getNewsBookmarks(), listener);
     }
 
 }
