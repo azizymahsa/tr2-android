@@ -75,7 +75,7 @@
                 android:visibility="visible"
                 android:textStyle="bold"
                 android:textColor="@color/textColorTitle"
-                android:textSize="18sp" />
+                android:textSize="@dimen/textSize_18dp" />
 
             <RelativeLayout
                 android:id="@+id/rlShirt"
