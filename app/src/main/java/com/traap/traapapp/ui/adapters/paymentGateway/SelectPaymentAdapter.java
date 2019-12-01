@@ -82,7 +82,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
                 return tab2;
             case 0:
 
-                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView,url);
+                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView,url,imageDrawable,amount,title);
 
                 return tab1;
 

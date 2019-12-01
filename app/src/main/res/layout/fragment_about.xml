@@ -249,6 +249,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
+
                             android:layout_marginEnd="@dimen/_10dp"
                             >
                         <ImageView
@@ -260,12 +261,11 @@
                             android:gravity="right"
                             android:src="@drawable/insta_icon" />
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="اینستاگرام "
                                 android:gravity="center"
                                 android:layout_marginTop="@dimen/_10dp"
-
                                 android:textSize="@dimen/textSize_10dp"
                                 android:textColor="@color/black"/>
                         </LinearLayout>
@@ -308,12 +308,12 @@
                                 android:src="@drawable/ic_web" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="وب سایت"
                                 android:gravity="center"
                                 android:layout_marginTop="@dimen/_10dp"
-
+android:layout_gravity="center"
                                 android:textSize="@dimen/textSize_10dp"
                                 android:textColor="@color/black"/>
                         </LinearLayout>

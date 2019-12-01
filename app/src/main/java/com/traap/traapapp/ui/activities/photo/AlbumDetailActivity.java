@@ -58,6 +58,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private TextView titleAlbum, tvCaption;
     private Integer idPhoto;
     private String largeImageClick = "";
+    private String coverImg="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -188,7 +189,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                 idPhoto = data.getContent().get(i).getId();
                 likeCount = data.getContent().get(i).getLikes();
                 tvLike.setText(likeCount + "");
-
+                coverImg=data.getContent().get(i).getCover();
+                largeImageClick=data.getContent().get(i).getImageName().getThumbnailLarge();
             }
 
         }
@@ -309,6 +311,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.ivPhoto:
 
                 Intent intent = new Intent(this, ShowBigPhotoActivity.class);
+                if(largeImageClick=="")
+                    largeImageClick = coverImg;
 
                 intent.putExtra("SRCImage", largeImageClick);
                 intent.putExtra("LikeCount", likeCount);
@@ -393,6 +397,9 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         idPhoto = content.getId();
         likeCount = content.getLikes();
         tvLike.setText(likeCount + "");
+        if(content.getImageName().getThumbnailLarge()=="")
+        largeImageClick = content.getCover();
+        else
         largeImageClick = content.getImageName().getThumbnailLarge();
 
         setImageBackground(ivPhoto, content.getImageName().getThumbnailLarge().replace("\\", ""));

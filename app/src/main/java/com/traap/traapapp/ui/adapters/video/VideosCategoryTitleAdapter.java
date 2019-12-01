@@ -17,25 +17,26 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
 /**
  * Created by MahtabAzizi on 11/25/2019.
  */
-public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCategoryTitleAdapter.ViewHolder>
+public class VideosCategoryTitleAdapter extends RecyclerView.Adapter<VideosCategoryTitleAdapter.ViewHolder>
 {
-    private  MainActionView mainView;
+    private MainActionView mainView;
     private Context context;
     private List<ListCategory> categories;
     private TitleCategoryListener listener;
-    private boolean isClicked=false;
-    private int selectedPosition=0;
+    private boolean isClicked = false;
+    private int selectedPosition = 0;
 
-    public VideosCategoryTitleAdapter(List<ListCategory> categories, MainActionView mainView,TitleCategoryListener listener)
+    public VideosCategoryTitleAdapter(List<ListCategory> categories, MainActionView mainView, TitleCategoryListener listener)
     {
-        this.listener=listener;
-        this.categories=categories;
-        this.mainView=mainView;
+        this.listener = listener;
+        this.categories = categories;
+        this.mainView = mainView;
     }
-    public VideosCategoryTitleAdapter(List<ListCategory> categories,TitleCategoryListener listener)
+
+    public VideosCategoryTitleAdapter(List<ListCategory> categories, TitleCategoryListener listener)
     {
-        this.listener=listener;
-        this.categories=categories;
+        this.listener = listener;
+        this.categories = categories;
     }
 
 
@@ -53,22 +54,24 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
     {
         ListCategory category = categories.get(position);
         holder.tvTitle.setText(category.getTitle());
-    //    holder.tvTitle.setTextColor(context.getResources().getColor(R.color.black));
+        //    holder.tvTitle.setTextColor(context.getResources().getColor(R.color.black));
 
-        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+        holder.tvTitle.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-                selectedPosition=position;
+            public void onClick(View view)
+            {
+                selectedPosition = position;
                 notifyDataSetChanged();
-                listener.onItemTitleCategoryClick(category,position);
+                listener.onItemTitleCategoryClick(category, position);
             }
         });
-        if(selectedPosition==position){
+        if (selectedPosition == position)
+        {
             holder.tvTitle.setTextColor(context.getResources().getColor(R.color.borderColorRed));
             holder.tvTitle.setBackgroundResource(R.drawable.background_border_a);
 
-        }
-        else
+        } else
         {
             holder.tvTitle.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvTitle.setBackgroundResource(0);
@@ -80,8 +83,10 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
     @Override
     public int getItemCount()
     {
-
-        return categories.size();
+        if (categories == null)
+            return 0;
+        else
+            return categories.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder
@@ -91,11 +96,13 @@ public class VideosCategoryTitleAdapter  extends RecyclerView.Adapter<VideosCate
         public ViewHolder(View v)
         {
             super(v);
-            tvTitle=v.findViewById(R.id.tvTitle);
+            tvTitle = v.findViewById(R.id.tvTitle);
 
         }
     }
-    public interface TitleCategoryListener {
+
+    public interface TitleCategoryListener
+    {
         void onItemTitleCategoryClick(ListCategory category, int position);
     }
 }
