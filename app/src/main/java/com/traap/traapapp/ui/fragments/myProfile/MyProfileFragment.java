@@ -115,6 +115,12 @@ public class MyProfileFragment extends BaseFragment
         {
 
         });
+        tvInviteCode.setOnClickListener(v ->
+        {
+//Prefs.getString("keyInvite", "")
+
+            
+        });
 
         rlExit.setOnClickListener(v ->
         {
