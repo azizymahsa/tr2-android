@@ -1,35 +1,42 @@
 {
   "project_info": {
-    "project_number": "274025764855",
-    "firebase_url": "https://traap-android.firebaseio.com",
-    "project_id": "traap-android",
-    "storage_bucket": "traap-android.appspot.com"
+    "project_number": "936537002347",
+    "firebase_url": "https://traap-ce132.firebaseio.com",
+    "project_id": "traap-ce132",
+    "storage_bucket": "traap-ce132.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:274025764855:android:6f3a19704acefd7269c0f2",
+        "mobilesdk_app_id": "1:936537002347:android:de7e5aa269b631a83f7c2e",
         "android_client_info": {
-          "package_name": "ir.traap.tractor.android"
+          "package_name": "com.traap.traapapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "274025764855-6gk6vhfejhb2jfftpk5pe326c0eud6ve.apps.googleusercontent.com",
+          "client_id": "936537002347-jkop1idqnp3hejdl5ae4fu5eometkl08.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAVq9EEPxGe0mWImwN1X18Z8mX-2GwhB00"
+          "current_key": "AIzaSyBZS9ztBWiyU20Hk-p9P2lKn6FeaK98E1k"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "274025764855-6gk6vhfejhb2jfftpk5pe326c0eud6ve.apps.googleusercontent.com",
+              "client_id": "936537002347-jkop1idqnp3hejdl5ae4fu5eometkl08.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "936537002347-66qtatp7spsnq4041q6le0hdvloh7fgu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.traap.traapapp"
+              }
             }
           ]
         }

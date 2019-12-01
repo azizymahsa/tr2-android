@@ -199,7 +199,7 @@
                             android:theme="@style/EditTextHint"
                             app:hintTextAppearance="@style/TextLabel">
 
-                            <ir.traap.tractor.android.utilities.ClearableEditText
+                            <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etQR"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
                             android:theme="@style/EditTextHint"
                             app:hintTextAppearance="@style/TextLabel">
 
-                            <ir.traap.tractor.android.utilities.ClearableEditText
+                            <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etAmountPayment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -405,7 +405,7 @@
                             android:theme="@style/EditTextHint"
                             app:hintTextAppearance="@style/TextLabel">
 
-                            <ir.traap.tractor.android.utilities.ClearableEditText
+                            <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etPassPayment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -458,7 +458,7 @@
                             android:theme="@style/EditTextHint"
                             app:hintTextAppearance="@style/TextLabel">
 
-                            <ir.traap.tractor.android.utilities.ClearableEditText
+                            <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etCvv2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

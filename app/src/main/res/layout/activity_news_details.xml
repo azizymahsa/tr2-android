@@ -8,7 +8,7 @@
     android:background="@drawable/background"
     android:orientation="vertical"
     android:layoutDirection="ltr"
-    tools:context=".ui.activities.news.details.NewsDetailsActivity">
+    tools:context="com.traap.traapapp.ui.activities.news.details.NewsDetailsActivity">
 
     <LinearLayout
         android:id="@+id/root"

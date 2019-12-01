@@ -81,11 +81,11 @@
 -keep enum com.wooplr.spotlight.**
 -keep class net.sqlcipher.database.** { *; }
 
--keep class ir.traap.tractor.android.models.** { *; }
--keep class ir.traap.tractor.android.models.dbModels.** { *; }
--keep class ir.traap.tractor.android.models.dbModels.ArchiveCardDBModel { *; }
--keep class ir.traap.tractor.android.models.dbModels.BankDB { *; }
--keep class ir.traap.tractor.android.models.otherModels.** { *; }
+-keep class com.traap.traapapp.models.** { *; }
+-keep class com.traap.traapapp.models.dbModels.** { *; }
+-keep class com.traap.traapapp.models.dbModels.ArchiveCardDBModel { *; }
+-keep class com.traap.traapapp.models.dbModels.BankDB { *; }
+-keep class com.traap.traapapp.models.otherModels.** { *; }
 
 -keep class org.sqlite.** { *; }
 -keep class org.sqlite.database.** { *; }

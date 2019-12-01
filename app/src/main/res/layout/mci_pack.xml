@@ -51,7 +51,7 @@
             android:theme="@style/EditTextHint"
             android:layout_marginEnd="5dp">
 
-            <ir.traap.tractor.android.utilities.ClearableEditText
+            <com.traap.traapapp.utilities.ClearableEditText
                 android:id="@+id/etMCINumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

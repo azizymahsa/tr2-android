@@ -78,4 +78,7 @@
     <dimen name="header_week_no_height">50dp</dimen>
     <dimen name="nav_drawer_width">400dp</dimen>
     <dimen name="_5dp">15dp</dimen>
+    <dimen name="news_archive_width" >120dp</dimen>
+
+    <dimen name="news_favorite_height" >300dp</dimen>
 </resources>

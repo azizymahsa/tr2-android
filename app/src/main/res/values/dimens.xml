@@ -63,6 +63,7 @@
 
     <dimen name="icon_size">24sp</dimen>
     <dimen name="news_favorite_height" >200dp</dimen>
+    <dimen name="news_archive_width" >120dp</dimen>
     <dimen name="news_newest_height" >160dp</dimen>
     <dimen name="news_favorite_title_height" >75dp</dimen>
     <dimen name="slider_height" >190dp</dimen>

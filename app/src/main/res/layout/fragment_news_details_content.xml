@@ -157,7 +157,7 @@
 
     </RelativeLayout>
 
-    <ir.traap.tractor.android.utilities.JustifiedTextView
+    <com.traap.traapapp.utilities.JustifiedTextView
         android:id="@+id/tvSubTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
         android:textSize="@dimen/textSize_14dp"
         android:gravity="right|center_vertical" />
 
-    <ir.traap.tractor.android.utilities.JustifiedTextView
+    <com.traap.traapapp.utilities.JustifiedTextView
         android:id="@+id/tvBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

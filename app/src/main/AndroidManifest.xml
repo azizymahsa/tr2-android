@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ir.traap.tractor.android"
+    package="com.traap.traapapp"
     tools:ignore="GoogleAppIndexingWarning">
 
     <uses-permission
@@ -62,10 +62,10 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.RECEIVE_SMS" /> -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
 
     <meta-data
         android:name="com.adpdigital.push.client.SHOW_ONLY_CHABOK_NOTIFICATIONS"
@@ -81,7 +81,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.traap.traapapp.MyApplication"
         android:allowBackup="true"
         android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
         android:hardwareAccelerated="false"
@@ -92,19 +92,19 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory,android:supportsRtl">
-        <activity android:name=".ui.activities.news.details.NewsDetailsActivity"></activity>
+        <activity android:name="com.traap.traapapp.ui.activities.news.details.NewsDetailsActivity"></activity>
         <activity
-            android:name=".ui.activities.video.VideoArchiveActivity"
+            android:name="com.traap.traapapp.ui.activities.video.VideoArchiveActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.photo.PhotoArchiveActivity"
+            android:name="com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.news.archive.NewsArchiveActivity" />
+        <activity android:name="com.traap.traapapp.ui.activities.news.archive.NewsArchiveActivity" />
         <activity
-            android:name=".ui.activities.video.VideoDetailActivity"
+            android:name="com.traap.traapapp.ui.activities.video.VideoDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.photo.AlbumDetailActivity"
+            android:name="com.traap.traapapp.ui.activities.photo.AlbumDetailActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -116,7 +116,7 @@
             android:required="false" />
 
         <activity
-            android:name=".ui.activities.splash.SplashActivity"
+            android:name="com.traap.traapapp.ui.activities.splash.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
@@ -127,13 +127,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.ticket.ShowTicketActivity"
+            android:name="com.traap.traapapp.ui.activities.ticket.ShowTicketActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.login.LoginActivity"
+            android:name="com.traap.traapapp.ui.activities.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.main.MainActivity"
+            android:name="com.traap.traapapp.ui.activities.main.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -145,17 +145,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.userProfile.UserProfileActivity"
+            android:name="com.traap.traapapp.ui.activities.userProfile.UserProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.web.WebActivity"
+            android:name="com.traap.traapapp.ui.activities.web.WebActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.card.add.AddCardActivity"
+            android:name="com.traap.traapapp.ui.activities.card.add.AddCardActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
         <activity
-            android:name=".ui.activities.photo.ShowBigPhotoActivity"
+            android:name="com.traap.traapapp.ui.activities.photo.ShowBigPhotoActivity"
             android:theme="@style/Theme.TransparentGray"
             android:screenOrientation="portrait"
             />
@@ -169,18 +169,18 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="ir.traap.tractor.android" />
+                <category android:name="com.traap.traapapp" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".notification.NotificationJobService"
+            android:name="com.traap.traapapp.notification.NotificationJobService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <receiver android:name=".notification.PushMessageReceiver">
+        <receiver android:name="com.traap.traapapp.notification.PushMessageReceiver">
             <intent-filter>
-                <category android:name="ir.traap.tractor.android" />
+                <category android:name="com.traap.traapapp" />
 
                 <action android:name="com.adpdigital.push.client.MSGRECEIVE" />
             </intent-filter>
@@ -188,7 +188,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="ir.traap.tractor.android.provider"
+            android:authorities="com.traap.traapapp.android.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

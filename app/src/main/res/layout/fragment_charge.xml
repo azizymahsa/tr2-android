@@ -261,7 +261,7 @@
                             android:textColorHint="@color/textColorSecondary"
                             android:theme="@style/EditTextHint">
 
-                            <ir.traap.tractor.android.utilities.ClearableEditText
+                            <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etPassCharge"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -308,7 +308,7 @@
                             android:textColorHint="@color/textColorSecondary"
                             android:theme="@style/EditTextHint">
 
-                            <ir.traap.tractor.android.utilities.ClearableEditText
+                            <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/etCvv2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

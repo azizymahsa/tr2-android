@@ -98,7 +98,7 @@
                 android:theme="@style/EditTextHint2"
                 android:layout_marginEnd="5dp">
 
-                <ir.traap.tractor.android.utilities.ClearableEditText
+                <com.traap.traapapp.utilities.ClearableEditText
                     android:id="@+id/etCardNameEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

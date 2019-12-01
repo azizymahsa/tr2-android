@@ -179,7 +179,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="100">
 
-                        <ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
+                        <com.traap.traapapp.ui.adapters.aboutUs.NoScrollExListView
                             android:id="@+id/expandableListView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -301,7 +301,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="100">
 
-                        <ir.traap.tractor.android.ui.adapters.aboutUs.NoScrollExListView
+                        <com.traap.traapapp.ui.adapters.aboutUs.NoScrollExListView
                             android:id="@+id/expandableListView2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

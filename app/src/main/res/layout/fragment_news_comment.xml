@@ -43,7 +43,7 @@
 
         </RelativeLayout>
 
-        <ir.traap.tractor.android.utilities.ClearableEditText
+        <com.traap.traapapp.utilities.ClearableEditText
             android:id="@+id/edtComment"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_90sdp"
@@ -124,7 +124,7 @@
                 android:id="@+id/rcCommentList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
         </LinearLayout>
 
