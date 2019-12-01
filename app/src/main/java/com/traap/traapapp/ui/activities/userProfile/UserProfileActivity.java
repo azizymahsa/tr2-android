@@ -111,6 +111,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
         {
             showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
+            hideLoading();
         }
         else
         {
@@ -139,6 +140,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     if (response.info.statusCode != 200)
                     {
                         showError(UserProfileActivity.this, response.info.message);
+                        hideLoading();
+
                     }
                     else
                     {
@@ -168,10 +171,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     {
                         Logger.e("-OnError-", "Error: " + message);
                         showError(UserProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                        hideLoading();
+
                     }
                     else
                     {
                         showAlert(UserProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                       hideLoading();
                     }
                 }
             });
