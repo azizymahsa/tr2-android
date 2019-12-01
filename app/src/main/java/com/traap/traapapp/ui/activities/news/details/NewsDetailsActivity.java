@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.activities.news.details;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
+import com.traap.traapapp.ui.fragments.news.details.commentNews.NewsDetailsCommentFragment;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -310,6 +313,8 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         transaction.replace(R.id.newsDetailContainer, newsDetailFragment, "newsDetailsContentFragment")
                 .commit();
 
+
+
         newsRelatedFragment = NewsRelatedContentFragment.newInstance(this, currentContent.getRelatedNews());
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -318,12 +323,12 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
                 .commit();
 
 
-//        newsCommentFragment = NewsRelatedContentFragment.newInstance(currentContent.getRelatedNews());
-//        transaction = fragmentManager.beginTransaction();
-////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//
-//        transaction.replace(R.id.newsRelatedContainer, newsRelatedFragment, "newsCommentFragment")
-//                .commit();
+
+        newsCommentFragment = NewsDetailsCommentFragment.newInstance(this, currentContent.getId());
+        transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.newsCommentContainer, newsCommentFragment, "newsCommentFragment")
+                .commit();
     }
 
     @Subscribe
@@ -359,4 +364,5 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         findViewById(R.id.rlLoading).setVisibility(View.GONE);
         findViewById(R.id.root).setVisibility(View.VISIBLE);
     }
+
 }

@@ -35,7 +35,7 @@ import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.allMenu.AllMenuServiceModelAdapter;
-//import ir.traap.tractor.android.ui.adapters.AllMenuServiceModelAdapter;
+//import com.traap.traapapp.ui.adapters.AllMenuServiceModelAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.adapters.allMenu.ItemRecyclerViewAdapter;
 import com.traap.traapapp.ui.fragments.main.MainActionView;

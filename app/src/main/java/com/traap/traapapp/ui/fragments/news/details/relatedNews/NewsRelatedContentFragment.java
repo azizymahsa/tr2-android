@@ -46,6 +46,7 @@ public class NewsRelatedContentFragment extends BaseFragment
     public static NewsRelatedContentFragment newInstance(NewsDetailsAction actionView, List<RelatedNews> relatedNews)
     {
         NewsRelatedContentFragment f = new NewsRelatedContentFragment();
+        f.setActionView(actionView);
 
         Bundle arg = new Bundle();
         arg.putParcelableArrayList("relatedNewList", (ArrayList<? extends Parcelable>) relatedNews);

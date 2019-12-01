@@ -1,5 +1,7 @@
 package com.traap.traapapp.apiServices.api;
 
+import java.util.ArrayList;
+
 import io.reactivex.Single;
 import com.traap.traapapp.apiServices.helper.Const;
 import com.traap.traapapp.apiServices.model.GlobalResponse;
@@ -52,8 +54,11 @@ import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
-import com.traap.traapapp.apiServices.model.news.details.sendRate.LikeNewsDetailResponse;
+import com.traap.traapapp.apiServices.model.news.details.sendComment.request.SendCommentNewsRequest;
+import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
+import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
 import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
@@ -436,9 +441,27 @@ public interface RetroClient
             @Path("id") Integer id
     );
 
-    @POST(Const.NEWS_DETAILS_LIKE +"{id}/rate/")
+    @POST(Const.NEWS_DETAILS_LIKE +"{id}/like/")
     Single<Response<WebServiceClass<LikeNewsDetailResponse>>> likeNews(
+            @Path("id") Integer id,
+            @Body LikeNewsDetailRequest request
+            );
+
+    @POST(Const.NEWS_DETAILS_SEND_COMMENT +"{id}/comments/")
+    Single<Response<WebServiceClass<Object>>> sendNewsComment(
+            @Path("id") Integer id,
+            @Body SendCommentNewsRequest request
+    );
+
+    @GET(Const.NEWS_DETAILS_GET_COMMENT + "{id}/comments/")
+    Single<Response<WebServiceClass<ArrayList<GetNewsCommentResponse>>>> getNewsComment(
             @Path("id") Integer id
+    );
+
+    @POST(Const.NEWS_DETAILS_GET_COMMENT +"comments/{id}/rate/")
+    Single<Response<WebServiceClass<LikeNewsDetailResponse>>> likeNewsComment(
+            @Path("id") Integer id,
+            @Body LikeNewsDetailRequest request
     );
 
 

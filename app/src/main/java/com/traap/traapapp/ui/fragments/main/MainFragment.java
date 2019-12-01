@@ -370,13 +370,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 long predictTime = matchPredict.getPredictTime().longValue() * 1000;
                 long remainPredictTime = predictTime - myTime;
+                Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
 
                 if (remainPredictTime > 0)
                 {
-
                     isPredictable = true;
-                    startTimer(time);
-                } else
+                    startTimer(remainPredictTime);
+                }
+                else
                 {
                     isPredictable = false;
                     rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
@@ -385,6 +386,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 //                Timestamp timestamp = matchPredict.getMatchDatetime().intValue();
             }
+//            else
+//            {
+//                isPredictable = false;
+//                rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+//                ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
+//            }
 
             if (matchItem.getBuyEnable())
             {
