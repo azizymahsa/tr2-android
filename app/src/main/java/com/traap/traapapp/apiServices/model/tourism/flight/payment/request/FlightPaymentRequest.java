@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import com.traap.traapapp.apiServices.model.tourism.flight.sendMessage.BookedReservation;
 import lombok.Getter;
 import lombok.Setter;
-//import ir.traap.tractor.android.apiServices.model.tourism.flight.sendMessage.BookedReservation;
+//import com.traap.traapapp.apiServices.model.tourism.flight.sendMessage.BookedReservation;
 
 public class  FlightPaymentRequest
 {

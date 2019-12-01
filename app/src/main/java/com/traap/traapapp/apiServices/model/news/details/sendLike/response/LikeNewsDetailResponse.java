@@ -1,4 +1,4 @@
-package com.traap.traapapp.apiServices.model.news.details.sendRate;
+package com.traap.traapapp.apiServices.model.news.details.sendLike.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

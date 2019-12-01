@@ -9,39 +9,16 @@
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
 
-        <RelativeLayout
-            android:id="@+id/rlImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_alignParentRight="true">
-
-            <ProgressBar
-                android:id="@+id/progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"/>
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/image"
-                android:layout_width="@dimen/_120dp"
-                android:layout_height="@dimen/_80dp"
-                android:scaleType="fitXY"
-                app:riv_corner_radius="15dp"
-                app:riv_mutate_background="true"
-                app:riv_oval="false" />
-
-        </RelativeLayout>
-
-
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="@dimen/_80dp"
             android:layout_toLeftOf="@+id/rlImage"
             android:orientation="vertical">
@@ -69,7 +46,33 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlImage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentRight="true">
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80dp"
+                android:scaleType="fitXY"
+                app:riv_corner_radius="15dp"
+                app:riv_mutate_background="true"
+                app:riv_oval="false" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

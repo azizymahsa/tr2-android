@@ -111,18 +111,18 @@ public class NewsDetailsImageAdapter extends RecyclerView.Adapter<NewsDetailsIma
 //        {
 //            if (mItemClickListener != null)
 //            {
-//                mItemClickListener.onSliderItemClick(view,  list.get(getAdapterPosition()).getId(), getAdapterPosition());
+//                mItemClickListener.onItemClick(view,  list.get(getAdapterPosition()).getId(), getAdapterPosition());
 //            }
 //        }
     }
 
 
-//    public interface OnSliderItemClickListener
+//    public interface OnItemClickListener
 //    {
-//        public void onSliderItemClick(View view, Integer id, Integer position);
+//        public void onItemClick(View view, Integer id, Integer position);
 //    }
 //
-//    public void SetOnItemClickListener(final OnSliderItemClickListener mItemClickListener)
+//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
 //    {
 //        this.mItemClickListener = mItemClickListener;
 //    }
