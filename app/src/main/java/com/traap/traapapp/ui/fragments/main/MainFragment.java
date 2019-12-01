@@ -381,7 +381,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 {
                     isPredictable = false;
                     rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
-                    ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
+                    ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
                 }
 
 //                Timestamp timestamp = matchPredict.getMatchDatetime().intValue();
