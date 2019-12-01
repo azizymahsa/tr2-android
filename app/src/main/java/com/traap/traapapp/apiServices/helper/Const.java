@@ -125,6 +125,7 @@ public class Const
     public final static String Like_Video=SubBASEURL+"v1/video/{id}/like/";
     public final static String Archive_Video=SubBASEURL+"v1/video/";
     public final static String bookMark_Video=SubBASEURL+"v1/video/{id}/bookmark/";
+    public final static String List_Bookmark_Video=SubBASEURL+"v1/video/bookmarks/";
 
     //photos
     public final static String Get_Main_Photo = SubBASEURL + "v1/photo/photo_main/";

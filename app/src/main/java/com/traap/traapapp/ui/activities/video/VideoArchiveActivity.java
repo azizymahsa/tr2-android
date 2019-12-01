@@ -32,9 +32,10 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
     private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
     private ArrayList<ListCategory> categoryTitleList;
-    private RecyclerView rvCategoryTitles,rvArchiveVideo;
+    private RecyclerView rvCategoryTitles, rvArchiveVideo;
     private VideosCategoryTitleAdapter videoCategoryTitleAdapter;
-    private int position=0;
+    private int position = 0;
+    private boolean FLAG_Favorite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,23 +50,71 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
 
             } else
             {
-                categoryTitleList = extras.getParcelableArrayList("CategoryTitle");
+                FLAG_Favorite = extras.getBoolean("FLAG_Favorite", false);
+
+                if (!FLAG_Favorite)
+                    categoryTitleList = extras.getParcelableArrayList("CategoryTitle");
             }
         }
         initView();
-        requestArchiveVideo(position);
+        if (FLAG_Favorite)
+        {
+            requestBookMarkVideos();
+        } else
+        {
+            requestArchiveVideo(position);
+
+        }
+    }
+
+    private void requestBookMarkVideos()
+    {
+        ArchiveVideoRequest request = new ArchiveVideoRequest();
+
+        SingletonService.getInstance().getArchiveVideoService().getBookMarkVideo(new OnServiceStatus<WebServiceClass<ArchiveVideoResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<ArchiveVideoResponse> response)
+            {
+                // mainView.hideLoading();
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+
+                        onGetBookMarkVideoSuccess(response.data);
+
+                    } else
+                    {
+                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                // mainView.hideLoading();
+                Tools.showToast(getApplication(), message, R.color.red);
+            }
+        }, request);
     }
 
     private void requestArchiveVideo(int position)
     {
-       ArchiveVideoRequest request = new ArchiveVideoRequest();
+        ArchiveVideoRequest request = new ArchiveVideoRequest();
 
         SingletonService.getInstance().getArchiveVideoService().getArchiveVideo(new OnServiceStatus<WebServiceClass<ArchiveVideoResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<ArchiveVideoResponse> response)
             {
-               // mainView.hideLoading();
+                // mainView.hideLoading();
                 try
                 {
 
@@ -88,24 +137,32 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
             @Override
             public void onError(String message)
             {
-               // mainView.hideLoading();
+                // mainView.hideLoading();
                 Tools.showToast(getApplication(), message, R.color.red);
             }
-        }, request,categoryTitleList.get(position).getId());
+        }, request, categoryTitleList.get(position).getId());
     }
 
     private void onGetArchiveVideoSuccess(ArchiveVideoResponse data)
     {
-        rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(),this));
+        rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(),FLAG_Favorite, this));
     }
-
+    private void onGetBookMarkVideoSuccess(ArchiveVideoResponse data)
+    {
+        rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(),FLAG_Favorite, this));
+    }
     private void initView()
     {
         try
         {
             tvTitle = findViewById(R.id.tvTitle);
-            tvTitle.setText("آرشیو فیلم");
-
+            if (!FLAG_Favorite)
+            {
+                tvTitle.setText("آرشیو فیلم");
+            } else
+            {
+                tvTitle.setText("فیلم های مورد علاقه من");
+            }
             tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
@@ -124,13 +181,13 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
         {
 
         }
-        rvArchiveVideo=findViewById(R.id.rvArchiveVideo);
+        rvArchiveVideo = findViewById(R.id.rvArchiveVideo);
         rvCategoryTitles = findViewById(R.id.rvCategoryTitles);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, true);
         rvCategoryTitles.setLayoutManager(layoutManager);
         LinearLayoutManager layoutManagerArchive = new LinearLayoutManager(getApplicationContext());
         rvArchiveVideo.setLayoutManager(layoutManagerArchive);
-        videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(categoryTitleList,  this);
+        videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(categoryTitleList, this);
         rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
     }
 
@@ -146,9 +203,9 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
         Intent intent = new Intent(this, VideoDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Videos", categoriesList);
-        intent.putExtra("IdVideoCategory",idVideo);
-        intent.putExtra("IdVideo",id);
-        intent.putExtra("positionVideo",position);
+        intent.putExtra("IdVideoCategory", idVideo);
+        intent.putExtra("IdVideo", id);
+        intent.putExtra("positionVideo", position);
 
         startActivity(intent);
     }
@@ -156,6 +213,6 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
     @Override
     public void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent)
     {
-        openVideoDetail(recent,position,category.getCategoryId(),category.getId());
+        openVideoDetail(recent, position, category.getCategoryId(), category.getId());
     }
 }
