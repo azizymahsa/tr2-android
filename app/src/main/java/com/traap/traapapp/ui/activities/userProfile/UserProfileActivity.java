@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -67,11 +68,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> finish());
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvTitle.setText("مشخصات پروفایل کاربری");
+        tvTitle.setText("ویرایش حساب کاربری");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         btnConfirm = findViewById(R.id.btnConfirm);
-        btnConfirm.setText("ارسال اطلاعات کاربری");
+        //btnConfirm.setText("ارسال اطلاعات کاربری");
 
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
@@ -81,7 +82,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etBirthDay = findViewById(R.id.etBirthDay);
 
 //        flLogoToolbar = findViewById(R.id.flLogoToolbar);
-//        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
+        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
 
 //        flLogoToolbar.setVisibility(View.GONE);
 
