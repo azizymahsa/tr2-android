@@ -32,6 +32,8 @@ import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideos
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.activities.video.VideoArchiveActivity;
 import com.traap.traapapp.ui.activities.video.VideoDetailActivity;
 import com.traap.traapapp.ui.adapters.video.NewestVideosAdapter;
@@ -63,6 +65,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private Integer idVideo;
     private Integer id;
     private TextView tvArchiveVideo,tvMyFavoriteVideo;
+    private View rlShirt;
 
     public VideosFragment()
     {
