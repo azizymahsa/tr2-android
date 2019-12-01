@@ -34,8 +34,10 @@ import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.photo.response.ImageName;
+import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.photo.CategoryPhotosAdapter;
 import com.traap.traapapp.ui.adapters.photo.NewestPhotosAdapter;
 import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
@@ -65,6 +67,8 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
     private Integer idVideo;
     private Integer id;
     private TextView tvArchiveVideo,tvMyFavoritePhoto;
+    private View rlShirt;
+
     public PhotosFragment()
     {
 
@@ -278,6 +282,7 @@ public class PhotosFragment extends BaseFragment  implements View.OnClickListene
     public void onClick(View v)
     {
         switch (v.getId()){
+
             case R.id.ivFavorite1:
                 categoriesList=mainVideosResponse.getFavorites();
                 position=0;

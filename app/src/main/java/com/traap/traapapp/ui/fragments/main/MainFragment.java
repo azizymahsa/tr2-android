@@ -48,6 +48,7 @@ import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.mainServiceModel.MainServiceModelAdapter;
 import com.traap.traapapp.ui.adapters.mainSlider.MainSliderAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -113,6 +114,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private boolean isFirstLoad = true;
     private ImageView imgMenu;
     private List<ResultHelpMenu> helpMenuResult;
+    private View rlShirt;
 
     public MainFragment()
     {
@@ -207,6 +209,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         imgMenu = mToolbar.findViewById(R.id.imgMenu);
         imgMenu.setOnClickListener(v -> mainView.openDrawer());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        rlShirt=mToolbar.findViewById(R.id.rlShirt);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
         tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
@@ -256,6 +259,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         rlF4.setOnClickListener(this);
         rlF5.setOnClickListener(this);
         rlF6.setOnClickListener(this);
+        rlShirt.setOnClickListener(this);
 
         setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ", "%20"));
         setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ", "%20"));
@@ -607,6 +611,10 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
         switch (v.getId())
         {
+
+            case R.id.rlShirt:
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                break;
             case R.id.btnBuyTicket:
             {
                 mainView.onBuyTicketClick(matchBuyable);
