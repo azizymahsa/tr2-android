@@ -86,7 +86,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
 //        flLogoToolbar.setVisibility(View.GONE);
 
-        etFirstName.requestFocus();
+      //  etFirstName.requestFocus();
 
         getDataProfileUser();
 
