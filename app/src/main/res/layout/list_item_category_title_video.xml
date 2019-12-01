@@ -6,6 +6,8 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:textColor="@color/black"
+    android:layout_marginRight="@dimen/_10dp"
+    android:layout_marginLeft="@dimen/_10dp"
     android:padding="@dimen/_5dp"
     android:textSize="@dimen/textSize_14dp"/>
 
