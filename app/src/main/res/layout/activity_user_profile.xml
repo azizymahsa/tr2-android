@@ -508,28 +508,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="20" />
 
-                            <com.google.android.material.textfield.TextInputLayout
+                            <Spinner
+                                android:id="@+id/spinnerGender"
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_gravity="center|right"
+                                android:layout_height="@dimen/_35dp"
                                 android:layout_weight="100"
-                                android:hint="تاریخ تولد"
-                                android:theme="@style/EditTextHint"
-                                app:hintTextAppearance="@style/TextLabelProfile">
-
-                                <com.traap.traapapp.utilities.ClearableEditText
-                                    android:id="@+id/etBirthDay"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:nextFocusDown="@+id/etEnglishName"
-                                    android:inputType="text"
-                                    android:maxLines="1"
-                                    android:paddingTop="8dp"
-                                    android:singleLine="true"
-                                    android:textSize="@dimen/textSize_12dp"
-                                    android:textColor="@color/warmGray" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
+                                android:layout_gravity="center"
+                                android:gravity="right"
+                                android:tag="allBox"
+                                android:background="@drawable/background_spinner_custom" />
 
                             <Space
                                 android:layout_width="0dp"
