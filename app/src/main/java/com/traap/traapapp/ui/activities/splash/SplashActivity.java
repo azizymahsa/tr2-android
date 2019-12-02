@@ -78,9 +78,6 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
-        Logger.e("-UUID-", UUID.randomUUID().toString());
-
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder()
                 .schemaVersion(0)
@@ -100,23 +97,24 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
         ((TextView) findViewById(R.id.tvVersion)).setText("نسخه " + pInfo.versionName);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            if (setPermission())
-            {
-                if (Utility.isNetworkAvailable())
-                {
-                    versionRequest();
-                }
-            }
-        } else
-        {
-            if (Utility.isNetworkAvailable())
-            {
-                versionRequest();
-            }
-//            goToActivity();
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//        {
+//            if (setPermission())
+//            {
+//                if (Utility.isNetworkAvailable())
+//                {
+//                    versionRequest();
+//                }
+//            }
+//        } else
+//        {
+//            if (Utility.isNetworkAvailable())
+//            {
+//                versionRequest();
+//            }
+////            goToActivity();
+//        }
+        versionRequest();
     }
 
     private void versionRequest()

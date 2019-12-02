@@ -21,6 +21,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -89,6 +90,11 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     loginView.onError("لطفا شماره تلفن همراه خود را صحیح وارد نمایید", this.getClass().getSimpleName(), false);
                     return;
                 }
+                if (!mobileNumber.getText().toString().startsWith("09"))
+                {
+                    loginView.onError("لطفا شماره تلفن همراه خود را صحیح وارد نمایید", this.getClass().getSimpleName(), false);
+                    return;
+                }
                 if (!Utility.isNetworkAvailable())
                 {
                     loginView.onError("اینترنت خود را بررسی نمایید", this.getClass().getSimpleName(), false);
@@ -147,7 +153,8 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         request.setCode(codeView.getText().toString());
 //        request.setCurrentVersion(BuildConfig.VERSION_NAME);0
         request.setDevice_type(TrapConfig.AndroidDeviceType);
-        request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), activityContext));
+//        request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), activityContext));
+        request.setImei(UUID.randomUUID().toString());
         request.setDeviceModel(Build.BRAND + "-" + Build.MODEL);
 //        request.setImei("864890030464324");
 
