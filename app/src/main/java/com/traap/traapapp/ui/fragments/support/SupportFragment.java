@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class SupportFragment
 
     private View view;
     private Toolbar mToolbar;
-    private LinearLayout tvPhone, tvSms;
+    private LinearLayout tvPhone, tvSms,tvEmail;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
     private MainActionView mainView;
@@ -74,9 +75,11 @@ public class SupportFragment
 
             tvPhone = view.findViewById(R.id.tvPhone);
             tvSms = view.findViewById(R.id.tvSms);
+            tvEmail = view.findViewById(R.id.tvEmail);
 
             tvPhone.setOnClickListener(this);
             tvSms.setOnClickListener(this);
+            tvEmail.setOnClickListener(this);
             //toolbar
             mToolbar = view.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -152,21 +155,30 @@ public class SupportFragment
                 startActivity(intent2);
 
                 break;
-            case R.id.tvSms:
+            case R.id.tvEmail:
 
-                composeSmsMessage("Hello","09121394130");
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:info@traap.com"));
+                startActivity(emailIntent);
+                
+                break;
+            case R.id.tvSms:
+                try {
+
+                    Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+                    smsIntent.setType("vnd.android-dir/mms-sms");
+                    smsIntent.putExtra("address", "100001970");
+                    smsIntent.putExtra("sms_body","");
+                    startActivity(smsIntent);
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    Log.d("Error" , "Error");
+                }
 
                 break;
 
         }
     }
-    public void composeSmsMessage(String message, String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setData(Uri.parse("smsto:"+phoneNumber)); // This ensures only SMS apps respond
-        intent.putExtra("sms_body", message);
-        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
+
 }
 
