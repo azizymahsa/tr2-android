@@ -517,7 +517,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 //                mainView.showLoading();
 //                unicCode = "MGZlOTg5ZWEtNGVkNS00ZjcxLThjYmEtYzZiYjM2Yzk2MzQ1";
 //                onGdsFlight(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/traap/fa/ata-flights");
+                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/ata-flights");
                 break;
             }
             case 14://Flight all
@@ -525,14 +525,14 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 //                mainView.showLoading();
 //                unicCode = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
 //                onGdsFlight(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/traap/fa/flights");
+                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/flights");
                 break;
             }
             case 12: //Hotel
             {
 //                mainView.showLoading();
 //                onGdsHotel(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/traap/fa/hotels");
+                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/hotels");
                 break;
             }
 
@@ -540,7 +540,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             {
 //                mainView.showLoading();
 //                onGdsBus(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/traap/fa/Bus");
+                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/Bus");
                 break;
             }
 

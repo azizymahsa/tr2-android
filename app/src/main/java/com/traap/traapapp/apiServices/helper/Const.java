@@ -82,6 +82,7 @@ public class Const
     //Pos
     public final static String DECRYPTQRCODE = SubBASEURL + "v1/payment/decrypt_qr_code/";
     public final static String PAYMENT_PRINT_pOS = SubBASEURL + "v1/payment/payment_print_pos/";
+
     //payment
     public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
     public final static String PaymentWallet = SubBASEURL + "v1/match/wallet/payment/";

@@ -530,7 +530,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 ////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
 //                onGdsFlightAta(null);
 
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/traap/fa/ata-flights");
+                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/ata-flights");
                 break;
             }
 
@@ -539,7 +539,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                mainView.showLoading();
 ////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
 //                onGdsFlight(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/traap/fa/flights");
+                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/flights");
                 break;
             }
 
@@ -548,7 +548,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                mainView.showLoading();
 ////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_HOTEL, MainFragment.this);
 //                onGdsHotel(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/traap/fa/hotels");
+                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/hotels");
                 break;
             }
 
@@ -557,7 +557,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                mainView.showLoading();
 ////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, MainFragment.this);
 //                onGdsBus(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/traap/fa/Bus");
+                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/Bus");
                 break;
             }
 

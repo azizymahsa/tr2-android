@@ -29,6 +29,7 @@ import com.readystatesoftware.chuck.ChuckInterceptor;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
@@ -48,6 +49,7 @@ import com.traap.traapapp.ui.dialogs.DialogGetPermissionRequest;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.UpdateAppDialog;
 import com.traap.traapapp.ui.dialogs.UpdateDownloadDialog;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 import okhttp3.OkHttpClient;
@@ -75,6 +77,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+
+        Logger.e("-UUID-", UUID.randomUUID().toString());
 
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder()
