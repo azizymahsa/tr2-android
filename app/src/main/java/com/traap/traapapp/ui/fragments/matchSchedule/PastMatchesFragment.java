@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -101,7 +102,7 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
 
     private void addDataRecyclerList()
     {
-
+        Collections.reverse(pastMatchesList);
         mAdapter = new MatchAdapter(pastMatchesList,getContext(),this);
         recyclerView.setAdapter(mAdapter);
 
