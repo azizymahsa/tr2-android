@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.adapters.Leaguse;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,11 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
 
             }
         });*/
+        if(item.teamTitle.contains("تراکتور"))
+            holder.llItem.setBackgroundColor(Color.rgb(226, 226 ,226));
+        else
+            holder.llItem.setBackgroundColor(Color.TRANSPARENT);
+
         holder.teamTitle.setText(item.teamTitle);
         holder.matches.setText(item.matches);
         holder.won.setText(item.won);
