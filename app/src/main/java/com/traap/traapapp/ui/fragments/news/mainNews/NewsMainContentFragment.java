@@ -51,6 +51,8 @@ import com.traap.traapapp.ui.fragments.news.NewsActionView;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveCategoryFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
+import com.traap.traapapp.utilities.Tools;
+
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 
@@ -59,6 +61,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 {
     private View rootView;
     private NewsActionView mainView;
+
+    private ScrollingPagerIndicator indicatorNewestNews;
 
     private NewsMainFavoriteAdapter favNewsAdapter;
     private NewsMainNewestAdapter newestNewsAdapter;
@@ -170,8 +174,10 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         favRecyclerView = rootView.findViewById(R.id.favRecyclerView);
         indicator = rootView.findViewById(R.id.indicator);
 
+//        indicatorNewestNews = rootView.findViewById(R.id.indicatorNewestNews);
         bNewestNews = rootView.findViewById(R.id.bNewestNews);
 //        bNewestNews.setAdapter();
+
 
         tvNewsArchive = rootView.findViewById(R.id.tvNewsArchive);
         tvNewsArchive.setOnClickListener(v ->
@@ -270,6 +276,14 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 //        newestLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 //        newestRecyclerView.setLayoutManager(newestLayoutManager);
         bNewestNews.setAdapter(newestNewsAdapter);
+//        for (int i = 0; i < bNewestNews.getChildCount(); i++)
+//        {
+//            if (bNewestNews.getChildAt(i) instanceof RecyclerView)
+//            {
+//                RecyclerView recyclerView = (RecyclerView) bNewestNews.getChildAt(i);
+//                indicatorNewestNews.attachToRecyclerView(recyclerView);
+//            }
+//        }
 
         newestNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {

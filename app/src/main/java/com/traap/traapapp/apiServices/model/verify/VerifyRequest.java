@@ -11,7 +11,6 @@ import lombok.Setter;
  */
 public class VerifyRequest
 {
-
     @SerializedName("username")
     @Expose @Getter @Setter
     private String username;

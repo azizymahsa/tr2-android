@@ -63,7 +63,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         Prefs.putString("accessToken","");
         loginPresenter = new LoginPresenterImpl(getApplicationContext(), this, this);
         initView();
-        
+
+
 
         //-----------------test------------------
        /* Prefs.putString("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzExNDcyMDUsInVzZXJfaWQiOjE5LCJqd3QiOiJhY2Nlc3MiLCJqdGkiOiJjZDRhMTlmZTJhMmU0MGQxYWQwZTRhNjkxNWQ3OGNlZSJ9.yaa5Wy-iwcuAPu5tkzYiLg8QCcv1LM9zLg4yBK7zvsY");
