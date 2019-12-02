@@ -106,29 +106,53 @@ public class UpdateAppDialog extends BaseDialog implements View.OnClickListener
         {
             flCancelUpdate.setVisibility(View.VISIBLE);
         }
-        if (!cafeBazaarLink.equals(null))
+        try
         {
-            flCafeBazaarUpdate.setVisibility(View.VISIBLE);
+
+            if (!cafeBazaarLink.equals(null))
+            {
+                flCafeBazaarUpdate.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                flCafeBazaarUpdate.setVisibility(View.GONE);
+            }
         }
-        else
+        catch (NullPointerException e)
         {
             flCafeBazaarUpdate.setVisibility(View.GONE);
         }
 
-        if (!webSiteLink.equals(null))
+        try
         {
-            flWebSite.setVisibility(View.VISIBLE);
+
+            if (!webSiteLink.equals(null))
+            {
+                flWebSite.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                flWebSite.setVisibility(View.GONE);
+            }
         }
-        else
+        catch (NullPointerException e)
         {
             flWebSite.setVisibility(View.GONE);
         }
 
-        if (!googlePlayLink.equals(null))
+        try
         {
-            flGooglePlayUpdate.setVisibility(View.VISIBLE);
+            if (!googlePlayLink.equals(null))
+            {
+                flGooglePlayUpdate.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                flGooglePlayUpdate.setVisibility(View.GONE);
+            }
+
         }
-        else
+        catch (NullPointerException e)
         {
             flGooglePlayUpdate.setVisibility(View.GONE);
         }
