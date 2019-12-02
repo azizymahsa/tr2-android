@@ -46,9 +46,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 {
     private Toolbar mToolbar;
     private CircularProgressButton btnConfirm;
-    private EditText etFirstName, etLastName, etFirstNameUS, etNationalCode, etBirthDay, etNickName;
+    private EditText etFirstName, etLastName, etFirstNameUS, etNationalCode, etNickName;
     private ClearableEditText etPopularPlayer;
-    private TextView tvMenu;
+    private TextView tvMenu, tvBirthDay;
     //    private ImageView ivProfile;
     private File userPic;
     private boolean isChangePic = false;
@@ -74,13 +74,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setText("ارسال اطلاعات کاربری");
 
+        tvBirthDay = findViewById(R.id.tvBirthDay);
         etNickName = findViewById(R.id.etNickName);
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
         etPopularPlayer = findViewById(R.id.etPopularPlayer);
         etFirstNameUS = findViewById(R.id.etFirstNameUS);
         etNationalCode = findViewById(R.id.etNationalCode);
-        etBirthDay = findViewById(R.id.etBirthDay);
 
 //        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
 
@@ -120,9 +120,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             request.setLastName(etLastName.getText().toString());
             request.setEnglishName(etFirstNameUS.getText().toString());
 
-            request.setBirthday(etBirthDay.getText().toString().equalsIgnoreCase("") ?
+            request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ?
                     null :
-                    etBirthDay.getText().toString()
+                    tvBirthDay.getText().toString()
             );
 
             request.setNationalCode(etNationalCode.getText().toString());
@@ -190,7 +190,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
                 etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
                 etLastName.getText().toString().trim().equalsIgnoreCase("") &&
-                etBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
+                tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
                 (etPopularPlayer.getText().toString().trim().equalsIgnoreCase("") ||
                         etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
         {
@@ -318,7 +318,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             etFirstName.setText(response.data.getFirstName());
             etLastName.setText(response.data.getLastName());
           //  etPopularPlayer.setText(response.data.getPopularPlayer().toString());
-            etBirthDay.setText(response.data.getBirthday());
+            tvBirthDay.setText(response.data.getBirthday());
             etNickName.setText(response.data.getEnglishName());
             etNationalCode.setText(response.data.getNationalCode());
 

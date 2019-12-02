@@ -303,6 +303,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             }
         });
     }
+
     private void setBookMark(BookMarkPhotoResponse data)
     {
         if (data.getBookMarked())
@@ -316,6 +317,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
         }
     }
+
     private void onRelatedClick(int position)
     {
         setDataItems(relatedList, relatedList.get(position).getCategoryId(), relatedList.get(position).getId()
@@ -379,7 +381,8 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         {
             imgLike.setColorFilter(getResources().getColor(R.color.gray));
             tvLike.setTextColor(getResources().getColor(R.color.gray));
-            likeCount = likeCount - 1;
+            if (likeCount > 0)
+                likeCount = likeCount - 1;
             tvLike.setText(likeCount + "");
         }
         //tvLike.setText();

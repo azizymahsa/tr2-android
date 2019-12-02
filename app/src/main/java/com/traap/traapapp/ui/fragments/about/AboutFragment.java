@@ -94,7 +94,7 @@ public class AboutFragment
             mToolbar = view.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
             TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-            tvTitle.setText("درباره تراپ");
+            tvTitle.setText("درباره ما");
             mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);

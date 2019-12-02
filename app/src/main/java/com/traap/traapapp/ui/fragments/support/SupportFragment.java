@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,8 @@ public class SupportFragment
 
     private View view;
     private Toolbar mToolbar;
-    private LinearLayout tvPhone;
-    private TextView tvTitle, tvUserName,tvPopularPlayer;
+    private LinearLayout tvPhone, tvSms,tvEmail;
+    private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
     private MainActionView mainView;
 
@@ -73,8 +74,12 @@ public class SupportFragment
         {
 
             tvPhone = view.findViewById(R.id.tvPhone);
+            tvSms = view.findViewById(R.id.tvSms);
+            tvEmail = view.findViewById(R.id.tvEmail);
 
             tvPhone.setOnClickListener(this);
+            tvSms.setOnClickListener(this);
+            tvEmail.setOnClickListener(this);
             //toolbar
             mToolbar = view.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -93,7 +98,7 @@ public class SupportFragment
                 }
             });
 
-            imgMenu=view.findViewById(R.id.imgMenu);
+            imgMenu = view.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
             imgBack = view.findViewById(R.id.imgBack);
@@ -115,7 +120,6 @@ public class SupportFragment
                              Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.fragment_support, container, false);
-
 
 
         // initializing the views
@@ -147,12 +151,34 @@ public class SupportFragment
 
             case R.id.tvPhone:
 
-                    Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", " 041-1546", null));
-                    startActivity(intent2);
+                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", " 041-1546", null));
+                startActivity(intent2);
+
+                break;
+            case R.id.tvEmail:
+
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:info@traap.com"));
+                startActivity(emailIntent);
+
+                break;
+            case R.id.tvSms:
+                try {
+
+                    Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+                    smsIntent.setType("vnd.android-dir/mms-sms");
+                    smsIntent.putExtra("address", "100001970");
+                    smsIntent.putExtra("sms_body","");
+                    startActivity(smsIntent);
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    Log.d("Error" , "Error");
+                }
 
                 break;
 
         }
     }
+
 }
 
