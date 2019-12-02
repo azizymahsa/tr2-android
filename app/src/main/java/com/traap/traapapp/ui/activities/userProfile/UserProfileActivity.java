@@ -128,7 +128,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             request.setFirstName(etFirstName.getText().toString());
             request.setLastName(etLastName.getText().toString());
             request.setEnglishName(etFirstNameUS.getText().toString());
-            request.setBirthday(etBirthDay.getText().toString());
+
+            request.setBirthday(etBirthDay.getText().toString().equalsIgnoreCase("") ?
+                    null :
+                    etBirthDay.getText().toString()
+            );
+
             request.setNationalCode(etNationalCode.getText().toString());
 
             SingletonService.getInstance().sendProfileService().sendProfileService(request,
@@ -137,6 +142,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 @Override
                 public void onReady(WebServiceClass<SendProfileResponse> response)
                 {
+                    btnConfirm.revertAnimation();
+                    btnConfirm.setClickable(true);
+
                     if (response.info.statusCode != 200)
                     {
                         showError(UserProfileActivity.this, response.info.message);
@@ -160,7 +168,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         Prefs.putString("nationalCode", response.data.getNationalCode());
 
                         showToast(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", R.color.green);
-                        onAnimationEnd();
+                        finish();
                     }
                 }
 
@@ -220,6 +228,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     {
         btnConfirm.setText("ارسال اطلاعات کاربری");
         btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
+
     }
 
     @Override

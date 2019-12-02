@@ -1,5 +1,7 @@
 package com.traap.traapapp.apiServices.model.profile.putProfile.response;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -30,6 +32,7 @@ public class SendProfileResponse
 
     @SerializedName("birthday")
     @Expose @Getter @Setter
+    @Nullable
     private String birthday;
 
     @SerializedName("english_name")
