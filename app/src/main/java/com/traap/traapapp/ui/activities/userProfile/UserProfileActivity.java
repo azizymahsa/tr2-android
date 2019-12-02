@@ -116,7 +116,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         fabCapture.setOnClickListener(v ->
         {
-            openImageChooser();
+//            openImageChooser();
         });
     }
 
