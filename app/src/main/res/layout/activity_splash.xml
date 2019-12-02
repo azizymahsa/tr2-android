@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:visibility="visible"
         android:scaleType="fitCenter"
-        android:layout_margin="@dimen/_20dp"
+        android:layout_margin="@dimen/_30dp"
         android:padding="@dimen/_20dp"
         android:src="@drawable/ic_logo_main_traap"
         android:layout_centerInParent="true" />

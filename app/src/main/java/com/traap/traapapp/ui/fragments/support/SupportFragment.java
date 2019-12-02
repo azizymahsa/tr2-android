@@ -161,7 +161,7 @@ public class SupportFragment
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:info@traap.com"));
                 startActivity(emailIntent);
-                
+
                 break;
             case R.id.tvSms:
                 try {
