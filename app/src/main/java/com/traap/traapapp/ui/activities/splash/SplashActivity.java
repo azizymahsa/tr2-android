@@ -78,6 +78,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+
+        Logger.e("-UUID-", UUID.randomUUID().toString());
+
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder()
                 .schemaVersion(0)
