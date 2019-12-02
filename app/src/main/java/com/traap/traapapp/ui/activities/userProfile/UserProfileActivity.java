@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputFilter;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,10 +19,12 @@ import androidx.core.content.ContextCompat;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.ReturnMode;
 import com.esafirm.imagepicker.model.Image;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -51,11 +54,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private ClearableEditText etPopularPlayer;
     private TextView tvMenu, tvBirthDay;
     private Spinner spinnerGender;
+    private FloatingActionButton fabCapture;
     //    private ImageView ivProfile;
     private File userPic;
     private boolean isChangePic = false;
 //    private FrameLayout flLogoToolbar;
     private String popularPlayer;
+    private ArrayList<String> genderStrList;
 
 
     @Override
@@ -76,6 +81,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setText("ارسال اطلاعات کاربری");
 
+        fabCapture = findViewById(R.id.fabCapture);
+        spinnerGender = findViewById(R.id.spinnerGender);
         tvBirthDay = findViewById(R.id.tvBirthDay);
         etNickName = findViewById(R.id.etNickName);
         etFirstName = findViewById(R.id.etFirstName);
@@ -88,6 +95,15 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         etFirstName.requestFocus();
 
+         genderStrList= new ArrayList<String>();
+        genderStrList.add("زن");
+        genderStrList.add("مرد");
+
+        ArrayAdapter<String> adapterGenderStrList = new ArrayAdapter<String>(this,
+                R.layout.my_spinner_item, genderStrList);
+        adapterGenderStrList.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinnerGender.setAdapter(adapterGenderStrList);
+
         getDataProfileUser();
 
         btnConfirm.setOnClickListener(v ->
@@ -96,6 +112,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             btnConfirm.setClickable(false);
 
             sendProfileData();
+        });
+
+        fabCapture.setOnClickListener(v ->
+        {
+            openImageChooser();
         });
     }
 
@@ -286,7 +307,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     {
         isChangePic = true;
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/eniac");
+        File myDir = new File(root + "/traap");
         myDir.mkdirs();
         Random generator = new Random();
         int n = 10000;
@@ -297,7 +318,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         try
         {
             FileOutputStream out = new FileOutputStream(userPic);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 30, out);
+            finalBitmap.compress(Bitmap.CompressFormat.PNG, 30, out);
             out.flush();
             out.close();
 
@@ -320,7 +341,17 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             etFirstName.setText(response.data.getFirstName());
             etLastName.setText(response.data.getLastName());
           //  etPopularPlayer.setText(response.data.getPopularPlayer().toString());
-            tvBirthDay.setText(response.data.getBirthday());
+            try
+            {
+                if (!response.data.getBirthday().equalsIgnoreCase(""))
+                {
+                    tvBirthDay.setText("تاریخ تولد:" + response.data.getBirthday());
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
             etNickName.setText(response.data.getEnglishName());
             etNationalCode.setText(response.data.getNationalCode());
 
