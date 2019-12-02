@@ -48,14 +48,14 @@ public class MatchScheduleAdapter  extends FragmentStatePagerAdapter
 
                 return tab1;
             case 0:
-                PastMatchesFragment tab2 = PastMatchesFragment.newInstance(pastMatchesList,mainActionView);
-
-                return tab2;
-
-            case 1:
                 NextMatchesFragment tab3 = NextMatchesFragment.newInstance(nextMatchesList,mainActionView);
 
                 return tab3;
+
+            case 1:
+                PastMatchesFragment tab2 = PastMatchesFragment.newInstance(pastMatchesList,mainActionView);
+
+                return tab2;
 
             default:
                 throw new RuntimeException("Tab position invalid " + position);
