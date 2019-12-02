@@ -238,7 +238,8 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         {
             imgLike.setColorFilter(getResources().getColor(R.color.gray));
             tvLike.setTextColor(getResources().getColor(R.color.gray));
-            likeCount = likeCount - 1;
+            if (likeCount > 0)
+                likeCount = likeCount - 1;
             tvLike.setText(likeCount + "");
         }
 

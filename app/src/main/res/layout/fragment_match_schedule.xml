@@ -88,8 +88,10 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:background="@drawable/background_border_a"
+
                         android:text="بازی های پیش رو"
-                        android:textColor="@color/_disable_color"
+                        android:textColor="@color/borderColorRed"
                         android:textSize="@dimen/textSize_12dp" />
 
 
@@ -99,10 +101,9 @@
                         android:layout_height="@dimen/_30dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:background="@drawable/background_border_a"
                         android:gravity="center"
                         android:text="بازی های گذشته "
-                        android:textColor="@color/borderColorRed"
+                        android:textColor="@color/_disable_color"
                         android:textSize="@dimen/textSize_12dp" />
                 </LinearLayout>
 

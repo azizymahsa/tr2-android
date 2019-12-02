@@ -87,8 +87,8 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     private void createTabLayout()
     {
         // define TabLayout
-        tabLayout.addTab(tabLayout.newTab().setText("بازی های پیش رو"));
         tabLayout.addTab(tabLayout.newTab().setText("بازی های گذشته"));
+        tabLayout.addTab(tabLayout.newTab().setText("بازی های پیش رو"));
         tabLayout.addTab(tabLayout.newTab().setText("جدول لیگ برتر"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final MatchScheduleAdapter adapter = new MatchScheduleAdapter
@@ -268,7 +268,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
                     tvTableLeage.setTextColor(getResources().getColor(R.color._disable_color));
                     tvNowSchedule.setTextColor(getResources().getColor(R.color._disable_color));
 
-                    viewPager.setCurrentItem(0, true);
+                    viewPager.setCurrentItem(1, true);
 
                 }, 1000);
 
@@ -290,7 +290,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
                     tvTableLeage.setTextColor(getResources().getColor(R.color._disable_color));
                     tvNowSchedule.setTextColor(getResources().getColor(R.color.borderColorRed));
 
-                    viewPager.setCurrentItem(1, true);
+                    viewPager.setCurrentItem(0, true);
 
                 }, 1000);
 
