@@ -200,7 +200,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     public void onError(String message, String name, boolean b)
     {
 
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        showError(this, message);
         // showToast(this, message, R.color.red);
     }
 

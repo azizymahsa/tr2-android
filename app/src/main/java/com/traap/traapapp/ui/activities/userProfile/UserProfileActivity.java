@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -49,6 +50,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private EditText etFirstName, etLastName, etFirstNameUS, etNationalCode, etNickName;
     private ClearableEditText etPopularPlayer;
     private TextView tvMenu, tvBirthDay;
+    private Spinner spinnerGender;
     //    private ImageView ivProfile;
     private File userPic;
     private boolean isChangePic = false;
