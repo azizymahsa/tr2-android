@@ -27,8 +27,8 @@ public class SupportFragment
 
     private View view;
     private Toolbar mToolbar;
-    private LinearLayout tvPhone;
-    private TextView tvTitle, tvUserName,tvPopularPlayer;
+    private LinearLayout tvPhone, tvSms;
+    private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
     private MainActionView mainView;
 
@@ -73,8 +73,10 @@ public class SupportFragment
         {
 
             tvPhone = view.findViewById(R.id.tvPhone);
+            tvSms = view.findViewById(R.id.tvSms);
 
             tvPhone.setOnClickListener(this);
+            tvSms.setOnClickListener(this);
             //toolbar
             mToolbar = view.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -93,7 +95,7 @@ public class SupportFragment
                 }
             });
 
-            imgMenu=view.findViewById(R.id.imgMenu);
+            imgMenu = view.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
             imgBack = view.findViewById(R.id.imgBack);
@@ -115,7 +117,6 @@ public class SupportFragment
                              Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.fragment_support, container, false);
-
 
 
         // initializing the views
@@ -147,11 +148,24 @@ public class SupportFragment
 
             case R.id.tvPhone:
 
-                    Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", " 041-1546", null));
-                    startActivity(intent2);
+                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", " 041-1546", null));
+                startActivity(intent2);
+
+                break;
+            case R.id.tvSms:
+
+                composeSmsMessage("Hello","09121394130");
 
                 break;
 
+        }
+    }
+    public void composeSmsMessage(String message, String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setData(Uri.parse("smsto:"+phoneNumber)); // This ensures only SMS apps respond
+        intent.putExtra("sms_body", message);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
         }
     }
 }
