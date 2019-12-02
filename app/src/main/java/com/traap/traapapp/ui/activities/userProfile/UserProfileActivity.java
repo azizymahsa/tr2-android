@@ -46,9 +46,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 {
     private Toolbar mToolbar;
     private CircularProgressButton btnConfirm;
-    private EditText etFirstName, etLastName, etFirstNameUS, etNationalCode, etBirthDay;
+    private EditText etFirstName, etLastName, etFirstNameUS, etNationalCode, etNickName;
     private ClearableEditText etPopularPlayer;
-    private TextView tvMenu;
+    private TextView tvMenu, tvBirthDay;
     //    private ImageView ivProfile;
     private File userPic;
     private boolean isChangePic = false;
@@ -72,24 +72,21 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         btnConfirm = findViewById(R.id.btnConfirm);
-        //btnConfirm.setText("ارسال اطلاعات کاربری");
+        btnConfirm.setText("ارسال اطلاعات کاربری");
 
+        tvBirthDay = findViewById(R.id.tvBirthDay);
+        etNickName = findViewById(R.id.etNickName);
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
         etPopularPlayer = findViewById(R.id.etPopularPlayer);
         etFirstNameUS = findViewById(R.id.etFirstNameUS);
         etNationalCode = findViewById(R.id.etNationalCode);
-        etBirthDay = findViewById(R.id.etBirthDay);
 
-//        flLogoToolbar = findViewById(R.id.flLogoToolbar);
-        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
+//        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
 
-//        flLogoToolbar.setVisibility(View.GONE);
-
-      //  etFirstName.requestFocus();
+        etFirstName.requestFocus();
 
         getDataProfileUser();
-
 
         btnConfirm.setOnClickListener(v ->
         {
@@ -102,13 +99,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private void sendProfileData()
     {
-        if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
-                etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
-                etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
-                etLastName.getText().toString().trim().equalsIgnoreCase("") &&
-                etBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
-                (etPopularPlayer.getText().toString().trim().equalsIgnoreCase("") ||
-                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
+        if (!setError())
         {
             showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
             hideLoading();
@@ -129,9 +120,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             request.setLastName(etLastName.getText().toString());
             request.setEnglishName(etFirstNameUS.getText().toString());
 
-            request.setBirthday(etBirthDay.getText().toString().equalsIgnoreCase("") ?
+            request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ?
                     null :
-                    etBirthDay.getText().toString()
+                    tvBirthDay.getText().toString()
             );
 
             request.setNationalCode(etNationalCode.getText().toString());
@@ -192,9 +183,24 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
     }
 
+    private boolean setError()
+    {
+        boolean err = true;
+        if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
+                etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
+                etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
+                etLastName.getText().toString().trim().equalsIgnoreCase("") &&
+                tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
+                (etPopularPlayer.getText().toString().trim().equalsIgnoreCase("") ||
+                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
+        {
+            err = false;
+        }
+        return err;
+    }
+
     private void getDataProfileUser()
     {
-
         etFirstName.setText(Prefs.getString("firstName", ""));
         etLastName.setText(Prefs.getString("lastName", ""));
 
@@ -312,8 +318,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             etFirstName.setText(response.data.getFirstName());
             etLastName.setText(response.data.getLastName());
           //  etPopularPlayer.setText(response.data.getPopularPlayer().toString());
-            etBirthDay.setText(response.data.getBirthday());
-            etFirstNameUS.setText(response.data.getEnglishName());
+            tvBirthDay.setText(response.data.getBirthday());
+            etNickName.setText(response.data.getEnglishName());
             etNationalCode.setText(response.data.getNationalCode());
 
             Prefs.putString("shareText", response.data.getShareText());

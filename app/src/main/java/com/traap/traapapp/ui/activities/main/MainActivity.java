@@ -4,6 +4,7 @@ package com.traap.traapapp.ui.activities.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
@@ -31,6 +32,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
@@ -91,6 +93,7 @@ import com.traap.traapapp.ui.fragments.traapMarket.MarketFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -399,10 +402,23 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         @Override
                         public void onConfirmClick()
                         {
-                            Intent intent = new Intent(Intent.ACTION_MAIN);
-                            intent.addCategory(Intent.CATEGORY_HOME);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                            {
+                                finishAndRemoveTask();
+                            }
+                            else
+                            {
+//                                Intent intent = new Intent(Intent.ACTION_MAIN);
+//                                intent.addCategory(Intent.CATEGORY_HOME);
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//                                startActivity(intent);
+
+                                ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
+                                am.killBackgroundProcesses(getPackageName());
+                                android.os.Process.killProcess(android.os.Process.myPid());
+
+                                System.exit(1);
+                            }
                         }
 
                         @Override
