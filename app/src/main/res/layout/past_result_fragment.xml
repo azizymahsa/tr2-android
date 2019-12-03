@@ -85,6 +85,19 @@
                                 android:padding="@dimen/_10dp"
                                 android:src="@drawable/img_tractor" />
 
+                            <TextView
+                                android:id="@+id/tvNameLeage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginLeft="@dimen/_20dp"
+                                android:layout_marginRight="@dimen/_20dp"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:text="عنوان "
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/textSize_18dp" />
+
                         </RelativeLayout>
 
                     </LinearLayout>

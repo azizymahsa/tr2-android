@@ -74,7 +74,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         try
         {
             tvTitle = findViewById(R.id.tvTitle);
-            tvTitle.setText("محتوای یک فیلم");
+            tvTitle.setText("محتوای یک ویدیو");
 
             tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);

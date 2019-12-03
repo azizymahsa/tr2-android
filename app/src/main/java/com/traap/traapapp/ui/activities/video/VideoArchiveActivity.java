@@ -158,10 +158,10 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
             tvTitle = findViewById(R.id.tvTitle);
             if (!FLAG_Favorite)
             {
-                tvTitle.setText("آرشیو فیلم");
+                tvTitle.setText("آرشیو ویدیو");
             } else
             {
-                tvTitle.setText("فیلم های مورد علاقه من");
+                tvTitle.setText("ویدیو های مورد علاقه من");
             }
             tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);

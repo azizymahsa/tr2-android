@@ -304,5 +304,4 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
     }
 
-
 }

@@ -138,7 +138,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
             item = new MediaModel();
             item.setId(3);
-            item.setTitle("فیلم");
+            item.setTitle("ویدیو");
             item.setIconDrawable(R.drawable.ic_movie);
             item.setIconDrawableSelected(R.drawable.ic_movie_selected);
             list.add(item);
