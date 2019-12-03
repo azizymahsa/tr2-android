@@ -25,6 +25,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPastResult;
 import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponsePastResult;
+import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -32,6 +33,7 @@ import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.pastResult.PastResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -288,4 +290,11 @@ public class PastResultFragment
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+    public void onBackClicked(ArrayList<MatchItem> matchBuyable){
+
+        MatchScheduleFragment matchScheduleFragment = MatchScheduleFragment.newInstance(mainView,matchBuyable);
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, matchScheduleFragment,"leagueTableFragment").commit();
+    }
+
 }

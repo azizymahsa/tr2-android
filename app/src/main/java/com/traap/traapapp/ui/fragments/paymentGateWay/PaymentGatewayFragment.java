@@ -291,4 +291,10 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     {
 
     }
+
+    @Override
+    public void onItemLogoTeamClick(View view, Integer id, String logo, String name)
+    {
+
+    }
 }

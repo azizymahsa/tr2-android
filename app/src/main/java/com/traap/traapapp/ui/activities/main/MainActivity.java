@@ -389,16 +389,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             }*/
 
-          /*  else if (fragment instanceof PastResultFragment )
+            else if (fragment instanceof PastResultFragment )
             {
-               // leagueTableFragment
-               // getFragmentManager().popBackStackImmediate("pastResult",1);
-                getFragmentManager().popBackStackImmediate(2, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-                //     getFragmentManager().popBackStack();
-               // ((PastResultFragment) fragment).onBackClicked();
-
-            }*/
+                onLeageClick(matchBuyable);
+            }
             else if (fragment instanceof BuyTicketsFragment && ((BuyTicketsFragment) fragment).getViewpager().getCurrentItem() != 0)
             {
 
@@ -1301,6 +1295,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .commit();
 
     }
+
+    @Override
+    public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
+    {
+        isMainFragment = false;
+        this.fragment = PastResultFragment.newInstance(this, teamId,imageLogo, logoTitle);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "pastResultFragment")
+                .commit();
+    }
+
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {

@@ -62,6 +62,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
         holder.tvStadiumname.setText("ورزشگاه " + item.getStadium().getName());
         holder.tvDate.setText(item.getMatchDatetimeStr());
 
+       // holder.rlHost.setOnClickListener(mClickListener.onItemLogoTeamClick(););
+
 
         try
         {
@@ -157,6 +159,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
 
+        View rlHost,rlGuest;
         TextView tvLeageName;
         TextView tvStadiumname;
         TextView tvDate;
@@ -190,12 +193,16 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             tvHome = itemView.findViewById(R.id.tvHome);
             imgGuest = itemView.findViewById(R.id.imgGuest);
             tvAway = itemView.findViewById(R.id.tvAway);
+            rlHost=itemView.findViewById(R.id.rlHost);
+            rlGuest=itemView.findViewById(R.id.rlGuest);
 
             imgCenter = itemView.findViewById(R.id.imgCenter);
             tvMatchResult = itemView.findViewById(R.id.tvMatchResult);
             progress = itemView.findViewById(R.id.progress);
             lnrBuyEnable = itemView.findViewById(R.id.lnrBuyEnable);
 
+            rlGuest.setOnClickListener(this);
+            rlHost.setOnClickListener(this);
             tvBuyTicket.setOnClickListener(this);
             tvPredictResult.setOnClickListener(this);
         }
@@ -211,7 +218,23 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
                     break;
                 case R.id.tvPredictResult:
                     if (mClickListener != null) mClickListener.onItemPredictClick(view, getAdapterPosition(),pastMatchesList.get(getAdapterPosition()));
+                    break;
 
+                case R.id.rlHost:
+                    if (mClickListener != null) mClickListener.onItemLogoTeamClick( view,
+                            pastMatchesList.get(getAdapterPosition()).getTeamHome().getLivescoreId(),
+                            pastMatchesList.get(getAdapterPosition()).getTeamHome().getLogo(),
+                            pastMatchesList.get(getAdapterPosition()).getTeamHome().getName()
+
+                            );
+                    break;
+                case R.id.rlGuest:
+                    if (mClickListener != null) mClickListener.onItemLogoTeamClick( view,
+                            pastMatchesList.get(getAdapterPosition()).getTeamAway().getLivescoreId(),
+                            pastMatchesList.get(getAdapterPosition()).getTeamAway().getLogo(),
+                            pastMatchesList.get(getAdapterPosition()).getTeamAway().getName()
+
+                    );
                     break;
             }
         }
@@ -223,6 +246,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
     {
         void onItemClick(View view, int position, MatchItem matchItem);
         void onItemPredictClick(View view, int position, MatchItem matchItem);
+        void onItemLogoTeamClick(View view,Integer id, String logo, String name);
     }
 }
 
