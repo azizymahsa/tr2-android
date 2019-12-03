@@ -318,7 +318,7 @@
                                             android:layout_weight="1"
                                             android:layout_height="wrap_content"
                                             android:gravity="bottom|end"
-                                            android:text="قوانین و شرایط استفاده"
+                                            android:text="@string/login_condition_under_line"
                                             android:textAppearance="@style/IranSansBold"
                                             android:textColor="#000"
                                             android:padding="1dp"
