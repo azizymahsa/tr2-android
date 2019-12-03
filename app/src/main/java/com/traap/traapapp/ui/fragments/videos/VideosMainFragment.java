@@ -72,7 +72,7 @@ public class VideosMainFragment  extends BaseFragment
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+             //   startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
             }
         });
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);

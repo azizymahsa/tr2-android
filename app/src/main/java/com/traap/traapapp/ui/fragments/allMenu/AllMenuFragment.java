@@ -135,7 +135,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                 @Override
                 public void onClick(View v)
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                   // startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
                 }
             });
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()

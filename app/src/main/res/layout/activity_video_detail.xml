@@ -97,7 +97,7 @@
                     android:tint="@color/gray"
                     android:foreground="?attr/selectableItemBackground"
                     android:layout_toRightOf="@id/btnBookmark"
-
+                    android:visibility="gone"
                     />
                 <ImageView
                     android:id="@+id/btnBookmark"

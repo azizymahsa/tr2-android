@@ -110,7 +110,7 @@ public class MyProfileFragment extends BaseFragment
 
         rlEditProfile.setOnClickListener(v ->
         {
-            startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+        //    startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
         });
 
         rlMyPredict.setOnClickListener(v ->
