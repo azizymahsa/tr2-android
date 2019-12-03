@@ -220,9 +220,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                         try
                         {
-                            if (response.info.statusCode != 201)
+                            if (response.info.statusCode != 200)
                             {
-                                showAlert(getActivity(),response.info.message, R.string.error);
+                                showAlert(getActivity(),response.info.message, 0);
                             }
                             else
                             {
