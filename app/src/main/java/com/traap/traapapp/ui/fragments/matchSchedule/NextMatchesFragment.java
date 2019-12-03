@@ -19,6 +19,7 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.ui.fragments.ticket.BuyTicketsFragment;
+import com.traap.traapapp.utilities.Tools;
 
 /**
  * Created by MahtabAzizi on 11/16/2019.
@@ -139,6 +140,17 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
         PredictFragment pastResultFragment =  PredictFragment.newInstance(mainActionView, matchItem, matchItem.getIsPredict());
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+    }
+
+    @Override
+    public void onItemLogoTeamClick(View view, Integer id, String logo, String title)
+    {
+        if (id==0){
+            Tools.showToast(getContext(),"متاسفانه اطلاعاتی برای نمایش وجود ندارد.");
+        }else
+        {
+            mainActionView.openPastResultFragment(id.toString(), logo, title);
+        }
     }
 }
 

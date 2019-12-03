@@ -20,6 +20,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Tools;
 
 /**
  * Created by MahtabAzizi on 11/16/2019.
@@ -173,6 +174,18 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
+
+    }
+
+    @Override
+    public void onItemLogoTeamClick(View view, Integer id, String logo, String title)
+    {
+        if (id==0){
+            Tools.showToast(getContext(),"متاسفانه اطلاعاتی برای نمایش وجود ندارد.");
+        }else
+        {
+            mainView.openPastResultFragment(id.toString(), logo, title);
+        }
 
     }
 }
