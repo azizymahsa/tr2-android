@@ -222,7 +222,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
 
                 case R.id.rlHost:
                     if (mClickListener != null) mClickListener.onItemLogoTeamClick( view,
-                            pastMatchesList.get(getAdapterPosition()).getTeamHome().getId(),
+                            pastMatchesList.get(getAdapterPosition()).getTeamHome().getLivescoreId(),
                             pastMatchesList.get(getAdapterPosition()).getTeamHome().getLogo(),
                             pastMatchesList.get(getAdapterPosition()).getTeamHome().getName()
 
@@ -230,7 +230,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
                     break;
                 case R.id.rlGuest:
                     if (mClickListener != null) mClickListener.onItemLogoTeamClick( view,
-                            pastMatchesList.get(getAdapterPosition()).getTeamAway().getId(),
+                            pastMatchesList.get(getAdapterPosition()).getTeamAway().getLivescoreId(),
                             pastMatchesList.get(getAdapterPosition()).getTeamAway().getLogo(),
                             pastMatchesList.get(getAdapterPosition()).getTeamAway().getName()
 
