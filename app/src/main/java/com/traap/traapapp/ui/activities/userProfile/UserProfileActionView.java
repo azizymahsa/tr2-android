@@ -9,5 +9,5 @@ public interface UserProfileActionView extends BaseView
 {
     void openImageChooser();
 
-    void uploadImage();
+    void uploadProfileData();
 }
