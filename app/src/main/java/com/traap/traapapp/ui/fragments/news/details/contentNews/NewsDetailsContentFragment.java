@@ -27,6 +27,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
+import com.traap.traapapp.apiServices.model.news.details.putBookmark.response.NewsBookmarkResponse;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
@@ -200,14 +201,21 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
 
         imgBookmark.setOnClickListener(v ->
         {
-            SingletonService.getInstance().getNewsService().setBookmarkNews(content.getId(), new OnServiceStatus<WebServiceClass<Object>>()
+            SingletonService.getInstance().getNewsService().setBookmarkNews(content.getId(), new OnServiceStatus<WebServiceClass<NewsBookmarkResponse>>()
             {
                 @Override
-                public void onReady(WebServiceClass<Object> response)
+                public void onReady(WebServiceClass<NewsBookmarkResponse> response)
                 {
                     if (response.info.statusCode == 200)
                     {
-                        imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+                        if (response.data.getIsBookmarked())
+                        {
+                            imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+                        }
+                        else
+                        {
+                            imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
+                        }
                     }
                     else
                     {

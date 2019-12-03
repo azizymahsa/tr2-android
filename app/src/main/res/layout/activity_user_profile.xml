@@ -501,6 +501,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center|right"
+                            android:layout_marginTop="16dp"
                             android:orientation="horizontal">
 
                             <Space
@@ -565,20 +566,43 @@
 
         </RelativeLayout>
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imgProfile"
+        <RelativeLayout
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_120sdp"
-            android:scaleType="fitXY"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            app:riv_corner_radius="30dip"
-            app:riv_border_width="2dip"
-            android:src="@drawable/ic_user_default"
-            app:riv_border_color="@color/borderColorGray"
-            app:riv_mutate_background="true"
-            app:riv_tile_mode="clamp"
-            app:riv_oval="true" />
+            android:layout_alignParentTop="true">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:scaleType="fitXY"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                app:riv_corner_radius="30dip"
+                app:riv_border_width="2dip"
+                android:src="@drawable/ic_user_default"
+                app:riv_border_color="@color/borderColorGray"
+                app:riv_mutate_background="true"
+                app:riv_tile_mode="clamp"
+                app:riv_oval="true" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabCapture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="4dp"
+                app:fabSize="mini"
+                app:elevation="3dp"
+                app:backgroundTint="@color/colorPrimary"
+                android:src="@drawable/ic_capture"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+
 
     </RelativeLayout>
 
