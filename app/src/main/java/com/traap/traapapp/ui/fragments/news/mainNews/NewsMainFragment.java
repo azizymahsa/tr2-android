@@ -12,13 +12,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.news.NewsActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 @SuppressLint("newsMainFragment")
@@ -28,6 +33,7 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
     private NewsMainActionView mainView;
 
     private Toolbar mToolbar;
+    private TextView tvUserName, tvHeaderPopularNo;
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -60,7 +66,9 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawerNews());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
-        TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+        tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("اخبار");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -75,6 +83,7 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
                 .commit();
 
 
+        EventBus.getDefault().register(this);
         return rootView;
     }
 
@@ -118,4 +127,23 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
     {
         mainView.showLoading();
     }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

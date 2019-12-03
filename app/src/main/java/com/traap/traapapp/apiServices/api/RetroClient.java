@@ -434,7 +434,7 @@ public interface RetroClient
     @GET(Const.GET_Invite)
     Single<Response<WebServiceClass<InviteResponse>>> getInvite();
 
-    @Multipart
+//    @Multipart
     @PUT(Const.PUT_PROFILE)
     Single<Response<WebServiceClass<SendProfileResponse>>> sendProfile(
             @Body SendProfileRequest request

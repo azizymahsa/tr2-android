@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -58,15 +59,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private CircularProgressButton btnConfirm;
     private EditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName;
     private ClearableEditText etPopularPlayer;
-    private TextView tvMenu, tvBirthDay, tvUserName;
+    private TextView tvMenu, tvBirthDay, tvUserName, tvHeaderPopularNo;
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture;
     private ImageView imgProfile;
 
+    Integer popularPlayer = 0;
+
     private File userPic;
     private boolean isChangePic = false;
 //    private FrameLayout flLogoToolbar;
-    private String popularPlayer;
     private ArrayList<String> genderStrList;
 
     private MultipartBody.Part part;
@@ -83,6 +85,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         mToolbar.findViewById(R.id.imgMenu).setVisibility(View.INVISIBLE);
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> finish());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("ویرایش حساب کاربری");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -103,7 +106,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etEmail = findViewById(R.id.etEmail);
         etNationalCode = findViewById(R.id.etNationalCode);
 
-//        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
+        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
+        etNationalCode.setFilters(new InputFilter[] { new InputFilter.LengthFilter(10) });
 
         etFirstName.requestFocus();
 
@@ -141,7 +145,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
             message = message + "کد ملی،";
             err = false;
-            etNationalCode.setError("کد ملی باید 10رقمی باشد!");
+//            etNationalCode.setError("کد ملی باید 10رقمی باشد!");
         }
         else if (etNationalCode.getText().toString().length() == 10)
         {
@@ -149,14 +153,28 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             {
                 message = message + "کد ملی،";
                 err = false;
-                etNationalCode.setError("کد ملی نامعتبر است!");
+//                ((TextView)etNationalCode).setError("کد ملی نامعتبر است!");
             }
         }
         if (!etEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && !etEmail.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "ایمیل،";
             err = false;
-            etEmail.setError("ایمیل درست نیست!");
+//            etEmail.setError("ایمیل درست نیست!");
+        }
+
+        if (!etFirstNameUS.getText().toString().matches("[a-zA-Z]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
+        {
+            message = message + "نام انگلیسی،";
+            err = false;
+//            etFirstNameUS.setError("نام انگلیسی درست نیست!");
+        }
+
+        if (!etLastNameUS.getText().toString().matches("[a-zA-Z]+") && !etLastNameUS.getText().toString().equalsIgnoreCase(""))
+        {
+            message = message + "نام خانوادگی انگلیسی،";
+            err = false;
+//            etLastNameUS.setError("نام خانوادگی انگلیسی درست نیست!");
         }
 
         if (!err)
@@ -245,12 +263,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         else
         {
-            Integer popularPlayer = 0;
+            popularPlayer = 0;
             if (!etPopularPlayer.getText().toString().equalsIgnoreCase(""))
             {
                 popularPlayer = Integer.parseInt(etPopularPlayer.getText().toString());
             }
-
 
             SendProfileRequest request = new SendProfileRequest();
 
@@ -280,6 +297,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             {
                 part = null;
             }
+
             SingletonService.getInstance().sendProfileService().sendProfileService(request,
                     new OnServiceStatus<WebServiceClass<SendProfileResponse>>()
                     {
@@ -296,19 +314,22 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             }
                             else
                             {
-                                Prefs.putString("firstName", response.data.getFirstName());
-                                Prefs.putString("lastName", response.data.getLastName());
-                                Prefs.putString("FULLName", response.data.getFirstName() + " " + response.data.getLastName());
-                                Prefs.putString("nickName", response.data.getEnglishName());
-                                if (response.data.getBirthday() != null)
+                                //------------------------------------------
+                                Prefs.putString("firstName", etFirstName.getText().toString());
+                                Prefs.putString("lastName", etLastName.getText().toString());
+                                Prefs.putString("FULLName", etFirstName.getText().toString() + " " + etLastName.getText().toString());
+                                Prefs.putString("nickName", etFirstNameUS.getText().toString());
+                                if (tvBirthDay.getText() != null)
                                 {
-                                    Prefs.putString("birthday", response.data.getBirthday());
+                                    Prefs.putString("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ?
+                                            null :
+                                            tvBirthDay.getText().toString());
                                 }
-                                if (response.data.getPopularPlayer() != 0)
+                                if (popularPlayer != 0)
                                 {
-                                    Prefs.putInt("popularPlayer", response.data.getPopularPlayer());
+                                    Prefs.putInt("popularPlayer", popularPlayer);
                                 }
-                                Prefs.putString("nationalCode", response.data.getNationalCode());
+                                Prefs.putString("nationalCode", etNationalCode.getText().toString());
 
                                 if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
                                 {
@@ -320,15 +341,51 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 }
 
                                 HeaderModel headerModel = new HeaderModel();
-                                headerModel.setPopularNo(response.data.getPopularPlayer());
+                                headerModel.setPopularNo(popularPlayer);
                                 headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
                                 EventBus.getDefault().post(headerModel);
 
                                 if (headerModel.getPopularNo() != 0)
                                 {
-                                    etPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+                                    Prefs.putInt("popularPlayer", 12);
+                                    tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
                                 }
                                 tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
+                                //------------------------------------------
+//                                Prefs.putString("firstName", response.data.getFirstName());
+//                                Prefs.putString("lastName", response.data.getLastName());
+//                                Prefs.putString("FULLName", response.data.getFirstName() + " " + response.data.getLastName());
+//                                Prefs.putString("nickName", response.data.getEnglishName());
+//                                if (response.data.getBirthday() != null)
+//                                {
+//                                    Prefs.putString("birthday", response.data.getBirthday());
+//                                }
+//                                if (response.data.getPopularPlayer() != 0)
+//                                {
+//                                    Prefs.putInt("popularPlayer", response.data.getPopularPlayer());
+//                                }
+//                                Prefs.putString("nationalCode", response.data.getNationalCode());
+//
+//                                if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
+//                                {
+//                                    TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
+//                                }
+//                                else
+//                                {
+//                                    TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
+//                                }
+//
+//                                HeaderModel headerModel = new HeaderModel();
+//                                headerModel.setPopularNo(response.data.getPopularPlayer());
+//                                headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
+//                                EventBus.getDefault().post(headerModel);
+//
+//                                if (headerModel.getPopularNo() != 0)
+//                                {
+//                                    etPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+//                                }
+//                                tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
 
                                 showToast(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", R.color.green);
@@ -445,7 +502,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             }
             etNickName.setText(response.data.getEnglishName());
-            etNationalCode.setText(response.data.getNationalCode());
+            etNationalCode.setText(response.data.getNationalCode().equals("0") ? "" : response.data.getNationalCode());
             etFirstNameUS.setText(response.data.getFirstNameUS());
             etLastNameUS.setText(response.data.getLastNameUS());
 //            etEmail.setText(response.data.getEmail());

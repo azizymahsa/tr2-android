@@ -37,6 +37,7 @@ import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosRespo
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.models.dbModels.ArchiveCardDBModel;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.PaymentResultDialog;
@@ -44,6 +45,9 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Utility;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 @SuppressLint("ValidFragment")
@@ -120,13 +124,8 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
 
         initView();
 
+        EventBus.getDefault().register(this);
         return v;
-    }
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
     }
 
     @Override
@@ -656,6 +655,24 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
                     keyboard.showSoftInput(ettext, 0);
                 }
                 , 200);
+    }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 
