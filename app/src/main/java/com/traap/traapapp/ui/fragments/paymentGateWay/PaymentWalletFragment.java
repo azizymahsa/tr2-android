@@ -243,6 +243,12 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
     }
 
     @Override
+    public void onItemLogoTeamClick(View view, Integer id, String logo, String name)
+    {
+
+    }
+
+    @Override
     public void onFinishedPaymentWallet(ResponsePaymentWallet response)
     {
         mainView.hideLoading();
