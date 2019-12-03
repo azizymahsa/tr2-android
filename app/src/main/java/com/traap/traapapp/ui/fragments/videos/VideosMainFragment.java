@@ -64,7 +64,7 @@ public class VideosMainFragment  extends BaseFragment
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvTitle.setText("فیلم");
+        tvTitle.setText("ویدیو");
 
         rlShirt=rootView.findViewById(R.id.rlShirt);
         rlShirt.setOnClickListener(new View.OnClickListener()
@@ -72,7 +72,7 @@ public class VideosMainFragment  extends BaseFragment
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+             //   startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
             }
         });
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);

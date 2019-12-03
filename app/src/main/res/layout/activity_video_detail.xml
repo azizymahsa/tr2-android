@@ -97,7 +97,7 @@
                     android:tint="@color/gray"
                     android:foreground="?attr/selectableItemBackground"
                     android:layout_toRightOf="@id/btnBookmark"
-
+                    android:visibility="gone"
                     />
                 <ImageView
                     android:id="@+id/btnBookmark"
@@ -205,7 +205,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:foreground="?attr/selectableItemBackground"
-                android:text="فیلم های مرتبط"
+                android:text="ویدیو های مرتبط"
                 android:textColor="@color/black"
                 android:layout_marginRight="@dimen/_10dp"
                 android:layout_marginLeft="@dimen/_20dp"

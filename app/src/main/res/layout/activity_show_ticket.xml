@@ -315,6 +315,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@color/white"
             android:layout_marginTop="@dimen/_20dp"
             android:layout_marginBottom="@dimen/_20dp">
 
@@ -347,7 +348,6 @@
                         android:layout_height="@dimen/_35dp"
                         android:background="@drawable/button_small_border"
                         android:src="@drawable/ic_share_36dp"
-
                         android:padding="@dimen/_5sdp"
                         android:tint="@color/buttonHeaderBackgroundColor"
                         android:foreground="?attr/selectableItemBackground"

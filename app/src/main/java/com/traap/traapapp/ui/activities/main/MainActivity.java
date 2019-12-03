@@ -74,6 +74,7 @@ import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
+import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
 import com.traap.traapapp.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import com.traap.traapapp.ui.fragments.myProfile.MyProfileFragment;
@@ -386,7 +387,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 //((SelectPaymentGatewayFragment) fragment).onBackClicked();
                 backToMainFragment();
 
-            }*/ else if (fragment instanceof BuyTicketsFragment && ((BuyTicketsFragment) fragment).getViewpager().getCurrentItem() != 0)
+            }*/
+
+          /*  else if (fragment instanceof PastResultFragment )
+            {
+               // leagueTableFragment
+               // getFragmentManager().popBackStackImmediate("pastResult",1);
+                getFragmentManager().popBackStackImmediate(2, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                //     getFragmentManager().popBackStack();
+               // ((PastResultFragment) fragment).onBackClicked();
+
+            }*/
+            else if (fragment instanceof BuyTicketsFragment && ((BuyTicketsFragment) fragment).getViewpager().getCurrentItem() != 0)
             {
 
                 ((BuyTicketsFragment) fragment).onBackClicked();
@@ -965,8 +978,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         fragment = MatchScheduleFragment.newInstance(this, matchBuyable);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, fragment, "leagueTableFragment")
-                .commit();
+        transaction.replace(R.id.main_container, fragment, "leagueTableFragment").commit();
     }
 
     @Override

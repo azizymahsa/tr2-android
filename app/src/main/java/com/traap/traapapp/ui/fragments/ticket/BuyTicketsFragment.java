@@ -252,7 +252,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
                 // mainView.onPackSimCard();
                 break;
             case R.id.rlShirt:
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+               // startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
 
                 break;
 

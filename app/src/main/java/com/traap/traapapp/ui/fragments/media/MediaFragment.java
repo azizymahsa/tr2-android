@@ -96,7 +96,8 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         {
             @Override
             public void onClick(View v)
-            { startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+            {
+              //  startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
 
             }
         });
@@ -137,7 +138,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
             item = new MediaModel();
             item.setId(3);
-            item.setTitle("فیلم");
+            item.setTitle("ویدیو");
             item.setIconDrawable(R.drawable.ic_movie);
             item.setIconDrawableSelected(R.drawable.ic_movie_selected);
             list.add(item);
