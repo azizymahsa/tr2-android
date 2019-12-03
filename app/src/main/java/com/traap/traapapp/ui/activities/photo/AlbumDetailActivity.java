@@ -185,13 +185,13 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         {
             if (data.getContent().get(i).getIsCover())
             {
-                setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
-                idPhoto = data.getContent().get(i).getId();
-                likeCount = data.getContent().get(i).getLikes();
-                tvLike.setText(likeCount + "");
-                coverImg=data.getContent().get(i).getCover();
-                largeImageClick=data.getContent().get(i).getImageName().getThumbnailLarge();
-            }
+            setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
+            idPhoto = data.getContent().get(i).getId();
+            likeCount = data.getContent().get(i).getLikes();
+            tvLike.setText(likeCount + "");
+            coverImg=data.getContent().get(i).getCover();
+            largeImageClick=data.getContent().get(i).getImageName().getThumbnailLarge();
+        }
 
         }
 
