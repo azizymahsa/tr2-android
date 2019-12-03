@@ -23,11 +23,16 @@ import java.util.List;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.adapters.matchSchedule.MatchScheduleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.CustomViewPager;
 import com.traap.traapapp.utilities.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by MahtabAzizi on 11/16/2019.
@@ -63,6 +68,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
 
     }
 
@@ -159,7 +165,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
 
             tvPopularPlayer = rootView.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
+            tvPopularPlayer.setText(Prefs.getInt("popularPlayer", 12));
 
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
@@ -304,4 +310,21 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
     }
 
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

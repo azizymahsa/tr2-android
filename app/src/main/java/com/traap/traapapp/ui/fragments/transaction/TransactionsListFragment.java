@@ -23,10 +23,14 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 public class TransactionsListFragment
@@ -38,7 +42,7 @@ public class TransactionsListFragment
     private MainActionView mainView;
 
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName,tvPopularPlayer,tvCount;
+    private TextView tvTitle, tvUserName,tvPopularPlayer,tvCount, tvHeaderPopularNo;
     private View imgBack, imgMenu;
 
     /*scroll view*/
@@ -93,6 +97,8 @@ public class TransactionsListFragment
             //Toolbar Create
             mToolbar = rootView.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
+            tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+            tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
@@ -115,8 +121,6 @@ public class TransactionsListFragment
             });
 
             tvTitle.setText("سوابق خرید و تراکنش");
-            tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
 
         } catch (Exception e)
@@ -139,6 +143,7 @@ public class TransactionsListFragment
         sendRequest();
 
 
+        EventBus.getDefault().register(this);
         return rootView;
     }
 
@@ -195,14 +200,6 @@ public class TransactionsListFragment
 
 
 
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-    }
-
     @Override
     public void onStop()
     {
@@ -230,6 +227,24 @@ public class TransactionsListFragment
     {
 
 
+    }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

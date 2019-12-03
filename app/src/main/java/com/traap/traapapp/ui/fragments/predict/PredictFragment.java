@@ -25,6 +25,7 @@ import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 import com.anychart.graphics.vector.text.Direction;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -41,10 +42,14 @@ import com.traap.traapapp.apiServices.model.predict.getPredict.response.Chart;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by Javad.Abadi on 7/14/2018.
@@ -54,6 +59,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         OnAnimationEndListener
 {
     private MatchItem matchPredict;
+    private TextView tvUserName, tvHeaderPopularNo;
 
     private LinearLayout llAwayResultList, llHomeResultList, llChart;
     private TextView tvAwayHeader, tvHomeHeader, tvAway, tvHome, tvCupTitle, tvDate, tvMatchResult, tvPredictEmpty, tvAwayPredict, tvHomePredict;
@@ -132,11 +138,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         });
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-        TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+        tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
         initView();
 
+        EventBus.getDefault().register(this);
 
         return rootView;
     }
@@ -490,4 +499,23 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     {
         btnSendPredict.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.background_button_login));
     }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

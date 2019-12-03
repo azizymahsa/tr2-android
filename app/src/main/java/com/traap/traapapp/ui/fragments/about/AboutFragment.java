@@ -21,8 +21,12 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 public class AboutFragment
@@ -70,6 +74,7 @@ public class AboutFragment
     {
         super.onCreate(savedInstanceState);
 
+        EventBus.getDefault().register(this);
     }
 
 
@@ -118,7 +123,7 @@ public class AboutFragment
             });
 
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
+            tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         } catch (Exception e)
         {
             e.getMessage();
@@ -238,5 +243,24 @@ public class AboutFragment
 
         }
     }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+
+        EventBus.getDefault().unregister(this);
+    }
+
 }
 

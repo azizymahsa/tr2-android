@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.traap.traapapp.ui.fragments.payment.PaymentFragment">
 
@@ -124,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:backgroundTint="@color/textColorSecondary"
-                        android:gravity="end|center"
+                        android:gravity="right|center"
                         android:imeOptions="actionDone"
                         android:inputType="numberPassword"
                         android:maxLines="1"
@@ -172,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
                         android:backgroundTint="@color/textColorSecondary"
-                        android:gravity="end|center"
+                        android:gravity="right|center"
                         android:imeOptions="actionDone"
                         android:inputType="numberPassword"
                         android:maxLines="1"
@@ -264,9 +265,9 @@
                             android:layout_height="@dimen/_35sdp"
                             android:layout_marginStart="4dp"
                             android:layout_marginEnd="4dp"
-                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
                             android:hint="تاریخ انقضا"
-                            android:gravity="center_vertical|end"
+                            android:gravity="center_vertical|right"
                             android:textColor="@color/textColorSecondary"
                             android:textColorHint="@color/textColorSecondary"
                             android:textSize="@dimen/textSize_16dp"/>

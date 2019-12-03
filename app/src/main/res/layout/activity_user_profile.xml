@@ -595,6 +595,7 @@
                 android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
                 app:fabSize="mini"
+                android:visibility="gone"
                 app:elevation="3dp"
                 app:backgroundTint="@color/colorPrimary"
                 android:src="@drawable/ic_capture"
