@@ -158,7 +158,7 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
         @Override
         public void onClick(View view)
         {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition(), mData.get(getAdapterPosition()).imageLogo);
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition(), mData.get(getAdapterPosition()).imageLogo,mData.get(getAdapterPosition()).teamTitle);
         }
     }
 
@@ -177,7 +177,7 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener
     {
-        void onItemClick(View view, int position, String logoPath);
+        void onItemClick(View view, int position, String imageLogo, String logoTitle);
     }
 }
 
