@@ -44,6 +44,7 @@ import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveLis
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
+import com.traap.traapapp.apiServices.model.news.details.putBookmark.response.NewsBookmarkResponse;
 import com.traap.traapapp.apiServices.model.news.details.sendComment.request.SendCommentNewsRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
@@ -96,7 +97,7 @@ public class NewsService extends BasePart
         start(getServiceGenerator().createService().sendNewsComment(id, request), listener);
     }
 
-    public void setBookmarkNews(Integer id, OnServiceStatus<WebServiceClass<Object>> listener)
+    public void setBookmarkNews(Integer id, OnServiceStatus<WebServiceClass<NewsBookmarkResponse>> listener)
     {
         start(getServiceGenerator().createService().bookmarkNews(id), listener);
     }

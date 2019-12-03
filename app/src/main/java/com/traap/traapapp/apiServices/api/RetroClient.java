@@ -57,6 +57,7 @@ import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveLis
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
+import com.traap.traapapp.apiServices.model.news.details.putBookmark.response.NewsBookmarkResponse;
 import com.traap.traapapp.apiServices.model.news.details.sendComment.request.SendCommentNewsRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
@@ -477,7 +478,7 @@ public interface RetroClient
     );
 
     @POST(Const.NEWS_DETAILS_SET_BOOKMARK +"{id}/bookmark/")
-    Single<Response<WebServiceClass<Object>>> bookmarkNews(
+    Single<Response<WebServiceClass<NewsBookmarkResponse>>> bookmarkNews(
             @Path("id") Integer id
     );
 
