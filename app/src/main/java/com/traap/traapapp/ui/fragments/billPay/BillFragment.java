@@ -1361,6 +1361,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
+    @Override
+    public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
+    {
+
+    }
+
 
     @Override
     public void onBill()

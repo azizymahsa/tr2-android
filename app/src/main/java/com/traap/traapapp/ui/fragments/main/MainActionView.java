@@ -63,4 +63,6 @@ public interface MainActionView extends BaseView
     void onNewsFavoriteClick(NewsParent parent, MediaPosition mediaPosition);
 
     void onMainVideoClick();
+
+    void openPastResultFragment(String teamId, String imageLogo, String logoTitle);
 }
