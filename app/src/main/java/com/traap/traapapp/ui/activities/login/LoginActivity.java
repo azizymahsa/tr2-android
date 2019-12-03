@@ -29,6 +29,8 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.utilities.Utility;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 //import android.support.v7.app.AppCompatActivity;
@@ -37,7 +39,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 {
     private LoginPresenterImpl loginPresenter;
     private CircularProgressButton btnConfirm;
-    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend;
+    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend,txtCondition;
 
     private TextInputLayout etLayout;
     private PinEntryEditText codeView;
@@ -75,6 +77,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 
     public void initView()
     {
+        txtCondition = findViewById(R.id.txtCondition);
         tvDesc = findViewById(R.id.tvDesc);
         // tvTitle = findViewById(R.id.tvTitle);
         //etLayout = findViewById(R.id.etLayout);
@@ -112,7 +115,10 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             codeView.setText("");
             tvCountDown.setVisibility(View.VISIBLE);
         });
+        txtCondition.setOnClickListener(view -> {
+            Utility.openUrlCustomTab(this, "http://www.traap.com/terms");
 
+        });
     }
 
     @Override
