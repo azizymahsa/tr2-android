@@ -220,7 +220,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         Prefs.putString("firstName", profile.getFirstName());
         Prefs.putString("lastName", profile.getLastName());
         Prefs.putString("FULLName", profile.getFirstName() + " " + profile.getLastName());
-        Prefs.putString("englishName", profile.getEnglishName());
+        Prefs.putString("nickName", profile.getEnglishName());
         if (profile.getBirthday() != null)
         {
             Prefs.putString("birthday", profile.getBirthday().toString());

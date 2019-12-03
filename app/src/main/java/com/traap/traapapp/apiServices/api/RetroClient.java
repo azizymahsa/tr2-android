@@ -100,6 +100,7 @@ import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -433,6 +434,7 @@ public interface RetroClient
     @GET(Const.GET_Invite)
     Single<Response<WebServiceClass<InviteResponse>>> getInvite();
 
+    @Multipart
     @PUT(Const.PUT_PROFILE)
     Single<Response<WebServiceClass<SendProfileResponse>>> sendProfile(
             @Body SendProfileRequest request

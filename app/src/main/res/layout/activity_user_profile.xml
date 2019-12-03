@@ -470,6 +470,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_35sdp"
                                 android:layout_weight="100"
+                                android:visibility="gone"
                                 android:layout_gravity="center|right">
 
                                 <TextView
