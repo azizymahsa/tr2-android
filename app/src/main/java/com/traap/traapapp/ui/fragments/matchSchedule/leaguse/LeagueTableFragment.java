@@ -277,7 +277,7 @@ public class LeagueTableFragment
     {
         PastResultFragment pastResultFragment = PastResultFragment.newInstance(mainView, fixTableAdapter.getItem(position).teamId,imageLogo, logoTitle);
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment,"pastResult").commit();
         // Toast.makeText(getContext(), "You clicked " + fixTableAdapter.getItem(position).teamId + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 }

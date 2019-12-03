@@ -32,7 +32,6 @@ import com.traap.traapapp.ui.adapters.Leaguse.pastResult.PastResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 
-
 public class PastResultFragment
         extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
         OnServiceStatus<WebServiceClass<ResponsePastResult>>//, OnBackPressed
@@ -273,10 +272,4 @@ public class PastResultFragment
 
     }
 
-
- /*   @Override
-    public void onBackPressed()
-    {
-        getActivity().getSupportFragmentManager().popBackStack();
-    }*/
 }
