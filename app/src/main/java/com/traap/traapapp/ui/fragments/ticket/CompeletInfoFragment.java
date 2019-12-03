@@ -1393,18 +1393,18 @@ public class CompeletInfoFragment
         paymentMatchRequest.setAmount(amountForPay);
         paymentMatchRequest.setViewers(infoViewers);
 
-        String title = "با انجام این پرداخت ، مبلغ" + Utility.priceFormat(Integer.toString(amountForPay)) + "ریال بابت خرید" + " " + count + " " + "بلیت بازی ازحساب شما کسر خواهد شد.";
+        /*String title = "با انجام این پرداخت ، مبلغ" + Utility.priceFormat(Integer.toString(amountForPay)) + "ریال بابت خرید" + " " + count + " " + "بلیت بازی ازحساب شما کسر خواهد شد.";
         SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(response.getUrl(), mainView, R.drawable.icon_payment_ticket,
                 title, Utility.priceFormat(Integer.toString(amountForPay)),
                 paymentMatchRequest);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment2);
-        fragmentTransaction.commit();
-      /* BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
+        fragmentTransaction.commit();*/
+       BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
 
        // onClickContinueBuyTicketListener.onContinueClicked();
-        getActivity().finish();*/
+        getActivity().finish();
     }
 
     @Override
