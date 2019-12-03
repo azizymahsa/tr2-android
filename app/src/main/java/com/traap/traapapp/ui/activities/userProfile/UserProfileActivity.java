@@ -1,15 +1,14 @@
 package com.traap.traapapp.ui.activities.userProfile;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.InputFilter;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,6 +28,9 @@ import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import library.android.eniac.StartEniacFlightActivity;
+import okhttp3.MultipartBody;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -37,10 +39,14 @@ import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfi
 import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+import com.traap.traapapp.utilities.PrepareImageFilePart;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by Javad.Abadi on 10/7/2019.
@@ -50,17 +56,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 {
     private Toolbar mToolbar;
     private CircularProgressButton btnConfirm;
-    private EditText etFirstName, etLastName, etFirstNameUS, etNationalCode, etNickName;
+    private EditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName;
     private ClearableEditText etPopularPlayer;
-    private TextView tvMenu, tvBirthDay;
+    private TextView tvMenu, tvBirthDay, tvUserName;
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture;
-    //    private ImageView ivProfile;
+    private ImageView imgProfile;
+
     private File userPic;
     private boolean isChangePic = false;
 //    private FrameLayout flLogoToolbar;
     private String popularPlayer;
     private ArrayList<String> genderStrList;
+
+    private MultipartBody.Part part;
 
 
     @Override
@@ -73,7 +82,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         mToolbar.findViewById(R.id.imgMenu).setVisibility(View.INVISIBLE);
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> finish());
-        TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("ویرایش حساب کاربری");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -81,6 +90,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setText("ارسال اطلاعات کاربری");
 
+        imgProfile = findViewById(R.id.imgProfile);
         fabCapture = findViewById(R.id.fabCapture);
         spinnerGender = findViewById(R.id.spinnerGender);
         tvBirthDay = findViewById(R.id.tvBirthDay);
@@ -89,13 +99,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etLastName = findViewById(R.id.etLastName);
         etPopularPlayer = findViewById(R.id.etPopularPlayer);
         etFirstNameUS = findViewById(R.id.etFirstNameUS);
+        etLastNameUS = findViewById(R.id.etLastNameUS);
+        etEmail = findViewById(R.id.etEmail);
         etNationalCode = findViewById(R.id.etNationalCode);
 
 //        etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
 
         etFirstName.requestFocus();
 
-         genderStrList= new ArrayList<String>();
+        genderStrList= new ArrayList<String>();
+        genderStrList.add("-انتخاب کنید-");
         genderStrList.add("زن");
         genderStrList.add("مرد");
 
@@ -111,113 +124,60 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             btnConfirm.startAnimation();
             btnConfirm.setClickable(false);
 
-            sendProfileData();
+            uploadProfileData();
         });
 
         fabCapture.setOnClickListener(v ->
         {
-//            openImageChooser();
+            openImageChooser();
         });
-    }
-
-    private void sendProfileData()
-    {
-        if (!setError())
-        {
-            showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
-            hideLoading();
-        }
-        else
-        {
-            Integer popularPlayer = 0;
-            if (!etPopularPlayer.getText().toString().equalsIgnoreCase(""))
-            {
-                popularPlayer = Integer.parseInt(etPopularPlayer.getText().toString());
-            }
-
-
-            SendProfileRequest request = new SendProfileRequest();
-
-            request.setPopularPlayer(popularPlayer);
-            request.setFirstName(etFirstName.getText().toString());
-            request.setLastName(etLastName.getText().toString());
-            request.setEnglishName(etFirstNameUS.getText().toString());
-
-            request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ?
-                    null :
-                    tvBirthDay.getText().toString()
-            );
-
-            request.setNationalCode(etNationalCode.getText().toString());
-
-            SingletonService.getInstance().sendProfileService().sendProfileService(request,
-                    new OnServiceStatus<WebServiceClass<SendProfileResponse>>()
-            {
-                @Override
-                public void onReady(WebServiceClass<SendProfileResponse> response)
-                {
-                    btnConfirm.revertAnimation();
-                    btnConfirm.setClickable(true);
-
-                    if (response.info.statusCode != 200)
-                    {
-                        showError(UserProfileActivity.this, response.info.message);
-                        hideLoading();
-
-                    }
-                    else
-                    {
-                        Prefs.putString("firstName", response.data.getFirstName());
-                        Prefs.putString("lastName", response.data.getLastName());
-                        Prefs.putString("FULLName", response.data.getFirstName() + " " + response.data.getLastName());
-                        Prefs.putString("englishName", response.data.getEnglishName());
-                        if (response.data.getBirthday() != null)
-                        {
-                            Prefs.putString("birthday", response.data.getBirthday());
-                        }
-                        if (response.data.getPopularPlayer() != 0)
-                        {
-                            Prefs.putInt("popularPlayer", response.data.getPopularPlayer());
-                        }
-                        Prefs.putString("nationalCode", response.data.getNationalCode());
-
-                        showToast(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", R.color.green);
-                        finish();
-                    }
-                }
-
-                @Override
-                public void onError(String message)
-                {
-                    if (!Tools.isNetworkAvailable(UserProfileActivity.this))
-                    {
-                        Logger.e("-OnError-", "Error: " + message);
-                        showError(UserProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                        hideLoading();
-
-                    }
-                    else
-                    {
-                        showAlert(UserProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
-                       hideLoading();
-                    }
-                }
-            });
-        }
     }
 
     private boolean setError()
     {
         boolean err = true;
+        String message = "";
+        if (etNationalCode.getText().toString().length() < 10 && etNationalCode.getText().toString().length() > 0)
+        {
+            message = message + "کد ملی،";
+            err = false;
+            etNationalCode.setError("کد ملی باید 10رقمی باشد!");
+        }
+        else if (etNationalCode.getText().toString().length() == 10)
+        {
+            if (!StartEniacFlightActivity.Companion.isValidIranianNationalCode(etNationalCode.getText().toString()))
+            {
+                message = message + "کد ملی،";
+                err = false;
+                etNationalCode.setError("کد ملی نامعتبر است!");
+            }
+        }
+        if (!etEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && !etEmail.getText().toString().equalsIgnoreCase(""))
+        {
+            message = message + "ایمیل،";
+            err = false;
+            etEmail.setError("ایمیل درست نیست!");
+        }
+
+        if (!err)
+        {
+            message = message + " باید اصلاح گردد.";
+            showError(this, message);
+        }
+
         if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
                 etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
+                etLastNameUS.getText().toString().trim().equalsIgnoreCase("") &&
                 etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
                 etLastName.getText().toString().trim().equalsIgnoreCase("") &&
                 tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
-                (etPopularPlayer.getText().toString().trim().equalsIgnoreCase("") ||
+                spinnerGender.getSelectedItemPosition() == 0 &&
+                etEmail.getText().toString().trim().equalsIgnoreCase("") &&
+                (etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
                         etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
         {
             err = false;
+            showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
         }
         return err;
     }
@@ -264,7 +224,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     public void openImageChooser()
     {
         ImagePicker.create(this)
-                .returnMode(ReturnMode.ALL) // set whether pick action or camera action should return immediate result or not. Only works in single mode for image picker
+                .returnMode(ReturnMode.GALLERY_ONLY) // set whether pick action or camera action should return immediate result or not. Only works in single mode for image picker
                 .folderMode(true) // set folder mode (false by default)
                 .single()
                 .toolbarFolderTitle("Folder") // folder selection title
@@ -274,10 +234,125 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     }
 
     @Override
-    public void uploadImage()
+    public void uploadProfileData()
     {
-        if (!isChangePic)
-            return;
+//        if (!isChangePic)
+//            return;
+
+        if (!setError())
+        {
+            hideLoading();
+        }
+        else
+        {
+            Integer popularPlayer = 0;
+            if (!etPopularPlayer.getText().toString().equalsIgnoreCase(""))
+            {
+                popularPlayer = Integer.parseInt(etPopularPlayer.getText().toString());
+            }
+
+
+            SendProfileRequest request = new SendProfileRequest();
+
+            request.setPopularPlayer(popularPlayer);
+            request.setFirstName(etFirstName.getText().toString());
+            request.setLastName(etLastName.getText().toString());
+            request.setNickName(etFirstNameUS.getText().toString());
+            request.setEmail(etEmail.getText().toString());
+
+            request.setNationalCode(etNationalCode.getText().toString());
+
+            request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ?
+                    null :
+                    tvBirthDay.getText().toString()
+            );
+
+            request.setFirstNameUS(etFirstNameUS.getText().toString());
+            request.setLastNameUS(etLastNameUS.getText().toString());
+            request.setGender(spinnerGender.getSelectedItemPosition());
+
+            try
+            {
+                part = PrepareImageFilePart.prepareFilePart(userPic.getName(), userPic);
+//                request.setImageFile(part);
+            }
+            catch (Exception e)
+            {
+                part = null;
+            }
+            SingletonService.getInstance().sendProfileService().sendProfileService(request,
+                    new OnServiceStatus<WebServiceClass<SendProfileResponse>>()
+                    {
+                        @Override
+                        public void onReady(WebServiceClass<SendProfileResponse> response)
+                        {
+                            btnConfirm.revertAnimation();
+                            btnConfirm.setClickable(true);
+
+                            if (response.info.statusCode != 200)
+                            {
+                                showError(UserProfileActivity.this, response.info.message);
+                                hideLoading();
+                            }
+                            else
+                            {
+                                Prefs.putString("firstName", response.data.getFirstName());
+                                Prefs.putString("lastName", response.data.getLastName());
+                                Prefs.putString("FULLName", response.data.getFirstName() + " " + response.data.getLastName());
+                                Prefs.putString("nickName", response.data.getEnglishName());
+                                if (response.data.getBirthday() != null)
+                                {
+                                    Prefs.putString("birthday", response.data.getBirthday());
+                                }
+                                if (response.data.getPopularPlayer() != 0)
+                                {
+                                    Prefs.putInt("popularPlayer", response.data.getPopularPlayer());
+                                }
+                                Prefs.putString("nationalCode", response.data.getNationalCode());
+
+                                if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
+                                {
+                                    TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
+                                }
+                                else
+                                {
+                                    TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
+                                }
+
+                                HeaderModel headerModel = new HeaderModel();
+                                headerModel.setPopularNo(response.data.getPopularPlayer());
+                                headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
+                                EventBus.getDefault().post(headerModel);
+
+                                if (headerModel.getPopularNo() != 0)
+                                {
+                                    etPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+                                }
+                                tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
+
+                                showToast(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", R.color.green);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String message)
+                        {
+                            hideLoading();
+                            if (!Tools.isNetworkAvailable(UserProfileActivity.this))
+                            {
+                                Logger.e("-OnError-", "Error: " + message);
+                                showError(UserProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
+
+                            }
+                            else
+                            {
+                                showAlert(UserProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                            }
+                        }
+                    });
+        }
 
     }
 
@@ -292,14 +367,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             Image image = ImagePicker.getFirstImageOrNull(data);
             if (image != null)
             {
+                imgProfile.setImageBitmap(BitmapFactory.decodeFile(image.getPath()));
                 saveImage(BitmapFactory.decodeFile(image.getPath()));
             }
-        }
-        if (resultCode == Activity.RESULT_OK && requestCode == 22)
-        {
-            String pass = data.getStringExtra("newPass");
-
-
         }
     }
 
@@ -318,11 +388,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         try
         {
             FileOutputStream out = new FileOutputStream(userPic);
-            finalBitmap.compress(Bitmap.CompressFormat.PNG, 30, out);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 30, out);
             out.flush();
             out.close();
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -333,14 +404,35 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     {
         if (response.info.statusCode == 200)
         {
-          /*  if (response.data.getPopularPlayer() != 0)
+            if (response.data.getPopularPlayer() != 0)
             {
                 Prefs.putInt("favPlayerNo", response.data.getPopularPlayer());
             }
-*/
+
             etFirstName.setText(response.data.getFirstName());
             etLastName.setText(response.data.getLastName());
-          //  etPopularPlayer.setText(response.data.getPopularPlayer().toString());
+
+            if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
+            {
+                TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
+            }
+            else
+            {
+                TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
+            }
+
+            HeaderModel headerModel = new HeaderModel();
+            headerModel.setPopularNo(response.data.getPopularPlayer());
+            headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
+            EventBus.getDefault().post(headerModel);
+
+            if (headerModel.getPopularNo() != 0)
+            {
+                etPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+            }
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
+            //  etPopularPlayer.setText(response.data.getPopularPlayer().toString());
             try
             {
                 if (!response.data.getBirthday().equalsIgnoreCase(""))
@@ -354,6 +446,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
             etNickName.setText(response.data.getEnglishName());
             etNationalCode.setText(response.data.getNationalCode());
+            etFirstNameUS.setText(response.data.getFirstNameUS());
+            etLastNameUS.setText(response.data.getLastNameUS());
+//            etEmail.setText(response.data.getEmail());
 
             Prefs.putString("shareText", response.data.getShareText());
         }
