@@ -332,7 +332,7 @@
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:text="با ثبت نام در تراپ ، "
+                                        android:text="با ثبت نام در تراپ، "
                                         android:textColor="@color/_title_black"
                                         android:textSize="@dimen/textSize_12dp"/>
                                 </LinearLayout>
