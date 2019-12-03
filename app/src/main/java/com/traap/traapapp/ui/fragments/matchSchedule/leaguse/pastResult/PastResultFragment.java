@@ -54,6 +54,8 @@ public class PastResultFragment
 
     private ImageView imgLogo;
     private String logoPath;
+    private TextView tvNameLeage;
+    private String logoTitle="";
 
     public PastResultFragment()
     {
@@ -77,13 +79,14 @@ public class PastResultFragment
     }
 
 
-    public static PastResultFragment newInstance(MainActionView mainView, String teamId, String logoPath)
+    public static PastResultFragment newInstance(MainActionView mainView, String teamId, String logoPath,String logoTitle)
     {
         PastResultFragment f = new PastResultFragment();
 
         Bundle args = new Bundle();
         args.putString("teamId", teamId);
         args.putString("logoPath", logoPath);
+        args.putString("logoTitle", logoTitle);
 
         f.setArguments(args);
         f.setMainView(mainView);
@@ -103,6 +106,7 @@ public class PastResultFragment
         {
             teamId = getArguments().getString("teamId");
             logoPath = getArguments().getString("logoPath");
+            logoTitle = getArguments().getString("logoTitle");
         }
 
     }
@@ -140,6 +144,8 @@ public class PastResultFragment
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
+            tvNameLeage=rootView.findViewById(R.id.tvNameLeage);
+            tvNameLeage.setText(logoTitle);
             imgLogo = rootView.findViewById(R.id.imgLogo);
             Picasso.with(SingletonContext.getInstance().getContext()).load(logoPath).into(imgLogo);
 
