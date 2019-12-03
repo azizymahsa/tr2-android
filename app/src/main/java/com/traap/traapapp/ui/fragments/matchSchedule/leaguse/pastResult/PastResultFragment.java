@@ -27,12 +27,16 @@ import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPas
 import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponsePastResult;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.pastResult.PastResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class PastResultFragment
         extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
@@ -110,6 +114,7 @@ public class PastResultFragment
             logoTitle = getArguments().getString("logoTitle");
         }
 
+        EventBus.getDefault().register(this);
     }
 
     public void initView()
@@ -224,12 +229,6 @@ public class PastResultFragment
         mainView.hideLoading();
     }
 
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-    }
 
     @Override
     public void onStop()
@@ -274,6 +273,23 @@ public class PastResultFragment
 
     }
 
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
     public void onBackClicked(ArrayList<MatchItem> matchBuyable){
 
         MatchScheduleFragment matchScheduleFragment = MatchScheduleFragment.newInstance(mainView,matchBuyable);

@@ -7,12 +7,11 @@ public class Const
     public static final boolean TEST = false;
 
     //-----------------------------------------------------------------------------
-    //public final static String BASEURL = "https://rest.diba24.app/";
+//    public final static String BASEURL = "http://5.253.25.117:7000/";
     public final static String BASEURL = "http://5.253.25.117:9000/";
-//    public final static String BASEURLTest = "http://diba.eniac-service.ir:8000/";
+//    public final static String BASEURL = "https://restapp.traap.com";
 
     private static final String SubBASEURL = "api/";
-//    private static final String SubBASEURLTest = "ApiDiba/";
     //-----------------------------------------------------------------------------
 
     //Login

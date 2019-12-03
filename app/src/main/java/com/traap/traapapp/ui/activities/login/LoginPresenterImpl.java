@@ -178,6 +178,8 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                         loginView.onButtonActions(true, GoToActivity.MainActivity);
                         loginView.hideLoading();
 
+                        Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer());
+
                         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
                         {
                             AdpPushClient.get().register(Prefs.getString("mobile", ""));

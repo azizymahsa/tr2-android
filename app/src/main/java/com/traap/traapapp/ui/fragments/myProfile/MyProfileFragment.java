@@ -23,6 +23,7 @@ import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideos
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
 import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
@@ -31,6 +32,9 @@ import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Tools;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 
 @SuppressLint("ValidFragment")
 public class MyProfileFragment extends BaseFragment
@@ -38,6 +42,7 @@ public class MyProfileFragment extends BaseFragment
     private View rootView;
     private MainActionView mainView;
     private CardView cardView;
+    private TextView tvUserName, tvHeaderPopularNo;
 
     private Toolbar mToolbar;
     private TextView tvFullName, tvMobile, tvInviteCode;
@@ -74,12 +79,15 @@ public class MyProfileFragment extends BaseFragment
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
-        TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("حساب کاربری من");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         initView();
+
+        EventBus.getDefault().register(this);
 
         return rootView;
     }
@@ -101,16 +109,19 @@ public class MyProfileFragment extends BaseFragment
         {
             tvFullName.setText(Prefs.getString("mobile", ""));
             tvMobile.setVisibility(View.GONE);
-        } else
+        }
+        else
         {
             tvFullName.setText(Prefs.getString("FULLName", ""));
         }
         tvMobile.setText(Prefs.getString("mobile", ""));
         tvInviteCode.setText(Prefs.getString("keyInvite", ""));
 
+        tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+
         rlEditProfile.setOnClickListener(v ->
         {
-        //    startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+            startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
         });
 
         rlMyPredict.setOnClickListener(v ->
@@ -199,6 +210,24 @@ public class MyProfileFragment extends BaseFragment
                 Tools.showToast(getActivity(), message, R.color.red);
             }
         });
+    }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 }

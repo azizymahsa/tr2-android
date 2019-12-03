@@ -32,6 +32,7 @@ import com.traap.traapapp.apiServices.model.getMenu.request.GetMenuRequest;
 import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuItemResponse;
 import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
@@ -44,6 +45,10 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.onConfirmUserPassGDS;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import library.android.eniac.StartEniacBusActivity;
 import library.android.eniac.StartEniacFlightActivity;
 import library.android.eniac.StartEniacHotelActivity;
@@ -115,6 +120,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
         }
         // View rootView = inflater.inflate(R.layout.fragment_all_menu, container, false);
 
+
+        EventBus.getDefault().register(this);
     }
 
     public void initView()
@@ -158,7 +165,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             });
 
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
+            tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         } catch (Exception e)
         {
             e.getMessage();
@@ -288,12 +295,6 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
     }
 
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-    }
 
     @Override
     public void onStop()
@@ -632,4 +633,24 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             }
         }
     }
+
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+
+        EventBus.getDefault().unregister(this);
+    }
+
 }
