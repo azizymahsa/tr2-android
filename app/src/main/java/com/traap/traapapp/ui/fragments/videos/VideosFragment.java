@@ -335,6 +335,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         intent.putExtra("IdVideoCategory",idVideo);
         intent.putExtra("IdVideo",id);
         intent.putExtra("positionVideo",position);
+        intent.putExtra("idCategoryTitle",idCategoryTitle);
 
         startActivity(intent);
     }
