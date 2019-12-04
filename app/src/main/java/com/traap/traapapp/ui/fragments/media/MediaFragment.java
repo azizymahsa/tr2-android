@@ -18,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mediaModel.MediaModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
@@ -34,6 +36,9 @@ import com.traap.traapapp.ui.fragments.photo.PhotosFragment;
 import com.traap.traapapp.ui.fragments.news.mainNews.NewsMainContentFragment;
 import com.traap.traapapp.ui.fragments.videos.VideosFragment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 
 @SuppressLint("ValidFragment")
 public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAllMenuClickListener, NewsActionView
@@ -42,6 +47,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     private MainActionView mainView;
 
     private Toolbar mToolbar;
+    private TextView tvUserName, tvHeaderPopularNo;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -88,7 +94,8 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
-        TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("رسانه");
         rlShirt=rootView.findViewById(R.id.rlShirt);
@@ -102,9 +109,11 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             }
         });
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+        tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
         initView();
 
+        EventBus.getDefault().register(this);
         return rootView;
     }
 
@@ -234,5 +243,22 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     public void hideLoading()
     {
 
+    }
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -33,7 +34,9 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferRequest;
+import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.TransferType;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardFragment;
 import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardParentActionView;
@@ -41,6 +44,9 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Utility;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by Javad.Abadi on 7/10/2018.
@@ -53,6 +59,10 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
     private Fragment currentFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+
+    private TextView tvUserName, tvHeaderPopularNo;
+
+    private Toolbar mToolbar;
 
     private View v;
     private CircularProgressButton btnConfirm, btnContinue, btnPassConfirm, btnBackToTransfer, btnBackToDetail, btnContactTransfer, btnDestinationHistory;
@@ -117,18 +127,18 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 
 
         v = inflater.inflate(R.layout.fragment_transfer_money, container, false);
+        mToolbar = v.findViewById(R.id.toolbar);
+
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+        tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         initView();
 
+        EventBus.getDefault().register(this);
 
         return v;
-    }
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-//        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -158,6 +168,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 
     public void initView()
     {
+
         //----------------card fragment----------------
         fragmentManager = getChildFragmentManager();
         currentFragment = FavoriteCardFragment.newInstance(this);
@@ -1256,5 +1267,23 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
     public void startAddCardActivity()
     {
 
+    }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

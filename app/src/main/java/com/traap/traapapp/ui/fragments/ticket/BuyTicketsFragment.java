@@ -22,9 +22,12 @@ import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.buyTicket.InfoViewer;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.ticket.PagerAdapter;
@@ -33,29 +36,32 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.CustomViewPager;
 import com.traap.traapapp.utilities.Utility;
 
-public class BuyTicketsFragment extends BaseFragment implements OnClickContinueBuyTicket,OnAnimationEndListener, View.OnClickListener
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+public class BuyTicketsFragment extends BaseFragment implements OnClickContinueBuyTicket, OnAnimationEndListener, View.OnClickListener
 {
     public static BuyTicketsFragment buyTicketsFragment;
-    private static boolean paymentIsComplete=false;
+    private static boolean paymentIsComplete = false;
     private View rootView;
 
     private MainActionView mainView;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private LinearLayout llPrintTicket, llFullInfo, llSelectPosition;
-    private TextView btnBackToDetail,tvCountTicket,tvSelectPosition,tvFullInfo,tvPrintTicket;
+    private TextView btnBackToDetail, tvCountTicket, tvSelectPosition, tvFullInfo, tvPrintTicket;
     private CircularProgressButton btnPaymentConfirm;
-    private ImageView ivCountTicket,ivSelectPosition,ivFullInfo,ivPrintTicket;
-    private View vOneToTow,vZeroToOne,vTowToThree;
-    private TextView tvTitle,tvUserName;
-    public String namePosition,selectPositionId;
-    Integer count,amountForPay,amountOneTicket;
+    private ImageView ivCountTicket, ivSelectPosition, ivFullInfo, ivPrintTicket;
+    private View vOneToTow, vZeroToOne, vTowToThree;
+    private TextView tvTitle, tvUserName, tvHeaderPopularNo;
+    public String namePosition, selectPositionId;
+    Integer count, amountForPay, amountOneTicket;
     private MatchItem matchBuyable;
     private List<InfoViewer> infoViewers;
     private List<Integer> ticketIdList;
-    private View imgBack,imgMenu;
+    private View imgBack, imgMenu;
     private TextView tvPopularPlayer;
-    private String url="";
+    private String url = "";
     private Integer stadiumId;
     private View rlShirt;
 
@@ -82,8 +88,8 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
 
         buyTicketsFragment = new BuyTicketsFragment();
         Bundle args = new Bundle();
-        if (matchBuyable!=null)
-        args.putParcelable("matchBuyable", matchBuyable);
+        if (matchBuyable != null)
+            args.putParcelable("matchBuyable", matchBuyable);
 
         buyTicketsFragment.setArguments(args);
         buyTicketsFragment.setMainView(mainView);
@@ -120,12 +126,12 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
         tabLayout.addTab(tabLayout.newTab().setText("انتخاب جایگاه"));
         tabLayout.addTab(tabLayout.newTab().setText("تکمیل اطلاعات"));
         //tabLayout.addTab(tabLayout.newTab().setText("پرداخت"));
-       // tabLayout.addTab(tabLayout.newTab().setText("صدور بلیت"));
+        // tabLayout.addTab(tabLayout.newTab().setText("صدور بلیت"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //  ViewPager need a PagerAdapter
         final PagerAdapter adapter = new PagerAdapter
-                (getFragmentManager(), tabLayout.getTabCount(),this,mainView,this,matchBuyable);
+                (getFragmentManager(), tabLayout.getTabCount(), this, mainView, this, matchBuyable);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();
@@ -146,9 +152,10 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             {
 
 
-                if (position == 1) {
+                if (position == 1)
+                {
 
-                    new Handler().postDelayed(() -> adapter.compeletInfoFragmentData(selectPositionId, count, amountForPay,amountOneTicket,ticketIdList,stadiumId), 200);
+                    new Handler().postDelayed(() -> adapter.compeletInfoFragmentData(selectPositionId, count, amountForPay, amountOneTicket, ticketIdList, stadiumId), 200);
                     //setDataToCompleteInfoFragment(namePosition);
                 }
                 if (position == 2)
@@ -158,50 +165,54 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
-        if (paymentIsComplete){
+        if (paymentIsComplete)
+        {
 
-             //   viewPager.setCurrentItem(3, true);
+            //   viewPager.setCurrentItem(3, true);
 
         }
 
+        EventBus.getDefault().register(this);
         return rootView;
     }
 
     public void setDataToCompleteInfoFragment(String name)
     {
-        this.namePosition=name;
+        this.namePosition = name;
     }
+
     private void initView()
     {
         try
         {
-            rlShirt=rootView.findViewById(R.id.rlShirt);
+            rlShirt = rootView.findViewById(R.id.rlShirt);
 
-            tvTitle=rootView.findViewById(R.id.tvTitle);
-            tvUserName=rootView.findViewById(R.id.tvUserName);
+            tvTitle = rootView.findViewById(R.id.tvTitle);
+            tvUserName = rootView.findViewById(R.id.tvUserName);
             tvUserName.setText(Prefs.getString("mobile", ""));
-            imgMenu=rootView.findViewById(R.id.imgMenu);
+            tvHeaderPopularNo = rootView.findViewById(R.id.tvPopularPlayer);
+            tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+            imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
 
-            tvPopularPlayer=rootView.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer","12"));
-
             rlShirt.setOnClickListener(this);
-            imgBack=rootView.findViewById(R.id.imgBack);
+            imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
                 getActivity().onBackPressed();
             });
 
             tvTitle.setText("خرید بلیت");
-        }catch (Exception e){
+        } catch (Exception e)
+        {
 
         }
 
-        if (paymentIsComplete){
+        if (paymentIsComplete)
+        {
 
-         //   viewPager.setCurrentItem(3, true);
+            //   viewPager.setCurrentItem(3, true);
 
         }
         btnPaymentConfirm = rootView.findViewById(R.id.btnPaymentConfirm);
@@ -210,17 +221,17 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
         viewPager = rootView.findViewById(R.id.pager);
         llPrintTicket = rootView.findViewById(R.id.llPrintTicket);
         llFullInfo = rootView.findViewById(R.id.llFullInfo);
-        ivCountTicket=rootView.findViewById(R.id.ivCountTicket);
-        tvCountTicket=rootView.findViewById(R.id.tvCountTicket);
-        ivSelectPosition=rootView.findViewById(R.id.ivSelectPosition);
-        tvSelectPosition=rootView.findViewById(R.id.tvSelectPosition);
-        ivFullInfo=rootView.findViewById(R.id.ivFullInfo);
-        tvFullInfo=rootView.findViewById(R.id.tvFullInfo);
-        ivPrintTicket=rootView.findViewById(R.id.ivPrintTicket);
-        tvPrintTicket=rootView.findViewById(R.id.tvPrintTicket);
-        vZeroToOne=rootView.findViewById(R.id.vZeroToOne);
-        vOneToTow=rootView.findViewById(R.id.vOneToTow);
-        vTowToThree=rootView.findViewById(R.id.vTowToThree);
+        ivCountTicket = rootView.findViewById(R.id.ivCountTicket);
+        tvCountTicket = rootView.findViewById(R.id.tvCountTicket);
+        ivSelectPosition = rootView.findViewById(R.id.ivSelectPosition);
+        tvSelectPosition = rootView.findViewById(R.id.tvSelectPosition);
+        ivFullInfo = rootView.findViewById(R.id.ivFullInfo);
+        tvFullInfo = rootView.findViewById(R.id.tvFullInfo);
+        ivPrintTicket = rootView.findViewById(R.id.ivPrintTicket);
+        tvPrintTicket = rootView.findViewById(R.id.tvPrintTicket);
+        vZeroToOne = rootView.findViewById(R.id.vZeroToOne);
+        vOneToTow = rootView.findViewById(R.id.vOneToTow);
+        vTowToThree = rootView.findViewById(R.id.vTowToThree);
 
         llPrintTicket.setOnClickListener(this);
         llFullInfo.setOnClickListener(this);
@@ -252,10 +263,9 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
                 // mainView.onPackSimCard();
                 break;
             case R.id.rlShirt:
-               // startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                // startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
 
                 break;
-
 
 
         }
@@ -311,8 +321,8 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
     public void onContinueClicked()
     {
 
-            viewPager.setCurrentItem(getItem(+1), true);
-            checkPositionFromSetSelected();
+        viewPager.setCurrentItem(getItem(+1), true);
+        checkPositionFromSetSelected();
 
     }
 
@@ -326,7 +336,8 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
 
     private void checkPositionFromSetSelected()
     {
-        if (viewPager.getCurrentItem()==0){
+        if (viewPager.getCurrentItem() == 0)
+        {
             ivCountTicket.setImageResource(R.drawable.select_step_non);
             tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
@@ -343,7 +354,8 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
 
-        }else if (viewPager.getCurrentItem()==1){
+        } else if (viewPager.getCurrentItem() == 1)
+        {
             ivCountTicket.setImageResource(R.drawable.select_step);
             tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
@@ -360,7 +372,8 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
 
-        }else if (viewPager.getCurrentItem()==2){
+        } else if (viewPager.getCurrentItem() == 2)
+        {
             ivCountTicket.setImageResource(R.drawable.select_step);
             tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
 
@@ -386,7 +399,8 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
 */
-        }else if(viewPager.getCurrentItem()==3){
+        } else if (viewPager.getCurrentItem() == 3)
+        {
 
             ivCountTicket.setImageResource(R.drawable.select_step);
             tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
@@ -406,34 +420,44 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
         }
     }
-    public void setData(String selectPositionId, int count, int amountForPay,int amountOneTicket, List<Integer> results,Integer stadiumId) {
+
+    public void setData(String selectPositionId, int count, int amountForPay, int amountOneTicket, List<Integer> results, Integer stadiumId)
+    {
 
         this.selectPositionId = selectPositionId;
         this.count = count;
         this.amountForPay = amountForPay;
-        this.amountOneTicket=amountOneTicket;
-        this.ticketIdList=results;
-        this.stadiumId=stadiumId;
+        this.amountOneTicket = amountOneTicket;
+        this.ticketIdList = results;
+        this.stadiumId = stadiumId;
 
     }
 
-    public void showLoading(){
+    public void showLoading()
+    {
         mainView.showLoading();
     }
-    public void hideLoading(){
+
+    public void hideLoading()
+    {
         mainView.hideLoading();
     }
 
-    public void setInfoViewers(List<InfoViewer> infoViewers) {
-        this.infoViewers=infoViewers;
+    public void setInfoViewers(List<InfoViewer> infoViewers)
+    {
+        this.infoViewers = infoViewers;
 
     }
-    public void setUrlFromWebFragment(String url){
 
-        this.url=url;
+    public void setUrlFromWebFragment(String url)
+    {
+
+        this.url = url;
 
     }
-    public void openWebPayment(String url){
+
+    public void openWebPayment(String url)
+    {
         Utility.openUrlCustomTab(getActivity(), url);
 
     }
@@ -467,4 +491,24 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
     {
         return viewPager;
     }
+
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

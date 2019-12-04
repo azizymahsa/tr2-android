@@ -178,6 +178,8 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                         loginView.onButtonActions(true, GoToActivity.MainActivity);
                         loginView.hideLoading();
 
+                        Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer());
+
                         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
                         {
                             AdpPushClient.get().register(Prefs.getString("mobile", ""));
@@ -220,7 +222,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         Prefs.putString("firstName", profile.getFirstName());
         Prefs.putString("lastName", profile.getLastName());
         Prefs.putString("FULLName", profile.getFirstName() + " " + profile.getLastName());
-        Prefs.putString("englishName", profile.getEnglishName());
+        Prefs.putString("nickName", profile.getEnglishName());
         if (profile.getBirthday() != null)
         {
             Prefs.putString("birthday", profile.getBirthday().toString());

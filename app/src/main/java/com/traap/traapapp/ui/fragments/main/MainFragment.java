@@ -43,6 +43,7 @@ import com.traap.traapapp.apiServices.model.getMenuHelp.ResultHelpMenu;
 import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -55,6 +56,10 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import library.android.eniac.StartEniacBusActivity;
 import library.android.eniac.StartEniacFlightActivity;
 import library.android.eniac.StartEniacHotelActivity;
@@ -167,6 +172,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         initView(rootView);
 
+        EventBus.getDefault().register(this);
+
         return rootView;
     }
 
@@ -212,7 +219,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         rlShirt=mToolbar.findViewById(R.id.rlShirt);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-        tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
+        tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
         sliderRecyclerView = rootView.findViewById(R.id.sliderRecyclerView);
@@ -982,4 +989,21 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         });
     }
 
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

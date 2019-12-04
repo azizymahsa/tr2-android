@@ -32,6 +32,10 @@ public class GetProfileResponse
     @Expose @Getter @Setter
     private String nationalCode;
 
+    @SerializedName("email")
+    @Expose @Getter @Setter
+    private String email;
+
     @SerializedName("birthday")
     @Expose @Getter @Setter
     private String birthday;
@@ -44,8 +48,24 @@ public class GetProfileResponse
     @Expose @Getter @Setter
     private Integer keyInvite;
 
+    @SerializedName("sex")
+    @Expose @Getter @Setter
+    private Integer gender;
+
     @SerializedName("share")
     @Expose @Getter @Setter
     private String shareText;
+
+    @SerializedName("photo")
+    @Expose @Getter @Setter
+    private String photoUrl;
+
+    @SerializedName("first_english_name")
+    @Expose @Getter @Setter
+    private String firstNameUS;
+
+    @SerializedName("last_english_name")
+    @Expose @Getter @Setter
+    private String lastNameUS;
 
 }

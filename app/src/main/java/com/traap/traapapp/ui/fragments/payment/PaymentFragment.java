@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,6 +36,7 @@ import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyRespon
 import com.traap.traapapp.apiServices.model.card.Result;
 import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.TicketPaymentInstance;
@@ -52,6 +55,10 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     private Fragment cardFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+
+    private TextView tvUserName, tvHeaderPopularNo;
+
+    private Toolbar mToolbar;
 
     private Result mCard;
 
@@ -293,6 +300,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
 
             //////
 
+            EventBus.getDefault().register(this);
         }
 
         EventBus.getDefault().register(this);
@@ -304,6 +312,13 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     {
         View rootView = inflater.inflate(R.layout.fragment_payment, container, false);
 
+        mToolbar = rootView.findViewById(R.id.toolbar);
+
+//        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> pActionView.openDrawer());
+//        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> pActionView.backToMainFragment());
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+        tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         initView(rootView);
 
         return rootView;
@@ -602,4 +617,23 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     {
 
     }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 }
