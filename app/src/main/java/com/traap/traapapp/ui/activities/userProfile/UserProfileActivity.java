@@ -147,10 +147,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
                 else
                 {
-                    if (!getIntent().getStringExtra("parent").equals("OutBoxActivity"))
-                    {
-                        findViewById(R.id.rlImageProfile).setVisibility(View.GONE);
-                    }
+                    Animation animShow = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.show_button);
+                    findViewById(R.id.rlImageProfile).startAnimation(animShow);
+                    findViewById(R.id.rlImageProfile).setVisibility(View.VISIBLE);
                 }
             }
         });
