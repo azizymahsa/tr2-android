@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="@dimen/_250dp_r"
+            android:layout_height="@dimen/_280dp_r"
             android:layout_weight="1.8"
             android:gravity="center"
             android:background="@drawable/dotted_line"
@@ -55,7 +55,7 @@
             <LinearLayout
                 android:id="@+id/llCenterView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_80dp"
+                android:layout_height="@dimen/_100dp"
                 android:layout_below="@+id/llHeaderWeekNo"
                 android:layout_marginTop="@dimen/_10dp"
                 android:orientation="horizontal">
@@ -67,8 +67,8 @@
 
                     <ImageView
                         android:id="@+id/imgGuest"
-                        android:layout_width="@dimen/_60dp"
-                        android:layout_height="@dimen/_45dp"
+                        android:layout_width="@dimen/_80dp"
+                        android:layout_height="@dimen/_60dp"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/img_tractor"/>
 
@@ -80,6 +80,7 @@
                         android:gravity="center"
                         android:layout_alignLeft="@+id/imgGuest"
                         android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_12dp"
                         android:text=""/>
 
                 </RelativeLayout>
@@ -87,10 +88,10 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2">
+                    android:layout_weight="1.5">
 
                     <ImageView
-                        android:layout_width="@dimen/_35sdp"
+                        android:layout_width="@dimen/_30dp"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_soccer2" />
@@ -111,8 +112,8 @@
 
                     <ImageView
                         android:id="@+id/imgHost"
-                        android:layout_width="@dimen/_60dp"
-                        android:layout_height="@dimen/_45dp"
+                        android:layout_width="@dimen/_80dp"
+                        android:layout_height="@dimen/_60dp"
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="-2dp"
                         android:src="@drawable/img_tractor" />
@@ -124,6 +125,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:layout_alignRight="@+id/imgHost"
+                        android:textSize="@dimen/textSize_12dp"
                         android:textColor="@color/textColorSecondary"
                         android:text=""/>
 
@@ -247,7 +249,7 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="@dimen/_80dp"
-            android:layout_height="@dimen/_250dp_r"
+            android:layout_height="@dimen/_280dp_r"
             android:gravity="center"
             android:layout_marginEnd="@dimen/_10dp"
             android:background="@drawable/left_line_invisible"
