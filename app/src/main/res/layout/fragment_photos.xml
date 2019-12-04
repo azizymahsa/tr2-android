@@ -35,7 +35,7 @@
         app:centerScale="1.8"
         app:itemSpace="5"
         app:moveSpeed="0.5"
-        app:showIndicator="true"/>
+        app:showIndicator="false"/>
 
     <LinearLayout
         android:layout_width="match_parent"
