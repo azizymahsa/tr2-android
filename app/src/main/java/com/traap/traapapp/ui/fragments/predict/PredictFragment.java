@@ -202,12 +202,12 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             if (edtAwayPredict.getText().toString().trim().equalsIgnoreCase(""))
             {
                 edtAwayPredict.requestFocus();
-                showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید", R.color.red);
+                showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
             }
             else if (edtHomePredict.getText().toString().trim().equalsIgnoreCase(""))
             {
                 edtHomePredict.requestFocus();
-                showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید", R.color.red);
+                showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
             }
             else
             {
@@ -241,7 +241,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         catch (NullPointerException e)
                         {
 //                        showAlert(getActivity(),response.info.message, R.string.error);
-                            showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید", R.string.error);
+                            showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
                         }
 
                     }
@@ -252,7 +252,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         btnSendPredict.revertAnimation(PredictFragment.this);
                         btnSendPredict.setClickable(true);
 
-                        showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید", R.string.error);
+                        showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
                     }
                 });
             }

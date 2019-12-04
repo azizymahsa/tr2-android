@@ -91,7 +91,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         btnConfirm = findViewById(R.id.btnConfirm);
-        btnConfirm.setText("ارسال اطلاعات کاربری");
+//        btnConfirm.setText("ارسال اطلاعات کاربری");
 
         imgProfile = findViewById(R.id.imgProfile);
         fabCapture = findViewById(R.id.fabCapture);
@@ -163,6 +163,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //            etEmail.setError("ایمیل درست نیست!");
         }
 
+        if (!etFirstName.getText().toString().matches("[ا-ی]+") && !etFirstName.getText().toString().equalsIgnoreCase(""))
+        {
+            message = message + "نام فارسی،";
+            err = false;
+//            etFirstNameUS.setError("نام انگلیسی درست نیست!");
+        }
+
+        if (!etLastName.getText().toString().matches("[ا-ی]+") && !etLastName.getText().toString().equalsIgnoreCase(""))
+        {
+            message = message + "نام خانوادگی فارسی،";
+            err = false;
+//            etFirstNameUS.setError("نام انگلیسی درست نیست!");
+        }
+
         if (!etFirstNameUS.getText().toString().matches("[a-zA-Z]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام انگلیسی،";
@@ -182,21 +196,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             message = message + " باید اصلاح گردد.";
             showError(this, message);
         }
-
-        if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
-                etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
-                etLastNameUS.getText().toString().trim().equalsIgnoreCase("") &&
-                etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
-                etLastName.getText().toString().trim().equalsIgnoreCase("") &&
-                tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
-                spinnerGender.getSelectedItemPosition() == 0 &&
-                etEmail.getText().toString().trim().equalsIgnoreCase("") &&
-                (etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
-                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
-        {
-            err = false;
-            showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
-        }
+//        else if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
+//                etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
+//                etLastNameUS.getText().toString().trim().equalsIgnoreCase("") &&
+//                etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
+//                etLastName.getText().toString().trim().equalsIgnoreCase("") &&
+//                tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
+//                spinnerGender.getSelectedItemPosition() == 0 &&
+//                etEmail.getText().toString().trim().equalsIgnoreCase("") &&
+//                (etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
+//                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
+//        {
+//            err = false;
+//            showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
+//        }
         return err;
     }
 
@@ -233,7 +246,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     @Override
     public void onAnimationEnd()
     {
-        btnConfirm.setText("ارسال اطلاعات کاربری");
+//        btnConfirm.setText("ارسال اطلاعات کاربری");
         btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
 
     }
@@ -272,10 +285,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             SendProfileRequest request = new SendProfileRequest();
 
             request.setPopularPlayer(popularPlayer);
-            request.setFirstName(etFirstName.getText().toString());
-            request.setLastName(etLastName.getText().toString());
-            request.setNickName(etFirstNameUS.getText().toString());
-            request.setEmail(etEmail.getText().toString());
+            request.setFirstName(etFirstName.getText().toString().trim());
+            request.setLastName(etLastName.getText().toString().trim());
+            request.setNickName(etNickName.getText().toString().trim());
+            request.setEmail(etEmail.getText().toString().trim());
 
             request.setNationalCode(etNationalCode.getText().toString());
 
@@ -284,8 +297,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     tvBirthDay.getText().toString()
             );
 
-            request.setFirstNameUS(etFirstNameUS.getText().toString());
-            request.setLastNameUS(etLastNameUS.getText().toString());
+            request.setFirstNameUS(etFirstNameUS.getText().toString().trim());
+            request.setLastNameUS(etLastNameUS.getText().toString().trim());
             request.setGender(spinnerGender.getSelectedItemPosition());
 
             try
@@ -318,7 +331,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 Prefs.putString("firstName", etFirstName.getText().toString());
                                 Prefs.putString("lastName", etLastName.getText().toString());
                                 Prefs.putString("FULLName", etFirstName.getText().toString() + " " + etLastName.getText().toString());
-                                Prefs.putString("nickName", etFirstNameUS.getText().toString());
+//                                Prefs.putString("nickName", etFirstNameUS.getText().toString());
                                 if (tvBirthDay.getText() != null)
                                 {
                                     Prefs.putString("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ?
