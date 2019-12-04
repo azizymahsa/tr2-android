@@ -23,6 +23,8 @@ import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.ReturnMode;
 import com.esafirm.imagepicker.model.Image;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.io.File;
@@ -32,8 +34,8 @@ import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-import library.android.mycalendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-import library.android.mycalendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
+//import library.android.mycalendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+//import library.android.mycalendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import library.android.eniac.StartEniacFlightActivity;
 import okhttp3.MultipartBody;
 
@@ -165,8 +167,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         tvBirthDay.setOnClickListener(v ->
         {
-            pickerDialogDate.setTitle("");
-            pickerDialogDate.show(getSupportFragmentManager(), "CreateDate");
+            pickerDialogDate.show(getFragmentManager(), "CreateDate");
         });
 
         imgBirthdayReset.setOnClickListener(v ->
@@ -597,13 +598,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
     {
         if (view.getTag().equals("CreateDate"))
         {
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
-            pickerDialogDate.setPersianCalendar(calendar);
+//            pickerDialogDate.setPersianCalendar(calendar);
             pickerDialogDate.setMaxDate(currentDate);
 
             String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
@@ -615,11 +616,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //            this.month = monthOfYear;
 //            this.day = dayOfMonth;
 
-            PersianCalendar calendar1 = new PersianCalendar();
-            PersianCalendar calendar2 = new PersianCalendar();
-            calendar1.set(year, monthOfYear, dayOfMonth);
+//            PersianCalendar calendar1 = new PersianCalendar();
+//            PersianCalendar calendar2 = new PersianCalendar();
+//            calendar1.set(year, monthOfYear, dayOfMonth);
 
-            pickerDialogDate.setPersianCalendar(calendar1);
+//            pickerDialogDate.setPersianCalendar(calendar1);
 
 
         }
