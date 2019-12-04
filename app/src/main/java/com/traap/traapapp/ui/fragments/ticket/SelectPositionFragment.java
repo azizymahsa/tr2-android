@@ -284,7 +284,7 @@ public class SelectPositionFragment
         stadiumPositionModels.add(new StadiumPositionModel("FF440000", "43", true));
 
         /////CIP Up Down
-        stadiumPositionModels.add(new StadiumPositionModel("FFA11919", "میهمان", true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA11919", "مهمان", true));
 
         stadiumPositionModels.add(new StadiumPositionModel("FFFFCC00", "CIP", true));
         stadiumPositionModels.add(new StadiumPositionModel("", "46", true));
@@ -1345,7 +1345,7 @@ public class SelectPositionFragment
                                     setImageIntoIV(imgView, R.drawable.ic_cip_full);
 //                                    imgView.setImageResource(R.drawable.ic_cip_full);
                                     break;
-                                case "میهمان":
+                                case "مهمان":
                                     setImageIntoIV(imgView, R.drawable.ic_full_guest);
 //                                    imgView.setImageResource(R.drawable.ic_bottom_full);
                                     break;
@@ -1378,11 +1378,11 @@ public class SelectPositionFragment
 //        }
 
 
-       BitmapFactory.Options options = new BitmapFactory.Options();
+      /* BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         options.inSampleSize =3;
 
-        Bitmap mImageBitmap = BitmapFactory.decodeResource(getResources(), drawable, options);
+        Bitmap mImageBitmap = BitmapFactory.decodeResource(getResources(), drawable, options);*/
 
         Picasso.with(SingletonContext.getInstance().getContext())
                .load(drawable)
@@ -1586,7 +1586,7 @@ public class SelectPositionFragment
                             setfourtythreePositionSelected();
                             break;
 
-                        case "میهمان":
+                        case "مهمان":
                             setGuestPositionSelected();
                             break;
                         case "CIP":
@@ -1695,7 +1695,7 @@ public class SelectPositionFragment
     {
 //        BuyTicketsFragment.buyTicketsFragment.setData(selectPositionId, count, amountForPay,response.getResults());
         if (selectPositionId==44){
-            selectPosition="میهمان";
+            selectPosition="مهمان";
         }else if (selectPositionId==45){
             selectPosition="CIP";
         }else {
