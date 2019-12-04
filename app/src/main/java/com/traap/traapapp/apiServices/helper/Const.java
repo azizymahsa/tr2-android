@@ -9,7 +9,7 @@ public class Const
     //-----------------------------------------------------------------------------
     //public final static String BASEURL = "http://5.253.25.117:7000/";
     public final static String BASEURL = "http://5.253.25.117:9000/";
-//    public final static String BASEURL = "https://restapp.traap.com";
+   // public final static String BASEURL = "https://restapp.traap.com";
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
