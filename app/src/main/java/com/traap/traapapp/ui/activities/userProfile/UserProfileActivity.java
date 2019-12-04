@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputFilter;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.ReturnMode;
@@ -29,6 +32,8 @@ import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import library.android.eniac.StartEniacFlightActivity;
 import okhttp3.MultipartBody;
 
@@ -53,7 +58,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by Javad.Abadi on 10/7/2019.
  */
 public class UserProfileActivity extends BaseActivity implements UserProfileActionView,
-        OnAnimationEndListener, OnServiceStatus<WebServiceClass<GetProfileResponse>>
+        OnAnimationEndListener, OnServiceStatus<WebServiceClass<GetProfileResponse>>,  DatePickerDialog.OnDateSetListener
 {
     private Toolbar mToolbar;
     private CircularProgressButton btnConfirm;
@@ -62,13 +67,15 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private TextView tvMenu, tvBirthDay, tvUserName, tvHeaderPopularNo;
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture;
-    private ImageView imgProfile;
+    private ImageView imgProfile, imgBirthdayReset;
+
+    private PersianCalendar currentDate;
+
+    private DatePickerDialog pickerDialogDate;
 
     Integer popularPlayer = 0;
 
     private File userPic;
-    private boolean isChangePic = false;
-//    private FrameLayout flLogoToolbar;
     private ArrayList<String> genderStrList;
 
     private MultipartBody.Part part;
@@ -90,9 +97,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         tvTitle.setText("ویرایش حساب کاربری");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
+        NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nested);
         btnConfirm = findViewById(R.id.btnConfirm);
 //        btnConfirm.setText("ارسال اطلاعات کاربری");
 
+        imgBirthdayReset = findViewById(R.id.imgBirthdayReset);
         imgProfile = findViewById(R.id.imgProfile);
         fabCapture = findViewById(R.id.fabCapture);
         spinnerGender = findViewById(R.id.spinnerGender);
@@ -121,7 +130,31 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         adapterGenderStrList.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinnerGender.setAdapter(adapterGenderStrList);
 
+        initDate();
         getDataProfileUser();
+
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener()
+        {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
+            {
+                if (scrollY - oldScrollY > 0)
+                {
+                    Animation animHide = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.hide_button);
+                    findViewById(R.id.rlImageProfile).startAnimation(animHide);
+                    findViewById(R.id.rlImageProfile).setVisibility(View.GONE);
+                }
+
+                else
+                {
+                    if (!getIntent().getStringExtra("parent").equals("OutBoxActivity"))
+                    {
+                        findViewById(R.id.rlImageProfile).setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
 
         btnConfirm.setOnClickListener(v ->
         {
@@ -131,10 +164,33 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             uploadProfileData();
         });
 
+        tvBirthDay.setOnClickListener(v ->
+        {
+            pickerDialogDate.setTitle("");
+            pickerDialogDate.show(getSupportFragmentManager(), "CreateDate");
+        });
+
+        imgBirthdayReset.setOnClickListener(v ->
+        {
+            tvBirthDay.setText("");
+            imgBirthdayReset.setVisibility(View.GONE);
+        });
+
         fabCapture.setOnClickListener(v ->
         {
             openImageChooser();
         });
+    }
+    private void initDate()
+    {
+        currentDate = new PersianCalendar();
+
+        pickerDialogDate = DatePickerDialog.newInstance(this,
+                currentDate.getPersianYear(),
+                currentDate.getPersianMonth(),
+                currentDate.getPersianDay()
+        );
+        pickerDialogDate.setMaxDate(currentDate);
     }
 
     private boolean setError()
@@ -445,7 +501,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private void saveImage(Bitmap finalBitmap)
     {
-        isChangePic = true;
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/traap");
         myDir.mkdirs();
@@ -539,6 +594,35 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         else
         {
             showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+        }
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
+    {
+        if (view.getTag().equals("CreateDate"))
+        {
+            PersianCalendar calendar = new PersianCalendar();
+            calendar.set(year, monthOfYear, dayOfMonth);
+            pickerDialogDate.setPersianCalendar(calendar);
+            pickerDialogDate.setMaxDate(currentDate);
+
+            String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+//            viewModel.updateTvCreateDate(createDate);
+            tvBirthDay.setText(createDate);
+            imgBirthdayReset.setVisibility(View.VISIBLE);
+
+//            this.year = year;
+//            this.month = monthOfYear;
+//            this.day = dayOfMonth;
+
+            PersianCalendar calendar1 = new PersianCalendar();
+            PersianCalendar calendar2 = new PersianCalendar();
+            calendar1.set(year, monthOfYear, dayOfMonth);
+
+            pickerDialogDate.setPersianCalendar(calendar1);
+
+
         }
     }
 }
