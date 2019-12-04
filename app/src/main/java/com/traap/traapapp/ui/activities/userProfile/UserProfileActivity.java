@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputFilter;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,11 +17,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.ReturnMode;
 import com.esafirm.imagepicker.model.Image;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.io.File;
@@ -29,6 +34,8 @@ import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+//import library.android.mycalendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+//import library.android.mycalendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import library.android.eniac.StartEniacFlightActivity;
 import okhttp3.MultipartBody;
 
@@ -53,7 +60,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by Javad.Abadi on 10/7/2019.
  */
 public class UserProfileActivity extends BaseActivity implements UserProfileActionView,
-        OnAnimationEndListener, OnServiceStatus<WebServiceClass<GetProfileResponse>>
+        OnAnimationEndListener, OnServiceStatus<WebServiceClass<GetProfileResponse>>,  DatePickerDialog.OnDateSetListener
 {
     private Toolbar mToolbar;
     private CircularProgressButton btnConfirm;
@@ -62,13 +69,15 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private TextView tvMenu, tvBirthDay, tvUserName, tvHeaderPopularNo;
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture;
-    private ImageView imgProfile;
+    private ImageView imgProfile, imgBirthdayReset;
+
+    private PersianCalendar currentDate;
+
+    private DatePickerDialog pickerDialogDate;
 
     Integer popularPlayer = 0;
 
     private File userPic;
-    private boolean isChangePic = false;
-//    private FrameLayout flLogoToolbar;
     private ArrayList<String> genderStrList;
 
     private MultipartBody.Part part;
@@ -90,9 +99,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         tvTitle.setText("ویرایش حساب کاربری");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
+        NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nested);
         btnConfirm = findViewById(R.id.btnConfirm);
-        btnConfirm.setText("ارسال اطلاعات کاربری");
+//        btnConfirm.setText("ارسال اطلاعات کاربری");
 
+        imgBirthdayReset = findViewById(R.id.imgBirthdayReset);
         imgProfile = findViewById(R.id.imgProfile);
         fabCapture = findViewById(R.id.fabCapture);
         spinnerGender = findViewById(R.id.spinnerGender);
@@ -121,7 +132,30 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         adapterGenderStrList.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinnerGender.setAdapter(adapterGenderStrList);
 
+        initDate();
         getDataProfileUser();
+
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener()
+        {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
+            {
+                if (scrollY - oldScrollY > 0)
+                {
+                    Animation animHide = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.hide_button);
+                    findViewById(R.id.rlImageProfile).startAnimation(animHide);
+                    findViewById(R.id.rlImageProfile).setVisibility(View.GONE);
+                }
+
+                else
+                {
+                    Animation animShow = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.show_button);
+                    findViewById(R.id.rlImageProfile).startAnimation(animShow);
+                    findViewById(R.id.rlImageProfile).setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
         btnConfirm.setOnClickListener(v ->
         {
@@ -131,10 +165,32 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             uploadProfileData();
         });
 
+        tvBirthDay.setOnClickListener(v ->
+        {
+            pickerDialogDate.show(getFragmentManager(), "CreateDate");
+        });
+
+        imgBirthdayReset.setOnClickListener(v ->
+        {
+            tvBirthDay.setText("");
+            imgBirthdayReset.setVisibility(View.GONE);
+        });
+
         fabCapture.setOnClickListener(v ->
         {
             openImageChooser();
         });
+    }
+    private void initDate()
+    {
+        currentDate = new PersianCalendar();
+
+        pickerDialogDate = DatePickerDialog.newInstance(this,
+                currentDate.getPersianYear(),
+                currentDate.getPersianMonth(),
+                currentDate.getPersianDay()
+        );
+        pickerDialogDate.setMaxDate(currentDate);
     }
 
     private boolean setError()
@@ -163,6 +219,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //            etEmail.setError("ایمیل درست نیست!");
         }
 
+        if (!etFirstName.getText().toString().matches("[ا-ی]+") && !etFirstName.getText().toString().equalsIgnoreCase(""))
+        {
+            message = message + "نام فارسی،";
+            err = false;
+//            etFirstNameUS.setError("نام انگلیسی درست نیست!");
+        }
+
+        if (!etLastName.getText().toString().matches("[ا-ی]+") && !etLastName.getText().toString().equalsIgnoreCase(""))
+        {
+            message = message + "نام خانوادگی فارسی،";
+            err = false;
+//            etFirstNameUS.setError("نام انگلیسی درست نیست!");
+        }
+
         if (!etFirstNameUS.getText().toString().matches("[a-zA-Z]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام انگلیسی،";
@@ -182,21 +252,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             message = message + " باید اصلاح گردد.";
             showError(this, message);
         }
-
-        if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
-                etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
-                etLastNameUS.getText().toString().trim().equalsIgnoreCase("") &&
-                etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
-                etLastName.getText().toString().trim().equalsIgnoreCase("") &&
-                tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
-                spinnerGender.getSelectedItemPosition() == 0 &&
-                etEmail.getText().toString().trim().equalsIgnoreCase("") &&
-                (etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
-                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
-        {
-            err = false;
-            showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
-        }
+//        else if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
+//                etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
+//                etLastNameUS.getText().toString().trim().equalsIgnoreCase("") &&
+//                etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
+//                etLastName.getText().toString().trim().equalsIgnoreCase("") &&
+//                tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
+//                spinnerGender.getSelectedItemPosition() == 0 &&
+//                etEmail.getText().toString().trim().equalsIgnoreCase("") &&
+//                (etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
+//                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
+//        {
+//            err = false;
+//            showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
+//        }
         return err;
     }
 
@@ -233,7 +302,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     @Override
     public void onAnimationEnd()
     {
-        btnConfirm.setText("ارسال اطلاعات کاربری");
+//        btnConfirm.setText("ارسال اطلاعات کاربری");
         btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
 
     }
@@ -272,10 +341,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             SendProfileRequest request = new SendProfileRequest();
 
             request.setPopularPlayer(popularPlayer);
-            request.setFirstName(etFirstName.getText().toString());
-            request.setLastName(etLastName.getText().toString());
-            request.setNickName(etFirstNameUS.getText().toString());
-            request.setEmail(etEmail.getText().toString());
+            request.setFirstName(etFirstName.getText().toString().trim());
+            request.setLastName(etLastName.getText().toString().trim());
+            request.setNickName(etNickName.getText().toString().trim());
+            request.setEmail(etEmail.getText().toString().trim());
 
             request.setNationalCode(etNationalCode.getText().toString());
 
@@ -284,8 +353,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     tvBirthDay.getText().toString()
             );
 
-            request.setFirstNameUS(etFirstNameUS.getText().toString());
-            request.setLastNameUS(etLastNameUS.getText().toString());
+            request.setFirstNameUS(etFirstNameUS.getText().toString().trim());
+            request.setLastNameUS(etLastNameUS.getText().toString().trim());
             request.setGender(spinnerGender.getSelectedItemPosition());
 
             try
@@ -318,7 +387,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 Prefs.putString("firstName", etFirstName.getText().toString());
                                 Prefs.putString("lastName", etLastName.getText().toString());
                                 Prefs.putString("FULLName", etFirstName.getText().toString() + " " + etLastName.getText().toString());
-                                Prefs.putString("nickName", etFirstNameUS.getText().toString());
+//                                Prefs.putString("nickName", etFirstNameUS.getText().toString());
                                 if (tvBirthDay.getText() != null)
                                 {
                                     Prefs.putString("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ?
@@ -432,7 +501,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private void saveImage(Bitmap finalBitmap)
     {
-        isChangePic = true;
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/traap");
         myDir.mkdirs();
@@ -526,6 +594,35 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         else
         {
             showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+        }
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
+    {
+        if (view.getTag().equals("CreateDate"))
+        {
+            PersianCalendar calendar = new PersianCalendar();
+            calendar.set(year, monthOfYear, dayOfMonth);
+//            pickerDialogDate.setPersianCalendar(calendar);
+            pickerDialogDate.setMaxDate(currentDate);
+
+            String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+//            viewModel.updateTvCreateDate(createDate);
+            tvBirthDay.setText(createDate);
+            imgBirthdayReset.setVisibility(View.VISIBLE);
+
+//            this.year = year;
+//            this.month = monthOfYear;
+//            this.day = dayOfMonth;
+
+//            PersianCalendar calendar1 = new PersianCalendar();
+//            PersianCalendar calendar2 = new PersianCalendar();
+//            calendar1.set(year, monthOfYear, dayOfMonth);
+
+//            pickerDialogDate.setPersianCalendar(calendar1);
+
+
         }
     }
 }
