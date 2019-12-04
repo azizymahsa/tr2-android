@@ -246,49 +246,22 @@
                 android:id="@+id/llCondition"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_20dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:visibility="visible">
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
-
-                <LinearLayout
-                    android:layout_width="@dimen/_10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end|center"
-                        android:layout_weight="100"
-                        android:gravity="end|center"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="end|center"
-                            android:gravity="end|center">
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginEnd="5dp"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="end|center"
-                                android:gravity="end|center"
+                                android:layout_gravity="center"
+                                android:gravity="center"
                                 android:orientation="vertical">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginBottom="5dp"
-
                                     android:gravity="right"
                                     android:text="صحت اطلاعات وارد شده را تایید می نمایم."
                                     android:textColor="@color/_title_black"
@@ -338,17 +311,9 @@
                                         android:textSize="@dimen/textSize_12dp"/>
                                 </LinearLayout>
 
-                            </LinearLayout>
+
                         </LinearLayout>
 
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10" />
             </LinearLayout>
 
         </LinearLayout>
