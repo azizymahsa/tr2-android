@@ -220,6 +220,15 @@ public class MyProfileFragment extends BaseFragment
             tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
         }
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+        if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase(""))
+        {
+            tvFullName.setText(Prefs.getString("mobile", ""));
+            tvMobile.setVisibility(View.GONE);
+        }
+        else
+        {
+            tvFullName.setText(Prefs.getString("FULLName", ""));
+        }
     }
 
 
