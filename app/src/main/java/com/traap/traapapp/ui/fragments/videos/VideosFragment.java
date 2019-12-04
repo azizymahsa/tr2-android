@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,6 +67,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private Integer id;
     private TextView tvArchiveVideo,tvMyFavoriteVideo;
     private View rlShirt;
+    private NestedScrollView nestedScroll;
 
     public VideosFragment()
     {
@@ -106,6 +108,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
+        nestedScroll = rootView.findViewById(R.id.nestedScroll);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo=rootView.findViewById(R.id.tvArchiveVideo);
         rvCategories = rootView.findViewById(R.id.rvCategories);
@@ -235,6 +238,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     public void onItemTitleCategoryClick(ListCategory category, int position)
     {
         mainView.showLoading();
+
         idCategoryTitle = category.getId();
         requestGetCategoryById(idCategoryTitle);
     }

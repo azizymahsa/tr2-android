@@ -620,7 +620,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
 
             case R.id.rlShirt:
-              //  startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
                 break;
             case R.id.btnBuyTicket:
             {
