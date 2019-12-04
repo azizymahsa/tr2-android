@@ -99,7 +99,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         tvTitleVideo = findViewById(R.id.tvTitleVideo);
         tvDesc = findViewById(R.id.tvDesc);
         ivVideo = findViewById(R.id.ivVideo);
-        imgBookmark = findViewById(R.id.imgBookmark);
+        imgBookmark = findViewById(R.id.btnBookmark);
         imgLike = findViewById(R.id.imgLike);
         tvLike = findViewById(R.id.tvLike);
         rlVideo = findViewById(R.id.rlVideo);
@@ -179,10 +179,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void setDataItems(ArrayList<Category> videosList, int idVideoCategory, int idVideo, int positionVideo)
+    private void setDataItems(ArrayList<Category> videosList, int idVideoCategorys, int idVideos, int positionVideo)
     {
         videoItem = videosList.get(positionVideo);
-
+        idVideo=idVideos;
+        idVideoCategory=idVideoCategorys;
         urlVideo = videoItem.getFrame().replace("\\", "");
         tvLike.setText(videoItem.getLikes().toString());
         likeCount = videoItem.getLikes();
