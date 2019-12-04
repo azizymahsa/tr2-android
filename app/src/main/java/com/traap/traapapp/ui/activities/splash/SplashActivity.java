@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getVersion.request.GetVersionRequest;
 import com.traap.traapapp.apiServices.model.getVersion.response.GetVersionResponse;
 import com.traap.traapapp.models.otherModels.download.Download;
+import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.activities.web.WebActivity;
@@ -78,9 +80,6 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
-        Logger.e("-UUID-", UUID.randomUUID().toString());
-
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder()
                 .schemaVersion(0)
@@ -88,6 +87,14 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
 //        realm = Realm.getInstance(realmConfiguration);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        SingletonContext.getInstance().setHeight(height);
+        SingletonContext.getInstance().setWidth(width);
 
         PackageInfo pInfo = null;
         try
