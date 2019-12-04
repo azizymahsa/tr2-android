@@ -32,8 +32,8 @@ import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-import library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
+import library.android.mycalendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import library.android.mycalendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import library.android.eniac.StartEniacFlightActivity;
 import okhttp3.MultipartBody;
 
@@ -147,10 +147,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
                 else
                 {
-                    if (!getIntent().getStringExtra("parent").equals("OutBoxActivity"))
-                    {
-                        findViewById(R.id.rlImageProfile).setVisibility(View.GONE);
-                    }
+                    Animation animShow = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.show_button);
+                    findViewById(R.id.rlImageProfile).startAnimation(animShow);
+                    findViewById(R.id.rlImageProfile).setVisibility(View.VISIBLE);
                 }
             }
         });
