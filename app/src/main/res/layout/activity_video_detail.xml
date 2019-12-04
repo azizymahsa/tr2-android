@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="com.traap.traapapp.ui.activities.video.VideoDetailActivity"
     android:layoutDirection="ltr"
+    android:background="@drawable/background"
     >
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -112,7 +115,6 @@
 
             </RelativeLayout>
             <ImageView
-                android:id="@+id/imgBookmark"
                 android:layout_width="@dimen/_30dp"
                 android:layout_height="@dimen/_30dp"
                 android:paddingTop="4dp"
@@ -334,4 +336,8 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+
 </androidx.core.widget.NestedScrollView>
+<include layout="@layout/loading"
+android:visibility="gone"/>
+    </RelativeLayout>

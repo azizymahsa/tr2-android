@@ -35,7 +35,7 @@
         app:centerScale="1.8"
         app:itemSpace="5"
         app:moveSpeed="0.5"
-        app:showIndicator="true"/>
+        app:showIndicator="false"/>
 
 
     <LinearLayout
@@ -58,6 +58,8 @@
             android:text="آرشیو ویدیو"
             android:textColor="@color/redBack"
             android:padding="8dp"
+            android:gravity="center"
+            android:textStyle="bold"
             android:layout_marginStart="@dimen/_5dp"
             android:textSize="@dimen/textSize_10dp"
             android:background="@drawable/background_border_a"
@@ -71,6 +73,8 @@
             android:foreground="?attr/selectableItemBackground"
             android:text="ویدیو های مورد علاقه من"
             android:textColor="@color/redBack"
+            android:gravity="center"
+            android:textStyle="bold"
             android:padding="8dp"
             android:layout_marginStart="@dimen/_10dp"
             android:textSize="@dimen/textSize_10dp"
