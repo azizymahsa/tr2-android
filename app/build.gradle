@@ -314,6 +314,9 @@ android {
         implementation 'com.github.crosswall:Android-Coverflow:release-v1.0.5'
         //------------------------CoverFlow end---------------------------
 
+        //------------------------DateTimePicker start----------------------
+        implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
+        //------------------------DateTimePicker end------------------------
 //        implementation 'co.infinum:goldfinger:1.1.1'
 
 //        implementation 'com.ramotion.cardslider:card-slider:0.3.0'
