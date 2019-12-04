@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.news.main.News;
+import com.traap.traapapp.singleton.SingletonContext;
 
 public class NewsMainFavoriteAdapter extends RecyclerView.Adapter<NewsMainFavoriteAdapter.ViewHolder>
 {
@@ -49,6 +51,10 @@ public class NewsMainFavoriteAdapter extends RecyclerView.Adapter<NewsMainFavori
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         News news = list.get(position);
+
+        int width = (int) (SingletonContext.getInstance().getWidth() - mContext.getResources().getDimension(R.dimen.margin_news_main_favorite));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, R.dimen.news_favorite_height);
+        holder.rlImage.setLayoutParams(params);
 
         if (news.getTitle() != null)
         {
@@ -100,14 +106,14 @@ public class NewsMainFavoriteAdapter extends RecyclerView.Adapter<NewsMainFavori
     {
         private TextView tvTitle;
         private ImageView imgBackground;
-//        private RelativeLayout llRoot;
+        private RelativeLayout rlImage;
         private ProgressBar progress;
 
         public ViewHolder(@NonNull View rootView)
         {
             super(rootView);
 
-//            llRoot = rootView.findViewById(R.id.root);
+            rlImage = rootView.findViewById(R.id.rlImage);
             imgBackground = rootView.findViewById(R.id.image);
             tvTitle = rootView.findViewById(R.id.tvTitle);
 
