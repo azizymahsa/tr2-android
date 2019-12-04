@@ -16,6 +16,7 @@ import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
@@ -110,12 +111,13 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
         {
 
 
-            if (etPin2.getText().toString() != null && etPin2.getText().toString().length()>3)
+            if (etPin2.getText().toString() != null && etPin2.getText().toString().length() > 3)
             {
                 paymentMatchRequest.setPin2(etPin2.getText().toString());
 
                 callPaymentWalletRequest();
-            }else{
+            } else
+            {
                 Tools.showToast(getContext(), "رمز کارت وارد نشده است.", R.color.red);
 
             }
@@ -252,19 +254,19 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
     public void onFinishedPaymentWallet(ResponsePaymentWallet response)
     {
         mainView.hideLoading();
-        if( response.getMessage().contains("خطا")){
+        if (response.getMessage().contains("خطا"))
+        {
             Tools.showToast(getContext(), response.getMessage(), R.color.red);
 
 
-        }else{
+        } else
+        {
             Intent intent = new Intent(getContext(), ShowTicketActivity.class);
 
-            intent.putExtra("RefrenceNumber",  response.getRefNumber());
-            intent.putExtra("isTransactionList",false);
+            intent.putExtra("RefrenceNumber", response.getRefNumber());
+            intent.putExtra("isTransactionList", false);
             startActivity(intent);
         }
-
-
 
 
     }
