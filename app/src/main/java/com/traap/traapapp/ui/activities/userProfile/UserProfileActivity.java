@@ -74,7 +74,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private DatePickerDialog pickerDialogDate;
 
-    Integer popularPlayer = 0;
+    Integer popularPlayer = 12;
 
     private File userPic;
     private ArrayList<String> genderStrList;
@@ -331,10 +331,18 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         else
         {
-            popularPlayer = 0;
-            if (!etPopularPlayer.getText().toString().equalsIgnoreCase(""))
+            popularPlayer = 12;
+            try
             {
-                popularPlayer = Integer.parseInt(etPopularPlayer.getText().toString());
+                if (!etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
+                        !etPopularPlayer.getText().toString().equalsIgnoreCase("0"))
+                {
+                    popularPlayer = Integer.parseInt(etPopularPlayer.getText().toString().trim());
+                }
+            }
+            catch (Exception e)
+            {
+
             }
 
             SendProfileRequest request = new SendProfileRequest();
@@ -604,7 +612,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
 //            pickerDialogDate.setPersianCalendar(calendar);
-            pickerDialogDate.setMaxDate(currentDate);
+//            pickerDialogDate.setMaxDate(currentDate);
 
             String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
 //            viewModel.updateTvCreateDate(createDate);

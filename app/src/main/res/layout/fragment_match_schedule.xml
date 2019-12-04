@@ -30,7 +30,6 @@
                 android:layout_alignParentTop="true"
                 android:background="@android:color/transparent">
 
-
                 <include layout="@layout/toolbar_back" />
 
             </androidx.appcompat.widget.Toolbar>

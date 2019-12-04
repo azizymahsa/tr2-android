@@ -6,10 +6,12 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -44,10 +46,11 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     private MainActionView mainView;
     private View rootView;
     private TabLayout tabLayout;
+    private Toolbar mToolbar;
     private CustomViewPager viewPager;
     private TextView tvTitle, tvUserName, tvPopularPlayer, tvLastSchecdule, tvNowSchedule, tvTableLeage;
     List<MatchItem> pastMatchesList,nextMatchesList;
-    private View imgBack, imgMenu;
+    private ImageView imgBack, imgMenu;
     private ArrayList<MatchItem> matchBuyable;
 
 
@@ -69,7 +72,6 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-
     }
 
     @Override
@@ -81,9 +83,11 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
             rootView = null;
         }
 
-
         rootView = inflater.inflate(R.layout.fragment_match_schedule, container, false);
+        mToolbar = rootView.findViewById(R.id.toolbar);
+
         initView();
+
         sendRequest();
 
 
@@ -154,18 +158,17 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
     private void initView()
     {
-
         try
         {
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);
-            tvUserName.setText(Prefs.getString("mobile", ""));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
             imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
 
             tvPopularPlayer = rootView.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getInt("popularPlayer", 12));
+            tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->

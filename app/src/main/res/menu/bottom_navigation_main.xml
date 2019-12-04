@@ -17,7 +17,7 @@
     <item
         android:id="@+id/tab_home"
         android:enabled="true"
-        android:icon="@drawable/ic_logo_main"
+        android:icon="@drawable/ic_logo_main2"
         android:title="خانه"
         app:showAsAction="ifRoom" />
     <item
