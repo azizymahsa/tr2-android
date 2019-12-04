@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="@dimen/_280dp_r"
+            android:layout_height="280dp"
             android:layout_weight="1.8"
             android:gravity="center"
             android:background="@drawable/dotted_line"
@@ -249,7 +249,7 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="@dimen/_80dp"
-            android:layout_height="@dimen/_280dp_r"
+            android:layout_height="280dp"
             android:gravity="center"
             android:layout_marginEnd="@dimen/_10dp"
             android:background="@drawable/left_line_invisible"
