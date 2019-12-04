@@ -287,8 +287,11 @@ public class SelectPositionFragment
         stadiumPositionModels.add(new StadiumPositionModel("FFA11919", "مهمان", true));
 
         stadiumPositionModels.add(new StadiumPositionModel("FFFFCC00", "CIP", true));
+
         stadiumPositionModels.add(new StadiumPositionModel("", "46", true));
         stadiumPositionModels.add(new StadiumPositionModel("", "47", true));
+        stadiumPositionModels.add(new StadiumPositionModel("FFA11919", "میهمان", true));
+
 
 
         //////
@@ -1022,7 +1025,9 @@ public class SelectPositionFragment
                         for (AllBoxesResult item: response.data.getResults())
                         {
                             if (item.getName().equals(stadiumPositionModels.get(43).getNumber())||
-                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())){
+                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())
+                                    ||
+                                    item.getName().equals(stadiumPositionModels.get(47).getNumber())){
 
                             }else if (Integer.parseInt(item.getName()) < 10)
                             {
@@ -1033,7 +1038,9 @@ public class SelectPositionFragment
                         for (AllBoxesResult item: response.data.getResults())
                         {
                             if (item.getName().equals(stadiumPositionModels.get(43).getNumber())||
-                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())){
+                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())
+                                    ||
+                                    item.getName().equals(stadiumPositionModels.get(47).getNumber())){
 
                                 newResult.add(item);
 
@@ -1349,6 +1356,10 @@ public class SelectPositionFragment
                                     setImageIntoIV(imgView, R.drawable.ic_full_guest);
 //                                    imgView.setImageResource(R.drawable.ic_bottom_full);
                                     break;
+                                case "میهمان":
+                                    setImageIntoIV(imgView, R.drawable.ic_full_guest);
+//                                    imgView.setImageResource(R.drawable.ic_bottom_full);
+                                    break;
                                 case "46":
                                     setImageIntoIV(imgView, R.drawable.ic_up_stadium_full);
 //                                    imgView.setImageResource(R.drawable.ic_up_stadium_full);
@@ -1587,6 +1598,9 @@ public class SelectPositionFragment
                             break;
 
                         case "مهمان":
+                            setGuestPositionSelected();
+                            break;
+                        case "میهمان":
                             setGuestPositionSelected();
                             break;
                         case "CIP":
