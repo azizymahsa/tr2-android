@@ -182,21 +182,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             message = message + " باید اصلاح گردد.";
             showError(this, message);
         }
-
-        if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
-                etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
-                etLastNameUS.getText().toString().trim().equalsIgnoreCase("") &&
-                etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
-                etLastName.getText().toString().trim().equalsIgnoreCase("") &&
-                tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
-                spinnerGender.getSelectedItemPosition() == 0 &&
-                etEmail.getText().toString().trim().equalsIgnoreCase("") &&
-                (etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
-                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
-        {
-            err = false;
-            showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
-        }
+//        else if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
+//                etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
+//                etLastNameUS.getText().toString().trim().equalsIgnoreCase("") &&
+//                etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
+//                etLastName.getText().toString().trim().equalsIgnoreCase("") &&
+//                tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
+//                spinnerGender.getSelectedItemPosition() == 0 &&
+//                etEmail.getText().toString().trim().equalsIgnoreCase("") &&
+//                (etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
+//                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
+//        {
+//            err = false;
+//            showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
+//        }
         return err;
     }
 
@@ -318,7 +317,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 Prefs.putString("firstName", etFirstName.getText().toString());
                                 Prefs.putString("lastName", etLastName.getText().toString());
                                 Prefs.putString("FULLName", etFirstName.getText().toString() + " " + etLastName.getText().toString());
-                                Prefs.putString("nickName", etFirstNameUS.getText().toString());
+//                                Prefs.putString("nickName", etFirstNameUS.getText().toString());
                                 if (tvBirthDay.getText() != null)
                                 {
                                     Prefs.putString("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ?
