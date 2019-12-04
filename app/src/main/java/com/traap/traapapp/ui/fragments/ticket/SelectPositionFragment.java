@@ -1378,11 +1378,11 @@ public class SelectPositionFragment
 //        }
 
 
-       BitmapFactory.Options options = new BitmapFactory.Options();
+      /* BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         options.inSampleSize =3;
 
-        Bitmap mImageBitmap = BitmapFactory.decodeResource(getResources(), drawable, options);
+        Bitmap mImageBitmap = BitmapFactory.decodeResource(getResources(), drawable, options);*/
 
         Picasso.with(SingletonContext.getInstance().getContext())
                .load(drawable)
