@@ -552,7 +552,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="آیا مایل به دیدن آموزش این اپلیکیشن هستید؟"
+            android:text="آیا مایل به دیدن راهنمای اپلیکیشن هستید؟"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_16dp" />
 

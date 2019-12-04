@@ -1,11 +1,15 @@
 package com.traap.traapapp.ui.activities.photo;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -36,6 +40,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
     private int likeCount = 0;
 
+    private Boolean isBookmark = false;
     private Integer idPhoto;
     private String largeImageClick = "";
 
@@ -57,13 +62,23 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                 idPhoto = extras.getInt("idPhoto", 0);
                 largeImageClick = extras.getString("SRCImage", "");
                 likeCount = extras.getInt("LikeCount", 0);
+                isBookmark = extras.getBoolean("isBookmark", false);
                 setImageBackground(ivPhoto, largeImageClick);
                 tvLike.setText(likeCount + "");
 
             }
         }
+        setColorBookmark();
 
 
+    }
+
+    private void setColorBookmark()
+    {
+        if (isBookmark)
+            btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
+        else
+            btnBookmark.setColorFilter(getResources().getColor(R.color.white));
     }
 
     private void initView()
@@ -85,6 +100,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             rlLike = findViewById(R.id.rlLike);
             rlPic = findViewById(R.id.rlPic);
             btnBookmark = findViewById(R.id.btnBookmark);
+
 
             rlLike.setOnClickListener(this);
             btnSharePic.setOnClickListener(this);

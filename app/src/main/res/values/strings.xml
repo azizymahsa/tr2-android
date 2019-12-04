@@ -9,10 +9,10 @@
     <string name="error">خطا!</string>
     <string name="enter_mobile_number">شماره تلفن همراه</string>
     <string name="no_name">بدون نام</string>
-    <string name="enter_first_name">نام خود را وارد نمایید</string>
-    <string name="enter_last_name">نام خانوادگی خود را وارد نمایید</string>
-    <string name="enter_nick_name">نام مستعار خود را وارد نمایید</string>
-    <string name="enter_passcode">رمز عبور دیبا خود را وارد نمایید.</string>
+    <string name="enter_first_name">نام خود را وارد کنید</string>
+    <string name="enter_last_name">نام خانوادگی خود را وارد کنید</string>
+    <string name="enter_nick_name">نام مستعار خود را وارد کنید</string>
+    <string name="enter_passcode">رمز عبور دیبا خود را وارد کنید.</string>
     <string name="pic_icon_R">&#xe907;</string>
 
 
@@ -30,13 +30,13 @@
     <string name="enter_pass">لطفارمز دوم را وارد نمایید.</string>
     <string name="returnButton"><u>بازگشت</u></string>
     <string name="homeButton"><u>خانه</u></string>
-    <string name="enter_email">ایمیل خود را وارد نمایید </string>
-    <string name="enter_national_code">کد ملی خود را وارد نمایید</string>
-    <string name="enter_birthday">تاریخ تولد خود را وارد نمایید</string>
-    <string name="enter_english_name">نام خود را به انگلیسی وارد نمایید</string>
-    <string name="enter_popular_player">شماره بازیکن محبوب خود را وارد نمایید</string>
-    <string name="etMobileHint">شماره تلفن خود را وارد نمایید</string>
-    <string name="etBillHint">شناسه قبض خود را وارد نمایید</string>
+    <string name="enter_email">ایمیل خود را وارد کنید </string>
+    <string name="enter_national_code">کد ملی خود را وارد کنید</string>
+    <string name="enter_birthday">تاریخ تولد خود را وارد کنید</string>
+    <string name="enter_english_name">نام خود را به انگلیسی وارد کنید</string>
+    <string name="enter_popular_player">شماره بازیکن محبوب خود را وارد کنید</string>
+    <string name="etMobileHint">شماره تلفن خود را وارد کنید</string>
+    <string name="etBillHint">شناسه قبض خود را وارد کنید</string>
     <string name="success">موفق</string>
     <string name="un_success">ناموفق</string>
     <string name="amount">مبلغ</string>
@@ -48,10 +48,10 @@
 
     <string name="get_permission">با توجه به دستور بانک مرکزی و پلیس فتا مبنی بر افزایش امنیت انجام تراکنشهای بانکی در اپلیکیشن موبایل بانک، میبایست مجوز دسترسی به وضعیت دستگاه داده شود. \n برای ادامه کار لطفا مجوز مربوطه را تایید نمایید.</string>
 
-    <string name="enter_name">لطفا نام و نام خانوادگی را وارد نمایید.</string>
-    <string name="enter_card_number">لطفا شماره کارت را وارد نمایید.</string>
-    <string name="enter_expire_month">لطفا ماه انقضا کارت را وارد نمایید.</string>
-    <string name="enter_expire_year">لطفا سال انقضا کارت را وارد نمایید.</string>
+    <string name="enter_name">لطفا نام و نام خانوادگی را وارد کنید.</string>
+    <string name="enter_card_number">لطفا شماره کارت را وارد کنید.</string>
+    <string name="enter_expire_month">لطفا ماه انقضا کارت را وارد کنید.</string>
+    <string name="enter_expire_year">لطفا سال انقضا کارت را وارد کنید.</string>
     <string name="select_position_tiitle">انتخاب از روی نقشه استادیوم:</string>
     <string name="_confirm_next">تایید و مرحله بعد</string>
     <string name="_confirm_peyment">تایید و پرداخت</string>
@@ -60,20 +60,20 @@
     <string name="backToBuyTicket"> خرید مجدد</string>
     <string name="Please_enter_the_national_code">لطفا کد ملی خود را وارد کنید</string>
     <string name="condition_text">صحت اطلاعات وارد شده را تایید می نمایم . قوانین و مقررات را مطالعه کرده و می پذیرم.</string>
-    <string name="Please_enter_last_name_in_Persian">لطفا نام خانوادگی خود را وارد نمایید</string>
-    <string name="Please_enter_name_in_Persian">لطفا نام  خود را وارد نمایید</string>
+    <string name="Please_enter_last_name_in_Persian">لطفا نام خانوادگی خود را وارد کنید</string>
+    <string name="Please_enter_name_in_Persian">لطفا نام  خود را وارد کنید</string>
     <string name="string_under_line"><u>قوانین و مقررات</u></string>
     <string name="login_condition_under_line"><u>قوانین و شرایط استفاده </u></string>
     <string name="low_ata">تمامی حقوق مادی و معنوی این نرم افزار به شرکت توسعه سرمایه گذاری هواپیمایی آتا تعلق دارد.</string>
     <string name="Error_edit_input">اطلاعات ورودی نامعتبر است</string>
     <string name="Error_nationall_code_input">کد ملی تکراری است</string>
-    <string name="Please_enter_first_name_in_Persian">لطفا نام خود را وارد نمایید</string>
+    <string name="Please_enter_first_name_in_Persian">لطفا نام خود را وارد کنید</string>
     <string name="profile_desc">وارد کردن تمامی موارد به صورت اختیاری می باشد</string>
     <string name="error_ticket_payment">کاربر گرامی؛  متاسفانه پرداخت شما ناموفق بوده است.</string>
     <string name="networkError">خطای دسترسی به اینترنت</string>
-    <string name="networkErrorMessage">لطفا در تنظیمات برنامه اینترنت خود را بررسی نمایید.</string>
+    <string name="networkErrorMessage">لطفا در تنظیمات برنامه اینترنت خود را بررسی کنید.</string>
     <string name="login">ورود</string>
-    <string name="_select_gateway">درگاه مورد نظر خود را انتخاب نمایید:</string>
+    <string name="_select_gateway">درگاه مورد نظر خود را انتخاب کنید:</string>
 
 
     <string-array name="string_array_alcohol">
