@@ -178,7 +178,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                         loginView.onButtonActions(true, GoToActivity.MainActivity);
                         loginView.hideLoading();
 
-                        Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer());
+                        Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer() == 0 ? 12 : response.data.getProfile().getPopularPlayer());
 
                         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
                         {
@@ -229,7 +229,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         }
         if (profile.getPopularPlayer() != null)
         {
-            Prefs.putInt("popularPlayer", profile.getPopularPlayer());
+            Prefs.putInt("popularPlayer", profile.getPopularPlayer()==0 ? 12 : profile.getPopularPlayer());
         }
         Prefs.putString("nationalCode", profile.getNationalCode());
         Prefs.putString("keyInvite", profile.getKeyInvite());

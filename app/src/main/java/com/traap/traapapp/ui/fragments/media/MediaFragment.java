@@ -104,7 +104,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             @Override
             public void onClick(View v)
             {
-              //  startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
 
             }
         });

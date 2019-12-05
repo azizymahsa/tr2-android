@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,6 +118,8 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
         btnSendComment = rootView.findViewById(R.id.btnSendComment);
         progress = rootView.findViewById(R.id.progress);
         rcCommentList = rootView.findViewById(R.id.rcCommentList);
+
+        edtComment.setFilters(new InputFilter[] { new InputFilter.LengthFilter(400) });
 
         layoutManager = new GridLayoutManager(getActivity(), 1);
         rcCommentList.setLayoutManager(layoutManager);

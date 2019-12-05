@@ -173,7 +173,7 @@
                         android:layout_below="@+id/rl2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="سرویسهای برگزیده"
+                        android:text="سرویس\u200cهای برگزیده"
                         android:gravity="start"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
@@ -552,7 +552,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="آیا مایل به دیدن آموزش این اپلیکیشن هستید؟"
+            android:text="آیا مایل به دیدن راهنمای اپلیکیشن هستید؟"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_16dp" />
 

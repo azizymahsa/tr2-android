@@ -289,7 +289,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         rlPredict.setOnClickListener(v ->
         {
             mainView.onPredict(matchPredict, isPredictable);
-//            matchCurrent
+
         });
     }
 
@@ -620,11 +620,26 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
 
             case R.id.rlShirt:
-              //  startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
                 break;
             case R.id.btnBuyTicket:
             {
-                mainView.onBuyTicketClick(matchBuyable);
+                try
+                {
+                    if (matchBuyable.getId() != null)
+                    {
+                        mainView.onBuyTicketClick(matchBuyable);
+                    }
+                    else
+                    {
+                        showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                    }
+                }
+                catch (NullPointerException e)
+                {
+                    showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                }
+
                 //---------------test------------------
 //                Intent i = new Intent(Intent.ACTION_VIEW);
 //                i.setData(Uri.parse("http://5.253.25.117:9000/api/v1/payment/ipg_call_back/1219"));
@@ -874,7 +889,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         });
 
 
-        tvIntroTitle.setText("سلام " + Prefs.getString("firstName", "") + " " + Prefs.getString("lastName", "") + " خوش آمدید!");
+        tvIntroTitle.setText("سلام،" + Prefs.getString("firstName", "") + " " + Prefs.getString("lastName", "") + " خوش آمدید");
         new Handler().postDelayed(() ->
         {
             rlIntro.setVisibility(View.VISIBLE);
