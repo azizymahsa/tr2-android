@@ -10,9 +10,9 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
+        versionCode 4
 //        versionName "0.16.0"
-        versionName "1.0.8"
+        versionName "1.0.9"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
