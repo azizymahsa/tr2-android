@@ -323,7 +323,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         if (Prefs.contains("nationalCode"))
         {
-            etNationalCode.setText(Prefs.getString("nationalCode", ""));
+            if (!Prefs.getString("nationalCode", "").equalsIgnoreCase("") &&
+                    !Prefs.getString("nationalCode", "").equalsIgnoreCase("0"))
+            {
+                etNationalCode.setText(Prefs.getString("nationalCode", ""));
+            }
         }
     }
 
