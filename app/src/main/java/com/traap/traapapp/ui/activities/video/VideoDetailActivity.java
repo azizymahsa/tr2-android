@@ -148,11 +148,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                       // Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                  //  Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -161,7 +161,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             public void onError(String message)
             {
                 //  mainView.hideLoading();
-                Tools.showToast(getApplicationContext(), message, R.color.red);
+               // Tools.showToast(getApplicationContext(), message, R.color.red);
             }
         });
     }
@@ -287,11 +287,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                       // Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                //    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -299,7 +299,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onError(String message)
             {
-                Tools.showToast(getApplicationContext(), message, R.color.red);
+             //   Tools.showToast(getApplicationContext(), message, R.color.red);
 
             }
         });
@@ -349,11 +349,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                      //  Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                   // Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -362,7 +362,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             public void onError(String message)
             {
                 //  mainView.hideLoading();
-                Tools.showToast(getApplicationContext(), message, R.color.red);
+              //  Tools.showToast(getApplicationContext(), message, R.color.red);
                 //rlLike.setClickable(true);
 
             }
