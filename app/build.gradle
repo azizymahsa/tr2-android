@@ -10,9 +10,9 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 4
+        versionCode 6
 //        versionName "0.16.0"
-        versionName "1.0.9"
+        versionName "1.1.0"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -316,6 +316,7 @@ android {
 
         //------------------------DateTimePicker start----------------------
         implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
+        implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.5.1'
         //------------------------DateTimePicker end------------------------
 //        implementation 'co.infinum:goldfinger:1.1.1'
 
