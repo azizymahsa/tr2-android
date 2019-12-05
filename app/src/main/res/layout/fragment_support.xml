@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <LinearLayout
@@ -148,16 +149,34 @@
 
                                 </LinearLayout>
 
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:text=" 041-1546"
-                                    android:textColor="@color/returnButtonColor"
-                                    android:textSize="@dimen/textSize_14dp" />
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="-داخلی4"
+                                        android:textColor="@color/returnButtonColor"
+                                        android:textSize="@dimen/textSize_14dp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right|center_vertical"
+                                        android:text=" 041-4855"
+                                        android:textColor="@color/returnButtonColor"
+                                        android:textSize="@dimen/textSize_14dp" />
+
+                                </LinearLayout>
+
                             </LinearLayout>
 
                         </RelativeLayout>
+
                     </LinearLayout>
 
                     <Space

@@ -122,7 +122,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etFirstName.requestFocus();
 
         genderStrList= new ArrayList<String>();
-        genderStrList.add("-انتخاب کنید-");
+        genderStrList.add("--انتخاب جنسیت--");
         genderStrList.add("زن");
         genderStrList.add("مرد");
 
@@ -270,11 +270,63 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private void getDataProfileUser()
     {
-        etFirstName.setText(Prefs.getString("firstName", ""));
-        etLastName.setText(Prefs.getString("lastName", ""));
-
-        SingletonService.getInstance().getProfileService().getProfileService(this);
+//        SingletonService.getInstance().getProfileService().getProfileService(this);
+        getDataProfileUserFromCatch();
     }
+
+    private void getDataProfileUserFromCatch()
+    {
+        if (Prefs.contains("firstName"))
+        {
+            etFirstName.setText(Prefs.getString("firstName", ""));
+        }
+        if (Prefs.contains("lastName"))
+        {
+            etLastName.setText(Prefs.getString("lastName", ""));
+        }
+        if (Prefs.contains("nickName"))
+        {
+            etNickName.setText(Prefs.getString("nickName", ""));
+        }
+
+        if (Prefs.contains("firstNameUS"))
+        {
+            etFirstNameUS.setText(Prefs.getString("firstNameUS", ""));
+        }
+
+        if (Prefs.contains("lastNameUS"))
+        {
+            etLastNameUS.setText(Prefs.getString("lastNameUS", ""));
+        }
+
+        if (Prefs.contains("email"))
+        {
+            etEmail.setText(Prefs.getString("email", ""));
+        }
+
+        if (Prefs.contains("gender"))
+        {
+            spinnerGender.setSelection(Prefs.getInt("gender", 0));
+        }
+
+        if (Prefs.contains("birthday"))
+        {
+            tvBirthDay.setText(Prefs.getString("birthday", ""));
+        }
+        if (Prefs.contains("popularPlayer"))
+        {
+            if (Prefs.getInt("popularPlayer", 12) != 12)
+            {
+                etPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+                popularPlayer = Prefs.getInt("popularPlayer", 12);
+            }
+        }
+        if (Prefs.contains("nationalCode"))
+        {
+            etNationalCode.setText(Prefs.getString("nationalCode", ""));
+        }
+    }
+
 
     @Override
     protected void onDestroy()
@@ -331,13 +383,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         else
         {
-            popularPlayer = 12;
             try
             {
-                if (!etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
+                if (!etPopularPlayer.getText().toString().equalsIgnoreCase("") &&
                         !etPopularPlayer.getText().toString().equalsIgnoreCase("0"))
                 {
                     popularPlayer = Integer.parseInt(etPopularPlayer.getText().toString().trim());
+                }
+                else
+                {
+                    popularPlayer = 12;
                 }
             }
             catch (Exception e)
@@ -394,7 +449,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 Prefs.putString("firstName", etFirstName.getText().toString());
                                 Prefs.putString("lastName", etLastName.getText().toString());
                                 Prefs.putString("FULLName", etFirstName.getText().toString() + " " + etLastName.getText().toString());
-//                                Prefs.putString("nickName", etFirstNameUS.getText().toString());
+                                Prefs.putString("nickName", etNickName.getText().toString());
+                                Prefs.putString("firstNameUS", etFirstNameUS.getText().toString());
+                                Prefs.putString("lastNameUS", etLastNameUS.getText().toString());
+                                Prefs.putString("email", etEmail.getText().toString());
+                                Prefs.putInt("gender", spinnerGender.getSelectedItemPosition());
+
                                 if (tvBirthDay.getText() != null)
                                 {
                                     Prefs.putString("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ?
@@ -405,9 +465,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 {
                                     Prefs.putInt("popularPlayer", popularPlayer);
                                 }
+                                else
+                                {
+                                    Prefs.putInt("popularPlayer", 12);
+                                }
                                 Prefs.putString("nationalCode", etNationalCode.getText().toString());
 
-                                if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
+                                if (!Prefs.getString("FULLName", "").trim().replace(" ", "")
+                                        .equalsIgnoreCase(""))
                                 {
                                     TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
                                 }
@@ -421,12 +486,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
                                 EventBus.getDefault().post(headerModel);
 
-                                if (headerModel.getPopularNo() != 0)
-                                {
-                                    Prefs.putInt("popularPlayer", 12);
-                                    tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
-                                }
-                                tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+//                                if (headerModel.getPopularNo() != 0)
+//                                {
+//                                    tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+//                                }
+//                                tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
                                 //------------------------------------------
 //                                Prefs.putString("firstName", response.data.getFirstName());
@@ -473,7 +537,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         public void onError(String message)
                         {
                             hideLoading();
-                            if (!Tools.isNetworkAvailable(UserProfileActivity.this))
+                            if (Tools.isNetworkAvailable(UserProfileActivity.this))
                             {
                                 Logger.e("-OnError-", "Error: " + message);
                                 showError(UserProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
