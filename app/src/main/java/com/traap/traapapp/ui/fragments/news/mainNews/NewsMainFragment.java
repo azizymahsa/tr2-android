@@ -75,7 +75,7 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
 
         fragmentManager = getChildFragmentManager();
 
-        fragment = NewsMainContentFragment.newInstance(NewsParent.MainFragment, MainActivity.newsMainResponse, this);
+        fragment = NewsMainContentFragment.newInstance(NewsParent.MainFragment, null, this);
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 

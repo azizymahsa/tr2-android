@@ -152,7 +152,8 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
             //------------------------initPager----------------------
             myMediaType = MediaPosition.News.ordinal();
-            fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
+            fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, null, this);
+//            fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
             transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -176,7 +177,8 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
                 if (myMediaType != MediaPosition.News.ordinal())
                 {
                     myMediaType = MediaPosition.News.ordinal();
-                    fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
+//                    fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
+                    fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, null, this);
                     transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
