@@ -293,7 +293,7 @@ public class AboutFragment
                 } catch (Exception e)
                 {
                     //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/" + "traapapp")));
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
+                   // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
                 }
                 break;
             case R.id.ivTele:
@@ -321,8 +321,8 @@ public class AboutFragment
                 {
                    /* startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://instagram.com/traapapp")));*/
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(instagram)));
+                   /* startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(instagram)));*/
                 }
                 break;
             case R.id.btnHistory:
