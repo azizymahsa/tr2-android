@@ -78,7 +78,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private MainActionView mainView;
 
-    private AnyChartView chartViewPie, chartViewColumn;
+    private AnyChartView chartViewPie;
 
     private Toolbar mToolbar;
 
