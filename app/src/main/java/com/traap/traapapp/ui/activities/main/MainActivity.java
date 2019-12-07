@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
 
@@ -102,6 +103,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 {
     private Boolean isMainFragment = true;
     private Boolean isNewsFragment = false;
+    private Boolean isFirst = true;
 
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
@@ -150,8 +152,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         }
 
         mToolbar = findViewById(R.id.toolbar);
-
-        setSupportActionBar(mToolbar);
 
         //------------------test------------------------
 //        Intent intent = getIntent();
@@ -649,7 +649,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            Logger.e("isCompleteThreadAllServices", String.valueOf(isCompleteThreadAllServices));
 //            Logger.e("isCompleteThreadMatch", String.valueOf(isCompleteThreadMatch));
 
-            findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            if (isFirst)
+            {
+                isFirst = false;
+                new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 1200);
+            }
+            else
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
         }
     }
 

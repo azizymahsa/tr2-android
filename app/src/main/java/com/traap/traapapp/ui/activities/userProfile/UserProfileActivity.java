@@ -308,6 +308,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
             spinnerGender.setSelection(Prefs.getInt("gender", 0));
         }
+        else
+        {
+            spinnerGender.setSelection(2);
+        }
 
         if (Prefs.contains("birthday"))
         {
@@ -406,7 +410,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             SendProfileRequest request = new SendProfileRequest();
 
-            request.setPopularPlayer(popularPlayer);
+//            request.setPopularPlayer(popularPlayer);
+            request.setPopularPlayer(12);
             request.setFirstName(etFirstName.getText().toString().trim());
             request.setLastName(etLastName.getText().toString().trim());
             request.setNickName(etNickName.getText().toString().trim());
