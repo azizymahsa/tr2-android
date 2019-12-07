@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,8 +37,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/content"
-                android:layout_marginEnd="30dp"
-                android:layout_marginStart="30dp"
                 android:layout_centerHorizontal="true"
                 android:orientation="horizontal">
 
@@ -54,6 +54,7 @@
                     android:textSize="@dimen/textSize_14dp"
                     android:textColorHint="@color/grayColor"
                     android:drawableTint="@color/gray"
+                    android:visibility="gone"
                     />
 
                 <TextView
@@ -62,8 +63,6 @@
                     android:layout_marginBottom="2dp"
                     android:layout_weight="0.5"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="8dp"
                     android:text="دسته بندی:"
                     android:textColor="@color/black"
                     android:padding="10dp" />
@@ -129,7 +128,183 @@
                     android:buttonTint="@color/warmGray"/>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="تاریخ:"
+                android:layout_gravity="end"
+                android:gravity="center|start"
+                android:textColor="@color/black"
+                />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/content"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+          <!--  <EditText
+                android:id="@+id/etTimeUntil"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:gravity="start|center"
+                android:layout_marginLeft="10dp"
+                android:hint="تا"
+                android:textSize="@dimen/textSize_14dp"
+                android:textColorHint="@color/grayColor"
+                android:drawableTint="@color/gray"
+                />-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center|right">
 
+                <TextView
+                    android:id="@+id/tv8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="تا"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center_vertical|right"
+                    android:textColor="@color/grayColor"
+                    android:textSize="@dimen/textSize_14dp"/>
+
+                <TextView
+                    android:id="@+id/etTimeUntil"
+                    android:layout_toLeftOf="@+id/tv8"
+                    android:layout_toRightOf="@+id/imgBirthdayReset"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:gravity="center_vertical|right"
+                    android:textSize="@dimen/textSize_12dp"
+                    android:textColor="@color/textColorSecondary" />
+
+                <ImageView
+                    android:id="@+id/imgTimeUntilReset"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/textHint"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/textHint"/>
+
+            </RelativeLayout>
+          <!--  <EditText
+                android:id="@+id/etTimeFrom"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:gravity="start|center"
+                android:layout_marginLeft="10dp"
+                android:hint="از"
+                android:textSize="@dimen/textSize_14dp"
+                android:textColorHint="@color/grayColor"
+                android:drawableTint="@color/gray"
+                />
+
+-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center|right">
+
+                <TextView
+                    android:id="@+id/tv9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="از"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center_vertical|right"
+                    android:textColor="@color/grayColor"
+                    android:textSize="@dimen/textSize_14dp"/>
+
+                <TextView
+                    android:id="@+id/etTimeFrom"
+                    android:layout_toLeftOf="@+id/tv9"
+                    android:layout_toRightOf="@+id/imgBirthdayReset"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:gravity="center_vertical|right"
+                    android:textSize="@dimen/textSize_12dp"
+                    android:textColor="@color/textColorSecondary" />
+
+                <ImageView
+                    android:id="@+id/imgTimeFromReset"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/textHint"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/textHint"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_10dp"
+
+                android:gravity="center|end"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100">
+
+                    <include
+                        android:id="@+id/btnConfirm"
+                        layout="@layout/filter_confirm_button" />
+
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

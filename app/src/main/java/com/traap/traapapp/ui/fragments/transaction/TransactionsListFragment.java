@@ -1,13 +1,18 @@
 package com.traap.traapapp.ui.fragments.transaction;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.Checkable;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -38,7 +45,7 @@ public class TransactionsListFragment
 {
     private String teamId = "";
     private View rootView;
-
+    private SlidingUpPanelLayout upPanelLayout;
     private MainActionView mainView;
 
     private Toolbar mToolbar;
@@ -49,9 +56,10 @@ public class TransactionsListFragment
     public List<DataBean> data = new ArrayList<>();
     private RecyclerView transactionRecycler;
     private TransactionListAdapter fixTableAdapter;
-
-
-
+    private RecyclerView rvCategories;
+    private View llFilter,btnConfirm;
+    private CheckBox cbSuccessPayment,cbFailedPayment;
+    private TextView etTimeUntil,etTimeFrom;
 
 
     public TransactionsListFragment()
@@ -92,6 +100,22 @@ public class TransactionsListFragment
     {
         try
         {
+            upPanelLayout = rootView.findViewById(R.id.sliding_layout);
+
+            cbSuccessPayment=rootView.findViewById(R.id.cbSuccessPayment);
+            cbFailedPayment=rootView.findViewById(R.id.cbFailedPayment);
+
+            etTimeUntil=rootView.findViewById(R.id.etTimeUntil);
+            etTimeFrom=rootView.findViewById(R.id.etTimeFrom);
+
+            rvCategories=rootView.findViewById(R.id.rvCategories);
+            rvCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+            btnConfirm=rootView.findViewById(R.id.btnConfirm);
+            btnConfirm.setOnClickListener(this);
+            llFilter=rootView.findViewById(R.id.llFilter);
+            llFilter.setOnClickListener(this);
+
             transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
             tvCount = rootView.findViewById(R.id.tvCount);
             //Toolbar Create
@@ -127,6 +151,14 @@ public class TransactionsListFragment
         {
 
         }
+    }
+
+    private void openFilterLayout()
+    {
+        upPanelLayout.setScrollableView(rvCategories);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED), 100);
     }
 
     @Override
@@ -250,16 +282,28 @@ public class TransactionsListFragment
     @Override
     public void onClick(View view)
     {
-       /* switch (view.getId())
+        switch (view.getId())
         {
+            case R.id.llFilter:
+
+                openFilterLayout();
+
+                break;
             case R.id.btnConfirm:
 
+                hideFilterSlide();
                 break;
 
 
-        }*/
+        }
 
     }
+
+    private void hideFilterSlide()
+    {
+        upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+    }
+
 
 
  /*   @Override
