@@ -77,5 +77,8 @@
 
     <dimen name="header_week_no_width">60dp</dimen>
     <dimen name="header_week_no_height">35dp</dimen>
+    <dimen name="any_chart_height">200dp</dimen>
+
+
     <dimen name="_5dp">5dp</dimen>
 </resources>
