@@ -71,9 +71,8 @@
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/btnSendComment"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_130sdp"
                 android:layout_height="@dimen/_35dp"
-                android:layout_weight="3"
                 android:layout_gravity="center"
                 android:background="@drawable/background_button_login"
                 android:text="تایید"
