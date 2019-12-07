@@ -24,6 +24,7 @@ import com.anychart.charts.Cartesian;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
+import com.anychart.graphics.vector.GradientKey;
 import com.anychart.graphics.vector.text.Direction;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
@@ -72,13 +73,12 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private CircularProgressButton btnSendPredict;
 
     private Pie pieChart;
-    private Cartesian cartesian;
 
     private Boolean isPredictable;
 
     private MainActionView mainView;
 
-    private AnyChartView chartViewPie, chartViewColumn;
+    private AnyChartView chartViewPie;
 
     private Toolbar mToolbar;
 
@@ -376,6 +376,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 }
 
                 pieChart.data(data);
+                String color[] = {"#de9b89", response.data.getHomeTeamColorCode(), response.data.getAwayTeamColorCode()};
+//                pieChart.palette().itemAt(0, getResources().getColor(R.color.redBackAlpha));
+                pieChart.palette(color);
 
                 pieChart.labels().position("outside");
                 pieChart.labels().fontColor("#000");

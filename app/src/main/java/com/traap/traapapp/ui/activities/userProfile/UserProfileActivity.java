@@ -63,7 +63,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 {
     private Toolbar mToolbar;
     private CircularProgressButton btnConfirm;
-    private EditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName;
+    private ClearableEditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName;
     private ClearableEditText etPopularPlayer;
     private TextView tvMenu, tvBirthDay, tvUserName, tvHeaderPopularNo;
     private Spinner spinnerGender;
@@ -116,6 +116,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etEmail = findViewById(R.id.etEmail);
         etNationalCode = findViewById(R.id.etNationalCode);
 
+        etFirstName.setFilters(new InputFilter[] { new InputFilter.LengthFilter(50) });
+        etLastName.setFilters(new InputFilter[] { new InputFilter.LengthFilter(50) });
+        etFirstNameUS.setFilters(new InputFilter[] { new InputFilter.LengthFilter(50) });
+        etLastNameUS.setFilters(new InputFilter[] { new InputFilter.LengthFilter(50) });
+        etEmail.setFilters(new InputFilter[] { new InputFilter.LengthFilter(100) });
+        etNickName.setFilters(new InputFilter[] { new InputFilter.LengthFilter(50) });
+
         etPopularPlayer.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
         etNationalCode.setFilters(new InputFilter[] { new InputFilter.LengthFilter(10) });
 
@@ -164,7 +171,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             uploadProfileData();
         });
 
-        tvBirthDay.setOnClickListener(v ->
+        findViewById(R.id.rlBirthDay).setOnClickListener(v ->
         {
             pickerDialogDate.show(getFragmentManager(), "CreateDate");
         });
@@ -211,35 +218,35 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //                ((TextView)etNationalCode).setError("کد ملی نامعتبر است!");
             }
         }
-        if (!etEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && !etEmail.getText().toString().equalsIgnoreCase(""))
+        if (!etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && !etEmail.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "ایمیل،";
             err = false;
 //            etEmail.setError("ایمیل درست نیست!");
         }
 
-        if (!etFirstName.getText().toString().matches("[ا-ی]+") && !etFirstName.getText().toString().equalsIgnoreCase(""))
+        if (!etFirstName.getText().toString().trim().matches("[ا-ی]+") && !etFirstName.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام فارسی،";
             err = false;
 //            etFirstNameUS.setError("نام انگلیسی درست نیست!");
         }
 
-        if (!etLastName.getText().toString().matches("[ا-ی]+") && !etLastName.getText().toString().equalsIgnoreCase(""))
+        if (!etLastName.getText().toString().trim().matches("[ا-ی]+") && !etLastName.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام خانوادگی فارسی،";
             err = false;
 //            etFirstNameUS.setError("نام انگلیسی درست نیست!");
         }
 
-        if (!etFirstNameUS.getText().toString().matches("[a-zA-Z]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
+        if (!etFirstNameUS.getText().toString().trim().matches("[a-zA-Z]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام انگلیسی،";
             err = false;
 //            etFirstNameUS.setError("نام انگلیسی درست نیست!");
         }
 
-        if (!etLastNameUS.getText().toString().matches("[a-zA-Z]+") && !etLastNameUS.getText().toString().equalsIgnoreCase(""))
+        if (!etLastNameUS.getText().toString().trim().matches("[a-zA-Z]+") && !etLastNameUS.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام خانوادگی انگلیسی،";
             err = false;
