@@ -155,6 +155,7 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
                     {
                         btnSendComment.revertAnimation(NewsDetailsCommentFragment.this);
                         btnSendComment.setClickable(true);
+
                         if (response.info.statusCode == 200)
                         {
                             showAlert(context, response.info.message, 0);

@@ -37,7 +37,6 @@ public class BaseActivity extends AppCompatActivity
     public void showError(Context context, String message)
     {
         Tools.showToast(context, message, R.color.red);
-
     }
 
     public static void showAlert(Context context, String Msg, int title)

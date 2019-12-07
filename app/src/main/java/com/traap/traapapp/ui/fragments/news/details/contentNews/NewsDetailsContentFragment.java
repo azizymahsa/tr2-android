@@ -127,11 +127,18 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         tvTitle.setText(content.getTitle());
         tvLikeCounter.setText(String.valueOf(content.getLikeCounter()));
 
-        if (content.getBookmarked())
+        try
         {
-            imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+            if (content.getBookmarked())
+            {
+                imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+            }
+            else
+            {
+                imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
+            }
         }
-        else
+        catch (NullPointerException e)
         {
             imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
         }
@@ -139,6 +146,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         try
         {
             like = content.getLiked();
+
             if (content.getLiked())
             {
                 imgLike.setColorFilter(getResources().getColor(R.color.imageLikedNewsTintColor));

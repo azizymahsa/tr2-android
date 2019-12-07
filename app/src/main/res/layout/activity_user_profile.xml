@@ -428,6 +428,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:layout_gravity="center|right"
                                     android:layout_weight="100"
+                                    android:visibility="gone"
                                     android:hint="شماره بازیکن محبوب"
                                     android:theme="@style/EditTextHint"
                                     app:hintTextAppearance="@style/TextLabelProfile">

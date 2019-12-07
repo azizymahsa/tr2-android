@@ -60,6 +60,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/rlNextNews"
                         android:layout_width="@dimen/_100dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -105,6 +106,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rlPrevNews"
                         android:layout_width="@dimen/_100dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
