@@ -28,12 +28,15 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import library.android.eniac.StartEniacFlightActivity;
 import okhttp3.MultipartBody;
+import saman.zamani.persiandate.PersianDate;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -277,8 +280,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private void getDataProfileUser()
     {
-//        SingletonService.getInstance().getProfileService().getProfileService(this);
-        getDataProfileUserFromCatch();
+        SingletonService.getInstance().getProfileService().getProfileService(this);
+//        getDataProfileUserFromCatch();
     }
 
     private void getDataProfileUserFromCatch()
@@ -415,37 +418,32 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             }
 
-            SendProfileRequest request = new SendProfileRequest();
-
-//            request.setPopularPlayer(popularPlayer);
-            request.setPopularPlayer(12);
-            request.setFirstName(etFirstName.getText().toString().trim());
-            request.setLastName(etLastName.getText().toString().trim());
-            request.setNickName(etNickName.getText().toString().trim());
-            request.setEmail(etEmail.getText().toString().trim());
-
-            request.setNationalCode(etNationalCode.getText().toString());
-
-            request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ?
-                    null :
-                    tvBirthDay.getText().toString()
-            );
-
-            request.setFirstNameUS(etFirstNameUS.getText().toString().trim());
-            request.setLastNameUS(etLastNameUS.getText().toString().trim());
-            request.setGender(spinnerGender.getSelectedItemPosition());
+//            SendProfileRequest request = new SendProfileRequest();
+//            request.setPopularPlayer(12);
 
             try
             {
                 part = PrepareImageFilePart.prepareFilePart(userPic.getName(), userPic);
-//                request.setImageFile(part);
             }
             catch (Exception e)
             {
                 part = null;
             }
+            Map<String, Object> fields = new HashMap<>();
+            fields.put("first_name", etFirstName.getText().toString().trim().replace("\"\"", ""));
+            fields.put("last_name", etLastNameUS.getText().toString().trim().replace("\"\"", ""));
+            fields.put("national_code", etNationalCode.getText().toString().replace("\"\"", ""));
+            fields.put("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ? null :
+                    getGrgDate(tvBirthDay.getText().toString()).replace("\"\"", ""));
+//            fields.put("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("");
+            fields.put("english_name", etNickName.getText().toString().trim().replace("\"\"", ""));
+            fields.put("key_invite", 0);
+            fields.put("sex", spinnerGender.getSelectedItemPosition());
+            fields.put("first_english_name", etFirstNameUS.getText().toString().trim().replace("\"\"", ""));
+            fields.put("last_english_name",  etLastNameUS.getText().toString().trim().replace("\"\"", ""));
+            fields.put("email", etEmail.getText().toString().trim().replace("\"\"", ""));
 
-            SingletonService.getInstance().sendProfileService().sendProfileService(request,
+            SingletonService.getInstance().sendProfileService().sendProfileService(fields, part,
                     new OnServiceStatus<WebServiceClass<SendProfileResponse>>()
                     {
                         @Override
@@ -570,6 +568,34 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     }
 
 
+    private String getGrgDate(String dateStr)
+    {
+        String spliter = "/";
+        String[] date = dateStr.split(spliter);
+
+        PersianDate persianDate = new PersianDate();
+        persianDate.setShYear(Integer.parseInt(date[0]));
+        persianDate.setShMonth(Integer.parseInt(date[1]));
+        persianDate.setShDay(Integer.parseInt(date[2]));
+
+        String month = String.valueOf(persianDate.getGrgMonth());
+        String day = String.valueOf(persianDate.getGrgDay());
+
+        if (persianDate.getGrgMonth() < 10)
+        {
+            month = "0" + month;
+        }
+        if (persianDate.getGrgDay() < 10)
+        {
+            day = "0" + day;
+        }
+
+        String newDate = persianDate.getGrgYear() + "-" + month + "-" + day;
+
+        return newDate;
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -621,8 +647,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 Prefs.putInt("favPlayerNo", response.data.getPopularPlayer());
             }
 
-            etFirstName.setText(response.data.getFirstName());
-            etLastName.setText(response.data.getLastName());
+//            etFirstName.setText(response.data.getFirstName().replace("\"\"", ""));
+            etFirstName.setText(response.data.getFirstName().substring(1, response.data.getFirstName().length()-1));
+            etLastName.setText(response.data.getLastName().substring(1, response.data.getLastName().length()-1));
 
             if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
             {
@@ -647,20 +674,28 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             //  etPopularPlayer.setText(response.data.getPopularPlayer().toString());
             try
             {
-                if (!response.data.getBirthday().equalsIgnoreCase(""))
+                if (!response.data.getBirthday().substring(1, response.data.getBirthday().length()-1).equalsIgnoreCase(""))
                 {
-                    tvBirthDay.setText("تاریخ تولد:" + response.data.getBirthday());
+                    tvBirthDay.setText("" + response.data.getBirthday().substring(1, response.data.getBirthday().length()-1));
                 }
             }
             catch (Exception e)
             {
 
             }
-            etNickName.setText(response.data.getEnglishName());
-            etNationalCode.setText(response.data.getNationalCode().equals("0") ? "" : response.data.getNationalCode());
-            etFirstNameUS.setText(response.data.getFirstNameUS());
-            etLastNameUS.setText(response.data.getLastNameUS());
-//            etEmail.setText(response.data.getEmail());
+            etNickName.setText(response.data.getEnglishName().substring(1, response.data.getEnglishName().length()-1));
+            etNationalCode.setText(response.data.getNationalCode().substring(1, response.data.getNationalCode().length()-1).equals("0") ? "" :
+                    response.data.getNationalCode().substring(1, response.data.getNationalCode().length()-1));
+            etFirstNameUS.setText(response.data.getFirstNameUS().substring(1, response.data.getFirstNameUS().length()-1));
+            etLastNameUS.setText(response.data.getLastNameUS().substring(1, response.data.getLastNameUS().length()-1));
+            try
+            {
+                etEmail.setText(response.data.getEmail().substring(1, response.data.getEmail().length()-1));
+            }
+            catch (Exception e)
+            {
+
+            }
 
             Prefs.putString("shareText", response.data.getShareText());
         }
