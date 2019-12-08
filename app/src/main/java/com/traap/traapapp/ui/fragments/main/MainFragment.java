@@ -50,9 +50,11 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
+import com.traap.traapapp.ui.activities.web.WebActivity;
 import com.traap.traapapp.ui.adapters.mainServiceModel.MainServiceModelAdapter;
 import com.traap.traapapp.ui.adapters.mainSlider.MainSliderAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.webView.WebFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -343,6 +345,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     item.setTitle(itemResponse.getTitle());
                     item.setImageLink(itemResponse.getImageName());
                     item.setKeyName(itemResponse.getKeyName());
+                    item.setBase_url(itemResponse.getBaseUrl());
 
                     newList.add(item);
                 }
@@ -527,7 +530,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
     @Override
-    public void onChosenItemClick(View view, Integer id)
+    public void onChosenItemClick(View view, Integer id,String URl)
     {
         switch (id)
         {
@@ -537,7 +540,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 ////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
 //                onGdsFlightAta(null);
 
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/ata-flights");
+               // Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/ata-flights");
+               /* Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
+                startActivity(intent);*/
+                WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
                 break;
             }
 
@@ -546,7 +556,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                mainView.showLoading();
 ////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
 //                onGdsFlight(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/flights");
+               // Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/flights");
+              /*  Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
+                startActivity(intent);*/
+                WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
                 break;
             }
 
@@ -555,7 +572,10 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                mainView.showLoading();
 ////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_HOTEL, MainFragment.this);
 //                onGdsHotel(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/hotels");
+              //  Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/hotels");
+                WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
                 break;
             }
 
@@ -564,7 +584,20 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                mainView.showLoading();
 ////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, MainFragment.this);
 //                onGdsBus(null);
-                Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/Bus");
+              //  Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/Bus");
+               /* Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
+                startActivity(intent);*/
+                /*WebFragment fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, fragment, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();*/
+                WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
                 break;
             }
 

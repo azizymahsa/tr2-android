@@ -180,6 +180,9 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
                         Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer() == 0 ? 12 : response.data.getProfile().getPopularPlayer());
 
+                        Prefs.putString("gds_token",  response.data.getGds_token());
+                        Prefs.putString("bimeh_token",  response.data.getBimeh_token());
+
                         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
                         {
                             AdpPushClient.get().register(Prefs.getString("mobile", ""));
@@ -216,6 +219,8 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
     private void setProfileData(WebServiceClass<VerifyResponse> response)
     {
+
+
         Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
 
         Profile profile = response.data.getProfile();

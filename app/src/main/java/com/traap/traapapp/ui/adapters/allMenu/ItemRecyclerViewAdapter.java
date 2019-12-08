@@ -122,7 +122,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         {
             if (mItemClickListener != null)
             {
-                mItemClickListener.onChosenItemClickk(view,  list.get(getAdapterPosition()).getKeyId());
+                mItemClickListener.onChosenItemClickk(view,  list.get(getAdapterPosition()).getKeyId(),list.get(getAdapterPosition()).getBaseUrl());
             }
         }
     }
@@ -130,7 +130,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     public interface OnItemClickListenerItem
     {
-        public void onChosenItemClickk(View view, Integer id);
+        public void onChosenItemClickk(View view, Integer id,String URL);
     }
 
 //    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)

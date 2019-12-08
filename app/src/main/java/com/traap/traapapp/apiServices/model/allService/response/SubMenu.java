@@ -27,6 +27,19 @@ public class SubMenu {
     @SerializedName("order_item")
     @Expose
     private Integer orderItem;
+    @SerializedName("base_url")
+    @Expose
+    private String baseUrl;
+
+    public String getBaseUrl()
+    {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl)
+    {
+        this.baseUrl = baseUrl;
+    }
 
     public Integer getId() {
         return id;
