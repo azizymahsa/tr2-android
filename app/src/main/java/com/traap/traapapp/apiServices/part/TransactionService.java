@@ -58,9 +58,10 @@ public class TransactionService extends BasePart
     }
 
 
-    public void getTransactionList(OnServiceStatus<WebServiceClass<ResponseTransaction>> listener)
+    public void getTransactionList(OnServiceStatus<WebServiceClass<ResponseTransaction>> listener,Integer amountRange,
+                                   Boolean status,Integer typeTransactionId,String createDateRange)
     {
-        start(getServiceGenerator().createService().getTransactionList(), listener);
+        start(getServiceGenerator().createService().getTransactionList(amountRange,status,typeTransactionId,createDateRange), listener);
     }
 
 }
