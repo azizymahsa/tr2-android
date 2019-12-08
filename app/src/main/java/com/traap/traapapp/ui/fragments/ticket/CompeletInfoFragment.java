@@ -35,6 +35,7 @@ import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
 import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
 import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumInteractor;
+import com.traap.traapapp.utilities.NationalCodeValidation;
 import com.traap.traapapp.utilities.Tools;
 import library.android.eniac.utility.Utility;
 
@@ -696,7 +697,7 @@ public class CompeletInfoFragment
     {
         String flagValidations = "";
         if (etNationalCode_1.getText().toString() != null)
-            if (isValidNationalCode(etNationalCode_1.getText().toString()))
+            if (NationalCodeValidation.isValidNationalCode(etNationalCode_1.getText().toString()))
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
@@ -763,7 +764,7 @@ public class CompeletInfoFragment
     {
         String flagValidations = "";
         if (etNationalCode_2.getText().toString() != null)
-            if (isValidNationalCode(etNationalCode_2.getText().toString()))
+            if (NationalCodeValidation.isValidNationalCode(etNationalCode_2.getText().toString()))
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_2.setTextColor(Color.parseColor("#4d4d4d"));
@@ -830,7 +831,7 @@ public class CompeletInfoFragment
     {
         String flagValidations = "";
         if (etNationalCode_3.getText().toString() != null)
-            if (isValidNationalCode(etNationalCode_3.getText().toString()))
+            if (NationalCodeValidation.isValidNationalCode(etNationalCode_3.getText().toString()))
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_3.setTextColor(Color.parseColor("#4d4d4d"));
@@ -897,7 +898,7 @@ public class CompeletInfoFragment
     {
         String flagValidations = "";
         if (etNationalCode_4.getText().toString() != null)
-            if (isValidNationalCode(etNationalCode_4.getText().toString()))
+            if (NationalCodeValidation.isValidNationalCode(etNationalCode_4.getText().toString()))
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_4.setTextColor(Color.parseColor("#4d4d4d"));
@@ -964,7 +965,7 @@ public class CompeletInfoFragment
     {
         String flagValidations = "";
         if (etNationalCode_5.getText().toString() != null)
-            if (isValidNationalCode(etNationalCode_5.getText().toString()))
+            if (NationalCodeValidation.isValidNationalCode(etNationalCode_5.getText().toString()))
             {
                 flagValidations = flagValidations + "T";
                 etNationalCode_5.setTextColor(Color.parseColor("#4d4d4d"));
@@ -1028,38 +1029,6 @@ public class CompeletInfoFragment
     }
 
 
-    private boolean isValidNationalCode(String nationalCode)
-    {
-        if (nationalCode.length() != 10)
-        {
-            return false;
-        } else
-        {
-            //Check for equal numbers
-            String[] allDigitEqual = {"0000000000", "1111111111", "2222222222", "3333333333",
-                    "4444444444", "5555555555", "6666666666", "7777777777", "8888888888", "9999999999"};
-            if (Arrays.asList(allDigitEqual).contains(nationalCode))
-            {
-                return false;
-            } else
-            {
-                int sum = 0;
-                int lenght = 10;
-                for (int i = 0; i < lenght - 1; i++)
-                {
-                    sum += Integer.parseInt(String.valueOf(nationalCode.charAt(i))) * (lenght - i);
-                }
-
-                int r = Integer.parseInt(String.valueOf(nationalCode.charAt(9)));
-
-                int c = sum % 11;
-
-                return (((c < 2) && (r == c)) || ((c >= 2) && ((11 - c) == r)));
-            }
-
-        }
-    }
-
     @Override
     public void onFocusChange(View v, boolean b)
     {
@@ -1068,7 +1037,7 @@ public class CompeletInfoFragment
         {
             case R.id.etNationalCode_1:
                 if (etNationalCode_1.getText().toString() != null)
-                    if (isValidNationalCode(etNationalCode_1.getText().toString()))
+                    if (NationalCodeValidation.isValidNationalCode(etNationalCode_1.getText().toString()))
                     {
                         etNationalCode_1.setTextColor(Color.parseColor("#4d4d4d"));
 
@@ -1115,7 +1084,7 @@ public class CompeletInfoFragment
             /*PassengetSecond*/
             case R.id.etNationalCode_2:
                 if (etNationalCode_2.getText().toString() != null)
-                    if (isValidNationalCode(etNationalCode_2.getText().toString()))
+                    if (NationalCodeValidation.isValidNationalCode(etNationalCode_2.getText().toString()))
                     {
                         etNationalCode_2.setTextColor(Color.parseColor("#4d4d4d"));
 
@@ -1162,7 +1131,7 @@ public class CompeletInfoFragment
             /*PassengetThird*/
             case R.id.etNationalCode_3:
                 if (etNationalCode_3.getText().toString() != null)
-                    if (isValidNationalCode(etNationalCode_3.getText().toString()))
+                    if (NationalCodeValidation.isValidNationalCode(etNationalCode_3.getText().toString()))
                     {
                         etNationalCode_3.setTextColor(Color.parseColor("#4d4d4d"));
 
@@ -1209,7 +1178,7 @@ public class CompeletInfoFragment
             /*PassengetForthi*/
             case R.id.etNationalCode_4:
                 if (etNationalCode_4.getText().toString() != null)
-                    if (isValidNationalCode(etNationalCode_4.getText().toString()))
+                    if (NationalCodeValidation.isValidNationalCode(etNationalCode_4.getText().toString()))
                     {
                         etNationalCode_4.setTextColor(Color.parseColor("#4d4d4d"));
 
@@ -1256,7 +1225,7 @@ public class CompeletInfoFragment
             /*PassengetFive*/
             case R.id.etNationalCode_5:
                 if (etNationalCode_5.getText().toString() != null)
-                    if (isValidNationalCode(etNationalCode_5.getText().toString()))
+                    if (NationalCodeValidation.isValidNationalCode(etNationalCode_5.getText().toString()))
                     {
                         etNationalCode_5.setTextColor(Color.parseColor("#4d4d4d"));
 

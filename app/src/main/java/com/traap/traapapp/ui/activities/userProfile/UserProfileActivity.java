@@ -3,6 +3,7 @@ package com.traap.traapapp.ui.activities.userProfile;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputFilter;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,9 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
-import com.esafirm.imagepicker.features.ImagePicker;
-import com.esafirm.imagepicker.features.ReturnMode;
-import com.esafirm.imagepicker.model.Image;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -34,22 +31,23 @@ import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-import library.android.eniac.StartEniacFlightActivity;
 import okhttp3.MultipartBody;
 import saman.zamani.persiandate.PersianDate;
 
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
-import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.NationalCodeValidation;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.PrepareImageFilePart;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
@@ -74,6 +72,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private ImageView imgProfile, imgBirthdayReset;
 
     private PersianCalendar currentDate;
+    private Uri imageUri;
 
     private DatePickerDialog pickerDialogDate;
 
@@ -214,7 +213,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         else if (etNationalCode.getText().toString().length() == 10)
         {
-            if (!StartEniacFlightActivity.Companion.isValidIranianNationalCode(etNationalCode.getText().toString()))
+            if (!NationalCodeValidation.isValidNationalCode(etNationalCode.getText().toString()))
             {
                 message = message + "کد ملی،";
                 err = false;
@@ -379,14 +378,18 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     @Override
     public void openImageChooser()
     {
-        ImagePicker.create(this)
-                .returnMode(ReturnMode.GALLERY_ONLY) // set whether pick action or camera action should return immediate result or not. Only works in single mode for image picker
-                .folderMode(true) // set folder mode (false by default)
-                .single()
-                .toolbarFolderTitle("Folder") // folder selection title
-                .toolbarImageTitle("Tap to select")
-                .toolbarDoneButtonText("DONE") // done button text
-                .start(); // image selection title
+//        ImagePicker.create(this)
+//                .returnMode(ReturnMode.GALLERY_ONLY) // set whether pick action or camera action should return immediate result or not. Only works in single mode for image picker
+//                .folderMode(true) // set folder mode (false by default)
+//                .single()
+//                .toolbarFolderTitle("Folder") // folder selection title
+//                .toolbarImageTitle("Tap to select")
+//                .toolbarDoneButtonText("DONE") // done button text
+//                .start(); // image selection title
+
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
     }
 
     @Override
@@ -430,18 +433,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 part = null;
             }
             Map<String, Object> fields = new HashMap<>();
-            fields.put("first_name", etFirstName.getText().toString().trim().replace("\"\"", ""));
-            fields.put("last_name", etLastNameUS.getText().toString().trim().replace("\"\"", ""));
-            fields.put("national_code", etNationalCode.getText().toString().replace("\"\"", ""));
-            fields.put("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ? null :
-                    getGrgDate(tvBirthDay.getText().toString()).replace("\"\"", ""));
-//            fields.put("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("");
-            fields.put("english_name", etNickName.getText().toString().trim().replace("\"\"", ""));
+            fields.put("first_name", etFirstName.getText().toString().trim());
+            fields.put("last_name", etLastNameUS.getText().toString().trim());
+            fields.put("national_code", etNationalCode.getText().toString());
+//            fields.put("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ? null :
+//                    getGrgDate(tvBirthDay.getText().toString()));
+//                    tvBirthDay.getText().toString());
+//            fields.put("birthday", getGrgDate(tvBirthDay.getText().toString()));
+            fields.put("birthday", tvBirthDay.getText().toString());
+            fields.put("english_name", etNickName.getText().toString().trim());
             fields.put("key_invite", 0);
             fields.put("sex", spinnerGender.getSelectedItemPosition());
-            fields.put("first_english_name", etFirstNameUS.getText().toString().trim().replace("\"\"", ""));
-            fields.put("last_english_name",  etLastNameUS.getText().toString().trim().replace("\"\"", ""));
-            fields.put("email", etEmail.getText().toString().trim().replace("\"\"", ""));
+            fields.put("first_english_name", etFirstNameUS.getText().toString().trim());
+            fields.put("last_english_name",  etLastNameUS.getText().toString().trim());
+            fields.put("email", etEmail.getText().toString().trim());
 
             SingletonService.getInstance().sendProfileService().sendProfileService(fields, part,
                     new OnServiceStatus<WebServiceClass<SendProfileResponse>>()
@@ -600,14 +605,28 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        if (ImagePicker.shouldHandle(requestCode, resultCode, data))
+//        if (ImagePicker.shouldHandle(requestCode, resultCode, data))
+//        {
+//            // Get a list of picked images
+//            Image image = ImagePicker.getFirstImageOrNull(data);
+//            if (image != null)
+//            {
+////                imgProfile.setImageBitmap(BitmapFactory.decodeFile(image.getPath()));
+////                saveImage(BitmapFactory.decodeFile(image.getPath()));
+//            }
+//        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
         {
-            // Get a list of picked images
-            Image image = ImagePicker.getFirstImageOrNull(data);
-            if (image != null)
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK)
             {
-                imgProfile.setImageBitmap(BitmapFactory.decodeFile(image.getPath()));
-                saveImage(BitmapFactory.decodeFile(image.getPath()));
+                imageUri = result.getUri();
+                imgProfile.setImageBitmap(BitmapFactory.decodeFile(imageUri.getPath()));
+                saveImage(BitmapFactory.decodeFile(imageUri.getPath()));
+            }
+            else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE)
+            {
+                Exception error = result.getError();
             }
         }
     }
@@ -648,8 +667,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
 
 //            etFirstName.setText(response.data.getFirstName().replace("\"\"", ""));
-            etFirstName.setText(response.data.getFirstName().substring(1, response.data.getFirstName().length()-1));
-            etLastName.setText(response.data.getLastName().substring(1, response.data.getLastName().length()-1));
+            etFirstName.setText(response.data.getFirstName());
+            etLastName.setText(response.data.getLastName());
 
             if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
             {
@@ -674,23 +693,23 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             //  etPopularPlayer.setText(response.data.getPopularPlayer().toString());
             try
             {
-                if (!response.data.getBirthday().substring(1, response.data.getBirthday().length()-1).equalsIgnoreCase(""))
+                if (!response.data.getBirthday().equalsIgnoreCase(""))
                 {
-                    tvBirthDay.setText("" + response.data.getBirthday().substring(1, response.data.getBirthday().length()-1));
+                    tvBirthDay.setText("" + response.data.getBirthday());
                 }
             }
             catch (Exception e)
             {
 
             }
-            etNickName.setText(response.data.getEnglishName().substring(1, response.data.getEnglishName().length()-1));
-            etNationalCode.setText(response.data.getNationalCode().substring(1, response.data.getNationalCode().length()-1).equals("0") ? "" :
-                    response.data.getNationalCode().substring(1, response.data.getNationalCode().length()-1));
-            etFirstNameUS.setText(response.data.getFirstNameUS().substring(1, response.data.getFirstNameUS().length()-1));
-            etLastNameUS.setText(response.data.getLastNameUS().substring(1, response.data.getLastNameUS().length()-1));
+            etNickName.setText(response.data.getEnglishName());
+            etNationalCode.setText(response.data.getNationalCode().equals("0") ? "" :
+                    response.data.getNationalCode());
+            etFirstNameUS.setText(response.data.getFirstNameUS());
+            etLastNameUS.setText(response.data.getLastNameUS());
             try
             {
-                etEmail.setText(response.data.getEmail().substring(1, response.data.getEmail().length()-1));
+                etEmail.setText(response.data.getEmail());
             }
             catch (Exception e)
             {
@@ -729,7 +748,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //            pickerDialogDate.setPersianCalendar(calendar);
 //            pickerDialogDate.setMaxDate(currentDate);
 
-            String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+//            String createDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+            String createDate = year + "/" + dayOfMonth + "/" + (monthOfYear + 1);
 //            viewModel.updateTvCreateDate(createDate);
             tvBirthDay.setText(createDate);
             imgBirthdayReset.setVisibility(View.VISIBLE);

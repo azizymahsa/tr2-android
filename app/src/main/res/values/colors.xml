@@ -87,4 +87,5 @@
 
     <color name="mdtp_accent_color">#AD0000</color>
     <color name="mdtp_accent_color_dark">#810000</color>
+    <color name="white">#fff</color>
 </resources>

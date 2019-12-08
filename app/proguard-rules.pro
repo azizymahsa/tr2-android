@@ -86,8 +86,8 @@
 -keep class eniac.shetac.model.db.ArchiveCardDBModel { *; }
 -keep class eniac.shetac.model.db.** { *; }
 
-
-
+#cropImage
+-keep class androidx.appcompat.widget.** { *; }
 
 
 -keep class org.sqlite.** { *; }
