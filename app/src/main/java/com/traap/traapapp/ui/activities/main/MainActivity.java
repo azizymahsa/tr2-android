@@ -72,6 +72,7 @@ import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
+import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
@@ -502,7 +503,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 4:
             {
-                showToast(this, "کیف پول", R.color.green);
+               // showToast(this, "کیف پول", R.color.green);
+                isMainFragment = false;
+
+                fragment = WalletFragment.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "walletFragment")
+                        .commit();
 
                 break;
             }
