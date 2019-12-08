@@ -81,4 +81,5 @@
     <dimen name="news_archive_width" >120dp</dimen>
 
     <dimen name="news_favorite_height" >300dp</dimen>
+    <dimen name="any_chart_height">240dp</dimen>
 </resources>

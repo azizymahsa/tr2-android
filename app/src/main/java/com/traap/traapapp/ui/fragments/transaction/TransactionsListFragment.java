@@ -105,6 +105,8 @@ public class TransactionsListFragment
             cbSuccessPayment=rootView.findViewById(R.id.cbSuccessPayment);
             cbFailedPayment=rootView.findViewById(R.id.cbFailedPayment);
 
+            imgTimeFromReset=rootView.findViewById(R.id.imgTimeFromReset)
+
             etTimeUntil=rootView.findViewById(R.id.etTimeUntil);
             etTimeFrom=rootView.findViewById(R.id.etTimeFrom);
 

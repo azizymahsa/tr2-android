@@ -17,6 +17,7 @@ import com.traap.traapapp.apiServices.part.FlightService;
 import com.traap.traapapp.apiServices.part.GetAllBoxesService;
 import com.traap.traapapp.apiServices.part.GetBillInfoService;
 import com.traap.traapapp.apiServices.part.GetCardListService;
+import com.traap.traapapp.apiServices.part.GetContactInfoService;
 import com.traap.traapapp.apiServices.part.GetHappyCardInfoService;
 import com.traap.traapapp.apiServices.part.GetMainVideosService;
 import com.traap.traapapp.apiServices.part.GetMenuHelpService;
@@ -143,6 +144,12 @@ public class SingletonService
     public ArchiveVideoService getArchiveVideoService()
     {
         return new ArchiveVideoService(serviceGenerator);
+    }
+
+
+    public GetContactInfoService getContactInfoService()
+    {
+        return new GetContactInfoService(serviceGenerator);
     }
 
     public GetMenuHelpService getMenuHelpService(){

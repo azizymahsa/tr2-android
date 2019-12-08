@@ -1,6 +1,7 @@
 package com.traap.traapapp.apiServices.api;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import io.reactivex.Single;
 import com.traap.traapapp.apiServices.helper.Const;
@@ -19,6 +20,7 @@ import com.traap.traapapp.apiServices.model.card.addCard.request.AddCardRequest;
 import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardRequest;
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
+import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
 import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferRequest;
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
@@ -96,13 +98,24 @@ import com.traap.traapapp.apiServices.model.tourism.hotel.sendMessage.request.Ho
 import com.traap.traapapp.apiServices.model.verify.VerifyRequest;
 import com.traap.traapapp.apiServices.model.verify.VerifyResponse;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
+
+import org.checkerframework.checker.nullness.compatqual.NullableType;
+
+import javax.annotation.Nullable;
+
+import okhttp3.MultipartBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -117,6 +130,9 @@ public interface RetroClient
 
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
+
+    @GET(Const.GetContactInfo)
+    Single<Response<WebServiceClass<GetContactInfoResponse>>> getContactInfo();
 
     /*videos*/
     @GET(Const.Get_Main_Video)
@@ -434,10 +450,23 @@ public interface RetroClient
     @GET(Const.GET_Invite)
     Single<Response<WebServiceClass<InviteResponse>>> getInvite();
 
-//    @Multipart
+    @Multipart
+//    @FormUrlEncoded
     @PUT(Const.PUT_PROFILE)
     Single<Response<WebServiceClass<SendProfileResponse>>> sendProfile(
-            @Body SendProfileRequest request
+//            @FieldMap Map<String, String> fields,
+            @PartMap Map<String, Object> fields,
+//            @Field("first_name") String firstName,
+//            @Field("last_name") String lastName,
+//            @Field("national_code") String nationalCode,
+//            @Field("birthday") String birthday,
+//            @Field("english_name") String nickName,
+//            @Field("key_invite") String keyInvite,
+//            @Field("sex") Integer gender,
+//            @Field("first_english_name") String firstNameUS,
+//            @Field("last_english_name") String lastNameUS,
+//            @Field("email") String email,
+            @Part MultipartBody.Part ImageFile
     );
 
     @GET(Const.Get_NEWS_ARCHIVE_CATEGORY)
