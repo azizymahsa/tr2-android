@@ -289,12 +289,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private void getBaseData()
     {
+        mainView.showLoading();
         SingletonService.getInstance().getPredictService().getPredictService(matchPredict.getId(), this);
     }
 
     @Override
     public void onReady(WebServiceClass<GetPredictResponse> response)
     {
+        mainView.hideLoading();
         if (response == null || response.data == null)
         {
             showErrorAndBackToMain("خطا در دریافت اطلاعات از سرور!");
@@ -474,6 +476,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     @Override
     public void onError(String message)
     {
+        mainView.hideLoading();
         Logger.e("-onError-", "Error: " + message);
         showErrorAndBackToMain("خطا در دریافت اطلاعات از سرور!");
     }

@@ -30,7 +30,7 @@ public class GetProfileResponse
 
     @SerializedName("national_code")
     @Expose @Getter @Setter
-    private String nationalCode;
+    private Long nationalCode;
 
     @SerializedName("email")
     @Expose @Getter @Setter
