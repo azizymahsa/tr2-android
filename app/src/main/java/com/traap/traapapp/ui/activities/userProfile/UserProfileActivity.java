@@ -366,7 +366,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         if (Prefs.contains("gender"))
         {
-            spinnerGender.setSelection(Prefs.getInt("gender", 0));
+            spinnerGender.setSelection(Prefs.getInt("gender", 2) != 1 ? 2 : 1);
         }
         else
         {

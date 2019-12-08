@@ -492,38 +492,38 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 2:
             {
-                showToast(this, "امتیازات", R.color.green);
+//                showToast(this, "امتیازات", R.color.green);
                 break;
             }
             case 3:
             {
-                showToast(this, "جشنواره", R.color.green);
+//                showToast(this, "جشنواره", R.color.green);
 
                 break;
             }
             case 4:
             {
                // showToast(this, "کیف پول", R.color.green);
-                isMainFragment = false;
-
-                fragment = WalletFragment.newInstance(this);
-                transaction = fragmentManager.beginTransaction();
-//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                transaction.replace(R.id.main_container, fragment, "walletFragment")
-                        .commit();
+//                isMainFragment = false;
+//
+//                fragment = WalletFragment.newInstance(this);
+//                transaction = fragmentManager.beginTransaction();
+////                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//                transaction.replace(R.id.main_container, fragment, "walletFragment")
+//                        .commit();
 
                 break;
             }
             case 5:
             {
-                showToast(this, "مدیریت کارت ها", R.color.green);
+//                showToast(this, "مدیریت کارت ها", R.color.green);
 
                 break;
             }
             case 6:
             {
-                showToast(this, "دعوت از دوستان", R.color.green);
+//                showToast(this, "دعوت از دوستان", R.color.green);
 
                 break;
             }
@@ -550,7 +550,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 8:
             {
-                showToast(this, "تنظیمات", R.color.green);
+//                showToast(this, "تنظیمات", R.color.green);
 
                 break;
             }
@@ -582,7 +582,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 11:
             {
-                showToast(this, "انتقادات و پیشنهادات", R.color.green);
+//                showToast(this, "انتقادات و پیشنهادات", R.color.green);
 
                 break;
             }
@@ -615,7 +615,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 13:
             {
-                showToast(this, "جدول لیگ برتر", R.color.green);
+//                showToast(this, "جدول لیگ برتر", R.color.green);
 
                 /*isMainFragment = false;
                 //fragment = MatchScheduleFragment.newInstance(this,matchBuyable);

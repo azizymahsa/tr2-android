@@ -368,7 +368,6 @@ public class TransactionsListFragment
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
     {
-
         if (view.getTag().equals("TimeFrom"))
         {
             PersianCalendar calendar = new PersianCalendar();
