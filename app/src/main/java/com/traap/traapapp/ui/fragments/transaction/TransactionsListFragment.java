@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
+//import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+//import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
@@ -38,6 +38,8 @@ import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -345,12 +347,12 @@ public class TransactionsListFragment
 
                 break;
             case R.id.rlTimeFrom:
-                pickerDialogDate.show(getActivity().getFragmentManager(),"TimeFrom");
+                pickerDialogDate.show(getActivity().getSupportFragmentManager(),"TimeFrom");
 
                 break;
 
             case R.id.rlTimeUntil:
-                pickerDialogDate.show(getActivity().getFragmentManager(),"TimeUntil");
+                pickerDialogDate.show(getActivity().getSupportFragmentManager(),"TimeUntil");
 
                 break;
 
@@ -364,7 +366,7 @@ public class TransactionsListFragment
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
     {
 
         if (view.getTag().equals("TimeFrom"))
@@ -377,7 +379,8 @@ public class TransactionsListFragment
             etTimeFrom.setText(createDate);
             imgTimeFromReset.setVisibility(View.VISIBLE);
 
-        }else if (view.getTag().equals("TimeUntil")){
+        }
+        else if (view.getTag().equals("TimeUntil")){
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
 
