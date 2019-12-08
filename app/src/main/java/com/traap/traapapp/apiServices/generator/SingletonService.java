@@ -14,6 +14,7 @@ import com.traap.traapapp.apiServices.part.DeleteCardService;
 import com.traap.traapapp.apiServices.part.DoTransferCardService;
 import com.traap.traapapp.apiServices.part.EditCardService;
 import com.traap.traapapp.apiServices.part.FlightService;
+import com.traap.traapapp.apiServices.part.ForgetPasswordWalletService;
 import com.traap.traapapp.apiServices.part.GetAllBoxesService;
 import com.traap.traapapp.apiServices.part.GetBalancePasswordLessService;
 import com.traap.traapapp.apiServices.part.GetBillInfoService;
@@ -290,6 +291,10 @@ public class SingletonService
     public SheatcChangePassService doChangePassService()
     {
         return new SheatcChangePassService(serviceGenerator);
+    }
+
+    public ForgetPasswordWalletService forgetPasswordWalletService(){
+        return new ForgetPasswordWalletService(serviceGenerator);
     }
 
     public SheatcForgotPassService doForgotPassService()

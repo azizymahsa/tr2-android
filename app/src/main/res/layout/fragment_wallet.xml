@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:background="@drawable/background_main_header" />
+
+        <!--            <RelativeLayout-->
+        <!--                android:id="@+id/header"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="102dp"-->
+        <!--                android:background="@drawable/img_header_background" />-->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent">
+
+
+            <include layout="@layout/toolbar_back" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </RelativeLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text=" ریال"
+                        android:textColor="@color/chargePackTextColor"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10dp"
+                        android:text=""
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="مبلغ قابل پرداخت :"
+                        android:textColor="@color/chargePackTextColor"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="100"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_180dp"
+                            android:layout_centerInParent="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/wallet_cart" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:layout_marginLeft="@dimen/_10dp"
+                            android:layout_gravity="center"
+                            android:gravity="right"
+
+                            >
+                        <LinearLayout
+                            android:id="@+id/llBalance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" ریال"
+                                android:textColor="@color/chargePackTextColor"
+                                android:textSize="@dimen/textSize_12dp"
+                                />
+                            <TextView
+                                android:id="@+id/tvBalance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="000"
+                                android:textColor="@color/borderColorRed"
+                                android:textSize="@dimen/textSize_12dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="موجودی: "
+                                android:textColor="@color/chargePackTextColor"
+                                android:textSize="@dimen/textSize_12dp"
+                                />
+
+
+                        </LinearLayout>
+
+
+                            <TextView
+                                android:id="@+id/tvDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" "
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:textColor="@color/chargePackTextColor"
+                                android:textSize="@dimen/textSize_12dp"
+                                />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnBack"
+                            layout="@layout/return_button" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/llConfirm"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnForgetPass"
+                            layout="@layout/circular_progress_button_wallet"
+                            />
+
+                    </FrameLayout>
+
+
+                    <FrameLayout
+                        android:id="@+id/llInVisible"
+                        android:layout_width="0dp"
+                        android:visibility="gone"
+
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnInVisible"
+                            layout="@layout/circular_progress_button_in_visible"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_35dp"
+                            android:layout_gravity="center" />
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
