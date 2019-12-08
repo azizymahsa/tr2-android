@@ -422,7 +422,13 @@ public interface RetroClient
     Single<Response<WebServiceClass<MachListResponse>>> getMatchList();
 
     @GET(Const.GET_Transaction_List)
-    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList();
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList(
+
+            @Query("amount__range") Integer amountRange,
+            @Query("status") boolean status,
+            @Query("type_transaction_id") Integer typeTransactionId,
+            @Query("create_date__range") String createDateRange
+    );
 
 
     @GET(Const.GetHistory)

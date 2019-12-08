@@ -88,10 +88,9 @@
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_weight="3"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="@dimen/_40dp"
                                     android:background="@drawable/background_border_gray"
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     >
 
                                     <EditText
@@ -102,12 +101,13 @@
                                         android:layout_below="@+id/ll2"
                                         android:layout_centerHorizontal="true"
                                         android:layout_margin="@dimen/_5dp"
-                                        android:background="@null"                                        android:hint="جستجو کنید"
+                                        android:background="@null"                                                                            android:hint="جستجو کنید"
                                         android:textColor="@color/gray"
                                         android:textColorHint="#b9b9b9"
                                         android:textSize="@dimen/textSize_12dp" />
 
                                     <ImageView
+                                        android:id="@+id/ivSearch"
                                         android:layout_width="0dp"
                                         android:layout_weight="1"                                        android:layout_height="match_parent"
                                         android:padding="@dimen/_5dp"
@@ -132,7 +132,7 @@
                                     android:layout_width="0dp"
                                     android:layout_weight="2"
                                     android:layout_gravity="start"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="@dimen/_40dp"
                                     android:orientation="horizontal"
                                     android:background="@drawable/background_border_profile">
 
@@ -142,11 +142,12 @@
                                         android:layout_height="match_parent"
                                         android:layout_below="@+id/ll2"
                                         android:layout_centerHorizontal="true"
-                                        android:layout_margin="@dimen/_5dp"
                                         android:text="فیلتر"
+                                        android:layout_gravity="center"
+                                        android:gravity="center_vertical"
                                         android:textColor="@color/textColorPrimary"
                                         android:textColorHint="#b9b9b9"
-                                        android:textSize="@dimen/textSize_12dp" />
+                                        android:textSize="@dimen/textSize_14dp" />
 
                                     <ImageView
                                         android:layout_width="0dp"

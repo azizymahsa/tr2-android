@@ -159,6 +159,7 @@
                 android:drawableTint="@color/gray"
                 />-->
             <RelativeLayout
+                android:id="@+id/rlTimeUntil"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40dp"
                 android:layout_weight="1"
@@ -222,6 +223,7 @@
 
 -->
             <RelativeLayout
+                android:id="@+id/rlTimeFrom"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40dp"
                 android:layout_weight="1"

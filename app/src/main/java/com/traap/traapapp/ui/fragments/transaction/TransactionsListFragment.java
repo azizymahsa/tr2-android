@@ -63,11 +63,12 @@ public class TransactionsListFragment
     private View llFilter,btnConfirm;
     private CheckBox cbSuccessPayment,cbFailedPayment;
     private TextView etTimeUntil,etTimeFrom;
-    private ImageView imgTimeFromReset,imgTimeUntilReset;
+    private ImageView imgTimeFromReset,imgTimeUntilReset,ivSearch;
 
     private PersianCalendar currentDate;
 
     private DatePickerDialog pickerDialogDate;
+    private View rlTimeUntil,rlTimeFrom;
 
 
     public TransactionsListFragment()
@@ -112,6 +113,14 @@ public class TransactionsListFragment
 
             cbSuccessPayment=rootView.findViewById(R.id.cbSuccessPayment);
             cbFailedPayment=rootView.findViewById(R.id.cbFailedPayment);
+
+            ivSearch=rootView.findViewById(R.id.ivSearch);
+            ivSearch.setOnClickListener(this);
+
+            rlTimeUntil=rootView.findViewById(R.id.rlTimeUntil);
+            rlTimeFrom=rootView.findViewById(R.id.rlTimeFrom);
+            rlTimeFrom.setOnClickListener(this);
+            rlTimeUntil.setOnClickListener(this);
 
             imgTimeFromReset=rootView.findViewById(R.id.imgTimeFromReset);
             imgTimeUntilReset=rootView.findViewById(R.id.imgTimeUntilReset);
@@ -310,16 +319,19 @@ public class TransactionsListFragment
                 openFilterLayout();
 
                 break;
+
             case R.id.btnConfirm:
 
                 hideFilterSlide();
                 break;
+
             case R.id.imgTimeUntilReset:
 
                 etTimeUntil.setText("");
                 imgTimeUntilReset.setVisibility(View.GONE);
 
                 break;
+
             case R.id.imgTimeFromReset:
 
                 etTimeFrom.setText("");
@@ -327,6 +339,18 @@ public class TransactionsListFragment
 
                 break;
 
+            case R.id.ivSearch:
+
+                break;
+            case R.id.rlTimeFrom:
+                pickerDialogDate.show(getActivity().getFragmentManager(),"TimeFrom");
+
+                break;
+
+            case R.id.rlTimeUntil:
+                pickerDialogDate.show(getActivity().getFragmentManager(),"TimeUntil");
+
+                break;
 
         }
 
@@ -340,6 +364,52 @@ public class TransactionsListFragment
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
     {
+
+        if (view.getTag().equals("TimeFrom"))
+        {
+            PersianCalendar calendar = new PersianCalendar();
+            calendar.set(year, monthOfYear, dayOfMonth);
+//            pickerDialogDate.setPersianCalendar(calendar);
+//            pickerDialogDate.setMaxDate(currentDate);
+
+            String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+//            viewModel.updateTvCreateDate(createDate);
+            etTimeFrom.setText(createDate);
+            imgTimeFromReset.setVisibility(View.VISIBLE);
+
+//            this.year = year;
+//            this.month = monthOfYear;
+//            this.day = dayOfMonth;
+
+//            PersianCalendar calendar1 = new PersianCalendar();
+//            PersianCalendar calendar2 = new PersianCalendar();
+//            calendar1.set(year, monthOfYear, dayOfMonth);
+
+//            pickerDialogDate.setPersianCalendar(calendar1);
+
+
+        }else if (view.getTag().equals("TimeUntil")){
+            PersianCalendar calendar = new PersianCalendar();
+            calendar.set(year, monthOfYear, dayOfMonth);
+//            pickerDialogDate.setPersianCalendar(calendar);
+//            pickerDialogDate.setMaxDate(currentDate);
+
+            String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+//            viewModel.updateTvCreateDate(createDate);
+            etTimeUntil.setText(createDate);
+            imgTimeUntilReset.setVisibility(View.VISIBLE);
+
+//            this.year = year;
+//            this.month = monthOfYear;
+//            this.day = dayOfMonth;
+
+//            PersianCalendar calendar1 = new PersianCalendar();
+//            PersianCalendar calendar2 = new PersianCalendar();
+//            calendar1.set(year, monthOfYear, dayOfMonth);
+
+//            pickerDialogDate.setPersianCalendar(calendar1);
+
+        }
 
     }
 
