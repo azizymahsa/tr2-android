@@ -142,7 +142,7 @@ public class WalletFragment extends BaseFragment
                     if (response.info.statusCode == 200)
                     {
                         //setBalanceData(response.data);
-                        Toast.makeText(getContext(), "yees", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getContext(), "yees", Toast.LENGTH_SHORT).show();
 
                     } else
                     {
