@@ -160,6 +160,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TransparentGray" />
 
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
+
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:enabled="true"

@@ -11,7 +11,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 8
-        versionName "1.1.1"
+        versionName "1.2.0"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -139,7 +139,7 @@ android {
         //----------------------my Libraries start---------------
         implementation(name: 'flight-debug_v89', ext: 'aar')
 //    implementation project(':bubbleseekbar')
-        implementation project(':imagepicker')
+//        implementation project(':imagepicker')
 //    implementation project(':taggroup')
         implementation project(':pinentryedittext')
         implementation project(':type')
@@ -309,12 +309,16 @@ android {
 //        implementation 'com.github.crosswall:Android-Coverflow:release-v1.0.5'
         //------------------------CoverFlow end---------------------------
 
+        //------------------------CropImage start-------------------------
+        api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+        //------------------------CropImage end---------------------------
+
         //------------------------CoverFlow start-------------------------
         implementation 'com.github.crosswall:Android-Coverflow:release-v1.0.5'
         //------------------------CoverFlow end---------------------------
 
         //------------------------DateTimePicker start----------------------
-        implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
+//        implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
         //------------------------DateTimePicker end------------------------
 //        implementation 'co.infinum:goldfinger:1.1.1'
 

@@ -470,22 +470,18 @@ public interface RetroClient
     @GET(Const.GET_Invite)
     Single<Response<WebServiceClass<InviteResponse>>> getInvite();
 
-    @Multipart
+//    @Multipart
 //    @FormUrlEncoded
     @PUT(Const.PUT_PROFILE)
     Single<Response<WebServiceClass<SendProfileResponse>>> sendProfile(
-//            @FieldMap Map<String, String> fields,
-            @PartMap Map<String, Object> fields,
-//            @Field("first_name") String firstName,
-//            @Field("last_name") String lastName,
-//            @Field("national_code") String nationalCode,
-//            @Field("birthday") String birthday,
-//            @Field("english_name") String nickName,
-//            @Field("key_invite") String keyInvite,
-//            @Field("sex") Integer gender,
-//            @Field("first_english_name") String firstNameUS,
-//            @Field("last_english_name") String lastNameUS,
-//            @Field("email") String email,
+            @Body SendProfileRequest request
+//            @Part MultipartBody.Part ImageFile
+    );
+
+//    @FormUrlEncoded
+    @Multipart
+    @POST(Const.SEND_PROFILE_PHOTO)
+    Single<Response<WebServiceClass<Object>>> sendProfilePhoto(
             @Part MultipartBody.Part ImageFile
     );
 

@@ -28,10 +28,16 @@ public class SendProfileService extends BasePart
         return this;
     }
 
-    public void sendProfileService(Map<String, Object> fields,
-                                   @Nullable MultipartBody.Part ImageFile,
+    public void sendProfileService(SendProfileRequest request,
                                    OnServiceStatus<WebServiceClass<SendProfileResponse>> listener)
     {
-        start(getServiceGenerator().createService().sendProfile(fields, ImageFile), listener);
+        start(getServiceGenerator().createService().sendProfile(request), listener);
     }
+
+    public void sendProfilePhoto(MultipartBody.Part ImageFile,
+                                   OnServiceStatus<WebServiceClass<Object>> listener)
+    {
+        start(getServiceGenerator().createService().sendProfilePhoto(ImageFile), listener);
+    }
+
 }
