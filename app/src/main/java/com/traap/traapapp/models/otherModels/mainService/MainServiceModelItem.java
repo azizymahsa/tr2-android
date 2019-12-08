@@ -26,4 +26,7 @@ public class MainServiceModelItem
 
     @Expose @Getter @Setter
     private List<com.traap.traapapp.apiServices.model.allService.response.SubMenu> SubMenu;
+
+    @Getter @Setter @Expose
+    private String base_url;
 }
