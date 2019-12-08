@@ -8,8 +8,8 @@ public class Const
 
     //-----------------------------------------------------------------------------
 //    public final static String BASEURL = "http://5.253.25.117:7000/";
-//   public final static String BASEURL = "http://5.253.25.117:9000/";
-    public final static String BASEURL = "https://restapp.traap.com";
+   public final static String BASEURL = "http://5.253.25.117:9999/";
+//    public final static String BASEURL = "https://restapp.traap.com";
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -18,6 +18,9 @@ public class Const
     public final static String Login = SubBASEURL + "v1/user/login/";
     public final static String Verify = SubBASEURL + "v1/user/login/verify/";
 
+
+    //contactInfo
+    public final static String GetContactInfo=SubBASEURL+"v1/info/contact/";
 
     //Menu
     public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";

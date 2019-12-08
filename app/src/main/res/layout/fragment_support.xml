@@ -155,18 +155,19 @@
                                     android:gravity="center_horizontal"
                                     android:orientation="horizontal">
 
-                                    <TextView
+                                   <!-- <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:gravity="center"
                                         android:text="-داخلی4"
                                         android:textColor="@color/returnButtonColor"
-                                        android:textSize="@dimen/textSize_14dp" />
+                                        android:textSize="@dimen/textSize_14dp" />-->
 
                                     <TextView
+                                        android:id="@+id/txPhone"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:gravity="right|center_vertical"
+                                        android:gravity="center"
                                         android:text=" 021-4855"
                                         android:textColor="@color/returnButtonColor"
                                         android:textSize="@dimen/textSize_14dp" />
@@ -243,6 +244,7 @@
                                 </LinearLayout>
 
                                 <TextView
+                                    android:id="@+id/txSms"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
@@ -288,7 +290,6 @@
 
                             <LinearLayout
                                 android:id="@+id/tvEmail"
-
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
@@ -323,6 +324,7 @@
                                 </LinearLayout>
 
                                 <TextView
+                                    android:id="@+id/txEmail"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"

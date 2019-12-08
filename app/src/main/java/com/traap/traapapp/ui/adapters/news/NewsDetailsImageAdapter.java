@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.news.main.ImageName;
+import com.traap.traapapp.singleton.SingletonContext;
 
 public class NewsDetailsImageAdapter extends RecyclerView.Adapter<NewsDetailsImageAdapter.ViewHolder>
 {
@@ -47,6 +49,10 @@ public class NewsDetailsImageAdapter extends RecyclerView.Adapter<NewsDetailsIma
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         ImageName news = list.get(position);
+
+        int width = (int) (SingletonContext.getInstance().getWidth() - mContext.getResources().getDimension(R.dimen.margin_news_main_favorite));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, R.dimen.news_favorite_height);
+        holder.rlImage.setLayoutParams(params);
 
         if (news.getThumbnailLarge() != null)
         {
@@ -90,41 +96,20 @@ public class NewsDetailsImageAdapter extends RecyclerView.Adapter<NewsDetailsIma
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
-//            implements  View.OnClickListener
     {
         private ImageView imgBackground;
         private ProgressBar progress;
+        private RelativeLayout rlImage;
 
         public ViewHolder(@NonNull View rootView)
         {
             super(rootView);
 
             imgBackground = rootView.findViewById(R.id.image);
+            rlImage = rootView.findViewById(R.id.rlImage);
 
             progress = rootView.findViewById(R.id.progress);
-
-//            rootView.setOnClickListener(this);
         }
 
-//        @Override
-//        public void onClick(View view)
-//        {
-//            if (mItemClickListener != null)
-//            {
-//                mItemClickListener.onItemClick(view,  list.get(getAdapterPosition()).getId(), getAdapterPosition());
-//            }
-//        }
     }
-
-
-//    public interface OnItemClickListener
-//    {
-//        public void onItemClick(View view, Integer id, Integer position);
-//    }
-//
-//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
-//    {
-//        this.mItemClickListener = mItemClickListener;
-//    }
-
 }

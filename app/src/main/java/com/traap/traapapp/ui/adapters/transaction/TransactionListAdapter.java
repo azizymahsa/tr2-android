@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getTransaction.Result;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import library.android.eniac.utility.Utility;
 import saman.zamani.persiandate.PersianDate;
@@ -97,11 +98,18 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
                     if (item.getTypeTransactionId() == 12)
                     {
                         Intent intent = new Intent(mContext, ShowTicketActivity.class);
-
                         intent.putExtra("RefrenceNumber", item.getId().toString());
                         intent.putExtra("isTransactionList", true);
                         mContext.startActivity(intent);
                     }
+                }else {
+
+                    Intent intent = new Intent(mContext, PaymentResultActivity.class);
+                    intent.putExtra("RefrenceNumber", item.getId().toString());
+                    intent.putExtra("StatusPayment", item.getStatus());
+                    mContext.startActivity(intent);
+
+
                 }
             }
         });

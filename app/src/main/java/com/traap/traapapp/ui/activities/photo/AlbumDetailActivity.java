@@ -127,7 +127,7 @@ private  Boolean isBookmark=false;
 
         setDataItems();
 
-        requestGetRelatedVideos(idVideo);
+
 
 
         sendRequestListPhotos(idVideo);
@@ -152,6 +152,7 @@ private  Boolean isBookmark=false;
                     {
 
                         setRelatedPhotosData(response.data);
+                        requestGetRelatedVideos(response.data.getCategoryId());
 
                     } else
                     {

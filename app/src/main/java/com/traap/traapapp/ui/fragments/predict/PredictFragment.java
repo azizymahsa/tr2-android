@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.fragments.predict;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,6 @@ import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.charts.Cartesian;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
@@ -29,6 +29,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -40,6 +41,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.Chart;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.getPredict.response.Predict;
 import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
@@ -72,17 +74,22 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private CircularProgressButton btnSendPredict;
 
     private Pie pieChart;
-    private Cartesian cartesian;
 
     private Boolean isPredictable;
 
     private MainActionView mainView;
 
-    private AnyChartView chartViewPie, chartViewColumn;
+    private AnyChartView chartViewPie;
 
     private Toolbar mToolbar;
 
     private View rootView;
+
+    private LinearLayout llChart2;
+    private RelativeLayout rlChart1, rlChart2, rlChart3;
+    private View vColorHomeOne, vColorHomeTwo, vColorHomeThree, vColorAwayOne, vColorAwayTwo, vColorAwayThree, vColorHomeFour, vColorAwayFour;
+    private TextView tvChartPredictOne, tvChartPredictTwo, tvChartPredictThree, tvHomeChartTitle, tvAwayChartTitle;
+    private TextView tvChartTotalUserOne, tvChartTotalUserTwo, tvChartTotalUserThree;
 
 
     public PredictFragment()
@@ -159,6 +166,27 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 //        APIlib.getInstance().setActiveAnyChartView(chartViewColumn);
 
         btnSendPredict = rootView.findViewById(R.id.btnSendPredict);
+
+        llChart2 = rootView.findViewById(R.id.llChart2);
+        rlChart1 = rootView.findViewById(R.id.rlChart1);
+        rlChart2 = rootView.findViewById(R.id.rlChart2);
+        rlChart3 = rootView.findViewById(R.id.rlChart3);
+        vColorHomeOne = rootView.findViewById(R.id.vColorHomeOne);
+        vColorHomeTwo = rootView.findViewById(R.id.vColorHomeTwo);
+        vColorHomeThree = rootView.findViewById(R.id.vColorHomeThree);
+        vColorHomeFour = rootView.findViewById(R.id.vColorHomeFour);
+        vColorAwayOne = rootView.findViewById(R.id.vColorAwayOne);
+        vColorAwayTwo = rootView.findViewById(R.id.vColorAwayTwo);
+        vColorAwayThree = rootView.findViewById(R.id.vColorAwayThree);
+        vColorAwayFour = rootView.findViewById(R.id.vColorAwayFour);
+        tvChartPredictOne = rootView.findViewById(R.id.tvChartPredictOne);
+        tvChartPredictTwo = rootView.findViewById(R.id.tvChartPredictTwo);
+        tvChartPredictThree = rootView.findViewById(R.id.tvChartPredictThree);
+        tvHomeChartTitle = rootView.findViewById(R.id.tvHomeChartTitle);
+        tvAwayChartTitle = rootView.findViewById(R.id.tvAwayChartTitle);
+        tvChartTotalUserOne = rootView.findViewById(R.id.tvChartTotalUserOne);
+        tvChartTotalUserTwo = rootView.findViewById(R.id.tvChartTotalUserTwo);
+        tvChartTotalUserThree = rootView.findViewById(R.id.tvChartTotalUserThree);
 
         llAwayResultList = rootView.findViewById(R.id.llAwayResultList);
         llHomeResultList = rootView.findViewById(R.id.llHomeResultList);
@@ -376,11 +404,13 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 }
 
                 pieChart.data(data);
+                String color[] = {"#de9b89", response.data.getHomeTeamColorCode(), response.data.getAwayTeamColorCode()};
+                pieChart.palette(color);
 
                 pieChart.labels().position("outside");
                 pieChart.labels().fontColor("#000");
-//                Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"fonts/iran_sans_normal.ttf");
-//                pieChart.labels().fontFamily(face.toString());
+                Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"fonts/iran_sans_normal.ttf");
+                pieChart.labels().fontFamily(face.toString());
 
                 pieChart.legend()
 //                        .position("center-bottom")
@@ -389,41 +419,51 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         .textDirection(Direction.RTL)
                         .align(Align.CENTER);
 
-//                pieChart.legend().background()
-
                 chartViewPie.setChart(pieChart);
 
-//                cartesian = AnyChart.column();
-//                data = new ArrayList<>();
-//
-//                for (Predict predict: response.data.getPredict())
-//                {
-//                    String pSplit[] = predict.getPredict().split("\\|");
-//                    data.add(new ValueDataEntry(Integer.parseInt(pSplit[1]) + "-" + Integer.parseInt(pSplit[0]), predict.getTotalUser()));
-//                }
-//                Column column = cartesian.column(data);
-//                column.tooltip()
-//                        .titleFormat("{%X}")
-//                        .position(Position.CENTER_BOTTOM)
-//                        .anchor(Anchor.CENTER_BOTTOM)
-//                        .offsetX(0d)
-//                        .offsetY(5d)
-//                        .format("%{%Value}{groupsSeparator: }");
-//
-//                cartesian.animation(true);
-//                cartesian.yScale().minimum(0d);
-//                cartesian.yScale().maximum(100d);
-//
-//                cartesian.yAxis(0).labels().format("%{%Value}{groupsSeparator: }");
-////                cartesian.yAxis(0).labels().format();
-//
-//                cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-//                cartesian.interactivity().hoverMode(HoverMode.BY_X);
-//
-////                cartesian.xAxis(0).title("Product");
-////                cartesian.yAxis(0).title("Revenue");
-//
-//                chartViewColumn.setChart(cartesian);
+                if (response.data.getPredict().isEmpty())
+                {
+                    llChart2.setVisibility(View.GONE);
+                }
+
+                List<Predict> predictList = response.data.getPredict();
+                Collections.reverse(predictList);
+
+                if (predictList.size() >= 1)
+                {
+                    rlChart1.setVisibility(View.VISIBLE);
+                    tvChartTotalUserOne.setText(predictList.get(0).getTotalUser().toString() + " %");
+                    vColorHomeOne.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
+                    vColorAwayOne.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
+                    String result[] = predictList.get(0).getPredict().split("\\|");
+                    tvChartPredictOne.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
+                }
+
+                if (predictList.size() >= 2)
+                {
+                    rlChart2.setVisibility(View.VISIBLE);
+                    tvChartTotalUserTwo.setText(predictList.get(1).getTotalUser().toString() + " %");
+                    vColorHomeTwo.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
+                    vColorAwayTwo.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
+                    String result[] = predictList.get(1).getPredict().split("\\|");
+                    tvChartPredictTwo.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
+                }
+
+                if (predictList.size() == 3)
+                {
+                    rlChart3.setVisibility(View.VISIBLE);
+                    tvChartTotalUserThree.setText(predictList.get(2).getTotalUser().toString() + " %");
+                    vColorHomeThree.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
+                    vColorAwayThree.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
+                    String result[] = predictList.get(2).getPredict().split("\\|");
+                    tvChartPredictThree.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
+                }
+
+                vColorHomeFour.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
+                vColorAwayFour.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
+
+                tvHomeChartTitle.setText(response.data.getHomeTeamName());
+                tvAwayChartTitle.setText(response.data.getAwayTeamName());
 
             }
 

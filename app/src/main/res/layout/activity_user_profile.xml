@@ -397,7 +397,6 @@
                                         android:gravity="right|center"
                                         android:nextFocusDown="@+id/etPopularPlayer"
                                         android:inputType="textEmailAddress"
-                                        android:maxLines="1"
                                         android:paddingTop="8dp"
                                         android:singleLine="true"
                                         android:textSize="@dimen/textSize_12dp"
@@ -428,6 +427,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:layout_gravity="center|right"
                                     android:layout_weight="100"
+                                    android:visibility="gone"
                                     android:hint="شماره بازیکن محبوب"
                                     android:theme="@style/EditTextHint"
                                     app:hintTextAppearance="@style/TextLabelProfile">
@@ -467,6 +467,7 @@
                                     android:layout_weight="20" />
 
                                 <RelativeLayout
+                                    android:id="@+id/rlBirthDay"
                                     android:layout_width="0dp"
                                     android:layout_height="@dimen/_35sdp"
                                     android:layout_weight="100"
@@ -625,8 +626,6 @@
                         android:layout_alignParentRight="true"/>
 
                 </RelativeLayout>
-
-
 
             </RelativeLayout>
 
