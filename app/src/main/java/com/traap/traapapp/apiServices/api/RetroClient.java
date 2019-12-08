@@ -26,6 +26,8 @@ import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferRe
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import com.traap.traapapp.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.getBankList.response.BankListResponse;
 import com.traap.traapapp.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
 import com.traap.traapapp.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
@@ -409,6 +411,11 @@ public interface RetroClient
     @POST(Const.DECRYPTQRCODE)
     Single<Response<WebServiceClass<DecryptQrResponse>>> decryptQr(
             @Body DecryptQrRequest request
+    );
+
+    @POST(Const.GetBalancePasswordLess)
+    Single<Response<WebServiceClass<GetBalancePasswordLessResponse>>> getBalancePasswordLess(
+            @Body GetBalancePasswordLessRequest request
     );
 
 

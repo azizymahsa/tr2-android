@@ -88,6 +88,7 @@ public class Const
     //payment
     public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
     public final static String PaymentWallet = SubBASEURL + "v1/match/wallet/payment/";
+    public final static String GetBalancePasswordLess=SubBASEURL+"v1/shetac/get_balance_password_less/";
 
     //Bank List
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";

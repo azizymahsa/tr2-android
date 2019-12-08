@@ -15,6 +15,7 @@ import com.traap.traapapp.apiServices.part.DoTransferCardService;
 import com.traap.traapapp.apiServices.part.EditCardService;
 import com.traap.traapapp.apiServices.part.FlightService;
 import com.traap.traapapp.apiServices.part.GetAllBoxesService;
+import com.traap.traapapp.apiServices.part.GetBalancePasswordLessService;
 import com.traap.traapapp.apiServices.part.GetBillInfoService;
 import com.traap.traapapp.apiServices.part.GetCardListService;
 import com.traap.traapapp.apiServices.part.GetContactInfoService;
@@ -184,6 +185,11 @@ public class SingletonService
     public MerchantService getMerchantService()
     {
         return new MerchantService(serviceGenerator);
+    }
+
+    public GetBalancePasswordLessService getBalancePasswordLessService()
+    {
+        return new GetBalancePasswordLessService(serviceGenerator);
     }
 
     public TransactionService getTransactionService()

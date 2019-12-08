@@ -2,6 +2,8 @@ package com.traap.traapapp.ui.fragments.paymentGateWay;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,13 @@ import java.util.List;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
@@ -49,6 +57,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
     private View llConfirm, llInVisible;
     private PaymentMatchRequest paymentMatchRequest;
     private PaymentWalletImpl paymentWallet;
+    private TextView tvBalance,tvDate;
 
 
     public PaymentWalletFragment()
@@ -87,6 +96,9 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
 
             etPin2 = rootView.findViewById(R.id.etPin2);
 
+            tvBalance=rootView.findViewById(R.id.tvBalance);
+            tvDate=rootView.findViewById(R.id.tvDate);
+
             llConfirm = rootView.findViewById(R.id.llConfirm);
             llInVisible = rootView.findViewById(R.id.llInVisible);
 
@@ -98,11 +110,61 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
 
             llConfirm.setVisibility(View.VISIBLE);
 
+            requestGetBalance();
 
         } catch (Exception e)
         {
             Logger.e("---Exception---", e.getMessage());
         }
+    }
+
+    private void requestGetBalance()
+    {
+        GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
+        request.setIsWallet(true);
+        SingletonService.getInstance().getBalancePasswordLessService().GetBalancePasswordLessService(new OnServiceStatus<WebServiceClass<GetBalancePasswordLessResponse>>()
+        {
+
+
+            @Override
+            public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response)
+            {
+
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        setBalanceData(response.data);
+
+                    } else
+                    {
+
+                        mainView.showError(response.info.message);
+
+                    }
+                } catch (Exception e)
+                {
+                    mainView.showError(e.getMessage());
+
+                }
+
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+
+                mainView.showError(message);
+
+            }
+        }, request);
+    }
+
+    private void setBalanceData(GetBalancePasswordLessResponse data)
+    {
+        tvBalance.setText(data.getBalanceAmount());
+        tvDate.setText(data.getDateTime());
     }
 
     View.OnClickListener clickListener = v ->
