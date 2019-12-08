@@ -52,6 +52,11 @@ public class GetMenuItemResponse implements Parcelable
     @SerializedName("logo_selected")
     @Expose @Getter @Setter
     private String logoSelected;
+    @SerializedName("base_url")
+    @Expose
+    @Getter
+    @Setter
+    private String baseUrl;
     protected GetMenuItemResponse(Parcel in)
     {
         if (in.readByte() == 0)

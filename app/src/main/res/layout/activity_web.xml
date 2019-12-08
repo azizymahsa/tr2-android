@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="104dp"
-        android:elevation="3dp"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="102dp"
+            android:background="@drawable/background_main_header" />
 
-            <RelativeLayout
+        <!--        <RelativeLayout-->
+        <!--            android:id="@+id/header"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="102dp"-->
+        <!--            android:background="@drawable/img_header_background" />-->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent">
+
+            <include layout="@layout/toolbar_back" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <WebView
+                android:id="@+id/webView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/background_main_header" />
-
-<!--            <RelativeLayout-->
-<!--                android:id="@+id/header"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:background="@drawable/img_header_background" />-->
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="104dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-
-                <include layout="@layout/toolbar_back" />
-
-            </androidx.appcompat.widget.Toolbar>
-
-        </RelativeLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <WebView
-        android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
 </LinearLayout>

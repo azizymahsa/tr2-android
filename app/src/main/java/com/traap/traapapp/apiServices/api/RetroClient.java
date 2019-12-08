@@ -26,6 +26,9 @@ import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferRe
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import com.traap.traapapp.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.ForgetPasswordWalletResponse;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.getBankList.response.BankListResponse;
 import com.traap.traapapp.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
 import com.traap.traapapp.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
@@ -411,6 +414,17 @@ public interface RetroClient
             @Body DecryptQrRequest request
     );
 
+    @POST(Const.GetBalancePasswordLess)
+    Single<Response<WebServiceClass<GetBalancePasswordLessResponse>>> getBalancePasswordLess(
+            @Body GetBalancePasswordLessRequest request
+    );
+
+
+    @POST(Const.ForgetPasswordWallet)
+    Single<Response<WebServiceClass<ForgetPasswordWalletResponse>>> forgetPasswordWallet(
+            @Body GetBalancePasswordLessRequest request
+    );
+
 
     @POST(Const.PAYMENT_PRINT_pOS)
     Single<Response<WebServiceClass<PaymentPrintPosResponse>>> getPayment(
@@ -422,7 +436,13 @@ public interface RetroClient
     Single<Response<WebServiceClass<MachListResponse>>> getMatchList();
 
     @GET(Const.GET_Transaction_List)
-    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList();
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList(
+
+            @Query("amount__range") Integer amountRange,
+            @Query("status") Boolean status,
+            @Query("type_transaction_id") Integer typeTransactionId,
+            @Query("create_date__range") String createDateRange
+    );
 
 
     @GET(Const.GetHistory)

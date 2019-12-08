@@ -262,7 +262,8 @@ public class SupportFragment
 
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse(email));
+                emailIntent.setData(Uri.parse("mailto:"+email));
+                //                emailIntent.setData(Uri.parse("mailto:info@traap.com"));
                 startActivity(emailIntent);
 
                 break;
