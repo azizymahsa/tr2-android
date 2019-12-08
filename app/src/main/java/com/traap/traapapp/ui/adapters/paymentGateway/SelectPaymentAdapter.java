@@ -1,5 +1,7 @@
 package com.traap.traapapp.ui.adapters.paymentGateway;
 
+import android.os.Parcelable;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -71,6 +73,23 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
 
         this.paymentInstance = simPackPaymentInstance;
     }
+
+    public SelectPaymentAdapter(FragmentManager fragmentManager, int tabCount, MainActionView mainView, String amount, String title, int imageDrawable, String mobile, SimChargePaymentInstance response, String url, PaymentMatchRequest paymentMatchRequest)
+    {
+        super(fragmentManager);
+        this.numTabs = numTabs;
+
+        this.mainActionView = mainView;
+        this.amount = amount;
+        this.title = title;
+        this.imageDrawable = imageDrawable;
+        this.mobile = mobile;
+        this.paymentMatchRequest = paymentMatchRequest;
+
+        this.paymentInstance = simPackPaymentInstance;
+
+    }
+
     @Override
     public Fragment getItem(int position)
     {
