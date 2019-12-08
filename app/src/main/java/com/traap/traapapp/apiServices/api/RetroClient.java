@@ -425,7 +425,7 @@ public interface RetroClient
     Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList(
 
             @Query("amount__range") Integer amountRange,
-            @Query("status") boolean status,
+            @Query("status") Boolean status,
             @Query("type_transaction_id") Integer typeTransactionId,
             @Query("create_date__range") String createDateRange
     );

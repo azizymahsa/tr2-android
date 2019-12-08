@@ -69,14 +69,15 @@ public class TransactionsListFragment
 
     private DatePickerDialog pickerDialogDate;
     private View rlTimeUntil,rlTimeFrom;
+    Integer amountRange=null;
+    Boolean status=null;
+    Integer typeTransactionId=null;
+    String createDateRange=null;
 
 
     public TransactionsListFragment()
     {
     }
-
-
-
 
     public static TransactionsListFragment newInstance(MainActionView mainView)
     {
@@ -202,7 +203,8 @@ public class TransactionsListFragment
 
         rootView = inflater.inflate(R.layout.transaction_list_fragment, container, false);
         initView();
-        sendRequest();
+
+        sendRequest(amountRange,status,typeTransactionId,createDateRange);
 
 
         EventBus.getDefault().register(this);
@@ -211,7 +213,7 @@ public class TransactionsListFragment
 
 
 
-    private void sendRequest()
+    private void sendRequest(Integer amountRange, Boolean status, Integer typeTransactionId, String createDateRange)
     {
         mainView.showLoading();
 
@@ -256,7 +258,7 @@ public class TransactionsListFragment
                 mainView.showError(message);
                 mainView.hideLoading();
             }
-        });
+        },null,null,null,null);
     }
 
 
@@ -316,7 +318,7 @@ public class TransactionsListFragment
         {
             case R.id.llFilter:
 
-                openFilterLayout();
+               // openFilterLayout();
 
                 break;
 
@@ -369,45 +371,20 @@ public class TransactionsListFragment
         {
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
-//            pickerDialogDate.setPersianCalendar(calendar);
-//            pickerDialogDate.setMaxDate(currentDate);
 
             String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
-//            viewModel.updateTvCreateDate(createDate);
+
             etTimeFrom.setText(createDate);
             imgTimeFromReset.setVisibility(View.VISIBLE);
-
-//            this.year = year;
-//            this.month = monthOfYear;
-//            this.day = dayOfMonth;
-
-//            PersianCalendar calendar1 = new PersianCalendar();
-//            PersianCalendar calendar2 = new PersianCalendar();
-//            calendar1.set(year, monthOfYear, dayOfMonth);
-
-//            pickerDialogDate.setPersianCalendar(calendar1);
-
 
         }else if (view.getTag().equals("TimeUntil")){
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
-//            pickerDialogDate.setPersianCalendar(calendar);
-//            pickerDialogDate.setMaxDate(currentDate);
 
             String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
-//            viewModel.updateTvCreateDate(createDate);
+
             etTimeUntil.setText(createDate);
             imgTimeUntilReset.setVisibility(View.VISIBLE);
-
-//            this.year = year;
-//            this.month = monthOfYear;
-//            this.day = dayOfMonth;
-
-//            PersianCalendar calendar1 = new PersianCalendar();
-//            PersianCalendar calendar2 = new PersianCalendar();
-//            calendar1.set(year, monthOfYear, dayOfMonth);
-
-//            pickerDialogDate.setPersianCalendar(calendar1);
 
         }
 
