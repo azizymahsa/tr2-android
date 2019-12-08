@@ -19,6 +19,9 @@ public class Const
     public final static String Verify = SubBASEURL + "v1/user/login/verify/";
 
 
+    //contactInfo
+    public final static String GetContactInfo=SubBASEURL+"v1/info/contact/";
+
     //Menu
     public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
     public final static String GetMenuAll = SubBASEURL + "v1/menu/get_all_services/";

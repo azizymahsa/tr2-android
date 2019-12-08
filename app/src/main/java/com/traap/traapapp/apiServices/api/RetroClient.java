@@ -20,6 +20,7 @@ import com.traap.traapapp.apiServices.model.card.addCard.request.AddCardRequest;
 import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardRequest;
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
+import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
 import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferRequest;
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
@@ -129,6 +130,9 @@ public interface RetroClient
 
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
+
+    @GET(Const.GetContactInfo)
+    Single<Response<WebServiceClass<GetContactInfoResponse>>> getContactInfo();
 
     /*videos*/
     @GET(Const.Get_Main_Video)
