@@ -25,6 +25,8 @@ import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 
+import library.android.eniac.utility.Utility;
+
 /**
  * Created by MahtabAzizi on 12/8/2019.
  */
@@ -215,7 +217,7 @@ public class WalletFragment extends BaseFragment
 
     private void setBalanceData(GetBalancePasswordLessResponse data)
     {
-        tvBalance.setText(data.getBalanceAmount());
+        tvBalance.setText(Utility.priceFormat(data.getBalanceAmount()));
         tvDate.setText(data.getDateTime());
     }
 }
