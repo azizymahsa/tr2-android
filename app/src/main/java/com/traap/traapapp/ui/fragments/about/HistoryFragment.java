@@ -117,7 +117,7 @@ public class HistoryFragment
 //            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.RotateDown);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         PagerIndicator pagerIndicator = new PagerIndicator(getActivity());
-        pagerIndicator.setDefaultIndicatorColor(R.color.currentColor, R.color.grayColor);
+        pagerIndicator.setDefaultIndicatorColor(R.color.textColorPrimary, R.color.grayColor);
         mDemoSlider.setCustomIndicator(pagerIndicator);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
 
@@ -333,7 +333,7 @@ public class HistoryFragment
 //            mDemoSlider2.setPresetTransformer(SliderLayout.Transformer.RotateDown);
         mDemoSlider2.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         PagerIndicator pagerIndicator = new PagerIndicator(getActivity());
-        pagerIndicator.setDefaultIndicatorColor(R.color.currentColor, R.color.grayColor);
+        pagerIndicator.setDefaultIndicatorColor(R.color.textColorPrimary, R.color.grayColor);
         mDemoSlider2.setCustomIndicator(pagerIndicator);
         mDemoSlider2.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider2.setDuration(10000);

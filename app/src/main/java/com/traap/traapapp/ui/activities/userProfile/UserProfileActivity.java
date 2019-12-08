@@ -50,8 +50,9 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NationalCodeValidation;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.PrepareImageFilePart;
-import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
+//import com.traap.traapapp.utilities.calendar.materialdatetimepicker.com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -175,7 +176,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         findViewById(R.id.rlBirthDay).setOnClickListener(v ->
         {
-            pickerDialogDate.show(getFragmentManager(), "CreateDate");
+            pickerDialogDate.show(getSupportFragmentManager(), "CreateDate");
+//            pickerDialogDate.show(getFragmentManager(), "CreateDate");
         });
 
         imgBirthdayReset.setOnClickListener(v ->
@@ -738,8 +740,38 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
     }
 
+//    @Override
+//    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
+//    {
+//        if (view.getTag().equals("CreateDate"))
+//        {
+//            PersianCalendar calendar = new PersianCalendar();
+//            calendar.set(year, monthOfYear, dayOfMonth);
+////            pickerDialogDate.setPersianCalendar(calendar);
+////            pickerDialogDate.setMaxDate(currentDate);
+//
+////            String createDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+//            String createDate = year + "/" + dayOfMonth + "/" + (monthOfYear + 1);
+////            viewModel.updateTvCreateDate(createDate);
+//            tvBirthDay.setText(createDate);
+//            imgBirthdayReset.setVisibility(View.VISIBLE);
+//
+////            this.year = year;
+////            this.month = monthOfYear;
+////            this.day = dayOfMonth;
+//
+////            PersianCalendar calendar1 = new PersianCalendar();
+////            PersianCalendar calendar2 = new PersianCalendar();
+////            calendar1.set(year, monthOfYear, dayOfMonth);
+//
+////            pickerDialogDate.setPersianCalendar(calendar1);
+//
+//
+//        }
+//    }
+
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
     {
         if (view.getTag().equals("CreateDate"))
         {
