@@ -54,7 +54,6 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private ImageView imgLogo;
 
     private SimChargePaymentInstance simChargePaymentInstance;
-    private SimChargePaymentInstance response;
 
     public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
     {
@@ -76,7 +75,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         return matchScheduleFragment;
     }
 
-    public static Fragment newInstance(MainActionView mainView, String amount, String title, int imageDrawable, String mobile, SimChargePaymentInstance paymentInstance)
+    public static Fragment newInstance(String url,MainActionView mainView, String amount, String title, int imageDrawable, String mobile, SimChargePaymentInstance paymentInstance)
     {
 
 
@@ -84,7 +83,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         fragment.setParentActionView(mainView);
 
         Bundle args = new Bundle();
-
+        args.putString("url", url);
         args.putString("amount", amount);
         args.putInt("imageDrawable", imageDrawable);
         args.putString("mobile", mobile);
@@ -123,8 +122,9 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             title = getArguments().getString("title");
             imageDrawable = getArguments().getInt("imageDrawable", 0);
             mobile = getArguments().getString("mobile", "");
+            url=getArguments().getString("url", "");
 
-            response = getArguments().getParcelable("paymentInstance");
+            simChargePaymentInstance = getArguments().getParcelable("paymentInstance");
 
 
         }
@@ -135,7 +135,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
 
         setContent();
-        createTabLayout(amount,title,imageDrawable,mobile,response);
+        createTabLayout(amount,title,imageDrawable,mobile,simChargePaymentInstance);
 
 
         return rootView;
@@ -171,7 +171,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         paymentInstance.setTypeCharge(Integer.valueOf(1));*/
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
-                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, response, url, paymentMatchRequest);
+                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, url, simChargePaymentInstance);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();

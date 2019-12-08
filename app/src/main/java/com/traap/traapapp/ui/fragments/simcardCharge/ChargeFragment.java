@@ -102,6 +102,7 @@ public class ChargeFragment extends BaseFragment
     private int simcardType = 0;
     private String amount;
     private String mobile;
+    private int imageDrawable=0;
 
 
     public ChargeFragment()
@@ -594,7 +595,7 @@ public class ChargeFragment extends BaseFragment
 
     private void setDataLayoutPassCharge()
     {
-        int imageDrawable = 0;
+         imageDrawable = 0;
         String chargeStr = "";
         if (isMtn)
         {
@@ -645,42 +646,9 @@ public class ChargeFragment extends BaseFragment
 
         getUrlChargePayment(amount,operatorType,simcardType,chargeType,mobile);
 
-        pFragment = SelectPaymentGatewayFragment.newInstance(mainView, amount, title, imageDrawable,
-                mobile, paymentInstance);
+      //////////////////////////////////////////////////////////////////////
 
-//        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
-//                amount,
-////                "پرداخت شارژ سیمکارت " + chargeStr,
-//                title,
-//                imageDrawable,
-//                this,
-//                null,
-//                operatorType,
-//                simcardType,
-//                Integer.valueOf(chargeType)
-//                ,mobile);
 
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        if (transaction.isEmpty())
-        {
-            transaction
-                .replace(R.id.container, pFragment)
-                    .commit();
-        }
-        else
-        {
-            if (rootView.findViewById(R.id.container).getVisibility() == View.GONE)
-            {
-                transaction.show(pFragment);
-            }
-            else
-            {
-                transaction.replace(R.id.container, pFragment)
-                        .commit();
-            }
-        }
 
         ((TextView) rootView.findViewById(R.id.tvTitle)).setText("پرداخت");
 
@@ -1698,7 +1666,41 @@ public class ChargeFragment extends BaseFragment
     @Override
     public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
     {
-aaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+        String urlPayment = data.getUrl();
+        String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
+
+        fragmentManager = getChildFragmentManager();
+        operatorType = getOperatorType(mobile);
+
+        SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
+        paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_ChargeSimCard);
+        paymentInstance.setOperatorType(operatorType);
+        paymentInstance.setSimcardType(simcardType);
+        paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
+
+        pFragment = SelectPaymentGatewayFragment.newInstance(urlPayment,mainView, amount, title, imageDrawable,
+                mobile, paymentInstance);
+
+//        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
+//                amount,
+////                "پرداخت شارژ سیمکارت " + chargeStr,
+//                title,
+//                imageDrawable,
+//                this,
+//                null,
+//                operatorType,
+//                simcardType,
+//                Integer.valueOf(chargeType)
+//                ,mobile);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+
+        transaction
+                .replace(R.id.container, pFragment)
+                .commit();
     }
 
     @Override

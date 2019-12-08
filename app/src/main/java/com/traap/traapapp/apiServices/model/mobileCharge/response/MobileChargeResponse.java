@@ -9,7 +9,20 @@ import com.google.gson.annotations.SerializedName;
 public class MobileChargeResponse
 {
 
-    @SerializedName("amount")
+    @SerializedName("url")
+    @Expose
+    private String url;
+
+    public String getUrl()
+    {
+        return url;
+    }
+
+    public void setUrl(String url)
+    {
+        this.url = url;
+    }
+    /*  @SerializedName("amount")
     @Expose
     private Integer amount;
 
@@ -58,7 +71,7 @@ public class MobileChargeResponse
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
-    }
+    }*/
 
    /* @SerializedName("CreateDate")
     @Expose
