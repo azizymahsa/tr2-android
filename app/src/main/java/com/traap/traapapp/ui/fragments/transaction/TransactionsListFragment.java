@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
@@ -41,7 +44,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 
 public class TransactionsListFragment
-        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener//, OnBackPressed
+        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, DatePickerDialog.OnDateSetListener//, OnBackPressed
 {
     private String teamId = "";
     private View rootView;
@@ -60,6 +63,11 @@ public class TransactionsListFragment
     private View llFilter,btnConfirm;
     private CheckBox cbSuccessPayment,cbFailedPayment;
     private TextView etTimeUntil,etTimeFrom;
+    private ImageView imgTimeFromReset,imgTimeUntilReset;
+
+    private PersianCalendar currentDate;
+
+    private DatePickerDialog pickerDialogDate;
 
 
     public TransactionsListFragment()
@@ -105,7 +113,8 @@ public class TransactionsListFragment
             cbSuccessPayment=rootView.findViewById(R.id.cbSuccessPayment);
             cbFailedPayment=rootView.findViewById(R.id.cbFailedPayment);
 
-            imgTimeFromReset=rootView.findViewById(R.id.imgTimeFromReset)
+            imgTimeFromReset=rootView.findViewById(R.id.imgTimeFromReset);
+            imgTimeUntilReset=rootView.findViewById(R.id.imgTimeUntilReset);
 
             etTimeUntil=rootView.findViewById(R.id.etTimeUntil);
             etTimeFrom=rootView.findViewById(R.id.etTimeFrom);
@@ -147,14 +156,24 @@ public class TransactionsListFragment
             });
 
             tvTitle.setText("سوابق خرید و تراکنش");
-
+            initDate();
 
         } catch (Exception e)
         {
 
         }
     }
+    private void initDate()
+    {
+        currentDate = new PersianCalendar();
 
+        pickerDialogDate = DatePickerDialog.newInstance(this,
+                currentDate.getPersianYear(),
+                currentDate.getPersianMonth(),
+                currentDate.getPersianDay()
+        );
+        pickerDialogDate.setMaxDate(currentDate);
+    }
     private void openFilterLayout()
     {
         upPanelLayout.setScrollableView(rvCategories);
@@ -295,6 +314,18 @@ public class TransactionsListFragment
 
                 hideFilterSlide();
                 break;
+            case R.id.imgTimeUntilReset:
+
+                etTimeUntil.setText("");
+                imgTimeUntilReset.setVisibility(View.GONE);
+
+                break;
+            case R.id.imgTimeFromReset:
+
+                etTimeFrom.setText("");
+                imgTimeFromReset.setVisibility(View.GONE);
+
+                break;
 
 
         }
@@ -304,6 +335,12 @@ public class TransactionsListFragment
     private void hideFilterSlide()
     {
         upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
+    {
+
     }
 
 

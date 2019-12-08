@@ -43,7 +43,7 @@
                 <EditText
                     android:id="@+id/etSearch"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_35dp"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_weight="1"
                     android:drawableRight="@drawable/ic_search"
                     android:textColor="@color/black"
@@ -54,17 +54,16 @@
                     android:textSize="@dimen/textSize_14dp"
                     android:textColorHint="@color/grayColor"
                     android:drawableTint="@color/gray"
-                    android:visibility="gone"
                     />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
                     android:layout_weight="0.5"
                     android:layout_marginTop="2dp"
                     android:text="دسته بندی:"
                     android:textColor="@color/black"
+                    android:textSize="@dimen/textSize_16dp"
                     android:padding="10dp" />
 
             </LinearLayout>
