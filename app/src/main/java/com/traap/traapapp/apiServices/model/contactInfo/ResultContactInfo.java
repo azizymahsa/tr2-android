@@ -17,6 +17,19 @@ public class ResultContactInfo
     @SerializedName("value")
     @Expose
     private String value;
+    @SerializedName("title")
+    @Expose
+    private String title;
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
 
     public Integer getId() {
         return id;
