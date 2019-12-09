@@ -221,7 +221,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.getMenu().getItem(2).setChecked(true);
+//        bottomNavigationView.getMenu().getItem(2).setChecked(true);
+        bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem ->
         {
@@ -230,27 +231,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             //switch fragment
             switch (itemId)
             {
-                case R.id.tab_market:
-                {
-                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
-                    {
-                        setCheckedBNV(bottomNavigationView, 4);
-                        isMainFragment = false;
-
-                        fragment = MarketFragment.newInstance(this);
-                        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                        transaction.replace(R.id.main_container, fragment, "marketFragment")
-                                .commit();
-                    }
-                    break;
-                }
+//                case R.id.tab_market:
+//                {
+//                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
+//                    {
+//                        setCheckedBNV(bottomNavigationView, 4);
+//                        isMainFragment = false;
+//
+//                        fragment = MarketFragment.newInstance(this);
+//                        transaction = fragmentManager.beginTransaction();
+////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//                        transaction.replace(R.id.main_container, fragment, "marketFragment")
+//                                .commit();
+//                    }
+//                    break;
+//                }
                 case R.id.tab_all_services:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(3).isChecked())
+//                    if (!bottomNavigationView.getMenu().getItem(3).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(2).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 3);
+//                        setCheckedBNV(bottomNavigationView, 3);
+                        setCheckedBNV(bottomNavigationView, 2);
 
                         isMainFragment = false;
 
@@ -265,7 +268,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
                 case R.id.tab_home:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(2).isChecked() || !isMainFragment)
+//                    if (!bottomNavigationView.getMenu().getItem(2).isChecked() || !isMainFragment)
+                    if (!bottomNavigationView.getMenu().getItem(1).isChecked() || !isMainFragment)
                     {
 //                        setCheckedBNV(bottomNavigationView, 2);
 
@@ -275,9 +279,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
                 case R.id.tab_media:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(1).isChecked())
+//                    if (!bottomNavigationView.getMenu().getItem(1).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 1);
+//                        setCheckedBNV(bottomNavigationView, 1);
+                        setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 
                         fragment = MediaFragment.newInstance(MediaPosition.News, this);
@@ -289,22 +295,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     }
                     break;
                 }
-                case R.id.tab_payment:
-                {
-                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
-                    {
-                        setCheckedBNV(bottomNavigationView, 0);
-                        isMainFragment = false;
-
-                        fragment = PaymentWithoutCardFragment.newInstance(this);
-                        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                        transaction.replace(R.id.main_container, fragment, "paymentWithoutCardFragment")
-                                .commit();
-                    }
-                    break;
-                }
+//                case R.id.tab_payment:
+//                {
+//                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
+//                    {
+//                        setCheckedBNV(bottomNavigationView, 0);
+//                        isMainFragment = false;
+//
+//                        fragment = PaymentWithoutCardFragment.newInstance(this);
+//                        transaction = fragmentManager.beginTransaction();
+////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//                        transaction.replace(R.id.main_container, fragment, "paymentWithoutCardFragment")
+//                                .commit();
+//                    }
+//                    break;
+//                }
             }
             return true;
         });
@@ -416,16 +422,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                             }
                             else
                             {
-//                                Intent intent = new Intent(Intent.ACTION_MAIN);
-//                                intent.addCategory(Intent.CATEGORY_HOME);
-//                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//                                startActivity(intent);
+                                Intent intent = new Intent(Intent.ACTION_MAIN);
+                                intent.addCategory(Intent.CATEGORY_HOME);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                startActivity(intent);
 
-                                ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
-                                am.killBackgroundProcesses(getPackageName());
-                                android.os.Process.killProcess(android.os.Process.myPid());
-
-                                System.exit(1);
+//                                ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
+//                                am.killBackgroundProcesses(getPackageName());
+//                                android.os.Process.killProcess(android.os.Process.myPid());
+//
+//                                System.exit(1);
                             }
                         }
 
@@ -915,7 +921,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void backToMainFragment()
     {
-        setCheckedBNV(bottomNavigationView, 2);
+//        setCheckedBNV(bottomNavigationView, 2);
+        setCheckedBNV(bottomNavigationView, 1);
 
         isMainFragment = true;
         isNewsFragment = false;

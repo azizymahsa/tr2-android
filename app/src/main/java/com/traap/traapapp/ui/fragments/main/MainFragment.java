@@ -975,16 +975,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                                 }
                             } else if (type == 5)
                             {
-                                if (helpMenuResult.get(i).getCode() == 6)
-                                {
-                                    intro(getActivity().findViewById(R.id.tab_payment), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 6);
-                                }
+//                                if (helpMenuResult.get(i).getCode() == 6)
+//                                {
+//                                    intro(getActivity().findViewById(R.id.tab_payment), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 6);
+//                                }
                             } else if (type == 6)
                             {
-                                if (helpMenuResult.get(i).getCode() == 7)
-                                {
-                                    intro(getActivity().findViewById(R.id.tab_market), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 7);
-                                }
+//                                if (helpMenuResult.get(i).getCode() == 7)
+//                                {
+//                                    intro(getActivity().findViewById(R.id.tab_market), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 7);
+//                                }
                             } else if (type == 7)
                             {
                                 if (helpMenuResult.get(i).getCode() == 8)

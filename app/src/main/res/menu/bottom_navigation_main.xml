@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/tab_payment"
-        android:enabled="true"
-        android:icon="@drawable/ic_coins"
-        android:title="پرداخت"
-        app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--        android:id="@+id/tab_payment"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/ic_coins"-->
+<!--        android:title="پرداخت"-->
+<!--        app:showAsAction="ifRoom" />-->
     <item
         android:id="@+id/tab_media"
         android:enabled="true"
@@ -26,10 +26,10 @@
         android:icon="@drawable/ic_services"
         android:title="سرویسها"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/tab_market"
-        android:enabled="true"
-        android:icon="@drawable/ic_shop_main"
-        android:title="تراپ\u200cمارکت"
-        app:showAsAction="withText" />
+<!--    <item-->
+<!--        android:id="@+id/tab_market"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/ic_shop_main"-->
+<!--        android:title="تراپ\u200cمارکت"-->
+<!--        app:showAsAction="withText" />-->
 </menu>

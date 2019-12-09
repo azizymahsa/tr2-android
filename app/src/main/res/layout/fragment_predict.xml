@@ -456,13 +456,13 @@
 
                             <Space
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
                                 android:layout_height="wrap_content"/>
                             
                             <RelativeLayout
                                 android:id="@+id/rlChart1"
                                 android:layout_width="0dp"
-                                android:layout_weight="2"
+                                android:layout_weight="5"
                                 android:visibility="visible"
                                 android:layout_height="match_parent">
 
@@ -475,7 +475,7 @@
 
                                     <View
                                         android:id="@+id/vColorAwayOne"
-                                        android:layout_width="16dp"
+                                        android:layout_width="8dp"
                                         android:layout_height="8dp"
                                         android:layout_gravity="center_vertical"
                                         android:background="@color/textColorPrimary"/>
@@ -486,14 +486,14 @@
                                         android:layout_height="wrap_content"
                                         android:textSize="@dimen/textSize_12dp"
                                         android:gravity="center"
-                                        android:layout_marginRight="6dp"
-                                        android:layout_marginLeft="6dp"
+                                        android:layout_marginRight="2dp"
+                                        android:layout_marginLeft="2dp"
                                         android:textColor="@color/textColorSecondary"
                                         android:text="0-0"/>
 
                                     <View
                                         android:id="@+id/vColorHomeOne"
-                                        android:layout_width="16dp"
+                                        android:layout_width="8dp"
                                         android:layout_height="8dp"
                                         android:layout_gravity="center_vertical"
                                         android:background="@color/colorCardBlue"/>
@@ -523,13 +523,13 @@
 
                             <Space
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
                                 android:layout_height="wrap_content"/>
 
                             <RelativeLayout
                                 android:id="@+id/rlChart2"
                                 android:layout_width="0dp"
-                                android:layout_weight="2"
+                                android:layout_weight="5"
                                 android:visibility="visible"
                                 android:layout_height="match_parent">
 
@@ -542,7 +542,7 @@
 
                                     <View
                                         android:id="@+id/vColorAwayTwo"
-                                        android:layout_width="16dp"
+                                        android:layout_width="8dp"
                                         android:layout_height="8dp"
                                         android:layout_gravity="center_vertical"
                                         android:background="@color/textColorPrimary"/>
@@ -553,14 +553,14 @@
                                         android:layout_height="wrap_content"
                                         android:textSize="@dimen/textSize_12dp"
                                         android:gravity="center"
-                                        android:layout_marginRight="6dp"
-                                        android:layout_marginLeft="6dp"
+                                        android:layout_marginRight="2dp"
+                                        android:layout_marginLeft="2dp"
                                         android:textColor="@color/textColorSecondary"
                                         android:text="0-0"/>
 
                                     <View
                                         android:id="@+id/vColorHomeTwo"
-                                        android:layout_width="16dp"
+                                        android:layout_width="8dp"
                                         android:layout_height="8dp"
                                         android:layout_gravity="center_vertical"
                                         android:background="@color/colorCardBlue"/>
@@ -590,13 +590,13 @@
 
                             <Space
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
                                 android:layout_height="wrap_content"/>
 
                             <RelativeLayout
                                 android:id="@+id/rlChart3"
                                 android:layout_width="0dp"
-                                android:layout_weight="2"
+                                android:layout_weight="5"
                                 android:visibility="visible"
                                 android:layout_height="match_parent">
 
@@ -609,7 +609,7 @@
 
                                     <View
                                         android:id="@+id/vColorAwayThree"
-                                        android:layout_width="16dp"
+                                        android:layout_width="8dp"
                                         android:layout_height="8dp"
                                         android:layout_gravity="center_vertical"
                                         android:background="@color/textColorPrimary"/>
@@ -620,14 +620,14 @@
                                         android:layout_height="wrap_content"
                                         android:textSize="@dimen/textSize_12dp"
                                         android:gravity="center"
-                                        android:layout_marginRight="6dp"
-                                        android:layout_marginLeft="6dp"
+                                        android:layout_marginRight="2dp"
+                                        android:layout_marginLeft="2dp"
                                         android:textColor="@color/textColorSecondary"
                                         android:text="0-0"/>
 
                                     <View
                                         android:id="@+id/vColorHomeThree"
-                                        android:layout_width="16dp"
+                                        android:layout_width="8dp"
                                         android:layout_height="8dp"
                                         android:layout_gravity="center_vertical"
                                         android:background="@color/colorCardBlue"/>
@@ -657,7 +657,7 @@
 
                             <Space
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
                                 android:layout_height="wrap_content"/>
 
                         </LinearLayout>
