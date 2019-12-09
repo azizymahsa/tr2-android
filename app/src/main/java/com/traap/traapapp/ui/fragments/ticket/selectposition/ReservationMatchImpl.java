@@ -49,39 +49,4 @@ public class ReservationMatchImpl implements ReservationMatchInteractor
         },request);
 
     }
-
-/*    @Override
-    public void findDataIrancellBuyRequest(PaymentActionView listener, String price, int simcardType, int operatorType, int typeCharge, String password
-            , String mobile, String cvv2, String expDate,Integer cardId)
-    {
-        MobileChargeRequest request = new MobileChargeRequest();
-        request.setPin(password);
-        SingletonService.getInstance().getMobileCharge().MobileChargeService(new OnServiceStatus<WebServiceClass<MobileChargeResponse>>()
-        {
-            @Override
-            public void onReady(WebServiceClass<MobileChargeResponse> response)
-            {
-                try
-                {
-                    if (response.info.statusCode==200)
-                    {
-                        listener.onPaymentChargeSimCard(response.data, mobile);
-                    }else {
-                        listener.onErrorCharge(response.info.message);
-                    }
-
-                }
-                catch (Exception e)
-                {
-                    listener.onErrorCharge(e.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(String message)
-            {
-                listener.onErrorCharge(message);
-            }
-        }, request);
-    }*/
 }
