@@ -174,7 +174,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                 }
             });
             tvTitle = rootView.findViewById(R.id.tvTitle);
-            tvTitle.setText("همه سرویسها");
+            tvTitle.setText("سرویس ها");
             imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
@@ -532,10 +532,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     {
         switch (id)
         {
-          /*  پرواز : https://tourism.traap.com/fa/flights
-            پرواز(آتا) : https://tourism.traap.com/fa/ata-flights
-        هتل : https://tourism.traap.com/fa/hotels
-        اتوبوس : https://tourism.traap.com/fa/Bus*/
+
 
             case 11://Flight ata
             {
@@ -561,33 +558,28 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             case 14://Flight all
             {
 
-               /* Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/flights");
-                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);*/
+
               /*  fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_container, fragment, "findThisFragment")
                         .addToBackStack(null)
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("URL", URl);
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
             }
             case 12: //Hotel
             {
-//                mainView.showLoading();
-//                onGdsHotel(null);
-                // Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/hotels");
+//
                /* fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_container, fragment, "findThisFragment")
                         .addToBackStack(null)
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("URL", URl);
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
@@ -595,11 +587,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
             case 13: //Bus
             {
-//                mainView.showLoading();
-//                onGdsBus(null);
-                //   Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/Bus");
+//
               Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("URL", URl);
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
 
@@ -644,58 +634,58 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             //بیمه
             case 21: //بیمه شخص ثالث
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/thirdparty");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 22: //بیمه بدنه
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/carbody");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 29: //بیمه موتورسیکلت
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/thirdpartyMotor");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 23: //بیمه مسافرتی ویژه
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/travelplus");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 24: //بیمه مسافرتی
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/travel");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 25: //بیمه آتش سوزی
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/fire");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 26: //بیمه تجهیزات الکترونیکی
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/equipments");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 27: //بیمه زلزله
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/earthquake");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 28: //بیمه درمان
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/health");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
-                Utility.openUrlCustomTab(getActivity(), "https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 32: //  پارک حاشیه ای
             {
-                Utility.openUrlCustomTab(getActivity(), "https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
         }

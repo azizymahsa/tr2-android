@@ -60,6 +60,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private String largeImageClick = "";
     private String coverImg="";
 private  Boolean isBookmark=false;
+private  Boolean isLike=false;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -189,6 +190,7 @@ private  Boolean isBookmark=false;
             setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
             idPhoto = data.getContent().get(i).getId();
             likeCount = data.getContent().get(i).getLikes();
+            isLike = data.getContent().get(i).getIsLiked();
             isBookmark = data.getContent().get(i).getIsBookmarked();
             tvLike.setText(likeCount + "");
             coverImg=data.getContent().get(i).getCover();
@@ -319,6 +321,7 @@ private  Boolean isBookmark=false;
                 intent.putExtra("SRCImage", largeImageClick);
                 intent.putExtra("LikeCount", likeCount);
                 intent.putExtra("idPhoto", idPhoto);
+                intent.putExtra("isLike", isLike);
                 intent.putExtra("isBookmark", isBookmark);
                 startActivity(intent);
                 break;
@@ -401,6 +404,7 @@ private  Boolean isBookmark=false;
         idPhoto = content.getId();
         likeCount = content.getLikes();
         isBookmark =content.getIsBookmarked();
+        isLike =content.getIsLiked();
 
         tvLike.setText(likeCount + "");
         if(content.getImageName().getThumbnailLarge()=="")

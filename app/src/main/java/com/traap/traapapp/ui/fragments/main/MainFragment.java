@@ -536,15 +536,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             case 11: //Flight ATA
             {
-//                mainView.showLoading();
-////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
-//                onGdsFlightAta(null);
 
-               // Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/ata-flights");
-               /* Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
-                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);*/
                 WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
@@ -553,14 +545,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 14://Flight
             {
-//                mainView.showLoading();
-////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, MainFragment.this);
-//                onGdsFlight(null);
-               // Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/flights");
-              /*  Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
-                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);*/
+
                 WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
@@ -569,10 +554,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 12: //Hotel
             {
-//                mainView.showLoading();
-////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_HOTEL, MainFragment.this);
-//                onGdsHotel(null);
-              //  Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/hotels");
+
                 WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
@@ -581,20 +563,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 13: //Bus
             {
-//                mainView.showLoading();
-////                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, MainFragment.this);
-//                onGdsBus(null);
-              //  Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/Bus");
-               /* Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
-                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);*/
-                /*WebFragment fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, fragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();*/
+//
                 WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();

@@ -45,9 +45,9 @@ public class SendProfileRequest
     @Expose @Getter @Setter
     private String firstNameUS;
 
-    @SerializedName("email")
-    @Expose @Getter @Setter
-    private String email;
+//    @SerializedName("email")
+//    @Expose @Getter @Setter
+//    private String email;
 
     @SerializedName("last_english_name")
     @Expose @Getter @Setter
