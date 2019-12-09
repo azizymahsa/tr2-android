@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputFilter;
+import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,7 +21,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.ParsedRequestListener;
+import com.androidnetworking.interfaces.StringRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.JsonObject;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -28,23 +38,31 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import saman.zamani.persiandate.PersianDate;
 
+import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.helper.Const;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
+import com.traap.traapapp.apiServices.model.profile.postPhoto.SendImageResponse;
 import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.conf.TrapConfig;
@@ -63,6 +81,8 @@ import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetime
 
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Javad.Abadi on 10/7/2019.
@@ -78,6 +98,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture;
     private ImageView imgProfile, imgBirthdayReset;
+
+    private HeaderModel headerModel;
 
     private boolean sendProfileSuccess = false, sendPhotoSuccess = false;
     private boolean sendProfileFailure = false, sendPhotoFailure = false;
@@ -142,9 +164,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etFirstName.requestFocus();
 
         genderStrList= new ArrayList<String>();
-        genderStrList.add("--انتخاب جنسیت--");
-        genderStrList.add("زن");
+//        genderStrList.add("--انتخاب جنسیت--");
         genderStrList.add("مرد");
+        genderStrList.add("زن");
 
         ArrayAdapter<String> adapterGenderStrList = new ArrayAdapter<String>(this,
                 R.layout.my_spinner_item, genderStrList);
@@ -278,28 +300,28 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //            etEmail.setError("ایمیل درست نیست!");
         }
 
-        if (!etFirstName.getText().toString().trim().matches("[ا-ی]+") && !etFirstName.getText().toString().equalsIgnoreCase(""))
+        if (!etFirstName.getText().toString().trim().matches("[ ا-ی]+") && !etFirstName.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام فارسی،";
             err = false;
 //            etFirstNameUS.setError("نام انگلیسی درست نیست!");
         }
 
-        if (!etLastName.getText().toString().trim().matches("[ا-ی]+") && !etLastName.getText().toString().equalsIgnoreCase(""))
+        if (!etLastName.getText().toString().trim().matches("[ ا-ی]+") && !etLastName.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام خانوادگی فارسی،";
             err = false;
 //            etFirstNameUS.setError("نام انگلیسی درست نیست!");
         }
 
-        if (!etFirstNameUS.getText().toString().trim().matches("[a-zA-Z]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
+        if (!etFirstNameUS.getText().toString().trim().matches("[a-zA-Z ]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام انگلیسی،";
             err = false;
 //            etFirstNameUS.setError("نام انگلیسی درست نیست!");
         }
 
-        if (!etLastNameUS.getText().toString().trim().matches("[a-zA-Z]+") && !etLastNameUS.getText().toString().equalsIgnoreCase(""))
+        if (!etLastNameUS.getText().toString().trim().matches("[a-zA-Z ]+") && !etLastNameUS.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "نام خانوادگی انگلیسی،";
             err = false;
@@ -366,11 +388,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         if (Prefs.contains("gender"))
         {
-            spinnerGender.setSelection(Prefs.getInt("gender", 2) != 1 ? 2 : 1);
+            spinnerGender.setSelection(Prefs.getInt("gender", 0));
         }
         else
         {
-            spinnerGender.setSelection(2);
+            spinnerGender.setSelection(0);
         }
 
         if (Prefs.contains("birthday"))
@@ -463,10 +485,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             {
 
             }
+            headerModel = new HeaderModel();
 
             try
             {
                 part = PrepareImageFilePart.prepareFilePart(userPic.getName(), userPic);
+//                part = PrepareImageFilePart.prepareFilePart("photo", userPic);
+//                part = MultipartBody.Part.createFormData("photo", userPic.getName(),
+//                        RequestBody.create(MediaType.parse("image/*"), userPic));
                 sendProfilePhoto();
             }
             catch (Exception e)
@@ -475,7 +501,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 Logger.e("-Exception Photo-", e.getMessage());
                 part = null;
             }
-
 
             SendProfileRequest request = new SendProfileRequest();
             request.setPopularPlayer(12);
@@ -486,12 +511,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             request.setLastNameUS(etLastNameUS.getText().toString().trim());
             request.setNationalCode(etNationalCode.getText().toString().trim());
             request.setPopularPlayer(12);
-//            request.setEmail(etEmail.getText().toString().trim());
+            request.setEmail(etEmail.getText().toString().trim());
             request.setNickName(etNickName.getText().toString().trim());
             request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ? null :
                     getGrgDate(tvBirthDay.getText().toString().trim()));
 
-            request.setGender(spinnerGender.getSelectedItemPosition());
+            request.setGender(spinnerGender.getSelectedItemPosition()+1);
 
             SingletonService.getInstance().sendProfileService().sendProfileService(request,
                     new OnServiceStatus<WebServiceClass<SendProfileResponse>>()
@@ -543,10 +568,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                     TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
                                 }
 
-                                HeaderModel headerModel = new HeaderModel();
                                 headerModel.setPopularNo(popularPlayer);
                                 headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
-                                EventBus.getDefault().post(headerModel);
 
                                 sendProfileSuccess = true;
                                 finishSendData();
@@ -576,67 +599,166 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private void sendProfilePhoto()
     {
-        SingletonService.getInstance().sendProfileService().sendProfilePhoto(part, new OnServiceStatus<WebServiceClass<Object>>()
-        {
-            @Override
-            public void onReady(WebServiceClass<Object> response)
-            {
-                if (response.info.statusCode != 200)
-                {
-                    sendPhotoFailure = true;
-                    Logger.e("-onReady Photo-", "Error: " + response.info.message);
-                }
-                else
-                {
+        //---------------------new FAN--------------------------
+        Logger.e("--imagePath--", userPic.getAbsolutePath());
+        Logger.e("--url--", Const.BASEURL + Const.SEND_PROFILE_PHOTO);
+        Logger.e("--token--", Prefs.getString("accessToken",""));
 
-                    try
-                    {
-//                        Picasso.with(this).load(response.data.getPhotoUrl()).into(imgProfile, new Callback()
+        AndroidNetworking.upload(Const.BASEURL + Const.SEND_PROFILE_PHOTO)
+                .addHeaders("Content-Type", "application/x-www-form-urlencoded")
+                .addHeaders("Authorization",Prefs.getString("accessToken",""))
+//                .setOkHttpClient(client.build())
+                .addMultipartFile("photo", userPic)
+                .setTag("uploadProfile")
+                .setPriority(Priority.HIGH)
+                .build()
+                .setUploadProgressListener((bytesUploaded, totalBytes) ->
+                {
+                    Logger.e("-Upload Progress-",  "in Progress #");
+                })
+//                .getAsObject(WebServiceClass.class, new ParsedRequestListener<WebServiceClass<SendImageResponse>>()
+//                {
+//                    @Override
+//                    public void onResponse(WebServiceClass<SendImageResponse> response)
+//                    {
+//                        if (response.info.statusCode == 201)
 //                        {
-//                            @Override
-//                            public void onSuccess()
-//                            {
-//                                Prefs.putString("profile", response.data.getPhotoUrl());
-//                                headerModel.setProfileUrl(response.data.getPhotoUrl());
-//                            }
+//                            headerModel.setProfileUrl(response.data.getImageUrl());
 //
-//                            @Override
-//                            public void onError()
-//                            { }
-//                        });
-                    }
-                    catch (Exception e)
+//                            sendPhotoSuccess = true;
+//                            finishSendData();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(ANError anError)
+//                    {
+//                        sendPhotoFailure = true;
+//                        Logger.e("-onError Photo1-", "Error: " + anError.getErrorDetail());
+//                        Logger.e("-onError Photo2-", "Error: " + anError);
+//
+//                        finishSendData();
+//                    }
+//                });
+                .getAsString(new StringRequestListener()
+                {
+                    @Override
+                    public void onResponse(String response)
                     {
+                        Log.e("--Upload Response--", response + " ##");
 
+                        try
+                        {
+                            JSONObject object = new JSONObject(response);
+                            JSONObject info = object.getJSONObject("info");
+                            JSONObject data = object.getJSONObject("data");
+
+                            JSONObject status = info.getJSONObject("code");
+
+                            Logger.e("-status Response1-", status.toString() + " ");
+                            Logger.e("-status Response2-", info.getString("code"));
+                            if (Integer.parseInt(status.toString()) == 201)
+                            {
+                                JSONObject imageURL = data.getJSONObject("photo");
+                                headerModel.setProfileUrl(imageURL.toString());
+                                Logger.e("-image Link Response-", imageURL.toString() + " ");
+                                Prefs.putString("profileImage", imageURL.toString());
+//
+                                sendPhotoSuccess = true;
+                                finishSendData();
+                            }
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        sendPhotoSuccess = true;
+                        finishSendData();
                     }
 
+                    @Override
+                    public void onError(ANError anError)
+                    {
+                        sendPhotoFailure = true;
+                        Logger.e("-onError Photo1-", "Error: " + anError.getErrorDetail());
+                        Logger.e("-onError Photo2-", "Error: " + anError);
 
-//                    EventBus.getDefault().post(headerModel);
+                        finishSendData();
+                    }
+                });
+        //---------------------new FAN--------------------------
 
-                    sendPhotoSuccess = true;
-                    finishSendData();
-                }
-            }
-
-            @Override
-            public void onError(String message)
-            {
-                sendPhotoFailure = true;
-                Logger.e("-onError Photo-", "Error: " + message);
-
-                finishSendData();
-            }
-        });
+//        try
+//        {
+//            SingletonService.getInstance().sendProfileService().sendProfilePhoto(part, new OnServiceStatus<WebServiceClass<Object>>()
+//            {
+//                @Override
+//                public void onReady(WebServiceClass<Object> response)
+//                {
+//                    if (response.info.statusCode != 200)
+//                    {
+//                        sendPhotoFailure = true;
+//                        Logger.e("-onReady Photo1-", "Error: " + response.info.message);
+//                        Logger.e("-onReady Photo2-", "Exception: " + response.info.exception);
+//                        finishSendData();
+//                    }
+//                    else
+//                    {
+//                        Logger.e("-onReady Photo-", "Message: " + response.info.message);
+//                        try
+//                        {
+////                        Picasso.with(this).load(response.data.getPhotoUrl()).into(imgProfile, new Callback()
+////                        {
+////                            @Override
+////                            public void onSuccess()
+////                            {
+////                                Prefs.putString("profile", response.data.getPhotoUrl());
+////                                headerModel.setProfileUrl(response.data.getPhotoUrl());
+////                            }
+////
+////                            @Override
+////                            public void onError()
+////                            { }
+////                        });
+//                        }
+//                        catch (Exception e)
+//                        {
+//
+//                        }
+//
+//
+////                    EventBus.getDefault().post(headerModel);
+//
+//                        sendPhotoSuccess = true;
+//                        finishSendData();
+//                    }
+//                }
+//
+//                @Override
+//                public void onError(String message)
+//                {
+//                    sendPhotoFailure = true;
+//                    Logger.e("-onError Photo-", "Error: " + message);
+//
+//                    finishSendData();
+//                }
+//            });
+//        }
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+//            Logger.e("-Exception upload photo-", e.getMessage());
+//        }
     }
 
     private void finishSendData()
     {
         if (sendPhotoSuccess && sendProfileSuccess)
         {
-//            hideLoading();
-
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
+
+            EventBus.getDefault().post(headerModel);
 
             //success
             showToast(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", R.color.green);
@@ -649,9 +771,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             showToast(UserProfileActivity.this, "خطا در ارسال اطلاعات.", R.color.red);
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
-
-
         }
+//        else
+//        {
+//            btnConfirm.revertAnimation();
+//            btnConfirm.setClickable(true);
+//
+//        }
     }
 
     private String getPersianDate(String grgDate)
@@ -765,13 +891,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             etFirstName.setText(response.data.getFirstName());
             etLastName.setText(response.data.getLastName());
 
-            if (!response.data.getFirstName().equalsIgnoreCase("") ||
-                    !response.data.getLastName().equalsIgnoreCase(""))
-            {
-                Prefs.putString("FULLName", response.data.getFirstName().trim() + " " + response.data.getLastName().trim());
-            }
+//            if (!response.data.getFirstName().equalsIgnoreCase("") ||
+//                    !response.data.getLastName().equalsIgnoreCase(""))
+//            {
+//                Prefs.putString("FULLName", response.data.getFirstName().trim() + " " + response.data.getLastName().trim());
+//            }
 
-            if (!Prefs.getString("FULLName", "").equalsIgnoreCase(""))
+            if (!Prefs.getString("FULLName", "").replace(" ","").equalsIgnoreCase(""))
             {
                 TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
             }
@@ -901,8 +1027,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //            pickerDialogDate.setPersianCalendar(calendar);
 //            pickerDialogDate.setMaxDate(currentDate);
 
-//            String createDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-            String createDate = year + "/" + dayOfMonth + "/" + (monthOfYear + 1);
+            String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+//            String createDate = year + "/" + dayOfMonth + "/" + (monthOfYear + 1);
 //            viewModel.updateTvCreateDate(createDate);
             tvBirthDay.setText(createDate);
             imgBirthdayReset.setVisibility(View.VISIBLE);
