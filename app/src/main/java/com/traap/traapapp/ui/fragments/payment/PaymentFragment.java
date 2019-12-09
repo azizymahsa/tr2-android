@@ -303,7 +303,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
             EventBus.getDefault().register(this);
         }
 
-        EventBus.getDefault().register(this);
+      //  EventBus.getDefault().register(this);
     }
 
     @Override
