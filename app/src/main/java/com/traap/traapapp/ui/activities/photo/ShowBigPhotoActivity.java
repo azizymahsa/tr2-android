@@ -43,6 +43,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
     private Boolean isBookmark = false;
     private Integer idPhoto;
     private String largeImageClick = "";
+    private boolean isLike=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,8 +64,16 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                 largeImageClick = extras.getString("SRCImage", "");
                 likeCount = extras.getInt("LikeCount", 0);
                 isBookmark = extras.getBoolean("isBookmark", false);
+                isLike = extras.getBoolean("isLike", false);
                 setImageBackground(ivPhoto, largeImageClick);
                 tvLike.setText(likeCount + "");
+                if(isLike){
+                    imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                    tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                }else{
+                    imgLike.setColorFilter(getResources().getColor(R.color.white));
+                    tvLike.setTextColor(getResources().getColor(R.color.white));
+                }
 
             }
         }
