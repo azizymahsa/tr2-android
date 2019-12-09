@@ -40,6 +40,7 @@ import com.traap.traapapp.models.dbModels.ArchiveCardDBModel;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.PaymentResultDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
@@ -97,32 +98,54 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        if (v != null)
-        {
-            if (isDetailPaymentList)
-            {
-                isDetailPaymentList = false;
-                return v;
+//        if (v != null)
+//        {
+//            if (isDetailPaymentList)
+//            {
+//                isDetailPaymentList = false;
+//                return v;
+//
+//            } else
+//            {
+//                if (isDetailPaymentBarcode)
+//                {
+//                    isDetailPaymentBarcode = false;
+//                    return v;
+//
+//                } else
+//                    v = null;
+//
+//            }
+//
+//        }
 
-            } else
-            {
-                if (isDetailPaymentBarcode)
+//        v = inflater.inflate(R.layout.fragment_payment_without_card, container, false);
+        v = inflater.inflate(R.layout.fragment_traap_market, container, false);
+
+
+        //--------------------------test--------------------
+
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد.", false,
+                new MessageAlertDialog.OnConfirmListener()
                 {
-                    isDetailPaymentBarcode = false;
-                    return v;
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        mainView.backToMainFragment();
+                    }
 
-                } else
-                    v = null;
+                    @Override
+                    public void onCancelClick()
+                    {
 
-            }
+                    }
+                });
 
-        }
+        dialog.setCancelable(false);
+        dialog.show(getActivity().getFragmentManager(), "messageDialog");
+        //--------------------------test--------------------
 
-        v = inflater.inflate(R.layout.fragment_payment_without_card, container, false);
-
-
-
-        initView();
+//        initView();
 
         EventBus.getDefault().register(this);
         return v;
@@ -142,19 +165,19 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     public void onResume()
     {
         super.onResume();
-        if (Prefs.getString("qrCode", "").length() > 5)
-        {
-
-            Logger.d("--QRCode:--", Prefs.getString("qrCode", ""));
-            decryptBarcode(barcode);
-        }
-        continue_ = false;
-        etPassPayment.setText("");
-        etQR.setText("");
-        btnConfirm.revertAnimation(PaymentWithoutCardFragment.this);
-        btnConfirm.setClickable(true);
-        etCvv2.setText("");
-        etAmountPayment.setText("");
+//        if (Prefs.getString("qrCode", "").length() > 5)
+//        {
+//
+//            Logger.d("--QRCode:--", Prefs.getString("qrCode", ""));
+//            decryptBarcode(barcode);
+//        }
+//        continue_ = false;
+//        etPassPayment.setText("");
+//        etQR.setText("");
+//        btnConfirm.revertAnimation(PaymentWithoutCardFragment.this);
+//        btnConfirm.setClickable(true);
+//        etCvv2.setText("");
+//        etAmountPayment.setText("");
 
 
     }
