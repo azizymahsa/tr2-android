@@ -174,7 +174,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                 }
             });
             tvTitle = rootView.findViewById(R.id.tvTitle);
-            tvTitle.setText("همه سرویسها");
+            tvTitle.setText("سرویس ها");
             imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
@@ -532,10 +532,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     {
         switch (id)
         {
-          /*  پرواز : https://tourism.traap.com/fa/flights
-            پرواز(آتا) : https://tourism.traap.com/fa/ata-flights
-        هتل : https://tourism.traap.com/fa/hotels
-        اتوبوس : https://tourism.traap.com/fa/Bus*/
+
 
             case 11://Flight ata
             {
@@ -561,33 +558,28 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             case 14://Flight all
             {
 
-               /* Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/flights");
-                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);*/
+
               /*  fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_container, fragment, "findThisFragment")
                         .addToBackStack(null)
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("URL", URl);
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
             }
             case 12: //Hotel
             {
-//                mainView.showLoading();
-//                onGdsHotel(null);
-                // Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/hotels");
+//
                /* fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_container, fragment, "findThisFragment")
                         .addToBackStack(null)
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("URL", URl);
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
@@ -595,11 +587,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
             case 13: //Bus
             {
-//                mainView.showLoading();
-//                onGdsBus(null);
-                //   Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/Bus");
+//
               Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("URL", URl);
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
 

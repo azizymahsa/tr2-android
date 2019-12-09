@@ -213,7 +213,7 @@
                                 android:padding="8dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/garbage_icon"
-                                android:visibility="visible"/>
+                                android:visibility="gone"/>
                         </RelativeLayout>
                     </LinearLayout>
 
