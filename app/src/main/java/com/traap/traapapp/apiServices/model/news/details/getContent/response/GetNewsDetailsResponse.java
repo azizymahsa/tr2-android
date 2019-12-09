@@ -59,6 +59,10 @@ public class GetNewsDetailsResponse implements Parcelable
     private String createDate;
 
     @Expose @Getter @Setter
+    @SerializedName("publish_date")
+    private String publishDate;
+
+    @Expose @Getter @Setter
     @SerializedName("id")
     private int id;
 
@@ -78,8 +82,11 @@ public class GetNewsDetailsResponse implements Parcelable
         }
         byte tmpLiked = in.readByte();
         liked = tmpLiked == 0 ? null : tmpLiked == 1;
+        byte tmpBookmarked = in.readByte();
+        bookmarked = tmpBookmarked == 0 ? null : tmpBookmarked == 1;
         updateDate = in.readString();
         createDate = in.readString();
+        publishDate = in.readString();
         id = in.readInt();
     }
 
@@ -121,8 +128,10 @@ public class GetNewsDetailsResponse implements Parcelable
             dest.writeInt(likeCounter);
         }
         dest.writeByte((byte) (liked == null ? 0 : liked ? 1 : 2));
+        dest.writeByte((byte) (bookmarked == null ? 0 : bookmarked ? 1 : 2));
         dest.writeString(updateDate);
         dest.writeString(createDate);
+        dest.writeString(publishDate);
         dest.writeInt(id);
     }
 }
