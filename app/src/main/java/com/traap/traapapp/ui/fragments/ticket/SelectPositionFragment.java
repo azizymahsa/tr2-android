@@ -170,7 +170,6 @@ public class SelectPositionFragment
         rlImageViewsFull = view.findViewById(R.id.rlImageViewsFull);
 
 
-        setDataStadiumPosition();
         getAllBoxesRequest();
 
 
@@ -1007,6 +1006,7 @@ public class SelectPositionFragment
 
     private void getAllBoxesRequest()
     {
+        setDataStadiumPosition();
         GetAllBoxesRequest request = new GetAllBoxesRequest();
         request.setViewers(count);
         request.setMatchId(matchId);
