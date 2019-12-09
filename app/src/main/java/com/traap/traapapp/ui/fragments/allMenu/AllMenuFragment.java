@@ -634,58 +634,58 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             //بیمه
             case 21: //بیمه شخص ثالث
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/thirdparty");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 22: //بیمه بدنه
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/carbody");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 29: //بیمه موتورسیکلت
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/thirdpartyMotor");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 23: //بیمه مسافرتی ویژه
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/travelplus");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 24: //بیمه مسافرتی
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/travel");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 25: //بیمه آتش سوزی
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/fire");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 26: //بیمه تجهیزات الکترونیکی
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/equipments");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 27: //بیمه زلزله
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/earthquake");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 28: //بیمه درمان
             {
-                Utility.openUrlCustomTab(getActivity(), "https://traap.bimeh.com/health");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
-                Utility.openUrlCustomTab(getActivity(), "https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 32: //  پارک حاشیه ای
             {
-                Utility.openUrlCustomTab(getActivity(), "https://www.alopark.com/search?utm_source=trapp&utm_medium=trapp&utm_campaign=demo");
+                Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
         }
