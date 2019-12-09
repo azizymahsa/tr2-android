@@ -85,7 +85,7 @@ public class MyApplication extends ServiceApplication
         client.connectTimeout(70, TimeUnit.SECONDS);
         client.readTimeout(70, TimeUnit.SECONDS);
         client.writeTimeout(70, TimeUnit.SECONDS);
-        client.addInterceptor(new ChuckInterceptor(SingletonService.getInstance().getContext()));
+//        client.addInterceptor(new ChuckInterceptor(SingletonService.getInstance().getContext()));
 
         OkHttpClient okHttpClient = client.build();
         AndroidNetworking.initialize(getApplicationContext(),okHttpClient);

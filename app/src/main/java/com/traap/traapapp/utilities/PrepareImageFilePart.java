@@ -38,5 +38,6 @@ public class PrepareImageFilePart
 
         // MultipartBody.Part is used to send also the actual file name
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+//        return MultipartBody.Part.createFormData(partName,"photo", requestFile);
     }
 }
