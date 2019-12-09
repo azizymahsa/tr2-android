@@ -23,6 +23,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.paymentGateway.SelectPaymentAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -69,6 +70,15 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     {
     }
 
+    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount)
+    {
+        this.url = url;
+        this.mainView = mainView;
+        this.imageDrawable = imageDrawable;
+        this.title = title;
+        this.amount = amount;
+    }
+
     public static SelectPaymentGatewayFragment newInstance(MainActionView mainView)
     {
         matchScheduleFragment = new SelectPaymentGatewayFragment();
@@ -94,6 +104,24 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
         return fragment;
 
+    }
+
+    public static Fragment newInstance(String urlPayment, MainActionView mainView, int imageDrawable, String title, String amount)
+    {
+        SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
+        fragment.setParentActionView(mainView);
+
+        Bundle args = new Bundle();
+        args.putString("url", urlPayment);
+        args.putString("amount", amount);
+        args.putInt("imageDrawable", imageDrawable);
+        //args.putString("mobile", mobile);
+        args.putString("title", title);
+       // args.putParcelable("paymentInstance", (Parcelable) paymentInstance);
+
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     private void setParentActionView(MainActionView mainView)
