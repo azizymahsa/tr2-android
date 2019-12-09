@@ -9,5 +9,5 @@
     android:textColor="@color/black"
     android:gravity="center"
     android:textSize="15sp"
-    android:background="@color/white"
+    android:background="@drawable/spinner_stadium_item"
     android:drawableBottom="@color/black"/>
