@@ -635,7 +635,7 @@ public class ChargeFragment extends BaseFragment
 
         String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
 
-        fragmentManager = getChildFragmentManager();
+        //fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
 
         SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
@@ -650,9 +650,9 @@ public class ChargeFragment extends BaseFragment
 
 
 
-        ((TextView) rootView.findViewById(R.id.tvTitle)).setText("پرداخت");
+      //  ((TextView) rootView.findViewById(R.id.tvTitle)).setText("پرداخت");
 
-        YoYo.with(Techniques.SlideOutRight).withListener(new AnimatorListenerAdapter()
+     /*   YoYo.with(Techniques.SlideOutRight).withListener(new AnimatorListenerAdapter()
         {
             @Override
             public void onAnimationEnd(Animator animation)
@@ -662,12 +662,9 @@ public class ChargeFragment extends BaseFragment
 
             }
         }).duration(200)
-                .playOn(llCvv2);
+                .playOn(llCvv2);*/
 
-        (rootView.findViewById(R.id.container)).setVisibility(View.VISIBLE);
-        YoYo.with(Techniques.SlideInLeft)
-                .duration(200)
-                .playOn(rootView.findViewById(R.id.container));
+
         //----------------------------new for payment fragment-----------------------
     }
 
@@ -1670,7 +1667,7 @@ public class ChargeFragment extends BaseFragment
         String urlPayment = data.getUrl();
         String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
 
-        fragmentManager = getChildFragmentManager();
+        //fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
 
         SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
@@ -1679,7 +1676,17 @@ public class ChargeFragment extends BaseFragment
         paymentInstance.setSimcardType(simcardType);
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
 
-        pFragment = SelectPaymentGatewayFragment.newInstance(urlPayment,mainView, amount, title, imageDrawable,
+
+
+       mainView.openChargePaymentFragment(urlPayment, R.drawable.icon_payment_ticket,
+               title, Utility.priceFormat(amount));
+
+
+       /* (rootView.findViewById(R.id.container)).setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.SlideInLeft)
+                .duration(200)
+                .playOn(rootView.findViewById(R.id.container));*/
+     /*   pFragment = SelectPaymentGatewayFragment.newInstance(urlPayment,mainView, amount, title, imageDrawable,
                 mobile, paymentInstance);
 
 //        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
@@ -1700,7 +1707,7 @@ public class ChargeFragment extends BaseFragment
 
         transaction
                 .replace(R.id.container, pFragment)
-                .commit();
+                .commit();*/
     }
 
     @Override
@@ -1873,6 +1880,12 @@ public class ChargeFragment extends BaseFragment
 
     @Override
     public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
+    {
+
+    }
+
+    @Override
+    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat)
     {
 
     }
