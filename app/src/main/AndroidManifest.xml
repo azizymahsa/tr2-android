@@ -69,14 +69,16 @@
         android:name="com.adpdigital.push.client.SHOW_ONLY_CHABOK_NOTIFICATIONS"
         android:value="ENABLE" />
 
-    <uses-feature
+    <!--<uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
     <uses-feature
         android:name="android.hardware.camera.autofocus"
-        android:required="false" />
+        android:required="false" />-->
 
+<!--
     <uses-permission android:name="android.permission.CAMERA" />
+-->
 
     <application
         android:name=".MyApplication"
