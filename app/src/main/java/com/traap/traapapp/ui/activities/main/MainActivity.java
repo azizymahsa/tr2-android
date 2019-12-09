@@ -37,6 +37,7 @@ import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
+import library.android.eniac.utility.Utility;
 
 import com.traap.traapapp.BuildConfig;
 import com.traap.traapapp.R;
@@ -84,6 +85,7 @@ import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
 import com.traap.traapapp.ui.fragments.news.mainNews.NewsMainFragment;
+import com.traap.traapapp.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import com.traap.traapapp.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
@@ -1329,6 +1331,26 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "pastResultFragment")
                 .commit();
+    }
+
+    @Override
+    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String amount)
+    {
+
+        isMainFragment = false;
+        this.fragment = SelectPaymentGatewayFragment.newInstance(urlPayment, this, R.drawable.icon_payment_ticket,
+                title, amount);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "selectPaymentGatewayFragment")
+                .commit();
+       /* SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(urlPayment, mainView, R.drawable.icon_payment_ticket,
+                title, Utility.priceFormat(amount));
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, fragment2);
+        fragmentTransaction.commit();*/
     }
 
     @Override

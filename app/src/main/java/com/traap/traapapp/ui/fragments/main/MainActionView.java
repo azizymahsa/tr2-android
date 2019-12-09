@@ -65,4 +65,6 @@ public interface MainActionView extends BaseView
     void onMainVideoClick();
 
     void openPastResultFragment(String teamId, String imageLogo, String logoTitle);
+
+    void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat);
 }
