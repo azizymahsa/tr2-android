@@ -168,8 +168,8 @@ public interface RetroClient
             @Path("id") Integer categoryId
     );
 
-    @GET(Const.Archive_Photo)
-    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos();
+
+
 
     @GET(Const.List_Bookmark_Photo)
     Single<Response<WebServiceClass<ArchiveVideoResponse>>> getListBookmarkPhotos();
@@ -443,7 +443,11 @@ public interface RetroClient
             @Query("type_transaction_id") Integer typeTransactionId,
             @Query("create_date__range") String createDateRange
     );
+    @GET(Const.Archive_Photo)
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos(
+            @Query("category_id") String category_id
 
+    );
 
     @GET(Const.GetHistory)
     Single<Response<WebServiceClass<ResponseHistory>>> getHistory();
