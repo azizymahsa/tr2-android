@@ -167,7 +167,7 @@ public class TransactionsListFragment
                 getActivity().onBackPressed();
             });
 
-            tvTitle.setText("سوابق خرید و تراکنش");
+            tvTitle.setText("سوابق خرید");
             initDate();
 
         } catch (Exception e)
