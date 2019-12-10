@@ -321,8 +321,8 @@ public class AboutFragment
                 {
                    /* startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://instagram.com/traapapp")));*/
-                   /* startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(instagram)));*/
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(instagram)));
                 }
                 break;
             case R.id.btnHistory:
