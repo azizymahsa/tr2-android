@@ -177,6 +177,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 //                        loginView.onButtonActions(true, GoToActivity.UserProfileActivity);
                         loginView.onButtonActions(true, GoToActivity.MainActivity);
                         loginView.hideLoading();
+                        Prefs.putString("profileImage", response.data.getProfile().getProfileImage());
 
                         Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer() == 0 ? 12 : response.data.getProfile().getPopularPlayer());
 
