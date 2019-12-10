@@ -125,7 +125,7 @@ private  Boolean isLike=false;
         tvLike = findViewById(R.id.tvLike);
         rlLike = findViewById(R.id.rlLike);
         rlLike.setOnClickListener(this);
-
+showLoading();
         setDataItems();
 
 
@@ -135,7 +135,14 @@ private  Boolean isLike=false;
 
 
     }
-
+    public void showLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+    }
+    public void hideLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
+    }
     private void sendRequestListPhotos(int idVideoCategory)
     {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
@@ -145,7 +152,7 @@ private  Boolean isLike=false;
             @Override
             public void onReady(WebServiceClass<PhotosByIdResponse> response)
             {
-                //mainView.hideLoading();
+                hideLoading();
                 try
                 {
 
@@ -169,7 +176,7 @@ private  Boolean isLike=false;
             @Override
             public void onError(String message)
             {
-                //  mainView.hideLoading();
+                hideLoading();
                 Tools.showToast(getApplicationContext(), message, R.color.red);
             }
         });
@@ -212,7 +219,7 @@ private  Boolean isLike=false;
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
             {
-                //mainView.hideLoading();
+                hideLoading();
                 try
                 {
 
@@ -235,7 +242,7 @@ private  Boolean isLike=false;
             @Override
             public void onError(String message)
             {
-                //  mainView.hideLoading();
+                hideLoading();
                 Tools.showToast(getApplicationContext(), message, R.color.red);
             }
         });
@@ -330,7 +337,7 @@ private  Boolean isLike=false;
 
     private void requestLikeVideo()
     {
-        //rlLike.setClickable(false);
+        showLoading();
         LikeVideoRequest request = new LikeVideoRequest();
 
         SingletonService.getInstance().getLikeVideoService().likePhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
@@ -339,6 +346,7 @@ private  Boolean isLike=false;
             public void onReady(WebServiceClass<LikeVideoResponse> response)
             {
                 // rlLike.setClickable(true);
+                hideLoading();
 
                 try
                 {
@@ -362,7 +370,7 @@ private  Boolean isLike=false;
             @Override
             public void onError(String message)
             {
-                //  mainView.hideLoading();
+                hideLoading();
                 Tools.showToast(getApplicationContext(), message, R.color.red);
                 //rlLike.setClickable(true);
 

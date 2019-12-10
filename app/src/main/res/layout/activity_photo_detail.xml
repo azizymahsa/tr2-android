@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@null"
-    tools:context="com.traap.traapapp.ui.activities.video.VideoDetailActivity"
     android:layoutDirection="ltr"
+    android:background="@drawable/background"
     >
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -49,7 +52,7 @@
             android:layout_marginLeft="@dimen/_20dp"
             android:layout_marginRight="@dimen/_20dp"
             android:foreground="?attr/selectableItemBackground"
-            android:text="عنوان آلبوم: بازی های حاج صفی"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/textSize_18dp" />
     </LinearLayout>
@@ -151,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/_5dp"
-                    android:text="hfgjngjfjf"
+                    android:text=""
                     android:layout_centerInParent="true"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -230,3 +233,6 @@
 
 </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+<include layout="@layout/loading"
+android:visibility="gone"/>
+    </RelativeLayout>
