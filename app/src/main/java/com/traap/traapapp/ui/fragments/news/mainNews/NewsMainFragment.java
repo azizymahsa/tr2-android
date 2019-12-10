@@ -125,7 +125,7 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
     @Override
     public void hideLoading()
     {
-        mainView.showLoading();
+        mainView.hideLoading();
     }
 
     @Subscribe
