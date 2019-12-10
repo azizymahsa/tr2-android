@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
-
 /**
  * Created by MahtabAzizi on 11/25/2019.
  */

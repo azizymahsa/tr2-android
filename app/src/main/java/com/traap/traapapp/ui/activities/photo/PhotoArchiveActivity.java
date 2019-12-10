@@ -18,6 +18,8 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoRequest;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
+import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
+import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.conf.TrapConfig;
@@ -27,7 +29,7 @@ import com.traap.traapapp.ui.adapters.photo.PhotosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.utilities.Tools;
 
-public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveAdapter.ArchiveVideoListener
+public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveAdapter.ArchiveVideoListener, PhotosCategoryTitleAdapter.TitleCategoryListener
 {
 
     private TextView tvTitle, tvUserName, tvPopularPlayer;
@@ -36,6 +38,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
     private RecyclerView rvCategoryTitles, rvArchiveVideo;
     private PhotosCategoryTitleAdapter videoCategoryTitleAdapter;
     private boolean FLAG_Favorite = false;
+    private Integer idCategoryTitle = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,9 +60,11 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             }
         }
         initView();
-        if(FLAG_Favorite){
+        if (FLAG_Favorite)
+        {
             requestBookMarkPhotos();
-        }else {
+        } else
+        {
             requestArchivePhoto();
 
         }
@@ -81,7 +86,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
                     if (response.info.statusCode == 200)
                     {
 
-                        onGetBookMarkPhotoSuccess(response.data);
+                        onGetBookMarkPhotoSuccess(response.data.getResults());
 
                     } else
                     {
@@ -105,8 +110,15 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
 
     private void requestArchivePhoto()
     {
+        String categoryId = null;
         ArchiveVideoRequest request = new ArchiveVideoRequest();
-
+        if (idCategoryTitle != 0)
+        {
+            categoryId = idCategoryTitle.toString();
+        } else if (categoryTitleList != null && categoryTitleList.size() > 0)
+        {
+            categoryId = categoryTitleList.get(0).getId().toString();
+        }
         SingletonService.getInstance().getArchiveVideoService().getArchivePhoto(new OnServiceStatus<WebServiceClass<ArchiveVideoResponse>>()
         {
             @Override
@@ -119,7 +131,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
                     if (response.info.statusCode == 200)
                     {
 
-                        onGetArchivePhotoSuccess(response.data);
+                        onGetArchivePhotoSuccess(response.data.getResults());
 
                     } else
                     {
@@ -138,16 +150,17 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
                 // mainView.hideLoading();
                 Tools.showToast(getApplication(), message, R.color.red);
             }
-        }, request);
+        }, categoryId);
     }
 
-    private void onGetArchivePhotoSuccess(ArchiveVideoResponse data)
+    private void onGetArchivePhotoSuccess(ArrayList<Category> data)
     {
-        rvArchiveVideo.setAdapter(new PhotosArchiveAdapter(data.getResults(),FLAG_Favorite, this));
+        rvArchiveVideo.setAdapter(new PhotosArchiveAdapter(data, FLAG_Favorite, this));
     }
-    private void onGetBookMarkPhotoSuccess(ArchiveVideoResponse data)
+
+    private void onGetBookMarkPhotoSuccess(ArrayList<Category> data)
     {
-        rvArchiveVideo.setAdapter(new PhotosArchiveAdapter(data.getResults(),FLAG_Favorite, this));
+        rvArchiveVideo.setAdapter(new PhotosArchiveAdapter(data, FLAG_Favorite, this));
     }
 
     private void initView()
@@ -184,11 +197,12 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         if (!FLAG_Favorite)
         {
             tvTitle.setText("آرشیو عکس");
-            videoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(categoryTitleList, this, false);
+            videoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(categoryTitleList, this);
             rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
 
 
-        }else {
+        } else
+        {
             tvTitle.setText("عکس های مورد علاقه من");
         }
     }
@@ -209,19 +223,71 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
     @Override
     public void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent)
     {
+
+        if (FLAG_Favorite)
+        {
         Intent intent = new Intent(this, ShowBigPhotoActivity.class);
-        if (FLAG_Favorite )
+        if (FLAG_Favorite)
         {
             intent.putExtra("SRCImage", category.getImageName().getThumbnailLarge());
 
-        }else{
+        } else
+        {
             intent.putExtra("SRCImage", category.getCover());
 
         }
         intent.putExtra("LikeCount", category.getLikes());
-        intent.putExtra("idPhoto",  category.getId());
-        intent.putExtra("isLike",  category.getIsLiked());
+        intent.putExtra("idPhoto", category.getId());
+        intent.putExtra("isLike", category.getIsLiked());
         startActivity(intent);
+        }//else  //اینجا باید آلبوم نمایش داده شود
         //openVideoDetail(recent, position, category.getCategoryId(), category.getId());
+    }
+
+    private void requestGetCategoryById(Integer idCategoryTitle)
+    {
+
+        CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
+
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService(idCategoryTitle, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
+            {
+                //  mainView.hideLoading();
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+
+                        //   setCategoryListData(response.data);
+                        onGetArchivePhotoSuccess(response.data.getResults());
+                    } else
+                    {
+                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                //  mainView.hideLoading();
+                Tools.showToast(getApplicationContext(), message, R.color.red);
+            }
+        });
+    }
+
+    @Override
+    public void onItemTitleCategoryClick(ListCategory category)
+    {
+        //mainView.showLoading();
+        idCategoryTitle = category.getId();
+        requestGetCategoryById(idCategoryTitle);
     }
 }
