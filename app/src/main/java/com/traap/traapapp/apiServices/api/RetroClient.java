@@ -13,6 +13,8 @@ import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.billPayment.request.BillPaymentRequest;
 import com.traap.traapapp.apiServices.model.billPayment.response.BillPaymentResponse;
 import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
+import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletRequest;
+import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
 import com.traap.traapapp.apiServices.model.buyPackage.request.PackageBuyRequest;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.card.Result;
@@ -247,6 +249,10 @@ public interface RetroClient
     @POST(Const.BUY_MOBILE_CHARGE)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
             @Body MobileChargeRequest request);
+
+    @POST(Const.BUY_CHARGE_WALLET)
+    Single<Response<WebServiceClass<BuyChargeWalletResponse>>> buyChargeWallet(
+            @Body BuyChargeWalletRequest request);
 
     @POST(Const.GET_Leage)
     Single<Response<WebServiceClass<ResponseLeage>>> getLeage(
