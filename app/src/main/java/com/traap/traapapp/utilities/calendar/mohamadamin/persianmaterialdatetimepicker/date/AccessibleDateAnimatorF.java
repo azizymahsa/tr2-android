@@ -25,14 +25,17 @@ import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetime
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 
-public class AccessibleDateAnimatorF extends ViewAnimator {
+public class AccessibleDateAnimatorF extends ViewAnimator
+{
     private long mDateMillis;
 
-    public AccessibleDateAnimatorF(Context context, AttributeSet attrs) {
+    public AccessibleDateAnimatorF(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
     }
 
-    public void setDateMillis(long dateMillis) {
+    public void setDateMillis(long dateMillis)
+    {
         mDateMillis = dateMillis;
     }
 
@@ -40,15 +43,17 @@ public class AccessibleDateAnimatorF extends ViewAnimator {
      * Announce the currently-selected date when launched.
      */
     @Override
-    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
-        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event)
+    {
+        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
+        {
             // Clear the event's current text so that only the current date will be spoken.
             event.getText().clear();
             PersianCalendar mPersianCalendar = new PersianCalendar();
             mPersianCalendar.setTimeInMillis(mDateMillis);
             String dateString = LanguageUtils.getPersianNumbers(
                     mPersianCalendar.getPersianMonthName() + " " +
-                    mPersianCalendar.getPersianYear()
+                            mPersianCalendar.getPersianYear()
             );
             event.getText().add(dateString);
             return true;
