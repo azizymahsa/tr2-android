@@ -986,13 +986,23 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onBuyTicketClick(MatchItem matchBuyable)
     {
-        showLoading();
+       /* showLoading();
         isMainFragment = false;
         this.fragment = BuyTicketsFragment.newInstance(this, matchBuyable);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "buyTicketsFragment")
+                .commit();*/
+
+        isMainFragment = false;
+
+        fragment = ChargeFragment.newInstance(this);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+        transaction.replace(R.id.main_container, fragment, "chargeFragment")
                 .commit();
     }
 

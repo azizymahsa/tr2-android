@@ -316,9 +316,9 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
 
 //        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> pActionView.openDrawer());
 //        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> pActionView.backToMainFragment());
-        tvUserName = mToolbar.findViewById(R.id.tvUserName);
-        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
-        tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+      //  tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        //tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+     //   tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         initView(rootView);
 
         return rootView;

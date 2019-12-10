@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -259,6 +260,7 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.ivContactR)
     void ivContactR()
     {
+
         mainView.onContact();
     }
 
@@ -765,7 +767,7 @@ public class ChargeFragment extends BaseFragment
         isMtn = false;
         isRightel = false;
         //mainView.needExpanded(true);
-        llMCICharge.setVisibility(View.GONE);
+       // llMCICharge.setVisibility(View.GONE);
         setDataLayoutPassCharge();
 
 //        llOperatorImages.setVisibility(View.GONE);
@@ -1679,7 +1681,7 @@ public class ChargeFragment extends BaseFragment
 
 
        mainView.openChargePaymentFragment(urlPayment, R.drawable.icon_payment_ticket,
-               title, Utility.priceFormat(amount));
+               title, amount);
 
 
        /* (rootView.findViewById(R.id.container)).setVisibility(View.VISIBLE);
@@ -1714,6 +1716,7 @@ public class ChargeFragment extends BaseFragment
     public void onErrorCharge(String message)
     {
 
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
