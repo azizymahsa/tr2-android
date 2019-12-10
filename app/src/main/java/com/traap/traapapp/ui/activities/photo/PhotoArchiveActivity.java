@@ -208,7 +208,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
     }
 
 
-    private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
+    private void openCategoryDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
         Intent intent = new Intent(this, AlbumDetailActivity.class);
 
@@ -227,20 +227,23 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         if (FLAG_Favorite)
         {
         Intent intent = new Intent(this, ShowBigPhotoActivity.class);
-        if (FLAG_Favorite)
-        {
+        /*if (FLAG_Favorite)
+        {*/
             intent.putExtra("SRCImage", category.getImageName().getThumbnailLarge());
 
-        } else
+        /*} else
         {
             intent.putExtra("SRCImage", category.getCover());
 
-        }
+        }*/
         intent.putExtra("LikeCount", category.getLikes());
         intent.putExtra("idPhoto", category.getId());
         intent.putExtra("isLike", category.getIsLiked());
         startActivity(intent);
-        }//else  //اینجا باید آلبوم نمایش داده شود
+        }else  //اینجا باید آلبوم نمایش داده شود
+        {
+            openCategoryDetail(recent,  position,  category.getId(),  category.getId());
+        }
         //openVideoDetail(recent, position, category.getCategoryId(), category.getId());
     }
 
