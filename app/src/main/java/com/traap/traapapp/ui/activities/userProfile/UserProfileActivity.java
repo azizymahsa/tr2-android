@@ -921,13 +921,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             }
             etNickName.setText(response.data.getEnglishName());
-            if (response.data.getNationalCode() == 0)
+            if (response.data.getNationalCode().equalsIgnoreCase("0"))
             {
                 etNationalCode.setText("");
             }
             else
             {
-                etNationalCode.setText(String.valueOf(response.data.getNationalCode()));
+                etNationalCode.setText(response.data.getNationalCode());
             }
             etFirstNameUS.setText(response.data.getFirstNameUS());
             etLastNameUS.setText(response.data.getLastNameUS());
@@ -958,6 +958,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             }
 
+            spinnerGender.setSelection(response.data.getGender()-1);
 
             EventBus.getDefault().post(headerModel);
 
