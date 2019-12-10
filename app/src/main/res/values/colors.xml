@@ -88,12 +88,12 @@
     <color name="white">#fff</color>
 
     <!--  calendar  start-->
-    <color name="gmdtp_white">#ffffff</color>
+    <color name="gmdtp_white">#fff</color>
     <color name="mdtp_accent_color">#AD0000</color>
     <color name="mdtp_accent_color_dark">#810000</color>
     <color name="gmdtp_accent_color">#928DC5</color>
     <color name="gmdtp_accent_color_dark">#928DC5</color>
-    <color name="mdtp_white">#ffffff</color>
+    <color name="mdtp_white">#fff</color>
     <color name="mdtp_background_color">@color/mdtp_white</color>
 <!--    <color name="mdtp_circle_background">@color/mdtp_background_color</color>-->
     <color name="mdtp_circle_background">#ccc</color>
@@ -117,8 +117,9 @@
     <color name="mdtp_date_picker_text_disabled_dark_theme">#767676</color>
     <color name="mdtp_date_picker_text_highlighted_dark_theme">@color/mdtp_date_picker_text_normal_dark_theme</color>
     <color name="mdtp_calendar_header">#282828</color>
-    <color name="mdtp_date_picker_view_animator">@android:color/white</color>
-    <color name="mdtp_button_color">@color/mdtp_accent_color</color>
+    <color name="mdtp_date_picker_view_animator">#fff</color>
+    <color name="mdtp_button_color">#AD0000</color>
+    <color name="mdtp_button_text_color">#fff</color>
     <color name="mdtp_button_selected">#33969696</color>
 
     <!-- TimePicker Dark Theme -->
@@ -129,7 +130,7 @@
     <color name="mdtp_light_gray">#424242</color>
     <color name="mdtp_dark_gray">#323232</color>
     <color name="mdtp_line_dark">#808080</color>
-    <color name="mdtp_done_text_color_dark_normal">#ffffff</color>
+    <color name="mdtp_done_text_color_dark_normal">#fff</color>
     <color name="mdtp_done_text_color_dark_disabled">#888888</color>
     <color name="mdtp_date_picker_selector">#fff</color>
     <!--  calendar  end-->

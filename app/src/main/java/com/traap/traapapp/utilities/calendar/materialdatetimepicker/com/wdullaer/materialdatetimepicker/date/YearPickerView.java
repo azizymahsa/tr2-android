@@ -35,7 +35,8 @@ import com.traap.traapapp.R;
 /**
  * Displays a selectable list of years.
  */
-public class YearPickerView extends ListView implements OnItemClickListener, DatePickerDialog.OnDateChangedListener {
+public class YearPickerView extends ListView implements OnItemClickListener, DatePickerDialog.OnDateChangedListener
+{
     private static final String TAG = "YearPickerView";
 
     private final DatePickerController mController;
@@ -44,7 +45,8 @@ public class YearPickerView extends ListView implements OnItemClickListener, Dat
     private int mChildSize;
     private TextViewWithCircularIndicator mSelectedView;
 
-    public YearPickerView(Context context, DatePickerController controller) {
+    public YearPickerView(Context context, DatePickerController controller)
+    {
         super(context);
         mController = controller;
         mController.registerOnDateChangedListener(this);
@@ -63,19 +65,24 @@ public class YearPickerView extends ListView implements OnItemClickListener, Dat
         onDateChanged();
     }
 
-    private void init() {
+    private void init()
+    {
 //        mAdapter = new YearAdapter(mController.getMinYear(), mController.getMaxYear());
         mAdapter = new YearAdapter(1300, mController.getMaxYear());
         setAdapter(mAdapter);
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
         mController.tryVibrate();
         TextViewWithCircularIndicator clickedView = (TextViewWithCircularIndicator) view;
-        if (clickedView != null) {
-            if (clickedView != mSelectedView) {
-                if (mSelectedView != null) {
+        if (clickedView != null)
+        {
+            if (clickedView != mSelectedView)
+            {
+                if (mSelectedView != null)
+                {
                     mSelectedView.drawIndicator(false);
                     mSelectedView.requestLayout();
                 }
@@ -88,16 +95,20 @@ public class YearPickerView extends ListView implements OnItemClickListener, Dat
         }
     }
 
-    private static int getYearFromTextView(TextView view) {
+    private static int getYearFromTextView(TextView view)
+    {
         return Integer.valueOf(view.getText().toString());
     }
 
-    private final class YearAdapter extends BaseAdapter {
+    private final class YearAdapter extends BaseAdapter
+    {
         private final int mMinYear;
         private final int mMaxYear;
 
-        YearAdapter(int minYear, int maxYear) {
-            if (minYear > maxYear) {
+        YearAdapter(int minYear, int maxYear)
+        {
+            if (minYear > maxYear)
+            {
                 throw new IllegalArgumentException("minYear > maxYear");
             }
             mMinYear = minYear;
@@ -105,28 +116,34 @@ public class YearPickerView extends ListView implements OnItemClickListener, Dat
         }
 
         @Override
-        public int getCount() {
+        public int getCount()
+        {
             return mMaxYear - mMinYear + 1;
         }
 
         @Override
-        public Object getItem(int position) {
+        public Object getItem(int position)
+        {
             return mMinYear + position;
         }
 
         @Override
-        public long getItemId(int position) {
+        public long getItemId(int position)
+        {
             return position;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
             TextViewWithCircularIndicator v;
-            if (convertView != null) {
+            if (convertView != null)
+            {
                 v = (TextViewWithCircularIndicator) convertView;
-            } else {
+            } else
+            {
                 v = (TextViewWithCircularIndicator) LayoutInflater.from(parent.getContext())
-                  .inflate(R.layout.gmdtp_year_label_text_view, parent, false);
+                        .inflate(R.layout.gmdtp_year_label_text_view, parent, false);
                 v.setAccentColor(mController.getAccentColor(), mController.isThemeDark());
             }
             int year = mMinYear + position;
@@ -134,46 +151,56 @@ public class YearPickerView extends ListView implements OnItemClickListener, Dat
             v.setText(String.valueOf(year));
             v.drawIndicator(selected);
             v.requestLayout();
-            if (selected) {
+            if (selected)
+            {
                 mSelectedView = v;
             }
             return v;
         }
     }
 
-    public void postSetSelectionCentered(final int position) {
+    public void postSetSelectionCentered(final int position)
+    {
         postSetSelectionFromTop(position, mViewSize / 2 - mChildSize / 2);
     }
 
-    public void postSetSelectionFromTop(final int position, final int offset) {
-        post(new Runnable() {
+    public void postSetSelectionFromTop(final int position, final int offset)
+    {
+        post(new Runnable()
+        {
 
             @Override
-            public void run() {
+            public void run()
+            {
                 setSelectionFromTop(position, offset);
                 requestLayout();
             }
         });
     }
 
-    public int getFirstPositionOffset() {
+    public int getFirstPositionOffset()
+    {
         final View firstChild = getChildAt(0);
-        if (firstChild == null) {
+        if (firstChild == null)
+        {
             return 0;
         }
         return firstChild.getTop();
     }
 
     @Override
-    public void onDateChanged() {
+    public void onDateChanged()
+    {
         mAdapter.notifyDataSetChanged();
         postSetSelectionCentered(mController.getSelectedDay().year - mController.getMinYear());
     }
 
     @Override
-    public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
+    public void onInitializeAccessibilityEvent(AccessibilityEvent event)
+    {
         super.onInitializeAccessibilityEvent(event);
-        if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED) {
+        if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED)
+        {
             event.setFromIndex(0);
             event.setToIndex(0);
         }
