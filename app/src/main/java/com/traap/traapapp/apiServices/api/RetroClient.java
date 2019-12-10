@@ -1,6 +1,7 @@
 package com.traap.traapapp.apiServices.api;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import io.reactivex.Single;
 import com.traap.traapapp.apiServices.helper.Const;
@@ -19,11 +20,15 @@ import com.traap.traapapp.apiServices.model.card.addCard.request.AddCardRequest;
 import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardRequest;
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
+import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
 import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferRequest;
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import com.traap.traapapp.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.ForgetPasswordWalletResponse;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.getBankList.response.BankListResponse;
 import com.traap.traapapp.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
 import com.traap.traapapp.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
@@ -96,13 +101,24 @@ import com.traap.traapapp.apiServices.model.tourism.hotel.sendMessage.request.Ho
 import com.traap.traapapp.apiServices.model.verify.VerifyRequest;
 import com.traap.traapapp.apiServices.model.verify.VerifyResponse;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
+
+import org.checkerframework.checker.nullness.compatqual.NullableType;
+
+import javax.annotation.Nullable;
+
+import okhttp3.MultipartBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -117,6 +133,9 @@ public interface RetroClient
 
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
+
+    @GET(Const.GetContactInfo)
+    Single<Response<WebServiceClass<GetContactInfoResponse>>> getContactInfo();
 
     /*videos*/
     @GET(Const.Get_Main_Video)
@@ -149,8 +168,8 @@ public interface RetroClient
             @Path("id") Integer categoryId
     );
 
-    @GET(Const.Archive_Photo)
-    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos();
+
+
 
     @GET(Const.List_Bookmark_Photo)
     Single<Response<WebServiceClass<ArchiveVideoResponse>>> getListBookmarkPhotos();
@@ -395,6 +414,17 @@ public interface RetroClient
             @Body DecryptQrRequest request
     );
 
+    @POST(Const.GetBalancePasswordLess)
+    Single<Response<WebServiceClass<GetBalancePasswordLessResponse>>> getBalancePasswordLess(
+            @Body GetBalancePasswordLessRequest request
+    );
+
+
+    @POST(Const.ForgetPasswordWallet)
+    Single<Response<WebServiceClass<ForgetPasswordWalletResponse>>> forgetPasswordWallet(
+            @Body GetBalancePasswordLessRequest request
+    );
+
 
     @POST(Const.PAYMENT_PRINT_pOS)
     Single<Response<WebServiceClass<PaymentPrintPosResponse>>> getPayment(
@@ -406,8 +436,18 @@ public interface RetroClient
     Single<Response<WebServiceClass<MachListResponse>>> getMatchList();
 
     @GET(Const.GET_Transaction_List)
-    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList();
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList(
 
+            @Query("amount__range") Integer amountRange,
+            @Query("status") Boolean status,
+            @Query("type_transaction_id") Integer typeTransactionId,
+            @Query("create_date__range") String createDateRange
+    );
+    @GET(Const.Archive_Photo)
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos(
+            @Query("category_id") String category_id
+
+    );
 
     @GET(Const.GetHistory)
     Single<Response<WebServiceClass<ResponseHistory>>> getHistory();
@@ -435,9 +475,17 @@ public interface RetroClient
     Single<Response<WebServiceClass<InviteResponse>>> getInvite();
 
 //    @Multipart
+//    @FormUrlEncoded
     @PUT(Const.PUT_PROFILE)
     Single<Response<WebServiceClass<SendProfileResponse>>> sendProfile(
             @Body SendProfileRequest request
+//            @Part MultipartBody.Part ImageFile
+    );
+
+    @Multipart
+    @POST(Const.SEND_PROFILE_PHOTO)
+    Single<Response<WebServiceClass<Object>>> sendProfilePhoto(
+            @Part MultipartBody.Part ImageFile
     );
 
     @GET(Const.Get_NEWS_ARCHIVE_CATEGORY)

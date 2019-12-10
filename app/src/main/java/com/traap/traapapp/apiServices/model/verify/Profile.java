@@ -3,6 +3,9 @@ package com.traap.traapapp.apiServices.model.verify;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by MahtabAzizi on 10/16/2019.
  */
@@ -11,6 +14,10 @@ public class Profile
     @SerializedName("key_invite")
     @Expose
     private String keyInvite;
+
+    @SerializedName("photo")
+    @Expose @Getter @Setter
+    private String profileImage;
 
     @SerializedName("popular_player")
     @Expose

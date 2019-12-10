@@ -20,13 +20,22 @@ import com.pixplicity.easyprefs.library.Prefs;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoRequest;
+import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
+import com.traap.traapapp.apiServices.model.contactInfo.ResultContactInfo;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 
 public class AboutFragment
@@ -41,6 +50,19 @@ public class AboutFragment
     private MainActionView mainView;
     private ImageView ivInsta, ivTwit, ivTele, ivWeb;
     private CircularProgressButton btnHistory;
+    private String KEY_PHONE = "phone";
+    private String KEY_SMS = "sms";
+    private String KEY_EMAIL = "email";
+    private String KEY_TWITTER = "twitter";
+    private String KEY_INSTAGRAM = "instagram";
+    private String KEY_WEBSITE = "website";
+    private String KEY_TELEGRAM = "telegram";
+    private ResultContactInfo item;
+    private String keyContact;
+    private String website;
+    private String twitter;
+    private String telegram;
+    private String instagram;
 
 
     public static AboutFragment newInstance(MainActionView mainView)
@@ -82,6 +104,7 @@ public class AboutFragment
     {
         try
         {
+            showLoading();
             ivWeb = view.findViewById(R.id.ivWeb);
             ivTwit = view.findViewById(R.id.ivTwit);
             ivTele = view.findViewById(R.id.ivTele);
@@ -124,10 +147,88 @@ public class AboutFragment
 
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+
+            requestGetContactInfo();
+
+
         } catch (Exception e)
         {
             e.getMessage();
         }
+    }
+
+    private void requestGetContactInfo()
+    {
+        GetContactInfoRequest request = new GetContactInfoRequest();
+
+        SingletonService.getInstance().getContactInfoService().getContactInfoService(new OnServiceStatus<WebServiceClass<GetContactInfoResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetContactInfoResponse> response)
+            {
+                try
+                {
+                    hideLoading();
+                    if (response.info.statusCode == 200)
+                    {
+
+                        onGetContactInfoSuccess(response.data.getResultContactInfos());
+
+                    } else
+                    {
+                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                hideLoading();
+                Tools.showToast(getActivity(), message, R.color.red);
+            }
+        }, request);
+
+    }
+
+    private void onGetContactInfoSuccess(List<ResultContactInfo> resultContactInfos)
+    {
+        for (int i = 0; i < resultContactInfos.size(); i++)
+        {
+            item=resultContactInfos.get(i);
+            keyContact=resultContactInfos.get(i).getKey();
+
+            if (keyContact.equals(KEY_WEBSITE))
+            {
+                website=item.getValue();
+
+            }else if(keyContact.equals(KEY_TWITTER)){
+
+                twitter=item.getValue();
+
+            }else if (keyContact.equals(KEY_TELEGRAM)){
+
+                telegram=item.getValue();
+
+            } else if (keyContact.equals(KEY_INSTAGRAM)){
+
+                instagram=item.getValue();
+
+            }
+        }
+    }
+
+    private void showLoading()
+    {
+        mainView.showLoading();
+    }
+    private void hideLoading()
+    {
+        mainView.hideLoading();
     }
 
     @Override
@@ -177,7 +278,7 @@ public class AboutFragment
 
                 try
                 {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.traap.ir"));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(website));
                     startActivity(browserIntent);
                 } catch (Exception e)
                 {
@@ -187,24 +288,28 @@ public class AboutFragment
             case R.id.ivTwit:
                 try
                 {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + "traapapp")));
+                  //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + "traapapp")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
                 } catch (Exception e)
                 {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/" + "traapapp")));
+                    //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/" + "traapapp")));
+                   // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
                 }
                 break;
             case R.id.ivTele:
                 try
                 {
-                    Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/@traapapp"));
-                    startActivity(telegram);
+                   // Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/@traapapp"));
+                    Intent telegramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(telegram));
+                    startActivity(telegramIntent);
                 } catch (Exception e)
                 {
                     e.getMessage();
                 }
                 break;
             case R.id.ivInsta:
-                Uri uri = Uri.parse("http://instagram.com/traapapp");
+               // Uri uri = Uri.parse("http://instagram.com/traapapp");
+                Uri uri = Uri.parse(instagram);
                 Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
 
                 likeIng.setPackage("com.instagram.android");
@@ -214,8 +319,10 @@ public class AboutFragment
                     startActivity(likeIng);
                 } catch (ActivityNotFoundException e)
                 {
+                   /* startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://instagram.com/traapapp")));*/
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://instagram.com/traapapp")));
+                            Uri.parse(instagram)));
                 }
                 break;
             case R.id.btnHistory:

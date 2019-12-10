@@ -1367,6 +1367,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
+    @Override
+    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat)
+    {
+
+    }
+
 
     @Override
     public void onBill()

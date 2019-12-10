@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.cardview.widget.CardView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
+import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -30,6 +32,7 @@ import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,6 +50,7 @@ public class MyProfileFragment extends BaseFragment
     private Toolbar mToolbar;
     private TextView tvFullName, tvMobile, tvInviteCode;
 
+    private ImageView imgProfile;
 
     private RelativeLayout rlEditProfile, rlMyPredict, rlMyFavorite, rlExit;
 
@@ -96,6 +100,7 @@ public class MyProfileFragment extends BaseFragment
     public void initView()
     {
         cardView = rootView.findViewById(R.id.card);
+        imgProfile = rootView.findViewById(R.id.imgProfile);
 
         tvFullName = rootView.findViewById(R.id.tvFullName);
         tvMobile = rootView.findViewById(R.id.tvMobile);
@@ -104,6 +109,19 @@ public class MyProfileFragment extends BaseFragment
         rlMyPredict = rootView.findViewById(R.id.rlMyPredict);
         rlMyFavorite = rootView.findViewById(R.id.rlMyFavorite);
         rlExit = rootView.findViewById(R.id.rlExit);
+
+        if (Prefs.contains("profileImage"))
+        {
+            try
+            {
+                Picasso.with(getContext()).load(Prefs.getString("profileImage", "")).into(imgProfile);
+            }
+            catch (Exception e)
+            {
+                Logger.e("-Exception photo-", e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
         if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase(""))
         {
@@ -190,7 +208,7 @@ public class MyProfileFragment extends BaseFragment
                         sharingIntent.setType("text/plain");
                         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "دعوت از دوستان");
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                        startActivity(Intent.createChooser(sharingIntent, response.data.getInvite_text()));
+                        startActivity(Intent.createChooser(sharingIntent, "کد عضویت خود را به اشتراک بگذارید: "));
 
                     } else
                     {
@@ -228,6 +246,20 @@ public class MyProfileFragment extends BaseFragment
         else
         {
             tvFullName.setText(Prefs.getString("FULLName", ""));
+        }
+
+        try
+        {
+            Logger.e("EventBus ImageLink", headerModel.getProfileUrl());
+            if (headerModel.getProfileUrl() != null)
+            {
+                Picasso.with(getContext()).load(headerModel.getProfileUrl()).into(imgProfile);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.e("-Exception photo-", e.getMessage());
+            e.printStackTrace();
         }
     }
 

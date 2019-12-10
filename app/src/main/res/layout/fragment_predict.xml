@@ -378,7 +378,7 @@
                         android:id="@+id/chartViewPie"
                         android:layout_width="match_parent"
                         android:background="@android:color/transparent"
-                        android:layout_height="@dimen/_200dp" />
+                        android:layout_height="@dimen/any_chart_height" />
 
                     <View
                         android:layout_width="match_parent"
@@ -388,11 +388,336 @@
 
                 </RelativeLayout>
 
-<!--                <com.anychart.AnyChartView-->
-<!--                    android:id="@+id/chartViewColumn"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:layout_height="@dimen/_200sdp" />-->
+                <LinearLayout
+                    android:id="@+id/llChart2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_200dp"
+                        android:layout_weight="4">
+
+                        <LinearLayout
+                            android:id="@+id/viewY"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_chart_up"/>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="12dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@color/textHint"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/viewX"
+                            android:layout_toLeftOf="@+id/img1"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/textHint"/>
+
+                        <ImageView
+                            android:id="@+id/img1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            app:srcCompat="@drawable/ic_chart_right"/>
+
+                        <LinearLayout
+                            android:layout_toRightOf="@+id/viewY"
+                            android:layout_above="@+id/viewX"
+                            android:layout_width="match_parent"
+                            android:layout_marginRight="24dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:layout_height="wrap_content"/>
+                            
+                            <RelativeLayout
+                                android:id="@+id/rlChart1"
+                                android:layout_width="0dp"
+                                android:layout_weight="5"
+                                android:visibility="visible"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:layout_above="@+id/rlChartPredictOne"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal">
+
+                                    <View
+                                        android:id="@+id/vColorAwayOne"
+                                        android:layout_width="8dp"
+                                        android:layout_height="8dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@color/textColorPrimary"/>
+
+                                    <TextView
+                                        android:id="@+id/tvChartPredictOne"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/textSize_12dp"
+                                        android:gravity="center"
+                                        android:layout_marginRight="2dp"
+                                        android:layout_marginLeft="2dp"
+                                        android:textColor="@color/textColorSecondary"
+                                        android:text="0-0"/>
+
+                                    <View
+                                        android:id="@+id/vColorHomeOne"
+                                        android:layout_width="8dp"
+                                        android:layout_height="8dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@color/colorCardBlue"/>
+
+                                </LinearLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/rlChartPredictOne"
+                                    android:layout_width="match_parent"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_height="@dimen/_120dp"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/background_border_gray_8dp">
+
+                                    <TextView
+                                        android:id="@+id/tvChartTotalUserOne"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/textColorSecondary"
+                                        android:textSize="@dimen/textSize_10dp"
+                                        android:text="0 %"
+                                        android:layout_centerInParent="true"/>
+
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:layout_height="wrap_content"/>
+
+                            <RelativeLayout
+                                android:id="@+id/rlChart2"
+                                android:layout_width="0dp"
+                                android:layout_weight="5"
+                                android:visibility="visible"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:layout_above="@+id/rlChartPredictTwo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal">
+
+                                    <View
+                                        android:id="@+id/vColorAwayTwo"
+                                        android:layout_width="8dp"
+                                        android:layout_height="8dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@color/textColorPrimary"/>
+
+                                    <TextView
+                                        android:id="@+id/tvChartPredictTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/textSize_12dp"
+                                        android:gravity="center"
+                                        android:layout_marginRight="2dp"
+                                        android:layout_marginLeft="2dp"
+                                        android:textColor="@color/textColorSecondary"
+                                        android:text="0-0"/>
+
+                                    <View
+                                        android:id="@+id/vColorHomeTwo"
+                                        android:layout_width="8dp"
+                                        android:layout_height="8dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@color/colorCardBlue"/>
+
+                                </LinearLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/rlChartPredictTwo"
+                                    android:layout_width="match_parent"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_height="@dimen/_80dp"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/background_border_gray_8dp">
+
+                                    <TextView
+                                        android:id="@+id/tvChartTotalUserTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/textColorSecondary"
+                                        android:textSize="@dimen/textSize_10dp"
+                                        android:text="0 %"
+                                        android:layout_centerInParent="true"/>
+
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:layout_height="wrap_content"/>
+
+                            <RelativeLayout
+                                android:id="@+id/rlChart3"
+                                android:layout_width="0dp"
+                                android:layout_weight="5"
+                                android:visibility="visible"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:layout_above="@+id/rlChartPredictThree"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal">
+
+                                    <View
+                                        android:id="@+id/vColorAwayThree"
+                                        android:layout_width="8dp"
+                                        android:layout_height="8dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@color/textColorPrimary"/>
+
+                                    <TextView
+                                        android:id="@+id/tvChartPredictThree"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/textSize_12dp"
+                                        android:gravity="center"
+                                        android:layout_marginRight="2dp"
+                                        android:layout_marginLeft="2dp"
+                                        android:textColor="@color/textColorSecondary"
+                                        android:text="0-0"/>
+
+                                    <View
+                                        android:id="@+id/vColorHomeThree"
+                                        android:layout_width="8dp"
+                                        android:layout_height="8dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@color/colorCardBlue"/>
+
+                                </LinearLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/rlChartPredictThree"
+                                    android:layout_width="match_parent"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/background_border_gray_8dp">
+
+                                    <TextView
+                                        android:id="@+id/tvChartTotalUserThree"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/textColorSecondary"
+                                        android:textSize="@dimen/textSize_10dp"
+                                        android:text="0 %"
+                                        android:layout_centerInParent="true"/>
+
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvAwayChartTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="8dp"
+                        android:layout_toEndOf="@+id/imgAway"
+                        android:gravity="center"
+                        android:text="عنوان"
+                        android:textColor="@color/textColorSecondary" />
+
+                    <View
+                        android:id="@+id/vColorAwayFour"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_margin="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/colorCardBlue"/>
+
+                    <TextView
+                        android:id="@+id/tvHomeChartTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="عنوان"
+                        android:layout_margin="8dp"
+                        android:paddingLeft="8dp"
+                        android:layout_toEndOf="@+id/imgAway"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/textColorSecondary"
+                        android:gravity="center"/>
+
+                    <View
+                        android:id="@+id/vColorHomeFour"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_margin="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/textHint"/>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 

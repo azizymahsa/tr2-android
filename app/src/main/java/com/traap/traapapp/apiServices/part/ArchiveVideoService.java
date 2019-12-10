@@ -30,10 +30,11 @@ public class ArchiveVideoService extends BasePart
     {
         start(getServiceGenerator().createService().getListBookmarkVideos(), listener);
     }
-    public void getArchivePhoto(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, ArchiveVideoRequest request)
+    public void getArchivePhoto(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, String category_id)
     {
-        start(getServiceGenerator().createService().getArchivePhotos(), listener);
+        start(getServiceGenerator().createService().getArchivePhotos(category_id), listener);
     }
+
     public void getBookMarkPhoto(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, ArchiveVideoRequest request)
     {
         start(getServiceGenerator().createService().getListBookmarkPhotos(), listener);

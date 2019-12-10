@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
@@ -41,7 +42,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     private List<NewsDetailsPositionIdsModel> positionIdsList;
     private Integer currentId = 0, currentPosition = 0;
 
-    private TextView tvPrevNews, tvNextNews;
+    private RelativeLayout rlPrevNews, rlNextNews;
 
     private Fragment newsDetailFragment, newsRelatedFragment, newsCommentFragment;
     private FragmentManager fragmentManager;
@@ -69,7 +70,6 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         aviPrev = findViewById(R.id.aviPrev);
         aviNext = findViewById(R.id.aviNext);
 
-//        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawerNews());
         mToolbar.findViewById(R.id.imgMenu).setVisibility(View.INVISIBLE);
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> finish());
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -77,8 +77,8 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         tvTitle.setText("جزئیات خبر");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
-        tvPrevNews = findViewById(R.id.tvPrevNews);
-        tvNextNews = findViewById(R.id.tvNextNews);
+        rlNextNews = findViewById(R.id.rlNextNews);
+        rlPrevNews = findViewById(R.id.rlPrevNews);
 
         fragmentManager = getSupportFragmentManager();
 
@@ -88,7 +88,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
 
         getData(currentId);
 
-        tvPrevNews.setOnClickListener(v ->
+        rlPrevNews.setOnClickListener(v ->
         {
             if (currentPosition != 0)
             {
@@ -109,7 +109,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
 
         });
 
-        tvNextNews.setOnClickListener(v ->
+        rlNextNews.setOnClickListener(v ->
         {
             if (currentPosition != positionIdsList.size()-1)
             {
@@ -157,35 +157,34 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
 
     private void enableBtnNext()
     {
-        tvNextNews.setAlpha(1f);
-        tvNextNews.setClickable(true);
-        tvNextNews.setEnabled(true);
-        tvNextNews.setActivated(true);
+        rlNextNews.setAlpha(1f);
+        rlNextNews.setClickable(true);
+        rlNextNews.setEnabled(true);
+        rlNextNews.setActivated(true);
     }
 
     private void disableBtnNext()
     {
-
-        tvNextNews.setAlpha(0.3f);
-        tvNextNews.setClickable(false);
-        tvNextNews.setEnabled(false);
-        tvNextNews.setActivated(false);
+        rlNextNews.setAlpha(0.3f);
+        rlNextNews.setClickable(false);
+        rlNextNews.setEnabled(false);
+        rlNextNews.setActivated(false);
     }
 
     private void enableBtnPrev()
     {
-        tvPrevNews.setAlpha(1f);
-        tvPrevNews.setClickable(true);
-        tvPrevNews.setEnabled(true);
-        tvPrevNews.setActivated(true);
+        rlPrevNews.setAlpha(1f);
+        rlPrevNews.setClickable(true);
+        rlPrevNews.setEnabled(true);
+        rlPrevNews.setActivated(true);
     }
 
     private void disableBtnPrev()
     {
-        tvPrevNews.setAlpha(0.3f);
-        tvPrevNews.setClickable(false);
-        tvPrevNews.setEnabled(false);
-        tvPrevNews.setActivated(false);
+        rlPrevNews.setAlpha(0.3f);
+        rlPrevNews.setClickable(false);
+        rlPrevNews.setEnabled(false);
+        rlPrevNews.setActivated(false);
     }
 
     @Override
@@ -200,19 +199,27 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         }
         else
         {
-            currentContent = response.data;
-            setContentData();
-
-            if (currentPosition > 0)
+            try
             {
-                Integer prevPosition = currentPosition - 1;
+                currentContent = response.data;
+                setContentData();
 
-                getPrevData(positionIdsList.get(prevPosition).getId());
+                if (currentPosition > 0)
+                {
+                    Integer prevPosition = currentPosition - 1;
+
+                    getPrevData(positionIdsList.get(prevPosition).getId());
+                }
+                if (currentPosition < positionIdsList.size()-1)
+                {
+                    Integer nextPosition = currentPosition + 1;
+                    getNextData(positionIdsList.get(nextPosition).getId());
+                }
             }
-            if (currentPosition < positionIdsList.size()-1)
+            catch (Exception e)
             {
-                Integer nextPosition = currentPosition + 1;
-                getNextData(positionIdsList.get(nextPosition).getId());
+                showError(this, "خطای دریافت اطلاعات از سرور!");
+                finish();
             }
         }
     }
@@ -220,7 +227,6 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     @Override
     public void onError(String message)
     {
-//            hideLoading();
         hideLoading();
 
         if (Tools.isNetworkAvailable(this))
@@ -238,7 +244,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     private void getNextData(Integer nextId)
     {
         aviNext.setVisibility(View.VISIBLE);
-        tvNextNews.setVisibility(View.GONE);
+        rlNextNews.setVisibility(View.GONE);
 
         SingletonService.getInstance().getNewsService().getNewsDetails(nextId, new OnServiceStatus<WebServiceClass<GetNewsDetailsResponse>>()
         {
@@ -255,7 +261,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
                     nextContent = response.data;
                 }
                 aviNext.setVisibility(View.GONE);
-                tvNextNews.setVisibility(View.VISIBLE);
+                rlNextNews.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -264,7 +270,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
                 Logger.e("-OnError Next-", "Error: " + message);
                 disableBtnNext();
                 aviNext.setVisibility(View.GONE);
-                tvNextNews.setVisibility(View.VISIBLE);
+                rlNextNews.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -272,7 +278,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     private void getPrevData(Integer prevId)
     {
         aviPrev.setVisibility(View.VISIBLE);
-        tvPrevNews.setVisibility(View.GONE);
+        rlPrevNews.setVisibility(View.GONE);
 
         SingletonService.getInstance().getNewsService().getNewsDetails(prevId, new OnServiceStatus<WebServiceClass<GetNewsDetailsResponse>>()
         {
@@ -289,7 +295,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
                     prevContent = response.data;
                 }
                 aviPrev.setVisibility(View.GONE);
-                tvPrevNews.setVisibility(View.VISIBLE);
+                rlPrevNews.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -298,7 +304,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
                 Logger.e("-OnError Prev-", "Error: " + message);
                 disableBtnPrev();
                 aviPrev.setVisibility(View.GONE);
-                tvPrevNews.setVisibility(View.VISIBLE);
+                rlPrevNews.setVisibility(View.VISIBLE);
             }
         });
 
@@ -306,29 +312,38 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
 
     private void setContentData()
     {
-        newsDetailFragment = NewsDetailsContentFragment.newInstance(this, currentContent);
-        transaction = fragmentManager.beginTransaction();
+        if (currentContent != null)
+        {
+            newsDetailFragment = NewsDetailsContentFragment.newInstance(this, currentContent);
+            transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.newsDetailContainer, newsDetailFragment, "newsDetailsContentFragment")
-                .commit();
+            transaction.replace(R.id.newsDetailContainer, newsDetailFragment, "newsDetailsContentFragment")
+                    .commit();
 
 
 
-        newsRelatedFragment = NewsRelatedContentFragment.newInstance(this, currentContent.getRelatedNews());
-        transaction = fragmentManager.beginTransaction();
+            newsRelatedFragment = NewsRelatedContentFragment.newInstance(this, currentContent.getRelatedNews());
+            transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        transaction.replace(R.id.newsRelatedContainer, newsRelatedFragment, "newsRelatedContentFragment")
-                .commit();
+            transaction.replace(R.id.newsRelatedContainer, newsRelatedFragment, "newsRelatedContentFragment")
+                    .commit();
 
 
 
-        newsCommentFragment = NewsDetailsCommentFragment.newInstance(this, currentContent.getId());
-        transaction = fragmentManager.beginTransaction();
+            newsCommentFragment = NewsDetailsCommentFragment.newInstance(this, currentContent.getId());
+            transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.newsCommentContainer, newsCommentFragment, "newsCommentFragment")
-                .commit();
+            transaction.replace(R.id.newsCommentContainer, newsCommentFragment, "newsCommentFragment")
+                    .commit();
+
+        }
+        else
+        {
+            showError(this, "خطا در دریافت اطلاعات از سرور!");
+            finish();
+        }
     }
 
     @Subscribe

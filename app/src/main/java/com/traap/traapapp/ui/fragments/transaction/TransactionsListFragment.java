@@ -1,22 +1,32 @@
 package com.traap.traapapp.ui.fragments.transaction;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.Checkable;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+//import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+//import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -28,17 +38,19 @@ import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 
 public class TransactionsListFragment
-        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener//, OnBackPressed
+        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, DatePickerDialog.OnDateSetListener//, OnBackPressed
 {
     private String teamId = "";
     private View rootView;
-
+    private SlidingUpPanelLayout upPanelLayout;
     private MainActionView mainView;
 
     private Toolbar mToolbar;
@@ -49,17 +61,25 @@ public class TransactionsListFragment
     public List<DataBean> data = new ArrayList<>();
     private RecyclerView transactionRecycler;
     private TransactionListAdapter fixTableAdapter;
+    private RecyclerView rvCategories;
+    private View llFilter,btnConfirm;
+    private CheckBox cbSuccessPayment,cbFailedPayment;
+    private TextView etTimeUntil,etTimeFrom;
+    private ImageView imgTimeFromReset,imgTimeUntilReset,ivSearch;
 
+    private PersianCalendar currentDate;
 
-
+    private DatePickerDialog pickerDialogDate;
+    private View rlTimeUntil,rlTimeFrom;
+    Integer amountRange=null;
+    Boolean status=null;
+    Integer typeTransactionId=null;
+    String createDateRange=null;
 
 
     public TransactionsListFragment()
     {
     }
-
-
-
 
     public static TransactionsListFragment newInstance(MainActionView mainView)
     {
@@ -92,6 +112,33 @@ public class TransactionsListFragment
     {
         try
         {
+            upPanelLayout = rootView.findViewById(R.id.sliding_layout);
+
+            cbSuccessPayment=rootView.findViewById(R.id.cbSuccessPayment);
+            cbFailedPayment=rootView.findViewById(R.id.cbFailedPayment);
+
+            ivSearch=rootView.findViewById(R.id.ivSearch);
+            ivSearch.setOnClickListener(this);
+
+            rlTimeUntil=rootView.findViewById(R.id.rlTimeUntil);
+            rlTimeFrom=rootView.findViewById(R.id.rlTimeFrom);
+            rlTimeFrom.setOnClickListener(this);
+            rlTimeUntil.setOnClickListener(this);
+
+            imgTimeFromReset=rootView.findViewById(R.id.imgTimeFromReset);
+            imgTimeUntilReset=rootView.findViewById(R.id.imgTimeUntilReset);
+
+            etTimeUntil=rootView.findViewById(R.id.etTimeUntil);
+            etTimeFrom=rootView.findViewById(R.id.etTimeFrom);
+
+            rvCategories=rootView.findViewById(R.id.rvCategories);
+            rvCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+            btnConfirm=rootView.findViewById(R.id.btnConfirm);
+            btnConfirm.setOnClickListener(this);
+            llFilter=rootView.findViewById(R.id.llFilter);
+            llFilter.setOnClickListener(this);
+
             transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
             tvCount = rootView.findViewById(R.id.tvCount);
             //Toolbar Create
@@ -120,13 +167,31 @@ public class TransactionsListFragment
                 getActivity().onBackPressed();
             });
 
-            tvTitle.setText("سوابق خرید و تراکنش");
-
+            tvTitle.setText("سوابق خرید");
+            initDate();
 
         } catch (Exception e)
         {
 
         }
+    }
+    private void initDate()
+    {
+        currentDate = new PersianCalendar();
+
+        pickerDialogDate = DatePickerDialog.newInstance(this,
+                currentDate.getPersianYear(),
+                currentDate.getPersianMonth(),
+                currentDate.getPersianDay()
+        );
+        pickerDialogDate.setMaxDate(currentDate);
+    }
+    private void openFilterLayout()
+    {
+        upPanelLayout.setScrollableView(rvCategories);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED), 100);
     }
 
     @Override
@@ -140,7 +205,8 @@ public class TransactionsListFragment
 
         rootView = inflater.inflate(R.layout.transaction_list_fragment, container, false);
         initView();
-        sendRequest();
+
+        sendRequest(amountRange,status,typeTransactionId,createDateRange);
 
 
         EventBus.getDefault().register(this);
@@ -149,7 +215,7 @@ public class TransactionsListFragment
 
 
 
-    private void sendRequest()
+    private void sendRequest(Integer amountRange, Boolean status, Integer typeTransactionId, String createDateRange)
     {
         mainView.showLoading();
 
@@ -194,7 +260,7 @@ public class TransactionsListFragment
                 mainView.showError(message);
                 mainView.hideLoading();
             }
-        });
+        },null,null,null,null);
     }
 
 
@@ -250,16 +316,82 @@ public class TransactionsListFragment
     @Override
     public void onClick(View view)
     {
-       /* switch (view.getId())
+        switch (view.getId())
         {
-            case R.id.btnConfirm:
+            case R.id.llFilter:
+
+               // openFilterLayout();
 
                 break;
 
+            case R.id.btnConfirm:
 
-        }*/
+                hideFilterSlide();
+                break;
+
+            case R.id.imgTimeUntilReset:
+
+                etTimeUntil.setText("");
+                imgTimeUntilReset.setVisibility(View.GONE);
+
+                break;
+
+            case R.id.imgTimeFromReset:
+
+                etTimeFrom.setText("");
+                imgTimeFromReset.setVisibility(View.GONE);
+
+                break;
+
+            case R.id.ivSearch:
+
+                break;
+            case R.id.rlTimeFrom:
+                pickerDialogDate.show(getActivity().getSupportFragmentManager(),"TimeFrom");
+
+                break;
+
+            case R.id.rlTimeUntil:
+                pickerDialogDate.show(getActivity().getSupportFragmentManager(),"TimeUntil");
+
+                break;
+
+        }
 
     }
+
+    private void hideFilterSlide()
+    {
+        upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
+    {
+        if (view.getTag().equals("TimeFrom"))
+        {
+            PersianCalendar calendar = new PersianCalendar();
+            calendar.set(year, monthOfYear, dayOfMonth);
+
+            String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+
+            etTimeFrom.setText(createDate);
+            imgTimeFromReset.setVisibility(View.VISIBLE);
+
+        }
+        else if (view.getTag().equals("TimeUntil")){
+            PersianCalendar calendar = new PersianCalendar();
+            calendar.set(year, monthOfYear, dayOfMonth);
+
+            String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+
+            etTimeUntil.setText(createDate);
+            imgTimeUntilReset.setVisibility(View.VISIBLE);
+
+        }
+
+    }
+
 
 
  /*   @Override

@@ -14,9 +14,12 @@ import com.traap.traapapp.apiServices.part.DeleteCardService;
 import com.traap.traapapp.apiServices.part.DoTransferCardService;
 import com.traap.traapapp.apiServices.part.EditCardService;
 import com.traap.traapapp.apiServices.part.FlightService;
+import com.traap.traapapp.apiServices.part.ForgetPasswordWalletService;
 import com.traap.traapapp.apiServices.part.GetAllBoxesService;
+import com.traap.traapapp.apiServices.part.GetBalancePasswordLessService;
 import com.traap.traapapp.apiServices.part.GetBillInfoService;
 import com.traap.traapapp.apiServices.part.GetCardListService;
+import com.traap.traapapp.apiServices.part.GetContactInfoService;
 import com.traap.traapapp.apiServices.part.GetHappyCardInfoService;
 import com.traap.traapapp.apiServices.part.GetMainVideosService;
 import com.traap.traapapp.apiServices.part.GetMenuHelpService;
@@ -145,6 +148,12 @@ public class SingletonService
         return new ArchiveVideoService(serviceGenerator);
     }
 
+
+    public GetContactInfoService getContactInfoService()
+    {
+        return new GetContactInfoService(serviceGenerator);
+    }
+
     public GetMenuHelpService getMenuHelpService(){
         return new GetMenuHelpService(serviceGenerator);
     }
@@ -177,6 +186,11 @@ public class SingletonService
     public MerchantService getMerchantService()
     {
         return new MerchantService(serviceGenerator);
+    }
+
+    public GetBalancePasswordLessService getBalancePasswordLessService()
+    {
+        return new GetBalancePasswordLessService(serviceGenerator);
     }
 
     public TransactionService getTransactionService()
@@ -277,6 +291,10 @@ public class SingletonService
     public SheatcChangePassService doChangePassService()
     {
         return new SheatcChangePassService(serviceGenerator);
+    }
+
+    public ForgetPasswordWalletService forgetPasswordWalletService(){
+        return new ForgetPasswordWalletService(serviceGenerator);
     }
 
     public SheatcForgotPassService doForgotPassService()

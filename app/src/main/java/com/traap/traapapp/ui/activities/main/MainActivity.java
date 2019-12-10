@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
 
@@ -36,6 +37,7 @@ import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
+import library.android.eniac.utility.Utility;
 
 import com.traap.traapapp.BuildConfig;
 import com.traap.traapapp.R;
@@ -71,6 +73,7 @@ import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
+import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
@@ -82,6 +85,7 @@ import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
 import com.traap.traapapp.ui.fragments.news.mainNews.NewsMainFragment;
+import com.traap.traapapp.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import com.traap.traapapp.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
@@ -102,6 +106,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 {
     private Boolean isMainFragment = true;
     private Boolean isNewsFragment = false;
+    private Boolean isFirst = true;
 
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
@@ -150,8 +155,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         }
 
         mToolbar = findViewById(R.id.toolbar);
-
-        setSupportActionBar(mToolbar);
 
         //------------------test------------------------
 //        Intent intent = getIntent();
@@ -220,7 +223,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.getMenu().getItem(2).setChecked(true);
+//        bottomNavigationView.getMenu().getItem(2).setChecked(true);
+        bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem ->
         {
@@ -229,27 +233,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             //switch fragment
             switch (itemId)
             {
-                case R.id.tab_market:
-                {
-                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
-                    {
-                        setCheckedBNV(bottomNavigationView, 4);
-                        isMainFragment = false;
-
-                        fragment = MarketFragment.newInstance(this);
-                        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                        transaction.replace(R.id.main_container, fragment, "marketFragment")
-                                .commit();
-                    }
-                    break;
-                }
+//                case R.id.tab_market:
+//                {
+//                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
+//                    {
+//                        setCheckedBNV(bottomNavigationView, 4);
+//                        isMainFragment = false;
+//
+//                        fragment = MarketFragment.newInstance(this);
+//                        transaction = fragmentManager.beginTransaction();
+////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//                        transaction.replace(R.id.main_container, fragment, "marketFragment")
+//                                .commit();
+//                    }
+//                    break;
+//                }
                 case R.id.tab_all_services:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(3).isChecked())
+//                    if (!bottomNavigationView.getMenu().getItem(3).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(2).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 3);
+//                        setCheckedBNV(bottomNavigationView, 3);
+                        setCheckedBNV(bottomNavigationView, 2);
 
                         isMainFragment = false;
 
@@ -264,7 +270,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
                 case R.id.tab_home:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(2).isChecked() || !isMainFragment)
+//                    if (!bottomNavigationView.getMenu().getItem(2).isChecked() || !isMainFragment)
+                    if (!bottomNavigationView.getMenu().getItem(1).isChecked() || !isMainFragment)
                     {
 //                        setCheckedBNV(bottomNavigationView, 2);
 
@@ -274,9 +281,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
                 case R.id.tab_media:
                 {
-                    if (!bottomNavigationView.getMenu().getItem(1).isChecked())
+//                    if (!bottomNavigationView.getMenu().getItem(1).isChecked())
+                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
                     {
-                        setCheckedBNV(bottomNavigationView, 1);
+//                        setCheckedBNV(bottomNavigationView, 1);
+                        setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 
                         fragment = MediaFragment.newInstance(MediaPosition.News, this);
@@ -288,22 +297,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     }
                     break;
                 }
-                case R.id.tab_payment:
-                {
-                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
-                    {
-                        setCheckedBNV(bottomNavigationView, 0);
-                        isMainFragment = false;
-
-                        fragment = PaymentWithoutCardFragment.newInstance(this);
-                        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                        transaction.replace(R.id.main_container, fragment, "paymentWithoutCardFragment")
-                                .commit();
-                    }
-                    break;
-                }
+//                case R.id.tab_payment:
+//                {
+//                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
+//                    {
+//                        setCheckedBNV(bottomNavigationView, 0);
+//                        isMainFragment = false;
+//
+//                        fragment = PaymentWithoutCardFragment.newInstance(this);
+//                        transaction = fragmentManager.beginTransaction();
+////                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//                        transaction.replace(R.id.main_container, fragment, "paymentWithoutCardFragment")
+//                                .commit();
+//                    }
+//                    break;
+//                }
             }
             return true;
         });
@@ -415,16 +424,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                             }
                             else
                             {
-//                                Intent intent = new Intent(Intent.ACTION_MAIN);
-//                                intent.addCategory(Intent.CATEGORY_HOME);
-//                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//                                startActivity(intent);
+                                Intent intent = new Intent(Intent.ACTION_MAIN);
+                                intent.addCategory(Intent.CATEGORY_HOME);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                startActivity(intent);
 
-                                ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
-                                am.killBackgroundProcesses(getPackageName());
-                                android.os.Process.killProcess(android.os.Process.myPid());
-
-                                System.exit(1);
+//                                ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
+//                                am.killBackgroundProcesses(getPackageName());
+//                                android.os.Process.killProcess(android.os.Process.myPid());
+//
+//                                System.exit(1);
                             }
                         }
 
@@ -491,30 +500,38 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 2:
             {
-                showToast(this, "امتیازات", R.color.green);
+//                showToast(this, "امتیازات", R.color.green);
                 break;
             }
             case 3:
             {
-                showToast(this, "جشنواره", R.color.green);
+//                showToast(this, "جشنواره", R.color.green);
 
                 break;
             }
             case 4:
             {
-                showToast(this, "کیف پول", R.color.green);
+               // showToast(this, "کیف پول", R.color.green);
+//                isMainFragment = false;
+//
+//                fragment = WalletFragment.newInstance(this);
+//                transaction = fragmentManager.beginTransaction();
+////                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//
+//                transaction.replace(R.id.main_container, fragment, "walletFragment")
+//                        .commit();
 
                 break;
             }
             case 5:
             {
-                showToast(this, "مدیریت کارت ها", R.color.green);
+//                showToast(this, "مدیریت کارت ها", R.color.green);
 
                 break;
             }
             case 6:
             {
-                showToast(this, "دعوت از دوستان", R.color.green);
+//                showToast(this, "دعوت از دوستان", R.color.green);
 
                 break;
             }
@@ -541,7 +558,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 8:
             {
-                showToast(this, "تنظیمات", R.color.green);
+//                showToast(this, "تنظیمات", R.color.green);
 
                 break;
             }
@@ -573,7 +590,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 11:
             {
-                showToast(this, "انتقادات و پیشنهادات", R.color.green);
+//                showToast(this, "انتقادات و پیشنهادات", R.color.green);
 
                 break;
             }
@@ -606,7 +623,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 13:
             {
-                showToast(this, "جدول لیگ برتر", R.color.green);
+//                showToast(this, "جدول لیگ برتر", R.color.green);
 
                 /*isMainFragment = false;
                 //fragment = MatchScheduleFragment.newInstance(this,matchBuyable);
@@ -649,7 +666,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            Logger.e("isCompleteThreadAllServices", String.valueOf(isCompleteThreadAllServices));
 //            Logger.e("isCompleteThreadMatch", String.valueOf(isCompleteThreadMatch));
 
-            findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            if (isFirst)
+            {
+                isFirst = false;
+                new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 1200);
+            }
+            else
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
         }
     }
 
@@ -898,7 +923,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void backToMainFragment()
     {
-        setCheckedBNV(bottomNavigationView, 2);
+//        setCheckedBNV(bottomNavigationView, 2);
+        setCheckedBNV(bottomNavigationView, 1);
 
         isMainFragment = true;
         isNewsFragment = false;
@@ -1053,13 +1079,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void showLoading()
             {
-
+                MainActivity.this.showLoading();
             }
 
             @Override
             public void hideLoading()
             {
-
+                MainActivity.this.hideLoading();
             }
         });
         transaction = fragmentManager.beginTransaction();
@@ -1111,13 +1137,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void showLoading()
             {
-
+                MainActivity.this.showLoading();
             }
 
             @Override
             public void hideLoading()
             {
-
+                MainActivity.this.hideLoading();
             }
         });
         transaction = fragmentManager.beginTransaction();
@@ -1312,6 +1338,26 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "pastResultFragment")
                 .commit();
+    }
+
+    @Override
+    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String amount)
+    {
+
+        isMainFragment = false;
+        this.fragment = SelectPaymentGatewayFragment.newInstance(urlPayment, this, R.drawable.icon_payment_ticket,
+                title, amount);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "selectPaymentGatewayFragment")
+                .commit();
+       /* SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(urlPayment, mainView, R.drawable.icon_payment_ticket,
+                title, Utility.priceFormat(amount));
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, fragment2);
+        fragmentTransaction.commit();*/
     }
 
     @Override

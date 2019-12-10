@@ -8,8 +8,8 @@ public class Const
 
     //-----------------------------------------------------------------------------
 //    public final static String BASEURL = "http://5.253.25.117:7000/";
-//   public final static String BASEURL = "http://5.253.25.117:9000/";
-    public final static String BASEURL = "https://restapp.traap.com";
+   public final static String BASEURL = "http://5.253.25.117:9999/";
+//    public final static String BASEURL = "https://restapp.traap.com";
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -18,6 +18,9 @@ public class Const
     public final static String Login = SubBASEURL + "v1/user/login/";
     public final static String Verify = SubBASEURL + "v1/user/login/verify/";
 
+
+    //contactInfo
+    public final static String GetContactInfo=SubBASEURL+"v1/info/contact/";
 
     //Menu
     public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
@@ -85,6 +88,8 @@ public class Const
     //payment
     public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
     public final static String PaymentWallet = SubBASEURL + "v1/match/wallet/payment/";
+    public final static String GetBalancePasswordLess=SubBASEURL+"v1/shetac/get_balance_password_less/";
+    public final static String ForgetPasswordWallet=SubBASEURL+"v1/shetac/forget_password_tow/";
 
     //Bank List
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";
@@ -116,6 +121,7 @@ public class Const
     public final static String GET_PROFILE = SubBASEURL + "v1/user/profile/";
     public final static String PUT_PROFILE = SubBASEURL + "v1/user/profile/";
     public final static String GET_Invite = SubBASEURL + "v1/user/share_text_invite_friend/";
+    public final static String SEND_PROFILE_PHOTO = SubBASEURL + "v1/user/profile/photo/";
 
     //Transaction
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";

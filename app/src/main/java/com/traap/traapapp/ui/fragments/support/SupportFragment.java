@@ -16,13 +16,23 @@ import androidx.appcompat.widget.Toolbar;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoRequest;
+import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
+import com.traap.traapapp.apiServices.model.contactInfo.ResultContactInfo;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 
 public class SupportFragment
@@ -32,10 +42,17 @@ public class SupportFragment
 
     private View view;
     private Toolbar mToolbar;
-    private LinearLayout tvPhone, tvSms,tvEmail;
+    private LinearLayout tvPhone, tvSms, tvEmail;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
     private MainActionView mainView;
+    private String KEY_PHONE = "phone";
+    private String KEY_SMS = "sms";
+    private String KEY_EMAIL = "email";
+    private TextView txPhone,txSms,txEmail;
+    private String keyContact;
+    private String phone,sms,email;
+    private ResultContactInfo item;
 
 
     public static SupportFragment newInstance(MainActionView mainView)
@@ -76,10 +93,15 @@ public class SupportFragment
     {
         try
         {
-
+            showLoading();
             tvPhone = view.findViewById(R.id.tvPhone);
             tvSms = view.findViewById(R.id.tvSms);
             tvEmail = view.findViewById(R.id.tvEmail);
+
+            txPhone=view.findViewById(R.id.txPhone);
+            txEmail=view.findViewById(R.id.txEmail);
+            txSms=view.findViewById(R.id.txSms);
+
 
             tvPhone.setOnClickListener(this);
             tvSms.setOnClickListener(this);
@@ -113,11 +135,87 @@ public class SupportFragment
 
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
-        }
-        catch (Exception e)
+
+            requestGetContactInfo();
+        } catch (Exception e)
         {
             e.getMessage();
         }
+    }
+
+    private void requestGetContactInfo()
+    {
+        GetContactInfoRequest request = new GetContactInfoRequest();
+
+        SingletonService.getInstance().getContactInfoService().getContactInfoService(new OnServiceStatus<WebServiceClass<GetContactInfoResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetContactInfoResponse> response)
+            {
+                try
+                {
+                    hideLoading();
+                    if (response.info.statusCode == 200)
+                    {
+
+                        onGetContactInfoSuccess(response.data.getResultContactInfos());
+
+                    } else
+                    {
+                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                hideLoading();
+                Tools.showToast(getActivity(), message, R.color.red);
+            }
+        }, request);
+    }
+
+    private void onGetContactInfoSuccess(List<ResultContactInfo> resultContactInfos)
+    {
+        for (int i = 0; i < resultContactInfos.size(); i++)
+        {
+            item=resultContactInfos.get(i);
+            keyContact=resultContactInfos.get(i).getKey();
+
+            if (keyContact.equals(KEY_PHONE))
+            {
+                txPhone.setText(item.getTitle());
+                phone=item.getValue();
+
+            }else if(keyContact.equals(KEY_SMS)){
+
+                txSms.setText(item.getTitle());
+                sms=item.getValue();
+
+            }else if (keyContact.equals(KEY_EMAIL)){
+
+                txEmail.setText(item.getTitle());
+                email=item.getValue();
+
+            }
+        }
+
+    }
+
+    private void hideLoading()
+    {
+        mainView.hideLoading();
+    }
+
+
+    private void showLoading()
+    {
+        mainView.showLoading();
     }
 
     @Override
@@ -156,7 +254,7 @@ public class SupportFragment
 
             case R.id.tvPhone:
 
-                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", " 041-1546", null));
+                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
                 startActivity(intent2);
 
                 break;
@@ -164,20 +262,23 @@ public class SupportFragment
 
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:info@traap.com"));
+                emailIntent.setData(Uri.parse("mailto:"+email));
+                //                emailIntent.setData(Uri.parse("mailto:info@traap.com"));
                 startActivity(emailIntent);
 
                 break;
             case R.id.tvSms:
-                try {
+                try
+                {
 
                     Intent smsIntent = new Intent(Intent.ACTION_VIEW);
                     smsIntent.setType("vnd.android-dir/mms-sms");
-                    smsIntent.putExtra("address", "100001970");
-                    smsIntent.putExtra("sms_body","");
+                    smsIntent.putExtra("address", sms);
+                    smsIntent.putExtra("sms_body", "");
                     startActivity(smsIntent);
-                } catch (android.content.ActivityNotFoundException anfe) {
-                    Log.d("Error" , "Error");
+                } catch (android.content.ActivityNotFoundException anfe)
+                {
+                    Log.d("Error", "Error");
                 }
 
                 break;

@@ -170,7 +170,6 @@ public class SelectPositionFragment
         rlImageViewsFull = view.findViewById(R.id.rlImageViewsFull);
 
 
-        setDataStadiumPosition();
         getAllBoxesRequest();
 
 
@@ -290,7 +289,6 @@ public class SelectPositionFragment
 
         stadiumPositionModels.add(new StadiumPositionModel("", "46", true));
         stadiumPositionModels.add(new StadiumPositionModel("", "47", true));
-        stadiumPositionModels.add(new StadiumPositionModel("FFA11919", "میهمان", true));
 
 
 
@@ -1007,6 +1005,7 @@ public class SelectPositionFragment
 
     private void getAllBoxesRequest()
     {
+        setDataStadiumPosition();
         GetAllBoxesRequest request = new GetAllBoxesRequest();
         request.setViewers(count);
         request.setMatchId(matchId);
@@ -1025,9 +1024,7 @@ public class SelectPositionFragment
                         for (AllBoxesResult item: response.data.getResults())
                         {
                             if (item.getName().equals(stadiumPositionModels.get(43).getNumber())||
-                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())
-                                    ||
-                                    item.getName().equals(stadiumPositionModels.get(47).getNumber())){
+                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())){
 
                             }else if (Integer.parseInt(item.getName()) < 10)
                             {
@@ -1038,9 +1035,7 @@ public class SelectPositionFragment
                         for (AllBoxesResult item: response.data.getResults())
                         {
                             if (item.getName().equals(stadiumPositionModels.get(43).getNumber())||
-                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())
-                                    ||
-                                    item.getName().equals(stadiumPositionModels.get(47).getNumber())){
+                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())){
 
                                 newResult.add(item);
 
@@ -1056,6 +1051,12 @@ public class SelectPositionFragment
 
                         setDataSpinnerAllBoxes(newResult);
                         allBoxesResponse = newResult;
+                        try
+                        {
+                            rlImageViewsFull.removeAllViews();
+                        }catch (Exception e){
+
+                        }
                         setFullPositions(newResult);
                         setAmounts(newResult);
                     }
@@ -1159,6 +1160,7 @@ public class SelectPositionFragment
                     @Override
                     public void onNext(StadiumPositionModel partStadiomModel)
                     {
+
                         if (partStadiomModel.isFull())
                         {
                             imgView = new ImageView(getContext());
@@ -1166,6 +1168,7 @@ public class SelectPositionFragment
                             imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             imgView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT
                                     , RelativeLayout.LayoutParams.MATCH_PARENT));
+
                             switch (partStadiomModel.getNumber())
                             {
                                 case "1":
@@ -1353,10 +1356,6 @@ public class SelectPositionFragment
 //                                    imgView.setImageResource(R.drawable.ic_cip_full);
                                     break;
                                 case "مهمان":
-                                    setImageIntoIV(imgView, R.drawable.ic_full_guest);
-//                                    imgView.setImageResource(R.drawable.ic_bottom_full);
-                                    break;
-                                case "میهمان":
                                     setImageIntoIV(imgView, R.drawable.ic_full_guest);
 //                                    imgView.setImageResource(R.drawable.ic_bottom_full);
                                     break;
@@ -1600,9 +1599,7 @@ public class SelectPositionFragment
                         case "مهمان":
                             setGuestPositionSelected();
                             break;
-                        case "میهمان":
-                            setGuestPositionSelected();
-                            break;
+
                         case "CIP":
                             setCIPPositionSelected();
                             break;
@@ -1700,9 +1697,14 @@ public class SelectPositionFragment
 
     private void setAmounts(int countTicket)
     {
-        amountForPay = amountOneTicket * countTicket;
-        tvAmountForPay.setText("مبلغ قابل پرداخت:" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
-    }
+        try
+        {
+            amountForPay = amountOneTicket * countTicket;
+            tvAmountForPay.setText("مبلغ قابل پرداخت:" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+        }catch (Exception e){
+
+        }
+         }
 
     @Override
     public void onFinishedReservation(ReservationResponse response)

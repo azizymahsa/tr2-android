@@ -47,7 +47,7 @@ public class MarketFragment extends BaseFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        rootView = inflater.inflate(R.layout.fragment_media, container, false);
+        rootView = inflater.inflate(R.layout.fragment_traap_market, container, false);
 
         mToolbar = rootView.findViewById(R.id.toolbar);
 

@@ -30,15 +30,12 @@ public class SendProfileRequest
 
     @SerializedName("birthday")
     @Expose @Getter @Setter
-    private String birthday;
+    @Nullable
+    private String birthday = null;
 
     @SerializedName("english_name")
     @Expose @Getter @Setter
     private String nickName;
-
-    @SerializedName("key_invite")
-    @Expose @Getter @Setter
-    private Integer keyInvite;
 
     @SerializedName("sex")
     @Expose @Getter @Setter
@@ -56,8 +53,4 @@ public class SendProfileRequest
     @Expose @Getter @Setter
     private String lastNameUS;
 
-//    @SerializedName("photo")
-//    @Expose @Getter @Setter
-//    @Nullable
-//    private MultipartBody.Part ImageFile;
 }

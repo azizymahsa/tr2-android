@@ -58,6 +58,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     private FragmentTransaction transaction;
 
     private MediaPosition mediaPosition;
+    private int myMediaType;
     private View rlShirt;
 
     public MediaFragment()
@@ -99,15 +100,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("رسانه");
         rlShirt=rootView.findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
-
-            }
-        });
+        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class)));
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
@@ -122,7 +115,6 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     {
         try
         {
-
             fragmentManager = getChildFragmentManager();
 
             recyclerView = rootView.findViewById(R.id.recyclerView);
@@ -155,9 +147,21 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             adapter = new MediaAdapter(getActivity(), list, MediaFragment.this);
             recyclerView.setAdapter(adapter);
 
-            //MediaPosition.valueOf(mediaPosition.name()).ordinal()
-            recyclerView.scrollToPosition(mediaPosition.ordinal() - 1);
-        } catch (Exception e)
+            myMediaType = MediaPosition.News.ordinal();
+            recyclerView.scrollToPosition(MediaPosition.News.ordinal());
+
+            //------------------------initPager----------------------
+            myMediaType = MediaPosition.News.ordinal();
+            fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, null, this);
+//            fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
+            transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+            transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
+                    .commit();
+            //------------------------initPager----------------------
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -170,34 +174,47 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         {
             case 1://اخبار
             {
-//                fragment = NewsArchiveFragment.newInstance(this);
-                fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
-                transaction = fragmentManager.beginTransaction();
+                if (myMediaType != MediaPosition.News.ordinal())
+                {
+                    myMediaType = MediaPosition.News.ordinal();
+//                    fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
+                    fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, null, this);
+                    transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-//                transaction.replace(R.id.main_container, fragment, "newsArchiveCategoryFragment")
-                transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
-                        .commit();
+                    transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
+                            .commit();
+                }
                 break;
             }
             case 2://عکس
             {
-                fragment = PhotosFragment.newInstance(mainView);
-                transaction = fragmentManager.beginTransaction();
-                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                if (myMediaType != MediaPosition.ImageGallery.ordinal())
+                {
+                    myMediaType = MediaPosition.ImageGallery.ordinal();
 
-                transaction.replace(R.id.main_container, fragment, "marketFragment")
-                        .commit();
+                    fragment = PhotosFragment.newInstance(mainView);
+                    transaction = fragmentManager.beginTransaction();
+                    transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                    transaction.replace(R.id.main_container, fragment, "marketFragment")
+                            .commit();
+                }
                 break;
             }
             case 3://فیلم
             {
-                fragment = VideosFragment.newInstance(mainView);
-                transaction = fragmentManager.beginTransaction();
+                if (myMediaType != MediaPosition.VideoGallery.ordinal())
+                {
+                    myMediaType = MediaPosition.VideoGallery.ordinal();
+
+                    fragment = VideosFragment.newInstance(mainView);
+                    transaction = fragmentManager.beginTransaction();
 //                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                transaction.replace(R.id.main_container, fragment, "videosFragment")
-                        .commit();
+                    transaction.replace(R.id.main_container, fragment, "videosFragment")
+                            .commit();
+                }
                 break;
             }
         }
@@ -236,13 +253,13 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     @Override
     public void showLoading()
     {
-
+        mainView.showLoading();
     }
 
     @Override
     public void hideLoading()
     {
-
+        mainView.hideLoading();
     }
     @Subscribe
     public void getHeaderContent(HeaderModel headerModel)

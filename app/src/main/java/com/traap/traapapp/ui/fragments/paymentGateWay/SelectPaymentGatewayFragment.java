@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.fragments.paymentGateWay;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -21,9 +23,11 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.paymentGateway.SelectPaymentAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.utilities.CustomViewPager;
 
 /**
@@ -50,6 +54,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay;
     private ImageView imgLogo;
 
+    private SimChargePaymentInstance simChargePaymentInstance;
+
     public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
     {
         this.url = url;
@@ -64,10 +70,63 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     {
     }
 
+    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount)
+    {
+        this.url = url;
+        this.mainView = mainView;
+        this.imageDrawable = imageDrawable;
+        this.title = title;
+        this.amount = amount;
+    }
+
     public static SelectPaymentGatewayFragment newInstance(MainActionView mainView)
     {
         matchScheduleFragment = new SelectPaymentGatewayFragment();
         return matchScheduleFragment;
+    }
+
+    public static Fragment newInstance(String url,MainActionView mainView, String amount, String title, int imageDrawable, String mobile, SimChargePaymentInstance paymentInstance)
+    {
+
+
+        SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
+        fragment.setParentActionView(mainView);
+
+        Bundle args = new Bundle();
+        args.putString("url", url);
+        args.putString("amount", amount);
+        args.putInt("imageDrawable", imageDrawable);
+        args.putString("mobile", mobile);
+        args.putString("title", title);
+        args.putParcelable("paymentInstance", (Parcelable) paymentInstance);
+
+        fragment.setArguments(args);
+
+        return fragment;
+
+    }
+
+    public static Fragment newInstance(String urlPayment, MainActionView mainView, int imageDrawable, String title, String amount)
+    {
+        SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
+        fragment.setParentActionView(mainView);
+
+        Bundle args = new Bundle();
+        args.putString("url", urlPayment);
+        args.putString("amount", amount);
+        args.putInt("imageDrawable", imageDrawable);
+        //args.putString("mobile", mobile);
+        args.putString("title", title);
+       // args.putParcelable("paymentInstance", (Parcelable) paymentInstance);
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    private void setParentActionView(MainActionView mainView)
+    {
+        this.mainView = mainView;
     }
 
     @Override
@@ -85,6 +144,18 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         {
             rootView = null;
         }
+        if (getArguments() != null)
+        {
+            amount = getArguments().getString("amount");
+            title = getArguments().getString("title");
+            imageDrawable = getArguments().getInt("imageDrawable", 0);
+            mobile = getArguments().getString("mobile", "");
+            url=getArguments().getString("url", "");
+
+            simChargePaymentInstance = getArguments().getParcelable("paymentInstance");
+
+
+        }
 
 
         rootView = inflater.inflate(R.layout.select_payment_fragment, container, false);
@@ -92,7 +163,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
 
         setContent();
-        createTabLayout();
+        createTabLayout(amount,title,imageDrawable,mobile,simChargePaymentInstance);
 
 
         return rootView;
@@ -112,7 +183,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         }
     }
 
-    private void createTabLayout()
+    private void createTabLayout(String amount, String title, int imageDrawable, String mobile, Parcelable response)
     {
         // define TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("درگاه بانکی"));
@@ -121,14 +192,14 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
-        SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
+       /* SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
         paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_ChargeSimCard);
         paymentInstance.setOperatorType(12);
         paymentInstance.setSimcardType(12);
-        paymentInstance.setTypeCharge(Integer.valueOf(1));
+        paymentInstance.setTypeCharge(Integer.valueOf(1));*/
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
-                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, paymentInstance, url, paymentMatchRequest);
+                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, url, simChargePaymentInstance);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();

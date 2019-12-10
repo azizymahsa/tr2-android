@@ -74,7 +74,7 @@ public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCateg
             public void onClick(View view) {
                 selectedPosition=position;
                 notifyDataSetChanged();
-                if(flag)
+                //if(flag)
                 listener.onItemTitleCategoryClick(category);
             }
         });

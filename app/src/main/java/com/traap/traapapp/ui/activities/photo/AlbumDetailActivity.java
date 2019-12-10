@@ -60,6 +60,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private String largeImageClick = "";
     private String coverImg="";
 private  Boolean isBookmark=false;
+private  Boolean isLike=false;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -124,17 +125,24 @@ private  Boolean isBookmark=false;
         tvLike = findViewById(R.id.tvLike);
         rlLike = findViewById(R.id.rlLike);
         rlLike.setOnClickListener(this);
-
+showLoading();
         setDataItems();
 
-        requestGetRelatedVideos(idVideo);
+
 
 
         sendRequestListPhotos(idVideo);
 
 
     }
-
+    public void showLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+    }
+    public void hideLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
+    }
     private void sendRequestListPhotos(int idVideoCategory)
     {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
@@ -144,7 +152,7 @@ private  Boolean isBookmark=false;
             @Override
             public void onReady(WebServiceClass<PhotosByIdResponse> response)
             {
-                //mainView.hideLoading();
+                hideLoading();
                 try
                 {
 
@@ -152,6 +160,7 @@ private  Boolean isBookmark=false;
                     {
 
                         setRelatedPhotosData(response.data);
+                        requestGetRelatedVideos(response.data.getCategoryId());
 
                     } else
                     {
@@ -167,7 +176,7 @@ private  Boolean isBookmark=false;
             @Override
             public void onError(String message)
             {
-                //  mainView.hideLoading();
+                hideLoading();
                 Tools.showToast(getApplicationContext(), message, R.color.red);
             }
         });
@@ -188,6 +197,7 @@ private  Boolean isBookmark=false;
             setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
             idPhoto = data.getContent().get(i).getId();
             likeCount = data.getContent().get(i).getLikes();
+            isLike = data.getContent().get(i).getIsLiked();
             isBookmark = data.getContent().get(i).getIsBookmarked();
             tvLike.setText(likeCount + "");
             coverImg=data.getContent().get(i).getCover();
@@ -209,7 +219,7 @@ private  Boolean isBookmark=false;
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
             {
-                //mainView.hideLoading();
+                hideLoading();
                 try
                 {
 
@@ -232,7 +242,7 @@ private  Boolean isBookmark=false;
             @Override
             public void onError(String message)
             {
-                //  mainView.hideLoading();
+                hideLoading();
                 Tools.showToast(getApplicationContext(), message, R.color.red);
             }
         });
@@ -318,6 +328,7 @@ private  Boolean isBookmark=false;
                 intent.putExtra("SRCImage", largeImageClick);
                 intent.putExtra("LikeCount", likeCount);
                 intent.putExtra("idPhoto", idPhoto);
+                intent.putExtra("isLike", isLike);
                 intent.putExtra("isBookmark", isBookmark);
                 startActivity(intent);
                 break;
@@ -326,7 +337,7 @@ private  Boolean isBookmark=false;
 
     private void requestLikeVideo()
     {
-        //rlLike.setClickable(false);
+        showLoading();
         LikeVideoRequest request = new LikeVideoRequest();
 
         SingletonService.getInstance().getLikeVideoService().likePhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
@@ -335,6 +346,7 @@ private  Boolean isBookmark=false;
             public void onReady(WebServiceClass<LikeVideoResponse> response)
             {
                 // rlLike.setClickable(true);
+                hideLoading();
 
                 try
                 {
@@ -358,7 +370,7 @@ private  Boolean isBookmark=false;
             @Override
             public void onError(String message)
             {
-                //  mainView.hideLoading();
+                hideLoading();
                 Tools.showToast(getApplicationContext(), message, R.color.red);
                 //rlLike.setClickable(true);
 
@@ -400,6 +412,7 @@ private  Boolean isBookmark=false;
         idPhoto = content.getId();
         likeCount = content.getLikes();
         isBookmark =content.getIsBookmarked();
+        isLike =content.getIsLiked();
 
         tvLike.setText(likeCount + "");
         if(content.getImageName().getThumbnailLarge()=="")

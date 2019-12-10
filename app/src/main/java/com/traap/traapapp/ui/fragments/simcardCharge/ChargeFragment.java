@@ -37,6 +37,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -45,19 +46,28 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
+import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.enums.BarcodeType;
+import com.traap.traapapp.enums.MediaPosition;
+import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentFragment;
 import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
+import com.traap.traapapp.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
+import com.traap.traapapp.ui.fragments.simcardCharge.imp.irancell.IrancellBuyInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyImpl;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyImpl;
+import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyInteractor;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NumberTextWatcher;
@@ -71,7 +81,7 @@ public class ChargeFragment extends BaseFragment
         implements OnContactClick, IrancellBuyImpl.OnFinishedIrancellBuyListener,
         ChargeFragmentInteractor, CompoundButton.OnCheckedChangeListener, OnAnimationEndListener, View.OnFocusChangeListener,
         RightelBuyImpl.OnFinishedRightelBuyListener, PaymentParentActionView,
-        MciBuyInteractor.OnFinishedMciBuyInListener, TextWatcher
+        MciBuyInteractor.OnFinishedMciBuyInListener, TextWatcher, MainActionView, PaymentActionView
 {
 
     private Fragment pFragment;
@@ -92,6 +102,7 @@ public class ChargeFragment extends BaseFragment
     private int simcardType = 0;
     private String amount;
     private String mobile;
+    private int imageDrawable=0;
 
 
     public ChargeFragment()
@@ -584,7 +595,7 @@ public class ChargeFragment extends BaseFragment
 
     private void setDataLayoutPassCharge()
     {
-        int imageDrawable = 0;
+         imageDrawable = 0;
         String chargeStr = "";
         if (isMtn)
         {
@@ -624,7 +635,7 @@ public class ChargeFragment extends BaseFragment
 
         String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
 
-        fragmentManager = getChildFragmentManager();
+        //fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
 
         SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
@@ -633,46 +644,15 @@ public class ChargeFragment extends BaseFragment
         paymentInstance.setSimcardType(simcardType);
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
 
-        pFragment = PaymentFragment.newInstance(this, amount, title, imageDrawable,
-                mobile, paymentInstance);
+        getUrlChargePayment(amount,operatorType,simcardType,chargeType,mobile);
 
-//        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
-//                amount,
-////                "پرداخت شارژ سیمکارت " + chargeStr,
-//                title,
-//                imageDrawable,
-//                this,
-//                null,
-//                operatorType,
-//                simcardType,
-//                Integer.valueOf(chargeType)
-//                ,mobile);
+      //////////////////////////////////////////////////////////////////////
 
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        if (transaction.isEmpty())
-        {
-            transaction
-                .replace(R.id.container, pFragment)
-                    .commit();
-        }
-        else
-        {
-            if (rootView.findViewById(R.id.container).getVisibility() == View.GONE)
-            {
-                transaction.show(pFragment);
-            }
-            else
-            {
-                transaction.replace(R.id.container, pFragment)
-                        .commit();
-            }
-        }
 
-        ((TextView) rootView.findViewById(R.id.tvTitle)).setText("پرداخت");
+      //  ((TextView) rootView.findViewById(R.id.tvTitle)).setText("پرداخت");
 
-        YoYo.with(Techniques.SlideOutRight).withListener(new AnimatorListenerAdapter()
+     /*   YoYo.with(Techniques.SlideOutRight).withListener(new AnimatorListenerAdapter()
         {
             @Override
             public void onAnimationEnd(Animator animation)
@@ -682,13 +662,15 @@ public class ChargeFragment extends BaseFragment
 
             }
         }).duration(200)
-                .playOn(llCvv2);
+                .playOn(llCvv2);*/
 
-        (rootView.findViewById(R.id.container)).setVisibility(View.VISIBLE);
-        YoYo.with(Techniques.SlideInLeft)
-                .duration(200)
-                .playOn(rootView.findViewById(R.id.container));
+
         //----------------------------new for payment fragment-----------------------
+    }
+
+    private void getUrlChargePayment(String amount, int operatorType, int simcardType, String chargeType, String mobile)
+    {
+        irancellBuy.findDataIrancellBuyRequest(this,amount,operatorType,simcardType,chargeType,mobile);
     }
 
     @OnClick(R.id.btnChargeConfirmRightel)
@@ -1629,10 +1611,283 @@ public class ChargeFragment extends BaseFragment
         contentView.setVisibility(View.VISIBLE);
         setBtnBackToCharge();
     }
+
+    @Override
+    public void onBill()
+    {
+
+    }
+
+    @Override
+    public void onChargeSimCard()
+    {
+
+    }
+
+    @Override
+    public void onPackSimCard()
+    {
+
+    }
+
+    @Override
+    public void openBarcode(BarcodeType bill)
+    {
+
+    }
+
+    @Override
+    public void onBarcodReader()
+    {
+
+    }
+
+    @Override
+    public void onPaymentGDSFlight()
+    {
+
+    }
+
+    @Override
+    public void onPaymentGDSHotel()
+    {
+
+    }
+
+    @Override
+    public void onPaymentGDSBus()
+    {
+
+    }
+
+    @Override
+    public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
+    {
+
+        String urlPayment = data.getUrl();
+        String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
+
+        //fragmentManager = getChildFragmentManager();
+        operatorType = getOperatorType(mobile);
+
+        SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
+        paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_ChargeSimCard);
+        paymentInstance.setOperatorType(operatorType);
+        paymentInstance.setSimcardType(simcardType);
+        paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
+
+
+
+       mainView.openChargePaymentFragment(urlPayment, R.drawable.icon_payment_ticket,
+               title, Utility.priceFormat(amount));
+
+
+       /* (rootView.findViewById(R.id.container)).setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.SlideInLeft)
+                .duration(200)
+                .playOn(rootView.findViewById(R.id.container));*/
+     /*   pFragment = SelectPaymentGatewayFragment.newInstance(urlPayment,mainView, amount, title, imageDrawable,
+                mobile, paymentInstance);
+
+//        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
+//                amount,
+////                "پرداخت شارژ سیمکارت " + chargeStr,
+//                title,
+//                imageDrawable,
+//                this,
+//                null,
+//                operatorType,
+//                simcardType,
+//                Integer.valueOf(chargeType)
+//                ,mobile);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+
+        transaction
+                .replace(R.id.container, pFragment)
+                .commit();*/
+    }
+
+    @Override
+    public void onErrorCharge(String message)
+    {
+
+    }
+
+    @Override
+    public void onPaymentPackSimCard(PackageBuyResponse response, String mobile)
+    {
+
+    }
+
+    @Override
+    public void onErrorPackSimcard(String message)
+    {
+
+    }
+
+    @Override
+    public void onPaymentTransferMoney()
+    {
+
+    }
+
+    @Override
+    public void onPaymentWithoutCard()
+    {
+
+    }
+
+    @Override
+    public void onPaymentBill()
+    {
+
+    }
+
+    @Override
+    public void onPaymentTicket()
+    {
+
+    }
+
+    @Override
+    public void doTransferMoney()
+    {
+
+    }
+
+    @Override
+    public void onContact()
+    {
+
+    }
+
+    @Override
+    public void onInternetAlert()
+    {
+
+    }
+
+    @Override
+    public void showError(String message)
+    {
+
+    }
+
+    @Override
+    public void backToMainFragment()
+    {
+
+    }
+
+    @Override
+    public void openDrawer()
+    {
+
+    }
+
+    @Override
+    public void closeDrawer()
+    {
+
+    }
+
     @Override
     public void startAddCardActivity()
     {
         mainView.startAddCardActivity();
+    }
+
+    @Override
+    public void onBuyTicketClick(MatchItem matchBuyable)
+    {
+
+    }
+
+    @Override
+    public void onLeageClick(ArrayList<MatchItem> matchBuyable)
+    {
+
+    }
+
+    @Override
+    public void onPredict(MatchItem matchPredict, Boolean isPredictable)
+    {
+
+    }
+
+    @Override
+    public void onCash()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceOne()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceTwo()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceThree()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceFour()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceFive()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceSix()
+    {
+
+    }
+
+    @Override
+    public void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onNewsFavoriteClick(NewsParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onMainVideoClick()
+    {
+
+    }
+
+    @Override
+    public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
+    {
+
+    }
+
+    @Override
+    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat)
+    {
+
     }
 
     public void onSelectContact(OnSelectContact event)
@@ -1668,6 +1923,18 @@ public class ChargeFragment extends BaseFragment
         } catch (Exception e)
         {
         }
+
+    }
+
+    @Override
+    public void showLoading()
+    {
+
+    }
+
+    @Override
+    public void hideLoading()
+    {
 
     }
   /*  @Override
