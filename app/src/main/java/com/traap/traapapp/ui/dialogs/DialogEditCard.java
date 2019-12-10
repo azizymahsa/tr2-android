@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -25,13 +26,12 @@ import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
-import library.android.eniac.base.BaseDialog;
 
 /**
  * Created by Javad.Abadi on 7/23/2018.
  */
 @SuppressLint("ValidFragment")
-public class DialogEditCard extends BaseDialog implements View.OnClickListener
+public class DialogEditCard extends DialogFragment implements View.OnClickListener
 {
     private Context context;
     private Dialog dialog;

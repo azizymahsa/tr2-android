@@ -16,10 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bumptech.glide.Glide;
 import com.traap.traapapp.R;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Utility;
-import library.android.eniac.utility.GlideApp;
 
 /**
  * Created by Javad.Abadi on 7/21/2018.
@@ -161,7 +161,7 @@ public class ResultBuyCharge extends DialogFragment implements View.OnClickListe
 
         try
         {
-            GlideApp.with(activity).load(cardImage).into(ivCardAlert);
+            Glide.with(activity).load(cardImage).into(ivCardAlert);
 
 
         } catch (Exception e)

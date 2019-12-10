@@ -638,7 +638,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
             {
                 etPassPayment.setText("");
                 PaymentResultDialog dialog = new PaymentResultDialog(getActivity(), posResponse, cardNumber, cardName, etAmountPayment.getText().toString(), cardImage, archiveCardDBModels.getCardNumberColor());
-                dialog.show(getActivity().getFragmentManager(), "payment");
+                dialog.show(getActivity().getSupportFragmentManager(), "payment");
                 etPassPayment.setText("");
                 etCvv2.setText("");
                 cvv2 = "";

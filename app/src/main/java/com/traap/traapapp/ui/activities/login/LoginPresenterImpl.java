@@ -39,7 +39,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.utilities.IMEI_Device;
 import com.traap.traapapp.utilities.Tools;
-import library.android.eniac.utility.Utility;
+import com.traap.traapapp.utilities.Utility;
 
 
 /**

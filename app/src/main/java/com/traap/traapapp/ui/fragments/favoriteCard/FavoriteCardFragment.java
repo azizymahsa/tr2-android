@@ -294,21 +294,21 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     public void onShowEditDialog(Result result, int position)
     {
         DialogEditCard editCardDialog = new DialogEditCard(getActivity(), result, this, position);
-        editCardDialog.show(getActivity().getFragmentManager(), "editCard");
+        editCardDialog.show(getActivity().getSupportFragmentManager(), "editCard");
     }
 
     @Override
     public void onShowChangePasswordDialog(Result result, int Position)
     {
         ChangePasswordDialog dialog = new ChangePasswordDialog(getActivity(), this, result);
-        dialog.show(getActivity().getFragmentManager(), "changePasswordDialog");
+        dialog.show(getActivity().getSupportFragmentManager(), "changePasswordDialog");
     }
 
     @Override
     public void onShowConfirmDeleteDialog(Result result, int position)
     {
         new DialogDeleteCard(getActivity(), "آیا از حذف کارت " + result.getCardNumber() + " اطمینان دارید؟",
-                this, result.getCardId(), position).show(getActivity().getFragmentManager(), "deleteCard");
+                this, result.getCardId(), position).show(getActivity().getSupportFragmentManager(), "deleteCard");
     }
 
     @Override

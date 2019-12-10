@@ -179,7 +179,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="انتخاب جایگاه "
-                        android:textColor="@color/g_btn_gradient_lighter"
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/textSize_12dp" />
                 </LinearLayout>
 

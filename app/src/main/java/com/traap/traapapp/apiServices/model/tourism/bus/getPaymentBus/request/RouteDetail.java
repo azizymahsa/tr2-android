@@ -4,9 +4,6 @@ package com.traap.traapapp.apiServices.model.tourism.bus.getPaymentBus.request;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import library.android.service.model.bus.lockSeat.response.DestinationCity;
-import library.android.service.model.bus.lockSeat.response.OriginCity;
-
 public class RouteDetail{
 
     @SerializedName("Seats")
@@ -40,17 +37,17 @@ public class RouteDetail{
     private String reservationId;
     @SerializedName("DestinationCity")
     @Expose
-    private library.android.service.model.bus.lockSeat.response.DestinationCity destinationCity;
+    private DestinationCity destinationCity;
     @SerializedName("OriginCity")
     @Expose
-    private library.android.service.model.bus.lockSeat.response.OriginCity originCity;
+    private OriginCity originCity;
     @SerializedName("Passenger")
     @Expose
     private Passenger passenger;
 
     @SerializedName("Company")
     @Expose
-    private library.android.service.model.bus.searchBus.response.Company company;
+    private Company company;
 
     public String getSeats() {
         return seats;
@@ -150,11 +147,11 @@ public class RouteDetail{
         this.passenger = passenger;
     }
 
-    public library.android.service.model.bus.searchBus.response.Company getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(library.android.service.model.bus.searchBus.response.Company company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 }
