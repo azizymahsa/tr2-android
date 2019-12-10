@@ -253,13 +253,13 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     @Override
     public void showLoading()
     {
-
+        mainView.showLoading();
     }
 
     @Override
     public void hideLoading()
     {
-
+        mainView.hideLoading();
     }
     @Subscribe
     public void getHeaderContent(HeaderModel headerModel)

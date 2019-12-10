@@ -58,9 +58,9 @@ public class GetNewsDetailsResponse implements Parcelable
     @SerializedName("create_date")
     private String createDate;
 
-    @Expose @Getter @Setter
-    @SerializedName("publish_date")
-    private String publishDate;
+//    @Expose @Getter @Setter
+//    @SerializedName("publish_date")
+//    private String publishDate;
 
     @Expose @Getter @Setter
     @SerializedName("id")
@@ -86,7 +86,7 @@ public class GetNewsDetailsResponse implements Parcelable
         bookmarked = tmpBookmarked == 0 ? null : tmpBookmarked == 1;
         updateDate = in.readString();
         createDate = in.readString();
-        publishDate = in.readString();
+//        publishDate = in.readString();
         id = in.readInt();
     }
 
@@ -131,7 +131,7 @@ public class GetNewsDetailsResponse implements Parcelable
         dest.writeByte((byte) (bookmarked == null ? 0 : bookmarked ? 1 : 2));
         dest.writeString(updateDate);
         dest.writeString(createDate);
-        dest.writeString(publishDate);
+//        dest.writeString(publishDate);
         dest.writeInt(id);
     }
 }
