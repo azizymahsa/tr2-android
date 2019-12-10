@@ -11,17 +11,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardActionView;
-import library.android.eniac.base.BaseDialog;
 
 /**
  * Created by Javad.Abadi on 7/24/2018.
  */
 @SuppressLint("ValidFragment")
-public class DialogDeleteCard extends BaseDialog implements View.OnClickListener
+public class DialogDeleteCard extends DialogFragment implements View.OnClickListener
 {
     private Activity activity;
     private Dialog dialog;

@@ -46,7 +46,7 @@ import com.traap.traapapp.ui.fragments.ticket.selectposition.ReservationMatchImp
 import com.traap.traapapp.ui.fragments.ticket.selectposition.ReservationMatchInteractor;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
-import library.android.eniac.utility.Utility;
+import com.traap.traapapp.utilities.Utility;
 
 public class SelectPositionFragment
         extends BaseFragment implements View.OnClickListener, ReservationMatchInteractor.OnFinishedReservationListener

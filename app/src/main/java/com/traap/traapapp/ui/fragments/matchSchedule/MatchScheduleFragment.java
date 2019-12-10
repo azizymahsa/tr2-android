@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.matchSchedule;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
  */
 public class MatchScheduleFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener
 {
+    private Context context;
 
     private static MatchScheduleFragment matchScheduleFragment;
     private MainActionView mainView;
@@ -59,6 +61,12 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
     }
 
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public static MatchScheduleFragment newInstance(MainActionView mainView, ArrayList<MatchItem> matchBuyable)
     {
@@ -254,9 +262,9 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
                     tvTableLeage.setBackgroundResource(R.drawable.background_border_a);
                     tvLastSchecdule.setBackgroundColor(Color.TRANSPARENT);
                     tvNowSchedule.setBackgroundColor(Color.TRANSPARENT);
-                    tvLastSchecdule.setTextColor(getResources().getColor(R.color._disable_color));
-                    tvTableLeage.setTextColor(getResources().getColor(R.color.borderColorRed));
-                    tvNowSchedule.setTextColor(getResources().getColor(R.color._disable_color));
+                    tvLastSchecdule.setTextColor(context.getResources().getColor(R.color._disable_color));
+                    tvTableLeage.setTextColor(context.getResources().getColor(R.color.borderColorRed));
+                    tvNowSchedule.setTextColor(context.getResources().getColor(R.color._disable_color));
                     viewPager.setCurrentItem(2, true);
 
                 }, 1000);

@@ -82,4 +82,40 @@
 
     <dimen name="news_favorite_height" >300dp</dimen>
     <dimen name="any_chart_height">240dp</dimen>
+
+
+    <dimen name="mdtp_time_label_size">100sp</dimen>
+    <dimen name="mdtp_extra_time_label_margin">-50dp</dimen>
+    <dimen name="mdtp_ampm_label_size">28sp</dimen>
+    <dimen name="mdtp_ampm_left_padding">10dip</dimen>
+    <dimen name="mdtp_separator_padding">7dip</dimen>
+    <dimen name="mdtp_header_height">152dip</dimen>
+    <dimen name="mdtp_picker_dimen">440dip</dimen>
+    <dimen name="mdtp_time_picker_height">500dip</dimen>
+
+    <dimen name="mdtp_date_picker_component_width">440dp</dimen>
+    <dimen name="mdtp_selected_calendar_layout_height">250dp</dimen>
+    <dimen name="mdtp_selected_date_height">300dp</dimen>
+    <dimen name="mdtp_date_picker_view_animator_height">464dp</dimen>
+
+    <dimen name="mdtp_month_list_item_header_height">102dp</dimen>
+    <dimen name="mdtp_month_day_label_text_size">22sp</dimen>
+    <dimen name="mdtp_day_number_select_circle_radius">28dp</dimen>
+    <dimen name="mdtp_month_select_circle_radius">80dp</dimen>
+    <dimen name="mdtp_selected_date_year_size">40dp</dimen>
+    <dimen name="mdtp_selected_date_day_size">80sp</dimen>
+    <dimen name="mdtp_selected_date_month_size">40dp</dimen>
+    <dimen name="mdtp_date_picker_header_text_size">20dp</dimen>
+    <dimen name="mdtp_time_picker_header_text_size">20sp</dimen>
+    <dimen name="mdtp_month_label_size">22sp</dimen>
+    <dimen name="mdtp_day_number_size">20sp</dimen>
+    <dimen name="mdtp_year_label_height">118dp</dimen>
+    <dimen name="mdtp_year_label_text_size">34dp</dimen>
+
+    <dimen name="mdtp_material_button_height">86dp</dimen>
+    <dimen name="mdtp_material_button_textsize">32sp</dimen>
+    <dimen name="mdtp_material_button_minwidth">118dp</dimen>
+    <dimen name="mdtp_material_button_textpadding_horizontal">12dp</dimen>
+    <dimen name="_8dp">17dp</dimen>
+    <dimen name="_56dp">70dp</dimen>
 </resources>

@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.Detail;
-import library.android.eniac.utility.Utility;
+import com.traap.traapapp.utilities.Utility;
 
 /**
  * Created by Javad.Abadi on 8/13/2018.

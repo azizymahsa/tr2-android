@@ -339,7 +339,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
         if (viewPager.getCurrentItem() == 0)
         {
             ivCountTicket.setImageResource(R.drawable.select_step_non);
-            tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivSelectPosition.setImageResource(R.drawable.un_select_step);
             tvSelectPosition.setTextColor(getResources().getColor(R.color._disable_color));
@@ -357,10 +357,10 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
         } else if (viewPager.getCurrentItem() == 1)
         {
             ivCountTicket.setImageResource(R.drawable.select_step);
-            tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivSelectPosition.setImageResource(R.drawable.select_step_non);
-            tvSelectPosition.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivFullInfo.setImageResource(R.drawable.un_select_step);
             tvFullInfo.setTextColor(getResources().getColor(R.color._disable_color));
@@ -368,56 +368,56 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             ivPrintTicket.setImageResource(R.drawable.un_select_step);
             tvPrintTicket.setTextColor(getResources().getColor(R.color._disable_color));
 
-            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
 
         } else if (viewPager.getCurrentItem() == 2)
         {
             ivCountTicket.setImageResource(R.drawable.select_step);
-            tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivSelectPosition.setImageResource(R.drawable.select_step);
-            tvSelectPosition.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivFullInfo.setImageResource(R.drawable.select_step);
-            tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivPrintTicket.setImageResource(R.drawable.select_step);
-            tvPrintTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
-            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
-            vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
-            vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+            vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+            vTowToThree.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
           /*  ivFullInfo.setImageResource(R.drawable.select_step_non);
-            tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivPrintTicket.setImageResource(R.drawable.un_select_step);
             tvPrintTicket.setTextColor(getResources().getColor(R.color._disable_color));
 
-            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
-            vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+            vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
 */
         } else if (viewPager.getCurrentItem() == 3)
         {
 
             ivCountTicket.setImageResource(R.drawable.select_step);
-            tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivSelectPosition.setImageResource(R.drawable.select_step);
-            tvSelectPosition.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
 
             ivFullInfo.setImageResource(R.drawable.select_step);
-            tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivPrintTicket.setImageResource(R.drawable.select_step);
-            tvPrintTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
-            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
-            vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
-            vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+            vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+            vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+            vTowToThree.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
         }
     }
 

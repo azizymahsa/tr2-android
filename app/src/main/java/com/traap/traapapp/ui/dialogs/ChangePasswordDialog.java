@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -31,13 +32,12 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardActionView;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
-import library.android.eniac.base.BaseDialog;
 
 /**
  * Created by Javad.Abadi on 2/20/2019.
  */
 @SuppressLint("ValidFragment")
-public class ChangePasswordDialog extends BaseDialog implements View.OnClickListener, OnAnimationEndListener
+public class ChangePasswordDialog extends DialogFragment implements View.OnClickListener, OnAnimationEndListener
 {
     private Activity activity;
     private Dialog dialog;

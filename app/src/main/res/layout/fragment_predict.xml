@@ -496,7 +496,7 @@
                                         android:layout_width="8dp"
                                         android:layout_height="8dp"
                                         android:layout_gravity="center_vertical"
-                                        android:background="@color/colorCardBlue"/>
+                                        android:background="@color/textHint"/>
 
                                 </LinearLayout>
 
@@ -563,7 +563,7 @@
                                         android:layout_width="8dp"
                                         android:layout_height="8dp"
                                         android:layout_gravity="center_vertical"
-                                        android:background="@color/colorCardBlue"/>
+                                        android:background="@color/textHint"/>
 
                                 </LinearLayout>
 
@@ -630,7 +630,7 @@
                                         android:layout_width="8dp"
                                         android:layout_height="8dp"
                                         android:layout_gravity="center_vertical"
-                                        android:background="@color/colorCardBlue"/>
+                                        android:background="@color/textHint"/>
 
                                 </LinearLayout>
 
@@ -694,7 +694,7 @@
                         android:layout_height="16dp"
                         android:layout_margin="8dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@color/colorCardBlue"/>
+                        android:background="@color/textHint"/>
 
                     <TextView
                         android:id="@+id/tvHomeChartTitle"

@@ -319,7 +319,8 @@ public class DatePickerDialog extends DialogFragment implements
         // if theme mode has not been set by java code, check if it is specified in Style.xml
         if (!mThemeDarkChanged)
         {
-            mThemeDark = Utils.isDarkTheme(activity, mThemeDark);
+//            mThemeDark = Utils.isDarkTheme(activity, mThemeDark);
+            mThemeDark = false;
         }
 
         Resources res = getResources();

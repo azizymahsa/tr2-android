@@ -62,24 +62,24 @@ import com.traap.traapapp.utilities.Utility;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import library.android.eniac.StartEniacBusActivity;
-import library.android.eniac.StartEniacFlightActivity;
-import library.android.eniac.StartEniacHotelActivity;
-import library.android.eniac.interfaces.BusLockSeat;
-import library.android.eniac.interfaces.FlightReservationData;
-import library.android.eniac.interfaces.HotelReservationData;
-import library.android.eniac.model.FlightReservation;
-import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
-import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
-import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
-import library.android.service.model.bus.searchBus.response.Company;
-import library.android.service.model.flight.reservation.response.ReservationResponse;
+//import library.android.eniac.StartEniacBusActivity;
+//import library.android.eniac.StartEniacFlightActivity;
+//import library.android.eniac.StartEniacHotelActivity;
+//import library.android.eniac.interfaces.BusLockSeat;
+//import library.android.eniac.interfaces.FlightReservationData;
+//import library.android.eniac.interfaces.HotelReservationData;
+//import library.android.eniac.model.FlightReservation;
+//import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
+//import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
+//import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
+//import library.android.service.model.bus.searchBus.response.Company;
+//import library.android.service.model.flight.reservation.response.ReservationResponse;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
-        FlightReservationData, BusLockSeat, HotelReservationData,
+//        FlightReservationData, BusLockSeat, HotelReservationData,
         View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
         , OnServiceStatus<WebServiceClass<MachListResponse>>
 {
@@ -443,10 +443,10 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 //        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
 //                response.getUsername(), response.getPassword(), this, 0);
-        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.UNIQUE_CODE_Flight_All,
-                "0037250100293610", "1397", this, 0);
-
-        flightActivity.startMainFlight();
+//        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.UNIQUE_CODE_Flight_All,
+//                "0037250100293610", "1397", this, 0);
+//
+//        flightActivity.startMainFlight();
     }
 
 
@@ -458,10 +458,10 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //        StartEniacBusActivity busActivity = new StartEniacBusActivity(response.getUniqeCode(),
 //                response.getUsername(), response.getPassword(), getActivity(), this, 0);
 
-        StartEniacBusActivity busActivity = new StartEniacBusActivity(TrapConfig.UNIQUE_CODE_BUS,
-                "0037250100293610", "1397", getActivity(), this, 0);
-
-        busActivity.startMainBusActivity();
+//        StartEniacBusActivity busActivity = new StartEniacBusActivity(TrapConfig.UNIQUE_CODE_BUS,
+//                "0037250100293610", "1397", getActivity(), this, 0);
+//
+//        busActivity.startMainBusActivity();
     }
 
 
@@ -474,11 +474,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                response.getUsername(), response.getPassword(), SingletonContext.getInstance().getContext(),
 //                this, 0);
 
-        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity(TrapConfig.UNIQUE_CODE_HOTEL,
-                "0037250100293610", "1397", SingletonContext.getInstance().getContext(),
-                this, 0);
-
-        hotelActivity.startMainHotelActivity();
+//        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity(TrapConfig.UNIQUE_CODE_HOTEL,
+//                "0037250100293610", "1397", SingletonContext.getInstance().getContext(),
+//                this, 0);
+//
+//        hotelActivity.startMainHotelActivity();
     }
 
 
@@ -491,43 +491,43 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
 
-    @Override
-    public void LockSeatListener(LockSeatResponse lockSeatResponse, String s, String s1, List<Company> list)
-    {
+//    @Override
+//    public void LockSeatListener(LockSeatResponse lockSeatResponse, String s, String s1, List<Company> list)
+//    {
+//
+//    }
+//
+//    @Override
+//    public void issueBusReservation(SaleVerifyResponse saleVerifyResponse, boolean b)
+//    {
+//
+//    }
+//
+//
+//    @Override
+//    public void flightReservationListener(ReservationResponse reservationResponse, FlightReservation flightReservation, String s, String s1)
+//    {
+//
+//    }
+//
+//    @Override
+//    public void flightConfirmToSendSms(Boolean aBoolean)
+//    {
+//
+//    }
 
-    }
 
-    @Override
-    public void issueBusReservation(SaleVerifyResponse saleVerifyResponse, boolean b)
-    {
-
-    }
-
-
-    @Override
-    public void flightReservationListener(ReservationResponse reservationResponse, FlightReservation flightReservation, String s, String s1)
-    {
-
-    }
-
-    @Override
-    public void flightConfirmToSendSms(Boolean aBoolean)
-    {
-
-    }
-
-
-    @Override
-    public void hotelReserveListener(HotelItem hotelItem, String s)
-    {
-
-    }
-
-    @Override
-    public void hotelConfirmToSendSmsListener(Boolean aBoolean)
-    {
-
-    }
+//    @Override
+//    public void hotelReserveListener(HotelItem hotelItem, String s)
+//    {
+//
+//    }
+//
+//    @Override
+//    public void hotelConfirmToSendSmsListener(Boolean aBoolean)
+//    {
+//
+//    }
 
     @Override
     public void onChosenItemClick(View view, Integer id,String URl)
@@ -609,10 +609,10 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 //        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
 //                response.getUsername(), response.getPassword(), this, 0);
-        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.UNIQUE_CODE_Flight_Ata,
-                "0037250100293610", "1397", this, 0);
-
-        flightActivity.startMainFlight();
+//        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.UNIQUE_CODE_Flight_Ata,
+//                "0037250100293610", "1397", this, 0);
+//
+//        flightActivity.startMainFlight();
     }
 
     @Override

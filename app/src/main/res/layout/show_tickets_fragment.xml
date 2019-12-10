@@ -148,8 +148,7 @@
                         android:layout_width="@dimen/_35dp"
                         android:layout_height="@dimen/_35dp"
                         android:background="@drawable/button_small_border"
-                        android:src="@drawable/ic_share_36dp"
-
+                        app:srcCompat="@drawable/ic_share"
                         android:padding="@dimen/_5sdp"
                         android:tint="@color/buttonHeaderBackgroundColor"
                         android:foreground="?attr/selectableItemBackground"

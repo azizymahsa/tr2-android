@@ -24,8 +24,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-
-import library.android.eniac.utility.Utility;
+import com.traap.traapapp.utilities.Utility;
 
 /**
  * Created by MahtabAzizi on 12/8/2019.
