@@ -7,13 +7,14 @@ import android.content.Context;
 
 import androidx.multidex.MultiDex;
 
+import com.traap.traapapp.EniacApplication;
 import com.traap.traapapp.apiServices.di.component.DaggerNetComponent;
 import com.traap.traapapp.apiServices.di.component.NetComponent;
 import com.traap.traapapp.apiServices.di.module.AppModule;
 import com.traap.traapapp.apiServices.di.module.NetModule;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.helper.Const;
-import library.android.eniac.base.EniacApplication;
+//import library.android.eniac.base.EniacApplication;
 import lombok.Getter;
 
 

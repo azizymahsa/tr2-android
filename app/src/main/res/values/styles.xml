@@ -127,6 +127,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="IranSansBoldf" parent="android:TextAppearance">
+        <item name="fontPath">fonts/iran_sans_bold.ttf</item>
+    </style>
+
     <style name="mdtp_ActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/mdtp_material_button_height</item>

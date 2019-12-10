@@ -137,7 +137,7 @@ android {
         //----------------------Chabok end-----------------
 
         //----------------------my Libraries start---------------
-        implementation(name: 'flight-debug_v89', ext: 'aar')
+//        implementation(name: 'flight-debug_v89', ext: 'aar')
 //    implementation project(':bubbleseekbar')
 //        implementation project(':imagepicker')
 //    implementation project(':taggroup')

@@ -15,7 +15,6 @@ import android.view.View.OnTouchListener;
 import androidx.annotation.NonNull;
 
 import com.traap.traapapp.R;
-import library.android.eniac.utility.TextWatcherAdapter;
 import ru.kolotnev.formattedittext.MaskedEditText;
 
 

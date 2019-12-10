@@ -71,7 +71,7 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyInter
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NumberTextWatcher;
-import library.android.eniac.utility.Utility;
+import com.traap.traapapp.utilities.Utility;
 
 /**
  * Created by Javad.Abadi on 7/14/2018.

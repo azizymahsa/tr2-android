@@ -29,9 +29,9 @@ public class HotelService extends BasePart
     {
         start(getServiceGenerator().createService().doHotelPayment(request), listener);
     }
-    public void sendHotelMessage(OnServiceStatus<WebServiceClass<GlobalResponse>> listener, HotelSendMessageRequest request) {
-        start(getServiceGenerator().createService().hotelSendMessage(request), listener);
-    }
+//    public void sendHotelMessage(OnServiceStatus<WebServiceClass<GlobalResponse>> listener, HotelSendMessageRequest request) {
+//        start(getServiceGenerator().createService().hotelSendMessage(request), listener);
+//    }
     public void hotelUserPass(OnServiceStatus<WebServiceClass<GetUserPassResponse>> listener) {
         start(getServiceGenerator().createService().getHotelUserPass(), listener);
     }

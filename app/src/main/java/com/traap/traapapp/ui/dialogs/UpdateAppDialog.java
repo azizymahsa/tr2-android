@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -26,13 +27,12 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import com.traap.traapapp.R;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.splash.UpdateAppAction;
-import library.android.eniac.base.BaseDialog;
 
 /**
  * Created by Javad.Abadi on 7/24/2018.
  */
 @SuppressLint("ValidFragment")
-public class UpdateAppDialog extends BaseDialog implements View.OnClickListener
+public class UpdateAppDialog extends DialogFragment implements View.OnClickListener
 {
     private Activity activity;
     private Dialog dialog;

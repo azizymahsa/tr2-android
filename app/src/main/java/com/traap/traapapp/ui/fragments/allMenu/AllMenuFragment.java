@@ -65,18 +65,18 @@ import com.traap.traapapp.utilities.Utility;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import library.android.eniac.StartEniacBusActivity;
-import library.android.eniac.StartEniacFlightActivity;
-import library.android.eniac.StartEniacHotelActivity;
-import library.android.eniac.interfaces.BusLockSeat;
-import library.android.eniac.interfaces.FlightReservationData;
-import library.android.eniac.interfaces.HotelReservationData;
-import library.android.eniac.model.FlightReservation;
-import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
-import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
-import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
-import library.android.service.model.bus.searchBus.response.Company;
-import library.android.service.model.flight.reservation.response.ReservationResponse;
+//import library.android.eniac.StartEniacBusActivity;
+//import library.android.eniac.StartEniacFlightActivity;
+//import library.android.eniac.StartEniacHotelActivity;
+//import library.android.eniac.interfaces.BusLockSeat;
+//import library.android.eniac.interfaces.FlightReservationData;
+//import library.android.eniac.interfaces.HotelReservationData;
+//import library.android.eniac.model.FlightReservation;
+//import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
+//import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
+//import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
+//import library.android.service.model.bus.searchBus.response.Company;
+//import library.android.service.model.flight.reservation.response.ReservationResponse;
 
 /**
  * Created by MahsaAzizi
@@ -85,8 +85,9 @@ import library.android.service.model.flight.reservation.response.ReservationResp
 public class AllMenuFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
         ItemRecyclerViewAdapter.OnItemClickListenerItem, TextWatcher,
         OnServiceStatus<WebServiceClass<GetAllMenuResponse>>,
-        onConfirmUserPassGDS, AllMenuServiceModelAdapter.OnItemAllMenuClickListener,
-        HotelReservationData, BusLockSeat, FlightReservationData
+        onConfirmUserPassGDS, AllMenuServiceModelAdapter.OnItemAllMenuClickListener
+//        ,
+//        HotelReservationData, BusLockSeat, FlightReservationData
 {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -396,10 +397,10 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
         mainView.hideLoading();
 
 
-        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(unicCode,
-                "0037250100293610", "1397", this, 0);
-
-        flightActivity.startMainFlight();
+//        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(unicCode,
+//                "0037250100293610", "1397", this, 0);
+//
+//        flightActivity.startMainFlight();
     }
 
 
@@ -411,10 +412,10 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 //        StartEniacBusActivity busActivity = new StartEniacBusActivity(response.getUniqeCode(),
 //                response.getUsername(), response.getPassword(), getActivity(), this, 0);
 
-        StartEniacBusActivity busActivity = new StartEniacBusActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
-                "0037250100293610", "1397", getActivity(), this, 0);
-
-        busActivity.startMainBusActivity();
+//        StartEniacBusActivity busActivity = new StartEniacBusActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+//                "0037250100293610", "1397", getActivity(), this, 0);
+//
+//        busActivity.startMainBusActivity();
     }
 
 
@@ -427,11 +428,11 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 //                response.getUsername(), response.getPassword(), SingletonContext.getInstance().getContext(),
 //                this, 0);
 
-        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
-                "0037250100293610", "1397", SingletonContext.getInstance().getContext(),
-                this, 0);
-
-        hotelActivity.startMainHotelActivity();
+//        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+//                "0037250100293610", "1397", SingletonContext.getInstance().getContext(),
+//                this, 0);
+//
+//        hotelActivity.startMainHotelActivity();
     }
 
 
@@ -444,41 +445,41 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     }
 
 
-    @Override
-    public void hotelReserveListener(HotelItem hotelItem, String s)
-    {
+//    @Override
+//    public void hotelReserveListener(HotelItem hotelItem, String s)
+//    {
+//
+//    }
 
-    }
+//    @Override
+//    public void hotelConfirmToSendSmsListener(Boolean aBoolean)
+//    {
+//
+//    }
 
-    @Override
-    public void hotelConfirmToSendSmsListener(Boolean aBoolean)
-    {
+//    @Override
+//    public void LockSeatListener(LockSeatResponse lockSeatResponse, String s, String s1, List<Company> list)
+//    {
+//
+//    }
 
-    }
-
-    @Override
-    public void LockSeatListener(LockSeatResponse lockSeatResponse, String s, String s1, List<Company> list)
-    {
-
-    }
-
-    @Override
-    public void issueBusReservation(SaleVerifyResponse saleVerifyResponse, boolean b)
-    {
-
-    }
-
-    @Override
-    public void flightReservationListener(ReservationResponse reservationResponse, FlightReservation flightReservation, String s, String s1)
-    {
-
-    }
-
-    @Override
-    public void flightConfirmToSendSms(Boolean aBoolean)
-    {
-
-    }
+//    @Override
+//    public void issueBusReservation(SaleVerifyResponse saleVerifyResponse, boolean b)
+//    {
+//
+//    }
+//
+//    @Override
+//    public void flightReservationListener(ReservationResponse reservationResponse, FlightReservation flightReservation, String s, String s1)
+//    {
+//
+//    }
+//
+//    @Override
+//    public void flightConfirmToSendSms(Boolean aBoolean)
+//    {
+//
+//    }
 
 
     @Override

@@ -105,7 +105,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
 
         cvBarcode = findViewById(R.id.cvBarcode);
         ivBackCard = findViewById(R.id.ivBackCard);
-        llLoading = findViewById(R.id.llLoading);
+        llLoading = findViewById(R.id.rlLoading);
         etFullName = findViewById(R.id.etFullName);
         btnConfirm = findViewById(R.id.btnConfirm);
         etNumberAddCard = findViewById(R.id.etNumberAddCard);

@@ -186,7 +186,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="انتخاب جایگاه "
-                        android:textColor="@color/g_btn_gradient_lighter"
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/textSize_12dp" />
                 </LinearLayout>
 
@@ -347,7 +347,7 @@
                         android:layout_width="@dimen/_35dp"
                         android:layout_height="@dimen/_35dp"
                         android:background="@drawable/button_small_border"
-                        android:src="@drawable/ic_share_36dp"
+                        app:srcCompat="@drawable/ic_share"
                         android:padding="@dimen/_5sdp"
                         android:tint="@color/buttonHeaderBackgroundColor"
                         android:foreground="?attr/selectableItemBackground"
