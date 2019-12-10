@@ -23,8 +23,7 @@
     android:layout_weight="1"
     android:background="@color/mdtp_accent_color"
     android:gravity="center"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <com.traap.traapapp.utilities.calendar.materialdatetimepicker.com.wdullaer.materialdatetimepicker.AccessibleLinearLayout
         android:id="@+id/date_picker_month_and_day"
@@ -44,8 +43,7 @@
             android:includeFontPadding="false"
             android:textSize="@dimen/mdtp_selected_date_month_size"
             tools:text="May"
-            android:textColor="#f2e190"
-            />
+            android:textColor="#f2e190" />
 
         <TextView
             android:id="@+id/date_picker_day"
@@ -60,6 +58,7 @@
             android:textColor="#f2e190"
             android:textSize="@dimen/mdtp_selected_date_day_size"
             tools:text="15"/>
+
     </com.traap.traapapp.utilities.calendar.materialdatetimepicker.com.wdullaer.materialdatetimepicker.AccessibleLinearLayout>
 
     <com.traap.traapapp.utilities.calendar.materialdatetimepicker.com.wdullaer.materialdatetimepicker.AccessibleTextView
@@ -71,8 +70,8 @@
         android:includeFontPadding="false"
         android:textColor="#bfb687"
         android:textSize="@dimen/mdtp_selected_date_year_size"
-        tools:text="2015"
-        />
+        tools:text="2015" />
+
     <TextView
         android:id="@+id/date_picker_hint"
         android:layout_width="wrap_content"
@@ -80,8 +79,6 @@
         android:textSize="@dimen/mdtp_date_picker_header_text_size"
         android:layout_gravity="center"
         android:textColor="#f2e190"
-
-        android:layout_marginTop="@dimen/_8dp"
-        />
+        android:layout_marginTop="@dimen/_8dp" />
 
 </LinearLayout>
