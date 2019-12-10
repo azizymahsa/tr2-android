@@ -293,7 +293,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //                ((TextView)etNationalCode).setError("کد ملی نامعتبر است!");
             }
         }
-        if (!etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+") && !etEmail.getText().toString().equalsIgnoreCase(""))
+        if (!etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-zA-Z]+.[a-zA-Z]+") && !etEmail.getText().toString().equalsIgnoreCase(""))
         {
             message = message + "ایمیل،";
             err = false;
@@ -651,18 +651,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         {
                             JSONObject object = new JSONObject(response);
                             JSONObject info = object.getJSONObject("info");
+                            Logger.e("+info+", info.toString());
                             JSONObject data = object.getJSONObject("data");
+                            Logger.e("+data+", data.toString());
 
-                            JSONObject status = info.getJSONObject("code");
+                            Integer status = info.getInt("code");
 
                             Logger.e("-status Response1-", status.toString() + " ");
                             Logger.e("-status Response2-", info.getString("code"));
-                            if (Integer.parseInt(status.toString()) == 201)
+                            if (status == 201)
                             {
-                                JSONObject imageURL = data.getJSONObject("photo");
-                                headerModel.setProfileUrl(imageURL.toString());
+                                String imageURL = data.getString("photo");
+                                headerModel.setProfileUrl(imageURL);
                                 Logger.e("-image Link Response-", imageURL.toString() + " ");
-                                Prefs.putString("profileImage", imageURL.toString());
+                                Prefs.putString("profileImage", imageURL);
 //
                                 sendPhotoSuccess = true;
                                 finishSendData();
@@ -712,7 +714,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 ////                            @Override
 ////                            public void onSuccess()
 ////                            {
-////                                Prefs.putString("profile", response.data.getPhotoUrl());
+////                                Prefs.putString("profileImage", response.data.getPhotoUrl());
 ////                                headerModel.setProfileUrl(response.data.getPhotoUrl());
 ////                            }
 ////
@@ -931,7 +933,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             etLastNameUS.setText(response.data.getLastNameUS());
             etEmail.setText(response.data.getEmail());
 
-            HeaderModel headerModel = new HeaderModel();
+            headerModel = new HeaderModel();
             headerModel.setPopularNo(response.data.getPopularPlayer());
             headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
 
@@ -942,7 +944,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     @Override
                     public void onSuccess()
                     {
-                        Prefs.putString("profile", response.data.getPhotoUrl());
+                        Prefs.putString("profileImage", response.data.getPhotoUrl());
                         headerModel.setProfileUrl(response.data.getPhotoUrl());
                     }
 
