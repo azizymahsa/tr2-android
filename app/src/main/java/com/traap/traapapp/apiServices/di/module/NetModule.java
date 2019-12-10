@@ -57,6 +57,7 @@ public class NetModule
         client.addInterceptor(chain ->
         {
             Request request = chain.request().newBuilder()
+                    .addHeader("Content-Type", "application/json")
                     .addHeader("Authorization", Prefs.getString("accessToken", ""))
                     .build();
 

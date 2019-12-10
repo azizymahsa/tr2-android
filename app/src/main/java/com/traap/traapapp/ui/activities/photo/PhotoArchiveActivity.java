@@ -220,6 +220,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         }
         intent.putExtra("LikeCount", category.getLikes());
         intent.putExtra("idPhoto",  category.getId());
+        intent.putExtra("isLike",  category.getIsLiked());
         startActivity(intent);
         //openVideoDetail(recent, position, category.getCategoryId(), category.getId());
     }

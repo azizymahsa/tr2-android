@@ -478,7 +478,6 @@ public interface RetroClient
 //            @Part MultipartBody.Part ImageFile
     );
 
-//    @FormUrlEncoded
     @Multipart
     @POST(Const.SEND_PROFILE_PHOTO)
     Single<Response<WebServiceClass<Object>>> sendProfilePhoto(

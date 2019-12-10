@@ -189,17 +189,17 @@ public class SupportFragment
 
             if (keyContact.equals(KEY_PHONE))
             {
-                txPhone.setText(item.getValue());
+                txPhone.setText(item.getTitle());
                 phone=item.getValue();
 
             }else if(keyContact.equals(KEY_SMS)){
 
-                txSms.setText(item.getValue());
+                txSms.setText(item.getTitle());
                 sms=item.getValue();
 
             }else if (keyContact.equals(KEY_EMAIL)){
 
-                txEmail.setText(item.getValue());
+                txEmail.setText(item.getTitle());
                 email=item.getValue();
 
             }

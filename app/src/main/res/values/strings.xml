@@ -107,4 +107,9 @@
         <item>Juice</item>
         <item>Sparkling Water</item>
     </string-array>
+
+    <string name="english_alphabet">\u0020 \u00A0abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+
+    <string name="persian_alphabet">اآئءبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\u0020 \u00A0</string>
+
 </resources>

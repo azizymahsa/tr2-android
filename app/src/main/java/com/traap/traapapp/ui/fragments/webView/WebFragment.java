@@ -62,13 +62,13 @@ public class WebFragment extends BaseFragment
 
     private MainActionView mainView;
     private View view;
-   // private View view;
+    // private View view;
     private Toolbar mToolbar;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
     private WebView webView;
-    private String URL="";
-    private String Token="";
+    private String URL = "";
+    private String Token = "";
 
     public WebFragment()
     {
@@ -76,15 +76,14 @@ public class WebFragment extends BaseFragment
     }
 
 
-
-    public static WebFragment newInstance(MainActionView mainView,String URL,String Token)
+    public static WebFragment newInstance(MainActionView mainView, String URL, String Token)
     {
         WebFragment fragment = new WebFragment();
-        fragment.setMainView(mainView,URL,Token);
+        fragment.setMainView(mainView, URL, Token);
         return fragment;
     }
 
-    private void setMainView(MainActionView mainView,String URL,String Token)
+    private void setMainView(MainActionView mainView, String URL, String Token)
     {
         this.mainView = mainView;
         this.URL = URL;
@@ -111,7 +110,7 @@ public class WebFragment extends BaseFragment
 
         mainView.showLoading();
 
-    initView();
+        initView();
         try
         {
 
@@ -179,8 +178,9 @@ public class WebFragment extends BaseFragment
 
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
-        }catch (Exception e){
-e.getMessage();
+        } catch (Exception e)
+        {
+            e.getMessage();
         }
     }
 
