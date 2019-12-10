@@ -1089,13 +1089,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void showLoading()
             {
-
+                MainActivity.this.showLoading();
             }
 
             @Override
             public void hideLoading()
             {
-
+                MainActivity.this.hideLoading();
             }
         });
         transaction = fragmentManager.beginTransaction();
@@ -1147,13 +1147,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void showLoading()
             {
-
+                MainActivity.this.showLoading();
             }
 
             @Override
             public void hideLoading()
             {
-
+                MainActivity.this.hideLoading();
             }
         });
         transaction = fragmentManager.beginTransaction();

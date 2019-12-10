@@ -165,7 +165,8 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         }
 
         tvSource.setText("منبع: " + content.getSource());
-        tvDateTime.setText(content.getPublishDate());
+//        tvDateTime.setText(content.getPublishDate());
+        tvDateTime.setText(content.getCreateDate());
 
         tvSubTitle.setText(content.getSubtitle());
         tvBody.setText(content.getBody().replace(".", ".\r\n"));
