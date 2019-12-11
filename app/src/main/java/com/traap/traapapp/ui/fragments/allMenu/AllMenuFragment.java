@@ -529,7 +529,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     }
 
     @Override
-    public void onChosenItemClickk(View view, Integer id,String URl)
+    public void onChosenItemClickk(View view, Integer id, String URl)
     {
         switch (id)
         {
@@ -550,7 +550,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                         .addToBackStack(null)
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
 
@@ -567,6 +569,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
+                intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
@@ -581,6 +585,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
+                intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
@@ -591,6 +597,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
             /*  Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
+               intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);*/
 
@@ -631,58 +639,111 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             //بیمه
             case 21: //بیمه شخص ثالث
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "بیمه");
+
+                intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                startActivity(intent);
                 break;
             }
             case 22: //بیمه بدنه
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "بیمه");
+
+                intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                startActivity(intent);
                 break;
             }
             case 29: //بیمه موتورسیکلت
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "بیمه");
+
+                intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                startActivity(intent);
                 break;
             }
             case 23: //بیمه مسافرتی ویژه
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "بیمه");
+
+                intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                startActivity(intent);
                 break;
             }
             case 24: //بیمه مسافرتی
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "بیمه");
+
+                intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                startActivity(intent);
                 break;
             }
             case 25: //بیمه آتش سوزی
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "بیمه");
+
+                intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                startActivity(intent);
                 break;
             }
             case 26: //بیمه تجهیزات الکترونیکی
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "بیمه");
+
+                intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                startActivity(intent);
                 break;
             }
             case 27: //بیمه زلزله
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "بیمه");
+
+                intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                startActivity(intent);
                 break;
             }
             case 28: //بیمه درمان
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "بیمه");
+
+                intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                startActivity(intent);
                 break;
             }
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "الوپارک");
+                intent.putExtra("TOKEN", Prefs.getString("alopark_token", ""));
+                startActivity(intent);
                 break;
             }
             case 32: //  پارک حاشیه ای
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "الوپارک");
+                intent.putExtra("TOKEN", Prefs.getString("alopark_token", ""));
+                startActivity(intent);
                 break;
             }
         }

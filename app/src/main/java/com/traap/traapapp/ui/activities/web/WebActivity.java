@@ -150,7 +150,9 @@ public class WebActivity extends BaseActivity
             {
                 finish();
             });
-            tvTitle.setText("گردشگری");
+            String title = getIntent().getStringExtra("Title");
+
+            tvTitle.setText(title);
 
         } catch (Exception e)
         {
