@@ -184,8 +184,6 @@ public class WebFragment extends BaseFragment
     {
         try
         {
-
-
             //toolbar
             mToolbar = view.findViewById(R.id.toolbar);
             rlShirt = view.findViewById(R.id.rlShirt);
