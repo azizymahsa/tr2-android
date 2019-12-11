@@ -196,8 +196,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
         recyclerView.setLayoutManager(layoutManager);
 
-        titleAlbum.setText(data.getTitle() + "");
-        tvCaption.setText(data.getCaption() + "");
+       titleAlbum.setText(data.getTitle() + "");
+        tvCaption.setText(data.getCaption()+ "");
         for (int i = 0; i < data.getContent().size(); i++)
         {
             if (data.getContent().get(i).getIsCover())
@@ -390,8 +390,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void OnItemAllMenuClick(View view, Integer id, Content content)
     {
-        titleAlbum.setText(content.getTitle() + "");
-        tvCaption.setText(content.getCaption() + "");
+       // titleAlbum.setText(content.getTitle() + "");
+        tvCaption.setText(content.getCaption() + " "+content.getTitle() );
         idPhoto = content.getId();
         likeCount = content.getLikes();
         isBookmark = content.getIsBookmarked();
