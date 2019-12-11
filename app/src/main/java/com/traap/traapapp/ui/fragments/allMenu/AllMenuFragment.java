@@ -50,6 +50,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.ui.activities.photo.ShowBigPhotoActivity;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.activities.web.WebActivity;
 import com.traap.traapapp.ui.adapters.allMenu.AllMenuServiceModelAdapter;
@@ -59,6 +60,7 @@ import com.traap.traapapp.ui.adapters.allMenu.ItemRecyclerViewAdapter;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.onConfirmUserPassGDS;
 import com.traap.traapapp.ui.fragments.webView.WebFragment;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
@@ -309,10 +311,19 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     @Override
     public void onError(String message)
     {
-        mainView.showError(message);
+       // mainView.showError(message);
 
         mainView.hideLoading();
+        if (!Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + message);
+            showError( getActivity(),"خطا در دریافت اطلاعات از سرور!");
+        } else
+        {
+            // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
 
@@ -529,7 +540,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     }
 
     @Override
-    public void onChosenItemClickk(View view, Integer id,String URl)
+    public void onChosenItemClickk(View view, Integer id, String URl)
     {
         switch (id)
         {
@@ -550,7 +561,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                         .addToBackStack(null)
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
 
@@ -567,6 +580,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
+                intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
@@ -581,6 +596,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
+                intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
@@ -588,18 +605,16 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
             case 13: //Bus
             {
-//
+
               Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
+               intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
 
+                //mainView.onPackSimCard();
 
-                /*fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, fragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();*/
                 break;
             }
 
@@ -632,6 +647,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 //                mainView.doTransferMoney();
                 break;
             }
+
             //بیمه
             case 21: //بیمه شخص ثالث
             {

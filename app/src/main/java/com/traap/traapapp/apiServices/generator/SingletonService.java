@@ -9,6 +9,7 @@ import com.traap.traapapp.apiServices.part.ArchiveVideoService;
 import com.traap.traapapp.apiServices.part.BankListService;
 import com.traap.traapapp.apiServices.part.BillCodePayCodeService;
 import com.traap.traapapp.apiServices.part.BusService;
+import com.traap.traapapp.apiServices.part.BuyChargeWalletService;
 import com.traap.traapapp.apiServices.part.CategoryByIdVideosService;
 import com.traap.traapapp.apiServices.part.DeleteCardService;
 import com.traap.traapapp.apiServices.part.DoTransferCardService;
@@ -47,6 +48,7 @@ import com.traap.traapapp.apiServices.part.SendProfileService;
 import com.traap.traapapp.apiServices.part.SheatcChangePassService;
 import com.traap.traapapp.apiServices.part.SheatcForgotPassService;
 import com.traap.traapapp.apiServices.part.GetMatchListService;
+import com.traap.traapapp.apiServices.part.TransactionDetailService;
 import com.traap.traapapp.apiServices.part.TransactionService;
 import com.traap.traapapp.apiServices.part.VerifyService;
 import okhttp3.OkHttpClient;
@@ -198,6 +200,11 @@ public class SingletonService
         return new TransactionService(serviceGenerator);
     }
 
+    public TransactionDetailService getTransactionDetailService()
+    {
+        return new TransactionDetailService(serviceGenerator);
+    }
+
     public PackageBuyService packageBuyService()
     {
         return new PackageBuyService(serviceGenerator);
@@ -211,6 +218,11 @@ public class SingletonService
     public MobileChargeService getMobileCharge()
     {
         return new MobileChargeService(serviceGenerator);
+    }
+
+    public BuyChargeWalletService buyChargeWalletService()
+    {
+        return new BuyChargeWalletService(serviceGenerator);
     }
 
     public GetRightelPackService getPackageRightelService()

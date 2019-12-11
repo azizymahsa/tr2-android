@@ -107,7 +107,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
 
                     Intent intent = new Intent(mContext, PaymentResultActivity.class);
                     intent.putExtra("RefrenceNumber", item.getId().toString());
-                    intent.putExtra("StatusPayment", item.getStatus());
+                   // intent.putExtra("StatusPayment", item.getStatus());
                     mContext.startActivity(intent);
 
 

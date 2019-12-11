@@ -183,6 +183,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
                         Prefs.putString("gds_token",  response.data.getGds_token());
                         Prefs.putString("bimeh_token",  response.data.getBimeh_token());
+                        Prefs.putString("alopark_token",  response.data.getAlopark_token());
 
                         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
                         {

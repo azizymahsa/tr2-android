@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -50,6 +52,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
@@ -61,6 +64,8 @@ import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPa
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.pack.RightelPackModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.pack.DetailPackAdapter;
 import com.traap.traapapp.ui.adapters.pack.TitlePackAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -134,6 +139,65 @@ public class PackFragment
     private TitlePackAdapter packAdapter;
     //    private ArchiveCardDBModel archiveCardDBModels;
     String mobile = "";
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.tvUserName)
+    TextView tvUserName;
+
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+
+    @BindView(R.id.tvPopularPlayer)
+    TextView tvPopularPlayer;
+
+    @BindView(R.id.imgBack)
+    View imgBack;
+
+    @BindView(R.id.imgMenu)
+    View imgMenu;
+
+    @BindView(R.id.rlShirt)
+    View rlShirt;
+
+
+    //toolbar
+
+/*
+
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+   // rlShirt = rootView.findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+        }
+    });
+            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+{
+    @Override
+    public void onClick(View v)
+    {
+        mainView.openDrawer();
+    }
+});
+    tvTitle = rootView.findViewById(R.id.tvTitle);
+            tvTitle.setText("سرویس ها");
+    imgMenu = rootView.findViewById(R.id.imgMenu);
+
+            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+    imgBack = rootView.findViewById(R.id.imgBack);
+            imgBack.setOnClickListener(v ->
+    {
+        getActivity().onBackPressed();
+    });
+
+    tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+*/
 
     @BindView(R.id.contentView)
     LinearLayout contentView;
@@ -1393,7 +1457,8 @@ public class PackFragment
             // llRightelFilter.setVisibility(View.VISIBLE);
             llRightelSpinner.setVisibility(View.VISIBLE);
             rightelRecycler.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(() -> {
+            new Handler().postDelayed(() ->
+            {
                 spinnerRightel.performClick();
             }, 500);
         } else
@@ -1475,8 +1540,8 @@ public class PackFragment
                 .duration(200)
                 .playOn(tvAmountPackage);*/
         //tvPackTitle.setText(o.getTitle());
-       // bundleId = o.getBundleId();
-       // tvPackTitle.setTextSize(14);
+        // bundleId = o.getBundleId();
+        // tvPackTitle.setTextSize(14);
         amount = o.getAmount();
 
         tvAmountPackage.setText("قیمت: " + Utility.priceFormat(o.getAmount()) + " ریال");
@@ -1512,7 +1577,7 @@ public class PackFragment
         //----------------------------new for payment fragment-----------------------
         contentView.setVisibility(View.GONE);
 
-        String title = "با انجام این پرداخت ، مبلغ " + Utility.priceFormat(o.getAmount()) + " ریال بابت " +o.getTitle()+ " برای شماره"+mobile + " از حساب شما کسر خواهد شد.";
+        String title = "با انجام این پرداخت ، مبلغ " + Utility.priceFormat(o.getAmount()) + " ریال بابت " + o.getTitle() + " برای شماره" + mobile + " از حساب شما کسر خواهد شد.";
 
         fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
@@ -1524,7 +1589,7 @@ public class PackFragment
         paymentInstance.setRequestId(requestId);
         paymentInstance.setTitlePackageType(o.getTitlePackageType());
 
-        pFragment =  PaymentFragment.newInstance(this,
+        pFragment = PaymentFragment.newInstance(this,
                 Utility.priceFormat(o.getAmount()),
                 title,
                 imageDrawable,
@@ -1549,14 +1614,12 @@ public class PackFragment
             transaction
                     .replace(R.id.container, pFragment)
                     .commit();
-        }
-        else
+        } else
         {
             if (v.findViewById(R.id.container).getVisibility() == View.GONE)
             {
                 transaction.show(pFragment);
-            }
-            else
+            } else
             {
                 transaction.replace(R.id.container, pFragment)
                         .commit();
@@ -1583,7 +1646,6 @@ public class PackFragment
                 .playOn(v.findViewById(R.id.container));
 
         //----------------------------new for payment fragment-----------------------
-
 
 
 //        if (archiveCardDBModels.isPackSe())
@@ -1617,7 +1679,7 @@ public class PackFragment
             mciRecycler.setNestedScrollingEnabled(false);
 //            mainView.needExpanded(false);
             llPackBackMci.setVisibility(View.GONE);
-              llMciFilter.setVisibility(View.GONE);
+            llMciFilter.setVisibility(View.GONE);
             llMciSpinner.setVisibility(View.GONE);
           /*  YoYo.with(Techniques.SlideInRight)
                     .duration(200)
@@ -1862,7 +1924,8 @@ public class PackFragment
             llPackBackIrancell.setVisibility(View.VISIBLE);
             irancellRecycler.setVisibility(View.VISIBLE);
             llIrancellSpinner.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(() -> {
+            new Handler().postDelayed(() ->
+            {
                 spinnerIrancell.performClick();
             }, 500);
         } else
@@ -2070,7 +2133,7 @@ public class PackFragment
         }
     }
 
-   // @Subscribe(threadMode = ThreadMode.MAIN)
+    // @Subscribe(threadMode = ThreadMode.MAIN)
 //    public void onConfirmButtonPhoneNumber(Transaction event)
 //    {
 //

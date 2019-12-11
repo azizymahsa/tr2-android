@@ -8,8 +8,8 @@ public class Const
 
     //-----------------------------------------------------------------------------
 //    public final static String BASEURL = "http://5.253.25.117:7000/";
-   public final static String BASEURL = "http://5.253.25.117:9999/";
-//    public final static String BASEURL = "https://restapp.traap.com/";
+    // public final static String BASEURL = "http://5.253.25.117:9999/";
+    public final static String BASEURL = "https://restapp.traap.com";
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -20,7 +20,7 @@ public class Const
 
 
     //contactInfo
-    public final static String GetContactInfo=SubBASEURL+"v1/info/contact/";
+    public final static String GetContactInfo = SubBASEURL + "v1/info/contact/";
 
     //Menu
     public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
@@ -35,10 +35,12 @@ public class Const
 
     //Mobile
     public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
+    public final static String BUY_CHARGE_WALLET = SubBASEURL + "v1/topupcharge/buy_charge_wallet/";
     public final static String BUY_MOBILE_PACKAGE = SubBASEURL + "InternetPackage/v1/PackageBuy";
     public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/";
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
+
 
     //Bill
     public final static String GetMyBills = SubBASEURL + "v1/bill/";
@@ -88,8 +90,8 @@ public class Const
     //payment
     public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
     public final static String PaymentWallet = SubBASEURL + "v1/match/wallet/payment/";
-    public final static String GetBalancePasswordLess=SubBASEURL+"v1/shetac/get_balance_password_less/";
-    public final static String ForgetPasswordWallet=SubBASEURL+"v1/shetac/forget_password_tow/";
+    public final static String GetBalancePasswordLess = SubBASEURL + "v1/shetac/get_balance_password_less/";
+    public final static String ForgetPasswordWallet = SubBASEURL + "v1/shetac/forget_password_tow/";
 
     //Bank List
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";
@@ -125,23 +127,24 @@ public class Const
 
     //Transaction
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
+    public final static String GET_TRANSACTION_DETAIL = SubBASEURL + "v1/user/{id}/transactions/";
 
     //video
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
     public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
-    public final static String Like_Video=SubBASEURL+"v1/video/{id}/like/";
-    public final static String Archive_Video=SubBASEURL+"v1/video/";
-    public final static String bookMark_Video=SubBASEURL+"v1/video/{id}/bookmark/";
-    public final static String List_Bookmark_Video=SubBASEURL+"v1/video/bookmarks/";
+    public final static String Like_Video = SubBASEURL + "v1/video/{id}/like/";
+    public final static String Archive_Video = SubBASEURL + "v1/video/";
+    public final static String bookMark_Video = SubBASEURL + "v1/video/{id}/bookmark/";
+    public final static String List_Bookmark_Video = SubBASEURL + "v1/video/bookmarks/";
 
     //photos
     public final static String Get_Main_Photo = SubBASEURL + "v1/photo/photo_main/";
     public final static String Get_Category_By_Id_Photo = SubBASEURL + "v1/photo/{id}/recent_by_category/";
     public final static String Get_Photos_By_Id = SubBASEURL + "v1/photo/{id}/";
-    public final static String Archive_Photo=SubBASEURL+"v1/photo/";
-    public final static String Like_Photo=SubBASEURL+"v1/photo/{id}/like/";
-    public final static String bookMark_Photo=SubBASEURL+"v1/photo/{id}/bookmark/";
-    public final static String List_Bookmark_Photo=SubBASEURL+"v1/photo/bookmarks/";
+    public final static String Archive_Photo = SubBASEURL + "v1/photo/";
+    public final static String Like_Photo = SubBASEURL + "v1/photo/{id}/like/";
+    public final static String bookMark_Photo = SubBASEURL + "v1/photo/{id}/bookmark/";
+    public final static String List_Bookmark_Photo = SubBASEURL + "v1/photo/bookmarks/";
 
     //News
     public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";

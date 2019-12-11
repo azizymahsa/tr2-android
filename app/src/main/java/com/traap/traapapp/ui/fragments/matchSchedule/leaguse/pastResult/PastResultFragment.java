@@ -34,6 +34,8 @@ import com.traap.traapapp.ui.adapters.Leaguse.pastResult.PastResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
+import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -225,8 +227,18 @@ public class PastResultFragment
     @Override
     public void onError(String message)
     {
-        mainView.showError(message);
+       // mainView.showError(message);
         mainView.hideLoading();
+        if (!Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + message);
+            mainView.showError( "خطا در دریافت اطلاعات از سرور!");
+        } else
+        {
+            mainView.showError(String.valueOf(R.string.networkErrorMessage));
+
+            //showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
 

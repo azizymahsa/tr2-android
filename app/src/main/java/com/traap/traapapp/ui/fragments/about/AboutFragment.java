@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,6 +22,7 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.helper.Const;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoRequest;
@@ -28,8 +30,10 @@ import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
 import com.traap.traapapp.apiServices.model.contactInfo.ResultContactInfo;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.ui.activities.video.VideoArchiveActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.EventBus;
@@ -63,6 +67,8 @@ public class AboutFragment
     private String twitter;
     private String telegram;
     private String instagram;
+    private int count=0;
+    private View ivImage;
 
 
     public static AboutFragment newInstance(MainActionView mainView)
@@ -111,7 +117,8 @@ public class AboutFragment
             ivInsta = view.findViewById(R.id.ivInsta);
             btnHistory = view.findViewById(R.id.btnHistory);
             tvPhone = view.findViewById(R.id.tvPhone);
-
+            ivImage=view.findViewById(R.id.ivImage);
+            ivImage.setOnClickListener(this);
             ivWeb.setOnClickListener(this);
             ivTwit.setOnClickListener(this);
             ivTele.setOnClickListener(this);
@@ -189,7 +196,14 @@ public class AboutFragment
             public void onError(String message)
             {
                 hideLoading();
-                Tools.showToast(getActivity(), message, R.color.red);
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         }, request);
 
@@ -199,24 +213,27 @@ public class AboutFragment
     {
         for (int i = 0; i < resultContactInfos.size(); i++)
         {
-            item=resultContactInfos.get(i);
-            keyContact=resultContactInfos.get(i).getKey();
+            item = resultContactInfos.get(i);
+            keyContact = resultContactInfos.get(i).getKey();
 
             if (keyContact.equals(KEY_WEBSITE))
             {
-                website=item.getValue();
+                website = item.getValue();
 
-            }else if(keyContact.equals(KEY_TWITTER)){
+            } else if (keyContact.equals(KEY_TWITTER))
+            {
 
-                twitter=item.getValue();
+                twitter = item.getValue();
 
-            }else if (keyContact.equals(KEY_TELEGRAM)){
+            } else if (keyContact.equals(KEY_TELEGRAM))
+            {
 
-                telegram=item.getValue();
+                telegram = item.getValue();
 
-            } else if (keyContact.equals(KEY_INSTAGRAM)){
+            } else if (keyContact.equals(KEY_INSTAGRAM))
+            {
 
-                instagram=item.getValue();
+                instagram = item.getValue();
 
             }
         }
@@ -226,6 +243,7 @@ public class AboutFragment
     {
         mainView.showLoading();
     }
+
     private void hideLoading()
     {
         mainView.hideLoading();
@@ -274,6 +292,14 @@ public class AboutFragment
         switch (view.getId())
         {
 
+            case R.id.ivImage:
+                count++;
+                if (count==7){
+                    Tools.showToast(getActivity(), Const.BASEURL, Toast.LENGTH_LONG);
+                    count=0;
+                }
+                break;
+
             case R.id.ivWeb:
 
                 try
@@ -288,18 +314,18 @@ public class AboutFragment
             case R.id.ivTwit:
                 try
                 {
-                  //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + "traapapp")));
+                    //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + "traapapp")));
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
                 } catch (Exception e)
                 {
                     //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/" + "traapapp")));
-                   // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
+                    // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
                 }
                 break;
             case R.id.ivTele:
                 try
                 {
-                   // Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/@traapapp"));
+                    // Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/@traapapp"));
                     Intent telegramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(telegram));
                     startActivity(telegramIntent);
                 } catch (Exception e)
@@ -308,7 +334,7 @@ public class AboutFragment
                 }
                 break;
             case R.id.ivInsta:
-               // Uri uri = Uri.parse("http://instagram.com/traapapp");
+                // Uri uri = Uri.parse("http://instagram.com/traapapp");
                 Uri uri = Uri.parse(instagram);
                 Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
 

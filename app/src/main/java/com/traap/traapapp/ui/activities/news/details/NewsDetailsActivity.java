@@ -42,6 +42,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         NewsDetailsAction
 {
     private Toolbar mToolbar;
+    private View rlShirt;
     private List<NewsDetailsPositionIdsModel> positionIdsList;
     private Integer currentId = 0, currentPosition = 0;
 
@@ -69,7 +70,9 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     private void initView()
     {
         mToolbar = findViewById(R.id.toolbar);
-
+        rlShirt = findViewById(R.id.rlShirt);
+        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class))
+        );
         aviPrev = findViewById(R.id.aviPrev);
         aviNext = findViewById(R.id.aviNext);
 

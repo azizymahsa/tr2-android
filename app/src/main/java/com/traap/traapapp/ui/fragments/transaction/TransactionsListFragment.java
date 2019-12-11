@@ -38,6 +38,8 @@ import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
@@ -257,8 +259,16 @@ public class TransactionsListFragment
             @Override
             public void onError(String message)
             {
-                mainView.showError(message);
+              //  mainView.showError(message);
                 mainView.hideLoading();
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         },null,null,null,null);
     }
