@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.fragments.webView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -110,7 +111,6 @@ public class WebFragment extends BaseFragment
         view = inflater.inflate(R.layout.activity_web, container, false);
 
 
-        mainView.showLoading();
 
         initView();
         try
@@ -134,8 +134,34 @@ public class WebFragment extends BaseFragment
             webView.setClickable(true);
             webView.setWebChromeClient(new WebChromeClient());
             webView.postUrl(URL, postData.getBytes());
-            mainView.hideLoading();
+            // Enable responsive layout
+            webView.getSettings().setUseWideViewPort(true);
+// Zoom out if the content width is greater than the width of the viewport
+            webView.getSettings().setLoadWithOverviewMode(true);
+            webView.setWebViewClient(new WebViewClient() {
 
+                @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    super.onPageStarted(view, url, favicon);
+                    mainView.showLoading();
+
+                }
+
+                @Override
+                public void onPageCommitVisible(WebView view, String url) {
+                    super.onPageCommitVisible(view, url);
+                    mainView.hideLoading();
+
+                }
+                @Override
+                public void onPageFinished(WebView view, String url) {
+
+                    mainView.hideLoading();
+
+                    super.onPageFinished(view, url);
+
+                }
+            });
 
         } catch (
                 UnsupportedEncodingException e)
