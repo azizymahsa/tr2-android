@@ -130,7 +130,6 @@ public interface RetroClient
             @Body LoginRequest request
     );
 
-
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
 

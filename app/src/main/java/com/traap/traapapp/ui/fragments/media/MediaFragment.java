@@ -99,7 +99,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("رسانه");
-        rlShirt=rootView.findViewById(R.id.rlShirt);
+        rlShirt = mToolbar.findViewById(R.id.rlShirt);
         rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class)));
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
@@ -160,8 +160,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
                     .commit();
             //------------------------initPager----------------------
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
         }
@@ -261,6 +260,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     {
         mainView.hideLoading();
     }
+
     @Subscribe
     public void getHeaderContent(HeaderModel headerModel)
     {

@@ -1,5 +1,6 @@
 package com.traap.traapapp.apiServices.part;
 
+import android.content.Intent;
 import android.os.Handler;
 
 import java.io.IOException;
@@ -16,6 +17,8 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.mock.MockProcessor;
 import com.traap.traapapp.apiServices.model.SingletonResponse;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.utilities.Logger;
 
 import okhttp3.RequestBody;
@@ -109,8 +112,16 @@ public abstract class BasePart
 //                            System.exit(0);
 //
 //                        }
-
-                        listener.onReady(value.body());
+                        if (value.body().info.statusCode == 401)
+                        {
+                            SingletonContext.getInstance().getContext().startActivity(new Intent(SingletonContext.getInstance().getContext(),
+                                    LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            System.exit(0);
+                        }
+                        else
+                        {
+                            listener.onReady(value.body());
+                        }
                     }
 
                     @Override

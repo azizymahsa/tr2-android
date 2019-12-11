@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 11
-        versionName "1.4.1"
+        versionCode 12
+        versionName "1.5.0"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -38,14 +38,14 @@ android {
             signingConfig signingConfigs.release
         }
         release {
-            splits {
-                abi {
-                    enable true
-                    reset()
-                    include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-                    universalApk true
-                }
-            }
+//            splits {
+//                abi {
+//                    enable true
+//                    reset()
+//                    include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+//                    universalApk true
+//                }
+//            }
             debuggable false
             minifyEnabled true
             shrinkResources true

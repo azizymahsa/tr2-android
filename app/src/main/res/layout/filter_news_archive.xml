@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
+        android:paddingBottom="32dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:srcCompat="@drawable/ic_arrow_down"
+                android:tint="@color/textHint"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvTitleFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="دسته بندی:"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/textColorSubTitle"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:layout_alignParentRight="true"/>
+
+                <com.traap.traapapp.utilities.ClearableEditText
+                    android:id="@+id/etSearchFilter"
+                    android:layout_toLeftOf="@+id/tvTitleFilter"
+                    android:layout_toRightOf="@+id/sp1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:layout_marginRight="8dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:hint="جستجو"
+                    android:textColorHint="@color/textHint"
+                    android:drawableRight="@drawable/ic_search"
+                    android:drawableTint="@color/textHint"
+                    android:textColor="@color/textColorSecondary" />
+
+                <Space
+                    android:id="@+id/sp1"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_alignParentLeft="true"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcFilterCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="تاریخ:"
+                android:gravity="right"
+                android:layout_centerVertical="true"
+                android:textColor="@color/textColorSubTitle"
+                android:textSize="@dimen/textSize_14dp"
+                android:layout_alignParentRight="true"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rlTimeUntil"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center|right">
+
+                    <TextView
+                        android:id="@+id/tv8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="تا"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center_vertical|right"
+                        android:textColor="@color/grayColor"
+                        android:textSize="@dimen/textSize_14dp"/>
+
+                    <TextView
+                        android:id="@+id/etTimeUntil"
+                        android:layout_toLeftOf="@+id/tv8"
+                        android:layout_toRightOf="@+id/imgBirthdayReset"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text=""
+                        android:gravity="center_vertical|right"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:textColor="@color/textColorSecondary" />
+
+                    <ImageView
+                        android:id="@+id/imgDateToReset"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_alignParentLeft="true"
+                        android:scaleType="centerCrop"
+                        android:visibility="visible"
+                        android:layout_centerVertical="true"
+                        android:tint="@color/textColorPrimary"
+                        app:srcCompat="@drawable/ic_clear" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/textHint"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlTimeFrom"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center|right">
+
+                    <TextView
+                        android:id="@+id/tv9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="از"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center_vertical|right"
+                        android:textColor="@color/grayColor"
+                        android:textSize="@dimen/textSize_14dp"/>
+
+                    <TextView
+                        android:id="@+id/etTimeFrom"
+                        android:layout_toLeftOf="@+id/tv9"
+                        android:layout_toRightOf="@+id/imgBirthdayReset"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text=""
+                        android:gravity="center_vertical|right"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:textColor="@color/textColorSecondary" />
+
+                    <ImageView
+                        android:id="@+id/imgDateFromReset"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_alignParentLeft="true"
+                        android:scaleType="centerCrop"
+                        android:visibility="visible"
+                        android:layout_centerVertical="true"
+                        android:tint="@color/textColorPrimary"
+                        app:srcCompat="@drawable/ic_clear" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/textHint"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:gravity="center|end"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100">
+
+                    <include
+                        android:id="@+id/btnConfirm"
+                        layout="@layout/filter_confirm_button" />
+
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
