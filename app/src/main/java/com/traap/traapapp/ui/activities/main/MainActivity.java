@@ -185,25 +185,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (Intent.ACTION_VIEW.equals(intent.getAction()))
         {
             Uri uri = intent.getData();
-            //Log.d("aaaaaaa",typeTransaction);
-            Log.d("bbbb",uri.toString());
 
             refrenceNumber = uri.getQueryParameter("refrencenumber").replace("/", "");
             typeTransaction = uri.getQueryParameter("typetransaction").replace("/","");
             try
             {
                 if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STAUS_ChargeSimCard){
-                    Log.d("aa","true");
 
                     hasPaymentCharge=true;
 
                 }else if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STAUS_PackSimCard){
-                    Log.d("aaa","true");
 
                     hasPaymentPackageSimcard=true;
                 }else if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
                 {
-                    Log.d("aaaa","true");
 
                     hasPaymentTicket = true;
                 }
