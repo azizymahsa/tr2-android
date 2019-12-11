@@ -4,7 +4,6 @@ package com.traap.traapapp.ui.activities.main;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
@@ -33,7 +32,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
@@ -59,6 +57,7 @@ import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.dbModels.BankDB;
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
+import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.notification.NotificationJobService;
 import com.traap.traapapp.notification.PushMessageReceiver;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -72,7 +71,6 @@ import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
-import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
@@ -93,11 +91,9 @@ import com.traap.traapapp.ui.fragments.support.SupportFragment;
 import com.traap.traapapp.ui.fragments.ticket.BuyTicketsFragment;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
-import com.traap.traapapp.ui.fragments.traapMarket.MarketFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
 import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.Tools;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -1350,12 +1346,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String amount)
+    public void openChargePaymentFragment(String urlPayment, int icon_payment, String title, String amount, SimChargePaymentInstance paymentInstance,String mobile)
     {
 
         isMainFragment = false;
-        this.fragment = SelectPaymentGatewayFragment.newInstance(urlPayment, this, R.drawable.icon_payment_ticket,
-                title, amount);
+        this.fragment = SelectPaymentGatewayFragment.newInstance(urlPayment, this, icon_payment,
+                title, amount,paymentInstance,mobile);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);

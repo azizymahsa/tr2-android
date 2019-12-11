@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,11 +25,15 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
+import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
@@ -36,13 +41,15 @@ import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletImpl;
 import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletInteractor;
+import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletImpl;
+import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletInteractor;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 /**
  * Created by MahsaAzizi on 11/25/2019.
  */
-public class PaymentWalletFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener
+public class PaymentWalletFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener, BuyChargeWalletInteractor.OnBuyChargeWalletListener
 {
     private View rootView;
 
@@ -57,7 +64,13 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
     private View llConfirm, llInVisible;
     private PaymentMatchRequest paymentMatchRequest;
     private PaymentWalletImpl paymentWallet;
+    private BuyChargeWalletImpl buyChargeWallet;
     private TextView tvBalance,tvDate;
+    private int imageDrawable;
+    private String amount;
+    private String title;
+    private SimChargePaymentInstance simChargePaymentInstance;
+    private String mobile;
 
 
     public PaymentWalletFragment()
@@ -73,6 +86,26 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
 
         fragment.setMainView(mainActionView, paymentMatchRequest);
         return fragment;
+    }
+
+    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance,   String amount, String mobile, String title)
+    {
+        PaymentWalletFragment fragment = new PaymentWalletFragment();
+        Bundle args = new Bundle();
+
+        fragment.setMainView(mainActionView, imageDrawable, amount, title,simChargePaymentInstance,mobile);
+        return fragment;
+    }
+
+    private void setMainView(MainActionView mainView, int imageDrawable, String amount, String title, SimChargePaymentInstance simChargePaymentInstance, String mobile)
+    {
+        this.mainView = mainView;
+        this.imageDrawable=imageDrawable;
+        this.amount=amount;
+        this.title=title;
+        this.simChargePaymentInstance=simChargePaymentInstance;
+        this.mobile=mobile;
+
     }
 
 
@@ -175,9 +208,16 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
 
             if (etPin2.getText().toString() != null && etPin2.getText().toString().length() > 3)
             {
-                paymentMatchRequest.setPin2(etPin2.getText().toString());
 
-                callPaymentWalletRequest();
+                mainView.showLoading();
+
+                if (simChargePaymentInstance.getPAYMENT_STATUS()== TrapConfig.PAYMENT_STAUS_ChargeSimCard){
+                    requestBuyChargeWallet(etPin2.getText().toString(),simChargePaymentInstance,mobile,amount);
+                }else
+                {
+                    paymentMatchRequest.setPin2(etPin2.getText().toString());
+                    callPaymentWalletRequest();
+                }
             } else
             {
                 Tools.showToast(getContext(), "رمز کارت وارد نشده است.", R.color.red);
@@ -193,10 +233,20 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
         }
     };
 
+    private void requestBuyChargeWallet(String pin2, SimChargePaymentInstance simChargePaymentInstance, String mobile, String amount)
+    {
+
+        buyChargeWallet.findBuyChargeWalletRequest(this,simChargePaymentInstance.getOperatorType()
+                ,simChargePaymentInstance.getSimcardType(),simChargePaymentInstance.getTypeCharge(),
+                amount,mobile,pin2);
+
+    }
+
     private void callPaymentWalletRequest()
     {
         mainView.showLoading();
-        paymentWallet.paymentWalletRequest(this, paymentMatchRequest);
+
+        //paymentWallet.paymentWalletRequest(this, paymentMatchRequest);
     }
 
     @Override
@@ -230,6 +280,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
         };
         initView();
         paymentWallet = new PaymentWalletImpl();
+        buyChargeWallet=new BuyChargeWalletImpl();
         addDataRecyclerList();
 
         return rootView;
@@ -338,5 +389,32 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
     {
         mainView.hideLoading();
         Tools.showToast(getContext(), error, R.color.red);
+    }
+
+    @Override
+    public void onSuccessBuyChargeWallet(WebServiceClass<BuyChargeWalletResponse> response)
+    {
+        mainView.hideLoading();
+
+        // Tools.showToast(getContext(), "خرید شارژ با موفقیت انجام شد.", R.color.green);
+        Intent intent = new Intent(getContext(), PaymentResultActivity.class);
+        intent.putExtra("RefrenceNumber", response.data.getRefNumber());
+        intent.putExtra("StatusPayment", true);
+        getContext().startActivity(intent);
+
+    }
+
+    @Override
+    public void onErrorBuyChargeWallet(String error)
+    {
+        mainView.hideLoading();
+
+        Tools.showToast(getContext(), "پرداخت ناموفق", R.color.red);
+
+       /* Intent intent = new Intent(getContext(), PaymentResultActivity.class);
+        intent.putExtra("RefrenceNumber", item.getId().toString());
+        intent.putExtra("StatusPayment", false);
+        getContext().startActivity(intent);*/
+
     }
 }

@@ -20,7 +20,7 @@ public interface BuyChargeWalletInteractor
                                     int operatorType,
                                     int simCardType,
                                     int typeCharge,
-                                    int amount,
+                                    String amount,
                                     String mobile,
                                     String pin2);
 }

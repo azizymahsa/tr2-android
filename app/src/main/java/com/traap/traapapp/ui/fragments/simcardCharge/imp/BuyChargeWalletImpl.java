@@ -13,10 +13,15 @@ import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
 public class BuyChargeWalletImpl implements BuyChargeWalletInteractor
 {
     @Override
-    public void findBuyChargeWalletRequest(OnBuyChargeWalletListener listener, int operatorType, int simCardType, int typeCharge, int amount, String mobile, String pin2)
+    public void findBuyChargeWalletRequest(OnBuyChargeWalletListener listener, int operatorType, int simCardType, int typeCharge, String amount, String mobile, String pin2)
     {
         BuyChargeWalletRequest request = new BuyChargeWalletRequest();
         request.setMobile(mobile);
+        request.setOperatorType(operatorType);
+        request.setPin2(pin2);
+        request.setSimCardType(simCardType);
+        request.setTypeCharge(typeCharge);
+        request.setAmount(Integer.valueOf(amount.replaceAll(",", "")));
         SingletonService.getInstance().buyChargeWalletService().BuyChargeWalletService(new OnServiceStatus<WebServiceClass<BuyChargeWalletResponse>>()
         {
             @Override

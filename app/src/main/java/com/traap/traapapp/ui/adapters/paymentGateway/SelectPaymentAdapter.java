@@ -94,15 +94,15 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     {
         switch (position)
         {
-            case 2:
-                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(mainActionView, paymentMatchRequest );
-
-                return tab2;
             case 0:
-
-                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView,url,imageDrawable,amount,title);
+                PaymentWalletFragment tab1 = PaymentWalletFragment.newInstance(mainActionView,imageDrawable, simChargePaymentInstance,amount,mobile,title );
 
                 return tab1;
+            case 2:
+
+                PaymentGatewayFragment tab2 = PaymentGatewayFragment.newInstance(mainActionView,url,imageDrawable,amount,title);
+
+                return tab2;
 
             case 1:
                 PaymentFragment tab3 = PaymentFragment.newInstance(this, amount, title, imageDrawable,
