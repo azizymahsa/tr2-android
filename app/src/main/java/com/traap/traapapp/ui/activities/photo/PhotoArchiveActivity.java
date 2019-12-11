@@ -169,7 +169,6 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         {
             tvTitle = findViewById(R.id.tvTitle);
 
-
             tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
@@ -226,25 +225,17 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
 
         if (FLAG_Favorite)
         {
-        Intent intent = new Intent(this, ShowBigPhotoActivity.class);
-        /*if (FLAG_Favorite)
-        {*/
+            Intent intent = new Intent(this, ShowBigPhotoActivity.class);
+
             intent.putExtra("SRCImage", category.getImageName().getThumbnailLarge());
-
-        /*} else
+            intent.putExtra("LikeCount", category.getLikes());
+            intent.putExtra("idPhoto", category.getId());
+            intent.putExtra("isLike", category.getIsLiked());
+            startActivity(intent);
+        } else
         {
-            intent.putExtra("SRCImage", category.getCover());
-
-        }*/
-        intent.putExtra("LikeCount", category.getLikes());
-        intent.putExtra("idPhoto", category.getId());
-        intent.putExtra("isLike", category.getIsLiked());
-        startActivity(intent);
-        }else  //اینجا باید آلبوم نمایش داده شود
-        {
-            openCategoryDetail(recent,  position,  category.getId(),  category.getId());
+            openCategoryDetail(recent, position, category.getId(), category.getId());
         }
-        //openVideoDetail(recent, position, category.getCategoryId(), category.getId());
     }
 
     private void requestGetCategoryById(Integer idCategoryTitle)
@@ -264,7 +255,6 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
                     if (response.info.statusCode == 200)
                     {
 
-                        //   setCategoryListData(response.data);
                         onGetArchivePhotoSuccess(response.data.getResults());
                     } else
                     {

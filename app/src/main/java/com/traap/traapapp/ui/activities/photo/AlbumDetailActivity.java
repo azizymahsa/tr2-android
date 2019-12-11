@@ -58,9 +58,10 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private TextView titleAlbum, tvCaption;
     private Integer idPhoto;
     private String largeImageClick = "";
-    private String coverImg="";
-private  Boolean isBookmark=false;
-private  Boolean isLike=false;
+    private String coverImg = "";
+    private Boolean isBookmark = false;
+    private Boolean isLike = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -125,24 +126,25 @@ private  Boolean isLike=false;
         tvLike = findViewById(R.id.tvLike);
         rlLike = findViewById(R.id.rlLike);
         rlLike.setOnClickListener(this);
-showLoading();
+        showLoading();
         setDataItems();
-
-
 
 
         sendRequestListPhotos(idVideo);
 
 
     }
+
     public void showLoading()
     {
         findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
     }
+
     public void hideLoading()
     {
         findViewById(R.id.rlLoading).setVisibility(View.GONE);
     }
+
     private void sendRequestListPhotos(int idVideoCategory)
     {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
@@ -194,15 +196,15 @@ showLoading();
         {
             if (data.getContent().get(i).getIsCover())
             {
-            setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
-            idPhoto = data.getContent().get(i).getId();
-            likeCount = data.getContent().get(i).getLikes();
-            isLike = data.getContent().get(i).getIsLiked();
-            isBookmark = data.getContent().get(i).getIsBookmarked();
-            tvLike.setText(likeCount + "");
-            coverImg=data.getContent().get(i).getCover();
-            largeImageClick=data.getContent().get(i).getImageName().getThumbnailLarge();
-        }
+                setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
+                idPhoto = data.getContent().get(i).getId();
+                likeCount = data.getContent().get(i).getLikes();
+                isLike = data.getContent().get(i).getIsLiked();
+                isBookmark = data.getContent().get(i).getIsBookmarked();
+                tvLike.setText(likeCount + "");
+                coverImg = data.getContent().get(i).getCover();
+                largeImageClick = data.getContent().get(i).getImageName().getThumbnailLarge();
+            }
 
         }
 
@@ -322,7 +324,7 @@ showLoading();
             case R.id.ivPhoto:
 
                 Intent intent = new Intent(this, ShowBigPhotoActivity.class);
-                if(largeImageClick=="")
+                if (largeImageClick == "")
                     largeImageClick = coverImg;
 
                 intent.putExtra("SRCImage", largeImageClick);
@@ -392,7 +394,7 @@ showLoading();
             imgLike.setColorFilter(getResources().getColor(R.color.gray));
             tvLike.setTextColor(getResources().getColor(R.color.gray));
             if (likeCount > 0)
-            likeCount = likeCount - 1;
+                likeCount = likeCount - 1;
             tvLike.setText(likeCount + "");
         }
         //tvLike.setText();
@@ -411,14 +413,14 @@ showLoading();
         tvCaption.setText(content.getCaption() + "");
         idPhoto = content.getId();
         likeCount = content.getLikes();
-        isBookmark =content.getIsBookmarked();
-        isLike =content.getIsLiked();
+        isBookmark = content.getIsBookmarked();
+        isLike = content.getIsLiked();
 
         tvLike.setText(likeCount + "");
-        if(content.getImageName().getThumbnailLarge()=="")
-        largeImageClick = content.getCover();
+        if (content.getImageName().getThumbnailLarge() == "")
+            largeImageClick = content.getCover();
         else
-        largeImageClick = content.getImageName().getThumbnailLarge();
+            largeImageClick = content.getImageName().getThumbnailLarge();
 
         setImageBackground(ivPhoto, content.getImageName().getThumbnailLarge().replace("\\", ""));
 
