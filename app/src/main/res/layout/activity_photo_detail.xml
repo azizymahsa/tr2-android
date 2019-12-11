@@ -117,30 +117,7 @@
                     android:tint="@color/gray"
                     />
             </RelativeLayout>
-            <!--<RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                android:padding="@dimen/_5dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:gravity="right"
-                android:background="#920A0A0A"
-                >
-                <TextView
-                    android:id="@+id/tvCaption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="3dp"
-                    android:text="hfgjngjfjf"
-                    android:layout_centerInParent="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/textSize_16dp"
-
-
-                    />
-
-            </RelativeLayout>-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"

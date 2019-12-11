@@ -1890,6 +1890,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    {
+
+    }
+
     public void onSelectContact(OnSelectContact event)
     {
         try

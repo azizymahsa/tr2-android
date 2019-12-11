@@ -529,7 +529,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     }
 
     @Override
-    public void onChosenItemClickk(View view, Integer id,String URl)
+    public void onChosenItemClickk(View view, Integer id, String URl)
     {
         switch (id)
         {
@@ -550,7 +550,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                         .addToBackStack(null)
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/Bus");
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
 
@@ -567,6 +569,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
+                intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
@@ -581,6 +585,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                         .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
+                intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
                 break;
@@ -588,18 +594,16 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
             case 13: //Bus
             {
-//
-              Intent intent = new Intent(getActivity(), WebActivity.class);
+
+            /*  Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
+               intent.putExtra("Title", "گردشگری");
+
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);
+                startActivity(intent);*/
 
+                mainView.onPackSimCard();
 
-                /*fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, fragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();*/
                 break;
             }
 
@@ -632,6 +636,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 //                mainView.doTransferMoney();
                 break;
             }
+
             //بیمه
             case 21: //بیمه شخص ثالث
             {

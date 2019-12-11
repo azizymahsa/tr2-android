@@ -23,6 +23,8 @@ import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideos
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
 import com.traap.traapapp.ui.adapters.photo.PhotosCategoryTitleAdapter;
 
@@ -33,7 +35,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
 {
 
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    private View imgBack, imgMenu;
+    private View imgBack, imgMenu,rlShirt;
     private ArrayList<ListCategory> categoryTitleList;
     private RecyclerView rvCategoryTitles, rvArchiveVideo;
     private PhotosCategoryTitleAdapter videoCategoryTitleAdapter;
@@ -70,8 +72,50 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         }
     }
 
+    /* Called when the activity is paused */
+   /* public void onPause()
+    {
+        super.onPause();
+
+        //Call the method
+        if (FLAG_Favorite)
+        {
+            requestBookMarkPhotos();
+        } else
+        {
+            requestArchivePhoto();
+
+        }
+    }*/
+
+    public void onResume()
+    {
+        super.onResume();
+
+        //Call the method
+        if (FLAG_Favorite)
+        {
+            requestBookMarkPhotos();
+        } else
+        {
+            requestArchivePhoto();
+
+        }
+    }
+
+    public void showLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+    }
+
+    public void hideLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
+    }
+
     private void requestBookMarkPhotos()
     {
+        showLoading();
         ArchiveVideoRequest request = new ArchiveVideoRequest();
 
         SingletonService.getInstance().getArchiveVideoService().getBookMarkPhoto(new OnServiceStatus<WebServiceClass<ArchiveVideoResponse>>()
@@ -79,7 +123,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             @Override
             public void onReady(WebServiceClass<ArchiveVideoResponse> response)
             {
-                // mainView.hideLoading();
+                hideLoading();
                 try
                 {
 
@@ -102,7 +146,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             @Override
             public void onError(String message)
             {
-                // mainView.hideLoading();
+                hideLoading();
                 Tools.showToast(getApplication(), message, R.color.red);
             }
         }, request);
@@ -110,6 +154,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
 
     private void requestArchivePhoto()
     {
+        showLoading();
         String categoryId = null;
         ArchiveVideoRequest request = new ArchiveVideoRequest();
         if (idCategoryTitle != 0)
@@ -124,7 +169,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             @Override
             public void onReady(WebServiceClass<ArchiveVideoResponse> response)
             {
-                // mainView.hideLoading();
+                hideLoading();
                 try
                 {
 
@@ -147,7 +192,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             @Override
             public void onError(String message)
             {
-                // mainView.hideLoading();
+                hideLoading();
                 Tools.showToast(getApplication(), message, R.color.red);
             }
         }, categoryId);
@@ -169,7 +214,6 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         {
             tvTitle = findViewById(R.id.tvTitle);
 
-
             tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
@@ -184,6 +228,9 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             {
                 finish();
             });
+            rlShirt = findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class))
+            );
         } catch (Exception e)
         {
 
@@ -226,25 +273,18 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
 
         if (FLAG_Favorite)
         {
-        Intent intent = new Intent(this, ShowBigPhotoActivity.class);
-        /*if (FLAG_Favorite)
-        {*/
+            Intent intent = new Intent(this, ShowBigPhotoActivity.class);
+
             intent.putExtra("SRCImage", category.getImageName().getThumbnailLarge());
-
-        /*} else
+            intent.putExtra("LikeCount", category.getLikes());
+            intent.putExtra("idPhoto", category.getId());
+            intent.putExtra("isLike", category.getIsLiked());
+            intent.putExtra("isBookmark", category.getIsBookmarked());
+            startActivity(intent);
+        } else
         {
-            intent.putExtra("SRCImage", category.getCover());
-
-        }*/
-        intent.putExtra("LikeCount", category.getLikes());
-        intent.putExtra("idPhoto", category.getId());
-        intent.putExtra("isLike", category.getIsLiked());
-        startActivity(intent);
-        }else  //اینجا باید آلبوم نمایش داده شود
-        {
-            openCategoryDetail(recent,  position,  category.getId(),  category.getId());
+            openCategoryDetail(recent, position, category.getId(), category.getId());
         }
-        //openVideoDetail(recent, position, category.getCategoryId(), category.getId());
     }
 
     private void requestGetCategoryById(Integer idCategoryTitle)
@@ -264,7 +304,6 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
                     if (response.info.statusCode == 200)
                     {
 
-                        //   setCategoryListData(response.data);
                         onGetArchivePhotoSuccess(response.data.getResults());
                     } else
                     {

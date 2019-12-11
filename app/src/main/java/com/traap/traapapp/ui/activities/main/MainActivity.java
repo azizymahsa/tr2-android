@@ -96,6 +96,7 @@ import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.traapMarket.MarketFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
+import com.traap.traapapp.ui.fragments.webView.WebFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -1357,6 +1358,21 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment2);
         fragmentTransaction.commit();*/
+    }
+
+    @Override
+    public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    {
+      /*  WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();*/
+        isMainFragment = false;
+        this.fragment = WebFragment.newInstance(mainView,uRl,gds_token);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "WebFragment")
+                .commit();
     }
 
     @Override

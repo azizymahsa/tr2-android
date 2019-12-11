@@ -51,7 +51,7 @@ import com.traap.traapapp.utilities.Tools;
  * Created by MahsaAzizi on 11/27/2019.
  */
 public class PhotosFragment extends BaseFragment implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchiveVideoListener
-        , CategoryPhotosAdapter.TitleCategoryListener, NewestPhotosAdapter.OnItemTopListPhotoClickListener
+        , CategoryPhotosAdapter.TitleCategoryListener, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener
 {
 
     private MainActionView mainView;
@@ -366,7 +366,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void OnItemTopPhotoClick(View view, Category category)
+    public void OnItemRelatedAlbumsClick(View view, Category category)
     {
         ArrayList<Category> categoriesList = new ArrayList<>();
         Category category1 = new Category();

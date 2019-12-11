@@ -24,8 +24,28 @@
         app:riv_oval="false"
         />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_alignParentBottom="true"
+        android:gravity="end"
 
-    <TextView
+        android:background="@drawable/background_news_title">
+
+        <TextView
+            android:id="@+id/tvTitleVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_5dp"
+            android:text=""
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_16dp" />
+
+    </RelativeLayout>
+
+   <!-- <TextView
         android:id="@+id/tvTitleVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +60,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/ivNewestVideo"
 
-        />
+        />-->
     <ImageView
         android:layout_width="@dimen/_40dp"
         android:layout_height="@dimen/_40dp"
