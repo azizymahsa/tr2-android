@@ -10,16 +10,16 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import com.traap.traapapp.R;
-import library.android.eniac.base.BaseDialog;
 
 /**
  * Created by Javad.Abadi on 7/31/2018.
  */
 @SuppressLint("ValidFragment")
-public class DialogGetPermissionRequest extends BaseDialog implements View.OnClickListener
+public class DialogGetPermissionRequest extends DialogFragment implements View.OnClickListener
 {
     private Dialog dialog;
     private CircularProgressButton btnConfirm, btnCancel;

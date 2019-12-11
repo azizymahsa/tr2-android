@@ -22,13 +22,17 @@ import androidx.collection.SimpleArrayMap;
         zip:/data/app/com.your.packagenage-1.apk:/assets/Roboto-Regular.ttf: 123K
         zip:/data/app/com.your.packagenage-1.apk:/assets/Roboto-Medium.ttf: 125K
 */
-public class TypefaceHelper {
+public class TypefaceHelper
+{
 
     private static final SimpleArrayMap<String, Typeface> cache = new SimpleArrayMap<>();
 
-    public static Typeface get(Context c, String name) {
-        synchronized (cache) {
-            if (!cache.containsKey(name)) {
+    public static Typeface get(Context c, String name)
+    {
+        synchronized (cache)
+        {
+            if (!cache.containsKey(name))
+            {
                 Typeface t = Typeface.createFromAsset(
                         c.getAssets(), String.format("fonts/%s.ttf", name));
                 cache.put(name, t);

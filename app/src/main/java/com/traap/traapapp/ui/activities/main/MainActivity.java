@@ -37,7 +37,6 @@ import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
-import library.android.eniac.utility.Utility;
 
 import com.traap.traapapp.BuildConfig;
 import com.traap.traapapp.R;

@@ -29,13 +29,15 @@ import com.traap.traapapp.apiServices.ServiceApplication;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.splash.SplashActivity;
-import library.android.eniac.utility.font.CustomViewWithTypefaceSupport;
-import library.android.eniac.utility.font.TextField;
-import library.android.service.di.component.DaggerNetGdsComponent;
-import library.android.service.di.component.NetGdsComponent;
-import library.android.service.di.module.NetModule;
-import library.android.service.generator.SingletonGdsService;
-import library.android.service.helper.Const;
+import com.traap.traapapp.utilities.font.CustomViewWithTypefaceSupport;
+import com.traap.traapapp.utilities.font.TextField;
+//import library.android.eniac.utility.font.CustomViewWithTypefaceSupport;
+//import library.android.eniac.utility.font.TextField;
+//import library.android.service.di.component.DaggerNetGdsComponent;
+//import library.android.service.di.component.NetGdsComponent;
+//import library.android.service.di.module.NetModule;
+//import library.android.service.generator.SingletonGdsService;
+//import library.android.service.helper.Const;
 import okhttp3.OkHttpClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -71,11 +73,11 @@ public class MyApplication extends ServiceApplication
         Fabric.with(fabric);
 
 
-        SingletonGdsService.getInstance().setContext(this);
-        NetGdsComponent mNetGdsComponent = DaggerNetGdsComponent.builder()
-                .netModule(new NetModule(Const.BASEURL))
-                .build();
-        SingletonGdsService.getInstance().setNetGdsComponent(mNetGdsComponent).inject();
+//        SingletonGdsService.getInstance().setContext(this);
+//        NetGdsComponent mNetGdsComponent = DaggerNetGdsComponent.builder()
+//                .netModule(new NetModule(Const.BASEURL))
+//                .build();
+//        SingletonGdsService.getInstance().setNetGdsComponent(mNetGdsComponent).inject();
 
 
         SugarContext.init(this);

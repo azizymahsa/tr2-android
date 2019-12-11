@@ -50,7 +50,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/_10dp"
                     android:layout_marginEnd="@dimen/_10dp"
-                    android:src="@drawable/ic_arrow_down_36dp"/>
+                    app:srcCompat="@drawable/ic_arrow_down"/>
 
             </RelativeLayout>
 

@@ -60,7 +60,7 @@ public class PersianCalendarUtils {
 	 * @return boolean
 	 */
 	public static boolean isPersianLeapYear(int persianYear) {
-		return library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendarUtils.ceil((38D + (library.android.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendarUtils.ceil(persianYear - 474L, 2820L) + 474L)) * 682D, 2816D) < 682L;
+		return PersianCalendarUtils.ceil((38D + (PersianCalendarUtils.ceil(persianYear - 474L, 2820L) + 474L)) * 682D, 2816D) < 682L;
 	}
 
 	/**

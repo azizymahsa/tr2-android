@@ -100,7 +100,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
             MenuIcon = view.findViewById(R.id.menu_dr_icon);
             MenuItem = view.findViewById(R.id.menu_dr_item);
 //            MenuItemNumber = view.findViewById(R.id.menu_dr_number);
-            MenuItemDrop = view.findViewById(R.id.menu_dr_drop);
+//            MenuItemDrop = view.findViewById(R.id.menu_dr_drop);
 //            switchItem = view.findViewById(R.id.switch_item);
             lyItem =  view.findViewById(R.id.ly_item);
 

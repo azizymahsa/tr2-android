@@ -3,6 +3,7 @@ package com.traap.traapapp.ui.dialogs;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -33,13 +34,12 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.models.otherModels.download.Download;
 import com.traap.traapapp.ui.activities.splash.UpdateAppAction;
 import com.traap.traapapp.utilities.Logger;
-import library.android.eniac.base.BaseDialog;
 
 /**
  * Created by Javad.Aabdi on 3/16/2019.
  */
 @SuppressLint("ValidFragment")
-public class UpdateDownloadDialog extends BaseDialog
+public class UpdateDownloadDialog extends DialogFragment
 {
     private Dialog dialog;
     private Activity activity;

@@ -36,7 +36,8 @@ import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetime
  * A text view which, when pressed or activated, displays a colored circle around the text.
  */
 @SuppressLint("AppCompatCustomView")
-public class TextViewWithCircularIndicator extends TextView {
+public class TextViewWithCircularIndicator extends TextView
+{
 
     private static final int SELECTED_CIRCLE_ALPHA = 255;
 
@@ -48,7 +49,8 @@ public class TextViewWithCircularIndicator extends TextView {
 
     private boolean mDrawCircle;
 
-    public TextViewWithCircularIndicator(Context context, AttributeSet attrs) {
+    public TextViewWithCircularIndicator(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
         Resources res = context.getResources();
         mCircleColor = res.getColor(R.color.mdtp_accent_color);
@@ -58,23 +60,28 @@ public class TextViewWithCircularIndicator extends TextView {
         init();
     }
 
-    private void init() {
+    private void init()
+    {
         mCirclePaint.setFakeBoldText(true);
         mCirclePaint.setAntiAlias(true);
         mCirclePaint.setColor(mCircleColor);
+
         mCirclePaint.setTextAlign(Align.CENTER);
         mCirclePaint.setStyle(Style.FILL);
         mCirclePaint.setAlpha(SELECTED_CIRCLE_ALPHA);
-        setTypeface(TypefaceHelper.get(getContext(), "IRANSansMobile"));
+        setTypeface(TypefaceHelper.get(getContext(), "iran_sans_normal"));
     }
 
-    public void drawIndicator(boolean drawCircle) {
+    public void drawIndicator(boolean drawCircle)
+    {
         mDrawCircle = drawCircle;
     }
 
     @Override
-    public void onDraw(@NonNull Canvas canvas) {
-        if (mDrawCircle) {
+    public void onDraw(@NonNull Canvas canvas)
+    {
+        if (mDrawCircle)
+        {
             final int width = getWidth();
             final int height = getHeight();
             int radius = Math.min(width, height) / 2;
@@ -86,11 +93,15 @@ public class TextViewWithCircularIndicator extends TextView {
 
     @SuppressLint("GetContentDescriptionOverride")
     @Override
-    public CharSequence getContentDescription() {
+    public CharSequence getContentDescription()
+    {
         String itemText = LanguageUtils.getPersianNumbers(getText().toString());
-        if (mDrawCircle) {
+        if (mDrawCircle)
+        {
             return String.format(mItemIsSelectedText, itemText);
-        } else {
+        }
+        else
+        {
             return itemText;
         }
     }

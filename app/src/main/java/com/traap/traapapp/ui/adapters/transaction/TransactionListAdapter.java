@@ -16,7 +16,8 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getTransaction.Result;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
-import library.android.eniac.utility.Utility;
+import com.traap.traapapp.utilities.Utility;
+
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
 

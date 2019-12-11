@@ -487,7 +487,8 @@ public class TimePickerDialog extends DialogFragment implements
 
         // if theme mode has not been set by java code, check if it is specified in Style.xml
         if (!mThemeDarkChanged) {
-            mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
+//            mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
+            mThemeDark = false;
         }
 
         Resources res = getResources();

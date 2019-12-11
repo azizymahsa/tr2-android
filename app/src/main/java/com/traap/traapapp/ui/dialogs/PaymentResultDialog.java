@@ -15,21 +15,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
+import com.bumptech.glide.Glide;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Utility;
-import library.android.eniac.base.BaseDialog;
-import library.android.eniac.utility.GlideApp;
 
 
 /**
  * Created by Javad.Abadi on 7/21/2018.
  */
 @SuppressLint("ValidFragment")
-public class PaymentResultDialog extends BaseDialog implements View.OnClickListener
+public class PaymentResultDialog extends DialogFragment implements View.OnClickListener
 {
     private Activity activity;
     private WebServiceClass<PaymentPrintPosResponse> posResponse;
@@ -198,7 +198,7 @@ public class PaymentResultDialog extends BaseDialog implements View.OnClickListe
 
         try
         {
-            GlideApp.with(activity).load(cardImage).into(ivCardAlert);
+            Glide.with(activity).load(cardImage).into(ivCardAlert);
 
 
         } catch (Exception e)

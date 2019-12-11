@@ -28,36 +28,54 @@ import android.widget.TextView;
  * Fake Button class, used so TextViews can announce themselves as Buttons, for accessibility.
  */
 @SuppressLint("AppCompatCustomView")
-public class AccessibleTextView extends TextView {
+public class AccessibleTextView extends TextView
+{
 
-    public AccessibleTextView(Context context, AttributeSet attrs) {
+    public AccessibleTextView(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
     }
 
-    public static CharSequence getEnglishChar(CharSequence charSequence) {
+    public static CharSequence getEnglishChar(CharSequence charSequence)
+    {
         String number = String.valueOf(charSequence);
-        return number.replace("۱", "1").replace("۲", "2").replace("۳", "3").replace("۴", "4").replace("۵", "5").replace("۶", "6").replace("۷", "7").replace("۸", "8").replace("۹", "9")
+
+        return number.replace("۱", "1")
+                .replace("۲", "2")
+                .replace("۳", "3")
+                .replace("۴", "4")
+                .replace("۵", "5")
+                .replace("۶", "6")
+                .replace("۷", "7")
+                .replace("۸", "8")
+                .replace("۹", "9")
                 .replace("۰", "0");
     }
 
     @Override
-    public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
+    public void onInitializeAccessibilityEvent(AccessibilityEvent event)
+    {
         super.onInitializeAccessibilityEvent(event);
         event.setClassName(Button.class.getName());
     }
 
     @Override
-    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info)
+    {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(Button.class.getName());
     }
 
     @Override
-    public void setText(CharSequence text, BufferType type) {
-        try {
+    public void setText(CharSequence text, BufferType type)
+    {
+        try
+        {
             String txt = (String) text;
-            super.setText(getEnglishChar(txt), type);
-        } catch (Exception e) {
+//            super.setText(getEnglishChar(txt), type);
+            super.setText(txt, type);
+        } catch (Exception e)
+        {
             super.setText(text, type);
         }
 

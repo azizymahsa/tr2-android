@@ -49,21 +49,21 @@ public class GdsHotelPaymentRequest implements Parcelable
     @Getter @Setter
     private String CheckOut;
 
-    @SerializedName("Currency")
-    @Getter @Setter
-    private library.android.service.model.Hotel.getBookingInfo.subModel.Currency Currency;
-
-    @SerializedName("ClientInfo")
-    @Getter @Setter
-    private library.android.service.model.Hotel.getBookingInfo.subModel.ClientInfo ClientInfo;
-
-    @SerializedName("Destination")
-    @Getter @Setter
-    private library.android.service.model.Hotel.getBookingInfo.subModel.Destination Destination;
-
-    @SerializedName("HotelInfo")
-    @Getter @Setter
-    private library.android.service.model.Hotel.getBookingInfo.subModel.HotelInfo HotelInfo;
+//    @SerializedName("Currency")
+//    @Getter @Setter
+//    private library.android.service.model.Hotel.getBookingInfo.subModel.Currency Currency;
+//
+//    @SerializedName("ClientInfo")
+//    @Getter @Setter
+//    private library.android.service.model.Hotel.getBookingInfo.subModel.ClientInfo ClientInfo;
+//
+//    @SerializedName("Destination")
+//    @Getter @Setter
+//    private library.android.service.model.Hotel.getBookingInfo.subModel.Destination Destination;
+//
+//    @SerializedName("HotelInfo")
+//    @Getter @Setter
+//    private library.android.service.model.Hotel.getBookingInfo.subModel.HotelInfo HotelInfo;
 
     @SerializedName("Nationality")
     @Getter @Setter

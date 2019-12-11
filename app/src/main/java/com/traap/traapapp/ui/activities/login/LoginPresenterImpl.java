@@ -39,7 +39,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.utilities.IMEI_Device;
 import com.traap.traapapp.utilities.Tools;
-import library.android.eniac.utility.Utility;
+import com.traap.traapapp.utilities.Utility;
 
 
 /**
@@ -177,6 +177,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 //                        loginView.onButtonActions(true, GoToActivity.UserProfileActivity);
                         loginView.onButtonActions(true, GoToActivity.MainActivity);
                         loginView.hideLoading();
+                        Prefs.putString("profileImage", response.data.getProfile().getProfileImage());
 
                         Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer() == 0 ? 12 : response.data.getProfile().getPopularPlayer());
 

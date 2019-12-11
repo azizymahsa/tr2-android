@@ -221,8 +221,8 @@
             android:layout_marginEnd="@dimen/_5dp"
             android:gravity="center"
             android:text="خرید بلیت "
-            android:background="@drawable/background_btn_search"
-            android:textColor="@color/white"
+            android:background="@drawable/background_border_red"
+            android:textColor="@color/textColorTitle"
             android:textSize="@dimen/_10sdp" />
     </LinearLayout>
 </LinearLayout>
