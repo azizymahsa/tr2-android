@@ -67,4 +67,6 @@ public interface MainActionView extends BaseView
     void openPastResultFragment(String teamId, String imageLogo, String logoTitle);
 
     void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat);
+
+    void openWebView(MainActionView mainView, String uRl, String gds_token);
 }

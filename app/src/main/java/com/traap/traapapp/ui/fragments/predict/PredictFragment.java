@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.predict;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ import com.traap.traapapp.apiServices.model.predict.getPredict.response.Predict;
 import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -83,7 +86,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private Toolbar mToolbar;
 
-    private View rootView;
+    private View rootView,rlShirt;
 
     private LinearLayout llChart2;
     private RelativeLayout rlChart1, rlChart2, rlChart3;
@@ -208,7 +211,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         tvMatchResult = rootView.findViewById(R.id.tvMatchResult);
 
         tvPredictEmpty = rootView.findViewById(R.id.tvPredictEmpty);
-
+        rlShirt = rootView.findViewById(R.id.rlShirt);
+        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class))
+        );
         imgAwayHeader = rootView.findViewById(R.id.imgAwayHeader);
         imgAway = rootView.findViewById(R.id.imgAway);
         imgAwayPredict = rootView.findViewById(R.id.imgAway3);

@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.activities.web;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -82,15 +83,51 @@ public class WebActivity extends BaseActivity
             webView.setClickable(true);
             webView.setWebChromeClient(new WebChromeClient());
             webView.postUrl(url, postData.getBytes());
+            webView.getSettings().setUseWideViewPort(true);
+// Zoom out if the content width is greater than the width of the viewport
+            webView.getSettings().setLoadWithOverviewMode(true);
+            webView.setWebViewClient(new WebViewClient() {
 
+                @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    super.onPageStarted(view, url, favicon);
+                    showLoading();
+
+                }
+
+                @Override
+                public void onPageCommitVisible(WebView view, String url) {
+                    super.onPageCommitVisible(view, url);
+                    hideLoading();
+
+                }
+                @Override
+                public void onPageFinished(WebView view, String url) {
+
+                    hideLoading();
+
+                    super.onPageFinished(view, url);
+
+                }
+
+            });
 
         } catch (
                 UnsupportedEncodingException e)
         {
             e.printStackTrace();
+            hideLoading();
         }
     }
+    public void showLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+    }
 
+    public void hideLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
+    }
     private void initView()
     {
         try
@@ -113,7 +150,12 @@ public class WebActivity extends BaseActivity
             {
                 finish();
             });
-            tvTitle.setText("گردشگری");
+            rlShirt = findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class))
+            );
+            String title = getIntent().getStringExtra("Title");
+
+            tvTitle.setText(title);
 
         } catch (Exception e)
         {
