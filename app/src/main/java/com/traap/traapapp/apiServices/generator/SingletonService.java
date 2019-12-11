@@ -48,6 +48,7 @@ import com.traap.traapapp.apiServices.part.SendProfileService;
 import com.traap.traapapp.apiServices.part.SheatcChangePassService;
 import com.traap.traapapp.apiServices.part.SheatcForgotPassService;
 import com.traap.traapapp.apiServices.part.GetMatchListService;
+import com.traap.traapapp.apiServices.part.TransactionDetailService;
 import com.traap.traapapp.apiServices.part.TransactionService;
 import com.traap.traapapp.apiServices.part.VerifyService;
 import okhttp3.OkHttpClient;
@@ -197,6 +198,11 @@ public class SingletonService
     public TransactionService getTransactionService()
     {
         return new TransactionService(serviceGenerator);
+    }
+
+    public TransactionDetailService getTransactionDetailService()
+    {
+        return new TransactionDetailService(serviceGenerator);
     }
 
     public PackageBuyService packageBuyService()

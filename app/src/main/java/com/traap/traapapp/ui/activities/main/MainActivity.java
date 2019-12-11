@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -64,6 +65,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
 import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.drawer.MenuDrawer;
@@ -94,6 +96,7 @@ import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -127,6 +130,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Boolean isCompleteThreadAllServices = false;
     private Boolean isCompleteThreadNews = false;
     private ArrayList<MatchItem> matchBuyable;
+    private String typeTransaction;
+    private boolean hasPaymentCharge=false;
+    private boolean hasPaymentPackageSimcard=false;
 
 
     @Override
@@ -179,9 +185,33 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (Intent.ACTION_VIEW.equals(intent.getAction()))
         {
             Uri uri = intent.getData();
+            //Log.d("aaaaaaa",typeTransaction);
+            Log.d("bbbb",uri.toString());
+
             refrenceNumber = uri.getQueryParameter("refrencenumber").replace("/", "");
-            //String refrenceNumber = uri.getQueryParameter("RefrenceNumber");
-            hasPaymentTicket = true;
+            typeTransaction = uri.getQueryParameter("typetransaction").replace("/","");
+            try
+            {
+                if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STAUS_ChargeSimCard){
+                    Log.d("aa","true");
+
+                    hasPaymentCharge=true;
+
+                }else if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STAUS_PackSimCard){
+                    Log.d("aaa","true");
+
+                    hasPaymentPackageSimcard=true;
+                }else if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
+                {
+                    Log.d("aaaa","true");
+
+                    hasPaymentTicket = true;
+                }
+            }catch (Exception e){
+                Tools.showToast(getApplicationContext(), "شماره پیگیری: " + refrenceNumber);
+            }
+
+
 
             /*showLoading();
             isMainFragment = false;
@@ -981,24 +1011,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onBuyTicketClick(MatchItem matchBuyable)
     {
-       /* showLoading();
+        showLoading();
         isMainFragment = false;
         this.fragment = BuyTicketsFragment.newInstance(this, matchBuyable);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "buyTicketsFragment")
-                .commit();*/
-
-        isMainFragment = false;
-
-        fragment = ChargeFragment.newInstance(this);
-
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        transaction.replace(R.id.main_container, fragment, "chargeFragment")
                 .commit();
+
+
     }
 
     @Override
@@ -1445,7 +1467,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     }
 
                 }
-                showTicket();
+                showPymentResults();
             }
 
             @Override
@@ -1463,7 +1485,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         return isCompleteThreadMatch;
     }
 
-    private void showTicket()
+    private void showPymentResults()
     {
         if (hasPaymentTicket)
         {
@@ -1482,6 +1504,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             startActivity(intent);
 
+        }else if (hasPaymentCharge || hasPaymentPackageSimcard){
+            Intent intent = new Intent(this, PaymentResultActivity.class);
+            intent.putExtra("RefrenceNumber", refrenceNumber);
+            //intent.putExtra("StatusPayment", true);
+            startActivity(intent);
         }
     }
 

@@ -51,6 +51,7 @@ import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPacka
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
+import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
 import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
@@ -449,6 +450,13 @@ public interface RetroClient
             @Query("type_transaction_id") Integer typeTransactionId,
             @Query("create_date__range") String createDateRange
     );
+
+    @GET(Const.GET_TRANSACTION_DETAIL)
+    Single<Response<WebServiceClass<TransactionDetailResponse>>> getTransactionDetail(
+            @Path("id") Integer transactionId
+    );
+
+
     @GET(Const.Archive_Photo)
     Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos(
             @Query("category_id") String category_id
