@@ -28,15 +28,19 @@ import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueR
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.Result;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.ui.activities.video.VideoArchiveActivity;
 import com.traap.traapapp.ui.adapters.Leaguse.FixTableAdapter;
+import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
+import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 
 
 public class LeagueTableFragment
-        extends Fragment implements OnAnimationEndListener, View.OnClickListener,
+        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
         OnServiceStatus<WebServiceClass<ResponseLeage>>, FixTableAdapter.ItemClickListener
 {
     private View rootView;
@@ -215,9 +219,16 @@ public class LeagueTableFragment
     @Override
     public void onError(String message)
     {
-        mainView.showError(message);
+       // mainView.showError(message);
         mainView.hideLoading();
-
+        if (Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + message);
+            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+        } else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
     @Override

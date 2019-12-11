@@ -29,6 +29,7 @@ import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
 import com.traap.traapapp.ui.adapters.photo.PhotosCategoryTitleAdapter;
 
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveAdapter.ArchiveVideoListener, PhotosCategoryTitleAdapter.TitleCategoryListener
@@ -147,7 +148,17 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             public void onError(String message)
             {
                 hideLoading();
-                Tools.showToast(getApplication(), message, R.color.red);
+                if (!Tools.isNetworkAvailable(PhotoArchiveActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+
+                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
+              //  Tools.showToast(getApplication(), message, R.color.red);
             }
         }, request);
     }
@@ -193,7 +204,17 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             public void onError(String message)
             {
                 hideLoading();
-                Tools.showToast(getApplication(), message, R.color.red);
+               // Tools.showToast(getApplication(), message, R.color.red);
+                if (!Tools.isNetworkAvailable(PhotoArchiveActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+
+                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         }, categoryId);
     }
@@ -320,7 +341,16 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             public void onError(String message)
             {
                 //  mainView.hideLoading();
-                Tools.showToast(getApplicationContext(), message, R.color.red);
+               // Tools.showToast(getApplicationContext(), message, R.color.red);
+                if (!Tools.isNetworkAvailable(PhotoArchiveActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+
+                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         });
     }

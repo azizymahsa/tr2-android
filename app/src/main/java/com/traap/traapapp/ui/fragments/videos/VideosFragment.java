@@ -45,6 +45,7 @@ import com.traap.traapapp.ui.adapters.video.VideosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 /**
@@ -62,10 +63,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private CategoryAdapter categoryAdapter;
     private MainVideosResponse mainVideosResponse;
     private ArrayList<Category> categoriesList;
-    private int position=0;
+    private int position = 0;
     private Integer idVideo;
     private Integer id;
-    private TextView tvArchiveVideo,tvMyFavoriteVideo;
+    private TextView tvArchiveVideo, tvMyFavoriteVideo;
     private View rlShirt;
     private NestedScrollView nestedScroll;
 
@@ -110,9 +111,9 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
         nestedScroll = rootView.findViewById(R.id.nestedScroll);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
-        tvArchiveVideo=rootView.findViewById(R.id.tvArchiveVideo);
+        tvArchiveVideo = rootView.findViewById(R.id.tvArchiveVideo);
         rvCategories = rootView.findViewById(R.id.rvCategories);
-        tvMyFavoriteVideo=rootView.findViewById(R.id.tvMyFavoriteVideo);
+        tvMyFavoriteVideo = rootView.findViewById(R.id.tvMyFavoriteVideo);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         rvCategoryTitles.setLayoutManager(layoutManager);
         tvMyFavoriteVideo.setOnClickListener(this);
@@ -128,7 +129,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     }
 
 
-    public void showComingSoonDialog(){
+    public void showComingSoonDialog()
+    {
         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد.", false,
                 new MessageAlertDialog.OnConfirmListener()
                 {
@@ -165,7 +167,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     if (response.info.statusCode == 200)
                     {
 
-                        mainVideosResponse=response.data;
+                        mainVideosResponse = response.data;
                         onGetMainVideosSuccess(response.data);
 
                     } else
@@ -183,18 +185,26 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             public void onError(String message)
             {
                 mainView.hideLoading();
-                Tools.showToast(getActivity(), message, R.color.red);
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+                // Tools.showToast(getActivity(), message, R.color.red);
             }
         }, request);
     }
 
     private void onGetMainVideosSuccess(MainVideosResponse mainVideosResponse)
     {
-        bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(), mainView,this));
+        bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(), mainView, this));
         setDataFavoriteList(mainVideosResponse);
         videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(mainVideosResponse.getListCategories(), mainView, this);
         rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
-        categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), mainView,this);
+        categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), mainView, this);
         rvCategories.setAdapter(categoryAdapter);
 
     }
@@ -227,8 +237,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
                 }
             });*/
-        }
-        catch (NullPointerException e)
+        } catch (NullPointerException e)
         {
             Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
         }
@@ -248,7 +257,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
 
-        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idCategoryTitle,request,new    OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idCategoryTitle, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
@@ -277,69 +286,112 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             public void onError(String message)
             {
                 mainView.hideLoading();
-                Tools.showToast(getActivity(), message, R.color.red);
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+                // Tools.showToast(getActivity(), message, R.color.red);
             }
         });
     }
 
     private void setCategoryListData(CategoryByIdVideosResponse data)
     {
-        categoryAdapter = new CategoryAdapter(data.getResults(), mainView,this);
+        categoryAdapter = new CategoryAdapter(data.getResults(), mainView, this);
         rvCategories.setAdapter(categoryAdapter);
     }
 
     @Override
     public void onClick(View v)
     {
-        switch (v.getId()){
+        switch (v.getId())
+        {
             case R.id.ivFavorite1:
-                categoriesList=mainVideosResponse.getFavorites();
-                position=0;
-                idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
-                id=mainVideosResponse.getFavorites().get(position).getId();
-              openVideoDetail(categoriesList,position,idVideo,id);
+                if (mainVideosResponse != null)
+                {
+                    categoriesList = mainVideosResponse.getFavorites();
+                    position = 0;
+                    idVideo = mainVideosResponse.getFavorites().get(position).getCategoryId();
+                    id = mainVideosResponse.getFavorites().get(position).getId();
+                    openVideoDetail(categoriesList, position, idVideo, id);
+                }
                 break;
 
             case R.id.ivFavorite2:
-                categoriesList=mainVideosResponse.getFavorites();
-                position=1;
-                idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
-                id=mainVideosResponse.getFavorites().get(position).getId();
-                openVideoDetail(categoriesList,position,idVideo,id);
+                if (mainVideosResponse != null)
+                {
+                    categoriesList = mainVideosResponse.getFavorites();
+                    position = 1;
+                    idVideo = mainVideosResponse.getFavorites().get(position).getCategoryId();
+                    id = mainVideosResponse.getFavorites().get(position).getId();
+                    openVideoDetail(categoriesList, position, idVideo, id);
+                }
                 break;
 
             case R.id.ivFavorite3:
-                categoriesList=mainVideosResponse.getFavorites();
-                position=2;
-                idVideo=mainVideosResponse.getFavorites().get(position).getCategoryId();
-                id=mainVideosResponse.getFavorites().get(position).getId();
-                openVideoDetail(categoriesList,position,idVideo,id);
+                if (mainVideosResponse != null)
+                {
+                    categoriesList = mainVideosResponse.getFavorites();
+                    position = 2;
+                    idVideo = mainVideosResponse.getFavorites().get(position).getCategoryId();
+                    id = mainVideosResponse.getFavorites().get(position).getId();
+                    openVideoDetail(categoriesList, position, idVideo, id);
+                }
                 break;
             case R.id.tvArchiveVideo:
-                ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
-                Intent intent = new Intent(getActivity(), VideoArchiveActivity.class);
-                intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
-                startActivity(intent);
+                try
+                {
+                    ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
+                    Intent intent = new Intent(getActivity(), VideoArchiveActivity.class);
+                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
+                    startActivity(intent);
+                } catch (Exception e)
+                {
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + e.getMessage());
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                }
                 break;
 
             case R.id.tvMyFavoriteVideo:
-                //showComingSoonDialog();
-                Intent intent1 = new Intent(getActivity(), VideoArchiveActivity.class);
-                intent1.putExtra("FLAG_Favorite",true);
-                startActivity(intent1);
+                try
+                {
+                    Intent intent1 = new Intent(getActivity(), VideoArchiveActivity.class);
+                    intent1.putExtra("FLAG_Favorite", true);
+                    startActivity(intent1);
+                } catch (Exception e)
+                {
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + e.getMessage());
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                }
                 break;
         }
     }
 
-    private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo,Integer id)
+    private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
         Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Videos", categoriesList);
-        intent.putExtra("IdVideoCategory",idVideo);
-        intent.putExtra("IdVideo",id);
-        intent.putExtra("positionVideo",position);
-        intent.putExtra("idCategoryTitle",idCategoryTitle);
+        intent.putExtra("IdVideoCategory", idVideo);
+        intent.putExtra("IdVideo", id);
+        intent.putExtra("positionVideo", position);
+        intent.putExtra("idCategoryTitle", idCategoryTitle);
 
         startActivity(intent);
     }
@@ -347,14 +399,14 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     @Override
     public void onItemNewestVideoClick(int position, Category category)
     {
-        categoriesList=mainVideosResponse.getRecent();
-        openVideoDetail(categoriesList,position,category.getCategoryId(),category.getId());
+        categoriesList = mainVideosResponse.getRecent();
+        openVideoDetail(categoriesList, position, category.getCategoryId(), category.getId());
     }
 
     @Override
     public void onItemCategoryClick(int position, Category category, ArrayList<Category> categories)
     {
-        categoriesList=categories;
-        openVideoDetail(categoriesList,position,category.getCategoryId(),category.getId());
+        categoriesList = categories;
+        openVideoDetail(categoriesList, position, category.getCategoryId(), category.getId());
     }
 }

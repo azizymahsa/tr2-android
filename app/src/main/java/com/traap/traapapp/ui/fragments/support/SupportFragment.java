@@ -27,6 +27,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.EventBus;
@@ -175,7 +176,15 @@ public class SupportFragment
             public void onError(String message)
             {
                 hideLoading();
-                Tools.showToast(getActivity(), message, R.color.red);
+            //    Tools.showToast(getActivity(), message, R.color.red);
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         }, request);
     }

@@ -225,7 +225,17 @@ public class MyProfileFragment extends BaseFragment
             public void onError(String message)
             {
                 mainView.hideLoading();
-                Tools.showToast(getActivity(), message, R.color.red);
+                if (!Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getActivity(),"خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+               // Tools.showToast(getActivity(), message, R.color.red);
             }
         });
     }
