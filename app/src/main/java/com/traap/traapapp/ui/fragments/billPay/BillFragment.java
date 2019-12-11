@@ -1374,6 +1374,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
+    @Override
+    public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    {
+
+    }
+
 
     @Override
     public void onBill()

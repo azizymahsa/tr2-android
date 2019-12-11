@@ -22,6 +22,19 @@ public class VerifyResponse
     @SerializedName("bimeh_token")
     @Expose
     private String bimeh_token;
+    @SerializedName("alopark_token")
+    @Expose
+    private String alopark_token;
+
+    public String getAlopark_token()
+    {
+        return alopark_token;
+    }
+
+    public void setAlopark_token(String alopark_token)
+    {
+        this.alopark_token = alopark_token;
+    }
 
     public String getGds_token()
     {

@@ -21,6 +21,8 @@ import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.video.VideosArchiveAdapter;
 import com.traap.traapapp.ui.adapters.video.VideosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
@@ -30,7 +32,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
 {
 
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    private View imgBack, imgMenu;
+    private View imgBack, imgMenu,rlShirt;
     private ArrayList<ListCategory> categoryTitleList;
     private RecyclerView rvCategoryTitles, rvArchiveVideo;
     private VideosCategoryTitleAdapter videoCategoryTitleAdapter;
@@ -177,6 +179,9 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
             {
                 finish();
             });
+            rlShirt = findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class))
+            );
         } catch (Exception e)
         {
 
