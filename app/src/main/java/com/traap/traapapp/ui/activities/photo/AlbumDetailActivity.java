@@ -127,14 +127,20 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         rlLike = findViewById(R.id.rlLike);
         rlLike.setOnClickListener(this);
         showLoading();
-        setDataItems();
 
 
         sendRequestListPhotos(idVideo);
 
 
     }
+    public void onResume()
+    {
+        super.onResume();
 
+        //Call the method
+        sendRequestListPhotos(idVideo);
+
+    }
     public void showLoading()
     {
         findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
@@ -269,32 +275,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void setDataItems()
-    {
-        // videoItem = videosList.get(positionVideo);
 
-       /* urlVideo=videoItem.getFrame().replace("\\", "");
-       tvLike.setText(videoItem.getLikes().toString());
-        likeCount=videoItem.getLikes();
-        if (videoItem.getIsLiked()){
-            imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
-            tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
-
-        }else {
-            imgLike.setColorFilter(getResources().getColor(R.color.gray));
-            tvLike.setTextColor(getResources().getColor(R.color.gray));
-
-        }
-        if (videoItem.getIsBookmarked()){
-            imgBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
-        }else {
-          imgBookmark.setColorFilter(getResources().getColor(R.color.gray));
-        }*/
-        //  tvDate.setText(videoItem.getCreateDateFormatted()+"");
-        //  tvTitleVideo.setText(videoItem.getTitle()+"");
-        //  tvDesc.setText(videoItem.getCaption()+"");
-        // setImageBackground(ivPhoto,videoItem.getCover().replace("\\", ""));
-    }
 
     private void setImageBackground(ImageView image, String link)
     {
