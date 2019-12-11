@@ -44,6 +44,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.activities.news.details.NewsDetailsActivity;
+import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
 import com.traap.traapapp.ui.adapters.news.NewsMainFavoriteAdapter;
 import com.traap.traapapp.ui.adapters.news.NewsMainNewestAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -370,8 +371,14 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     {
         mainView.hideLoading();
 
-        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-        Logger.e("--onError--", message);
+        if (Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + message);
+            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+        } else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
     private void setPager()

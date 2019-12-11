@@ -26,6 +26,7 @@ import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
 import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.ui.adapters.photo.AlbumDetailsItemAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 
@@ -192,8 +193,17 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onError(String message)
             {
-                Tools.showToast(getApplicationContext(), message, R.color.red);
+               // Tools.showToast(getApplicationContext(), message, R.color.red);
+                if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                   // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
+                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         });
     }
@@ -244,8 +254,16 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onError(String message)
             {
-                Tools.showToast(getApplicationContext(), message, R.color.red);
+                if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
+                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         });
     }
