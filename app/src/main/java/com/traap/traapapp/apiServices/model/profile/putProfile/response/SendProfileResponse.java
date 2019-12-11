@@ -36,7 +36,7 @@ public class SendProfileResponse
 
     @SerializedName("national_code")
     @Expose @Getter @Setter
-    private Long nationalCode;
+    private String nationalCode;
 
     @SerializedName("birthday")
     @Expose @Getter @Setter
