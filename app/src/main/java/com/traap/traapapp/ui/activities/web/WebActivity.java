@@ -150,6 +150,9 @@ public class WebActivity extends BaseActivity
             {
                 finish();
             });
+            rlShirt = findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class))
+            );
             String title = getIntent().getStringExtra("Title");
 
             tvTitle.setText(title);
