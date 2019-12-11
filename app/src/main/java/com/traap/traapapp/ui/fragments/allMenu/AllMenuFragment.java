@@ -595,14 +595,14 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             case 13: //Bus
             {
 
-            /*  Intent intent = new Intent(getActivity(), WebActivity.class);
+              Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);*/
+                startActivity(intent);
 
-                mainView.onPackSimCard();
+                //mainView.onPackSimCard();
 
                 break;
             }
