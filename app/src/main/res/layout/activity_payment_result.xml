@@ -1,88 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.paymentResult.PaymentResultActivity">
-
-    <LinearLayout
+    android:layoutDirection="ltr"
+    android:background="@drawable/background"
+    >
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_60dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        >
-
-        <ImageView
-            android:id="@+id/imgPaymentStatus"
-            android:layout_width="@dimen/_50dp"
-            android:layout_height="@dimen/_50dp"
-            app:srcCompat="@drawable/un_check_mark"
-            />
-
-        <TextView
-            android:id="@+id/txDescriptionPayment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="پرداخت شما ناموفق بوده است."
-            android:textSize="@dimen/textSize_14dp"
-            android:layout_marginTop="@dimen/_30dp"
-            android:layout_gravity="center"
-            android:textColor="@color/aviColor"
-            />
-
-        <TextView
-            android:id="@+id/txRefrenceNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="کد پیگیری : "
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/_20dp"
-            android:textSize="@dimen/textSize_14dp"
-            android:layout_gravity="center"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_40dp"
-            android:gravity="center|end"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/_60dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
 
-            <Space
-                android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/imgPaymentStatus"
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"
+                app:srcCompat="@drawable/un_check_mark"
+                />
+
+            <TextView
+                android:id="@+id/txDescriptionPayment"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="50" />
+                android:text="پرداخت شما ناموفق بوده است."
+                android:textSize="@dimen/textSize_14dp"
+                android:layout_marginTop="@dimen/_30dp"
+                android:layout_gravity="center"
+                android:textColor="@color/aviColor"
+                />
 
-            <FrameLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/txRefrenceNumber"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="80">
+                android:layout_alignParentEnd="true"
+                android:text="کد پیگیری : "
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_20dp"
+                android:textSize="@dimen/textSize_14dp"
+                android:layout_gravity="center"/>
 
-
-                <TextView
-                    android:id="@+id/btnBackToHome"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:text="بازگشت"
-                    android:textColor="@color/redBack"
-                    android:gravity="center"
-                    android:textSize="@dimen/textSize_14dp"
-                    android:background="@drawable/background_border_a"
-                    />
-
-            </FrameLayout>
-
-            <Space
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50" />
+                android:layout_marginTop="@dimen/_40dp"
+                android:gravity="center|end"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="80">
+
+
+                    <TextView
+                        android:id="@+id/btnBackToHome"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:text="بازگشت"
+                        android:textColor="@color/redBack"
+                        android:gravity="center"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:background="@drawable/background_border_a"
+                        />
+
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
+    </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+    <include layout="@layout/loading"
+        android:visibility="gone"/>
+</RelativeLayout>

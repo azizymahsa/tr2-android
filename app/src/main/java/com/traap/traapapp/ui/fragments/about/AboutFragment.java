@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,6 +22,7 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.helper.Const;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoRequest;
@@ -63,6 +65,8 @@ public class AboutFragment
     private String twitter;
     private String telegram;
     private String instagram;
+    private int count=0;
+    private View ivImage;
 
 
     public static AboutFragment newInstance(MainActionView mainView)
@@ -111,7 +115,8 @@ public class AboutFragment
             ivInsta = view.findViewById(R.id.ivInsta);
             btnHistory = view.findViewById(R.id.btnHistory);
             tvPhone = view.findViewById(R.id.tvPhone);
-
+            ivImage=view.findViewById(R.id.ivImage);
+            ivImage.setOnClickListener(this);
             ivWeb.setOnClickListener(this);
             ivTwit.setOnClickListener(this);
             ivTele.setOnClickListener(this);
@@ -273,6 +278,14 @@ public class AboutFragment
     {
         switch (view.getId())
         {
+
+            case R.id.ivImage:
+                count++;
+                if (count==7){
+                    Tools.showToast(getActivity(), Const.BASEURL, Toast.LENGTH_LONG);
+                    count=0;
+                }
+                break;
 
             case R.id.ivWeb:
 

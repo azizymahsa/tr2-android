@@ -35,10 +35,13 @@ public class Const
 
     //Mobile
     public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
+    public final static String BUY_CHARGE_WALLET = SubBASEURL + "v1/topupcharge/buy_charge_wallet/";
     public final static String BUY_MOBILE_PACKAGE = SubBASEURL + "InternetPackage/v1/PackageBuy";
     public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/";
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
+
+
 
     //Bill
     public final static String GetMyBills = SubBASEURL + "v1/bill/";
@@ -125,6 +128,7 @@ public class Const
 
     //Transaction
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
+    public final static String GET_TRANSACTION_DETAIL=SubBASEURL+"v1/user/{id}/transactions/";
 
     //video
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";

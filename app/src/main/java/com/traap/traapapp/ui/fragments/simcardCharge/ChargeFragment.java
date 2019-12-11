@@ -1,7 +1,5 @@
 package com.traap.traapapp.ui.fragments.simcardCharge;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -24,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -59,15 +58,11 @@ import com.traap.traapapp.ui.activities.main.OnContactClick;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
-import com.traap.traapapp.ui.fragments.payment.PaymentFragment;
 import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
-import com.traap.traapapp.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
-import com.traap.traapapp.ui.fragments.simcardCharge.imp.irancell.IrancellBuyInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyImpl;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyImpl;
-import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyInteractor;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NumberTextWatcher;
@@ -259,6 +254,7 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.ivContactR)
     void ivContactR()
     {
+
         mainView.onContact();
     }
 
@@ -299,7 +295,6 @@ public class ChargeFragment extends BaseFragment
 
         }
 
-        transactionsRequest();
 
     }
 
@@ -313,7 +308,6 @@ public class ChargeFragment extends BaseFragment
 
         }
 
-        transactionsRequest();
 
     }
 
@@ -326,8 +320,6 @@ public class ChargeFragment extends BaseFragment
             return;
 
         }
-
-        transactionsRequest();
 
     }
 
@@ -565,7 +557,7 @@ public class ChargeFragment extends BaseFragment
         isMci = false;
         isRightel = false;
         //mainView.needExpanded(true);
-        llMTNCharge.setVisibility(View.GONE);
+       // llMTNCharge.setVisibility(View.GONE);
         setDataLayoutPassCharge();
 //        llPassCharge.setVisibility(View.VISIBLE);
 //        llOperatorImages.setVisibility(View.GONE);
@@ -631,7 +623,6 @@ public class ChargeFragment extends BaseFragment
 
 
         //----------------------------new for payment fragment-----------------------
-        contentView.setVisibility(View.GONE);
 
         String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
 
@@ -765,7 +756,7 @@ public class ChargeFragment extends BaseFragment
         isMtn = false;
         isRightel = false;
         //mainView.needExpanded(true);
-        llMCICharge.setVisibility(View.GONE);
+       // llMCICharge.setVisibility(View.GONE);
         setDataLayoutPassCharge();
 
 //        llOperatorImages.setVisibility(View.GONE);
@@ -1233,14 +1224,14 @@ public class ChargeFragment extends BaseFragment
             case R.id.rbNormalChargeRightel:
                 if (rbNormalChargeRightel.isChecked())
                     rbSpecialChargeRightel.setChecked(false);
-                rightelType = 0;
+                chargeType ="0" ;
                 chargeName = "شارژ عادی";
 
                 break;
             case R.id.rbSpecialChargeRightel:
                 if (rbSpecialChargeRightel.isChecked())
                     rbNormalChargeRightel.setChecked(false);
-                rightelType = 1;
+                chargeType = "1";
                 chargeName = "شارژ شگفت انگیز";
 
                 break;
@@ -1401,128 +1392,7 @@ public class ChargeFragment extends BaseFragment
         }
     }
 
-    private void transactionsRequest()
-    {
-//        List<Transaction> transactions = new ArrayList<>();
-//
-//
-//        if (isMtn)
-//        {
-//            btnIrancellRecent.startAnimation();
-//            btnIrancellRecent.setClickable(false);
-//
-//
-//        }
-//        if (isMci)
-//        {
-//            btnMciRecent.startAnimation();
-//            btnMciRecent.setClickable(false);
-//
-//
-//        }
-//        if (isRightel)
-//        {
-//
-//            btnRightelRecent.startAnimation();
-//            btnRightelRecent.setClickable(false);
-//
-//
-//        }
-//
-//
-//        GetHistoryTransactionsRequest request = new GetHistoryTransactionsRequest();
-//        request.setTypeTransaction(3);
-//        request.setUserId(Prefs.getInt("userId", 0));
-//        SingletonService.getInstance().getHistoryTransactionsService().GetHistoryTransactionsService(new OnServiceStatus<GetHistoryTransactionsResponse>()
-//        {
-//            @Override
-//            public void onReady(GetHistoryTransactionsResponse response)
-//            {
-//
-//
-//                btnIrancellRecent.revertAnimation(ChargeFragment.this);
-//                btnIrancellRecent.setClickable(true);
-//
-//                btnMciRecent.revertAnimation(ChargeFragment.this);
-//                btnMciRecent.setClickable(true);
-//
-//                btnRightelRecent.revertAnimation(ChargeFragment.this);
-//                btnRightelRecent.setClickable(true);
-//
-//                try
-//                {
-//                    if (response.getServiceMessage().getCode() == 200)
-//                    {
-//                        transactions.clear();
-//
-//
-//                        if (isMtn)
-//                        {
-//
-//                            for (int i = 0; i < response.getTransactions().size(); i++)
-//                            {
-//                                if (response.getTransactions().get(i).getChargeVm().getTypeOperatorId() == 1)
-//                                    transactions.add(response.getTransactions().get(i));
-//
-//                            }
-//
-//
-//                        }
-//                        if (isMci)
-//                        {
-//                            for (int i = 0; i < response.getTransactions().size(); i++)
-//                            {
-//                                if (response.getTransactions().get(i).getChargeVm().getTypeOperatorId() == 2)
-//                                    transactions.add(response.getTransactions().get(i));
-//
-//                            }
-//
-//
-//                        }
-//                        if (isRightel)
-//                        {
-//                            for (int i = 0; i < response.getTransactions().size(); i++)
-//                            {
-//                                if (response.getTransactions().get(i).getChargeVm().getTypeOperatorId() == 3)
-//                                    transactions.add(response.getTransactions().get(i));
-//
-//                            }
-//
-//
-//                        }
-//
-//                        mainView.transactionsExpand(transactions);
-//
-//
-//                    } else
-//                    {
-//                        mainView.showError(response.getServiceMessage().getMessage());
-//
-//                    }
-//
-//                } catch (Exception e)
-//                {
-//                    mainView.showError(e.getMessage());
-//                }
-//            }
-//
-//            @Override
-//            public void onError(String message)
-//            {
-//                mainView.showError(message);
-//                btnIrancellRecent.revertAnimation(ChargeFragment.this);
-//                btnIrancellRecent.setClickable(true);
-//                btnMciRecent.revertAnimation(ChargeFragment.this);
-//                btnMciRecent.setClickable(true);
-//                btnRightelRecent.revertAnimation(ChargeFragment.this);
-//                btnRightelRecent.setClickable(true);
-//
-//
-//            }
-//        }, request);
 
-
-    }
 
 
     @Override
@@ -1678,8 +1548,9 @@ public class ChargeFragment extends BaseFragment
 
 
 
-       mainView.openChargePaymentFragment(urlPayment, R.drawable.icon_payment_ticket,
-               title, Utility.priceFormat(amount));
+        mainView.showLoading();
+       mainView.openChargePaymentFragment(urlPayment, imageDrawable,
+               title, amount,paymentInstance,mobile);
 
 
        /* (rootView.findViewById(R.id.container)).setVisibility(View.VISIBLE);
@@ -1714,6 +1585,7 @@ public class ChargeFragment extends BaseFragment
     public void onErrorCharge(String message)
     {
 
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -1885,7 +1757,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat)
+    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat, SimChargePaymentInstance paymentInstance,String mobile)
     {
 
     }
