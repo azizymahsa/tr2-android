@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.webView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ import java.util.ArrayList;
 /**
  * Created by MahsaAzizi .
  */
+@SuppressLint("ValidFragment")
 public class WebFragment extends BaseFragment
 {
 

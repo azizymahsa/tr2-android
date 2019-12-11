@@ -537,36 +537,32 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             case 11: //Flight ATA
             {
 
-                WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
+                mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
                 break;
             }
 
             case 14://Flight
             {
+                mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
 
-                WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
                 break;
             }
 
             case 12: //Hotel
             {
+                mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
 
-                WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
                 break;
             }
 
             case 13: //Bus
             {
-//
-                WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
+              //  mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
+                mainView.onPackSimCard();
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
                 break;
             }
 
