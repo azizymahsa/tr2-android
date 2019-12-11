@@ -32,16 +32,18 @@ import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.photo.AlbumDetailsItemAdapter;
 import com.traap.traapapp.ui.adapters.photo.NewestPhotosAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
-public class AlbumDetailActivity extends BaseActivity implements View.OnClickListener, AlbumDetailsItemAdapter.OnItemAllMenuClickListener
+public class AlbumDetailActivity extends BaseActivity implements View.OnClickListener, AlbumDetailsItemAdapter.OnItemAllMenuClickListener, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener
 {
     private TextView tvTitle, tvUserName, tvPopularPlayer, tvLike;
-    private View imgBack, imgMenu;
+    private View imgBack, imgMenu,rlShirt;
     private RoundedImageView ivPhoto;
     private ImageView imgBookmark, imgLike;
     private int positionVideo, idVideoCategory;
@@ -49,7 +51,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private Category videoItem;
     private RelativeLayout rlLike;
     private String urlVideo;
-    private int idVideo;
+    private int idAlbum;
     private Integer likeCount = 0;
     private BannerLayout bRelatedAlbums;
     private RecyclerView recyclerView;
@@ -78,7 +80,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
                 videosList = extras.getParcelableArrayList("Photos");
                 idVideoCategory = extras.getInt("IdVideoCategory", 0);
-                idVideo = extras.getInt("IdPhoto", 0);
+                idAlbum = extras.getInt("IdPhoto", 0);
                 positionVideo = extras.getInt("positionPhoto", 0);
             }
         }
@@ -112,7 +114,9 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             {
                 finish();
             });
-
+            rlShirt = findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class))
+            );
 
         } catch (Exception e)
         {
@@ -129,18 +133,20 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         showLoading();
 
 
-        sendRequestListPhotos(idVideo);
+     //   sendRequestListPhotos(idVideo);
 
 
     }
+
     public void onResume()
     {
         super.onResume();
 
         //Call the method
-        sendRequestListPhotos(idVideo);
+        sendRequestListPhotos(idAlbum);
 
     }
+
     public void showLoading()
     {
         findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
@@ -196,8 +202,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
         recyclerView.setLayoutManager(layoutManager);
 
-       titleAlbum.setText(data.getTitle() + "");
-        tvCaption.setText(data.getCaption()+ "");
+        titleAlbum.setText(data.getTitle() + "");
+        tvCaption.setText(data.getCaption() + "");
         for (int i = 0; i < data.getContent().size(); i++)
         {
             if (data.getContent().get(i).getIsCover())
@@ -260,7 +266,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     {
         if (!data.getResults().isEmpty())
         {
-            bRelatedAlbums.setAdapter(new NewestPhotosAdapter(data.getResults()));
+            bRelatedAlbums.setAdapter(new NewestPhotosAdapter(data.getResults(), this::OnItemRelatedAlbumsClick));
             List<Category> relatedList = data.getResults();
 
            /* for (int i = 0; i < relatedList.size(); i++)
@@ -274,7 +280,6 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
         }
     }
-
 
 
     private void setImageBackground(ImageView image, String link)
@@ -382,29 +387,60 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
     }
 
-    private void playVideo(String urlVideo)
-    {
-        Utility.openUrlCustomTab(this, urlVideo);
-    }
 
     @Override
     public void OnItemAllMenuClick(View view, Integer id, Content content)
     {
-       // titleAlbum.setText(content.getTitle() + "");
-        tvCaption.setText(content.getCaption() + " "+content.getTitle() );
-        idPhoto = content.getId();
-        likeCount = content.getLikes();
-        isBookmark = content.getIsBookmarked();
-        isLike = content.getIsLiked();
+        // titleAlbum.setText(content.getTitle() + "");
+        try
+        {
+            tvCaption.setText(content.getCaption() + " " + content.getTitle());
+            idPhoto = content.getId();
+            likeCount = content.getLikes();
+            isBookmark = content.getIsBookmarked();
+            isLike = content.getIsLiked();
 
-        tvLike.setText(likeCount + "");
-        if (content.getImageName().getThumbnailLarge() == "")
+            tvLike.setText(likeCount + "");
+            if (content.getImageName().getThumbnailLarge() == "")
+                largeImageClick = content.getCover();
+            else
+                largeImageClick = content.getImageName().getThumbnailLarge();
+
+            setImageBackground(ivPhoto, largeImageClick.replace("\\", ""));
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+
+
+    }
+
+    @Override
+    public void OnItemRelatedAlbumsClick(View view, Category content)
+    {
+        try
+        {
+            idAlbum = content.getId();
+            sendRequestListPhotos(idAlbum);
+
+          /*  titleAlbum.setText(content.getTitle() + "");
+
+            tvCaption.setText(content.getCaption() + "");
+
+            likeCount = content.getLikes();
+            isBookmark = content.getIsBookmarked();
+            isLike = content.getIsLiked();
+
+            tvLike.setText(likeCount + "");
+            // if (content.getImageName().getThumbnailLarge() == null)
             largeImageClick = content.getCover();
-        else
-            largeImageClick = content.getImageName().getThumbnailLarge();
+            // else
+            //      largeImageClick = content.getImageName().getThumbnailLarge();
 
-        setImageBackground(ivPhoto, content.getImageName().getThumbnailLarge().replace("\\", ""));
-
-
+            setImageBackground(ivPhoto, largeImageClick.replace("\\", ""));*/
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.activities.video;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,8 @@ import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoRequest;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -33,7 +36,7 @@ import com.traap.traapapp.utilities.Utility;
 public class VideoDetailActivity extends BaseActivity implements View.OnClickListener
 {
     private TextView tvTitle, tvUserName, tvPopularPlayer, tvDate, tvTitleVideo, tvDesc, tvLike;
-    private View imgBack, imgMenu;
+    private View imgBack, imgMenu,rlShirt;
     private RoundedImageView ivVideo, ivRelated1, ivRelated2, ivRelated3, ivRelated4;
     private ImageView imgBookmark, imgLike;
     private int positionVideo, idVideoCategory;
@@ -90,6 +93,9 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             {
                 finish();
             });
+            rlShirt = findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class))
+            );
         } catch (Exception e)
         {
 

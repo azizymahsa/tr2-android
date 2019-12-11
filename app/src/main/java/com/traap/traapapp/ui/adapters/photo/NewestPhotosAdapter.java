@@ -25,20 +25,20 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
  */
 public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapter.ViewHolder>
 {
-    private NewestPhotosAdapter.OnItemTopListPhotoClickListener mItemClickListener;
+    private NewestPhotosAdapter.OnItemRelatedAlbumsClickListener mItemClickListener;
     private MainActionView mainView;
     private Context context;
     private ArrayList<Category> recent;
 
 
-    public NewestPhotosAdapter(ArrayList<Category> recent, MainActionView mainView, NewestPhotosAdapter.OnItemTopListPhotoClickListener mItemClickListener)
+    public NewestPhotosAdapter(ArrayList<Category> recent, MainActionView mainView, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener mItemClickListener)
     {
         this.recent = recent;
         this.mainView = mainView;
         this.mItemClickListener = mItemClickListener;
     }
 
-    public NewestPhotosAdapter(ArrayList<Category> recent)
+    public NewestPhotosAdapter(ArrayList<Category> recent,NewestPhotosAdapter.OnItemRelatedAlbumsClickListener mItemClickListener)
     {
         this.recent = recent;
         this.mItemClickListener = mItemClickListener;
@@ -68,7 +68,7 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
             public void onClick(View view)
             {
                 if (mItemClickListener != null)
-                    mItemClickListener.OnItemTopPhotoClick(view, recentItem);
+                    mItemClickListener.OnItemRelatedAlbumsClick(view, recentItem);
 
             }
         });
@@ -126,9 +126,9 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
         }
     }
 
-    public interface OnItemTopListPhotoClickListener
+    public interface OnItemRelatedAlbumsClickListener
     {
-        public void OnItemTopPhotoClick(View view, Category recentItem);
+        public void OnItemRelatedAlbumsClick(View view, Category recentItem);
     }
 
 }
