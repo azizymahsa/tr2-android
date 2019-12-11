@@ -37,7 +37,6 @@ import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
 import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumInteractor;
 import com.traap.traapapp.utilities.NationalCodeValidation;
 import com.traap.traapapp.utilities.Tools;
-import library.android.eniac.utility.Utility;
 
 public class CompeletInfoFragment
         extends Fragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener

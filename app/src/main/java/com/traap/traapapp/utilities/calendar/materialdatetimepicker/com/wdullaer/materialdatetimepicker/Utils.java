@@ -168,9 +168,9 @@ public class Utils {
      * @param current Default value to return if cannot resolve the attribute
      * @return true if dark mode, false if light.
      */
-    public static boolean isDarkTheme(Context context, boolean current) {
-        return resolveBoolean(context, R.attr.mdtp_theme_dark, current);
-    }
+//    public static boolean isDarkTheme(Context context, boolean current) {
+//        return resolveBoolean(context, R.attr.mdtp_theme_dark, current);
+//    }
 
     /**
      * Gets the required boolean value from the current context, if possible/available

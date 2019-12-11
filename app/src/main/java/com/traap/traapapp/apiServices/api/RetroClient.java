@@ -394,10 +394,10 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetUserPassResponse>>> getFlightUserPass();
 
 
-    @POST(Const.HotelSendMessage)
-    Single<Response<WebServiceClass<GlobalResponse>>> hotelSendMessage(
-            @Body HotelSendMessageRequest request
-    );
+//    @POST(Const.HotelSendMessage)
+//    Single<Response<WebServiceClass<GlobalResponse>>> hotelSendMessage(
+//            @Body HotelSendMessageRequest request
+//    );
 
     @POST(Const.HotelGetUserPass)
     Single<Response<WebServiceClass<GetUserPassResponse>>> getHotelUserPass();

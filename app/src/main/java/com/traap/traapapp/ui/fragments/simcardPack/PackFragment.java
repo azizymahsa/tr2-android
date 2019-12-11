@@ -74,7 +74,7 @@ import com.traap.traapapp.ui.fragments.simcardPack.imp.mci.PackageMciImpl;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.rightel.RightelPackImpl;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
-import library.android.eniac.utility.Utility;
+import com.traap.traapapp.utilities.Utility;
 
 /**
  * Created by Javad.Abadi on 7/14/2018.

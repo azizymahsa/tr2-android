@@ -36,7 +36,8 @@ import com.traap.traapapp.R;
  * A text view which, when pressed or activated, displays a colored circle around the text.
  */
 @SuppressLint("AppCompatCustomView")
-public class TextViewWithCircularIndicator extends TextView {
+public class TextViewWithCircularIndicator extends TextView
+{
 
     private static final int SELECTED_CIRCLE_ALPHA = 255;
     private final String mItemIsSelectedText;
@@ -44,7 +45,8 @@ public class TextViewWithCircularIndicator extends TextView {
     private int mCircleColor;
     private boolean mDrawCircle;
 
-    public TextViewWithCircularIndicator(Context context, AttributeSet attrs) {
+    public TextViewWithCircularIndicator(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
         mCircleColor = ContextCompat.getColor(context, R.color.gmdtp_accent_color);
         mItemIsSelectedText = context.getResources().getString(R.string.mdtp_item_is_selected);
@@ -52,13 +54,15 @@ public class TextViewWithCircularIndicator extends TextView {
         init();
     }
 
-    public static CharSequence getEnglishChar(CharSequence charSequence) {
+    public static CharSequence getEnglishChar(CharSequence charSequence)
+    {
         String number = String.valueOf(charSequence);
         return number.replace("۱", "1").replace("۲", "2").replace("۳", "3").replace("۴", "4").replace("۵", "5").replace("۶", "6").replace("۷", "7").replace("۸", "8").replace("۹", "9")
                 .replace("۰", "0");
     }
 
-    private void init() {
+    private void init()
+    {
         mCirclePaint.setFakeBoldText(true);
         mCirclePaint.setAntiAlias(true);
         mCirclePaint.setColor(mCircleColor);
@@ -67,7 +71,8 @@ public class TextViewWithCircularIndicator extends TextView {
         mCirclePaint.setAlpha(SELECTED_CIRCLE_ALPHA);
     }
 
-    public void setAccentColor(int color, boolean darkMode) {
+    public void setAccentColor(int color, boolean darkMode)
+    {
         mCircleColor = color;
         mCirclePaint.setColor(mCircleColor);
         setTextColor(createTextColor(color, darkMode));
@@ -75,11 +80,13 @@ public class TextViewWithCircularIndicator extends TextView {
 
     /**
      * Programmatically set the color state list (see mdtp_date_picker_year_selector)
+     *
      * @param accentColor pressed state text color
-     * @param darkMode current theme mode
+     * @param darkMode    current theme mode
      * @return ColorStateList with pressed state
      */
-    private ColorStateList createTextColor(int accentColor, boolean darkMode) {
+    private ColorStateList createTextColor(int accentColor, boolean darkMode)
+    {
         int[][] states = new int[][]{
                 new int[]{android.R.attr.state_pressed}, // pressed
                 new int[]{android.R.attr.state_selected}, // selected
@@ -93,13 +100,16 @@ public class TextViewWithCircularIndicator extends TextView {
         return new ColorStateList(states, colors);
     }
 
-    public void drawIndicator(boolean drawCircle) {
+    public void drawIndicator(boolean drawCircle)
+    {
         mDrawCircle = drawCircle;
     }
 
     @Override
-    public void onDraw(@NonNull Canvas canvas) {
-        if (mDrawCircle) {
+    public void onDraw(@NonNull Canvas canvas)
+    {
+        if (mDrawCircle)
+        {
             final int width = getWidth();
             final int height = getHeight();
             int radius = Math.min(width, height) / 2;
@@ -111,11 +121,14 @@ public class TextViewWithCircularIndicator extends TextView {
 
     @SuppressLint("GetContentDescriptionOverride")
     @Override
-    public CharSequence getContentDescription() {
+    public CharSequence getContentDescription()
+    {
         CharSequence itemText = getText();
-        if (mDrawCircle) {
+        if (mDrawCircle)
+        {
             return getEnglishChar(String.format(mItemIsSelectedText, itemText));
-        } else {
+        } else
+        {
             return getEnglishChar(itemText);
         }
     }

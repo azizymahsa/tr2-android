@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
 
@@ -17,8 +19,8 @@
 
             <item android:left="3dp" >
 
-                <bitmap android:gravity="center_vertical|start
-" android:src="@drawable/ic_arrow_down_36dp" />
+                <bitmap android:gravity="center_vertical|start"
+                    android:src="@drawable/ic_arrow_down_36dp" />
 
             </item>
 

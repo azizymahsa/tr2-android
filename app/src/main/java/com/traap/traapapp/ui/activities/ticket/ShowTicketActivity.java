@@ -177,21 +177,21 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
     private void setSelectedLayoutChecked()
     {
         ivCountTicket.setImageResource(R.drawable.select_step);
-        tvCountTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+        tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
         ivSelectPosition.setImageResource(R.drawable.select_step);
-        tvSelectPosition.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+        tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
 
         ivFullInfo.setImageResource(R.drawable.select_step);
-        tvFullInfo.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
         ivPrintTicket.setImageResource(R.drawable.select_step);
-        tvPrintTicket.setTextColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
-        vZeroToOne.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
-        vOneToTow.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
-        vTowToThree.setBackgroundColor(getResources().getColor(R.color.g_btn_gradient_lighter));
+        vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+        vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+        vTowToThree.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
     }
 
     @Override
