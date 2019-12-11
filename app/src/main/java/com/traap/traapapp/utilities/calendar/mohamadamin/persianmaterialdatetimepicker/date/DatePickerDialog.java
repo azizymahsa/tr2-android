@@ -77,7 +77,7 @@ public class DatePickerDialog extends DialogFragment implements
     private static final String KEY_SELECTABLE_DAYS = "selectable_days";
     private static final String KEY_THEME_DARK = "theme_dark";
 
-    private static final int DEFAULT_START_YEAR = 1350;
+    private static final int DEFAULT_START_YEAR = 1300;
     private static final int DEFAULT_END_YEAR = 1450;
 
     private static final int ANIMATION_DURATION = 300;

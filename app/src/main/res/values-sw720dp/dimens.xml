@@ -83,8 +83,8 @@
     <dimen name="mdtp_time_picker_height">500dip</dimen>
 
     <dimen name="mdtp_date_picker_component_width">440dp</dimen>
-    <dimen name="mdtp_selected_calendar_layout_height">250dp</dimen>
-    <dimen name="mdtp_selected_date_height">300dp</dimen>
+    <dimen name="mdtp_selected_calendar_layout_height">300dp</dimen>
+    <dimen name="mdtp_selected_date_height">330dp</dimen>
     <dimen name="mdtp_date_picker_view_animator_height">464dp</dimen>
 
     <dimen name="mdtp_month_list_item_header_height">102dp</dimen>
