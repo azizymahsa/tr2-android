@@ -48,6 +48,7 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletImpl;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletInteractor;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+import com.traap.traapapp.utilities.Utility;
 
 /**
  * Created by MahsaAzizi on 11/25/2019.
@@ -150,7 +151,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
             btnBack = rootView.findViewById(R.id.btnBack);
             btnBack.setOnClickListener(clickListener);
 
-            tvAmount = rootView.findViewById(R.id.tvAmount);
+            tvAmount = rootView.findViewById(R.id.tvAmountPay);
             tvTitlePay = rootView.findViewById(R.id.tvTitlePay);
             imgLogo = rootView.findViewById(R.id.imgLogo);
 
@@ -167,7 +168,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
 
     private void setContentData()
     {
-        tvAmount.setText(amount);
+        tvAmount.setText(Utility.priceFormat(amount));
         tvTitlePay.setText(title);
 
         if (imageDrawable == 0)

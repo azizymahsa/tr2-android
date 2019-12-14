@@ -1553,7 +1553,9 @@ public class PackFragment
         }
 
         //----------------------------new for payment fragment-----------------------
-        title = "با انجام این پرداخت ، مبلغ " + Utility.priceFormat(o.getAmount()) + " ریال بابت بسته " + o.getTitle() + " برای شماره " + mobile + " از حساب شما کسر خواهد شد.";
+        title = "با انجام این پرداخت ، مبلغ " +
+                Utility.priceFormat(o.getAmount()) + " ریال بابت بسته " +
+                o.getTitle() + " برای شماره " + mobile + "، از حساب شما کسر خواهد شد.";
 
         operatorType = getOperatorType(mobile);
 

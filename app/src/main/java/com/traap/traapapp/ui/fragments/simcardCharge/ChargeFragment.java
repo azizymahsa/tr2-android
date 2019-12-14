@@ -629,7 +629,7 @@ public class ChargeFragment extends BaseFragment
 
         //----------------------------new for payment fragment-----------------------
 
-        String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
+        String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + "، از حساب شما کسر خواهد شد.";
 
         //fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
@@ -887,7 +887,7 @@ public class ChargeFragment extends BaseFragment
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvTitle.setText("خرید بسته اینترنت");
+        tvTitle.setText("خرید شارژ");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         imgMenu.setOnClickListener(v ->
