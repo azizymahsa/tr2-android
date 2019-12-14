@@ -48,6 +48,7 @@ import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
 import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import com.traap.traapapp.apiServices.model.getTicketBuyEnable.GetTicketBuyEnableResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
@@ -59,6 +60,7 @@ import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
+import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
@@ -221,6 +223,9 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetTicketInfoResponse>>> getTicketInfo(
             @Body GetTicketInfoRequest request
     );
+
+    @GET(Const.GetTicketBuyEnable)
+    Single<Response<WebServiceClass<MatchItem>>> getTicketBuyEnable();
 
 
     @POST(Const.Verify)

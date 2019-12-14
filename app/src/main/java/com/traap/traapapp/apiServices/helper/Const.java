@@ -31,6 +31,7 @@ public class Const
     public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
     public final static String ReservationMatch = SubBASEURL + "v1/match/reservation/";
     public final static String GetTicketInfo = SubBASEURL + "v1/match/ticket_info/";
+    public final static String GetTicketBuyEnable = SubBASEURL + "v1/match/buy_enable/";
 
 
     //Mobile
