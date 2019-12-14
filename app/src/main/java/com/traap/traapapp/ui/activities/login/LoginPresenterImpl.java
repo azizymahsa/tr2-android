@@ -38,8 +38,11 @@ import com.traap.traapapp.notification.PushMessageReceiver;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.utilities.IMEI_Device;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
+
+import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
 
 
 /**
@@ -213,7 +216,17 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             public void onError(String message)
             {
                 loginView.hideLoading();
-                Tools.showToast(appContext, message, R.color.red);
+                if (!Tools.isNetworkAvailable((Activity) activityContext))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    Tools.showToast(appContext, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+
+                    // showError(appContext, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    showAlert(appContext, R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         }, request);
 
@@ -373,8 +386,19 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     @Override
     public void onError(String message)
     {
-        Tools.showToast(appContext, message, R.color.red);
+     //   Tools.showToast(appContext, message, R.color.red);
         loginView.hideLoading();
+        if (!Tools.isNetworkAvailable((Activity) activityContext))
+        {
+            Logger.e("-OnError-", "Error: " + message);
+            Tools.showToast(appContext, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+
+            // showError(appContext, "خطا در دریافت اطلاعات از سرور!");
+        }
+        else
+        {
+            showAlert(appContext, R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
 /*    @Override

@@ -697,7 +697,8 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+
+                Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
             }
             case 32: //  پارک حاشیه ای

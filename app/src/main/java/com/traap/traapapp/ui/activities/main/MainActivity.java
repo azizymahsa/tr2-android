@@ -59,6 +59,7 @@ import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.dbModels.BankDB;
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.notification.NotificationJobService;
 import com.traap.traapapp.notification.PushMessageReceiver;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -1006,6 +1007,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onBuyTicketClick(MatchItem matchBuyable)
     {
+
         showLoading();
         isMainFragment = false;
         this.fragment = BuyTicketsFragment.newInstance(this, matchBuyable);
@@ -1395,6 +1397,21 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "WebFragment")
                 .commit();
+    }
+
+    @Override
+    public void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile)
+    {
+
+        isMainFragment = false;
+        this.fragment = SelectPaymentGatewayFragment.newInstance(urlPayment, this, imageDrawable,
+                title, amount,paymentInstance,mobile);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "selectPaymentGatewayFragment")
+                .commit();
+
     }
 
     @Override

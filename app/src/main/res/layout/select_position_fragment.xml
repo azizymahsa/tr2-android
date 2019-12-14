@@ -298,7 +298,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="انتخاب جایگاه از لیست :"
+                android:text="انتخاب جایگاه از لیست:"
                 android:layout_marginBottom="@dimen/_10dp"
                 android:textColor="@color/warmGray"
                 android:textSize="@dimen/textSize_14dp"

@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -54,6 +55,7 @@ import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -98,6 +100,9 @@ public class ChargeFragment extends BaseFragment
     private String amount;
     private String mobile;
     private int imageDrawable=0;
+    private View mToolbar;
+    private TextView tvUserName;
+    private TextView tvHeaderPopularNo;
 
 
     public ChargeFragment()
@@ -624,7 +629,7 @@ public class ChargeFragment extends BaseFragment
 
         //----------------------------new for payment fragment-----------------------
 
-        String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
+        String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + "، از حساب شما کسر خواهد شد.";
 
         //fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
@@ -875,6 +880,16 @@ public class ChargeFragment extends BaseFragment
 
     private void initView()
     {
+        mToolbar = rootView.findViewById(R.id.toolbar);
+
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvTitle.setText("خرید شارژ");
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
         imgMenu.setOnClickListener(v ->
         {
             mainView.openDrawer();
@@ -906,6 +921,12 @@ public class ChargeFragment extends BaseFragment
         rbDirectMCN.setChecked(true);
         rbYoungMCN.setChecked(true);
         rbNormalChargeRightel.setChecked(true);
+
+        InputFilter[] filterArray = new InputFilter[1];
+        filterArray[0] = new InputFilter.LengthFilter(11);
+        etMobileCharge.setFilters(filterArray);
+        etMCINumber.setFilters(filterArray);
+        etMobileChargeRightel.setFilters(filterArray);
 
         initDefaultOperatorView();
 
@@ -1552,33 +1573,6 @@ public class ChargeFragment extends BaseFragment
        mainView.openChargePaymentFragment(urlPayment, imageDrawable,
                title, amount,paymentInstance,mobile);
 
-
-       /* (rootView.findViewById(R.id.container)).setVisibility(View.VISIBLE);
-        YoYo.with(Techniques.SlideInLeft)
-                .duration(200)
-                .playOn(rootView.findViewById(R.id.container));*/
-     /*   pFragment = SelectPaymentGatewayFragment.newInstance(urlPayment,mainView, amount, title, imageDrawable,
-                mobile, paymentInstance);
-
-//        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_ChargeSimCard,
-//                amount,
-////                "پرداخت شارژ سیمکارت " + chargeStr,
-//                title,
-//                imageDrawable,
-//                this,
-//                null,
-//                operatorType,
-//                simcardType,
-//                Integer.valueOf(chargeType)
-//                ,mobile);
-
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-
-        transaction
-                .replace(R.id.container, pFragment)
-                .commit();*/
     }
 
     @Override
@@ -1764,6 +1758,12 @@ public class ChargeFragment extends BaseFragment
 
     @Override
     public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    {
+
+    }
+
+    @Override
+    public void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile)
     {
 
     }

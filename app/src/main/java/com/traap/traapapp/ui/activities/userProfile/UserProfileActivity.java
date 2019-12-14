@@ -696,9 +696,17 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     public void onError(ANError anError)
                     {
                         sendPhotoFailure = true;
-                        Logger.e("-onError Photo1-", "Error: " + anError.getErrorDetail());
-                        Logger.e("-onError Photo2-", "Error: " + anError);
 
+                        if (Tools.isNetworkAvailable(UserProfileActivity.this))
+                        {
+                            Logger.e("-onError Photo1-", "Error: " + anError.getErrorDetail());
+                            Logger.e("-onError Photo2-", "Error: " + anError);
+
+                        }
+                        else
+                        {
+                            showAlert(UserProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                        }
                         finishSendData(anError + " ");
                     }
                 });
@@ -784,7 +792,15 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
 //            hideLoading();
             //Fail
-            showToast(UserProfileActivity.this, "خطا در ارسال اطلاعات.", R.color.red);
+            if (!Tools.isNetworkAvailable(this))
+            {
+                Logger.e("-PhotoFailor-", "Error: " + "PhotoFailor");
+                showError(this, "خطا در دریافت اطلاعات از سرور!");
+            }
+            else
+            {
+                showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+            }
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
         }
@@ -977,12 +993,22 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
                     @Override
                     public void onError()
-                    { }
+                    {
+
+                    }
                 });
             }
             catch (Exception e)
             {
-
+                if (!Tools.isNetworkAvailable(this))
+                {
+                    Logger.e("-OnError-", "Error: " + e.getMessage());
+                    showError(this, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+                }
             }
 
             spinnerGender.setSelection(response.data.getGender()-1);
@@ -999,7 +1025,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         else
         {
-            showError(this, response.info.message);
+           // showError(this, response.info.message);
+            if (!Tools.isNetworkAvailable(this))
+            {
+                Logger.e("-OnError-", "Error: " + response.info.message);
+                showError(this, "خطا در دریافت اطلاعات از سرور!");
+            }
+            else
+            {
+                showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+            }
         }
     }
 

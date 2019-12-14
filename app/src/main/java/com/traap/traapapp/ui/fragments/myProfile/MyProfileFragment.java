@@ -212,11 +212,29 @@ public class MyProfileFragment extends BaseFragment
 
                     } else
                     {
-                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                        if (!Tools.isNetworkAvailable(getActivity()))
+                        {
+                            Logger.e("-Faild-", "response.info.statusCode: " + response.info.statusCode);
+                            showError(getActivity(),"خطا در دریافت اطلاعات از سرور!");
+                        } else
+                        {
+                            // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+
+                            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                        }
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+                    if (!Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "response.info.statusCode: " + response.info.statusCode);
+                        showError(getActivity(),"خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
 
                 }
             }
@@ -235,7 +253,6 @@ public class MyProfileFragment extends BaseFragment
 
                     showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
                 }
-               // Tools.showToast(getActivity(), message, R.color.red);
             }
         });
     }
