@@ -7,83 +7,17 @@ import com.google.gson.annotations.SerializedName;
 public class PackageBuyResponse
 {
 
-    @SerializedName("ServiceMessage")
+    @SerializedName("url")
     @Expose
-    private ServiceMessage serviceMessage;
-    @SerializedName("TrnBizKey")
-    @Expose
-    private String trnBizKey;
-    @SerializedName("ResultCode")
-    @Expose
-    private String resultCode;
-    @SerializedName("ResponseMessage")
-    @Expose
-    private String responseMessage;
-    @SerializedName("GuidMciPackage")
-    @Expose
-    private String guidMciPackage;
-    @SerializedName("CreateDate")
-    @Expose
-    private String createDate;
+    private String url;
 
-    @SerializedName("RefNo")
-    @Expose
-    private String refNo;
-
-    public String getRefNo() {
-        return refNo;
+    public String getUrl()
+    {
+        return url;
     }
 
-    public void setRefNo(String refNo) {
-        this.refNo = refNo;
+    public void setUrl(String url)
+    {
+        this.url = url;
     }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public ServiceMessage getServiceMessage() {
-        return serviceMessage;
-    }
-
-    public void setServiceMessage(ServiceMessage serviceMessage) {
-        this.serviceMessage = serviceMessage;
-    }
-
-    public String getTrnBizKey() {
-        return trnBizKey;
-    }
-
-    public void setTrnBizKey(String trnBizKey) {
-        this.trnBizKey = trnBizKey;
-    }
-
-    public String getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public String getResponseMessage() {
-        return responseMessage;
-    }
-
-    public void setResponseMessage(String responseMessage) {
-        this.responseMessage = responseMessage;
-    }
-
-    public String getGuidMciPackage() {
-        return guidMciPackage;
-    }
-
-    public void setGuidMciPackage(String guidMciPackage) {
-        this.guidMciPackage = guidMciPackage;
-    }
-
 }

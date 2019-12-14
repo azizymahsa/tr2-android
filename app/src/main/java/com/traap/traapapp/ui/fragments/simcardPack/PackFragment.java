@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -61,6 +62,7 @@ import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPacka
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.Detail;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
+import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.pack.RightelPackModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
@@ -70,15 +72,20 @@ import com.traap.traapapp.ui.adapters.pack.DetailPackAdapter;
 import com.traap.traapapp.ui.adapters.pack.TitlePackAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentFragment;
 import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageImpl;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageInteractor;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.irancell.GetPackageIrancellImpl;
+import com.traap.traapapp.ui.fragments.simcardPack.imp.irancell.GetPackageIrancellInteractor;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.mci.PackageMciImpl;
+import com.traap.traapapp.ui.fragments.simcardPack.imp.mci.PackageMciInteractor;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.rightel.RightelPackImpl;
+import com.traap.traapapp.ui.fragments.simcardPack.imp.rightel.RightelPackInteractor;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 /**
@@ -91,7 +98,7 @@ public class PackFragment
         , RightelPackImpl.OnFinishedRightelPackListener,
         PackFragmentInteractor, DetailPackAdapter.GetPackInAdapter,
         PackageMciImpl.OnFinishedPackageMciListener, BuyPackageInteractor.OnFinishedBuyPackageListener, PaymentParentActionView,
-        GetPackageIrancellImpl.OnFinishedGetPackageIrancellListener, TextWatcher, AdapterView.OnItemSelectedListener
+        GetPackageIrancellImpl.OnFinishedGetPackageIrancellListener, TextWatcher, AdapterView.OnItemSelectedListener, PaymentActionView
 {
 
 
@@ -106,6 +113,12 @@ public class PackFragment
     private static int OPERATOR_TYPE_RIGHTEL = 3;
 
     private MainActionView mainView;
+    private BuyPackageImpl buyPackageImpl;
+    private SimPackPaymentInstance paymentInstance;
+    private int imageDrawable=0;
+    private String title;
+    private TextView tvUserName;
+    private TextView tvHeaderPopularNo;
 
     public PackFragment()
     {
@@ -128,11 +141,8 @@ public class PackFragment
     private LinearLayoutManager layoutManager;
     private boolean isMci = true, isMtn = false, isRightel = false, isHappy, isInitView = true;
     private RightelPackImpl rightelPack;
-    private BuyPackageImpl mciBuyPackage;
-    private BuyPackageImpl rightelPackageBuy;
     private PackageMciImpl packageMci;
     private GetPackageIrancellImpl getPackageIrancell;
-    private BuyPackageImpl irancellPackageBuy;
     private String bundleId, requestId, cardNumber, cardName, amount, packageType, filterType = "", cardNumberCheck, ccv2;
     private int profileType, amountType, operatorType;
     private List<RightelPackModel> irancellPack = new ArrayList<>();
@@ -143,8 +153,6 @@ public class PackFragment
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    @BindView(R.id.tvUserName)
-    TextView tvUserName;
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
@@ -238,6 +246,8 @@ public class PackFragment
     LinearLayout llDetailDescription;
     @BindView(R.id.llDetailDescriptionRightel)
     LinearLayout llDetailDescriptionRightel;
+    @BindView(R.id.llDetailDescriptionMci)
+    LinearLayout llDetailDescriptionMci;
     @BindView(R.id.llDescriptionSelectPackRightel)
     LinearLayout llDescriptionSelectPackRightel;
     @BindView(R.id.btnMCIPackConfirm)
@@ -391,7 +401,7 @@ public class PackFragment
             mainView.onInternetAlert();
             return;
         }
-        transactionsRequest();
+     //   transactionsRequest();
     }
 
     @OnClick(R.id.btnMciRecent)
@@ -402,7 +412,7 @@ public class PackFragment
             mainView.onInternetAlert();
             return;
         }
-        transactionsRequest();
+       // transactionsRequest();
     }
 
     @OnClick(R.id.btnRightelRecent)
@@ -414,7 +424,7 @@ public class PackFragment
             return;
 
         }
-        transactionsRequest();
+        //transactionsRequest();
 
     }
 
@@ -469,6 +479,7 @@ public class PackFragment
     void setMciPack()
     {
 //        mainView.needExpanded(false);
+        llDetailDescriptionMci.setVisibility(View.VISIBLE);
         tvPackTitle.setText("خرید بسته اینترنت " + "همراه اول");
         tvPackTitle.setTextSize(18);
 
@@ -523,6 +534,8 @@ public class PackFragment
     void hamraheAval()
     {
 //        mainView.needExpanded(false);
+        llDetailDescriptionMci.setVisibility(View.VISIBLE);
+
         tvPackTitle.setText("خرید بسته اینترنت " + "همراه اول");
         tvPackTitle.setTextSize(18);
 
@@ -659,54 +672,6 @@ public class PackFragment
 
     }
 
-//    @Override
-//    public void cardModel(ArchiveCardDBModel archiveCardDBModels)
-//    {
-//        try
-//        {
-//            this.cardNumber = archiveCardDBModels.getNumber();
-//            this.cardName = archiveCardDBModels.getfullName();
-//            this.archiveCardDBModels = archiveCardDBModels;
-//            if (archiveCardDBModels.getPic() == 100)
-//                return;
-//            cardNumberCheck = archiveCardDBModels.getNumber().substring(0, 6);
-//
-//            if (v != null)
-//                if (!cardNumberCheck.equals("003725"))
-//                {
-//
-//                    llCvv2.setVisibility(View.VISIBLE);
-//                    YoYo.with(Techniques.SlideInLeft)
-//                            .duration(200)
-//                            .playOn(llCvv2);
-//
-//
-//                } else
-//                {
-//
-//                    YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
-//                    {
-//                        @Override
-//                        public void onAnimationEnd(Animator animation)
-//                        {
-//                            super.onAnimationEnd(animation);
-//                            llCvv2.setVisibility(View.GONE);
-//
-//                        }
-//                    })
-//                            .duration(200)
-//                            .playOn(llCvv2);
-//
-//                }
-//        } catch (Exception e)
-//        {
-//            mainView.onError(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
-//
-//
-//        }
-//
-//    }
-
     @OnClick(R.id.btnBackToCharge)
     void setBtnBackToCharge()
     {
@@ -841,7 +806,7 @@ public class PackFragment
 
         }
 
-
+        llDetailDescriptionMci.setVisibility(View.GONE);
         btnMCIPackConfirm.startAnimation();
         btnMCIPackConfirm.setClickable(false);
         packageMci.findPackageMciDataRequest(this, etMCINumber.getText().toString());
@@ -866,11 +831,9 @@ public class PackFragment
         v = inflater.inflate(R.layout.fragment_pack, container, false);
         //((TextView) v.findViewById(R.id.tvTitle)).setText("خرید بسته اینترنت");
         rightelPack = new RightelPackImpl();
-        rightelPackageBuy = new BuyPackageImpl();
         packageMci = new PackageMciImpl();
-        mciBuyPackage = new BuyPackageImpl();
         getPackageIrancell = new GetPackageIrancellImpl();
-        irancellPackageBuy = new BuyPackageImpl();
+        buyPackageImpl = new BuyPackageImpl();
         return v;
     }
 
@@ -1072,6 +1035,15 @@ public class PackFragment
 
     private void initView()
     {
+        mToolbar = v.findViewById(R.id.toolbar);
+
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        tvUserName = mToolbar.findViewById(R.id.tvUserName);
+        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
+        tvTitle.setText("خرید بسته اینترنت");
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         tvPackTitle.setTextSize(18);
         btnChargeConfirm.setText("ادامه");
@@ -1082,6 +1054,12 @@ public class PackFragment
         tipCvv2.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
 
         //initDefaultOperatorView();
+
+        InputFilter[] filterArray = new InputFilter[1];
+        filterArray[0] = new InputFilter.LengthFilter(11);
+        etMobileCharge.setFilters(filterArray);
+        etMCINumber.setFilters(filterArray);
+        etMobileChargeRightel.setFilters(filterArray);
 
         rbAll.setOnCheckedChangeListener(this);
         rbCredit.setOnCheckedChangeListener(this);
@@ -1524,7 +1502,7 @@ public class PackFragment
     @Override
     public void getPackRightel(Detail o)
     {
-        int imageDrawable = 0;
+        imageDrawable = 0;
 
 //        mainView.needExpanded(true);
        /* llPassCharge.setVisibility(View.VISIBLE);
@@ -1550,7 +1528,7 @@ public class PackFragment
         if (isMci)
         {
             imageDrawable = R.drawable.hamrahe_aval;
-            llMCICharge.setVisibility(View.GONE);
+           // llMCICharge.setVisibility(View.GONE);
             profileType = Integer.valueOf(o.getProfileId());
             mobile = etMCINumber.getText().toString();
 
@@ -1559,7 +1537,7 @@ public class PackFragment
         if (isRightel)
         {
             imageDrawable = R.drawable.rightel;
-            llRightelCharge.setVisibility(View.GONE);
+         //   llRightelCharge.setVisibility(View.GONE);
             profileType = Integer.valueOf(o.getProfileId());
             mobile = etMobileChargeRightel.getText().toString();
 
@@ -1567,7 +1545,7 @@ public class PackFragment
         if (isMtn)
         {
             imageDrawable = R.drawable.irancell;
-            llMTNCharge.setVisibility(View.GONE);
+          //  llMTNCharge.setVisibility(View.GONE);
             profileType = o.getProfileId();
             mobile = etMobileCharge.getText().toString();
 
@@ -1575,26 +1553,20 @@ public class PackFragment
         }
 
         //----------------------------new for payment fragment-----------------------
-        contentView.setVisibility(View.GONE);
+        title = "با انجام این پرداخت ، مبلغ " +
+                Utility.priceFormat(o.getAmount()) + " ریال بابت بسته " +
+                o.getTitle() + " برای شماره " + mobile + "، از حساب شما کسر خواهد شد.";
 
-        String title = "با انجام این پرداخت ، مبلغ " + Utility.priceFormat(o.getAmount()) + " ریال بابت " + o.getTitle() + " برای شماره" + mobile + " از حساب شما کسر خواهد شد.";
-
-        fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
 
-        SimPackPaymentInstance paymentInstance = new SimPackPaymentInstance();
+        paymentInstance = new SimPackPaymentInstance();
         paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_PackSimCard);
         paymentInstance.setOperatorType(operatorType);
         paymentInstance.setProfileId(o.getProfileId());
         paymentInstance.setRequestId(requestId);
         paymentInstance.setTitlePackageType(o.getTitlePackageType());
 
-        pFragment = PaymentFragment.newInstance(this,
-                Utility.priceFormat(o.getAmount()),
-                title,
-                imageDrawable,
-                mobile,
-                paymentInstance);
+        getUrlPackagePayment(amount,paymentInstance,mobile);
 
 //        pFragment = PaymentFragment.newInstance(TrapConfig.PAYMENT_STAUS_PackSimCard,this,
 //                Utility.priceFormat(o.getAmount()),
@@ -1606,63 +1578,18 @@ public class PackFragment
 //                requestId,
 //                mobile);
 
-        transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-        if (transaction.isEmpty())
-        {
-            transaction
-                    .replace(R.id.container, pFragment)
-                    .commit();
-        } else
-        {
-            if (v.findViewById(R.id.container).getVisibility() == View.GONE)
-            {
-                transaction.show(pFragment);
-            } else
-            {
-                transaction.replace(R.id.container, pFragment)
-                        .commit();
-            }
-        }
-
-        ((TextView) v.findViewById(R.id.tvTitle)).setText("پرداخت");
-
-        YoYo.with(Techniques.SlideOutRight).withListener(new AnimatorListenerAdapter()
-        {
-            @Override
-            public void onAnimationEnd(Animator animation)
-            {
-                super.onAnimationEnd(animation);
-                contentView.setVisibility(View.GONE);
-
-            }
-        }).duration(200)
-                .playOn(llCvv2);
-
-        (v.findViewById(R.id.container)).setVisibility(View.VISIBLE);
-        YoYo.with(Techniques.SlideInLeft)
-                .duration(200)
-                .playOn(v.findViewById(R.id.container));
 
         //----------------------------new for payment fragment-----------------------
 
 
-//        if (archiveCardDBModels.isPackSe())
-//        {
-//            try
-//            {
-//                etPassCharge.setText(AESCrypt.decrypt(Prefs.getString(SingletonDiba.getInstance().getPASS_KEY(), ""), archiveCardDBModels.getPassSe()));
-//                setBtnBuyCharge();
-//            } catch (GeneralSecurityException e)
-//            {
-//                e.printStackTrace();
-//            }
-//
-//
-//        }
+    }
 
-
+    private void getUrlPackagePayment(String amount, SimPackPaymentInstance paymentInstance, String mobile)
+    {
+        buyPackageImpl.findBuyPackageDataRequest(this,paymentInstance.getRequestId()
+                ,paymentInstance.getOperatorType(),paymentInstance.getTitlePackageType(),paymentInstance.getProfileId(),mobile,amount);
     }
 
 
@@ -1942,152 +1869,6 @@ public class PackFragment
         btnChargeConfirm.setClickable(true);
     }
 
-//    @Override
-//    public void onFinishedIrancellPackageBuy(IrancellPackageBuyResponse response)
-//    {
-//        // initDefaultOperatorView();
-//        etPassCharge.setText("");
-//        etCvv2.setText("");
-//        btnBuyCharge.revertAnimation(this);
-//        btnBuyCharge.setClickable(true);
-//        if (response.getServiceMessage().getCode() == 200)
-//        {
-//            ResultBuyCharge charge = new ResultBuyCharge(getActivity(), response.getCreateDate(),
-//                    response.getTrnBizKey() + "", cardNumber, cardName, Utility.priceFormat(amount), true, archiveCardDBModels.getCardImage(),
-//                    archiveCardDBModels.getCardNumberColor(), etMobileCharge.getText().toString(), tvPackTitle.getText().toString(), response.getRefNo());
-//            charge.show(getActivity().getFragmentManager(), "packageResult");
-//
-//        } else
-//        {
-//            mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
-//        }
-//    }
-
-//    @Override
-//    public void onErrorIrancellPackageBuy(String error)
-//    {
-//        //initDefaultOperatorView();
-//
-//        etPassCharge.setText("");
-//        etCvv2.setText("");
-//        btnBuyCharge.revertAnimation(this);
-//        btnBuyCharge.setClickable(true);
-//        mainView.onError(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
-//    }
-
-    private void transactionsRequest()
-    {
-//        List<Transaction> transactions = new ArrayList<>();
-//        if (isMtn)
-//        {
-//            btnIrancellRecent.startAnimation();
-//            btnIrancellRecent.setClickable(false);
-//        }
-//        if (isMci)
-//        {
-//            btnMciRecent.startAnimation();
-//            btnMciRecent.setClickable(false);
-//        }
-//        if (isRightel)
-//        {
-//            btnRightelRecent.startAnimation();
-//            btnRightelRecent.setClickable(false);
-//        }
-//
-//
-//        GetHistoryTransactionsRequest request = new GetHistoryTransactionsRequest();
-//        request.setTypeTransaction(4);
-//        request.setUserId(Prefs.getInt("userId", 0));
-//        SingletonService.getInstance().getHistoryTransactionsService().GetHistoryTransactionsService(new OnServiceStatus<GetHistoryTransactionsResponse>()
-//        {
-//            @Override
-//            public void onReady(GetHistoryTransactionsResponse response)
-//            {
-//
-//
-//                btnIrancellRecent.revertAnimation(PackFragment.this);
-//                btnIrancellRecent.setClickable(true);
-//
-//                btnMciRecent.revertAnimation(PackFragment.this);
-//                btnMciRecent.setClickable(true);
-//
-//                btnRightelRecent.revertAnimation(PackFragment.this);
-//                btnRightelRecent.setClickable(true);
-//
-//                try
-//                {
-//                    if (response.getServiceMessage().getCode() == 200)
-//                    {
-//                        transactions.clear();
-//
-//
-//                        if (isMtn)
-//                        {
-//
-//                            for (int i = 0; i < response.getTransactions().size(); i++)
-//                            {
-//                                if (response.getTransactions().get(i).getInternetPackageVm().getTypeOperatorId() == 1)
-//                                    transactions.add(response.getTransactions().get(i));
-//
-//                            }
-//
-//
-//                        }
-//                        if (isMci)
-//                        {
-//                            for (int i = 0; i < response.getTransactions().size(); i++)
-//                            {
-//                                if (response.getTransactions().get(i).getInternetPackageVm().getTypeOperatorId() == 2)
-//                                    transactions.add(response.getTransactions().get(i));
-//
-//                            }
-//
-//
-//                        }
-//                        if (isRightel)
-//                        {
-//                            for (int i = 0; i < response.getTransactions().size(); i++)
-//                            {
-//                                if (response.getTransactions().get(i).getInternetPackageVm().getTypeOperatorId() == 3)
-//                                    transactions.add(response.getTransactions().get(i));
-//
-//                            }
-//
-//
-//                        }
-//                        mainView.transactionsExpand(transactions);
-//
-//
-//                    } else
-//                    {
-//                        mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
-//
-//                    }
-//
-//                } catch (Exception e)
-//                {
-//                    mainView.onError(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
-//                }
-//            }
-//
-//            @Override
-//            public void onError(String message)
-//            {
-//                mainView.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
-//                btnIrancellRecent.revertAnimation(PackFragment.this);
-//                btnIrancellRecent.setClickable(true);
-//                btnMciRecent.revertAnimation(PackFragment.this);
-//                btnMciRecent.setClickable(true);
-//                btnRightelRecent.revertAnimation(PackFragment.this);
-//                btnRightelRecent.setClickable(true);
-//
-//
-//            }
-//        }, request);
-
-
-    }
-
 
     @Override
     public void onStart()
@@ -2254,6 +2035,78 @@ public class PackFragment
 
     @Override
     public void startAddCardActivity()
+    {
+
+    }
+
+    @Override
+    public void onPaymentGDSFlight()
+    {
+
+    }
+
+    @Override
+    public void onPaymentGDSHotel()
+    {
+
+    }
+
+    @Override
+    public void onPaymentGDSBus()
+    {
+
+    }
+
+    @Override
+    public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
+    {
+
+    }
+
+    @Override
+    public void onErrorCharge(String message)
+    {
+
+    }
+
+    @Override
+    public void onPaymentPackSimCard(PackageBuyResponse response, String mobile)
+    {
+
+        String urlPayment = response.getUrl();
+
+        mainView.showLoading();
+        mainView.openPackPaymentFragment(urlPayment, imageDrawable,
+                title, amount,paymentInstance,mobile);
+    }
+
+    @Override
+    public void onErrorPackSimcard(String message)
+    {
+        Tools.showToast(getContext(),message,R.color.red);
+
+    }
+
+    @Override
+    public void onPaymentTransferMoney()
+    {
+
+    }
+
+    @Override
+    public void onPaymentWithoutCard()
+    {
+
+    }
+
+    @Override
+    public void onPaymentBill()
+    {
+
+    }
+
+    @Override
+    public void onPaymentTicket()
     {
 
     }

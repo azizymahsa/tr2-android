@@ -59,6 +59,7 @@ import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.dbModels.ArchiveCardDBModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.MyBillsAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -1376,6 +1377,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     @Override
     public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    {
+
+    }
+
+    @Override
+    public void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile)
     {
 
     }

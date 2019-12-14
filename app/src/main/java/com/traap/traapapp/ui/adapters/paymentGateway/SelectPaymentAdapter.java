@@ -75,7 +75,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     }
 
 
-    public SelectPaymentAdapter(FragmentManager fragmentManager, int tabCount, MainActionView mainView, String amount, String title, int imageDrawable, String mobile, String url, SimChargePaymentInstance simChargePaymentInstance)
+    public SelectPaymentAdapter(FragmentManager fragmentManager, int tabCount, MainActionView mainView, String amount, String title, int imageDrawable, String mobile, String url, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance)
     {
         super(fragmentManager);
         this.url = url;
@@ -86,6 +86,8 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         this.imageDrawable = imageDrawable;
         this.mobile = mobile;
         this.simChargePaymentInstance = simChargePaymentInstance;
+        this.simPackPaymentInstance=simPackPaymentInstance;
+
     }
 
 
@@ -95,7 +97,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         switch (position)
         {
             case 2:
-                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(mainActionView,imageDrawable, simChargePaymentInstance,amount,mobile,title );
+                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(mainActionView,imageDrawable, simChargePaymentInstance,amount,mobile,title ,simPackPaymentInstance);
 
                 return tab2;
             case 0:
