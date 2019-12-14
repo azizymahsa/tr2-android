@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputFilter;
@@ -56,6 +57,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+import com.traap.traapapp.BuildConfig;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.helper.Const;
@@ -98,6 +100,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture;
     private ImageView imgProfile, imgBirthdayReset;
+
+    private Boolean isImageFileExist = false;
 
     private HeaderModel headerModel;
 
@@ -489,17 +493,26 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             try
             {
-                part = PrepareImageFilePart.prepareFilePart(userPic.getName(), userPic);
+
+//                part = PrepareImageFilePart.prepareFilePart(userPic.getName(), userPic);
 //                part = PrepareImageFilePart.prepareFilePart("photo", userPic);
 //                part = MultipartBody.Part.createFormData("photo", userPic.getName(),
 //                        RequestBody.create(MediaType.parse("image/*"), userPic));
-                sendProfilePhoto();
+                if (isImageFileExist)
+                {
+                    isImageFileExist = false;
+                    sendProfilePhoto();
+                }
+                else
+                {
+                    sendPhotoSuccess = true;
+                }
             }
             catch (Exception e)
             {
                 sendPhotoSuccess = true;
                 Logger.e("-Exception Photo-", e.getMessage());
-                part = null;
+//                part = null;
             }
 
             SendProfileRequest request = new SendProfileRequest();
@@ -513,8 +526,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             request.setPopularPlayer(12);
             request.setEmail(etEmail.getText().toString().trim());
             request.setNickName(etNickName.getText().toString().trim());
-            request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ? null :
-                    getGrgDate(tvBirthDay.getText().toString().trim()));
+//            request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ? "" :
+//                    getGrgDate(tvBirthDay.getText().toString().trim()));
+            request.setBirthday(tvBirthDay.getText().toString().trim().replace("/", "-"));
 
             request.setGender(spinnerGender.getSelectedItemPosition()+1);
 
@@ -528,7 +542,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             {
                                 showError(UserProfileActivity.this, response.info.message);
                                 sendProfileFailure = true;
-                                finishSendData();
+                                finishSendData("");
                             }
                             else
                             {
@@ -572,7 +586,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
 
                                 sendProfileSuccess = true;
-                                finishSendData();
+                                finishSendData("");
                             }
                         }
 
@@ -580,7 +594,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         public void onError(String message)
                         {
                             sendProfileFailure = true;
-                            finishSendData();
+                            finishSendData("");
                             if (Tools.isNetworkAvailable(UserProfileActivity.this))
                             {
                                 Logger.e("-OnError-", "Error: " + message);
@@ -667,7 +681,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 Prefs.putString("profileImage", imageURL);
 //
                                 sendPhotoSuccess = true;
-                                finishSendData();
+                                finishSendData("");
                             }
                         }
                         catch (JSONException e)
@@ -675,7 +689,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             e.printStackTrace();
                         }
                         sendPhotoSuccess = true;
-                        finishSendData();
+                        finishSendData("");
                     }
 
                     @Override
@@ -685,7 +699,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         Logger.e("-onError Photo1-", "Error: " + anError.getErrorDetail());
                         Logger.e("-onError Photo2-", "Error: " + anError);
 
-                        finishSendData();
+                        finishSendData(anError + " ");
                     }
                 });
         //---------------------new FAN--------------------------
@@ -753,7 +767,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //        }
     }
 
-    private void finishSendData()
+    private void finishSendData(String photoErrorMessage)
     {
         if (sendPhotoSuccess && sendProfileSuccess)
         {
@@ -773,6 +787,17 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             showToast(UserProfileActivity.this, "خطا در ارسال اطلاعات.", R.color.red);
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
+        }
+        else if (sendPhotoFailure && sendProfileSuccess)
+        {
+            btnConfirm.revertAnimation();
+            btnConfirm.setClickable(true);
+            String message = "اطلاعات شما با موفقیت ارسال گردید" + "\n" + "اما" + "\n" + "ارسال عکس ناموفق بود.";
+            if (BuildConfig.DEBUG)
+            {
+                message = message + "\n" + photoErrorMessage;
+            }
+            showAlert(UserProfileActivity.this, message, R.string.error, false);
         }
 //        else
 //        {
@@ -844,6 +869,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK)
             {
+                isImageFileExist = true;
                 imageUri = result.getUri();
                 imgProfile.setImageBitmap(BitmapFactory.decodeFile(imageUri.getPath()));
                 saveImage(BitmapFactory.decodeFile(imageUri.getPath()));
@@ -914,6 +940,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 {
 //                    tvBirthDay.setText(getPersianDate(response.data.getBirthday()));
                     tvBirthDay.setText(response.data.getBirthday().replace("-", "/"));
+                    imgBirthdayReset.setVisibility(View.VISIBLE);
                 }
             }
             catch (Exception e)
@@ -990,35 +1017,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
     }
 
-//    @Override
-//    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
-//    {
-//        if (view.getTag().equals("CreateDate"))
-//        {
-//            PersianCalendar calendar = new PersianCalendar();
-//            calendar.set(year, monthOfYear, dayOfMonth);
-////            pickerDialogDate.setPersianCalendar(calendar);
-////            pickerDialogDate.setMaxDate(currentDate);
-//
-////            String createDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-//            String createDate = year + "/" + dayOfMonth + "/" + (monthOfYear + 1);
-////            viewModel.updateTvCreateDate(createDate);
-//            tvBirthDay.setText(createDate);
-//            imgBirthdayReset.setVisibility(View.VISIBLE);
-//
-////            this.year = year;
-////            this.month = monthOfYear;
-////            this.day = dayOfMonth;
-//
-////            PersianCalendar calendar1 = new PersianCalendar();
-////            PersianCalendar calendar2 = new PersianCalendar();
-////            calendar1.set(year, monthOfYear, dayOfMonth);
-//
-////            pickerDialogDate.setPersianCalendar(calendar1);
-//
-//
-//        }
-//    }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
@@ -1027,26 +1025,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
-//            pickerDialogDate.setPersianCalendar(calendar);
-//            pickerDialogDate.setMaxDate(currentDate);
 
             String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
-//            String createDate = year + "/" + dayOfMonth + "/" + (monthOfYear + 1);
-//            viewModel.updateTvCreateDate(createDate);
             tvBirthDay.setText(createDate);
             imgBirthdayReset.setVisibility(View.VISIBLE);
-
-//            this.year = year;
-//            this.month = monthOfYear;
-//            this.day = dayOfMonth;
-
-//            PersianCalendar calendar1 = new PersianCalendar();
-//            PersianCalendar calendar2 = new PersianCalendar();
-//            calendar1.set(year, monthOfYear, dayOfMonth);
-
-//            pickerDialogDate.setPersianCalendar(calendar1);
-
-
         }
     }
 }

@@ -50,6 +50,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.ui.activities.photo.ShowBigPhotoActivity;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.activities.web.WebActivity;
 import com.traap.traapapp.ui.adapters.allMenu.AllMenuServiceModelAdapter;
@@ -59,6 +60,7 @@ import com.traap.traapapp.ui.adapters.allMenu.ItemRecyclerViewAdapter;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.onConfirmUserPassGDS;
 import com.traap.traapapp.ui.fragments.webView.WebFragment;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
@@ -309,10 +311,19 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     @Override
     public void onError(String message)
     {
-        mainView.showError(message);
+       // mainView.showError(message);
 
         mainView.hideLoading();
+        if (!Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + message);
+            showError( getActivity(),"خطا در دریافت اطلاعات از سرور!");
+        } else
+        {
+            // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
 

@@ -83,6 +83,8 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         tvTitle.setText("جزئیات خبر");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
+        mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class)));
+
         rlNextNews = findViewById(R.id.rlNextNews);
         rlPrevNews = findViewById(R.id.rlPrevNews);
 

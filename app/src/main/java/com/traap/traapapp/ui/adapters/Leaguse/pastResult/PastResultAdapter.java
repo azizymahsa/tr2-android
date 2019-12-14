@@ -121,6 +121,7 @@ public class PastResultAdapter extends RecyclerView.Adapter<PastResultAdapter.Vi
                 public void onError()
                 {
                     //holder.progressBar.setVisibility(View.GONE);
+
                     Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.ivNameHome);
                 }
             });

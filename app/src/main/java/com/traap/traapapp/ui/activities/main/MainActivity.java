@@ -425,10 +425,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             else if (fragment instanceof BuyTicketsFragment && ((BuyTicketsFragment) fragment).getViewpager().getCurrentItem() != 0)
             {
-
                 ((BuyTicketsFragment) fragment).onBackClicked();
-
-            } else
+            }
+            else
             {
                 if (isMainFragment)
                 {
@@ -454,7 +453,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                                am.killBackgroundProcesses(getPackageName());
 //                                android.os.Process.killProcess(android.os.Process.myPid());
 //
-//                                System.exit(1);
+                                System.exit(0);
                             }
                         }
 

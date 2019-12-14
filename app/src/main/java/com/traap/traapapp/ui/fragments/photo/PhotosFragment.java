@@ -45,6 +45,7 @@ import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
 import com.traap.traapapp.ui.adapters.photo.PhotosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 /**
@@ -173,7 +174,15 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             public void onError(String message)
             {
                 mainView.hideLoading();
-                Tools.showToast(getActivity(), message, R.color.red);
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+                //  Tools.showToast(getActivity(), message, R.color.red);
             }
         }, request);
     }
@@ -200,10 +209,10 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             {
                /* if (favoriteList.size()>4)
                 {*/
-                    setImageBackground(ivFavorite1, favoriteList.get(0).getCover().replace("\\", ""));
-                    setImageBackground(ivFavorite2, favoriteList.get(1).getCover().replace("\\", ""));
-                    setImageBackground(ivFavorite3, favoriteList.get(2).getCover().replace("\\", ""));
-               // }
+                setImageBackground(ivFavorite1, favoriteList.get(0).getCover().replace("\\", ""));
+                setImageBackground(ivFavorite2, favoriteList.get(1).getCover().replace("\\", ""));
+                setImageBackground(ivFavorite3, favoriteList.get(2).getCover().replace("\\", ""));
+                // }
             } catch (Exception e)
             {
                 Log.d("Favorit:", e.getMessage());
@@ -285,7 +294,15 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             public void onError(String message)
             {
                 mainView.hideLoading();
-                Tools.showToast(getActivity(), message, R.color.red);
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+                //  Tools.showToast(getActivity(), message, R.color.red);
             }
         });
     }
@@ -297,40 +314,78 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         {
 
             case R.id.ivFavorite1:
-                categoriesList = mainVideosResponse.getFavorites();
-                position = 0;
-                idVideo = mainVideosResponse.getFavorites().get(position).getId();//getCategoryId();
-                id = mainVideosResponse.getFavorites().get(position).getId();
-                openAlbumDetail(categoriesList, position, idVideo, id);
+                if (mainVideosResponse != null)
+                {
+                    categoriesList = mainVideosResponse.getFavorites();
+                    position = 0;
+                    idVideo = mainVideosResponse.getFavorites().get(position).getId();//getCategoryId();
+                    id = mainVideosResponse.getFavorites().get(position).getId();
+                    openAlbumDetail(categoriesList, position, idVideo, id);
+                }
                 break;
 
             case R.id.ivFavorite2:
-                categoriesList = mainVideosResponse.getFavorites();
-                position = 1;
-                idVideo = mainVideosResponse.getFavorites().get(position).getId();//getCategoryId();
-                id = mainVideosResponse.getFavorites().get(position).getId();
-                openAlbumDetail(categoriesList, position, idVideo, id);
+                if (mainVideosResponse != null)
+                {
+                    categoriesList = mainVideosResponse.getFavorites();
+                    position = 1;
+                    idVideo = mainVideosResponse.getFavorites().get(position).getId();//getCategoryId();
+                    id = mainVideosResponse.getFavorites().get(position).getId();
+                    openAlbumDetail(categoriesList, position, idVideo, id);
+                }
                 break;
 
             case R.id.ivFavorite3:
-                categoriesList = mainVideosResponse.getFavorites();
-                position = 2;
-                idVideo = mainVideosResponse.getFavorites().get(position).getCategoryId();
-                id = mainVideosResponse.getFavorites().get(position).getId();
-                openAlbumDetail(categoriesList, position, idVideo, id);
+                if (mainVideosResponse != null)
+                {
+                    categoriesList = mainVideosResponse.getFavorites();
+                    position = 2;
+                    idVideo = mainVideosResponse.getFavorites().get(position).getCategoryId();
+                    id = mainVideosResponse.getFavorites().get(position).getId();
+                    openAlbumDetail(categoriesList, position, idVideo, id);
+                }
                 break;
             case R.id.tvArchiveVideo:
-                ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
-                Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
-                intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
-                intent.putExtra("FLAG_Favorite", false);
+                try
+                {
+                    ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
+                    Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
+                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
+                    intent.putExtra("FLAG_Favorite", false);
 
-                startActivity(intent);
+                    startActivity(intent);
+
+                } catch (Exception e)
+                {
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + e.getMessage());
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                }
+
                 break;
             case R.id.tvMyFavoritePhoto:
-                Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
-                intent1.putExtra("FLAG_Favorite", true);
-                startActivity(intent1);
+                try
+                {
+                    Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
+                    intent1.putExtra("FLAG_Favorite", true);
+                    startActivity(intent1);
+                } catch (Exception e)
+                {
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + e.getMessage());
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                }
+
                 break;
         }
     }
