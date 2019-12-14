@@ -158,7 +158,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>
         public void OnItemAllMenuClick(View view, Integer id);
     }
 
-//    public void SetOnItemClickListener(final OnItemAllMenuClickListener mItemClickListener)
+//    public void SetOnItemCheckedChangeListener(final OnItemAllMenuClickListener mItemClickListener)
 //    {
 //        this.mItemClickListener = mItemClickListener;
 //    }

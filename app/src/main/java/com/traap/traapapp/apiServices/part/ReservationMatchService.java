@@ -3,6 +3,8 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getTicketBuyEnable.GetTicketBuyEnableResponse;
+import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
 
@@ -26,6 +28,11 @@ public class ReservationMatchService extends BasePart
     public void reservationMatchService(OnServiceStatus<WebServiceClass<ReservationResponse>> listener, ReservationRequest request)
     {
         start(getServiceGenerator().createService().reservTicket(request), listener);
+    }
+
+    public void getTicketBuyEnableService(OnServiceStatus<WebServiceClass<MatchItem>> listener)
+    {
+        start(getServiceGenerator().createService().getTicketBuyEnable(), listener);
     }
 
 

@@ -9,7 +9,7 @@ public class Const
     //-----------------------------------------------------------------------------
 //    public final static String BASEURL = "http://5.253.25.117:7000/";
      public final static String BASEURL = "http://5.253.25.117:9999/";
-//    public final static String BASEURL = "https://restapp.traap.com";
+//    public final static String BASEURL = "https://restapp.traap.com/";
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -31,6 +31,7 @@ public class Const
     public final static String GetAllBoxes = SubBASEURL + "v1/match/all_boxes/";
     public final static String ReservationMatch = SubBASEURL + "v1/match/reservation/";
     public final static String GetTicketInfo = SubBASEURL + "v1/match/ticket_info/";
+    public final static String GetTicketBuyEnable = SubBASEURL + "v1/match/buy_enable/";
 
 
     //Mobile
@@ -149,7 +150,8 @@ public class Const
 
     //News
     public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";
-    public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";
+    public final static String Get_NEWS_ARCHIVE_BY_IDs = SubBASEURL + "v1/news/";
+    public final static String Get_NEWS_ARCHIVE_BY_IDs_AND_DATES = SubBASEURL + "v1/news/";
     public final static String Get_NEWS_ARCHIVE_CATEGORY = SubBASEURL + "v1/news/category/";
     public final static String Get_NEWS_DETAILS = SubBASEURL + "v1/news/";
     public final static String NEWS_DETAILS_LIKE = SubBASEURL + "v1/news/";

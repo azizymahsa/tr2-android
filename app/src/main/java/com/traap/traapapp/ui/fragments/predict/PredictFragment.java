@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -89,8 +90,10 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private View rootView, rlShirt;
 
-    private LinearLayout llChart2;
-    private RelativeLayout rlChart1, rlChart2, rlChart3;
+    private LinearLayout llChartLinear;
+    private LinearLayout llChart1, llChart2, llChart3;
+    private Space spChartPredictOne, spChartPredictTwo, spChartPredictThree;
+    private RelativeLayout rlChartPredictOne, rlChartPredictTwo, rlChartPredictThree;
     private View vColorHomeOne, vColorHomeTwo, vColorHomeThree, vColorAwayOne, vColorAwayTwo, vColorAwayThree, vColorHomeFour, vColorAwayFour;
     private TextView tvChartPredictOne, tvChartPredictTwo, tvChartPredictThree, tvHomeChartTitle, tvAwayChartTitle;
     private TextView tvChartTotalUserOne, tvChartTotalUserTwo, tvChartTotalUserThree;
@@ -171,10 +174,16 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         btnSendPredict = rootView.findViewById(R.id.btnSendPredict);
 
-        llChart2 = rootView.findViewById(R.id.llChart2);
-        rlChart1 = rootView.findViewById(R.id.rlChart1);
-        rlChart2 = rootView.findViewById(R.id.rlChart2);
-        rlChart3 = rootView.findViewById(R.id.rlChart3);
+        llChartLinear = rootView.findViewById(R.id.llChartLinear);
+        rlChartPredictOne = rootView.findViewById(R.id.rlChartPredictOne);
+        rlChartPredictTwo = rootView.findViewById(R.id.rlChartPredictTwo);
+        rlChartPredictThree = rootView.findViewById(R.id.rlChartPredictThree);
+        spChartPredictOne = rootView.findViewById(R.id.spChartPredictOne);
+        spChartPredictTwo = rootView.findViewById(R.id.spChartPredictTwo);
+        spChartPredictThree = rootView.findViewById(R.id.spChartPredictThree);
+        llChart1 = rootView.findViewById(R.id.rlChart1);
+        llChart2 = rootView.findViewById(R.id.rlChart2);
+        llChart3 = rootView.findViewById(R.id.rlChart3);
         vColorHomeOne = rootView.findViewById(R.id.vColorHomeOne);
         vColorHomeTwo = rootView.findViewById(R.id.vColorHomeTwo);
         vColorHomeThree = rootView.findViewById(R.id.vColorHomeThree);
@@ -427,7 +436,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 if (response.data.getPredict().isEmpty())
                 {
-                    llChart2.setVisibility(View.GONE);
+                    llChartLinear.setVisibility(View.GONE);
                 }
 
                 List<Predict> predictList = response.data.getPredict();
@@ -435,7 +444,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 if (predictList.size() >= 1)
                 {
-                    rlChart1.setVisibility(View.VISIBLE);
+                    LinearLayout.LayoutParams paramsSpace = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    params.weight = Float.valueOf(predictList.get(0).getTotalUser().toString());
+                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - predictList.get(0).getTotalUser()));
+                    rlChartPredictOne.setLayoutParams(params);
+                    spChartPredictOne.setLayoutParams(paramsSpace);
+
+                    llChart1.setVisibility(View.VISIBLE);
                     tvChartTotalUserOne.setText(predictList.get(0).getTotalUser().toString() + " %");
                     vColorHomeOne.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
                     vColorAwayOne.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
@@ -445,7 +461,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 if (predictList.size() >= 2)
                 {
-                    rlChart2.setVisibility(View.VISIBLE);
+                    LinearLayout.LayoutParams paramsSpace = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    params.weight = Float.valueOf(predictList.get(1).getTotalUser().toString());
+                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - predictList.get(1).getTotalUser()));
+                    rlChartPredictTwo.setLayoutParams(params);
+                    spChartPredictTwo.setLayoutParams(paramsSpace);
+
+                    llChart2.setVisibility(View.VISIBLE);
                     tvChartTotalUserTwo.setText(predictList.get(1).getTotalUser().toString() + " %");
                     vColorHomeTwo.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
                     vColorAwayTwo.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
@@ -455,7 +478,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 if (predictList.size() == 3)
                 {
-                    rlChart3.setVisibility(View.VISIBLE);
+                    LinearLayout.LayoutParams paramsSpace = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    params.weight = Float.valueOf(predictList.get(2).getTotalUser().toString());
+                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - predictList.get(2).getTotalUser()));
+                    rlChartPredictThree.setLayoutParams(params);
+                    spChartPredictThree.setLayoutParams(paramsSpace);
+
+                    llChart3.setVisibility(View.VISIBLE);
                     tvChartTotalUserThree.setText(predictList.get(2).getTotalUser().toString() + " %");
                     vColorHomeThree.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
                     vColorAwayThree.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
