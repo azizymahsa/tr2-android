@@ -40,6 +40,7 @@ import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuItemResponse
 import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpRequest;
 import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpResponse;
 import com.traap.traapapp.apiServices.model.getMenuHelp.ResultHelpMenu;
+import com.traap.traapapp.apiServices.model.getTicketBuyEnable.GetTicketBuyEnableResponse;
 import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
@@ -635,12 +636,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     }
                     else
                     {
-                        showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                        getBuyEnable();
                     }
                 }
                 catch (NullPointerException e)
                 {
-                    showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                    getBuyEnable();
                 }
 
                 //---------------test------------------
@@ -690,6 +691,38 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             }
         }
+    }
+
+    private void getBuyEnable()
+    {
+        SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<MatchItem> response)
+            {
+                if (response.info.statusCode == 200)
+                {
+                    if (response.data != null)
+                    {
+                        mainView.onBuyTicketClick(response.data);
+                    }
+                    else
+                    {
+                        showAlert(getActivity(), response.info.message, 0);
+                    }
+                }
+                else
+                {
+                    showAlert(getActivity(), response.info.message, 0);
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+            }
+        });
     }
 
     @Override

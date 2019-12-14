@@ -167,7 +167,7 @@ public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServ
         public void OnItemAllMenuClick(View view, Integer id, List<SubMenu> list);
     }
 
-//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
+//    public void SetOnItemCheckedChangeListener(final OnItemClickListener mItemClickListener)
 //    {
 //        this.mItemClickListener = mItemClickListener;
 //    }

@@ -503,14 +503,14 @@
                                     <ImageView
                                         android:id="@+id/imgBirthdayReset"
                                         style="?android:attr/borderlessButtonStyle"
-                                        android:layout_width="@dimen/_30sdp"
+                                        android:layout_width="@dimen/_25sdp"
                                         android:layout_height="@dimen/_30sdp"
                                         android:layout_alignParentLeft="true"
-                                        android:scaleType="fitXY"
+                                        android:scaleType="centerCrop"
                                         android:visibility="gone"
                                         android:layout_centerVertical="true"
-                                        android:tint="@color/textHint"
-                                        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+                                        android:tint="@color/textColorPrimary"
+                                        app:srcCompat="@drawable/ic_clear" />
 
                                     <View
                                         android:layout_width="match_parent"

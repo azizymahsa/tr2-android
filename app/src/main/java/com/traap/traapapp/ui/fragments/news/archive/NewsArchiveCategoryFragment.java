@@ -34,7 +34,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 {
     private View rootView;
 //    private NewsArchiveCategory archiveCategory;
-    private int Id;
+    private int Ids;
     private boolean pagerWithFilter = false;
     private boolean getFromFav = false;
     private boolean getFromId ;
@@ -57,7 +57,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         NewsArchiveCategoryFragment fragment = new NewsArchiveCategoryFragment();
 
         Bundle arg = new Bundle();
-        arg.putInt("Id", Id);
+        arg.putInt("Ids", Id);
         arg.putBoolean("pagerWithFilter", false);
         arg.putBoolean("getFromFav", getFromFav);
         arg.putBoolean("getFromId", getFromId);
@@ -66,7 +66,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
             arg.putParcelableArrayList("newsContentList", (ArrayList<? extends Parcelable>) newsContentList);
         }
 
-        Logger.e("-Id 0-", String.valueOf(Id));
+        Logger.e("-Ids 0-", String.valueOf(Id));
 
         fragment.setArguments(arg);
         return fragment;
@@ -93,13 +93,13 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
         {
-            Id = getArguments().getInt("Id", 0);
+            Ids = getArguments().getInt("Ids", 0);
             getFromFav = getArguments().getBoolean("getFromFav");
             pagerWithFilter = getArguments().getBoolean("pagerWithFilter");
             getFromId = getArguments().getBoolean("getFromId");
             newsContentList = getArguments().getParcelableArrayList("newsContentList");
 
-            Logger.e("-Id 1-", Id + " # " + pagerWithFilter);
+            Logger.e("-Ids 1-", Ids + " # " + pagerWithFilter);
         }
     }
 
@@ -124,7 +124,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 //        adapter = new NewsArchiveAdapter(getActivity(), newsContentList);
 //        recyclerView.setAdapter(adapter);
 //
-//        adapter.SetOnItemClickListener((id, newsContentList, position) ->
+//        adapter.SetOnItemCheckedChangeListener((id, newsContentList, position) ->
 //        {
 //            //Go To Details
 //        });
@@ -143,8 +143,8 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
             Logger.e("-getFromId-", String.valueOf(getFromId));
             if (getFromId)
             {
-                Logger.e("-Id 2-", String.valueOf(Id));
-                SingletonService.getInstance().getNewsService().getNewsArchiveCategoryById(String.valueOf(Id), this);
+                Logger.e("-Ids 2-", String.valueOf(Ids));
+                SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(String.valueOf(Ids), this);
             }
             else
             {
