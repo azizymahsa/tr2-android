@@ -20,6 +20,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.utilities.Tools;
 
 /**
@@ -174,7 +175,9 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
+        PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
 
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
     }
 
     @Override

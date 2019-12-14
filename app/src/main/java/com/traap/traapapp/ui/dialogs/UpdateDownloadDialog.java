@@ -199,7 +199,7 @@ public class UpdateDownloadDialog extends DialogFragment
                         {
                             Logger.e("--Exception--", e.getMessage().toString());
                             e.printStackTrace();
-                            action.showAlert("مشکل در نصب فایل!");
+                            action.showAlert("مشکل در نصب فایل!","خطا!");
                             dismiss();
                         }
                     }
@@ -212,7 +212,7 @@ public class UpdateDownloadDialog extends DialogFragment
         }
         catch (Exception e)
         {
-            action.showAlert("فایل مورد نظر جهت دانلود موجود نیست یا با مشکل روبرو شده است.");
+            action.showAlert("فایل مورد نظر جهت دانلود موجود نیست یا با مشکل روبرو شده است.","خطا!");
             dismiss();
         }
 

@@ -35,6 +35,7 @@ import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -86,7 +87,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private Toolbar mToolbar;
 
-    private View rootView,rlShirt;
+    private View rootView, rlShirt;
 
     private LinearLayout llChart2;
     private RelativeLayout rlChart1, rlChart2, rlChart3;
@@ -227,7 +228,13 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         vAway2 = rootView.findViewById(R.id.vAway2);
 
         pieChart = AnyChart.pie();
+        if (!isPredictable)
+        {
 
+            edtHomePredict.setVisibility(View.GONE);
+            edtAwayPredict.setVisibility(View.GONE);
+            btnSendPredict.setVisibility(View.GONE);
+        }
         getBaseData();
 
         btnSendPredict.setOnClickListener(v ->
@@ -236,13 +243,11 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             {
                 edtAwayPredict.requestFocus();
                 showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
-            }
-            else if (edtHomePredict.getText().toString().trim().equalsIgnoreCase(""))
+            } else if (edtHomePredict.getText().toString().trim().equalsIgnoreCase(""))
             {
                 edtHomePredict.requestFocus();
                 showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
-            }
-            else
+            } else
             {
                 btnSendPredict.startAnimation();
                 btnSendPredict.setClickable(false);
@@ -264,14 +269,12 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         {
                             if (response.info.statusCode != 200)
                             {
-                                showAlert(getActivity(),response.info.message, 0);
-                            }
-                            else
+                                showAlert(getActivity(), response.info.message, 0);
+                            } else
                             {
-                                showAlert(getActivity(),response.info.message, 0);
+                                showAlert(getActivity(), response.info.message, 0);
                             }
-                        }
-                        catch (NullPointerException e)
+                        } catch (NullPointerException e)
                         {
 //                        showAlert(getActivity(),response.info.message, R.string.error);
                             showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
@@ -311,17 +314,16 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         {
             showErrorAndBackToMain(response.info.message);
             return;
-        }
-        else
+        } else
         {
             llAwayResultList.removeAllViews();
             llHomeResultList.removeAllViews();
 
-            for (String itemStr: response.data.getAwayLastPlays())
+            for (String itemStr : response.data.getAwayLastPlays())
             {
                 llAwayResultList.addView(getWinLoseListView(itemStr));
             }
-            for (String itemStr: response.data.getHomeLastPlays())
+            for (String itemStr : response.data.getHomeLastPlays())
             {
                 llHomeResultList.addView(getWinLoseListView(itemStr));
             }
@@ -360,8 +362,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 {
                     edtHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
                     edtAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
-                }
-                else
+                } else
                 {
                     tvHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
                     tvAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
@@ -379,32 +380,28 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             {
                 llChart.setVisibility(View.GONE);
                 tvPredictEmpty.setVisibility(View.VISIBLE);
-            }
-            else
+            } else
             {
                 llChart.setVisibility(View.VISIBLE);
                 tvPredictEmpty.setVisibility(View.GONE);
 
                 List<DataEntry> data = new ArrayList<>();
 
-                for (Chart chart: response.data.getChart())
+                for (Chart chart : response.data.getChart())
                 {
                     try
                     {
                         if (chart.getChartPrediction() == 0) //0 = مساوی
                         {
-                            data.add(new ValueDataEntry( "مساوی" , chart.getTotalUser()));
-                        }
-                        else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
+                            data.add(new ValueDataEntry("مساوی", chart.getTotalUser()));
+                        } else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
                         {
-                            data.add(new ValueDataEntry( "برد " + response.data.getHomeTeamName(), chart.getTotalUser()));
-                        }
-                        else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
+                            data.add(new ValueDataEntry("برد " + response.data.getHomeTeamName(), chart.getTotalUser()));
+                        } else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
                         {
-                            data.add(new ValueDataEntry( "برد " + response.data.getAwayTeamName(), chart.getTotalUser()));
+                            data.add(new ValueDataEntry("برد " + response.data.getAwayTeamName(), chart.getTotalUser()));
                         }
-                    }
-                    catch (Exception e)
+                    } catch (Exception e)
                     {
 
                     }
@@ -416,7 +413,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 pieChart.labels().position("outside");
                 pieChart.labels().fontColor("#000");
-                Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"fonts/iran_sans_normal.ttf");
+                Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf");
                 pieChart.labels().fontFamily(face.toString());
 
                 pieChart.legend()
@@ -500,7 +497,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 ((int) getResources().getDimension(R.dimen.win_lose_view_height))
         );
         int magSize = (int) getResources().getDimension(R.dimen.margin_static);
-        params.setMargins(magSize,magSize,magSize,magSize);
+        params.setMargins(magSize, magSize, magSize, magSize);
         rl.setLayoutParams(params);
         TextView tv = rl.findViewById(R.id.tvResult);
 
