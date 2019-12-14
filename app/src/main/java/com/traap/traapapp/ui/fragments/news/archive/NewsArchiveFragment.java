@@ -5,10 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +21,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -24,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.pixplicity.easyprefs.library.Prefs;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -44,11 +52,24 @@ import com.traap.traapapp.utilities.MyCustomViewPager;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<NewsArchiveCategoryResponse>>
 {
     private Toolbar mToolbar;
 
     private TextView tvUserName, tvHeaderPopularNo;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
+
+    private ImageView imgDateFromReset, imgDateToReset;
+    private TextView tvTimeFrom, tvTimeUntil;
+    private EditText edtSearchFilter;
+    private CircularProgressButton btnConfirm;
+
+    private RecyclerView rcFilterCategory;
+//    private GridLayoutManager layoutManager;
+
+    private LinearLayout btnFilter;
 
     private View rootView;
 
@@ -131,6 +152,25 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+
+        slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
+        btnFilter = rootView.findViewById(R.id.btnFilter);
+        imgDateFromReset = rootView.findViewById(R.id.imgDateFromReset);
+        imgDateToReset = rootView.findViewById(R.id.imgDateToReset);
+        tvTimeFrom = rootView.findViewById(R.id.tvTimeFrom);
+        tvTimeUntil = rootView.findViewById(R.id.tvTimeUntil);
+        edtSearchFilter = rootView.findViewById(R.id.edtSearchFilter);
+        btnConfirm = rootView.findViewById(R.id.btnConfirm);
+
+        btnFilter.setOnClickListener(v ->
+        {
+            new Handler().postDelayed(() -> slidingUpPanelLayout.setPanelState(PanelState.EXPANDED), 200);
+        });
+
+        slidingUpPanelLayout.setFadeOnClickListener(v ->
+        {
+            slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
+        });
 
         if (!pagerFromFavorite)
         {
