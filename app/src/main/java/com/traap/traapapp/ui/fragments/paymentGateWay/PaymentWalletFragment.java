@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 import com.pixplicity.easyprefs.library.Prefs;
+import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -33,6 +35,7 @@ import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
@@ -71,6 +74,10 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
     private String title;
     private SimChargePaymentInstance simChargePaymentInstance;
     private String mobile;
+    private SimPackPaymentInstance simPackPaymentInstance;
+    private TextView tvAmount;
+    private TextView tvTitlePay;
+    private ImageView imgLogo;
 
 
     public PaymentWalletFragment()
@@ -88,16 +95,18 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
         return fragment;
     }
 
-    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance,   String amount, String mobile, String title)
+
+
+    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance)
     {
         PaymentWalletFragment fragment = new PaymentWalletFragment();
         Bundle args = new Bundle();
 
-        fragment.setMainView(mainActionView, imageDrawable, amount, title,simChargePaymentInstance,mobile);
+        fragment.setMainView(mainActionView, imageDrawable, amount, title,simChargePaymentInstance,mobile,simPackPaymentInstance);
         return fragment;
     }
 
-    private void setMainView(MainActionView mainView, int imageDrawable, String amount, String title, SimChargePaymentInstance simChargePaymentInstance, String mobile)
+    private void setMainView(MainActionView mainView, int imageDrawable, String amount, String title, SimChargePaymentInstance simChargePaymentInstance, String mobile, SimPackPaymentInstance simPackPaymentInstance)
     {
         this.mainView = mainView;
         this.imageDrawable=imageDrawable;
@@ -105,6 +114,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
         this.title=title;
         this.simChargePaymentInstance=simChargePaymentInstance;
         this.mobile=mobile;
+        this.simPackPaymentInstance=simPackPaymentInstance;
 
     }
 
@@ -140,14 +150,32 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
             btnBack = rootView.findViewById(R.id.btnBack);
             btnBack.setOnClickListener(clickListener);
 
+            tvAmount = rootView.findViewById(R.id.tvAmount);
+            tvTitlePay = rootView.findViewById(R.id.tvTitlePay);
+            imgLogo = rootView.findViewById(R.id.imgLogo);
 
             llConfirm.setVisibility(View.VISIBLE);
 
+            setContentData();
             requestGetBalance();
 
         } catch (Exception e)
         {
             Logger.e("---Exception---", e.getMessage());
+        }
+    }
+
+    private void setContentData()
+    {
+        tvAmount.setText(amount);
+        tvTitlePay.setText(title);
+
+        if (imageDrawable == 0)
+        {
+            imgLogo.setVisibility(View.GONE);
+        } else
+        {
+            Picasso.with(getActivity()).load(imageDrawable).into(imgLogo);
         }
     }
 
@@ -211,10 +239,14 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
 
                 mainView.showLoading();
 
-                if (simChargePaymentInstance.getPAYMENT_STATUS()== TrapConfig.PAYMENT_STAUS_ChargeSimCard){
+               // if (simChargePaymentInstance.getPAYMENT_STATUS()== TrapConfig.PAYMENT_STAUS_ChargeSimCard){
+                if (simChargePaymentInstance!=null){
+
                     requestBuyChargeWallet(etPin2.getText().toString(),simChargePaymentInstance,mobile,amount);
-                }else
+                }else if (simPackPaymentInstance!=null)
                 {
+                   requestBuyPackageWallet(etPin2.getText().toString(),simPackPaymentInstance,mobile,amount);
+                }else {
                     paymentMatchRequest.setPin2(etPin2.getText().toString());
                     callPaymentWalletRequest();
                 }
@@ -232,6 +264,11 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
             dialog.show(getActivity().getFragmentManager(), "dialog");
         }
     };
+
+    private void requestBuyPackageWallet(String toString, SimPackPaymentInstance simPackPaymentInstance, String mobile, String amount)
+    {
+
+    }
 
     private void requestBuyChargeWallet(String pin2, SimChargePaymentInstance simChargePaymentInstance, String mobile, String amount)
     {

@@ -87,7 +87,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_toStartOf="@+id/imgLogo"
                     android:gravity="center_vertical"
-                    android:text="با انجام این پرداخت مبلغ از حساب شما کسر خواهد شد."
+                    android:text=""
                     android:textColor="@color/returnButtonColor"
                     android:textSize="@dimen/textSize_14dp" />
 

@@ -7,6 +7,7 @@ import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.base.BaseView;
 
 public interface MainActionView extends BaseView
@@ -67,7 +68,9 @@ public interface MainActionView extends BaseView
 
     void openPastResultFragment(String teamId, String imageLogo, String logoTitle);
 
-    void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat, SimChargePaymentInstance paymentInstance,String mobile);
+    void openChargePaymentFragment(String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance,String mobile);
 
     void openWebView(MainActionView mainView, String uRl, String gds_token);
+
+    void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile);
 }

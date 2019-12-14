@@ -6,6 +6,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.buyPackage.request.PackageBuyRequest;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
+import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 
 /**
  * Created by Javad.Abadi on 8/25/2018.
@@ -13,26 +14,19 @@ import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
 public class BuyPackageImpl implements BuyPackageInteractor
 {
 
-    public void findBuyPackageDataRequest(PaymentActionView listener,
-                                          String requestId, int operatorType,
-                                          Integer cardId, String titlePackageType,
-                                          int profileId, String mobile, String pass,
-                                          String cvv2, String expDate, String price)
+    @Override
+    public void findBuyPackageDataRequest(PaymentActionView listener, String requestId, Integer operatorType, String titlePackageType, Integer profileId, String mobile, String amount)
     {
         PackageBuyRequest request = new PackageBuyRequest();
         request.setRequestId(requestId);
         request.setOperatorType(String.valueOf(operatorType));
-        request.setCardId(cardId);
         request.setTitlePackage(titlePackageType);
         request.setBundleId(String.valueOf(profileId));
         request.setMobile(mobile);
-        request.setPin2(pass);
-        request.setCvv2(cvv2);
-        request.setExpDate(expDate);
-        if (price.isEmpty()){
-            price="0";
+        if (amount.isEmpty()){
+            amount="0";
         }
-        request.setAmount(Integer.valueOf(price.replaceAll(",", "")));
+        request.setAmount(Integer.valueOf(amount.replaceAll(",", "")));
         SingletonService.getInstance().packageBuyService().MciPackageBuyService(new OnServiceStatus<WebServiceClass<PackageBuyResponse>>(){
 
             @Override
@@ -60,6 +54,5 @@ public class BuyPackageImpl implements BuyPackageInteractor
 
             }
         },request);
-
     }
 }

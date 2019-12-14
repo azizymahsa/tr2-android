@@ -23,6 +23,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.paymentGateway.SelectPaymentAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -55,8 +56,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private ImageView imgLogo;
 
     private SimChargePaymentInstance simChargePaymentInstance;
-    private SimChargePaymentInstance paymentInstance;
     private String PAYMENT_STATUS;
+    private SimPackPaymentInstance simPackPaymentInstance;
 
     public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
     {
@@ -137,6 +138,24 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         return fragment;
     }
 
+    public static Fragment newInstance(String urlPayment, MainActionView mainView, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile)
+    {
+        SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
+        fragment.setParentActionView(mainView);
+
+        Bundle args = new Bundle();
+        args.putString("url", urlPayment);
+        args.putString("amount", amount);
+        args.putInt("imageDrawable", imageDrawable);
+        args.putString("mobile", mobile);
+        args.putString("title", title);
+        args.putParcelable("paymentPackInstance", paymentInstance);
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     private void setParentActionView(MainActionView mainView)
     {
         this.mainView = mainView;
@@ -165,6 +184,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             mobile = getArguments().getString("mobile", "");
             url=getArguments().getString("url", "");
             simChargePaymentInstance = getArguments().getParcelable("paymentInstance");
+            simPackPaymentInstance = getArguments().getParcelable("paymentPackInstance");
 
 
         }
@@ -175,7 +195,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
 
         setContent();
-        createTabLayout(amount,title,imageDrawable,mobile,simChargePaymentInstance);
+        createTabLayout(amount,title,imageDrawable,mobile,simChargePaymentInstance,simPackPaymentInstance);
 
 
         return rootView;
@@ -195,7 +215,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         }
     }
 
-    private void createTabLayout(String amount, String title, int imageDrawable, String mobile, Parcelable response)
+    private void createTabLayout(String amount, String title, int imageDrawable, String mobile, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance)
     {
         // define TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("درگاه بانکی"));
@@ -211,7 +231,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         paymentInstance.setTypeCharge(Integer.valueOf(1));*/
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
-                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, url, simChargePaymentInstance);
+                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, url, this.simChargePaymentInstance,simPackPaymentInstance);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();
