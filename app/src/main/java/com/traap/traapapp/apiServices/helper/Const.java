@@ -148,7 +148,8 @@ public class Const
 
     //News
     public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";
-    public final static String Get_NEWS_ARCHIVE_BY_ID = SubBASEURL + "v1/news/";
+    public final static String Get_NEWS_ARCHIVE_BY_IDs = SubBASEURL + "v1/news/";
+    public final static String Get_NEWS_ARCHIVE_BY_IDs_AND_DATES = SubBASEURL + "v1/news/";
     public final static String Get_NEWS_ARCHIVE_CATEGORY = SubBASEURL + "v1/news/category/";
     public final static String Get_NEWS_DETAILS = SubBASEURL + "v1/news/";
     public final static String NEWS_DETAILS_LIKE = SubBASEURL + "v1/news/";

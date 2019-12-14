@@ -24,7 +24,7 @@
         android:id="@+id/tab_all_services"
         android:enabled="true"
         android:icon="@drawable/ic_services"
-        android:title="سرویسها"
+        android:title="سرویس\u200cها"
         app:showAsAction="ifRoom" />
 <!--    <item-->
 <!--        android:id="@+id/tab_market"-->

@@ -324,6 +324,10 @@ android {
         implementation 'com.github.crosswall:Android-Coverflow:release-v1.0.5'
         //------------------------CoverFlow end---------------------------
 
+        //------------------------RxBinding start-------------------------
+        implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+        //------------------------RxBinding end---------------------------
+
         //------------------------DateTimePicker start----------------------
 //        implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
         //------------------------DateTimePicker end------------------------
