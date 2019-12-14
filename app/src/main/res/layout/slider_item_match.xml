@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/rlRoot"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_180dp"
+        android:layout_height="@dimen/_200dp"
         android:visibility="visible">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -31,7 +31,7 @@
         <LinearLayout
             android:id="@+id/llCenterView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80dp"
+            android:layout_height="@dimen/_100dp"
             android:layout_marginTop="@dimen/_5dp"
             android:orientation="horizontal">
 
