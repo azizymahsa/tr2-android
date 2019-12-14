@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.matchSchedule;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +29,8 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.matchSchedule.MatchScheduleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -46,7 +49,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
     private static MatchScheduleFragment matchScheduleFragment;
     private MainActionView mainView;
-    private View rootView;
+    private View rootView,rlShirt;
     private TabLayout tabLayout;
     private Toolbar mToolbar;
     private CustomViewPager viewPager;
@@ -168,6 +171,8 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     {
         try
         {
+            mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class)));
+
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);

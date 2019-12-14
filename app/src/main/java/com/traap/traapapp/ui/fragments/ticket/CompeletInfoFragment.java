@@ -731,8 +731,8 @@ public class CompeletInfoFragment
         {
 
            // if (etName_1.getText().toString().length() > 1 && !(etName_1.getText().toString().toLowerCase().matches("[0-9]")))
-            if (etName_1.getText().toString().length() > 1 && (etName_1.getText().toString().trim().matches("[ا-ی]+"))
-            || (etName_1.getText().toString().trim().matches("[a-zA-Z]+")))
+            if (etName_1.getText().toString().length() > 1 && (etName_1.getText().toString().trim().matches("[آ-ی]+"))
+            || (etName_1.getText().toString().trim().matches("[a-zA-Z]+"))||etName_1.getText().toString().contains(" "))
             {
 
                 flagValidations = flagValidations + "T";
@@ -803,8 +803,8 @@ public class CompeletInfoFragment
         {
 
            // if (etName_2.getText().toString().length() > 1 && !(etName_2.getText().toString().toLowerCase().matches("[0-9]")))
-            if (etName_2.getText().toString().length() > 1 && (etName_2.getText().toString().trim().matches("[ا-ی]+"))
-                    || (etName_2.getText().toString().trim().matches("[a-zA-Z]+")))
+            if (etName_2.getText().toString().length() > 1 && (etName_2.getText().toString().trim().matches("[آ-ی]+"))
+                    || (etName_2.getText().toString().trim().matches("[a-zA-Z]+"))|| etName_2.getText().toString().contains(" "))
             {
                 flagValidations = flagValidations + "T";
                 etName_2.setTextColor(Color.parseColor("#4d4d4d"));
@@ -875,7 +875,7 @@ public class CompeletInfoFragment
 
            // if (etName_3.getText().toString().length() > 1 && !(etName_3.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_3.getText().toString().length() > 1 && (etName_3.getText().toString().trim().matches("[ا-ی]+"))
-                    || (etName_3.getText().toString().trim().matches("[a-zA-Z]+")))
+                    || (etName_3.getText().toString().trim().matches("[a-zA-Z]+"))|| etName_3.getText().toString().contains(" "))
             {
                 flagValidations = flagValidations + "T";
                 etName_3.setTextColor(Color.parseColor("#4d4d4d"));
@@ -946,7 +946,7 @@ public class CompeletInfoFragment
 
             //if (etName_4.getText().toString().length() > 1 && !(etName_4.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_4.getText().toString().length() > 1 && (etName_4.getText().toString().trim().matches("[ا-ی]+"))
-                    || (etName_4.getText().toString().trim().matches("[a-zA-Z]+")))
+                    || (etName_4.getText().toString().trim().matches("[a-zA-Z]+"))|| etName_4.getText().toString().contains(" "))
             {
                 flagValidations = flagValidations + "T";
                 etName_4.setTextColor(Color.parseColor("#4d4d4d"));
@@ -1017,7 +1017,7 @@ public class CompeletInfoFragment
 
            // if (etName_5.getText().toString().length() > 1 && !(etName_5.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_5.getText().toString().length() > 1 && (etName_5.getText().toString().trim().matches("[ا-ی]+"))
-                    || (etName_5.getText().toString().trim().matches("[a-zA-Z]+")))
+                    || (etName_5.getText().toString().trim().matches("[a-zA-Z]+")|| etName_5.getText().toString().contains(" ")))
             {
                 flagValidations = flagValidations + "T";
                 etName_5.setTextColor(Color.parseColor("#4d4d4d"));
@@ -1053,7 +1053,7 @@ public class CompeletInfoFragment
     public void onFocusChange(View v, boolean b)
     {
 
-        switch (v.getId())
+       /* switch (v.getId())
         {
             case R.id.etNationalCode_1:
                 if (etNationalCode_1.getText().toString() != null)
@@ -1101,7 +1101,7 @@ public class CompeletInfoFragment
 
                 }
                 break;
-            /*PassengetSecond*/
+            *//*PassengetSecond*//*
             case R.id.etNationalCode_2:
                 if (etNationalCode_2.getText().toString() != null)
                     if (NationalCodeValidation.isValidNationalCode(etNationalCode_2.getText().toString()))
@@ -1148,7 +1148,7 @@ public class CompeletInfoFragment
 
                 }
                 break;
-            /*PassengetThird*/
+            *//*PassengetThird*//*
             case R.id.etNationalCode_3:
                 if (etNationalCode_3.getText().toString() != null)
                     if (NationalCodeValidation.isValidNationalCode(etNationalCode_3.getText().toString()))
@@ -1195,7 +1195,7 @@ public class CompeletInfoFragment
 
                 }
                 break;
-            /*PassengetForthi*/
+            *//*PassengetForthi*//*
             case R.id.etNationalCode_4:
                 if (etNationalCode_4.getText().toString() != null)
                     if (NationalCodeValidation.isValidNationalCode(etNationalCode_4.getText().toString()))
@@ -1242,7 +1242,7 @@ public class CompeletInfoFragment
 
                 }
                 break;
-            /*PassengetFive*/
+            *//*PassengetFive*//*
             case R.id.etNationalCode_5:
                 if (etNationalCode_5.getText().toString() != null)
                     if (NationalCodeValidation.isValidNationalCode(etNationalCode_5.getText().toString()))
@@ -1289,7 +1289,7 @@ public class CompeletInfoFragment
 
                 }
                 break;
-        }
+        }*/
     }
 
     public void getDataFormBefore(String selectPositionId, Integer count, Integer amountForPay, Integer amountOneTicket, List<Integer> ticketIdList, Integer stadiumId)

@@ -57,6 +57,10 @@ public class MatchItem implements Parcelable
     @Expose @Getter @Setter
     private Boolean isPredict;
 
+    @SerializedName("is_chart_predict")
+    @Expose @Getter @Setter
+    private Boolean is_chart_predict;
+
     @SerializedName("description")
     @Expose @Getter @Setter
     private String description;
@@ -80,49 +84,6 @@ public class MatchItem implements Parcelable
     {
     }
 
-    protected MatchItem(Parcel in)
-    {
-        if (in.readByte() == 0)
-        {
-            matchDatetime = null;
-        } else
-        {
-            matchDatetime = in.readDouble();
-        }
-        matchDatetimeStr = in.readString();
-        if (in.readByte() == 0)
-        {
-            id = null;
-        } else
-        {
-            id = in.readInt();
-        }
-        byte tmpBuyEnable = in.readByte();
-        buyEnable = tmpBuyEnable == 0 ? null : tmpBuyEnable == 1;
-        byte tmpIsCurrent = in.readByte();
-        isCurrent = tmpIsCurrent == 0 ? null : tmpIsCurrent == 1;
-        byte tmpIsPredict = in.readByte();
-        isPredict = tmpIsPredict == 0 ? null : tmpIsPredict == 1;
-        description = in.readString();
-        result = in.readString();
-        referee = in.readString();
-        assistant_referee = in.readString();
-    }
-
-    public static final Creator<MatchItem> CREATOR = new Creator<MatchItem>()
-    {
-        @Override
-        public MatchItem createFromParcel(Parcel in)
-        {
-            return new MatchItem(in);
-        }
-
-        @Override
-        public MatchItem[] newArray(int size)
-        {
-            return new MatchItem[size];
-        }
-    };
 
     @Override
     public int describeContents()
@@ -157,5 +118,43 @@ public class MatchItem implements Parcelable
         dest.writeString(result);
         dest.writeString(referee);
         dest.writeString(assistant_referee);
+        /////////
+        dest.writeValue(this.is_chart_predict);
+
     }
+
+    protected MatchItem(Parcel in)
+    {
+        this.cup = in.readParcelable(Cup.class.getClassLoader());
+        this.teamHome = in.readParcelable(TeamHome.class.getClassLoader());
+        this.teamAway = in.readParcelable(TeamAway.class.getClassLoader());
+        this.stadium = in.readParcelable(Stadium.class.getClassLoader());
+        this.matchDatetime = (Double) in.readValue(Double.class.getClassLoader());
+        this.matchDatetimeStr = in.readString();
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.predictTime = (Double) in.readValue(Double.class.getClassLoader());
+        this.buyEnable = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.isCurrent = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.isPredict = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.is_chart_predict = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.description = in.readString();
+        this.result = in.readString();
+        this.referee = in.readString();
+        this.assistant_referee = in.readString();
+    }
+
+    public static final Creator<MatchItem> CREATOR = new Creator<MatchItem>()
+    {
+        @Override
+        public MatchItem createFromParcel(Parcel source)
+        {
+            return new MatchItem(source);
+        }
+
+        @Override
+        public MatchItem[] newArray(int size)
+        {
+            return new MatchItem[size];
+        }
+    };
 }
