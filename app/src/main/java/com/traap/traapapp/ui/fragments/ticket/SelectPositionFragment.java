@@ -1413,8 +1413,8 @@ public class SelectPositionFragment
          amountOneTicket = stadiumPositionModels.get(selectPositionId-1).getAmount();
          amountForPay = amountOneTicket * count;
 //        tvAmountStation.setText("قیمت بلیت این جایگاه:" + Utility.priceFormat(results.get(0).getTicketAmount().toString()) + " ریال");
-         tvAmountStation.setText("قیمت بلیت این جایگاه:" + Utility.priceFormat(String.valueOf(amountOneTicket))+ " ریال");
-         tvAmountForPay.setText("مبلغ قابل پرداخت:" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+         tvAmountStation.setText("قیمت بلیت این جایگاه: " + Utility.priceFormat(String.valueOf(amountOneTicket))+ " ریال");
+         tvAmountForPay.setText("مبلغ قابل پرداخت: " + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
 
      }catch (Exception e){
 
