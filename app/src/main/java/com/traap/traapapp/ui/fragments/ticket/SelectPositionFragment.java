@@ -1,12 +1,8 @@
 package com.traap.traapapp.ui.fragments.ticket;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.TransactionTooLargeException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 import com.squareup.picasso.Callback;
@@ -53,6 +50,7 @@ import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
 public class SelectPositionFragment
         extends BaseFragment implements View.OnClickListener, ReservationMatchInteractor.OnFinishedReservationListener
 {
+    public static SelectPositionFragment fragment;
     private List<AllBoxesResult> newResult;
 
     ColorPickerView colorPickerView;
@@ -97,7 +95,7 @@ public class SelectPositionFragment
      */
     public static SelectPositionFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MatchItem matchBuyable)
     {
-        SelectPositionFragment fragment = new SelectPositionFragment();
+        fragment = new SelectPositionFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
         Bundle args = new Bundle();
         try
@@ -140,7 +138,7 @@ public class SelectPositionFragment
             public void run() {
                 BuyTicketsFragment.buyTicketsFragment.showLoading();
 
-                getAllBoxesRequest();
+                getAllBoxesRequest(false);
             }
         };
         tvCount = view.findViewById(R.id.tvCount);
@@ -172,7 +170,7 @@ public class SelectPositionFragment
         rlImageViewsFull = view.findViewById(R.id.rlImageViewsFull);
 
 
-        getAllBoxesRequest();
+        getAllBoxesRequest(false);
 
 
         return view;
@@ -1005,11 +1003,17 @@ public class SelectPositionFragment
 
     }
 
-    private void getAllBoxesRequest()
+    public void getAllBoxesRequest(Boolean onBackClicked)
     {
         setDataStadiumPosition();
         GetAllBoxesRequest request = new GetAllBoxesRequest();
-        request.setViewers(count);
+        if (onBackClicked){
+            count = Prefs.getInt("CountTicket", 1);
+            request.setViewers(count);
+            tvCount.setText(String.valueOf(count));
+        }else {
+            request.setViewers(count);
+        }
         request.setMatchId(matchId);
         SingletonService.getInstance().getAllBoxesService().getAllBoxes(new OnServiceStatus<WebServiceClass<GetAllBoxesResponse>>()
         {

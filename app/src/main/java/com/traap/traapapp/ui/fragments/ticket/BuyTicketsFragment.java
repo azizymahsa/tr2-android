@@ -35,7 +35,6 @@ import com.traap.traapapp.ui.adapters.ticket.PagerAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.CustomViewPager;
-import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -316,6 +315,13 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
     @Override
     public void onBackClicked()
     {
+
+        if (viewPager.getCurrentItem() == 1)
+        {
+
+           SelectPositionFragment.fragment.getAllBoxesRequest(true);
+        }
+
         viewPager.setCurrentItem(getItem(-1), true);
         checkPositionFromSetSelected();
     }
