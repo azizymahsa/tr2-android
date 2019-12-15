@@ -33,7 +33,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.matchSchedule.MatchScheduleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.CustomViewPager;
 import com.traap.traapapp.utilities.Logger;
 
@@ -171,7 +171,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     {
         try
         {
-            mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class)));
+            mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class)));
 
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);

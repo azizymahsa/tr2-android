@@ -79,7 +79,7 @@ import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
 import com.traap.traapapp.ui.fragments.moneyTransfer.MoneyTransferFragment;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
@@ -661,7 +661,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onUserProfileClick()
     {
 //        showToast(this, "حساب کاربری من", R.color.green);
-        startActivity(new Intent(this, MyProfileFragment.class));
+        startActivity(new Intent(this, MyProfileActivity.class));
        /* isMainFragment = false;
         fragment = MyProfileFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();

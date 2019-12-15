@@ -52,7 +52,7 @@ import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.mainServiceModel.MainServiceModelAdapter;
 import com.traap.traapapp.ui.adapters.mainSlider.MainSliderAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.CountDownTimerPredict;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
@@ -620,7 +620,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
 
             case R.id.rlShirt:
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class));
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
                 break;
             case R.id.btnBuyTicket:
             {

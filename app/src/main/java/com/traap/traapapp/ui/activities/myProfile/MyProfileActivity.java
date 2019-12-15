@@ -34,7 +34,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 
-public class MyProfileFragment extends BaseActivity
+public class MyProfileActivity extends BaseActivity
 {
     private MainActionView mainView;
     private CardView cardView;
@@ -51,9 +51,9 @@ public class MyProfileFragment extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        //rootView = inflater.inflate(R.layout.fragment_my_profile, container, false);
+        //rootView = inflater.inflate(R.layout.activity_my_profile, container, false);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_my_profile);
+        setContentView(R.layout.activity_my_profile);
         mToolbar =findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setVisibility(View.GONE);
@@ -188,7 +188,7 @@ public class MyProfileFragment extends BaseActivity
 
                     } else
                     {
-                        if (!Tools.isNetworkAvailable(MyProfileFragment.this))
+                        if (!Tools.isNetworkAvailable(MyProfileActivity.this))
                         {
                             Logger.e("-Faild-", "response.info.statusCode: " + response.info.statusCode);
                             showError(getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
@@ -201,7 +201,7 @@ public class MyProfileFragment extends BaseActivity
                     }
                 } catch (Exception e)
                 {
-                    if (!Tools.isNetworkAvailable(MyProfileFragment.this))
+                    if (!Tools.isNetworkAvailable(MyProfileActivity.this))
                     {
                         Logger.e("-OnError-", "response.info.statusCode: " + response.info.statusCode);
                         showError(getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
@@ -219,7 +219,7 @@ public class MyProfileFragment extends BaseActivity
             public void onError(String message)
             {
                // mainView.hideLoading();
-                if (!Tools.isNetworkAvailable(MyProfileFragment.this))
+                if (!Tools.isNetworkAvailable(MyProfileActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(getBaseContext(),"خطا در دریافت اطلاعات از سرور!");

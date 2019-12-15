@@ -19,7 +19,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseActivity;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -149,7 +149,7 @@ public class WebActivity extends BaseActivity
                 finish();
             });
             rlShirt = findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class))
+            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
             );
             String title = getIntent().getStringExtra("Title");
 

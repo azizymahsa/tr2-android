@@ -52,7 +52,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -226,7 +226,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         tvPredictEmpty = rootView.findViewById(R.id.tvPredictEmpty);
         rlShirt = rootView.findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class))
+        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
         );
         imgAwayHeader = rootView.findViewById(R.id.imgAwayHeader);
         imgAway = rootView.findViewById(R.id.imgAway);

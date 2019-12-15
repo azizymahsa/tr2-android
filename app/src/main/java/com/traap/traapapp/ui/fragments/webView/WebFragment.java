@@ -24,7 +24,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -158,7 +158,7 @@ public class WebFragment extends BaseFragment
             //toolbar
             mToolbar = view.findViewById(R.id.toolbar);
             rlShirt = view.findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class))
+            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
             );
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
             TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);

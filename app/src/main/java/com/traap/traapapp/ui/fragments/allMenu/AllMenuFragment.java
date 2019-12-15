@@ -47,7 +47,7 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.adapters.allMenu.ItemRecyclerViewAdapter;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.onConfirmUserPassGDS;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -153,7 +153,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                 @Override
                 public void onClick(View v)
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class));
+                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
                 }
             });
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()

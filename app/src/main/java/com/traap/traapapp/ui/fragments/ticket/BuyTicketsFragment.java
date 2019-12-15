@@ -33,7 +33,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.ticket.PagerAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.CustomViewPager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -265,7 +265,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
                 // mainView.onPackSimCard();
                 break;
             case R.id.rlShirt:
-                 startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class));
+                 startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
 
                 break;
 

@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.details.commentNews.NewsDetailsCommentFragment;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -69,7 +69,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     {
         mToolbar = findViewById(R.id.toolbar);
         rlShirt = findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class))
+        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
         );
         aviPrev = findViewById(R.id.aviPrev);
         aviNext = findViewById(R.id.aviNext);
@@ -81,7 +81,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         tvTitle.setText("جزئیات خبر");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
-        mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class)));
+        mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class)));
 
         rlNextNews = findViewById(R.id.rlNextNews);
         rlPrevNews = findViewById(R.id.rlPrevNews);

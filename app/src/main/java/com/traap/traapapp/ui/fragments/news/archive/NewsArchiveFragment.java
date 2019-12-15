@@ -48,7 +48,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.news.NewsArchiveFilterAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
@@ -168,7 +168,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 mainNewsView.backToMediaFragment(mediaPosition);
             }
         });
-        mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class)));
+        mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class)));
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainNewsView.openDrawerNews());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);

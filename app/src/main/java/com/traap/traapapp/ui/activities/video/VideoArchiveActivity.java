@@ -25,7 +25,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.video.VideosArchiveAdapter;
 import com.traap.traapapp.ui.adapters.video.VideosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -198,7 +198,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
                 finish();
             });
             rlShirt = findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class))
+            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
             );
         } catch (Exception e)
         {

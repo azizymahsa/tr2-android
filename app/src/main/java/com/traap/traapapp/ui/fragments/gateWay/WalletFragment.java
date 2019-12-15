@@ -22,7 +22,7 @@ import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePas
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Utility;
 
 /**
@@ -94,7 +94,7 @@ public class WalletFragment extends BaseFragment
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
 
             rlShirt.setOnClickListener(v -> {
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class));
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
 
             });
             imgBack = rootView.findViewById(R.id.imgBack);
