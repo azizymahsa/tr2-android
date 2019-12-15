@@ -901,7 +901,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         });
 
 
-        tvIntroTitle.setText("سلام،" + Prefs.getString("firstName", "") + Prefs.getString("lastName", "") + " خوش آمدید");
+        tvIntroTitle.setText("سلام، " + TrapConfig.HEADER_USER_NAME + " خوش آمدید");
         new Handler().postDelayed(() ->
         {
             rlIntro.setVisibility(View.VISIBLE);
