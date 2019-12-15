@@ -35,8 +35,11 @@ import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
 import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
 import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumInteractor;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NationalCodeValidation;
 import com.traap.traapapp.utilities.Tools;
+
+import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
 
 public class CompeletInfoFragment
         extends Fragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener
@@ -252,6 +255,7 @@ public class CompeletInfoFragment
 
         txtCondition.setOnClickListener(this);
 
+        clearAllEditText();
 
     }
 
@@ -261,6 +265,7 @@ public class CompeletInfoFragment
                              Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.complete_info_fragment, container, false);
+
         listener = new MessageAlertDialog.OnConfirmListener()
         {
 
@@ -672,7 +677,6 @@ public class CompeletInfoFragment
         } else
         {
             callPaymentTicketRequest();
-            clearAllEditText();
 
             //BuyTicketsFragment.buyTicketsFragment.setInfoViewers(infoViewers);
 
@@ -1401,7 +1405,15 @@ public class CompeletInfoFragment
     {
         infoViewers.clear();
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
-        Tools.showToast(getContext(), error, R.color.red);
+       // Tools.showToast(getContext(), error, R.color.red);
+        if (Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + error);
+            mainView.showError( "خطا در دریافت اطلاعات از سرور!");
+        } else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
     @Override
@@ -1420,7 +1432,15 @@ public class CompeletInfoFragment
     public void onErrorStadiumRules(String error)
     {
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
-        Tools.showToast(getContext(), error, R.color.red);
+        //Tools.showToast(getContext(), error, R.color.red);
+        if (Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + error);
+            mainView.showError( "خطا در دریافت اطلاعات از سرور!");
+        } else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 }
 

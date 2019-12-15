@@ -73,4 +73,6 @@ public interface MainActionView extends BaseView
     void openWebView(MainActionView mainView, String uRl, String gds_token);
 
     void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile);
+
+    void getBuyEnable();
 }

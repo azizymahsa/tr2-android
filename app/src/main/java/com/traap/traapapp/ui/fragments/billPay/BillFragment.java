@@ -1387,6 +1387,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
+    @Override
+    public void getBuyEnable()
+    {
+
+    }
+
 
     @Override
     public void onBill()
