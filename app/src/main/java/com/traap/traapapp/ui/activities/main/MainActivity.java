@@ -94,6 +94,7 @@ import com.traap.traapapp.ui.fragments.support.SupportFragment;
 import com.traap.traapapp.ui.fragments.ticket.BuyTicketsFragment;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
+import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
 import com.traap.traapapp.ui.fragments.webView.WebFragment;
@@ -1560,20 +1561,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         if (hasPaymentTicket)
         {
-           /* showLoading();
             isMainFragment = false;
-            this.fragment = ShowTicketsFragment.newInstance(this);
+            this.fragment = ShowTicketsFragment.newInstance(this,refrenceNumber);
 
             transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment)
-                    .commit();*/
-            Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
+                    .commit();
+           /* Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
 
             intent.putExtra("RefrenceNumber", refrenceNumber);
             intent.putExtra("isTransactionList", false);
 
-            startActivity(intent);
+            startActivity(intent);*/
 
         }else if (hasPaymentCharge || hasPaymentPackageSimcard){
             Intent intent = new Intent(this, PaymentResultActivity.class);
