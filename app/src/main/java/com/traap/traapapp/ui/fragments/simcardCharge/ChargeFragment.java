@@ -58,6 +58,7 @@ import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentIns
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
@@ -1769,7 +1770,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void getBuyEnable()
+    public void getBuyEnable(BuyTicketAction buyTicketAction)
     {
 
     }
