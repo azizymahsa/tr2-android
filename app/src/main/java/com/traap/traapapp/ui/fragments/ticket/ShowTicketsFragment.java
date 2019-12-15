@@ -24,6 +24,7 @@ import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.ticket.ticketInfo.TicketInfoImpl;
 import com.traap.traapapp.ui.fragments.ticket.ticketInfo.TicketInfoInteractor;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 
@@ -237,12 +238,21 @@ public class ShowTicketsFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
-    public void onErrorTicketInfo(String error)
+    public void onErrorTicketInfo(String message)
     {
 
-        Tools.showToast(getContext(), error, R.color.red);
+       // Tools.showToast(getContext(), error, R.color.red);
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        if (!Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + message);
+            mainView.showError("خطا در دریافت اطلاعات از سرور!");
+        } else
+        {
+            mainView.showError(String.valueOf(R.string.networkErrorMessage));
 
+            //showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
     @Override

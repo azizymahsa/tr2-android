@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -71,6 +73,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private ImageView imgHomeHeader, imgAwayHeader, imgHome, imgAway, imgHomePredict, imgAwayPredict;
 
     private EditText edtAwayPredict, edtHomePredict;
+    private View sepHome, sepAway;
 
     private View vHome, vHome2, vAway, vAway2;
 
@@ -86,10 +89,12 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private Toolbar mToolbar;
 
-    private View rootView,rlShirt;
+    private View rootView, rlShirt;
 
-    private LinearLayout llChart2;
-    private RelativeLayout rlChart1, rlChart2, rlChart3;
+    private LinearLayout llChartLinear;
+    private LinearLayout llChart1, llChart2, llChart3;
+    private Space spChartPredictOne, spChartPredictTwo, spChartPredictThree;
+    private RelativeLayout rlChartPredictOne, rlChartPredictTwo, rlChartPredictThree;
     private View vColorHomeOne, vColorHomeTwo, vColorHomeThree, vColorAwayOne, vColorAwayTwo, vColorAwayThree, vColorHomeFour, vColorAwayFour;
     private TextView tvChartPredictOne, tvChartPredictTwo, tvChartPredictThree, tvHomeChartTitle, tvAwayChartTitle;
     private TextView tvChartTotalUserOne, tvChartTotalUserTwo, tvChartTotalUserThree;
@@ -170,10 +175,16 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         btnSendPredict = rootView.findViewById(R.id.btnSendPredict);
 
-        llChart2 = rootView.findViewById(R.id.llChart2);
-        rlChart1 = rootView.findViewById(R.id.rlChart1);
-        rlChart2 = rootView.findViewById(R.id.rlChart2);
-        rlChart3 = rootView.findViewById(R.id.rlChart3);
+        llChartLinear = rootView.findViewById(R.id.llChartLinear);
+        rlChartPredictOne = rootView.findViewById(R.id.rlChartPredictOne);
+        rlChartPredictTwo = rootView.findViewById(R.id.rlChartPredictTwo);
+        rlChartPredictThree = rootView.findViewById(R.id.rlChartPredictThree);
+        spChartPredictOne = rootView.findViewById(R.id.spChartPredictOne);
+        spChartPredictTwo = rootView.findViewById(R.id.spChartPredictTwo);
+        spChartPredictThree = rootView.findViewById(R.id.spChartPredictThree);
+        llChart1 = rootView.findViewById(R.id.rlChart1);
+        llChart2 = rootView.findViewById(R.id.rlChart2);
+        llChart3 = rootView.findViewById(R.id.rlChart3);
         vColorHomeOne = rootView.findViewById(R.id.vColorHomeOne);
         vColorHomeTwo = rootView.findViewById(R.id.vColorHomeTwo);
         vColorHomeThree = rootView.findViewById(R.id.vColorHomeThree);
@@ -195,6 +206,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         llHomeResultList = rootView.findViewById(R.id.llHomeResultList);
 
         llChart = rootView.findViewById(R.id.llChart);
+
+        sepAway = rootView.findViewById(R.id.sepAway);
+        sepHome = rootView.findViewById(R.id.sepHome);
 
         edtAwayPredict = rootView.findViewById(R.id.edtAwayPredict);
         edtHomePredict = rootView.findViewById(R.id.edtHomePredict);
@@ -227,7 +241,15 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         vAway2 = rootView.findViewById(R.id.vAway2);
 
         pieChart = AnyChart.pie();
+        if (!isPredictable)
+        {
 
+            sepHome.setVisibility(View.GONE);
+            sepAway.setVisibility(View.GONE);
+            edtHomePredict.setVisibility(View.GONE);
+            edtAwayPredict.setVisibility(View.GONE);
+            btnSendPredict.setVisibility(View.GONE);
+        }
         getBaseData();
 
         btnSendPredict.setOnClickListener(v ->
@@ -236,13 +258,11 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             {
                 edtAwayPredict.requestFocus();
                 showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
-            }
-            else if (edtHomePredict.getText().toString().trim().equalsIgnoreCase(""))
+            } else if (edtHomePredict.getText().toString().trim().equalsIgnoreCase(""))
             {
                 edtHomePredict.requestFocus();
                 showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
-            }
-            else
+            } else
             {
                 btnSendPredict.startAnimation();
                 btnSendPredict.setClickable(false);
@@ -264,14 +284,12 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         {
                             if (response.info.statusCode != 200)
                             {
-                                showAlert(getActivity(),response.info.message, 0);
-                            }
-                            else
+                                showAlert(getActivity(), response.info.message, 0);
+                            } else
                             {
-                                showAlert(getActivity(),response.info.message, 0);
+                                showAlert(getActivity(), response.info.message, 0);
                             }
-                        }
-                        catch (NullPointerException e)
+                        } catch (NullPointerException e)
                         {
 //                        showAlert(getActivity(),response.info.message, R.string.error);
                             showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
@@ -311,17 +329,16 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         {
             showErrorAndBackToMain(response.info.message);
             return;
-        }
-        else
+        } else
         {
             llAwayResultList.removeAllViews();
             llHomeResultList.removeAllViews();
 
-            for (String itemStr: response.data.getAwayLastPlays())
+            for (String itemStr : response.data.getAwayLastPlays())
             {
                 llAwayResultList.addView(getWinLoseListView(itemStr));
             }
-            for (String itemStr: response.data.getHomeLastPlays())
+            for (String itemStr : response.data.getHomeLastPlays())
             {
                 llHomeResultList.addView(getWinLoseListView(itemStr));
             }
@@ -360,12 +377,13 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 {
                     edtHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
                     edtAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
-                }
-                else
+                } else
                 {
                     tvHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
                     tvAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
 
+                    sepHome.setVisibility(View.GONE);
+                    sepAway.setVisibility(View.GONE);
                     edtHomePredict.setVisibility(View.GONE);
                     edtAwayPredict.setVisibility(View.GONE);
                     btnSendPredict.setVisibility(View.GONE);
@@ -379,32 +397,28 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             {
                 llChart.setVisibility(View.GONE);
                 tvPredictEmpty.setVisibility(View.VISIBLE);
-            }
-            else
+            } else
             {
                 llChart.setVisibility(View.VISIBLE);
                 tvPredictEmpty.setVisibility(View.GONE);
 
                 List<DataEntry> data = new ArrayList<>();
 
-                for (Chart chart: response.data.getChart())
+                for (Chart chart : response.data.getChart())
                 {
                     try
                     {
                         if (chart.getChartPrediction() == 0) //0 = مساوی
                         {
-                            data.add(new ValueDataEntry( "مساوی" , chart.getTotalUser()));
-                        }
-                        else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
+                            data.add(new ValueDataEntry("مساوی", chart.getTotalUser()));
+                        } else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
                         {
-                            data.add(new ValueDataEntry( "برد " + response.data.getHomeTeamName(), chart.getTotalUser()));
-                        }
-                        else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
+                            data.add(new ValueDataEntry("برد " + response.data.getHomeTeamName(), chart.getTotalUser()));
+                        } else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
                         {
-                            data.add(new ValueDataEntry( "برد " + response.data.getAwayTeamName(), chart.getTotalUser()));
+                            data.add(new ValueDataEntry("برد " + response.data.getAwayTeamName(), chart.getTotalUser()));
                         }
-                    }
-                    catch (Exception e)
+                    } catch (Exception e)
                     {
 
                     }
@@ -416,7 +430,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 pieChart.labels().position("outside");
                 pieChart.labels().fontColor("#000");
-                Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"fonts/iran_sans_normal.ttf");
+                Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf");
                 pieChart.labels().fontFamily(face.toString());
 
                 pieChart.legend()
@@ -430,7 +444,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 if (response.data.getPredict().isEmpty())
                 {
-                    llChart2.setVisibility(View.GONE);
+                    llChartLinear.setVisibility(View.GONE);
                 }
 
                 List<Predict> predictList = response.data.getPredict();
@@ -438,7 +452,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 if (predictList.size() >= 1)
                 {
-                    rlChart1.setVisibility(View.VISIBLE);
+                    LinearLayout.LayoutParams paramsSpace = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    params.weight = Float.valueOf(predictList.get(0).getTotalUser().toString());
+                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - predictList.get(0).getTotalUser()));
+                    rlChartPredictOne.setLayoutParams(params);
+                    spChartPredictOne.setLayoutParams(paramsSpace);
+
+                    llChart1.setVisibility(View.VISIBLE);
                     tvChartTotalUserOne.setText(predictList.get(0).getTotalUser().toString() + " %");
                     vColorHomeOne.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
                     vColorAwayOne.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
@@ -448,7 +469,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 if (predictList.size() >= 2)
                 {
-                    rlChart2.setVisibility(View.VISIBLE);
+                    LinearLayout.LayoutParams paramsSpace = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    params.weight = Float.valueOf(predictList.get(1).getTotalUser().toString());
+                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - predictList.get(1).getTotalUser()));
+                    rlChartPredictTwo.setLayoutParams(params);
+                    spChartPredictTwo.setLayoutParams(paramsSpace);
+
+                    llChart2.setVisibility(View.VISIBLE);
                     tvChartTotalUserTwo.setText(predictList.get(1).getTotalUser().toString() + " %");
                     vColorHomeTwo.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
                     vColorAwayTwo.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
@@ -458,7 +486,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 if (predictList.size() == 3)
                 {
-                    rlChart3.setVisibility(View.VISIBLE);
+                    LinearLayout.LayoutParams paramsSpace = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    params.weight = Float.valueOf(predictList.get(2).getTotalUser().toString());
+                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - predictList.get(2).getTotalUser()));
+                    rlChartPredictThree.setLayoutParams(params);
+                    spChartPredictThree.setLayoutParams(paramsSpace);
+
+                    llChart3.setVisibility(View.VISIBLE);
                     tvChartTotalUserThree.setText(predictList.get(2).getTotalUser().toString() + " %");
                     vColorHomeThree.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
                     vColorAwayThree.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
@@ -500,7 +535,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 ((int) getResources().getDimension(R.dimen.win_lose_view_height))
         );
         int magSize = (int) getResources().getDimension(R.dimen.margin_static);
-        params.setMargins(magSize,magSize,magSize,magSize);
+        params.setMargins(magSize, magSize, magSize, magSize);
         rl.setLayoutParams(params);
         TextView tv = rl.findViewById(R.id.tvResult);
 

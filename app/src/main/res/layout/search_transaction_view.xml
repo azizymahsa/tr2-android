@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,6 +32,14 @@
             android:layout_marginStart="30dp"
             android:layout_centerHorizontal="true"
             android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:srcCompat="@drawable/ic_arrow_down"
+                android:tint="@color/textHint"/>
 
 
             <LinearLayout
@@ -62,8 +71,9 @@
                     android:layout_weight="0.5"
                     android:layout_marginTop="2dp"
                     android:text="دسته بندی:"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColorSubTitle"
                     android:textSize="@dimen/textSize_16dp"
+                    android:textStyle="bold"
                     android:padding="10dp" />
 
             </LinearLayout>
@@ -86,7 +96,8 @@
                 android:text="نوع پرداخت:"
                 android:layout_gravity="end"
                 android:gravity="center|start"
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/textColorSubTitle"
                  />
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -191,14 +202,14 @@
                 <ImageView
                     android:id="@+id/imgTimeUntilReset"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="@dimen/_30sdp"
+                    android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_alignParentLeft="true"
                     android:scaleType="fitXY"
                     android:visibility="gone"
                     android:layout_centerVertical="true"
                     android:tint="@color/textHint"
-                    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+                    app:srcCompat="@drawable/ic_clear" />
 
                 <View
                     android:layout_width="match_parent"
@@ -255,14 +266,14 @@
                 <ImageView
                     android:id="@+id/imgTimeFromReset"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="@dimen/_30sdp"
+                    android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_alignParentLeft="true"
                     android:scaleType="fitXY"
                     android:visibility="gone"
                     android:layout_centerVertical="true"
                     android:tint="@color/textHint"
-                    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+                    app:srcCompat="@drawable/ic_clear" />
 
                 <View
                     android:layout_width="match_parent"

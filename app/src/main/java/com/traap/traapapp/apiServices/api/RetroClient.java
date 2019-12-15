@@ -1,11 +1,9 @@
 package com.traap.traapapp.apiServices.api;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import io.reactivex.Single;
 import com.traap.traapapp.apiServices.helper.Const;
-import com.traap.traapapp.apiServices.model.GlobalResponse;
 import com.traap.traapapp.apiServices.model.GlobalResponse2;
 import com.traap.traapapp.apiServices.model.GlobalResponse3;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
@@ -13,6 +11,8 @@ import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.billPayment.request.BillPaymentRequest;
 import com.traap.traapapp.apiServices.model.billPayment.response.BillPaymentResponse;
 import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
+import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletRequest;
+import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
 import com.traap.traapapp.apiServices.model.buyPackage.request.PackageBuyRequest;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.card.Result;
@@ -48,7 +48,9 @@ import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
 import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import com.traap.traapapp.apiServices.model.getTicketBuyEnable.GetTicketBuyEnableResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
+import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
 import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
@@ -58,6 +60,7 @@ import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
+import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
@@ -97,28 +100,19 @@ import com.traap.traapapp.apiServices.model.tourism.bus.getPaymentBus.request.Re
 import com.traap.traapapp.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
 import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
-import com.traap.traapapp.apiServices.model.tourism.hotel.sendMessage.request.HotelSendMessageRequest;
 import com.traap.traapapp.apiServices.model.verify.VerifyRequest;
 import com.traap.traapapp.apiServices.model.verify.VerifyResponse;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
-
-import org.checkerframework.checker.nullness.compatqual.NullableType;
-
-import javax.annotation.Nullable;
 
 import okhttp3.MultipartBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -129,7 +123,6 @@ public interface RetroClient
     Single<Response<WebServiceClass<LoginResponse>>> login(
             @Body LoginRequest request
     );
-
 
     @GET(Const.GetMyBills)
     Single<Response<WebServiceClass<GetMyBillResponse>>> getMyBills();
@@ -231,6 +224,9 @@ public interface RetroClient
             @Body GetTicketInfoRequest request
     );
 
+    @GET(Const.GetTicketBuyEnable)
+    Single<Response<WebServiceClass<MatchItem>>> getTicketBuyEnable();
+
 
     @POST(Const.Verify)
     Single<Response<WebServiceClass<VerifyResponse>>> verify(
@@ -247,6 +243,10 @@ public interface RetroClient
     @POST(Const.BUY_MOBILE_CHARGE)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
             @Body MobileChargeRequest request);
+
+    @POST(Const.BUY_CHARGE_WALLET)
+    Single<Response<WebServiceClass<BuyChargeWalletResponse>>> buyChargeWallet(
+            @Body BuyChargeWalletRequest request);
 
     @POST(Const.GET_Leage)
     Single<Response<WebServiceClass<ResponseLeage>>> getLeage(
@@ -443,6 +443,13 @@ public interface RetroClient
             @Query("type_transaction_id") Integer typeTransactionId,
             @Query("create_date__range") String createDateRange
     );
+
+    @GET(Const.GET_TRANSACTION_DETAIL)
+    Single<Response<WebServiceClass<TransactionDetailResponse>>> getTransactionDetail(
+            @Path("id") Integer transactionId
+    );
+
+
     @GET(Const.Archive_Photo)
     Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos(
             @Query("category_id") String category_id
@@ -494,9 +501,15 @@ public interface RetroClient
     @GET(Const.NEWS_MAIN)
     Single<Response<WebServiceClass<NewsMainResponse>>> getNewsMain();
 
-    @GET(Const.Get_NEWS_ARCHIVE_BY_ID)
-    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryById(
-            @Query("category") String categoryId
+    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs)
+    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryByIds(
+            @Query("category_id__in") String categoryIds           //example 1,2,3,4
+    );
+
+    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs_AND_DATES)
+    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryByIdsAndRangeDate(
+            @Query("category_id__in") String categoryIds,          //example 1,2,3,4
+            @Query("create_date__range") String createDateRanges   //example 2019-01-01,2019-12-01
     );
 
     @GET(Const.Get_NEWS_DETAILS + "{id}/")

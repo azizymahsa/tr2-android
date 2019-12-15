@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.iwgang.countdownview.CountdownView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -40,6 +40,7 @@ import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuItemResponse
 import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpRequest;
 import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpResponse;
 import com.traap.traapapp.apiServices.model.getMenuHelp.ResultHelpMenu;
+import com.traap.traapapp.apiServices.model.getTicketBuyEnable.GetTicketBuyEnableResponse;
 import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
@@ -47,6 +48,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.login.CountDownTimerResendCode;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
@@ -55,6 +57,7 @@ import com.traap.traapapp.ui.adapters.mainServiceModel.MainServiceModelAdapter;
 import com.traap.traapapp.ui.adapters.mainSlider.MainSliderAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.webView.WebFragment;
+import com.traap.traapapp.utilities.CountDownTimerPredict;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -81,7 +84,7 @@ import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
 //        FlightReservationData, BusLockSeat, HotelReservationData,
         View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
-        , OnServiceStatus<WebServiceClass<MachListResponse>>
+        , OnServiceStatus<WebServiceClass<MachListResponse>>, CountDownTimerView
 {
     private View rootView;
 
@@ -91,7 +94,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private LinearLayoutManager layoutManager, sliderLayoutManager;
     private MainServiceModelAdapter adapter;
     private MainSliderAdapter sliderAdapter;
-    private TextView tvShowIntro, tvCancelIntro, tvIntroTitle;
+    private CountDownTimer countDownTimer;
+    private TextView tvShowIntro, tvCancelIntro, tvIntroTitle, tvTimePredict;
     private View rlIntro;
     private RelativeLayout llRoot;
     private ScrollingPagerIndicator indicator;
@@ -116,7 +120,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private MatchItem matchCurrent, matchBuyable, matchPredict;
     private TextView tvPopularPlayer;
 
-    private CountdownView countdownView;
+//    private CountdownView countdownView;
     private int matchCurrentPos = 0;
     private boolean isFirstLoad = true;
     private ImageView imgMenu;
@@ -208,6 +212,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         mToolbar = rootView.findViewById(R.id.toolbar);
 
         llRoot = rootView.findViewById(R.id.rlRoot);
+        tvTimePredict = rootView.findViewById(R.id.tvTimePredict);
         tvShowIntro = rootView.findViewById(R.id.tvShowIntro);
         tvCancelIntro = rootView.findViewById(R.id.tvCancelIntro);
         rlIntro = rootView.findViewById(R.id.rlIntro);
@@ -230,7 +235,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         rlPredict = rootView.findViewById(R.id.rlPredict);
 
-        countdownView = rootView.findViewById(R.id.countDown);
+//        countdownView = rootView.findViewById(R.id.countDown);
 
         indicator = rootView.findViewById(R.id.indicator);
 
@@ -304,24 +309,25 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     public void startTimer(long time)
     {
-
-        countdownView.start(time);
-        countdownView.setOnCountdownIntervalListener(1, new CountdownView.OnCountdownIntervalListener()
-        {
-            @Override
-            public void onInterval(CountdownView cv, long remainTime)
-            {
-
-            }
-        });
-        countdownView.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener()
-        {
-            @Override
-            public void onEnd(CountdownView cv)
-            {
-
-            }
-        });
+        countDownTimer = new CountDownTimerPredict(time, 1, this);
+        countDownTimer.start();
+//        countdownView.start(time);
+//        countdownView.setOnCountdownIntervalListener(1, new CountdownView.OnCountdownIntervalListener()
+//        {
+//            @Override
+//            public void onInterval(CountdownView cv, long remainTime)
+//            {
+//
+//            }
+//        });
+//        countdownView.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener()
+//        {
+//            @Override
+//            public void onEnd(CountdownView cv)
+//            {
+//
+//            }
+//        });
     }
 
     private void setImageIntoIV(ImageView imageView, String link)
@@ -622,21 +628,21 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             case R.id.btnBuyTicket:
             {
-                try
-                {
-                    if (matchBuyable.getId() != null)
-                    {
-                        mainView.onBuyTicketClick(matchBuyable);
-                    }
-                    else
-                    {
-                        showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
-                    }
-                }
-                catch (NullPointerException e)
-                {
-                    showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
-                }
+//                try
+//                {
+//                    if (matchBuyable.getId() != null)
+//                    {
+//                        mainView.onBuyTicketClick(matchBuyable);
+//                    }
+//                    else
+//                    {
+//                        getBuyEnable();
+//                    }
+//                }
+//                catch (NullPointerException e)
+//                {
+//                }
+                getBuyEnable();
 
                 //---------------test------------------
 //                Intent i = new Intent(Intent.ACTION_VIEW);
@@ -687,6 +693,46 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         }
     }
 
+    private void getBuyEnable()
+    {
+        SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<MatchItem> response)
+            {
+                if (response.info.statusCode == 200)
+                {
+                    if (response.data != null)
+                    {
+                        mainView.onBuyTicketClick(response.data);
+                    }
+                    else
+                    {
+                        showAlert(getActivity(), response.info.message, 0);
+                    }
+                }
+                else
+                {
+                    showAlert(getActivity(), response.info.message, 0);
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                    Logger.e("--onError--", message);
+                }
+                else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+            }
+        });
+    }
+
     @Override
     public void onReady(WebServiceClass<MachListResponse> responseMatchList)
     {
@@ -719,9 +765,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     public void onError(String message)
     {
         mainView.hideLoading();
+        if (Tools.isNetworkAvailable(getActivity()))
+        {
+            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+            Logger.e("--onError--", message);
+        }
+        else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
 
-        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-        Logger.e("--onError--", message);
     }
 
     @Override
@@ -1002,6 +1055,25 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         });
     }
 
+    @Override
+    public void onFinishTimer()
+    {
+
+    }
+
+    @Override
+    public void onTickTimer(String time)
+    {
+//        tvTimePredict.setTypeface();
+        tvTimePredict.setText(time);
+    }
+
+    @Override
+    public void onErrorTimer(String message)
+    {
+        showError(getActivity(), message);
+    }
+
     @Subscribe
     public void getHeaderContent(HeaderModel headerModel)
     {
@@ -1019,4 +1091,5 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 }

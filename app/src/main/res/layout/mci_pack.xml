@@ -46,7 +46,7 @@
             android:id="@+id/tilMMci"
             android:layout_width="@dimen/_180sdp"
             android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center|end"
+            android:layout_gravity="center|right"
             android:hint="شماره موبایل"
             android:theme="@style/EditTextHint"
             android:layout_marginEnd="5dp">
@@ -109,6 +109,7 @@
 
 
     <LinearLayout
+        android:id="@+id/llDetailDescriptionMci"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -257,7 +258,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/llMciSpinner"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:gravity="center"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/textSize_14dp"
+                android:text="لطفا بسته مورد نظر خود را انتخاب بفرمایید"
+                android:textStyle="bold"
+                 />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mciRecycler"

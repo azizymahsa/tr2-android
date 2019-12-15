@@ -44,7 +44,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     private RadioButton rbMellat, rbSaman, rbTejarat;
     private MessageAlertDialog.OnConfirmListener listener = null;
     private View llConfirm, llInVisible;
-    private String amount = "20000";
+    private String amount = "";
     private String title = "پرداخت";
     private int imageDrawable = 1;
     private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay;
@@ -56,7 +56,14 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
     private void setContent()
     {
-        tvAmount.setText(amount);
+        try
+        {
+            tvAmount.setText(Utility.priceFormat(amount));
+
+        }catch (Exception e){
+            tvAmount.setText(amount);
+
+        }
         tvTitlePay.setText(title);
 
         if (imageDrawable == 0)

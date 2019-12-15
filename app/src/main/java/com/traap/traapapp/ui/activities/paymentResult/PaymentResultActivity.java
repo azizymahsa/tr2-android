@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.activities.paymentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.utilities.Tools;
 
 public class PaymentResultActivity extends BaseActivity implements View.OnClickListener
 {
@@ -34,11 +40,49 @@ public class PaymentResultActivity extends BaseActivity implements View.OnClickL
             } else
             {
                 refrenceNumber = extras.getString("RefrenceNumber");
-                statusPayment=extras.getBoolean(            "StatusPayment",false);
+               // statusPayment=extras.getBoolean(            "StatusPayment",false);
             }
         }
         initView();
+        requestGetDetailTransaction(refrenceNumber);
 
+    }
+
+    private void requestGetDetailTransaction(String refrenceNumber)
+    {
+        showLoading();
+
+        SingletonService.getInstance().getTransactionDetailService().getTransactionDetail(Integer.valueOf(refrenceNumber),new OnServiceStatus<WebServiceClass<TransactionDetailResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<TransactionDetailResponse> response)
+            {
+                try
+                {
+                   hideLoading();
+
+                    if (response.info.statusCode == 200)
+                    {
+
+                        statusPayment =response.data.getStatus();
+                        checkStatusAndSetData();
+
+
+                    }
+                } catch (Exception e)
+                {
+                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    hideLoading();
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                Tools.showToast(getApplicationContext(), message, R.color.red);
+                hideLoading();
+            }
+        });
     }
 
     private void initView()
@@ -50,7 +94,7 @@ public class PaymentResultActivity extends BaseActivity implements View.OnClickL
         txRefrenceNumber.setText(" کد پیگیری : "+refrenceNumber);
         btnBackToHome.setOnClickListener(this);
 
-        checkStatusAndSetData();
+
     }
 
     private void checkStatusAndSetData()
@@ -68,7 +112,18 @@ public class PaymentResultActivity extends BaseActivity implements View.OnClickL
 
         }
     }
+    public void showLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+    }
 
+    public void hideLoading()
+    {
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
+        runOnUiThread(() ->
+        {
+        });
+    }
     @Override
     public void onClick(View v)
     {

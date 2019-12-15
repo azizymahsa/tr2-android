@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.news.mainNews;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,9 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.news.NewsActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
@@ -71,6 +74,7 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("اخبار");
+        rootView.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class)));
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         fragmentManager = getChildFragmentManager();

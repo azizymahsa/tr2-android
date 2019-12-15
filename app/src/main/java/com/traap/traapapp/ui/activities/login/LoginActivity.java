@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.activities.login;
 
 import android.animation.Animator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -207,8 +210,19 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     public void onError(String message, String name, boolean b)
     {
 
-        showError(this, message);
-        // showToast(this, message, R.color.red);
+      //  showError(this, message);
+
+        if (!Tools.isNetworkAvailable(LoginActivity.this))
+        {
+            Logger.e("-OnError-", "Error: " + message);
+            Tools.showToast(this, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+
+            // showError(appContext, "خطا در دریافت اطلاعات از سرور!");
+        }
+        else
+        {
+            showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
 

@@ -26,13 +26,14 @@ import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.video.VideosArchiveAdapter;
 import com.traap.traapapp.ui.adapters.video.VideosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 public class VideoArchiveActivity extends BaseActivity implements VideosCategoryTitleAdapter.TitleCategoryListener, VideosArchiveAdapter.ArchiveVideoListener
 {
 
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    private View imgBack, imgMenu,rlShirt;
+    private View imgBack, imgMenu, rlShirt;
     private ArrayList<ListCategory> categoryTitleList;
     private RecyclerView rvCategoryTitles, rvArchiveVideo;
     private VideosCategoryTitleAdapter videoCategoryTitleAdapter;
@@ -102,7 +103,15 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
             public void onError(String message)
             {
                 // mainView.hideLoading();
-                Tools.showToast(getApplication(), message, R.color.red);
+                // Tools.showToast(getApplication(), message, R.color.red);
+                if (!Tools.isNetworkAvailable(VideoArchiveActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         }, request);
     }
@@ -140,19 +149,28 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
             public void onError(String message)
             {
                 // mainView.hideLoading();
-                Tools.showToast(getApplication(), message, R.color.red);
+                if (!Tools.isNetworkAvailable(VideoArchiveActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         }, request, categoryTitleList.get(position).getId());
     }
 
     private void onGetArchiveVideoSuccess(ArchiveVideoResponse data)
     {
-        rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(),FLAG_Favorite, this));
+        rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(), FLAG_Favorite, this));
     }
+
     private void onGetBookMarkVideoSuccess(ArchiveVideoResponse data)
     {
-        rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(),FLAG_Favorite, this));
+        rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(), FLAG_Favorite, this));
     }
+
     private void initView()
     {
         try

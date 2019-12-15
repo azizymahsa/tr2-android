@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 11
-        versionName "1.4.1"
+        versionCode 13
+        versionName "1.6.0"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -38,14 +38,14 @@ android {
             signingConfig signingConfigs.release
         }
         release {
-            splits {
-                abi {
-                    enable true
-                    reset()
-                    include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-                    universalApk true
-                }
-            }
+//            splits {
+//                abi {
+//                    enable true
+//                    reset()
+//                    include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+//                    universalApk true
+//                }
+//            }
             debuggable false
             minifyEnabled true
             shrinkResources true
@@ -323,6 +323,10 @@ android {
         //------------------------CoverFlow start-------------------------
         implementation 'com.github.crosswall:Android-Coverflow:release-v1.0.5'
         //------------------------CoverFlow end---------------------------
+
+        //------------------------RxBinding start-------------------------
+        implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+        //------------------------RxBinding end---------------------------
 
         //------------------------DateTimePicker start----------------------
 //        implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'

@@ -140,14 +140,25 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
     private void goToActivity()
     {
-        if (Prefs.getString("accessToken", "").isEmpty())
+        if (Tools.isNetworkAvailable(SplashActivity.this))
         {
-            startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } else
-        {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            Logger.e("-PhotoFailor-", "Error: " + "SplashError");
+            if (Prefs.getString("accessToken", "").isEmpty())
+            {
+                 startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+            } else
+            {
+                startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            }
+            finish();
         }
-        finish();
+        else
+        {
+            showAlert( this.getString(R.string.networkErrorMessage) ,this.getString(R.string.networkError));
+        }
+
+
 
     }
 
@@ -159,19 +170,13 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         {
             if (response == null || response.info == null)
             {
-//                String mMessage =  "خطای دریافت اطلاعات از سرور!" + "\n" +
-//                        "لطفا پس از چند دقیقه مجددا اقدام نمایید";
-//
-//                showError(mMessage);
+
                 goToActivity();
                 return;
             }
         } catch (NullPointerException e)
         {
-//            String mMessage =  "خطای دریافت اطلاعات از سرور!" + "\n" +
-//                    "لطفا پس از چند دقیقه مجددا اقدام نمایید";
-//
-//            showError(mMessage);
+
             goToActivity();
             return;
         }
@@ -216,9 +221,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         goToActivity();
     }
 
-    private void showError(String message)
+    private void showError(String message,String title)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog(this, "خطا!", message, false,
+        MessageAlertDialog dialog = new MessageAlertDialog(this, title, message, false,
                 new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
@@ -362,9 +367,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     }
 
     @Override
-    public void showAlert(String message)
+    public void showAlert(String message,String title)
     {
-        showError(message);
+        showError(message,title);
     }
 
     //------------------------------add permission--------------------------------

@@ -156,7 +156,7 @@ public class AlbumDetailsItemAdapter extends RecyclerView.Adapter<AlbumDetailsIt
         public void OnItemAllMenuClick(View view, Integer id,Content content);
     }
 
-//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
+//    public void SetOnItemCheckedChangeListener(final OnItemClickListener mItemClickListener)
 //    {
 //        this.mItemClickListener = mItemClickListener;
 //    }

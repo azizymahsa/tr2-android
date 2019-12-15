@@ -47,7 +47,7 @@
             android:id="@+id/tilMIrancell"
             android:layout_width="@dimen/_180sdp"
             android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center|end"
+            android:layout_gravity="center|right"
             android:hint="شماره موبایل"
             android:theme="@style/EditTextHint">
 
@@ -205,12 +205,13 @@
         android:layout_marginBottom="@dimen/_10dp"
         android:visibility="gone">
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_25dp"
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="@dimen/textSize_14dp"
             android:text="لطفا بسته مورد نظر خود را انتخاب بفرمایید"
-            android:textColor="@color/returnButtonColor"
-            android:textSize="@dimen/textSize_12dp" />
+            android:textStyle="bold" />
 
     </LinearLayout>
     <LinearLayout
@@ -253,7 +254,7 @@
             <Spinner
                 android:id="@+id/spinnerIrancell"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_35dp"
                 android:layout_gravity="center"
                 android:layout_weight="100"
                 android:gravity="right"

@@ -133,7 +133,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public void onChosenItemClickk(View view, Integer id,String URL);
     }
 
-//    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener)
+//    public void SetOnItemCheckedChangeListener(final OnItemClickListener mItemClickListener)
 //    {
 //        this.mItemClickListener = mItemClickListener;
 //    }
