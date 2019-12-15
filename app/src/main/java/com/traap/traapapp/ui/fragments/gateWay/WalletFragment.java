@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -21,9 +20,9 @@ import com.traap.traapapp.apiServices.model.getBalancePasswordLess.ForgetPasswor
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Utility;
 
 /**
@@ -95,7 +94,7 @@ public class WalletFragment extends BaseFragment
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
 
             rlShirt.setOnClickListener(v -> {
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
 
             });
             imgBack = rootView.findViewById(R.id.imgBack);

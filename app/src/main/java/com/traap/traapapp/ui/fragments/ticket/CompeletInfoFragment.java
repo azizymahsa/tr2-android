@@ -1467,7 +1467,6 @@ public class CompeletInfoFragment
             llBoxTicket5.setVisibility(View.VISIBLE);
         }
 
-
     }
 
     @Override

@@ -131,6 +131,9 @@
             android:name=".ui.activities.ticket.ShowTicketActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activities.myProfile.MyProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activities.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
