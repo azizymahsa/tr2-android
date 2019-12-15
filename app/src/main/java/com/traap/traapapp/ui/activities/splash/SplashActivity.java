@@ -151,13 +151,14 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
+            finish();
         }
         else
         {
             showAlert( this.getString(R.string.networkErrorMessage) ,this.getString(R.string.networkError));
         }
 
-      //  finish();
+
 
     }
 

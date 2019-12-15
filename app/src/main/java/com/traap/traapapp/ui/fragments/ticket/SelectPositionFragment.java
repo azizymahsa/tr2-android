@@ -48,6 +48,8 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
+import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
+
 public class SelectPositionFragment
         extends BaseFragment implements View.OnClickListener, ReservationMatchInteractor.OnFinishedReservationListener
 {
@@ -1077,7 +1079,15 @@ public class SelectPositionFragment
             {
                /* btnMyBills.revertAnimation(BillFragment.this);
                 btnMyBills.setClickable(true);*/
-                Tools.showToast(getActivity(), message, R.color.red);
+              //  Tools.showToast(getActivity(), message, R.color.red);
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                   showError( getActivity(),"خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         }, request);
     }
@@ -1727,9 +1737,16 @@ public class SelectPositionFragment
     public void onErrorReservation(String error)
     {
 
-        Tools.showToast(getContext(), error, R.color.red);
+        //Tools.showToast(getContext(), error, R.color.red);
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
-
+        if (Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + error);
+            showError( getActivity(),"خطا در دریافت اطلاعات از سرور!");
+        } else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
     }
 
     /**
