@@ -1,11 +1,8 @@
-package com.traap.traapapp.ui.fragments.myProfile;
+package com.traap.traapapp.ui.activities.myProfile;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,15 +18,13 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
-import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
-import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
-import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
@@ -39,10 +34,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 
-@SuppressLint("ValidFragment")
-public class MyProfileFragment extends BaseFragment
+public class MyProfileActivity extends BaseActivity
 {
-    private View rootView;
     private MainActionView mainView;
     private CardView cardView;
     private TextView tvUserName, tvHeaderPopularNo;
@@ -55,34 +48,17 @@ public class MyProfileFragment extends BaseFragment
     private RelativeLayout rlEditProfile, rlMyPredict, rlMyFavorite, rlExit;
 
 
-    public MyProfileFragment()
-    {
-
-    }
-
-    public static MyProfileFragment newInstance(MainActionView mainView)
-    {
-        MyProfileFragment f = new MyProfileFragment();
-        f.setMainView(mainView);
-        return f;
-    }
-
-    private void setMainView(MainActionView mainView)
-    {
-        this.mainView = mainView;
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
-        rootView = inflater.inflate(R.layout.fragment_my_profile, container, false);
+        //rootView = inflater.inflate(R.layout.activity_my_profile, container, false);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_profile);
+        mToolbar =findViewById(R.id.toolbar);
 
-        mToolbar = rootView.findViewById(R.id.toolbar);
-
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.imgMenu).setVisibility(View.GONE);
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->                finish()
+);
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
@@ -93,28 +69,28 @@ public class MyProfileFragment extends BaseFragment
 
         EventBus.getDefault().register(this);
 
-        return rootView;
+       // return rootView;
     }
 
 
     public void initView()
     {
-        cardView = rootView.findViewById(R.id.card);
-        imgProfile = rootView.findViewById(R.id.imgProfile);
+        cardView = findViewById(R.id.card);
+        imgProfile =findViewById(R.id.imgProfile);
 
-        tvFullName = rootView.findViewById(R.id.tvFullName);
-        tvMobile = rootView.findViewById(R.id.tvMobile);
-        tvInviteCode = rootView.findViewById(R.id.tvInviteCode);
-        rlEditProfile = rootView.findViewById(R.id.rlEditProfile);
-        rlMyPredict = rootView.findViewById(R.id.rlMyPredict);
-        rlMyFavorite = rootView.findViewById(R.id.rlMyFavorite);
-        rlExit = rootView.findViewById(R.id.rlExit);
+        tvFullName = findViewById(R.id.tvFullName);
+        tvMobile = findViewById(R.id.tvMobile);
+        tvInviteCode = findViewById(R.id.tvInviteCode);
+        rlEditProfile =findViewById(R.id.rlEditProfile);
+        rlMyPredict = findViewById(R.id.rlMyPredict);
+        rlMyFavorite = findViewById(R.id.rlMyFavorite);
+        rlExit = findViewById(R.id.rlExit);
 
         if (Prefs.contains("profileImage"))
         {
             try
             {
-                Picasso.with(getContext()).load(Prefs.getString("profileImage", "")).into(imgProfile);
+                Picasso.with(this).load(Prefs.getString("profileImage", "")).into(imgProfile);
             }
             catch (Exception e)
             {
@@ -160,7 +136,7 @@ public class MyProfileFragment extends BaseFragment
 
         rlExit.setOnClickListener(v ->
         {
-            MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "آیا می خواهید از حساب کاربری خود خارج شوید؟",
+            MessageAlertDialog dialog = new MessageAlertDialog(this, "", "آیا می خواهید از حساب کاربری خود خارج شوید؟",
                     true, "خروج", "انصراف", new MessageAlertDialog.OnConfirmListener()
             {
                 @Override
@@ -170,8 +146,8 @@ public class MyProfileFragment extends BaseFragment
                     String mobile = Prefs.getString("mobile", "");
                     Prefs.clear();
                     Prefs.putString("mobile", mobile);
-                    getActivity().finish();
-                    intent.setClass(getActivity(), LoginActivity.class);
+                    finish();
+                    intent.setClass(getApplication(), LoginActivity.class);
                     startActivity(intent);
                 }
 
@@ -181,7 +157,7 @@ public class MyProfileFragment extends BaseFragment
 
                 }
             });
-            dialog.show(getActivity().getFragmentManager(), "messageDialog");
+            dialog.show(getFragmentManager(), "messageDialog");
         });
 
     }
@@ -196,7 +172,7 @@ public class MyProfileFragment extends BaseFragment
             @Override
             public void onReady(WebServiceClass<InviteResponse> response)
             {
-                mainView.hideLoading();
+               // mainView.hideLoading();
                 try
                 {
 
@@ -212,28 +188,28 @@ public class MyProfileFragment extends BaseFragment
 
                     } else
                     {
-                        if (!Tools.isNetworkAvailable(getActivity()))
+                        if (!Tools.isNetworkAvailable(MyProfileActivity.this))
                         {
                             Logger.e("-Faild-", "response.info.statusCode: " + response.info.statusCode);
-                            showError(getActivity(),"خطا در دریافت اطلاعات از سرور!");
+                            showError(getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
                         } else
                         {
                             // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
-                            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                            showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
                         }
                     }
                 } catch (Exception e)
                 {
-                    if (!Tools.isNetworkAvailable(getActivity()))
+                    if (!Tools.isNetworkAvailable(MyProfileActivity.this))
                     {
                         Logger.e("-OnError-", "response.info.statusCode: " + response.info.statusCode);
-                        showError(getActivity(),"خطا در دریافت اطلاعات از سرور!");
+                        showError(getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
                     } else
                     {
                         // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
-                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                        showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
                     }
 
                 }
@@ -242,16 +218,16 @@ public class MyProfileFragment extends BaseFragment
             @Override
             public void onError(String message)
             {
-                mainView.hideLoading();
-                if (!Tools.isNetworkAvailable(getActivity()))
+               // mainView.hideLoading();
+                if (!Tools.isNetworkAvailable(MyProfileActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getActivity(),"خطا در دریافت اطلاعات از سرور!");
+                    showError(getBaseContext(),"خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
                     // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
-                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    showAlert(getBaseContext(), R.string.networkErrorMessage, R.string.networkError);
                 }
             }
         });
@@ -280,7 +256,7 @@ public class MyProfileFragment extends BaseFragment
             Logger.e("EventBus ImageLink", headerModel.getProfileUrl());
             if (headerModel.getProfileUrl() != null)
             {
-                Picasso.with(getContext()).load(headerModel.getProfileUrl()).into(imgProfile);
+                Picasso.with(this).load(headerModel.getProfileUrl()).into(imgProfile);
             }
         }
         catch (Exception e)

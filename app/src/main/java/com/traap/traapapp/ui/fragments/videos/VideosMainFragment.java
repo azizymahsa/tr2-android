@@ -17,9 +17,9 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -80,7 +80,7 @@ public class VideosMainFragment  extends BaseFragment
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
             }
         });
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
