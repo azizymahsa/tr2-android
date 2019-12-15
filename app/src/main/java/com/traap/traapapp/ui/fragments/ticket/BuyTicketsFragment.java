@@ -189,9 +189,11 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
 
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);
-            tvUserName.setText(Prefs.getString("mobile", ""));
+
             tvHeaderPopularNo = rootView.findViewById(R.id.tvPopularPlayer);
             tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
             imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());

@@ -87,6 +87,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             holder.ivFlagCheck.setImageResource(R.drawable.un_check_mark);
         }
         holder.txtPrice.setText("قیمت: " + Utility.priceFormat(item.getAmount() + "") + " ریال");
+        holder.txtCheck.setText(item.getTypeTransaction());
 
 
         holder.llItem.setOnClickListener(new View.OnClickListener()
@@ -101,6 +102,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
                         Intent intent = new Intent(mContext, ShowTicketActivity.class);
                         intent.putExtra("RefrenceNumber", item.getId().toString());
                         intent.putExtra("isTransactionList", true);
+                        mContext.startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(mContext, PaymentResultActivity.class);
+                        intent.putExtra("RefrenceNumber", item.getId().toString());
+                        // intent.putExtra("StatusPayment", item.getStatus());
                         mContext.startActivity(intent);
                     }
                 }else {

@@ -1768,6 +1768,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void getBuyEnable()
+    {
+
+    }
+
     public void onSelectContact(OnSelectContact event)
     {
         try

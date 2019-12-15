@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.9"
                         android:gravity="start"
-                        android:text="خرید بلیت"
+                        android:text=""
                         android:layout_marginEnd="@dimen/_10dp"
                         android:textColor="@color/kellyGreen"
                         android:textSize="@dimen/textSize_12dp" />

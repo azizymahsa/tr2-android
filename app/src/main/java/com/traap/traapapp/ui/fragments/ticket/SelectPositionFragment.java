@@ -1698,10 +1698,16 @@ public class SelectPositionFragment
     {
         Logger.e("-stadiumPositionModels-", "size: " + stadiumPositionModels.size());
         Logger.e("-callReservationRequest-", "pos: " + selectPositionId);
-        reservationMatch.reservationRequest(this,
-                matchId,
-                count,
-                stadiumPositionModels.get(selectPositionId - 1).getId());
+        try
+        {
+            reservationMatch.reservationRequest(this,
+                    matchId,
+                    count,
+                    stadiumPositionModels.get(selectPositionId - 1).getId());
+        }catch (Exception e){
+            Tools.showToast(getContext(),"ظرفیت جایگاه ها پر شده است.");
+        }
+
 //                stadiumPositionModels.get(selectPositionId).getId() - 1);
     }
 
