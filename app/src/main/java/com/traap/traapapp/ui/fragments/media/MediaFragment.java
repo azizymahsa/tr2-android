@@ -26,11 +26,10 @@ import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mediaModel.MediaModel;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.activities.main.MainActivity;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.media.MediaAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
 import com.traap.traapapp.ui.fragments.news.NewsActionView;
 import com.traap.traapapp.ui.fragments.photo.PhotosFragment;
 import com.traap.traapapp.ui.fragments.news.mainNews.NewsMainContentFragment;
@@ -100,7 +99,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("رسانه");
         rlShirt = mToolbar.findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class)));
+        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class)));
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 

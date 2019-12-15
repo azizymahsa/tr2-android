@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -80,7 +79,7 @@ import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
 import com.traap.traapapp.ui.fragments.moneyTransfer.MoneyTransferFragment;
-import com.traap.traapapp.ui.fragments.myProfile.MyProfileFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
@@ -92,7 +91,6 @@ import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.ui.fragments.support.SupportFragment;
 import com.traap.traapapp.ui.fragments.ticket.BuyTicketsFragment;
-import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
@@ -663,15 +661,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onUserProfileClick()
     {
 //        showToast(this, "حساب کاربری من", R.color.green);
-
-        isMainFragment = false;
+        startActivity(new Intent(this, MyProfileFragment.class));
+       /* isMainFragment = false;
         fragment = MyProfileFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment, "myProfileFragment")
-                .commit();
+                .commit();*/
     }
+
 
     @Override
     public void showLoading()

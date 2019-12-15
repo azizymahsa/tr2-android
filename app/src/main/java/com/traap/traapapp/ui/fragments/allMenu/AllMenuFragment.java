@@ -1,24 +1,17 @@
 package com.traap.traapapp.ui.fragments.allMenu;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -28,10 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -50,8 +40,6 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
-import com.traap.traapapp.ui.activities.photo.ShowBigPhotoActivity;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.activities.web.WebActivity;
 import com.traap.traapapp.ui.adapters.allMenu.AllMenuServiceModelAdapter;
 //import com.traap.traapapp.ui.adapters.AllMenuServiceModelAdapter;
@@ -59,7 +47,7 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.adapters.allMenu.ItemRecyclerViewAdapter;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.onConfirmUserPassGDS;
-import com.traap.traapapp.ui.fragments.webView.WebFragment;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -165,7 +153,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                 @Override
                 public void onClick(View v)
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileFragment.class));
                 }
             });
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
