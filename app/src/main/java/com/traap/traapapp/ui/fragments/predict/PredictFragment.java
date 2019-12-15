@@ -408,14 +408,15 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
 //                List<DataEntry> data = new ArrayList<>();
                 List<DataEntry> data = new ArrayList<>();
-
+                ArrayList<String> colorList = new ArrayList<>();
+//                String color[] = new String[3];
                 for (Chart chart : response.data.getChart())
                 {
                     try
                     {
                         if (chart.getChartPrediction() == 0) //0 = مساوی
                         {
-
+                            colorList.add("#de9b89");
 //                            PredictDataEntry item = new PredictDataEntry("مساوی", chart.getTotalUser(), getPersianChar(String.valueOf(chart.getTotalUser())));
 ////                            item.setValue("مساوی", getPersianChar(String.valueOf(chart.getTotalUser())));
 //                            data.add(item);
@@ -424,6 +425,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         }
                         else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
                         {
+                            colorList.add(response.data.getHomeTeamColorCode());
 //                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getHomeTeamName(),
 //                                    chart.getTotalUser(),
 //                                    getPersianChar(String.valueOf(chart.getTotalUser())));
@@ -436,6 +438,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         }
                         else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
                         {
+                            colorList.add(response.data.getAwayTeamColorCode());
 //                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getAwayTeamName(),
 //                                    chart.getTotalUser(),
 //                                    getPersianChar(String.valueOf(chart.getTotalUser())));
@@ -452,9 +455,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                     }
                 }
-
                 pieChart.data(data);
-                String color[] = {"#de9b89", response.data.getHomeTeamColorCode(), response.data.getAwayTeamColorCode()};
+
+                String color[] = new String[colorList.size()];
+//                String color[] = {"#de9b89", response.data.getHomeTeamColorCode(), response.data.getAwayTeamColorCode()};
+                for (int i = 0; i < colorList.size(); i++)
+                {
+                    color[i] = colorList.get(i);
+                }
                 pieChart.palette(color);
 
                 pieChart.labels().position("outside");
