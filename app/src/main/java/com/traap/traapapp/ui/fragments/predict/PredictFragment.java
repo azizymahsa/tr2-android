@@ -73,6 +73,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private ImageView imgHomeHeader, imgAwayHeader, imgHome, imgAway, imgHomePredict, imgAwayPredict;
 
     private EditText edtAwayPredict, edtHomePredict;
+    private View sepHome, sepAway;
 
     private View vHome, vHome2, vAway, vAway2;
 
@@ -206,6 +207,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         llChart = rootView.findViewById(R.id.llChart);
 
+        sepAway = rootView.findViewById(R.id.sepAway);
+        sepHome = rootView.findViewById(R.id.sepHome);
+
         edtAwayPredict = rootView.findViewById(R.id.edtAwayPredict);
         edtHomePredict = rootView.findViewById(R.id.edtHomePredict);
 
@@ -240,6 +244,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         if (!isPredictable)
         {
 
+            sepHome.setVisibility(View.GONE);
+            sepAway.setVisibility(View.GONE);
             edtHomePredict.setVisibility(View.GONE);
             edtAwayPredict.setVisibility(View.GONE);
             btnSendPredict.setVisibility(View.GONE);
@@ -376,6 +382,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     tvHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
                     tvAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
 
+                    sepHome.setVisibility(View.GONE);
+                    sepAway.setVisibility(View.GONE);
                     edtHomePredict.setVisibility(View.GONE);
                     edtAwayPredict.setVisibility(View.GONE);
                     btnSendPredict.setVisibility(View.GONE);

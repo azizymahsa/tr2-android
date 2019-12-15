@@ -221,6 +221,7 @@
                         android:scaleType="fitCenter"/>
 
                     <View
+                        android:id="@+id/sepAway"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/gray"/>
@@ -300,6 +301,7 @@
                         android:gravity="center"/>
 
                     <View
+                        android:id="@+id/sepHome"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/gray"/>
