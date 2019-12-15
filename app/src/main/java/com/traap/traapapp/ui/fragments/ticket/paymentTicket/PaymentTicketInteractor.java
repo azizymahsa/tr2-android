@@ -16,5 +16,7 @@ public interface PaymentTicketInteractor
     interface OnFinishedPaymentTicketListener {
         void onFinishedPaymentTicket(PaymentMatchResponse response);
         void onErrorPaymentTicket(String error);
+
+        void onError(String message);
     }
 }
