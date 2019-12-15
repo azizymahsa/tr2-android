@@ -391,6 +391,7 @@ public class CompeletInfoFragment
                 break;
             case R.id.btnBackToDetail:
                 infoViewers.clear();
+                Prefs.putInt("CountTicket",count);
                 onClickContinueBuyTicketListener.onBackClicked();
 
                 break;
