@@ -205,7 +205,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
             case R.id.btnPaymentConfirm:
 
                 // onClickContinueBuyTicketListener.goBuyTicket();
-               // MainActivity.getBuyEnable();
+//                mainView.getBuyEnable();
                 finish();
 
                 break;
