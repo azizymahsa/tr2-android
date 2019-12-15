@@ -74,6 +74,7 @@ import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
+import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
@@ -1416,7 +1417,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void getBuyEnable()
+    public void getBuyEnable(BuyTicketAction buyTicketAction)
     {
 
             SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
@@ -1439,6 +1440,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     {
                         showAlert(MainActivity.this, response.info.message, 0);
                     }
+                    buyTicketAction.onEndListener();
                 }
 
                 @Override
@@ -1453,6 +1455,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     {
                         showAlert(MainActivity.this, R.string.networkErrorMessage, R.string.networkError);
                     }
+                    buyTicketAction.onEndListener();
                 }
             });
 

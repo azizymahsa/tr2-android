@@ -24,6 +24,7 @@ import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.ticket.ShowTicketAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.ticket.ticketInfo.TicketInfoImpl;
 import com.traap.traapapp.ui.fragments.ticket.ticketInfo.TicketInfoInteractor;
@@ -261,7 +262,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
             case R.id.btnPaymentConfirm:
 
                 // onClickContinueBuyTicketListener.goBuyTicket();
-                mainView.getBuyEnable();
+                mainView.getBuyEnable(() -> { });
 
                 break;
             case R.id.btnBackToHome:

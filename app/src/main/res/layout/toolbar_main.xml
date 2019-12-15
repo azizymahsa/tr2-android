@@ -45,21 +45,42 @@
         android:layout_width="match_parent"
         android:layout_height="52dp">
 
-        <Button
+<!--        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton-->
+<!--            android:id="@+id/btnBuyTicket"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="@dimen/_35dp"-->
+<!--            android:paddingEnd="16dp"-->
+<!--            android:paddingStart="16dp"-->
+<!--            android:text="خرید بلیت"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:textColor="@color/textColorButton"-->
+<!--            android:textStyle="bold"-->
+<!--            android:elevation="3dp"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--            android:foreground="?attr/selectableItemBackground"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:background="@drawable/button_buy_ticket"/>-->
+
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
             android:id="@+id/btnBuyTicket"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_35dp"
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
-            android:text="خرید بلیت"
-            android:layout_alignParentStart="true"
-            android:textColor="@color/textColorButton"
+            android:layout_gravity="center"
             android:textStyle="bold"
-            android:elevation="3dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_alignParentStart="true"
             android:foreground="?attr/selectableItemBackground"
-            android:layout_centerVertical="true"
-            android:background="@drawable/button_buy_ticket"/>
+            android:background="@drawable/button_buy_ticket"
+            android:text="خرید بلیت"
+            android:textColor="@color/textColorButton"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:transitionName="transition"
+            app:finalCornerAngle="15dp"
+            app:initialCornerAngle="15dp"
+            android:elevation="3dp"
+            app:spinning_bar_color="@color/white"
+            app:spinning_bar_width="2dp" />
 
         <RelativeLayout
             android:id="@+id/rlShirt"
