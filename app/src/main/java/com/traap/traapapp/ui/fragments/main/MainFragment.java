@@ -628,21 +628,21 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             case R.id.btnBuyTicket:
             {
-                try
-                {
-                    if (matchBuyable.getId() != null)
-                    {
-                        mainView.onBuyTicketClick(matchBuyable);
-                    }
-                    else
-                    {
-                        getBuyEnable();
-                    }
-                }
-                catch (NullPointerException e)
-                {
-                    getBuyEnable();
-                }
+//                try
+//                {
+//                    if (matchBuyable.getId() != null)
+//                    {
+//                        mainView.onBuyTicketClick(matchBuyable);
+//                    }
+//                    else
+//                    {
+//                        getBuyEnable();
+//                    }
+//                }
+//                catch (NullPointerException e)
+//                {
+//                }
+                getBuyEnable();
 
                 //---------------test------------------
 //                Intent i = new Intent(Intent.ACTION_VIEW);
@@ -720,7 +720,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             @Override
             public void onError(String message)
             {
-                showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                    Logger.e("--onError--", message);
+                }
+                else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         });
     }
@@ -757,9 +765,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     public void onError(String message)
     {
         mainView.hideLoading();
+        if (Tools.isNetworkAvailable(getActivity()))
+        {
+            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+            Logger.e("--onError--", message);
+        }
+        else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
 
-        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-        Logger.e("--onError--", message);
     }
 
     @Override
