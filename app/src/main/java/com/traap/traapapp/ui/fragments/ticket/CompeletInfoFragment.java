@@ -1406,10 +1406,17 @@ public class CompeletInfoFragment
     {
         infoViewers.clear();
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
-       // Tools.showToast(getContext(), error, R.color.red);
+        Tools.showToast(getContext(), error, R.color.red);
+
+    }
+
+    @Override
+    public void onError(String message)
+    {
+        infoViewers.clear();
+        BuyTicketsFragment.buyTicketsFragment.hideLoading();
         if (Tools.isNetworkAvailable(getActivity()))
         {
-            Logger.e("-OnError-", "Error: " + error);
             mainView.showError( "خطا در دریافت اطلاعات از سرور!");
         } else
         {

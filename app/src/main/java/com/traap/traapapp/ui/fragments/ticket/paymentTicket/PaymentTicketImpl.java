@@ -39,14 +39,14 @@ public class PaymentTicketImpl implements PaymentTicketInteractor
                 catch (Exception e)
                 {
 
-                    listener.onErrorPaymentTicket(e.getMessage());
+                    listener.onError(e.getMessage());
                 }
             }
 
             @Override
             public void onError(String message)
             {
-                listener.onErrorPaymentTicket(message);
+                listener.onError(message);
 
             }
         }, request);
