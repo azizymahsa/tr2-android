@@ -58,6 +58,7 @@ public class CompeletInfoFragment
     private MainActionView mainView;
     private LinearLayout llBoxTicket1, llBoxTicket2, llBoxTicket3, llBoxTicket4, llBoxTicket5;
     private TextView tvStation_1, tvStation_2, tvStation_3, tvStation_4, tvStation_5;
+    private TextView tvPerson_1, tvPerson_2, tvPerson_3, tvPerson_4, tvPerson_5;
     private ImageView imgDelete1, imgDelete2, imgDelete3, imgDelete4, imgDelete5;
     private CheckBox cbCondition;
     private View llConfirm, llInVisible;
@@ -77,6 +78,7 @@ public class CompeletInfoFragment
     private boolean flagDelete = false;
     private int flagNumberDelete = 0;
     private PaymentMatchRequest paymentMatchRequest;
+    private int counterPerson = 0;
 
     public CompeletInfoFragment()
     {
@@ -137,26 +139,34 @@ public class CompeletInfoFragment
         etFamily_1 = view.findViewById(R.id.etFamily_1);
         etName_1 = view.findViewById(R.id.etName_1);
         tvStation_1 = view.findViewById(R.id.tvStation_1);
+        tvPerson_1 = view.findViewById(R.id.tvPerson_1);
 
         etNationalCode_2 = view.findViewById(R.id.etNationalCode_2);
         etFamily_2 = view.findViewById(R.id.etFamily_2);
         etName_2 = view.findViewById(R.id.etName_2);
         tvStation_2 = view.findViewById(R.id.tvStation_2);
+        tvPerson_2 = view.findViewById(R.id.tvPerson_2);
 
         etNationalCode_3 = view.findViewById(R.id.etNationalCode_3);
         etFamily_3 = view.findViewById(R.id.etFamily_3);
         etName_3 = view.findViewById(R.id.etName_3);
         tvStation_3 = view.findViewById(R.id.tvStation_3);
+        tvPerson_3 = view.findViewById(R.id.tvPerson_3);
+
 
         etNationalCode_4 = view.findViewById(R.id.etNationalCode_4);
         etFamily_4 = view.findViewById(R.id.etFamily_4);
         etName_4 = view.findViewById(R.id.etName_4);
         tvStation_4 = view.findViewById(R.id.tvStation_4);
+        tvPerson_4 = view.findViewById(R.id.tvPerson_4);
+
 
         etNationalCode_5 = view.findViewById(R.id.etNationalCode_5);
         etFamily_5 = view.findViewById(R.id.etFamily_5);
         etName_5 = view.findViewById(R.id.etName_5);
         tvStation_5 = view.findViewById(R.id.tvStation_5);
+        tvPerson_5 = view.findViewById(R.id.tvPerson_5);
+
 
         llBoxTicket1 = view.findViewById(R.id.llBoxTicket1);
         llBoxTicket2 = view.findViewById(R.id.llBoxTicket2);
@@ -277,6 +287,8 @@ public class CompeletInfoFragment
                 {
                     //check condition for delete  Different modes
                     checkCondition();
+
+                    changePersonCounterName();
                 } else
                 {
                     cbCondition.setChecked(true);
@@ -305,6 +317,86 @@ public class CompeletInfoFragment
         initView();
 
         return view;
+    }
+
+    private void changePersonCounterName()
+    {
+        counterPerson=0;
+        if (llBoxTicket1.getVisibility() == View.VISIBLE)
+        {
+            if (counterPerson == 0)
+                tvPerson_1.setText("اطلاعات نفر" + "اول");
+            if (counterPerson == 1)
+                tvPerson_1.setText("اطلاعات نفر" + "دوم");
+            if (counterPerson == 2)
+                tvPerson_1.setText("اطلاعات نفر" + "سوم");
+            if (counterPerson == 3)
+                tvPerson_1.setText("اطلاعات نفر" + "چهارم");
+            if (counterPerson == 4)
+                tvPerson_1.setText("اطلاعات نفر" + "پنجم");
+
+            counterPerson = counterPerson + 1;
+        }
+        if (llBoxTicket2.getVisibility() == View.VISIBLE)
+        {
+            if (counterPerson == 0)
+                tvPerson_2.setText("اطلاعات نفر" + "اول");
+            if (counterPerson == 1)
+                tvPerson_2.setText("اطلاعات نفر" + "دوم");
+            if (counterPerson == 2)
+                tvPerson_2.setText("اطلاعات نفر" + "سوم");
+            if (counterPerson == 3)
+                tvPerson_2.setText("اطلاعات نفر" + "چهارم");
+            if (counterPerson == 4)
+                tvPerson_2.setText("اطلاعات نفر" + "پنجم");
+
+            counterPerson = counterPerson + 1;
+        }
+        if (llBoxTicket3.getVisibility() == View.VISIBLE)
+        {
+            if (counterPerson == 0)
+                tvPerson_3.setText("اطلاعات نفر " + "اول");
+            if (counterPerson == 1)
+                tvPerson_3.setText("اطلاعات نفر " + "دوم");
+            if (counterPerson == 2)
+                tvPerson_3.setText("اطلاعات نفر " + "سوم");
+            if (counterPerson == 3)
+                tvPerson_3.setText("اطلاعات نفر " + "چهارم");
+            if (counterPerson == 4)
+                tvPerson_3.setText("اطلاعات نفر " + "پنجم");
+
+            counterPerson = counterPerson + 1;
+        }
+        if (llBoxTicket4.getVisibility() == View.VISIBLE)
+        {
+            if (counterPerson == 0)
+                tvPerson_4.setText("اطلاعات نفر اول");
+            if (counterPerson == 1)
+                tvPerson_4.setText("اطلاعات نفر دوم");
+            if (counterPerson == 2)
+                tvPerson_4.setText("اطلاعات نفر سوم");
+            if (counterPerson == 3)
+                tvPerson_4.setText("اطلاعات نفر چهارم");
+            if (counterPerson == 4)
+                tvPerson_4.setText("اطلاعات نفر " + "پنجم");
+
+            counterPerson = counterPerson + 1;
+        }
+        if (llBoxTicket5.getVisibility() == View.VISIBLE)
+        {
+            if (counterPerson == 0)
+                tvPerson_5.setText("اطلاعات نفر " + "اول");
+            if (counterPerson == 1)
+                tvPerson_5.setText("اطلاعات نفر " + "دوم");
+            if (counterPerson == 2)
+                tvPerson_5.setText("اطلاعات نفر " + "سوم");
+            if (counterPerson == 3)
+                tvPerson_5.setText("اطلاعات نفر " + "چهارم");
+            if (counterPerson == 4)
+                tvPerson_5.setText("اطلاعات نفر " + "پنجم");
+
+            counterPerson = counterPerson + 1;
+        }
     }
 
 
@@ -717,9 +809,9 @@ public class CompeletInfoFragment
         if (etFamily_1.getText().toString() != null)
         {
 
-         //   if (etFamily_1.getText().toString().length() > 1 && !(etFamily_1.getText().toString().toLowerCase().matches("[0-9]")))
+            //   if (etFamily_1.getText().toString().length() > 1 && !(etFamily_1.getText().toString().toLowerCase().matches("[0-9]")))
             if (etFamily_1.getText().toString().length() > 1 && (etFamily_1.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etFamily_1.getText().toString().trim().matches("[a-zA-Z]+")|| etFamily_1.getText().toString().contains(" ")))
+                    || (etFamily_1.getText().toString().trim().matches("[a-zA-Z]+") || etFamily_1.getText().toString().contains(" ")))
             {
                 flagValidations = flagValidations + "T";
                 etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
@@ -735,9 +827,9 @@ public class CompeletInfoFragment
         if (etName_1.getText().toString() != null)
         {
 
-           // if (etName_1.getText().toString().length() > 1 && !(etName_1.getText().toString().toLowerCase().matches("[0-9]")))
+            // if (etName_1.getText().toString().length() > 1 && !(etName_1.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_1.getText().toString().length() > 1 && (etName_1.getText().toString().trim().matches("[آ-ی]+"))
-            || (etName_1.getText().toString().trim().matches("[a-zA-Z]+"))||etName_1.getText().toString().contains(" "))
+                    || (etName_1.getText().toString().trim().matches("[a-zA-Z]+")) || etName_1.getText().toString().contains(" "))
             {
 
                 flagValidations = flagValidations + "T";
@@ -789,9 +881,9 @@ public class CompeletInfoFragment
         if (etFamily_2.getText().toString() != null)
         {
 
-          //  if (etFamily_2.getText().toString().length() > 1 && !(etFamily_2.getText().toString().toLowerCase().matches("[0-9]")))
+            //  if (etFamily_2.getText().toString().length() > 1 && !(etFamily_2.getText().toString().toLowerCase().matches("[0-9]")))
             if (etFamily_2.getText().toString().length() > 1 && (etFamily_2.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etFamily_2.getText().toString().trim().matches("[a-zA-Z]+")|| etFamily_2.getText().toString().contains(" ")))
+                    || (etFamily_2.getText().toString().trim().matches("[a-zA-Z]+") || etFamily_2.getText().toString().contains(" ")))
             {
                 flagValidations = flagValidations + "T";
                 etFamily_2.setTextColor(Color.parseColor("#4d4d4d"));
@@ -807,9 +899,9 @@ public class CompeletInfoFragment
         if (etName_2.getText().toString() != null)
         {
 
-           // if (etName_2.getText().toString().length() > 1 && !(etName_2.getText().toString().toLowerCase().matches("[0-9]")))
+            // if (etName_2.getText().toString().length() > 1 && !(etName_2.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_2.getText().toString().length() > 1 && (etName_2.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etName_2.getText().toString().trim().matches("[a-zA-Z]+"))|| etName_2.getText().toString().contains(" "))
+                    || (etName_2.getText().toString().trim().matches("[a-zA-Z]+")) || etName_2.getText().toString().contains(" "))
             {
                 flagValidations = flagValidations + "T";
                 etName_2.setTextColor(Color.parseColor("#4d4d4d"));
@@ -860,9 +952,9 @@ public class CompeletInfoFragment
         if (etFamily_3.getText().toString() != null)
         {
 
-           // if (etFamily_3.getText().toString().length() > 1 && !(etFamily_3.getText().toString().toLowerCase().matches("[0-9]")))
+            // if (etFamily_3.getText().toString().length() > 1 && !(etFamily_3.getText().toString().toLowerCase().matches("[0-9]")))
             if (etFamily_3.getText().toString().length() > 1 && (etFamily_3.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etFamily_3.getText().toString().trim().matches("[a-zA-Z]+")|| etFamily_3.getText().toString().contains(" ")))
+                    || (etFamily_3.getText().toString().trim().matches("[a-zA-Z]+") || etFamily_3.getText().toString().contains(" ")))
             {
                 flagValidations = flagValidations + "T";
                 etFamily_3.setTextColor(Color.parseColor("#4d4d4d"));
@@ -878,9 +970,9 @@ public class CompeletInfoFragment
         if (etName_3.getText().toString() != null)
         {
 
-           // if (etName_3.getText().toString().length() > 1 && !(etName_3.getText().toString().toLowerCase().matches("[0-9]")))
+            // if (etName_3.getText().toString().length() > 1 && !(etName_3.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_3.getText().toString().length() > 1 && (etName_3.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etName_3.getText().toString().trim().matches("[a-zA-Z]+"))|| etName_3.getText().toString().contains(" "))
+                    || (etName_3.getText().toString().trim().matches("[a-zA-Z]+")) || etName_3.getText().toString().contains(" "))
             {
                 flagValidations = flagValidations + "T";
                 etName_3.setTextColor(Color.parseColor("#4d4d4d"));
@@ -931,9 +1023,9 @@ public class CompeletInfoFragment
         if (etFamily_4.getText().toString() != null)
         {
 
-           // if (etFamily_4.getText().toString().length() > 1 && !(etFamily_4.getText().toString().toLowerCase().matches("[0-9]")))
+            // if (etFamily_4.getText().toString().length() > 1 && !(etFamily_4.getText().toString().toLowerCase().matches("[0-9]")))
             if (etFamily_4.getText().toString().length() > 1 && (etFamily_4.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etFamily_4.getText().toString().trim().matches("[a-zA-Z]+")|| etFamily_4.getText().toString().contains(" ")))
+                    || (etFamily_4.getText().toString().trim().matches("[a-zA-Z]+") || etFamily_4.getText().toString().contains(" ")))
             {
                 flagValidations = flagValidations + "T";
                 etFamily_4.setTextColor(Color.parseColor("#4d4d4d"));
@@ -951,7 +1043,7 @@ public class CompeletInfoFragment
 
             //if (etName_4.getText().toString().length() > 1 && !(etName_4.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_4.getText().toString().length() > 1 && (etName_4.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etName_4.getText().toString().trim().matches("[a-zA-Z]+"))|| etName_4.getText().toString().contains(" "))
+                    || (etName_4.getText().toString().trim().matches("[a-zA-Z]+")) || etName_4.getText().toString().contains(" "))
             {
                 flagValidations = flagValidations + "T";
                 etName_4.setTextColor(Color.parseColor("#4d4d4d"));
@@ -1002,9 +1094,9 @@ public class CompeletInfoFragment
         if (etFamily_5.getText().toString() != null)
         {
 
-           // if (etFamily_5.getText().toString().length() > 1 && !(etFamily_5.getText().toString().toLowerCase().matches("[0-9]")))
+            // if (etFamily_5.getText().toString().length() > 1 && !(etFamily_5.getText().toString().toLowerCase().matches("[0-9]")))
             if (etFamily_5.getText().toString().length() > 1 && (etFamily_5.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etFamily_5.getText().toString().trim().matches("[a-zA-Z]+")|| etFamily_5.getText().toString().contains(" ")))
+                    || (etFamily_5.getText().toString().trim().matches("[a-zA-Z]+") || etFamily_5.getText().toString().contains(" ")))
             {
                 flagValidations = flagValidations + "T";
                 etFamily_5.setTextColor(Color.parseColor("#4d4d4d"));
@@ -1020,9 +1112,9 @@ public class CompeletInfoFragment
         if (etName_5.getText().toString() != null)
         {
 
-           // if (etName_5.getText().toString().length() > 1 && !(etName_5.getText().toString().toLowerCase().matches("[0-9]")))
+            // if (etName_5.getText().toString().length() > 1 && !(etName_5.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_5.getText().toString().length() > 1 && (etName_5.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etName_5.getText().toString().trim().matches("[a-zA-Z]+")|| etName_5.getText().toString().contains(" ")))
+                    || (etName_5.getText().toString().trim().matches("[a-zA-Z]+") || etName_5.getText().toString().contains(" ")))
             {
                 flagValidations = flagValidations + "T";
                 etName_5.setTextColor(Color.parseColor("#4d4d4d"));
@@ -1307,7 +1399,7 @@ public class CompeletInfoFragment
         this.ticketIdList = ticketIdList;
         this.stadiumId = stadiumId;
 
-      //  this.paymentMatchRequest = paymentMatchRequest;
+        //  this.paymentMatchRequest = paymentMatchRequest;
 
         if (view == null)
             return;
@@ -1383,7 +1475,7 @@ public class CompeletInfoFragment
     {
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
-        paymentMatchRequest=new PaymentMatchRequest();
+        paymentMatchRequest = new PaymentMatchRequest();
         paymentMatchRequest.setAmount(amountForPay);
         paymentMatchRequest.setViewers(infoViewers);
 
@@ -1395,10 +1487,10 @@ public class CompeletInfoFragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment2);
         fragmentTransaction.commit();*/
-       BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
+        BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
 
-       // onClickContinueBuyTicketListener.onContinueClicked();
-//        getActivity().finish();
+        // onClickContinueBuyTicketListener.onContinueClicked();
+        getActivity().finish();
     }
 
     @Override
@@ -1444,7 +1536,7 @@ public class CompeletInfoFragment
         if (Tools.isNetworkAvailable(getActivity()))
         {
             Logger.e("-OnError-", "Error: " + error);
-            mainView.showError( "خطا در دریافت اطلاعات از سرور!");
+            mainView.showError("خطا در دریافت اطلاعات از سرور!");
         } else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);

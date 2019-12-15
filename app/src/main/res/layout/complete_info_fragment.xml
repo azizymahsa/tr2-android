@@ -170,6 +170,7 @@
                                             android:scaleType="center"
                                             android:src="@drawable/dot_dis" />
 
+
                                         <ImageView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
@@ -189,6 +190,8 @@
                                     android:orientation="horizontal">
 
                                     <TextView
+                                        android:id="@+id/tvPerson_1"
+
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
@@ -341,6 +344,7 @@
                                             android:scaleType="center"
                                             android:src="@drawable/dot_dis" />
 
+
                                         <ImageView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
@@ -361,6 +365,8 @@
                                     android:orientation="horizontal">
 
                                     <TextView
+                                        android:id="@+id/tvPerson_2"
+
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
@@ -533,6 +539,8 @@
                                     android:orientation="horizontal">
 
                                     <TextView
+                                        android:id="@+id/tvPerson_3"
+
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
@@ -705,6 +713,8 @@
                                     android:orientation="horizontal">
 
                                     <TextView
+                                        android:id="@+id/tvPerson_4"
+
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
@@ -877,6 +887,8 @@
                                     android:orientation="horizontal">
 
                                     <TextView
+                                        android:id="@+id/tvPerson_5"
+
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
