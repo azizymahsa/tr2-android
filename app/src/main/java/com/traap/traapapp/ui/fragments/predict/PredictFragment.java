@@ -27,11 +27,9 @@ import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 import com.anychart.graphics.vector.text.Direction;
-import com.anychart.graphics.vector.text.FontStyle;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,10 +49,10 @@ import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPred
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -228,7 +226,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         tvPredictEmpty = rootView.findViewById(R.id.tvPredictEmpty);
         rlShirt = rootView.findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class))
+        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
         );
         imgAwayHeader = rootView.findViewById(R.id.imgAwayHeader);
         imgAway = rootView.findViewById(R.id.imgAway);
