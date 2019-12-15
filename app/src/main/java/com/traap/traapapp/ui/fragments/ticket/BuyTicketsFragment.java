@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.ticket;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -458,8 +459,10 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
 
     public void openWebPayment(String url)
     {
-        Utility.openUrlCustomTab(getActivity(), url);
-
+//        Utility.openUrlCustomTab(getActivity(), url);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        getActivity().startActivity(intent);
     }
 
 

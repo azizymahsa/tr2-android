@@ -157,7 +157,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             showAlert( this.getString(R.string.networkErrorMessage) ,this.getString(R.string.networkError));
         }
 
-      //  finish();
+        finish();
 
     }
 

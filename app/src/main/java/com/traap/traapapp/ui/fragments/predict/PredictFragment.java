@@ -27,9 +27,11 @@ import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 import com.anychart.graphics.vector.text.Direction;
+import com.anychart.graphics.vector.text.FontStyle;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -430,8 +432,10 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 pieChart.labels().position("outside");
                 pieChart.labels().fontColor("#000");
-                Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf");
+//                Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf");
+                Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/IRANSansMobile_Bold.ttf");
                 pieChart.labels().fontFamily(face.toString());
+//                File font = new File("file:///android_asset/fonts/iran_sans_normal.ttf");
 
                 pieChart.legend()
 //                        .position("center-bottom")
