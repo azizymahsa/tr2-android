@@ -642,7 +642,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                catch (NullPointerException e)
 //                {
 //                }
-                getBuyEnable();
+                mainView.getBuyEnable();
 
                 //---------------test------------------
 //                Intent i = new Intent(Intent.ACTION_VIEW);
@@ -693,45 +693,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         }
     }
 
-    private void getBuyEnable()
-    {
-        SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
-        {
-            @Override
-            public void onReady(WebServiceClass<MatchItem> response)
-            {
-                if (response.info.statusCode == 200)
-                {
-                    if (response.data != null)
-                    {
-                        mainView.onBuyTicketClick(response.data);
-                    }
-                    else
-                    {
-                        showAlert(getActivity(), response.info.message, 0);
-                    }
-                }
-                else
-                {
-                    showAlert(getActivity(), response.info.message, 0);
-                }
-            }
-
-            @Override
-            public void onError(String message)
-            {
-                if (Tools.isNetworkAvailable(getActivity()))
-                {
-                    showAlert(getActivity(), "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
-                    Logger.e("--onError--", message);
-                }
-                else
-                {
-                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
-                }
-            }
-        });
-    }
 
     @Override
     public void onReady(WebServiceClass<MachListResponse> responseMatchList)
@@ -940,7 +901,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         });
 
 
-        tvIntroTitle.setText("سلام،" + Prefs.getString("firstName", "") + " " + Prefs.getString("lastName", "") + " خوش آمدید");
+        tvIntroTitle.setText("سلام،" + Prefs.getString("firstName", "") + Prefs.getString("lastName", "") + " خوش آمدید");
         new Handler().postDelayed(() ->
         {
             rlIntro.setVisibility(View.VISIBLE);

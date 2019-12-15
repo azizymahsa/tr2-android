@@ -113,7 +113,7 @@
                                         android:layout_weight="1"                                        android:layout_height="match_parent"
                                         android:padding="@dimen/_5dp"
                                         android:rotation="90"
-                                        android:src="@drawable/ic_search"
+                                        app:srcCompat="@drawable/ic_search"
                                         android:tint="@color/gray" />
                                 </LinearLayout>
                                 <TextView
@@ -154,7 +154,7 @@
                                         android:layout_width="0dp"
                                         android:layout_weight="1.2"                                        android:layout_height="match_parent"
                                         android:paddingEnd="@dimen/_5dp"
-                                        android:src="@drawable/ic_filter"
+                                        app:srcCompat="@drawable/ic_filter"
                                         android:tint="@color/textColorPrimary" />
                                 </LinearLayout>
                             </LinearLayout>

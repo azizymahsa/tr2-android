@@ -94,6 +94,7 @@ import com.traap.traapapp.ui.fragments.support.SupportFragment;
 import com.traap.traapapp.ui.fragments.ticket.BuyTicketsFragment;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
+import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
 import com.traap.traapapp.ui.fragments.webView.WebFragment;
@@ -1415,6 +1416,50 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
+    public void getBuyEnable()
+    {
+
+            SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
+            {
+                @Override
+                public void onReady(WebServiceClass<MatchItem> response)
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        if (response.data != null)
+                        {
+                           onBuyTicketClick(response.data);
+                        }
+                        else
+                        {
+                            showAlert(MainActivity.this, response.info.message, 0);
+                        }
+                    }
+                    else
+                    {
+                        showAlert(MainActivity.this, response.info.message, 0);
+                    }
+                }
+
+                @Override
+                public void onError(String message)
+                {
+                    if (Tools.isNetworkAvailable(MainActivity.this))
+                    {
+                        showAlert(MainActivity.this, "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                        Logger.e("--onError--", message);
+                    }
+                    else
+                    {
+                        showAlert(MainActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                    }
+                }
+            });
+
+
+    }
+
+    @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
 
@@ -1516,20 +1561,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         if (hasPaymentTicket)
         {
-           /* showLoading();
             isMainFragment = false;
-            this.fragment = ShowTicketsFragment.newInstance(this);
+            this.fragment = ShowTicketsFragment.newInstance(this,refrenceNumber);
 
             transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment)
-                    .commit();*/
-            Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
+                    .commit();
+           /* Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
 
             intent.putExtra("RefrenceNumber", refrenceNumber);
             intent.putExtra("isTransactionList", false);
 
-            startActivity(intent);
+            startActivity(intent);*/
 
         }else if (hasPaymentCharge || hasPaymentPackageSimcard){
             Intent intent = new Intent(this, PaymentResultActivity.class);

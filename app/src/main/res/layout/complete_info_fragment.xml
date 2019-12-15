@@ -170,6 +170,7 @@
                                             android:scaleType="center"
                                             android:src="@drawable/dot_dis" />
 
+
                                         <ImageView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
@@ -188,20 +189,29 @@
                                     android:gravity="center"
                                     android:orientation="horizontal">
 
-
                                     <TextView
-                                        android:id="@+id/tvStation_1"
-                                        android:layout_width="match_parent"
+                                        android:id="@+id/tvPerson_1"
+
+                                        android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
                                         android:rotation="90"
-                                        android:singleLine="true"
+                                        android:text="اطلاعات نفر اول"
+                                        android:textColor="@color/textColorSubTitle"
+                                        android:textSize="8sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvStation_1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:rotation="90"
                                         android:text="جایگاه "
                                         android:textColor="@color/_title_black"
-                                        android:textSize="@dimen/textSize_12dp" />
-
+                                        android:textSize="10sp" />
 
                                 </LinearLayout>
+
                             </LinearLayout>
 
                             <ImageView
@@ -334,6 +344,7 @@
                                             android:scaleType="center"
                                             android:src="@drawable/dot_dis" />
 
+
                                         <ImageView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
@@ -353,17 +364,26 @@
                                     android:gravity="center"
                                     android:orientation="horizontal">
 
-
                                     <TextView
-                                        android:id="@+id/tvStation_2"
-                                        android:layout_width="match_parent"
+                                        android:id="@+id/tvPerson_2"
+
+                                        android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
                                         android:rotation="90"
-                                        android:singleLine="true"
+                                        android:text="اطلاعات نفر دوم"
+                                        android:textColor="@color/textColorSubTitle"
+                                        android:textSize="8sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvStation_2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:rotation="90"
                                         android:text="جایگاه 14"
                                         android:textColor="@color/_title_black"
-                                        android:textSize="@dimen/textSize_12dp" />
+                                        android:textSize="10sp" />
 
 
                                 </LinearLayout>
@@ -518,17 +538,26 @@
                                     android:gravity="center"
                                     android:orientation="horizontal">
 
-
                                     <TextView
-                                        android:id="@+id/tvStation_3"
-                                        android:layout_width="match_parent"
+                                        android:id="@+id/tvPerson_3"
+
+                                        android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
                                         android:rotation="90"
-                                        android:singleLine="true"
+                                        android:text="اطلاعات نفر سوم"
+                                        android:textColor="@color/textColorSubTitle"
+                                        android:textSize="8sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvStation_3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:rotation="90"
                                         android:text="جایگاه 14"
                                         android:textColor="@color/_title_black"
-                                        android:textSize="@dimen/textSize_12dp" />
+                                        android:textSize="10sp" />
 
 
                                 </LinearLayout>
@@ -683,6 +712,16 @@
                                     android:gravity="center"
                                     android:orientation="horizontal">
 
+                                    <TextView
+                                        android:id="@+id/tvPerson_4"
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:rotation="90"
+                                        android:text="اطلاعات نفر چهارم"
+                                        android:textColor="@color/textColorSubTitle"
+                                        android:textSize="8sp" />
 
                                     <TextView
                                         android:id="@+id/tvStation_4"
@@ -690,10 +729,9 @@
                                         android:layout_height="match_parent"
                                         android:gravity="center"
                                         android:rotation="90"
-                                        android:singleLine="true"
                                         android:text="جایگاه 14"
                                         android:textColor="@color/_title_black"
-                                        android:textSize="@dimen/textSize_12dp" />
+                                        android:textSize="10sp" />
 
 
                                 </LinearLayout>
@@ -848,6 +886,16 @@
                                     android:gravity="center"
                                     android:orientation="horizontal">
 
+                                    <TextView
+                                        android:id="@+id/tvPerson_5"
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:rotation="90"
+                                        android:text="اطلاعات نفر پنجم"
+                                        android:textColor="@color/textColorSubTitle"
+                                        android:textSize="8sp" />
 
                                     <TextView
                                         android:id="@+id/tvStation_5"
@@ -855,10 +903,9 @@
                                         android:layout_height="match_parent"
                                         android:gravity="center"
                                         android:rotation="90"
-                                        android:singleLine="true"
                                         android:text="جایگاه 14"
                                         android:textColor="@color/_title_black"
-                                        android:textSize="@dimen/textSize_12dp" />
+                                        android:textSize="10sp" />
 
 
                                 </LinearLayout>

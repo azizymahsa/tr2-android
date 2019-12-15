@@ -44,6 +44,7 @@
                 android:background="@color/mainNavigationBottomBackgroundColor"
                 android:layout_alignParentBottom="true"
                 android:fitsSystemWindows="true"
+                android:theme="@style/Widget.BottomNavigationView"
                 app:paddingStart="60dp"
                 app:paddingEnd="60dp"
                 app:itemBackground="@color/mainNavigationBottomBackgroundColor"

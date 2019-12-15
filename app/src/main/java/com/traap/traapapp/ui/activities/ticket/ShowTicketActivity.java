@@ -17,6 +17,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.showTicket.ShowTicketItem;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.ticket.ShowTicketAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -53,6 +54,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
     private TextView txRefrenceNumber,tvRefrenceNumberFromErrorPayment;
     private boolean isTransactionList=false;
     private View llSelect;
+    private View btnBuyTicket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -203,6 +205,8 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
             case R.id.btnPaymentConfirm:
 
                 // onClickContinueBuyTicketListener.goBuyTicket();
+//                mainView.getBuyEnable();
+                finish();
 
                 break;
             case R.id.btnBackToHome:
@@ -216,7 +220,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
 
                 break;
             case R.id.btnShareTicket:
-                new ScreenShot(llSuccessPayment, this);
+                new ScreenShot(rvTickets, this);
                 // Tools.showToast(getContext(), "share");
                 break;
 

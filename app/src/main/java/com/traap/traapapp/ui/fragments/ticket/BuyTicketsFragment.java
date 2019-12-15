@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.ticket;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -189,9 +190,11 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
 
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);
-            tvUserName.setText(Prefs.getString("mobile", ""));
+
             tvHeaderPopularNo = rootView.findViewById(R.id.tvPopularPlayer);
             tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
             imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
@@ -458,8 +461,10 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
 
     public void openWebPayment(String url)
     {
-        Utility.openUrlCustomTab(getActivity(), url);
-
+//        Utility.openUrlCustomTab(getActivity(), url);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        getActivity().startActivity(intent);
     }
 
 

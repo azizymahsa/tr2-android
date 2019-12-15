@@ -61,6 +61,8 @@ import org.greenrobot.eventbus.Subscribe;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -243,9 +245,9 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             imgEndDateReset.setVisibility(View.GONE);
         });
 
-//        edtSearchFilter.settextc
         disposable.add(RxTextView.textChanges(edtSearchFilter)
                 .skipInitialValue()
+                .filter(charSequence -> charSequence.length() > 2)
                 .debounce(DELAY_TIME_TEXT_CHANGE, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -440,10 +442,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private void getFilter(String text)
     {
-        if (text.length() > 2)
-        {
 
-        }
     }
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter

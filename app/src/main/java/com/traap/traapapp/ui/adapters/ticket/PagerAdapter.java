@@ -114,6 +114,6 @@ public class PagerAdapter
 
     public void createShareShowTicket()
     {
-        tab3.setSharedData();
+    //    tab3.setSharedData();
     }
 }
