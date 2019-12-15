@@ -1415,6 +1415,50 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
+    public void getBuyEnable()
+    {
+
+            SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
+            {
+                @Override
+                public void onReady(WebServiceClass<MatchItem> response)
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        if (response.data != null)
+                        {
+                           onBuyTicketClick(response.data);
+                        }
+                        else
+                        {
+                            showAlert(MainActivity.this, response.info.message, 0);
+                        }
+                    }
+                    else
+                    {
+                        showAlert(MainActivity.this, response.info.message, 0);
+                    }
+                }
+
+                @Override
+                public void onError(String message)
+                {
+                    if (Tools.isNetworkAvailable(MainActivity.this))
+                    {
+                        showAlert(MainActivity.this, "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                        Logger.e("--onError--", message);
+                    }
+                    else
+                    {
+                        showAlert(MainActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                    }
+                }
+            });
+
+
+    }
+
+    @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
 
