@@ -42,6 +42,7 @@ import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpResponse;
 import com.traap.traapapp.apiServices.model.getMenuHelp.ResultHelpMenu;
 import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
@@ -88,7 +89,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private ScrollingPagerIndicator indicator;
     private BottomNavigationView bottomNavigationView;
 
-    private Boolean isPredictable = true;
+    private Boolean isPredictable = false;
 
     private Toolbar mToolbar;
 
@@ -284,15 +285,85 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             try
             {
-                if (matchPredict != null)
+//                if (matchPredict != null)
+//                {
+//                    Logger.e("predict Id", matchPredict.getResult());
+////                    mainView.onPredict(matchPredict, isPredictable);
+//                }
+//                else
+//                {
+//                    showToast(getActivity(), "زمان پیش بینی به پایان رسیده است.", R.color.green);
+//                }
+
+                mainView.showLoading();
+
+                SingletonService.getInstance().getPredictService().getPredictEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
                 {
-                    Logger.e("predict Id", matchPredict.getResult());
-                    mainView.onPredict(matchPredict, isPredictable);
-                }
+                    @Override
+                    public void onReady(WebServiceClass<MatchItem> response)
+                    {
+                        mainView.hideLoading();
+
+                        if (response == null || response.data == null)
+                        {
+                            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                            isPredictable = false;
+                            rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+                            ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
+                            return;
+                        }
+                        if (response.info.statusCode != 200)
+                        {
+                            showError(getActivity(), response.info.message);
+                            isPredictable = false;
+                            rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+                            ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
+                        }
+                        else
+                        {
+                            matchPredict = response.data;
+
+                            Timestamp myTimestamp = new Timestamp(System.currentTimeMillis());
+                            long myTime = myTimestamp.getTime();
+                            long matchTime = matchPredict.getMatchDatetime().longValue() * 1000;
+                            Logger.e("--Time--", "myTime:" + myTime);
+
+                            long predictTime = matchPredict.getPredictTime().longValue() * 1000;
+                            long remainPredictTime = predictTime - myTime;
+                            Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
+
+                            if (remainPredictTime > 0)
+                            {
+                                isPredictable = true;
+                                rootView.findViewById(R.id.llTimer).setVisibility(View.VISIBLE);
+                                ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("پیش بینی کن جایزه بگیر!");
+                                startTimer(remainPredictTime);
+
+                                mainView.onPredict(matchPredict, isPredictable);
+                            }
+                            else
+                            {
+                                isPredictable = false;
+                                rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+                                ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(String message)
+                    {
+                        mainView.hideLoading();
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                        isPredictable = false;
+                        rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+                        ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
+                    }
+                });
             }
             catch (Exception e)
             {
-
+                showToast(getActivity(), "زمان پیش بینی به پایان رسیده است.", R.color.green);
             }
 
         });

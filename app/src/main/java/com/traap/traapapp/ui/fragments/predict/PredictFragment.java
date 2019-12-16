@@ -332,7 +332,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         {
             showErrorAndBackToMain(response.info.message);
             return;
-        } else
+        }
+        else
         {
             llAwayResultList.removeAllViews();
             llHomeResultList.removeAllViews();
