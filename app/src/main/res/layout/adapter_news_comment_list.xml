@@ -96,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
-        android:background="@drawable/dotted"
+        android:background="@drawable/background_rectangle_dotted_15dp"
         android:textColor="@color/textColorSecondary"
         android:layout_margin="@dimen/_10dp"
         android:padding="@dimen/_10dp"
