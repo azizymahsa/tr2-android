@@ -113,6 +113,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
+                                        android:digits="@string/_confirm_next"
                                         android:inputType="number"
                                         android:maxLength="10"                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"

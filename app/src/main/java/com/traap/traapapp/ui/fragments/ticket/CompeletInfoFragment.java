@@ -813,8 +813,8 @@ public class CompeletInfoFragment
         {
 
             //   if (etFamily_1.getText().toString().length() > 1 && !(etFamily_1.getText().toString().toLowerCase().matches("[0-9]")))
-            if (etFamily_1.getText().toString().length() > 1 && (etFamily_1.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etFamily_1.getText().toString().trim().matches("[a-zA-Z]+") || etFamily_1.getText().toString().contains(" ")))
+            if (etFamily_1.getText().toString().length() > 1 && ((etFamily_1.getText().toString().trim().matches("[آ-ی]+"))
+                    || (etFamily_1.getText().toString().trim().matches("[a-zA-Z]+") || etFamily_1.getText().toString().contains(" "))) && !(etFamily_1.getText().toString().toLowerCase().matches("[0-9]")))
             {
                 flagValidations = flagValidations + "T";
                 etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
@@ -832,7 +832,7 @@ public class CompeletInfoFragment
 
             // if (etName_1.getText().toString().length() > 1 && !(etName_1.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_1.getText().toString().length() > 1 && (etName_1.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etName_1.getText().toString().trim().matches("[a-zA-Z]+")) || etName_1.getText().toString().contains(" "))
+                    & (etName_1.getText().toString().trim().matches("[a-zA-Z]+")) & etName_1.getText().toString().contains(" "))
             {
 
                 flagValidations = flagValidations + "T";
