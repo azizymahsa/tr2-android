@@ -50,12 +50,14 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
     private SlidingUpPanelLayout upPanelLayout;
     private RecyclerView rvCategories;
     private LinearLayout llFilter;
+    private View llArchive,tvEmpty;
+    private View vLine2,vLine1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_archive);
+        setContentView(R.layout.activity_photo_archive);
         if (savedInstanceState == null)
         {
             Bundle extras = getIntent().getExtras();
@@ -226,12 +228,28 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
 
     private void onGetArchivePhotoSuccess(ArrayList<Category> data)
     {
-        rvArchiveVideo.setAdapter(new PhotosArchiveAdapter(data, FLAG_Favorite, this));
+        if (data.isEmpty()){
+            rvArchiveVideo.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
+        }else {
+            rvArchiveVideo.setVisibility(View.VISIBLE);
+            tvEmpty.setVisibility(View.GONE);
+            rvArchiveVideo.setAdapter(new PhotosArchiveAdapter(data, FLAG_Favorite, this));
+        }
+
     }
 
     private void onGetBookMarkPhotoSuccess(ArrayList<Category> data)
     {
-        rvArchiveVideo.setAdapter(new PhotosArchiveAdapter(data, FLAG_Favorite, this));
+        if (data.isEmpty()){
+            rvArchiveVideo.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
+        }else {
+            rvArchiveVideo.setVisibility(View.VISIBLE);
+            tvEmpty.setVisibility(View.GONE);
+            rvArchiveVideo.setAdapter(new PhotosArchiveAdapter(data, FLAG_Favorite, this));
+        }
+
     }
 
     private void initView()
@@ -244,6 +262,9 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             upPanelLayout = findViewById(R.id.sliding_layout);
             rvCategories = findViewById(R.id.rvCategories);
             rvCategories.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+
+            llArchive=findViewById(R.id.llArchive);
+            tvEmpty=findViewById(R.id.tvEmpty);
 
             tvTitle = findViewById(R.id.tvTitle);
 
@@ -268,6 +289,8 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         {
 
         }
+        vLine1=findViewById(R.id.vLine1);
+        vLine2=findViewById(R.id.vLine2);
         rvArchiveVideo = findViewById(R.id.rvArchiveVideo);
         rvCategoryTitles = findViewById(R.id.rvCategoryTitles);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, true);
@@ -280,9 +303,13 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             videoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(categoryTitleList, this);
             rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
 
+            vLine1.setVisibility(View.VISIBLE);
+            vLine2.setVisibility(View.VISIBLE);
 
         } else
         {
+            vLine1.setVisibility(View.GONE);
+            vLine2.setVisibility(View.GONE);
             tvTitle.setText("عکس های مورد علاقه من");
         }
     }

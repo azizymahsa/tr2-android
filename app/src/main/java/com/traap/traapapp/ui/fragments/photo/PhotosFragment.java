@@ -70,6 +70,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     private Integer id;
     private TextView tvArchiveVideo, tvMyFavoritePhoto;
     private View rlShirt;
+    private View tvEmpty,tvEmptyFavorite,llFavorites;
 
     public PhotosFragment()
     {
@@ -127,6 +128,10 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         tvArchiveVideo = rootView.findViewById(R.id.tvArchiveVideo);
         tvMyFavoritePhoto = rootView.findViewById(R.id.tvMyFavoritePhoto);
         rvGrideCategories = rootView.findViewById(R.id.rvCategories);
+        tvEmpty=rootView.findViewById(R.id.tvEmpty);
+        tvEmptyFavorite=rootView.findViewById(R.id.tvEmptyFavorite);
+        llFavorites = rootView.findViewById(R.id.llFavorites);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         rvCategoryTitles.setLayoutManager(layoutManager);
 
@@ -204,6 +209,8 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     {
         if (!mainPhotosResponse.getFavorites().isEmpty())
         {
+            llFavorites.setVisibility(View.VISIBLE);
+            tvEmptyFavorite.setVisibility(View.GONE);
             ArrayList<Category> favoriteList = mainPhotosResponse.getFavorites();
             try
             {
@@ -218,6 +225,10 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                 Log.d("Favorit:", e.getMessage());
             }
 
+        }else {
+
+            llFavorites.setVisibility(View.GONE);
+            tvEmptyFavorite.setVisibility(View.VISIBLE);
         }
 
     }
@@ -398,9 +409,18 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
     private void setCategoryListData(CategoryByIdVideosResponse data)
     {
-        categoryAdapter = new CategoryPhotosAdapter(data.getResults(), mainView, this);
-        rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        rvGrideCategories.setAdapter(categoryAdapter);
+        if (data.getResults().isEmpty()){
+            tvEmpty.setVisibility(View.VISIBLE);
+            rvGrideCategories.setVisibility(View.GONE);
+        }else {
+            tvEmpty.setVisibility(View.GONE);
+            rvGrideCategories.setVisibility(View.VISIBLE);
+            categoryAdapter = new CategoryPhotosAdapter(data.getResults(), mainView, this);
+            rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            rvGrideCategories.setAdapter(categoryAdapter);
+        }
+
+
 
         // rvGrid.setLayoutManager(new GridLayoutManager(getContext(), 3));
         // rvGrid.setAdapter(new ItemRecyclerViewAdapter(getContext(), list, this));//, interactionListener));
