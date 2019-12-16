@@ -35,7 +35,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
         this.pastMatchesList = pastMatchesList;
     }
 
-    public MatchAdapter(List<MatchItem> pastMatchesList, Context context,ItemClickListener mClickListener)
+    public MatchAdapter(List<MatchItem> pastMatchesList, Context context, ItemClickListener mClickListener)
     {
         this.pastMatchesList = pastMatchesList;
         this.mContext = context;
@@ -57,12 +57,12 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
     {
 
         MatchItem item = pastMatchesList.get(position);
-
-        holder.tvLeageName.setText(item.getCup().getName());
+        String[] week = item.getDescription().split("/");
+        holder.tvLeageName.setText(item.getCup().getName() + " (" + week[0] + ") ");
         holder.tvStadiumname.setText("ورزشگاه " + item.getStadium().getName());
         holder.tvDate.setText(item.getMatchDatetimeStr());
 
-       // holder.rlHost.setOnClickListener(mClickListener.onItemLogoTeamClick(););
+        // holder.rlHost.setOnClickListener(mClickListener.onItemLogoTeamClick(););
 
 
         try
@@ -141,31 +141,34 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
 
         holder.progress.setVisibility(View.GONE);
 
-        if (item.getBuyEnable() && item.getIsPredict()){
+        if (item.getBuyEnable() && item.getIsPredict())
+        {
             holder.tvBuyTicket.setVisibility(View.VISIBLE);
             holder.tvPredictResult.setVisibility(View.VISIBLE);
 
             holder.lnrBuyEnable.setVisibility(View.VISIBLE);
-        }
-        else if(item.getIsPredict())
+        } else if (item.getIsPredict())
         {
             holder.lnrBuyEnable.setVisibility(View.VISIBLE);
             holder.tvPredictResult.setVisibility(View.VISIBLE);
             holder.tvBuyTicket.setVisibility(View.GONE);
 
-        }else if (item.getBuyEnable()){
+        } else if (item.getBuyEnable())
+        {
             holder.tvBuyTicket.setVisibility(View.VISIBLE);
             holder.tvPredictResult.setVisibility(View.GONE);
 
             holder.lnrBuyEnable.setVisibility(View.VISIBLE);
-        }else {
+        } else
+        {
             holder.lnrBuyEnable.setVisibility(View.GONE);
             holder.tvPredictResult.setVisibility(View.GONE);
             holder.tvBuyTicket.setVisibility(View.GONE);
 
         }
-        if (item.getIs_chart_predict()){
-          //  holder.tvBuyTicket.setVisibility(View.GONE);
+        if (item.getIs_chart_predict())
+        {
+            //  holder.tvBuyTicket.setVisibility(View.GONE);
             holder.tvPredictResult.setVisibility(View.VISIBLE);
 
             holder.lnrBuyEnable.setVisibility(View.VISIBLE);
@@ -184,7 +187,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
 
-        View rlHost,rlGuest;
+        View rlHost, rlGuest;
         TextView tvLeageName;
         TextView tvStadiumname;
         TextView tvDate;
@@ -218,8 +221,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             tvHome = itemView.findViewById(R.id.tvHome);
             imgGuest = itemView.findViewById(R.id.imgGuest);
             tvAway = itemView.findViewById(R.id.tvAway);
-            rlHost=itemView.findViewById(R.id.rlHost);
-            rlGuest=itemView.findViewById(R.id.rlGuest);
+            rlHost = itemView.findViewById(R.id.rlHost);
+            rlGuest = itemView.findViewById(R.id.rlGuest);
 
             imgCenter = itemView.findViewById(R.id.imgCenter);
             tvMatchResult = itemView.findViewById(R.id.tvMatchResult);
@@ -239,22 +242,24 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             switch (v.getId())
             {
                 case R.id.tvBuyTicket:
-                    if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition(),pastMatchesList.get(getAdapterPosition()));
+                    if (mClickListener != null)
+                        mClickListener.onItemClick(view, getAdapterPosition(), pastMatchesList.get(getAdapterPosition()));
                     break;
                 case R.id.tvPredictResult:
-                    if (mClickListener != null) mClickListener.onItemPredictClick(view, getAdapterPosition(),pastMatchesList.get(getAdapterPosition()));
+                    if (mClickListener != null)
+                        mClickListener.onItemPredictClick(view, getAdapterPosition(), pastMatchesList.get(getAdapterPosition()));
                     break;
 
                 case R.id.rlHost:
-                    if (mClickListener != null) mClickListener.onItemLogoTeamClick( view,
+                    if (mClickListener != null) mClickListener.onItemLogoTeamClick(view,
                             pastMatchesList.get(getAdapterPosition()).getTeamHome().getLivescoreId(),
                             pastMatchesList.get(getAdapterPosition()).getTeamHome().getLogo(),
                             pastMatchesList.get(getAdapterPosition()).getTeamHome().getName()
 
-                            );
+                    );
                     break;
                 case R.id.rlGuest:
-                    if (mClickListener != null) mClickListener.onItemLogoTeamClick( view,
+                    if (mClickListener != null) mClickListener.onItemLogoTeamClick(view,
                             pastMatchesList.get(getAdapterPosition()).getTeamAway().getLivescoreId(),
                             pastMatchesList.get(getAdapterPosition()).getTeamAway().getLogo(),
                             pastMatchesList.get(getAdapterPosition()).getTeamAway().getName()
@@ -270,8 +275,10 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
     public interface ItemClickListener
     {
         void onItemClick(View view, int position, MatchItem matchItem);
+
         void onItemPredictClick(View view, int position, MatchItem matchItem);
-        void onItemLogoTeamClick(View view,Integer id, String logo, String name);
+
+        void onItemLogoTeamClick(View view, Integer id, String logo, String name);
     }
 }
 

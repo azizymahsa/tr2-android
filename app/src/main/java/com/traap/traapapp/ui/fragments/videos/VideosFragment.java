@@ -69,6 +69,9 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private TextView tvArchiveVideo, tvMyFavoriteVideo;
     private View rlShirt;
     private NestedScrollView nestedScroll;
+    private View tvEmpty;
+    private View tvEmptyFavorite;
+    private View llFavorites;
 
     public VideosFragment()
     {
@@ -113,6 +116,9 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo = rootView.findViewById(R.id.tvArchiveVideo);
         rvCategories = rootView.findViewById(R.id.rvCategories);
+        tvEmpty=rootView.findViewById(R.id.tvEmpty);
+        tvEmptyFavorite=rootView.findViewById(R.id.tvEmptyFavorite);
+        llFavorites = rootView.findViewById(R.id.llFavorites);
         tvMyFavoriteVideo = rootView.findViewById(R.id.tvMyFavoriteVideo);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         rvCategoryTitles.setLayoutManager(layoutManager);
@@ -213,10 +219,15 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     {
         if (!mainVideosResponse.getFavorites().isEmpty())
         {
+            llFavorites.setVisibility(View.VISIBLE);
+            tvEmptyFavorite.setVisibility(View.GONE);
             List<Category> favoriteList = mainVideosResponse.getFavorites();
             setImageBackground(ivFavorite1, favoriteList.get(0).getBigPoster().replace("\\", ""));
             setImageBackground(ivFavorite2, favoriteList.get(1).getBigPoster().replace("\\", ""));
             setImageBackground(ivFavorite3, favoriteList.get(2).getBigPoster().replace("\\", ""));
+        }else {
+            llFavorites.setVisibility(View.GONE);
+            tvEmptyFavorite.setVisibility(View.VISIBLE);
         }
 
     }
@@ -301,8 +312,16 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void setCategoryListData(CategoryByIdVideosResponse data)
     {
-        categoryAdapter = new CategoryAdapter(data.getResults(), mainView, this);
-        rvCategories.setAdapter(categoryAdapter);
+        if (data.getResults().isEmpty()){
+            tvEmpty.setVisibility(View.VISIBLE);
+            rvCategories.setVisibility(View.GONE);
+        }else {
+            tvEmpty.setVisibility(View.GONE);
+            rvCategories.setVisibility(View.VISIBLE);
+            categoryAdapter = new CategoryAdapter(data.getResults(), mainView, this);
+            rvCategories.setAdapter(categoryAdapter);
+        }
+
     }
 
     @Override
