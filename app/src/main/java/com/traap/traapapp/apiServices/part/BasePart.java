@@ -105,6 +105,11 @@ public abstract class BasePart
                             Logger.e("--URL--", value.raw().request().url().toString());
                             Logger.e("--Body--", bodyToString(value.raw().request().body()));
                         }
+
+                        if (value.code() > 299 || value.code() < 200)
+                        {
+                            listener.onError("خطا در پردازش اطلاعات!");
+                        }
 //                        if (value.code() == 403)
 //                        {
 //                            SingletonContext.getInstance().getContext().startActivity(new Intent(SingletonContext.getInstance().getContext(),
@@ -118,10 +123,6 @@ public abstract class BasePart
                             SingletonContext.getInstance().getContext().startActivity(new Intent(SingletonContext.getInstance().getContext(),
                                     LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                             System.exit(0);
-                        }
-                        else if (status > 299 || status < 200)
-                        {
-                            listener.onError("خطا در پردازش اطلاعات!");
                         }
                         else
                         {
