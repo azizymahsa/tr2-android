@@ -1,6 +1,8 @@
 package com.traap.traapapp.ui.fragments.ticket;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,6 +42,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.ticket.selectposition.ReservationMatchImpl;
 import com.traap.traapapp.ui.fragments.ticket.selectposition.ReservationMatchInteractor;
 import com.traap.traapapp.utilities.Logger;
@@ -64,7 +68,8 @@ public class SelectPositionFragment
     private Integer selectPositionId = 1;
     private Integer selectedIndex = 0;
     private View btnBackToDetail;
-    private View btnPaymentConfirm, llSliderItemMatch;
+    private CircularProgressButton btnPaymentConfirm;
+    private View  llSliderItemMatch;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
     private List<AllBoxesResult> allBoxesResponse;
     ArrayList<StadiumPositionModel> stadiumPositionModels = new ArrayList<>();
@@ -84,6 +89,8 @@ public class SelectPositionFragment
     private Handler handler;
     private Integer timeForRequestGetData=5000;
     private Runnable stadiumInfoRunnable;
+    private MessageAlertDialog dialog;
+    private MessageAlertDialog.OnConfirmListener listener;
 
 
     public SelectPositionFragment()
@@ -137,8 +144,10 @@ public class SelectPositionFragment
             @Override
             public void run() {
                 BuyTicketsFragment.buyTicketsFragment.showLoading();
-
                 getAllBoxesRequest(false);
+                btnPaymentConfirm.setClickable(true);
+                btnPaymentConfirm.revertAnimation();
+
             }
         };
         tvCount = view.findViewById(R.id.tvCount);
@@ -304,7 +313,9 @@ public class SelectPositionFragment
             {
                 if (envelope.getHexCode().equals(stadiomModel.getColor()) && stadiomModel.isFull())
                 {
-                    showToast(getActivity(), "ظرفیت این جایگاه پر شده است", R.color.red);
+                    showDialogPositionIsFull();
+
+
                     return;
                 }
                 if (envelope.getHexCode().equals(stadiomModel.getColor()))
@@ -569,6 +580,11 @@ public class SelectPositionFragment
 
             Logger.e("tesstt", envelope.getHexCode() + "");
         });
+    }
+
+    private void showDialogPositionIsFull()
+    {
+        Tools.showToast(getActivity(), "ظرفیت این جایگاه پر شده است");
     }
 
     private void setCIPPositionSelected()
@@ -1693,7 +1709,8 @@ public class SelectPositionFragment
 
     public void setTimerForRequestGetStadiumData(){
 
-
+        btnPaymentConfirm.startAnimation();
+        btnPaymentConfirm.setClickable(false);
         handler.removeCallbacks(stadiumInfoRunnable);
         handler.postDelayed(stadiumInfoRunnable, timeForRequestGetData);
     }

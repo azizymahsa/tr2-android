@@ -1548,7 +1548,7 @@ public class CompeletInfoFragment
         BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
 
         // onClickContinueBuyTicketListener.onContinueClicked();
-        getActivity().finish();
+       // getActivity().finish();
     }
 
     @Override
