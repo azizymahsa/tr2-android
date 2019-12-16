@@ -115,20 +115,6 @@
 
                 </RelativeLayout>
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id = "@+id/tabFollowLayout"
-                    android:layout_width = "match_parent"
-                    android:layout_height = "wrap_content"
-                    app:tabMode="fixed"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
-
-                <com.traap.traapapp.utilities.MyCustomViewPager
-                    android:id="@+id/view_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
             </LinearLayout>
 
 
@@ -138,6 +124,19 @@
                 android:layout_marginTop="@dimen/_20dp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/tvEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorPrimary"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    android:maxLines="2"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_40dp"
+                    android:layout_marginBottom="@dimen/_40dp"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:text="هیچ فیلمی در این گروه یافت نشد."/>
                 <LinearLayout
                     android:id="@+id/llArchive"
                     android:layout_width="match_parent"
