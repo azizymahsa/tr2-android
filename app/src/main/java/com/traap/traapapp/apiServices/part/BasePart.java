@@ -112,11 +112,16 @@ public abstract class BasePart
 //                            System.exit(0);
 //
 //                        }
-                        if (value.body().info.statusCode == 401)
+                        Integer status = value.body().info.statusCode;
+                        if (status == 401)
                         {
                             SingletonContext.getInstance().getContext().startActivity(new Intent(SingletonContext.getInstance().getContext(),
                                     LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                             System.exit(0);
+                        }
+                        else if (status > 299 || status < 200)
+                        {
+                            listener.onError("خطا در پردازش اطلاعات!");
                         }
                         else
                         {

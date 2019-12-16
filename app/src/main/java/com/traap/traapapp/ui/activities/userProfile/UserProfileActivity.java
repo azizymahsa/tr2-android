@@ -304,33 +304,33 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //            etEmail.setError("ایمیل درست نیست!");
         }
 
-        if (!etFirstName.getText().toString().trim().matches("[ ا-ی]+") && !etFirstName.getText().toString().equalsIgnoreCase(""))
-        {
-            message = message + "نام فارسی،";
-            err = false;
-//            etFirstNameUS.setError("نام انگلیسی درست نیست!");
-        }
+//        if (!etFirstName.getText().toString().trim().matches("[ آئءا-ی]+") && !etFirstName.getText().toString().equalsIgnoreCase(""))
+//        {
+//            message = message + "نام فارسی،";
+//            err = false;
+////            etFirstNameUS.setError("نام انگلیسی درست نیست!");
+//        }
+//
+//        if (!etLastName.getText().toString().trim().matches("[ آئءا-ی]+") && !etLastName.getText().toString().equalsIgnoreCase(""))
+//        {
+//            message = message + "نام خانوادگی فارسی،";
+//            err = false;
+////            etFirstNameUS.setError("نام انگلیسی درست نیست!");
+//        }
 
-        if (!etLastName.getText().toString().trim().matches("[ ا-ی]+") && !etLastName.getText().toString().equalsIgnoreCase(""))
-        {
-            message = message + "نام خانوادگی فارسی،";
-            err = false;
-//            etFirstNameUS.setError("نام انگلیسی درست نیست!");
-        }
-
-        if (!etFirstNameUS.getText().toString().trim().matches("[a-zA-Z ]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
-        {
-            message = message + "نام انگلیسی،";
-            err = false;
-//            etFirstNameUS.setError("نام انگلیسی درست نیست!");
-        }
-
-        if (!etLastNameUS.getText().toString().trim().matches("[a-zA-Z ]+") && !etLastNameUS.getText().toString().equalsIgnoreCase(""))
-        {
-            message = message + "نام خانوادگی انگلیسی،";
-            err = false;
-//            etLastNameUS.setError("نام خانوادگی انگلیسی درست نیست!");
-        }
+//        if (!etFirstNameUS.getText().toString().trim().matches("[a-zA-Z ]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
+//        {
+//            message = message + "نام انگلیسی،";
+//            err = false;
+////            etFirstNameUS.setError("نام انگلیسی درست نیست!");
+//        }
+//
+//        if (!etLastNameUS.getText().toString().trim().matches("[a-zA-Z ]+") && !etLastNameUS.getText().toString().equalsIgnoreCase(""))
+//        {
+//            message = message + "نام خانوادگی انگلیسی،";
+//            err = false;
+////            etLastNameUS.setError("نام خانوادگی انگلیسی درست نیست!");
+//        }
 
         if (!err)
         {

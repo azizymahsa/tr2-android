@@ -112,6 +112,8 @@
 
     <string name="persian_alphabet">اآئءبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\u0020 \u00A0</string>
 
+    <string name="all__alphabet">اآئءبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\u0020 \u00A0abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+
 
     <string name="gmdtp_ok">OK</string>
     <string name="gmdtp_okFa">تائید</string>
