@@ -282,7 +282,18 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         rlPredict.setOnClickListener(v ->
         {
-            mainView.onPredict(matchPredict, isPredictable);
+            try
+            {
+                if (matchPredict != null)
+                {
+                    Logger.e("predict Id", matchPredict.getResult());
+                    mainView.onPredict(matchPredict, isPredictable);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
 
         });
     }
