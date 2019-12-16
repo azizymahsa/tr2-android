@@ -127,6 +127,12 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         tvTitle.setText(content.getTitle());
         tvLikeCounter.setText(String.valueOf(content.getLikeCounter()));
 
+        if (content.getImages().size() == 1)
+        {
+            rlArrowLeft.setVisibility(View.GONE);
+            rlArrowRight.setVisibility(View.GONE);
+        }
+
         try
         {
             if (content.getBookmarked())
@@ -168,7 +174,14 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
 //        tvDateTime.setText(content.getPublishDate());
         tvDateTime.setText(content.getPublishDateStr());
 
-        tvSubTitle.setText(content.getSubtitle());
+        if (content.getSubtitle().equalsIgnoreCase(""))
+        {
+            tvSubTitle.setVisibility(View.GONE);
+        }
+        else
+        {
+            tvSubTitle.setText(content.getSubtitle());
+        }
         tvBody.setText(content.getBody().replace(".", ".\r\n"));
 
         tvSubTitle.setTypeFace(Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf"));

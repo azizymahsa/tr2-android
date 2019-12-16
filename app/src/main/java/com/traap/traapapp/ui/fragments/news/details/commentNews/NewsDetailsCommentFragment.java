@@ -8,6 +8,7 @@ import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -62,7 +63,7 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
 
     private ArrayList<GetNewsCommentResponse> list;
 
-    private ClearableEditText edtComment;
+    private EditText edtComment;
 
     private CircularProgressButton btnSendComment;
 
