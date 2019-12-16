@@ -564,8 +564,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 13: //Bus
             {
-              //  mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
-                mainView.onPackSimCard();
+                mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
 
                 break;
             }
