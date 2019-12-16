@@ -1464,6 +1464,35 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
+    public void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(this, "", message, false,
+                "تایید", "", new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                isMainFragment = false;
+                fragment = PredictFragment.newInstance(MainActivity.this, matchPredict, isPredictable);
+
+                transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                transaction.replace(R.id.main_container, fragment, "predictFragment")
+                        .commit();
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show(getFragmentManager(), "dialogAlert");
+
+    }
+
+    @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
 
