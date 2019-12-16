@@ -140,7 +140,7 @@ public class ChargeFragment extends BaseFragment
     LinearLayout contentView;
 
     @BindView(R.id.imgBack)
-    ImageView imgBack;
+    View imgBack;
 
     @BindView(R.id.imgMenu)
     ImageView imgMenu;
