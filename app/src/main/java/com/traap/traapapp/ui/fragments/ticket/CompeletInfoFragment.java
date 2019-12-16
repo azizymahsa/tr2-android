@@ -1567,7 +1567,7 @@ public class CompeletInfoFragment
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
         if (Tools.isNetworkAvailable(getActivity()))
         {
-            mainView.showError( "خطا در دریافت اطلاعات از سرور!");
+            mainView.showError( message);
         } else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
