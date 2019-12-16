@@ -73,6 +73,8 @@ import org.greenrobot.eventbus.Subscribe;
 //import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
 //import library.android.service.model.bus.searchBus.response.Company;
 //import library.android.service.model.flight.reservation.response.ReservationResponse;
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
@@ -80,7 +82,7 @@ import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
 //        FlightReservationData, BusLockSeat, HotelReservationData,
         View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
-        , OnServiceStatus<WebServiceClass<MachListResponse>>, CountDownTimerView
+        , OnServiceStatus<WebServiceClass<MachListResponse>>, CountDownTimerView, OnAnimationEndListener
 {
     private View rootView;
 
@@ -110,7 +112,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private ArrayList<GetMenuItemResponse> footballServiceList, chosenServiceList;
 
     private MainActionView mainView;
-    private View btnBuyTicket;
+    private CircularProgressButton btnBuyTicket;
 
     private ArrayList<MatchItem> matchList;
     private MatchItem matchCurrent, matchBuyable, matchPredict;
@@ -562,8 +564,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 13: //Bus
             {
-              //  mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
-                mainView.onPackSimCard();
+                mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
 
                 break;
             }
@@ -624,30 +625,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             case R.id.btnBuyTicket:
             {
-//                try
-//                {
-//                    if (matchBuyable.getId() != null)
-//                    {
-//                        mainView.onBuyTicketClick(matchBuyable);
-//                    }
-//                    else
-//                    {
-//                        getBuyEnable();
-//                    }
-//                }
-//                catch (NullPointerException e)
-//                {
-//                }
-                mainView.getBuyEnable();
+                btnBuyTicket.startAnimation();
+                btnBuyTicket.setClickable(false);
 
-                //---------------test------------------
-//                Intent i = new Intent(Intent.ACTION_VIEW);
-//                i.setData(Uri.parse("http://5.253.25.117:9000/api/v1/payment/ipg_call_back/1219"));
-////                i.setData(Uri.parse("traap://finalticket"));
-////                i.setData(Uri.parse("traap://FinalTicket?refrenceNumber=1219"));
-//                startActivity(i);
+                mainView.getBuyEnable(() ->
+                {
+                    btnBuyTicket.revertAnimation();
+                    btnBuyTicket.setClickable(true);
+                });
 
-                //---------------test------------------
                 break;
             }
             case R.id.rlF1:
@@ -897,7 +883,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         });
 
 
-        tvIntroTitle.setText("سلام،" + Prefs.getString("firstName", "") + Prefs.getString("lastName", "") + " خوش آمدید");
+        tvIntroTitle.setText("سلام، " + TrapConfig.HEADER_USER_NAME + " خوش آمدید");
         new Handler().postDelayed(() ->
         {
             rlIntro.setVisibility(View.VISIBLE);
@@ -1049,4 +1035,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onAnimationEnd()
+    {
+        btnBuyTicket.setBackgroundResource(R.drawable.button_buy_ticket);
+    }
 }

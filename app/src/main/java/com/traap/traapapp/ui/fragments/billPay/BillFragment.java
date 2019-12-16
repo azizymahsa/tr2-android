@@ -63,6 +63,7 @@ import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInsta
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.MyBillsAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Tools;
@@ -1388,7 +1389,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void getBuyEnable()
+    public void getBuyEnable(BuyTicketAction buyTicketAction)
     {
 
     }

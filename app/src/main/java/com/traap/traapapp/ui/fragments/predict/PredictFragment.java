@@ -23,6 +23,8 @@ import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.chart.common.listener.Event;
+import com.anychart.chart.common.listener.ListenersInterface;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
@@ -402,30 +404,63 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 llChart.setVisibility(View.VISIBLE);
                 tvPredictEmpty.setVisibility(View.GONE);
 
+//                List<DataEntry> data = new ArrayList<>();
                 List<DataEntry> data = new ArrayList<>();
-
+                ArrayList<String> colorList = new ArrayList<>();
+//                String color[] = new String[3];
                 for (Chart chart : response.data.getChart())
                 {
                     try
                     {
                         if (chart.getChartPrediction() == 0) //0 = مساوی
                         {
+                            colorList.add("#de9b89");
+//                            PredictDataEntry item = new PredictDataEntry("مساوی", chart.getTotalUser(), getPersianChar(String.valueOf(chart.getTotalUser())));
+////                            item.setValue("مساوی", getPersianChar(String.valueOf(chart.getTotalUser())));
+//                            data.add(item);
+
                             data.add(new ValueDataEntry("مساوی", chart.getTotalUser()));
-                        } else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
-                        {
-                            data.add(new ValueDataEntry("برد " + response.data.getHomeTeamName(), chart.getTotalUser()));
-                        } else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
-                        {
-                            data.add(new ValueDataEntry("برد " + response.data.getAwayTeamName(), chart.getTotalUser()));
                         }
-                    } catch (Exception e)
+                        else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
+                        {
+                            colorList.add(response.data.getHomeTeamColorCode());
+//                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getHomeTeamName(),
+//                                    chart.getTotalUser(),
+//                                    getPersianChar(String.valueOf(chart.getTotalUser())));
+////                            item.setValue("برد " + response.data.getHomeTeamName(),
+////                                    getPersianChar(String.valueOf(chart.getTotalUser())));
+//                            data.add(item);
+
+                            data.add(new ValueDataEntry("برد " + response.data.getHomeTeamName(),
+                                    chart.getTotalUser()));
+                        }
+                        else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
+                        {
+                            colorList.add(response.data.getAwayTeamColorCode());
+//                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getAwayTeamName(),
+//                                    chart.getTotalUser(),
+//                                    getPersianChar(String.valueOf(chart.getTotalUser())));
+////                            item.setValue("برد " + response.data.getAwayTeamName(),
+////                                    getPersianChar(String.valueOf(chart.getTotalUser())));
+//                            data.add(item);
+
+                            data.add(new ValueDataEntry("برد " + response.data.getAwayTeamName(),
+                                    chart.getTotalUser()));
+                        }
+                    }
+                    catch (Exception e)
                     {
 
                     }
                 }
-
                 pieChart.data(data);
-                String color[] = {"#de9b89", response.data.getHomeTeamColorCode(), response.data.getAwayTeamColorCode()};
+
+                String color[] = new String[colorList.size()];
+//                String color[] = {"#de9b89", response.data.getHomeTeamColorCode(), response.data.getAwayTeamColorCode()};
+                for (int i = 0; i < colorList.size(); i++)
+                {
+                    color[i] = colorList.get(i);
+                }
                 pieChart.palette(color);
 
                 pieChart.labels().position("outside");
@@ -441,6 +476,22 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         .itemsLayout(LegendLayout.VERTICAL)
                         .textDirection(Direction.RTL)
                         .align(Align.CENTER);
+
+                pieChart.tooltip()
+//                        .title().align("right")
+                        .enabled(false);
+//                pieChart.tooltip()
+//                        .format("درصد پیش بینی: " + )
+//                        .enabled(true);
+//                showError(getActivity(), pieChart.tooltip().getJsBase());
+//                pieChart.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"})
+//                {
+//                    @Override
+//                    public void onClick(Event event)
+//                    {
+//                        pieChart.tooltip().format(event.getData().put("ارزش: ", event.getData().get("value")));
+//                    }
+//                });
 
                 chartViewPie.setChart(pieChart);
 
@@ -513,6 +564,21 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         }
 
+    }
+
+    public static String getPersianChar(String charSequence)
+    {
+        String number = String.valueOf(charSequence);
+        return number.replace("1", "۱")
+                .replace("2", "۲")
+                .replace("3", "۳")
+                .replace("4", "۴")
+                .replace("5", "۵")
+                .replace("6", "۶")
+                .replace("7", "۷")
+                .replace("8", "۸")
+                .replace("9", "۹")
+                .replace("0", "۰");
     }
 
     @Override
