@@ -61,20 +61,9 @@ import com.traap.traapapp.utilities.Utility;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-//import library.android.eniac.StartEniacBusActivity;
-//import library.android.eniac.StartEniacFlightActivity;
-//import library.android.eniac.StartEniacHotelActivity;
-//import library.android.eniac.interfaces.BusLockSeat;
-//import library.android.eniac.interfaces.FlightReservationData;
-//import library.android.eniac.interfaces.HotelReservationData;
-//import library.android.eniac.model.FlightReservation;
-//import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
-//import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
-//import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
-//import library.android.service.model.bus.searchBus.response.Company;
-//import library.android.service.model.flight.reservation.response.ReservationResponse;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import cn.iwgang.countdownview.CountdownView;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
@@ -307,25 +296,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     public void startTimer(long time)
     {
-        countDownTimer = new CountDownTimerPredict(time, 1, this);
+        countDownTimer = new CountDownTimerPredict(time, 10, this);
         countDownTimer.start();
 //        countdownView.start(time);
-//        countdownView.setOnCountdownIntervalListener(1, new CountdownView.OnCountdownIntervalListener()
-//        {
-//            @Override
-//            public void onInterval(CountdownView cv, long remainTime)
-//            {
-//
-//            }
-//        });
-//        countdownView.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener()
-//        {
-//            @Override
-//            public void onEnd(CountdownView cv)
-//            {
-//
-//            }
-//        });
     }
 
     private void setImageIntoIV(ImageView imageView, String link)
