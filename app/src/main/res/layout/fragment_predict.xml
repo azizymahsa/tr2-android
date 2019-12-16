@@ -354,7 +354,7 @@
                 android:gravity="center"
                 android:textSize="@dimen/textSize_18dp"
                 android:textColor="@color/textColorPrimary"
-                android:text=".تاکنون کسی پیش بینی نکرده است"/>
+                android:text="تاکنون کسی پیش بینی نکرده است."/>
 
             <LinearLayout
                 android:id="@+id/llChart"
@@ -513,7 +513,7 @@
                                     android:id="@+id/rlChartPredictOne"
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:layout_weight="50"
+                                    android:layout_weight="0"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginTop="8dp"
                                     android:background="@drawable/background_border_gray_8dp">
@@ -588,7 +588,7 @@
                                     android:id="@+id/rlChartPredictTwo"
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:layout_weight="50"
+                                    android:layout_weight="0"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginTop="8dp"
                                     android:background="@drawable/background_border_gray_8dp">
@@ -663,7 +663,7 @@
                                     android:id="@+id/rlChartPredictThree"
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:layout_weight="50"
+                                    android:layout_weight="0"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginTop="8dp"
                                     android:background="@drawable/background_border_gray_8dp">
