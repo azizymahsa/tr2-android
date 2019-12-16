@@ -759,7 +759,7 @@ public class CompeletInfoFragment
             llConfirm.setVisibility(View.VISIBLE);
             llInVisible.setVisibility(View.GONE);
             infoViewers.clear();
-        } else if (countRepetitive > count)
+        } /*else if (countRepetitive > count)
         {
             mainView.showError(getString(R.string.Error_nationall_code_input));
             cbCondition.setChecked(true);
@@ -767,7 +767,7 @@ public class CompeletInfoFragment
             llInVisible.setVisibility(View.GONE);
             infoViewers.clear();
 
-        } else
+        } */else
         {
             callPaymentTicketRequest();
 
@@ -801,8 +801,11 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_1.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_1.getText().toString());
 
-            } else
+            } else if(etNationalCode_1.getText().toString().length() < 1)
             {
+                flagValidations = flagValidations + "F";
+                etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code_null));
+            }else{
                 flagValidations = flagValidations + "F";
                 etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
             }
@@ -873,7 +876,11 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_2.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_2.getText().toString());
 
-            } else
+            }  else if(etNationalCode_2.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code_null));
+            }else
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code));
@@ -944,6 +951,10 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_3.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_3.getText().toString());
 
+            } else if(etNationalCode_3.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etNationalCode_3.setError(getString(R.string.Please_enter_the_national_code_null));
             } else
             {
                 flagValidations = flagValidations + "F";
@@ -1015,7 +1026,11 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_4.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_4.getText().toString());
 
-            } else
+            }  else if(etNationalCode_4.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code_null));
+            }else
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code));
@@ -1086,7 +1101,11 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_5.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_5.getText().toString());
 
-            } else
+            }  else if(etNationalCode_5.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code_null));
+            }else
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code));
