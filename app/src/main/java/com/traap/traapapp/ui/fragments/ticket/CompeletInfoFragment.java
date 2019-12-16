@@ -787,6 +787,7 @@ public class CompeletInfoFragment
     {
         BuyTicketsFragment.buyTicketsFragment.showLoading();
         paymentTicket.paymentTicketRequest(this, infoViewers, amountForPay);
+
     }
 
     private String PassengerOne()
@@ -1546,6 +1547,7 @@ public class CompeletInfoFragment
         fragmentTransaction.replace(R.id.main_container, fragment2);
         fragmentTransaction.commit();*/
         BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
+        infoViewers.clear();
 
         // onClickContinueBuyTicketListener.onContinueClicked();
        // getActivity().finish();
@@ -1577,6 +1579,8 @@ public class CompeletInfoFragment
     @Override
     public void onFinishedStadiumRules(ResponseStadiumRules response)
     {
+        infoViewers.clear();
+
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
         flagDelete = false;
