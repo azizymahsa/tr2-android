@@ -59,6 +59,7 @@
     <string name="buy_ticket_description_2">همراه داشتن کارت ملی برای همه افراد جهت ورود به ورزشگاه الزامی می باشد. </string>
     <string name="backToBuyTicket"> خرید مجدد</string>
     <string name="Please_enter_the_national_code">لطفا کد ملی صحیح وارد کنید</string>
+    <string name="Please_enter_the_national_code_null">لطفا کد ملی خود را وارد کنید</string>
     <string name="condition_text">صحت اطلاعات وارد شده را تایید می نمایم . قوانین و مقررات را مطالعه کرده و می پذیرم.</string>
     <string name="Please_enter_last_name_in_Persian">لطفا نام خانوادگی صحیح وارد کنید</string>
     <string name="Please_enter_name_in_Persian">لطفا نام  صحیح وارد کنید</string>
