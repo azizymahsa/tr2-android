@@ -142,6 +142,22 @@ public class UpdateAppDialog extends DialogFragment implements View.OnClickListe
 
         try
         {
+            if (!downloadUrl.equals(null))
+            {
+                flConfirmUpdate.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                flConfirmUpdate.setVisibility(View.GONE);
+            }
+        }
+        catch (NullPointerException e)
+        {
+            flConfirmUpdate.setVisibility(View.GONE);
+        }
+
+        try
+        {
             if (!googlePlayLink.equals(null))
             {
                 flGooglePlayUpdate.setVisibility(View.VISIBLE);
