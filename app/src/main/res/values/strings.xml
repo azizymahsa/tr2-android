@@ -62,7 +62,9 @@
     <string name="Please_enter_the_national_code_null">لطفا کد ملی خود را وارد کنید</string>
     <string name="condition_text">صحت اطلاعات وارد شده را تایید می نمایم . قوانین و مقررات را مطالعه کرده و می پذیرم.</string>
     <string name="Please_enter_last_name_in_Persian">لطفا نام خانوادگی صحیح وارد کنید</string>
+    <string name="Please_enter_last_name_in_Persian_null">لطفا نام خانوادگی خود را وارد کنید</string>
     <string name="Please_enter_name_in_Persian">لطفا نام  صحیح وارد کنید</string>
+    <string name="Please_enter_name_in_Persian_null">لطفا نام  خود را وارد کنید</string>
     <string name="string_under_line"><u>قوانین و مقررات</u></string>
     <string name="login_condition_under_line"><u>قوانین و شرایط </u></string>
     <string name="low_ata">تمامی حقوق مادی و معنوی این نرم افزار به شرکت توسعه سرمایه گذاری هواپیمایی آتا تعلق دارد.</string>

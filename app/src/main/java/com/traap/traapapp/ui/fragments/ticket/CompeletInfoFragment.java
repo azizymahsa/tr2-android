@@ -813,13 +813,17 @@ public class CompeletInfoFragment
         {
 
             //   if (etFamily_1.getText().toString().length() > 1 && !(etFamily_1.getText().toString().toLowerCase().matches("[0-9]")))
-            if (etFamily_1.getText().toString().length() > 1 && ((etFamily_1.getText().toString().trim().matches("[آ-ی]+"))
-                    || (etFamily_1.getText().toString().trim().matches("[a-zA-Z]+") || etFamily_1.getText().toString().contains(" "))) && !(etFamily_1.getText().toString().toLowerCase().matches("[0-9]")))
+            if (etFamily_1.getText().toString().length() > 1 && (etFamily_1.getText().toString().trim().matches("[آ-ی]+"))
+                    || (etFamily_1.getText().toString().trim().matches("[a-zA-Z]+") || etFamily_1.getText().toString().contains(" ")))
             {
                 flagValidations = flagValidations + "T";
                 etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_1", etFamily_1.getText().toString());
 
+            } else if(etFamily_1.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             } else
             {
                 flagValidations = flagValidations + "F";
@@ -832,13 +836,17 @@ public class CompeletInfoFragment
 
             // if (etName_1.getText().toString().length() > 1 && !(etName_1.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_1.getText().toString().length() > 1 && (etName_1.getText().toString().trim().matches("[آ-ی]+"))
-                    & (etName_1.getText().toString().trim().matches("[a-zA-Z]+")) & etName_1.getText().toString().contains(" "))
+                   || (etName_1.getText().toString().trim().matches("[a-zA-Z]+")) || etName_1.getText().toString().contains(" "))
             {
 
                 flagValidations = flagValidations + "T";
                 etName_1.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_1", etName_1.getText().toString());
 
+            } else if(etName_1.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etName_1.setError(getString(R.string.Please_enter_name_in_Persian_null));
             } else
             {
                 flagValidations = flagValidations + "F";
@@ -896,6 +904,10 @@ public class CompeletInfoFragment
                 etFamily_2.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_2", etFamily_2.getText().toString());
 
+            } else if(etFamily_2.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etFamily_2.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             } else
             {
                 flagValidations = flagValidations + "F";
@@ -914,6 +926,10 @@ public class CompeletInfoFragment
                 etName_2.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_2", etName_2.getText().toString());
 
+            }  else if(etName_2.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etName_2.setError(getString(R.string.Please_enter_name_in_Persian_null));
             } else
             {
                 flagValidations = flagValidations + "F";
@@ -971,7 +987,11 @@ public class CompeletInfoFragment
                 etFamily_3.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_3", etFamily_3.getText().toString());
 
-            } else
+            }else if(etFamily_3.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etFamily_3.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
+            }  else
             {
                 flagValidations = flagValidations + "F";
                 etFamily_3.setError(getString(R.string.Please_enter_last_name_in_Persian));
@@ -989,6 +1009,10 @@ public class CompeletInfoFragment
                 etName_3.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_3", etName_3.getText().toString());
 
+            }  else if(etName_3.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etName_3.setError(getString(R.string.Please_enter_name_in_Persian_null));
             } else
             {
                 flagValidations = flagValidations + "F";
@@ -1046,7 +1070,11 @@ public class CompeletInfoFragment
                 etFamily_4.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_4", etFamily_4.getText().toString());
 
-            } else
+            }else if(etFamily_4.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etFamily_4.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
+            }  else
             {
                 flagValidations = flagValidations + "F";
                 etFamily_4.setError(getString(R.string.Please_enter_last_name_in_Persian));
@@ -1064,7 +1092,11 @@ public class CompeletInfoFragment
                 etName_4.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_4", etName_4.getText().toString());
 
-            } else
+            } else if(etName_4.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etName_4.setError(getString(R.string.Please_enter_name_in_Persian_null));
+            }  else
             {
                 flagValidations = flagValidations + "F";
                 etName_4.setError(getString(R.string.Please_enter_name_in_Persian));
@@ -1121,6 +1153,10 @@ public class CompeletInfoFragment
                 etFamily_5.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_5", etFamily_5.getText().toString());
 
+            }else if(etFamily_5.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etFamily_5.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             } else
             {
                 flagValidations = flagValidations + "F";
@@ -1139,6 +1175,10 @@ public class CompeletInfoFragment
                 etName_5.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_5", etName_5.getText().toString());
 
+            }  else if(etName_5.getText().toString().length()<1)
+            {
+                flagValidations = flagValidations + "F";
+                etName_5.setError(getString(R.string.Please_enter_name_in_Persian_null));
             } else
             {
                 flagValidations = flagValidations + "F";
