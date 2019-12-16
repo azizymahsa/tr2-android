@@ -296,10 +296,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         }
                         catch (NullPointerException e)
                         {
-//                        showAlert(getActivity(),response.info.message, R.string.error);
                             showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
                         }
-
                     }
 
                     @Override
