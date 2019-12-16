@@ -397,7 +397,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         }
         else
         {
-            showAlert(appContext, R.string.networkErrorMessage, R.string.networkError);
+            showAlert(activityContext, R.string.networkErrorMessage, R.string.networkError);
         }
     }
 
