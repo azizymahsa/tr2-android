@@ -1775,6 +1775,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message)
+    {
+
+    }
+
     public void onSelectContact(OnSelectContact event)
     {
         try
