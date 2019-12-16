@@ -35,6 +35,7 @@ public class PaymentTicketImpl implements PaymentTicketInteractor
                     {
                         listener.onErrorPaymentTicket(response.info.message);
                     }
+
                 }
                 catch (Exception e)
                 {
