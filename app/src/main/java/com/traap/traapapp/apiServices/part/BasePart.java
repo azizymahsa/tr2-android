@@ -109,6 +109,7 @@ public abstract class BasePart
                         if (value.code() > 299 || value.code() < 200)
                         {
                             listener.onError("خطا در پردازش اطلاعات!");
+                            return;
                         }
 //                        if (value.code() == 403)
 //                        {
@@ -117,16 +118,17 @@ public abstract class BasePart
 //                            System.exit(0);
 //
 //                        }
-                        Integer status = value.body().info.statusCode;
-                        if (status == 401)
+                        if (value.body().info.statusCode == 401)
                         {
                             SingletonContext.getInstance().getContext().startActivity(new Intent(SingletonContext.getInstance().getContext(),
                                     LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                             System.exit(0);
+                            return;
                         }
                         else
                         {
                             listener.onReady(value.body());
+                            return;
                         }
                     }
 
