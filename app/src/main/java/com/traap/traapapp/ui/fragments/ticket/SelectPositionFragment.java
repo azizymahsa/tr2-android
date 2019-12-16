@@ -91,6 +91,7 @@ public class SelectPositionFragment
     private Runnable stadiumInfoRunnable;
     private MessageAlertDialog dialog;
     private MessageAlertDialog.OnConfirmListener listener;
+    boolean isShowDialog=false;
 
 
     public SelectPositionFragment()
@@ -311,12 +312,14 @@ public class SelectPositionFragment
         {
             for (StadiumPositionModel stadiomModel : stadiumPositionModels)
             {
-                if (envelope.getHexCode().equals(stadiomModel.getColor()) && stadiomModel.isFull())
-                {
-                    showDialogPositionIsFull();
+                if (envelope.getHexCode().equals(stadiomModel.getColor()) && stadiomModel.isFull()){
 
-
+                    if (!isShowDialog)
+                    {
+                        showDialogPositionIsFull();
+                    }
                     return;
+
                 }
                 if (envelope.getHexCode().equals(stadiomModel.getColor()))
                 {
@@ -584,7 +587,30 @@ public class SelectPositionFragment
 
     private void showDialogPositionIsFull()
     {
-        Tools.showToast(getActivity(), "ظرفیت این جایگاه پر شده است");
+
+        isShowDialog=true;
+
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "ظرفیت این جایگاه پر شده است.", false,
+                new MessageAlertDialog.OnConfirmListener()
+                {
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        isShowDialog=false;
+
+                    }
+
+                    @Override
+                    public void onCancelClick()
+                    {
+
+                    }
+                });
+
+        dialog.setCancelable(false);
+        dialog.show(getActivity().getFragmentManager(), "messageDialog");
+
+       // Tools.showToast(getActivity(), "ظرفیت این جایگاه پر شده است");
     }
 
     private void setCIPPositionSelected()
