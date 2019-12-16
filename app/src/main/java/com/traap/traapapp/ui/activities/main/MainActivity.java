@@ -1398,6 +1398,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "WebFragment")
                 .commit();
+
+
     }
 
     @Override
