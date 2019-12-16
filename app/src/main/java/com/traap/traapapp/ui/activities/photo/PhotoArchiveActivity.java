@@ -2,9 +2,12 @@ package com.traap.traapapp.ui.activities.photo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +15,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -32,16 +36,20 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
-public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveAdapter.ArchiveVideoListener, PhotosCategoryTitleAdapter.TitleCategoryListener
+public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveAdapter.ArchiveVideoListener, PhotosCategoryTitleAdapter.TitleCategoryListener, View.OnClickListener
 {
 
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    private View imgBack, imgMenu,rlShirt;
+    private View imgBack, imgMenu, rlShirt;
     private ArrayList<ListCategory> categoryTitleList;
     private RecyclerView rvCategoryTitles, rvArchiveVideo;
     private PhotosCategoryTitleAdapter videoCategoryTitleAdapter;
     private boolean FLAG_Favorite = false;
     private Integer idCategoryTitle = 0;
+    //filter
+    private SlidingUpPanelLayout upPanelLayout;
+    private RecyclerView rvCategories;
+    private LinearLayout llFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,21 +81,18 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         }
     }
 
-    /* Called when the activity is paused */
-   /* public void onPause()
+    private void openFilterLayout()
     {
-        super.onPause();
+        upPanelLayout.setScrollableView(rvCategories);
 
-        //Call the method
-        if (FLAG_Favorite)
-        {
-            requestBookMarkPhotos();
-        } else
-        {
-            requestArchivePhoto();
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED), 100);
+    }
 
-        }
-    }*/
+    private void hideFilterSlide()
+    {
+        upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+    }
 
     public void onResume()
     {
@@ -151,14 +156,14 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
                 if (!Tools.isNetworkAvailable(PhotoArchiveActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
                     // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
                     showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
                 }
-              //  Tools.showToast(getApplication(), message, R.color.red);
+                //  Tools.showToast(getApplication(), message, R.color.red);
             }
         }, request);
     }
@@ -204,11 +209,11 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             public void onError(String message)
             {
                 hideLoading();
-               // Tools.showToast(getApplication(), message, R.color.red);
+                // Tools.showToast(getApplication(), message, R.color.red);
                 if (!Tools.isNetworkAvailable(PhotoArchiveActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
                     // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
@@ -233,6 +238,13 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
     {
         try
         {
+            //filter
+            llFilter=findViewById(R.id.llFilter);
+            llFilter.setOnClickListener(this);
+            upPanelLayout = findViewById(R.id.sliding_layout);
+            rvCategories = findViewById(R.id.rvCategories);
+            rvCategories.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+
             tvTitle = findViewById(R.id.tvTitle);
 
             tvUserName = findViewById(R.id.tvUserName);
@@ -341,11 +353,11 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
             public void onError(String message)
             {
                 //  mainView.hideLoading();
-               // Tools.showToast(getApplicationContext(), message, R.color.red);
+                // Tools.showToast(getApplicationContext(), message, R.color.red);
                 if (!Tools.isNetworkAvailable(PhotoArchiveActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
 
@@ -361,5 +373,18 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         //mainView.showLoading();
         idCategoryTitle = category.getId();
         requestGetCategoryById(idCategoryTitle);
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
+            case R.id.llFilter:
+
+                 openFilterLayout();
+
+                break;
+        }
     }
 }
