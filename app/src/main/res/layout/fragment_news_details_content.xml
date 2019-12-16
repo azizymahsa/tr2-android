@@ -143,10 +143,11 @@
 
         <ImageView
             android:id="@+id/imgBookmark"
-            android:layout_width="@dimen/_40dp"
-            android:layout_height="@dimen/_40dp"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
             android:layout_marginLeft="16dp"
-            android:padding="4dp"
+            android:padding="6dp"
+            style="?android:attr/borderlessButtonStyle"
             app:srcCompat="@drawable/ic_bookmark_border"
             android:background="@drawable/background_rectangle_white_8dp"/>
 

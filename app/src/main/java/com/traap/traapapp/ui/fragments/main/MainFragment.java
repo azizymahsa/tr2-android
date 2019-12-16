@@ -377,12 +377,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 //                Timestamp timestamp = matchPredict.getMatchDatetime().intValue();
             }
-//            else
-//            {
-//                isPredictable = false;
-//                rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
-//                ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
-//            }
+            else
+            {
+                isPredictable = false;
+                rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+                ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
+            }
 
             if (matchItem.getBuyEnable())
             {
