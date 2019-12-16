@@ -206,7 +206,7 @@ public class ClearableEditText extends MaskedEditText implements OnTouchListener
         }
         if (xD == null)
         {
-            xD = getResources().getDrawable(R.drawable.ic_clears);
+            xD = getResources().getDrawable(R.drawable.ic_clear);
             xD.setColorFilter(getResources().getColor(R.color.textColorPrimary), PorterDuff.Mode.MULTIPLY);
         }
         xD.setBounds(0, 0, xD.getIntrinsicWidth(), xD.getIntrinsicHeight());
