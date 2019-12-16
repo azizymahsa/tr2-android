@@ -132,46 +132,47 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             String[] i = s.split("-");
             holder.tvMatchResult.setText(i[1]);//2
             holder.tvMatchResult.setText(i[0]);//0*/
+
+
+            //-----------------------------------------------------------------------------------------------
+
+            holder.progress.setVisibility(View.GONE);
+
+            if (item.getBuyEnable() && item.getIsPredict())
+            {
+                holder.tvBuyTicket.setVisibility(View.VISIBLE);
+                holder.tvPredictResult.setVisibility(View.VISIBLE);
+
+                holder.lnrBuyEnable.setVisibility(View.VISIBLE);
+            } else if (item.getIsPredict())
+            {
+                holder.lnrBuyEnable.setVisibility(View.VISIBLE);
+                holder.tvPredictResult.setVisibility(View.VISIBLE);
+                holder.tvBuyTicket.setVisibility(View.GONE);
+
+            } else if (item.getBuyEnable())
+            {
+                holder.tvBuyTicket.setVisibility(View.VISIBLE);
+                holder.tvPredictResult.setVisibility(View.GONE);
+
+                holder.lnrBuyEnable.setVisibility(View.VISIBLE);
+            } else
+            {
+                holder.lnrBuyEnable.setVisibility(View.GONE);
+                holder.tvPredictResult.setVisibility(View.GONE);
+                holder.tvBuyTicket.setVisibility(View.GONE);
+
+            }
+            if (item.getIs_chart_predict())
+            {
+                //  holder.tvBuyTicket.setVisibility(View.GONE);
+                holder.tvPredictResult.setVisibility(View.VISIBLE);
+
+                holder.lnrBuyEnable.setVisibility(View.VISIBLE);
+            }
         } catch (Exception e)
         {
             e.getMessage();
-        }
-
-        //-----------------------------------------------------------------------------------------------
-
-        holder.progress.setVisibility(View.GONE);
-
-        if (item.getBuyEnable() && item.getIsPredict())
-        {
-            holder.tvBuyTicket.setVisibility(View.VISIBLE);
-            holder.tvPredictResult.setVisibility(View.VISIBLE);
-
-            holder.lnrBuyEnable.setVisibility(View.VISIBLE);
-        } else if (item.getIsPredict())
-        {
-            holder.lnrBuyEnable.setVisibility(View.VISIBLE);
-            holder.tvPredictResult.setVisibility(View.VISIBLE);
-            holder.tvBuyTicket.setVisibility(View.GONE);
-
-        } else if (item.getBuyEnable())
-        {
-            holder.tvBuyTicket.setVisibility(View.VISIBLE);
-            holder.tvPredictResult.setVisibility(View.GONE);
-
-            holder.lnrBuyEnable.setVisibility(View.VISIBLE);
-        } else
-        {
-            holder.lnrBuyEnable.setVisibility(View.GONE);
-            holder.tvPredictResult.setVisibility(View.GONE);
-            holder.tvBuyTicket.setVisibility(View.GONE);
-
-        }
-        if (item.getIs_chart_predict())
-        {
-            //  holder.tvBuyTicket.setVisibility(View.GONE);
-            holder.tvPredictResult.setVisibility(View.VISIBLE);
-
-            holder.lnrBuyEnable.setVisibility(View.VISIBLE);
         }
     }
 
