@@ -39,6 +39,8 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
     private VideosCategoryTitleAdapter videoCategoryTitleAdapter;
     private int position = 0;
     private boolean FLAG_Favorite = false;
+    private View tvEmpty;
+    private View llArchive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -163,13 +165,27 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
 
     private void onGetArchiveVideoSuccess(ArchiveVideoResponse data)
     {
-        rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(), FLAG_Favorite, this));
+        if (data.getResults().isEmpty()){
+            llArchive.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
+        }else {
+            llArchive.setVisibility(View.VISIBLE);
+            tvEmpty.setVisibility(View.GONE);
+            rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(), FLAG_Favorite, this));
+        }
     }
 
     private void onGetBookMarkVideoSuccess(ArchiveVideoResponse data)
     {
-        rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(), FLAG_Favorite, this));
-    }
+        if (data.getResults().isEmpty()){
+            llArchive.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
+        }else {
+            llArchive.setVisibility(View.VISIBLE);
+            tvEmpty.setVisibility(View.GONE);
+            rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(), FLAG_Favorite, this));
+        }
+         }
 
     private void initView()
     {
@@ -191,6 +207,9 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
 
             tvPopularPlayer = findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
+
+            llArchive=findViewById(R.id.llArchive);
+            tvEmpty=findViewById(R.id.tvEmpty);
 
             imgBack = findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
