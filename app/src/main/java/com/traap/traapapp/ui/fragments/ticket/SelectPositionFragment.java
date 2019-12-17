@@ -1099,7 +1099,7 @@ public class SelectPositionFragment
                         {
                             btnPaymentConfirm.setClickable(true);
                             btnPaymentConfirm.setText("تایید و مرحله بعد");
-                            progress.setVisibility(View.GONE);
+                           // progress.setVisibility(View.GONE);
                            // btnPaymentConfirm.getAnimation().cancel();
                            // btnPaymentConfirm.can
                            // animation.setAnimationListener(null);
@@ -1736,7 +1736,7 @@ public class SelectPositionFragment
        // btnPaymentConfirm.clearAnimation();
        // btnPaymentConfirm.startAnimation();
         btnPaymentConfirm.setText("در حال پردازش ...");
-        progress.setVisibility(View.VISIBLE);
+       // progress.setVisibility(View.VISIBLE);
         btnPaymentConfirm.setClickable(false);
         handler.removeCallbacks(stadiumInfoRunnable);
         handler.postDelayed(stadiumInfoRunnable, timeForRequestGetData);
