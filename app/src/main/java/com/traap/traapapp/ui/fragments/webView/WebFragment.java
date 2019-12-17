@@ -158,8 +158,14 @@ public class WebFragment extends BaseFragment
             //toolbar
             mToolbar = view.findViewById(R.id.toolbar);
             rlShirt = view.findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
-            );
+            rlShirt.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                }
+            });
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
             TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
             tvTitle.setText("گردشگری");

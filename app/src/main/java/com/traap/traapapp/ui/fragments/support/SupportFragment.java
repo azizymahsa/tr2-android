@@ -24,6 +24,8 @@ import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
 import com.traap.traapapp.apiServices.model.contactInfo.ResultContactInfo;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -45,7 +47,7 @@ public class SupportFragment
     private Toolbar mToolbar;
     private LinearLayout tvPhone, tvSms, tvEmail;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    private View imgBack, imgMenu;
+    private View imgBack, imgMenu,rlShirt;
     private MainActionView mainView;
     private String KEY_PHONE = "phone";
     private String KEY_SMS = "sms";
@@ -115,7 +117,15 @@ public class SupportFragment
             mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-
+            rlShirt = mToolbar.findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                }
+            });
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
             {
                 @Override
