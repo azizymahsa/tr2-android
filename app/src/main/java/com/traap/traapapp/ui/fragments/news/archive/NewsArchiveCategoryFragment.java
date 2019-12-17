@@ -125,9 +125,13 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 //            //Go To Details
 //        });
 
-        if (callFrom == NewsArchiveCategoryCall.FROM_FILTER_IsS || callFrom == NewsArchiveCategoryCall.FROM_ID)
+        if (callFrom == NewsArchiveCategoryCall.FROM_ID)
         {
-
+            Logger.e("-Ids 2-", Ids);
+            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryBySingleId(true, Ids, this);
+        }
+        if (callFrom == NewsArchiveCategoryCall.FROM_FILTER_IsS )
+        {
             Logger.e("-Ids 2-", Ids);
             SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, this);
         }
