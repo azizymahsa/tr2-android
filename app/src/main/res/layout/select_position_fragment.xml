@@ -380,77 +380,47 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="10" />
-
-
-            <FrameLayout
+            <!--<FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
-                android:layout_weight="100">
-
+                android:layout_weight="100">-->
+<RelativeLayout
+    android:layout_width="@dimen/_120sdp"
+    android:layout_height="@dimen/_30dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    >
+    <ProgressBar
+        android:id="@+id/progressBtn"
+        android:layout_width="@dimen/_30dp"
+        android:layout_height="@dimen/_30dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        />
                 <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                     android:id="@+id/btnPaymentConfirm"
                     android:layout_width="@dimen/_120sdp"
                     android:layout_height="@dimen/_30dp"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp"
                     android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:textStyle="bold"
-                    android:layout_alignParentStart="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:background="@drawable/button_buy_ticket"
-                    android:text="تایید و مرحله بعد"
+                    android:background="@drawable/background_button_login"
+                    app:spinning_bar_width="2dp"
+                    android:text="@string/_confirm_next"
                     android:textColor="@color/textColorButton"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:transitionName="transition"
-                    app:finalCornerAngle="15dp"
-                    app:initialCornerAngle="15dp"
-                    android:elevation="3dp"
-                    app:spinning_bar_color="@color/white"
-                    app:spinning_bar_width="2dp" />
-            </FrameLayout>
+                    android:textSize="@dimen/textSize_14dp"
+                    app:initialCornerAngle="50dp"
+                    app:spinning_bar_color="@color/textColorButton"
+                    app:finalCornerAngle="80dp"
+                    android:transitionName="transition"/>
 
-          <!--  <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="100">
 
-                <include
-                    android:id="@+id/btnBackToDetail"
-                    layout="@layout/return_button"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_30dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp" />
-            </FrameLayout>
+</RelativeLayout>
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-
-                android:layout_weight="100">
-
-                <include
-                    android:id="@+id/btnPaymentConfirm"
-                    layout="@layout/circular_progress_button"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_30dp"
-                    android:layout_gravity="center"
-
-                    android:layout_margin="2dp" />
-            </FrameLayout>
--->
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="10" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
