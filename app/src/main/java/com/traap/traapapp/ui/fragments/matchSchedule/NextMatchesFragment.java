@@ -129,9 +129,14 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     @Override
     public void onItemClick(View view, int position, MatchItem matchItem)
     {
-        BuyTicketsFragment pastResultFragment =  BuyTicketsFragment.newInstance(mainActionView, matchItem);;
+        mainActionView.getBuyEnable(() ->
+        {
+           /* btnBuyTicket.revertAnimation();
+            btnBuyTicket.setClickable(true);*/
+        });
+        /*BuyTicketsFragment pastResultFragment =  BuyTicketsFragment.newInstance(mainActionView, matchItem);;
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();*/
     }
 
     @Override
