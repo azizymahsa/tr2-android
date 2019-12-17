@@ -430,7 +430,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 Logger.e("--matchCurrentPos--", "pos: " + matchCurrentPos);
             }
 
-            if (matchItem.getIsPredict())
+            if (matchItem.getIsPredict() && matchPredict == null)
             {
                 this.matchPredict = matchItem;
 
