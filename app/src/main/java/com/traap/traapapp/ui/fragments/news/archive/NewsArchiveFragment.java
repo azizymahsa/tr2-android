@@ -514,7 +514,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             {
                 int Id =  newsArchiveCategoryList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
-                return NewsArchiveCategoryFragment.newInstance(String.valueOf(Id) + ",", NewsArchiveCategoryCall.FROM_ID, null, null);
+                return NewsArchiveCategoryFragment.newInstance(Id + ",", NewsArchiveCategoryCall.FROM_ID, null, null);
             }
         }
 
