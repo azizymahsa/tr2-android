@@ -366,6 +366,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 if (remainPredictTime > 0)
                 {
                     isPredictable = true;
+                    rootView.findViewById(R.id.llTimer).setVisibility(View.VISIBLE);
+                    ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("پیش بینی کن جایزه بگیر!");
                     startTimer(remainPredictTime);
                 }
                 else
@@ -389,6 +391,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 this.matchBuyable = matchItem;
             }
 
+        }
+        if (!isPredictable)
+        {
+            rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+            ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
         }
 
         //---------------------new---------------------------

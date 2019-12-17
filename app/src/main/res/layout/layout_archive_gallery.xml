@@ -138,6 +138,8 @@
                 android:layout_marginTop="@dimen/_20dp"
                 android:orientation="vertical">
 
+
+
                 <LinearLayout
                     android:id="@+id/llArchive"
                     android:layout_width="match_parent"
@@ -149,6 +151,7 @@
                     android:visibility="visible">
 
                     <View
+                        android:id="@+id/vLine1"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/textHint" />
@@ -159,6 +162,7 @@
                         android:layout_height="match_parent" />
 
                     <View
+                        android:id="@+id/vLine2"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/textHint" />
@@ -172,6 +176,19 @@
                         android:layout_marginRight="@dimen/_20dp"
                         android:layout_marginBottom="@dimen/_10dp" />
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/tvEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorPrimary"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    android:maxLines="2"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_40dp"
+                    android:layout_marginBottom="@dimen/_40dp"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:text="هیچ عکسی در این گروه یافت نشد."/>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

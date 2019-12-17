@@ -140,7 +140,7 @@ public class ChargeFragment extends BaseFragment
     LinearLayout contentView;
 
     @BindView(R.id.imgBack)
-    ImageView imgBack;
+    View imgBack;
 
     @BindView(R.id.imgMenu)
     ImageView imgMenu;
@@ -1771,6 +1771,12 @@ public class ChargeFragment extends BaseFragment
 
     @Override
     public void getBuyEnable(BuyTicketAction buyTicketAction)
+    {
+
+    }
+
+    @Override
+    public void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message)
     {
 
     }

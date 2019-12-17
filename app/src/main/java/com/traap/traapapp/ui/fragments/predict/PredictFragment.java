@@ -264,7 +264,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             {
                 edtHomePredict.requestFocus();
                 showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
-            } else
+            }
+            else
             {
                 btnSendPredict.startAnimation();
                 btnSendPredict.setClickable(false);
@@ -287,16 +288,16 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                             if (response.info.statusCode != 200)
                             {
                                 showAlert(getActivity(), response.info.message, 0);
-                            } else
-                            {
-                                showAlert(getActivity(), response.info.message, 0);
                             }
-                        } catch (NullPointerException e)
+                            else
+                            {
+                                mainView.onSetPredictCompleted(matchPredict, true, response.info.message);
+                            }
+                        }
+                        catch (NullPointerException e)
                         {
-//                        showAlert(getActivity(),response.info.message, R.string.error);
                             showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
                         }
-
                     }
 
                     @Override
@@ -519,6 +520,11 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     String result[] = predictList.get(0).getPredict().split("\\|");
                     tvChartPredictOne.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
                 }
+                else
+                {
+                    llChart2.setVisibility(View.GONE);
+                    llChart3.setVisibility(View.GONE);
+                }
 
                 if (predictList.size() >= 2)
                 {
@@ -535,6 +541,10 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     vColorAwayTwo.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
                     String result[] = predictList.get(1).getPredict().split("\\|");
                     tvChartPredictTwo.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
+                }
+                else
+                {
+                    llChart3.setVisibility(View.GONE);
                 }
 
                 if (predictList.size() == 3)

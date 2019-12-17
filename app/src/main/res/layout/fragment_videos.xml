@@ -111,7 +111,7 @@
         android:layout_marginTop="@dimen/_40dp"
         android:layout_marginBottom="@dimen/_40dp"
         android:textSize="@dimen/textSize_14dp"
-        android:text="هیچ فیلمی در این گروه یافت نشد."/>
+        android:text="هیچ ویدیویی در این گروه یافت نشد."/>
     <LinearLayout
         android:id="@+id/llFavorites"
         android:layout_width="match_parent"
@@ -264,7 +264,7 @@
             android:layout_marginTop="@dimen/_40dp"
             android:layout_marginBottom="@dimen/_40dp"
             android:textSize="@dimen/textSize_14dp"
-            android:text="هیچ فیلمی در این گروه یافت نشد."/>
+            android:text="هیچ ویدیویی در این گروه یافت نشد."/>
     </LinearLayout>
 
 </LinearLayout>

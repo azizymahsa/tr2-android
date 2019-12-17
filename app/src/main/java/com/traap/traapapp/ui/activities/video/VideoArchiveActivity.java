@@ -40,7 +40,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
     private int position = 0;
     private boolean FLAG_Favorite = false;
     private View tvEmpty;
-    private View llArchive;
+    private View llArchive,vLine1,vLine2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,9 +64,13 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
         initView();
         if (FLAG_Favorite)
         {
+            vLine1.setVisibility(View.GONE);
+            vLine2.setVisibility(View.GONE);
             requestBookMarkVideos();
         } else
         {
+            vLine1.setVisibility(View.VISIBLE);
+            vLine2.setVisibility(View.VISIBLE);
             requestArchiveVideo(position);
 
         }
@@ -166,10 +170,10 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
     private void onGetArchiveVideoSuccess(ArchiveVideoResponse data)
     {
         if (data.getResults().isEmpty()){
-            llArchive.setVisibility(View.GONE);
+            rvArchiveVideo.setVisibility(View.GONE);
             tvEmpty.setVisibility(View.VISIBLE);
         }else {
-            llArchive.setVisibility(View.VISIBLE);
+            rvArchiveVideo.setVisibility(View.VISIBLE);
             tvEmpty.setVisibility(View.GONE);
             rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(), FLAG_Favorite, this));
         }
@@ -178,10 +182,10 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
     private void onGetBookMarkVideoSuccess(ArchiveVideoResponse data)
     {
         if (data.getResults().isEmpty()){
-            llArchive.setVisibility(View.GONE);
+            rvArchiveVideo.setVisibility(View.GONE);
             tvEmpty.setVisibility(View.VISIBLE);
         }else {
-            llArchive.setVisibility(View.VISIBLE);
+            rvArchiveVideo.setVisibility(View.VISIBLE);
             tvEmpty.setVisibility(View.GONE);
             rvArchiveVideo.setAdapter(new VideosArchiveAdapter(data.getResults(), FLAG_Favorite, this));
         }
@@ -201,6 +205,9 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
             }
             tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
+            vLine1=findViewById(R.id.vLine1);
+            vLine2=findViewById(R.id.vLine2);
 
             imgMenu = findViewById(R.id.imgMenu);
             imgMenu.setVisibility(View.GONE);
