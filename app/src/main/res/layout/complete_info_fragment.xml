@@ -126,6 +126,8 @@
                                         android:maxLength="40"
                                         android:maxLines="1"
                                         android:inputType="text"
+                                        android:singleLine="true"
+
                                         android:digits="@string/all__alphabet"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
@@ -138,6 +140,8 @@
                                         android:hint="نام خانوادگی"
                                         android:maxLength="40"
                                         android:maxLines="1"
+                                        android:singleLine="true"
+
                                         android:digits="@string/all__alphabet"
                                         android:inputType="text"
                                         android:textColor="@color/_title_black"
@@ -302,6 +306,7 @@
                                         android:maxLines="1"
                                         android:digits="@string/all__alphabet"
                                         android:inputType="text"
+                                        android:singleLine="true"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
@@ -313,6 +318,8 @@
                                         android:hint="نام خانوادگی"
                                         android:maxLength="40"
                                         android:maxLines="1"
+                                        android:singleLine="true"
+
                                         android:inputType="text"
                                         android:digits="@string/all__alphabet"
                                         android:textColor="@color/_title_black"
@@ -478,6 +485,7 @@
                                         android:maxLines="1"
                                         android:inputType="text"
                                         android:digits="@string/all__alphabet"
+                                        android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
@@ -492,7 +500,7 @@
                                         android:maxLines="1"
                                         android:inputType="text"
                                         android:digits="@string/all__alphabet"
-
+android:singleLine="true"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
@@ -655,6 +663,7 @@
                                         android:maxLines="1"
                                         android:inputType="text"
                                         android:digits="@string/all__alphabet"
+                                        android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
@@ -669,6 +678,7 @@
                                         android:maxLines="1"
                                         android:inputType="text"
                                         android:digits="@string/all__alphabet"
+                                        android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
@@ -832,6 +842,7 @@
                                         android:maxLines="1"
                                         android:inputType="text"
                                         android:digits="@string/all__alphabet"
+                                        android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
@@ -846,6 +857,7 @@
                                         android:maxLines="1"
                                         android:inputType="text"
                                         android:digits="@string/all__alphabet"
+                                        android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
