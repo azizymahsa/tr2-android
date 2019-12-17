@@ -41,6 +41,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategory;
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import com.traap.traapapp.apiServices.model.news.main.Categories;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.NewsParent;
@@ -59,8 +60,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -247,6 +251,17 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 .skipInitialValue()
                 .filter(charSequence -> charSequence.length() > 2)
                 .debounce(DELAY_TIME_TEXT_CHANGE, TimeUnit.MILLISECONDS)
+                //--------------------------
+//                .flatMap(new Function<CharSequence, ObservableSource<Categories>>()
+//                {
+//                    @Override
+//                    public ObservableSourceandr<Categories> apply(CharSequence charSequence) throws Exception
+//                    {
+////                        Observable<Categories> categoriesObservable = new
+//                        return null;
+//                    }
+//                })
+                //--------------------------
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(searchFilter())
