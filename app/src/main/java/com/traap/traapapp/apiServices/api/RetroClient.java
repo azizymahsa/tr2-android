@@ -465,6 +465,9 @@ public interface RetroClient
             @Path("matchId") Integer matchId
     );
 
+    @GET(Const.GET_PREDICT_ENABLE)
+    Single<Response<WebServiceClass<MatchItem>>> getPredictEnable();
+
     @POST(Const.SEND_PREDICT)
     Single<Response<WebServiceClass<Object>>> sendPredict(
             @Body SendPredictRequest request
