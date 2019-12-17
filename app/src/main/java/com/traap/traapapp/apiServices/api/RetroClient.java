@@ -505,6 +505,11 @@ public interface RetroClient
     Single<Response<WebServiceClass<NewsMainResponse>>> getNewsMain();
 
     @GET(Const.Get_NEWS_ARCHIVE_BY_IDs)
+    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryById(
+            @Query("category") String categoryId           //example 1,2,3,4
+    );
+
+    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs)
     Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryByIds(
             @Query("category_id__in") String categoryIds           //example 1,2,3,4
 //            @Query("category") String categoryIds           //example 1,2,3,4

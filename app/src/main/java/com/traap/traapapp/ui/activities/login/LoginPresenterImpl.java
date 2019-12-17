@@ -216,7 +216,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             public void onError(String message)
             {
                 loginView.hideLoading();
-                if (!Tools.isNetworkAvailable((Activity) activityContext))
+                if (Tools.isNetworkAvailable((Activity) activityContext))
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     Tools.showToast(appContext, "خطا در دریافت اطلاعات از سرور!", R.color.red);
@@ -388,7 +388,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     {
      //   Tools.showToast(appContext, message, R.color.red);
         loginView.hideLoading();
-        if (!Tools.isNetworkAvailable((Activity) activityContext))
+        if (Tools.isNetworkAvailable((Activity) activityContext))
         {
             Logger.e("-OnError-", "Error: " + message);
             Tools.showToast(appContext, "خطا در دریافت اطلاعات از سرور!", R.color.red);
