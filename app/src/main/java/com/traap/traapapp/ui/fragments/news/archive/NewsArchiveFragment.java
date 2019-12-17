@@ -44,6 +44,7 @@ import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCa
 import com.traap.traapapp.apiServices.model.news.main.Categories;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
+import com.traap.traapapp.enums.NewsArchiveCategoryCall;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -497,19 +498,23 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         {
             if (pagerWithFilter)
             {
-                return NewsArchiveCategoryFragment.newInstance(pagerWithFilter);
+                return NewsArchiveCategoryFragment.newInstance("", //Id Filter List
+                        NewsArchiveCategoryCall.FROM_FILTER_IDs_DATE, //or FROM_FILTER_IsS
+                        "", // dateFilter
+                        null);
             }
             else if (pagerFromFavorite)
             {
                 rootView.findViewById(R.id.llFilterAndTab).setVisibility(View.GONE);
 
-                return NewsArchiveCategoryFragment.newInstance(0, false, true, null);
+//                return NewsArchiveCategoryFragment.newInstance(0, false, true, null);
+                return NewsArchiveCategoryFragment.newInstance("", NewsArchiveCategoryCall.FROM_FAVORITE, null, null);
             }
             else
             {
                 int Id =  newsArchiveCategoryList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
-                return NewsArchiveCategoryFragment.newInstance(Id, true, false, null);
+                return NewsArchiveCategoryFragment.newInstance(String.valueOf(Id) + ",", NewsArchiveCategoryCall.FROM_ID, null, null);
             }
         }
 
