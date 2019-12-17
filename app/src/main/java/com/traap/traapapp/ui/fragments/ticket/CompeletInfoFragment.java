@@ -521,18 +521,21 @@ public class CompeletInfoFragment
 
             llBoxTicket1.setVisibility(View.GONE);
             count = count - 1;
+            Prefs.putInt("CountTicket",count);
             amountForPay = amountForPay - amountOneTicket;
             if (count == 1)
             {
                 goneImgDelete();
 
             }
+
         }
         if (flagNumberDelete == 2)
         {
 
             llBoxTicket2.setVisibility(View.GONE);
             count = count - 1;
+            Prefs.putInt("CountTicket",count);
             amountForPay = amountForPay - amountOneTicket;
             if (count == 1)
             {
@@ -545,6 +548,7 @@ public class CompeletInfoFragment
 
             llBoxTicket3.setVisibility(View.GONE);
             count = count - 1;
+            Prefs.putInt("CountTicket",count);
             amountForPay = amountForPay - amountOneTicket;
             if (count == 1)
             {
@@ -557,6 +561,7 @@ public class CompeletInfoFragment
 
             llBoxTicket4.setVisibility(View.GONE);
             count = count - 1;
+            Prefs.putInt("CountTicket",count);
             amountForPay = amountForPay - amountOneTicket;
             if (count == 1)
             {
@@ -569,6 +574,7 @@ public class CompeletInfoFragment
 
             llBoxTicket5.setVisibility(View.GONE);
             count = count - 1;
+            Prefs.putInt("CountTicket",count);
             amountForPay = amountForPay - amountOneTicket;
             if (count == 1)
             {
@@ -1458,6 +1464,7 @@ public class CompeletInfoFragment
         this.amountOneTicket = amountOneTicket;
         this.ticketIdList = ticketIdList;
         this.stadiumId = stadiumId;
+        Prefs.putInt("CountTicket",count);
 
         //  this.paymentMatchRequest = paymentMatchRequest;
 
