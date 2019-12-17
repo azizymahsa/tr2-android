@@ -1000,10 +1000,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
             catch (Exception e)
             {
-                if (!Tools.isNetworkAvailable(this))
+                if (Tools.isNetworkAvailable(this))
                 {
                     Logger.e("-OnError-", "Error: " + e.getMessage());
-                    showError(this, "خطا در دریافت اطلاعات از سرور!");
+//                    showError(this, "خطا در دریافت اطلاعات از سرور!");
                 }
                 else
                 {
@@ -1025,23 +1025,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         else
         {
-           // showError(this, response.info.message);
-            if (!Tools.isNetworkAvailable(this))
-            {
-                Logger.e("-OnError-", "Error: " + response.info.message);
-                showError(this, "خطا در دریافت اطلاعات از سرور!");
-            }
-            else
-            {
-                showAlert(this, R.string.networkErrorMessage, R.string.networkError);
-            }
+            showError(this, response.info.message);
         }
     }
 
     @Override
     public void onError(String message)
     {
-        if (!Tools.isNetworkAvailable(this))
+        if (Tools.isNetworkAvailable(this))
         {
             Logger.e("-OnError-", "Error: " + message);
             showError(this, "خطا در دریافت اطلاعات از سرور!");
