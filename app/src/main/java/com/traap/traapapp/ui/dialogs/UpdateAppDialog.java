@@ -213,7 +213,21 @@ public class UpdateAppDialog extends DialogFragment implements View.OnClickListe
                 dismiss();
                 break;
             case R.id.btnUpdateDetail:
-                updateApp.onDetailUpdate();
+                try
+                {
+                    if (desc != null)
+                    {
+                        updateApp.onDetailUpdate();
+                    }
+                    else
+                    {
+                        updateApp.onErrorUpdateDescription();
+                    }
+                }
+                catch (Exception e)
+                {
+                    updateApp.onErrorUpdateDescription();
+                }
                 break;
             case R.id.btnGooglePlayUpdate:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

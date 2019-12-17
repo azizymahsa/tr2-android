@@ -65,6 +65,15 @@ public class WebActivity extends BaseActivity
             String authToken = getIntent().getStringExtra("TOKEN");
 
             String postData = "auth=" + URLEncoder.encode(authToken, "UTF-8");
+//            try
+//            {
+//                postData = "auth=" + URLEncoder.encode(authToken, "UTF-8");
+//            }
+//            catch (NullPointerException e)
+//            {
+//                showError( this, "خطا در دریافت اطلاعات از سرور!");
+//                finish();
+//            }
 
             WebSettings settings = webView.getSettings();
             settings.setJavaScriptEnabled(true);
@@ -110,11 +119,25 @@ public class WebActivity extends BaseActivity
 
             });
 
-        } catch (
-                UnsupportedEncodingException e)
+        }
+//        catch (NullPointerException e)
+//        {
+//            e.printStackTrace();
+//            hideLoading();
+//            showError( this, "خطا در دریافت اطلاعات از سرور!");
+//            finish();
+//        }
+        catch (UnsupportedEncodingException e)
         {
             e.printStackTrace();
             hideLoading();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            hideLoading();
+            showError( this, "خطا در دریافت اطلاعات از سرور!");
+            finish();
         }
     }
     public void showLoading()
