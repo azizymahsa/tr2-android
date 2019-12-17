@@ -38,6 +38,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.news.main.Categories;
 import com.traap.traapapp.apiServices.model.news.main.News;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
+import com.traap.traapapp.enums.NewsArchiveCategoryCall;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -434,7 +435,11 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             int Id =  categoriesList.get(position).getId();
             Logger.e("-getNews " + position +" size-", categoriesList.get(position).getTitle() + " size: " +  categoriesList.get(position).getNews().size());
 
-            return NewsArchiveCategoryFragment.newInstance(Id, false, false, categoriesList.get(position).getNews());
+            return NewsArchiveCategoryFragment.newInstance("",
+                    NewsArchiveCategoryCall.FROM_SINGLE_CONTENT,
+                    null,
+                    categoriesList.get(position).getNews()
+            );
         }
 
         @Override
