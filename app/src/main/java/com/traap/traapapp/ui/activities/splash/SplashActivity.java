@@ -250,7 +250,21 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     @Override
     public void onDetailUpdate()
     {
-        startActivity(new Intent(this, WebActivity.class).putExtra("description", description));
+        try
+        {
+            if (description != null)
+            {
+                startActivity(new Intent(this, WebActivity.class).putExtra("description", description));
+            }
+            else
+            {
+                showError("خطا در دریافت اطلاعات از سرور!", getResources().getString(R.string.error));
+            }
+        }
+        catch (Exception e)
+        {
+            showError("خطا در دریافت اطلاعات از سرور!", getResources().getString(R.string.error));
+        }
     }
 
     @Override
@@ -370,6 +384,12 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     public void showAlert(String message,String title)
     {
         showError(message,title);
+    }
+
+    @Override
+    public void onErrorUpdateDescription()
+    {
+        showError("خطا در دریافت اطلاعات از سرور!", getResources().getString(R.string.error));
     }
 
     //------------------------------add permission--------------------------------
