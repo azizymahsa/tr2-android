@@ -396,8 +396,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
         } else
         {
-            imgLike.setColorFilter(getResources().getColor(R.color.gray));
-            tvLike.setTextColor(getResources().getColor(R.color.gray));
+            imgLike.setColorFilter(getResources().getColor(R.color.white));
+            tvLike.setTextColor(getResources().getColor(R.color.white));
             if (likeCount > 0)
                 likeCount = likeCount - 1;
             tvLike.setText(likeCount + "");
