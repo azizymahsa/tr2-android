@@ -494,17 +494,7 @@ public class AllMenuFragment extends BaseFragment implements
             case 11://Flight ata
             {
 //
-                // Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/ata-flights");
 
-              /*  Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/ata-flights");
-                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);*/
-                /*fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, fragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
@@ -518,11 +508,6 @@ public class AllMenuFragment extends BaseFragment implements
             {
 
 
-              /*  fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, fragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
@@ -533,12 +518,7 @@ public class AllMenuFragment extends BaseFragment implements
             }
             case 12: //Hotel
             {
-//
-               /* fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, fragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();*/
+
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");

@@ -129,12 +129,19 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         tvArchiveVideo.setOnClickListener(this);
         LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
         rvCategories.setLayoutManager(layoutManagerCategory);
-        requestMainVideos();
+       // requestMainVideos();
 
         return rootView;
     }
 
+    public void onResume()
+    {
+        super.onResume();
 
+        //Call the method
+        requestMainVideos();
+
+    }
     public void showComingSoonDialog()
     {
         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد.", false,
