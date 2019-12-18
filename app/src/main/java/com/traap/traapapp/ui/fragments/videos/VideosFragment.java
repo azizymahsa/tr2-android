@@ -185,11 +185,11 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
                     } else
                     {
-                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                      //  Tools.showToast(getContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+                  //  Tools.showToast(getContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -291,11 +291,11 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
                     } else
                     {
-                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                      //  Tools.showToast(getContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+                  //  Tools.showToast(getContext(), e.getMessage(), R.color.red);
 
                 }
             }
