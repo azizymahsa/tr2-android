@@ -73,8 +73,8 @@
     <string name="Please_enter_first_name_in_Persian">لطفا نام صحیح وارد کنید</string>
     <string name="profile_desc">وارد کردن تمامی موارد به صورت اختیاری می باشد</string>
     <string name="error_ticket_payment">کاربر گرامی؛  متاسفانه پرداخت شما ناموفق بوده است.</string>
-    <string name="networkError">خطای دسترسی به اینترنت</string>
-    <string name="networkErrorMessage">لطفا در تنظیمات برنامه اینترنت خود را بررسی کنید.</string>
+    <string name="networkError">خطای دسترسی</string>
+    <string name="networkErrorMessage">اینترنت شما قطع یا از دسترس خارج می باشد.</string>
     <string name="login">ورود</string>
     <string name="_select_gateway">درگاه مورد نظر خود را انتخاب کنید:</string>
 

@@ -229,7 +229,7 @@ public class PastResultFragment
     {
        // mainView.showError(message);
         mainView.hideLoading();
-        if (!Tools.isNetworkAvailable(getActivity()))
+        if (Tools.isNetworkAvailable(getActivity()))
         {
             Logger.e("-OnError-", "Error: " + message);
             mainView.showError( "خطا در دریافت اطلاعات از سرور!");
