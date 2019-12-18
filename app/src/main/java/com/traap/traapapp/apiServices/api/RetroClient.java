@@ -138,6 +138,10 @@ public interface RetroClient
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
             @Path("id") Integer categoryId
     );
+    @GET(Const.Get_Category_By_Id_Video2)
+    Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos2(
+            @Path("id") Integer categoryId
+    );
 
     @POST(Const.Like_Video)
     Single<Response<WebServiceClass<LikeVideoResponse>>> likeVideo(
@@ -154,6 +158,10 @@ public interface RetroClient
 
     @GET(Const.Get_Category_By_Id_Photo)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(
+            @Path("id") Integer categoryId
+    );
+    @GET(Const.Get_Category_By_Id_Photo2)
+    Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos2(
             @Path("id") Integer categoryId
     );
     @GET(Const.Get_Photos_By_Id)

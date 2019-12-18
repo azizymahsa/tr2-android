@@ -138,8 +138,9 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     private void requestGetRelatedVideos(int idVideoCategory)
     {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService2(idVideo, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
 
-        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+       // SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
