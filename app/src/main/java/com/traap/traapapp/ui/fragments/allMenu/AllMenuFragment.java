@@ -605,6 +605,7 @@ public class AllMenuFragment extends BaseFragment implements
             case 28: //بیمه درمان
             {
                 getPermissionAndOpenInsurance(URl);
+
                 break;
             }
             //الوپارک
@@ -630,7 +631,15 @@ public class AllMenuFragment extends BaseFragment implements
                     @Override
                     public void onPermissionGranted()
                     {
-                        Utility.openUrlCustomTab(getActivity(), URl);
+                       // Utility.openUrlCustomTab(getActivity(), URl);
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                        intent.putExtra("URL", URl);
+                        intent.putExtra("Title", "بیمه");
+
+                        intent.putExtra("bimeh_api_key", Prefs.getString("bimeh_api_key", ""));
+                        intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
+                        intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                        startActivity(intent);
                     }
 
                     @Override
