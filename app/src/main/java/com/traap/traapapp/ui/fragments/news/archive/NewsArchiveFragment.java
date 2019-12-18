@@ -431,6 +431,11 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         }
     }
 
+    private Observable<NewsArchiveCategory> getFilteredNewsArchiveIDs()
+    {
+        return null;
+    }
+
     private DisposableObserver<CharSequence> searchFilter()
     {
         return new DisposableObserver<CharSequence>()
