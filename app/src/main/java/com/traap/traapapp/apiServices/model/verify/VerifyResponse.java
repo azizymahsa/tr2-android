@@ -19,12 +19,40 @@ public class VerifyResponse
     @SerializedName("gds_token")
     @Expose
     private String gds_token;
+
     @SerializedName("bimeh_token")
     @Expose
     private String bimeh_token;
+     @SerializedName("bimeh_api_key")
+    @Expose
+    private String bimeh_api_key;
+    @SerializedName("bimeh_call_back")
+    @Expose
+    private String bimeh_call_back;
+
     @SerializedName("alopark_token")
     @Expose
     private String alopark_token;
+
+    public String getBimeh_api_key()
+    {
+        return bimeh_api_key;
+    }
+
+    public void setBimeh_api_key(String bimeh_api_key)
+    {
+        this.bimeh_api_key = bimeh_api_key;
+    }
+
+    public String getBimeh_call_back()
+    {
+        return bimeh_call_back;
+    }
+
+    public void setBimeh_call_back(String bimeh_call_back)
+    {
+        this.bimeh_call_back = bimeh_call_back;
+    }
 
     public String getAlopark_token()
     {

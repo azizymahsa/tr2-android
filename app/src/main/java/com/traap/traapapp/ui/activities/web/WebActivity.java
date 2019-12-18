@@ -39,46 +39,37 @@ public class WebActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
 
-       /* mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
 
-        tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvUserName = mToolbar.findViewById(R.id.tvUserName);
-        imgBack = mToolbar.findViewById(R.id.imgBack);
-        imgMenu = mToolbar.findViewById(R.id.imgMenu);
-
-        tvTitle.setText("مشاهده تغییرات");
-
-        tvUserName.setText(Prefs.getString("mobile", ""));
-
-        imgMenu.setVisibility(View.GONE);
-        imgBack.setOnClickListener(v ->
-        {
-            super.onBackPressed();
-        });*/
 
         initView();
         try
         {
+            String postData="";
             webView = findViewById(R.id.webView);
             String url = getIntent().getStringExtra("URL");
-            String authToken = getIntent().getStringExtra("TOKEN");
+          //  String authToken = getIntent().getStringExtra("TOKEN");
+            if (getIntent().getStringExtra("Title").contains("بیمه"))
+            {
+                 postData =  "userToken=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8")
+                         + "&businessToken=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_api_key"), "UTF-8")
+                         +"&redirectUrl=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_call_back"), "UTF-8")
+                 ;
 
-            String postData = "auth=" + URLEncoder.encode(authToken, "UTF-8");
-//            try
-//            {
-//                postData = "auth=" + URLEncoder.encode(authToken, "UTF-8");
-//            }
-//            catch (NullPointerException e)
-//            {
-//                showError( this, "خطا در دریافت اطلاعات از سرور!");
-//                finish();
-//            }
+            } else
+            {
+                 postData = "auth=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8");
+
+            }
+
+
 
             WebSettings settings = webView.getSettings();
             settings.setJavaScriptEnabled(true);
             settings.setJavaScriptCanOpenWindowsAutomatically(true);
             settings.setDefaultTextEncodingName("utf-8");
+
+            webView.postUrl(url, postData.getBytes());
+
             webView.getSettings().setDomStorageEnabled(true);
             webView.getSettings().setSaveFormData(true);
             webView.getSettings().setAllowContentAccess(true);
@@ -89,27 +80,31 @@ public class WebActivity extends BaseActivity
             webView.setWebViewClient(new WebViewClient());
             webView.setClickable(true);
             webView.setWebChromeClient(new WebChromeClient());
-            webView.postUrl(url, postData.getBytes());
             webView.getSettings().setUseWideViewPort(true);
 // Zoom out if the content width is greater than the width of the viewport
             webView.getSettings().setLoadWithOverviewMode(true);
-            webView.setWebViewClient(new WebViewClient() {
+            webView.setWebViewClient(new WebViewClient()
+            {
 
                 @Override
-                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                public void onPageStarted(WebView view, String url, Bitmap favicon)
+                {
                     super.onPageStarted(view, url, favicon);
                     showLoading();
 
                 }
 
                 @Override
-                public void onPageCommitVisible(WebView view, String url) {
+                public void onPageCommitVisible(WebView view, String url)
+                {
                     super.onPageCommitVisible(view, url);
                     hideLoading();
 
                 }
+
                 @Override
-                public void onPageFinished(WebView view, String url) {
+                public void onPageFinished(WebView view, String url)
+                {
 
                     hideLoading();
 
@@ -131,15 +126,15 @@ public class WebActivity extends BaseActivity
         {
             e.printStackTrace();
             hideLoading();
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
             hideLoading();
-            showError( this, "خطا در دریافت اطلاعات از سرور!");
+            showError(this, "خطا در دریافت اطلاعات از سرور!");
             finish();
         }
     }
+
     public void showLoading()
     {
         findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
@@ -149,6 +144,7 @@ public class WebActivity extends BaseActivity
     {
         findViewById(R.id.rlLoading).setVisibility(View.GONE);
     }
+
     private void initView()
     {
         try

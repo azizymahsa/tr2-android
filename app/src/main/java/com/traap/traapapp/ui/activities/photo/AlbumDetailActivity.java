@@ -174,7 +174,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                     {
 
                         setRelatedPhotosData(response.data);
-                        requestGetRelatedVideos(response.data.getCategoryId());
+                     //   requestGetRelatedVideos(response.data.getCategoryId());
+                        requestGetRelatedVideos(idAlbum);
 
                     } else
                     {
@@ -229,7 +230,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
 
-        SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+       SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService2(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+      //  SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
@@ -245,11 +247,12 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                      //  Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                  //  Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    Logger.e("-onReady-", "Error: " + e.getMessage());
 
                 }
             }
@@ -396,8 +399,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
         } else
         {
-            imgLike.setColorFilter(getResources().getColor(R.color.gray));
-            tvLike.setTextColor(getResources().getColor(R.color.gray));
+            imgLike.setColorFilter(getResources().getColor(R.color.white));
+            tvLike.setTextColor(getResources().getColor(R.color.white));
             if (likeCount > 0)
                 likeCount = likeCount - 1;
             tvLike.setText(likeCount + "");
