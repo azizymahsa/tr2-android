@@ -381,7 +381,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
 
-        } else if (viewPager.getCurrentItem() == 2)
+        } /*else if (viewPager.getCurrentItem() == 2)
         {
             ivCountTicket.setImageResource(R.drawable.select_step);
             tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
@@ -398,7 +398,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
-          /*  ivFullInfo.setImageResource(R.drawable.select_step_non);
+          *//*  ivFullInfo.setImageResource(R.drawable.select_step_non);
             tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivPrintTicket.setImageResource(R.drawable.un_select_step);
@@ -407,7 +407,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
-*/
+*//*
         } else if (viewPager.getCurrentItem() == 3)
         {
 
@@ -427,7 +427,7 @@ public class BuyTicketsFragment extends BaseFragment implements OnClickContinueB
             vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
-        }
+        }*/
     }
 
     public void setData(String selectPositionId, int count, int amountForPay, int amountOneTicket, List<Integer> results, Integer stadiumId)
