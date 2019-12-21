@@ -116,13 +116,12 @@
                             android:layout_height="@dimen/_35dp"
                             android:layout_marginEnd="5dp"
                             android:foreground="?attr/selectableItemBackground"
-                            android:src="@drawable/barcode_n"
+                            android:src="@drawable/barcode"
                             android:visibility="gone" />
 
 
                         <ImageView
                             android:id="@+id/tvChangeInput"
-                            android:src="@drawable/transfer_2"
                             android:layout_width="@dimen/_35dp"
                             android:layout_height="@dimen/_35dp"
                             android:layout_marginEnd="5dp"

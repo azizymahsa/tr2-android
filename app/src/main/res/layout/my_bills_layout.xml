@@ -43,21 +43,7 @@
             android:layout_height="1dp"
             android:background="@drawable/shadow_b"
             android:backgroundTint="@color/warmGray"/>
-     <!--   <ir.bankday.diba.android.tools.ClearableEditText
-            android:id="@+id/etSearch"
-            android:layout_width="@dimen/_220sdp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/circle_background_search"
-            android:gravity="center"
-            android:hint="جستجو"
-            android:textColor="@color/white"
 
-            android:textColorHint="#b9b9b9"
-            android:textSize="@dimen/textSize_16dp"
-            android:layout_below="@+id/ll2"
-            />-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMyBills"
             android:layout_width="match_parent"
