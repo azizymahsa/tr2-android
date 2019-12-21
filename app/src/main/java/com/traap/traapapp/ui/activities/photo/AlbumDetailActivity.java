@@ -133,7 +133,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         showLoading();
 
 
-     //   sendRequestListPhotos(idVideo);
+        sendRequestListPhotos(idAlbum);
 
 
     }
@@ -159,6 +159,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void sendRequestListPhotos(int idVideoCategory)
     {
+        showLoading();
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
 
         SingletonService.getInstance().categoryByIdVideosService().photosByIdPhotosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<PhotosByIdResponse>>()
@@ -416,6 +417,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         // titleAlbum.setText(content.getTitle() + "");
         try
         {
+
             tvCaption.setText(content.getCaption() + " " + content.getTitle());
             idPhoto = content.getId();
             likeCount = content.getLikes();
