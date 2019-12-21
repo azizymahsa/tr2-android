@@ -372,7 +372,7 @@ public class UpdateAppDialog extends DialogFragment implements View.OnClickListe
 
     private void goAction()
     {
-        String packageName = "ir.bankday.diba.android";
+        String packageName = activity.getApplicationContext().getPackageName();
 
 //        if (downloadUrl.endsWith(".apk"))
 //        {

@@ -348,10 +348,6 @@
                     >
 
 
-
-
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -364,37 +360,6 @@
                             android:layout_weight="10" />
 
 
-<!--
-                        <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
-                            android:id="@+id/llPaymentPass"
-                            android:layout_width="0dp"
-                            android:layout_weight="100"
-                            android:layout_height="@dimen/_50sdp"
-                            android:layout_gravity="center|right"
-
-                            android:hint="رمز دوم کارت را وارد نمایید"
-                            android:theme="@style/EditTextHint">
-
-                            <ir.bankday.diba.android.tools.ClearableEditText
-                                android:id="@+id/etPassPayment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:backgroundTint="@color/black"
-                                android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                                android:gravity="right|center"
-                                android:imeOptions="actionDone"
-                                android:inputType="numberPassword"
-                                android:maxLines="1"
-                                android:singleLine="true"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/black"
-                                android:textSize="@dimen/textSize_16dp"
-
-
-                                />
-                        </com.google.android.material.textfield.TextInputLayout>
--->
-
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -402,28 +367,6 @@
 
 
                     </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                     <LinearLayout
@@ -467,9 +410,6 @@
                             android:layout_weight="10" />
 
                     </LinearLayout>
-
-
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
