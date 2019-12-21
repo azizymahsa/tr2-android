@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
+            android:layout_marginLeft="16dp"
             android:textStyle="normal"
             android:textColor="@color/textColorSubTitle"
             android:textSize="@dimen/textSize_14dp"

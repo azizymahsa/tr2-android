@@ -54,7 +54,7 @@ public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFi
             holder.tvTitle.setText(item.getTitle());
         }
 
-        holder.checkbox.setChecked(true);
+        holder.checkbox.setChecked(false);
     }
 
 

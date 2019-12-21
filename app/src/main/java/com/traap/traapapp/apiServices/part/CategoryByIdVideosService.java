@@ -28,10 +28,17 @@ public class CategoryByIdVideosService extends BasePart
     {
         start(getServiceGenerator().createService().getCategoryByIdVideos(categoryId), listener);
     }
-
+    public void categoryByIdVideosService2(Integer categoryId, CategoryByIdVideosRequest request, OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getCategoryByIdVideos2(categoryId), listener);
+    }
     public void categoryByIdPhotosService(Integer categoryId, CategoryByIdVideosRequest request, OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>> listener)
     {
         start(getServiceGenerator().createService().getCategoryByIdPhotos(categoryId), listener);
+    }
+    public void categoryByIdPhotosService2(Integer categoryId, CategoryByIdVideosRequest request, OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getCategoryByIdPhotos2(categoryId), listener);
     }
     public void photosByIdPhotosService(Integer categoryId, CategoryByIdVideosRequest request, OnServiceStatus<WebServiceClass<PhotosByIdResponse>> listener)
     {
