@@ -903,7 +903,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         if (BuildConfig.DEBUG)
         {
-            showToast(this, "hoooraaa", R.color.gray);
+            showToast(this, "", R.color.gray);
         }
     }
 
