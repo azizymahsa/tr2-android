@@ -160,7 +160,7 @@ public class PaymentResultDialog extends DialogFragment implements View.OnClickL
         {
             tvTrackText.setText("شناسه پیگیری پرداخت:");
             tvDialogTitle.setText("رسید پرداخت وجه شتاکی موفق ");
-            ivShetab.setImageDrawable(activity.getResources().getDrawable(R.drawable.shetak));
+          //  ivShetab.setImageDrawable(activity.getResources().getDrawable(R.drawable.shetak));
             try
             {
                 tvPaymentId.setText(posResponse.data.getRefNo() + "");
@@ -175,7 +175,7 @@ public class PaymentResultDialog extends DialogFragment implements View.OnClickL
         {
             tvTrackText.setText("شناسه پیگیری پرداخت:");
             tvDialogTitle.setText("رسید پرداخت وجه شاپرکی موفق");
-            ivShetab.setImageDrawable(activity.getResources().getDrawable(R.drawable.shetab));
+           // ivShetab.setImageDrawable(activity.getResources().getDrawable(R.drawable.shetab));
             try
             {
                 tvPaymentId.setText(posResponse.data.getRefNo() + "");
@@ -253,11 +253,7 @@ public class PaymentResultDialog extends DialogFragment implements View.OnClickL
                     "در تاریخ: " +
                     tvDate.getText().toString() +
                     "\n" +
-                    "با موفقیت پرداخت گردید." +
-                    "\n" +
-                    activity.getString(R.string.loyalBank) +
-                    "\n" +
-                    activity.getString(R.string.wwwloyalbank);
+                    "با موفقیت پرداخت گردید." ;
 
             Utility.share(share);
         }

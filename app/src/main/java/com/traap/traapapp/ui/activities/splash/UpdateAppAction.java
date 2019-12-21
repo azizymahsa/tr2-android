@@ -15,4 +15,6 @@ public interface UpdateAppAction
     void onUpdateFromWebSite(String downloadUrl);
 
     void showAlert(String message,String title);
+
+    void onErrorUpdateDescription();
 }

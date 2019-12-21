@@ -185,7 +185,11 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                         Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer() == 0 ? 12 : response.data.getProfile().getPopularPlayer());
 
                         Prefs.putString("gds_token",  response.data.getGds_token());
+
+                        Prefs.putString("bimeh_call_back",  response.data.getBimeh_call_back());
+                        Prefs.putString("bimeh_api_key",  response.data.getBimeh_api_key());
                         Prefs.putString("bimeh_token",  response.data.getBimeh_token());
+
                         Prefs.putString("alopark_token",  response.data.getAlopark_token());
 
                         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
@@ -216,7 +220,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             public void onError(String message)
             {
                 loginView.hideLoading();
-                if (!Tools.isNetworkAvailable((Activity) activityContext))
+                if (Tools.isNetworkAvailable((Activity) activityContext))
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     Tools.showToast(appContext, "خطا در دریافت اطلاعات از سرور!", R.color.red);
@@ -388,7 +392,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     {
      //   Tools.showToast(appContext, message, R.color.red);
         loginView.hideLoading();
-        if (!Tools.isNetworkAvailable((Activity) activityContext))
+        if (Tools.isNetworkAvailable((Activity) activityContext))
         {
             Logger.e("-OnError-", "Error: " + message);
             Tools.showToast(appContext, "خطا در دریافت اطلاعات از سرور!", R.color.red);

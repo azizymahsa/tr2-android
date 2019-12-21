@@ -274,7 +274,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
         etPass.setText("");
         etKeshavarszi.setText("");
         btnContactTransfer.setBackgroundDrawable(getResources().getDrawable(R.drawable.copy_icon));
-        btnDestinationHistory.setBackgroundDrawable(getResources().getDrawable(R.drawable.wallet_n));
+        btnDestinationHistory.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_wallet));
     }
 
     @Override

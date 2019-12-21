@@ -23,6 +23,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
 import com.traap.traapapp.apiServices.model.news.main.News;
+import com.traap.traapapp.enums.NewsArchiveCategoryCall;
 import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
 import com.traap.traapapp.ui.activities.news.details.NewsDetailsActivity;
 import com.traap.traapapp.ui.adapters.news.NewsArchiveAdapter;
@@ -34,16 +35,17 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 {
     private View rootView;
 //    private NewsArchiveCategory archiveCategory;
-    private int Ids;
-    private boolean pagerWithFilter = false;
-    private boolean getFromFav = false;
-    private boolean getFromId ;
+    private String Ids, dateFilter;
+//    private boolean pagerWithFilter = false;
+//    private boolean getFromFav = false;
+//    private boolean getFromId ;
 
     private ProgressBar progressBar;
     private NewsArchiveAdapter adapter;
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
     private TextView tvEmpty;
+    private NewsArchiveCategoryCall callFrom;
 
 
     private ArrayList<News> newsContentList = new ArrayList<>();
@@ -52,40 +54,33 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
     {
     }
 
-    public static NewsArchiveCategoryFragment newInstance(int Id, boolean getFromId, boolean getFromFav, @Nullable List<News> newsContentList)
+    public static NewsArchiveCategoryFragment newInstance(String IDs,
+                                                          NewsArchiveCategoryCall callFrom,
+                                                          @Nullable String dateFilter,
+                                                          @Nullable List<News> newsContentList)
     {
         NewsArchiveCategoryFragment fragment = new NewsArchiveCategoryFragment();
+        fragment.setCallFrom(callFrom);
 
         Bundle arg = new Bundle();
-        arg.putInt("Ids", Id);
+        arg.putString("Ids", IDs);
+        arg.putString("dateFilter", dateFilter);
         arg.putBoolean("pagerWithFilter", false);
-        arg.putBoolean("getFromFav", getFromFav);
-        arg.putBoolean("getFromId", getFromId);
-        if (!getFromId)
+        if (callFrom == NewsArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             arg.putParcelableArrayList("newsContentList", (ArrayList<? extends Parcelable>) newsContentList);
         }
 
-        Logger.e("-Ids 0-", String.valueOf(Id));
+        Logger.e("-Ids 0-", IDs);
 
         fragment.setArguments(arg);
         return fragment;
     }
 
-    public static NewsArchiveCategoryFragment newInstance(boolean pagerWithFilter)
+    private void setCallFrom(NewsArchiveCategoryCall callFrom)
     {
-        NewsArchiveCategoryFragment fragment = new NewsArchiveCategoryFragment();
-
-        Bundle arg = new Bundle();
-//        arg.putParcelable("NewsArchiveCategory", archiveCategory);
-
-        arg.putBoolean("pagerWithFilter", pagerWithFilter);
-        arg.putBoolean("getFromFav", false);
-
-        fragment.setArguments(arg);
-        return fragment;
+        this.callFrom = callFrom;
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -93,13 +88,14 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
         {
-            Ids = getArguments().getInt("Ids", 0);
-            getFromFav = getArguments().getBoolean("getFromFav");
-            pagerWithFilter = getArguments().getBoolean("pagerWithFilter");
-            getFromId = getArguments().getBoolean("getFromId");
+            Ids = getArguments().getString("Ids");
+            dateFilter = getArguments().getString("dateFilter");
+//            getFromFav = getArguments().getBoolean("getFromFav");
+//            pagerWithFilter = getArguments().getBoolean("pagerWithFilter");
+//            getFromId = getArguments().getBoolean("getFromId");
             newsContentList = getArguments().getParcelableArrayList("newsContentList");
 
-            Logger.e("-Ids 1-", Ids + " # " + pagerWithFilter);
+//            Logger.e("-Ids 1-", Ids + " # " + pagerWithFilter);
         }
     }
 
@@ -129,58 +125,58 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 //            //Go To Details
 //        });
 
-        if (pagerWithFilter)
+        if (callFrom == NewsArchiveCategoryCall.FROM_ID)
         {
-
+            Logger.e("-Ids 2-", Ids);
+            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryBySingleId(true, Ids, this);
         }
-        else if (getFromFav)
+        if (callFrom == NewsArchiveCategoryCall.FROM_FILTER_IsS )
         {
-            //getFromFav
+            Logger.e("-Ids 2-", Ids);
+            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, this);
+        }
+        else if (callFrom == NewsArchiveCategoryCall.FROM_FAVORITE)
+        {
             SingletonService.getInstance().getNewsService().getNewsBookmarks(this);
         }
-        else
+        else if (callFrom == NewsArchiveCategoryCall.FROM_FILTER_IDs_DATE)
         {
-            Logger.e("-getFromId-", String.valueOf(getFromId));
-            if (getFromId)
+            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, dateFilter, this);
+        }
+        else if (callFrom == NewsArchiveCategoryCall.FROM_SINGLE_CONTENT)
+        {
+            progressBar.setVisibility(View.GONE);
+            Logger.e("--newsContentList size--", "Size: " + newsContentList.size());
+
+            layoutManager = new GridLayoutManager(getActivity(), 1);
+            recyclerView.setLayoutManager(layoutManager);
+            adapter = new NewsArchiveAdapter(getActivity(), newsContentList);
+            recyclerView.setAdapter(adapter);
+
+            adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
             {
-                Logger.e("-Ids 2-", String.valueOf(Ids));
-                SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(String.valueOf(Ids), this);
-            }
-            else
-            {
-                progressBar.setVisibility(View.GONE);
-                Logger.e("--newsContentList size--", "Size: " + newsContentList.size());
-
-                layoutManager = new GridLayoutManager(getActivity(), 1);
-                recyclerView.setLayoutManager(layoutManager);
-                adapter = new NewsArchiveAdapter(getActivity(), newsContentList);
-                recyclerView.setAdapter(adapter);
-
-                adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
+                List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+                for (int i = 0 ; i < newsContentList.size(); i++)
                 {
-                    List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
-                    for (int i = 0 ; i < newsContentList.size(); i++)
-                    {
-                        NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
-                        model.setId(newsContentList.get(i).getId());
-                        model.setPosition(i);
+                    NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+                    model.setId(newsContentList.get(i).getId());
+                    model.setPosition(i);
 
-                        positionIdsList.add(model);
-                    }
-
-                    Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
-                    intent.putExtra("currentId", id);
-                    intent.putExtra("currentPosition", position);
-                    intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-                    startActivity(intent);
-                });
-
-                adapter.notifyDataSetChanged();
-
-                if (newsContentList.isEmpty())
-                {
-                    tvEmpty.setVisibility(View.VISIBLE);
+                    positionIdsList.add(model);
                 }
+
+                Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+                intent.putExtra("currentId", id);
+                intent.putExtra("currentPosition", position);
+                intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
+                startActivity(intent);
+            });
+
+            adapter.notifyDataSetChanged();
+
+            if (newsContentList.isEmpty())
+            {
+                tvEmpty.setVisibility(View.VISIBLE);
             }
         }
 

@@ -55,7 +55,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     private CustomViewPager viewPager;
     private TextView tvTitle, tvUserName, tvPopularPlayer, tvLastSchecdule, tvNowSchedule, tvTableLeage;
     List<MatchItem> pastMatchesList,nextMatchesList;
-    private ImageView imgBack, imgMenu;
+    private View imgBack, imgMenu;
     private ArrayList<MatchItem> matchBuyable;
 
 

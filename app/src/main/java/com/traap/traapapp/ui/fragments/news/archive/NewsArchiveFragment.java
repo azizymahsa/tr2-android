@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +27,10 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -43,6 +43,7 @@ import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCa
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
+import com.traap.traapapp.enums.NewsArchiveCategoryCall;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -52,6 +53,7 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
+import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
@@ -59,8 +61,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -68,17 +74,17 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     , DatePickerDialog.OnDateSetListener
 {
     private CompositeDisposable disposable = new CompositeDisposable();
-    public static int DELAY_TIME_TEXT_CHANGE = 500;
+    public static int DELAY_TIME_TEXT_CHANGE = 200;
 
     private Toolbar mToolbar;
 
     private TextView tvUserName, tvHeaderPopularNo;
     private SlidingUpPanelLayout slidingUpPanelLayout;
 
-    private ImageView imgStartDateReset, imgEndDateReset;
+    private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose;
     private TextView tvStartDate, tvEndDate;
     private EditText edtSearchFilter;
-    private CircularProgressButton btnConfirm;
+    private CircularProgressButton btnConfirmFilter;
 
     private RecyclerView rcFilterCategory;
 
@@ -91,6 +97,8 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private NewsArchiveActionView mainNewsView;
     private ArrayList<NewsArchiveCategory> newsArchiveCategoryList = new ArrayList<>();
+    private List<NewsArchiveCategory> filteredNewsArchiveCategoryList = new ArrayList<>();
+    private ArrayList<NewsArchiveCategory> filteredCategoryList;
     private NewsArchiveFilterAdapter adapter;
     private boolean pagerWithFilter = false;
     private boolean pagerFromFavorite = false;
@@ -156,20 +164,35 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         mToolbar = rootView.findViewById(R.id.toolbar);
 
         ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو اخبار");
-        rootView.findViewById(R.id.imgBack).setOnClickListener(v ->
-        {
-            if (parent == NewsParent.MainFragment)
-            {
-//                mainNewsView.backToMainFragment();
-                mainNewsView.backToMainNewsFragment();
-            }
-            else
-            {
-                mainNewsView.backToMediaFragment(mediaPosition);
-            }
-        });
-        mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class)));
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainNewsView.openDrawerNews());
+        disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
+                .subscribe(v ->
+                {
+                    if (parent == NewsParent.MainFragment)
+                    {
+//                        mainNewsView.backToMainFragment();
+                        mainNewsView.backToMainNewsFragment();
+                    }
+                    else
+                    {
+                        mainNewsView.backToMediaFragment(mediaPosition);
+                    }
+                })
+        );
+
+        disposable.add(RxView.clicks(mToolbar.findViewById(R.id.rlShirt))
+                .subscribe(v ->
+                {
+                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                })
+        );
+
+        disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgMenu))
+                .subscribe(v ->
+                {
+                    mainNewsView.openDrawerNews();
+                })
+        );
+
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
@@ -196,62 +219,170 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
         slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
         btnFilter = rootView.findViewById(R.id.btnFilter);
+        imgFilterClose = rootView.findViewById(R.id.imgFilterClose);
         imgStartDateReset = rootView.findViewById(R.id.imgDateFromReset);
         imgEndDateReset = rootView.findViewById(R.id.imgDateToReset);
         tvStartDate = rootView.findViewById(R.id.tvTimeFrom);
         tvEndDate = rootView.findViewById(R.id.tvTimeUntil);
         edtSearchFilter = rootView.findViewById(R.id.edtSearchFilter);
-        btnConfirm = rootView.findViewById(R.id.btnConfirm);
+        btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
 
 //        adapter = new NewsArchiveFilterAdapter(getActivity(), newsArchiveCategoryList);
 
-        btnFilter.setOnClickListener(v ->
-        {
-            new Handler().postDelayed(() -> slidingUpPanelLayout.setPanelState(PanelState.EXPANDED), 200);
-        });
+        disposable.add(RxView.clicks(btnFilter)
+                .throttleFirst(200, TimeUnit.MILLISECONDS)
+                .subscribe(v ->
+                {
+                    slidingUpPanelLayout.setPanelState(PanelState.EXPANDED);
+                })
+        );
+//        btnFilter.setOnClickListener(v ->
+//        {
+//            new Handler().postDelayed(() -> slidingUpPanelLayout.setPanelState(PanelState.EXPANDED), 200);
+//        });
+
+        disposable.add(RxView.clicks(imgFilterClose)
+                .subscribe(v ->
+                {
+                    slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
+                })
+        );
+
+        disposable.add(RxView.clicks(tvStartDate)
+                .subscribe(v ->
+                {
+                    pickerDialogStartDate.show(getFragmentManager(), "StartDate");
+                })
+        );
+
+        disposable.add(RxView.clicks(tvEndDate)
+                .subscribe(v ->
+                {
+                    pickerDialogEndDate.show(getFragmentManager(), "EndDate");
+                })
+        );
+
+        disposable.add(RxView.clicks(imgStartDateReset)
+                .subscribe(v ->
+                {
+                    tvStartDate.setText("");
+                    startDay = 0;
+                    startMonth = 0;
+                    startYear = 0;
+                    imgStartDateReset.setVisibility(View.GONE);
+                })
+        );
+
+        disposable.add(RxView.clicks(imgEndDateReset)
+                .subscribe(v ->
+                {
+                    tvEndDate.setText("");
+                    endDay = 0;
+                    endMonth = 0;
+                    endYear = 0;
+                    imgEndDateReset.setVisibility(View.GONE);
+                })
+        );
 
         slidingUpPanelLayout.setFadeOnClickListener(v ->
         {
             slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
         });
 
-        tvStartDate.setOnClickListener(v ->
-        {
-            pickerDialogStartDate.show(getFragmentManager(), "StartDate");
-        });
-
-        tvEndDate.setOnClickListener(v ->
-        {
-            pickerDialogEndDate.show(getFragmentManager(), "EndDate");
-        });
-
-        imgStartDateReset.setOnClickListener(v ->
-        {
-            tvStartDate.setText("");
-            startDay = 0;
-            startMonth = 0;
-            startYear = 0;
-            imgStartDateReset.setVisibility(View.GONE);
-        });
-
-        imgEndDateReset.setOnClickListener(v ->
-        {
-            tvEndDate.setText("");
-            endDay = 0;
-            endMonth = 0;
-            endYear = 0;
-            imgEndDateReset.setVisibility(View.GONE);
-        });
-
         disposable.add(RxTextView.textChanges(edtSearchFilter)
                 .skipInitialValue()
-                .filter(charSequence -> charSequence.length() > 2)
+                .filter(charSequence ->
+                {
+                    if (charSequence.length() < 3)
+                    {
+                        adapter = new NewsArchiveFilterAdapter(getActivity(), filteredNewsArchiveCategoryList);
+                        adapter.notifyDataSetChanged();
+                        rcFilterCategory.setAdapter(adapter);
+                    }
+                    return charSequence.length() > 2;
+                })
                 .debounce(DELAY_TIME_TEXT_CHANGE, TimeUnit.MILLISECONDS)
+                //--------------------------
+                .flatMap(new Function<CharSequence, ObservableSource<NewsArchiveCategory>>()
+                {
+                    @Override
+                    public ObservableSource<NewsArchiveCategory> apply(CharSequence charSequence) throws Exception
+                    {
+                        return getNewsArchiveCategoryObservable(ReplacePersianNumberToEnglish.getEnglishChar(charSequence));
+//                        return getNewsArchiveCategoryObservable(charSequence);
+                    }
+                })
+                //--------------------------
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(searchFilter())
+                .subscribeWith(getFilteredNewsArchiveIDs())
         );
 
+        disposable.add(RxView.clicks(btnConfirmFilter)
+                .subscribe(v ->
+                {
+                    slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
+                })
+        );
+
+    }
+
+    private Observable<NewsArchiveCategory> getNewsArchiveCategoryObservable(final CharSequence sequence)
+    {
+        filteredCategoryList = new ArrayList<>();
+        Observable<NewsArchiveCategory> observable = Observable.fromIterable(newsArchiveCategoryList)
+                .filter(new Predicate<NewsArchiveCategory>()
+                {
+                    @Override
+                    public boolean test(NewsArchiveCategory newsArchiveCategory) throws Exception
+                    {
+                        Logger.e("-Observable-","text: " + newsArchiveCategory.getTitle().contains(sequence));
+                        return newsArchiveCategory.getTitle().contains(sequence);
+                    }
+                })
+                .subscribeOn(Schedulers.io());
+
+        if (observable.toList().blockingGet().size() == 0)
+        {
+            Logger.e("-Observable-", "List is Empty");
+        }
+
+        return observable;
+    }
+
+    private DisposableObserver<NewsArchiveCategory> getFilteredNewsArchiveIDs()
+    {
+        rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
+        filteredCategoryList = new ArrayList<>();
+
+        return new DisposableObserver<NewsArchiveCategory>()
+        {
+            @Override
+            public void onNext(NewsArchiveCategory newsArchiveCategory)
+            {
+                filteredCategoryList.add(newsArchiveCategory);
+                Logger.e("--searchCategory--", "Search query: " + newsArchiveCategory.getTitle());
+                Logger.e("--searchCategory--", "Query size: " + filteredCategoryList.size());
+
+//                filteredNewsArchiveCategoryList = filteredCategoryList;
+                Collections.reverse(filteredCategoryList);
+                adapter = new NewsArchiveFilterAdapter(getActivity(), filteredCategoryList);
+                adapter.notifyDataSetChanged();
+                rcFilterCategory.setAdapter(adapter);
+            }
+
+            @Override
+            public void onError(Throwable e)
+            {
+                Logger.e("--searchCategory--", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete()
+            {
+                Logger.e("--searchCategory--", "onComplete");
+            }
+        };
     }
 
     private void initDatePicker()
@@ -343,9 +474,13 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         else
         {
             newsArchiveCategoryList = response.data.getNewsArchiveCategoryList();
+            filteredNewsArchiveCategoryList.addAll(newsArchiveCategoryList);
+
             setPager(pagerWithFilter, pagerFromFavorite);
 
-            adapter = new NewsArchiveFilterAdapter(getActivity(), newsArchiveCategoryList);
+//            Collections.reverse(filteredNewsArchiveCategoryList);
+
+            adapter = new NewsArchiveFilterAdapter(getActivity(), filteredNewsArchiveCategoryList);
             rcFilterCategory.setAdapter(adapter);
             adapter.notifyDataSetChanged();
             rcFilterCategory.setLayoutManager(new GridLayoutManager(getActivity(), 5, RecyclerView.HORIZONTAL, true));
@@ -415,34 +550,6 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         }
     }
 
-    private DisposableObserver<CharSequence> searchFilter()
-    {
-        return new DisposableObserver<CharSequence>()
-        {
-            @Override
-            public void onNext(CharSequence charSequence)
-            {
-                Log.e("--searchContacts--", "Search query: " + charSequence);
-                getFilter(charSequence.toString());
-            }
-
-            @Override
-            public void onError(Throwable e)
-            {
-                Log.e("--searchContacts--", "onError: " + e.getMessage());
-            }
-
-            @Override
-            public void onComplete()
-            {}
-        };
-    }
-
-    private void getFilter(String text)
-    {
-
-    }
-
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
     {
         private ArrayList<NewsArchiveCategory> newsArchiveCategories;
@@ -482,19 +589,23 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         {
             if (pagerWithFilter)
             {
-                return NewsArchiveCategoryFragment.newInstance(pagerWithFilter);
+                return NewsArchiveCategoryFragment.newInstance("", //Id Filter List
+                        NewsArchiveCategoryCall.FROM_FILTER_IDs_DATE, //or FROM_FILTER_IsS
+                        "", // dateFilter
+                        null);
             }
             else if (pagerFromFavorite)
             {
                 rootView.findViewById(R.id.llFilterAndTab).setVisibility(View.GONE);
 
-                return NewsArchiveCategoryFragment.newInstance(0, false, true, null);
+//                return NewsArchiveCategoryFragment.newInstance(0, false, true, null);
+                return NewsArchiveCategoryFragment.newInstance("", NewsArchiveCategoryCall.FROM_FAVORITE, null, null);
             }
             else
             {
                 int Id =  newsArchiveCategoryList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
-                return NewsArchiveCategoryFragment.newInstance(Id, true, false, null);
+                return NewsArchiveCategoryFragment.newInstance(String.valueOf(Id), NewsArchiveCategoryCall.FROM_ID, null, null);
             }
         }
 

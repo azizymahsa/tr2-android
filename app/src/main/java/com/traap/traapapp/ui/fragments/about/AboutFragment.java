@@ -30,6 +30,8 @@ import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
 import com.traap.traapapp.apiServices.model.contactInfo.ResultContactInfo;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.activities.video.VideoArchiveActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -68,7 +70,7 @@ public class AboutFragment
     private String telegram;
     private String instagram;
     private int count=0;
-    private View ivImage;
+    private View ivImage,rlShirt;
 
 
     public static AboutFragment newInstance(MainActionView mainView)
@@ -154,7 +156,15 @@ public class AboutFragment
 
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
-
+            rlShirt = mToolbar.findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                }
+            });
             requestGetContactInfo();
 
 

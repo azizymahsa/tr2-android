@@ -75,4 +75,6 @@ public interface MainActionView extends BaseView
     void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile);
 
     void getBuyEnable(BuyTicketAction buyTicketAction);
+
+    void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message);
 }

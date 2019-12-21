@@ -9,7 +9,7 @@ public class Const
     //-----------------------------------------------------------------------------
 //    public final static String BASEURL = "http://5.253.25.117:7000/";
     public final static String BASEURL = "http://5.253.25.117:9999/";
-   // public final static String BASEURL = "https://restapp.traap.com/";
+    // public final static String BASEURL = "https://restapp.traap.com/";
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -117,6 +117,7 @@ public class Const
     //Predict
     public final static String GET_PREDICT = SubBASEURL + "v1/predict/";
     public final static String SEND_PREDICT = SubBASEURL + "v1/predict/";
+    public final static String GET_PREDICT_ENABLE = SubBASEURL + "v1/match/predict_enable/";
 
     //Rule
     public final static String GET_RULES = SubBASEURL + "v1/match/";
@@ -134,6 +135,7 @@ public class Const
     //video
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
     public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
+    public final static String Get_Category_By_Id_Video2 = SubBASEURL + "v1/video/{id}/related/";
     public final static String Like_Video=SubBASEURL+"v1/video/{id}/like/";
     public final static String Archive_Video=SubBASEURL+"v1/video/";
     public final static String bookMark_Video=SubBASEURL+"v1/video/{id}/bookmark/";
@@ -142,6 +144,7 @@ public class Const
     //photos
     public final static String Get_Main_Photo = SubBASEURL + "v1/photo/photo_main/";
     public final static String Get_Category_By_Id_Photo = SubBASEURL + "v1/photo/{id}/recent_by_category/";
+    public final static String Get_Category_By_Id_Photo2 = SubBASEURL + "v1/photo/{id}/related/";
     public final static String Get_Photos_By_Id = SubBASEURL + "v1/photo/{id}/";
     public final static String Archive_Photo=SubBASEURL+"v1/photo/";
     public final static String Like_Photo=SubBASEURL+"v1/photo/{id}/like/";

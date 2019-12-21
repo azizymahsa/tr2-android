@@ -230,11 +230,7 @@ public class ResultBuyCharge extends DialogFragment implements View.OnClickListe
                         "در تاریخ: " +
                         tvDate.getText().toString() +
                         "\n" +
-                        "با موفقیت پرداخت گردید." +
-                        "\n" +
-                        R.string.loyalBank +
-                        "\n" +
-                        activity.getString(R.string.wwwloyalbank);
+                        "با موفقیت پرداخت گردید.";
                 Utility.share(share);
                 break;
         }

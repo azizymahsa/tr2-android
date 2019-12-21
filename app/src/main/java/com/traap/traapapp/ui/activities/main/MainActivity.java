@@ -7,12 +7,14 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -136,7 +138,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private boolean hasPaymentCharge=false;
     private boolean hasPaymentPackageSimcard=false;
 
+    private void hideNavBar() {
 
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+    private void showNavBar() {
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -156,7 +167,31 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             startService(new Intent(this, NotificationJobService.class));
         }
+////////////////////////////
 
+        getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                Rect r = new Rect();
+                getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
+                int screenHeight = getWindow().getDecorView().getRootView().getHeight();
+
+                int keypadHeight = screenHeight - r.bottom;
+
+                //Log.d(TAG, "keypadHeight = " + keypadHeight);
+
+                if (keypadHeight > screenHeight * 0.15) {
+                    //Keyboard is opened
+                    hideNavBar();
+                }
+                else {
+                    // keyboard is closed
+                    showNavBar();
+                }
+            }
+        });
+        //////////////////////////
         mToolbar = findViewById(R.id.toolbar);
 
         //------------------test------------------------
@@ -868,7 +903,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         if (BuildConfig.DEBUG)
         {
-            showToast(this, "hoooraaa", R.color.gray);
+            showToast(this, "", R.color.gray);
         }
     }
 
@@ -1460,6 +1495,35 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
             });
 
+
+    }
+
+    @Override
+    public void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(this, "", message, false,
+                "تایید", "", new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                isMainFragment = false;
+                fragment = PredictFragment.newInstance(MainActivity.this, matchPredict, isPredictable);
+
+                transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                transaction.replace(R.id.main_container, fragment, "predictFragment")
+                        .commit();
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show(getFragmentManager(), "dialogAlert");
 
     }
 

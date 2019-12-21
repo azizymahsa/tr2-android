@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.transaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -57,7 +60,7 @@ public class TransactionsListFragment
 
     private Toolbar mToolbar;
     private TextView tvTitle, tvUserName,tvPopularPlayer,tvCount, tvHeaderPopularNo;
-    private View imgBack, imgMenu;
+    private View imgBack, imgMenu,rlShirt;
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
@@ -170,6 +173,15 @@ public class TransactionsListFragment
             });
 
             tvTitle.setText("سوابق خرید");
+            rlShirt = rootView.findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                }
+            });
             initDate();
 
         } catch (Exception e)

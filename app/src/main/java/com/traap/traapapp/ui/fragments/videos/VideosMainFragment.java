@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class VideosMainFragment  extends BaseFragment
 {
 
+
     private View rootView;
     private MainActionView mainView;
 

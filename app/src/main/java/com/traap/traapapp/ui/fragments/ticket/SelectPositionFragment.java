@@ -3,6 +3,10 @@ package com.traap.traapapp.ui.fragments.ticket;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -11,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -69,6 +74,7 @@ public class SelectPositionFragment
     private Integer selectedIndex = 0;
     private View btnBackToDetail;
     private CircularProgressButton btnPaymentConfirm;
+    private ProgressBar progress;
     private View  llSliderItemMatch;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
     private List<AllBoxesResult> allBoxesResponse;
@@ -92,6 +98,7 @@ public class SelectPositionFragment
     private MessageAlertDialog dialog;
     private MessageAlertDialog.OnConfirmListener listener;
     boolean isShowDialog=false;
+    private boolean hasTimer=false;
 
 
     public SelectPositionFragment()
@@ -140,17 +147,7 @@ public class SelectPositionFragment
         View view = inflater.inflate(R.layout.select_position_fragment, container, false);
         Context context = view.getContext();
         reservationMatch = new ReservationMatchImpl();
-        handler = new Handler();
-        stadiumInfoRunnable = new Runnable() {
-            @Override
-            public void run() {
-                BuyTicketsFragment.buyTicketsFragment.showLoading();
-                getAllBoxesRequest(false);
-                btnPaymentConfirm.setClickable(true);
-                btnPaymentConfirm.revertAnimation();
 
-            }
-        };
         tvCount = view.findViewById(R.id.tvCount);
         tvM = view.findViewById(R.id.tvM);
         tvP = view.findViewById(R.id.tvP);
@@ -166,6 +163,11 @@ public class SelectPositionFragment
         spinnerAllBoxes = view.findViewById(R.id.spinnerAllBoxes);
         // btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
+        progress=view.findViewById(R.id.progressBtn);
+
+
+     //   progress.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.green), android.graphics.PorterDuff.Mode.MULTIPLY);
+
         tvAmountStation = view.findViewById(R.id.tvAmountStation);
         tvAmountForPay = view.findViewById(R.id.tvAmountForPay);
         setDataMatch();
@@ -181,7 +183,16 @@ public class SelectPositionFragment
 
 
         getAllBoxesRequest(false);
+        handler = new Handler();
+        stadiumInfoRunnable = new Runnable() {
+            @Override
+            public void run() {
+                BuyTicketsFragment.buyTicketsFragment.showLoading();
+                getAllBoxesRequest(false);
 
+
+            }
+        };
 
         return view;
     }
@@ -1047,6 +1058,7 @@ public class SelectPositionFragment
 
     public void getAllBoxesRequest(Boolean onBackClicked)
     {
+
         setDataStadiumPosition();
         GetAllBoxesRequest request = new GetAllBoxesRequest();
         if (onBackClicked){
@@ -1107,6 +1119,17 @@ public class SelectPositionFragment
                         }
                         setFullPositions(newResult);
                         setAmounts(newResult);
+
+
+                        if (hasTimer)
+                        {
+                            btnPaymentConfirm.setClickable(true);
+                            btnPaymentConfirm.setText("تایید و مرحله بعد");
+                           // progress.setVisibility(View.GONE);
+                           // btnPaymentConfirm.getAnimation().cancel();
+                           // btnPaymentConfirm.can
+                           // animation.setAnimationListener(null);
+                        }
                     }
                     else
                     {
@@ -1735,7 +1758,11 @@ public class SelectPositionFragment
 
     public void setTimerForRequestGetStadiumData(){
 
-        btnPaymentConfirm.startAnimation();
+        hasTimer=true;
+       // btnPaymentConfirm.clearAnimation();
+       // btnPaymentConfirm.startAnimation();
+        btnPaymentConfirm.setText("در حال پردازش ...");
+       // progress.setVisibility(View.VISIBLE);
         btnPaymentConfirm.setClickable(false);
         handler.removeCallbacks(stadiumInfoRunnable);
         handler.postDelayed(stadiumInfoRunnable, timeForRequestGetData);

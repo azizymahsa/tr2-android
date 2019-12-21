@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.about;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getHistory.ResponseHistory;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -51,7 +54,7 @@ public class HistoryFragment
     private Toolbar mToolbar;
     private TextView tvTitle,tvUserName,tvPopularPlayer;
     private View imgBack,imgMenu;
-    private View view;
+    private View view,rlShirt;
     private com.daimajia.slider.library.SliderLayout mDemoSlider;
     private com.daimajia.slider.library.SliderLayout mDemoSlider2;
     private MainActionView mainView;
@@ -402,6 +405,15 @@ public class HistoryFragment
             tvTitle.setText("تاریخچه");
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+            rlShirt = mToolbar.findViewById(R.id.rlShirt);
+            rlShirt.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                }
+            });
         } catch (Exception e)
         {
 

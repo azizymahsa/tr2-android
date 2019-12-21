@@ -72,12 +72,17 @@ public class NewsService extends BasePart
         start(getServiceGenerator().createService().getNewsArchiveCategory(), listener);
     }
 
+    public void getNewsArchiveCategoryBySingleId(Boolean flag_single_Id, String categoryId, OnServiceStatus<WebServiceClass<NewsArchiveListByIdResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getNewsArchiveCategoryById(categoryId), listener);
+    }
+
     public void getNewsArchiveCategoryByIds(String categoryIds, OnServiceStatus<WebServiceClass<NewsArchiveListByIdResponse>> listener)
     {
         start(getServiceGenerator().createService().getNewsArchiveCategoryByIds(categoryIds), listener);
     }
 
-    public void getNewsArchiveCategoryByIdsAndRangeDate(String categoryIds, String createDateRanges, OnServiceStatus<WebServiceClass<NewsArchiveListByIdResponse>> listener)
+    public void getNewsArchiveCategoryByIds(String categoryIds, String createDateRanges, OnServiceStatus<WebServiceClass<NewsArchiveListByIdResponse>> listener)
     {
         start(getServiceGenerator().createService().getNewsArchiveCategoryByIdsAndRangeDate(categoryIds, createDateRanges), listener);
     }

@@ -1,5 +1,7 @@
 package com.traap.traapapp.ui.fragments.allMenu;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -19,6 +22,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
@@ -40,11 +45,13 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.activities.web.WebActivity;
 import com.traap.traapapp.ui.adapters.allMenu.AllMenuServiceModelAdapter;
 //import com.traap.traapapp.ui.adapters.AllMenuServiceModelAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.adapters.allMenu.ItemRecyclerViewAdapter;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.onConfirmUserPassGDS;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
@@ -55,24 +62,11 @@ import com.traap.traapapp.utilities.Utility;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-//import library.android.eniac.StartEniacBusActivity;
-//import library.android.eniac.StartEniacFlightActivity;
-//import library.android.eniac.StartEniacHotelActivity;
-//import library.android.eniac.interfaces.BusLockSeat;
-//import library.android.eniac.interfaces.FlightReservationData;
-//import library.android.eniac.interfaces.HotelReservationData;
-//import library.android.eniac.model.FlightReservation;
-//import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
-//import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
-//import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
-//import library.android.service.model.bus.searchBus.response.Company;
-//import library.android.service.model.flight.reservation.response.ReservationResponse;
-
 /**
  * Created by MahsaAzizi
  */
 
-public class AllMenuFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
+public class AllMenuFragment extends BaseFragment implements
         ItemRecyclerViewAdapter.OnItemClickListenerItem, TextWatcher,
         OnServiceStatus<WebServiceClass<GetAllMenuResponse>>,
         onConfirmUserPassGDS, AllMenuServiceModelAdapter.OnItemAllMenuClickListener
@@ -86,7 +80,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     private List<MainServiceModelItem> list = new ArrayList<>();
     private ArrayList<GetMenuItemResponse> chosenServiceList;
     private MainActionView mainView;
-    Context context = getContext();
+    private Context context;
     private RecyclerView rvGrid;
     private String unicCode = "";
     private Toolbar mToolbar;
@@ -220,6 +214,13 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
         return rootView;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
+
     private List<MainServiceModelItem> fillMenuRecyclerList()
     {
         List<MainServiceModelItem> newList = new ArrayList<>();
@@ -299,63 +300,19 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     @Override
     public void onError(String message)
     {
-       // mainView.showError(message);
+        // mainView.showError(message);
 
         mainView.hideLoading();
-        if (!Tools.isNetworkAvailable(getActivity()))
+        if (Tools.isNetworkAvailable(getActivity()))
         {
             Logger.e("-OnError-", "Error: " + message);
-            showError( getActivity(),"خطا در دریافت اطلاعات از سرور!");
+            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
         } else
         {
             // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
         }
-    }
-
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-
-
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-    }
-
-
-    @Override
-    public void onAnimationEnd()
-    {
-
-
-    }
-
-    @Override
-    public void onClick(View view)
-    {
-       /* switch (view.getId())
-        {
-            case R.id.btnConfirm:
-
-                break;
-
-
-        }*/
-
     }
 
 
@@ -484,40 +441,40 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
     @Override
     public void OnItemAllMenuClick(View view, Integer id, List<SubMenu> list)
     {
-
-        switch (id)
-        {
-            case 1://گردشگری
-            {
-                loadSubMenu(list);
-
-                break;
-            }
-            case 2://بیمه
-            {
-                loadSubMenu(list);
-
-                break;
-            }
-            case 3://الوپارک
-            {
-                loadSubMenu(list);
-
-                break;
-            }
-            case 4://شارژو بسته
-            {
-                loadSubMenu(list);
-
-                break;
-            }
-            case 6://قبوض
-            {
-                loadSubMenu(list);
-
-                break;
-            }
-        }
+        loadSubMenu(list);
+//        switch (id)
+//        {
+//            case 1://گردشگری
+//            {
+//                loadSubMenu(list);
+//
+//                break;
+//            }
+//            case 2://بیمه
+//            {
+//                loadSubMenu(list);
+//
+//                break;
+//            }
+//            case 3://الوپارک
+//            {
+//                loadSubMenu(list);
+//
+//                break;
+//            }
+//            case 4://شارژو بسته
+//            {
+//                loadSubMenu(list);
+//
+//                break;
+//            }
+//            case 6://قبوض
+//            {
+//                loadSubMenu(list);
+//
+//                break;
+//            }
+//        }
 
     }
 
@@ -537,17 +494,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             case 11://Flight ata
             {
 //
-                // Utility.openUrlCustomTab(getActivity(), "https://tourism.traap.com/fa/ata-flights");
 
-              /*  Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);//"https://tourism.traap.com/fa/ata-flights");
-                intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);*/
-                /*fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, fragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
@@ -561,11 +508,6 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             {
 
 
-              /*  fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, fragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
@@ -576,12 +518,7 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             }
             case 12: //Hotel
             {
-//
-               /* fragment = WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, fragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();*/
+
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
@@ -594,9 +531,9 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
             case 13: //Bus
             {
 
-              Intent intent = new Intent(getActivity(), WebActivity.class);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
-               intent.putExtra("Title", "گردشگری");
+                intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivity(intent);
@@ -638,48 +575,17 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
 
             //بیمه
             case 21: //بیمه شخص ثالث
-            {
-                Utility.openUrlCustomTab(getActivity(), URl);
-                break;
-            }
             case 22: //بیمه بدنه
-            {
-                Utility.openUrlCustomTab(getActivity(), URl);
-                break;
-            }
             case 29: //بیمه موتورسیکلت
-            {
-                Utility.openUrlCustomTab(getActivity(), URl);
-                break;
-            }
             case 23: //بیمه مسافرتی ویژه
-            {
-                Utility.openUrlCustomTab(getActivity(), URl);
-                break;
-            }
             case 24: //بیمه مسافرتی
-            {
-                Utility.openUrlCustomTab(getActivity(), URl);
-                break;
-            }
             case 25: //بیمه آتش سوزی
-            {
-                Utility.openUrlCustomTab(getActivity(), URl);
-                break;
-            }
             case 26: //بیمه تجهیزات الکترونیکی
-            {
-                Utility.openUrlCustomTab(getActivity(), URl);
-                break;
-            }
             case 27: //بیمه زلزله
-            {
-                Utility.openUrlCustomTab(getActivity(), URl);
-                break;
-            }
             case 28: //بیمه درمان
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                getPermissionAndOpenInsurance(URl);
+
                 break;
             }
             //الوپارک
@@ -695,6 +601,52 @@ public class AllMenuFragment extends BaseFragment implements OnAnimationEndListe
                 break;
             }
         }
+    }
+
+    private void getPermissionAndOpenInsurance(String URl)
+    {
+        new TedPermission(SingletonContext.getInstance().getContext())
+                .setPermissionListener(new PermissionListener()
+                {
+                    @Override
+                    public void onPermissionGranted()
+                    {
+                       // Utility.openUrlCustomTab(getActivity(), URl);
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                        intent.putExtra("URL", URl);
+                        intent.putExtra("Title", "بیمه");
+
+                        intent.putExtra("bimeh_api_key", Prefs.getString("bimeh_api_key", ""));
+                        intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
+                        intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
+                        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
+                                "برای ارسال تصویر اسناد بیمه، اخذ این مجوز الزامی است. ",
+                                true, new MessageAlertDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                getPermissionAndOpenInsurance(URl);
+                            }
+
+                            @Override
+                            public void onCancelClick()
+                            {
+
+                            }
+                        }
+                        );
+                        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");
+                    }
+                })
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
     }
 
 
