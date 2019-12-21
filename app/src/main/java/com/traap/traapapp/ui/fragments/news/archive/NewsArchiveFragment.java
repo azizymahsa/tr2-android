@@ -46,6 +46,7 @@ import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.NewsArchiveCategoryCall;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.models.otherModels.newsFilterItem.NewsFilterItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.news.NewsArchiveFilterAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -63,6 +64,7 @@ import org.greenrobot.eventbus.Subscribe;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
@@ -71,10 +73,12 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<NewsArchiveCategoryResponse>>
-    , DatePickerDialog.OnDateSetListener
+    , DatePickerDialog.OnDateSetListener, NewsArchiveFilterAdapter.OnItemCheckedChangeListener
 {
     private CompositeDisposable disposable = new CompositeDisposable();
-    public static int DELAY_TIME_TEXT_CHANGE = 200;
+    private final int DELAY_TIME_TEXT_CHANGE = 200;
+
+    private String idFilteredList = "", titleFilteredList = "";
 
     private Toolbar mToolbar;
 
@@ -84,21 +88,22 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose;
     private TextView tvStartDate, tvEndDate;
     private EditText edtSearchFilter;
-    private CircularProgressButton btnConfirmFilter;
+    private CircularProgressButton btnConfirmFilter, btnDeleteFilter;
 
     private RecyclerView rcFilterCategory;
 
     private int endDay = 0, endMonth = 0, endYear = 0;
     private int startDay = 0, startMonth = 0, startYear = 0;
 
-    private LinearLayout btnFilter;
+    private LinearLayout btnFilter, llDeleteFilter;
 
     private View rootView;
 
     private NewsArchiveActionView mainNewsView;
     private ArrayList<NewsArchiveCategory> newsArchiveCategoryList = new ArrayList<>();
-    private List<NewsArchiveCategory> filteredNewsArchiveCategoryList = new ArrayList<>();
-    private ArrayList<NewsArchiveCategory> filteredCategoryList;
+    private List<NewsFilterItem> filteredNewsArchiveCategoryList = new ArrayList<>();
+    private ArrayList<NewsFilterItem> filteredShowList = new ArrayList<>();
+    private ArrayList<NewsFilterItem> tempFilteredCategoryList = new ArrayList<>();
     private NewsArchiveFilterAdapter adapter;
     private boolean pagerWithFilter = false;
     private boolean pagerFromFavorite = false;
@@ -219,6 +224,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
         slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
         btnFilter = rootView.findViewById(R.id.btnFilter);
+        llDeleteFilter = rootView.findViewById(R.id.llDeleteFilter);
         imgFilterClose = rootView.findViewById(R.id.imgFilterClose);
         imgStartDateReset = rootView.findViewById(R.id.imgDateFromReset);
         imgEndDateReset = rootView.findViewById(R.id.imgDateToReset);
@@ -226,14 +232,42 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         tvEndDate = rootView.findViewById(R.id.tvTimeUntil);
         edtSearchFilter = rootView.findViewById(R.id.edtSearchFilter);
         btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
-
-//        adapter = new NewsArchiveFilterAdapter(getActivity(), newsArchiveCategoryList);
+        btnDeleteFilter = rootView.findViewById(R.id.btnDeleteFilter);
 
         disposable.add(RxView.clicks(btnFilter)
                 .throttleFirst(200, TimeUnit.MILLISECONDS)
                 .subscribe(v ->
                 {
                     slidingUpPanelLayout.setPanelState(PanelState.EXPANDED);
+                    if (pagerWithFilter)
+                    {
+                        Logger.e("getFilterId", idFilteredList);
+                        llDeleteFilter.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        Logger.e("getFilterId", "Empty, " + idFilteredList);
+                        llDeleteFilter.setVisibility(View.GONE);
+                        filteredNewsArchiveCategoryList = new ArrayList<>();
+
+                        for (NewsArchiveCategory item: newsArchiveCategoryList)
+                        {
+                            NewsFilterItem filterItem = new NewsFilterItem();
+                            filterItem.setId(item.getId());
+                            filterItem.setTitle(item.getTitle());
+                            filterItem.setChecked(false);
+
+                            filteredNewsArchiveCategoryList.add(filterItem);
+                        }
+                        Collections.reverse(filteredNewsArchiveCategoryList);
+                    }
+                    tempFilteredCategoryList = new ArrayList<>();
+                    tempFilteredCategoryList.addAll(filteredNewsArchiveCategoryList);
+                    adapter = new NewsArchiveFilterAdapter(getActivity(), tempFilteredCategoryList);
+                    adapter.notifyDataSetChanged();
+                    rcFilterCategory.setAdapter(adapter);
+                    adapter.SetOnItemCheckedChangeListener(this);
+                    rcFilterCategory.setLayoutManager(new GridLayoutManager(getActivity(), 5, RecyclerView.HORIZONTAL, true));
                 })
         );
 //        btnFilter.setOnClickListener(v ->
@@ -241,10 +275,19 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 //            new Handler().postDelayed(() -> slidingUpPanelLayout.setPanelState(PanelState.EXPANDED), 200);
 //        });
 
+        disposable.add(RxView.clicks(btnConfirmFilter)
+                .subscribe(v ->
+                {
+                    slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
+                    createItemFilterData();
+                })
+        );
+
         disposable.add(RxView.clicks(imgFilterClose)
                 .subscribe(v ->
                 {
                     slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
+//                    if ()
                 })
         );
 
@@ -298,19 +341,16 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                         adapter = new NewsArchiveFilterAdapter(getActivity(), filteredNewsArchiveCategoryList);
                         adapter.notifyDataSetChanged();
                         rcFilterCategory.setAdapter(adapter);
+                        adapter.SetOnItemCheckedChangeListener(this);
                     }
                     return charSequence.length() > 2;
                 })
                 .debounce(DELAY_TIME_TEXT_CHANGE, TimeUnit.MILLISECONDS)
                 //--------------------------
-                .flatMap(new Function<CharSequence, ObservableSource<NewsArchiveCategory>>()
+                .flatMap((Function<CharSequence, ObservableSource<NewsFilterItem>>) charSequence ->
                 {
-                    @Override
-                    public ObservableSource<NewsArchiveCategory> apply(CharSequence charSequence) throws Exception
-                    {
-                        return getNewsArchiveCategoryObservable(ReplacePersianNumberToEnglish.getEnglishChar(charSequence));
+                    return getNewsArchiveCategoryObservable(ReplacePersianNumberToEnglish.getEnglishChar(charSequence));
 //                        return getNewsArchiveCategoryObservable(charSequence);
-                    }
                 })
                 //--------------------------
                 .subscribeOn(Schedulers.io())
@@ -318,23 +358,112 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 .subscribeWith(getFilteredNewsArchiveIDs())
         );
 
-        disposable.add(RxView.clicks(btnConfirmFilter)
+        disposable.add(RxView.clicks(btnDeleteFilter)
                 .subscribe(v ->
                 {
                     slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
+                    pagerWithFilter = false;
+                    edtSearchFilter.setText("");
+                    tvStartDate.setText("");
+                    tvEndDate.setText("");
+                    idFilteredList = "";
+                    titleFilteredList = "";
+                    imgStartDateReset.setVisibility(View.GONE);
+                    imgEndDateReset.setVisibility(View.GONE);
+                    llDeleteFilter.setVisibility(View.GONE);
+
+                    adapter = new NewsArchiveFilterAdapter(getActivity(), filteredNewsArchiveCategoryList);
+                    adapter.notifyDataSetChanged();
+                    rcFilterCategory.setAdapter(adapter);
+                    adapter.SetOnItemCheckedChangeListener(this);
                 })
         );
-
     }
 
-    private Observable<NewsArchiveCategory> getNewsArchiveCategoryObservable(final CharSequence sequence)
+    private void createItemFilterData()
     {
-        filteredCategoryList = new ArrayList<>();
-        Observable<NewsArchiveCategory> observable = Observable.fromIterable(newsArchiveCategoryList)
-                .filter(new Predicate<NewsArchiveCategory>()
+        disposable.add(Observable.fromIterable(tempFilteredCategoryList)
+                .filter(new Predicate<NewsFilterItem>()
                 {
                     @Override
-                    public boolean test(NewsArchiveCategory newsArchiveCategory) throws Exception
+                    public boolean test(NewsFilterItem newsFilterItem) throws Exception
+                    {
+                        return newsFilterItem.isChecked();
+                    }
+                })
+                .distinct()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<NewsFilterItem>()
+                {
+                    @Override
+                    public void onNext(NewsFilterItem newsFilterItem)
+                    {
+                        idFilteredList += idFilteredList + newsFilterItem.getId() + ",";
+                        titleFilteredList += titleFilteredList + newsFilterItem.getTitle() + ",";
+                        filteredNewsArchiveCategoryList.set(filteredNewsArchiveCategoryList.indexOf(newsFilterItem), newsFilterItem);
+                        Logger.e("-createItemFilterData-", newsFilterItem.isChecked() + "");
+//                        Logger.e("OnNext title", titleFilteredList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e)
+                    {
+                        Logger.e("onError ", "onError");
+                    }
+
+                    @Override
+                    public void onComplete()
+                    {
+                        Logger.e("onComplete ", "onComplete");
+                        Logger.e("idFilteredList", idFilteredList);
+                        if (tvStartDate.getText().toString().equalsIgnoreCase("") &&
+                                tvEndDate.getText().toString().equalsIgnoreCase("") &&
+                                idFilteredList.equalsIgnoreCase("")
+                        )
+                        {
+                            pagerWithFilter = false;
+                            llDeleteFilter.setVisibility(View.GONE);
+
+                            filteredNewsArchiveCategoryList = new ArrayList<>();
+                            for (NewsArchiveCategory item: newsArchiveCategoryList)
+                            {
+                                NewsFilterItem filterItem = new NewsFilterItem();
+                                filterItem.setId(item.getId());
+                                filterItem.setTitle(item.getTitle());
+                                filterItem.setChecked(false);
+
+                                filteredNewsArchiveCategoryList.add(filterItem);
+                            }
+
+                            Logger.e("-id Filtered List-", "Empty");
+                        }
+                        else
+                        {
+                            pagerWithFilter = true;
+                            llDeleteFilter.setVisibility(View.VISIBLE);
+                            edtSearchFilter.setText("");
+
+//                            filteredNewsArchiveCategoryList = new ArrayList<>();
+//                            filteredNewsArchiveCategoryList.addAll(tempFilteredCategoryList);
+
+                            // ToDo cal api filter with idList and date;
+                            Logger.e("-id Filtered List-", idFilteredList);
+
+                        }
+                    }
+                })
+        );
+    }
+
+    private Observable<NewsFilterItem> getNewsArchiveCategoryObservable(final CharSequence sequence)
+    {
+        filteredShowList = new ArrayList<>();
+        Observable<NewsFilterItem> observable = Observable.fromIterable(filteredNewsArchiveCategoryList)
+                .filter(new Predicate<NewsFilterItem>()
+                {
+                    @Override
+                    public boolean test(NewsFilterItem newsArchiveCategory) throws Exception
                     {
                         Logger.e("-Observable-","text: " + newsArchiveCategory.getTitle().contains(sequence));
                         return newsArchiveCategory.getTitle().contains(sequence);
@@ -350,25 +479,26 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         return observable;
     }
 
-    private DisposableObserver<NewsArchiveCategory> getFilteredNewsArchiveIDs()
+    private DisposableObserver<NewsFilterItem> getFilteredNewsArchiveIDs()
     {
         rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
-        filteredCategoryList = new ArrayList<>();
+        filteredShowList = new ArrayList<>();
 
-        return new DisposableObserver<NewsArchiveCategory>()
+        return new DisposableObserver<NewsFilterItem>()
         {
             @Override
-            public void onNext(NewsArchiveCategory newsArchiveCategory)
+            public void onNext(NewsFilterItem newsArchiveCategory)
             {
-                filteredCategoryList.add(newsArchiveCategory);
+                filteredShowList.add(newsArchiveCategory);
                 Logger.e("--searchCategory--", "Search query: " + newsArchiveCategory.getTitle());
-                Logger.e("--searchCategory--", "Query size: " + filteredCategoryList.size());
+                Logger.e("--searchCategory--", "Query size: " + filteredShowList.size());
 
-//                filteredNewsArchiveCategoryList = filteredCategoryList;
-                Collections.reverse(filteredCategoryList);
-                adapter = new NewsArchiveFilterAdapter(getActivity(), filteredCategoryList);
+//                filteredNewsArchiveCategoryList = filteredShowList;
+                Collections.reverse(filteredShowList);
+                adapter = new NewsArchiveFilterAdapter(getActivity(), filteredShowList);
                 adapter.notifyDataSetChanged();
                 rcFilterCategory.setAdapter(adapter);
+                adapter.SetOnItemCheckedChangeListener(NewsArchiveFragment.this);
             }
 
             @Override
@@ -474,21 +604,38 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         else
         {
             newsArchiveCategoryList = response.data.getNewsArchiveCategoryList();
-            filteredNewsArchiveCategoryList.addAll(newsArchiveCategoryList);
+//            for (NewsArchiveCategory item: newsArchiveCategoryList)
+//            {
+//                NewsFilterItem filterItem = new NewsFilterItem();
+//                filterItem.setId(item.getId());
+//                filterItem.setTitle(item.getTitle());
+//                filterItem.setChecked(false);
+//
+//                filteredNewsArchiveCategoryList.add(filterItem);
+//            }
 
             setPager(pagerWithFilter, pagerFromFavorite);
 
 //            Collections.reverse(filteredNewsArchiveCategoryList);
 
-            adapter = new NewsArchiveFilterAdapter(getActivity(), filteredNewsArchiveCategoryList);
-            rcFilterCategory.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-            rcFilterCategory.setLayoutManager(new GridLayoutManager(getActivity(), 5, RecyclerView.HORIZONTAL, true));
-
-            adapter.SetOnItemCheckedChangeListener((id, position) ->
-            {
-
-            });
+//            adapter = new NewsArchiveFilterAdapter(getActivity(), filteredNewsArchiveCategoryList);
+//            adapter.notifyDataSetChanged();
+//            rcFilterCategory.setAdapter(adapter);
+//            adapter.SetOnItemCheckedChangeListener(this);
+//            rcFilterCategory.setLayoutManager(new GridLayoutManager(getActivity(), 5, RecyclerView.HORIZONTAL, true));
+//
+//            adapter.SetOnItemCheckedChangeListener((id, isChecked, newsFilterItem) ->
+//            {
+//                NewsFilterItem oldFilterItem = new NewsFilterItem();
+//                oldFilterItem.setId(id);
+//                oldFilterItem.setTitle(newsFilterItem.getTitle());
+//                oldFilterItem.setChecked(!isChecked);
+//
+//                Logger.e("-filter Selected-", id + ", " + newsFilterItem.getTitle() + ", " + !isChecked);
+//
+//                tempFilteredCategoryList.set(tempFilteredCategoryList.indexOf(oldFilterItem), newsFilterItem);
+//            });
+//
         }
     }
 
@@ -509,6 +656,8 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
     {
+        llDeleteFilter.setVisibility(View.VISIBLE);
+
         if (view.getTag().equals("StartDate"))
         {
             startPersianDate.set(year, monthOfYear, dayOfMonth);
@@ -548,6 +697,47 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             tvEndDate.setText(endDate);
             imgEndDateReset.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onItemCheckedChange(Integer id, boolean isChecked, NewsFilterItem newsFilterItem)
+    {
+
+        Logger.e("-filter Selected-", id + ", " + newsFilterItem.getTitle() + ", " + !isChecked);
+
+        disposable.add(Observable.fromIterable(tempFilteredCategoryList)
+                .filter(new Predicate<NewsFilterItem>()
+                {
+                    @Override
+                    public boolean test(NewsFilterItem fNewsFilterItem) throws Exception
+                    {
+                        return fNewsFilterItem.getId() == id;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<NewsFilterItem>()
+                {
+                    @Override
+                    public void onNext(NewsFilterItem fNewsFilterItem)
+                    {
+                        int index = tempFilteredCategoryList.indexOf(fNewsFilterItem);
+                        Logger.e("-change-", "isChecked: " +  isChecked);
+                        tempFilteredCategoryList.set(index, newsFilterItem);
+                    }
+
+                    @Override
+                    public void onError(Throwable e)
+                    {
+
+                    }
+
+                    @Override
+                    public void onComplete()
+                    {
+
+                    }
+                }));
     }
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter

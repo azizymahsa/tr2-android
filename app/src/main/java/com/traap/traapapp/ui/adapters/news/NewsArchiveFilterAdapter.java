@@ -16,19 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategory;
 import com.traap.traapapp.apiServices.model.news.main.News;
+import com.traap.traapapp.models.otherModels.newsFilterItem.NewsFilterItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFilterAdapter.ViewHolder>
 {
     private OnItemCheckedChangeListener mItemClickListener;
     private Context mContext;
-    private List<NewsArchiveCategory> list;
+    private List<NewsFilterItem> list;
 
-    public NewsArchiveFilterAdapter(Context mContext, List<NewsArchiveCategory> list)
+    public NewsArchiveFilterAdapter(Context mContext, List<NewsFilterItem> list)
     {
         this.mContext = mContext;
-        this.list = list;
+        this.list = new ArrayList<>(list.size());
+        this.list.addAll(list);
     }
 
     @NonNull
@@ -47,7 +50,7 @@ public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        NewsArchiveCategory item = list.get(position);
+        NewsFilterItem item = list.get(position);
 
         if (item.getTitle() != null)
         {
@@ -86,7 +89,13 @@ public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFi
         {
             if (mItemClickListener != null)
             {
-                mItemClickListener.onItemCheckedChange(list.get(getAdapterPosition()).getId(), getAdapterPosition());
+                list.get(getAdapterPosition()).setChecked(isChecked);
+
+                mItemClickListener.onItemCheckedChange(
+                        list.get(getAdapterPosition()).getId(),
+                        isChecked,
+                        list.get(getAdapterPosition())
+                );
             }
         }
     }
@@ -94,7 +103,7 @@ public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFi
 
     public interface OnItemCheckedChangeListener
     {
-        public void onItemCheckedChange(Integer id, Integer position);
+        public void onItemCheckedChange(Integer id, boolean isChecked, NewsFilterItem newsFilterItem);
     }
 
     public void SetOnItemCheckedChangeListener(final OnItemCheckedChangeListener mItemClickListener)
