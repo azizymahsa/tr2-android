@@ -347,9 +347,9 @@ android {
 //        implementation 'com.github.rubensousa:gravitysnaphelper:1.5'
 
 
-        //----------------Chart for diba start----------------------
+        //----------------Chart for start----------------------
 //        implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
-        //----------------Chart for diba end------------------------
+        //----------------Chart for end------------------------
 
 
 //        implementation 'com.github.mreram:showcaseview:1.1'
