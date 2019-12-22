@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class NewsFilterItem
+public class FilterItem
 {
     @Expose @Getter @Setter
     private String title;
