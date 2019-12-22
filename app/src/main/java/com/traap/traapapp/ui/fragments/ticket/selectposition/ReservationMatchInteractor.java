@@ -13,6 +13,8 @@ public interface ReservationMatchInteractor
     interface OnFinishedReservationListener {
         void onFinishedReservation(ReservationResponse response);
         void onErrorReservation(String error);
+
+        void onError(String message);
     }
 
 }

@@ -1816,12 +1816,19 @@ public class SelectPositionFragment
     @Override
     public void onErrorReservation(String error)
     {
-
-        //Tools.showToast(getContext(), error, R.color.red);
         BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        Tools.showToast(getContext(), error, R.color.red);
+      
+    }
+
+    @Override
+    public void onError(String message)
+    {
+        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+
         if (Tools.isNetworkAvailable(getActivity()))
         {
-            Logger.e("-OnError-", "Error: " + error);
+            Logger.e("-OnError-", "Error: " + message);
             showError( getActivity(),"خطا در دریافت اطلاعات از سرور!");
         } else
         {

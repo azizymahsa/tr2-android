@@ -34,7 +34,7 @@ public class ReservationMatchImpl implements ReservationMatchInteractor
                     }
                 }catch (Exception e){
 
-                    listener.onErrorReservation(e.getMessage());
+                    listener.onError(e.getMessage());
                 }
             }
 
@@ -43,7 +43,7 @@ public class ReservationMatchImpl implements ReservationMatchInteractor
             {
                 BuyTicketsFragment.buyTicketsFragment.hideLoading();
 
-                listener.onErrorReservation(message);
+                listener.onError(message);
 
             }
         },request);
