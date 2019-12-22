@@ -120,7 +120,7 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
         progress = rootView.findViewById(R.id.progress);
         rcCommentList = rootView.findViewById(R.id.rcCommentList);
 
-        edtComment.setFilters(new InputFilter[] { new InputFilter.LengthFilter(400) });
+        edtComment.setFilters(new InputFilter[] { new InputFilter.LengthFilter(399) });
 
         layoutManager = new GridLayoutManager(getActivity(), 1);
         rcCommentList.setLayoutManager(layoutManager);
