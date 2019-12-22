@@ -6,17 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategory;
-import com.traap.traapapp.apiServices.model.news.main.News;
-import com.traap.traapapp.models.otherModels.newsFilterItem.NewsFilterItem;
+import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +21,9 @@ public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFi
 {
     private OnItemCheckedChangeListener mItemClickListener;
     private Context mContext;
-    private List<NewsFilterItem> list;
+    private List<FilterItem> list;
 
-    public NewsArchiveFilterAdapter(Context mContext, List<NewsFilterItem> list)
+    public NewsArchiveFilterAdapter(Context mContext, List<FilterItem> list)
     {
         this.mContext = mContext;
         this.list = new ArrayList<>(list.size());
@@ -50,14 +46,14 @@ public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        NewsFilterItem item = list.get(position);
+        FilterItem item = list.get(position);
 
         if (item.getTitle() != null)
         {
             holder.tvTitle.setText(item.getTitle());
         }
 
-        holder.checkbox.setChecked(false);
+        holder.checkbox.setChecked(item.isChecked());
     }
 
 
@@ -103,7 +99,7 @@ public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFi
 
     public interface OnItemCheckedChangeListener
     {
-        public void onItemCheckedChange(Integer id, boolean isChecked, NewsFilterItem newsFilterItem);
+        public void onItemCheckedChange(Integer id, boolean isChecked, FilterItem filterItem);
     }
 
     public void SetOnItemCheckedChangeListener(final OnItemCheckedChangeListener mItemClickListener)
