@@ -108,6 +108,7 @@
                                 android:paddingTop="10dp"
                                 android:paddingBottom="10dp"
                                 android:paddingRight="10dp"
+                                android:scaleType="center"
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
                                 app:srcCompat="@drawable/ic_arrow_left"
@@ -119,9 +120,9 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="right|center_vertical"
                                 android:layout_centerVertical="true"
-                                android:paddingEnd="10dp"
+                                android:paddingEnd="2dp"
                                 android:text="ویرایش حساب کاربری"
-                                android:textSize="@dimen/textSize_16dp"
+                                android:textSize="@dimen/textSize_14dp"
                                 android:layout_toLeftOf="@+id/menu_dr_icon0"
                                 android:textColor="@color/textColorSecondary"/>
 
@@ -130,6 +131,7 @@
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
                                 android:padding="10dp"
+                                android:scaleType="center"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/ic_edit_profile"/>
@@ -150,6 +152,8 @@
                                 android:paddingTop="10dp"
                                 android:paddingBottom="10dp"
                                 android:paddingRight="10dp"
+                                android:scaleType="center"
+
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
                                 app:srcCompat="@drawable/ic_arrow_left"
@@ -161,9 +165,9 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="right|center_vertical"
                                 android:layout_centerVertical="true"
-                                android:paddingEnd="10dp"
+                                android:paddingEnd="2dp"
                                 android:text="پیش بینی های من"
-                                android:textSize="@dimen/textSize_16dp"
+                                android:textSize="@dimen/textSize_14dp"
                                 android:layout_toLeftOf="@+id/menu_dr_icon"
                                 android:textColor="@color/textColorSecondary"/>
 
@@ -172,7 +176,7 @@
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
                                 android:padding="10dp"
-                                android:layout_alignParentEnd="true"
+                                android:scaleType="center"                                android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/ic_my_predict"/>
 
@@ -193,6 +197,8 @@
                                 android:paddingBottom="10dp"
                                 android:paddingRight="10dp"
                                 android:layout_alignParentLeft="true"
+                                android:scaleType="center"
+
                                 android:layout_centerVertical="true"
                                 app:srcCompat="@drawable/ic_arrow_left"
                                 android:tint="@color/textColorSecondary"/>
@@ -203,9 +209,9 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="right|center_vertical"
                                 android:layout_centerVertical="true"
-                                android:paddingEnd="10dp"
+                                android:paddingEnd="2dp"
                                 android:text="علاقه مندی های من"
-                                android:textSize="@dimen/textSize_16dp"
+                                android:textSize="@dimen/textSize_14dp"
                                 android:layout_toLeftOf="@+id/icon2"
                                 android:textColor="@color/textColorSecondary"/>
 
@@ -214,7 +220,7 @@
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
                                 android:padding="10dp"
-                                android:layout_alignParentEnd="true"
+                                android:scaleType="center"                                android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/ic_favorite"/>
 
@@ -230,9 +236,9 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="right|center_vertical"
                                 android:layout_centerVertical="true"
-                                android:paddingEnd="10dp"
+                                android:paddingEnd="2dp"
                                 android:text="خروج از حساب کاربری"
-                                android:textSize="@dimen/textSize_16dp"
+                                android:textSize="@dimen/textSize_14dp"
                                 android:layout_toLeftOf="@+id/icon3"
                                 android:textColor="@color/textColorSecondary"/>
 
@@ -241,7 +247,7 @@
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
                                 android:padding="10dp"
-                                android:layout_alignParentEnd="true"
+                                android:scaleType="center"                                android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/ic_exit_app"/>
 
@@ -253,8 +259,8 @@
                             android:layout_marginTop="16dp"
                             android:layout_above="@+id/cardInviteCode"
                             android:text="کد عضویت شما در تراپ"
-                            android:layout_marginBottom="8dp"
-                            android:textSize="@dimen/textSize_18dp"
+                            android:layout_marginBottom="@dimen/_10dp"
+                            android:textSize="@dimen/textSize_16dp"
                             android:textColor="@color/textColorSecondary"
                             android:gravity="center"/>
 
