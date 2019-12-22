@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -93,7 +94,7 @@ import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.ui.fragments.support.SupportFragment;
-import com.traap.traapapp.ui.fragments.ticket.BuyTicketsFragment;
+import com.traap.traapapp.ui.fragments.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
@@ -459,10 +460,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 onLeageClick(matchBuyable);
             }
-            else if (fragment instanceof BuyTicketsFragment && ((BuyTicketsFragment) fragment).getViewpager().getCurrentItem() != 0)
+           /* else if (fragment instanceof BuyTicketsActivity && ((BuyTicketsActivity) fragment).getViewpager().getCurrentItem() != 0)
             {
-                ((BuyTicketsFragment) fragment).onBackClicked();
-            }
+                ((BuyTicketsActivity) fragment).onBackClicked();
+            }*/
             else
             {
                 if (isMainFragment)
@@ -1044,15 +1045,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onBuyTicketClick(MatchItem matchBuyable)
     {
 
-        showLoading();
+       /* showLoading();
         isMainFragment = false;
-        this.fragment = BuyTicketsFragment.newInstance(this, matchBuyable);
-
+        this.fragment = BuyTicketsActivity.newInstance(this, matchBuyable);
         transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "buyTicketsFragment")
-                .commit();
+                .commit();*/
 
+        Intent intent = new Intent(this, BuyTicketsActivity.class);
+        intent.putExtra("MatchBuyable",(Parcelable) matchBuyable);
+        //intent.putExtra("StatusPayment", true);
+        startActivity(intent);
 
     }
 

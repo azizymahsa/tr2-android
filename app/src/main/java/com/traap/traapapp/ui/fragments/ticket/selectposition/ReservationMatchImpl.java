@@ -5,7 +5,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
-import com.traap.traapapp.ui.fragments.ticket.BuyTicketsFragment;
+import com.traap.traapapp.ui.fragments.ticket.BuyTicketsActivity;
 
 /**
  * Created by MahtabAzizi on 11/3/2019.
@@ -25,7 +25,7 @@ public class ReservationMatchImpl implements ReservationMatchInteractor
             public void onReady(WebServiceClass<ReservationResponse> response)
             {
                 try{
-                    BuyTicketsFragment.buyTicketsFragment.hideLoading();
+                   // BuyTicketsActivity.buyTicketsFragment.hideLoading();
 
                     if (response.info.statusCode==200){
                         listener.onFinishedReservation(response.data);
@@ -41,7 +41,7 @@ public class ReservationMatchImpl implements ReservationMatchInteractor
             @Override
             public void onError(String message)
             {
-                BuyTicketsFragment.buyTicketsFragment.hideLoading();
+                //BuyTicketsActivity.buyTicketsFragment.hideLoading();
 
                 listener.onError(message);
 

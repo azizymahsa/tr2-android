@@ -13,13 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 
@@ -30,7 +27,6 @@ import com.traap.traapapp.apiServices.model.paymentMatch.Viewers;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
 import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
@@ -88,26 +84,19 @@ public class CompeletInfoFragment
     )
     {
         CompeletInfoFragment fragment = new CompeletInfoFragment();
-        fragment.setMainView(mainActionView);
 
         return fragment;
     }
 
 
-    private void setMainView(MainActionView mainView)
-    {
-        this.mainView = mainView;
-    }
-
     /**
      * Receive the model list
      */
-    public static CompeletInfoFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MainActionView mainActionView)
+    public static CompeletInfoFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket)
     {
         CompeletInfoFragment fragment = new CompeletInfoFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
 
-        fragment.setMainView(mainActionView);
         return fragment;
     }
 
@@ -760,7 +749,7 @@ public class CompeletInfoFragment
 
         if (flagValidations.contains("F"))
         {
-            mainView.showError(getString(R.string.Error_edit_input));
+            ((BuyTicketsActivity)getActivity()).showError(getString(R.string.Error_edit_input));
             cbCondition.setChecked(true);
             llConfirm.setVisibility(View.VISIBLE);
             llInVisible.setVisibility(View.GONE);
@@ -785,13 +774,13 @@ public class CompeletInfoFragment
 
     private void callRulsStadiumRequest()
     {
-        BuyTicketsFragment.buyTicketsFragment.showLoading();
+        ((BuyTicketsActivity)getActivity()).showLoading();
         rulesStadium.rulesStadiumRequest(this, stadiumId);
     }
 
     private void callPaymentTicketRequest()
     {
-        BuyTicketsFragment.buyTicketsFragment.showLoading();
+        ((BuyTicketsActivity)getActivity()).showLoading();
         paymentTicket.paymentTicketRequest(this, infoViewers, amountForPay);
 
     }
@@ -863,7 +852,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نامعتبر است");
+            ((BuyTicketsActivity)getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -946,7 +935,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نامعتبر است");
+            ((BuyTicketsActivity)getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -1029,7 +1018,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نامعتبر است");
+            ((BuyTicketsActivity)getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -1112,7 +1101,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نامعتبر است");
+            ((BuyTicketsActivity)getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -1195,7 +1184,7 @@ public class CompeletInfoFragment
         }
         if (flagValidations.contains("F"))
         {
-            mainView.showError("اطلاعات ورودی نامعتبر است");
+            ((BuyTicketsActivity)getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else
         {
@@ -1539,7 +1528,7 @@ public class CompeletInfoFragment
     @Override
     public void onFinishedPaymentTicket(PaymentMatchResponse response)
     {
-        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        ((BuyTicketsActivity)getActivity()).hideLoading();
 
         paymentMatchRequest = new PaymentMatchRequest();
         paymentMatchRequest.setAmount(amountForPay);
@@ -1553,7 +1542,7 @@ public class CompeletInfoFragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment2);
         fragmentTransaction.commit();*/
-        BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
+        BuyTicketsActivity.buyTicketsFragment.openWebPayment(response.getUrl());
         infoViewers.clear();
 
         // onClickContinueBuyTicketListener.onContinueClicked();
@@ -1564,7 +1553,7 @@ public class CompeletInfoFragment
     public void onErrorPaymentTicket(String error)
     {
         infoViewers.clear();
-        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        ((BuyTicketsActivity)getActivity()).hideLoading();
         Tools.showToast(getContext(), error, R.color.red);
 
     }
@@ -1573,10 +1562,10 @@ public class CompeletInfoFragment
     public void onError(String message)
     {
         infoViewers.clear();
-        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        ((BuyTicketsActivity)getActivity()).hideLoading();
         if (Tools.isNetworkAvailable(getActivity()))
         {
-            mainView.showError( message);
+            ((BuyTicketsActivity)getActivity()).showError( message);
         } else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
@@ -1588,7 +1577,7 @@ public class CompeletInfoFragment
     {
         infoViewers.clear();
 
-        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        ((BuyTicketsActivity)getActivity()).hideLoading();
 
         flagDelete = false;
         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "قوانین و مقررات", response.getRules(), true,
@@ -1600,12 +1589,12 @@ public class CompeletInfoFragment
     @Override
     public void onErrorStadiumRules(String error)
     {
-        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        ((BuyTicketsActivity)getActivity()).hideLoading();
         //Tools.showToast(getContext(), error, R.color.red);
         if (Tools.isNetworkAvailable(getActivity()))
         {
             Logger.e("-OnError-", "Error: " + error);
-            mainView.showError("خطا در دریافت اطلاعات از سرور!");
+            ((BuyTicketsActivity)getActivity()).showError("خطا در دریافت اطلاعات از سرور!");
         } else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);

@@ -1,12 +1,6 @@
 package com.traap.traapapp.ui.fragments.ticket;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -93,7 +87,7 @@ public class SelectPositionFragment
     private Integer stadiumId=1;
     private String selectPosition;
     private Handler handler;
-    private Integer timeForRequestGetData=5000;
+    private Integer timeForRequestGetData=3000;
     private Runnable stadiumInfoRunnable;
     private MessageAlertDialog dialog;
     private MessageAlertDialog.OnConfirmListener listener;
@@ -187,7 +181,7 @@ public class SelectPositionFragment
         stadiumInfoRunnable = new Runnable() {
             @Override
             public void run() {
-                BuyTicketsFragment.buyTicketsFragment.showLoading();
+                ((BuyTicketsActivity)getActivity()).showLoading();
                 getAllBoxesRequest(false);
 
 
@@ -1225,14 +1219,14 @@ public class SelectPositionFragment
                     @Override
                     public void onComplete()
                     {
-                        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+                        ((BuyTicketsActivity)getActivity()).hideLoading();
                         handleSetStadiumLayouts();
                     }
 
                     @Override
                     public void onError(Throwable e)
                     {
-                        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+                        ((BuyTicketsActivity)getActivity()).hideLoading();
 
                     }
 
@@ -1697,7 +1691,7 @@ public class SelectPositionFragment
         });
     }
 
-
+/*
     @Override
     public void onAttach(Context context)
     {
@@ -1712,7 +1706,7 @@ public class SelectPositionFragment
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
         }
-    }
+    }*/
 
     @Override
     public void onDetach()
@@ -1727,7 +1721,7 @@ public class SelectPositionFragment
         switch (v.getId())
         {
             case R.id.btnPaymentConfirm:
-                BuyTicketsFragment.buyTicketsFragment.showLoading();
+                ((BuyTicketsActivity)getActivity()).showLoading();
                 callReservationRequest();
                 break;
            /* case R.id.btnBackToDetail:
@@ -1807,24 +1801,24 @@ public class SelectPositionFragment
         }else {
             selectPosition=selectPositionId.toString();
         }
-        BuyTicketsFragment.buyTicketsFragment.setData(selectPosition, count, response.getAmount(),amountOneTicket, response.getResults(),stadiumId);
+        ((BuyTicketsActivity)getActivity()).setData(selectPosition, count, response.getAmount(),amountOneTicket, response.getResults(),stadiumId);
         onClickContinueBuyTicketListener.onContinueClicked();
-        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        ((BuyTicketsActivity)getActivity()).hideLoading();
 
     }
 
     @Override
     public void onErrorReservation(String error)
     {
-        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        ((BuyTicketsActivity)getActivity()).hideLoading();
         Tools.showToast(getContext(), error, R.color.red);
-      
+
     }
 
     @Override
     public void onError(String message)
     {
-        BuyTicketsFragment.buyTicketsFragment.hideLoading();
+        ((BuyTicketsActivity)getActivity()).hideLoading();
 
         if (Tools.isNetworkAvailable(getActivity()))
         {
