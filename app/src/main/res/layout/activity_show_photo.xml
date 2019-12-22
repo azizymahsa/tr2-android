@@ -31,17 +31,6 @@
         android:layout_alignParentEnd="true"
         >
         <ImageView
-            android:id="@+id/btnBookmark"
-            android:layout_width="@dimen/_35dp"
-            android:layout_height="@dimen/_35dp"
-            android:src="@drawable/book_ic"
-            android:padding="@dimen/_5sdp"
-            android:tint="@color/white"
-            android:foreground="?attr/selectableItemBackground"
-            android:layout_toRightOf="@id/btnSharePic"
-
-            />
-        <ImageView
             android:id="@+id/btnSharePic"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
@@ -49,9 +38,22 @@
             android:padding="@dimen/_5sdp"
             android:tint="@color/white"
             android:foreground="?attr/selectableItemBackground"
+            android:layout_toRightOf="@id/btnBookmark"
+            />
+        <ImageView
+            android:id="@+id/btnBookmark"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:src="@drawable/book_ic"
+            android:padding="@dimen/_5sdp"
+            android:tint="@color/white"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_toRightOf="@id/tvLike"
+            android:layout_marginStart="@dimen/_10dp"
+
 
             />
+
         <TextView
             android:id="@+id/tvLike"
             android:layout_width="wrap_content"
@@ -62,7 +64,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_16dp"
             android:layout_toRightOf="@id/imgLike"
-
+            android:layout_marginEnd="@dimen/_10dp"
 
             />
         <ImageView
