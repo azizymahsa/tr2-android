@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layoutDirection="ltr"
     android:background="@android:color/transparent"
+    android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,59 +11,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:padding="@dimen/_5dp"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginEnd="@dimen/_20dp"
 
-<!--        <TextView-->
-<!--            android:id="@+id/menu_dr_drop"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_marginStart="15dp"-->
-<!--            android:textColor="@color/textColorDrawer"-->
-<!--            style="@style/IconText"-->
-<!--            android:text="@string/arrow_drop_down"-->
-<!--            android:visibility="invisible"/>-->
+        >
 
-        <!--        <android.support.v7.widget.SwitchCompat-->
-        <!--            android:id="@+id/switch_item"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:gravity="center"-->
-        <!--            android:visibility="invisible"-->
-        <!--            android:layout_centerVertical="true"-->
-        <!--            android:layout_marginLeft="15dp"/>-->
 
         <TextView
             android:id="@+id/menu_dr_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right|center_vertical"
             android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/menu_dr_icon"
+            android:gravity="right|center_vertical"
             android:paddingEnd="10dp"
             android:text="عنوان"
-            android:textSize="@dimen/textSize_16dp"
-            android:layout_toStartOf="@+id/menu_dr_icon"
-            android:textColor="@color/textColorSecondary"/>
+            style="@style/Regular"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/textSize_14dp" />
 
         <ImageView
             android:id="@+id/menu_dr_icon"
-            android:layout_width="@dimen/_40dp"
-            android:layout_height="@dimen/_40dp"
-            android:padding="3dp"
+            android:layout_width="@dimen/_30dp"
+            android:layout_height="@dimen/_30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_logo_red"/>
+            android:scaleType="center"
+            android:src="@drawable/ic_logo_red" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="@dimen/_20dp"
         android:layout_marginTop="2dp"
-        android:background="@color/drawerSepratorColor"/>
+        android:layout_marginEnd="@dimen/_20dp"
+        android:background="@color/drawerSepratorColor" />
 
 </LinearLayout>

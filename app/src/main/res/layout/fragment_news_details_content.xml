@@ -143,13 +143,14 @@
 
         <ImageView
             android:id="@+id/imgBookmark"
-            android:layout_width="@dimen/_50dp"
-            android:layout_height="@dimen/_50dp"
-            android:layout_marginLeft="16dp"
-            android:padding="6dp"
             style="?android:attr/borderlessButtonStyle"
-            app:srcCompat="@drawable/ic_bookmark_border"
-            android:background="@drawable/background_rectangle_white_8dp"/>
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/background_rectangle_border_color_8dp"
+            android:padding="3dp"
+            android:tint="@color/borderBackgroundColor"
+            app:srcCompat="@drawable/ic_bookmark_border" />
 
         <TextView
             android:id="@+id/tvDate"

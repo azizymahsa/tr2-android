@@ -154,10 +154,17 @@ public class LeagueTableFragment
 
     private void sendRequest()
     {
-        mainView.showLoading();
-        GetLeagueRequest request = new GetLeagueRequest();
-        request.setLeague("24");
-        SingletonService.getInstance().getLiveScoreService().LeaguesService(LeagueTableFragment.this, request);
+        try
+        {
+            mainView.showLoading();
+            GetLeagueRequest request = new GetLeagueRequest();
+            request.setLeague("24");
+            SingletonService.getInstance().getLiveScoreService().LeaguesService(LeagueTableFragment.this, request);
+        }catch (Exception e){
+            Logger.e("-sendRequest-", "Error: " + e.getMessage());
+
+        }
+
     }
 
 
