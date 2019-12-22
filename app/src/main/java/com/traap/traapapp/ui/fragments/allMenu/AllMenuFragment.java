@@ -591,13 +591,26 @@ public class AllMenuFragment extends BaseFragment implements
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", Prefs.getString("alopark_token", ""));
+                intent.putExtra("Title", "الوپارک");
 
-                Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
+                intent.putExtra("TOKEN", "");
+                startActivity(intent);
+
+                // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
             }
             case 32: //  پارک حاشیه ای
             {
-                Utility.openUrlCustomTab(getActivity(), URl);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "الوپارک");
+
+                intent.putExtra("TOKEN", "");
+                startActivity(intent);
+
+                // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
         }
@@ -611,7 +624,7 @@ public class AllMenuFragment extends BaseFragment implements
                     @Override
                     public void onPermissionGranted()
                     {
-                       // Utility.openUrlCustomTab(getActivity(), URl);
+                        // Utility.openUrlCustomTab(getActivity(), URl);
                         Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("URL", URl);
                         intent.putExtra("Title", "بیمه");
