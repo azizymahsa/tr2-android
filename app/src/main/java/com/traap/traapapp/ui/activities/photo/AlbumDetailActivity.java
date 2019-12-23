@@ -1,9 +1,16 @@
 package com.traap.traapapp.ui.activities.photo;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,7 +52,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 {
     private TextView tvTitle, tvUserName, tvPopularPlayer, tvLike;
     private View imgBack, imgMenu, rlShirt;
-    private RoundedImageView ivPhoto;
+    private RoundedImageView ivPhoto,ivBigLike;
     private ImageView imgBookmark, imgLike;
     private int positionVideo, idVideoCategory;
     private ArrayList<Category> videosList;
@@ -64,6 +71,10 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private String coverImg = "";
     private Boolean isBookmark = false;
     private Boolean isLike = false;
+    private static final long DOUBLE_CLICK_TIME_DELTA = 300;
+    long lastClickTime = 0;
+    private boolean doubleClick=false;
+    private boolean isMoving=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -124,6 +135,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
         }
 
+        ivBigLike = findViewById(R.id.ivBigLike);
         ivPhoto = findViewById(R.id.ivPhoto);
         ivPhoto.setOnClickListener(this);
         imgBookmark = findViewById(R.id.imgBookmark);
@@ -309,7 +321,29 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             Picasso.with(this).load(R.drawable.img_failure).into(image);
         }
     }
+    public void animateHeart(final ImageView view) {
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        prepareAnimation(scaleAnimation);
 
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        prepareAnimation(alphaAnimation);
+
+        AnimationSet animation = new AnimationSet(true);
+        animation.addAnimation(alphaAnimation);
+        animation.addAnimation(scaleAnimation);
+        animation.setDuration(700);
+        animation.setFillAfter(true);
+
+        view.startAnimation(animation);
+
+    }
+
+    private Animation prepareAnimation(Animation animation){
+        animation.setRepeatCount(1);
+        animation.setRepeatMode(Animation.REVERSE);
+        return animation;
+    }
     @Override
     public void onClick(View v)
     {
@@ -319,29 +353,57 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                 playVideo(urlVideo);
                 break;*/
             case R.id.rlLike:
-                imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
-                tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+             //   imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+               // tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
                 requestLikeVideo();
                 break;
             case R.id.ivPhoto:
+                v.setAlpha((float) 1.0);
+                if(!isMoving){
+                    long clickTime = System.currentTimeMillis();
+                    if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA){
+                        doubleClick = true;
+                        System.out.println("-----------doubleClick");
+                        lastClickTime = 0;
+                         ivBigLike.setVisibility(View.VISIBLE);
+                        requestLikeVideo();
 
-                Intent intent = new Intent(this, ShowBigPhotoActivity.class);
-                if (largeImageClick == "")
-                    largeImageClick = coverImg;
 
-                intent.putExtra("SRCImage", largeImageClick);
-                intent.putExtra("LikeCount", likeCount);
-                intent.putExtra("idPhoto", idPhoto);
-                intent.putExtra("isLike", isLike);
-                intent.putExtra("isBookmark", isBookmark);
-                startActivity(intent);
+
+                    } else {
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(!doubleClick){
+                                    System.out.println("--------------singleClick");
+                                    Intent intent = new Intent(getApplicationContext(), ShowBigPhotoActivity.class);
+                                    if (largeImageClick == "")
+                                        largeImageClick = coverImg;
+
+                                    intent.putExtra("SRCImage", largeImageClick);
+                                    intent.putExtra("LikeCount", likeCount);
+                                    intent.putExtra("idPhoto", idPhoto);
+                                    intent.putExtra("isLike", isLike);
+                                    intent.putExtra("isBookmark", isBookmark);
+                                    startActivity(intent);
+                                }else
+                                    doubleClick = false;
+                            }
+                        },350);
+                    }
+                    lastClickTime = clickTime;
+                }
+
+              /*  */
                 break;
         }
     }
 
     private void requestLikeVideo()
     {
-        showLoading();
+        //showLoading();
+
         LikeVideoRequest request = new LikeVideoRequest();
 
         SingletonService.getInstance().getLikeVideoService().likePhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
@@ -350,13 +412,14 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             public void onReady(WebServiceClass<LikeVideoResponse> response)
             {
                 // rlLike.setClickable(true);
-                hideLoading();
+               // hideLoading();
 
                 try
                 {
 
                     if (response.info.statusCode == 200)
                     {
+                        animateHeart(ivBigLike);
 
                         setLiked(response.data);
 
@@ -374,7 +437,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onError(String message)
             {
-                hideLoading();
+               // hideLoading();
                 //  Tools.showToast(getApplicationContext(), message, R.color.red);
                 if (!Tools.isNetworkAvailable(AlbumDetailActivity.this))
                 {
