@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:background="@drawable/background_button_invisible"
     android:text="حذف فیلتر"
-    android:textColor="@color/textColorSecondary"
+    android:textColor="@color/textColorSubTitle"
     android:textSize="@dimen/textSize_14dp"
     android:textStyle="bold"
     android:transitionName="transition"
