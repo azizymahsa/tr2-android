@@ -724,7 +724,7 @@ public class PackFragment
         setupRecycler();
         if (!Utility.mtnValidation(etMobileCharge.getText().toString()))
         {
-            mainView.showError("لطفا شماره تلفن همراه ایرانسل را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             hideSoftKeyboard(etMobileCharge);
             return;
         }
@@ -758,7 +758,7 @@ public class PackFragment
         {
             hideSoftKeyboard(etMobileChargeRightel);
 
-            mainView.showError("لطفا شماره تلفن همراه رایتل را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
         if (!Utility.isNetworkAvailable())
@@ -794,7 +794,7 @@ public class PackFragment
         setupRecycler();
         if (!Utility.mciValidation(etMCINumber.getText().toString()))
         {
-            mainView.showError("لطفا شماره تلفن همراه همراه اول را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             hideSoftKeyboard(etMCINumber);
 
             return;
@@ -1588,6 +1588,7 @@ public class PackFragment
 
     private void getUrlPackagePayment(String amount, SimPackPaymentInstance paymentInstance, String mobile)
     {
+        mainView.showLoading();
         buyPackageImpl.findBuyPackageDataRequest(this,paymentInstance.getRequestId()
                 ,paymentInstance.getOperatorType(),paymentInstance.getTitlePackageType(),paymentInstance.getProfileId(),mobile,amount);
     }
@@ -2075,7 +2076,7 @@ public class PackFragment
 
         String urlPayment = response.getUrl();
 
-        mainView.showLoading();
+        mainView.hideLoading();
         mainView.openPackPaymentFragment(urlPayment, imageDrawable,
                 title, amount,paymentInstance,mobile);
     }
@@ -2083,6 +2084,8 @@ public class PackFragment
     @Override
     public void onErrorPackSimcard(String message)
     {
+        mainView.hideLoading();
+
         Tools.showToast(getContext(),message,R.color.red);
 
     }

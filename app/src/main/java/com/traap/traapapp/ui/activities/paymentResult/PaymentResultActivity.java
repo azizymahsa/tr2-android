@@ -41,8 +41,6 @@ public class PaymentResultActivity extends BaseActivity implements View.OnClickL
             } else
             {
                 refrenceNumber = extras.getString("RefrenceNumber");
-                Log.d("refrence",refrenceNumber);
-
                 // statusPayment=extras.getBoolean(            "StatusPayment",false);
             }
         }
@@ -54,8 +52,6 @@ public class PaymentResultActivity extends BaseActivity implements View.OnClickL
     private void requestGetDetailTransaction(String refrenceNumber)
     {
         showLoading();
-
-        Log.d("refrenceee",refrenceNumber);
 
         SingletonService.getInstance().getTransactionDetailService().getTransactionDetail(Long.parseLong(refrenceNumber),new OnServiceStatus<WebServiceClass<TransactionDetailResponse>>()
         {
