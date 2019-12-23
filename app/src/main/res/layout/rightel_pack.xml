@@ -29,6 +29,7 @@
             android:textSize="@dimen/textSize_20dp"
             android:padding="@dimen/_5sdp"
             android:transitionName="transition"
+            android:visibility="gone"
            />
 
         <ImageView
