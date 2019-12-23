@@ -12,7 +12,7 @@ import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 public class TicketInfoImpl implements TicketInfoInteractor
 {
     @Override
-    public void reservationRequest(OnFinishedTicketInfoListener listener, int transactionId)
+    public void reservationRequest(OnFinishedTicketInfoListener listener, Long transactionId)
     {
         GetTicketInfoRequest request = new GetTicketInfoRequest();
         request.setTransactionId(transactionId);

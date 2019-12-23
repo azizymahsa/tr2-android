@@ -167,7 +167,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         rvTickets.setLayoutManager(linearLayoutManager);
         try
         {
-            ticketInfo.reservationRequest(this, Integer.valueOf(refrenceNumber.trim()));
+            ticketInfo.reservationRequest(this,  Long.parseLong(refrenceNumber.trim()));
 
         } catch (Exception e)
         {

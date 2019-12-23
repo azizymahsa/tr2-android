@@ -831,6 +831,11 @@ public class Utility
         {
             return false;
         }
+        if (number.length() < 11)
+        {
+            return false;
+        }
+
         String check = number.substring(0, 4);
       /*  return check.equals("0910") || check.equals("0911") || check.equals("0912") || check.equals("0913")
                 || check.equals("0914") || check.equals("0915") || check.equals("0916") || check.equals("0917")
@@ -848,6 +853,10 @@ public class Utility
         {
             return false;
         }
+        if (number.length() < 11)
+        {
+            return false;
+        }
         String check = number.substring(0, 4);
         /*return check.equals("0939") || check.equals("0938") || check.equals("0937") || check.equals("0936")
                 || check.equals("0935") || check.equals("0933") || check.equals("0930") || check.equals("0903")
@@ -862,6 +871,10 @@ public class Utility
             return false;
         }
         if (number.length() > 14)
+        {
+            return false;
+        }
+        if (number.length() < 11)
         {
             return false;
         }

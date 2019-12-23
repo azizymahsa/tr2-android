@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +41,7 @@ public class PaymentResultActivity extends BaseActivity implements View.OnClickL
             } else
             {
                 refrenceNumber = extras.getString("RefrenceNumber");
-               // statusPayment=extras.getBoolean(            "StatusPayment",false);
+                // statusPayment=extras.getBoolean(            "StatusPayment",false);
             }
         }
         initView();
@@ -52,7 +53,7 @@ public class PaymentResultActivity extends BaseActivity implements View.OnClickL
     {
         showLoading();
 
-        SingletonService.getInstance().getTransactionDetailService().getTransactionDetail(Integer.valueOf(refrenceNumber),new OnServiceStatus<WebServiceClass<TransactionDetailResponse>>()
+        SingletonService.getInstance().getTransactionDetailService().getTransactionDetail(Long.parseLong(refrenceNumber),new OnServiceStatus<WebServiceClass<TransactionDetailResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<TransactionDetailResponse> response)

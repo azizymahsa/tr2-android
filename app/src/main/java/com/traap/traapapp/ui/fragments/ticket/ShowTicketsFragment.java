@@ -205,7 +205,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         rvTickets.setLayoutManager(linearLayoutManager);
         try
         {
-            ticketInfo.reservationRequest(this, Integer.valueOf(refrenceNumber.trim()));
+            ticketInfo.reservationRequest(this, Long.parseLong(refrenceNumber.trim()));
 
         } catch (Exception e)
         {

@@ -10,13 +10,13 @@ public class GetTicketInfoRequest
 {
     @SerializedName("transaction_id")
     @Expose
-    private Integer transactionId;
+    private Long transactionId;
 
-    public Integer getTransactionId() {
+    public Long getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(Integer transactionId) {
+    public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
 

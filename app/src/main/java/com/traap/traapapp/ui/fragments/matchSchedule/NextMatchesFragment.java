@@ -18,7 +18,6 @@ import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
-import com.traap.traapapp.ui.fragments.ticket.BuyTicketsFragment;
 import com.traap.traapapp.utilities.Tools;
 
 /**
