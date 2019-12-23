@@ -545,7 +545,7 @@ public class ChargeFragment extends BaseFragment
 //        Tools.showToast(getActivity(), "simcardType = " + simcardType);
         if (!Utility.mtnValidation(etMobileCharge.getText().toString()))
         {
-            mainView.showError("لطفا شماره تلفن همراه ایرانسل را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
         if (TextUtils.isEmpty(etChargeAmount.getText().toString()))
@@ -667,6 +667,8 @@ public class ChargeFragment extends BaseFragment
 
     private void getUrlChargePayment(String amount, int operatorType, int simcardType, String chargeType, String mobile)
     {
+        mainView.showLoading();
+
         irancellBuy.findDataIrancellBuyRequest(this,amount,operatorType,simcardType,chargeType,mobile);
     }
 
@@ -675,7 +677,7 @@ public class ChargeFragment extends BaseFragment
     {
         if (!Utility.rightelValidation(etMobileChargeRightel.getText().toString()))
         {
-            mainView.showError("لطفا شماره تلفن همراه رایتل را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
 
@@ -745,7 +747,7 @@ public class ChargeFragment extends BaseFragment
     {
         if (!Utility.mciValidation(etMCINumber.getText().toString()))
         {
-            mainView.showError("لطفا شماره تلفن همراه همراه اول را صحیح وارد نمایید.");
+            mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
 
             return;
         }
@@ -1556,6 +1558,7 @@ public class ChargeFragment extends BaseFragment
     public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
     {
 
+        mainView.hideLoading();
         String urlPayment = data.getUrl();
         String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
 
@@ -1570,7 +1573,6 @@ public class ChargeFragment extends BaseFragment
 
 
 
-        mainView.showLoading();
        mainView.openChargePaymentFragment(urlPayment, imageDrawable,
                title, amount,paymentInstance,mobile);
 
@@ -1580,6 +1582,7 @@ public class ChargeFragment extends BaseFragment
     public void onErrorCharge(String message)
     {
 
+        mainView.hideLoading();
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 

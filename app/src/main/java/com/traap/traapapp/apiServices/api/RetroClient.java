@@ -454,7 +454,7 @@ public interface RetroClient
 
     @GET(Const.GET_TRANSACTION_DETAIL)
     Single<Response<WebServiceClass<TransactionDetailResponse>>> getTransactionDetail(
-            @Path("id") Integer transactionId
+            @Path("id") Long transactionId
     );
 
 

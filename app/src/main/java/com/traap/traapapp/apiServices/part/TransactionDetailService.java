@@ -23,7 +23,7 @@ public class TransactionDetailService extends BasePart
     }
 
 
-    public void getTransactionDetail(Integer transactionId,OnServiceStatus<WebServiceClass<TransactionDetailResponse>> listener )
+    public void getTransactionDetail(Long transactionId,OnServiceStatus<WebServiceClass<TransactionDetailResponse>> listener )
     {
         start(getServiceGenerator().createService().getTransactionDetail(transactionId), listener);
     }
