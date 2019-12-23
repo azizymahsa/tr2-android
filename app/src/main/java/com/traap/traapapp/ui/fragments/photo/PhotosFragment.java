@@ -35,10 +35,8 @@ import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.photo.response.ImageName;
-import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.photo.CategoryPhotosAdapter;
 import com.traap.traapapp.ui.adapters.photo.NewestPhotosAdapter;
 import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
@@ -51,7 +49,7 @@ import com.traap.traapapp.utilities.Tools;
 /**
  * Created by MahsaAzizi on 11/27/2019.
  */
-public class PhotosFragment extends BaseFragment implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchiveVideoListener
+public class PhotosFragment extends BaseFragment implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchivePhotosListener
         , CategoryPhotosAdapter.TitleCategoryListener, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener
 {
 
@@ -359,6 +357,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             case R.id.tvArchiveVideo:
                 try
                 {
+
                     ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
                     Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
                     intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);

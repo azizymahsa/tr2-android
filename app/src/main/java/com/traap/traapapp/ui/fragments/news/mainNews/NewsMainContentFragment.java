@@ -38,14 +38,13 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.news.main.Categories;
 import com.traap.traapapp.apiServices.model.news.main.News;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
-import com.traap.traapapp.enums.NewsArchiveCategoryCall;
+import com.traap.traapapp.enums.MediaArchiveCategoryCall;
 import com.traap.traapapp.enums.NewsParent;
-import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
+import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.activities.news.details.NewsDetailsActivity;
-import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
 import com.traap.traapapp.ui.adapters.news.NewsMainFavoriteAdapter;
 import com.traap.traapapp.ui.adapters.news.NewsMainNewestAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -289,10 +288,10 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
         newestNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
-            List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+            List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
             for (int i = 0 ; i < latestNewsList.size(); i++)
             {
-                NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+                MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
                 model.setId(latestNewsList.get(i).getId());
                 model.setPosition(i);
 
@@ -318,10 +317,10 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
         favNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
-            List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+            List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
             for (int i = 0 ; i < favoriteNewsList.size(); i++)
             {
-                NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+                MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
                 model.setId(favoriteNewsList.get(i).getId());
                 model.setPosition(i);
 
@@ -436,7 +435,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             Logger.e("-getNews " + position +" size-", categoriesList.get(position).getTitle() + " size: " +  categoriesList.get(position).getNews().size());
 
             return NewsArchiveCategoryFragment.newInstance("",
-                    NewsArchiveCategoryCall.FROM_SINGLE_CONTENT,
+                    MediaArchiveCategoryCall.FROM_SINGLE_CONTENT,
                     null,
                     categoriesList.get(position).getNews()
             );

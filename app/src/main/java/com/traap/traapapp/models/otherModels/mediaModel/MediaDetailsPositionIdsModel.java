@@ -1,4 +1,4 @@
-package com.traap.traapapp.models.otherModels.newsModel;
+package com.traap.traapapp.models.otherModels.mediaModel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import lombok.Getter;
 import lombok.Setter;
 
-public class NewsDetailsPositionIdsModel implements Parcelable
+public class MediaDetailsPositionIdsModel implements Parcelable
 {
     @Getter @Setter
     private Integer Id;
@@ -14,11 +14,11 @@ public class NewsDetailsPositionIdsModel implements Parcelable
     @Getter @Setter
     private Integer Position;
 
-    public NewsDetailsPositionIdsModel()
+    public MediaDetailsPositionIdsModel()
     {
     }
 
-    protected NewsDetailsPositionIdsModel(Parcel in)
+    protected MediaDetailsPositionIdsModel(Parcel in)
     {
         if (in.readByte() == 0)
         {
@@ -36,18 +36,18 @@ public class NewsDetailsPositionIdsModel implements Parcelable
         }
     }
 
-    public static final Creator<NewsDetailsPositionIdsModel> CREATOR = new Creator<NewsDetailsPositionIdsModel>()
+    public static final Creator<MediaDetailsPositionIdsModel> CREATOR = new Creator<MediaDetailsPositionIdsModel>()
     {
         @Override
-        public NewsDetailsPositionIdsModel createFromParcel(Parcel in)
+        public MediaDetailsPositionIdsModel createFromParcel(Parcel in)
         {
-            return new NewsDetailsPositionIdsModel(in);
+            return new MediaDetailsPositionIdsModel(in);
         }
 
         @Override
-        public NewsDetailsPositionIdsModel[] newArray(int size)
+        public MediaDetailsPositionIdsModel[] newArray(int size)
         {
-            return new NewsDetailsPositionIdsModel[size];
+            return new MediaDetailsPositionIdsModel[size];
         }
     };
 

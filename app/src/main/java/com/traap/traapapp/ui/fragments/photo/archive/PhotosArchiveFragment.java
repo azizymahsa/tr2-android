@@ -34,20 +34,19 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategory;
-import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategory;
+import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
-import com.traap.traapapp.enums.NewsArchiveCategoryCall;
+import com.traap.traapapp.enums.MediaArchiveCategoryCall;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
-import com.traap.traapapp.ui.adapters.news.NewsArchiveFilterAdapter;
+import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveCategoryFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
@@ -74,15 +73,15 @@ import io.reactivex.functions.Predicate;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class PhotosArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<NewsArchiveCategoryResponse>>
-    , DatePickerDialog.OnDateSetListener, NewsArchiveFilterAdapter.OnItemCheckedChangeListener
+public class PhotosArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<MediaArchiveCategoryResponse>>
+        , DatePickerDialog.OnDateSetListener,
+        FilterArchiveAdapter.OnItemCheckedChangeListener
 {
     private CompositeDisposable disposable = new CompositeDisposable();
     private final int DELAY_TIME_TEXT_CHANGE = 200;
 
     private RecyclerView rcHashTag;
     private HashTagMediaAdapter adapterHashTag;
-    private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     private String idFilteredList = "", titleFilteredList = "";
 
@@ -105,12 +104,13 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
     private View rootView;
 
-    private NewsArchiveActionView mainNewsView;
-    private ArrayList<NewsArchiveCategory> newsArchiveCategoryList = new ArrayList<>();
+    private PhotosArchiveActionView mainView;
+//    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
+    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
     private List<FilterItem> filteredCategoryList = new ArrayList<>();
     private ArrayList<FilterItem> filteredShowList = new ArrayList<>();
     private ArrayList<FilterItem> tempFilteredCategoryList = new ArrayList<>();
-    private NewsArchiveFilterAdapter adapter;
+    private FilterArchiveAdapter adapter;
     private boolean pagerWithFilter = false;
     private boolean pagerFromFavorite = false;
     private NewsParent parent;
@@ -125,11 +125,11 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     {
     }
 
-    public static PhotosArchiveFragment newInstance(NewsParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite, NewsArchiveActionView mainNewsView)
+    public static PhotosArchiveFragment newInstance(MediaPosition mediaPosition, boolean pagerFromFavorite,
+                                                    PhotosArchiveActionView mainView)
     {
         PhotosArchiveFragment fragment = new PhotosArchiveFragment();
-        fragment.setMainNewsView(mainNewsView);
-        fragment.setParent(parent);
+        fragment.setMainView(mainView);
         fragment.setMediaPosition(mediaPosition);
 
         Bundle arg = new Bundle();
@@ -140,13 +140,11 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         return fragment;
     }
 
-    private void setParent(NewsParent parent) { this.parent = parent; }
-
     private void setMediaPosition(MediaPosition mediaPosition) { this.mediaPosition = mediaPosition; }
 
-    private void setMainNewsView(NewsArchiveActionView mainNewsView)
+    private void setMainView(PhotosArchiveActionView mainView)
     {
-        this.mainNewsView = mainNewsView;
+        this.mainView = mainView;
     }
 
     @Override
@@ -172,19 +170,11 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
         mToolbar = rootView.findViewById(R.id.toolbar);
 
-        ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو اخبار");
+        ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو عکس");
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
                 .subscribe(v ->
                 {
-                    if (parent == NewsParent.MainFragment)
-                    {
-//                        mainNewsView.backToMainFragment();
-                        mainNewsView.backToMainNewsFragment();
-                    }
-                    else
-                    {
-                        mainNewsView.backToMediaFragment(mediaPosition);
-                    }
+                    mainView.backToMediaFragment(mediaPosition);
                 })
         );
 
@@ -198,7 +188,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgMenu))
                 .subscribe(v ->
                 {
-                    mainNewsView.openDrawerNews();
+                    mainView.openDrawerPhotos();
                 })
         );
 
@@ -212,7 +202,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
         if (!pagerFromFavorite)
         {
-            SingletonService.getInstance().getNewsService().getNewsArchiveCategory(this);
+            SingletonService.getInstance().getPhotoArchiveService().getPhotosArchiveCategory(this);
         }
         else
         {
@@ -240,7 +230,6 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
         btnDeleteFilter = rootView.findViewById(R.id.btnDeleteFilter);
 
-//        rcHashTag.setLayoutManager(new GridLayoutManager(getActivity(), 3, RecyclerView.VERTICAL, false));
         rcHashTag.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 
         disposable.add(RxView.clicks(btnFilter)
@@ -259,7 +248,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                         llDeleteFilter.setVisibility(View.GONE);
                         filteredCategoryList = new ArrayList<>();
 
-                        for (NewsArchiveCategory item: newsArchiveCategoryList)
+                        for (MediaArchiveCategory item: mediaArchiveCategoryList)
                         {
                             FilterItem filterItem = new FilterItem();
                             filterItem.setId(item.getId());
@@ -272,7 +261,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                     }
                     tempFilteredCategoryList = new ArrayList<>();
                     tempFilteredCategoryList.addAll(filteredCategoryList);
-                    adapter = new NewsArchiveFilterAdapter(getActivity(), tempFilteredCategoryList);
+                    adapter = new FilterArchiveAdapter(getActivity(), tempFilteredCategoryList);
                     adapter.notifyDataSetChanged();
                     rcFilterCategory.setAdapter(adapter);
                     adapter.SetOnItemCheckedChangeListener(this);
@@ -364,7 +353,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                     llDeleteFilter.setVisibility(View.GONE);
                     llFilterHashTag.setVisibility(View.GONE);
 
-                    adapter = new NewsArchiveFilterAdapter(getActivity(), filteredCategoryList);
+                    adapter = new FilterArchiveAdapter(getActivity(), filteredCategoryList);
                     adapter.notifyDataSetChanged();
                     rcFilterCategory.setAdapter(adapter);
                     adapter.SetOnItemCheckedChangeListener(this);
@@ -377,7 +366,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                         {
                             if (charSequence.length() < 3)
                             {
-                                adapter = new NewsArchiveFilterAdapter(getActivity(), filteredCategoryList);
+                                adapter = new FilterArchiveAdapter(getActivity(), filteredCategoryList);
                                 adapter.notifyDataSetChanged();
                                 rcFilterCategory.setAdapter(adapter);
                                 adapter.SetOnItemCheckedChangeListener(this);
@@ -388,13 +377,13 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                         //--------------------------
                         .flatMap((Function<CharSequence, ObservableSource<FilterItem>>) charSequence ->
                         {
-                            return getNewsArchiveCategoryObservable(ReplacePersianNumberToEnglish.getEnglishChar(charSequence));
-//                        return getNewsArchiveCategoryObservable(charSequence);
+                            return getArchiveCategoryObservable(ReplacePersianNumberToEnglish.getEnglishChar(charSequence));
+//                        return getArchiveCategoryObservable(charSequence);
                         })
                         //--------------------------
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getFilteredNewsArchiveIDs())
+                        .subscribeWith(getFilteredArchiveIDs())
         );
 
     }
@@ -441,7 +430,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                             llFilterHashTag.setVisibility(View.GONE);
 
                             filteredCategoryList = new ArrayList<>();
-                            for (NewsArchiveCategory item: newsArchiveCategoryList)
+                            for (MediaArchiveCategory item: mediaArchiveCategoryList)
                             {
                                 FilterItem filterItem = new FilterItem();
                                 filterItem.setId(item.getId());
@@ -485,17 +474,17 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         );
     }
 
-    private Observable<FilterItem> getNewsArchiveCategoryObservable(final CharSequence sequence)
+    private Observable<FilterItem> getArchiveCategoryObservable(final CharSequence sequence)
     {
         filteredShowList = new ArrayList<>();
         Observable<FilterItem> observable = Observable.fromIterable(filteredCategoryList)
                 .filter(new Predicate<FilterItem>()
                 {
                     @Override
-                    public boolean test(FilterItem newsArchiveCategory) throws Exception
+                    public boolean test(FilterItem archiveCategory) throws Exception
                     {
-                        Logger.e("-Observable-","text: " + newsArchiveCategory.getTitle().contains(sequence));
-                        return newsArchiveCategory.getTitle().contains(sequence);
+                        Logger.e("-Observable-","text: " + archiveCategory.getTitle().contains(sequence));
+                        return archiveCategory.getTitle().contains(sequence);
                     }
                 })
                 .subscribeOn(Schedulers.io());
@@ -508,7 +497,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         return observable;
     }
 
-    private DisposableObserver<FilterItem> getFilteredNewsArchiveIDs()
+    private DisposableObserver<FilterItem> getFilteredArchiveIDs()
     {
         rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
         filteredShowList = new ArrayList<>();
@@ -516,14 +505,14 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         return new DisposableObserver<FilterItem>()
         {
             @Override
-            public void onNext(FilterItem newsArchiveCategory)
+            public void onNext(FilterItem archiveCategory)
             {
-                filteredShowList.add(newsArchiveCategory);
-                Logger.e("--searchCategory--", "Search query: " + newsArchiveCategory.getTitle());
+                filteredShowList.add(archiveCategory);
+                Logger.e("--searchCategory--", "Search query: " + archiveCategory.getTitle());
                 Logger.e("--searchCategory--", "Query size: " + filteredShowList.size());
 
                 Collections.reverse(filteredShowList);
-                adapter = new NewsArchiveFilterAdapter(getActivity(), filteredShowList);
+                adapter = new FilterArchiveAdapter(getActivity(), filteredShowList);
                 adapter.notifyDataSetChanged();
                 rcFilterCategory.setAdapter(adapter);
                 adapter.SetOnItemCheckedChangeListener(PhotosArchiveFragment.this);
@@ -601,9 +590,9 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         }
         else
         {
-            Collections.reverse(newsArchiveCategoryList);
+            Collections.reverse(mediaArchiveCategoryList);
 
-            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), newsArchiveCategoryList, pagerFromFavorite, pagerWithFilter);
+            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), mediaArchiveCategoryList, pagerFromFavorite, pagerWithFilter);
 
             pager.setAdapter(adapter);
 
@@ -616,39 +605,9 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                 tab.setCustomView(adapter.getTabView(i));
             }
 
-            pager.setCurrentItem(newsArchiveCategoryList.size()-1);
+            pager.setCurrentItem(mediaArchiveCategoryList.size()-1);
         }
 
-    }
-
-
-    @Override
-    public void onReady(WebServiceClass<NewsArchiveCategoryResponse> response)
-    {
-        if (response.info.statusCode != 200)
-        {
-            showError(getActivity(), response.info.message);
-        }
-        else
-        {
-            newsArchiveCategoryList = response.data.getNewsArchiveCategoryList();
-
-            setPager(pagerWithFilter, pagerFromFavorite);
-        }
-    }
-
-    @Override
-    public void onError(String message)
-    {
-        if (Tools.isNetworkAvailable(getActivity()))
-        {
-            Logger.e("-OnError-", "Error: " + message);
-            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-        }
-        else
-        {
-            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
-        }
     }
 
     @Override
@@ -735,21 +694,50 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                 }));
     }
 
+    @Override
+    public void onReady(WebServiceClass<MediaArchiveCategoryResponse> response)
+    {
+        if (response.info.statusCode != 200)
+        {
+            showError(getActivity(), response.info.message);
+        }
+        else
+        {
+            mediaArchiveCategoryList = response.data.getMediaArchiveCategoryList();
+
+            setPager(pagerWithFilter, pagerFromFavorite);
+        }
+    }
+
+    @Override
+    public void onError(String message)
+    {
+        if (Tools.isNetworkAvailable(getActivity()))
+        {
+            Logger.e("-OnError-", "Error: " + message);
+            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+        }
+        else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
+    }
+
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
     {
-        private ArrayList<NewsArchiveCategory> newsArchiveCategories;
+        private ArrayList<MediaArchiveCategory> categoryTitleList;
         private boolean pagerWithFilter = false;
         private boolean pagerFromFavorite = false;
         private Context context = SingletonContext.getInstance().getContext();
 
         @SuppressLint("WrongConstant")
         public SamplePagerAdapter(@NonNull FragmentManager fm,
-                                  ArrayList<NewsArchiveCategory> newsArchiveCategories,
+                                  ArrayList<MediaArchiveCategory> mediaArchiveCategoryList,
                                   boolean pagerFromFavorite,
                                   boolean pagerWithFilter)
         {
             super(fm, 0);
-            this.newsArchiveCategories = newsArchiveCategories;
+            this.categoryTitleList = mediaArchiveCategoryList;
             this.pagerWithFilter = pagerWithFilter;
             this.pagerFromFavorite = pagerFromFavorite;
         }
@@ -760,7 +748,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         {
             try
             {
-                return newsArchiveCategories.get(position).getTitle();
+                return categoryTitleList.get(position).getTitle();
             }
             catch (NullPointerException e)
             {
@@ -774,8 +762,8 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         {
             if (pagerWithFilter)
             {
-                return NewsArchiveCategoryFragment.newInstance("", //Id Filter List
-                        NewsArchiveCategoryCall.FROM_FILTER_IDs_DATE, //or FROM_FILTER_IsS
+                return PhotosArchiveCategoryFragment.newInstance("", //Id Filter List
+                        MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE, //or FROM_FILTER_IsS
                         "", // dateFilter
                         null);
             }
@@ -784,13 +772,13 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                 rootView.findViewById(R.id.llFilterAndTab).setVisibility(View.GONE);
 
 //                return NewsArchiveCategoryFragment.newInstance(0, false, true, null);
-                return NewsArchiveCategoryFragment.newInstance("", NewsArchiveCategoryCall.FROM_FAVORITE, null, null);
+                return PhotosArchiveCategoryFragment.newInstance("", MediaArchiveCategoryCall.FROM_FAVORITE, null, null);
             }
             else
             {
-                int Id =  newsArchiveCategoryList.get(position).getId();
+                int Id =  categoryTitleList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
-                return NewsArchiveCategoryFragment.newInstance(String.valueOf(Id), NewsArchiveCategoryCall.FROM_ID, null, null);
+                return PhotosArchiveCategoryFragment.newInstance(String.valueOf(Id), MediaArchiveCategoryCall.FROM_ID, null, null);
             }
         }
 
@@ -799,7 +787,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         {
             try
             {
-                return newsArchiveCategories.size();
+                return categoryTitleList.size();
             }
             catch (NullPointerException e)
             {
