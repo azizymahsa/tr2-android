@@ -7,7 +7,7 @@ import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
  */
 public interface TicketInfoInteractor
 {
-    void reservationRequest(OnFinishedTicketInfoListener listener,int transactionId);
+    void reservationRequest(OnFinishedTicketInfoListener listener,Long transactionId);
 
 
     interface OnFinishedTicketInfoListener {
