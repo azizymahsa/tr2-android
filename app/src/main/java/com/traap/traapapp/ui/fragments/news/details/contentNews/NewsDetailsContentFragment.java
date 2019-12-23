@@ -137,11 +137,14 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         {
             if (content.getBookmarked())
             {
-                imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+                imgBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
+
+              //  imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
             }
             else
             {
-                imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
+                imgBookmark.setColorFilter(getResources().getColor(R.color.borderBackgroundColor));
+               // imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
             }
         }
         catch (NullPointerException e)
@@ -232,11 +235,13 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
                     {
                         if (response.data.getIsBookmarked())
                         {
-                            imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+                            imgBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                            //imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
                         }
                         else
                         {
-                            imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
+                            imgBookmark.setColorFilter(getResources().getColor(R.color.borderBackgroundColor));
+                           // imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
                         }
                     }
                     else

@@ -40,27 +40,27 @@ public class WebActivity extends BaseActivity
         setContentView(R.layout.activity_web);
 
 
-
         initView();
         try
         {
-            String postData="";
+            String postData = "";
             webView = findViewById(R.id.webView);
             String url = getIntent().getStringExtra("URL");
-          //  String authToken = getIntent().getStringExtra("TOKEN");
             if (getIntent().getStringExtra("Title").contains("بیمه"))
             {
-                 postData =  "userToken=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8")
-                         + "&businessToken=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_api_key"), "UTF-8")
-                         +"&redirectUrl=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_call_back"), "UTF-8")
-                 ;
+                postData = "userToken=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8")
+                        + "&businessToken=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_api_key"), "UTF-8")
+                        + "&redirectUrl=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_call_back"), "UTF-8")
+                ;
+
+            } else if (getIntent().getStringExtra("Title").contains("الو"))
+            {
 
             } else
             {
-                 postData = "auth=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8");
+                postData = "auth=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8");
 
             }
-
 
 
             WebSettings settings = webView.getSettings();

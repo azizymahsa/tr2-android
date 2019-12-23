@@ -154,4 +154,9 @@
     <style name="Widget.BottomNavigationView"  parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/iransans_mobile_bold</item>
     </style>
+    <style name="Regular">
+        <item name="android:fontFamily">@font/iransans_mobile_bold</item>
+        <item name="fontFamily">@font/iransans_mobile_bold</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

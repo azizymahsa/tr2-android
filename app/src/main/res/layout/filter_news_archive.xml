@@ -205,6 +205,31 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="40" />
 
+                <LinearLayout
+                    android:id="@+id/llDeleteFilter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="140"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnDeleteFilter"
+                            layout="@layout/filter_deleted_button" />
+
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40" />
+
+                </LinearLayout>
+
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
