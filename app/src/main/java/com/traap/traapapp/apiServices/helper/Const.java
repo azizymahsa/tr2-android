@@ -150,6 +150,7 @@ public class Const
     public final static String Like_Photo=SubBASEURL+"v1/photo/{id}/like/";
     public final static String bookMark_Photo=SubBASEURL+"v1/photo/{id}/bookmark/";
     public final static String List_Bookmark_Photo=SubBASEURL+"v1/photo/bookmarks/";
+    public final static String Get_Photo_Detail=SubBASEURL+"v1/photo/{id}/photo_detail/";
 
     //News
     public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";
