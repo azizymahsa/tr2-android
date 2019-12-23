@@ -51,7 +51,7 @@ public class PagerAdapter
                // createInstance();
                 return tab2;
             case 2:
-                SelectPositionFragment tab3 = SelectPositionFragment.newInstance("TAB3", buyTicketsFragment,matchBuyable);
+                SelectPositionFragment tab3 = SelectPositionFragment.newInstance("TAB3", onClickContinueBuyTicket,matchBuyable);
 
                 return tab3;
 

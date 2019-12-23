@@ -51,7 +51,6 @@ public class CompeletInfoFragment
     private EditText etNationalCode_3, etFamily_3, etName_3;
     private EditText etNationalCode_4, etFamily_4, etName_4;
     private EditText etNationalCode_5, etFamily_5, etName_5;
-    private MainActionView mainView;
     private LinearLayout llBoxTicket1, llBoxTicket2, llBoxTicket3, llBoxTicket4, llBoxTicket5;
     private TextView tvStation_1, tvStation_2, tvStation_3, tvStation_4, tvStation_5;
     private TextView tvPerson_1, tvPerson_2, tvPerson_3, tvPerson_4, tvPerson_5;
@@ -1542,7 +1541,7 @@ public class CompeletInfoFragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, fragment2);
         fragmentTransaction.commit();*/
-        BuyTicketsActivity.buyTicketsFragment.openWebPayment(response.getUrl());
+        ((BuyTicketsActivity)getActivity()).openWebPayment(response.getUrl());
         infoViewers.clear();
 
         // onClickContinueBuyTicketListener.onContinueClicked();
