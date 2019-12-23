@@ -30,6 +30,7 @@
                 android:layout_marginEnd="@dimen/_5sdp"
                android:layout_gravity="top"
                 android:layout_marginTop="@dimen/_30dp"
+                android:gravity="right"
                 android:orientation="horizontal">
 
             <ImageView
@@ -43,6 +44,7 @@
                 android:textSize="@dimen/textSize_20dp"
                 android:src="@drawable/ic_list"
                 android:transitionName="transition"
+                android:visibility="gone"
                 />
 
             <ImageView

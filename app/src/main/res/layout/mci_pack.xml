@@ -29,6 +29,7 @@
             android:padding="@dimen/_5sdp"
             android:src="@drawable/ic_list"
             android:transitionName="transition"
+            android:visibility="gone"
            />
 
         <ImageView
