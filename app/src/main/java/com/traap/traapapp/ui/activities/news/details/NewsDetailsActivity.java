@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.details.commentNews.NewsDetailsCommentFragment;
@@ -28,7 +29,6 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsFromRelatedNews;
-import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
 import com.traap.traapapp.ui.activities.news.NewsDetailsAction;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.fragments.news.details.contentNews.NewsDetailsContentFragment;
@@ -41,7 +41,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
 {
     private Toolbar mToolbar;
     private View rlShirt;
-    private List<NewsDetailsPositionIdsModel> positionIdsList;
+    private List<MediaDetailsPositionIdsModel> positionIdsList;
     private Integer currentId = 0, currentPosition = 0;
 
     private RelativeLayout rlPrevNews, rlNextNews;

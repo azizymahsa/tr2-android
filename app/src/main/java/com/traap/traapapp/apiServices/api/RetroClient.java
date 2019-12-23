@@ -48,7 +48,6 @@ import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
 import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
-import com.traap.traapapp.apiServices.model.getTicketBuyEnable.GetTicketBuyEnableResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
@@ -61,8 +60,8 @@ import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
-import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
-import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import com.traap.traapapp.apiServices.model.news.archive.NewsArchiveListByIdResponse;
+import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
 import com.traap.traapapp.apiServices.model.news.details.putBookmark.response.NewsBookmarkResponse;
@@ -70,6 +69,7 @@ import com.traap.traapapp.apiServices.model.news.details.sendComment.request.Sen
 import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
+import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
 import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
@@ -173,7 +173,7 @@ public interface RetroClient
 
 
     @GET(Const.List_Bookmark_Photo)
-    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getListBookmarkPhotos();
+    Single<Response<WebServiceClass<PhotoArchiveResponse>>> getListBookmarkPhotos();
 
     @GET(Const.List_Bookmark_Video)
     Single<Response<WebServiceClass<ArchiveVideoResponse>>> getListBookmarkVideos();
@@ -459,10 +459,12 @@ public interface RetroClient
 
 
     @GET(Const.Archive_Photo)
-    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchivePhotos(
+    Single<Response<WebServiceClass<PhotoArchiveResponse>>> getArchivePhotos(
             @Query("category_id") String category_id
-
     );
+
+    @GET(Const.GET_CATEGORY_ARCHIVE_PHOTO)
+    Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getPhotosArchiveCategory();
 
     @GET(Const.GetHistory)
     Single<Response<WebServiceClass<ResponseHistory>>> getHistory();
@@ -507,7 +509,7 @@ public interface RetroClient
     );
 
     @GET(Const.Get_NEWS_ARCHIVE_CATEGORY)
-    Single<Response<WebServiceClass<NewsArchiveCategoryResponse>>> getNewsArchiveCategory();
+    Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getNewsArchiveCategory();
 
     @GET(Const.NEWS_MAIN)
     Single<Response<WebServiceClass<NewsMainResponse>>> getNewsMain();

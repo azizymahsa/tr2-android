@@ -9,11 +9,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,23 +40,22 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategory;
-import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategory;
+import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
-import com.traap.traapapp.enums.NewsArchiveCategoryCall;
+import com.traap.traapapp.enums.MediaArchiveCategoryCall;
 import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
-import com.traap.traapapp.ui.adapters.news.NewsArchiveFilterAdapter;
+import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
-import com.traap.traapapp.utilities.MyGridView;
 import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
@@ -77,8 +74,8 @@ import io.reactivex.functions.Predicate;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<NewsArchiveCategoryResponse>>
-    , DatePickerDialog.OnDateSetListener, NewsArchiveFilterAdapter.OnItemCheckedChangeListener
+public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<MediaArchiveCategoryResponse>>
+    , DatePickerDialog.OnDateSetListener, FilterArchiveAdapter.OnItemCheckedChangeListener
 {
     private CompositeDisposable disposable = new CompositeDisposable();
     private final int DELAY_TIME_TEXT_CHANGE = 200;
@@ -109,11 +106,11 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     private View rootView;
 
     private NewsArchiveActionView mainNewsView;
-    private ArrayList<NewsArchiveCategory> newsArchiveCategoryList = new ArrayList<>();
+    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
     private List<FilterItem> filteredCategoryList = new ArrayList<>();
     private ArrayList<FilterItem> filteredShowList = new ArrayList<>();
     private ArrayList<FilterItem> tempFilteredCategoryList = new ArrayList<>();
-    private NewsArchiveFilterAdapter adapter;
+    private FilterArchiveAdapter adapter;
     private boolean pagerWithFilter = false;
     private boolean pagerFromFavorite = false;
     private NewsParent parent;
@@ -128,7 +125,8 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     {
     }
 
-    public static NewsArchiveFragment newInstance(NewsParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite, NewsArchiveActionView mainNewsView)
+    public static NewsArchiveFragment newInstance(NewsParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite,
+                                                  NewsArchiveActionView mainNewsView)
     {
         NewsArchiveFragment fragment = new NewsArchiveFragment();
         fragment.setMainNewsView(mainNewsView);
@@ -262,7 +260,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                         llDeleteFilter.setVisibility(View.GONE);
                         filteredCategoryList = new ArrayList<>();
 
-                        for (NewsArchiveCategory item: newsArchiveCategoryList)
+                        for (MediaArchiveCategory item: mediaArchiveCategoryList)
                         {
                             FilterItem filterItem = new FilterItem();
                             filterItem.setId(item.getId());
@@ -275,7 +273,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     }
                     tempFilteredCategoryList = new ArrayList<>();
                     tempFilteredCategoryList.addAll(filteredCategoryList);
-                    adapter = new NewsArchiveFilterAdapter(getActivity(), tempFilteredCategoryList);
+                    adapter = new FilterArchiveAdapter(getActivity(), tempFilteredCategoryList);
                     adapter.notifyDataSetChanged();
                     rcFilterCategory.setAdapter(adapter);
                     adapter.SetOnItemCheckedChangeListener(this);
@@ -367,7 +365,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     llDeleteFilter.setVisibility(View.GONE);
                     llFilterHashTag.setVisibility(View.GONE);
 
-                    adapter = new NewsArchiveFilterAdapter(getActivity(), filteredCategoryList);
+                    adapter = new FilterArchiveAdapter(getActivity(), filteredCategoryList);
                     adapter.notifyDataSetChanged();
                     rcFilterCategory.setAdapter(adapter);
                     adapter.SetOnItemCheckedChangeListener(this);
@@ -380,7 +378,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                         {
                             if (charSequence.length() < 3)
                             {
-                                adapter = new NewsArchiveFilterAdapter(getActivity(), filteredCategoryList);
+                                adapter = new FilterArchiveAdapter(getActivity(), filteredCategoryList);
                                 adapter.notifyDataSetChanged();
                                 rcFilterCategory.setAdapter(adapter);
                                 adapter.SetOnItemCheckedChangeListener(this);
@@ -444,7 +442,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                             llFilterHashTag.setVisibility(View.GONE);
 
                             filteredCategoryList = new ArrayList<>();
-                            for (NewsArchiveCategory item: newsArchiveCategoryList)
+                            for (MediaArchiveCategory item: mediaArchiveCategoryList)
                             {
                                 FilterItem filterItem = new FilterItem();
                                 filterItem.setId(item.getId());
@@ -526,7 +524,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 Logger.e("--searchCategory--", "Query size: " + filteredShowList.size());
 
                 Collections.reverse(filteredShowList);
-                adapter = new NewsArchiveFilterAdapter(getActivity(), filteredShowList);
+                adapter = new FilterArchiveAdapter(getActivity(), filteredShowList);
                 adapter.notifyDataSetChanged();
                 rcFilterCategory.setAdapter(adapter);
                 adapter.SetOnItemCheckedChangeListener(NewsArchiveFragment.this);
@@ -604,9 +602,9 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         }
         else
         {
-            Collections.reverse(newsArchiveCategoryList);
+            Collections.reverse(mediaArchiveCategoryList);
 
-            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), newsArchiveCategoryList, pagerFromFavorite, pagerWithFilter);
+            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), mediaArchiveCategoryList, pagerFromFavorite, pagerWithFilter);
 
             pager.setAdapter(adapter);
 
@@ -619,14 +617,14 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 tab.setCustomView(adapter.getTabView(i));
             }
 
-            pager.setCurrentItem(newsArchiveCategoryList.size()-1);
+            pager.setCurrentItem(mediaArchiveCategoryList.size()-1);
         }
 
     }
 
 
     @Override
-    public void onReady(WebServiceClass<NewsArchiveCategoryResponse> response)
+    public void onReady(WebServiceClass<MediaArchiveCategoryResponse> response)
     {
         if (response.info.statusCode != 200)
         {
@@ -634,7 +632,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         }
         else
         {
-            newsArchiveCategoryList = response.data.getNewsArchiveCategoryList();
+            mediaArchiveCategoryList = response.data.getMediaArchiveCategoryList();
 
             setPager(pagerWithFilter, pagerFromFavorite);
         }
@@ -740,14 +738,14 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
     {
-        private ArrayList<NewsArchiveCategory> newsArchiveCategories;
+        private ArrayList<MediaArchiveCategory> newsArchiveCategories;
         private boolean pagerWithFilter = false;
         private boolean pagerFromFavorite = false;
         private Context context = SingletonContext.getInstance().getContext();
 
         @SuppressLint("WrongConstant")
         public SamplePagerAdapter(@NonNull FragmentManager fm,
-                                  ArrayList<NewsArchiveCategory> newsArchiveCategories,
+                                  ArrayList<MediaArchiveCategory> newsArchiveCategories,
                                   boolean pagerFromFavorite,
                                   boolean pagerWithFilter)
         {
@@ -778,7 +776,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             if (pagerWithFilter)
             {
                 return NewsArchiveCategoryFragment.newInstance("", //Id Filter List
-                        NewsArchiveCategoryCall.FROM_FILTER_IDs_DATE, //or FROM_FILTER_IsS
+                        MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE, //or FROM_FILTER_IsS
                         "", // dateFilter
                         null);
             }
@@ -787,13 +785,13 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 rootView.findViewById(R.id.llFilterAndTab).setVisibility(View.GONE);
 
 //                return NewsArchiveCategoryFragment.newInstance(0, false, true, null);
-                return NewsArchiveCategoryFragment.newInstance("", NewsArchiveCategoryCall.FROM_FAVORITE, null, null);
+                return NewsArchiveCategoryFragment.newInstance("", MediaArchiveCategoryCall.FROM_FAVORITE, null, null);
             }
             else
             {
-                int Id =  newsArchiveCategoryList.get(position).getId();
+                int Id =  mediaArchiveCategoryList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
-                return NewsArchiveCategoryFragment.newInstance(String.valueOf(Id), NewsArchiveCategoryCall.FROM_ID, null, null);
+                return NewsArchiveCategoryFragment.newInstance(String.valueOf(Id), MediaArchiveCategoryCall.FROM_ID, null, null);
             }
         }
 

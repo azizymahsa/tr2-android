@@ -1,4 +1,4 @@
-package com.traap.traapapp.apiServices.model.news.category.response;
+package com.traap.traapapp.apiServices.model.media.category;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class NewsArchiveCategory implements Parcelable
+public class MediaArchiveCategory implements Parcelable
 {
     @Expose @Getter @Setter
     @SerializedName("title")
@@ -19,24 +19,24 @@ public class NewsArchiveCategory implements Parcelable
     @SerializedName("id")
     private int id;
 
-    protected NewsArchiveCategory(Parcel in)
+    protected MediaArchiveCategory(Parcel in)
     {
         title = in.readString();
         id = in.readInt();
     }
 
-    public static final Creator<NewsArchiveCategory> CREATOR = new Creator<NewsArchiveCategory>()
+    public static final Creator<MediaArchiveCategory> CREATOR = new Creator<MediaArchiveCategory>()
     {
         @Override
-        public NewsArchiveCategory createFromParcel(Parcel in)
+        public MediaArchiveCategory createFromParcel(Parcel in)
         {
-            return new NewsArchiveCategory(in);
+            return new MediaArchiveCategory(in);
         }
 
         @Override
-        public NewsArchiveCategory[] newArray(int size)
+        public MediaArchiveCategory[] newArray(int size)
         {
-            return new NewsArchiveCategory[size];
+            return new MediaArchiveCategory[size];
         }
     };
 
