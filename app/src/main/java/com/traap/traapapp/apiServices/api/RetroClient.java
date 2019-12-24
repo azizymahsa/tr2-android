@@ -58,6 +58,7 @@ import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponseP
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
+import com.traap.traapapp.apiServices.model.mainPhotos.MainPhotoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.news.archive.NewsArchiveListByIdResponse;
@@ -154,7 +155,7 @@ public interface RetroClient
 
     /*photos*/
     @GET(Const.Get_Main_Photo)
-    Single<Response<WebServiceClass<MainVideosResponse>>> getMainPhotos();
+    Single<Response<WebServiceClass<MainPhotoResponse>>> getMainPhotos();
 
     @GET(Const.Get_Category_By_Id_Photo)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(

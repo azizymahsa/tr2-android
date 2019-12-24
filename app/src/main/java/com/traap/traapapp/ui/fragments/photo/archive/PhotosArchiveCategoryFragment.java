@@ -25,6 +25,7 @@ import com.traap.traapapp.enums.MediaArchiveCategoryCall;
 import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
 import com.traap.traapapp.ui.activities.news.details.NewsDetailsActivity;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
+import com.traap.traapapp.ui.activities.photo.ShowBigPhotoActivity;
 import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
 import com.traap.traapapp.ui.adapters.photo.PhotosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -42,9 +43,6 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
     private View rootView;
 //    private MediaArchiveCategory archiveCategory;
     private String Ids, dateFilter;
-//    private boolean pagerWithFilter = false;
-//    private boolean getFromFav = false;
-//    private boolean getFromId ;
 
     private ProgressBar progressBar;
     private PhotosArchiveAdapter adapter;
@@ -289,29 +287,28 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
             positionIdsList.add(model);
         }
 
-//        if (FLAG_Favorite)
-//        {
-//            Intent intent = new Intent(getActivity(), ShowBigPhotoActivity.class);
-//
-//            intent.putExtra("SRCImage", category.getImageName().getThumbnailLarge());
-//            intent.putExtra("LikeCount", category.getLikes());
-//            intent.putExtra("idPhoto", category.getId());
-//            intent.putExtra("isLike", category.getIsLiked());
-//            intent.putExtra("isBookmark", category.getIsBookmarked());
-//            startActivity(intent);
-//        }
-//        else
-//        {
+        if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
+        {
+            Intent intent = new Intent(getActivity(), ShowBigPhotoActivity.class);
 
-        Intent intent = new Intent(getActivity(), AlbumDetailActivity.class);
+            intent.putExtra("SRCImage", category.getImageName().getThumbnailLarge());
+            intent.putExtra("LikeCount", category.getLikes());
+            intent.putExtra("idPhoto", category.getId());
+            intent.putExtra("isLike", category.getIsLiked());
+            intent.putExtra("isBookmark", category.getIsBookmarked());
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(getActivity(), AlbumDetailActivity.class);
 
-        intent.putParcelableArrayListExtra("Photos", recent);
-        intent.putExtra("IdPhotoCategory", category.getId());
-        intent.putExtra("IdPhoto", category.getId());
-        intent.putExtra("positionPhoto", position);
+            intent.putParcelableArrayListExtra("Photos", recent);
+            intent.putExtra("IdPhotoCategory", category.getId());
+            intent.putExtra("IdPhoto", category.getId());
+            intent.putExtra("positionPhoto", position);
 
-        startActivity(intent);
-//        }
+            startActivity(intent);
+        }
     }
 
 }

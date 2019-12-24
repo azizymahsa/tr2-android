@@ -38,7 +38,7 @@
         app:moveSpeed="0.5"
         app:showIndicator="false"/>-->
     <com.example.moeidbannerlibrary.banner.BannerLayout
-        android:id="@+id/bNewestVideo"
+        android:id="@+id/bNewestPhotos"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_190sdp"
         android:textAlignment="center"
@@ -60,7 +60,7 @@
         android:weightSum="3.5"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/tvArchiveVideo"
+            android:id="@+id/tvArchivePhotos"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

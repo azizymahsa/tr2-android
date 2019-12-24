@@ -74,8 +74,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class PhotosArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<MediaArchiveCategoryResponse>>
-        , DatePickerDialog.OnDateSetListener,
-        FilterArchiveAdapter.OnItemCheckedChangeListener
+        , DatePickerDialog.OnDateSetListener, FilterArchiveAdapter.OnItemCheckedChangeListener
 {
     private CompositeDisposable disposable = new CompositeDisposable();
     private final int DELAY_TIME_TEXT_CHANGE = 200;
@@ -660,14 +659,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         Logger.e("-filter Selected-", id + ", " + filterItem.getTitle() + ", " + !isChecked);
 
         disposable.add(Observable.fromIterable(tempFilteredCategoryList)
-                .filter(new Predicate<FilterItem>()
-                {
-                    @Override
-                    public boolean test(FilterItem fFilterItem) throws Exception
-                    {
-                        return fFilterItem.getId() == id;
-                    }
-                })
+                .filter(fFilterItem -> fFilterItem.getId() == id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<FilterItem>()
@@ -721,6 +713,25 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
         }
+    }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        disposable.clear();
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
@@ -812,22 +823,4 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
     }
 
-    @Subscribe
-    public void getHeaderContent(HeaderModel headerModel)
-    {
-        if (headerModel.getPopularNo() != 0)
-        {
-            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
-        }
-        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-    }
-
-
-    @Override
-    public void onDestroy()
-    {
-        disposable.clear();
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
 }
