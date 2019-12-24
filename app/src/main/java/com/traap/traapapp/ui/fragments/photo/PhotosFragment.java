@@ -30,10 +30,9 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
+import com.traap.traapapp.apiServices.model.mainPhotos.MainPhotoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
-import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
-import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.photo.response.ImageName;
 import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
@@ -52,21 +51,20 @@ import com.traap.traapapp.utilities.Tools;
 public class PhotosFragment extends BaseFragment implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchivePhotosListener
         , CategoryPhotosAdapter.TitleCategoryListener, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener
 {
-
     private MainActionView mainView;
     private View rootView;
-    private BannerLayout bNewestVideo;
+    private BannerLayout bNewestPhotos;
     private RoundedImageView ivFavorite1, ivFavorite2, ivFavorite3;
     private RecyclerView rvCategoryTitles, rvGrideCategories;
     private PhotosCategoryTitleAdapter photoCategoryTitleAdapter;
     private Integer idCategoryTitle = 0;
     private CategoryPhotosAdapter categoryAdapter;
-    private MainVideosResponse mainVideosResponse;
+    private MainPhotoResponse mainPhotosResponse;
     private ArrayList<Category> categoriesList;
     private int position = 0;
     private Integer idVideo;
     private Integer id;
-    private TextView tvArchiveVideo, tvMyFavoritePhoto;
+    private TextView tvArchivePhotos, tvMyFavoritePhoto;
     private View rlShirt;
     private View tvEmpty,tvEmptyFavorite,llFavorites;
 
@@ -118,12 +116,12 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
 
         mainView.showLoading();
-        bNewestVideo = rootView.findViewById(R.id.bNewestVideo);
+        bNewestPhotos = rootView.findViewById(R.id.bNewestPhotos);
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
-        tvArchiveVideo = rootView.findViewById(R.id.tvArchiveVideo);
+        tvArchivePhotos = rootView.findViewById(R.id.tvArchivePhotos);
         tvMyFavoritePhoto = rootView.findViewById(R.id.tvMyFavoritePhoto);
         rvGrideCategories = rootView.findViewById(R.id.rvCategories);
         tvEmpty=rootView.findViewById(R.id.tvEmpty);
@@ -136,22 +134,20 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         ivFavorite1.setOnClickListener(this);
         ivFavorite2.setOnClickListener(this);
         ivFavorite3.setOnClickListener(this);
-        tvArchiveVideo.setOnClickListener(this);
+        tvArchivePhotos.setOnClickListener(this);
         tvMyFavoritePhoto.setOnClickListener(this);
         rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        requestMainVideos();
+        requestMainPhotos();
 
         return rootView;
     }
 
-    private void requestMainVideos()
+    private void requestMainPhotos()
     {
-        MainVideoRequest request = new MainVideoRequest();
-
-        SingletonService.getInstance().getMainVideosService().getMainPhotos(new OnServiceStatus<WebServiceClass<MainVideosResponse>>()
+        SingletonService.getInstance().getMainPhotosService().getMainPhotos(new OnServiceStatus<WebServiceClass<MainPhotoResponse>>()
         {
             @Override
-            public void onReady(WebServiceClass<MainVideosResponse> response)
+            public void onReady(WebServiceClass<MainPhotoResponse> response)
             {
                 mainView.hideLoading();
                 try
@@ -159,7 +155,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
                     if (response.info.statusCode == 200)
                     {
-                        mainVideosResponse = response.data;
+                        mainPhotosResponse = response.data;
                         onGetMainVideosSuccess(response.data);
 
                     } else
@@ -187,12 +183,12 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                 }
                 //  Tools.showToast(getActivity(), message, R.color.red);
             }
-        }, request);
+        });
     }
 
-    private void onGetMainVideosSuccess(MainVideosResponse mainPhotosResponse)
+    private void onGetMainVideosSuccess(MainPhotoResponse mainPhotosResponse)
     {
-        bNewestVideo.setAdapter(new NewestPhotosAdapter(mainPhotosResponse.getRecent(), mainView, this));
+        bNewestPhotos.setAdapter(new NewestPhotosAdapter(mainPhotosResponse.getRecent(), mainView, this));
         setDataFavoriteList(mainPhotosResponse);
         photoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(mainPhotosResponse.getListCategories(), mainView, this);
         rvCategoryTitles.setAdapter(photoCategoryTitleAdapter);
@@ -203,7 +199,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
     }
 
-    private void setDataFavoriteList(MainVideosResponse mainPhotosResponse)
+    private void setDataFavoriteList(MainPhotoResponse mainPhotosResponse)
     {
         if (!mainPhotosResponse.getFavorites().isEmpty())
         {
@@ -323,42 +319,43 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         {
 
             case R.id.ivFavorite1:
-                if (mainVideosResponse != null)
+                if (mainPhotosResponse != null)
                 {
-                    categoriesList = mainVideosResponse.getFavorites();
+                    categoriesList = mainPhotosResponse.getFavorites();
                     position = 0;
-                    idVideo = mainVideosResponse.getFavorites().get(position).getId();//getCategoryId();
-                    id = mainVideosResponse.getFavorites().get(position).getId();
+                    idVideo = mainPhotosResponse.getFavorites().get(position).getId();//getCategoryId();
+                    id = mainPhotosResponse.getFavorites().get(position).getId();
                     openAlbumDetail(categoriesList, position, idVideo, id);
                 }
                 break;
 
             case R.id.ivFavorite2:
-                if (mainVideosResponse != null)
+                if (mainPhotosResponse != null)
                 {
-                    categoriesList = mainVideosResponse.getFavorites();
+                    categoriesList = mainPhotosResponse.getFavorites();
                     position = 1;
-                    idVideo = mainVideosResponse.getFavorites().get(position).getId();//getCategoryId();
-                    id = mainVideosResponse.getFavorites().get(position).getId();
+                    idVideo = mainPhotosResponse.getFavorites().get(position).getId();//getCategoryId();
+                    id = mainPhotosResponse.getFavorites().get(position).getId();
                     openAlbumDetail(categoriesList, position, idVideo, id);
                 }
                 break;
 
             case R.id.ivFavorite3:
-                if (mainVideosResponse != null)
+                if (mainPhotosResponse != null)
                 {
-                    categoriesList = mainVideosResponse.getFavorites();
+                    categoriesList = mainPhotosResponse.getFavorites();
                     position = 2;
-                    idVideo = mainVideosResponse.getFavorites().get(position).getCategoryId();
-                    id = mainVideosResponse.getFavorites().get(position).getId();
+                    idVideo = mainPhotosResponse.getFavorites().get(position).getCategoryId();
+                    id = mainPhotosResponse.getFavorites().get(position).getId();
                     openAlbumDetail(categoriesList, position, idVideo, id);
                 }
                 break;
-            case R.id.tvArchiveVideo:
+            case R.id.tvArchivePhotos:
                 try
                 {
+                    //photoArchiveFragment
 
-                    ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
+                    ArrayList<ListCategory> categoryTitleList = mainPhotosResponse.getListCategories();
                     Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
                     intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
                     intent.putExtra("FLAG_Favorite", false);
@@ -381,10 +378,13 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             case R.id.tvMyFavoritePhoto:
                 try
                 {
+                    //
+
                     Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
                     intent1.putExtra("FLAG_Favorite", true);
                     startActivity(intent1);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     if (Tools.isNetworkAvailable(getActivity()))
                     {

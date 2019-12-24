@@ -33,8 +33,6 @@ import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideos
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
-import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.activities.video.VideoArchiveActivity;
 import com.traap.traapapp.ui.activities.video.VideoDetailActivity;
 import com.traap.traapapp.ui.adapters.video.NewestVideosAdapter;
@@ -108,13 +106,13 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         rootView = inflater.inflate(R.layout.fragment_videos, container, false);
 
         mainView.showLoading();
-        bNewestVideo = rootView.findViewById(R.id.bNewestVideo);
+        bNewestVideo = rootView.findViewById(R.id.bNewestPhotos);
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
         nestedScroll = rootView.findViewById(R.id.nestedScroll);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
-        tvArchiveVideo = rootView.findViewById(R.id.tvArchiveVideo);
+        tvArchiveVideo = rootView.findViewById(R.id.tvArchivePhotos);
         rvCategories = rootView.findViewById(R.id.rvCategories);
         tvEmpty=rootView.findViewById(R.id.tvEmpty);
         tvEmptyFavorite=rootView.findViewById(R.id.tvEmptyFavorite);
@@ -368,7 +366,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     openVideoDetail(categoriesList, position, idVideo, id);
                 }
                 break;
-            case R.id.tvArchiveVideo:
+            case R.id.tvArchivePhotos:
                 try
                 {
                     ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
