@@ -1,9 +1,16 @@
 package com.traap.traapapp.ui.activities.photo;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +31,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoRequest;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoRequest;
@@ -43,8 +51,8 @@ import com.traap.traapapp.utilities.Tools;
 public class AlbumDetailActivity extends BaseActivity implements View.OnClickListener, AlbumDetailsItemAdapter.OnItemAllMenuClickListener, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener
 {
     private TextView tvTitle, tvUserName, tvPopularPlayer, tvLike;
-    private View imgBack, imgMenu,rlShirt;
-    private RoundedImageView ivPhoto;
+    private View imgBack, imgMenu, rlShirt;
+    private RoundedImageView ivPhoto,ivBigLike;
     private ImageView imgBookmark, imgLike;
     private int positionVideo, idVideoCategory;
     private ArrayList<Category> videosList;
@@ -63,6 +71,10 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private String coverImg = "";
     private Boolean isBookmark = false;
     private Boolean isLike = false;
+    private static final long DOUBLE_CLICK_TIME_DELTA = 300;
+    long lastClickTime = 0;
+    private boolean doubleClick=false;
+    private boolean isMoving=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -123,6 +135,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
         }
 
+        ivBigLike = findViewById(R.id.ivBigLike);
         ivPhoto = findViewById(R.id.ivPhoto);
         ivPhoto.setOnClickListener(this);
         imgBookmark = findViewById(R.id.imgBookmark);
@@ -175,7 +188,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                     {
 
                         setRelatedPhotosData(response.data);
-                     //   requestGetRelatedVideos(response.data.getCategoryId());
+                        //   requestGetRelatedVideos(response.data.getCategoryId());
                         requestGetRelatedVideos(idAlbum);
 
                     } else
@@ -193,7 +206,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             public void onError(String message)
             {
                 hideLoading();
-               // Tools.showToast(getApplicationContext(), message, R.color.red);
+                // Tools.showToast(getApplicationContext(), message, R.color.red);
 
             }
         });
@@ -231,8 +244,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
 
-       SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService2(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
-      //  SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService2(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+                //  SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
@@ -248,11 +261,11 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                      //  Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        //  Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                  //  Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    //  Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
                     Logger.e("-onReady-", "Error: " + e.getMessage());
 
                 }
@@ -262,11 +275,11 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             public void onError(String message)
             {
                 hideLoading();
-               // Tools.showToast(getApplicationContext(), message, R.color.red);
+                // Tools.showToast(getApplicationContext(), message, R.color.red);
                 if (!Tools.isNetworkAvailable(AlbumDetailActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
                     // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
@@ -308,7 +321,29 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             Picasso.with(this).load(R.drawable.img_failure).into(image);
         }
     }
+    public void animateHeart(final ImageView view) {
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        prepareAnimation(scaleAnimation);
 
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        prepareAnimation(alphaAnimation);
+
+        AnimationSet animation = new AnimationSet(true);
+        animation.addAnimation(alphaAnimation);
+        animation.addAnimation(scaleAnimation);
+        animation.setDuration(700);
+        animation.setFillAfter(true);
+
+        view.startAnimation(animation);
+
+    }
+
+    private Animation prepareAnimation(Animation animation){
+        animation.setRepeatCount(1);
+        animation.setRepeatMode(Animation.REVERSE);
+        return animation;
+    }
     @Override
     public void onClick(View v)
     {
@@ -318,29 +353,56 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                 playVideo(urlVideo);
                 break;*/
             case R.id.rlLike:
-                imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
-                tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
-                requestLikeVideo();
+                ivBigLike.setVisibility(View.VISIBLE);
+                requestLike();
                 break;
             case R.id.ivPhoto:
+                v.setAlpha((float) 1.0);
+                if(!isMoving){
+                    long clickTime = System.currentTimeMillis();
+                    if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA){
+                        doubleClick = true;
+                        System.out.println("-----------doubleClick");
+                        lastClickTime = 0;
+                         ivBigLike.setVisibility(View.VISIBLE);
+                        requestLike();
 
-                Intent intent = new Intent(this, ShowBigPhotoActivity.class);
-                if (largeImageClick == "")
-                    largeImageClick = coverImg;
 
-                intent.putExtra("SRCImage", largeImageClick);
-                intent.putExtra("LikeCount", likeCount);
-                intent.putExtra("idPhoto", idPhoto);
-                intent.putExtra("isLike", isLike);
-                intent.putExtra("isBookmark", isBookmark);
-                startActivity(intent);
+
+                    } else {
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(!doubleClick){
+                                    System.out.println("--------------singleClick");
+                                    Intent intent = new Intent(getApplicationContext(), ShowBigPhotoActivity.class);
+                                    if (largeImageClick == "")
+                                        largeImageClick = coverImg;
+
+                                    intent.putExtra("SRCImage", largeImageClick);
+                                    intent.putExtra("LikeCount", likeCount);
+                                    intent.putExtra("idPhoto", idPhoto);
+                                    intent.putExtra("isLike", isLike);
+                                    intent.putExtra("isBookmark", isBookmark);
+                                    startActivity(intent);
+                                }else
+                                    doubleClick = false;
+                            }
+                        },350);
+                    }
+                    lastClickTime = clickTime;
+                }
+
+              /*  */
                 break;
         }
     }
 
-    private void requestLikeVideo()
+    private void requestLike()
     {
-        showLoading();
+        //showLoading();
+
         LikeVideoRequest request = new LikeVideoRequest();
 
         SingletonService.getInstance().getLikeVideoService().likePhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
@@ -349,13 +411,14 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             public void onReady(WebServiceClass<LikeVideoResponse> response)
             {
                 // rlLike.setClickable(true);
-                hideLoading();
+               // hideLoading();
 
                 try
                 {
 
                     if (response.info.statusCode == 200)
                     {
+                        animateHeart(ivBigLike);
 
                         setLiked(response.data);
 
@@ -373,12 +436,12 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onError(String message)
             {
-                hideLoading();
-              //  Tools.showToast(getApplicationContext(), message, R.color.red);
+               // hideLoading();
+                //  Tools.showToast(getApplicationContext(), message, R.color.red);
                 if (!Tools.isNetworkAvailable(AlbumDetailActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
                     // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
@@ -417,24 +480,83 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         // titleAlbum.setText(content.getTitle() + "");
         try
         {
+            updateContentPhotoItem(id);
 
-            tvCaption.setText(content.getCaption() + " " + content.getTitle());
-            idPhoto = content.getId();
-            likeCount = content.getLikes();
-            isBookmark = content.getIsBookmarked();
-            isLike = content.getIsLiked();
-
-            tvLike.setText(likeCount + "");
-            if (content.getImageName().getThumbnailLarge() == "")
-                largeImageClick = content.getCover();
-            else
-                largeImageClick = content.getImageName().getThumbnailLarge();
-
-            setImageBackground(ivPhoto, largeImageClick.replace("\\", ""));
         } catch (Exception e)
         {
             e.getMessage();
         }
+
+
+    }
+
+    private void updateContentPhotoItem(Integer id)
+    {
+        showLoading();
+        BookMarkPhotoRequest request = new BookMarkPhotoRequest();
+
+        SingletonService.getInstance().getLikeVideoService().getPhotoDetailService(id, request, new OnServiceStatus<WebServiceClass<Content>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<Content> content)
+            {
+                hideLoading();
+                try
+                {
+
+                    if (content.info.statusCode == 200)
+                    {
+
+                        hideLoading();
+                        tvCaption.setText(content.data.getCaption() + " " + content.data.getTitle());
+                        idPhoto = content.data.getId();
+                        likeCount = content.data.getLikes();
+                        isBookmark = content.data.getIsBookmarked();
+                        isLike = content.data.getIsLiked();
+                        if (isLike)
+                        {
+                            imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                            tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                            tvLike.setText(likeCount + "");
+
+                        } else
+                        {
+                            imgLike.setColorFilter(getResources().getColor(R.color.white));
+                            tvLike.setTextColor(getResources().getColor(R.color.white));
+                            tvLike.setText(likeCount + "");
+                        }
+                        tvLike.setText(likeCount + "");
+                        if (content.data.getImageName().getThumbnailLarge() == "")
+                            largeImageClick = content.data.getCover();
+                        else
+                            largeImageClick = content.data.getImageName().getThumbnailLarge();
+
+                        setImageBackground(ivPhoto, largeImageClick.replace("\\", ""));
+                    } else
+                    {
+                    }
+                } catch (Exception e)
+                {
+                    Logger.e("-onReady-", "Error: " + e.getMessage());
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                hideLoading();
+                if (!Tools.isNetworkAvailable(AlbumDetailActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+
+                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
+            }
+        });
 
 
     }

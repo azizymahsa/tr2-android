@@ -82,7 +82,19 @@
                     app:riv_corner_radius="10dp"
                     app:riv_mutate_background="true"
                     app:riv_oval="false"/>
-
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/ivBigLike"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_100dp"
+                android:adjustViewBounds="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/big_like"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="center"
+                app:riv_corner_radius="10dp"
+                app:riv_mutate_background="true"
+                app:riv_oval="false"
+                android:visibility="gone"/>
             <RelativeLayout
                 android:id="@+id/rlLike"
                 android:layout_width="wrap_content"

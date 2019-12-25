@@ -9,7 +9,7 @@ public class Const
     //-----------------------------------------------------------------------------
 //    public final static String BASEURL = "http://5.253.25.117:7000/";
     public final static String BASEURL = "http://5.253.25.117:9999/";
-//     public final static String BASEURL = "https://restapp.traap.com/";
+    // public final static String BASEURL = "https://restapp.traap.com/";
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -41,6 +41,7 @@ public class Const
     public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/";
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
+
 
 
     //Bill
@@ -150,6 +151,7 @@ public class Const
     public final static String Like_Photo = SubBASEURL + "v1/photo/{id}/like/";
     public final static String bookMark_Photo = SubBASEURL + "v1/photo/{id}/bookmark/";
     public final static String List_Bookmark_Photo = SubBASEURL + "v1/photo/bookmarks/";
+    public final static String Get_Photo_Detail=SubBASEURL+"v1/photo/{id}/photo_detail/";
 
     //News
     public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";

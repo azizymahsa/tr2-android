@@ -150,6 +150,20 @@
                 android:src="@drawable/ic_play_video"
                 android:layout_centerInParent="true"
                 />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/ivBigLike"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_100dp"
+                android:adjustViewBounds="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/big_like"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="center"
+                app:riv_corner_radius="10dp"
+                app:riv_mutate_background="true"
+                app:riv_oval="false"
+                android:visibility="gone"/>
+
         </RelativeLayout>
 
         <LinearLayout

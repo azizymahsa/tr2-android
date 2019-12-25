@@ -19,17 +19,21 @@ import java.util.List;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.news.main.ImageName;
+import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.fragments.news.details.contentNews.NewsDetailsContentFragment;
 
 public class NewsDetailsImageAdapter extends RecyclerView.Adapter<NewsDetailsImageAdapter.ViewHolder>
 {
+    private final NewsDetailsContentFragment mItemClickListener;
     private Context mContext;
     private List<ImageName> list;
 
-    public NewsDetailsImageAdapter(Context mContext, List<ImageName> list)
+    public NewsDetailsImageAdapter(Context mContext, List<ImageName> list, NewsDetailsContentFragment mItemClickListener)
     {
         this.mContext = mContext;
         this.list = list;
+        this.mItemClickListener = mItemClickListener;
     }
 
     @NonNull
@@ -58,7 +62,17 @@ public class NewsDetailsImageAdapter extends RecyclerView.Adapter<NewsDetailsIma
         {
             setImageBackground(holder.progress, holder.imgBackground, news.getThumbnailLarge());
         }
+        holder.rlImage.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+              //  row_index = position;
+                mItemClickListener.OnItemNewsClick(view, news);
+                notifyDataSetChanged();
 
+            }
+        });
     }
 
 
@@ -94,7 +108,10 @@ public class NewsDetailsImageAdapter extends RecyclerView.Adapter<NewsDetailsIma
     {
         return list.size();
     }
-
+    public interface OnItemNewsClickListener
+    {
+        public void OnItemNewsClick(View view, ImageName content);
+    }
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         private ImageView imgBackground;
