@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.activities.news.details;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -44,6 +45,8 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     private List<MediaDetailsPositionIdsModel> positionIdsList;
     private Integer currentId = 0, currentPosition = 0;
 
+    private NestedScrollView nestedScroll;
+
     private RelativeLayout rlPrevNews, rlNextNews;
 
     private Fragment newsDetailFragment, newsRelatedFragment, newsCommentFragment;
@@ -73,6 +76,8 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         );
         aviPrev = findViewById(R.id.aviPrev);
         aviNext = findViewById(R.id.aviNext);
+
+        nestedScroll = findViewById(R.id.nestedScroll);
 
         mToolbar.findViewById(R.id.imgMenu).setVisibility(View.INVISIBLE);
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> finish());
@@ -112,7 +117,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
                 getPrevData(currentId); // for set "prevContent" data
                 setContentData();
             }
-
+            nestedScroll.smoothScrollTo(0, 0);
         });
 
         rlNextNews.setOnClickListener(v ->
@@ -133,6 +138,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
                 getNextData(currentId); // for set "nextContent" data
                 setContentData();
             }
+            nestedScroll.smoothScrollTo(0, 0);
         });
     }
 
