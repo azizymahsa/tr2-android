@@ -25,6 +25,7 @@ import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
 import com.traap.traapapp.apiServices.model.paymentMatch.Viewers;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
+import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;

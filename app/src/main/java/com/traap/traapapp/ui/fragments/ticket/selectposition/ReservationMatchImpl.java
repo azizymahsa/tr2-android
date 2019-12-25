@@ -5,7 +5,6 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
-import com.traap.traapapp.ui.fragments.ticket.BuyTicketsActivity;
 
 /**
  * Created by MahtabAzizi on 11/3/2019.

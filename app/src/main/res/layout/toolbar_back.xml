@@ -26,6 +26,7 @@
                 android:foreground="?attr/selectableItemBackground">
 
                 <ImageView
+                    android:id="@+id/imgHome"
                     android:layout_width="75dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="left"
