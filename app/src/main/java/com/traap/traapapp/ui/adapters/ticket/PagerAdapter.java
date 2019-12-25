@@ -7,10 +7,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import java.util.List;
 
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
-import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
 import com.traap.traapapp.ui.fragments.ticket.CompeletInfoFragment;
-import com.traap.traapapp.ui.fragments.ticket.BuyTicketsActivity;
+import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.ticket.OnClickContinueBuyTicket;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;

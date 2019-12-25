@@ -40,6 +40,7 @@ import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.ticket.selectposition.ReservationMatchImpl;
