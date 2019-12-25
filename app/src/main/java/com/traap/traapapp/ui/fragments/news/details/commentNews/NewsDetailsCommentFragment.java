@@ -3,7 +3,6 @@ package com.traap.traapapp.ui.fragments.news.details.commentNews;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moeidbannerlibrary.banner.BannerLayout;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -32,21 +25,14 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
-import com.traap.traapapp.apiServices.model.news.details.getContent.response.RelatedNews;
 import com.traap.traapapp.apiServices.model.news.details.sendComment.request.SendCommentNewsRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
-import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsFromRelatedNews;
-import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.news.NewsDetailsAction;
 import com.traap.traapapp.ui.adapters.news.NewsCommentListAdapter;
-import com.traap.traapapp.ui.adapters.news.NewsDetailsRelatedAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.predict.PredictFragment;
-import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
-import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 @SuppressLint("newsCommentFragment")
 public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimationEndListener,
@@ -68,7 +54,7 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
     private CircularProgressButton btnSendComment;
 
 //    private List<RelatedNews> relatedNewList = new ArrayList<>();
-//    private List<NewsDetailsPositionIdsModel> positionIdsList;
+//    private List<MediaDetailsPositionIdsModel> positionIdsList;
 
     private NewsDetailsAction actionView;
 

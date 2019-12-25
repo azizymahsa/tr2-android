@@ -40,8 +40,8 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
-import com.traap.traapapp.apiServices.model.news.category.response.NewsArchiveCategoryResponse;
+import com.traap.traapapp.apiServices.model.news.archive.NewsArchiveListByIdResponse;
+import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
 import com.traap.traapapp.apiServices.model.news.details.putBookmark.response.NewsBookmarkResponse;
@@ -67,7 +67,7 @@ public class NewsService extends BasePart
     }
 
 
-    public void getNewsArchiveCategory(OnServiceStatus<WebServiceClass<NewsArchiveCategoryResponse>> listener)
+    public void getNewsArchiveCategory(OnServiceStatus<WebServiceClass<MediaArchiveCategoryResponse>> listener)
     {
         start(getServiceGenerator().createService().getNewsArchiveCategory(), listener);
     }

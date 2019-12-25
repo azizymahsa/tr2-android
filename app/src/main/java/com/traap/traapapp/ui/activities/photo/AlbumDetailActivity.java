@@ -355,7 +355,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.rlLike:
              //   imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                // tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
-                requestLikeVideo();
+                requestLike();
                 break;
             case R.id.ivPhoto:
                 v.setAlpha((float) 1.0);
@@ -366,7 +366,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                         System.out.println("-----------doubleClick");
                         lastClickTime = 0;
                          ivBigLike.setVisibility(View.VISIBLE);
-                        requestLikeVideo();
+                        requestLike();
 
 
 
@@ -400,7 +400,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void requestLikeVideo()
+    private void requestLike()
     {
         //showLoading();
 

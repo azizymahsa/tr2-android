@@ -1,10 +1,16 @@
 package com.traap.traapapp.ui.activities.photo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,7 +40,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 {
     private TextView tvLike;
     private TextView imgBack;
-    private RoundedImageView ivPhoto;
+    private RoundedImageView ivPhoto,ivBigLike;
     private ImageView btnSharePic, imgLike, btnBookmark;
 
     private RelativeLayout rlLike, rlPic;
@@ -46,6 +52,10 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
     private String largeImageClick = "";
     private boolean isLike=false;
 
+    private static final long DOUBLE_CLICK_TIME_DELTA = 300;
+    long lastClickTime = 0;
+    private boolean doubleClick=false;
+    private boolean isMoving=false;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -104,6 +114,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
 
             ivPhoto = findViewById(R.id.ivPhoto);
+            ivBigLike = findViewById(R.id.ivBigLike);
             btnSharePic = findViewById(R.id.btnSharePic);
             imgLike = findViewById(R.id.imgLike);
             tvLike = findViewById(R.id.tvLike);
@@ -143,8 +154,8 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         {
 
             case R.id.rlLike:
-                imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
-                tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+               // imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+               // tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
                 requestLike();
                 break;
             case R.id.btnSharePic:
@@ -157,7 +168,36 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                 requestBookMark();
 
                 break;
+            case R.id.ivPhoto:
+                v.setAlpha((float) 1.0);
+                if(!isMoving){
+                    long clickTime = System.currentTimeMillis();
+                    if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA){
+                        doubleClick = true;
+                        System.out.println("-----------doubleClick");
+                        lastClickTime = 0;
+                        ivBigLike.setVisibility(View.VISIBLE);
+                        requestLike();
 
+
+
+                    } else {
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(!doubleClick){
+                                    System.out.println("--------------singleClick");
+
+                                }else
+                                    doubleClick = false;
+                            }
+                        },350);
+                    }
+                    lastClickTime = clickTime;
+                }
+
+                break;
         }
     }
 
@@ -237,7 +277,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
                     if (response.info.statusCode == 200)
                     {
-
+                        animateHeart(ivBigLike);
                         setLiked(response.data);
 
                     } else
@@ -287,7 +327,29 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         }
 
     }
+    public void animateHeart(final ImageView view) {
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        prepareAnimation(scaleAnimation);
 
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        prepareAnimation(alphaAnimation);
+
+        AnimationSet animation = new AnimationSet(true);
+        animation.addAnimation(alphaAnimation);
+        animation.addAnimation(scaleAnimation);
+        animation.setDuration(700);
+        animation.setFillAfter(true);
+
+        view.startAnimation(animation);
+
+    }
+
+    private Animation prepareAnimation(Animation animation){
+        animation.setRepeatCount(1);
+        animation.setRepeatMode(Animation.REVERSE);
+        return animation;
+    }
 
     @Override
     public void OnItemAllMenuClick(View view, Integer id, Content content)

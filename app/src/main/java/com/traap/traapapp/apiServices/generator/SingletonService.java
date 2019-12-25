@@ -22,6 +22,7 @@ import com.traap.traapapp.apiServices.part.GetBillInfoService;
 import com.traap.traapapp.apiServices.part.GetCardListService;
 import com.traap.traapapp.apiServices.part.GetContactInfoService;
 import com.traap.traapapp.apiServices.part.GetHappyCardInfoService;
+import com.traap.traapapp.apiServices.part.GetMainPhotosService;
 import com.traap.traapapp.apiServices.part.GetMainVideosService;
 import com.traap.traapapp.apiServices.part.GetMenuHelpService;
 import com.traap.traapapp.apiServices.part.GetMenuService;
@@ -42,6 +43,7 @@ import com.traap.traapapp.apiServices.part.MerchantService;
 import com.traap.traapapp.apiServices.part.MobileChargeService;
 import com.traap.traapapp.apiServices.part.NewsService;
 import com.traap.traapapp.apiServices.part.PackageBuyService;
+import com.traap.traapapp.apiServices.part.PhotoArchiveService;
 import com.traap.traapapp.apiServices.part.ReservationMatchService;
 import com.traap.traapapp.apiServices.part.SendPredictService;
 import com.traap.traapapp.apiServices.part.SendProfileService;
@@ -145,9 +147,19 @@ public class SingletonService
         return new GetMainVideosService(serviceGenerator);
     }
 
+    public GetMainPhotosService getMainPhotosService()
+    {
+        return new GetMainPhotosService(serviceGenerator);
+    }
+
     public ArchiveVideoService getArchiveVideoService()
     {
         return new ArchiveVideoService(serviceGenerator);
+    }
+
+    public PhotoArchiveService getPhotoArchiveService()
+    {
+        return new PhotoArchiveService(serviceGenerator);
     }
 
 

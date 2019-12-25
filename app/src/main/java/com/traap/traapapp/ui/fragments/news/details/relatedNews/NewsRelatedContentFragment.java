@@ -20,8 +20,8 @@ import java.util.List;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.RelatedNews;
+import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
 import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsFromRelatedNews;
-import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
 import com.traap.traapapp.ui.activities.news.NewsDetailsAction;
 import com.traap.traapapp.ui.adapters.news.NewsDetailsRelatedAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -34,7 +34,7 @@ public class NewsRelatedContentFragment extends BaseFragment
     private Context context;
 
     private List<RelatedNews> relatedNewList = new ArrayList<>();
-    private List<NewsDetailsPositionIdsModel> positionIdsList;
+    private List<MediaDetailsPositionIdsModel> positionIdsList;
 
     private NewsDetailsRelatedAdapter adapter;
 
@@ -92,7 +92,7 @@ public class NewsRelatedContentFragment extends BaseFragment
 //        for (RelatedNews news : relatedNewList)
         for (int i = 0 ; i < relatedNewList.size(); i++)
         {
-            NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+            MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
             model.setId(relatedNewList.get(i).getId());
             model.setPosition(i);
 

@@ -1,4 +1,4 @@
-package com.traap.traapapp.apiServices.model.news.archive.response;
+package com.traap.traapapp.apiServices.model.media.archive.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class NewsArchiveListById
+public class MediaArchiveListById
 {
     @Expose @Getter @Setter
     @SerializedName("dislikes")

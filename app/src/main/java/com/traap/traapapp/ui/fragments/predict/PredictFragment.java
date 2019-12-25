@@ -381,7 +381,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 {
                     edtHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
                     edtAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
-                } else
+                }
+                else
                 {
                     tvHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
                     tvAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
@@ -391,6 +392,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     edtHomePredict.setVisibility(View.GONE);
                     edtAwayPredict.setVisibility(View.GONE);
                     btnSendPredict.setVisibility(View.GONE);
+                    tvHomePredict.setVisibility(View.VISIBLE);
+                    tvAwayPredict.setVisibility(View.VISIBLE);
                 }
             }
 

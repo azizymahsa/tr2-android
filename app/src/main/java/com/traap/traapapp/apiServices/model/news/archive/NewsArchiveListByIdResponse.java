@@ -1,30 +1,28 @@
-package com.traap.traapapp.apiServices.model.news.category.response;
+package com.traap.traapapp.apiServices.model.news.archive;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import javax.annotation.Nullable;
-
+import com.traap.traapapp.apiServices.model.news.main.News;
 import lombok.Getter;
 import lombok.Setter;
 
-public class NewsArchiveCategoryResponse
+public class NewsArchiveListByIdResponse
 {
+
     @Expose @Getter @Setter
     @SerializedName("results")
-    private ArrayList<NewsArchiveCategory> newsArchiveCategoryList;
+    private ArrayList<News> newsArchiveListById;
 
     @Expose @Getter @Setter
-    @Nullable
     @SerializedName("previous")
-    private Object previous = null;
+    private String previous;
 
     @Expose @Getter @Setter
-    @Nullable
     @SerializedName("next")
-    private Object next = null;
+    private String next;
 
     @Expose @Getter @Setter
     @SerializedName("count")
