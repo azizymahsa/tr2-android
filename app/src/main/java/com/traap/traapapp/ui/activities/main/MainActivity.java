@@ -94,7 +94,7 @@ import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.ui.fragments.support.SupportFragment;
-import com.traap.traapapp.ui.fragments.ticket.BuyTicketsActivity;
+import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;

@@ -33,7 +33,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
 {
 
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    private View imgBack, imgMenu, rlShirt;
+    private View imgBack, imgMenu, rlShirt,imgHome;
     private ArrayList<ListCategory> categoryTitleList;
     private RecyclerView rvCategoryTitles, rvArchiveVideo;
     private VideosCategoryTitleAdapter videoCategoryTitleAdapter;
@@ -211,6 +211,11 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
 
             imgMenu = findViewById(R.id.imgMenu);
             imgMenu.setVisibility(View.GONE);
+
+            imgHome=findViewById(R.id.imgHome);
+            imgHome.setOnClickListener(v -> {
+                finish();
+            });
 
             tvPopularPlayer = findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));

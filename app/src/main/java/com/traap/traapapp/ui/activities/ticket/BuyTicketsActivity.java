@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.fragments.ticket;
+package com.traap.traapapp.ui.activities.ticket;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -30,6 +30,8 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.ticket.PagerAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
+import com.traap.traapapp.ui.fragments.ticket.OnClickContinueBuyTicket;
+import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.utilities.CustomViewPager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,7 +48,7 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
     private LinearLayout llPrintTicket, llFullInfo, llSelectPosition;
     private TextView btnBackToDetail, tvCountTicket, tvSelectPosition, tvFullInfo, tvPrintTicket;
     private CircularProgressButton btnPaymentConfirm;
-    private ImageView ivCountTicket, ivSelectPosition, ivFullInfo, ivPrintTicket;
+    private ImageView ivCountTicket, ivSelectPosition, ivFullInfo, ivPrintTicket,imgHome;
     private View vOneToTow, vZeroToOne, vTowToThree;
     private TextView tvTitle, tvUserName, tvHeaderPopularNo;
     public String namePosition, selectPositionId;
@@ -74,14 +76,20 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
         showLoading();
         if (savedInstanceState == null)
         {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null)
+            try
             {
+                Bundle extras = getIntent().getExtras();
+                if (extras == null)
+                {
 
-            } else
-            {
-                matchBuyable = extras.getParcelable("MatchBuyable");
+                } else
+                {
+                    matchBuyable = extras.getParcelable("MatchBuyable");
+                }
+            }catch (Exception e){
+
             }
+
         }
 
 
@@ -162,7 +170,10 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
         try
         {
             rlShirt = findViewById(R.id.rlShirt);
-
+            imgHome=findViewById(R.id.imgHome);
+            imgHome.setOnClickListener(v -> {
+                finish();
+            });
             tvTitle = findViewById(R.id.tvTitle);
             tvUserName = findViewById(R.id.tvUserName);
 

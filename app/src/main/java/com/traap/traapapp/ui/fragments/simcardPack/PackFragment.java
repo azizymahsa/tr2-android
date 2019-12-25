@@ -1373,6 +1373,9 @@ public class PackFragment
             if (packRespone.data.getPackages().getWeekly() != null && packRespone.data.getPackages().getWeekly().size() != 0)
                 irancellPack.add(new RightelPackModel("هفتگی", packRespone.data.getPackages().getWeekly()));
 
+            if (packRespone.data.getPackages().getFifteenDays() != null && packRespone.data.getPackages().getFifteenDays().size() != 0)
+                irancellPack.add(new RightelPackModel("پانزده روزه", packRespone.data.getPackages().getFifteenDays()));
+
             if (packRespone.data.getPackages().getMonthly() != null && packRespone.data.getPackages().getMonthly().size() != 0)
                 irancellPack.add(new RightelPackModel("ماهیانه", packRespone.data.getPackages().getMonthly()));
 
@@ -1792,6 +1795,9 @@ public class PackFragment
 
             if (packRespone.data.getIrancellPackage().getMonthly() != null && packRespone.data.getIrancellPackage().getMonthly().size() != 0)
                 irancellPack.add(new RightelPackModel("ماهیانه", packRespone.data.getIrancellPackage().getMonthly()));
+
+            if (packRespone.data.getIrancellPackage().getTwoMonths() != null && packRespone.data.getIrancellPackage().getTwoMonths().size() != 0)
+                irancellPack.add(new RightelPackModel("دو ماهه", packRespone.data.getIrancellPackage().getTwoMonths()));
 
             if (packRespone.data.getIrancellPackage().getThreeMonths() != null && packRespone.data.getIrancellPackage().getThreeMonths().size() != 0)
                 irancellPack.add(new RightelPackModel("سه ماهه", packRespone.data.getIrancellPackage().getThreeMonths()));
