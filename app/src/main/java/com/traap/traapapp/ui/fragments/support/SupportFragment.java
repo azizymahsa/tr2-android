@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.pixplicity.easyprefs.library.Prefs;
@@ -47,14 +48,17 @@ public class SupportFragment
     private Toolbar mToolbar;
     private LinearLayout tvPhone, tvSms, tvEmail;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    private View imgBack, imgMenu,rlShirt;
+    private View imgBack, imgMenu, rlShirt;
     private MainActionView mainView;
     private String KEY_PHONE = "phone";
     private String KEY_SMS = "sms";
     private String KEY_EMAIL = "email";
-    private TextView txPhone,txSms,txEmail;
+    private TextView txPhone, txSms, txEmail;
     private String keyContact;
-    private String phone,sms,email;
+
+    @Nullable
+    private String phone;
+    private String sms, email;
     private ResultContactInfo item;
 
 
@@ -101,9 +105,9 @@ public class SupportFragment
             tvSms = view.findViewById(R.id.tvSms);
             tvEmail = view.findViewById(R.id.tvEmail);
 
-            txPhone=view.findViewById(R.id.txPhone);
-            txEmail=view.findViewById(R.id.txEmail);
-            txSms=view.findViewById(R.id.txSms);
+            txPhone = view.findViewById(R.id.txPhone);
+            txEmail = view.findViewById(R.id.txEmail);
+            txSms = view.findViewById(R.id.txSms);
 
 
             tvPhone.setOnClickListener(this);
@@ -186,7 +190,7 @@ public class SupportFragment
             public void onError(String message)
             {
                 hideLoading();
-            //    Tools.showToast(getActivity(), message, R.color.red);
+                //    Tools.showToast(getActivity(), message, R.color.red);
                 if (Tools.isNetworkAvailable(getActivity()))
                 {
                     Logger.e("-OnError-", "Error: " + message);
@@ -203,23 +207,25 @@ public class SupportFragment
     {
         for (int i = 0; i < resultContactInfos.size(); i++)
         {
-            item=resultContactInfos.get(i);
-            keyContact=resultContactInfos.get(i).getKey();
+            item = resultContactInfos.get(i);
+            keyContact = resultContactInfos.get(i).getKey();
 
             if (keyContact.equals(KEY_PHONE))
             {
                 txPhone.setText(item.getTitle());
-                phone=item.getValue();
+                phone = item.getValue();
 
-            }else if(keyContact.equals(KEY_SMS)){
+            } else if (keyContact.equals(KEY_SMS))
+            {
 
                 txSms.setText(item.getTitle());
-                sms=item.getValue();
+                sms = item.getValue();
 
-            }else if (keyContact.equals(KEY_EMAIL)){
+            } else if (keyContact.equals(KEY_EMAIL))
+            {
 
                 txEmail.setText(item.getTitle());
-                email=item.getValue();
+                email = item.getValue();
 
             }
         }
@@ -273,7 +279,20 @@ public class SupportFragment
 
             case R.id.tvPhone:
 
-                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+//                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+                Intent intent2;
+                try
+                {
+                    if (phone == null)
+                    {
+                        phone = "021-4855";
+                    }
+                }
+                catch (NullPointerException e)
+                {
+                    phone = "021-4855";
+                }
+                intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
                 startActivity(intent2);
 
                 break;
@@ -281,7 +300,7 @@ public class SupportFragment
 
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:"+email));
+                emailIntent.setData(Uri.parse("mailto:" + email));
                 //                emailIntent.setData(Uri.parse("mailto:info@traap.com"));
                 startActivity(emailIntent);
 
