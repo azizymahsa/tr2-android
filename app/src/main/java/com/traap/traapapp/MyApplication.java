@@ -3,20 +3,21 @@ package com.traap.traapapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.os.Build;
 //import android.support.multidex.MultiDex;
 
 //import androidx.multidex.MultiDex;
+import com.traap.traapapp.notification.SilentPushReceiver;
+import com.uxcam.UXCam;
 
 import androidx.multidex.MultiDex;
-
-import com.adpdigital.push.AdpPushClient;
 
 import com.androidnetworking.AndroidNetworking;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.jacksonandroidnetworking.JacksonParserFactory;
-import com.orm.SugarContext;
+//import com.orm.SugarContext;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 
@@ -31,6 +32,9 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.splash.SplashActivity;
 import com.traap.traapapp.utilities.font.CustomViewWithTypefaceSupport;
 import com.traap.traapapp.utilities.font.TextField;
+import com.yandex.metrica.YandexMetrica;
+import com.yandex.metrica.YandexMetricaConfig;
+import com.yandex.metrica.push.YandexMetricaPush;
 //import library.android.eniac.utility.font.CustomViewWithTypefaceSupport;
 //import library.android.eniac.utility.font.TextField;
 //import library.android.service.di.component.DaggerNetGdsComponent;
@@ -44,7 +48,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class MyApplication extends ServiceApplication
 {
 
-    private AdpPushClient chabok = null;
+//    private AdpPushClient chabok = null;
 
     @Override
     protected void attachBaseContext(Context base)
@@ -62,6 +66,7 @@ public class MyApplication extends ServiceApplication
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/iran_sans_normal.ttf").build());
         Realm.init(this);
 
+        UXCam.startWithKey("h6hki2cq0lq974n");
 
         FirebaseAnalytics.getInstance(this);
         FirebaseCrash.setCrashCollectionEnabled(!BuildConfig.DEBUG);
@@ -79,8 +84,19 @@ public class MyApplication extends ServiceApplication
 //                .build();
 //        SingletonGdsService.getInstance().setNetGdsComponent(mNetGdsComponent).inject();
 
+        //-----------------------Yandex-------------------------
+        // Creating an extended library configuration.
+        YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder("2c55ed84-1f92-47cd-b5fd-b837dc89b30f").build();
+        // Initializing the AppMetrica SDK.
+//        YandexMetrica.activate(getApplicationContext(), config);
+        // Automatic tracking of user activity.
+//        YandexMetrica.enableActivityAutoTracking(this);
+//        YandexMetricaPush.init(getApplicationContext());
 
-        SugarContext.init(this);
+//        YandexMetrica.registerReferrerBroadcastReceivers(new SilentPushReceiver());
+        //-----------------------Yandex-------------------------
+
+//        SugarContext.init(this);
 
         // Adding an Network Interceptor for Debugging purpose :
         OkHttpClient.Builder client = new OkHttpClient.Builder();
@@ -118,42 +134,42 @@ public class MyApplication extends ServiceApplication
 
     private synchronized void initPushClient()
     {
-        if (chabok == null)
-        {
-            chabok = AdpPushClient.init(
-                    getApplicationContext(),
-                    SplashActivity.class,
-                    "ogomegad/274025764855",
-                    "9163b7512b64c6cac9a226c150bf68bb558bb007",
-                    "wujeduwejig",
-                    "wirvuilwem"
-            );
-
-
-//            chabok.setDevelopment(true);
-            chabok.get().setDevelopment(true);
-
-//             chabok.register(Prefs.getString("uuid",""));
-        }
+//        if (chabok == null)
+//        {
+//            chabok = AdpPushClient.init(
+//                    getApplicationContext(),
+//                    SplashActivity.class,
+//                    "ogomegad/274025764855",
+//                    "9163b7512b64c6cac9a226c150bf68bb558bb007",
+//                    "wujeduwejig",
+//                    "wirvuilwem"
+//            );
+//
+//
+////            chabok.setDevelopment(true);
+//            chabok.get().setDevelopment(true);
+//
+////             chabok.register(Prefs.getString("uuid",""));
+//        }
     }
 
-    public synchronized AdpPushClient getPushClient() throws IllegalStateException
-    {
-        if (chabok == null)
-        {
-            throw new IllegalStateException("Adp Push Client not initialized");
-        }
-        return chabok;
-    }
+//    public synchronized AdpPushClient getPushClient() throws IllegalStateException
+//    {
+//        if (chabok == null)
+//        {
+//            throw new IllegalStateException("Adp Push Client not initialized");
+//        }
+//        return chabok;
+//    }
 
 
     @Override
     public void onTerminate()
     {
-        if (chabok != null)
-        {
-            chabok.dismiss();
-        }
+//        if (chabok != null)
+//        {
+//            chabok.dismiss();
+//        }
         super.onTerminate();
     }
 

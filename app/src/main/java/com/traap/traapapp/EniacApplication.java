@@ -6,7 +6,7 @@ import android.content.ContextWrapper;
 
 import androidx.multidex.MultiDex;
 
-import com.orm.SugarContext;
+//import com.orm.SugarContext;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.utilities.font.CustomViewWithTypefaceSupport;
@@ -37,7 +37,7 @@ public class EniacApplication extends Application
                 .build();
 
         SingletonService.getInstance().setNetComponent(mNetComponent).inject();*/
-        SugarContext.init(this);
+//        SugarContext.init(this);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/iran_sans_normal.ttf")

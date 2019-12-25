@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 24
-        versionName "1.7.9"
+        versionCode 25
+        versionName "1.7.10"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -138,9 +138,9 @@ android {
         //----------------------bottom-navigation end-----------------
 
         //----------------------Chabok start---------------
-        implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
-        implementation 'com.adpdigital.push:chabok-lib:2.18.2'
-        implementation 'com.android.installreferrer:installreferrer:1.0'
+//        implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
+//        implementation 'com.adpdigital.push:chabok-lib:2.18.2'
+//        implementation 'com.android.installreferrer:installreferrer:1.0'
         //----------------------Chabok end-----------------
 
         //----------------------my Libraries start---------------
@@ -151,6 +151,7 @@ android {
         implementation project(':pinentryedittext')
         implementation project(':type')
 //    implementation project(path: ':type')
+        implementation (name: 'uxcam-3.1.12', ext: 'aar')
         //----------------------my Libraries end-----------------
 
         //-----------------------google start--------------------
@@ -161,6 +162,7 @@ android {
         implementation "com.google.android.gms:play-services-gcm:17.0.0"
         implementation 'com.google.android.gms:play-services-location:17.0.0'
         implementation 'com.google.android.gms:play-services-vision:18.0.0'
+        implementation "com.google.android.gms:play-services-base:16.1.0" //for yandex
         //-----------------------google end----------------------
 
         //-------------------accubin start-----------------------
@@ -193,6 +195,7 @@ android {
         implementation 'com.google.firebase:firebase-firestore:21.2.1'
         implementation 'com.google.firebase:firebase-crash:16.2.1'
         implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+        implementation "com.google.firebase:firebase-messaging:19.0.1" // for yandex
         //------------------------FireBase end------------------------
 
         //------------------------dagger start----------------------
@@ -291,7 +294,7 @@ android {
         //---------------Others end------------------------------
 
 //        implementation 'com.github.johnpersano:supertoasts:2.0' //supertoasts
-        implementation 'com.github.satyan:sugar:1.5' //for Flght sdk
+//        implementation 'com.github.satyan:sugar:1.5' //for Flght sdk
 //        implementation 'com.github.GwonHyeok:StickySwitch:0.0.15'
 
 
@@ -327,6 +330,21 @@ android {
         //------------------------RxBinding start-------------------------
         implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
         //------------------------RxBinding end---------------------------
+
+        //--------------------------uxcam start---------------------------
+//        implementation 'com.uxcam:uxcam:3.1.12@aar'
+        //--------------------------uxcam end-----------------------------
+
+        //--------------------------yandex start---------------------------
+        // AppMetrica SDK.
+        implementation 'com.yandex.android:mobmetricalib:3.8.0'
+        // Optionally. Play Install Referrer library.
+        implementation 'com.android.installreferrer:installreferrer:1.0'
+//        implementation "com.yandex.android:mobmetricapushlib:1.5.1"   // With Caching
+        implementation ('com.yandex.android:mobmetricapushlib:1.5.1') { // Without Caching
+            exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+        }
+        //--------------------------yandex end-----------------------------
 
         //------------------------DateTimePicker start----------------------
 //        implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
