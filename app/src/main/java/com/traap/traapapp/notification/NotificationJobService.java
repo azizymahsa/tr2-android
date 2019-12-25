@@ -7,8 +7,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.adpdigital.push.AdpPushClient;
-import com.adpdigital.push.PushMessage;
+//import com.adpdigital.push.AdpPushClient;
+//import com.adpdigital.push.PushMessage;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import com.traap.traapapp.utilities.Logger;
@@ -30,18 +30,18 @@ public class NotificationJobService extends JobService
 
         if (!Prefs.getString("mobile", "").isEmpty() || !Prefs.getString("mobile", "").equals(null))
         {
-            AdpPushClient client = AdpPushClient.get().register(Prefs.getString("mobile", ""));
-            client.addListener(this);
+//            AdpPushClient client = AdpPushClient.get().register(Prefs.getString("mobile", ""));
+//            client.addListener(this);
         }
     }
 
-    public void onEvent(PushMessage message)
-    {
-        Logger.d("123", "Got push message " + message);
-        Prefs.putInt("notiCount", Prefs.getInt("notiCount", 0) + 1);
-//        EventBus.getDefault().post(new NotificationDbModel());
-
-    }
+//    public void onEvent(PushMessage message)
+//    {
+//        Logger.d("123", "Got push message " + message);
+//        Prefs.putInt("notiCount", Prefs.getInt("notiCount", 0) + 1);
+////        EventBus.getDefault().post(new NotificationDbModel());
+//
+//    }
 
     @Override
     public boolean onStartJob(JobParameters jobParameters)

@@ -65,9 +65,9 @@
 <!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
-    <meta-data
-        android:name="com.adpdigital.push.client.SHOW_ONLY_CHABOK_NOTIFICATIONS"
-        android:value="ENABLE" />
+<!--    <meta-data-->
+<!--        android:name="com.adpdigital.push.client.SHOW_ONLY_CHABOK_NOTIFICATIONS"-->
+<!--        android:value="ENABLE" />-->
 
     <!--<uses-feature
         android:name="android.hardware.camera"
@@ -211,18 +211,27 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".notification.NotificationJobService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service android:name="com.uxcam.service.HttpPostService"/>
 
-        <receiver android:name=".notification.PushMessageReceiver">
-            <intent-filter>
-                <category android:name="com.traap.traapapp" />
+<!--        <service-->
+<!--            android:name=".notification.NotificationJobService"-->
+<!--            android:exported="true"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
 
-                <action android:name="com.adpdigital.push.client.MSGRECEIVE" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver android:name=".notification.PushMessageReceiver">-->
+<!--            <intent-filter>-->
+<!--                <category android:name="com.traap.traapapp" />-->
+
+<!--                <action android:name="com.adpdigital.push.client.MSGRECEIVE" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+
+<!--        <receiver android:name=".notification.SilentPushReceiver">-->
+<!--            <intent-filter>-->
+<!--                &lt;!&ndash; Receive silent push notifications. &ndash;&gt;-->
+<!--                <action android:name="com.traap.traapapp.action.ymp.SILENT_PUSH_RECEIVE"/>-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
         <provider
             android:name="androidx.core.content.FileProvider"

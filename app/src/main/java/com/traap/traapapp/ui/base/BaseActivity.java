@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.Tools;
+import com.yandex.metrica.YandexMetrica;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends AppCompatActivity
@@ -28,6 +31,35 @@ public class BaseActivity extends AppCompatActivity
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        // It's required to call.
+        //
+        // This helps library to track correctly the next things:
+        //  - active users
+        //  - sessions duration
+        //  - app usage frequency
+//        YandexMetrica.resumeSession(this);
+
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+
+        // It's required to call.
+        //
+        // This helps library to track correctly the next things:
+        //  - active users
+        //  - sessions duration
+        //  - app usage frequency
+//        YandexMetrica.pauseSession(this);
+    }
 
     public void showToast(Context context, String message, int color)
     {

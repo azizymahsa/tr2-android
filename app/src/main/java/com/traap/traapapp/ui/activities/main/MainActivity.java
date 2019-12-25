@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.adpdigital.push.AdpPushClient;
+//import com.adpdigital.push.AdpPushClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -102,6 +102,7 @@ import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
 import com.traap.traapapp.ui.fragments.webView.WebFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+import com.yandex.metrica.push.YandexMetricaPush;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
@@ -159,16 +160,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         mSavedInstanceState = savedInstanceState;
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
-        {
-            AdpPushClient.get().register(Prefs.getString("mobile", ""));
-            Intent myIntent = new Intent(this, PushMessageReceiver.class);
-            PendingIntent.getBroadcast(this, 0, myIntent, 0);
-        } else
-        {
-            startService(new Intent(this, NotificationJobService.class));
-        }
-////////////////////////////
+//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
+////        {
+////            AdpPushClient.get().register(Prefs.getString("mobile", ""));
+////            Intent myIntent = new Intent(this, PushMessageReceiver.class);
+////            PendingIntent.getBroadcast(this, 0, myIntent, 0);
+////        }
+////        else
+////        {
+////            startService(new Intent(this, NotificationJobService.class));
+////        }
 
         getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -398,6 +399,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                    .commit();
 //        }
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        // Handle your payload.
+        String payload = intent.getStringExtra(YandexMetricaPush.EXTRA_PAYLOAD);
     }
 
     @Override

@@ -6,8 +6,8 @@ import android.os.Bundle;
 
 import androidx.legacy.content.WakefulBroadcastReceiver;
 
-import com.adpdigital.push.AdpPushClient;
-import com.adpdigital.push.PushMessage;
+//import com.adpdigital.push.AdpPushClient;
+//import com.adpdigital.push.PushMessage;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import com.traap.traapapp.utilities.Logger;
@@ -19,23 +19,25 @@ public class PushMessageReceiver extends WakefulBroadcastReceiver
 {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, Intent intent)
+    {
         Bundle messageData = intent.getExtras();
-        String channel = messageData.getString(AdpPushClient.PUSH_MSG_RECEIVED_TOPIC);
-        String body = messageData.getString(AdpPushClient.PUSH_MSG_RECEIVED_MSG);
-        PushMessage push = PushMessage.fromJson(body, channel);
-        handleNewMessage(push);
+//        String channel = messageData.getString(AdpPushClient.PUSH_MSG_RECEIVED_TOPIC);
+//        String body = messageData.getString(AdpPushClient.PUSH_MSG_RECEIVED_MSG);
+//        PushMessage push = PushMessage.fromJson(body, channel);
+//        handleNewMessage(push);
         completeWakefulIntent(intent);
-        Logger.e("mmmmm", "Got push message " );
+        Logger.e("mmmmm", "Got push message ");
 
     }
 
 
-    private void handleNewMessage(PushMessage message) {
-        Prefs.putInt("notiCount", Prefs.getInt("notiCount",0)+1);
-//        EventBus.getDefault().post(new NotificationDbModel());
-
-
-    }
+//    private void handleNewMessage(PushMessage message)
+//    {
+//        Prefs.putInt("notiCount", Prefs.getInt("notiCount",0)+1);
+////        EventBus.getDefault().post(new NotificationDbModel());
+//
+//
+//    }
 
 }

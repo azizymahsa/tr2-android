@@ -153,3 +153,6 @@
 -dontwarn android.support.test.drawable..**
 -dontwarn android.content.drawable..**
 -dontwarn ir.eniac.tech.bimeh..**
+
+-keep class com.uxcam.** { *; }
+-dontwarn com.uxcam.**

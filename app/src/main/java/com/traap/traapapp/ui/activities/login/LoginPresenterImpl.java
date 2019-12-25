@@ -12,7 +12,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 
-import com.adpdigital.push.AdpPushClient;
+//import com.adpdigital.push.AdpPushClient;
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -192,16 +192,16 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
                         Prefs.putString("alopark_token",  response.data.getAlopark_token());
 
-                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
-                        {
-                            AdpPushClient.get().register(Prefs.getString("mobile", ""));
-                            Intent myIntent = new Intent(appContext, PushMessageReceiver.class);
-                            PendingIntent.getBroadcast(appContext, 0, myIntent, 0);
-                        }
-                        else
-                        {
-                            appContext.startService(new Intent(appContext, NotificationJobService.class));
-                        }
+//                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
+//                        {
+//                            AdpPushClient.get().register(Prefs.getString("mobile", ""));
+//                            Intent myIntent = new Intent(appContext, PushMessageReceiver.class);
+//                            PendingIntent.getBroadcast(appContext, 0, myIntent, 0);
+//                        }
+//                        else
+//                        {
+//                            appContext.startService(new Intent(appContext, NotificationJobService.class));
+//                        }
                     }
                     else
                     {
