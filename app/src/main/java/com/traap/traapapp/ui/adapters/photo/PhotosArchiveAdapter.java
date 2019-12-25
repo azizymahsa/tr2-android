@@ -27,9 +27,9 @@ public class PhotosArchiveAdapter extends RecyclerView.Adapter<PhotosArchiveAdap
     private  Boolean FLAG_Favorite=false;
     private Context context;
     private ArrayList<Category> recent;
-    private ArchiveVideoListener listener;
+    private ArchivePhotosListener listener;
 
-    public PhotosArchiveAdapter(ArrayList<Category> recent,Boolean FLAG_Favorite, ArchiveVideoListener listener)
+    public PhotosArchiveAdapter(ArrayList<Category> recent,Boolean FLAG_Favorite, ArchivePhotosListener listener)
     {
         this.recent = recent;
         this.listener = listener;
@@ -111,7 +111,7 @@ public class PhotosArchiveAdapter extends RecyclerView.Adapter<PhotosArchiveAdap
         }
     }
 
-    public interface ArchiveVideoListener
+    public interface ArchivePhotosListener
     {
         void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent);
     }

@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.adapters.news;
+package com.traap.traapapp.ui.adapters.filterArchive;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,13 +17,13 @@ import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFilterAdapter.ViewHolder>
+public class FilterArchiveAdapter extends RecyclerView.Adapter<FilterArchiveAdapter.ViewHolder>
 {
     private OnItemCheckedChangeListener mItemClickListener;
     private Context mContext;
     private List<FilterItem> list;
 
-    public NewsArchiveFilterAdapter(Context mContext, List<FilterItem> list)
+    public FilterArchiveAdapter(Context mContext, List<FilterItem> list)
     {
         this.mContext = mContext;
         this.list = new ArrayList<>(list.size());
@@ -35,7 +35,7 @@ public class NewsArchiveFilterAdapter extends RecyclerView.Adapter<NewsArchiveFi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.adapter_news_archive_filter, null);
+                R.layout.adapter_media_archive_filter, null);
 
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 

@@ -21,10 +21,10 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.news.archive.response.NewsArchiveListByIdResponse;
+import com.traap.traapapp.apiServices.model.news.archive.NewsArchiveListByIdResponse;
 import com.traap.traapapp.apiServices.model.news.main.News;
-import com.traap.traapapp.enums.NewsArchiveCategoryCall;
-import com.traap.traapapp.models.otherModels.newsModel.NewsDetailsPositionIdsModel;
+import com.traap.traapapp.enums.MediaArchiveCategoryCall;
+import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
 import com.traap.traapapp.ui.activities.news.details.NewsDetailsActivity;
 import com.traap.traapapp.ui.adapters.news.NewsArchiveAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -34,7 +34,7 @@ import com.traap.traapapp.utilities.Tools;
 public class NewsArchiveCategoryFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<NewsArchiveListByIdResponse>>
 {
     private View rootView;
-//    private NewsArchiveCategory archiveCategory;
+//    private MediaArchiveCategory archiveCategory;
     private String Ids, dateFilter;
 //    private boolean pagerWithFilter = false;
 //    private boolean getFromFav = false;
@@ -45,7 +45,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
     private TextView tvEmpty;
-    private NewsArchiveCategoryCall callFrom;
+    private MediaArchiveCategoryCall callFrom;
 
 
     private ArrayList<News> newsContentList = new ArrayList<>();
@@ -55,7 +55,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
     }
 
     public static NewsArchiveCategoryFragment newInstance(String IDs,
-                                                          NewsArchiveCategoryCall callFrom,
+                                                          MediaArchiveCategoryCall callFrom,
                                                           @Nullable String dateFilter,
                                                           @Nullable List<News> newsContentList)
     {
@@ -66,7 +66,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         arg.putString("Ids", IDs);
         arg.putString("dateFilter", dateFilter);
         arg.putBoolean("pagerWithFilter", false);
-        if (callFrom == NewsArchiveCategoryCall.FROM_SINGLE_CONTENT)
+        if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             arg.putParcelableArrayList("newsContentList", (ArrayList<? extends Parcelable>) newsContentList);
         }
@@ -77,7 +77,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         return fragment;
     }
 
-    private void setCallFrom(NewsArchiveCategoryCall callFrom)
+    private void setCallFrom(MediaArchiveCategoryCall callFrom)
     {
         this.callFrom = callFrom;
     }
@@ -125,25 +125,25 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 //            //Go To Details
 //        });
 
-        if (callFrom == NewsArchiveCategoryCall.FROM_ID)
+        if (callFrom == MediaArchiveCategoryCall.FROM_ID)
         {
             Logger.e("-Ids 2-", Ids);
             SingletonService.getInstance().getNewsService().getNewsArchiveCategoryBySingleId(true, Ids, this);
         }
-        if (callFrom == NewsArchiveCategoryCall.FROM_FILTER_IsS )
+        if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IsS )
         {
             Logger.e("-Ids 2-", Ids);
             SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, this);
         }
-        else if (callFrom == NewsArchiveCategoryCall.FROM_FAVORITE)
+        else if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
         {
             SingletonService.getInstance().getNewsService().getNewsBookmarks(this);
         }
-        else if (callFrom == NewsArchiveCategoryCall.FROM_FILTER_IDs_DATE)
+        else if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE)
         {
             SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, dateFilter, this);
         }
-        else if (callFrom == NewsArchiveCategoryCall.FROM_SINGLE_CONTENT)
+        else if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             progressBar.setVisibility(View.GONE);
             Logger.e("--newsContentList size--", "Size: " + newsContentList.size());
@@ -155,10 +155,10 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 
             adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
             {
-                List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+                List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
                 for (int i = 0 ; i < newsContentList.size(); i++)
                 {
-                    NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+                    MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
                     model.setId(newsContentList.get(i).getId());
                     model.setPosition(i);
 
@@ -205,10 +205,10 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 
             adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
             {
-                List<NewsDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+                List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
                 for (int i = 0 ; i < newsContentList.size(); i++)
                 {
-                    NewsDetailsPositionIdsModel model = new NewsDetailsPositionIdsModel();
+                    MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
                     model.setId(newsContentList.get(i).getId());
                     model.setPosition(i);
 

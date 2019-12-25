@@ -21,36 +21,34 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
  */
 public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCategoryTitleAdapter.ViewHolder>
 {
-    private  boolean flag=true;
-    private  MainActionView mainView;
+    private boolean flag = true;
+    private MainActionView mainView;
     private Context context;
     private List<ListCategory> categories;
     private TitleCategoryListener listener;
-    private boolean isClicked=false;
-    private int selectedPosition=0;
+    private boolean isClicked = false;
+    private int selectedPosition = 0;
 
-    public PhotosCategoryTitleAdapter(List<ListCategory> categories, MainActionView mainView,TitleCategoryListener listener)
+    public PhotosCategoryTitleAdapter(List<ListCategory> categories, MainActionView mainView, TitleCategoryListener listener)
     {
-        this.listener=listener;
-        this.categories=categories;
-        this.mainView=mainView;
-    }
-    public PhotosCategoryTitleAdapter(List<ListCategory> categories,TitleCategoryListener listener)
-    {
-        this.listener=listener;
-        this.categories=categories;
+        this.listener = listener;
+        this.categories = categories;
+        this.mainView = mainView;
     }
 
+    public PhotosCategoryTitleAdapter(List<ListCategory> categories, TitleCategoryListener listener)
+    {
+        this.listener = listener;
+        this.categories = categories;
+    }
 
 
     public PhotosCategoryTitleAdapter(ArrayList<ListCategory> categories, PhotoArchiveActivity mainView, boolean flag)
     {
-      //  this.listener=listener;
-        this.categories=categories;
-        this.flag=flag;
+        //  this.listener=listener;
+        this.categories = categories;
+        this.flag = flag;
     }
-
-
 
 
     @Override
@@ -69,21 +67,23 @@ public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCateg
         holder.tvTitle.setText(category.getTitle());
         //    holder.tvTitle.setTextColor(context.getResources().getColor(R.color.black));
 
-        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+        holder.tvTitle.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-                selectedPosition=position;
+            public void onClick(View view)
+            {
+                selectedPosition = position;
                 notifyDataSetChanged();
                 //if(flag)
                 listener.onItemTitleCategoryClick(category);
             }
         });
-        if(selectedPosition==position){
+        if (selectedPosition == position)
+        {
             holder.tvTitle.setTextColor(context.getResources().getColor(R.color.borderColorRed));
             holder.tvTitle.setBackgroundResource(R.drawable.background_border_a);
 
-        }
-        else
+        } else
         {
             holder.tvTitle.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvTitle.setBackgroundResource(0);
@@ -106,11 +106,13 @@ public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCateg
         public ViewHolder(View v)
         {
             super(v);
-            tvTitle=v.findViewById(R.id.tvTitle);
+            tvTitle = v.findViewById(R.id.tvTitle);
 
         }
     }
-    public interface TitleCategoryListener {
+
+    public interface TitleCategoryListener
+    {
         void onItemTitleCategoryClick(ListCategory category);
     }
 }

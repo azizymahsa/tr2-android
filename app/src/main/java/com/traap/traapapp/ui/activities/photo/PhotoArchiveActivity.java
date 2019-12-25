@@ -21,11 +21,11 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoRequest;
-import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
+import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
@@ -36,7 +36,8 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
-public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveAdapter.ArchiveVideoListener, PhotosCategoryTitleAdapter.TitleCategoryListener, View.OnClickListener
+public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveAdapter.ArchivePhotosListener,
+        PhotosCategoryTitleAdapter.TitleCategoryListener, View.OnClickListener
 {
 
     private TextView tvTitle, tvUserName, tvPopularPlayer;
@@ -124,12 +125,11 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
     private void requestBookMarkPhotos()
     {
         showLoading();
-        ArchiveVideoRequest request = new ArchiveVideoRequest();
 
-        SingletonService.getInstance().getArchiveVideoService().getBookMarkPhoto(new OnServiceStatus<WebServiceClass<ArchiveVideoResponse>>()
+        SingletonService.getInstance().getPhotoArchiveService().getBookMarkPhoto(new OnServiceStatus<WebServiceClass<PhotoArchiveResponse>>()
         {
             @Override
-            public void onReady(WebServiceClass<ArchiveVideoResponse> response)
+            public void onReady(WebServiceClass<PhotoArchiveResponse> response)
             {
                 hideLoading();
                 try
@@ -167,7 +167,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
                 }
                 //  Tools.showToast(getApplication(), message, R.color.red);
             }
-        }, request);
+        });
     }
 
     private void requestArchivePhoto()
@@ -178,14 +178,15 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
         if (idCategoryTitle != 0)
         {
             categoryId = idCategoryTitle.toString();
-        } else if (categoryTitleList != null && categoryTitleList.size() > 0)
+        }
+        else if (categoryTitleList != null && categoryTitleList.size() > 0)
         {
             categoryId = categoryTitleList.get(0).getId().toString();
         }
-        SingletonService.getInstance().getArchiveVideoService().getArchivePhoto(new OnServiceStatus<WebServiceClass<ArchiveVideoResponse>>()
+        SingletonService.getInstance().getPhotoArchiveService().getArchivePhoto(categoryId, new OnServiceStatus<WebServiceClass<PhotoArchiveResponse>>()
         {
             @Override
-            public void onReady(WebServiceClass<ArchiveVideoResponse> response)
+            public void onReady(WebServiceClass<PhotoArchiveResponse> response)
             {
                 hideLoading();
                 try
@@ -223,7 +224,7 @@ public class PhotoArchiveActivity extends BaseActivity implements PhotosArchiveA
                     showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
                 }
             }
-        }, categoryId);
+        });
     }
 
     private void onGetArchivePhotoSuccess(ArrayList<Category> data)

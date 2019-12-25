@@ -1,5 +1,7 @@
 package com.traap.traapapp.models.otherModels.newsModel;
 
+import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
+
 import java.util.List;
 
 import lombok.Getter;
@@ -14,6 +16,6 @@ public class NewsDetailsFromRelatedNews
     private Integer currentPosition;
 
     @Getter @Setter
-    private List<NewsDetailsPositionIdsModel> positionIdsList;
+    private List<MediaDetailsPositionIdsModel> positionIdsList;
 
 }
