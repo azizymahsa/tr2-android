@@ -267,8 +267,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         {
 
             case R.id.rlLike:
-                // imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
-                //tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                ivBigLike.setVisibility(View.VISIBLE);
                 requestLikeVideo();
                 break;
             case R.id.ivRelated1:

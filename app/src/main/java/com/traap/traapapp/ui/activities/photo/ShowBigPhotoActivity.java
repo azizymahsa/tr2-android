@@ -156,6 +156,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             case R.id.rlLike:
                // imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                // tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                ivBigLike.setVisibility(View.VISIBLE);
                 requestLike();
                 break;
             case R.id.btnSharePic:

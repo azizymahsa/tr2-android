@@ -353,8 +353,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                 playVideo(urlVideo);
                 break;*/
             case R.id.rlLike:
-             //   imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
-               // tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                ivBigLike.setVisibility(View.VISIBLE);
                 requestLike();
                 break;
             case R.id.ivPhoto:
