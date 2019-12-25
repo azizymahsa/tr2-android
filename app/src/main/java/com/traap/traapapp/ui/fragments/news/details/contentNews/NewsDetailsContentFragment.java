@@ -7,8 +7,13 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +27,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import java.util.Objects;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -30,6 +36,8 @@ import com.traap.traapapp.apiServices.model.news.details.getContent.response.Get
 import com.traap.traapapp.apiServices.model.news.details.putBookmark.response.NewsBookmarkResponse;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
+import com.traap.traapapp.apiServices.model.news.main.ImageName;
+import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
 import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
 import com.traap.traapapp.ui.activities.news.NewsDetailsAction;
@@ -45,7 +53,7 @@ import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 
 @SuppressLint("newsDetailsContentFragment")
-public class NewsDetailsContentFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>>
+public class NewsDetailsContentFragment extends BaseFragment implements NewsDetailsImageAdapter.OnItemNewsClickListener,View.OnClickListener, OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>>
 {
     private View rootView;
     private Context context;
@@ -59,15 +67,24 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
     private NewsDetailsImageAdapter adapter;
     private GetNewsDetailsResponse content;
 
-    private RelativeLayout rlArrowLeft, rlArrowRight;
+    private RelativeLayout rlArrowLeft, rlArrowRight, rlImeges;
 
-    private LinearLayoutManager layoutManager;;
+    private LinearLayoutManager layoutManager;
+    ;
     private RecyclerView rcImageGallery;
     private ScrollingPagerIndicator indicator;
 
     private NewsDetailsAction actionView;
+    private RoundedImageView ivBigLike;
 
-    public NewsDetailsContentFragment() { }
+    private static final long DOUBLE_CLICK_TIME_DELTA = 300;
+    long lastClickTime = 0;
+    private boolean doubleClick = false;
+    private boolean isMoving = false;
+
+    public NewsDetailsContentFragment()
+    {
+    }
 
     public static NewsDetailsContentFragment newInstance(NewsDetailsAction actionView, GetNewsDetailsResponse content)
     {
@@ -111,6 +128,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
     {
         rootView = inflater.inflate(R.layout.fragment_news_details_content, container, false);
 
+        ivBigLike = rootView.findViewById(R.id.ivBigLike);
         tvTitle = rootView.findViewById(R.id.tvTitle);
         tvNewsArchive = rootView.findViewById(R.id.tvNewsArchive);
         tvSubTitle = rootView.findViewById(R.id.tvSubTitle);
@@ -139,15 +157,13 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
             {
                 imgBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
 
-              //  imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
-            }
-            else
+                //  imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+            } else
             {
                 imgBookmark.setColorFilter(getResources().getColor(R.color.borderBackgroundColor));
-               // imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
+                // imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
             }
-        }
-        catch (NullPointerException e)
+        } catch (NullPointerException e)
         {
             imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
         }
@@ -160,14 +176,12 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
             {
                 imgLike.setColorFilter(getResources().getColor(R.color.imageLikedNewsTintColor));
                 tvLikeCounter.setTextColor(getResources().getColor(R.color.imageLikedNewsTintColor));
-            }
-            else
+            } else
             {
                 imgLike.setColorFilter(getResources().getColor(R.color.textHint));
                 tvLikeCounter.setTextColor(getResources().getColor(R.color.textHint));
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             imgLike.setColorFilter(getResources().getColor(R.color.textHint));
             tvLikeCounter.setTextColor(getResources().getColor(R.color.textHint));
@@ -180,8 +194,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         if (content.getSubtitle().equalsIgnoreCase(""))
         {
             tvSubTitle.setVisibility(View.GONE);
-        }
-        else
+        } else
         {
             tvSubTitle.setText(content.getSubtitle());
         }
@@ -218,10 +231,9 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
 
         rootView.findViewById(R.id.rlLike).setOnClickListener(v ->
         {
-            LikeNewsDetailRequest request = new LikeNewsDetailRequest();
-            like = !like;
-            request.setLike(like);
-            SingletonService.getInstance().getNewsService().likeNews(content.getId(), request, this);
+            ivBigLike.setVisibility(View.VISIBLE);
+            sendRequestLike();
+
         });
 
         imgBookmark.setOnClickListener(v ->
@@ -237,14 +249,12 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
                         {
                             imgBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
                             //imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
-                        }
-                        else
+                        } else
                         {
                             imgBookmark.setColorFilter(getResources().getColor(R.color.borderBackgroundColor));
-                           // imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
+                            // imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
                         }
-                    }
-                    else
+                    } else
                     {
                         showAlert(context, response.info.message, R.string.error);
                     }
@@ -258,7 +268,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
             });
         });
 
-        adapter = new NewsDetailsImageAdapter(context, content.getImages());
+        adapter = new NewsDetailsImageAdapter(context, content.getImages(),this);
 
         rlArrowLeft.setOnClickListener(v ->
         {
@@ -271,21 +281,25 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         });
 
         rcImageGallery = rootView.findViewById(R.id.rcImageGallery);
+        rcImageGallery.setOnClickListener(this);
+        rlImeges = rootView.findViewById(R.id.rlImegess);
+        rlImeges.setOnClickListener(this);
         indicator = rootView.findViewById(R.id.indicator);
 
         if (content.getImages().isEmpty())
         {
-            rootView.findViewById(R.id.rlImeges).setVisibility(View.GONE);
+            rlImeges.setVisibility(View.GONE);
             rootView.findViewById(R.id.llIndicator).setVisibility(View.GONE);
-        }
-        else
+        } else
         {
-            rootView.findViewById(R.id.rlImeges).setVisibility(View.VISIBLE);
+            rlImeges.setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.llIndicator).setVisibility(View.VISIBLE);
 
             layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
             rcImageGallery.setLayoutManager(layoutManager);
             rcImageGallery.setAdapter(adapter);
+
+
             indicator.attachToRecyclerView(rcImageGallery);
 
 //        SnapHelper snapHelper = new StartSnapHelper();
@@ -294,6 +308,14 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         }
 
         return rootView;
+    }
+
+    private void sendRequestLike()
+    {
+        LikeNewsDetailRequest request = new LikeNewsDetailRequest();
+        like = !like;
+        request.setLike(like);
+        SingletonService.getInstance().getNewsService().likeNews(content.getId(), request, this);
     }
 
     private void onSlideRight()
@@ -341,6 +363,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
     {
         if (response.info.statusCode == 200)
         {
+            animateHeart(ivBigLike);
             if (response.data.getIsLiked())
             {
                 imgLike.setColorFilter(getResources().getColor(R.color.imageLikedNewsTintColor));
@@ -348,8 +371,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
                 int likeCounter = response.data.getLikeCount();
                 tvLikeCounter.setText(String.valueOf(likeCounter));
                 content.setLikeCounter(likeCounter);
-            }
-            else
+            } else
             {
                 imgLike.setColorFilter(getResources().getColor(R.color.textHint));
                 tvLikeCounter.setTextColor(getResources().getColor(R.color.textHint));
@@ -367,10 +389,88 @@ public class NewsDetailsContentFragment extends BaseFragment implements OnServic
         {
             Logger.e("-OnError Like-", "Error: " + message);
             showError(context, "خطا در دریافت اطلاعات از سرور!");
-        }
-        else
+        } else
         {
             showAlert(context, R.string.networkErrorMessage, R.string.networkError);
+        }
+    }
+
+    public void animateHeart(final ImageView view)
+    {
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        prepareAnimation(scaleAnimation);
+
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        prepareAnimation(alphaAnimation);
+
+        AnimationSet animation = new AnimationSet(true);
+        animation.addAnimation(alphaAnimation);
+        animation.addAnimation(scaleAnimation);
+        animation.setDuration(700);
+        animation.setFillAfter(true);
+
+        view.startAnimation(animation);
+
+    }
+
+    private Animation prepareAnimation(Animation animation)
+    {
+        animation.setRepeatCount(1);
+        animation.setRepeatMode(Animation.REVERSE);
+        return animation;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+
+            case R.id.rlImegess:
+
+
+
+                break;
+
+
+        }
+    }
+
+    @Override
+    public void OnItemNewsClick(View v, ImageName content)
+    {
+        v.setAlpha((float) 1.0);
+        if (!isMoving)
+        {
+            long clickTime = System.currentTimeMillis();
+            if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA)
+            {
+                doubleClick = true;
+                System.out.println("-----------doubleClick");
+                lastClickTime = 0;
+                ivBigLike.setVisibility(View.VISIBLE);
+                sendRequestLike();
+
+
+            } else
+            {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        if (!doubleClick)
+                        {
+                            System.out.println("--------------singleClick");
+
+                        } else
+                            doubleClick = false;
+                    }
+                }, 350);
+            }
+            lastClickTime = clickTime;
         }
     }
 }

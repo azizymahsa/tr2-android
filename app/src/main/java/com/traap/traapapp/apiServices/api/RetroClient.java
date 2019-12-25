@@ -48,6 +48,7 @@ import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
 import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import com.traap.traapapp.apiServices.model.getTicketBuyEnable.GetTicketBuyEnableResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
@@ -71,6 +72,7 @@ import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNe
 import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
 import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
+import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
@@ -186,6 +188,11 @@ public interface RetroClient
 
     @POST(Const.bookMark_Photo)
     Single<Response<WebServiceClass<BookMarkPhotoResponse>>> bookMarkPhoto(
+            @Path("id") Integer photoId
+    );
+
+    @GET(Const.Get_Photo_Detail)
+    Single<Response<WebServiceClass<Content>>> getPhotoDetail(
             @Path("id") Integer photoId
     );
 
