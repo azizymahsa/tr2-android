@@ -3,7 +3,12 @@ package com.traap.traapapp.ui.activities.video;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,8 +42,8 @@ import com.traap.traapapp.utilities.Utility;
 public class VideoDetailActivity extends BaseActivity implements View.OnClickListener
 {
     private TextView tvTitle, tvUserName, tvPopularPlayer, tvDate, tvTitleVideo, tvDesc, tvLike;
-    private View imgBack, imgMenu,rlShirt;
-    private RoundedImageView ivVideo, ivRelated1, ivRelated2, ivRelated3, ivRelated4;
+    private View imgBack, imgMenu, rlShirt;
+    private RoundedImageView ivVideo, ivBigLike, ivRelated1, ivRelated2, ivRelated3, ivRelated4;
     private ImageView imgBookmark, imgLike;
     private int positionVideo, idVideoCategory;
     private ArrayList<Category> videosList;
@@ -49,6 +54,10 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     private Integer likeCount = 0;
     private ArrayList<Category> relatedList;
     private ImageView btnShareVideo, btnBookmark;
+    private static final long DOUBLE_CLICK_TIME_DELTA = 300;
+    long lastClickTime = 0;
+    private boolean doubleClick = false;
+    private boolean isMoving = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -106,6 +115,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         tvTitleVideo = findViewById(R.id.tvTitleVideo);
         tvDesc = findViewById(R.id.tvDesc);
         ivVideo = findViewById(R.id.ivVideo);
+        ivBigLike = findViewById(R.id.ivBigLike);
         imgBookmark = findViewById(R.id.btnBookmark);
         imgLike = findViewById(R.id.imgLike);
         tvLike = findViewById(R.id.tvLike);
@@ -118,6 +128,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         btnBookmark = findViewById(R.id.btnBookmark);
         btnShareVideo = findViewById(R.id.btnShareVideo);
 
+       // ivVideo.setOnClickListener(this);
         ivRelated1.setOnClickListener(this);
         ivRelated2.setOnClickListener(this);
         ivRelated3.setOnClickListener(this);
@@ -140,7 +151,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
         SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService2(idVideo, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
 
-       // SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+                // SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
@@ -156,11 +167,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                       // Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        // Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                  //  Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    //  Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -171,7 +182,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
                 if (!Tools.isNetworkAvailable(VideoDetailActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
                     // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
@@ -198,8 +209,8 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     private void setDataItems(ArrayList<Category> videosList, int idVideoCategorys, int idVideos, int positionVideo)
     {
         videoItem = videosList.get(positionVideo);
-        idVideo=idVideos;
-        idVideoCategory=idVideoCategorys;
+        idVideo = idVideos;
+        idVideoCategory = idVideoCategorys;
         urlVideo = videoItem.getFrame().replace("\\", "");
         tvLike.setText(videoItem.getLikes().toString());
         likeCount = videoItem.getLikes();
@@ -254,12 +265,10 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     {
         switch (v.getId())
         {
-            case R.id.rlVideo:
-                playVideo(urlVideo);
-                break;
+
             case R.id.rlLike:
-                imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
-                tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                // imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                //tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
                 requestLikeVideo();
                 break;
             case R.id.ivRelated1:
@@ -279,7 +288,43 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                 requestBookMark();
                 break;
+            case R.id.rlVideo:
+                v.setAlpha((float) 1.0);
+                if (!isMoving)
+                {
+                    long clickTime = System.currentTimeMillis();
+                    if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA)
+                    {
+                        doubleClick = true;
+                        System.out.println("-----------doubleClick");
+                        lastClickTime = 0;
+                        ivBigLike.setVisibility(View.VISIBLE);
+                        requestLikeVideo();
 
+
+                    } else
+                    {
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                if (!doubleClick)
+                                {
+                                    System.out.println("--------------singleClick");
+                                    playVideo(urlVideo);
+
+
+                                } else
+                                    doubleClick = false;
+                            }
+                        }, 350);
+                    }
+                    lastClickTime = clickTime;
+                }
+
+                break;
         }
     }
 
@@ -303,11 +348,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                       // Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        // Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                //    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    //    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -318,7 +363,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
                 if (!Tools.isNetworkAvailable(VideoDetailActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
                     // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
@@ -368,16 +413,17 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     if (response.info.statusCode == 200)
                     {
+                        animateHeart(ivBigLike);
 
                         setLiked(response.data);
 
                     } else
                     {
-                      //  Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        //  Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                   // Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    // Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -386,12 +432,12 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             public void onError(String message)
             {
                 //  mainView.hideLoading();
-              //  Tools.showToast(getApplicationContext(), message, R.color.red);
+                //  Tools.showToast(getApplicationContext(), message, R.color.red);
                 //rlLike.setClickable(true);
                 if (!Tools.isNetworkAvailable(VideoDetailActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError( getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
+                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
                     // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
@@ -421,6 +467,32 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         }
         //tvLike.setText();
 
+    }
+
+    public void animateHeart(final ImageView view)
+    {
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        prepareAnimation(scaleAnimation);
+
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        prepareAnimation(alphaAnimation);
+
+        AnimationSet animation = new AnimationSet(true);
+        animation.addAnimation(alphaAnimation);
+        animation.addAnimation(scaleAnimation);
+        animation.setDuration(700);
+        animation.setFillAfter(true);
+
+        view.startAnimation(animation);
+
+    }
+
+    private Animation prepareAnimation(Animation animation)
+    {
+        animation.setRepeatCount(1);
+        animation.setRepeatMode(Animation.REVERSE);
+        return animation;
     }
 
     private void playVideo(String urlVideo)
