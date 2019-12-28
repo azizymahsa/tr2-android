@@ -226,12 +226,32 @@
 <!--            </intent-filter>-->
 <!--        </receiver>-->
 
-<!--        <receiver android:name=".notification.SilentPushReceiver">-->
+        <receiver android:name=".notification.SilentPushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <!-- Receive silent push notifications. -->
+                <action android:name="com.traap.traapapp.action.ymp.SILENT_PUSH_RECEIVE"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".notification.MyFireBaseMessagingService"
+            android:stopWithTask="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+            </intent-filter>
+        </service>
+
+<!--        <service-->
+<!--            android:name=".notification.MyFireBaseMessagingService"-->
+<!--            android:stopWithTask="false"-->
+<!--            android:exported="false">-->
 <!--            <intent-filter>-->
-<!--                &lt;!&ndash; Receive silent push notifications. &ndash;&gt;-->
-<!--                <action android:name="com.traap.traapapp.action.ymp.SILENT_PUSH_RECEIVE"/>-->
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
 <!--            </intent-filter>-->
-<!--        </receiver>-->
+<!--        </service>-->
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -242,6 +262,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
     </application>
 
 </manifest>

@@ -14,11 +14,13 @@ public class SilentPushReceiver extends BroadcastReceiver
     {
         // Extract push message payload from your push message.
         String payload = intent.getStringExtra(YandexMetricaPush.EXTRA_PAYLOAD);
+        Logger.e("--Yandex payload--", "payload: " + payload);
+
         String installationSource = "";
         if (intent.hasExtra("referrer"))
         {
             installationSource = intent.getStringExtra("referrer");
-            Logger.e("--Yandex--", String.format("Referrer received: %s", installationSource));
+            Logger.e("--Yandex referrer--", String.format("Referrer received: %s", installationSource));
         }
 //        ...
     }

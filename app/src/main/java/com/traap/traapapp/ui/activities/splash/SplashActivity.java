@@ -142,7 +142,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     {
         if (Tools.isNetworkAvailable(SplashActivity.this))
         {
-            Logger.e("-PhotoFailor-", "Error: " + "SplashError");
+//            Logger.e("-PhotoFailor-", "Error: " + "SplashError");
             if (Prefs.getString("accessToken", "").isEmpty())
             {
                  startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -223,21 +223,31 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
     private void showError(String message,String title)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog(this, title, message, false,
-                new MessageAlertDialog.OnConfirmListener()
-                {
-                    @Override
-                    public void onConfirmClick()
+        try
+        {
+            MessageAlertDialog dialog = new MessageAlertDialog(this, title, message, false,
+                    new MessageAlertDialog.OnConfirmListener()
                     {
-                        goToActivity();
-                    }
+                        @Override
+                        public void onConfirmClick()
+                        {
+                            goToActivity();
+                        }
 
-                    @Override
-                    public void onCancelClick()
-                    {
-                    }
-                });
-        dialog.show((this).getFragmentManager(), "dialog");
+                        @Override
+                        public void onCancelClick()
+                        {
+                        }
+                    });
+            dialog.show((this).getFragmentManager(), "dialog");
+        }
+        catch (Exception e)
+        {
+            Tools.showToast(this, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+            goToActivity();
+//            finish();
+        }
+
     }
 
 

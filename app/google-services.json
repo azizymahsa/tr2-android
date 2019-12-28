@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "936537002347-1he9gqj0ipniroa9lg2ldu149db6gej5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.traap.traapapp",
+            "certificate_hash": "630052d3dd6c3d0836312820c350e7e63733008e"
+          }
+        },
+        {
           "client_id": "936537002347-jkop1idqnp3hejdl5ae4fu5eometkl08.apps.googleusercontent.com",
           "client_type": 3
         }

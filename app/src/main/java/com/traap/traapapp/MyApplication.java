@@ -69,7 +69,7 @@ public class MyApplication extends ServiceApplication
         UXCam.startWithKey("h6hki2cq0lq974n");
 
         FirebaseAnalytics.getInstance(this);
-        FirebaseCrash.setCrashCollectionEnabled(!BuildConfig.DEBUG);
+//        FirebaseCrash.setCrashCollectionEnabled(!BuildConfig.DEBUG);
 
         Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
@@ -88,12 +88,12 @@ public class MyApplication extends ServiceApplication
         // Creating an extended library configuration.
         YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder("2c55ed84-1f92-47cd-b5fd-b837dc89b30f").build();
         // Initializing the AppMetrica SDK.
-//        YandexMetrica.activate(getApplicationContext(), config);
+        YandexMetrica.activate(getApplicationContext(), config);
         // Automatic tracking of user activity.
-//        YandexMetrica.enableActivityAutoTracking(this);
-//        YandexMetricaPush.init(getApplicationContext());
+        YandexMetrica.enableActivityAutoTracking(this);
+        YandexMetricaPush.init(getApplicationContext());
 
-//        YandexMetrica.registerReferrerBroadcastReceivers(new SilentPushReceiver());
+        YandexMetrica.registerReferrerBroadcastReceivers(new SilentPushReceiver());
         //-----------------------Yandex-------------------------
 
 //        SugarContext.init(this);
@@ -128,12 +128,12 @@ public class MyApplication extends ServiceApplication
                 .build();
 
 
-        initPushClient();
+//        initPushClient();
     }
 
 
-    private synchronized void initPushClient()
-    {
+//    private synchronized void initPushClient()
+//    {
 //        if (chabok == null)
 //        {
 //            chabok = AdpPushClient.init(
@@ -151,7 +151,7 @@ public class MyApplication extends ServiceApplication
 //
 ////             chabok.register(Prefs.getString("uuid",""));
 //        }
-    }
+//    }
 
 //    public synchronized AdpPushClient getPushClient() throws IllegalStateException
 //    {
