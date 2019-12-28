@@ -58,6 +58,9 @@ public class Const
     public final static String GetHappyCardInfo = SubBASEURL + "Happy/v1/GetCardInfo";
     public final static String GetShetabCardInfo = SubBASEURL + "Shetab/v1/GetCardInfo";
     public final static String DoTransferCard = SubBASEURL + "Shetab/v1/DoTransfer";
+    //wallet
+    public final static String GetInfoWallet = SubBASEURL + "v1/shetac/get_info/";
+    public final static String IncreaseInventoryWallet = SubBASEURL + "v1/shetac/increase_inventory_ipg/";
 
 
     //card
