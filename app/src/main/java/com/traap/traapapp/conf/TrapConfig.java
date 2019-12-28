@@ -5,6 +5,16 @@ public class TrapConfig
     public static final int AndroidDeviceType = 1;
     public static final String HappyBaseCardNo = "003725";
 
+    public static final String TOPIC_GLOBAL = "global";
+
+    public static final String REGISTRATION_COMPLETE = "registrationComplete";
+    public static final String PUSH_NOTIFICATION = "pushNotification";
+
+    public static final int NOTIFICATION_ID = 100;
+    public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
+
+    public static final String SHARED_PREF = "ah_firebase";
+
     public static final int PAYMENT_STAUS_GDS_FLIGHT = 0;
     public static final int PAYMENT_STAUS_GDS_HOTEL = 1;
     public static final int PAYMENT_STAUS_GDS_BUS = 2;
