@@ -80,6 +80,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private View rootView;
     private Context context;
 
+    private long dateTimeNow;
+
     private NestedScrollView nestedScroll;
     private RecyclerView recyclerView, sliderRecyclerView;
     //    private MultiSnapRecyclerView recyclerView;
@@ -334,11 +336,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                             Timestamp myTimestamp = new Timestamp(System.currentTimeMillis());
                             long myTime = myTimestamp.getTime();
-                            long matchTime = matchPredict.getMatchDatetime().longValue() * 1000;
+//                            long matchTime = matchPredict.getMatchDatetime().longValue() * 1000;
                             Logger.e("--Time--", "myTime:" + myTime);
 
                             long predictTime = matchPredict.getPredictTime().longValue() * 1000;
-                            long remainPredictTime = predictTime - myTime;
+                            dateTimeNow = matchPredict.getDateTimeNow().longValue() * 1000;
+                            long remainPredictTime = predictTime - dateTimeNow;
                             Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
 
                             if (remainPredictTime > 0)
@@ -451,7 +454,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 Logger.e("--diff Time--", "Time: " + time);
 
                 long predictTime = matchPredict.getPredictTime().longValue() * 1000;
-                long remainPredictTime = predictTime - myTime;
+                dateTimeNow = matchPredict.getDateTimeNow().longValue() * 1000;
+                long remainPredictTime = predictTime - dateTimeNow;
                 Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
 
                 if (remainPredictTime > 0)
@@ -1073,7 +1077,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onFinishTimer()
     {
-
+        isPredictable = false;
+        rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+        ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("زمان پیش بینی به پایان رسیده است!");
     }
 
     @Override
