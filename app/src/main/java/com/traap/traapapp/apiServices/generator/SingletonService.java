@@ -19,6 +19,7 @@ import com.traap.traapapp.apiServices.part.ForgetPasswordWalletService;
 import com.traap.traapapp.apiServices.part.GetAllBoxesService;
 import com.traap.traapapp.apiServices.part.GetBalancePasswordLessService;
 import com.traap.traapapp.apiServices.part.GetBillInfoService;
+import com.traap.traapapp.apiServices.part.GetBoughtForService;
 import com.traap.traapapp.apiServices.part.GetCardListService;
 import com.traap.traapapp.apiServices.part.GetContactInfoService;
 import com.traap.traapapp.apiServices.part.GetHappyCardInfoService;
@@ -140,6 +141,11 @@ public class SingletonService
     public GetMyBillsService getMyBillsService()
     {
         return new GetMyBillsService(serviceGenerator);
+    }
+
+    public GetBoughtForService getBoughtForService()
+    {
+        return new GetBoughtForService(serviceGenerator);
     }
 
     public GetMainVideosService getMainVideosService()

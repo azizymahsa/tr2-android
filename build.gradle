@@ -3,19 +3,14 @@
 buildscript {
     repositories {
 
-        maven {
-            url 'https://maven.google.com/'
-        }
+        maven { url 'https://maven.google.com/' }
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
-        maven {
-            url 'https://maven.fabric.io/public'
-        }
-        maven {
-            url "https://s3.amazonaws.com/repo.commonsware.com"
-        }
-
+        maven { url 'https://sdk.uxcam.com/android/' }
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+        flatDir { dirs 'libs' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'

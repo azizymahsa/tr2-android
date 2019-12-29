@@ -33,6 +33,10 @@ public class MatchItem implements Parcelable
     @Expose @Getter @Setter
     private Double matchDatetime;
 
+    @SerializedName("datetime_now")
+    @Expose @Getter @Setter
+    private Double dateTimeNow;
+
     @SerializedName("match_datetime_formatted")
     @Expose @Getter @Setter
     private String matchDatetimeStr;

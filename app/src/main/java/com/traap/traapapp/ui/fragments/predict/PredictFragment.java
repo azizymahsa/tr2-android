@@ -260,7 +260,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             {
                 edtAwayPredict.requestFocus();
                 showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
-            } else if (edtHomePredict.getText().toString().trim().equalsIgnoreCase(""))
+            }
+            else if (edtHomePredict.getText().toString().trim().equalsIgnoreCase(""))
             {
                 edtHomePredict.requestFocus();
                 showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
@@ -506,7 +507,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 }
 
                 List<Predict> predictList = response.data.getPredict();
-                Collections.reverse(predictList);
+//                Collections.reverse(predictList);
 
                 if (predictList.size() >= 1)
                 {
@@ -524,11 +525,11 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     String result[] = predictList.get(0).getPredict().split("\\|");
                     tvChartPredictOne.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
                 }
-                else
-                {
-                    llChart2.setVisibility(View.GONE);
-                    llChart3.setVisibility(View.GONE);
-                }
+//                else
+//                {
+//                    llChart2.setVisibility(View.GONE);
+//                    llChart3.setVisibility(View.GONE);
+//                }
 
                 if (predictList.size() >= 2)
                 {
@@ -548,6 +549,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 }
                 else
                 {
+                    llChart2.setVisibility(View.GONE);
                     llChart3.setVisibility(View.GONE);
                 }
 
@@ -566,6 +568,10 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     vColorAwayThree.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
                     String result[] = predictList.get(2).getPredict().split("\\|");
                     tvChartPredictThree.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
+                }
+                else if (predictList.size() < 3)
+                {
+                    llChart3.setVisibility(View.GONE);
                 }
 
                 vColorHomeFour.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));

@@ -35,6 +35,8 @@ public class Const
 
 
     //Mobile
+
+    public final static String GET_BOUGHT_FOR = SubBASEURL + "v1/topupcharge/bought_for/";
     public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
     public final static String BUY_CHARGE_WALLET = SubBASEURL + "v1/topupcharge/buy_charge_wallet/";
     public final static String BUY_MOBILE_PACKAGE = SubBASEURL + "v1/internetpackage/package_buy/";
