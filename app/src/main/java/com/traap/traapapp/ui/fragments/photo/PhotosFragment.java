@@ -48,7 +48,8 @@ import com.traap.traapapp.utilities.Tools;
 /**
  * Created by MahsaAzizi on 11/27/2019.
  */
-public class PhotosFragment extends BaseFragment implements View.OnClickListener, PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchivePhotosListener
+public class PhotosFragment extends BaseFragment implements View.OnClickListener,
+        PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchivePhotosListener
         , CategoryPhotosAdapter.TitleCategoryListener, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener
 {
     private MainActionView mainView;
