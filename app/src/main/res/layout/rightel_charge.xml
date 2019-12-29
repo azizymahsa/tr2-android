@@ -92,7 +92,26 @@
                         android:textSize="@dimen/textSize_16dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:text="مبلغ (ریال)"
+                    android:textColor="@color/warmGray"
+                    />
+
+                <Spinner
+                    android:id="@+id/spinnerAmountRightel"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:tag="allBox"
+                    android:background="@drawable/background_spinner_amount_charge" />
+
+              <!--  <com.google.android.material.textfield.TextInputLayout
                     app:hintTextAppearance="@style/TextLabel"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_60sdp"
@@ -115,7 +134,7 @@
                         android:textColor="@color/chargePackTextColor"
                         android:textSize="@dimen/textSize_16dp"/>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>-->
 
             </LinearLayout>
 
@@ -129,12 +148,57 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/rlRightelSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinnerRightel"
+            android:layout_width="0dp"
+            android:layout_weight="50"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/background_spinner_amount_charge"
+            android:gravity="right"
+            android:tag="irancell"
+            android:visibility="invisible"
+            />
+        <Spinner
+            android:id="@+id/spinnerChargeTypeRightel"
+            android:layout_width="0dp"
+            android:layout_weight="50"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/background_spinner_amount_charge" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginBottom="@dimen/_20dp"
         android:layout_marginTop="@dimen/_10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
         
         <TextView
             android:layout_width="wrap_content"
@@ -170,8 +234,6 @@
             android:buttonTint="@color/textColorPrimary"/>
 
     </LinearLayout>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -45,6 +45,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
@@ -100,7 +101,7 @@ public class ChargeFragment extends BaseFragment
     private int simcardType = 0;
     private String amount;
     private String mobile;
-    private int imageDrawable=0;
+    private int imageDrawable = 0;
     private View mToolbar;
     private TextView tvUserName;
     private TextView tvHeaderPopularNo;
@@ -123,7 +124,10 @@ public class ChargeFragment extends BaseFragment
         this.mainView = mainView;
     }
 
-    private String[] irancellFilter = {"اعتباري", "دائمي"};
+    private String[] irancellFilter = {"سیم کارت اعتباري", "سیم کارت دائمي"};
+    private String[] irancelTypeChargelFilter = {"شارژ مستقیم","شارژ شگفت انگیز" };
+    private String[] amountFilter = {"10,000", "20,000", "50,000", "100,000", "200,000", "500,000"};
+
 
     private View rootView;
     private IrancellBuyImpl irancellBuy;
@@ -133,7 +137,6 @@ public class ChargeFragment extends BaseFragment
     private int profileType = 20;
     private int rightelType = 2;
     private boolean isMci = true, isMtn = false, isRightel = false, isInitView = true;
-//    private ArchiveCardDBModel archiveCardDBModels;
 
 
     @BindView(R.id.contentView)
@@ -176,11 +179,29 @@ public class ChargeFragment extends BaseFragment
     @BindView(R.id.spinnerIrancell)
     Spinner spinnerIrancell;
 
+    @BindView(R.id.spinnerAmountIrancell)
+    Spinner spinnerAmountIrancell;
+
+    @BindView(R.id.spinnerAmountMci)
+    Spinner spinnerAmountMci;
+
+    @BindView(R.id.spinnerAmountRightel)
+    Spinner spinnerAmountRightel;
+
+    @BindView(R.id.spinnerChargeTypeIrancell)
+    Spinner spinnerChargeTypeIrancell;
+
+    @BindView(R.id.spinnerChargeTypeRightel)
+    Spinner spinnerChargeTypeRightel;
+
+    @BindView(R.id.spinnerChargeTypeMci)
+    Spinner spinnerChargeTypeMci;
+
 
     @BindView(R.id.btnBuyCharge)
     CircularProgressButton btnBuyCharge;
-    @BindView(R.id.etChargeAmount)
-    ClearableEditText etChargeAmount;
+    /* @BindView(R.id.etChargeAmount)
+     ClearableEditText etChargeAmount;*/
     @BindView(R.id.etCvv2)
     ClearableEditText etCvv2;
 
@@ -197,16 +218,12 @@ public class ChargeFragment extends BaseFragment
 
     @BindView(R.id.etMobileChargeRightel)
     ClearableEditText etMobileChargeRightel;
-    @BindView(R.id.etChargeAmountRightel)
-    ClearableEditText etChargeAmountRightel;
 
 
     @BindView(R.id.etMobileCharge)
     ClearableEditText etMobileCharge;
     @BindView(R.id.etMCINumber)
     ClearableEditText etMCINumber;
-    @BindView(R.id.etMCIAmount)
-    ClearableEditText etMCIAmount;
     @BindView(R.id.tvChargeTitle)
     TextView tvChargeTitle;
     @BindView(R.id.ivContactI)
@@ -334,8 +351,6 @@ public class ChargeFragment extends BaseFragment
     void irancell()
     {
 
-        //mainView.needExpanded(false);
-
         tvChargeTitle.setText("خرید شارژ آنلاین " + "ایرانسل");
         ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
         ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
@@ -360,8 +375,6 @@ public class ChargeFragment extends BaseFragment
         isMtn = true;
         isMci = false;
         isRightel = false;
-/*        etMCINumber.setText(etMobileCharge.getText());
-        etMobileChargeRightel.setText(etMobileCharge.getText());*/
 
     }
 
@@ -369,8 +382,6 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.flHamraheAval)
     void hamraheAval()
     {
-
-        //mainView.needExpanded(false);
 
         rlIrancellSpinner.setVisibility(View.INVISIBLE);
 
@@ -391,20 +402,15 @@ public class ChargeFragment extends BaseFragment
         YoYo.with(Techniques.SlideInUp)
                 .duration(200)
                 .playOn(llMCICharge);
-        etMCIAmount.setText("");
         isMtn = false;
         isMci = true;
         isRightel = false;
-       /* etMobileChargeRightel.setText(etMCINumber.getText());
-        etMobileCharge.setText(etMCINumber.getText());
-*/
 
     }
 
     @OnClick(R.id.flRightel)
     void rightel()
     {
-        //mainView.needExpanded(false);
 
         rlIrancellSpinner.setVisibility(View.INVISIBLE);
 
@@ -425,75 +431,16 @@ public class ChargeFragment extends BaseFragment
         YoYo.with(Techniques.SlideInUp)
                 .duration(200)
                 .playOn(llRightelCharge);
-        etChargeAmountRightel.setText("");
+
         isMtn = false;
         isMci = false;
         isRightel = true;
- /*       etMobileCharge.setText(etMCINumber.getText());
-        etMCINumber.setText(etMCINumber.getText());
-        etMobileChargeRightel.setText(etMCINumber.getText());*/
     }
 
 
     @OnClick(R.id.btnBuyCharge)
     void setBtnBuyCharge()
     {
-        if (!Utility.isNetworkAvailable())
-        {
-            mainView.onInternetAlert();
-            return;
-
-        }
-        if (TextUtils.isEmpty(etPassCharge.getText().toString()))
-        {
-            mainView.showError("لطفا رمز دوم کارت خود را وارد نمایید.");
-            return;
-        }
-
-        if (!cardNumberCheck.equals(TrapConfig.HappyBaseCardNo))
-            if (TextUtils.isEmpty(etCvv2.getText().toString()))
-            {
-                Utility.hideSoftKeyboard(btnBuyCharge.getRootView(), getActivity());
-                mainView.showError("لطفا cvv2 را وارد نمایید");
-                return;
-            } else
-            {
-                ccv2 = etCvv2.getText().toString();
-            }
-
-        btnBuyCharge.startAnimation();
-        btnBuyCharge.setClickable(false);
-
-
-        if (isMtn)
-        {
-           /* irancellBuy.findDataIrancellBuyRequest(this, Prefs.getInt("userId", 0),
-                    profileType, Integer.valueOf(etChargeAmount.getText().toString().replaceAll(",", "")),
-                    cardNumber, etPassCharge.getText().toString(), etMobileCharge.getText().toString(), ccv2,
-//                    archiveCardDBModels.getExpireYear() + archiveCardDBModels.getExpireMonth(), simcardType);
-                    "", simcardType);*/
-            return;
-        }
-        if (isMci)
-        {
-          /*  mciBuy.findDataMciBuyInRequest(this, Prefs.getInt("userId", 0),
-                    chargeType, Integer.valueOf(etMCIAmount.getText().toString().replaceAll(",", "")),
-                    cardNumber, etPassCharge.getText().toString(), etMCINumber.getText().toString(), ccv2,
-//                    archiveCardDBModels.getExpireYear() + archiveCardDBModels.getExpireMonth());
-                    "");
-            return;*/
-
-
-        }
-        if (isRightel)
-        {
-           /* rightelBuy.findRightelBuyDataRequest(this, Prefs.getInt("userId", 0),
-                    rightelType + "", Integer.valueOf(etChargeAmountRightel.getText().toString().replaceAll(",", "")),
-                    cardNumber, etPassCharge.getText().toString(), etMobileChargeRightel.getText().toString(), ccv2,
-//                    archiveCardDBModels.getExpireYear() + archiveCardDBModels.getExpireMonth());
-                    "");*/
-        }
-
 
     }
 
@@ -503,7 +450,6 @@ public class ChargeFragment extends BaseFragment
     {
         if (isMtn)
         {
-            //mainView.needExpanded(false);
             llOperatorImages.setVisibility(View.VISIBLE);
             llPassCharge.setVisibility(View.GONE);
             llMTNCharge.setVisibility(View.VISIBLE);
@@ -514,7 +460,6 @@ public class ChargeFragment extends BaseFragment
         }
         if (isMci)
         {
-            //mainView.needExpanded(false);
             llPassCharge.setVisibility(View.GONE);
             llOperatorImages.setVisibility(View.VISIBLE);
             llMCICharge.setVisibility(View.VISIBLE);
@@ -526,7 +471,6 @@ public class ChargeFragment extends BaseFragment
         }
         if (isRightel)
         {
-            //mainView.needExpanded(false);
             llOperatorImages.setVisibility(View.VISIBLE);
             llPassCharge.setVisibility(View.GONE);
             llRightelCharge.setVisibility(View.VISIBLE);
@@ -542,19 +486,18 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnChargeConfirm)
     void setBtnChargeConfirm()
     {
-//        Tools.showToast(getActivity(), "simcardType = " + simcardType);
         if (!Utility.mtnValidation(etMobileCharge.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
-        if (TextUtils.isEmpty(etChargeAmount.getText().toString()))
+        if (TextUtils.isEmpty(amount))
         {
             mainView.showError("لطفا مبلغ را وارد نمایید.");
             return;
         }
 
-        if (Integer.valueOf(etChargeAmount.getText().toString().replaceAll(",", "")) < 1000)
+        if (Integer.valueOf(amount.replaceAll(",", "")) < 1000)
         {
             mainView.showError("حداقل مبلغ در این قسمت 1000 ریال می باشد.");
             return;
@@ -562,69 +505,41 @@ public class ChargeFragment extends BaseFragment
         isMtn = true;
         isMci = false;
         isRightel = false;
-        //mainView.needExpanded(true);
-       // llMTNCharge.setVisibility(View.GONE);
+
         setDataLayoutPassCharge();
-//        llPassCharge.setVisibility(View.VISIBLE);
-//        llOperatorImages.setVisibility(View.GONE);
-//        etPassCharge.requestFocus();
-//        YoYo.with(Techniques.SlideInRight)
-//                .duration(200)
-//                .playOn(llPassCharge);
-
-
-//        if (archiveCardDBModels.isChargeSe())
-//        {
-//            try
-//            {
-//                etPassCharge.setText(AESCrypt.decrypt(Prefs.getString(SingletonDiba.getInstance().getPASS_KEY(), ""), archiveCardDBModels.getPassSe()));
-//                etPassCharge.setText("");
-//                setBtnBuyCharge();
-//
-//            }
-//            catch (GeneralSecurityException e)
-//            {
-//                e.printStackTrace();
-//            }
-//
-//
-//        }
     }
 
     private void setDataLayoutPassCharge()
     {
-         imageDrawable = 0;
+        imageDrawable = 0;
         String chargeStr = "";
         if (isMtn)
         {
-            amount = etChargeAmount.getText().toString();
+            amount = spinnerAmountIrancell.getSelectedItem().toString();
+            // amount = etChargeAmount.getText().toString();
             imageDrawable = R.drawable.irancell;
             chargeStr = "ایرانسل";
-
-//            ivSelectedOperator.setImageResource(R.drawable.irancell);
             mobile = etMobileCharge.getText().toString();
-          //  tvAmpuntPassCharge.setText(amount);
-            //tvDescriptionSelectedOperator.setText("با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.");
-        }
-        else if (isMci)
+           // chargeType=spinnerChargeTypeIrancell.getSelectedItem().toString();
+
+        } else if (isMci)
         {
-            amount = etMCIAmount.getText().toString();
+            amount = spinnerAmountMci.getSelectedItem().toString();
+            //  amount = etMCIAmount.getText().toString();
             imageDrawable = R.drawable.hamrahe_aval;
             chargeStr = "همراه اول";
-
-
-//            ivSelectedOperator.setImageResource(R.drawable.hamrahe_aval);
             mobile = etMCINumber.getText().toString();
-        }
-        else if (isRightel)
+           // chargeType=spinnerChargeTypeMci.getSelectedItem().toString();
+
+        } else if (isRightel)
         {
-            amount = etChargeAmountRightel.getText().toString();
+            amount = spinnerAmountRightel.getSelectedItem().toString();
+            // amount = etChargeAmountRightel.getText().toString();
             imageDrawable = R.drawable.rightel;
             chargeStr = "رایتل";
-
-
-//            ivSelectedOperator.setImageResource(R.drawable.rightel);
             mobile = etMobileChargeRightel.getText().toString();
+            //chargeType=spinnerChargeTypeRightel.getSelectedItem().toString();
+
         }
 
 
@@ -641,13 +556,12 @@ public class ChargeFragment extends BaseFragment
         paymentInstance.setSimcardType(simcardType);
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
 
-        getUrlChargePayment(amount,operatorType,simcardType,chargeType,mobile);
+        getUrlChargePayment(amount, operatorType, simcardType, chargeType, mobile);
 
-      //////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
 
 
-
-      //  ((TextView) rootView.findViewById(R.id.tvTitle)).setText("پرداخت");
+        //  ((TextView) rootView.findViewById(R.id.tvTitle)).setText("پرداخت");
 
      /*   YoYo.with(Techniques.SlideOutRight).withListener(new AnimatorListenerAdapter()
         {
@@ -669,7 +583,7 @@ public class ChargeFragment extends BaseFragment
     {
         mainView.showLoading();
 
-        irancellBuy.findDataIrancellBuyRequest(this,amount,operatorType,simcardType,chargeType,mobile);
+        irancellBuy.findDataIrancellBuyRequest(this, amount, operatorType, simcardType, chargeType, mobile);
     }
 
     @OnClick(R.id.btnChargeConfirmRightel)
@@ -681,7 +595,7 @@ public class ChargeFragment extends BaseFragment
             return;
         }
 
-        if (TextUtils.isEmpty(etChargeAmountRightel.getText().toString()))
+        if (TextUtils.isEmpty(amount))
         {
             mainView.showError("لطفا مبلغ را وارد نمایید.");
             return;
@@ -728,20 +642,6 @@ public class ChargeFragment extends BaseFragment
 
     }
 
-    @OnClick(R.id.etMCIAmount)
-    void setEtMCIAmount()
-    {
-//        mainView.showPricePanel();
-        hideSoftKeyboard(etMCIAmount);
-    }
-
-    @OnClick(R.id.etChargeAmountRightel)
-    void setEtChargeAmountRightel()
-    {
-        //  mainView.showPricePanel();
-        // hideSoftKeyboard(etChargeAmountRightel);
-    }
-
     @OnClick(R.id.btnMCIChargeConfirm)
     void setBtnMCIChargeConfirm()
     {
@@ -752,7 +652,7 @@ public class ChargeFragment extends BaseFragment
             return;
         }
 
-        if (TextUtils.isEmpty(etMCIAmount.getText().toString()))
+        if (TextUtils.isEmpty(amount))
         {
             mainView.showError("لطفا مبلغ را وارد نمایید.");
             return;
@@ -764,7 +664,7 @@ public class ChargeFragment extends BaseFragment
         isMtn = false;
         isRightel = false;
         //mainView.needExpanded(true);
-       // llMCICharge.setVisibility(View.GONE);
+        // llMCICharge.setVisibility(View.GONE);
         setDataLayoutPassCharge();
 
 //        llOperatorImages.setVisibility(View.GONE);
@@ -837,14 +737,108 @@ public class ChargeFragment extends BaseFragment
         super.onResume();
         etCvv2.setText("");
         etPassCharge.setText("");
-        etChargeAmount.setText("");
-        etMCIAmount.setText("");
-        etChargeAmountRightel.setText("");
+        // etChargeAmount.setText("");
+        // etMCIAmount.setText("");
+        // etChargeAmountRightel.setText("");
         if (isInitView)
         {
             isInitView = false;
             initView();
         }
+
+
+        setDataTypeChargeSpinner();
+
+        setDataAmountSpinner();
+
+    }
+
+    private void setDataTypeChargeSpinner()
+    {
+        ArrayAdapter<String> adapterTypeChargeIrancell = new ArrayAdapter<String>(getActivity(),
+                R.layout.simple_spinner_item, irancelTypeChargelFilter);
+        adapterTypeChargeIrancell.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinnerChargeTypeIrancell.setAdapter(adapterTypeChargeIrancell);
+        spinnerChargeTypeIrancell.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (spinnerChargeTypeIrancell.getSelectedItemPosition() == 0)
+                {
+                    chargeType = "0";
+                    profileType = 0;
+                    chargeName = "شارژ عادی";
+                } else
+                {
+
+                    profileType = 1;
+                    chargeName = "شارژ شگفت انگیز";
+                    chargeType = "1";
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+
+
+        spinnerChargeTypeMci.setAdapter(adapterTypeChargeIrancell);
+        spinnerChargeTypeMci.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (spinnerChargeTypeMci.getSelectedItemPosition() == 0)
+                {
+                    chargeType = "0";
+                    profileType = 0;
+                    chargeName = "شارژ عادی";
+                } else
+                {
+
+                    profileType = 1;
+                    chargeName = "شارژ شگفت انگیز";
+                    chargeType = "1";
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+
+        spinnerChargeTypeRightel.setAdapter(adapterTypeChargeIrancell);
+        spinnerChargeTypeRightel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (spinnerChargeTypeRightel.getSelectedItemPosition() == 0)
+                {
+                    chargeType = "0";
+                    profileType = 0;
+                    chargeName = "شارژ عادی";
+                } else
+                {
+
+                    profileType = 1;
+                    chargeName = "شارژ شگفت انگیز";
+                    chargeType = "1";
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
 
         ArrayAdapter<String> adapterIrancell = new ArrayAdapter<String>(getActivity(),
                 R.layout.simple_spinner_item, irancellFilter);
@@ -869,7 +863,60 @@ public class ChargeFragment extends BaseFragment
             {
             }
         });
+    }
 
+    private void setDataAmountSpinner()
+    {
+        ArrayAdapter<String> adapterAmount = new ArrayAdapter<String>(getActivity(),
+                R.layout.simple_spinner_item, amountFilter);
+        adapterAmount.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinnerAmountIrancell.setAdapter(adapterAmount);
+        spinnerAmountIrancell.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+
+                amount = adapterAmount.getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+
+        spinnerAmountMci.setAdapter(adapterAmount);
+        spinnerAmountMci.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+
+                amount = adapterAmount.getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+
+        spinnerAmountRightel.setAdapter(adapterAmount);
+        spinnerAmountRightel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+
+                amount = adapterAmount.getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
     }
 
     @Override
@@ -877,7 +924,7 @@ public class ChargeFragment extends BaseFragment
     {
         super.onStop();
         etPassCharge.setText("");
-      //  EventBus.getDefault().unregister(this);
+        //  EventBus.getDefault().unregister(this);
     }
 
 
@@ -910,9 +957,8 @@ public class ChargeFragment extends BaseFragment
         // btnBackToCharge.setText("بازگشت");
         tlPassCharge.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         tipCvv2.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
-        etChargeAmount.addTextChangedListener(new NumberTextWatcher(etChargeAmount));
-        etChargeAmountRightel.addTextChangedListener(new NumberTextWatcher(etChargeAmountRightel));
-        etMCIAmount.addTextChangedListener(new NumberTextWatcher(etMCIAmount));
+        // etChargeAmountRightel.addTextChangedListener(new NumberTextWatcher(etChargeAmountRightel));
+        // etMCIAmount.addTextChangedListener(new NumberTextWatcher(etMCIAmount));
         rbSpecialChargeIrancell.setOnCheckedChangeListener(this);
         rbNormalChargeIrancell.setOnCheckedChangeListener(this);
         rbYoungMCN.setOnCheckedChangeListener(this);
@@ -953,7 +999,7 @@ public class ChargeFragment extends BaseFragment
 
     private void initDefaultOperatorView()
     {
-       // operatorType = getOperatorType(Prefs.getString("mobile", ""));
+        // operatorType = getOperatorType(Prefs.getString("mobile", ""));
         operatorType = getOperatorType("09121234567");
 
         switch (operatorType)
@@ -1204,7 +1250,7 @@ public class ChargeFragment extends BaseFragment
                     rbNormalChargeIrancell.setChecked(false);
                 profileType = 1;
                 chargeName = "شارژ شگفت انگیز";
-                chargeType="1";
+                chargeType = "1";
 
                 break;
             case R.id.rbNormalChargeIrancell:
@@ -1229,8 +1275,8 @@ public class ChargeFragment extends BaseFragment
                     rbYoungMCN.setChecked(false);
                     rbWomenMCN.setChecked(false);
                 }
-              //  chargeType = "DIRECT";
-                chargeType="0";
+                //  chargeType = "DIRECT";
+                chargeType = "0";
                 chargeName = "شارژ مستقیم";
 
                 break;
@@ -1248,7 +1294,7 @@ public class ChargeFragment extends BaseFragment
             case R.id.rbNormalChargeRightel:
                 if (rbNormalChargeRightel.isChecked())
                     rbSpecialChargeRightel.setChecked(false);
-                chargeType ="0" ;
+                chargeType = "0";
                 chargeName = "شارژ عادی";
 
                 break;
@@ -1280,9 +1326,8 @@ public class ChargeFragment extends BaseFragment
         if (b)
         {
 //            mainView.showPricePanel();
-            hideSoftKeyboard(etMCIAmount);
-            hideSoftKeyboard(etChargeAmountRightel);
-            hideSoftKeyboard(etChargeAmount);
+            // hideSoftKeyboard(etMCIAmount);
+            //  hideSoftKeyboard(etChargeAmountRightel);
 
         }
       /*  if (etMCINumber.isFocused()){
@@ -1381,44 +1426,6 @@ public class ChargeFragment extends BaseFragment
     }
 
 
-    public void onSelectContact(String number, String name)
-    {
-        try
-        {
-            if (isMtn)
-            {
-                etMobileCharge.setText(number.replaceAll(" ", ""));
-                tilMIrancell.setHint(name);
-
-
-                return;
-            }
-            if (isMci)
-            {
-                etMCINumber.setText(number.replaceAll(" ", ""));
-                tilMMci.setHint(name);
-
-
-                return;
-
-
-            }
-            if (isRightel)
-            {
-                etMobileChargeRightel.setText(number.replaceAll(" ", ""));
-                tilMRightel.setHint(name);
-
-
-            }
-
-        } catch (Exception e)
-        {
-        }
-    }
-
-
-
-
     @Override
     public void onStart()
     {
@@ -1481,7 +1488,7 @@ public class ChargeFragment extends BaseFragment
     @Override
     public void onDestroyView()
     {
-      //  initDefaultOperatorView();
+        //  initDefaultOperatorView();
         super.onDestroyView();
     }
 
@@ -1572,9 +1579,8 @@ public class ChargeFragment extends BaseFragment
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
 
 
-
-       mainView.openChargePaymentFragment(urlPayment, imageDrawable,
-               title, amount,paymentInstance,mobile);
+        mainView.openChargePaymentFragment(urlPayment, imageDrawable,
+                title, amount, paymentInstance, mobile);
 
     }
 
@@ -1755,7 +1761,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat, SimChargePaymentInstance paymentInstance,String mobile)
+    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile)
     {
 
     }
