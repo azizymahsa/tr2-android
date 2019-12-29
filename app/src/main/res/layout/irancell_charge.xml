@@ -66,33 +66,41 @@
                 android:gravity="center|end"
                 android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                app:hintTextAppearance="@style/TextLabel"
-                android:id="@+id/tilMIrancell"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_gravity="center|end"
-                android:hint="شماره موبایل"
-                android:theme="@style/EditTextHint">
-
-                <com.traap.traapapp.utilities.ClearableEditText
-                    android:id="@+id/etMobileCharge"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="100"
-                    android:maxLength="11"
-                    android:backgroundTint="@color/black"
-                    android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                    android:gravity="end|center"
-                    android:imeOptions="actionNext"
+                    android:layout_gravity="center|end"
+                    android:text="شماره موبایل"
+                    android:textColor="@color/warmGray"
+                    />
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompletePhoneNumberIrancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:text=""
                     android:inputType="number"
-                    android:maxLines="1"
-                    android:singleLine="true"
                     android:textColor="@color/chargePackTextColor"
-                    android:textSize="@dimen/textSize_16dp" />
+                    android:textSize="@dimen/textSize_16dp"
+                    android:background="@drawable/background_spinner_amount_charge"/>
 
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:text="مبلغ (ریال)"
+                    android:textColor="@color/warmGray"
+                    />
+                <Spinner
+                    android:id="@+id/spinnerAmountIrancell"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:tag="allBox"
+                    android:background="@drawable/background_spinner_amount_charge" />
+          <!--  <com.google.android.material.textfield.TextInputLayout
                 app:hintTextAppearance="@style/TextLabel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_60sdp"
@@ -115,7 +123,7 @@
                     android:textColor="@color/chargePackTextColor"
                     android:textSize="@dimen/textSize_16dp"/>
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>-->
 
             </LinearLayout>
 <!--            <TextView-->
@@ -143,7 +151,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:visibility="invisible"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/_10dp"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
@@ -158,24 +166,22 @@
             android:layout_weight="50"
             android:layout_height="35dp"
             android:layout_gravity="center"
-            android:background="@drawable/background_spinner_custom"
+            android:background="@drawable/background_spinner_amount_charge"
             android:gravity="right"
             android:tag="irancell"/>
 
-        <TextView
-            android:id="@+id/tvf"
+        <Spinner
+            android:id="@+id/spinnerChargeTypeIrancell"
             android:layout_width="0dp"
             android:layout_weight="50"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginStart="8dp"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:text="فیلتر نوع سیمکارت: "
-            android:textAppearance="@style/IranSansBold"
-            android:textColor="@color/chargePackTextColor"
-            android:textSize="@dimen/textSize_16dp"/>
+            android:background="@drawable/background_spinner_amount_charge" />
+
 
         <Space
             android:layout_width="0dp"
@@ -190,7 +196,9 @@
         android:gravity="center"
         android:layout_marginTop="@dimen/_10dp"
         android:layout_marginBottom="@dimen/_20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
 
         <TextView
             android:layout_width="wrap_content"

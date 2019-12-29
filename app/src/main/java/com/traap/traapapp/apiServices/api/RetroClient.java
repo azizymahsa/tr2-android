@@ -32,6 +32,7 @@ import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePas
 import com.traap.traapapp.apiServices.model.getBankList.response.BankListResponse;
 import com.traap.traapapp.apiServices.model.getBillCodePayCode.GetBillCodePayCodeRequest;
 import com.traap.traapapp.apiServices.model.getBillCodePayCode.GetBillCodePayCodeResponse;
+import com.traap.traapapp.apiServices.model.getBoughtFor.GetBoughtForResponse;
 import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrRequest;
 import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrResponse;
 import com.traap.traapapp.apiServices.model.getHappyCardInfo.GetHappyCardInfoRequest;
@@ -254,6 +255,10 @@ public interface RetroClient
             @Body GetVersionRequest request
     );
 
+
+
+    @GET(Const.GET_BOUGHT_FOR)
+    Single<Response<WebServiceClass<GetBoughtForResponse>>> getBoughtFor();
 
     @POST(Const.BUY_MOBILE_CHARGE)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
