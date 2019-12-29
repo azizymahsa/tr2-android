@@ -776,7 +776,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             if (pagerWithFilter)
             {
                 return NewsArchiveCategoryFragment.newInstance("", //Id Filter List
-                        MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE, //or FROM_FILTER_IsS
+                        MediaArchiveCategoryCall.FROM_FILTER_IDs, //or FROM_FILTER_IDs
                         "", // dateFilter
                         null);
             }

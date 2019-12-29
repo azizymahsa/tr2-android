@@ -523,20 +523,22 @@ public interface RetroClient
 
     @GET(Const.Get_NEWS_ARCHIVE_BY_IDs)
     Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryById(
-            @Query("category") String categoryId           //example 1,2,3,4
+            @Query("category") String categoryId           //example 1
     );
 
     @GET(Const.Get_NEWS_ARCHIVE_BY_IDs)
     Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryByIds(
-            @Query("category_id__in") String categoryIds           //example 1,2,3,4
-//            @Query("category") String categoryIds           //example 1,2,3,4
+            @Query("category_id__in") String categoryIds,          //example 1,2,3,4,
+            @Query("publish_date__gte") String dateFrom,           //example 2019-01-01 and ""
+            @Query("publish_date__lte") String dateTo,             //example 2019-12-01 and ""
+            @Query("search") String searchText                     //example 2019-12-01 and ""
     );
 
-    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs_AND_DATES)
-    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryByIdsAndRangeDate(
-            @Query("category_id__in") String categoryIds,          //example 1,2,3,4
-            @Query("create_date__range") String createDateRanges   //example 2019-01-01,2019-12-01
-    );
+//    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs_AND_DATES)
+//    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryByIdsAndRangeDate(
+//            @Query("category_id__in") String categoryIds,          //example 1,2,3,4
+//            @Query("create_date__range") String createDateRanges   //example 2019-01-01,2019-12-01
+//    );
 
     @GET(Const.Get_NEWS_DETAILS + "{id}/")
     Single<Response<WebServiceClass<GetNewsDetailsResponse>>> getNewsDetails(
