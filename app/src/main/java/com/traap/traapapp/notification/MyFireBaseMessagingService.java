@@ -62,7 +62,8 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService
                 // play notification sound
                 NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
                 notificationUtils.playNotificationSound();
-            } else
+            }
+            else
             {
                 // If the app is in background, firebase itself handles the notification
             }
