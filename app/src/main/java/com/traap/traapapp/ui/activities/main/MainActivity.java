@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -30,7 +31,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 //import com.adpdigital.push.AdpPushClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -262,32 +267,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 Tools.showToast(getApplicationContext(), "شماره پیگیری: " + refrenceNumber);
             }
 
-            mRegistrationBroadcastReceiver = new BroadcastReceiver()
-            {
-                @Override
-                public void onReceive(Context context, Intent intent)
-                {
-                    // checking for type intent filter
-                    if (Objects.requireNonNull(intent.getAction()).equals(TrapConfig.REGISTRATION_COMPLETE))
-                    {
-                        // gcm successfully registered
-                        // now subscribe to `global` topic to receive app wide notifications
-                        FirebaseMessaging.getInstance().subscribeToTopic(TrapConfig.TOPIC_GLOBAL);
-
-//                        displayFirebaseRegId();
-                    }
-                    else if (intent.getAction().equals(TrapConfig.PUSH_NOTIFICATION))
-                    {
-                        // new push notification is received
-
-                        String message = intent.getStringExtra("message");
-
-                        showAlert(MainActivity.this, message, 0);
-                    }
-                }
-            };
-
-
             /*showLoading();
             isMainFragment = false;
             MatchItem matchBuyable = new MatchItem();
@@ -320,7 +299,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            mDrawerLayout.openDrawerNews(containerView);
 //
 //        });
-
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 //        bottomNavigationView.getMenu().getItem(2).setChecked(true);
@@ -440,6 +418,49 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                    .commit();
 //        }
 
+//        mRegistrationBroadcastReceiver = new BroadcastReceiver()
+//        {
+//            @Override
+//            public void onReceive(Context context, Intent intent)
+//            {
+//                // checking for type intent filter
+//                if (Objects.requireNonNull(intent.getAction()).equals(TrapConfig.REGISTRATION_COMPLETE))
+//                {
+//                    // gcm successfully registered
+//                    // now subscribe to `global` topic to receive app wide notifications
+//                    FirebaseMessaging.getInstance().subscribeToTopic(TrapConfig.TOPIC_GLOBAL);
+//
+////                        displayFirebaseRegId();
+//                }
+//                else if (intent.getAction().equals(TrapConfig.PUSH_NOTIFICATION))
+//                {
+//                    // new push notification is received
+//
+//                    String message = intent.getStringExtra("message");
+//
+//                    showAlert(MainActivity.this, message, 0);
+//                }
+//            }
+//        };
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(task ->
+                {
+                    if (!task.isSuccessful())
+                    {
+                        Logger.e("-FireBaseInstanceId-", "getInstanceId failed", task.getException());
+                        return;
+                    }
+
+                    // Get new Instance ID token
+                    String token = Objects.requireNonNull(task.getResult()).getToken();
+
+                    // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+                    String msg = "token: " + token;
+                    Logger.e("-FireBaseInstanceId-", msg);
+//                        showToast(MainActivity.this, msg, R.color.gray);
+                });
 
     }
 
@@ -481,17 +502,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         }
 
 
-        // register GCM registration complete receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(TrapConfig.REGISTRATION_COMPLETE));
-
-        // register new push message receiver
-        // by doing this, the activity will be notified each time a new message arrives
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(TrapConfig.PUSH_NOTIFICATION));
-
-        // clear the notification area when the app is opened
-        NotificationUtils.clearNotifications(getApplicationContext());
+//        // register GCM registration complete receiver
+//        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+//                new IntentFilter(TrapConfig.REGISTRATION_COMPLETE));
+//
+//        // register new push message receiver
+//        // by doing this, the activity will be notified each time a new message arrives
+//        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+//                new IntentFilter(TrapConfig.PUSH_NOTIFICATION));
+//
+//        // clear the notification area when the app is opened
+//        NotificationUtils.clearNotifications(getApplicationContext());
     }
 
 

@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.text.TextUtils;
 
@@ -44,46 +45,67 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage)
     {
         super.onMessageReceived(remoteMessage);
-        Logger.e(TAG, "From: " + remoteMessage.getFrom() + " Message : " + remoteMessage + " Data : " + remoteMessage.getData());
         if (remoteMessage == null)
         {
             return;
         }
+        Logger.e(TAG, "From: " + remoteMessage.getFrom() + " Message : " + remoteMessage + " Data : " + remoteMessage.getData());
 
         if (remoteMessage.getNotification() != null)
         {
-            if (!NotificationUtils.isAppIsInBackground(getApplicationContext()))
-            {
-                // app is in foreground, broadcast the push message
-                Intent pushNotification = new Intent(TrapConfig.PUSH_NOTIFICATION);
-                pushNotification.putExtra("message", remoteMessage.getNotification().getBody());
-                LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+            Logger.e("-Notification title-", remoteMessage.getNotification().getTitle());
+            Logger.e("-Notification body-", remoteMessage.getNotification().getBody());
 
-                // play notification sound
-                NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
-                notificationUtils.playNotificationSound();
-            }
-            else
-            {
-                // If the app is in background, firebase itself handles the notification
-            }
+            Intent pushNotification = new Intent(this, MainActivity.class);
+            pushNotification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            PendingIntent pendingIntent  = PendingIntent.getActivity(this, 1398,
+                    pushNotification, PendingIntent.FLAG_ONE_SHOT);
+
+            NotificationCompat.Builder notificationBuilder = new
+                    NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(remoteMessage.getNotification().getTitle())
+                    .setContentText(remoteMessage.getNotification().getBody())
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent);
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            notificationManager.notify(1398, notificationBuilder.build());
+
+//            if (!NotificationUtils.isAppIsInBackground(getApplicationContext()))
+//            {
+//                // app is in foreground, broadcast the push message
+//                Intent pushNotification = new Intent(TrapConfig.PUSH_NOTIFICATION);
+//                pushNotification.putExtra("message", remoteMessage.getNotification().getBody());
+//                LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+//
+//                // play notification sound
+//                NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+//                notificationUtils.playNotificationSound();
+//            }
+//            else
+//            {
+//                // If the app is in background, firebase itself handles the notification
+//            }
         }
 
-        if (remoteMessage.getData() != null)
-        {
-            try
-            {
-                String status = remoteMessage.getData().get("status") != null ? remoteMessage.getData().get("status") : "";
-                if (Objects.requireNonNull(status).equals("new_pm"))
-                {
-                    sendNotification();
-                }
-            } catch (NullPointerException e)
-            {
-
-            }
-
-        }
+//        if (remoteMessage.getData() != null)
+//        {
+//            try
+//            {
+//                String status = remoteMessage.getData().get("status") != null ? remoteMessage.getData().get("status") : "";
+//                if (Objects.requireNonNull(status).equals("new_pm"))
+//                {
+//                    sendNotification();
+//                }
+//            } catch (NullPointerException e)
+//            {
+//
+//            }
+//
+//        }
     }
 
     private void sendNotification()
@@ -95,11 +117,11 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService
 
         NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationCompat.Builder nb = new NotificationCompat.Builder(this, getString(R.string.app_name));
+        NotificationCompat.Builder nb = new NotificationCompat.Builder(this, getString(R.string.app_english_name));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
-            NotificationChannel mChannel = new NotificationChannel(getString(R.string.app_name),
-                    getString(R.string.app_name),
+            NotificationChannel mChannel = new NotificationChannel(getString(R.string.app_english_name),
+                    getString(R.string.app_english_name),
                     NotificationManager.IMPORTANCE_HIGH);
 
             mChannel.setDescription("this is message");
@@ -108,7 +130,7 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService
 
             mNotificationManager.createNotificationChannel(mChannel);
 
-            nb.setChannelId(getString(R.string.app_name) + getString(R.string.app_name));
+            nb.setChannelId(getString(R.string.app_english_name) + getString(R.string.app_english_name));
             nb.setSmallIcon(R.mipmap.ic_launcher);
             nb.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
             nb.setContentTitle("پیام جدید");
@@ -117,7 +139,7 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService
             nb.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000, 1000, 1000});
             nb.setPriority(Notification.PRIORITY_MAX);
             nb.setContentIntent(pendingIntent);
-            nb.setChannelId(getString(R.string.app_name));
+            nb.setChannelId(getString(R.string.app_english_name));
 
             mNotificationManager.notify(0, nb.build());
 
