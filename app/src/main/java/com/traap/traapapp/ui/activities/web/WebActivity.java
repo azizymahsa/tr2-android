@@ -51,8 +51,9 @@ public class WebActivity extends BaseActivity
                 postData = "userToken=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8")
                         + "&businessToken=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_api_key"), "UTF-8")
                         + "&redirectUrl=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_call_back"), "UTF-8")
+                        + "&redirectSuccess=" + URLEncoder.encode(url, "UTF-8")
                 ;
-
+                url=getIntent().getStringExtra("bimeh_base_url");
             } else if (getIntent().getStringExtra("Title").contains("الو"))
             {
 

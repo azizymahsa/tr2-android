@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llRightelCharge"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|end"
+        android:layout_marginTop="@dimen/_10dp"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginEnd="@dimen/_40dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:background="@drawable/background_border_gray"
+            android:gravity="center"
+            android:weightSum="10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtForgetPass"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="فراموشی رمز عبور"
+                android:textColor="@color/textColorPrimary"
+                android:background="@drawable/background_border_a"
+                android:textSize="@dimen/textSize_14dp" />
+
+            <TextView
+                android:id="@+id/txtChangePass"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="تغییر رمز عبور"
+                android:textColor="@color/returnButtonColor"
+                android:textSize="@dimen/textSize_14dp" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llDetailDescriptionForgetPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="جهت دریافت پیامک بازیابی رمز عبور
+دکمه تایید را بزنید."
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_14dp" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llChangePass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="false">
+            <EditText
+                android:id="@+id/edtOldPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:drawableLeft="@drawable/ic_eye_no"
+                android:ems="10"
+                android:hint="رمز قدیم"
+                android:imeOptions="actionGo"
+                android:inputType="text"
+                android:padding="10dp">
+
+            </EditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="false">
+            <EditText
+                android:id="@+id/edtNewPass"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:drawableLeft="@drawable/ic_eye"
+                android:ems="10"
+                android:hint="رمز جدید"
+                android:imeOptions="actionGo"
+                android:inputType="textPassword"
+                android:padding="10dp">
+
+            </EditText>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="false">
+            <EditText
+                android:id="@+id/edtTemNewPass"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:drawableLeft="@drawable/ic_eye"
+                android:ems="10"
+                android:hint="تکرار رمز جدید"
+                android:imeOptions="actionGo"
+                android:inputType="textPassword"
+                android:padding="10dp">
+
+            </EditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100">
+
+            <include
+                android:id="@+id/btnChangePass"
+                layout="@layout/circular_progress_button_small" />
+
+        </FrameLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
