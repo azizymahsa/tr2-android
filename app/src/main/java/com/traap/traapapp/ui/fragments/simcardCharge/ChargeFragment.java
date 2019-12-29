@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -39,6 +40,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -47,8 +49,12 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
+import com.traap.traapapp.apiServices.model.getBoughtFor.GetBoughtForResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.conf.TrapConfig;
@@ -70,6 +76,7 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyImpl;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NumberTextWatcher;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 /**
@@ -157,6 +164,16 @@ public class ChargeFragment extends BaseFragment
     @BindView(R.id.llOperatorImages)
     LinearLayout llOperatorImages;
 
+
+    @BindView(R.id.autoCompletePhoneNumberMci)
+    AutoCompleteTextView autoCompletePhoneNumberMci;
+
+    @BindView(R.id.autoCompletePhoneNumberIrancel)
+    AutoCompleteTextView autoCompletePhoneNumberIrancel;
+
+    @BindView(R.id.autoCompletePhoneNumberRightel)
+    AutoCompleteTextView autoCompletePhoneNumberRightel;
+
     @BindView(R.id.flIrancell)
     FrameLayout flIrancell;
     @BindView(R.id.flHamraheAval)
@@ -216,14 +233,14 @@ public class ChargeFragment extends BaseFragment
     View btnRightelRecent;
 
 
-    @BindView(R.id.etMobileChargeRightel)
-    ClearableEditText etMobileChargeRightel;
+    /*@BindView(R.id.etMobileChargeRightel)
+    ClearableEditText etMobileChargeRightel;*/
 
 
-    @BindView(R.id.etMobileCharge)
-    ClearableEditText etMobileCharge;
-    @BindView(R.id.etMCINumber)
-    ClearableEditText etMCINumber;
+   /* @BindView(R.id.etMobileCharge)
+    ClearableEditText etMobileCharge;*/
+    /*@BindView(R.id.etMCINumber)
+    ClearableEditText etMCINumber;*/
     @BindView(R.id.tvChargeTitle)
     TextView tvChargeTitle;
     @BindView(R.id.ivContactI)
@@ -262,13 +279,13 @@ public class ChargeFragment extends BaseFragment
     RadioButton rbSpecialChargeRightel;
     @BindView(R.id.rbNormalChargeRightel)
     RadioButton rbNormalChargeRightel;
-    @BindView(R.id.tilMIrancell)
-    TextInputLayout tilMIrancell;
-    @BindView(R.id.tilMMci)
-    TextInputLayout tilMMci;
-    @BindView(R.id.tilMRightel)
+   /* @BindView(R.id.tilMIrancell)
+    TextInputLayout tilMIrancell;*/
+    /*@BindView(R.id.tilMMci)
+    TextInputLayout tilMMci;*/
+/*    @BindView(R.id.tilMRightel)
 
-    TextInputLayout tilMRightel;
+    TextInputLayout tilMRightel;*/
     @BindView(R.id.tipCvv2)
     TextInputLayout tipCvv2;
     @BindView(R.id.nested)
@@ -486,7 +503,7 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnChargeConfirm)
     void setBtnChargeConfirm()
     {
-        if (!Utility.mtnValidation(etMobileCharge.getText().toString()))
+        if (!Utility.mtnValidation(autoCompletePhoneNumberIrancel.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
@@ -519,7 +536,7 @@ public class ChargeFragment extends BaseFragment
             // amount = etChargeAmount.getText().toString();
             imageDrawable = R.drawable.irancell;
             chargeStr = "ایرانسل";
-            mobile = etMobileCharge.getText().toString();
+            mobile = autoCompletePhoneNumberIrancel.getText().toString();
            // chargeType=spinnerChargeTypeIrancell.getSelectedItem().toString();
 
         } else if (isMci)
@@ -528,7 +545,7 @@ public class ChargeFragment extends BaseFragment
             //  amount = etMCIAmount.getText().toString();
             imageDrawable = R.drawable.hamrahe_aval;
             chargeStr = "همراه اول";
-            mobile = etMCINumber.getText().toString();
+            mobile = autoCompletePhoneNumberMci.getText().toString();
            // chargeType=spinnerChargeTypeMci.getSelectedItem().toString();
 
         } else if (isRightel)
@@ -537,7 +554,7 @@ public class ChargeFragment extends BaseFragment
             // amount = etChargeAmountRightel.getText().toString();
             imageDrawable = R.drawable.rightel;
             chargeStr = "رایتل";
-            mobile = etMobileChargeRightel.getText().toString();
+            mobile = autoCompletePhoneNumberRightel.getText().toString();
             //chargeType=spinnerChargeTypeRightel.getSelectedItem().toString();
 
         }
@@ -589,7 +606,7 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnChargeConfirmRightel)
     void setBtnChargeConfirmRightel()
     {
-        if (!Utility.rightelValidation(etMobileChargeRightel.getText().toString()))
+        if (!Utility.rightelValidation(autoCompletePhoneNumberRightel.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
@@ -645,7 +662,7 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnMCIChargeConfirm)
     void setBtnMCIChargeConfirm()
     {
-        if (!Utility.mciValidation(etMCINumber.getText().toString()))
+        if (!Utility.mciValidation(autoCompletePhoneNumberMci.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
 
@@ -657,7 +674,7 @@ public class ChargeFragment extends BaseFragment
             mainView.showError("لطفا مبلغ را وارد نمایید.");
             return;
         }
-        hideSoftKeyboard(etMCINumber);
+       // hideSoftKeyboard(etMCINumber);
         etPassCharge.requestFocus();
 
         isMci = true;
@@ -973,9 +990,9 @@ public class ChargeFragment extends BaseFragment
 
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(11);
-        etMobileCharge.setFilters(filterArray);
-        etMCINumber.setFilters(filterArray);
-        etMobileChargeRightel.setFilters(filterArray);
+       // etMobileCharge.setFilters(filterArray);
+       // etMCINumber.setFilters(filterArray);
+       // etMobileChargeRightel.setFilters(filterArray);
 
         initDefaultOperatorView();
 
@@ -991,10 +1008,56 @@ public class ChargeFragment extends BaseFragment
         {
 
         }
+        getBoughtForRequest();
      /*   btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));
         btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));
         btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));*/
 
+    }
+
+    private void getBoughtForRequest()
+    {
+        SingletonService.getInstance().getBoughtForService().getBoughtFor(new OnServiceStatus<WebServiceClass<GetBoughtForResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetBoughtForResponse> response)
+            {
+                try {
+                    if (response.info.statusCode == 200) {
+
+                        onGetBoutForSuccess(response.data.getResults());
+
+                    } else {
+                        Tools.showToast(getContext(),response.info.message,R.color.red);
+                    }
+                } catch (Exception e) {
+                    Tools.showToast(getContext(),e.getMessage(),R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+
+                Tools.showToast(getActivity(),message,R.color.red);
+            }
+        });
+    }
+
+    private void onGetBoutForSuccess(List<String> results)
+    {
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (getContext(),R.layout.custom_spinner_dropdown_item,results);
+        autoCompletePhoneNumberMci.setThreshold(1);//will start working from first character
+        autoCompletePhoneNumberMci.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+
+        autoCompletePhoneNumberIrancel.setThreshold(1);//will start working from first character
+        autoCompletePhoneNumberIrancel.setAdapter(adapter);
+
+        autoCompletePhoneNumberRightel.setThreshold(1);//will start working from first character
+        autoCompletePhoneNumberRightel.setAdapter(adapter);
     }
 
     private void initDefaultOperatorView()
@@ -1092,9 +1155,9 @@ public class ChargeFragment extends BaseFragment
 //        isMtn = false;
 //        isMci = true;
 //        isRightel = false;
-        etMCINumber.setText(Prefs.getString("mobile", ""));
-        etMobileCharge.setText(Prefs.getString("mobile", ""));
-        etMobileChargeRightel.setText(Prefs.getString("mobile", ""));
+        autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
+        autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
+        autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
         // etMCIAmount.setOnFocusChangeListener(this);
 /*        etMCINumber.setOnFocusChangeListener(this);
         etMobileCharge.setOnFocusChangeListener(this);
@@ -1103,9 +1166,9 @@ public class ChargeFragment extends BaseFragment
         // etMCIAmount.setInputType(InputType.TYPE_NULL);
         // etChargeAmountRightel.setInputType(InputType.TYPE_NULL);
 
-        etMobileCharge.addTextChangedListener(this);
-        etMCINumber.addTextChangedListener(this);
-        etMobileChargeRightel.addTextChangedListener(this);
+       // etMobileCharge.addTextChangedListener(this);
+       // etMCINumber.addTextChangedListener(this);
+       // etMobileChargeRightel.addTextChangedListener(this);
 
     }
 
@@ -1452,14 +1515,14 @@ public class ChargeFragment extends BaseFragment
             {
                 if (isMtn)
                 {
-                    tilMIrancell.setHint("شماره موبایل");
+                   // tilMIrancell.setHint("شماره موبایل");
 
 
                     return;
                 }
                 if (isMci)
                 {
-                    tilMMci.setHint("شماره موبایل");
+                   // tilMMci.setHint("شماره موبایل");
 
                     return;
 
@@ -1467,7 +1530,7 @@ public class ChargeFragment extends BaseFragment
                 }
                 if (isRightel)
                 {
-                    tilMRightel.setHint("شماره موبایل");
+                    //tilMRightel.setHint("شماره موبایل");
 
                 }
 
@@ -1796,16 +1859,16 @@ public class ChargeFragment extends BaseFragment
         {
             if (isMtn)
             {
-                etMobileCharge.setText(event.getNumber().replaceAll(" ", ""));
-                tilMIrancell.setHint(event.getName());
+                autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
+              //  tilMIrancell.setHint(event.getName());
 
 
                 return;
             }
             if (isMci)
             {
-                etMCINumber.setText(event.getNumber().replaceAll(" ", ""));
-                tilMMci.setHint(event.getName());
+                autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
+               // tilMMci.setHint(event.getName());
 
 
                 return;
@@ -1814,8 +1877,8 @@ public class ChargeFragment extends BaseFragment
             }
             if (isRightel)
             {
-                etMobileChargeRightel.setText(event.getNumber().replaceAll(" ", ""));
-                tilMRightel.setHint(event.getName());
+                autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
+               // tilMRightel.setHint(event.getName());
 
 
             }

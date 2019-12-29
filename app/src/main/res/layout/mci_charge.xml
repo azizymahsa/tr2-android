@@ -67,7 +67,26 @@
                 android:gravity="center|end"
                 android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:text="شماره موبایل"
+                    android:textColor="@color/warmGray"
+                    />
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompletePhoneNumberMci"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:text=""
+                    android:inputType="number"
+                    android:textColor="@color/chargePackTextColor"
+                    android:textSize="@dimen/textSize_16dp"
+                    android:background="@drawable/background_spinner_amount_charge"
+                    />
+               <!-- <com.google.android.material.textfield.TextInputLayout
                     app:hintTextAppearance="@style/TextLabel"
                     android:id="@+id/tilMMci"
                     android:layout_width="match_parent"
@@ -92,7 +111,7 @@
                         android:textColor="@color/chargePackTextColor"
                         android:textSize="@dimen/textSize_16dp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <TextView
                     android:layout_width="match_parent"
