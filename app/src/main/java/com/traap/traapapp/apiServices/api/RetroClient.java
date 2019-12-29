@@ -455,6 +455,10 @@ public interface RetroClient
             @Body GetBalancePasswordLessRequest request
     );
 
+    @POST(Const.ChangePasswordWallet)
+    Single<Response<WebServiceClass<ForgetPasswordWalletResponse>>> changePasswordWallet(
+            @Body GetBalancePasswordLessRequest request
+    );
 
     @POST(Const.PAYMENT_PRINT_pOS)
     Single<Response<WebServiceClass<PaymentPrintPosResponse>>> getPayment(

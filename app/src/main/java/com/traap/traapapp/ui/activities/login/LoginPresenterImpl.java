@@ -189,6 +189,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                         Prefs.putString("bimeh_call_back",  response.data.getBimeh_call_back());
                         Prefs.putString("bimeh_api_key",  response.data.getBimeh_api_key());
                         Prefs.putString("bimeh_token",  response.data.getBimeh_token());
+                        Prefs.putString("bimeh_base_url",  response.data.getBimeh_base_url());
 
                         Prefs.putString("alopark_token",  response.data.getAlopark_token());
 

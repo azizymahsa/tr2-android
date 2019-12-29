@@ -97,6 +97,7 @@ public class Const
     public final static String PaymentWallet = SubBASEURL + "v1/match/wallet/payment/";
     public final static String GetBalancePasswordLess = SubBASEURL + "v1/shetac/get_balance_password_less/";
     public final static String ForgetPasswordWallet = SubBASEURL + "v1/shetac/forget_password_tow/";
+    public final static String ChangePasswordWallet = SubBASEURL + "v1/shetac/change_password_tow/";
 
     //Bank List
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";

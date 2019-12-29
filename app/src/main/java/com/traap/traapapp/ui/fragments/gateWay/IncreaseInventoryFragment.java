@@ -16,6 +16,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
+import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -88,7 +89,12 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
         switch (v.getId())
         {
             case R.id.btnChargeConfirmRightel:
-                sendRequest();
+                if (etAmount.getText().toString().length() > 0)
+                    sendRequest();
+                else
+                    mainView.showError("لطفا مبلغ را وارد کنید.");
+                // showAlert(getActivity(), "لطفا مبلغ را وارد کنید.", 0);
+
                 break;
         /*case R.id.etAmount:
             // sendRequest();
@@ -98,6 +104,7 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
     private void sendRequest()
     {
+        mainView.showLoading();
         RequestIncreaseWallet request = new RequestIncreaseWallet();
         request.setAmount(Integer.parseInt(etAmount.getText().toString()));
         SingletonService.getInstance().getBalancePasswordLessService().IncreaseInventoryWalletService(new OnServiceStatus<WebServiceClass<ResponseIncreaseWallet>>()
@@ -123,6 +130,8 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
                     }
                 } catch (Exception e)
                 {
+                    mainView.hideLoading();
+
                     mainView.showError(e.getMessage());
 
                 }
@@ -144,6 +153,6 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
     private void openURL(ResponseIncreaseWallet data)
     {
-        showAlert(getActivity(),data.getUrl()+"",0);
+        Utility.openUrlCustomTab(getActivity(), data.getUrl());
     }
 }

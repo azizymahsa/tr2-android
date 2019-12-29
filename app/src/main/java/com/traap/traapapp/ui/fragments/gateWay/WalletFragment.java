@@ -152,11 +152,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
             imgMenu = rootView.findViewById(R.id.imgMenu);
 
-            btnForgetPass = rootView.findViewById(R.id.btnForgetPass);
-            btnForgetPass.setOnClickListener(v ->
-            {
-                requestForgetPassword();
-            });
+
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
 
             rlShirt.setOnClickListener(v ->
@@ -197,53 +193,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         rlImageProfile.setOnClickListener(this);
 
     }
-    /*----------------------------------------------------------------------------------------------------*/
 
-    private void requestForgetPassword()
-    {
-        GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
-        request.setIsWallet(true);
-        SingletonService.getInstance().forgetPasswordWalletService().ForgetPasswordWalletService(new OnServiceStatus<WebServiceClass<ForgetPasswordWalletResponse>>()
-        {
-
-
-            @Override
-            public void onReady(WebServiceClass<ForgetPasswordWalletResponse> response)
-            {
-                mainView.hideLoading();
-
-                try
-                {
-                    if (response.info.statusCode == 200)
-                    {
-                        //setBalanceData(response.data);
-                        // Toast.makeText(getContext(), "yees", Toast.LENGTH_SHORT).show();
-
-                    } else
-                    {
-
-                        mainView.showError(response.info.message);
-
-                    }
-                } catch (Exception e)
-                {
-                    mainView.showError(e.getMessage());
-
-                }
-
-
-            }
-
-            @Override
-            public void onError(String message)
-            {
-
-                mainView.showError(message);
-                mainView.hideLoading();
-
-            }
-        }, request);
-    }
 
     /*----------------------------------------------------------------------------------------------------*/
 

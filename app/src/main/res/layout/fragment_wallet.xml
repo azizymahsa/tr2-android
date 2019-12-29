@@ -72,7 +72,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_70sdp"
+                                android:layout_marginTop="@dimen/_30dp"
                                 android:orientation="vertical">
 
 
@@ -107,20 +107,7 @@
 
                                     </FrameLayout>
 
-                                    <FrameLayout
-                                        android:id="@+id/llConfirm"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="@dimen/_10sdp"
-                                        android:layout_marginEnd="@dimen/_10sdp"
-                                        android:layout_marginBottom="2dp"
-                                        android:layout_weight="100">
 
-                                        <include
-                                            android:id="@+id/btnForgetPass"
-                                            layout="@layout/circular_progress_button_wallet" />
-
-                                    </FrameLayout>
 
 
                                     <FrameLayout

@@ -1,30 +1,17 @@
 package com.traap.traapapp.ui.fragments.gateWay;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
-import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
-import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.fragments.videos.VideosFragment;
-
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 /**
@@ -130,7 +117,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
                 showFragment(fragment);
                 break;
             case R.id.lnrManageWallet:
-                fragment = DetailsCartFragment.newInstance(mainView);
+                fragment = ManageWalletFragment.newInstance(mainView);
                 showFragment(fragment);
                 break;
             case R.id.lnrIncreaseInveronment:

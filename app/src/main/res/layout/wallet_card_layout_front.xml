@@ -41,7 +41,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginRight="@dimen/_10dp"
-                android:gravity="right"
+                android:gravity="center"
                 android:orientation="vertical"
 
                 >
