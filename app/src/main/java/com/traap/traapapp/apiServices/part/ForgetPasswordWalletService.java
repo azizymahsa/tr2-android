@@ -29,4 +29,9 @@ public class ForgetPasswordWalletService  extends BasePart
         start(getServiceGenerator().createService().forgetPasswordWallet(req), listener);
     }
 
+    public void ChangePasswordWalletService(OnServiceStatus<WebServiceClass<ForgetPasswordWalletResponse>> listener, GetBalancePasswordLessRequest req)
+    {
+        start(getServiceGenerator().createService().changePasswordWallet(req), listener);
+    }
+
 }

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llRightelCharge"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llDetailDescriptionRightel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="جهت افزایش موجودی لطفا مبلغ مورد نظر
+ را وارد نمایید"
+            android:textColor="@color/black"
+            android:maxLines="2"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:textSize="@dimen/textSize_12dp" />
+        <ImageView
+            android:id="@+id/ivContactR"
+            android:src="@drawable/ic_inc_inv_small"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_35dp"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/button_small_border"
+            android:layout_marginEnd="5dp"
+            android:foreground="?attr/selectableItemBackground" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llRightelMobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+        <ImageView
+            android:id="@+id/btnRightelRecent"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_list"
+            android:background="@drawable/button_small_border"
+            android:textSize="@dimen/textSize_20dp"
+            android:padding="@dimen/_5sdp"
+            android:transitionName="transition"
+            android:visibility="gone"
+            />
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            app:hintTextAppearance="@style/TextLabel"
+            android:id="@+id/tilMRightel"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_gravity="end|center"
+            android:hint="مبلغ (ریال)"
+            android:theme="@style/EditTextHint"
+            android:layout_marginStart="5dp">
+
+            <com.traap.traapapp.utilities.ClearableEditText
+                android:id="@+id/etAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                android:gravity="end|center"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_weight="100"
+                android:maxLength="11"
+                android:textColor="@color/chargePackTextColor"
+                android:textSize="@dimen/textSize_16dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100">
+
+            <include
+                android:id="@+id/btnChargeConfirmRightel"
+                layout="@layout/circular_progress_button_small" />
+
+        </FrameLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40" />
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

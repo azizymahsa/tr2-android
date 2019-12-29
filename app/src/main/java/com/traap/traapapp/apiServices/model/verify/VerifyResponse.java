@@ -33,6 +33,19 @@ public class VerifyResponse
     @SerializedName("alopark_token")
     @Expose
     private String alopark_token;
+    @SerializedName("bimeh_base_url")
+    @Expose
+    private String bimeh_base_url;
+
+    public String getBimeh_base_url()
+    {
+        return bimeh_base_url;
+    }
+
+    public void setBimeh_base_url(String bimeh_base_url)
+    {
+        this.bimeh_base_url = bimeh_base_url;
+    }
 
     public String getBimeh_api_key()
     {

@@ -3,6 +3,7 @@ package com.traap.traapapp.apiServices.api;
 import java.util.ArrayList;
 
 import io.reactivex.Single;
+
 import com.traap.traapapp.apiServices.helper.Const;
 import com.traap.traapapp.apiServices.model.GlobalResponse2;
 import com.traap.traapapp.apiServices.model.GlobalResponse3;
@@ -42,6 +43,7 @@ import com.traap.traapapp.apiServices.model.getInfoBill.request.GetInfoBillReque
 import com.traap.traapapp.apiServices.model.getInfoBill.response.GetInfoBillResponse;
 import com.traap.traapapp.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillRequest;
 import com.traap.traapapp.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillResponse;
+import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
 import com.traap.traapapp.apiServices.model.getMenu.request.GetMenuRequest;
 import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuResponse;
 import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpResponse;
@@ -52,6 +54,8 @@ import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPa
 import com.traap.traapapp.apiServices.model.getTicketBuyEnable.GetTicketBuyEnableResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
+import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
+import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
 import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
@@ -141,6 +145,7 @@ public interface RetroClient
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
             @Path("id") Integer categoryId
     );
+
     @GET(Const.Get_Category_By_Id_Video2)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos2(
             @Path("id") Integer categoryId
@@ -163,16 +168,16 @@ public interface RetroClient
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos(
             @Path("id") Integer categoryId
     );
+
     @GET(Const.Get_Category_By_Id_Photo2)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdPhotos2(
             @Path("id") Integer categoryId
     );
+
     @GET(Const.Get_Photos_By_Id)
     Single<Response<WebServiceClass<PhotosByIdResponse>>> getPhotosById(
             @Path("id") Integer categoryId
     );
-
-
 
 
     @GET(Const.List_Bookmark_Photo)
@@ -227,7 +232,6 @@ public interface RetroClient
     Single<Response<WebServiceClass<ResponsePaymentWallet>>> paymentWallet(
             @Body PaymentMatchRequest request
     );
-
 
 
     @POST(Const.GetBillCodePayCode)
@@ -439,12 +443,26 @@ public interface RetroClient
             @Body GetBalancePasswordLessRequest request
     );
 
+    @POST(Const.GetInfoWallet)
+    Single<Response<WebServiceClass<GetInfoWalletResponse>>> getInfoWallet(
+            @Body GetBalancePasswordLessRequest request
+    );
+
+    @POST(Const.IncreaseInventoryWallet)
+    Single<Response<WebServiceClass<ResponseIncreaseWallet>>> getIncInvWallet(
+            @Body RequestIncreaseWallet request
+    );
+
 
     @POST(Const.ForgetPasswordWallet)
     Single<Response<WebServiceClass<ForgetPasswordWalletResponse>>> forgetPasswordWallet(
             @Body GetBalancePasswordLessRequest request
     );
 
+    @POST(Const.ChangePasswordWallet)
+    Single<Response<WebServiceClass<ForgetPasswordWalletResponse>>> changePasswordWallet(
+            @Body GetBalancePasswordLessRequest request
+    );
 
     @POST(Const.PAYMENT_PRINT_pOS)
     Single<Response<WebServiceClass<PaymentPrintPosResponse>>> getPayment(
@@ -495,7 +513,7 @@ public interface RetroClient
             @Body SendPredictRequest request
     );
 
-    @GET(Const.GET_RULES +"{id}/stadium_rules/")
+    @GET(Const.GET_RULES + "{id}/stadium_rules/")
     Single<Response<WebServiceClass<ResponseStadiumRules>>> getRulsStadium(
             @Path("id") Integer id
     );
@@ -506,7 +524,7 @@ public interface RetroClient
     @GET(Const.GET_Invite)
     Single<Response<WebServiceClass<InviteResponse>>> getInvite();
 
-//    @Multipart
+    //    @Multipart
 //    @FormUrlEncoded
     @PUT(Const.PUT_PROFILE)
     Single<Response<WebServiceClass<SendProfileResponse>>> sendProfile(
@@ -548,13 +566,13 @@ public interface RetroClient
             @Path("id") Integer id
     );
 
-    @POST(Const.NEWS_DETAILS_LIKE +"{id}/like/")
+    @POST(Const.NEWS_DETAILS_LIKE + "{id}/like/")
     Single<Response<WebServiceClass<LikeNewsDetailResponse>>> likeNews(
             @Path("id") Integer id,
             @Body LikeNewsDetailRequest request
-            );
+    );
 
-    @POST(Const.NEWS_DETAILS_SEND_COMMENT +"{id}/comments/")
+    @POST(Const.NEWS_DETAILS_SEND_COMMENT + "{id}/comments/")
     Single<Response<WebServiceClass<Object>>> sendNewsComment(
             @Path("id") Integer id,
             @Body SendCommentNewsRequest request
@@ -565,13 +583,13 @@ public interface RetroClient
             @Path("id") Integer id
     );
 
-    @POST(Const.NEWS_DETAILS_LIKE_COMMENT +"comments/{id}/rate/")
+    @POST(Const.NEWS_DETAILS_LIKE_COMMENT + "comments/{id}/rate/")
     Single<Response<WebServiceClass<LikeNewsDetailResponse>>> likeNewsComment(
             @Path("id") Integer id,
             @Body LikeNewsDetailRequest request
     );
 
-    @POST(Const.NEWS_DETAILS_SET_BOOKMARK +"{id}/bookmark/")
+    @POST(Const.NEWS_DETAILS_SET_BOOKMARK + "{id}/bookmark/")
     Single<Response<WebServiceClass<NewsBookmarkResponse>>> bookmarkNews(
             @Path("id") Integer id
     );

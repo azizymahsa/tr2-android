@@ -60,6 +60,9 @@ public class Const
     public final static String GetHappyCardInfo = SubBASEURL + "Happy/v1/GetCardInfo";
     public final static String GetShetabCardInfo = SubBASEURL + "Shetab/v1/GetCardInfo";
     public final static String DoTransferCard = SubBASEURL + "Shetab/v1/DoTransfer";
+    //wallet
+    public final static String GetInfoWallet = SubBASEURL + "v1/shetac/get_info/";
+    public final static String IncreaseInventoryWallet = SubBASEURL + "v1/shetac/increase_inventory_ipg/";
 
 
     //card
@@ -96,6 +99,7 @@ public class Const
     public final static String PaymentWallet = SubBASEURL + "v1/match/wallet/payment/";
     public final static String GetBalancePasswordLess = SubBASEURL + "v1/shetac/get_balance_password_less/";
     public final static String ForgetPasswordWallet = SubBASEURL + "v1/shetac/forget_password_tow/";
+    public final static String ChangePasswordWallet = SubBASEURL + "v1/shetac/change_password_tow/";
 
     //Bank List
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";

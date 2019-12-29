@@ -19,4 +19,17 @@ public class GetBalancePasswordLessRequest
     @Getter
     @Setter
     private Boolean isWallet;
+
+    @SerializedName("pin2_new")
+    @Expose
+    @Getter
+    @Setter
+    private String pin2_new;
+
+    @SerializedName("pin2_old")
+    @Expose
+    @Getter
+    @Setter
+    private String pin2_old;
+
 }

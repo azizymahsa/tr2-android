@@ -36,7 +36,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -89,6 +88,7 @@ import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
+import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
@@ -657,15 +657,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 4:
             {
-                // showToast(this, "کیف پول", R.color.green);
-//                isMainFragment = false;
-//
-//                fragment = WalletFragment.newInstance(this);
-//                transaction = fragmentManager.beginTransaction();
-////                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-//
-//                transaction.replace(R.id.main_container, fragment, "walletFragment")
-//                        .commit();
+               // showToast(this, "کیف پول", R.color.green);
+                isMainFragment = false;
+
+                fragment = WalletFragment.newInstance(this);
+                transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "walletFragment")
+                        .commit();
 
                 break;
             }

@@ -632,6 +632,7 @@ public class AllMenuFragment extends BaseFragment implements
                         intent.putExtra("bimeh_api_key", Prefs.getString("bimeh_api_key", ""));
                         intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
                         intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                        intent.putExtra("bimeh_base_url", Prefs.getString("bimeh_base_url", ""));
                         startActivity(intent);
                     }
 
