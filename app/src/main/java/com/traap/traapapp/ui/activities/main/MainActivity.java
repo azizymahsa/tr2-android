@@ -5,7 +5,10 @@ package com.traap.traapapp.ui.activities.main;
 import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -16,16 +19,24 @@ import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 //import com.adpdigital.push.AdpPushClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -35,6 +46,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
@@ -63,6 +75,7 @@ import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.notification.NotificationJobService;
+import com.traap.traapapp.notification.NotificationUtils;
 import com.traap.traapapp.notification.PushMessageReceiver;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
@@ -112,6 +125,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Boolean isNewsFragment = false;
     private Boolean isFirst = true;
 
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+
     private Toolbar mToolbar;
     private MenuDrawer drawerFragment;
     public static ArrayList<MatchItem> matchList;
@@ -137,19 +152,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Boolean isCompleteThreadNews = false;
     private ArrayList<MatchItem> matchBuyable;
     private String typeTransaction;
-    private boolean hasPaymentCharge=false;
-    private boolean hasPaymentPackageSimcard=false;
+    private boolean hasPaymentCharge = false;
+    private boolean hasPaymentPackageSimcard = false;
 
-    private void hideNavBar() {
+//    private void hideNavBar()
+//    {
+//        bottomNavigationView = findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setVisibility(View.GONE);
+//    }
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setVisibility(View.GONE);
-    }
-    private void showNavBar() {
+//    private void showNavBar()
+//    {
+//
+//        bottomNavigationView = findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setVisibility(View.VISIBLE);
+//    }
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setVisibility(View.VISIBLE);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -171,29 +189,31 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 ////            startService(new Intent(this, NotificationJobService.class));
 ////        }
 
-        getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
+//        getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout()
+//            {
+//
+//                Rect r = new Rect();
+//                getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
+//                int screenHeight = getWindow().getDecorView().getRootView().getHeight();
+//
+//                int keypadHeight = screenHeight - r.bottom;
+//
+//                //Log.d(TAG, "keypadHeight = " + keypadHeight);
+//
+//                if (keypadHeight > screenHeight * 0.15)
+//                {
+//                    //Keyboard is opened
+//                    hideNavBar();
+//                }
+//                else {
+//                    // keyboard is closed
+//                    showNavBar();
+//                }
+//            }
+//        });
 
-                Rect r = new Rect();
-                getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
-                int screenHeight = getWindow().getDecorView().getRootView().getHeight();
-
-                int keypadHeight = screenHeight - r.bottom;
-
-                //Log.d(TAG, "keypadHeight = " + keypadHeight);
-
-                if (keypadHeight > screenHeight * 0.15) {
-                    //Keyboard is opened
-                    hideNavBar();
-                }
-                else {
-                    // keyboard is closed
-                    showNavBar();
-                }
-            }
-        });
-        //////////////////////////
         mToolbar = findViewById(R.id.toolbar);
 
         //------------------test------------------------
@@ -226,26 +246,26 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             Uri uri = intent.getData();
 
             refrenceNumber = uri.getQueryParameter("refrencenumber").replace("/", "");
-            typeTransaction = uri.getQueryParameter("typetransaction").replace("/","");
+            typeTransaction = uri.getQueryParameter("typetransaction").replace("/", "");
             try
             {
-                if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STAUS_ChargeSimCard){
-
-                    hasPaymentCharge=true;
-
-                }else if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STAUS_PackSimCard){
-
-                    hasPaymentPackageSimcard=true;
-                }else if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
+                if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard)
                 {
-
+                    hasPaymentCharge = true;
+                }
+                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
+                {
+                    hasPaymentPackageSimcard = true;
+                }
+                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
+                {
                     hasPaymentTicket = true;
                 }
-            }catch (Exception e){
+            }
+            catch (Exception e)
+            {
                 Tools.showToast(getApplicationContext(), "شماره پیگیری: " + refrenceNumber);
             }
-
-
 
             /*showLoading();
             isMainFragment = false;
@@ -279,7 +299,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            mDrawerLayout.openDrawerNews(containerView);
 //
 //        });
-
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 //        bottomNavigationView.getMenu().getItem(2).setChecked(true);
@@ -399,6 +418,50 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                    .commit();
 //        }
 
+//        mRegistrationBroadcastReceiver = new BroadcastReceiver()
+//        {
+//            @Override
+//            public void onReceive(Context context, Intent intent)
+//            {
+//                // checking for type intent filter
+//                if (Objects.requireNonNull(intent.getAction()).equals(TrapConfig.REGISTRATION_COMPLETE))
+//                {
+//                    // gcm successfully registered
+//                    // now subscribe to `global` topic to receive app wide notifications
+//                    FirebaseMessaging.getInstance().subscribeToTopic(TrapConfig.TOPIC_GLOBAL);
+//
+////                        displayFirebaseRegId();
+//                }
+//                else if (intent.getAction().equals(TrapConfig.PUSH_NOTIFICATION))
+//                {
+//                    // new push notification is received
+//
+//                    String message = intent.getStringExtra("message");
+//
+//                    showAlert(MainActivity.this, message, 0);
+//                }
+//            }
+//        };
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(task ->
+                {
+                    if (!task.isSuccessful())
+                    {
+                        Logger.e("-FireBaseInstanceId-", "getInstanceId failed", task.getException());
+                        return;
+                    }
+
+                    // Get new Instance ID token
+                    String token = Objects.requireNonNull(task.getResult()).getToken();
+
+                    // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+                    String msg = "token: " + token;
+                    Logger.e("-FireBaseInstanceId-", msg);
+//                        showToast(MainActivity.this, msg, R.color.gray);
+                });
+
     }
 
     @Override
@@ -410,6 +473,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
+    protected void onPause()
+    {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
+    }
+
+    @Override
     protected void onResume()
     {
         super.onResume();
@@ -418,7 +488,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             NewsArchiveClickModel fromNewsDetails = SingletonNewsArchiveClick.getInstance().getNewsArchiveClickModel();
             if (fromNewsDetails != null)
             {
-//                showError("Archive: " + fromNewsDetails.getFromNewsDetails());
                 if (fromNewsDetails.getFromNewsDetails())
                 {
                     fromNewsDetails.setFromNewsDetails(false);
@@ -432,6 +501,18 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            showError("Error " );
         }
 
+
+//        // register GCM registration complete receiver
+//        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+//                new IntentFilter(TrapConfig.REGISTRATION_COMPLETE));
+//
+//        // register new push message receiver
+//        // by doing this, the activity will be notified each time a new message arrives
+//        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+//                new IntentFilter(TrapConfig.PUSH_NOTIFICATION));
+//
+//        // clear the notification area when the app is opened
+//        NotificationUtils.clearNotifications(getApplicationContext());
     }
 
 
@@ -463,9 +544,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 //((SelectPaymentGatewayFragment) fragment).onBackClicked();
                 backToMainFragment();
 
-            }*/
-
-            else if (fragment instanceof PastResultFragment )
+            }*/ else if (fragment instanceof PastResultFragment)
             {
                 onLeageClick(matchBuyable);
             }
@@ -487,8 +566,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             {
                                 finishAndRemoveTask();
-                            }
-                            else
+                            } else
                             {
                                 Intent intent = new Intent(Intent.ACTION_MAIN);
                                 intent.addCategory(Intent.CATEGORY_HOME);
@@ -504,7 +582,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         }
 
                         @Override
-                        public void onCancelClick() {}
+                        public void onCancelClick()
+                        {
+                        }
                     });
                     exitDialog.show(getFragmentManager(), "exitDialog");
                 } else
@@ -577,7 +657,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 4:
             {
-               // showToast(this, "کیف پول", R.color.green);
+                // showToast(this, "کیف پول", R.color.green);
 //                isMainFragment = false;
 //
 //                fragment = WalletFragment.newInstance(this);
@@ -646,7 +726,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 if (fragment instanceof MainFragment)
                 {
                     ((MainFragment) fragment).requestGetHelpMenu();
-                }else {
+                } else
+                {
                     backToMainFragment();
                     ((MainFragment) fragment).requestGetHelpMenu();
                 }
@@ -737,8 +818,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 isFirst = false;
                 new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 1200);
-            }
-            else
+            } else
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
@@ -994,7 +1074,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         setCheckedBNV(bottomNavigationView, 1);
 
         isMainFragment = true;
-        isNewsFragment = false;
+//        isNewsFragment = false;
         transaction = fragmentManager.beginTransaction();
 
         if (mainFragment != null)
@@ -1062,7 +1142,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .commit();*/
 
         Intent intent = new Intent(this, BuyTicketsActivity.class);
-        intent.putExtra("MatchBuyable",(Parcelable) matchBuyable);
+        intent.putExtra("MatchBuyable", (Parcelable) matchBuyable);
         //intent.putExtra("StatusPayment", true);
         startActivity(intent);
 
@@ -1404,7 +1484,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
     {
         isMainFragment = false;
-        this.fragment = PastResultFragment.newInstance(this, teamId,imageLogo, logoTitle);
+        this.fragment = PastResultFragment.newInstance(this, teamId, imageLogo, logoTitle);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -1413,12 +1493,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void openChargePaymentFragment(String urlPayment, int icon_payment, String title, String amount, SimChargePaymentInstance paymentInstance,String mobile)
+    public void openChargePaymentFragment(String urlPayment, int icon_payment, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile)
     {
 
         isMainFragment = false;
         this.fragment = SelectPaymentGatewayFragment.newInstance(urlPayment, this, icon_payment,
-                title, amount,paymentInstance,mobile);
+                title, amount, paymentInstance, mobile);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -1439,7 +1519,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();*/
         isMainFragment = false;
-        this.fragment = WebFragment.newInstance(mainView,uRl,gds_token);
+        this.fragment = WebFragment.newInstance(mainView, uRl, gds_token);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -1455,7 +1535,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         isMainFragment = false;
         this.fragment = SelectPaymentGatewayFragment.newInstance(urlPayment, this, imageDrawable,
-                title, amount,paymentInstance,mobile);
+                title, amount, paymentInstance, mobile);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -1468,44 +1548,41 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void getBuyEnable(BuyTicketAction buyTicketAction)
     {
 
-            SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
+        SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<MatchItem> response)
             {
-                @Override
-                public void onReady(WebServiceClass<MatchItem> response)
+                if (response.info.statusCode == 200)
                 {
-                    if (response.info.statusCode == 200)
+                    if (response.data != null)
                     {
-                        if (response.data != null)
-                        {
-                           onBuyTicketClick(response.data);
-                        }
-                        else
-                        {
-                            showAlert(MainActivity.this, response.info.message, 0);
-                        }
-                    }
-                    else
+                        onBuyTicketClick(response.data);
+                    } else
                     {
                         showAlert(MainActivity.this, response.info.message, 0);
                     }
-                    buyTicketAction.onEndListener();
-                }
-
-                @Override
-                public void onError(String message)
+                } else
                 {
-                    if (Tools.isNetworkAvailable(MainActivity.this))
-                    {
-                        showAlert(MainActivity.this, "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
-                        Logger.e("--onError--", message);
-                    }
-                    else
-                    {
-                        showAlert(MainActivity.this, R.string.networkErrorMessage, R.string.networkError);
-                    }
-                    buyTicketAction.onEndListener();
+                    showAlert(MainActivity.this, response.info.message, 0);
                 }
-            });
+                buyTicketAction.onEndListener();
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                if (Tools.isNetworkAvailable(MainActivity.this))
+                {
+                    showAlert(MainActivity.this, "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
+                    Logger.e("--onError--", message);
+                } else
+                {
+                    showAlert(MainActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                }
+                buyTicketAction.onEndListener();
+            }
+        });
 
 
     }
@@ -1642,7 +1719,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (hasPaymentTicket)
         {
             isMainFragment = false;
-            this.fragment = ShowTicketsFragment.newInstance(this,refrenceNumber);
+            this.fragment = ShowTicketsFragment.newInstance(this, refrenceNumber);
 
             transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -1655,7 +1732,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             startActivity(intent);*/
 
-        }else if (hasPaymentCharge || hasPaymentPackageSimcard){
+        } else if (hasPaymentCharge || hasPaymentPackageSimcard)
+        {
             Intent intent = new Intent(this, PaymentResultActivity.class);
             intent.putExtra("RefrenceNumber", refrenceNumber);
             //intent.putExtra("StatusPayment", true);
