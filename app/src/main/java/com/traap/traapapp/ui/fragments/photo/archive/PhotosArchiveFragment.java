@@ -774,7 +774,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
             if (pagerWithFilter)
             {
                 return PhotosArchiveCategoryFragment.newInstance("", //Id Filter List
-                        MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE, //or FROM_FILTER_IsS
+                        MediaArchiveCategoryCall.FROM_FILTER_IDs, //or FROM_FILTER_IDs
                         "", // dateFilter
                         null);
             }

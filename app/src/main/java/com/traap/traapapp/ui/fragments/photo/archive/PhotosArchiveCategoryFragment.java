@@ -23,7 +23,6 @@ import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
 import com.traap.traapapp.enums.MediaArchiveCategoryCall;
 import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
-import com.traap.traapapp.ui.activities.news.details.NewsDetailsActivity;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
 import com.traap.traapapp.ui.activities.photo.ShowBigPhotoActivity;
 import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
@@ -135,7 +134,7 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
 //            SingletonService.getInstance().getPhotoArchiveService().getArchivePhoto(true, Ids, this);
             SingletonService.getInstance().getPhotoArchiveService().getArchivePhoto(Ids, this);
         }
-        if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IsS )
+        if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs)
         {
             Logger.e("-Ids 2-", Ids);
 //            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, this);
@@ -145,11 +144,11 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
         {
             SingletonService.getInstance().getPhotoArchiveService().getBookMarkPhoto(this);
         }
-        else if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE)
-        {
-//            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, dateFilter, this);
-
-        }
+//        else if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE)
+//        {
+////            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, dateFilter, this);
+//
+//        }
         else if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             progressBar.setVisibility(View.GONE);

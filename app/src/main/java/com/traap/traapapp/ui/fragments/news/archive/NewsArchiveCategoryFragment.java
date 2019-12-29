@@ -130,19 +130,19 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
             Logger.e("-Ids 2-", Ids);
             SingletonService.getInstance().getNewsService().getNewsArchiveCategoryBySingleId(true, Ids, this);
         }
-        if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IsS )
+        if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs)
         {
             Logger.e("-Ids 2-", Ids);
-            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, this);
+//            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, this);
         }
         else if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
         {
             SingletonService.getInstance().getNewsService().getNewsBookmarks(this);
         }
-        else if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE)
-        {
-            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, dateFilter, this);
-        }
+//        else if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE)
+//        {
+//            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, dateFilter, this);
+//        }
         else if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             progressBar.setVisibility(View.GONE);
