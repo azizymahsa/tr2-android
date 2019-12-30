@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -55,9 +56,12 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
+import com.traap.traapapp.apiServices.model.getBoughtFor.GetBoughtForResponse;
 import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.Detail;
@@ -294,14 +298,14 @@ public class PackFragment
     @BindView(R.id.btnRightelRecent)
     View btnRightelRecent;
     @BindView(R.id.etMobileChargeRightel)
-    ClearableEditText etMobileChargeRightel;
+    AutoCompleteTextView etMobileChargeRightel;
     /* @BindView(R.id.etChargeAmountRightel)
      ClearableEditText etChargeAmountRightel;
  */
     @BindView(R.id.etMobileCharge)
-    ClearableEditText etMobileCharge;
+    AutoCompleteTextView etMobileCharge;
     @BindView(R.id.etMCINumber)
-    ClearableEditText etMCINumber;
+    AutoCompleteTextView etMCINumber;
     @BindView(R.id.tvPackTitle)
     TextView tvPackTitle;
     @BindView(R.id.llPassCharge)
@@ -338,12 +342,6 @@ public class PackFragment
     ClearableEditText etPassCharge;
     @BindView(R.id.tlPassCharge)
     TextInputLayout tlPassCharge;
-    @BindView(R.id.tilMIrancell)
-    TextInputLayout tilMIrancell;
-    @BindView(R.id.tilMMci)
-    TextInputLayout tilMMci;
-    @BindView(R.id.tilMRightel)
-    TextInputLayout tilMRightel;
     @BindView(R.id.tipCvv2)
     TextInputLayout tipCvv2;
     @BindView(R.id.etCvv2)
@@ -834,6 +832,8 @@ public class PackFragment
         packageMci = new PackageMciImpl();
         getPackageIrancell = new GetPackageIrancellImpl();
         buyPackageImpl = new BuyPackageImpl();
+        getBoughtForRequest();
+
         return v;
     }
 
@@ -1083,11 +1083,55 @@ public class PackFragment
         etMCINumber.setText(Prefs.getString("mobile", ""));
         etMobileCharge.setText(Prefs.getString("mobile", ""));
         etMobileChargeRightel.setText(Prefs.getString("mobile", ""));
-
 //        btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 //        btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 //        btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 
+    }
+
+    private void getBoughtForRequest()
+    {
+        SingletonService.getInstance().getBoughtForService().getBoughtFor(new OnServiceStatus<WebServiceClass<GetBoughtForResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetBoughtForResponse> response)
+            {
+                try {
+                    if (response.info.statusCode == 200) {
+
+                        onGetBoutForSuccess(response.data.getResults());
+
+                    } else {
+                        Tools.showToast(getContext(),response.info.message,R.color.red);
+                    }
+                } catch (Exception e) {
+                    Tools.showToast(getContext(),e.getMessage(),R.color.red);
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+
+                Tools.showToast(getActivity(),message,R.color.red);
+            }
+        });
+    }
+
+    private void onGetBoutForSuccess(List<String> results)
+    {
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (getContext(),R.layout.custom_spinner_dropdown_item,results);
+        etMCINumber.setThreshold(1);//will start working from first character
+        etMCINumber.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+
+        etMobileCharge.setThreshold(1);//will start working from first character
+        etMobileCharge.setAdapter(adapter);
+
+        etMobileChargeRightel.setThreshold(1);//will start working from first character
+        etMobileChargeRightel.setAdapter(adapter);
     }
 
     private void initDefaultOperatorView()
@@ -1567,7 +1611,7 @@ public class PackFragment
         paymentInstance.setOperatorType(operatorType);
         paymentInstance.setProfileId(o.getProfileId());
         paymentInstance.setRequestId(requestId);
-        paymentInstance.setTitlePackageType(o.getTitlePackageType());
+        paymentInstance.setTitlePackageType(o.getTitle() + " ( " + o.getTitlePackageType() + " ) ");
 
         getUrlPackagePayment(amount,paymentInstance,mobile);
 
@@ -1893,7 +1937,7 @@ public class PackFragment
             if (isMtn)
             {
                 etMobileCharge.setText(onSelectContact.getNumber().replaceAll(" ", ""));
-                tilMIrancell.setHint(onSelectContact.getName());
+               // tilMIrancell.setHint(onSelectContact.getName());
 
 
                 return;
@@ -1901,7 +1945,7 @@ public class PackFragment
             if (isMci)
             {
                 etMCINumber.setText(onSelectContact.getNumber().replaceAll(" ", ""));
-                tilMMci.setHint(onSelectContact.getName());
+              //  tilMMci.setHint(onSelectContact.getName());
 
 
                 return;
@@ -1911,7 +1955,7 @@ public class PackFragment
             if (isRightel)
             {
                 etMobileChargeRightel.setText(onSelectContact.getNumber().replaceAll(" ", ""));
-                tilMRightel.setHint(onSelectContact.getName());
+                //tilMRightel.setHint(onSelectContact.getName());
 
 
             }
@@ -1986,14 +2030,14 @@ public class PackFragment
             {
                 if (isMtn)
                 {
-                    tilMIrancell.setHint("شماره موبایل");
+                  //  tilMIrancell.setHint("شماره موبایل");
 
 
                     return;
                 }
                 if (isMci)
                 {
-                    tilMMci.setHint("شماره موبایل");
+                   // tilMMci.setHint("شماره موبایل");
 
                     return;
 
@@ -2001,7 +2045,7 @@ public class PackFragment
                 }
                 if (isRightel)
                 {
-                    tilMRightel.setHint("شماره موبایل");
+                  //  tilMRightel.setHint("شماره موبایل");
 
 
                 }

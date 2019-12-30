@@ -151,7 +151,7 @@ android {
         implementation project(':pinentryedittext')
         implementation project(':type')
 //    implementation project(path: ':type')
-        implementation (name: 'uxcam-3.1.12', ext: 'aar')
+        implementation(name: 'uxcam-3.1.12', ext: 'aar')
         //----------------------my Libraries end-----------------
 
         //-----------------------google start--------------------
@@ -342,7 +342,7 @@ android {
         // Optionally. Play Install Referrer library.
         implementation 'com.android.installreferrer:installreferrer:1.0'
 //        implementation "com.yandex.android:mobmetricapushlib:1.5.1"   // With Caching
-        implementation ('com.yandex.android:mobmetricapushlib:1.5.1') { // Without Caching
+        implementation('com.yandex.android:mobmetricapushlib:1.5.1') { // Without Caching
             exclude group: 'com.squareup.okhttp3', module: 'okhttp'
         }
         //--------------------------yandex end-----------------------------

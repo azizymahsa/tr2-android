@@ -42,33 +42,32 @@
             android:layout_marginEnd="5dp"
             android:foreground="?attr/selectableItemBackground" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextLabel"
-            android:id="@+id/tilMMci"
-            android:layout_width="@dimen/_180sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center|right"
-            android:hint="شماره موبایل"
-            android:theme="@style/EditTextHint"
-            android:layout_marginEnd="5dp">
-
-            <com.traap.traapapp.utilities.ClearableEditText
-                android:id="@+id/etMCINumber"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:gravity="center|end"
+            android:orientation="vertical">
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="100"
-                android:maxLength="11"
-                android:backgroundTint="@color/black"
-                android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                android:gravity="end|center"
-                android:imeOptions="actionDone"
+                android:layout_gravity="center|end"
+                android:text="شماره موبایل"
+                android:textColor="@color/warmGray"
+                />
+            <AutoCompleteTextView
+                android:id="@+id/etMCINumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35dp"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:text=""
                 android:inputType="number"
-                android:maxLines="1"
-                android:singleLine="true"
                 android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_16dp" />
+                android:textSize="@dimen/textSize_16dp"
+                android:background="@drawable/background_spinner_amount_charge"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <Space
             android:layout_width="0dp"
