@@ -907,7 +907,7 @@
                             android:gravity="center"/>
 
                         <ImageView
-                            android:id="@+id/imgHome"
+                            android:id="@+id/imgHome1"
                             android:layout_width="@dimen/_35dp"
                             android:layout_height="@dimen/_35dp"
                             android:layout_centerVertical="true"
