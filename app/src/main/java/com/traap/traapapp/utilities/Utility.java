@@ -312,6 +312,45 @@ public class Utility
         return Operator;
     }
 
+    public static String getGrgDate(String dateStr)
+    {
+        String spliter = "/";
+        String[] date = dateStr.split(spliter);
+
+        PersianDate persianDate = new PersianDate();
+        persianDate.setShYear(Integer.parseInt(date[0]));
+        persianDate.setShMonth(Integer.parseInt(date[1]));
+        persianDate.setShDay(Integer.parseInt(date[2]));
+
+        String month = String.valueOf(persianDate.getGrgMonth());
+        String day = String.valueOf(persianDate.getGrgDay());
+
+        if (persianDate.getGrgMonth() < 10)
+        {
+            month = "0" + month;
+        }
+        if (persianDate.getGrgDay() < 10)
+        {
+            day = "0" + day;
+        }
+
+        String newDate = persianDate.getGrgYear() + "-" + month + "-" + day;
+
+        return newDate;
+    }
+
+
+    public static String getFormatDateMonth(int month)
+    {
+        if (month < 10)
+        {
+            return "0" + month;
+        }
+        else
+        {
+            return String.valueOf(month);
+        }
+    }
 
     public static String timeLongToString(long time)
     {
