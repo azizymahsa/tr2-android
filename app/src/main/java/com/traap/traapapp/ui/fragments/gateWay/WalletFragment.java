@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
+
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,8 +16,6 @@ import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -29,18 +26,15 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.allService.response.SubMenu;
-import com.traap.traapapp.apiServices.model.getBalancePasswordLess.ForgetPasswordWalletResponse;
+
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
-import com.traap.traapapp.ui.adapters.allMenu.ItemRecyclerViewAdapter;
+
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
-import com.traap.traapapp.ui.fragments.videos.VideosFragment;
 import com.traap.traapapp.utilities.Utility;
 
 import java.util.List;
@@ -302,14 +296,14 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             String[] parts = Iterables.toArray(result, String.class);
 
 
-
-        cartNo.setText(parts[0]+"-"+parts[1]+"-"+parts[2]+"-"+parts[3]);
-        }catch (Exception e){
-            cartNo.setText(data.getCard_no()+"");
+            cartNo.setText(parts[0] + "-" + parts[1] + "-" + parts[2] + "-" + parts[3]);
+        } catch (Exception e)
+        {
+            cartNo.setText(data.getCard_no() + "");
 
         }
-        customNo.setText("کدمشتری: "+data.getCustomer_code());
-        txtFullName.setText(data.getFull_name()+"");
+        customNo.setText("کدمشتری: " + data.getCustomer_code());
+        txtFullName.setText(data.getFull_name() + "");
     }
     /*----------------------------------------------------------------------------------------------------*/
 

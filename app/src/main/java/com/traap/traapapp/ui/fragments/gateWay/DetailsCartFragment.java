@@ -125,7 +125,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
                 showFragment(fragment);
                 break;
             case R.id.lnrDoTransfer:
-                fragment = DetailsCartFragment.newInstance(mainView);
+                fragment = MonyTransferFragment.newInstance(mainView);
                 showFragment(fragment);
                 break;
 
