@@ -35,13 +35,6 @@ import com.traap.traapapp.utilities.font.TextField;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 import com.yandex.metrica.push.YandexMetricaPush;
-//import library.android.eniac.utility.font.CustomViewWithTypefaceSupport;
-//import library.android.eniac.utility.font.TextField;
-//import library.android.service.di.component.DaggerNetGdsComponent;
-//import library.android.service.di.component.NetGdsComponent;
-//import library.android.service.di.module.NetModule;
-//import library.android.service.generator.SingletonGdsService;
-//import library.android.service.helper.Const;
 import okhttp3.OkHttpClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
