@@ -43,7 +43,7 @@ public class BaseActivity extends AppCompatActivity
         //  - active users
         //  - sessions duration
         //  - app usage frequency
-        YandexMetrica.resumeSession(this);
+//        YandexMetrica.resumeSession(this);
 
     }
 
@@ -58,7 +58,7 @@ public class BaseActivity extends AppCompatActivity
         //  - active users
         //  - sessions duration
         //  - app usage frequency
-        YandexMetrica.pauseSession(this);
+//        YandexMetrica.pauseSession(this);
     }
 
     public void showToast(Context context, String message, int color)

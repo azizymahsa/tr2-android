@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <androidx.core.widget.NestedScrollView
@@ -37,8 +36,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/textSize_12dp"
+            android:textSize="@dimen/textSize_14dp"
             android:textStyle="bold"/>
 
         <TextView
@@ -50,7 +48,6 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/kellyGreen"
-            android:layout_centerInParent="true"
             android:textSize="@dimen/textSize_12dp"
             />
 
@@ -63,8 +60,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/textSize_12dp"
+            android:textSize="@dimen/textSize_14dp"
             />
         <TextView
             android:id="@+id/tvPayment"
@@ -75,8 +71,7 @@
             android:layout_marginBottom="@dimen/_10dp"
             android:text="پرداخت از درگاه پرداخت ملت"
             android:textColor="@color/textColorSecondary"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/textSize_12dp"
+            android:textSize="@dimen/textSize_14dp"
             />
 
         <TextView
@@ -88,8 +83,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/textSize_12dp"
+            android:textSize="@dimen/textSize_14dp"
             />
         <TextView
             android:id="@+id/tvPhoneNumber"
@@ -100,8 +94,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/textSize_12dp"
+            android:textSize="@dimen/textSize_14dp"
             />
 
         <TextView
@@ -113,13 +106,12 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/textSize_12dp"
+            android:textSize="@dimen/textSize_14dp"
             />
 
     </LinearLayout>
 
-    <ImageView
+ <!--   <ImageView
         android:layout_width="@dimen/_35dp"
         android:layout_height="@dimen/_35dp"
         android:background="@drawable/button_small_border"
@@ -128,7 +120,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:tint="@color/buttonHeaderBackgroundColor"
-        />
+        />-->
 
     <LinearLayout
         android:id="@+id/llShare"
@@ -139,14 +131,53 @@
         android:layout_marginBottom="@dimen/_10dp"
         android:gravity="center"
         android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/_10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="اشتراک گذاری"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/warmGray"
+                android:textSize="@dimen/textSize_12dp" />
+
+
+            <ImageView
+                android:id="@+id/btnShare"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_35dp"
+                android:background="@drawable/button_small_border"
+                app:srcCompat="@drawable/ic_share"
+                android:padding="@dimen/_5sdp"
+                android:tint="@color/buttonHeaderBackgroundColor"
+                android:foreground="?attr/selectableItemBackground"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="horizontal">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="اشتراک گذاری"
+            android:text="ذخیره"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:textColor="@color/warmGray"
@@ -154,7 +185,7 @@
 
 
         <ImageView
-            android:id="@+id/btnShareTicket"
+            android:id="@+id/btnSaveResult"
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
             android:background="@drawable/button_small_border"
@@ -163,7 +194,7 @@
             android:tint="@color/buttonHeaderBackgroundColor"
             android:foreground="?attr/selectableItemBackground"
             />
-
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -176,10 +207,11 @@
         android:textStyle="bold"
         android:textColor="@color/redBack"
         android:padding="8dp"
-        android:layout_marginStart="@dimen/_10dp"
+        android:paddingRight="@dimen/_10dp"
+        android:paddingLeft="@dimen/_10dp"
         android:layout_gravity="center"
-        android:textSize="@dimen/textSize_10dp"
-        android:layout_marginTop="@dimen/_10dp"
+        android:textSize="@dimen/textSize_14dp"
+        android:layout_marginTop="@dimen/_20dp"
         android:layout_marginBottom="@dimen/_10dp"
         android:background="@drawable/background_border_a"
         />

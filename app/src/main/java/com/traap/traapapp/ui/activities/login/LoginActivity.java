@@ -30,6 +30,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -47,7 +48,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private TextInputLayout etLayout;
     private PinEntryEditText codeView;
     private boolean isCode = false;
-    private EditText etMobileNumber;
+    private ClearableEditText etMobileNumber;
     private LinearLayout countDownTimer, llPin,llCondition;
     private FrameLayout ivTitle;
 
@@ -64,7 +65,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+//        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Prefs.putString("accessToken","");
         loginPresenter = new LoginPresenterImpl(getApplicationContext(), this, this);
         initView();

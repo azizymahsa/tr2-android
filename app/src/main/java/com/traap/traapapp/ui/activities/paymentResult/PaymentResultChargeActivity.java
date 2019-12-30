@@ -3,6 +3,7 @@ package com.traap.traapapp.ui.activities.paymentResult;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResp
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
+import com.traap.traapapp.utilities.Utility;
 
 public class PaymentResultChargeActivity extends BaseActivity implements View.OnClickListener
 {
@@ -21,13 +23,15 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
     private String refrenceNumber;
     private boolean statusPayment;
     private TextView tvTitle,tvStatusPayment,tvDate,tvPayment,tvAmount,tvPhoneNumber,tvRefrenceNumber;
-    private View btnShareTicket,tvBackHome,llResult;
+    private View btnShare,tvBackHome,llResult;
+    private View btnSaveResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_result_charge);
+        showLoading();
 
         if (savedInstanceState == null)
         {
@@ -55,16 +59,17 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         tvPhoneNumber=findViewById(R.id.tvPhoneNumber);
         tvRefrenceNumber=findViewById(R.id.tvRefrenceNumber);
 
-        btnShareTicket=findViewById(R.id.btnShareTicket);
-        btnShareTicket.setOnClickListener(this);
+        btnShare=findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(this);
         tvBackHome=findViewById(R.id.tvBackHome);
         tvBackHome.setOnClickListener(this);
         llResult=findViewById(R.id.llResult);
+        btnSaveResult=findViewById(R.id.btnSaveResult);
+        btnSaveResult.setOnClickListener(this);
     }
 
     private void requestGetDetailTransaction(String refrenceNumber)
     {
-        showLoading();
 
         SingletonService.getInstance().getTransactionDetailService().getTransactionDetail(Long.parseLong(refrenceNumber),new OnServiceStatus<WebServiceClass<TransactionDetailResponse>>()
         {
@@ -73,13 +78,13 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
             {
                 try
                 {
-                    hideLoading();
 
                     if (response.info.statusCode == 200)
                     {
 
                         statusPayment =response.data.getStatus();
                         checkStatusAndSetData(response);
+                        hideLoading();
 
 
                     }
@@ -112,7 +117,11 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
             //imgPaymentStatus.setImageResource(R.drawable.un_check_mark);
         }
 
-        //tvTitle.setText(response.data.);
+        tvTitle.setText("رسید "+response.data.getTypeTransaction());
+        tvDate.setText(response.data.getCreate_date_formatted());
+        tvAmount.setText("مبلغ: "+Utility.priceFormat(response.data.getAmount().toString())+" ریال" );
+        tvPhoneNumber.setText("شماره موبایل: "+response.data.getDetailTransaction().getMobileNumber());
+        tvRefrenceNumber.setText("کد پیگیری: "+response.data.getId());
     }
 
     public void showLoading()
@@ -132,8 +141,11 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
     public void onClick(View v)
     {
         switch (v.getId()){
-            case R.id.btnShareTicket:
+            case R.id.btnShare:
                 new ScreenShot(llResult, this);
+                break;
+            case R.id.btnSaveResult:
+              //  MediaStore.Images.Media.insertImage(getContentResolver(), yourBitmap, yourTitle , yourDescription);
                 break;
             case R.id.tvBackHome:
                 finish();

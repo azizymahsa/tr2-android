@@ -36,6 +36,20 @@ public class TransactionDetailResponse
     @Expose
     private Integer typeTransactionId;
 
+    @SerializedName("detail")
+    @Expose
+    private DetailTransaction detailTransaction;
+
+    public DetailTransaction getDetailTransaction()
+    {
+        return detailTransaction;
+    }
+
+    public void setDetailTransaction(DetailTransaction detailTransaction)
+    {
+        this.detailTransaction = detailTransaction;
+    }
+
     public String getCreate_date_formatted()
     {
         return create_date_formatted;

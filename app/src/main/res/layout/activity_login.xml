@@ -37,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true">
 
-
                 <ImageView
                     android:layout_width="@dimen/_150dp"
                     android:layout_height="@dimen/_150dp"
@@ -56,7 +55,6 @@
                     android:textSize="@dimen/iconSize_45dp" />
 
             </RelativeLayout>
-
 
             <TextView
                 android:id="@+id/tv1"

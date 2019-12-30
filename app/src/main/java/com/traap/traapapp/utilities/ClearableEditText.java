@@ -15,6 +15,9 @@ import android.view.View.OnTouchListener;
 import androidx.annotation.NonNull;
 
 import com.traap.traapapp.R;
+
+import java.util.Objects;
+
 import ru.kolotnev.formattedittext.MaskedEditText;
 
 
@@ -25,7 +28,8 @@ import ru.kolotnev.formattedittext.MaskedEditText;
  * android:drawable(Right|Left)="@drawable/custom_icon"
  * </pre>
  */
-public class ClearableEditText extends MaskedEditText implements OnTouchListener, OnFocusChangeListener, TextWatcherAdapter.TextWatcherListener
+public class ClearableEditText extends MaskedEditText implements OnTouchListener, OnFocusChangeListener,
+        TextWatcherAdapter.TextWatcherListener
 {
 
     public ClearableEditText(Context context)
@@ -148,10 +152,10 @@ public class ClearableEditText extends MaskedEditText implements OnTouchListener
                 return true;
             }
         }
-        if (l != null)
-        {
-            return l.onTouch(v, event);
-        }
+//            if (l != null)
+//            {
+//                return l.onTouch(v, event);
+//            }
         return false;
     }
 
@@ -232,7 +236,7 @@ public class ClearableEditText extends MaskedEditText implements OnTouchListener
             Drawable x = visible ? xD : null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
-               // x.setTint(getResources().getColor(R.color.clearButtonColor));
+//                Objects.requireNonNull(x).setTint(getResources().getColor(R.color.clearButtonColor));
             }
             super.setCompoundDrawables((loc == Location.LEFT) ? x : cd[0], cd[1], (loc == Location.RIGHT) ? x : cd[2],
                     cd[3]);

@@ -234,7 +234,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         imgAway = rootView.findViewById(R.id.imgAway);
         imgAwayPredict = rootView.findViewById(R.id.imgAway3);
         imgHomeHeader = rootView.findViewById(R.id.imgHomeHeader);
-        imgHome = rootView.findViewById(R.id.imgHome);
+        imgHome = rootView.findViewById(R.id.imgHome1);
         imgHomePredict = rootView.findViewById(R.id.imgHome3);
 
         vHome = rootView.findViewById(R.id.vHome);

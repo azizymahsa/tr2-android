@@ -14,7 +14,9 @@ import java.util.Date;
 import java.util.List;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getTransaction.Result;
+import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.utilities.Utility;
 
@@ -97,7 +99,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             {
                 if (item.getStatus())
                 {
-                    if (item.getTypeTransactionId() == 12)
+                    if (item.getTypeTransactionId() == TrapConfig.PAYMENT_STAUS_StudiomTicket)
                     {
                         Intent intent = new Intent(mContext, ShowTicketActivity.class);
                         intent.putExtra("RefrenceNumber", item.getId().toString());
@@ -109,14 +111,18 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
                         // intent.putExtra("StatusPayment", item.getStatus());
                         mContext.startActivity(intent);
                     }
-                }else {
+                }else if (item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_ChargeSimCard||
+                        item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_PackSimCard){
 
-                    Intent intent = new Intent(mContext, PaymentResultActivity.class);
+                    Intent intent = new Intent(mContext, PaymentResultChargeActivity.class);
                     intent.putExtra("RefrenceNumber", item.getId().toString());
                    // intent.putExtra("StatusPayment", item.getStatus());
                     mContext.startActivity(intent);
-
-
+                }else {
+                    Intent intent = new Intent(mContext, PaymentResultActivity.class);
+                    intent.putExtra("RefrenceNumber", item.getId().toString());
+                    // intent.putExtra("StatusPayment", item.getStatus());
+                    mContext.startActivity(intent);
                 }
             }
         });
