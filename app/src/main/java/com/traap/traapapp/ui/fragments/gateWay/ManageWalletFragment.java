@@ -9,9 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -114,7 +111,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                 if (llDetailDescriptionForgetPass.getVisibility() == View.VISIBLE)
                 {
                     requestForgetPassword();
-                }else
+                } else
                 {
                     if (edtNewPass.getText().toString().length() > 0 && edtOldPass.getText().toString().length() > 0 && edtTemNewPass.getText().toString().length() > 0)
                     {
@@ -124,12 +121,12 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
 
                         } else
                         {
-                            Toast.makeText(getContext(), "رمز وارد شده اشتباه می باشد.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getContext().getString(R.string._msg_no_correct_pass), Toast.LENGTH_SHORT).show();
 
                         }
                     } else
                     {
-                        Toast.makeText(getContext(), "فیلدها خالی می باشد.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getContext().getString(R.string._msg_none_fields), Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -180,10 +177,10 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                 {
                     if (response.info.statusCode == 200)
                     {
-                        //setBalanceData(response.data);
-                        // Toast.makeText(getContext(), "yees", Toast.LENGTH_SHORT).show();
 
-                        showAlert(getActivity(), " پیامک بازیابی رمز عبور برای شما ارسال شد.", 0);
+
+                        showAlert(getActivity(), response.info.message, 0);
+                        clearEditText();
                     } else
                     {
 
@@ -211,6 +208,13 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
         }, request);
     }
 
+    private void clearEditText()
+    {
+        edtOldPass.setText("");
+        edtNewPass.setText("");
+        edtTemNewPass.setText("");
+    }
+
     /*----------------------------------------------------------------------------------------------------*/
 
     private void requestForgetPassword()
@@ -231,10 +235,9 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                 {
                     if (response.info.statusCode == 200)
                     {
-                        //setBalanceData(response.data);
-                        // Toast.makeText(getContext(), "yees", Toast.LENGTH_SHORT).show();
 
-                        showAlert(getActivity(), " پیامک بازیابی رمز عبور برای شما ارسال شد.", 0);
+
+                        showAlert(getActivity(), getActivity().getString(R.string._send_sms_forget_pass), 0);
                     } else
                     {
 

@@ -107,9 +107,9 @@
                 android:layout_margin="20dp"
                 android:drawableLeft="@drawable/ic_eye_no"
                 android:ems="10"
-                android:hint="رمز قدیم"
+                android:hint="رمز فعلی"
                 android:imeOptions="actionGo"
-                android:inputType="text"
+                android:inputType="number"
                 android:padding="10dp">
 
             </EditText>
@@ -129,7 +129,7 @@
                 android:ems="10"
                 android:hint="رمز جدید"
                 android:imeOptions="actionGo"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:padding="10dp">
 
             </EditText>
@@ -148,7 +148,7 @@
                 android:ems="10"
                 android:hint="تکرار رمز جدید"
                 android:imeOptions="actionGo"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:padding="10dp">
 
             </EditText>
