@@ -133,6 +133,7 @@ public class ChargeFragment extends BaseFragment
 
     private String[] irancellFilter = {"سیم کارت اعتباري", "سیم کارت دائمي"};
     private String[] irancelTypeChargelFilter = {"شارژ مستقیم","شارژ شگفت انگیز" };
+    private String[] rightelTypeChargelFilter = {"شارژ مستقیم","شارژ شور انگیز" };
     private String[] amountFilter = {"10,000", "20,000", "50,000", "100,000", "200,000", "500,000"};
 
 
@@ -729,6 +730,8 @@ public class ChargeFragment extends BaseFragment
         mciBuy = new MciBuyImpl();
         rightelBuy = new RightelBuyImpl();
 
+
+
 //        fragmentManager = getChildFragmentManager();
 //        pFragment = FavoriteCardFragment.newInstance(this);
 //
@@ -830,7 +833,11 @@ public class ChargeFragment extends BaseFragment
             }
         });
 
-        spinnerChargeTypeRightel.setAdapter(adapterTypeChargeIrancell);
+
+        ArrayAdapter<String> adapterTypeChargeRightel = new ArrayAdapter<String>(getActivity(),
+                R.layout.simple_spinner_item, rightelTypeChargelFilter);
+        adapterTypeChargeRightel.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinnerChargeTypeRightel.setAdapter(adapterTypeChargeRightel);
         spinnerChargeTypeRightel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -845,7 +852,7 @@ public class ChargeFragment extends BaseFragment
                 {
 
                     profileType = 1;
-                    chargeName = "شارژ شگفت انگیز";
+                    chargeName = "شارژ شور انگیز";
                     chargeType = "1";
 
                 }
@@ -957,6 +964,13 @@ public class ChargeFragment extends BaseFragment
         tvTitle.setText("خرید شارژ");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
+        InputFilter[] filterArray = new InputFilter[1];
+        filterArray[0] = new InputFilter.LengthFilter(11);
+        autoCompletePhoneNumberMci.setFilters(filterArray);
+        autoCompletePhoneNumberIrancel.setFilters(filterArray);
+        autoCompletePhoneNumberRightel.setFilters(filterArray);
+
+
         imgMenu.setOnClickListener(v ->
         {
             mainView.openDrawer();
@@ -988,8 +1002,7 @@ public class ChargeFragment extends BaseFragment
         rbYoungMCN.setChecked(true);
         rbNormalChargeRightel.setChecked(true);
 
-        InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(11);
+
        // etMobileCharge.setFilters(filterArray);
        // etMCINumber.setFilters(filterArray);
        // etMobileChargeRightel.setFilters(filterArray);

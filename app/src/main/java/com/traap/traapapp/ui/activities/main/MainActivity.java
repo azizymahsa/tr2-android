@@ -81,6 +81,7 @@ import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
 import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.drawer.MenuDrawer;
@@ -1734,7 +1735,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         } else if (hasPaymentCharge || hasPaymentPackageSimcard)
         {
-            Intent intent = new Intent(this, PaymentResultActivity.class);
+            Intent intent = new Intent(this, PaymentResultChargeActivity.class);
             intent.putExtra("RefrenceNumber", refrenceNumber);
             //intent.putExtra("StatusPayment", true);
             startActivity(intent);

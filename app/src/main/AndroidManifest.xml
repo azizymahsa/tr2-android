@@ -112,12 +112,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
-<!--        tools:replace="android:appComponentFactory,android:supportsRtl">-->
-
-<!--        <meta-data-->
-<!--            android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="AIzaSyD0Sz5c524BMxUW_YzlRW7K7g8R1jrzD7o" />-->
-
+        <activity android:name=".ui.activities.paymentResult.PaymentResultChargeActivity"
+            android:screenOrientation="portrait"/>
+        <!-- tools:replace="android:appComponentFactory,android:supportsRtl"> -->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.geo.API_KEY" -->
+        <!-- android:value="AIzaSyD0Sz5c524BMxUW_YzlRW7K7g8R1jrzD7o" /> -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
