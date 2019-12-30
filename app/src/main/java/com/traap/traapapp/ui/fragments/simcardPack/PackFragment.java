@@ -832,6 +832,8 @@ public class PackFragment
         packageMci = new PackageMciImpl();
         getPackageIrancell = new GetPackageIrancellImpl();
         buyPackageImpl = new BuyPackageImpl();
+        getBoughtForRequest();
+
         return v;
     }
 
@@ -1081,7 +1083,6 @@ public class PackFragment
         etMCINumber.setText(Prefs.getString("mobile", ""));
         etMobileCharge.setText(Prefs.getString("mobile", ""));
         etMobileChargeRightel.setText(Prefs.getString("mobile", ""));
-        getBoughtForRequest();
 //        btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 //        btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 //        btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
