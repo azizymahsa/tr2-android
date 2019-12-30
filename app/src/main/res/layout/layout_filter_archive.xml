@@ -103,7 +103,7 @@
                     android:layout_gravity="center|right">
 
                     <TextView
-                        android:id="@+id/tvTimeUntil"
+                        android:id="@+id/tvEndDate"
                         android:layout_toRightOf="@+id/imgDateToReset"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -151,7 +151,7 @@
                     android:layout_gravity="center|right">
 
                     <TextView
-                        android:id="@+id/tvTimeFrom"
+                        android:id="@+id/tvStartDate"
                         android:layout_toRightOf="@+id/imgDateFromReset"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

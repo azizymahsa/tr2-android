@@ -437,6 +437,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             return NewsArchiveCategoryFragment.newInstance("",
                     MediaArchiveCategoryCall.FROM_SINGLE_CONTENT,
                     null,
+                    null,
+                    null,
                     categoriesList.get(position).getNews()
             );
         }

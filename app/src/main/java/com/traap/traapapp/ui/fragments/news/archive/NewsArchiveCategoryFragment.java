@@ -35,7 +35,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 {
     private View rootView;
 //    private MediaArchiveCategory archiveCategory;
-    private String Ids, dateFilter;
+    private String Ids, filterStartDate, filterEndDate, filterSearchText;
 //    private boolean pagerWithFilter = false;
 //    private boolean getFromFav = false;
 //    private boolean getFromId ;
@@ -56,7 +56,9 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 
     public static NewsArchiveCategoryFragment newInstance(String IDs,
                                                           MediaArchiveCategoryCall callFrom,
-                                                          @Nullable String dateFilter,
+                                                          @Nullable String filterStartDate,
+                                                          @Nullable String filterEndDate,
+                                                          @Nullable String filterSearchText,
                                                           @Nullable List<News> newsContentList)
     {
         NewsArchiveCategoryFragment fragment = new NewsArchiveCategoryFragment();
@@ -64,8 +66,11 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 
         Bundle arg = new Bundle();
         arg.putString("Ids", IDs);
-        arg.putString("dateFilter", dateFilter);
+        arg.putString("filterStartDate", filterStartDate != null ? filterStartDate : "");
+        arg.putString("filterEndDate", filterEndDate != null ? filterEndDate : "");
+        arg.putString("filterSearchText", filterSearchText != null ? filterSearchText : "");
         arg.putBoolean("pagerWithFilter", false);
+
         if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             arg.putParcelableArrayList("newsContentList", (ArrayList<? extends Parcelable>) newsContentList);
@@ -89,10 +94,10 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         if (getArguments() != null)
         {
             Ids = getArguments().getString("Ids");
-            dateFilter = getArguments().getString("dateFilter");
-//            getFromFav = getArguments().getBoolean("getFromFav");
-//            pagerWithFilter = getArguments().getBoolean("pagerWithFilter");
-//            getFromId = getArguments().getBoolean("getFromId");
+            filterStartDate = getArguments().getString("filterStartDate");
+            filterEndDate = getArguments().getString("filterEndDate");
+            filterSearchText = getArguments().getString("filterSearchText");
+
             newsContentList = getArguments().getParcelableArrayList("newsContentList");
 
 //            Logger.e("-Ids 1-", Ids + " # " + pagerWithFilter);
@@ -133,7 +138,13 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs)
         {
             Logger.e("-Ids 2-", Ids);
-//            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, this);
+            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(
+                    Ids,
+                    filterStartDate,
+                    filterEndDate,
+                    filterSearchText,
+                    this
+            );
         }
         else if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
         {
@@ -141,7 +152,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         }
 //        else if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE)
 //        {
-//            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, dateFilter, this);
+//            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, filterStartDate, this);
 //        }
         else if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {

@@ -47,7 +47,6 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
 import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveCategoryFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
 import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
@@ -223,8 +222,8 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         imgFilterClose = rootView.findViewById(R.id.imgFilterClose);
         imgStartDateReset = rootView.findViewById(R.id.imgDateFromReset);
         imgEndDateReset = rootView.findViewById(R.id.imgDateToReset);
-        tvStartDate = rootView.findViewById(R.id.tvTimeFrom);
-        tvEndDate = rootView.findViewById(R.id.tvTimeUntil);
+        tvStartDate = rootView.findViewById(R.id.tvStartDate);
+        tvEndDate = rootView.findViewById(R.id.tvEndDate);
         edtSearchFilter = rootView.findViewById(R.id.edtSearchFilter);
         btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
         btnDeleteFilter = rootView.findViewById(R.id.btnDeleteFilter);

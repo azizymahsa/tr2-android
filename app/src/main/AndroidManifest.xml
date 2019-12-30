@@ -123,28 +123,35 @@
             android:required="false" />
 
         <activity android:name=".ui.activities.paymentResult.PaymentResultActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.activities.news.details.NewsDetailsActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.activities.video.VideoArchiveActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.activities.photo.PhotoArchiveActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
 
         <activity android:name=".ui.activities.news.archive.NewsArchiveActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.activities.video.VideoDetailActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.activities.photo.AlbumDetailActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
 
         <activity
@@ -176,7 +183,7 @@
 
         <activity
             android:name=".ui.activities.login.LoginActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="keyboardHidden"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
             android:screenOrientation="portrait" />
 
@@ -186,13 +193,10 @@
             android:screenOrientation="portrait" >
 <!--            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" >-->
 
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="traap" />
             </intent-filter>
         </activity>
@@ -204,10 +208,12 @@
 
         <activity
             android:name=".ui.activities.web.WebActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.activities.card.add.AddCardActivity"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
 
         <activity
@@ -217,6 +223,7 @@
             android:theme="@style/Theme.TransparentGray" />
 
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:configChanges="keyboardHidden"
             android:theme="@style/Base.Theme.AppCompat"/>
 
         <receiver
