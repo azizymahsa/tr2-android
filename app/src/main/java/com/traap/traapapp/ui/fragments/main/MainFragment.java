@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.main;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
@@ -28,6 +29,8 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
@@ -53,10 +56,12 @@ import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.ui.activities.web.WebActivity;
 import com.traap.traapapp.ui.adapters.mainServiceModel.MainServiceModelAdapter;
 import com.traap.traapapp.ui.adapters.mainSlider.MainSliderAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.CountDownTimerPredict;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
@@ -673,10 +678,94 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                mainView.doTransferMoney();
                 break;
             }
+            //بیمه
+            case 21: //بیمه شخص ثالث
+            case 22: //بیمه بدنه
+            case 29: //بیمه موتورسیکلت
+            case 23: //بیمه مسافرتی ویژه
+            case 24: //بیمه مسافرتی
+            case 25: //بیمه آتش سوزی
+            case 26: //بیمه تجهیزات الکترونیکی
+            case 27: //بیمه زلزله
+            case 28: //بیمه درمان
+            {
+                getPermissionAndOpenInsurance(URl);
 
+                break;
+            }
+            //الوپارک
+            case 31: //  پارکینگ عمومی
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", Prefs.getString("alopark_token", ""));
+                intent.putExtra("Title", "الوپارک");
+
+                intent.putExtra("TOKEN", "");
+                startActivity(intent);
+
+                // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
+                break;
+            }
+            case 32: //  پارک حاشیه ای
+            {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "الوپارک");
+
+                intent.putExtra("TOKEN", "");
+                startActivity(intent);
+
+                // Utility.openUrlCustomTab(getActivity(), URl);
+                break;
+            }
         }
     }
+    private void getPermissionAndOpenInsurance(String URl)
+    {
+        new TedPermission(SingletonContext.getInstance().getContext())
+                .setPermissionListener(new PermissionListener()
+                {
+                    @Override
+                    public void onPermissionGranted()
+                    {
+                        // Utility.openUrlCustomTab(getActivity(), URl);
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                        intent.putExtra("URL", URl);
+                        intent.putExtra("Title", "بیمه");
 
+                        intent.putExtra("bimeh_api_key", Prefs.getString("bimeh_api_key", ""));
+                        intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
+                        intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
+                        intent.putExtra("bimeh_base_url", Prefs.getString("bimeh_base_url", ""));
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
+                        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
+                                "برای ارسال تصویر اسناد بیمه، اخذ این مجوز الزامی است. ",
+                                true, new MessageAlertDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                getPermissionAndOpenInsurance(URl);
+                            }
+
+                            @Override
+                            public void onCancelClick()
+                            {
+
+                            }
+                        }
+                        );
+                        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");
+                    }
+                })
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
+    }
     private void onGdsFlightAta(GetUserPassResponse response)
     {
         mainView.hideLoading();
