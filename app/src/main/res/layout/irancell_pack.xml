@@ -10,6 +10,7 @@
         android:id="@+id/llIrancellMobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:gravity="center|end"
         android:orientation="horizontal">
@@ -18,7 +19,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="20" />
-
 
         <ImageView
             android:id="@+id/btnIrancellRecent"
@@ -34,40 +34,55 @@
             android:visibility="gone"/>
 
         <ImageView
+            android:id="@+id/imgUserMobileIranCell"
+            android:src="@drawable/ic_filter"
+            android:layout_width="@dimen/_45dp"
+            android:layout_height="@dimen/_45dp"
+            android:padding="10dp"
+            android:background="@drawable/button_small_border"
+            android:layout_marginRight="5dp"
+            android:foreground="?attr/selectableItemBackground" />
+
+        <ImageView
             android:id="@+id/ivContactI"
             android:src="@drawable/ic_phone_book"
-            android:layout_width="@dimen/_35dp"
-            android:layout_height="@dimen/_35dp"
-            android:layout_marginEnd="5dp"
-            android:padding="@dimen/_5sdp"
+            android:layout_width="@dimen/_45dp"
+            android:layout_height="@dimen/_45dp"
+            android:padding="10dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/button_small_border"
             android:foreground="?attr/selectableItemBackground" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="100"
             android:gravity="center|end"
             android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
-            android:text="شماره موبایل"
-            android:textColor="@color/warmGray"
-            />
+            android:text="شماره تلفن همراه "
+            android:textColor="@color/warmGray" />
+
         <AutoCompleteTextView
             android:id="@+id/etMobileCharge"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35dp"
             android:layout_gravity="center"
-            android:gravity="right"
+            android:gravity="left"
+            android:paddingLeft="24dp"
             android:text=""
+            android:imeOptions="actionDone"
             android:inputType="number"
             android:textColor="@color/chargePackTextColor"
             android:textSize="@dimen/textSize_16dp"
             android:background="@drawable/background_spinner_amount_charge"/>
 
         </LinearLayout>
+
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -169,30 +184,37 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/llDetailDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
-        android:layout_marginBottom="@dimen/_10dp">
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp">
+
         <TextView
+            android:layout_toLeftOf="@+id/img1"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_25dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="درصورتی که ترابرد کرده اید اپراتور خود را انتخاب کنید"
+            android:text="در صورتیکه خط خود را ترابرد کرده اید، مطمئن شوید اپراتور مقصد درست انتخاب شده است."
             android:textColor="@color/textColorSecondary"
-            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_marginEnd="8dp"
             android:textSize="@dimen/textSize_12dp" />
+
         <ImageView
+            android:id="@+id/img1"
             android:src="@drawable/ic_warning"
             android:layout_width="@dimen/_25dp"
             android:layout_height="@dimen/_25dp"
-            />
+            android:layout_alignParentRight="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/llDescriptionSelectPack"
         android:layout_width="wrap_content"
@@ -203,16 +225,18 @@
         android:layout_marginTop="@dimen/_10dp"
         android:layout_marginBottom="@dimen/_10dp"
         android:visibility="gone">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/textColorPrimary"
+            android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/textSize_14dp"
             android:text="لطفا بسته مورد نظر خود را انتخاب بفرمایید"
             android:textStyle="bold" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/llPackBackIrancell"
         android:layout_width="match_parent"
@@ -222,14 +246,14 @@
 
         <include
             android:id="@+id/btnPackBackIrancell"
-            layout="@layout/return_button"
-            />
+            layout="@layout/return_button" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="4dp"
+            android:visibility="gone"
             android:layout_marginBottom="4dp"
             android:background="@drawable/shadow_b" />
 
@@ -239,20 +263,22 @@
         android:id="@+id/llIrancellSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+        android:visibility="gone"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/spinnerIrancell"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+                android:layout_toLeftOf="@+id/tv1"
                 android:layout_height="@dimen/_35dp"
                 android:layout_gravity="center"
                 android:layout_weight="100"
@@ -261,23 +287,24 @@
                 android:background="@drawable/background_spinner_custom" />
 
             <TextView
+                android:id="@+id/tv1"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="فیلتر نوع سیمکارت: "
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_centerVertical="true"
+                android:text="نوع سیمکارت: "
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentRight="true"
                 android:textAppearance="@style/IranSansBold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize_16dp"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/irancellRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

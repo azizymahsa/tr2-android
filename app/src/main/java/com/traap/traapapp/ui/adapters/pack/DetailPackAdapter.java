@@ -18,20 +18,23 @@ import com.traap.traapapp.utilities.Utility;
 /**
  * Created by Javad.Abadi on 8/13/2018.
  */
-public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.ViewHolder> {
+public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.ViewHolder>
+{
 
     private final List<Detail> data;
     private Context context;
     private GetPackInAdapter getPackInAdapter;
 
-    public DetailPackAdapter(final List<Detail> data, GetPackInAdapter getPackInAdapter) {
+    public DetailPackAdapter(final List<Detail> data, GetPackInAdapter getPackInAdapter)
+    {
         this.data = data;
         this.getPackInAdapter = getPackInAdapter;
 
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
+    {
         this.context = parent.getContext();
         return new ViewHolder(LayoutInflater.from(context)
                 .inflate(R.layout.recycler_view_rightel_detail_item, parent, false));
@@ -39,7 +42,8 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position)
+    {
 
         final Detail item = data.get(position);
         String type = "";
@@ -50,7 +54,7 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
             else
                 type = "اعتباری";*/
 
-            holder.tvTitle.setText(item.getTitle() + " ( " + item.getTitlePackageType() + " ) ");
+        holder.tvTitle.setText(item.getTitle() + " ( " + item.getTitlePackageType() + " ) ");
 
    /*     } else {
             holder.tvTitle.setText(item.getTitle());
@@ -58,7 +62,7 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
         }*/
 
 
-        holder.tvAmount.setText("قیمت : " + Utility.priceFormat(item.getAmount()) + " ریال ");
+        holder.tvAmount.setText("مبلغ با احتساب 9 درصد مالیات " + Utility.priceFormat(item.getAmount()) + " ریال ");
         holder.container.setOnClickListener(view -> {
             getPackInAdapter.getPackRightel(item);
         });
@@ -68,16 +72,19 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
 
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return data.size();
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder
+    {
         public TextView tvTitle, tvAmount;
         public LinearLayout container;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v)
+        {
             super(v);
             tvTitle = v.findViewById(R.id.tvTitle);
             tvAmount = v.findViewById(R.id.tvAmount);
@@ -85,7 +92,8 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
         }
     }
 
-    public interface GetPackInAdapter {
+    public interface GetPackInAdapter
+    {
         void getPackRightel(Detail o);
     }
 

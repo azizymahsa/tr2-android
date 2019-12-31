@@ -47,6 +47,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +57,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
@@ -922,6 +924,41 @@ public class Utility
         return true;
 
     }
+
+    public static boolean getMobileValidation(String number)
+    {
+        return !TextUtils.isEmpty(number) && number.startsWith("09") && number.length() >= 11;
+    }
+
+    public static Integer getOperatorType(String number)
+    {
+        String startPhoneNo = number.substring(0, 4);
+        Logger.e("-startPhoneNo-", startPhoneNo);
+
+
+        String[] typeMCI_No = {"0990", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919"};
+        String[] typeMTN_No = {"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939"};
+        String[] typeRightel_No = {"0920", "0921", "0922"};
+
+        if (Arrays.asList(typeMCI_No).contains(startPhoneNo))
+        {
+            return TrapConfig.SIM_TYPE_MCI;
+        }
+        else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
+        {
+            return TrapConfig.SIM_TYPE_MTN;
+        }
+        else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
+        {
+            return TrapConfig.SIM_TYPE_RIGHTEL;
+        }
+        else
+        {
+            return TrapConfig.SIM_TYPE_OTHERS;
+        }
+
+    }
+
 
     public static boolean checkGps()
     {

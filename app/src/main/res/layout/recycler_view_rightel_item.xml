@@ -25,6 +25,7 @@
                 android:id="@+id/buttonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/background_border_gray"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:minHeight="35dp">
@@ -51,8 +52,7 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:layout_marginEnd="@dimen/_10dp"
                     app:srcCompat="@drawable/ic_arrow_down"
-                    android:tint="@color/gray"
-                    />
+                    android:tint="@color/gray" />
 
             </RelativeLayout>
 

@@ -7,18 +7,11 @@
     android:padding="10dp"
     android:background="@color/colorPrimary">
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/warmGray"
-    android:layout_marginBottom="@dimen/_10dp"
-    android:layout_marginTop="@dimen/_10dp"/>
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|end"
+        android:gravity="center_vertical|right"
         android:textColor="@color/warmGray"
         android:textSize="@dimen/textSize_12dp" />
 
@@ -26,9 +19,16 @@
         android:id="@+id/tvAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|start"
+        android:gravity="center_vertical|right"
         android:textColor="@color/midnight"
         android:textSize="@dimen/textSize_14dp"
         android:textAppearance="@style/IranSansBold"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/warmGray"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="8dp"/>
 
 </LinearLayout>
