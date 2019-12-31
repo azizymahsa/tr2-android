@@ -334,6 +334,12 @@ public class ChargeFragment extends BaseFragment
             mainView.onInternetAlert();
             return;
 
+        }else {
+            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+
+
         }
 
 
@@ -347,6 +353,12 @@ public class ChargeFragment extends BaseFragment
             mainView.onInternetAlert();
             return;
 
+        }else {
+            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+
+
         }
 
 
@@ -359,6 +371,12 @@ public class ChargeFragment extends BaseFragment
         {
             mainView.onInternetAlert();
             return;
+
+        }else {
+            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+
 
         }
 
@@ -1075,8 +1093,8 @@ public class ChargeFragment extends BaseFragment
 
     private void initDefaultOperatorView()
     {
-        // operatorType = getOperatorType(Prefs.getString("mobile", ""));
-        operatorType = getOperatorType("09121234567");
+         operatorType = getOperatorType(Prefs.getString("mobile", ""));
+       // operatorType = getOperatorType("09121234567");
 
         switch (operatorType)
         {
