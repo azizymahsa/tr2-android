@@ -26,7 +26,7 @@ public class TrapConfig
     public static final int PAYMENT_STAUS_BillTicket = 7;
     public static final int PAYMENT_STAUS_StudiomTicket = 8;
 
-    public static final int PAYMENT_STATUS_STADIUM_TICKET=12;
+    public static final int PAYMENT_STATUS_STADIUM_TICKET = 12;
 
     public static final String UNIQUE_CODE_Flight_Ata = "MGZlOTg5ZWEtNGVkNS00ZjcxLThjYmEtYzZiYjM2Yzk2MzQ1";
     public static final String UNIQUE_CODE_HOTEL = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
@@ -34,4 +34,10 @@ public class TrapConfig
     public static final String UNIQUE_CODE_Flight_All = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";
 
     public static String HEADER_USER_NAME = "";
+
+    public static final int SIM_TYPE_MCI = 0;
+    public static final int SIM_TYPE_MTN = 1;
+    public static final int SIM_TYPE_RIGHTEL = 2;
+    public static final int SIM_TYPE_OTHERS = 3;
+
 }
