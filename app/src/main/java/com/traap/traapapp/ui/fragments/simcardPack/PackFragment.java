@@ -79,6 +79,7 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentFragment;
 import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
+import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageImpl;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageInteractor;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.irancell.GetPackageIrancellImpl;
@@ -103,6 +104,7 @@ public class PackFragment
         PackFragmentInteractor, DetailPackAdapter.GetPackInAdapter,
         PackageMciImpl.OnFinishedPackageMciListener, BuyPackageInteractor.OnFinishedBuyPackageListener, PaymentParentActionView,
         GetPackageIrancellImpl.OnFinishedGetPackageIrancellListener, TextWatcher, AdapterView.OnItemSelectedListener, PaymentActionView
+        , OnClickContinueSelectPayment
 {
 
 
@@ -2127,8 +2129,8 @@ public class PackFragment
         String urlPayment = response.getUrl();
 
         mainView.hideLoading();
-        mainView.openPackPaymentFragment(urlPayment, imageDrawable,
-                title, amount,paymentInstance,mobile);
+        mainView.openPackPaymentFragment(this,urlPayment, imageDrawable,
+                title, amount,paymentInstance,mobile,TrapConfig.PAYMENT_STAUS_PackSimCard);
     }
 
     @Override
@@ -2160,6 +2162,12 @@ public class PackFragment
 
     @Override
     public void onPaymentTicket()
+    {
+
+    }
+
+    @Override
+    public void onBackClicked()
     {
 
     }

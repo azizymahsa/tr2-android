@@ -4,13 +4,9 @@ package com.traap.traapapp.ui.activities.main;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,10 +14,7 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -31,11 +24,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 //import com.adpdigital.push.AdpPushClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -73,14 +63,10 @@ import com.traap.traapapp.models.dbModels.BankDB;
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
-import com.traap.traapapp.notification.NotificationJobService;
-import com.traap.traapapp.notification.NotificationUtils;
-import com.traap.traapapp.notification.PushMessageReceiver;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
 import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
-import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -106,6 +92,7 @@ import com.traap.traapapp.ui.fragments.paymentGateWay.SelectPaymentGatewayFragme
 import com.traap.traapapp.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
+import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.ui.fragments.support.SupportFragment;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
@@ -1492,13 +1479,26 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction.replace(R.id.main_container, this.fragment, "pastResultFragment")
                 .commit();
     }
-
     @Override
-    public void openChargePaymentFragment(String urlPayment, int icon_payment, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile)
+    public void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS)
     {
 
         isMainFragment = false;
-        this.fragment = SelectPaymentGatewayFragment.newInstance(urlPayment, this, icon_payment,
+        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS,onClickContinueSelectPayment,urlPayment, this, imageDrawable,
+                title, amount, paymentInstance, mobile);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "selectPaymentGatewayFragment")
+                .commit();
+
+    }
+    @Override
+    public void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int icon_payment, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS)
+    {
+
+        isMainFragment = false;
+        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS,onClickContinueSelectPayment,urlPayment, this, icon_payment,
                 title, amount, paymentInstance, mobile);
 
         transaction = fragmentManager.beginTransaction();
@@ -1530,20 +1530,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     }
 
-    @Override
-    public void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile)
-    {
 
-        isMainFragment = false;
-        this.fragment = SelectPaymentGatewayFragment.newInstance(urlPayment, this, imageDrawable,
-                title, amount, paymentInstance, mobile);
-
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "selectPaymentGatewayFragment")
-                .commit();
-
-    }
 
     @Override
     public void getBuyEnable(BuyTicketAction buyTicketAction)
@@ -1616,6 +1603,30 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         dialog.show(getFragmentManager(), "dialogAlert");
 
     }
+
+    @Override
+    public void onBackToChargFragment(int PAYMENT_STATUS)
+    {
+        if(PAYMENT_STATUS==3){
+        isMainFragment = false;
+        this.fragment = ChargeFragment.newInstance(this);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "ChargeFragment")
+                .commit();
+        }else if(PAYMENT_STATUS==4){
+            isMainFragment = false;
+            this.fragment = PackFragment.newInstance(this);
+
+            transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.replace(R.id.main_container, this.fragment, "PackFragment")
+                    .commit();
+        }
+    }
+
+
 
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
