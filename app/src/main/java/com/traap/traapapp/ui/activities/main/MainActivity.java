@@ -144,6 +144,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private String typeTransaction;
     private boolean hasPaymentCharge = false;
     private boolean hasPaymentPackageSimcard = false;
+    private int PAYMENT_STATUS=0;
 
 //    private void hideNavBar()
 //    {
@@ -537,6 +538,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }*/ else if (fragment instanceof PastResultFragment)
             {
                 onLeageClick(matchBuyable);
+            }else if (fragment instanceof SelectPaymentGatewayFragment){
+                onBackToChargFragment( Prefs.getInt("PAYMENT_STATUS",PAYMENT_STATUS)
+);
             }
            /* else if (fragment instanceof BuyTicketsActivity && ((BuyTicketsActivity) fragment).getViewpager().getCurrentItem() != 0)
             {
@@ -1607,6 +1611,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
 
         isMainFragment = false;
+        Prefs.putInt("PAYMENT_STATUS",PAYMENT_STATUS);
         this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS,onClickContinueSelectPayment,urlPayment, this, imageDrawable,
                 title, amount, paymentInstance, mobile);
 
@@ -1621,6 +1626,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
 
         isMainFragment = false;
+        Prefs.putInt("PAYMENT_STATUS",PAYMENT_STATUS);
         this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS,onClickContinueSelectPayment,urlPayment, this, icon_payment,
                 title, amount, paymentInstance, mobile);
 
