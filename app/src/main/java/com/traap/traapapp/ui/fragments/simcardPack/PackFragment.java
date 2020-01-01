@@ -513,6 +513,7 @@ public class PackFragment
     @OnClick(R.id.flIrancell)
     void irancell()
     {
+        closeAutoComplete();
 //        mainView.needExpanded(false);
 //        tvPackTitle.setText("خرید بسته اینترنت " + "ایرانسل");
 //        tvPackTitle.setTextSize(18);
@@ -551,6 +552,7 @@ public class PackFragment
     @OnClick(R.id.flHamraheAval)
     void hamraheAval()
     {
+        closeAutoComplete();
 //        mainView.needExpanded(false);
         llDetailDescriptionMci.setVisibility(View.VISIBLE);
 
@@ -587,9 +589,17 @@ public class PackFragment
 
     }
 
+    private void closeAutoComplete()
+    {
+        etMobileNumberIranCell.dismissDropDown();
+        etMobileNumberMCI.dismissDropDown();
+        etMobileNumberRightel.dismissDropDown();
+    }
+
     @OnClick(R.id.flRightel)
     void rightel()
     {
+        closeAutoComplete();
         llDescriptionSelectPackRightel.setVisibility(View.GONE);
         llDetailDescriptionRightel.setVisibility(View.VISIBLE);
         llRightelMobile.setVisibility(View.VISIBLE);
@@ -744,7 +754,7 @@ public class PackFragment
         if (!Utility.getMobileValidation(etMobileNumberIranCell.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
-            hideSoftKeyboard(etMobileNumberIranCell);
+         //   hideSoftKeyboard(etMobileNumberIranCell);
             return;
         }
         if (!Utility.isNetworkAvailable())
@@ -758,7 +768,7 @@ public class PackFragment
         getPackageIrancell.findGetPackageIrancellDataRequest(this, etMobileNumberIranCell.getText().toString());
 //        llDetailDescription.setVisibility(View.GONE);
 //        llDescriptionSelectPack.setVisibility(View.VISIBLE);
-        hideSoftKeyboard(etMobileNumberIranCell);
+     //   hideSoftKeyboard(etMobileNumberIranCell);
 
         isMtn = true;
         isMci = false;
@@ -775,7 +785,7 @@ public class PackFragment
         setupRecycler();
         if (!Utility.getMobileValidation(etMobileNumberRightel.getText().toString()))
         {
-            hideSoftKeyboard(etMobileNumberRightel);
+           // hideSoftKeyboard(etMobileNumberRightel);
 
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
@@ -791,7 +801,7 @@ public class PackFragment
         btnChargeConfirmRightel.startAnimation();
         btnChargeConfirmRightel.setClickable(false);
         rightelPack.findRightelPackData(this, etMobileNumberRightel.getText().toString());
-        hideSoftKeyboard(etMobileNumberRightel);
+       // hideSoftKeyboard(etMobileNumberRightel);
 
         isMtn = false;
         isMci = false;
@@ -1055,9 +1065,9 @@ public class PackFragment
 /*        rbAll.setChecked(true);
         rbRightelAll.setChecked(true);
         rbMciAll.setChecked(true);*/
-        etMobileNumberIranCell.addTextChangedListener(this);
-        etMobileNumberMCI.addTextChangedListener(this);
-        etMobileNumberRightel.addTextChangedListener(this);
+      //  etMobileNumberIranCell.addTextChangedListener(this);
+       // etMobileNumberMCI.addTextChangedListener(this);
+       // etMobileNumberRightel.addTextChangedListener(this);
         if (!cardNumberCheck.equals("003725"))
         {
             llCvv2.setVisibility(View.VISIBLE);
