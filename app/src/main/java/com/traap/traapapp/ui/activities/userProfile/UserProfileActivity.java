@@ -357,68 +357,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private void getDataProfileUser()
     {
         SingletonService.getInstance().getProfileService().getProfileService(this);
-//        getDataProfileUserFromCatch();
-    }
-
-    private void getDataProfileUserFromCatch()
-    {
-        if (Prefs.contains("firstName"))
-        {
-            etFirstName.setText(Prefs.getString("firstName", ""));
-        }
-        if (Prefs.contains("lastName"))
-        {
-            etLastName.setText(Prefs.getString("lastName", ""));
-        }
-        if (Prefs.contains("nickName"))
-        {
-            etNickName.setText(Prefs.getString("nickName", ""));
-        }
-
-        if (Prefs.contains("firstNameUS"))
-        {
-            etFirstNameUS.setText(Prefs.getString("firstNameUS", ""));
-        }
-
-        if (Prefs.contains("lastNameUS"))
-        {
-            etLastNameUS.setText(Prefs.getString("lastNameUS", ""));
-        }
-
-        if (Prefs.contains("email"))
-        {
-            etEmail.setText(Prefs.getString("email", ""));
-        }
-
-        if (Prefs.contains("gender"))
-        {
-            spinnerGender.setSelection(Prefs.getInt("gender", 0));
-        }
-        else
-        {
-            spinnerGender.setSelection(0);
-        }
-
-        if (Prefs.contains("birthday"))
-        {
-            tvBirthDay.setText(Prefs.getString("birthday", ""));
-        }
-        if (Prefs.contains("popularPlayer"))
-        {
-            if (Prefs.getInt("popularPlayer", 12) != 12)
-            {
-                etPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
-                popularPlayer = Prefs.getInt("popularPlayer", 12);
-            }
-        }
-        if (Prefs.contains("nationalCode"))
-        {
-            if (!Prefs.getString("nationalCode", "").equalsIgnoreCase("") &&
-                    !Prefs.getString("nationalCode", "").equalsIgnoreCase("0"))
-            {
-                etNationalCode.setText(Prefs.getString("nationalCode", ""));
-            }
-        }
     }
 
     @Override
@@ -426,7 +364,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     {
         btnConfirm.startAnimation();
         btnConfirm.setClickable(false);
-
     }
 
     @Override
@@ -823,63 +760,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //        }
     }
 
-    private String getPersianDate(String grgDate)
-    {
-        String spliter = "-";
-        String[] date = grgDate.split(spliter);
-
-        PersianDate persianDate = new PersianDate();
-        persianDate.setGrgYear(Integer.parseInt(date[0]));
-        persianDate.setGrgMonth(Integer.parseInt(date[1]));
-        persianDate.setGrgDay(Integer.parseInt(date[2]));
-
-        String newDate = persianDate.getShYear() + "/" + persianDate.getShMonth() + "/" + persianDate.getShDay();
-
-        return newDate;
-    }
-
-    private String getGrgDate(String dateStr)
-    {
-        String spliter = "/";
-        String[] date = dateStr.split(spliter);
-
-        PersianDate persianDate = new PersianDate();
-        persianDate.setShYear(Integer.parseInt(date[0]));
-        persianDate.setShMonth(Integer.parseInt(date[1]));
-        persianDate.setShDay(Integer.parseInt(date[2]));
-
-        String month = String.valueOf(persianDate.getGrgMonth());
-        String day = String.valueOf(persianDate.getGrgDay());
-
-        if (persianDate.getGrgMonth() < 10)
-        {
-            month = "0" + month;
-        }
-        if (persianDate.getGrgDay() < 10)
-        {
-            day = "0" + day;
-        }
-
-        String newDate = persianDate.getGrgYear() + "-" + month + "-" + day;
-
-        return newDate;
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (ImagePicker.shouldHandle(requestCode, resultCode, data))
-//        {
-//            // Get a list of picked images
-//            Image image = ImagePicker.getFirstImageOrNull(data);
-//            if (image != null)
-//            {
-////                imgProfile.setImageBitmap(BitmapFactory.decodeFile(image.getPath()));
-////                saveImage(BitmapFactory.decodeFile(image.getPath()));
-//            }
-//        }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
         {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
@@ -934,12 +818,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             etFirstName.setText(response.data.getFirstName());
             etLastName.setText(response.data.getLastName());
-
-//            if (!response.data.getFirstName().equalsIgnoreCase("") ||
-//                    !response.data.getLastName().equalsIgnoreCase(""))
-//            {
-//                Prefs.putString("FULLName", response.data.getFirstName().trim() + " " + response.data.getLastName().trim());
-//            }
 
             if (!Prefs.getString("FULLName", "").replace(" ","").equalsIgnoreCase(""))
             {

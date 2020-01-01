@@ -43,7 +43,7 @@
                     android:background="@drawable/button_small_border"
                     android:textSize="@dimen/textSize_20dp"
                     android:transitionName="transition"
-                    android:visibility="gone"
+                    android:visibility="visible"
 
                     />
 

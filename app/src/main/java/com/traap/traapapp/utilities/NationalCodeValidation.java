@@ -9,7 +9,8 @@ public class NationalCodeValidation
         if (nationalCode.length() != 10)
         {
             return false;
-        } else
+        }
+        else
         {
             //Check for equal numbers
             String[] allDigitEqual = {"0000000000", "1111111111", "2222222222", "3333333333",
