@@ -56,7 +56,7 @@ import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.MediaPosition;
-import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.dbModels.ArchiveCardDBModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
@@ -1348,13 +1348,25 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition)
+    public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
 
     }
 
     @Override
-    public void onNewsFavoriteClick(NewsParent parent, MediaPosition mediaPosition)
+    public void onNewsFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onPhotosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
 
     }

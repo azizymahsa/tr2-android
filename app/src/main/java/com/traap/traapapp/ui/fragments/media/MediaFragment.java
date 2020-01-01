@@ -22,7 +22,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
-import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mediaModel.MediaModel;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -31,16 +31,18 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsActionView;
+import com.traap.traapapp.ui.fragments.photo.PhotosActionView;
 import com.traap.traapapp.ui.fragments.photo.PhotosFragment;
 import com.traap.traapapp.ui.fragments.news.mainNews.NewsMainContentFragment;
 import com.traap.traapapp.ui.fragments.videos.VideosFragment;
+import com.traap.traapapp.utilities.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 
 @SuppressLint("ValidFragment")
-public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAllMenuClickListener, NewsActionView
+public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAllMenuClickListener, NewsActionView, PhotosActionView
 {
     private View rootView;
     private MainActionView mainView;
@@ -146,20 +148,52 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             adapter = new MediaAdapter(getActivity(), list, MediaFragment.this);
             recyclerView.setAdapter(adapter);
 
-            myMediaType = MediaPosition.News.ordinal();
-            recyclerView.scrollToPosition(MediaPosition.News.ordinal());
+            myMediaType = mediaPosition.ordinal();
+            Logger.e("-mediaPosition-", mediaPosition + "# News:" + MediaPosition.News + ", Photo:" + MediaPosition.ImageGallery);
 
             //------------------------initPager----------------------
-            myMediaType = MediaPosition.News.ordinal();
-            fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, null, this);
-//            fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
-            transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            switch (mediaPosition)
+            {
+                case News:
+                {
+                    myMediaType = MediaPosition.News.ordinal();
 
-            transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
-                    .commit();
+                    fragment = NewsMainContentFragment.newInstance(SubMediaParent.MediaFragment, null, this);
+                    transaction = fragmentManager.beginTransaction();
+                    transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
+                            .commit();
+                    break;
+                }
+                case ImageGallery:
+                {
+                    myMediaType = MediaPosition.ImageGallery.ordinal();
+
+                    fragment = PhotosFragment.newInstance(this);
+                    transaction = fragmentManager.beginTransaction();
+
+                    transaction.replace(R.id.main_container, fragment, "photosFragment")
+                            .commit();
+                    break;
+                }
+                case VideoGallery:
+                {
+                    myMediaType = MediaPosition.VideoGallery.ordinal();
+
+                    fragment = VideosFragment.newInstance(mainView);
+                    transaction = fragmentManager.beginTransaction();
+
+                    transaction.replace(R.id.main_container, fragment, "videosFragment")
+                            .commit();
+                    break;
+                }
+            }
+
+//            recyclerView.scrollToPosition(myMediaType);
+            recyclerView.scrollToPosition(1);
             //------------------------initPager----------------------
-        } catch (Exception e)
+
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -175,10 +209,9 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
                 if (myMediaType != MediaPosition.News.ordinal())
                 {
                     myMediaType = MediaPosition.News.ordinal();
-//                    fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, MainActivity.newsMainResponse, this);
-                    fragment = NewsMainContentFragment.newInstance(NewsParent.MediaFragment, null, this);
+
+                    fragment = NewsMainContentFragment.newInstance(SubMediaParent.MediaFragment, null, this);
                     transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                     transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
                             .commit();
@@ -191,11 +224,10 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
                 {
                     myMediaType = MediaPosition.ImageGallery.ordinal();
 
-                    fragment = PhotosFragment.newInstance(mainView);
+                    fragment = PhotosFragment.newInstance(this);
                     transaction = fragmentManager.beginTransaction();
-                    transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-                    transaction.replace(R.id.main_container, fragment, "marketFragment")
+                    transaction.replace(R.id.main_container, fragment, "photosFragment")
                             .commit();
                 }
                 break;
@@ -208,7 +240,6 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
                     fragment = VideosFragment.newInstance(mainView);
                     transaction = fragmentManager.beginTransaction();
-//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                     transaction.replace(R.id.main_container, fragment, "videosFragment")
                             .commit();
@@ -225,13 +256,13 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     }
 
     @Override
-    public void onNewsArchiveFragment(NewsParent parent)
+    public void onNewsArchiveFragment(SubMediaParent parent)
     {
         mainView.onNewsArchiveClick(parent, MediaPosition.News);
     }
 
     @Override
-    public void onNewsFavoriteFragment(NewsParent parent)
+    public void onNewsFavoriteFragment(SubMediaParent parent)
     {
         mainView.onNewsFavoriteClick(parent, MediaPosition.News);
     }
@@ -276,5 +307,35 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void backToMainPhotosFragment()
+    {
+
+    }
+
+    @Override
+    public void onPhotosArchiveFragment(SubMediaParent parent)
+    {
+        mainView.onPhotosArchiveClick(parent, MediaPosition.ImageGallery);
+    }
+
+    @Override
+    public void onPhotosFavoriteFragment(SubMediaParent parent)
+    {
+        mainView.onPhotosFavoriteClick(parent, MediaPosition.ImageGallery);
+    }
+
+    @Override
+    public void openDrawerPhotos()
+    {
+
+    }
+
+    @Override
+    public void closeDrawerPhotos()
+    {
+
     }
 }
