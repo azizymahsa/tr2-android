@@ -14,10 +14,10 @@ public class SendPredictRequest
 
     @SerializedName("home_team_score")
     @Expose @Getter @Setter
-    private Integer homeTeamDcore;
+    private Integer homeTeamScore;
 
     @SerializedName("away_team_score")
     @Expose @Getter @Setter
-    private Integer awayTeamDcore;
+    private Integer awayTeamScore;
 
 }
