@@ -9,6 +9,7 @@ import com.traap.traapapp.enums.NewsParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.base.BaseView;
+import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 
 public interface MainActionView extends BaseView
 {
@@ -68,13 +69,14 @@ public interface MainActionView extends BaseView
 
     void openPastResultFragment(String teamId, String imageLogo, String logoTitle);
 
-    void openChargePaymentFragment(String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance,String mobile);
+    void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
 
     void openWebView(MainActionView mainView, String uRl, String gds_token);
 
-    void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile);
+    void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
 
     void getBuyEnable(BuyTicketAction buyTicketAction);
 
     void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message);
+    void onBackToChargFragment(int PAYMENT_STATUS);
 }
