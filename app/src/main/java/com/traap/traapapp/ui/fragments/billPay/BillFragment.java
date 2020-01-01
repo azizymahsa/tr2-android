@@ -65,6 +65,7 @@ import com.traap.traapapp.ui.adapters.MyBillsAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -1371,10 +1372,13 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat, SimChargePaymentInstance paymentInstance,String mobile)
+    public void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
     }
+
+
+
 
     @Override
     public void openWebView(MainActionView mainView, String uRl, String gds_token)
@@ -1383,10 +1387,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile)
+    public void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
     }
+
+
 
     @Override
     public void getBuyEnable(BuyTicketAction buyTicketAction)
@@ -1399,6 +1405,14 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     {
 
     }
+
+    @Override
+    public void onBackToChargFragment(int PAYMENT_STATUS)
+    {
+
+    }
+
+
 
 
     @Override

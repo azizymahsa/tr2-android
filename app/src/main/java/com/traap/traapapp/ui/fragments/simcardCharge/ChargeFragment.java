@@ -75,7 +75,6 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyImpl;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
@@ -88,6 +87,7 @@ public class ChargeFragment extends BaseFragment
         ChargeFragmentInteractor, CompoundButton.OnCheckedChangeListener, OnAnimationEndListener, View.OnFocusChangeListener,
         RightelBuyImpl.OnFinishedRightelBuyListener, PaymentParentActionView,
         MciBuyInteractor.OnFinishedMciBuyInListener, TextWatcher, MainActionView, PaymentActionView
+    ,OnClickContinueSelectPayment
 {
 
     private Fragment pFragment;
@@ -112,6 +112,7 @@ public class ChargeFragment extends BaseFragment
     private View mToolbar;
     private TextView tvUserName;
     private TextView tvHeaderPopularNo;
+   private OnClickContinueSelectPayment onClickContinueBuyChargeListener;
 
 
     public ChargeFragment()
@@ -119,13 +120,19 @@ public class ChargeFragment extends BaseFragment
 
     }
 
-    public static ChargeFragment newInstance(MainActionView mainView)
+
+
+    public static ChargeFragment newInstance(MainActionView mainView)//, OnClickContinueSelectPayment onClickContinueBuyCharg)
     {
         ChargeFragment f = new ChargeFragment();
+       // f.setContinueSelectPayment(onClickContinueBuyCharg);
         f.setMainView(mainView);
         return f;
     }
-
+    private void setContinueSelectPayment(OnClickContinueSelectPayment mainView)
+    {
+        this.onClickContinueBuyChargeListener = mainView;
+    }
     private void setMainView(MainActionView mainView)
     {
         this.mainView = mainView;
@@ -334,6 +341,12 @@ public class ChargeFragment extends BaseFragment
             mainView.onInternetAlert();
             return;
 
+        }else {
+            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+
+
         }
 
 
@@ -347,6 +360,12 @@ public class ChargeFragment extends BaseFragment
             mainView.onInternetAlert();
             return;
 
+        }else {
+            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+
+
         }
 
 
@@ -359,6 +378,12 @@ public class ChargeFragment extends BaseFragment
         {
             mainView.onInternetAlert();
             return;
+
+        }else {
+            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+
 
         }
 
@@ -957,7 +982,10 @@ public class ChargeFragment extends BaseFragment
         mToolbar = rootView.findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
+               mainView.backToMainFragment()
+               // onClickContinueBuyChargeListener.onBackClicked()
+        );
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
@@ -1075,8 +1103,8 @@ public class ChargeFragment extends BaseFragment
 
     private void initDefaultOperatorView()
     {
-        // operatorType = getOperatorType(Prefs.getString("mobile", ""));
-        operatorType = getOperatorType("09121234567");
+         operatorType = getOperatorType(Prefs.getString("mobile", ""));
+       // operatorType = getOperatorType("09121234567");
 
         switch (operatorType)
         {
@@ -1655,8 +1683,8 @@ public class ChargeFragment extends BaseFragment
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
 
 
-        mainView.openChargePaymentFragment(urlPayment, imageDrawable,
-                title, amount, paymentInstance, mobile);
+        mainView.openChargePaymentFragment(this,urlPayment, imageDrawable,
+                title, amount, paymentInstance, mobile,TrapConfig.PAYMENT_STAUS_ChargeSimCard);
 
     }
 
@@ -1837,10 +1865,12 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void openChargePaymentFragment(String urlPayment, int icon_payment_ticket, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile)
+    public void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
     }
+
+
 
     @Override
     public void openWebView(MainActionView mainView, String uRl, String gds_token)
@@ -1849,10 +1879,12 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void openPackPaymentFragment(String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile)
+    public void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
     }
+
+
 
     @Override
     public void getBuyEnable(BuyTicketAction buyTicketAction)
@@ -1865,6 +1897,13 @@ public class ChargeFragment extends BaseFragment
     {
 
     }
+
+    @Override
+    public void onBackToChargFragment(int PAYMENT_STATUS)
+    {
+
+    }
+
 
     public void onSelectContact(OnSelectContact event)
     {
@@ -1910,6 +1949,12 @@ public class ChargeFragment extends BaseFragment
 
     @Override
     public void hideLoading()
+    {
+
+    }
+
+    @Override
+    public void onBackClicked()
     {
 
     }

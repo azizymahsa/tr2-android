@@ -878,10 +878,10 @@ public class Utility
         }
 
         String check = number.substring(0, 4);
-      /*  return check.equals("0910") || check.equals("0911") || check.equals("0912") || check.equals("0913")
+       return check.equals("0910") || check.equals("0911") || check.equals("0912") || check.equals("0913")
                 || check.equals("0914") || check.equals("0915") || check.equals("0916") || check.equals("0917")
-                || check.equals("0918") || check.equals("0919");*/
-        return true;
+                || check.equals("0918") || check.equals("0919");
+        //return true;
     }
 
     public static boolean mtnValidation(String number)
@@ -899,10 +899,10 @@ public class Utility
             return false;
         }
         String check = number.substring(0, 4);
-        /*return check.equals("0939") || check.equals("0938") || check.equals("0937") || check.equals("0936")
+        return check.equals("0939") || check.equals("0938") || check.equals("0937") || check.equals("0936")
                 || check.equals("0935") || check.equals("0933") || check.equals("0930") || check.equals("0903")
-                || check.equals("0902") || check.equals("0901")|| check.equals("0905");*/
-        return true;
+                || check.equals("0902") || check.equals("0901")|| check.equals("0905");
+       // return true;
     }
 
     public static boolean rightelValidation(String number)
@@ -920,8 +920,8 @@ public class Utility
             return false;
         }
         String check = number.substring(0, 4);
-        /*      return check.equals("0921") || check.equals("0922");*/
-        return true;
+              return check.equals("0921") || check.equals("0922");
+        //return true;
 
     }
 

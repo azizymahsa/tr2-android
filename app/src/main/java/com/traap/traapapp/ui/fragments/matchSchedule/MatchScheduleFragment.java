@@ -153,14 +153,21 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
                 nextMatchesList = new ArrayList<>();
                 for (int i = 0; i < result.size(); i++)
                 {
-                    if (result.get(i).getResult() != null)
+                  /*  if (result.get(i).getResult() != null)
                     {
                         pastMatchesList.add(result.get(i));
                     } else
                     {
                         nextMatchesList.add(result.get(i));
 
-                    }
+                    }*/
+                  if(result.get(i).getDateTimeNow()>=result.get(i).getMatchDatetime()){
+                      pastMatchesList.add(result.get(i));
+
+                  }else{
+                      nextMatchesList.add(result.get(i));
+
+                  }
                 }
             }
        // mainView.hideLoading();
