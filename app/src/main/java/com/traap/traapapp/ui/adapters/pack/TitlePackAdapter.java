@@ -72,12 +72,12 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
 
         if (!TextUtils.isEmpty(type))
         {
-            if (type.equals("all"))
+           /* if (type.equals("all"))
             {
                 detailPackAdapter = new DetailPackAdapter(item.getDetail(), getPackInAdapter);
                 holder.tvTitle.setText(item.getTitle() + " (" + item.getDetail().size() + ")");
             } else
-            {
+            {*/
                 for (int i = 0; i < item.getDetail().size(); i++)
                 {
                     if (item.getDetail().get(i).getPackageType().equals(type))
@@ -86,7 +86,7 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
                 }
                 detailPackAdapter = new DetailPackAdapter(details, getPackInAdapter);
                 holder.tvTitle.setText(item.getTitle() + " (" + details.size() + ")");
-            }
+
 
         } else
         {

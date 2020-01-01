@@ -35,7 +35,7 @@
 
         <ImageView
             android:id="@+id/imgUserMobileIranCell"
-            android:src="@drawable/ic_filter"
+            app:srcCompat="@drawable/ic_filter"
             android:layout_width="@dimen/_45dp"
             android:layout_height="@dimen/_45dp"
             android:padding="10dp"
@@ -75,7 +75,6 @@
             android:gravity="left"
             android:paddingLeft="24dp"
             android:text=""
-            android:imeOptions="actionDone"
             android:inputType="number"
             android:textColor="@color/chargePackTextColor"
             android:textSize="@dimen/textSize_16dp"

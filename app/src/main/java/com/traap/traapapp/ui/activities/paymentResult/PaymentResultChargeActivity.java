@@ -22,7 +22,7 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
 
     private String refrenceNumber;
     private boolean statusPayment;
-    private TextView tvTitle,tvStatusPayment,tvDate,tvPayment,tvAmount,tvPhoneNumber,tvRefrenceNumber;
+    private TextView tvTitle,tvStatusPayment,tvDate,tvPayment,tvAmount,tvPhoneNumber,tvRefrenceNumber,tvPackageTitle;
     private View btnShare,tvBackHome,llResult;
     private View btnSaveResult;
 
@@ -58,6 +58,8 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         tvAmount=findViewById(R.id.tvAmount);
         tvPhoneNumber=findViewById(R.id.tvPhoneNumber);
         tvRefrenceNumber=findViewById(R.id.tvRefrenceNumber);
+
+        tvPackageTitle=findViewById(R.id.tvPackageTitle);
 
         btnShare=findViewById(R.id.btnShare);
         btnShare.setOnClickListener(this);
@@ -122,6 +124,7 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         tvAmount.setText("مبلغ: "+Utility.priceFormat(response.data.getAmount().toString())+" ریال" );
         tvPhoneNumber.setText("شماره موبایل: "+response.data.getDetailTransaction().getMobileNumber());
         tvRefrenceNumber.setText("کد پیگیری: "+response.data.getId());
+        //tvPackageTitle.setText(response.data.);
     }
 
     public void showLoading()

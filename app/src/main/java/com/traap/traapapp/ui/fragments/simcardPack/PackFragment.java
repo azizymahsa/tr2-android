@@ -351,9 +351,8 @@ public class PackFragment
     LinearLayout llIrancellSpinner;
 
     private String[] mciFilter = {"همه", "اعتباری و دائمی", "اعتباری", "دائمی"};
-    private String[] irancellFilter = {"همه", "4G اعتباري", "4G دائمي", "TD_LTE اعتباري", "TD_LTE + 4G اعتباري", "بر اساس اینترنت بین المللی",
-            "مناسبتی", "TD_LTE دائمي", "TD_LTE + 4G دائمي"};
-    private String[] rightelFilter = {"همه", "اعتباری", "دائمی", "دیتا", "دکا"};
+    private String[] irancellFilter = { " اعتباري", " دائمي"};
+    private String[] rightelFilter = { "اعتباری", "دائمی", "دیتا" };
 
     @OnClick(R.id.imgUserMobileIranCell)
     void onUserMobileIranCell()
@@ -966,42 +965,16 @@ public class PackFragment
         {
             switch (position)
             {
+
                 case 0:
-                    filterType = "all";
-                    new ChangeData().execute();
-                    break;
-                case 1:
                     filterType = "1";
                     new ChangeData().execute();
                     break;
-                case 2:
+                case 1:
                     filterType = "2";
                     new ChangeData().execute();
                     break;
-                case 3:
-                    filterType = "3";
-                    new ChangeData().execute();
-                    break;
-                case 4:
-                    filterType = "4";
-                    new ChangeData().execute();
-                    break;
-                case 5:
-                    filterType = "5";
-                    new ChangeData().execute();
-                    break;
-                case 6:
-                    filterType = "6";
-                    new ChangeData().execute();
-                    break;
-                case 7:
-                    filterType = "7";
-                    new ChangeData().execute();
-                    break;
-                case 8:
-                    filterType = "8";
-                    new ChangeData().execute();
-                    break;
+
             }
 
 
@@ -1011,24 +984,17 @@ public class PackFragment
 
             switch (position)
             {
+
                 case 0:
-                    filterType = "all";
-                    new ChangeData().execute();
-                    break;
-                case 1:
                     filterType = "1";
                     new ChangeData().execute();
                     break;
-                case 2:
+                case 1:
                     filterType = "2";
                     new ChangeData().execute();
                     break;
-                case 3:
+                case 2:
                     filterType = "3";
-                    new ChangeData().execute();
-                    break;
-                case 4:
-                    filterType = "4";
                     new ChangeData().execute();
                     break;
 
