@@ -23,8 +23,6 @@ import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.chart.common.listener.Event;
-import com.anychart.chart.common.listener.ListenersInterface;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
@@ -33,7 +31,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -243,9 +240,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         vAway2 = rootView.findViewById(R.id.vAway2);
 
         pieChart = AnyChart.pie();
+
         if (!isPredictable)
         {
-
             sepHome.setVisibility(View.GONE);
             sepAway.setVisibility(View.GONE);
             edtHomePredict.setVisibility(View.GONE);
@@ -268,48 +265,54 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             }
             else
             {
-                btnSendPredict.startAnimation();
-                btnSendPredict.setClickable(false);
+                sendPredict();
+            }
+        });
+    }
 
-                SendPredictRequest request = new SendPredictRequest();
-                request.setMatchId(matchPredict.getId());
-                request.setAwayTeamDcore(Integer.parseInt(edtAwayPredict.getText().toString().trim()));
-                request.setHomeTeamDcore(Integer.parseInt(edtHomePredict.getText().toString().trim()));
+    private void sendPredict()
+    {
 
-                SingletonService.getInstance().sendPredictService().sendPredictService(request, new OnServiceStatus<WebServiceClass<Object>>()
+        btnSendPredict.startAnimation();
+        btnSendPredict.setClickable(false);
+
+        SendPredictRequest request = new SendPredictRequest();
+        request.setMatchId(matchPredict.getId());
+        request.setAwayTeamScore(Integer.parseInt(edtAwayPredict.getText().toString().trim()));
+        request.setHomeTeamScore(Integer.parseInt(edtHomePredict.getText().toString().trim()));
+
+        SingletonService.getInstance().sendPredictService().sendPredictService(request, new OnServiceStatus<WebServiceClass<Object>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<Object> response)
+            {
+                btnSendPredict.revertAnimation(PredictFragment.this);
+                btnSendPredict.setClickable(true);
+
+                try
                 {
-                    @Override
-                    public void onReady(WebServiceClass<Object> response)
+                    if (response.info.statusCode != 200)
                     {
-                        btnSendPredict.revertAnimation(PredictFragment.this);
-                        btnSendPredict.setClickable(true);
-
-                        try
-                        {
-                            if (response.info.statusCode != 200)
-                            {
-                                showAlert(getActivity(), response.info.message, 0);
-                            }
-                            else
-                            {
-                                mainView.onSetPredictCompleted(matchPredict, true, response.info.message);
-                            }
-                        }
-                        catch (NullPointerException e)
-                        {
-                            showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
-                        }
+                        showAlert(getActivity(), response.info.message, 0);
                     }
-
-                    @Override
-                    public void onError(String message)
+                    else
                     {
-                        btnSendPredict.revertAnimation(PredictFragment.this);
-                        btnSendPredict.setClickable(true);
-
-                        showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
+                        mainView.onSetPredictCompleted(matchPredict, true, response.info.message);
                     }
-                });
+                }
+                catch (NullPointerException e)
+                {
+                    showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                btnSendPredict.revertAnimation(PredictFragment.this);
+                btnSendPredict.setClickable(true);
+
+                showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
             }
         });
     }
@@ -584,21 +587,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         }
 
-    }
-
-    public static String getPersianChar(String charSequence)
-    {
-        String number = String.valueOf(charSequence);
-        return number.replace("1", "۱")
-                .replace("2", "۲")
-                .replace("3", "۳")
-                .replace("4", "۴")
-                .replace("5", "۵")
-                .replace("6", "۶")
-                .replace("7", "۷")
-                .replace("8", "۸")
-                .replace("9", "۹")
-                .replace("0", "۰");
     }
 
     @Override
