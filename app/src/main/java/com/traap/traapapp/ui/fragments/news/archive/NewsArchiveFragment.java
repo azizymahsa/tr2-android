@@ -45,7 +45,7 @@ import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryR
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.MediaArchiveCategoryCall;
-import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -116,7 +116,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     private FilterArchiveAdapter adapter;
     private boolean pagerWithFilter = false;
     private boolean pagerFromFavorite = false;
-    private NewsParent parent;
+    private SubMediaParent parent;
     private MediaPosition mediaPosition;
 
     private DatePickerDialog pickerDialogStartDate, pickerDialogEndDate;
@@ -128,7 +128,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     {
     }
 
-    public static NewsArchiveFragment newInstance(NewsParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite,
+    public static NewsArchiveFragment newInstance(SubMediaParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite,
                                                   NewsArchiveActionView mainNewsView)
     {
         NewsArchiveFragment fragment = new NewsArchiveFragment();
@@ -144,7 +144,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         return fragment;
     }
 
-    private void setParent(NewsParent parent) { this.parent = parent; }
+    private void setParent(SubMediaParent parent) { this.parent = parent; }
 
     private void setMediaPosition(MediaPosition mediaPosition) { this.mediaPosition = mediaPosition; }
 
@@ -180,7 +180,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
                 .subscribe(v ->
                 {
-                    if (parent == NewsParent.MainFragment)
+                    if (parent == SubMediaParent.MainFragment)
                     {
 //                        mainNewsView.backToMainFragment();
                         mainNewsView.backToMainNewsFragment();

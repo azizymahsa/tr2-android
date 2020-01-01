@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.MediaPosition;
-import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.base.BaseView;
@@ -61,9 +61,13 @@ public interface MainActionView extends BaseView
 
     void onFootBallServiceSix();
 
-    void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition);
+    void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition);
 
-    void onNewsFavoriteClick(NewsParent parent, MediaPosition mediaPosition);
+    void onNewsFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition);
+
+    void onPhotosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition);
+
+    void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition);
 
     void onMainVideoClick();
 

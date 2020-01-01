@@ -24,12 +24,12 @@ import com.traap.traapapp.apiServices.model.mainVideos.Category;
  */
 public class PhotosArchiveAdapter extends RecyclerView.Adapter<PhotosArchiveAdapter.ViewHolder>
 {
-    private  Boolean FLAG_Favorite=false;
+    private Boolean FLAG_Favorite = false;
     private Context context;
     private ArrayList<Category> recent;
     private ArchivePhotosListener listener;
 
-    public PhotosArchiveAdapter(ArrayList<Category> recent,Boolean FLAG_Favorite, ArchivePhotosListener listener)
+    public PhotosArchiveAdapter(ArrayList<Category> recent, Boolean FLAG_Favorite, ArchivePhotosListener listener)
     {
         this.recent = recent;
         this.listener = listener;

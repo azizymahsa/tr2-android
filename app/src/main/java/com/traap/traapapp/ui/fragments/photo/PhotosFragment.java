@@ -34,6 +34,7 @@ import com.traap.traapapp.apiServices.model.mainPhotos.MainPhotoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.apiServices.model.photo.response.ImageName;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
 import com.traap.traapapp.ui.adapters.photo.CategoryPhotosAdapter;
@@ -41,7 +42,6 @@ import com.traap.traapapp.ui.adapters.photo.NewestPhotosAdapter;
 import com.traap.traapapp.ui.adapters.photo.PhotosArchiveAdapter;
 import com.traap.traapapp.ui.adapters.photo.PhotosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -52,7 +52,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchivePhotosListener
         , CategoryPhotosAdapter.TitleCategoryListener, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener
 {
-    private MainActionView mainView;
+    private PhotosActionView mainView;
     private View rootView;
     private BannerLayout bNewestPhotos;
     private RoundedImageView ivFavorite1, ivFavorite2, ivFavorite3;
@@ -86,14 +86,14 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         startActivity(intent);
     }
 
-    public static PhotosFragment newInstance(MainActionView mainView)
+    public static PhotosFragment newInstance(PhotosActionView mainView)
     {
         PhotosFragment fragment = new PhotosFragment();
         fragment.setMainView(mainView);
         return fragment;
     }
 
-    private void setMainView(MainActionView mainView)
+    private void setMainView(PhotosActionView mainView)
     {
         this.mainView = mainView;
     }
@@ -189,11 +189,11 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
     private void onGetMainVideosSuccess(MainPhotoResponse mainPhotosResponse)
     {
-        bNewestPhotos.setAdapter(new NewestPhotosAdapter(mainPhotosResponse.getRecent(), mainView, this));
+        bNewestPhotos.setAdapter(new NewestPhotosAdapter(mainPhotosResponse.getRecent(), this));
         setDataFavoriteList(mainPhotosResponse);
-        photoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(mainPhotosResponse.getListCategories(), mainView, this);
+        photoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(mainPhotosResponse.getListCategories(), this);
         rvCategoryTitles.setAdapter(photoCategoryTitleAdapter);
-        categoryAdapter = new CategoryPhotosAdapter(mainPhotosResponse.getCategory(), mainView, this);
+        categoryAdapter = new CategoryPhotosAdapter(mainPhotosResponse.getCategory(), this);
         rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         rvGrideCategories.setAdapter(categoryAdapter);
@@ -352,52 +352,57 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                 }
                 break;
             case R.id.tvArchivePhotos:
-                try
-                {
-                    //photoArchiveFragment
+            {
+                //photoArchiveFragment
+                mainView.onPhotosArchiveFragment(SubMediaParent.MediaFragment);
 
-                    ArrayList<ListCategory> categoryTitleList = mainPhotosResponse.getListCategories();
-                    Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
-                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
-                    intent.putExtra("FLAG_Favorite", false);
-
-                    startActivity(intent);
-
-                } catch (Exception e)
-                {
-                    if (Tools.isNetworkAvailable(getActivity()))
-                    {
-                        Logger.e("-OnError-", "Error: " + e.getMessage());
-                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                    } else
-                    {
-                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
-                    }
-                }
-
+//                try
+//                {
+//
+//                    ArrayList<ListCategory> categoryTitleList = mainPhotosResponse.getListCategories();
+//                    Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
+//                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
+//                    intent.putExtra("FLAG_Favorite", false);
+//
+//                    startActivity(intent);
+//
+//                }
+//                catch (Exception e)
+//                {
+//                    if (Tools.isNetworkAvailable(getActivity()))
+//                    {
+//                        Logger.e("-OnError-", "Error: " + e.getMessage());
+//                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+//                    } else
+//                    {
+//                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+//                    }
+//                }
                 break;
+            }
             case R.id.tvMyFavoritePhoto:
-                try
-                {
-                    //
-
-                    Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
-                    intent1.putExtra("FLAG_Favorite", true);
-                    startActivity(intent1);
-                }
-                catch (Exception e)
-                {
-                    if (Tools.isNetworkAvailable(getActivity()))
-                    {
-                        Logger.e("-OnError-", "Error: " + e.getMessage());
-                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                    } else
-                    {
-                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
-                    }
-                }
-
+            {
+                //Favorite Fragment
+                mainView.onPhotosFavoriteFragment(SubMediaParent.MediaFragment);
+//                try
+//                {
+//                    Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
+//                    intent1.putExtra("FLAG_Favorite", true);
+//                    startActivity(intent1);
+//                }
+//                catch (Exception e)
+//                {
+//                    if (Tools.isNetworkAvailable(getActivity()))
+//                    {
+//                        Logger.e("-OnError-", "Error: " + e.getMessage());
+//                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+//                    } else
+//                    {
+//                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+//                    }
+//                }
                 break;
+            }
         }
     }
 
@@ -415,7 +420,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         }else {
             tvEmpty.setVisibility(View.GONE);
             rvGrideCategories.setVisibility(View.VISIBLE);
-            categoryAdapter = new CategoryPhotosAdapter(data.getResults(), mainView, this);
+            categoryAdapter = new CategoryPhotosAdapter(data.getResults(), this);
             rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
             rvGrideCategories.setAdapter(categoryAdapter);
         }
