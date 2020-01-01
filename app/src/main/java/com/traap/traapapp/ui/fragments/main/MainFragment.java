@@ -395,7 +395,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     public void startTimer(long time)
     {
-        countDownTimer = new CountDownTimerPredict(time, 10, this);
+        countDownTimer = new CountDownTimerPredict(time, 1000, this);
         countDownTimer.start();
 //        countdownView.start(time);
     }
@@ -619,42 +619,18 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         switch (id)
         {
             case 11: //Flight ATA
-            {
-
-                mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
-
-                break;
-            }
-
-            case 14://Flight
-            {
-                mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
-
-
-                break;
-            }
-
+            case 14: //Flight
             case 12: //Hotel
-            {
-                mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
-
-
-                break;
-            }
-
             case 13: //Bus
             {
                 mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
-
                 break;
             }
-
             case 65: //Bill
             {
                 mainView.onBill();
                 break;
             }
-
             case 42: //Pack
             {
                 mainView.onPackSimCard();
@@ -720,6 +696,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             }
         }
     }
+
     private void getPermissionAndOpenInsurance(String URl)
     {
         new TedPermission(SingletonContext.getInstance().getContext())

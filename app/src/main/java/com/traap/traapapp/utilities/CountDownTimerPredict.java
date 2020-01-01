@@ -25,49 +25,38 @@ public class CountDownTimerPredict extends CountDownTimer
     public void onTick(long l)
     {
         String timeStr = "";
+
         if (l < 1000)
         {
             timeStr = "00 : 00 : 00 : 00";
         }
         else if (l >= 1000 && l < 60000) //second
         {
-            Calendar time = Calendar.getInstance();
-            time.setTimeInMillis(l);
-
-            second = time.get(Calendar.SECOND);
+            second = (int) (l  / 1000);
 
             timeStr = "00 : 00 : 00:" + formatNum(second);
         }
         else if (l >= 60000 && l < 3600000) //minutes
         {
-            Calendar time = Calendar.getInstance();
-            time.setTimeInMillis(l);
-
             minutes = (int) (l / 60000);
-            second = time.get(Calendar.SECOND);
+            second = (int) ((l - minutes * 60000) / 1000);
 
             timeStr =  "00 : 00 : " + formatNum(minutes) + " : " + formatNum(second);
         }
         else if (l >= 3600000 && l < 86400000) //hour
         {
-            Calendar time = Calendar.getInstance();
-            time.setTimeInMillis(l);
-
             hour = (int) (l / 3600000);
             minutes = (int) ((l - hour * 3600000) / 60000);
-            second = time.get(Calendar.SECOND);
+            second = (int) ((l - hour * 3600000 - minutes * 60000) / 1000);
 
             timeStr =  "00 : " + formatNum(hour) + " : " + formatNum(minutes) + " : " + formatNum(second);
         }
         else
         {
-            Calendar time = Calendar.getInstance();
-            time.setTimeInMillis(l);
-
             day = (int) (l / 86400000);
             hour = (int) ((l - day * 86400000) / 3600000);
             minutes = (int) ((l - day * 86400000 - hour * 3600000) / 60000);
-            second = time.get(Calendar.SECOND);
+            second = (int) ((l - day * 86400000 - hour * 3600000 - minutes * 60000) / 1000);
 
             timeStr = formatNum(day) + " : " + formatNum(hour) + " : " + formatNum(minutes) + " : " + formatNum(second);
         }
