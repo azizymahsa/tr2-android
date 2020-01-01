@@ -53,7 +53,9 @@ import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 
 @SuppressLint("newsDetailsContentFragment")
-public class NewsDetailsContentFragment extends BaseFragment implements NewsDetailsImageAdapter.OnItemNewsClickListener,View.OnClickListener, OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>>
+public class NewsDetailsContentFragment extends BaseFragment implements NewsDetailsImageAdapter.OnItemNewsClickListener
+//        , View.OnClickListener
+        , OnServiceStatus<WebServiceClass<LikeNewsDetailResponse>>
 {
     private View rootView;
     private Context context;
@@ -70,7 +72,7 @@ public class NewsDetailsContentFragment extends BaseFragment implements NewsDeta
     private RelativeLayout rlArrowLeft, rlArrowRight, rlImeges;
 
     private LinearLayoutManager layoutManager;
-    ;
+
     private RecyclerView rcImageGallery;
     private ScrollingPagerIndicator indicator;
 
@@ -281,9 +283,9 @@ public class NewsDetailsContentFragment extends BaseFragment implements NewsDeta
         });
 
         rcImageGallery = rootView.findViewById(R.id.rcImageGallery);
-        rcImageGallery.setOnClickListener(this);
+//        rcImageGallery.setOnClickListener(this);
         rlImeges = rootView.findViewById(R.id.rlImegess);
-        rlImeges.setOnClickListener(this);
+//        rlImeges.setOnClickListener(this);
         indicator = rootView.findViewById(R.id.indicator);
 
         if (content.getImages().isEmpty())
@@ -421,21 +423,21 @@ public class NewsDetailsContentFragment extends BaseFragment implements NewsDeta
         return animation;
     }
 
-    @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
-
-            case R.id.rlImegess:
-
-
-
-                break;
-
-
-        }
-    }
+//    @Override
+//    public void onClick(View v)
+//    {
+//        switch (v.getId())
+//        {
+//
+//            case R.id.rlImegess:
+//
+//
+//
+//                break;
+//
+//
+//        }
+//    }
 
     @Override
     public void OnItemNewsClick(View v, ImageName content)

@@ -219,9 +219,7 @@
                             android:layout_width="@dimen/_50dp"
                             android:layout_height="@dimen/_50dp"
                             android:layout_alignParentEnd="true"
-                            android:background="@drawable/background_disable_rec"
                             android:scaleType="fitCenter"
-                            android:padding="3dp"
                             app:srcCompat="@drawable/ic_banklogo_mellat"
                             android:visibility="visible" />
 
@@ -240,7 +238,8 @@
                         android:layout_gravity="center"
                         android:enabled="true"
                         android:clickable="true"
-                        android:buttonTint="@color/textColorPrimary" />
+                        android:buttonTint="@color/textColorPrimary"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
             </LinearLayout>
