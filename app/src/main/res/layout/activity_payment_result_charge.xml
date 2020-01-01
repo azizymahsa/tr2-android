@@ -99,6 +99,7 @@
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/textSize_14dp"
+            android:visibility="gone"
             />
 
         <TextView
