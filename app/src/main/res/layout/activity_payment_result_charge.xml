@@ -18,13 +18,16 @@
 
     <LinearLayout
         android:id="@+id/llResult"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_220sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:background="@color/white"
+        android:background="@drawable/background_charge_result"
         android:layout_marginTop="@dimen/_40dp"
-        android:padding="@dimen/_20dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="@dimen/_10dp"
+        android:paddingBottom="-2dp"
         android:orientation="vertical">
 
         <TextView
@@ -32,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="رسید"
+            android:text=""
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
@@ -44,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="پرداخت"
+            android:text=""
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/kellyGreen"
@@ -56,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="رسید"
+            android:text=""
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
@@ -79,18 +82,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="مبلغ"
+            android:text=""
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/textSize_14dp"
             />
+
+        <TextView
+            android:id="@+id/tvPackageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/textSize_14dp"
+            android:visibility="gone"
+            />
+
         <TextView
             android:id="@+id/tvPhoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="شماره موبایل"
+            android:text=" "
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
@@ -102,25 +119,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="کدپیگیری"
+            android:text=""
             android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginBottom="@dimen/_10dp"
             android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/textSize_14dp"
             />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20dp"
+            android:background="@color/white"
+            android:gravity="center"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/img_bottom_result_charge"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:tint="@color/greyish"
 
+            />
     </LinearLayout>
 
- <!--   <ImageView
-        android:layout_width="@dimen/_35dp"
-        android:layout_height="@dimen/_35dp"
-        android:background="@drawable/button_small_border"
-        app:srcCompat="@drawable/ic_share"
-        android:padding="@dimen/_5sdp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:tint="@color/buttonHeaderBackgroundColor"
-        />-->
+
 
     <LinearLayout
         android:id="@+id/llShare"
