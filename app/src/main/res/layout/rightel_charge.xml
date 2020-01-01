@@ -80,6 +80,7 @@
                     android:layout_gravity="center"
                     android:gravity="right"
                     android:text=""
+                    android:imeOptions="actionDone"
                     android:inputType="number"
                     android:textColor="@color/chargePackTextColor"
                     android:textSize="@dimen/textSize_16dp"

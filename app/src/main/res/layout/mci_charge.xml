@@ -82,6 +82,7 @@
                     android:gravity="right"
                     android:text=""
                     android:inputType="number"
+                    android:imeOptions="actionDone"
                     android:textColor="@color/chargePackTextColor"
                     android:textSize="@dimen/textSize_16dp"
                     android:background="@drawable/background_spinner_amount_charge"
