@@ -850,7 +850,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         fragment = PackFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
         transaction.replace(R.id.main_container, fragment, "packFragment")
                 .commit();
