@@ -206,7 +206,12 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
         {
             photosContentList = response.data.getResults();
 
-            adapter = new PhotosArchiveAdapter(photosContentList, false, this);
+            Boolean FLAG_Favorite = false;
+            if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
+            {
+                FLAG_Favorite = true;
+            }
+            adapter = new PhotosArchiveAdapter(photosContentList, FLAG_Favorite, this);
             recyclerView.setAdapter(adapter);
 
 //            adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->

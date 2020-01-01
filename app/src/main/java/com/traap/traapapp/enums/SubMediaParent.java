@@ -1,6 +1,6 @@
 package com.traap.traapapp.enums;
 
-public enum NewsParent
+public enum SubMediaParent
 {
     MainFragment, MediaFragment
 }

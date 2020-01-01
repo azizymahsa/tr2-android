@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -78,7 +78,7 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
 
         fragmentManager = getChildFragmentManager();
 
-        fragment = NewsMainContentFragment.newInstance(NewsParent.MainFragment, null, this);
+        fragment = NewsMainContentFragment.newInstance(SubMediaParent.MainFragment, null, this);
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -96,13 +96,13 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
     { }
 
     @Override
-    public void onNewsArchiveFragment(NewsParent parent)
+    public void onNewsArchiveFragment(SubMediaParent parent)
     {
         mainView.onNewsArchiveFragment(parent);
     }
 
     @Override
-    public void onNewsFavoriteFragment(NewsParent parent)
+    public void onNewsFavoriteFragment(SubMediaParent parent)
     {
         mainView.onNewsFavoriteFragment(parent);
     }

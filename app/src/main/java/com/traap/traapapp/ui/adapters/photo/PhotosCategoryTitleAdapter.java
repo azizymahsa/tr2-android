@@ -22,19 +22,11 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
 public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCategoryTitleAdapter.ViewHolder>
 {
     private boolean flag = true;
-    private MainActionView mainView;
     private Context context;
     private List<ListCategory> categories;
     private TitleCategoryListener listener;
     private boolean isClicked = false;
     private int selectedPosition = 0;
-
-    public PhotosCategoryTitleAdapter(List<ListCategory> categories, MainActionView mainView, TitleCategoryListener listener)
-    {
-        this.listener = listener;
-        this.categories = categories;
-        this.mainView = mainView;
-    }
 
     public PhotosCategoryTitleAdapter(List<ListCategory> categories, TitleCategoryListener listener)
     {

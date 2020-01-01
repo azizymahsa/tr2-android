@@ -58,7 +58,7 @@ import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.MediaPosition;
-import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.dbModels.BankDB;
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
@@ -90,6 +90,8 @@ import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
 import com.traap.traapapp.ui.fragments.news.mainNews.NewsMainFragment;
 import com.traap.traapapp.ui.fragments.paymentGateWay.SelectPaymentGatewayFragment;
 import com.traap.traapapp.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
+import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveActionView;
+import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveFragment;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
@@ -480,7 +482,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     fromNewsDetails.setFromNewsDetails(false);
                     SingletonNewsArchiveClick.getInstance().setNewsArchiveClickModel(fromNewsDetails);
-                    onNewsArchiveClick(NewsParent.MainFragment, MediaPosition.News);
+                    onNewsArchiveClick(SubMediaParent.MainFragment, MediaPosition.News);
                 }
             }
         }
@@ -1191,13 +1193,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void onNewsArchiveFragment(NewsParent parent)
+            public void onNewsArchiveFragment(SubMediaParent parent)
             {
                 onNewsArchiveClick(parent, MediaPosition.News);
             }
 
             @Override
-            public void onNewsFavoriteFragment(NewsParent parent)
+            public void onNewsFavoriteFragment(SubMediaParent parent)
             {
                 onNewsFavoriteClick(parent, MediaPosition.News);
             }
@@ -1250,13 +1252,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void onNewsArchiveFragment(NewsParent parent)
+            public void onNewsArchiveFragment(SubMediaParent parent)
             {
                 onNewsArchiveClick(parent, MediaPosition.News);
             }
 
             @Override
-            public void onNewsFavoriteFragment(NewsParent parent)
+            public void onNewsFavoriteFragment(SubMediaParent parent)
             {
                 onNewsFavoriteClick(parent, MediaPosition.News);
             }
@@ -1323,7 +1325,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition)
+    public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
         this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, false, new NewsArchiveActionView()
@@ -1346,13 +1348,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void onNewsArchiveFragment(NewsParent parent)
+            public void onNewsArchiveFragment(SubMediaParent parent)
             {
-//                onNewsArchiveClick(NewsParent.MainFragment);
+//                onNewsArchiveClick(SubMediaParent.MainFragment);
             }
 
             @Override
-            public void onNewsFavoriteFragment(NewsParent parent)
+            public void onNewsFavoriteFragment(SubMediaParent parent)
             {
 
             }
@@ -1389,7 +1391,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onNewsFavoriteClick(NewsParent parent, MediaPosition mediaPosition)
+    public void onNewsFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
         this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, true, new NewsArchiveActionView()
@@ -1412,13 +1414,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void onNewsArchiveFragment(NewsParent parent)
+            public void onNewsArchiveFragment(SubMediaParent parent)
             {
-                onNewsArchiveClick(NewsParent.MainFragment, MediaPosition.News);
+                onNewsArchiveClick(SubMediaParent.MainFragment, MediaPosition.News);
             }
 
             @Override
-            public void onNewsFavoriteFragment(NewsParent parent)
+            public void onNewsFavoriteFragment(SubMediaParent parent)
             {
 
             }
@@ -1451,6 +1453,128 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "newsArchiveCategoryFragment")
+                .commit();
+    }
+
+    @Override
+    public void onPhotosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+        isMainFragment = false;
+        this.fragment = PhotosArchiveFragment.newInstance(parent, mediaPosition, false, new PhotosArchiveActionView()
+        {
+            @Override
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
+                fragment = MediaFragment.newInstance(MediaPosition.ImageGallery, MainActivity.this);
+                transaction = fragmentManager.beginTransaction();
+
+                transaction.replace(R.id.main_container, fragment, "mediaFragment")
+                        .commit();
+            }
+
+            @Override
+            public void backToMainPhotosFragment()
+            { }
+
+            @Override
+            public void onPhotosArchiveFragment(SubMediaParent parent)
+            { }
+
+            @Override
+            public void onPhotosFavoriteFragment(SubMediaParent parent)
+            {
+                onPhotosFavoriteClick(parent, MediaPosition.ImageGallery);
+            }
+
+            @Override
+            public void openDrawerPhotos()
+            {
+                openDrawer();
+            }
+
+            @Override
+            public void closeDrawerPhotos()
+            {
+                closeDrawer();
+            }
+
+            @Override
+            public void showLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
+        });
+
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_container, this.fragment, "photosArchiveCategoryFragment")
+                .commit();
+    }
+
+    @Override
+    public void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+        isMainFragment = false;
+        this.fragment = PhotosArchiveFragment.newInstance(parent, mediaPosition, true, new PhotosArchiveActionView()
+        {
+            @Override
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
+                fragment = MediaFragment.newInstance(MediaPosition.ImageGallery, MainActivity.this);
+                transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "mediaFragment")
+                        .commit();
+            }
+
+            @Override
+            public void backToMainPhotosFragment()
+            {
+
+            }
+
+            @Override
+            public void onPhotosArchiveFragment(SubMediaParent parent)
+            { }
+
+            @Override
+            public void onPhotosFavoriteFragment(SubMediaParent parent)
+            {
+                onPhotosFavoriteClick(parent, MediaPosition.ImageGallery);
+            }
+
+            @Override
+            public void openDrawerPhotos()
+            {
+                openDrawer();
+            }
+
+            @Override
+            public void closeDrawerPhotos()
+            {
+                closeDrawer();
+            }
+
+            @Override
+            public void showLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
+        });
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_container, this.fragment, "photosArchiveCategoryFragment")
                 .commit();
     }
 
