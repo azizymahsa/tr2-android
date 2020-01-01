@@ -260,7 +260,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         paymentInstance.setTypeCharge(Integer.valueOf(1));*/
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
-                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile, url, this.simChargePaymentInstance,simPackPaymentInstance);
+                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile,
+                        url, this.simChargePaymentInstance,simPackPaymentInstance,PAYMENT_STATUS);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();

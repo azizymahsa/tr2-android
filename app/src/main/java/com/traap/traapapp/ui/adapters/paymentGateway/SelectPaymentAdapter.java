@@ -34,6 +34,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     private  List<MatchItem> nextMatchesList=new ArrayList<>();
     private  List<MatchItem> pastMatchesList=new ArrayList<>();
     private int numTabs;
+    private int PAYMENT_STATUS=0;
   //  private T response;
     private SimChargePaymentInstance simChargePaymentInstance;
     private SimChargePaymentInstance paymentInstance;
@@ -75,7 +76,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     }
 
 
-    public SelectPaymentAdapter(FragmentManager fragmentManager, int tabCount, MainActionView mainView, String amount, String title, int imageDrawable, String mobile, String url, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance)
+    public SelectPaymentAdapter(FragmentManager fragmentManager, int tabCount, MainActionView mainView, String amount, String title, int imageDrawable, String mobile, String url, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance,int payment_status)
     {
         super(fragmentManager);
         this.url = url;
@@ -87,7 +88,18 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         this.mobile = mobile;
         this.simChargePaymentInstance = simChargePaymentInstance;
         this.simPackPaymentInstance=simPackPaymentInstance;
+        this.PAYMENT_STATUS=payment_status;
 
+    }
+
+
+    private void getPaymentStatus()
+    {
+        if (simChargePaymentInstance!=null){
+            PAYMENT_STATUS=simChargePaymentInstance.getPAYMENT_STATUS();
+        }else if (simPackPaymentInstance!=null){
+            PAYMENT_STATUS=simPackPaymentInstance.getPAYMENT_STATUS();
+        }
     }
 
 
@@ -102,7 +114,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
                 return tab2;
             case 0:
 
-                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView,url,imageDrawable,amount,title);
+                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView,url,imageDrawable,amount,title,PAYMENT_STATUS);
 
                 return tab1;
 

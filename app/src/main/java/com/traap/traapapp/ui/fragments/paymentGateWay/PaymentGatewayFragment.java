@@ -51,6 +51,8 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     private int imageDrawable = 1;
     private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay;
     private ImageView imgLogo;
+    private int PAYMENT_STATUS =0;
+
     public PaymentGatewayFragment()
     {
 
@@ -78,23 +80,24 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     }
 
 
-    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title)
+    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS)
     {
         PaymentGatewayFragment fragment = new PaymentGatewayFragment();
         Bundle args = new Bundle();
 
-        fragment.setMainView(mainActionView, url, imageDrawable, amount, title);
+        fragment.setMainView(mainActionView, url, imageDrawable, amount, title,PAYMENT_STATUS);
         return fragment;
     }
 
 
-    private void setMainView(MainActionView mainView, String url, int imageDrawable, String amount, String title)
+    private void setMainView(MainActionView mainView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS)
     {
         this.imageDrawable = imageDrawable;
         this.title = title;
         this.amount = amount;
         this.mainView = mainView;
         this.url = url;
+        this.PAYMENT_STATUS=PAYMENT_STATUS;
     }
 
     @Override
@@ -176,10 +179,10 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
         } else if (v.getId() == R.id.btnBack)
         {
 
-            //  mainView.backToMainFragment();
-            MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
+            mainView.onBackToChargFragment(PAYMENT_STATUS);
+           /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
                     true, "بله", "خیر", listener);
-            dialog.show(getActivity().getFragmentManager(), "dialog");
+            dialog.show(getActivity().getFragmentManager(), "dialog");*/
         }
     };
 
