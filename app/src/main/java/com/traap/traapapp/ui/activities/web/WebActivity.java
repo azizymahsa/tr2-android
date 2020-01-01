@@ -1,11 +1,16 @@
 package com.traap.traapapp.ui.activities.web;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.webkit.WebChromeClient;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,6 +27,8 @@ import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URLEncoder;
 
 public class WebActivity extends BaseActivity
@@ -32,19 +39,30 @@ public class WebActivity extends BaseActivity
     private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
     private View rlShirt;
+    private String TAG = "WebActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-
-
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         initView();
         try
         {
             String postData = "";
             webView = findViewById(R.id.webView);
+            if (Build.VERSION.SDK_INT >= 19)
+            {
+                webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            } else
+            {
+                webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            }
+
+
             String url = getIntent().getStringExtra("URL");
             if (getIntent().getStringExtra("Title").contains("بیمه"))
             {
@@ -53,7 +71,7 @@ public class WebActivity extends BaseActivity
                         + "&redirectUrl=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_call_back"), "UTF-8")
                         + "&redirectSuccess=" + URLEncoder.encode(url, "UTF-8")
                 ;
-                url=getIntent().getStringExtra("bimeh_base_url");
+                url = getIntent().getStringExtra("bimeh_base_url");
             } else if (getIntent().getStringExtra("Title").contains("الو"))
             {
 
@@ -62,27 +80,22 @@ public class WebActivity extends BaseActivity
                 postData = "auth=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8");
 
             }
-
-
-            WebSettings settings = webView.getSettings();
-            settings.setJavaScriptEnabled(true);
-            settings.setJavaScriptCanOpenWindowsAutomatically(true);
-            settings.setDefaultTextEncodingName("utf-8");
+            webView.setInitialScale(0);
+            webView.setVerticalScrollBarEnabled(false);
 
             webView.postUrl(url, postData.getBytes());
 
-            webView.getSettings().setDomStorageEnabled(true);
-            webView.getSettings().setSaveFormData(true);
-            webView.getSettings().setAllowContentAccess(true);
-            webView.getSettings().setAllowFileAccess(true);
-            webView.getSettings().setAllowFileAccessFromFileURLs(true);
-            webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
-            webView.getSettings().setSupportZoom(true);
-            webView.setWebViewClient(new WebViewClient());
-            webView.setClickable(true);
-            webView.setWebChromeClient(new WebChromeClient());
+            WebSettings settings = webView.getSettings();
+            initWebViewSettings();
+            // Enable AppCache
+            // Fix for CB-2282
+            webView.getSettings().setAppCacheMaxSize(5 * 1048576);
+            //   settings.setAppCachePath(databasePath);
+            webView.getSettings().setAppCacheEnabled(true);
+
+            // Enable responsive layout
             webView.getSettings().setUseWideViewPort(true);
-// Zoom out if the content width is greater than the width of the viewport
+            // Zoom out if the content width is greater than the width of the viewport
             webView.getSettings().setLoadWithOverviewMode(true);
             webView.setWebViewClient(new WebViewClient()
             {
@@ -116,13 +129,7 @@ public class WebActivity extends BaseActivity
             });
 
         }
-//        catch (NullPointerException e)
-//        {
-//            e.printStackTrace();
-//            hideLoading();
-//            showError( this, "خطا در دریافت اطلاعات از سرور!");
-//            finish();
-//        }
+
         catch (UnsupportedEncodingException e)
         {
             e.printStackTrace();
@@ -190,5 +197,96 @@ public class WebActivity extends BaseActivity
         settings.setDefaultTextEncodingName("utf-8");
 
         webView.loadData(html, "text/html; charset=utf-8", "utf-8");
+    }
+
+    @SuppressLint({"NewApi", "SetJavaScriptEnabled"})
+    @SuppressWarnings("deprecation")
+    private void initWebViewSettings()
+    {
+        webView.setInitialScale(0);
+        webView.setVerticalScrollBarEnabled(false);
+        // Enable JavaScript
+        final WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+
+        // Set the nav dump for HTC 2.x devices (disabling for ICS, deprecated entirely for Jellybean 4.2)
+        try
+        {
+            Method gingerbread_getMethod = WebSettings.class.getMethod("setNavDump", new Class[]{boolean.class});
+
+            String manufacturer = android.os.Build.MANUFACTURER;
+            // Log.d(TAG, "CordovaWebView is running on device made by: " + manufacturer);
+            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB &&
+                    android.os.Build.MANUFACTURER.contains("HTC"))
+            {
+                gingerbread_getMethod.invoke(settings, true);
+            }
+        } catch (NoSuchMethodException e)
+        {
+            Log.d(TAG, "We are on a modern version of Android, we will deprecate HTC 2.3 devices in 2.8");
+        } catch (IllegalArgumentException e)
+        {
+            Log.d(TAG, "Doing the NavDump failed with bad arguments");
+        } catch (IllegalAccessException e)
+        {
+            Log.d(TAG, "This should never happen: IllegalAccessException means this isn't Android anymore");
+        } catch (InvocationTargetException e)
+        {
+            Log.d(TAG, "This should never happen: InvocationTargetException means this isn't Android anymore.");
+        }
+
+        //We don't save any form data in the application
+        settings.setSaveFormData(false);
+        settings.setSavePassword(false);
+
+        // Jellybean rightfully tried to lock this down. Too bad they didn't give us a whitelist
+        // while we do this
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
+        {
+            settings.setAllowUniversalAccessFromFileURLs(true);
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1)
+        {
+            settings.setMediaPlaybackRequiresUserGesture(false);
+        }
+        // Enable database
+        // We keep this disabled because we use or shim to get around DOM_EXCEPTION_ERROR_16
+        String databasePath = webView.getContext().getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
+        settings.setDatabaseEnabled(true);
+        settings.setDatabasePath(databasePath);
+
+
+        //Determine whether we're in debug or release mode, and turn on Debugging!
+        ApplicationInfo appInfo = webView.getContext().getApplicationContext().getApplicationInfo();
+        if ((appInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0 &&
+                android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
+        {
+            // enableRemoteDebugging();
+        }
+
+        settings.setGeolocationDatabasePath(databasePath);
+
+        // Enable DOM storage
+        settings.setDomStorageEnabled(true);
+
+        // Enable built-in geolocation
+        settings.setGeolocationEnabled(true);
+
+        // Enable AppCache
+        // Fix for CB-2282
+        settings.setAppCacheMaxSize(5 * 1048576);
+        settings.setAppCachePath(databasePath);
+        settings.setAppCacheEnabled(true);
+
+        // Fix for CB-1405
+        // Google issue 4641
+        String defaultUserAgent = settings.getUserAgentString();
+
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
+
     }
 }
