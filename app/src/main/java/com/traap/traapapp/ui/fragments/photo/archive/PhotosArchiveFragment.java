@@ -252,8 +252,10 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                     {
                         Logger.e("getFilterId", "Empty, " + idFilteredList);
                         llDeleteFilter.setVisibility(View.GONE);
+                    }
+                    if (filteredCategoryList.isEmpty())
+                    {
                         filteredCategoryList = new ArrayList<>();
-
                         for (MediaArchiveCategory item: mediaArchiveCategoryList)
                         {
                             FilterItem filterItem = new FilterItem();
@@ -265,6 +267,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                         }
                         Collections.reverse(filteredCategoryList);
                     }
+
                     tempFilteredCategoryList = new ArrayList<>();
                     tempFilteredCategoryList.addAll(filteredCategoryList);
                     adapter = new FilterArchiveAdapter(getActivity(), tempFilteredCategoryList);

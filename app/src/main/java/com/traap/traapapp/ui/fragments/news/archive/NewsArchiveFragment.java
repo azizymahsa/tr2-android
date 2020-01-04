@@ -255,15 +255,17 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     slidingUpPanelLayout.setPanelState(PanelState.EXPANDED);
                     if (pagerWithFilter)
                     {
-                        Logger.e("getFilterId", idFilteredList);
+                        Logger.e("getFilterId", idFilteredList + " #List size:" + filteredCategoryList.size());
                         llDeleteFilter.setVisibility(View.VISIBLE);
                     }
                     else
                     {
                         Logger.e("getFilterId", "Empty, " + idFilteredList);
                         llDeleteFilter.setVisibility(View.GONE);
+                    }
+                    if (filteredCategoryList.isEmpty())
+                    {
                         filteredCategoryList = new ArrayList<>();
-
                         for (MediaArchiveCategory item: mediaArchiveCategoryList)
                         {
                             FilterItem filterItem = new FilterItem();
@@ -275,6 +277,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                         }
                         Collections.reverse(filteredCategoryList);
                     }
+
                     tempFilteredCategoryList = new ArrayList<>();
                     tempFilteredCategoryList.addAll(filteredCategoryList);
                     adapter = new FilterArchiveAdapter(getActivity(), tempFilteredCategoryList);
