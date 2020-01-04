@@ -6,7 +6,6 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.buyPackage.request.PackageBuyRequest;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
-import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 
 /**
  * Created by Javad.Abadi on 8/25/2018.
@@ -27,7 +26,7 @@ public class BuyPackageImpl implements BuyPackageInteractor
             amount="0";
         }
         request.setAmount(Integer.valueOf(amount.replaceAll(",", "")));
-        SingletonService.getInstance().packageBuyService().MciPackageBuyService(new OnServiceStatus<WebServiceClass<PackageBuyResponse>>(){
+        SingletonService.getInstance().packageBuyService().SimPackageBuyService(new OnServiceStatus<WebServiceClass<PackageBuyResponse>>(){
 
             @Override
             public void onReady(WebServiceClass<PackageBuyResponse> response)
