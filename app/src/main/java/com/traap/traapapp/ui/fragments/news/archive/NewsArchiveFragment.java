@@ -296,7 +296,14 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 .subscribe(v ->
                 {
                     slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
-                    createItemFilterData();
+                    if (getFilterAvailable())
+                    {
+                        createItemFilterData();
+                    }
+                    else
+                    {
+                        resetAll();
+                    }
                 })
         );
 
@@ -446,6 +453,53 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                         .subscribeWith(getFilteredArchiveIDs())
         );
 
+    }
+
+    private void resetAll()
+    {
+        slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
+        edtSearchFilter.setText("");
+        edtSearchText.setText("");
+        tvStartDate.setText("");
+        tvEndDate.setText("");
+        filterEndDate = "";
+        filterStartDate = "";
+        idFilteredList = "";
+        titleFilteredList = "";
+        imgStartDateReset.setVisibility(View.GONE);
+        imgEndDateReset.setVisibility(View.GONE);
+        llDeleteFilter.setVisibility(View.GONE);
+        llFilterHashTag.setVisibility(View.GONE);
+
+        adapter = new FilterArchiveAdapter(getActivity(), filteredCategoryList);
+        adapter.notifyDataSetChanged();
+        rcFilterCategory.setAdapter(adapter);
+        adapter.SetOnItemCheckedChangeListener(this);
+
+        rootView.findViewById(R.id.tabLayout).setVisibility(View.VISIBLE);
+        rootView.findViewById(R.id.separatorTop).setVisibility(View.VISIBLE);
+        rootView.findViewById(R.id.separatorBottom).setVisibility(View.VISIBLE);
+
+        if (pagerWithFilter)
+        {
+            pagerWithFilter = false;
+            SingletonService.getInstance().getNewsService().getNewsArchiveCategory(this);
+        }
+    }
+
+    private boolean getFilterAvailable()
+    {
+        Boolean isAvailable = true;
+        if (edtSearchText.getText().toString().equalsIgnoreCase("") &&
+                tvStartDate.getText().toString().equalsIgnoreCase("") &&
+                tvEndDate.getText().toString().equalsIgnoreCase("") &&
+                idFilteredList.equalsIgnoreCase("")
+        )
+        {
+            isAvailable = false;
+        }
+
+        return isAvailable;
     }
 
     private void createItemFilterData()
