@@ -50,7 +50,6 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private boolean isCode = false;
     private ClearableEditText etMobileNumber;
     private LinearLayout countDownTimer, llPin,llCondition;
-    private FrameLayout ivTitle;
 
 
     @Override
@@ -86,7 +85,6 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         tvDesc = findViewById(R.id.tvDesc);
         // tvTitle = findViewById(R.id.tvTitle);
         //etLayout = findViewById(R.id.etLayout);
-        ivTitle = findViewById(R.id.flLogoToolbar);
         btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setText(getString(R.string.login));
 
@@ -105,7 +103,6 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         // tvMenu.setVisibility(View.GONE);
         llPin = findViewById(R.id.llPin);
         // tvTitle.setVisibility(View.GONE);
-        ivTitle.setVisibility(View.VISIBLE);
         loginPresenter.getCode(codeView);
         loginPresenter.getMobile(etMobileNumber);
         btnConfirm.setOnClickListener(loginPresenter);

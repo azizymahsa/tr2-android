@@ -60,7 +60,7 @@ import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeRe
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.MediaPosition;
-import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
@@ -1853,13 +1853,25 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onNewsArchiveClick(NewsParent parent, MediaPosition mediaPosition)
+    public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
 
     }
 
     @Override
-    public void onNewsFavoriteClick(NewsParent parent, MediaPosition mediaPosition)
+    public void onNewsFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onPhotosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
 
     }

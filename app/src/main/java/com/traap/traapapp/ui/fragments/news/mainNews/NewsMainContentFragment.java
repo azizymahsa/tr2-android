@@ -39,7 +39,7 @@ import com.traap.traapapp.apiServices.model.news.main.Categories;
 import com.traap.traapapp.apiServices.model.news.main.News;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
 import com.traap.traapapp.enums.MediaArchiveCategoryCall;
-import com.traap.traapapp.enums.NewsParent;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
@@ -69,7 +69,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private NewsMainNewestAdapter newestNewsAdapter;
 
     private TextView tvNewsArchive, tvMyFavoriteNews;
-    private NewsParent parent;
+    private SubMediaParent parent;
 
     private NewsMainResponse newsMainResponse;
     private ArrayList<Categories> categoriesList;
@@ -86,7 +86,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
     public NewsMainContentFragment() { }
 
-    public static NewsMainContentFragment newInstance(NewsParent parent, NewsMainResponse newsMainResponse, NewsActionView mainView)
+    public static NewsMainContentFragment newInstance(SubMediaParent parent, NewsMainResponse newsMainResponse, NewsActionView mainView)
     {
         NewsMainContentFragment f = new NewsMainContentFragment();
         f.setMainView(mainView);
@@ -100,7 +100,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         return f;
     }
 
-    private void setParent(NewsParent parent)
+    private void setParent(SubMediaParent parent)
     {
         this.parent = parent;
     }
@@ -131,7 +131,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             latestNewsList = newsMainResponse.getLatestNews();
             favoriteNewsList = newsMainResponse.getFavoriteNews();
 
-            if (parent == NewsParent.MediaFragment)
+            if (parent == SubMediaParent.MediaFragment)
             {
                 Logger.e("-categoriesList size-", "size: " +  categoriesList.size());
                 Collections.reverse(categoriesList);
@@ -178,7 +178,6 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 //        indicatorNewestNews = rootView.findViewById(R.id.indicatorNewestNews);
         bNewestNews = rootView.findViewById(R.id.bNewestNews);
 //        bNewestNews.setAdapter();
-
 
         tvNewsArchive = rootView.findViewById(R.id.tvNewsArchive);
         tvNewsArchive.setOnClickListener(v ->
