@@ -1864,7 +1864,9 @@ public class PackFragment
 
                 }
                 if (!isActive)
+                {
                     mainView.showError("وضعیت بسته شما تغییر کرده، لطفا مجددا بسته خود را انتخاب کنید.");
+                }
                 packageType = "";
 
             }

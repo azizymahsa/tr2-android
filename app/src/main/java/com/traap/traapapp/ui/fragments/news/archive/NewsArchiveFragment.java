@@ -83,7 +83,6 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private RecyclerView rcHashTag;
     private HashTagMediaAdapter adapterHashTag;
-    private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     private String filterStartDate = "", filterEndDate = "";
 
@@ -386,8 +385,8 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 .subscribe(v ->
                 {
                     slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
-//                    pagerWithFilter = false;
                     edtSearchFilter.setText("");
+                    edtSearchText.setText("");
                     tvStartDate.setText("");
                     tvEndDate.setText("");
                     filterEndDate = "";
@@ -441,7 +440,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                         //--------------------------
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getFilteredNewsArchiveIDs())
+                        .subscribeWith(getFilteredArchiveIDs())
         );
 
     }
@@ -557,7 +556,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         return observable;
     }
 
-    private DisposableObserver<FilterItem> getFilteredNewsArchiveIDs()
+    private DisposableObserver<FilterItem> getFilteredArchiveIDs()
     {
         rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
         filteredShowList = new ArrayList<>();
@@ -841,6 +840,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             {
                 String startDate = filterStartDate.equalsIgnoreCase("") ? "" : Utility.getGrgDate(filterStartDate);
                 String endDate = filterEndDate.equalsIgnoreCase("") ? "" : Utility.getGrgDate(filterEndDate);
+
                 return NewsArchiveCategoryFragment.newInstance(idFilteredList.trim(), //Id Filter List
                         MediaArchiveCategoryCall.FROM_FILTER_IDs,
                         startDate,

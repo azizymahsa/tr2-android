@@ -493,6 +493,14 @@ public interface RetroClient
             @Query("category_id") String category_id
     );
 
+    @GET(Const.Archive_Photo)
+    Single<Response<WebServiceClass<PhotoArchiveResponse>>> getArchivePhotosByIds(
+            @Query("category_id__in") String categoryIds,          //example 1,2,3,4,
+            @Query("publish_date__gte") String dateFrom,           //example 2019-01-01 and ""
+            @Query("publish_date__lte") String dateTo,             //example 2019-12-01 and ""
+            @Query("search") String searchText
+    );
+
     @GET(Const.GET_CATEGORY_ARCHIVE_PHOTO)
     Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getPhotosArchiveCategory();
 

@@ -159,6 +159,7 @@
                                 android:singleLine="true"
                                 android:textSize="@dimen/textSize_12dp"
                                 android:hint="جستجو"
+                                android:imeOptions="actionDone"
                                 android:textColorHint="@color/textHint"
                                 android:textColor="@color/textColorSecondary" />
 

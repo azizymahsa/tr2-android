@@ -80,7 +80,8 @@
             app:finalCornerAngle="15dp"
             app:initialCornerAngle="15dp"
             android:elevation="3dp"
-            app:spinning_bar_color="@color/white"
+            android:translationZ="3dp"
+            app:spinning_bar_color="@color/gray"
             app:spinning_bar_width="2dp" />
 
         <RelativeLayout

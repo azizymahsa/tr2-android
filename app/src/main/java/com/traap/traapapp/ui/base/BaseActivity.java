@@ -2,13 +2,18 @@ package com.traap.traapapp.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.yandex.metrica.YandexMetrica;
 
@@ -59,6 +64,7 @@ public class BaseActivity extends AppCompatActivity
         //  - sessions duration
         //  - app usage frequency
 //        YandexMetrica.pauseSession(this);
+        hideKeyboard(this);
     }
 
     public void showToast(Context context, String message, int color)
@@ -108,5 +114,20 @@ public class BaseActivity extends AppCompatActivity
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, context.getString(Msg));
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
+
+
+    public static void hideKeyboard(Activity activity)
+    {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null)
+        {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
 
 }
