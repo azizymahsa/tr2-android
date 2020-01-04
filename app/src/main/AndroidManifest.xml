@@ -209,9 +209,12 @@
         <activity
             android:name=".ui.activities.web.WebActivity"
             android:configChanges="keyboardHidden"
-            android:screenOrientation="portrait"
-            android:hardwareAccelerated="false"
-            android:largeHeap="true"/>
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activities.web.WebHtmlActivity"
+            android:configChanges="keyboardHidden"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.activities.card.add.AddCardActivity"

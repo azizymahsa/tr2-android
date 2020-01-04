@@ -57,7 +57,8 @@ public class WebActivity extends BaseActivity
             if (Build.VERSION.SDK_INT >= 19)
             {
                 webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-            } else
+            }
+            else
             {
                 webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             }

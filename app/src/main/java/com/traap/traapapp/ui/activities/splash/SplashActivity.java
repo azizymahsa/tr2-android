@@ -47,6 +47,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.activities.web.WebActivity;
+import com.traap.traapapp.ui.activities.web.WebHtmlActivity;
 import com.traap.traapapp.ui.dialogs.DialogGetPermissionRequest;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.UpdateAppDialog;
@@ -271,16 +272,21 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         {
             if (description != null)
             {
-                startActivity(new Intent(this, WebActivity.class).putExtra("description", description));
+                startActivity(new Intent(this, WebHtmlActivity.class).putExtra("description", description));
             }
             else
             {
-                showError("خطا در دریافت اطلاعات از سرور!", getResources().getString(R.string.error));
+                Logger.e("-description-", "null");
+//                showError("خطا در دریافت اطلاعات از سرور!", getResources().getString(R.string.error));
+                Tools.showToast(this, "خطا در دریافت اطلاعات از سرور!", R.color.red);
             }
         }
         catch (Exception e)
         {
-            showError("خطا در دریافت اطلاعات از سرور!", getResources().getString(R.string.error));
+            Logger.e("-description-", "Exception");
+            e.printStackTrace();
+//            showError("خطا در دریافت اطلاعات از سرور!", getResources().getString(R.string.error));
+            Tools.showToast(this, "خطا در دریافت اطلاعات از سرور!", R.color.red);
         }
     }
 
