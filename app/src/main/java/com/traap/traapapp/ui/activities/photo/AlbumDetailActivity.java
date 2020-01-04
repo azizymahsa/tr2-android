@@ -65,7 +65,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private AlbumDetailsItemAdapter adapter;
-    private TextView titleAlbum, tvCaption;
+    private TextView titleAlbum, tvCaption,tvEmpty;
     private Integer idPhoto;
     private String largeImageClick = "";
     private String coverImg = "";
@@ -104,6 +104,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     {
         try
         {
+            tvEmpty = findViewById(R.id.tvEmpty);
             bRelatedAlbums = findViewById(R.id.bRelatedAlbums);
             recyclerView = findViewById(R.id.recyclerView);
             titleAlbum = findViewById(R.id.titleAlbum);
@@ -292,21 +293,15 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void setRelatedVideoData(CategoryByIdVideosResponse data)
     {
-        if (!data.getResults().isEmpty())
-        {
+        if (data.getResults().isEmpty()){
+            bRelatedAlbums.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
+        }else {
+            bRelatedAlbums.setVisibility(View.VISIBLE);
+            tvEmpty.setVisibility(View.GONE);
             bRelatedAlbums.setAdapter(new NewestPhotosAdapter(data.getResults(), this::OnItemRelatedAlbumsClick));
-            List<Category> relatedList = data.getResults();
-
-           /* for (int i = 0; i < relatedList.size(); i++)
-            {
-                // setImageBackground(ivRelated1, relatedList.get(i).getCover().replace("\\", ""));
-               *//* setImageBackground(ivRelated2, relatedList.get(1).getCover().replace("\\", ""));
-                setImageBackground(ivRelated3, relatedList.get(2).getCover().replace("\\", ""));
-                setImageBackground(ivRelated4, relatedList.get(3).getCover().replace("\\", ""));*//*
-            }*/
-
-
         }
+
     }
 
 
