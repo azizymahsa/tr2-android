@@ -206,7 +206,14 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                         response.data.getGooglePlay(),
                         this
                 );
-                updateAppAlert.show(getSupportFragmentManager(), "updateDialog");
+                try
+                {
+                    updateAppAlert.show(getSupportFragmentManager(), "updateDialog");
+                }
+                catch (IllegalStateException e)
+                {
+                    e.printStackTrace();
+                }
             }
         }
     }
