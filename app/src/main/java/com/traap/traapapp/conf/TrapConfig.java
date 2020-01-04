@@ -35,8 +35,8 @@ public class TrapConfig
 
     public static String HEADER_USER_NAME = "";
 
-    public static final int SIM_TYPE_MCI = 1;
-    public static final int SIM_TYPE_MTN = 2;
+    public static final int SIM_TYPE_MTN = 1;
+    public static final int SIM_TYPE_MCI = 2;
     public static final int SIM_TYPE_RIGHTEL = 3;
     public static final int SIM_TYPE_OTHERS = 4;
 
