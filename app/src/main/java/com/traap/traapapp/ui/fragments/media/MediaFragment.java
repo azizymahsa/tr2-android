@@ -145,11 +145,11 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
             item.setIconDrawableSelected(R.drawable.ic_movie_selected);
             list.add(item);
 
-            adapter = new MediaAdapter(getActivity(), list, MediaFragment.this);
-            recyclerView.setAdapter(adapter);
-
             myMediaType = mediaPosition.ordinal();
-            Logger.e("-mediaPosition-", mediaPosition + "# News:" + MediaPosition.News + ", Photo:" + MediaPosition.ImageGallery);
+            Logger.e("-mediaPosition-", mediaPosition + "# myMediaType:" + myMediaType);
+
+            adapter = new MediaAdapter(getActivity(), myMediaType, list, MediaFragment.this);
+            recyclerView.setAdapter(adapter);
 
             //------------------------initPager----------------------
             switch (mediaPosition)

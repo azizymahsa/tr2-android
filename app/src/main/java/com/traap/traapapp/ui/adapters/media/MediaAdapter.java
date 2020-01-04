@@ -28,11 +28,12 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>
     private int row_index = 0;
     private View view;
 
-    public MediaAdapter(Context mContext, List<MediaModel> list, OnItemAllMenuClickListener mItemClickListener)
+    public MediaAdapter(Context mContext, int mediaPosition, List<MediaModel> list, OnItemAllMenuClickListener mItemClickListener)
     {
         this.mContext = mContext;
         this.mItemClickListener = mItemClickListener;
         this.list = list;
+        row_index = mediaPosition;
     }
 
 
@@ -55,10 +56,12 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>
         MediaModel item = list.get(position);
 
         holder.tvTitle.setText(item.getTitle());
-        if (row_index == 0)
-        {
-            mItemClickListener.OnItemAllMenuClick(view, list.get(0).getId());
-        }
+//        if (row_index == 0)
+//        {
+//            mItemClickListener.OnItemAllMenuClick(view, list.get(0).getId());
+//        }
+        mItemClickListener.OnItemAllMenuClick(view, list.get(row_index).getId());
+
         if (row_index == position)
         {
             try

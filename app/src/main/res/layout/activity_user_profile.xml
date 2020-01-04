@@ -56,13 +56,13 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         app:strokeColor="@color/borderColorGray"
-                        app:cardElevation="5dp"
+                        app:cardElevation="3dp"
                         app:cardUseCompatPadding="true"
                         app:contentPadding="8dp"
                         app:cardCornerRadius="5dp"
                         app:cardMaxElevation="5dp"
-                        android:elevation="5dp"
-                        android:translationZ="5dp">
+                        android:elevation="3dp"
+                        android:translationZ="1dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"

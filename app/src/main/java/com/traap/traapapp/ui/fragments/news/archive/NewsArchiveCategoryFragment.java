@@ -34,11 +34,8 @@ import com.traap.traapapp.utilities.Tools;
 public class NewsArchiveCategoryFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<NewsArchiveListByIdResponse>>
 {
     private View rootView;
-//    private MediaArchiveCategory archiveCategory;
+
     private String Ids, filterStartDate, filterEndDate, filterSearchText;
-//    private boolean pagerWithFilter = false;
-//    private boolean getFromFav = false;
-//    private boolean getFromId ;
 
     private ProgressBar progressBar;
     private NewsArchiveAdapter adapter;
@@ -94,6 +91,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         if (getArguments() != null)
         {
             Ids = getArguments().getString("Ids");
+
             filterStartDate = getArguments().getString("filterStartDate");
             filterEndDate = getArguments().getString("filterEndDate");
             filterSearchText = getArguments().getString("filterSearchText");
@@ -122,18 +120,10 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
 
-//        adapter = new NewsArchiveAdapter(getActivity(), newsContentList);
-//        recyclerView.setAdapter(adapter);
-//
-//        adapter.SetOnItemCheckedChangeListener((id, newsContentList, position) ->
-//        {
-//            //Go To Details
-//        });
-
         if (callFrom == MediaArchiveCategoryCall.FROM_ID)
         {
             Logger.e("-Ids 2-", Ids);
-            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryBySingleId(true, Ids, this);
+            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryBySingleId(Ids, this);
         }
         if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs)
         {
@@ -150,10 +140,6 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
         {
             SingletonService.getInstance().getNewsService().getNewsBookmarks(this);
         }
-//        else if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE)
-//        {
-//            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, filterStartDate, this);
-//        }
         else if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             progressBar.setVisibility(View.GONE);
@@ -193,12 +179,6 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
 
         return rootView;
     }
-
-    private void initContentFilteredView()
-    {
-
-    }
-
 
     @Override
     public void onReady(WebServiceClass<NewsArchiveListByIdResponse> response)

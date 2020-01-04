@@ -51,6 +51,7 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
 import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
 import com.traap.traapapp.utilities.Tools;
+import com.traap.traapapp.utilities.Utility;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
@@ -81,6 +82,8 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     private RecyclerView rcHashTag;
     private HashTagMediaAdapter adapterHashTag;
 
+    private String filterStartDate = "", filterEndDate = "";
+
     private String idFilteredList = "", titleFilteredList = "";
 
     private Toolbar mToolbar;
@@ -88,9 +91,9 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     private TextView tvUserName, tvHeaderPopularNo;
     private SlidingUpPanelLayout slidingUpPanelLayout;
 
-    private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose;
+    private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose, imgSearch;
     private TextView tvStartDate, tvEndDate;
-    private EditText edtSearchFilter;
+    private EditText edtSearchFilter, edtSearchText;
     private CircularProgressButton btnConfirmFilter, btnDeleteFilter;
 
     private RecyclerView rcFilterCategory;
@@ -171,13 +174,11 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
         mToolbar = rootView.findViewById(R.id.toolbar);
 
-
         ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو عکس");
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
                 .subscribe(v ->
                 {
                     mainView.backToMediaFragment(mediaPosition);
-
                 })
         );
 
@@ -224,12 +225,14 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         btnFilter = rootView.findViewById(R.id.btnFilter);
         llDeleteFilter = rootView.findViewById(R.id.llDeleteFilter);
         llFilterHashTag = rootView.findViewById(R.id.llFilterHashTag);
+        imgSearch = rootView.findViewById(R.id.imgSearch);
         imgFilterClose = rootView.findViewById(R.id.imgFilterClose);
         imgStartDateReset = rootView.findViewById(R.id.imgDateFromReset);
         imgEndDateReset = rootView.findViewById(R.id.imgDateToReset);
         tvStartDate = rootView.findViewById(R.id.tvStartDate);
         tvEndDate = rootView.findViewById(R.id.tvEndDate);
         edtSearchFilter = rootView.findViewById(R.id.edtSearchFilter);
+        edtSearchText = rootView.findViewById(R.id.edtSearchText);
         btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
         btnDeleteFilter = rootView.findViewById(R.id.btnDeleteFilter);
 
@@ -284,6 +287,29 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                 })
         );
 
+        disposable.add(RxView.clicks(imgSearch)
+                .subscribe(v ->
+                {
+                    if (!edtSearchText.getText().toString().equalsIgnoreCase(""))
+                    {
+                        if (edtSearchText.getText().toString().trim().length() > 2)
+                        {
+                            pagerWithFilter = true;
+
+                            rootView.findViewById(R.id.tabLayout).setVisibility(View.GONE);
+                            rootView.findViewById(R.id.separatorTop).setVisibility(View.GONE);
+                            rootView.findViewById(R.id.separatorBottom).setVisibility(View.GONE);
+
+                            setPager(true, false);
+                        }
+                        else
+                        {
+                            showError(getActivity(), "تعداد کاراکترهای جستجو کافی نیست!");
+                        }
+                    }
+                })
+        );
+
         disposable.add(RxView.clicks(imgFilterClose)
                 .subscribe(v ->
                 {
@@ -293,6 +319,8 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                         edtSearchFilter.setText("");
                         tvStartDate.setText("");
                         tvEndDate.setText("");
+                        filterEndDate = "";
+                        filterStartDate = "";
                         imgStartDateReset.setVisibility(View.GONE);
                         imgEndDateReset.setVisibility(View.GONE);
                         llFilterHashTag.setVisibility(View.GONE);
@@ -318,6 +346,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                 .subscribe(v ->
                 {
                     tvStartDate.setText("");
+                    filterStartDate = "";
                     startDay = 0;
                     startMonth = 0;
                     startYear = 0;
@@ -329,6 +358,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                 .subscribe(v ->
                 {
                     tvEndDate.setText("");
+                    filterEndDate = "";
                     endDay = 0;
                     endMonth = 0;
                     endYear = 0;
@@ -345,10 +375,12 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                 .subscribe(v ->
                 {
                     slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
-                    pagerWithFilter = false;
                     edtSearchFilter.setText("");
+                    edtSearchText.setText("");
                     tvStartDate.setText("");
                     tvEndDate.setText("");
+                    filterEndDate = "";
+                    filterStartDate = "";
                     idFilteredList = "";
                     titleFilteredList = "";
                     imgStartDateReset.setVisibility(View.GONE);
@@ -360,6 +392,16 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                     adapter.notifyDataSetChanged();
                     rcFilterCategory.setAdapter(adapter);
                     adapter.SetOnItemCheckedChangeListener(this);
+
+                    rootView.findViewById(R.id.tabLayout).setVisibility(View.VISIBLE);
+                    rootView.findViewById(R.id.separatorTop).setVisibility(View.VISIBLE);
+                    rootView.findViewById(R.id.separatorBottom).setVisibility(View.VISIBLE);
+
+                    if (pagerWithFilter)
+                    {
+                        pagerWithFilter = false;
+                        SingletonService.getInstance().getPhotoArchiveService().getPhotosArchiveCategory(this);
+                    }
                 })
         );
 
@@ -468,7 +510,13 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                             adapterHashTag = new HashTagMediaAdapter(values);
                             rcHashTag.setAdapter(adapterHashTag);
 
-                            // ToDo cal api filter with idList and date;
+                            pagerWithFilter = true;
+                            setPager(true, false);
+
+                            rootView.findViewById(R.id.tabLayout).setVisibility(View.GONE);
+                            rootView.findViewById(R.id.separatorTop).setVisibility(View.GONE);
+                            rootView.findViewById(R.id.separatorBottom).setVisibility(View.GONE);
+
                             Logger.e("-id Filtered List-", idFilteredList);
 
                         }
@@ -628,11 +676,12 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
             if (startDateInt > endDateInt)
             {
                 tvEndDate.setText("");
+                filterEndDate = "";
                 imgEndDateReset.setVisibility(View.GONE);
             }
 
-            String startDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
-            tvStartDate.setText(startDate);
+            filterStartDate = year + "/" + Utility.getFormatDateMonth(monthOfYear + 1) + "/" + Utility.getFormatDateMonth(dayOfMonth);
+            tvStartDate.setText(filterStartDate);
             imgStartDateReset.setVisibility(View.VISIBLE);
         }
         else if (view.getTag().equals("EndDate"))
@@ -644,14 +693,15 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
             if (startDateInt > endDateInt)
             {
                 tvStartDate.setText("");
+                filterStartDate = "";
                 imgStartDateReset.setVisibility(View.GONE);
                 startDay = 0;
                 startMonth = 0;
                 startYear = 0;
             }
 
-            String endDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
-            tvEndDate.setText(endDate);
+            filterEndDate = year + "/" + Utility.getFormatDateMonth(monthOfYear + 1) + "/" + Utility.getFormatDateMonth(dayOfMonth);
+            tvEndDate.setText(filterEndDate);
             imgEndDateReset.setVisibility(View.VISIBLE);
         }
     }
@@ -775,25 +825,43 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         @Override
         public Fragment getItem(int position)
         {
+            String startDate = filterStartDate.equalsIgnoreCase("") ? "" : Utility.getGrgDate(filterStartDate);
+            String endDate = filterEndDate.equalsIgnoreCase("") ? "" : Utility.getGrgDate(filterEndDate);
+
             if (pagerWithFilter)
             {
-                return PhotosArchiveCategoryFragment.newInstance("", //Id Filter List
+                return PhotosArchiveCategoryFragment.newInstance(idFilteredList.trim(), //Id Filter List
                         MediaArchiveCategoryCall.FROM_FILTER_IDs, //or FROM_FILTER_IDs
-                        "", // dateFilter
-                        null);
+                        startDate,
+                        endDate,
+                        edtSearchText.getText().toString().trim(),
+                        null
+                );
             }
             else if (pagerFromFavorite)
             {
                 rootView.findViewById(R.id.llFilterAndTab).setVisibility(View.GONE);
 
 //                return NewsArchiveCategoryFragment.newInstance(0, false, true, null);
-                return PhotosArchiveCategoryFragment.newInstance("", MediaArchiveCategoryCall.FROM_FAVORITE, null, null);
+                return PhotosArchiveCategoryFragment.newInstance("",
+                        MediaArchiveCategoryCall.FROM_FAVORITE,
+                        null,
+                        null,
+                        null,
+                        null
+                );
             }
             else
             {
                 int Id =  categoryTitleList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
-                return PhotosArchiveCategoryFragment.newInstance(String.valueOf(Id), MediaArchiveCategoryCall.FROM_ID, null, null);
+                return PhotosArchiveCategoryFragment.newInstance(String.valueOf(Id),
+                        MediaArchiveCategoryCall.FROM_ID,
+                        null,
+                        null,
+                        null,
+                        null
+                );
             }
         }
 
