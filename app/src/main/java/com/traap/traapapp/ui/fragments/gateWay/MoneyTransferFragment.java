@@ -25,7 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * Created by MahsaAzizi on 28/12/2019.
  */
-public class MonyTransferFragment extends BaseFragment implements View.OnClickListener
+public class MoneyTransferFragment extends BaseFragment implements View.OnClickListener
 {
 
 
@@ -34,14 +34,14 @@ public class MonyTransferFragment extends BaseFragment implements View.OnClickLi
     private ClearableEditText edtDestination;
 
 
-    public MonyTransferFragment()
+    public MoneyTransferFragment()
     {
 
     }
 
-    public static MonyTransferFragment newInstance(MainActionView mainView)
+    public static MoneyTransferFragment newInstance(MainActionView mainView)
     {
-        MonyTransferFragment f = new MonyTransferFragment();
+        MoneyTransferFragment f = new MoneyTransferFragment();
         f.setMainView(mainView);
         return f;
     }
@@ -56,7 +56,7 @@ public class MonyTransferFragment extends BaseFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        rootView = inflater.inflate(R.layout.fragment_mony_transfer, container, false);
+        rootView = inflater.inflate(R.layout.fragment_money_transfer, container, false);
 
         initView();
 
