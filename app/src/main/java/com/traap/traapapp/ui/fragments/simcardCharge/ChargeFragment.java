@@ -306,6 +306,18 @@ public class ChargeFragment extends BaseFragment
         mainView.onContact();
     }
 
+    @OnClick(R.id.autoCompletePhoneNumberIrancel)
+    void autoCompletePhoneNumberIrancel()
+    {
+
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+        }
+    }
+
     @OnClick(R.id.ivContactM)
     void ivContactM()
     {

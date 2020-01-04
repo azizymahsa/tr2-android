@@ -74,6 +74,8 @@
                 android:gravity="left"
                 android:paddingLeft="24dp"
                 android:text=""
+                android:imeOptions="actionDone"
+
                 android:inputType="number"
                 android:textColor="@color/chargePackTextColor"
                 android:textSize="@dimen/textSize_16dp"
