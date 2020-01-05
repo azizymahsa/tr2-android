@@ -10,6 +10,10 @@ public class Detail {
     @Expose
     private String title;
 
+    @SerializedName("bill_amount")
+    @Expose
+    private String billAmount;
+
     @SerializedName("amount")
     @Expose
     private String amount;
@@ -25,6 +29,16 @@ public class Detail {
     @SerializedName("profile_id")
     @Expose
     private Integer profileId;
+
+    public String getBillAmount()
+    {
+        return billAmount;
+    }
+
+    public void setBillAmount(String billAmount)
+    {
+        this.billAmount = billAmount;
+    }
 
     public String getTitlePackageType() {
         return titlePackageType;
