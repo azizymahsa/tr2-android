@@ -19,26 +19,17 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
  */
 public class VideosCategoryTitleAdapter extends RecyclerView.Adapter<VideosCategoryTitleAdapter.ViewHolder>
 {
-    private MainActionView mainView;
     private Context context;
     private List<ListCategory> categories;
     private TitleCategoryListener listener;
     private boolean isClicked = false;
     private int selectedPosition = 0;
 
-    public VideosCategoryTitleAdapter(List<ListCategory> categories, MainActionView mainView, TitleCategoryListener listener)
-    {
-        this.listener = listener;
-        this.categories = categories;
-        this.mainView = mainView;
-    }
-
     public VideosCategoryTitleAdapter(List<ListCategory> categories, TitleCategoryListener listener)
     {
         this.listener = listener;
         this.categories = categories;
     }
-
 
     @Override
     public VideosCategoryTitleAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
@@ -47,7 +38,6 @@ public class VideosCategoryTitleAdapter extends RecyclerView.Adapter<VideosCateg
         return new VideosCategoryTitleAdapter.ViewHolder(LayoutInflater.from(context)
                 .inflate(R.layout.list_item_category_title_video, parent, false));
     }
-
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position)

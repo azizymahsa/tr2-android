@@ -129,7 +129,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
             imgMenu = view.findViewById(R.id.imgMenu);
 
             imgMenu.setVisibility(View.GONE);
-            //imgMenu.setOnClickListener(v -> mainView.openDrawerNews());
+            //imgMenu.setOnClickListener(v -> mainView.openDrawerVideos());
 
             tvPopularPlayer = view.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));

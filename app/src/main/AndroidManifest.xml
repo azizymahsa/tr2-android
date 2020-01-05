@@ -135,11 +135,6 @@
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name=".ui.activities.photo.PhotoArchiveActivity"
-            android:configChanges="keyboardHidden"
-            android:screenOrientation="portrait" />
-
         <activity android:name=".ui.activities.news.archive.NewsArchiveActivity"
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait"/>

@@ -950,7 +950,7 @@ public class Utility
         }
         else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
         {
-            return TrapConfig.SIM_TYPE_RIGHTEL;
+            return TrapConfig.SIM_TYPE_RIGHTELL;
         }
         else
         {

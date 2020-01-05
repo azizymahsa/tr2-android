@@ -1877,6 +1877,18 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
+    public void onVideosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onVideosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
     public void onMainVideoClick()
     {
 

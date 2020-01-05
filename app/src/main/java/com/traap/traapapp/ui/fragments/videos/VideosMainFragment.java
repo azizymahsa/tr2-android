@@ -32,7 +32,7 @@ public class VideosMainFragment  extends BaseFragment
 
 
     private View rootView;
-    private MainActionView mainView;
+    private VideosMainActionView mainView;
 
     private Toolbar mToolbar;
     private TextView tvUserName, tvHeaderPopularNo;
@@ -46,14 +46,14 @@ public class VideosMainFragment  extends BaseFragment
 
     }
 
-    public static VideosMainFragment newInstance(MainActionView mainView)
+    public static VideosMainFragment newInstance(VideosMainActionView mainView)
     {
         VideosMainFragment f = new VideosMainFragment();
         f.setMainView(mainView);
         return f;
     }
 
-    private void setMainView(MainActionView mainView)
+    private void setMainView(VideosMainActionView mainView)
     {
         this.mainView = mainView;
     }
@@ -67,7 +67,7 @@ public class VideosMainFragment  extends BaseFragment
 
         mToolbar = rootView.findViewById(R.id.toolbar);
 
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawerVideos());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
@@ -88,7 +88,7 @@ public class VideosMainFragment  extends BaseFragment
 
         fragmentManager = getChildFragmentManager();
 
-        fragment = VideosFragment.newInstance(  mainView);
+        fragment = VideosFragment.newInstance(mainView);
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 

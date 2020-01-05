@@ -33,6 +33,7 @@ import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideos
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.ui.activities.video.VideoArchiveActivity;
 import com.traap.traapapp.ui.activities.video.VideoDetailActivity;
 import com.traap.traapapp.ui.adapters.video.NewestVideosAdapter;
@@ -51,7 +52,7 @@ import com.traap.traapapp.utilities.Tools;
  */
 public class VideosFragment extends BaseFragment implements VideosCategoryTitleAdapter.TitleCategoryListener, View.OnClickListener, NewestVideosAdapter.NewestVideoListener, CategoryAdapter.CategoryListener
 {
-    private MainActionView mainView;
+    private VideosActionView mainView;
     private View rootView;
     private BannerLayout bNewestVideo;
     private RoundedImageView ivFavorite1, ivFavorite2, ivFavorite3;
@@ -76,14 +77,14 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     }
 
-    public static VideosFragment newInstance(MainActionView mainView)
+    public static VideosFragment newInstance(VideosActionView mainView)
     {
         VideosFragment fragment = new VideosFragment();
         fragment.setMainView(mainView);
         return fragment;
     }
 
-    private void setMainView(MainActionView mainView)
+    private void setMainView(VideosActionView mainView)
     {
         this.mainView = mainView;
     }
@@ -211,11 +212,11 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void onGetMainVideosSuccess(MainVideosResponse mainVideosResponse)
     {
-        bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(), mainView, this));
+        bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(), this));
         setDataFavoriteList(mainVideosResponse);
-        videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(mainVideosResponse.getListCategories(), mainView, this);
+        videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(mainVideosResponse.getListCategories(), this);
         rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
-        categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), mainView, this);
+        categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), this);
         rvCategories.setAdapter(categoryAdapter);
 
     }
@@ -270,10 +271,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void requestGetCategoryById(Integer idCategoryTitle)
     {
-
-        CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
-
-        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idCategoryTitle, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idCategoryTitle, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
@@ -323,7 +321,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         }else {
             tvEmpty.setVisibility(View.GONE);
             rvCategories.setVisibility(View.VISIBLE);
-            categoryAdapter = new CategoryAdapter(data.getResults(), mainView, this);
+            categoryAdapter = new CategoryAdapter(data.getResults(), this);
             rvCategories.setAdapter(categoryAdapter);
         }
 
@@ -367,43 +365,48 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 }
                 break;
             case R.id.tvArchivePhotos:
-                try
-                {
-                    ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
-                    Intent intent = new Intent(getActivity(), VideoArchiveActivity.class);
-                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
-                    startActivity(intent);
-                } catch (Exception e)
-                {
-                    if (Tools.isNetworkAvailable(getActivity()))
-                    {
-                        Logger.e("-OnError-", "Error: " + e.getMessage());
-                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                    } else
-                    {
-                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
-                    }
-                }
+            {
+                mainView.onVideosArchiveFragment(SubMediaParent.MediaFragment);
+//                try
+//                {
+//                    ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
+//                    Intent intent = new Intent(getActivity(), VideoArchiveActivity.class);
+//                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
+//                    startActivity(intent);
+//                } catch (Exception e)
+//                {
+//                    if (Tools.isNetworkAvailable(getActivity()))
+//                    {
+//                        Logger.e("-OnError-", "Error: " + e.getMessage());
+//                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+//                    } else
+//                    {
+//                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+//                    }
+//                }
                 break;
-
+            }
             case R.id.tvMyFavoriteVideo:
-                try
-                {
-                    Intent intent1 = new Intent(getActivity(), VideoArchiveActivity.class);
-                    intent1.putExtra("FLAG_Favorite", true);
-                    startActivity(intent1);
-                } catch (Exception e)
-                {
-                    if (Tools.isNetworkAvailable(getActivity()))
-                    {
-                        Logger.e("-OnError-", "Error: " + e.getMessage());
-                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                    } else
-                    {
-                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
-                    }
-                }
+            {
+                mainView.onVideosFavoriteFragment(SubMediaParent.MediaFragment);
+//                try
+//                {
+//                    Intent intent1 = new Intent(getActivity(), VideoArchiveActivity.class);
+//                    intent1.putExtra("FLAG_Favorite", true);
+//                    startActivity(intent1);
+//                } catch (Exception e)
+//                {
+//                    if (Tools.isNetworkAvailable(getActivity()))
+//                    {
+//                        Logger.e("-OnError-", "Error: " + e.getMessage());
+//                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+//                    } else
+//                    {
+//                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+//                    }
+//                }
                 break;
+            }
         }
     }
 
