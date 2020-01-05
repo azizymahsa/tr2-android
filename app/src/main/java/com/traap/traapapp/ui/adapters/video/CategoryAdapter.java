@@ -23,15 +23,13 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
  */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>
 {
-    private final MainActionView mainView;
     private Context context;
     private ArrayList<Category> categories;
     private CategoryListener listener;
 
-    public CategoryAdapter(ArrayList<Category> categories, MainActionView mainView,CategoryListener listener)
+    public CategoryAdapter(ArrayList<Category> categories,CategoryListener listener)
     {
         this.categories=categories;
-        this.mainView=mainView;
         this.listener=listener;
     }
 

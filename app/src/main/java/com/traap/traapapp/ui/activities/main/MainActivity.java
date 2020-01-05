@@ -101,7 +101,10 @@ import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
+import com.traap.traapapp.ui.fragments.videos.VideosMainActionView;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
+import com.traap.traapapp.ui.fragments.videos.archive.VideosArchiveActionView;
+import com.traap.traapapp.ui.fragments.videos.archive.VideosArchiveFragment;
 import com.traap.traapapp.ui.fragments.webView.WebFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
@@ -287,7 +290,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        {
 //            View containerView = findViewById(R.id.fragment_navigation_menudrawer);
 //            DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
-//            mDrawerLayout.openDrawerNews(containerView);
+//            mDrawerLayout.openDrawerVideos(containerView);
 //
 //        });
 
@@ -596,7 +599,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     /*    DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.END))
         {
-            drawer.closeDrawerNews(GravityCompat.END);
+            drawer.closeDrawerVideos(GravityCompat.END);
         } else
         {
             if (isMainFragment)
@@ -1110,11 +1113,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             drawer.closeDrawer(GravityCompat.END);
         }
-//        showToast(this, "closeDrawerNews", R.color.gray);
+//        showToast(this, "closeDrawerVideos", R.color.gray);
 //
 //        View containerView = findViewById(R.id.fragment_navigation_menudrawer);
 //        DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
-//        mDrawerLayout.closeDrawerNews(containerView);
+//        mDrawerLayout.closeDrawerVideos(containerView);
     }
 
     @Override
@@ -1301,7 +1304,62 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onFootBallServiceTwo()
     {
+        isMainFragment = false;
+        this.fragment = VideosMainFragment.newInstance(new VideosMainActionView()
+        {
+            @Override
+            public void backToMainFragment()
+            {
+                MainActivity.this.backToMainFragment();
+            }
 
+            @Override
+            public void backToMainVideosFragment()
+            {
+                onMainVideoClick();
+            }
+
+            @Override
+            public void onVideosArchiveFragment(SubMediaParent parent)
+            {
+                onVideosArchiveClick(parent, MediaPosition.VideoGallery);
+            }
+
+            @Override
+            public void onVideosFavoriteFragment(SubMediaParent parent)
+            {
+                onVideosFavoriteClick(parent, MediaPosition.VideoGallery);
+            }
+
+            @Override
+            public void openDrawerVideos()
+            {
+                openDrawer();
+            }
+
+            @Override
+            public void closeDrawerVideos()
+            {
+                closeDrawer();
+            }
+
+            @Override
+            public void showLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
+        });
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "videosMainFragment")
+                .commit();
     }
 
     @Override
@@ -1583,10 +1641,188 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
+    public void onVideosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+        isMainFragment = false;
+        this.fragment = VideosArchiveFragment.newInstance(parent, mediaPosition, false, new VideosArchiveActionView()
+        {
+            @Override
+            public void backToMainVideosFragment()
+            {
+
+            }
+
+            @Override
+            public void onVideosArchiveFragment(SubMediaParent parent)
+            {
+
+            }
+
+            @Override
+            public void onVideosFavoriteFragment(SubMediaParent parent)
+            {
+                onVideosFavoriteClick(parent, MediaPosition.VideoGallery);
+            }
+
+            @Override
+            public void openDrawerVideos()
+            {
+                openDrawer();
+            }
+
+            @Override
+            public void closeDrawerVideos()
+            {
+                closeDrawer();
+            }
+
+            @Override
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
+                fragment = MediaFragment.newInstance(MediaPosition.VideoGallery, MainActivity.this);
+                transaction = fragmentManager.beginTransaction();
+
+                transaction.replace(R.id.main_container, fragment, "mediaFragment")
+                        .commit();
+            }
+
+            @Override
+            public void showLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
+        });
+
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_container, this.fragment, "videosArchiveCategoryFragment")
+                .commit();
+    }
+
+    @Override
+    public void onVideosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
+        isMainFragment = false;
+        this.fragment = VideosArchiveFragment.newInstance(parent, mediaPosition, true, new VideosArchiveActionView()
+        {
+            @Override
+            public void backToMainVideosFragment()
+            {
+
+            }
+
+            @Override
+            public void onVideosArchiveFragment(SubMediaParent parent)
+            {
+
+            }
+
+            @Override
+            public void onVideosFavoriteFragment(SubMediaParent parent)
+            {
+                onVideosFavoriteClick(parent, MediaPosition.VideoGallery);
+            }
+
+            @Override
+            public void openDrawerVideos()
+            {
+                openDrawer();
+            }
+
+            @Override
+            public void closeDrawerVideos()
+            {
+                closeDrawer();
+            }
+
+            @Override
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
+                fragment = MediaFragment.newInstance(MediaPosition.VideoGallery, MainActivity.this);
+                transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                transaction.replace(R.id.main_container, fragment, "mediaFragment")
+                        .commit();
+            }
+
+            @Override
+            public void showLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
+        });
+
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_container, this.fragment, "videosArchiveCategoryFragment")
+                .commit();
+    }
+
+    @Override
     public void onMainVideoClick()
     {
         isMainFragment = false;
-        this.fragment = VideosMainFragment.newInstance(this);
+        this.fragment = VideosMainFragment.newInstance(new VideosMainActionView()
+        {
+            @Override
+            public void backToMainFragment()
+            {
+                MainActivity.this.backToMainFragment();
+            }
+
+            @Override
+            public void backToMainVideosFragment()
+            {
+                onMainVideoClick();
+            }
+
+            @Override
+            public void onVideosArchiveFragment(SubMediaParent parent)
+            {
+                onVideosArchiveClick(parent, MediaPosition.VideoGallery);
+            }
+
+            @Override
+            public void onVideosFavoriteFragment(SubMediaParent parent)
+            {
+                onVideosFavoriteClick(parent, MediaPosition.VideoGallery);
+            }
+
+            @Override
+            public void openDrawerVideos()
+            {
+                openDrawer();
+            }
+
+            @Override
+            public void closeDrawerVideos()
+            {
+                closeDrawer();
+            }
+
+            @Override
+            public void showLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideLoading()
+            {
+                findViewById(R.id.rlLoading).setVisibility(View.GONE);
+            }
+        });
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);

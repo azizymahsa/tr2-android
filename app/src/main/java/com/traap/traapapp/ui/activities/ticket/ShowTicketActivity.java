@@ -91,7 +91,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
             imgMenu = findViewById(R.id.imgMenu);
 
             imgMenu.setVisibility(View.GONE);
-            //imgMenu.setOnClickListener(v -> mainView.openDrawerNews());
+            //imgMenu.setOnClickListener(v -> mainView.openDrawerVideos());
 
             tvPopularPlayer = findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
