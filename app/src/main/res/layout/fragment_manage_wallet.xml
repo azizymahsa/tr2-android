@@ -94,7 +94,7 @@
         android:layout_marginBottom="@dimen/_10dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
