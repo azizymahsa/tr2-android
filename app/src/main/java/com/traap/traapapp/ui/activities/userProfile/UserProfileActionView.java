@@ -10,4 +10,8 @@ public interface UserProfileActionView extends BaseView
     void openImageChooser();
 
     void uploadProfileData();
+
+    void showSendDataLoading();
+
+    void hideSendDataLoading();
 }

@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.activities.userProfile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,12 +26,8 @@ import androidx.core.widget.NestedScrollView;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
-import com.androidnetworking.interfaces.UploadProgressListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.JsonObject;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -38,21 +35,11 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import saman.zamani.persiandate.PersianDate;
-
-import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -63,8 +50,8 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.helper.Const;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.profile.deleteProfile.DeleteProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
-import com.traap.traapapp.apiServices.model.profile.postPhoto.SendImageResponse;
 import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.conf.TrapConfig;
@@ -76,8 +63,6 @@ import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NationalCodeValidation;
 import com.traap.traapapp.utilities.Tools;
-import com.traap.traapapp.utilities.PrepareImageFilePart;
-//import com.traap.traapapp.utilities.calendar.materialdatetimepicker.com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
@@ -98,10 +83,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private ClearableEditText etPopularPlayer;
     private TextView tvMenu, tvBirthDay, tvUserName, tvHeaderPopularNo;
     private Spinner spinnerGender;
-    private FloatingActionButton fabCapture;
+    private FloatingActionButton fabCapture, fabDeleteProfile;
     private ImageView imgProfile, imgBirthdayReset;
 
+    private Animation animHideButton, animShowButton;
+
     private Boolean isImageFileExist = false;
+    private Boolean isProfileImageAvailable = false;
 
     private HeaderModel headerModel;
 
@@ -121,6 +109,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private MultipartBody.Part part;
 
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -137,6 +126,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         tvTitle.setText("ویرایش حساب کاربری");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
+        animHideButton = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.hide_button);
+        animShowButton = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.show_button);
+
         NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nested);
         btnConfirm = findViewById(R.id.btnConfirm);
 //        btnConfirm.setText("ارسال اطلاعات کاربری");
@@ -144,6 +136,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         imgBirthdayReset = findViewById(R.id.imgBirthdayReset);
         imgProfile = findViewById(R.id.imgProfile);
         fabCapture = findViewById(R.id.fabCapture);
+        fabDeleteProfile = findViewById(R.id.fabDeleteProfile);
         spinnerGender = findViewById(R.id.spinnerGender);
         tvBirthDay = findViewById(R.id.tvBirthDay);
         etNickName = findViewById(R.id.etNickName);
@@ -226,6 +219,80 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
             getPermission();
         });
+
+        fabDeleteProfile.setOnClickListener(v ->
+        {
+            if (isProfileImageAvailable)
+            {
+                MessageAlertDialog dialog = new MessageAlertDialog(this, "",
+                        "آیا از حذف عکس پروفایل خود اطمینان دارید؟",
+                        true, "حذف", "انصراف", false,
+                        new MessageAlertDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                callDeletePhoto();
+                            }
+
+                            @Override
+                            public void onCancelClick()
+                            {
+                            }
+                        });
+                dialog.setCancelable(true);
+                dialog.show(getFragmentManager(), "alertDialog");
+            }
+            else
+            {
+                Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
+                fabDeleteProfile.startAnimation(animHideButton);
+                fabDeleteProfile.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    private void callDeletePhoto()
+    {
+        SingletonService.getInstance().sendProfileService().deleteProfilePhoto(new OnServiceStatus<WebServiceClass<DeleteProfileResponse>>()
+        {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onReady(WebServiceClass<DeleteProfileResponse> response)
+            {
+                try
+                {
+                    if (response.info.statusCode != 200)
+                    {
+                        showError(UserProfileActivity.this, response.info.message);
+                    }
+                    else
+                    {
+                        showToast(UserProfileActivity.this, response.info.message, R.color.green);
+
+                        Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
+                        Prefs.putString("profileImage", response.data.getPhotoUrl());
+
+                        isProfileImageAvailable = false;
+
+                        fabDeleteProfile.startAnimation(animHideButton);
+                        fabDeleteProfile.setVisibility(View.GONE);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                showError(UserProfileActivity.this, "خطای ارتباط با سرور!");
+            }
+        });
+
     }
 
     private void getPermission()
@@ -356,21 +423,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private void getDataProfileUser()
     {
+        showLoading();
         SingletonService.getInstance().getProfileService().getProfileService(this);
     }
 
     @Override
     public void showLoading()
     {
-        btnConfirm.startAnimation();
-        btnConfirm.setClickable(false);
+        findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading()
     {
-        btnConfirm.revertAnimation(UserProfileActivity.this);
-        btnConfirm.setClickable(true);
+        findViewById(R.id.rlLoading).setVisibility(View.GONE);
     }
 
     @Override
@@ -406,7 +472,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         if (!setError())
         {
-            hideLoading();
+//            hideLoading();
+            hideSendDataLoading();
         }
         else
         {
@@ -548,6 +615,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     }
 
+    @Override
+    public void showSendDataLoading()
+    {
+        btnConfirm.startAnimation();
+        btnConfirm.setClickable(false);
+    }
+
+    @Override
+    public void hideSendDataLoading()
+    {
+        btnConfirm.revertAnimation(UserProfileActivity.this);
+        btnConfirm.setClickable(true);
+    }
+
     private void sendProfilePhoto()
     {
         //---------------------new FAN--------------------------
@@ -593,6 +674,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //                });
                 .getAsString(new StringRequestListener()
                 {
+                    @SuppressLint("RestrictedApi")
                     @Override
                     public void onResponse(String response)
                     {
@@ -616,7 +698,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 headerModel.setProfileUrl(imageURL);
                                 Logger.e("-image Link Response-", imageURL.toString() + " ");
                                 Prefs.putString("profileImage", imageURL);
-//
+
+                                isProfileImageAvailable = true;
+
+                                fabDeleteProfile.startAnimation(animShowButton);
+                                fabDeleteProfile.setVisibility(View.VISIBLE);
+
                                 sendPhotoSuccess = true;
                                 finishSendData("");
                             }
@@ -760,6 +847,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //        }
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -773,6 +861,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 imageUri = result.getUri();
                 imgProfile.setImageBitmap(BitmapFactory.decodeFile(imageUri.getPath()));
                 saveImage(BitmapFactory.decodeFile(imageUri.getPath()));
+
+                fabDeleteProfile.startAnimation(animShowButton);
+                fabDeleteProfile.setVisibility(View.VISIBLE);
             }
             else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE)
             {
@@ -806,9 +897,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onReady(WebServiceClass<GetProfileResponse> response)
     {
+        hideLoading();
+
         if (response.info.statusCode == 200)
         {
             if (response.data.getPopularPlayer() != 0)
@@ -860,21 +954,36 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             try
             {
-                Picasso.with(this).load(response.data.getPhotoUrl()).into(imgProfile, new Callback()
+                if (!response.data.getPhotoUrl().contains("default_avatar.png"))
                 {
-                    @Override
-                    public void onSuccess()
+                    Picasso.with(this).load(response.data.getPhotoUrl()).into(imgProfile, new Callback()
                     {
-                        Prefs.putString("profileImage", response.data.getPhotoUrl());
-                        headerModel.setProfileUrl(response.data.getPhotoUrl());
-                    }
+                        @Override
+                        public void onSuccess()
+                        {
+                            Prefs.putString("profileImage", response.data.getPhotoUrl());
+                            headerModel.setProfileUrl(response.data.getPhotoUrl());
 
-                    @Override
-                    public void onError()
-                    {
-                        Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
-                    }
-                });
+                            isProfileImageAvailable = true;
+
+                            fabDeleteProfile.startAnimation(animShowButton);
+                            fabDeleteProfile.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onError()
+                        {
+                            Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
+                        }
+                    });
+                }
+                else
+                {
+                    Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
+
+                    fabDeleteProfile.startAnimation(animHideButton);
+                    fabDeleteProfile.setVisibility(View.GONE);
+                }
             }
             catch (Exception e)
             {
@@ -910,6 +1019,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     @Override
     public void onError(String message)
     {
+        hideLoading();
+
         if (Tools.isNetworkAvailable(this))
         {
             Logger.e("-OnError-", "Error: " + message);
