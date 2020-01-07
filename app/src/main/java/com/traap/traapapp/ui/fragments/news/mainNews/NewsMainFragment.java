@@ -73,7 +73,8 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("اخبار");
-        rootView.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class)));
+        rootView.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(),
+                MyProfileActivity.class)));
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         fragmentManager = getChildFragmentManager();

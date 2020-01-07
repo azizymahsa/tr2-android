@@ -1,5 +1,7 @@
 package com.traap.traapapp.ui.fragments.videos;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import androidx.core.widget.NestedScrollView;
@@ -50,10 +53,14 @@ import com.traap.traapapp.utilities.Tools;
 /**
  * Created by MahtabAzizi on 11/23/2019.
  */
-public class VideosFragment extends BaseFragment implements VideosCategoryTitleAdapter.TitleCategoryListener, View.OnClickListener, NewestVideosAdapter.NewestVideoListener, CategoryAdapter.CategoryListener
+public class VideosFragment extends BaseFragment implements VideosCategoryTitleAdapter.TitleCategoryListener,
+        View.OnClickListener, NewestVideosAdapter.NewestVideoListener, CategoryAdapter.CategoryListener
 {
     private VideosActionView mainView;
     private View rootView;
+
+    private Context context;
+
     private BannerLayout bNewestVideo;
     private RoundedImageView ivFavorite1, ivFavorite2, ivFavorite3;
     private RecyclerView rvCategoryTitles, rvCategories;
@@ -71,17 +78,24 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private View tvEmpty;
     private View tvEmptyFavorite;
     private View llFavorites;
+    private SubMediaParent parent;
 
     public VideosFragment()
     {
 
     }
 
-    public static VideosFragment newInstance(VideosActionView mainView)
+    public static VideosFragment newInstance(SubMediaParent parent, VideosActionView mainView)
     {
         VideosFragment fragment = new VideosFragment();
         fragment.setMainView(mainView);
+        fragment.setParent(parent);
         return fragment;
+    }
+
+    private void setParent(SubMediaParent parent)
+    {
+        this.parent = parent;
     }
 
     private void setMainView(VideosActionView mainView)
@@ -96,6 +110,13 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         YoYo.with(Techniques.FadeIn)
                 .duration(700)
                 .playOn(rootView);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -139,34 +160,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
         //Call the method
         requestMainVideos();
-
-    }
-    public void showComingSoonDialog()
-    {
-        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد.", false,
-                new MessageAlertDialog.OnConfirmListener()
-                {
-                    @Override
-                    public void onConfirmClick()
-                    {
-
-                    }
-
-                    @Override
-                    public void onCancelClick()
-                    {
-
-                    }
-                });
-
-        dialog.setCancelable(false);
-        dialog.show(getActivity().getFragmentManager(), "messageDialog");
     }
 
     private void requestMainVideos()
     {
-        MainVideoRequest request = new MainVideoRequest();
-
         SingletonService.getInstance().getMainVideosService().getMainVideos(new OnServiceStatus<WebServiceClass<MainVideosResponse>>()
         {
             @Override
@@ -175,18 +172,17 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 mainView.hideLoading();
                 try
                 {
-
                     if (response.info.statusCode == 200)
                     {
-
                         mainVideosResponse = response.data;
                         onGetMainVideosSuccess(response.data);
-
-                    } else
+                    }
+                    else
                     {
                       //  Tools.showToast(getContext(), response.info.message, R.color.red);
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                   //  Tools.showToast(getContext(), e.getMessage(), R.color.red);
 
@@ -197,17 +193,17 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             public void onError(String message)
             {
                 mainView.hideLoading();
-                if (Tools.isNetworkAvailable(getActivity()))
+                if (Tools.isNetworkAvailable((Activity) context))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    showError(context, "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
-                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
-                // Tools.showToast(getActivity(), message, R.color.red);
+                // Tools.showToast(context, message, R.color.red);
             }
-        }, request);
+        });
     }
 
     private void onGetMainVideosSuccess(MainVideosResponse mainVideosResponse)
@@ -300,15 +296,15 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             public void onError(String message)
             {
                 mainView.hideLoading();
-                if (Tools.isNetworkAvailable(getActivity()))
+                if (Tools.isNetworkAvailable((Activity) context))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    showError(context, "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
-                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
-                // Tools.showToast(getActivity(), message, R.color.red);
+                // Tools.showToast(context, message, R.color.red);
             }
         });
     }
@@ -366,43 +362,43 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 break;
             case R.id.tvArchivePhotos:
             {
-                mainView.onVideosArchiveFragment(SubMediaParent.MediaFragment);
+                mainView.onVideosArchiveFragment(parent);
 //                try
 //                {
 //                    ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
-//                    Intent intent = new Intent(getActivity(), VideoArchiveActivity.class);
+//                    Intent intent = new Intent(context, VideoArchiveActivity.class);
 //                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
 //                    startActivity(intent);
 //                } catch (Exception e)
 //                {
-//                    if (Tools.isNetworkAvailable(getActivity()))
+//                    if (Tools.isNetworkAvailable(context))
 //                    {
 //                        Logger.e("-OnError-", "Error: " + e.getMessage());
-//                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+//                        showError(context, "خطا در دریافت اطلاعات از سرور!");
 //                    } else
 //                    {
-//                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+//                        showAlert(context, R.string.networkErrorMessage, R.string.networkError);
 //                    }
 //                }
                 break;
             }
             case R.id.tvMyFavoriteVideo:
             {
-                mainView.onVideosFavoriteFragment(SubMediaParent.MediaFragment);
+                mainView.onVideosFavoriteFragment(parent);
 //                try
 //                {
-//                    Intent intent1 = new Intent(getActivity(), VideoArchiveActivity.class);
+//                    Intent intent1 = new Intent(context, VideoArchiveActivity.class);
 //                    intent1.putExtra("FLAG_Favorite", true);
 //                    startActivity(intent1);
 //                } catch (Exception e)
 //                {
-//                    if (Tools.isNetworkAvailable(getActivity()))
+//                    if (Tools.isNetworkAvailable(context))
 //                    {
 //                        Logger.e("-OnError-", "Error: " + e.getMessage());
-//                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+//                        showError(context, "خطا در دریافت اطلاعات از سرور!");
 //                    } else
 //                    {
-//                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+//                        showAlert(context, R.string.networkErrorMessage, R.string.networkError);
 //                    }
 //                }
                 break;
@@ -412,7 +408,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
-        Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
+        Intent intent = new Intent(context, VideoDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Videos", categoriesList);
         intent.putExtra("IdVideoCategory", idVideo);

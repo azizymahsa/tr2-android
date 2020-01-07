@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -27,7 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * Created by MahtabAzizi on 11/30/2019.
  */
-public class VideosMainFragment  extends BaseFragment
+public class VideosMainFragment  extends BaseFragment implements VideosActionView
 {
 
 
@@ -76,19 +77,12 @@ public class VideosMainFragment  extends BaseFragment
         tvTitle.setText("ویدیو");
 
         rlShirt=rootView.findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
-            }
-        });
+        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class)));
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         fragmentManager = getChildFragmentManager();
 
-        fragment = VideosFragment.newInstance(mainView);
+        fragment = VideosFragment.newInstance(SubMediaParent.MainFragment, this);
         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -98,6 +92,46 @@ public class VideosMainFragment  extends BaseFragment
 
         EventBus.getDefault().register(this);
         return rootView;
+    }
+
+    @Override
+    public void backToMainVideosFragment()
+    { }
+
+    @Override
+    public void onVideosArchiveFragment(SubMediaParent parent)
+    {
+        mainView.onVideosArchiveFragment(parent);
+    }
+
+    @Override
+    public void onVideosFavoriteFragment(SubMediaParent parent)
+    {
+        mainView.onVideosFavoriteFragment(parent);
+    }
+
+    @Override
+    public void openDrawerVideos()
+    {
+        mainView.openDrawerVideos();
+    }
+
+    @Override
+    public void closeDrawerVideos()
+    {
+        mainView.closeDrawerVideos();
+    }
+
+    @Override
+    public void showLoading()
+    {
+        mainView.showLoading();
+    }
+
+    @Override
+    public void hideLoading()
+    {
+        mainView.hideLoading();
     }
 
     @Subscribe
