@@ -43,6 +43,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -79,6 +80,7 @@ import com.traap.traapapp.ui.fragments.simcardPack.imp.irancell.GetPackageIrance
 import com.traap.traapapp.ui.fragments.simcardPack.imp.mci.PackageMciImpl;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.rightel.RightelPackImpl;
 import com.traap.traapapp.utilities.ClearableEditText;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
