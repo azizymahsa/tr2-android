@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.news.mainNews;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -63,6 +64,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private View rootView;
     private NewsActionView mainView;
 
+    private Context context;
+
     private ScrollingPagerIndicator indicatorNewestNews;
 
     private NewsMainFavoriteAdapter favNewsAdapter;
@@ -111,6 +114,13 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private void setMainView(NewsActionView mainView)
     {
         this.mainView = mainView;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -178,9 +188,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         favRecyclerView = rootView.findViewById(R.id.favRecyclerView);
         indicator = rootView.findViewById(R.id.indicator);
 
-//        indicatorNewestNews = rootView.findViewById(R.id.indicatorNewestNews);
         bNewestNews = rootView.findViewById(R.id.bNewestNews);
-//        bNewestNews.setAdapter();
 
         tvNewsArchive = rootView.findViewById(R.id.tvNewsArchive);
         tvNewsArchive.setOnClickListener(v ->
@@ -193,10 +201,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         {
             mainView.onNewsFavoriteFragment(parent);
         });
-
-
     }
-
 
     private void onSlideRight()
     {
@@ -237,7 +242,6 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 //        }
     }
 
-
     @Override
     public void onReady(WebServiceClass<NewsMainResponse> response)
     {
@@ -245,14 +249,14 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
         if (response == null || response.info == null)
         {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            startActivity(new Intent(context, LoginActivity.class));
             getActivity().finish();
 
             return;
         }
         if (response.info.statusCode != 200)
         {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            startActivity(new Intent(context, LoginActivity.class));
             getActivity().finish();
 
             return;
@@ -267,25 +271,14 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
             MainActivity.newsMainResponse = newsMainResponse;
 
-//            setSlider();
             setContent();
         }
     }
 
     private void setContent()
     {
-        newestNewsAdapter = new NewsMainNewestAdapter(getActivity(), latestNewsList);
-//        newestLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-//        newestRecyclerView.setLayoutManager(newestLayoutManager);
+        newestNewsAdapter = new NewsMainNewestAdapter(context, latestNewsList);
         bNewestNews.setAdapter(newestNewsAdapter);
-//        for (int i = 0; i < bNewestNews.getChildCount(); i++)
-//        {
-//            if (bNewestNews.getChildAt(i) instanceof RecyclerView)
-//            {
-//                RecyclerView recyclerView = (RecyclerView) bNewestNews.getChildAt(i);
-//                indicatorNewestNews.attachToRecyclerView(recyclerView);
-//            }
-//        }
 
         newestNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
@@ -299,20 +292,19 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
                 positionIdsList.add(model);
             }
 
-            Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+            Intent intent = new Intent(context, NewsDetailsActivity.class);
             intent.putExtra("currentId", id);
             intent.putExtra("currentPosition", position);
             intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
             startActivity(intent);
         });
 
-        favNewsAdapter = new NewsMainFavoriteAdapter(getActivity(), favoriteNewsList);
-        favLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        favNewsAdapter = new NewsMainFavoriteAdapter(context, favoriteNewsList);
+        favLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         favRecyclerView.setLayoutManager(favLayoutManager);
         favRecyclerView.setAdapter(favNewsAdapter);
         indicator.attachToRecyclerView(favRecyclerView);
 
-//        SnapHelper snapHelper = new StartSnapHelper();
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(favRecyclerView);
 
@@ -328,7 +320,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
                 positionIdsList.add(model);
             }
 
-            Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+            Intent intent = new Intent(context, NewsDetailsActivity.class);
             intent.putExtra("currentId", id);
             intent.putExtra("currentPosition", position);
             intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
@@ -372,13 +364,13 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     {
         mainView.hideLoading();
 
-        if (Tools.isNetworkAvailable(getActivity()))
+        if (Tools.isNetworkAvailable((Activity) context))
         {
             Logger.e("-OnError-", "Error: " + message);
-            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+            showError(context, "خطا در دریافت اطلاعات از سرور!");
         } else
         {
-            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+            showAlert(context, R.string.networkErrorMessage, R.string.networkError);
         }
     }
 
