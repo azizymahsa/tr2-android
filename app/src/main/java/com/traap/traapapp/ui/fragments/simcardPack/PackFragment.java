@@ -540,8 +540,8 @@ public class PackFragment
         isMtn = true;
         isMci = false;
         isRightel = false;
-        etMobileNumberMCI.setText(etMobileNumberIranCell.getText());
-        etMobileNumberRightel.setText(etMobileNumberIranCell.getText());
+      //  etMobileNumberMCI.setText(etMobileNumberIranCell.getText());
+       // etMobileNumberRightel.setText(etMobileNumberIranCell.getText());
         btnChargeConfirm.setVisibility(View.VISIBLE);
         llPackBackIrancell.setVisibility(View.GONE);
         llDescriptionSelectPack.setVisibility(View.GONE);
@@ -583,8 +583,8 @@ public class PackFragment
         isMtn = false;
         isMci = true;
         isRightel = false;
-        etMobileNumberRightel.setText(etMobileNumberMCI.getText());
-        etMobileNumberIranCell.setText(etMobileNumberMCI.getText());
+      //  etMobileNumberRightel.setText(etMobileNumberMCI.getText());
+       // etMobileNumberIranCell.setText(etMobileNumberMCI.getText());
 
 
     }
@@ -633,8 +633,8 @@ public class PackFragment
         isMtn = false;
         isMci = false;
         isRightel = true;
-        etMobileNumberMCI.setText(etMobileNumberRightel.getText());
-        etMobileNumberIranCell.setText(etMobileNumberRightel.getText());
+       // etMobileNumberMCI.setText(etMobileNumberRightel.getText());
+       // etMobileNumberIranCell.setText(etMobileNumberRightel.getText());
     }
 
 
@@ -879,6 +879,8 @@ public class PackFragment
     public void onResume()
     {
         super.onResume();
+        checkPhoneNumberOperator();
+
         try
         {
 
@@ -893,20 +895,168 @@ public class PackFragment
             }
             initSpinner();
             setupRecycler();
+
         } catch (Exception e)
         {
         }
-
-/*
-        if (isInitView) {
-            isInitView = false;
-            initView();
-            setupRecycler();
+    }
 
 
-        }*/
+    private void checkPhoneNumberOperator()
+    {
+
+        etMobileNumberIranCell.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count)
+            {
+                try
+                {
+                    operatorType=getOperatorType(charSequence.toString());
+
+                    if (OPERATOR_TYPE_MCI==getOperatorType(charSequence.toString())){
+
+                        if (isMci){
+
+                        }else
+                        {
+                            etMobileNumberMCI.setText(charSequence.toString());
+                            hamraheAval();
+                            return;
+
+                        }
+
+                    }else  if (OPERATOR_TYPE_RIGHTEL==getOperatorType(charSequence.toString())){
+
+                        if (isRightel){
+
+                        }else
+                        {
+                            etMobileNumberRightel.setText(charSequence.toString());
+                            rightel();
+                            return;
+
+                        }
+                    }
+                }catch (Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+        etMobileNumberMCI.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count)
+            {
+                try
+                {
+                    operatorType=getOperatorType(charSequence.toString());
+
+                    if (OPERATOR_TYPE_MTN==getOperatorType(charSequence.toString())){
+
+                        if (isMtn){
+
+                        }else
+                        {
+                            etMobileNumberIranCell.setText(charSequence.toString());
+                            irancell();
+                            return;
+                        }
 
 
+                    }else if (OPERATOR_TYPE_RIGHTEL==getOperatorType(charSequence.toString())){
+
+                        if (isRightel){
+
+                        }else
+                        {
+                            etMobileNumberRightel.setText(charSequence.toString());
+                            rightel();
+                            return;
+
+                        }
+
+                    }
+                }catch (Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+        etMobileNumberRightel.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count)
+            {
+                try
+                {
+                    operatorType=getOperatorType(charSequence.toString());
+
+                    if (OPERATOR_TYPE_MCI==getOperatorType(charSequence.toString())){
+
+                        if (isMci){
+
+                        }else
+                        {
+                            etMobileNumberMCI.setText(charSequence.toString());
+                            hamraheAval();
+                        }
+
+                    }else if (OPERATOR_TYPE_MTN==getOperatorType(charSequence.toString())){
+
+                        if (isMtn){
+
+                        }else
+                        {
+                            etMobileNumberIranCell.setText(charSequence.toString());
+                            irancell();
+                        }
+
+
+                    }
+                }catch (Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
     }
 
     @Override
@@ -926,7 +1076,29 @@ public class PackFragment
         }
 
     }
+    private int getOperatorType(String phoneNo)
+    {
+        String startPhoneNo = phoneNo.substring(0, 4);
+        Logger.e("-startPhoneNo-", startPhoneNo);
 
+        String[] typeMCI_No = {"0990", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919","0992"};
+        String[] typeMTN_No = {"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939"};
+        String[] typeRightel_No = {"0920", "0921", "0922"};
+
+        if (Arrays.asList(typeMCI_No).contains(startPhoneNo))
+        {
+            return OPERATOR_TYPE_MCI;
+        } else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
+        {
+            return OPERATOR_TYPE_MTN;
+        } else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
+        {
+            return OPERATOR_TYPE_RIGHTEL;
+        } else
+        {
+            return OPERATOR_TYPE_MCI;
+        }
+    }
     public void initSpinner()
     {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -1536,9 +1708,9 @@ public class PackFragment
         //tvPackTitle.setText(o.getTitle());
         // bundleId = o.getBundleId();
         // tvPackTitle.setTextSize(14);
-        amount = o.getAmount();
+        amount = o.getBillAmount();
 
-        tvAmountPackage.setText("قیمت: " + Utility.priceFormat(o.getAmount()) + " ریال");
+        tvAmountPackage.setText("قیمت: " + Utility.priceFormat(amount) + " ریال");
 
 
         if (isMci)
@@ -1570,7 +1742,7 @@ public class PackFragment
 
         //----------------------------new for payment fragment-----------------------
         title = "با انجام این پرداخت ، مبلغ " +
-                Utility.priceFormat(o.getAmount()) + " ریال بابت بسته " +
+                Utility.priceFormat(amount) + " ریال بابت بسته " +
                 o.getTitle() + " برای شماره " + mobile + "، از حساب شما کسر خواهد شد.";
 
         operatorType = Utility.getOperatorType(mobile);
