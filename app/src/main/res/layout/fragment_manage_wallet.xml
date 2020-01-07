@@ -113,7 +113,7 @@
 
                 android:imeOptions="actionGo"
                 android:inputType="number"
-                android:maxLength="10"
+                android:maxLength="12"
                 android:padding="10dp">
 
             </EditText>
@@ -136,7 +136,7 @@
 
                 android:imeOptions="actionGo"
                 android:inputType="numberPassword"
-                android:maxLength="10"
+                android:maxLength="12"
                 android:padding="10dp">
 
             </EditText>
@@ -158,7 +158,7 @@
                 android:hint="تکرار رمز جدید"
                 android:imeOptions="actionGo"
                 android:inputType="numberPassword"
-                android:maxLength="10"
+                android:maxLength="12"
                 android:padding="10dp">
 
             </EditText>

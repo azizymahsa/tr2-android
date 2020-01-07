@@ -113,7 +113,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                     requestForgetPassword();
                 } else
                 {
-                    if (edtNewPass.getText().toString().length() > 0 && edtOldPass.getText().toString().length() > 0 && edtTemNewPass.getText().toString().length() > 0)
+                    if (edtNewPass.getText().toString().length() > 4 && edtOldPass.getText().toString().length() > 4 && edtTemNewPass.getText().toString().length() > 4)
                     {
                         if (edtNewPass.getText().toString().equals(edtTemNewPass.getText().toString()))
                         {
@@ -124,9 +124,13 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                             Toast.makeText(getContext(), getContext().getString(R.string._msg_no_correct_pass), Toast.LENGTH_SHORT).show();
 
                         }
-                    } else
+                    } else  if (edtNewPass.getText().toString().length()== 0 && edtOldPass.getText().toString().length() == 0 && edtTemNewPass.getText().toString().length() == 0)
+
                     {
                         Toast.makeText(getContext(), getContext().getString(R.string._msg_none_fields), Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(getContext(), getContext().getString(R.string._not_currect_pass), Toast.LENGTH_SHORT).show();
 
                     }
 
