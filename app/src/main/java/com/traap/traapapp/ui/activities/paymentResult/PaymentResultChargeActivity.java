@@ -13,6 +13,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -159,10 +160,33 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
                 break;
             case R.id.btnSaveResult:
                 new ScreenShot(llResult, this,true);
+                showDialog();
                 break;
             case R.id.tvBackHome:
                 finish();
                 break;
         }
+    }
+
+    private void showDialog()
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(this, "", "رسید شما با موفقیت در گالری ذخیره شد.", false,
+                new MessageAlertDialog.OnConfirmListener()
+                {
+                    @Override
+                    public void onConfirmClick()
+                    {
+
+                    }
+
+                    @Override
+                    public void onCancelClick()
+                    {
+
+                    }
+                });
+
+        dialog.setCancelable(false);
+        dialog.show(getFragmentManager(), "messageDialog");
     }
 }
