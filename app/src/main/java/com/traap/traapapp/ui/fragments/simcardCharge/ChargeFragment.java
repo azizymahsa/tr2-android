@@ -2064,6 +2064,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    private void closeAutoComplete()
+    {
+        autoCompletePhoneNumberRightel.dismissDropDown();
+        autoCompletePhoneNumberMci.dismissDropDown();
+        autoCompletePhoneNumberIrancel.dismissDropDown();
+    }
 
     public void onSelectContact(OnSelectContact event)
     {
@@ -2094,6 +2100,7 @@ public class ChargeFragment extends BaseFragment
 
 
             }
+            closeAutoComplete();
 
         } catch (Exception e)
         {
