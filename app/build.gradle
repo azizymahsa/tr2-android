@@ -225,6 +225,7 @@ android {
 
         implementation 'de.hdodenhof:circleimageview:2.2.0'
         implementation 'ru.kolotnev:formatt-edit-text:0.7' //MaskedEditText
+        implementation 'ru.egslava:MaskedEditText:1.0.5' //MaskedEditText
         implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.5"
         // indicator
 //        implementation "com.mlsdev.animatedrv:library:1.0.1" //animation for recyclerView

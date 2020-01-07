@@ -1,21 +1,22 @@
 package com.traap.traapapp.ui.fragments.gateWay;
 
 import android.os.Bundle;
+
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
+import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletRequest;
+import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletResponse;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -24,6 +25,14 @@ import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
+import ru.kolotnev.formattedittext.MaskedEditText;
+
+//import br.com.sapereaude.maskedEditText.MaskedEditText;
+
 /**
  * Created by MahsaAzizi on 07/01/2020.
  */
@@ -31,11 +40,10 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
 {
 
 
-    private View rootView, btnChargeConfirmRightel;
+    private View rootView, btnBackStep, btnGetMoney;
     private MainActionView mainView;
-    private ClearableEditText edtDestination;
-    private ImageView ivContact;
-    private Spinner spinnerType;
+    private MaskedEditText edtShabaNum;
+    private ClearableEditText edtCurrency;
 
     public WithdrawAccountFragment()
     {
@@ -64,56 +72,56 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
         initView();
 
 
-
-
         return rootView;
     }
 
     private void initView()
     {
 
+        edtShabaNum = rootView.findViewById(R.id.edtShabaNum);
+        edtCurrency = rootView.findViewById(R.id.edtCurrency);
+        btnGetMoney = rootView.findViewById(R.id.btnGetMoney);
+        btnGetMoney.setOnClickListener(this);
+        btnBackStep = rootView.findViewById(R.id.btnBackStep);
+        btnBackStep.setOnClickListener(this);
 
-
-        edtDestination = rootView.findViewById(R.id.edtDestination);
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(19);
-        edtDestination.setFilters(filterArray);
-
-        btnChargeConfirmRightel = rootView.findViewById(R.id.btnChargeConfirmRightel);
-        btnChargeConfirmRightel.setOnClickListener(this);
-        edtDestination.addTextChangedListener(new TextWatcher()
+        edtCurrency.setFilters(filterArray);
+        edtCurrency.addTextChangedListener(new TextWatcher()
         {
-            int len = 0;
-
+            private String current = "";
             @Override
-            public void afterTextChanged(Editable s)
+            public void afterTextChanged(Editable ss)
             {
-                String str = edtDestination.getText().toString();
-                if (str.length() == 4 && len < str.length())
-                {//len check for backspace
-                    edtDestination.append("-");
+                edtCurrency.removeTextChangedListener(this);
+
+                String s = edtCurrency.getText().toString();
+
+                s = s.replace(",", "");
+                if (s.length() > 0) {
+                    DecimalFormat sdd = new DecimalFormat("#,###");
+                    Double doubleNumber = Double.parseDouble(s);
+
+                    String format = sdd.format(doubleNumber);
+                    edtCurrency.setText(format);
+                    edtCurrency.setSelection(format.length());
+
                 }
-                if (str.length() == 9 && len < str.length())
-                {//len check for backspace
-                    edtDestination.append("-");
-                }
-                if (str.length() == 14 && len < str.length())
-                {//len check for backspace
-                    edtDestination.append("-");
-                }
+                edtCurrency.addTextChangedListener(this);
             }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
             {
 
-                String str = edtDestination.getText().toString();
-                len = str.length();
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
+
             }
 
 
@@ -139,26 +147,38 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
     {
         switch (v.getId())
         {
-            case R.id.ivContact:
-                mainView.onContact();
+
+            case R.id.btnGetMoney:
+                if(edtCurrency.getText().toString().length()>3){
+                    if( !edtShabaNum.getText().toString().contains("_")){
+                        sendRequest();
+
+                    }else {
+                        mainView.showError("لطفا شماره شبا را وارد کنید.");
+
+                    }
+                }else{
+                    mainView.showError("لطفا مبلغ را وارد کنید.");
+                }
                 break;
-        /*case R.id.etAmount:
-            // sendRequest();
-            break;*/
+            case R.id.btnBackStep:
+                mainView.backToMainFragment();
+                break;
         }
     }
 
     private void sendRequest()
     {
         mainView.showLoading();
-        RequestIncreaseWallet request = new RequestIncreaseWallet();
-        request.setAmount(Integer.parseInt(edtDestination.getText().toString()));
-        SingletonService.getInstance().getBalancePasswordLessService().IncreaseInventoryWalletService(new OnServiceStatus<WebServiceClass<ResponseIncreaseWallet>>()
+        WithdrawWalletRequest request = new WithdrawWalletRequest();
+        request.setAmount(Integer.parseInt(edtCurrency.getText().toString().replaceAll(",","")));
+        request.setSheba_number(edtShabaNum.getText().toString().replaceAll("-","").replaceAll(" ",""));
+        SingletonService.getInstance().withdrawWalletService().WithdrawWalletService(new OnServiceStatus<WebServiceClass<WithdrawWalletResponse>>()
         {
 
 
             @Override
-            public void onReady(WebServiceClass<ResponseIncreaseWallet> response)
+            public void onReady(WebServiceClass<WithdrawWalletResponse> response)
             {
                 mainView.hideLoading();
 
@@ -166,8 +186,8 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                 {
                     if (response.info.statusCode == 200)
                     {
-                        openURL(response.data);
-
+                        showAlert(getActivity(), response.info.message, 0);
+                        clearEditText();
                     } else
                     {
 
@@ -194,6 +214,12 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
 
             }
         }, request);
+    }
+
+    private void clearEditText()
+    {
+        edtShabaNum.setText("");
+        edtCurrency.setText("");
     }
 
 

@@ -63,6 +63,7 @@ public class Const
     //wallet
     public final static String GetInfoWallet = SubBASEURL + "v1/shetac/get_info/";
     public final static String IncreaseInventoryWallet = SubBASEURL + "v1/shetac/increase_inventory_ipg/";
+    public final static String Get_Withdraw_Wallet = SubBASEURL + "v1/shetac/withdraw/";
 
 
     //card

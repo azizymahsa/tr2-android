@@ -111,4 +111,5 @@ values-sw480dp          5.1”  480x800 mdpi -->
     <dimen name="mdtp_material_button_textpadding_horizontal">8dp</dimen>
     <dimen name="_8dp">8dp</dimen>
     <dimen name="_56dp">56dp</dimen>
+    <dimen name="_300dp">400dp</dimen>
 </resources>

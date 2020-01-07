@@ -111,6 +111,8 @@ import com.traap.traapapp.apiServices.model.tourism.hotel.hotelPayment.request.G
 import com.traap.traapapp.apiServices.model.verify.VerifyRequest;
 import com.traap.traapapp.apiServices.model.verify.VerifyResponse;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
+import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletRequest;
+import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletResponse;
 
 import okhttp3.MultipartBody;
 import retrofit2.Response;
@@ -271,6 +273,9 @@ public interface RetroClient
     @POST(Const.BUY_CHARGE_WALLET)
     Single<Response<WebServiceClass<BuyChargeWalletResponse>>> buyChargeWallet(
             @Body BuyChargeWalletRequest request);
+    @POST(Const.Get_Withdraw_Wallet)
+    Single<Response<WebServiceClass<WithdrawWalletResponse>>> withdrawWallet(
+            @Body WithdrawWalletRequest request);
 
     @POST(Const.GET_Leage)
     Single<Response<WebServiceClass<ResponseLeage>>> getLeage(
