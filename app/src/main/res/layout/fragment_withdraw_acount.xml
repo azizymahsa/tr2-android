@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llRightelCharge"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_marginBottom="2dp"
+            android:padding="@dimen/_5dp"
+            android:layout_weight="100">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:singleLine="false"
+                    android:text="لطفا مبلغ مورد نظر خود برای نقد کردن را مشخص نمایید، با انجام این فرایند موجودی کیف پول شما به حساب مورد نظرتان منتقل می شود."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize_14dp" />
+
+
+
+
+</FrameLayout>
+
+
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            app:hintTextAppearance="@style/TextLabel"
+            android:layout_width="@dimen/_200dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:hint="مبلغ مورد نظر"
+            android:theme="@style/EditTextHint"
+            android:layout_marginStart="5dp">
+
+            <com.traap.traapapp.utilities.ClearableEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_weight="100"
+                android:maxLength="11"
+                android:textColor="@color/chargePackTextColor"
+                android:textSize="@dimen/textSize_14dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            app:hintTextAppearance="@style/TextLabel"
+            android:layout_width="@dimen/_200dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:hint="شماره شبا"
+            android:theme="@style/EditTextHint"
+            android:layout_marginStart="5dp">
+
+            <com.traap.traapapp.utilities.ClearableEditText
+                android:id="@+id/edtDestination"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:layout_gravity="start"
+                android:layout_weight="100"
+                android:backgroundTint="@color/black"
+                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                android:gravity="start"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="13"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/chargePackTextColor"
+                android:textSize="@dimen/textSize_14dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+    </LinearLayout>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="60" />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="100">
+
+            <include
+                android:id="@+id/btnBack"
+                layout="@layout/return_button" />
+
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100">
+
+            <include
+                android:id="@+id/btnChargeConfirmRightel"
+                layout="@layout/circular_progress_button_small" />
+
+        </FrameLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="60" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginEnd="@dimen/_10dp"
+        android:layout_marginStart="@dimen/_10dp"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="لازم بذکر است:"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_10dp" />
+
+        <ImageView
+            android:id="@+id/ivDec"
+            android:layout_width="@dimen/_20dp"
+            android:layout_height="match_parent"
+            android:tint="@color/red"
+            app:srcCompat="@drawable/ic_error_outline" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginEnd="@dimen/_10dp"
+        android:layout_marginStart="@dimen/_10dp"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="در طول هر ماه فقط یکبار می توانید موجودی کیف پول خود را نقد کنید."
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" - "
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10dp" />
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10dp"
+        android:layout_marginStart="@dimen/_10dp"
+
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="سقف برداشت از کیف پول 900,000 ریال می باشد."
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" - "
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10dp" />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

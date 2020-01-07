@@ -1,6 +1,8 @@
 package com.traap.traapapp.ui.fragments.gateWay;
 
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.core.view.ViewCompat;
+
+import com.google.android.material.textfield.TextInputLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -35,6 +40,9 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
     private LinearLayout llDetailDescriptionForgetPass, llChangePass;
     private TextView txtForgetPass, txtChangePass;
     private EditText edtTemNewPass, edtNewPass, edtOldPass;
+    private TextInputLayout inputLayout;
+    private TextInputLayout inputLayout2;
+    private TextInputLayout inputLayout3;
 
     public ManageWalletFragment()
     {
@@ -70,6 +78,14 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
     private void initView()
     {
 
+        inputLayout = rootView.findViewById(R.id.inputLayout);
+        inputLayout2 = rootView.findViewById(R.id.inputLayout2);
+        inputLayout3 = rootView.findViewById(R.id.inputLayout3);
+
+        ViewCompat.setLayoutDirection(inputLayout, ViewCompat.LAYOUT_DIRECTION_RTL);
+        ViewCompat.setLayoutDirection(inputLayout2, ViewCompat.LAYOUT_DIRECTION_RTL);
+        ViewCompat.setLayoutDirection(inputLayout3, ViewCompat.LAYOUT_DIRECTION_RTL);
+
         edtNewPass = rootView.findViewById(R.id.edtNewPass);
         edtOldPass = rootView.findViewById(R.id.edtOldPass);
         edtTemNewPass = rootView.findViewById(R.id.edtTemNewPass);
@@ -100,14 +116,38 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
         super.onDestroy();
     }
 
+    public void ShowHidePass(View view){
 
+      /*  if(view.getId()==R.id.edtOldPass){
+
+            if(edtOldPass.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                edtOldPass.setLe(R.drawable.hide_password);
+
+                //Show Password
+                edit_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else{
+                ((ImageView)(view)).setImageResource(R.drawable.show_password);
+
+                //Hide Password
+                edit_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+            }
+        }*/
+    }
     @Override
     public void onClick(View v)
     {
         switch (v.getId())
         {
 
-            case R.id.btnChangePass:
+            case R.id.edtOldPass:
+                //show
+             /*   edtOldPass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                //hide
+                edtOldPass.setTransformationMethod(PasswordTransformationMethod.getInstance());*/
+                break;
+                case R.id.btnChangePass:
                 if (llDetailDescriptionForgetPass.getVisibility() == View.VISIBLE)
                 {
                     requestForgetPassword();
