@@ -29,4 +29,4 @@
     android:paddingEnd="@dimen/_10dp"
     android:paddingStart="@dimen/_10dp"
     android:textColor="@color/black"
-    android:textSize="@dimen/textSize_16dp"/>
+    android:textSize="@dimen/textSize_12dp"/>

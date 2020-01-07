@@ -30,7 +30,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="100"
                 android:gravity="center|end"
                 android:orientation="vertical">
@@ -44,9 +44,9 @@
                     android:text="جهت انتقال وجه لطفا مبلغ مورد نظر و
  رمز دوم کیف پول خود را وارد نمایید."
                     android:textColor="@color/black"
-                    android:textSize="@dimen/textSize_14dp" />
+                    android:textSize="@dimen/textSize_12dp" />
 
-                
+
 
             </LinearLayout>
 
@@ -88,7 +88,7 @@
 
 
                 <ImageView
-                    android:id="@+id/ivContactM"
+                    android:id="@+id/ivContact"
                     android:src="@drawable/ic_phone_book"
                     android:layout_width="@dimen/_35dp"
                     android:layout_height="@dimen/_35dp"
@@ -114,8 +114,17 @@
                     android:textSize="@dimen/textSize_12dp"
                     android:textColor="@color/warmGray"
                     />
+                <Spinner
+                    android:id="@+id/spinnerType"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:tag="allBox"
+                    android:background="@drawable/background_spinner_amount_charge" />
+<!--
                 <AutoCompleteTextView
-                    android:id="@+id/autoCompletePhoneNumberMci"
+                    android:id="@+id/autoCompletePhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35dp"
                     android:layout_gravity="center"
@@ -127,57 +136,7 @@
                     android:textSize="@dimen/textSize_16dp"
                     android:background="@drawable/background_spinner_amount_charge"
                     />
-                <!-- <com.google.android.material.textfield.TextInputLayout
-                     app:hintTextAppearance="@style/TextLabel"
-                     android:id="@+id/tilMMci"
-                     android:layout_width="match_parent"
-                     android:layout_height="@dimen/_60sdp"
-                     android:layout_gravity="center|end"
-                     android:hint="شماره موبایل"
-                     android:theme="@style/EditTextHint">
-
-                     <com.traap.traapapp.utilities.ClearableEditText
-                         android:id="@+id/etMCINumber"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:layout_weight="100"
-                         android:maxLength="11"
-                         android:backgroundTint="@color/black"
-                         android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                         android:gravity="end|center"
-                         android:imeOptions="actionNext"
-                         android:inputType="number"
-                         android:maxLines="1"
-                         android:singleLine="true"
-                         android:textColor="@color/chargePackTextColor"
-                         android:textSize="@dimen/textSize_16dp" />
-
-                 </com.google.android.material.textfield.TextInputLayout>-->
-
-                <!--       <com.google.android.material.textfield.TextInputLayout
-                           app:hintTextAppearance="@style/TextLabel"
-                           android:layout_width="match_parent"
-                           android:layout_height="@dimen/_60sdp"
-                           android:layout_gravity="center|end"
-                           android:hint="مبلغ (ریال)"
-                           android:theme="@style/EditTextHint">
-
-                           <com.traap.traapapp.utilities.ClearableEditText
-                               android:id="@+id/etMCIAmount"
-                               android:layout_width="match_parent"
-                               android:layout_height="wrap_content"
-                               android:layout_weight="100"
-                               android:backgroundTint="@color/black"
-                               android:digits="0,1,2,3,4,5,6,7,8,9,,"
-                               android:gravity="end|center"
-                               android:imeOptions="actionDone"
-                               android:inputType="number"
-                               android:maxLines="1"
-                               android:singleLine="true"
-                               android:textColor="@color/chargePackTextColor"
-                               android:textSize="@dimen/textSize_16dp"/>
-
-                       </com.google.android.material.textfield.TextInputLayout>-->
+-->
 
             </LinearLayout>
 
@@ -231,7 +190,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_16dp" />
+                android:textSize="@dimen/textSize_12dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -241,6 +200,56 @@
             android:layout_weight="20" />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            app:hintTextAppearance="@style/TextLabel"
+            android:layout_width="@dimen/_200dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:hint="رمز"
+            android:theme="@style/EditTextHint"
+            android:layout_marginStart="5dp">
+
+            <com.traap.traapapp.utilities.ClearableEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:imeOptions="actionDone"
+                android:inputType="numberPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_weight="100"
+                android:maxLength="10"
+                android:textColor="@color/chargePackTextColor"
+                android:textSize="@dimen/textSize_12dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -280,7 +289,7 @@
                 android:layout_weight="100"
                 android:maxLength="11"
                 android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_16dp" />
+                android:textSize="@dimen/textSize_12dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -329,7 +338,7 @@
                 android:layout_weight="100"
                 android:maxLength="11"
                 android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_16dp" />
+                android:textSize="@dimen/textSize_12dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -7,6 +7,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -22,6 +27,12 @@ import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * Created by MahsaAzizi on 28/12/2019.
  */
@@ -32,7 +43,10 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     private View rootView, btnChargeConfirmRightel;
     private MainActionView mainView;
     private ClearableEditText edtDestination;
-
+    private ImageView ivContact;
+    private Spinner spinnerType;
+    private String[] ListType = {"کدمشتری", "شماره کارت", "شماره موبایل"};
+    private String strType="";
 
     public MoneyTransferFragment()
     {
@@ -61,11 +75,19 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         initView();
 
 
+        onGetBoutForSuccess();
+
+
         return rootView;
     }
 
     private void initView()
     {
+
+        spinnerType=rootView.findViewById(R.id.spinnerType);
+        ivContact=rootView.findViewById(R.id.ivContact);
+        ivContact.setOnClickListener(this);
+
         edtDestination = rootView.findViewById(R.id.edtDestination);
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(19);
@@ -73,37 +95,65 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
         btnChargeConfirmRightel = rootView.findViewById(R.id.btnChargeConfirmRightel);
         btnChargeConfirmRightel.setOnClickListener(this);
-        edtDestination.addTextChangedListener(new TextWatcher() {
-            int len=0;
+        edtDestination.addTextChangedListener(new TextWatcher()
+        {
+            int len = 0;
+
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 String str = edtDestination.getText().toString();
-                if(str.length()==4&& len <str.length()){//len check for backspace
+                if (str.length() == 4 && len < str.length())
+                {//len check for backspace
                     edtDestination.append("-");
                 }
-                if(str.length()==9&& len <str.length()){//len check for backspace
+                if (str.length() == 9 && len < str.length())
+                {//len check for backspace
                     edtDestination.append("-");
                 }
-                if(str.length()==14&& len <str.length()){//len check for backspace
+                if (str.length() == 14 && len < str.length())
+                {//len check for backspace
                     edtDestination.append("-");
                 }
             }
 
             @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
+            {
 
                 String str = edtDestination.getText().toString();
                 len = str.length();
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
             }
 
 
         });
     }
+    private void onGetBoutForSuccess()
+    {
+        ArrayAdapter<String> adapterAmount = new ArrayAdapter<String>(getActivity(),
+                R.layout.simple_spinner_item, ListType);
+        adapterAmount.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinnerType.setAdapter(adapterAmount);
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
 
+                strType = adapterAmount.getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+    }
     @Subscribe
     public void getHeaderContent(HeaderModel headerModel)
     {
@@ -123,14 +173,9 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     {
         switch (v.getId())
         {
-           /* case R.id.btnChargeConfirmRightel:
-                if (etAmount.getText().toString().length() > 0)
-                    sendRequest();
-                else
-                    mainView.showError("لطفا مبلغ را وارد کنید.");
-                // showAlert(getActivity(), "لطفا مبلغ را وارد کنید.", 0);
-
-                break;*/
+            case R.id.ivContact:
+                mainView.onContact();
+                break;
         /*case R.id.etAmount:
             // sendRequest();
             break;*/
