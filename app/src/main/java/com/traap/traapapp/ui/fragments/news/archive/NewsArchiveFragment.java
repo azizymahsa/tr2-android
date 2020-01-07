@@ -262,6 +262,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     {
                         Logger.e("getFilterId", "Empty, " + idFilteredList);
                         llDeleteFilter.setVisibility(View.GONE);
+                        filteredCategoryList = new ArrayList<>();
                     }
                     if (filteredCategoryList.isEmpty())
                     {
@@ -296,11 +297,10 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 .subscribe(v ->
                 {
                     slidingUpPanelLayout.setPanelState(PanelState.COLLAPSED);
-                    if (getFilterAvailable())
-                    {
-                        createItemFilterData();
-                    }
-                    else
+
+                    createItemFilterData();
+
+                    if (!getFilterAvailable())
                     {
                         resetAll();
                     }
@@ -314,6 +314,10 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     {
                         if (edtSearchText.getText().toString().trim().length() > 2)
                         {
+                            titleFilteredList += "جستجو" + ",";
+                            llFilterHashTag.setVisibility(View.VISIBLE);
+                            setHashTag();
+
                             pagerWithFilter = true;
 
                             rootView.findViewById(R.id.tabLayout).setVisibility(View.GONE);
@@ -325,6 +329,30 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                         else
                         {
                             showError(getActivity(), "تعداد کاراکترهای جستجو کافی نیست!");
+                        }
+                    }
+                    else
+                    {
+                        if (getFilterAvailable())
+                        {
+                            if (titleFilteredList.trim().length() > 0 && titleFilteredList.contains("جستجو" + ","))
+                            {
+                                titleFilteredList = titleFilteredList.substring(0, titleFilteredList.indexOf("جستجو" + ","));
+                                Logger.e("-titleFilteredList-", titleFilteredList);
+                                setHashTag();
+
+                                pagerWithFilter = true;
+
+                                rootView.findViewById(R.id.tabLayout).setVisibility(View.GONE);
+                                rootView.findViewById(R.id.separatorTop).setVisibility(View.GONE);
+                                rootView.findViewById(R.id.separatorBottom).setVisibility(View.GONE);
+
+                                setPager(true, false);
+                            }
+                        }
+                        else
+                        {
+                            resetAll();
                         }
                     }
                 })
@@ -498,6 +526,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         {
             isAvailable = false;
         }
+        Logger.e("isFilterAvailable", String.valueOf(isAvailable));
 
         return isAvailable;
     }
@@ -564,20 +593,17 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                                 titleFilteredList += "تاریخ" + ",";
                             }
 
+                            if (!edtSearchText.getText().toString().equalsIgnoreCase(""))
+                            {
+                                titleFilteredList += "جستجو" + ",";
+                            }
+
                             pagerWithFilter = true;
                             llDeleteFilter.setVisibility(View.VISIBLE);
                             llFilterHashTag.setVisibility(View.VISIBLE);
                             edtSearchFilter.setText("");
 
-                            String[] hashTag = titleFilteredList.substring(0, titleFilteredList.length()-1).split(",");
-                            List<String> values = new ArrayList<>();
-                            for (String item: hashTag)
-                            {
-                                values.add("#" + item);
-                            }
-//                            adapterHashTag = new ArrayAdapter<String>(getActivity(), R.layout.adapter_filter_hashtag_item, values);
-                            adapterHashTag = new HashTagMediaAdapter(values);
-                            rcHashTag.setAdapter(adapterHashTag);
+                            setHashTag();
 
                             pagerWithFilter = true;
                             setPager(true, false);
@@ -592,6 +618,19 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     }
                 })
         );
+    }
+
+    private void setHashTag()
+    {
+        String[] hashTag = titleFilteredList.substring(0, titleFilteredList.length()-1).split(",");
+        List<String> values = new ArrayList<>();
+        for (String item: hashTag)
+        {
+            values.add("#" + item);
+        }
+//                            adapterHashTag = new ArrayAdapter<String>(getActivity(), R.layout.adapter_filter_hashtag_item, values);
+        adapterHashTag = new HashTagMediaAdapter(values);
+        rcHashTag.setAdapter(adapterHashTag);
     }
 
     private Observable<FilterItem> getNewsArchiveCategoryObservable(final CharSequence sequence)

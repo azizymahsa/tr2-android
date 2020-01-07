@@ -872,7 +872,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     @Override
                     public void onError()
                     {
-
+                        Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
                     }
                 });
             }
