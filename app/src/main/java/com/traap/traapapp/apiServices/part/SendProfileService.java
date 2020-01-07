@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.profile.deleteProfile.DeleteProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 
@@ -38,6 +39,11 @@ public class SendProfileService extends BasePart
                                    OnServiceStatus<WebServiceClass<Object>> listener)
     {
         start(getServiceGenerator().createService().sendProfilePhoto(ImageFile), listener);
+    }
+
+    public void deleteProfilePhoto(OnServiceStatus<WebServiceClass<DeleteProfileResponse>> listener)
+    {
+        start(getServiceGenerator().createService().deleteProfilePhoto(), listener);
     }
 
 }

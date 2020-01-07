@@ -94,6 +94,7 @@ import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
+import com.traap.traapapp.apiServices.model.profile.deleteProfile.DeleteProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
@@ -556,6 +557,9 @@ public interface RetroClient
     Single<Response<WebServiceClass<Object>>> sendProfilePhoto(
             @Part MultipartBody.Part ImageFile
     );
+
+    @DELETE(Const.DELETE_PROFILE_PHOTO)
+    Single<Response<WebServiceClass<DeleteProfileResponse>>> deleteProfilePhoto();
 
     @GET(Const.Get_NEWS_ARCHIVE_CATEGORY)
     Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getNewsArchiveCategory();

@@ -133,6 +133,7 @@ public class Const
     public final static String PUT_PROFILE = SubBASEURL + "v1/user/profile/";
     public final static String GET_Invite = SubBASEURL + "v1/user/share_text_invite_friend/";
     public final static String SEND_PROFILE_PHOTO = SubBASEURL + "v1/user/profile/photo/";
+    public final static String DELETE_PROFILE_PHOTO = SubBASEURL + "v1/user/profile/delete_photo/";
 
     //Transaction
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
