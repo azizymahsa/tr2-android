@@ -2109,6 +2109,9 @@ public class PackFragment
 
             }
 
+            closeAutoComplete();
+
+
         } catch (Exception e)
         {
         }

@@ -23,6 +23,9 @@ public class TransactionDetailResponse
     @SerializedName("code_payment")
     @Expose
     private Object codePayment;
+    @SerializedName("type_payment")
+    @Expose
+    private String typePayment;
     @SerializedName("type_transaction")
     @Expose
     private String typeTransaction;
@@ -58,6 +61,16 @@ public class TransactionDetailResponse
     public void setCreate_date_formatted(String create_date_formatted)
     {
         this.create_date_formatted = create_date_formatted;
+    }
+
+    public String getTypePayment()
+    {
+        return typePayment;
+    }
+
+    public void setTypePayment(String typePayment)
+    {
+        this.typePayment = typePayment;
     }
 
     public Integer getId() {
