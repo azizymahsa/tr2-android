@@ -78,13 +78,16 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
     private RelativeLayout rlArrowLeft, rlArrowRight;
 
-    private LinearLayoutManager favLayoutManager;;
+    private LinearLayoutManager favLayoutManager;
+    ;
     private RecyclerView favRecyclerView;
     private ScrollingPagerIndicator indicator;
 
     private BannerLayout bNewestNews;
 
-    public NewsMainContentFragment() { }
+    public NewsMainContentFragment()
+    {
+    }
 
     public static NewsMainContentFragment newInstance(SubMediaParent parent, NewsMainResponse newsMainResponse, NewsActionView mainView)
     {
@@ -133,7 +136,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
             if (parent == SubMediaParent.MediaFragment)
             {
-                Logger.e("-categoriesList size-", "size: " +  categoriesList.size());
+                Logger.e("-categoriesList size-", "size: " + categoriesList.size());
                 Collections.reverse(categoriesList);
             }
 
@@ -235,7 +238,6 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     }
 
 
-
     @Override
     public void onReady(WebServiceClass<NewsMainResponse> response)
     {
@@ -288,7 +290,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         newestNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
             List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
-            for (int i = 0 ; i < latestNewsList.size(); i++)
+            for (int i = 0; i < latestNewsList.size(); i++)
             {
                 MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
                 model.setId(latestNewsList.get(i).getId());
@@ -317,7 +319,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         favNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
             List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
-            for (int i = 0 ; i < favoriteNewsList.size(); i++)
+            for (int i = 0; i < favoriteNewsList.size(); i++)
             {
                 MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
                 model.setId(favoriteNewsList.get(i).getId());
@@ -403,7 +405,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             tab.setCustomView(adapter.getTabView(i));
         }
 
-        pager.setCurrentItem(categoriesList.size()-1);
+        pager.setCurrentItem(categoriesList.size() - 1);
     }
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
@@ -430,8 +432,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         public Fragment getItem(int position)
         {
 //            Collections.reverse(categoriesList);
-            int Id =  categoriesList.get(position).getId();
-            Logger.e("-getNews " + position +" size-", categoriesList.get(position).getTitle() + " size: " +  categoriesList.get(position).getNews().size());
+            int Id = categoriesList.get(position).getId();
+            Logger.e("-getNews " + position + " size-", categoriesList.get(position).getTitle() + " size: " + categoriesList.get(position).getNews().size());
 
             return NewsArchiveCategoryFragment.newInstance("",
                     MediaArchiveCategoryCall.FROM_SINGLE_CONTENT,

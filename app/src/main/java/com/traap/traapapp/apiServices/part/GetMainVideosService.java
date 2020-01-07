@@ -22,7 +22,7 @@ public class GetMainVideosService extends BasePart
         return this;
     }
 
-    public void getMainVideos(OnServiceStatus<WebServiceClass<MainVideosResponse>> listener, MainVideoRequest request)
+    public void getMainVideos(OnServiceStatus<WebServiceClass<MainVideosResponse>> listener)
     {
         start(getServiceGenerator().createService().getMainVideos(), listener);
     }

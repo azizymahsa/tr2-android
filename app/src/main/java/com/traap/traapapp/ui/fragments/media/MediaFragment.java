@@ -181,7 +181,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
                 {
                     myMediaType = MediaPosition.VideoGallery.ordinal();
 
-                    fragment = VideosFragment.newInstance(this);
+                    fragment = VideosFragment.newInstance(SubMediaParent.MediaFragment, this);
                     transaction = fragmentManager.beginTransaction();
 
                     transaction.replace(R.id.main_container, fragment, "videosFragment")
@@ -240,7 +240,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
                 {
                     myMediaType = MediaPosition.VideoGallery.ordinal();
 
-                    fragment = VideosFragment.newInstance(this);
+                    fragment = VideosFragment.newInstance(SubMediaParent.MediaFragment, this);
                     transaction = fragmentManager.beginTransaction();
 
                     transaction.replace(R.id.main_container, fragment, "videosFragment")

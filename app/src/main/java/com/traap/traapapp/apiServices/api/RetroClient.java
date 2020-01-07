@@ -191,7 +191,6 @@ public interface RetroClient
             @Path("id") Integer categoryId
     );
 
-
     @GET(Const.List_Bookmark_Photo)
     Single<Response<WebServiceClass<PhotoArchiveResponse>>> getListBookmarkPhotos();
 

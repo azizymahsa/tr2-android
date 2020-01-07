@@ -1244,6 +1244,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private void openMainNewsFragment()
     {
+        isMainFragment = false;
         fragment = NewsMainFragment.newInstance(new NewsMainActionView()
         {
             @Override
@@ -1649,7 +1650,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void backToMainVideosFragment()
             {
-
+                onMainVideoClick();
             }
 
             @Override
@@ -1713,13 +1714,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void backToMainVideosFragment()
             {
-
+                onMainVideoClick();
             }
 
             @Override
             public void onVideosArchiveFragment(SubMediaParent parent)
             {
-
+                onMainVideoClick();
             }
 
             @Override
