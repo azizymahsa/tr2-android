@@ -105,13 +105,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
                         intent.putExtra("RefrenceNumber", item.getId().toString());
                         intent.putExtra("isTransactionList", true);
                         mContext.startActivity(intent);
-                    }else {
-                        Intent intent = new Intent(mContext, PaymentResultActivity.class);
-                        intent.putExtra("RefrenceNumber", item.getId().toString());
-                        // intent.putExtra("StatusPayment", item.getStatus());
-                        mContext.startActivity(intent);
-                    }
-                }else if (item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_ChargeSimCard||
+                    } else if (item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_ChargeSimCard||
                         item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_PackSimCard){
 
                     Intent intent = new Intent(mContext, PaymentResultChargeActivity.class);
@@ -119,6 +113,20 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
                    // intent.putExtra("StatusPayment", item.getStatus());
                     mContext.startActivity(intent);
                 }else {
+                    Intent intent = new Intent(mContext, PaymentResultActivity.class);
+                    intent.putExtra("RefrenceNumber", item.getId().toString());
+                    // intent.putExtra("StatusPayment", item.getStatus());
+                    mContext.startActivity(intent);
+                }
+            }else if (item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_ChargeSimCard||
+                        item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_PackSimCard)
+                {
+
+                    Intent intent = new Intent(mContext, PaymentResultChargeActivity.class);
+                    intent.putExtra("RefrenceNumber", item.getId().toString());
+                    // intent.putExtra("StatusPayment", item.getStatus());
+                    mContext.startActivity(intent);
+                }else  {
                     Intent intent = new Intent(mContext, PaymentResultActivity.class);
                     intent.putExtra("RefrenceNumber", item.getId().toString());
                     // intent.putExtra("StatusPayment", item.getStatus());
