@@ -29,7 +29,8 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
-public class VideoArchiveActivity extends BaseActivity implements VideosCategoryTitleAdapter.TitleCategoryListener, VideosArchiveAdapter.ArchiveVideoListener
+public class VideoArchiveActivity extends BaseActivity implements VideosCategoryTitleAdapter.TitleCategoryListener,
+        VideosArchiveAdapter.ArchiveVideoListener
 {
 
     private TextView tvTitle, tvUserName, tvPopularPlayer;
@@ -78,8 +79,6 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
 
     private void requestBookMarkVideos()
     {
-        ArchiveVideoRequest request = new ArchiveVideoRequest();
-
         SingletonService.getInstance().getArchiveVideoService().getBookMarkVideo(new OnServiceStatus<WebServiceClass<ArchiveVideoResponse>>()
         {
             @Override
@@ -114,19 +113,19 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
-                } else
+                }
+                else
                 {
                     showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
                 }
             }
-        }, request);
+        });
     }
 
     private void requestArchiveVideo(int position)
     {
-        ArchiveVideoRequest request = new ArchiveVideoRequest();
-
-        SingletonService.getInstance().getArchiveVideoService().getArchiveVideo(new OnServiceStatus<WebServiceClass<ArchiveVideoResponse>>()
+        SingletonService.getInstance().getArchiveVideoService().getArchiveVideo(String.valueOf(categoryTitleList.get(position).getId()),
+                new OnServiceStatus<WebServiceClass<ArchiveVideoResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<ArchiveVideoResponse> response)
@@ -155,7 +154,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
             public void onError(String message)
             {
                 // mainView.hideLoading();
-                if (!Tools.isNetworkAvailable(VideoArchiveActivity.this))
+                if (Tools.isNetworkAvailable(VideoArchiveActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
@@ -164,7 +163,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
                     showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
                 }
             }
-        }, request, categoryTitleList.get(position).getId());
+        });
     }
 
     private void onGetArchiveVideoSuccess(ArchiveVideoResponse data)

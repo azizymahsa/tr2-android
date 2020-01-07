@@ -23,7 +23,6 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
  */
 public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapter.ViewHolder>
 {
-    private final MainActionView mainView;
     private Context context;
     private List<Category> recent;
     private NewestVideoListener listener;
@@ -32,10 +31,9 @@ public class NewestVideosAdapter extends RecyclerView.Adapter<NewestVideosAdapte
 
 
 
-    public NewestVideosAdapter(List<Category> recent, MainActionView mainView,NewestVideoListener listener)
+    public NewestVideosAdapter(List<Category> recent,NewestVideoListener listener)
     {
         this.recent=recent;
-        this.mainView=mainView;
         this.listener=listener;
     }
 

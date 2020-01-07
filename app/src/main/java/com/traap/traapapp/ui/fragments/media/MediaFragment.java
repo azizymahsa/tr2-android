@@ -34,6 +34,7 @@ import com.traap.traapapp.ui.fragments.news.NewsActionView;
 import com.traap.traapapp.ui.fragments.photo.PhotosActionView;
 import com.traap.traapapp.ui.fragments.photo.PhotosFragment;
 import com.traap.traapapp.ui.fragments.news.mainNews.NewsMainContentFragment;
+import com.traap.traapapp.ui.fragments.videos.VideosActionView;
 import com.traap.traapapp.ui.fragments.videos.VideosFragment;
 import com.traap.traapapp.utilities.Logger;
 
@@ -42,7 +43,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 
 @SuppressLint("ValidFragment")
-public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAllMenuClickListener, NewsActionView, PhotosActionView
+public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAllMenuClickListener,
+        NewsActionView, PhotosActionView, VideosActionView
 {
     private View rootView;
     private MainActionView mainView;
@@ -179,7 +181,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
                 {
                     myMediaType = MediaPosition.VideoGallery.ordinal();
 
-                    fragment = VideosFragment.newInstance(mainView);
+                    fragment = VideosFragment.newInstance(SubMediaParent.MediaFragment, this);
                     transaction = fragmentManager.beginTransaction();
 
                     transaction.replace(R.id.main_container, fragment, "videosFragment")
@@ -238,7 +240,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
                 {
                     myMediaType = MediaPosition.VideoGallery.ordinal();
 
-                    fragment = VideosFragment.newInstance(mainView);
+                    fragment = VideosFragment.newInstance(SubMediaParent.MediaFragment, this);
                     transaction = fragmentManager.beginTransaction();
 
                     transaction.replace(R.id.main_container, fragment, "videosFragment")
@@ -338,4 +340,28 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     {
 
     }
+
+    @Override
+    public void backToMainVideosFragment()
+    {}
+
+    @Override
+    public void onVideosArchiveFragment(SubMediaParent parent)
+    {
+        mainView.onVideosArchiveClick(parent, MediaPosition.VideoGallery);
+    }
+
+    @Override
+    public void onVideosFavoriteFragment(SubMediaParent parent)
+    {
+        mainView.onVideosFavoriteClick(parent, MediaPosition.VideoGallery);
+    }
+
+    @Override
+    public void openDrawerVideos()
+    { }
+
+    @Override
+    public void closeDrawerVideos()
+    { }
 }

@@ -5,7 +5,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoRequest;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
-import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
+import com.traap.traapapp.apiServices.model.news.archive.NewsArchiveListByIdResponse;
 
 /**
  * Created by MahtabAzizi on 11/27/2019.
@@ -23,12 +23,26 @@ public class ArchiveVideoService extends BasePart
         return this;
     }
 
-    public void getArchiveVideo(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, ArchiveVideoRequest request,int categoryId)
+    public void getArchiveVideo(String categoryId, OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener)
     {
-        start(getServiceGenerator().createService().getArchiveVideos(categoryId), listener);
+        start(getServiceGenerator().createService().getVideosArchive(categoryId), listener);
     }
 
-    public void getBookMarkVideo(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener, ArchiveVideoRequest request)
+    public void getVideosArchiveCategoryByIds(String categoryIds,
+                                            String dateFrom,
+                                            String dateTo,
+                                            String searchText,
+                                            OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getVideosArchiveCategoryByIds(
+                categoryIds,
+                dateFrom,
+                dateTo,
+                searchText
+        ), listener);
+    }
+
+    public void getBookMarkVideo(OnServiceStatus<WebServiceClass<ArchiveVideoResponse>> listener)
     {
         start(getServiceGenerator().createService().getListBookmarkVideos(), listener);
     }
