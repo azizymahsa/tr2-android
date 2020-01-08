@@ -17,8 +17,11 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletRequest;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletResponse;
+import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.dialogs.WalletWithdrawAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Utility;
@@ -151,7 +154,28 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
             case R.id.btnGetMoney:
                 if(edtCurrency.getText().toString().length()>3){
                     if( !edtShabaNum.getText().toString().contains("_")){
-                        sendRequest();
+                        String txtAmountDigit=" مبلغ "+edtCurrency.getText().toString()+" ریال ";
+                        String txtAmountChar="";
+                        String txtNumberShaba=edtShabaNum.getText().toString()+" به شماره شبا ";
+                        String txtName= "";
+
+                        WalletWithdrawAlertDialog dialog = new WalletWithdrawAlertDialog(getActivity(), "تایید برداشت از کیف پول", "از : کارت کیف پول "+TrapConfig.HEADER_USER_NAME, true,
+                                new WalletWithdrawAlertDialog.OnConfirmListener()
+                                {
+                                    @Override
+                                    public void onConfirmClick()
+                                    {
+                                        sendRequest();
+
+                                    }
+
+                                    @Override
+                                    public void onCancelClick()
+                                    {
+                                        mainView.backToMainFragment();
+                                    }
+                                },txtAmountDigit,txtAmountChar,txtNumberShaba,txtName);
+                        dialog.show((getActivity()).getFragmentManager(), "dialog");
 
                     }else {
                         mainView.showError("لطفا شماره شبا را وارد کنید.");
