@@ -1,15 +1,16 @@
 package com.traap.traapapp.ui.fragments.transaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import io.reactivex.disposables.CompositeDisposable;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
@@ -36,6 +38,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
+import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
 import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -48,17 +51,34 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 
-public class TransactionsListFragment
-        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, DatePickerDialog.OnDateSetListener//, OnBackPressed
+public class TransactionsListFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
+        DatePickerDialog.OnDateSetListener//, OnBackPressed
 {
+
+    private CompositeDisposable disposable = new CompositeDisposable();
+    private final int DELAY_TIME_TEXT_CHANGE = 200;
+
+    private RecyclerView rcHashTag;
+    private HashTagMediaAdapter adapterHashTag;
+
+    private String filterStartDate = "", filterEndDate = "";
+
+    private String idFilteredList = "", titleFilteredList = "";
+
+
+
+
+
     private String teamId = "";
     private View rootView;
-    private SlidingUpPanelLayout upPanelLayout;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
     private MainActionView mainView;
 
+    private Context context;
+
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName,tvPopularPlayer,tvCount, tvHeaderPopularNo;
-    private View imgBack, imgMenu,rlShirt;
+    private TextView tvTitle, tvUserName, tvCount, tvHeaderPopularNo;
+    private View imgBack, imgMenu, rlShirt;
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
@@ -66,18 +86,17 @@ public class TransactionsListFragment
     private TransactionListAdapter fixTableAdapter;
     private RecyclerView rvCategories;
     private View btnConfirm;
-    private CheckBox cbSuccessPayment,cbFailedPayment;
-    private TextView etTimeUntil,etTimeFrom;
-    private ImageView imgTimeFromReset,imgTimeUntilReset;
+    private TextView etTimeUntil, etTimeFrom;
+    private ImageView imgTimeFromReset, imgTimeUntilReset;
 
     private PersianCalendar currentDate;
 
     private DatePickerDialog pickerDialogDate;
-    private View rlTimeUntil,rlTimeFrom;
-    Integer amountRange=null;
-    Boolean status=null;
-    Integer typeTransactionId=null;
-    String createDateRange=null;
+    private View rlTimeUntil, rlTimeFrom;
+    Integer amountRange = null;
+    Boolean status = null;
+    Integer typeTransactionId = null;
+    String createDateRange = null;
 
 
     public TransactionsListFragment()
@@ -89,7 +108,6 @@ public class TransactionsListFragment
         TransactionsListFragment f = new TransactionsListFragment();
 
         Bundle args = new Bundle();
-
         f.setArguments(args);
         f.setMainView(mainView);
         return f;
@@ -98,6 +116,13 @@ public class TransactionsListFragment
     private void setMainView(MainActionView mainView)
     {
         this.mainView = mainView;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -115,26 +140,24 @@ public class TransactionsListFragment
     {
         try
         {
-            upPanelLayout = rootView.findViewById(R.id.slidingLayout);
+            slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
 
-            cbSuccessPayment=rootView.findViewById(R.id.cbSuccessPayment);
-            cbFailedPayment=rootView.findViewById(R.id.cbFailedPayment);
 
-            rlTimeUntil=rootView.findViewById(R.id.rlTimeUntil);
-            rlTimeFrom=rootView.findViewById(R.id.rlTimeFrom);
+            rlTimeUntil = rootView.findViewById(R.id.rlTimeUntil);
+            rlTimeFrom = rootView.findViewById(R.id.rlTimeFrom);
             rlTimeFrom.setOnClickListener(this);
             rlTimeUntil.setOnClickListener(this);
 
-            imgTimeFromReset=rootView.findViewById(R.id.imgTimeFromReset);
-            imgTimeUntilReset=rootView.findViewById(R.id.imgTimeUntilReset);
+            imgTimeFromReset = rootView.findViewById(R.id.imgTimeFromReset);
+            imgTimeUntilReset = rootView.findViewById(R.id.imgTimeUntilReset);
 
-            etTimeUntil=rootView.findViewById(R.id.etTimeUntil);
-            etTimeFrom=rootView.findViewById(R.id.etTimeFrom);
+            etTimeUntil = rootView.findViewById(R.id.etTimeUntil);
+            etTimeFrom = rootView.findViewById(R.id.etTimeFrom);
 
-            rvCategories=rootView.findViewById(R.id.rvCategories);
+            rvCategories = rootView.findViewById(R.id.rvCategories);
             rvCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-            btnConfirm=rootView.findViewById(R.id.btnConfirm);
+            btnConfirm = rootView.findViewById(R.id.btnConfirm);
             btnConfirm.setOnClickListener(this);
 
             transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
@@ -182,6 +205,7 @@ public class TransactionsListFragment
 
         }
     }
+
     private void initDate()
     {
         currentDate = new PersianCalendar();
@@ -192,13 +216,6 @@ public class TransactionsListFragment
                 currentDate.getPersianDay()
         );
         pickerDialogDate.setMaxDate(currentDate);
-    }
-    private void openFilterLayout()
-    {
-        upPanelLayout.setScrollableView(rvCategories);
-
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED), 100);
     }
 
     @Override
@@ -213,13 +230,12 @@ public class TransactionsListFragment
         rootView = inflater.inflate(R.layout.transaction_list_fragment, container, false);
         initView();
 
-        sendRequest(amountRange,status,typeTransactionId,createDateRange);
+        sendRequest(amountRange, status, typeTransactionId, createDateRange);
 
 
         EventBus.getDefault().register(this);
         return rootView;
     }
-
 
 
     private void sendRequest(Integer amountRange, Boolean status, Integer typeTransactionId, String createDateRange)
@@ -247,7 +263,7 @@ public class TransactionsListFragment
                     if (response.info.statusCode == 200)
                     {
 
-                        tvCount.setText(response.data.getResults().size()+ "مورد خرید بلیت یافت شد.");
+                        tvCount.setText(response.data.getResults().size() + "مورد خرید بلیت یافت شد.");
                         transactionRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
                         fixTableAdapter = new TransactionListAdapter(response.data.getResults(), getActivity());
                         //fixTableAdapter.setClickListener(this);
@@ -264,7 +280,7 @@ public class TransactionsListFragment
             @Override
             public void onError(String message)
             {
-              //  mainView.showError(message);
+                //  mainView.showError(message);
                 mainView.hideLoading();
                 if (Tools.isNetworkAvailable(getActivity()))
                 {
@@ -275,10 +291,8 @@ public class TransactionsListFragment
                     showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
                 }
             }
-        },null,null,null,null);
+        }, null, null, null, null);
     }
-
-
 
 
     @Override
@@ -353,12 +367,12 @@ public class TransactionsListFragment
                 break;
 
             case R.id.rlTimeFrom:
-                pickerDialogDate.show(getActivity().getSupportFragmentManager(),"TimeFrom");
+                pickerDialogDate.show(getActivity().getSupportFragmentManager(), "TimeFrom");
 
                 break;
 
             case R.id.rlTimeUntil:
-                pickerDialogDate.show(getActivity().getSupportFragmentManager(),"TimeUntil");
+                pickerDialogDate.show(getActivity().getSupportFragmentManager(), "TimeUntil");
 
                 break;
 
@@ -368,7 +382,7 @@ public class TransactionsListFragment
 
     private void hideFilterSlide()
     {
-        upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
     }
 
     @Override
@@ -384,8 +398,8 @@ public class TransactionsListFragment
             etTimeFrom.setText(createDate);
             imgTimeFromReset.setVisibility(View.VISIBLE);
 
-        }
-        else if (view.getTag().equals("TimeUntil")){
+        } else if (view.getTag().equals("TimeUntil"))
+        {
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
 
