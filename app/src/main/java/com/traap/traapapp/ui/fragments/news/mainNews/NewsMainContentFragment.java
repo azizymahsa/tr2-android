@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.news.mainNews;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -10,11 +11,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -63,6 +66,9 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private View rootView;
     private NewsActionView mainView;
 
+    private Context context;
+    private NestedScrollView nestedScrollView;
+
     private ScrollingPagerIndicator indicatorNewestNews;
 
     private NewsMainFavoriteAdapter favNewsAdapter;
@@ -78,13 +84,16 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
     private RelativeLayout rlArrowLeft, rlArrowRight;
 
-    private LinearLayoutManager favLayoutManager;;
+    private LinearLayoutManager favLayoutManager;
+    ;
     private RecyclerView favRecyclerView;
     private ScrollingPagerIndicator indicator;
 
     private BannerLayout bNewestNews;
 
-    public NewsMainContentFragment() { }
+    public NewsMainContentFragment()
+    {
+    }
 
     public static NewsMainContentFragment newInstance(SubMediaParent parent, NewsMainResponse newsMainResponse, NewsActionView mainView)
     {
@@ -111,6 +120,13 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     }
 
     @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -133,7 +149,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
             if (parent == SubMediaParent.MediaFragment)
             {
-                Logger.e("-categoriesList size-", "size: " +  categoriesList.size());
+                Logger.e("-categoriesList size-", "size: " + categoriesList.size());
                 Collections.reverse(categoriesList);
             }
 
@@ -159,6 +175,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
     private void initView(View rootView)
     {
+        nestedScrollView = rootView.findViewById(R.id.nested);
+
         rlArrowLeft = rootView.findViewById(R.id.rlArrowLeft);
         rlArrowRight = rootView.findViewById(R.id.rlArrowRight);
 
@@ -175,9 +193,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         favRecyclerView = rootView.findViewById(R.id.favRecyclerView);
         indicator = rootView.findViewById(R.id.indicator);
 
-//        indicatorNewestNews = rootView.findViewById(R.id.indicatorNewestNews);
         bNewestNews = rootView.findViewById(R.id.bNewestNews);
-//        bNewestNews.setAdapter();
 
         tvNewsArchive = rootView.findViewById(R.id.tvNewsArchive);
         tvNewsArchive.setOnClickListener(v ->
@@ -190,10 +206,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         {
             mainView.onNewsFavoriteFragment(parent);
         });
-
-
     }
-
 
     private void onSlideRight()
     {
@@ -234,8 +247,6 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 //        }
     }
 
-
-
     @Override
     public void onReady(WebServiceClass<NewsMainResponse> response)
     {
@@ -243,14 +254,14 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
         if (response == null || response.info == null)
         {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            startActivity(new Intent(context, LoginActivity.class));
             getActivity().finish();
 
             return;
         }
         if (response.info.statusCode != 200)
         {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            startActivity(new Intent(context, LoginActivity.class));
             getActivity().finish();
 
             return;
@@ -265,30 +276,19 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
             MainActivity.newsMainResponse = newsMainResponse;
 
-//            setSlider();
             setContent();
         }
     }
 
     private void setContent()
     {
-        newestNewsAdapter = new NewsMainNewestAdapter(getActivity(), latestNewsList);
-//        newestLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-//        newestRecyclerView.setLayoutManager(newestLayoutManager);
+        newestNewsAdapter = new NewsMainNewestAdapter(context, latestNewsList);
         bNewestNews.setAdapter(newestNewsAdapter);
-//        for (int i = 0; i < bNewestNews.getChildCount(); i++)
-//        {
-//            if (bNewestNews.getChildAt(i) instanceof RecyclerView)
-//            {
-//                RecyclerView recyclerView = (RecyclerView) bNewestNews.getChildAt(i);
-//                indicatorNewestNews.attachToRecyclerView(recyclerView);
-//            }
-//        }
 
         newestNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
             List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
-            for (int i = 0 ; i < latestNewsList.size(); i++)
+            for (int i = 0; i < latestNewsList.size(); i++)
             {
                 MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
                 model.setId(latestNewsList.get(i).getId());
@@ -297,27 +297,26 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
                 positionIdsList.add(model);
             }
 
-            Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+            Intent intent = new Intent(context, NewsDetailsActivity.class);
             intent.putExtra("currentId", id);
             intent.putExtra("currentPosition", position);
             intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
             startActivity(intent);
         });
 
-        favNewsAdapter = new NewsMainFavoriteAdapter(getActivity(), favoriteNewsList);
-        favLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        favNewsAdapter = new NewsMainFavoriteAdapter(context, favoriteNewsList);
+        favLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         favRecyclerView.setLayoutManager(favLayoutManager);
         favRecyclerView.setAdapter(favNewsAdapter);
         indicator.attachToRecyclerView(favRecyclerView);
 
-//        SnapHelper snapHelper = new StartSnapHelper();
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(favRecyclerView);
 
         favNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
             List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
-            for (int i = 0 ; i < favoriteNewsList.size(); i++)
+            for (int i = 0; i < favoriteNewsList.size(); i++)
             {
                 MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
                 model.setId(favoriteNewsList.get(i).getId());
@@ -326,7 +325,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
                 positionIdsList.add(model);
             }
 
-            Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+            Intent intent = new Intent(context, NewsDetailsActivity.class);
             intent.putExtra("currentId", id);
             intent.putExtra("currentPosition", position);
             intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
@@ -370,21 +369,34 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     {
         mainView.hideLoading();
 
-        if (Tools.isNetworkAvailable(getActivity()))
+        if (Tools.isNetworkAvailable((Activity) context))
         {
             Logger.e("-OnError-", "Error: " + message);
-            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+            showError(context, "خطا در دریافت اطلاعات از سرور!");
         } else
         {
-            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+            showAlert(context, R.string.networkErrorMessage, R.string.networkError);
         }
     }
 
     private void setPager()
     {
         Collections.reverse(categoriesList);
+        int pagerHeight = (int) (getResources().getDimension(R.dimen.margin_news_main_archive_pager) +
+                getResources().getDimension(R.dimen._80dp));
+
+        LinearLayout.LayoutParams params;
+        int height = 20;
+        if (!categoriesList.isEmpty())
+        {
+            height = pagerHeight * categoriesList.size() / 2;
+        }
+        params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
 
         MyCustomViewPager pager = rootView.findViewById(R.id.view_pager);
+        pager.setLayoutParams(params);
+//        nestedScrollView.scrollTo(pager.getScrollX(), pager.getScrollY() - height);
+
         SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), categoriesList);
 
         pager.setAdapter(adapter);
@@ -394,7 +406,6 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 //        }
 
         TabLayout tabLayout = rootView.findViewById(R.id.tabLayout);
-//        tabLayout.setSelectedTabIndicator(getResources().getDrawable());
         tabLayout.setupWithViewPager(pager);
 
         for (int i = 0; i < tabLayout.getTabCount(); i++)
@@ -403,7 +414,9 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             tab.setCustomView(adapter.getTabView(i));
         }
 
-        pager.setCurrentItem(categoriesList.size()-1);
+        pager.setCurrentItem(categoriesList.size() - 1);
+
+//        nestedScrollView.scrollBy(tabLayout.getScrollX(), tabLayout.getScrollY());
     }
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
@@ -430,8 +443,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         public Fragment getItem(int position)
         {
 //            Collections.reverse(categoriesList);
-            int Id =  categoriesList.get(position).getId();
-            Logger.e("-getNews " + position +" size-", categoriesList.get(position).getTitle() + " size: " +  categoriesList.get(position).getNews().size());
+            int Id = categoriesList.get(position).getId();
+            Logger.e("-getNews " + position + " size-", categoriesList.get(position).getTitle() + " size: " + categoriesList.get(position).getNews().size());
 
             return NewsArchiveCategoryFragment.newInstance("",
                     MediaArchiveCategoryCall.FROM_SINGLE_CONTENT,

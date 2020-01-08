@@ -6,6 +6,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoRequest;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
+import com.traap.traapapp.apiServices.model.news.archive.NewsArchiveListByIdResponse;
 import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
 
 /**
@@ -27,6 +28,20 @@ public class PhotoArchiveService extends BasePart
     public void getArchivePhoto( String category_id, OnServiceStatus<WebServiceClass<PhotoArchiveResponse>> listener)
     {
         start(getServiceGenerator().createService().getArchivePhotos(category_id), listener);
+    }
+
+    public void getArchivePhotoByIds(String categoryIds,
+                                            String dateFrom,
+                                            String dateTo,
+                                            String searchText,
+                                            OnServiceStatus<WebServiceClass<PhotoArchiveResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getArchivePhotosByIds(
+                categoryIds,
+                dateFrom,
+                dateTo,
+                searchText
+        ), listener);
     }
 
     public void getPhotosArchiveCategory(OnServiceStatus<WebServiceClass<MediaArchiveCategoryResponse>> listener)

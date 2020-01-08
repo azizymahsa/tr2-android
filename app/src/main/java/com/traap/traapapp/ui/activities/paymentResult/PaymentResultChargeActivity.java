@@ -13,6 +13,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -120,11 +121,21 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         }
 
         tvTitle.setText("رسید "+response.data.getTypeTransaction());
+        tvPayment.setText(response.data.getTypePayment());
         tvDate.setText(response.data.getCreate_date_formatted());
         tvAmount.setText("مبلغ: "+Utility.priceFormat(response.data.getAmount().toString())+" ریال" );
         tvPhoneNumber.setText("شماره موبایل: "+response.data.getDetailTransaction().getMobileNumber());
         tvRefrenceNumber.setText("کد پیگیری: "+response.data.getId());
-        //tvPackageTitle.setText(response.data.);
+        if (response.data.getDetailTransaction().getTitlePackage()!=null)
+        {
+            tvPackageTitle.setText(response.data.getDetailTransaction().getTitlePackage());
+            tvPackageTitle.setVisibility(View.VISIBLE);
+        }else {
+            tvPackageTitle.setVisibility(View.GONE);
+
+        }
+
+
     }
 
     public void showLoading()
@@ -148,11 +159,34 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
                 new ScreenShot(llResult, this);
                 break;
             case R.id.btnSaveResult:
-              //  MediaStore.Images.Media.insertImage(getContentResolver(), yourBitmap, yourTitle , yourDescription);
+                new ScreenShot(llResult, this,true);
+                showDialog();
                 break;
             case R.id.tvBackHome:
                 finish();
                 break;
         }
+    }
+
+    private void showDialog()
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(this, "", "رسید شما با موفقیت در گالری ذخیره شد.", false,
+                new MessageAlertDialog.OnConfirmListener()
+                {
+                    @Override
+                    public void onConfirmClick()
+                    {
+
+                    }
+
+                    @Override
+                    public void onCancelClick()
+                    {
+
+                    }
+                });
+
+        dialog.setCancelable(false);
+        dialog.show(getFragmentManager(), "messageDialog");
     }
 }

@@ -8,13 +8,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
-import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
-import com.traap.traapapp.ui.fragments.main.MainActionView;
 
 /**
  * Created by MahsaAzizi on 11/25/2019.
@@ -33,15 +30,6 @@ public class PhotosCategoryTitleAdapter extends RecyclerView.Adapter<PhotosCateg
         this.listener = listener;
         this.categories = categories;
     }
-
-
-    public PhotosCategoryTitleAdapter(ArrayList<ListCategory> categories, PhotoArchiveActivity mainView, boolean flag)
-    {
-        //  this.listener=listener;
-        this.categories = categories;
-        this.flag = flag;
-    }
-
 
     @Override
     public PhotosCategoryTitleAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)

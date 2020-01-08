@@ -34,14 +34,11 @@ import com.traap.traapapp.utilities.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhotosArchiveCategoryFragment extends BaseFragment
-        implements OnServiceStatus<WebServiceClass<PhotoArchiveResponse>>,
-        PhotosArchiveAdapter.ArchivePhotosListener
-        ,PhotosCategoryTitleAdapter.TitleCategoryListener
+public class PhotosArchiveCategoryFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<PhotoArchiveResponse>>,
+        PhotosArchiveAdapter.ArchivePhotosListener ,PhotosCategoryTitleAdapter.TitleCategoryListener
 {
     private View rootView;
-//    private MediaArchiveCategory archiveCategory;
-    private String Ids, dateFilter;
+    private String Ids, filterStartDate, filterEndDate, filterSearchText;
 
     private ProgressBar progressBar;
     private PhotosArchiveAdapter adapter;
@@ -59,7 +56,9 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
 
     public static PhotosArchiveCategoryFragment newInstance(String IDs,
                                                             MediaArchiveCategoryCall callFrom,
-                                                            @Nullable String dateFilter,
+                                                            @Nullable String filterStartDate,
+                                                            @Nullable String filterEndDate,
+                                                            @Nullable String filterSearchText,
                                                             @Nullable List<Category> photosContentList)
     {
         PhotosArchiveCategoryFragment fragment = new PhotosArchiveCategoryFragment();
@@ -67,8 +66,11 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
 
         Bundle arg = new Bundle();
         arg.putString("Ids", IDs);
-        arg.putString("dateFilter", dateFilter);
+        arg.putString("filterStartDate", filterStartDate != null ? filterStartDate : "");
+        arg.putString("filterEndDate", filterEndDate != null ? filterEndDate : "");
+        arg.putString("filterSearchText", filterSearchText != null ? filterSearchText : "");
         arg.putBoolean("pagerWithFilter", false);
+
         if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             arg.putParcelableArrayList("photosContentList", (ArrayList<? extends Parcelable>) photosContentList);
@@ -92,10 +94,11 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
         if (getArguments() != null)
         {
             Ids = getArguments().getString("Ids");
-            dateFilter = getArguments().getString("dateFilter");
-//            getFromFav = getArguments().getBoolean("getFromFav");
-//            pagerWithFilter = getArguments().getBoolean("pagerWithFilter");
-//            getFromId = getArguments().getBoolean("getFromId");
+
+            filterStartDate = getArguments().getString("filterStartDate");
+            filterEndDate = getArguments().getString("filterEndDate");
+            filterSearchText = getArguments().getString("filterSearchText");
+
             photosContentList = getArguments().getParcelableArrayList("photosContentList");
 
 //            Logger.e("-Ids 1-", Ids + " # " + pagerWithFilter);
@@ -120,35 +123,26 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
         layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
 
-//        adapter = new NewsArchiveAdapter(getActivity(), photosContentList);
-//        recyclerView.setAdapter(adapter);
-//
-//        adapter.SetOnItemCheckedChangeListener((id, photosContentList, position) ->
-//        {
-//            //Go To Details
-//        });
-
         if (callFrom == MediaArchiveCategoryCall.FROM_ID)
         {
             Logger.e("-Ids 2-", Ids);
-//            SingletonService.getInstance().getPhotoArchiveService().getArchivePhoto(true, Ids, this);
             SingletonService.getInstance().getPhotoArchiveService().getArchivePhoto(Ids, this);
         }
         if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs)
         {
             Logger.e("-Ids 2-", Ids);
-//            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, this);
-            SingletonService.getInstance().getPhotoArchiveService().getArchivePhoto(Ids, this);
+            SingletonService.getInstance().getPhotoArchiveService().getArchivePhotoByIds(
+                    Ids,
+                    filterStartDate,
+                    filterEndDate,
+                    filterSearchText,
+                    this
+            );
         }
         else if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
         {
             SingletonService.getInstance().getPhotoArchiveService().getBookMarkPhoto(this);
         }
-//        else if (callFrom == MediaArchiveCategoryCall.FROM_FILTER_IDs_DATE)
-//        {
-////            SingletonService.getInstance().getNewsService().getNewsArchiveCategoryByIds(Ids, dateFilter, this);
-//
-//        }
         else if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             progressBar.setVisibility(View.GONE);
@@ -159,25 +153,6 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
             adapter = new PhotosArchiveAdapter(photosContentList, false, this);
             recyclerView.setAdapter(adapter);
 
-//            adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
-//            {
-//                List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
-//                for (int i = 0; i < photosContentList.size(); i++)
-//                {
-//                    MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
-//                    model.setId(photosContentList.get(i).getId());
-//                    model.setPosition(i);
-//
-//                    positionIdsList.add(model);
-//                }
-//
-//                Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
-//                intent.putExtra("currentId", id);
-//                intent.putExtra("currentPosition", position);
-//                intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-//                startActivity(intent);
-//            });
-
             adapter.notifyDataSetChanged();
 
             if (photosContentList.isEmpty())
@@ -187,11 +162,6 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
         }
 
         return rootView;
-    }
-
-    private void initContentFilteredView()
-    {
-
     }
 
 
@@ -213,25 +183,6 @@ public class PhotosArchiveCategoryFragment extends BaseFragment
             }
             adapter = new PhotosArchiveAdapter(photosContentList, FLAG_Favorite, this);
             recyclerView.setAdapter(adapter);
-
-//            adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
-//            {
-//                List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
-//                for (int i = 0; i < photosContentList.size(); i++)
-//                {
-//                    MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
-//                    model.setId(photosContentList.get(i).getId());
-//                    model.setPosition(i);
-//
-//                    positionIdsList.add(model);
-//                }
-//
-//                Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
-//                intent.putExtra("currentId", id);
-//                intent.putExtra("currentPosition", position);
-//                intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-//                startActivity(intent);
-//            });
 
             adapter.notifyDataSetChanged();
 

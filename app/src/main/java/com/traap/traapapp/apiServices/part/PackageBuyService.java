@@ -22,7 +22,7 @@ public class PackageBuyService extends BasePart
         return this;
     }
 
-    public void MciPackageBuyService(OnServiceStatus<WebServiceClass<PackageBuyResponse>> listener, PackageBuyRequest req)
+    public void SimPackageBuyService(OnServiceStatus<WebServiceClass<PackageBuyResponse>> listener, PackageBuyRequest req)
     {
         start(getServiceGenerator().createService().buySimcardPackage(req), listener);
     }

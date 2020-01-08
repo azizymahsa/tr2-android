@@ -2,15 +2,21 @@ package com.traap.traapapp.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import butterknife.ButterKnife;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+
+import java.util.Objects;
 
 public class BaseFragment extends Fragment
 {
@@ -70,4 +76,23 @@ public class BaseFragment extends Fragment
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
+    public static void hideKeyboard(Activity activity)
+    {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null)
+        {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        hideKeyboard(Objects.requireNonNull(getActivity()));
+    }
 }

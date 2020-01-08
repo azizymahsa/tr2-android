@@ -6,14 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="ltr"
-    android:background="@drawable/background_border_white_16dp">
+    android:background="@android:color/transparent">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="48dp"
         android:paddingRight="48dp"
-        android:paddingBottom="16dp">
+        android:paddingBottom="16dp"
+        android:background="@drawable/background_border_white_16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,6 +58,7 @@
                     android:singleLine="true"
                     android:textSize="@dimen/textSize_14dp"
                     android:hint="جستجو"
+                    android:imeOptions="actionDone"
                     android:textColorHint="@color/textHint"
                     android:drawableRight="@drawable/ic_search"
                     android:drawableTint="@color/textHint"

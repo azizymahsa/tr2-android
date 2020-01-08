@@ -91,12 +91,20 @@ public class MyProfileActivity extends BaseActivity
         {
             try
             {
-                Picasso.with(this).load(Prefs.getString("profileImage", "")).into(imgProfile);
+                if (!Prefs.getString("profileImage", "").contains("default_avatar.png"))
+                {
+                    Picasso.with(this).load(Prefs.getString("profileImage", "")).into(imgProfile);
+                }
+                else
+                {
+                    Picasso.with(this).load(R.drawable.ic_user_default).into(imgProfile);
+                }
             }
             catch (Exception e)
             {
                 Logger.e("-Exception photo-", e.getMessage());
                 e.printStackTrace();
+                Picasso.with(this).load(R.drawable.ic_user_default).into(imgProfile);
             }
         }
 

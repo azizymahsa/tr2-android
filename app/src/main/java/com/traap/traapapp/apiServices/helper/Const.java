@@ -134,6 +134,7 @@ public class Const
     public final static String PUT_PROFILE = SubBASEURL + "v1/user/profile/";
     public final static String GET_Invite = SubBASEURL + "v1/user/share_text_invite_friend/";
     public final static String SEND_PROFILE_PHOTO = SubBASEURL + "v1/user/profile/photo/";
+    public final static String DELETE_PROFILE_PHOTO = SubBASEURL + "v1/user/profile/delete_photo/";
 
     //Transaction
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
@@ -141,10 +142,11 @@ public class Const
 
     //video
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
+    public final static String Get_VIDEOS_ARCHIVE_CATEGORY = SubBASEURL + "v1/video/category/";
+    public final static String Get_VIDEOS_ARCHIVE_BY_IDs = SubBASEURL + "v1/video/";
     public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
     public final static String Get_Category_By_Id_Video2 = SubBASEURL + "v1/video/{id}/related/";
     public final static String Like_Video = SubBASEURL + "v1/video/{id}/like/";
-    public final static String Archive_Video = SubBASEURL + "v1/video/";
     public final static String bookMark_Video = SubBASEURL + "v1/video/{id}/bookmark/";
     public final static String List_Bookmark_Video = SubBASEURL + "v1/video/bookmarks/";
 
@@ -163,7 +165,6 @@ public class Const
     //News
     public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";
     public final static String Get_NEWS_ARCHIVE_BY_IDs = SubBASEURL + "v1/news/";
-    public final static String Get_NEWS_ARCHIVE_BY_IDs_AND_DATES = SubBASEURL + "v1/news/";
     public final static String Get_NEWS_ARCHIVE_CATEGORY = SubBASEURL + "v1/news/category/";
     public final static String Get_NEWS_DETAILS = SubBASEURL + "v1/news/";
     public final static String NEWS_DETAILS_LIKE = SubBASEURL + "v1/news/";

@@ -69,6 +69,10 @@ public interface MainActionView extends BaseView
 
     void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition);
 
+    void onVideosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition);
+
+    void onVideosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition);
+
     void onMainVideoClick();
 
     void openPastResultFragment(String teamId, String imageLogo, String logoTitle);

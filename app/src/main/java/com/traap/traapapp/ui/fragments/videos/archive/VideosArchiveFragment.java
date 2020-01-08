@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.fragments.news.archive;
+package com.traap.traapapp.ui.fragments.videos.archive;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -25,12 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -43,17 +37,16 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategory;
 import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.MediaArchiveCategoryCall;
+import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
-import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
-import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
-import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
+import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
+import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
+import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
 import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
@@ -65,6 +58,11 @@ import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetime
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -75,7 +73,7 @@ import io.reactivex.functions.Predicate;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<MediaArchiveCategoryResponse>>
+public class VideosArchiveFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<MediaArchiveCategoryResponse>>
     , DatePickerDialog.OnDateSetListener, FilterArchiveAdapter.OnItemCheckedChangeListener
 {
     private CompositeDisposable disposable = new CompositeDisposable();
@@ -107,7 +105,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private View rootView;
 
-    private NewsArchiveActionView mainNewsView;
+    private VideosArchiveActionView mainActionView;
     private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
     private List<FilterItem> filteredCategoryList = new ArrayList<>();
     private ArrayList<FilterItem> filteredShowList = new ArrayList<>();
@@ -123,15 +121,15 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     private PersianCalendar currentDate, startPersianDate, endPersianDate;
     private Integer startDateInt = 0, endDateInt = 0;
 
-    public NewsArchiveFragment()
+    public VideosArchiveFragment()
     {
     }
 
-    public static NewsArchiveFragment newInstance(SubMediaParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite,
-                                                  NewsArchiveActionView mainNewsView)
+    public static VideosArchiveFragment newInstance(SubMediaParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite,
+                                                    VideosArchiveActionView mainVideosView)
     {
-        NewsArchiveFragment fragment = new NewsArchiveFragment();
-        fragment.setMainNewsView(mainNewsView);
+        VideosArchiveFragment fragment = new VideosArchiveFragment();
+        fragment.setMainActionView(mainVideosView);
         fragment.setParent(parent);
         fragment.setMediaPosition(mediaPosition);
 
@@ -147,9 +145,9 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private void setMediaPosition(MediaPosition mediaPosition) { this.mediaPosition = mediaPosition; }
 
-    private void setMainNewsView(NewsArchiveActionView mainNewsView)
+    private void setMainActionView(VideosArchiveActionView mainActionView)
     {
-        this.mainNewsView = mainNewsView;
+        this.mainActionView = mainActionView;
     }
 
     @Override
@@ -171,22 +169,22 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             return rootView;
         }
 
-        rootView = inflater.inflate(R.layout.fragment_news_archive, container, false);
+        rootView = inflater.inflate(R.layout.fragment_videos_archive, container, false);
 
         mToolbar = rootView.findViewById(R.id.toolbar);
 
-        ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو اخبار");
+        ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو ویدئو");
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
                 .subscribe(v ->
                 {
                     if (parent == SubMediaParent.MainFragment)
                     {
-//                        mainNewsView.backToMainFragment();
-                        mainNewsView.backToMainNewsFragment();
+//                        mainActionView.backToMainFragment();
+                        mainActionView.backToMainVideosFragment();
                     }
                     else
                     {
-                        mainNewsView.backToMediaFragment(mediaPosition);
+                        mainActionView.backToMediaFragment(mediaPosition);
                     }
                 })
         );
@@ -201,7 +199,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgMenu))
                 .subscribe(v ->
                 {
-                    mainNewsView.openDrawerNews();
+                    mainActionView.openDrawerVideos();
                 })
         );
 
@@ -215,7 +213,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
         if (!pagerFromFavorite)
         {
-            SingletonService.getInstance().getNewsService().getNewsArchiveCategory(this);
+            SingletonService.getInstance().categoryByIdVideosService().getVideosArchiveCategoryService(this);
         }
         else
         {
@@ -314,10 +312,6 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     {
                         if (edtSearchText.getText().toString().trim().length() > 2)
                         {
-                            titleFilteredList += "جستجو" + ",";
-                            llFilterHashTag.setVisibility(View.VISIBLE);
-                            setHashTag();
-
                             pagerWithFilter = true;
 
                             rootView.findViewById(R.id.tabLayout).setVisibility(View.GONE);
@@ -448,7 +442,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     if (pagerWithFilter)
                     {
                         pagerWithFilter = false;
-                        SingletonService.getInstance().getNewsService().getNewsArchiveCategory(this);
+                        SingletonService.getInstance().categoryByIdVideosService().getVideosArchiveCategoryService(this);
                     }
                 })
         );
@@ -472,7 +466,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                         //--------------------------
                         .flatMap((Function<CharSequence, ObservableSource<FilterItem>>) charSequence ->
                         {
-                            return getNewsArchiveCategoryObservable(ReplacePersianNumberToEnglish.getEnglishChar(charSequence));
+                            return getVideosArchiveCategoryObservable(ReplacePersianNumberToEnglish.getEnglishChar(charSequence));
 
                         })
                         //--------------------------
@@ -511,7 +505,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         if (pagerWithFilter)
         {
             pagerWithFilter = false;
-            SingletonService.getInstance().getNewsService().getNewsArchiveCategory(this);
+            SingletonService.getInstance().categoryByIdVideosService().getVideosArchiveCategoryService(this);
         }
     }
 
@@ -633,14 +627,14 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         rcHashTag.setAdapter(adapterHashTag);
     }
 
-    private Observable<FilterItem> getNewsArchiveCategoryObservable(final CharSequence sequence)
+    private Observable<FilterItem> getVideosArchiveCategoryObservable(final CharSequence sequence)
     {
         filteredShowList = new ArrayList<>();
         Observable<FilterItem> observable = Observable.fromIterable(filteredCategoryList)
-                .filter(newsArchiveCategory ->
+                .filter(videosArchiveCategory ->
                 {
-                    Logger.e("-Observable-","text: " + newsArchiveCategory.getTitle().contains(sequence));
-                    return newsArchiveCategory.getTitle().contains(sequence);
+                    Logger.e("-Observable-","text: " + videosArchiveCategory.getTitle().contains(sequence));
+                    return videosArchiveCategory.getTitle().contains(sequence);
                 })
                 .subscribeOn(Schedulers.io());
 
@@ -660,17 +654,17 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         return new DisposableObserver<FilterItem>()
         {
             @Override
-            public void onNext(FilterItem newsArchiveCategory)
+            public void onNext(FilterItem videosArchiveCategory)
             {
-                filteredShowList.add(newsArchiveCategory);
-                Logger.e("--searchCategory--", "Search query: " + newsArchiveCategory.getTitle());
+                filteredShowList.add(videosArchiveCategory);
+                Logger.e("--searchCategory--", "Search query: " + videosArchiveCategory.getTitle());
                 Logger.e("--searchCategory--", "Query size: " + filteredShowList.size());
 
                 Collections.reverse(filteredShowList);
                 adapter = new FilterArchiveAdapter(getActivity(), filteredShowList);
                 adapter.notifyDataSetChanged();
                 rcFilterCategory.setAdapter(adapter);
-                adapter.SetOnItemCheckedChangeListener(NewsArchiveFragment.this);
+                adapter.SetOnItemCheckedChangeListener(VideosArchiveFragment.this);
             }
 
             @Override
@@ -891,19 +885,19 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
     {
-        private ArrayList<MediaArchiveCategory> newsArchiveCategories;
+        private ArrayList<MediaArchiveCategory> videosArchiveCategories;
         private boolean pagerWithFilter = false;
         private boolean pagerFromFavorite = false;
         private Context context = SingletonContext.getInstance().getContext();
 
         @SuppressLint("WrongConstant")
         public SamplePagerAdapter(@NonNull FragmentManager fm,
-                                  ArrayList<MediaArchiveCategory> newsArchiveCategories,
+                                  ArrayList<MediaArchiveCategory> videosArchiveCategories,
                                   boolean pagerFromFavorite,
                                   boolean pagerWithFilter)
         {
             super(fm, 0);
-            this.newsArchiveCategories = newsArchiveCategories;
+            this.videosArchiveCategories = videosArchiveCategories;
             this.pagerWithFilter = pagerWithFilter;
             this.pagerFromFavorite = pagerFromFavorite;
         }
@@ -920,7 +914,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             {
                 try
                 {
-                    return newsArchiveCategories.get(position).getTitle();
+                    return videosArchiveCategories.get(position).getTitle();
                 } catch (NullPointerException e)
                 {
                     return "";
@@ -937,7 +931,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 String startDate = filterStartDate.equalsIgnoreCase("") ? "" : Utility.getGrgDate(filterStartDate);
                 String endDate = filterEndDate.equalsIgnoreCase("") ? "" : Utility.getGrgDate(filterEndDate);
 
-                return NewsArchiveCategoryFragment.newInstance(idFilteredList.trim(), //Id Filter List
+                return VideosArchiveCategoryFragment.newInstance(idFilteredList.trim(), //Id Filter List
                         MediaArchiveCategoryCall.FROM_FILTER_IDs,
                         startDate,
                         endDate,
@@ -949,8 +943,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             {
                 rootView.findViewById(R.id.llFilterAndTab).setVisibility(View.GONE);
 
-//                return NewsArchiveCategoryFragment.newInstance(0, false, true, null);
-                return NewsArchiveCategoryFragment.newInstance("",
+                return VideosArchiveCategoryFragment.newInstance("",
                         MediaArchiveCategoryCall.FROM_FAVORITE,
                         null,
                         null,
@@ -962,7 +955,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             {
                 int Id =  mediaArchiveCategoryList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
-                return NewsArchiveCategoryFragment.newInstance(String.valueOf(Id),
+                return VideosArchiveCategoryFragment.newInstance(String.valueOf(Id),
                         MediaArchiveCategoryCall.FROM_ID,
                         null,
                         null,
@@ -983,7 +976,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             {
                 try
                 {
-                    return newsArchiveCategories.size();
+                    return videosArchiveCategories.size();
                 } catch (NullPointerException e)
                 {
                     return 1;

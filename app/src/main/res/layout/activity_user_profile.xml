@@ -56,13 +56,13 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         app:strokeColor="@color/borderColorGray"
-                        app:cardElevation="5dp"
+                        app:cardElevation="3dp"
                         app:cardUseCompatPadding="true"
                         app:contentPadding="8dp"
                         app:cardCornerRadius="5dp"
                         app:cardMaxElevation="5dp"
-                        android:elevation="5dp"
-                        android:translationZ="5dp">
+                        android:elevation="3dp"
+                        android:translationZ="1dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -227,7 +227,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:gravity="right|center"
-                                        android:digits="@string/persian_alphabet"
+                                        android:digits="@string/all__alphabet"
                                         android:nextFocusDown="@+id/etFirstNameUS"
                                         android:inputType="text"
                                         android:maxLines="1"
@@ -400,7 +400,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:gravity="right|center"
-                                        android:nextFocusDown="@+id/etPopularPlayer"
+                                        android:imeOptions="actionDone"
                                         android:inputType="textEmailAddress"
                                         android:paddingTop="8dp"
                                         android:singleLine="true"
@@ -630,11 +630,28 @@
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"/>
 
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabDeleteProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="4dp"
+                        app:fabSize="mini"
+                        android:visibility="gone"
+                        app:elevation="3dp"
+                        app:backgroundTint="@color/colorPrimary"
+                        android:src="@android:drawable/ic_delete"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"/>
+
                 </RelativeLayout>
 
             </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <include layout="@layout/loading"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

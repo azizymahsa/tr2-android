@@ -72,7 +72,7 @@
             android:gravity="center"
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp"
-            android:text="پرداخت از درگاه پرداخت ملت"
+            android:text=""
             android:textColor="@color/textColorSecondary"
             android:textSize="@dimen/textSize_14dp"
             />
@@ -179,7 +179,7 @@
                 android:layout_height="@dimen/_35dp"
                 android:background="@drawable/button_small_border"
                 app:srcCompat="@drawable/ic_share"
-                android:padding="@dimen/_5sdp"
+                android:padding="@dimen/_5dp"
                 android:tint="@color/buttonHeaderBackgroundColor"
                 android:foreground="?attr/selectableItemBackground"
                 />
@@ -191,7 +191,6 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_10dp"
             android:gravity="center"
-            android:visibility="gone"
             android:orientation="horizontal">
         <TextView
             android:layout_width="match_parent"
@@ -210,9 +209,8 @@
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
             android:background="@drawable/button_small_border"
-            app:srcCompat="@drawable/ic_share"
-            android:padding="@dimen/_5sdp"
-            android:tint="@color/buttonHeaderBackgroundColor"
+            app:srcCompat="@drawable/ic_save"
+            android:padding="@dimen/_8dp"
             android:foreground="?attr/selectableItemBackground"
             />
         </LinearLayout>

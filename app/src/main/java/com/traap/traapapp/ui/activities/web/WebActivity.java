@@ -57,27 +57,29 @@ public class WebActivity extends BaseActivity
             if (Build.VERSION.SDK_INT >= 19)
             {
                 webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-            } else
+            }
+            else
             {
                 webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             }
 
 
             String url = getIntent().getStringExtra("URL");
-            if (getIntent().getStringExtra("Title").contains("بیمه"))
+            if (getIntent().hasExtra("Title"))
             {
-                postData = "userToken=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8")
-                        + "&businessToken=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_api_key"), "UTF-8")
-                        + "&redirectUrl=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_call_back"), "UTF-8")
-                        + "&redirectSuccess=" + URLEncoder.encode(url, "UTF-8")
-                ;
-                url = getIntent().getStringExtra("bimeh_base_url");
-            } else if (getIntent().getStringExtra("Title").contains("الو"))
-            {
-
-            } else
-            {
-                postData = "auth=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8");
+                if (getIntent().getStringExtra("Title").contains("بیمه"))
+                {
+                    postData = "userToken=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8")
+                            + "&businessToken=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_api_key"), "UTF-8")
+                            + "&redirectUrl=" + URLEncoder.encode(getIntent().getStringExtra("bimeh_call_back"), "UTF-8")
+                            + "&redirectSuccess=" + URLEncoder.encode(url, "UTF-8")
+                    ;
+                    url = getIntent().getStringExtra("bimeh_base_url");
+                }
+                else if (!getIntent().getStringExtra("Title").contains("الو"))
+                {
+                    postData = "auth=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8");
+                }
 
             }
             webView.setInitialScale(0);
@@ -134,7 +136,8 @@ public class WebActivity extends BaseActivity
         {
             e.printStackTrace();
             hideLoading();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
             hideLoading();

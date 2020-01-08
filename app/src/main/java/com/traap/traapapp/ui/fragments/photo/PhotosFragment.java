@@ -35,7 +35,6 @@ import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.apiServices.model.photo.response.ImageName;
 import com.traap.traapapp.enums.SubMediaParent;
-import com.traap.traapapp.ui.activities.photo.PhotoArchiveActivity;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
 import com.traap.traapapp.ui.adapters.photo.CategoryPhotosAdapter;
 import com.traap.traapapp.ui.adapters.photo.NewestPhotosAdapter;

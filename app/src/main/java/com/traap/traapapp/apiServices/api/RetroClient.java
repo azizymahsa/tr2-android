@@ -51,7 +51,6 @@ import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
 import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
-import com.traap.traapapp.apiServices.model.getTicketBuyEnable.GetTicketBuyEnableResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
@@ -95,6 +94,7 @@ import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
+import com.traap.traapapp.apiServices.model.profile.deleteProfile.DeleteProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
@@ -143,6 +143,9 @@ public interface RetroClient
     @GET(Const.Get_Main_Video)
     Single<Response<WebServiceClass<MainVideosResponse>>> getMainVideos();
 
+    @GET(Const.Get_VIDEOS_ARCHIVE_CATEGORY)
+    Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getVideosArchiveCategory();
+
     @GET(Const.Get_Category_By_Id_Video)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
             @Path("id") Integer categoryId
@@ -159,8 +162,18 @@ public interface RetroClient
     );
 
 
-    @GET(Const.Archive_Video)
-    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getArchiveVideos(@Query("category_id") int categoryId);
+    @GET(Const.Get_VIDEOS_ARCHIVE_BY_IDs)
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getVideosArchive(
+            @Query("category_id") String categoryId
+    );
+
+    @GET(Const.Get_VIDEOS_ARCHIVE_BY_IDs)
+    Single<Response<WebServiceClass<ArchiveVideoResponse>>> getVideosArchiveCategoryByIds(
+            @Query("category_id__in") String categoryIds,          //example 1,2,3,4,
+            @Query("create_date__gte") String dateFrom,           //example 2019-01-01 and ""
+            @Query("create_date__lte") String dateTo,             //example 2019-12-01 and ""
+            @Query("search") String searchText
+    );
 
     /*photos*/
     @GET(Const.Get_Main_Photo)
@@ -180,7 +193,6 @@ public interface RetroClient
     Single<Response<WebServiceClass<PhotosByIdResponse>>> getPhotosById(
             @Path("id") Integer categoryId
     );
-
 
     @GET(Const.List_Bookmark_Photo)
     Single<Response<WebServiceClass<PhotoArchiveResponse>>> getListBookmarkPhotos();
@@ -498,6 +510,14 @@ public interface RetroClient
             @Query("category_id") String category_id
     );
 
+    @GET(Const.Archive_Photo)
+    Single<Response<WebServiceClass<PhotoArchiveResponse>>> getArchivePhotosByIds(
+            @Query("category_id__in") String categoryIds,          //example 1,2,3,4,
+            @Query("publish_date__gte") String dateFrom,           //example 2019-01-01 and ""
+            @Query("publish_date__lte") String dateTo,             //example 2019-12-01 and ""
+            @Query("search") String searchText
+    );
+
     @GET(Const.GET_CATEGORY_ARCHIVE_PHOTO)
     Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getPhotosArchiveCategory();
 
@@ -543,6 +563,9 @@ public interface RetroClient
             @Part MultipartBody.Part ImageFile
     );
 
+    @DELETE(Const.DELETE_PROFILE_PHOTO)
+    Single<Response<WebServiceClass<DeleteProfileResponse>>> deleteProfilePhoto();
+
     @GET(Const.Get_NEWS_ARCHIVE_CATEGORY)
     Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getNewsArchiveCategory();
 
@@ -559,7 +582,7 @@ public interface RetroClient
             @Query("category_id__in") String categoryIds,          //example 1,2,3,4,
             @Query("publish_date__gte") String dateFrom,           //example 2019-01-01 and ""
             @Query("publish_date__lte") String dateTo,             //example 2019-12-01 and ""
-            @Query("search") String searchText                     //example 2019-12-01 and ""
+            @Query("search") String searchText
     );
 
 //    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs_AND_DATES)

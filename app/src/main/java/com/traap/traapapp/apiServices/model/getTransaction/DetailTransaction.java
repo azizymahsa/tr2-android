@@ -22,6 +22,10 @@ public class DetailTransaction
     @Expose
     private String mobileNumber;
 
+    @SerializedName("title_package")
+    @Expose
+    private String titlePackage;
+
     public Integer getTypeCharge()
     {
         return typeCharge;
@@ -60,5 +64,15 @@ public class DetailTransaction
     public void setMobileNumber(String mobileNumber)
     {
         this.mobileNumber = mobileNumber;
+    }
+
+    public String getTitlePackage()
+    {
+        return titlePackage;
+    }
+
+    public void setTitlePackage(String titlePackage)
+    {
+        this.titlePackage = titlePackage;
     }
 }
