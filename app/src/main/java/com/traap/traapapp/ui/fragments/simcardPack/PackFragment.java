@@ -787,6 +787,7 @@ public class PackFragment
     void setBtnChargeConfirmRightel()
     {
 
+
         initSpinner();
         setupRecycler();
         if (!Utility.getMobileValidation(etMobileNumberRightel.getText().toString()))
