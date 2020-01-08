@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.photo.archive;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -79,6 +80,8 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     private CompositeDisposable disposable = new CompositeDisposable();
     private final int DELAY_TIME_TEXT_CHANGE = 200;
 
+    private Context context;
+
     private RecyclerView rcHashTag;
     private HashTagMediaAdapter adapterHashTag;
 
@@ -149,6 +152,13 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     private void setMainView(PhotosArchiveActionView mainView)
     {
         this.mainView = mainView;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -235,6 +245,9 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         edtSearchText = rootView.findViewById(R.id.edtSearchText);
         btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
         btnDeleteFilter = rootView.findViewById(R.id.btnDeleteFilter);
+
+        edtSearchText.requestFocus();
+        hideKeyboard((Activity) context);
 
         rcHashTag.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 
