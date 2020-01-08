@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -131,8 +132,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Fragment fragment, mainFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-//    private View btnBuyTicket;
-
+    //    private View btnBuyTicket;
+    private Integer backState=0;
     private BottomNavigationView bottomNavigationView;
 
     private Bundle mSavedInstanceState;
@@ -147,7 +148,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private String typeTransaction;
     private boolean hasPaymentCharge = false;
     private boolean hasPaymentPackageSimcard = false;
-    private int PAYMENT_STATUS=0;
+    private int PAYMENT_STATUS = 0;
 
 //    private void hideNavBar()
 //    {
@@ -246,17 +247,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard)
                 {
                     hasPaymentCharge = true;
-                }
-                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
+                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
                 {
                     hasPaymentPackageSimcard = true;
-                }
-                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
+                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
                 {
                     hasPaymentTicket = true;
                 }
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 Tools.showToast(getApplicationContext(), "شماره پیگیری: " + refrenceNumber);
             }
@@ -331,7 +329,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         isMainFragment = false;
 
-                        fragment = AllMenuFragment.newInstance(this, allServiceList);
+                        fragment = AllMenuFragment.newInstance(this, allServiceList, 0);
 
                         transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -489,8 +487,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     onNewsArchiveClick(SubMediaParent.MainFragment, MediaPosition.News);
                 }
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
 //            showError("Error " );
         }
@@ -527,6 +524,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onBackPressed()
     {
+        Log.e("backStateBack", backState+"" );
+
         try
         {
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -541,10 +540,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }*/ else if (fragment instanceof PastResultFragment)
             {
                 onLeageClick(matchBuyable);
-            }else if (fragment instanceof SelectPaymentGatewayFragment){
-                onBackToChargFragment( Prefs.getInt("PAYMENT_STATUS",PAYMENT_STATUS)
-);
-            }
+            } else if (fragment instanceof SelectPaymentGatewayFragment)
+            {
+                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS)
+                );
+            } else if(fragment instanceof ChargeFragment && backState==2) {
+                Log.e("backStateBack1", backState+"" );
+
+
+//                        setCheckedBNV(bottomNavigationView, 3);
+                    setCheckedBNV(bottomNavigationView, 2);
+
+                    isMainFragment = false;
+
+                    fragment = AllMenuFragment.newInstance(this, allServiceList,backState);
+
+                    transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                    transaction.replace(R.id.main_container, fragment, "allMenuFragment")
+                            .commit();
+
+
+
+        }
            /* else if (fragment instanceof BuyTicketsActivity && ((BuyTicketsActivity) fragment).getViewpager().getCurrentItem() != 0)
             {
                 ((BuyTicketsActivity) fragment).onBackClicked();
@@ -654,7 +672,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             case 4:
             {
-               // showToast(this, "کیف پول", R.color.green);
+                // showToast(this, "کیف پول", R.color.green);
                 isMainFragment = false;
 
                 fragment = WalletFragment.newInstance(this);
@@ -838,8 +856,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onChargeSimCard()
+    public void onChargeSimCard(Integer backState)
     {
+        Log.e("backState", backState+"");
+        this.backState =backState;
         isMainFragment = false;
 
         fragment = ChargeFragment.newInstance(this);
@@ -1537,11 +1557,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             @Override
             public void backToMainPhotosFragment()
-            { }
+            {
+            }
 
             @Override
             public void onPhotosArchiveFragment(SubMediaParent parent)
-            { }
+            {
+            }
 
             @Override
             public void onPhotosFavoriteFragment(SubMediaParent parent)
@@ -1604,7 +1626,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             @Override
             public void onPhotosArchiveFragment(SubMediaParent parent)
-            { }
+            {
+            }
 
             @Override
             public void onPhotosFavoriteFragment(SubMediaParent parent)
@@ -1843,13 +1866,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         transaction.replace(R.id.main_container, this.fragment, "pastResultFragment")
                 .commit();
     }
+
     @Override
-    public void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS)
+    public void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
         isMainFragment = false;
-        Prefs.putInt("PAYMENT_STATUS",PAYMENT_STATUS);
-        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS,onClickContinueSelectPayment,urlPayment, this, imageDrawable,
+        Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, imageDrawable,
                 title, amount, paymentInstance, mobile);
 
         transaction = fragmentManager.beginTransaction();
@@ -1858,13 +1882,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .commit();
 
     }
+
     @Override
-    public void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int icon_payment, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS)
+    public void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int icon_payment, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
         isMainFragment = false;
-        Prefs.putInt("PAYMENT_STATUS",PAYMENT_STATUS);
-        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS,onClickContinueSelectPayment,urlPayment, this, icon_payment,
+        Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, icon_payment,
                 title, amount, paymentInstance, mobile);
 
         transaction = fragmentManager.beginTransaction();
@@ -1895,7 +1920,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
 
     }
-
 
 
     @Override
@@ -1973,15 +1997,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onBackToChargFragment(int PAYMENT_STATUS)
     {
-        if(PAYMENT_STATUS==3){
-        isMainFragment = false;
-        this.fragment = ChargeFragment.newInstance(this);
+        if (PAYMENT_STATUS == 3)
+        {
+            isMainFragment = false;
+            this.fragment = ChargeFragment.newInstance(this);
 
-        transaction = fragmentManager.beginTransaction();
+            transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "ChargeFragment")
-                .commit();
-        }else if(PAYMENT_STATUS==4){
+            transaction.replace(R.id.main_container, this.fragment, "ChargeFragment")
+                    .commit();
+        } else if (PAYMENT_STATUS == 4)
+        {
             isMainFragment = false;
             this.fragment = PackFragment.newInstance(this);
 
@@ -1991,7 +2017,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     .commit();
         }
     }
-
 
 
     @Override

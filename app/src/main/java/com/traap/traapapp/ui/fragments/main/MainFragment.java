@@ -639,7 +639,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 41: //Charge
             {
-                mainView.onChargeSimCard();
+                mainView.onChargeSimCard(0);
                 break;
             }
 

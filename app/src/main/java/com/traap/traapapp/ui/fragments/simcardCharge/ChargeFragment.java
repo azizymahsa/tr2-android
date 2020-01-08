@@ -1760,7 +1760,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onChargeSimCard()
+    public void onChargeSimCard(Integer backState)
     {
 
     }

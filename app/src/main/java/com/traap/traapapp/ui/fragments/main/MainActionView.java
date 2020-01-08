@@ -15,7 +15,7 @@ public interface MainActionView extends BaseView
 {
     void onBill();
 
-    void onChargeSimCard();
+    void onChargeSimCard(Integer status);
 
     void onPackSimCard();
 
