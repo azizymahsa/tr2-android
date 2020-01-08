@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -29,6 +30,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -40,6 +42,7 @@ import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -52,8 +55,7 @@ import com.traap.traapapp.utilities.Utility;
 import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
 
 public class SelectPositionFragment
-        extends BaseFragment implements View.OnClickListener, ReservationMatchInteractor.OnFinishedReservationListener
-{
+        extends BaseFragment implements View.OnClickListener, ReservationMatchInteractor.OnFinishedReservationListener {
     public static SelectPositionFragment fragment;
     private List<AllBoxesResult> newResult;
 
@@ -61,7 +63,7 @@ public class SelectPositionFragment
     ImageView ivDefault, ivSelected;
     RelativeLayout rlImageViewsFull;
     private static final String KEY_MODEL = "KEY_MODEL";
-    private TextView tvTitle, tvAmountStation, tvAmountForPay, tvStadiumName, tvDateTime, tvCount, tvM, tvP,tvHome,tvGuest;
+    private TextView tvTitle, tvAmountStation, tvAmountForPay, tvStadiumName, tvDateTime, tvCount, tvM, tvP, tvHome, tvGuest;
     private OnListFragmentInteractionListener interactionListener;
     private ArrayList<String> allBoxes;
     private Spinner spinnerAllBoxes;
@@ -70,12 +72,12 @@ public class SelectPositionFragment
     private View btnBackToDetail;
     private CircularProgressButton btnPaymentConfirm;
     private ProgressBar progress;
-    private View  llSliderItemMatch;
+    private View llSliderItemMatch;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
     private List<AllBoxesResult> allBoxesResponse;
     ArrayList<StadiumPositionModel> stadiumPositionModels = new ArrayList<>();
     private int amountForPay;
-    private ImageView imgView, imgHost, imgGuest,imgBackground;
+    private ImageView imgView, imgHost, imgGuest, imgBackground;
     private ImageView imgViewSelected;
     private int count = 1;
     private Integer matchId = 1;
@@ -85,35 +87,32 @@ public class SelectPositionFragment
     private int positionId, positionIdFromServer;
     private String positionName;
     private ReservationMatchImpl reservationMatch;
-    private Integer stadiumId=1;
+    private Integer stadiumId = 1;
     private String selectPosition;
     private Handler handler;
-    private Integer timeForRequestGetData=3000;
+    private Integer timeForRequestGetData = 3000;
     private Runnable stadiumInfoRunnable;
     private MessageAlertDialog dialog;
     private MessageAlertDialog.OnConfirmListener listener;
-    boolean isShowDialog=false;
-    private boolean hasTimer=false;
+    boolean isShowDialog = false;
+    private boolean hasTimer = false;
 
 
-    public SelectPositionFragment()
-    {
+
+    public SelectPositionFragment() {
     }
 
     /**
      * Receive the model list
      */
-    public static SelectPositionFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MatchItem matchBuyable)
-    {
+    public static SelectPositionFragment newInstance(String s, OnClickContinueBuyTicket onClickContinueBuyTicket, MatchItem matchBuyable) {
         fragment = new SelectPositionFragment();
         fragment.setOnClickContinueBuyTicket(onClickContinueBuyTicket);
         Bundle args = new Bundle();
-        try
-        {
+        try {
             args.putParcelable("matchBuyable", matchBuyable);
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
@@ -122,46 +121,47 @@ public class SelectPositionFragment
         return fragment;
     }
 
-    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket)
-    {
+    private void setOnClickContinueBuyTicket(OnClickContinueBuyTicket onClickContinueBuyTicket) {
         this.onClickContinueBuyTicketListener = onClickContinueBuyTicket;
     }
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         matchBuyable = getArguments().getParcelable("matchBuyable");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.select_position_fragment, container, false);
         Context context = view.getContext();
         reservationMatch = new ReservationMatchImpl();
+
+        ((BuyTicketsActivity) getActivity()).showLoading();
+
 
         tvCount = view.findViewById(R.id.tvCount);
         tvM = view.findViewById(R.id.tvM);
         tvP = view.findViewById(R.id.tvP);
         tvStadiumName = view.findViewById(R.id.tvStadiumName);
         tvDateTime = view.findViewById(R.id.tvDateTime);
-        imgBackground=view.findViewById(R.id.imgBackground);
+        imgBackground = view.findViewById(R.id.imgBackground);
         imgHost = view.findViewById(R.id.imgHost);
-        tvHome=view.findViewById(R.id.tvHome);
-        tvGuest=view.findViewById(R.id.tvGuest);
+        tvHome = view.findViewById(R.id.tvHome);
+        tvGuest = view.findViewById(R.id.tvGuest);
+
         imgGuest = view.findViewById(R.id.imgGuest);
         llSliderItemMatch = view.findViewById(R.id.llSliderItemMatch);
 
         spinnerAllBoxes = view.findViewById(R.id.spinnerAllBoxes);
         // btnBackToDetail=view.findViewById(R.id.btnBackToDetail);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
-        progress=view.findViewById(R.id.progressBtn);
+        progress = view.findViewById(R.id.progressBtn);
 
 
-     //   progress.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.green), android.graphics.PorterDuff.Mode.MULTIPLY);
+        //   progress.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.green), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         tvAmountStation = view.findViewById(R.id.tvAmountStation);
         tvAmountForPay = view.findViewById(R.id.tvAmountForPay);
@@ -182,7 +182,7 @@ public class SelectPositionFragment
         stadiumInfoRunnable = new Runnable() {
             @Override
             public void run() {
-                ((BuyTicketsActivity)getActivity()).showLoading();
+                ((BuyTicketsActivity) getActivity()).showLoading();
                 getAllBoxesRequest(false);
 
 
@@ -192,26 +192,23 @@ public class SelectPositionFragment
         return view;
     }
 
-    private void setDataMatch()
-    {
+    private void setDataMatch() {
 
-        try
-        {
+        try {
             llSliderItemMatch.setVisibility(View.VISIBLE);
             matchId = matchBuyable.getId();
             stadiumId = matchBuyable.getStadium().getId();
             tvStadiumName.setText(matchBuyable.getStadium().getName());
             setImageColor(imgHost, matchBuyable.getTeamHome().getLogo());
             setImageColor(imgGuest, matchBuyable.getTeamAway().getLogo());
-            setImageColor(imgBackground,matchBuyable.getCup().getImageName());
+            setImageColor(imgBackground, matchBuyable.getCup().getImageName());
 
             tvHome.setText(matchBuyable.getTeamHome().getName());
             tvGuest.setText(matchBuyable.getTeamAway().getName());
             //  tvDateTime.setText(getDate(matchBuyable.getMatchDatetime()));
             tvDateTime.setText(matchBuyable.getMatchDatetimeStr());
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Tools.showToast(getContext(), e.getMessage(), R.color.red);
             llSliderItemMatch.setVisibility(View.GONE);
 
@@ -220,32 +217,25 @@ public class SelectPositionFragment
     }
 
 
-    private void setImageColor(ImageView imageView, String link)
-    {
-        try
-        {
-            Picasso.with(SingletonContext.getInstance().getContext()).load(link).into(imageView, new Callback()
-            {
+    private void setImageColor(ImageView imageView, String link) {
+        try {
+            Picasso.with(SingletonContext.getInstance().getContext()).load(link).into(imageView, new Callback() {
                 @Override
-                public void onSuccess()
-                {
+                public void onSuccess() {
                     // cvContent.setBackgroundColor(Color.TRANSPARENT);
                 }
 
                 @Override
-                public void onError()
-                {
+                public void onError() {
                     Picasso.with(SingletonContext.getInstance().getContext()).load(R.drawable.img_failure).into(imageView);
                 }
             });
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }
 
-    private void setDataStadiumPosition()
-    {
+    private void setDataStadiumPosition() {
         stadiumPositionModels.add(new StadiumPositionModel("FF328DAA", "1", true));
         stadiumPositionModels.add(new StadiumPositionModel("FF953D3D", "2", true));
         stadiumPositionModels.add(new StadiumPositionModel("FFFE9000", "3", true));
@@ -307,35 +297,29 @@ public class SelectPositionFragment
         stadiumPositionModels.add(new StadiumPositionModel("", "47", true));
 
 
-
         //////
 
     }
 
-    private void handleSetStadiumLayouts()
-    {
+    private void handleSetStadiumLayouts() {
         colorPickerView.setColorListener((ColorEnvelopeListener) (envelope, fromUser) ->
         {
-            for (StadiumPositionModel stadiomModel : stadiumPositionModels)
-            {
-                if (envelope.getHexCode().equals(stadiomModel.getColor()) && stadiomModel.isFull()){
+            for (StadiumPositionModel stadiomModel : stadiumPositionModels) {
+                if (envelope.getHexCode().equals(stadiomModel.getColor()) && stadiomModel.isFull()) {
 
-                    if (!isShowDialog)
-                    {
+                    if (!isShowDialog) {
                         showDialogPositionIsFull();
                     }
                     return;
 
                 }
-                if (envelope.getHexCode().equals(stadiomModel.getColor()))
-                {
+                if (envelope.getHexCode().equals(stadiomModel.getColor())) {
                     positionId = stadiomModel.getId();
                 }
             }
 
 
-            switch (envelope.getHexCode())
-            {
+            switch (envelope.getHexCode()) {
                 case "FF328DAA":
                     setOnePositionSelected();
                     setSpinnerPositionSelected(stadiumPositionModels.get(0).getNumber());
@@ -591,24 +575,20 @@ public class SelectPositionFragment
         });
     }
 
-    private void showDialogPositionIsFull()
-    {
+    private void showDialogPositionIsFull() {
 
-        isShowDialog=true;
+        isShowDialog = true;
 
         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "ظرفیت این جایگاه پر شده است.", false,
-                new MessageAlertDialog.OnConfirmListener()
-                {
+                new MessageAlertDialog.OnConfirmListener() {
                     @Override
-                    public void onConfirmClick()
-                    {
-                        isShowDialog=false;
+                    public void onConfirmClick() {
+                        isShowDialog = false;
 
                     }
 
                     @Override
-                    public void onCancelClick()
-                    {
+                    public void onCancelClick() {
 
                     }
                 });
@@ -616,11 +596,10 @@ public class SelectPositionFragment
         dialog.setCancelable(false);
         dialog.show(getActivity().getFragmentManager(), "messageDialog");
 
-       // Tools.showToast(getActivity(), "ظرفیت این جایگاه پر شده است");
+        // Tools.showToast(getActivity(), "ظرفیت این جایگاه پر شده است");
     }
 
-    private void setCIPPositionSelected()
-    {
+    private void setCIPPositionSelected() {
         selectPositionId = 45;
         ivSelected.setImageResource(R.drawable.ic_cip_selected);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -628,8 +607,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setfourtythreePositionSelected()
-    {
+    private void setfourtythreePositionSelected() {
         selectPositionId = 43;
         ivSelected.setImageResource(R.drawable.ic_selected_fourty_three);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -637,8 +615,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setGuestPositionSelected()
-    {
+    private void setGuestPositionSelected() {
         selectPositionId = 44;
         ivSelected.setImageResource(R.drawable.ic_guest_selected);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -646,8 +623,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setfourtytwoPositionSelected()
-    {
+    private void setfourtytwoPositionSelected() {
         selectPositionId = 42;
         ivSelected.setImageResource(R.drawable.ic_selected_fourty_two);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -655,8 +631,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setfourtyonePositionSelected()
-    {
+    private void setfourtyonePositionSelected() {
         selectPositionId = 41;
         ivSelected.setImageResource(R.drawable.ic_selected_fourty_one);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -664,8 +639,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setfourtyPositionSelected()
-    {
+    private void setfourtyPositionSelected() {
         selectPositionId = 40;
         ivSelected.setImageResource(R.drawable.ic_selected_fourty);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -673,8 +647,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtyninePositionSelected()
-    {
+    private void setThirtyninePositionSelected() {
         selectPositionId = 39;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty_nine);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -682,8 +655,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtyeightPositionSelected()
-    {
+    private void setThirtyeightPositionSelected() {
         selectPositionId = 38;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty_eight);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -691,8 +663,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtysevenPositionSelected()
-    {
+    private void setThirtysevenPositionSelected() {
         selectPositionId = 37;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty_seven);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -700,8 +671,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtysixPositionSelected()
-    {
+    private void setThirtysixPositionSelected() {
         selectPositionId = 36;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty_six);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -709,8 +679,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtyfivePositionSelected()
-    {
+    private void setThirtyfivePositionSelected() {
         selectPositionId = 35;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty_five);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -718,8 +687,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtyfourPositionSelected()
-    {
+    private void setThirtyfourPositionSelected() {
         selectPositionId = 34;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty_four);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -727,8 +695,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtythreePositionSelected()
-    {
+    private void setThirtythreePositionSelected() {
         selectPositionId = 33;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty_three);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -736,8 +703,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtytwoPositionSelected()
-    {
+    private void setThirtytwoPositionSelected() {
         selectPositionId = 32;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty_two);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -745,8 +711,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtyonePositionSelected()
-    {
+    private void setThirtyonePositionSelected() {
         selectPositionId = 31;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty_one);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -754,24 +719,21 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirtyPositionSelected()
-    {
+    private void setThirtyPositionSelected() {
         selectPositionId = 30;
         ivSelected.setImageResource(R.drawable.ic_selected_thirty);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
         setAmounts(newResult);
     }
 
-    private void setTwentyninePositionSelected()
-    {
+    private void setTwentyninePositionSelected() {
         selectPositionId = 29;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty_nine);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
         setAmounts(newResult);
     }
 
-    private void setTwentyeightPositionSelected()
-    {
+    private void setTwentyeightPositionSelected() {
         selectPositionId = 28;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty_eight);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -779,8 +741,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTwentysevenPositionSelected()
-    {
+    private void setTwentysevenPositionSelected() {
         selectPositionId = 27;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty_seven);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -788,8 +749,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTwentysixPositionSelected()
-    {
+    private void setTwentysixPositionSelected() {
         selectPositionId = 26;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty_six);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -797,8 +757,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTwentyfivePositionSelected()
-    {
+    private void setTwentyfivePositionSelected() {
         selectPositionId = 25;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty_five);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -806,8 +765,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTwentyfourPositionSelected()
-    {
+    private void setTwentyfourPositionSelected() {
         selectPositionId = 24;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty_four);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -815,8 +773,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTwentythreePositionSelected()
-    {
+    private void setTwentythreePositionSelected() {
         selectPositionId = 23;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty_three);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -824,8 +781,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTwentytwoPositionSelected()
-    {
+    private void setTwentytwoPositionSelected() {
         selectPositionId = 22;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty_two);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -833,8 +789,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTwentyonePositionSelected()
-    {
+    private void setTwentyonePositionSelected() {
         selectPositionId = 21;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty_one);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -842,8 +797,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTwentyPositionSelected()
-    {
+    private void setTwentyPositionSelected() {
         selectPositionId = 20;
         ivSelected.setImageResource(R.drawable.ic_selected_twenty);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -851,8 +805,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setNineteenPositionSelected()
-    {
+    private void setNineteenPositionSelected() {
         selectPositionId = 19;
         ivSelected.setImageResource(R.drawable.ic_selected_nineteen);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -860,8 +813,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setEighteenPositionSelected()
-    {
+    private void setEighteenPositionSelected() {
         selectPositionId = 18;
         ivSelected.setImageResource(R.drawable.ic_selected_eighteen);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -869,8 +821,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setSeventeenPositionSelected()
-    {
+    private void setSeventeenPositionSelected() {
         selectPositionId = 17;
         ivSelected.setImageResource(R.drawable.ic_selected_seventeen);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -878,8 +829,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setSixteenPositionSelected()
-    {
+    private void setSixteenPositionSelected() {
         selectPositionId = 16;
         ivSelected.setImageResource(R.drawable.ic_selected_sixteen);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -887,8 +837,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setFiveteenPositionSelected()
-    {
+    private void setFiveteenPositionSelected() {
         selectPositionId = 15;
         ivSelected.setImageResource(R.drawable.ic_selected_fifteen);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -896,8 +845,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setFourteenPositionSelected()
-    {
+    private void setFourteenPositionSelected() {
         selectPositionId = 14;
         ivSelected.setImageResource(R.drawable.ic_selected_fourteen);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -905,8 +853,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThirteenPositionSelected()
-    {
+    private void setThirteenPositionSelected() {
         selectPositionId = 13;
         ivSelected.setImageResource(R.drawable.ic_selected_thirteen);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -914,8 +861,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTwelvePositionSelected()
-    {
+    private void setTwelvePositionSelected() {
         selectPositionId = 12;
         ivSelected.setImageResource(R.drawable.ic_selected_twelve);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -923,8 +869,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setElevenPositionSelected()
-    {
+    private void setElevenPositionSelected() {
         selectPositionId = 11;
         ivSelected.setImageResource(R.drawable.ic_selected_eleven);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -932,8 +877,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTenPositionSelected()
-    {
+    private void setTenPositionSelected() {
         selectPositionId = 10;
         ivSelected.setImageResource(R.drawable.ic_selected_ten);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -941,8 +885,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setNinePositionSelected()
-    {
+    private void setNinePositionSelected() {
         selectPositionId = 9;
         ivSelected.setImageResource(R.drawable.ic_selected_nine);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -950,8 +893,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setEightPositionSelected()
-    {
+    private void setEightPositionSelected() {
         selectPositionId = 8;
         ivSelected.setImageResource(R.drawable.ic_selected_eight);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -959,8 +901,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setSevenPositionSelected()
-    {
+    private void setSevenPositionSelected() {
         selectPositionId = 7;
         ivSelected.setImageResource(R.drawable.ic_selected_seven);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -968,8 +909,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setSixPositionSelected()
-    {
+    private void setSixPositionSelected() {
         selectPositionId = 6;
         ivSelected.setImageResource(R.drawable.ic_selected_six);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -977,8 +917,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setFivePositionSelected()
-    {
+    private void setFivePositionSelected() {
         selectPositionId = 5;
         ivSelected.setImageResource(R.drawable.ic_selected_five);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -986,8 +925,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setFourPositionSelected()
-    {
+    private void setFourPositionSelected() {
         selectPositionId = 4;
         ivSelected.setImageResource(R.drawable.ic_selected_four);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -995,8 +933,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setThreePositionSelected()
-    {
+    private void setThreePositionSelected() {
         selectPositionId = 3;
         ivSelected.setImageResource(R.drawable.ic_selected_three);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -1004,8 +941,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setTowPositionSelected()
-    {
+    private void setTowPositionSelected() {
         selectPositionId = 2;
         ivSelected.setImageResource(R.drawable.ic_selected_two);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -1013,8 +949,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setOnePositionSelected()
-    {
+    private void setOnePositionSelected() {
         selectPositionId = 1;
         ivSelected.setImageResource(R.drawable.ic_selected_one);
         ivSelected.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -1022,83 +957,71 @@ public class SelectPositionFragment
 
     }
 
-    private void setSpinnerPositionSelected(String numberPosition)
-    {
-        try
-        {
+    private void setSpinnerPositionSelected(String numberPosition) {
+        try {
 
-            for (int i = 0; i < positionIdAllBoxes.size(); i++)
-            {
-                if (numberPosition.equals(allBoxes.get(i).replace("جایگاه ", "")))
-                {
+            for (int i = 0; i < positionIdAllBoxes.size(); i++) {
+                if (numberPosition.equals(allBoxes.get(i).replace("جایگاه ", ""))) {
                     spinnerAllBoxes.setSelection(i);
 
-                        if (numberPosition.equals(stadiumPositionModels.get(43).getNumber())){
-                            selectPositionId=44;
-                        }else if ( numberPosition.equals(stadiumPositionModels.get(44).getNumber())){
-                            selectPositionId=45;
+                    if (numberPosition.equals(stadiumPositionModels.get(43).getNumber())) {
+                        selectPositionId = 44;
+                    } else if (numberPosition.equals(stadiumPositionModels.get(44).getNumber())) {
+                        selectPositionId = 45;
 
-                        }else {
-                            selectPositionId = Integer.valueOf(numberPosition);
-                        }
-                  setAmounts(newResult);
+                    } else {
+                        selectPositionId = Integer.valueOf(numberPosition);
+                    }
+                    setAmounts(newResult);
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
     }
 
-    public void getAllBoxesRequest(Boolean onBackClicked)
-    {
-
+    public void getAllBoxesRequest(Boolean onBackClicked) {
+        if (!SingletonNeedGetAllBoxesRequest.getInstance().needRequest){
+            return;
+        }
         setDataStadiumPosition();
         GetAllBoxesRequest request = new GetAllBoxesRequest();
-        if (onBackClicked){
+        if (onBackClicked) {
             count = Prefs.getInt("CountTicket", 1);
             request.setViewers(count);
             tvCount.setText(String.valueOf(count));
-        }else {
+        } else {
             request.setViewers(count);
         }
         request.setMatchId(matchId);
-        SingletonService.getInstance().getAllBoxesService().getAllBoxes(new OnServiceStatus<WebServiceClass<GetAllBoxesResponse>>()
-        {
+        SingletonService.getInstance().getAllBoxesService().getAllBoxes(new OnServiceStatus<WebServiceClass<GetAllBoxesResponse>>() {
             @Override
-            public void onReady(WebServiceClass<GetAllBoxesResponse> response)
-            {
-                try
-                {
+            public void onReady(WebServiceClass<GetAllBoxesResponse> response) {
+                try {
 
-                    if (response.info.statusCode == 200)
-                    {
+                    if (response.info.statusCode == 200) {
                         newResult = new ArrayList<>();
 
-                        for (AllBoxesResult item: response.data.getResults())
-                        {
-                            if (item.getName().equals(stadiumPositionModels.get(43).getNumber())||
-                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())){
+                        for (AllBoxesResult item : response.data.getResults()) {
+                            if (item.getName().equals(stadiumPositionModels.get(43).getNumber()) ||
+                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())) {
 
-                            }else if (Integer.parseInt(item.getName()) < 10)
-                            {
+                            } else if (Integer.parseInt(item.getName()) < 10) {
                                 newResult.add(item);
                             }
                         }
 
-                        for (AllBoxesResult item: response.data.getResults())
-                        {
-                            if (item.getName().equals(stadiumPositionModels.get(43).getNumber())||
-                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())){
+                        for (AllBoxesResult item : response.data.getResults()) {
+                            if (item.getName().equals(stadiumPositionModels.get(43).getNumber()) ||
+                                    item.getName().equals(stadiumPositionModels.get(44).getNumber())) {
 
                                 newResult.add(item);
 
-                            }else if (Integer.parseInt(item.getName()) >= 10)
-                                {
+                            } else if (Integer.parseInt(item.getName()) >= 10) {
 
-                                    newResult.add(item);
-                                }
+                                newResult.add(item);
+                            }
 
 
                         }
@@ -1106,89 +1029,72 @@ public class SelectPositionFragment
 
                         setDataSpinnerAllBoxes(newResult);
                         allBoxesResponse = newResult;
-                        try
-                        {
+                        try {
                             rlImageViewsFull.removeAllViews();
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
                         setFullPositions(newResult);
                         setAmounts(newResult);
 
 
-                        if (hasTimer)
-                        {
+                        if (hasTimer) {
                             btnPaymentConfirm.setClickable(true);
                             btnPaymentConfirm.setText("تایید و مرحله بعد");
-                           // progress.setVisibility(View.GONE);
-                           // btnPaymentConfirm.getAnimation().cancel();
-                           // btnPaymentConfirm.can
-                           // animation.setAnimationListener(null);
+                            // progress.setVisibility(View.GONE);
+                            // btnPaymentConfirm.getAnimation().cancel();
+                            // btnPaymentConfirm.can
+                            // animation.setAnimationListener(null);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         showToast(getContext(), response.info.message, R.color.red);
                     }
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     showToast(getContext(), e.getMessage(), R.color.red);
 
                 }
             }
 
             @Override
-            public void onError(String message)
-            {
+            public void onError(String message) {
                /* btnMyBills.revertAnimation(BillFragment.this);
                 btnMyBills.setClickable(true);*/
-              //  Tools.showToast(getActivity(), message, R.color.red);
-                if (Tools.isNetworkAvailable(getActivity()))
-                {
+                //  Tools.showToast(getActivity(), message, R.color.red);
+                if (Tools.isNetworkAvailable(getActivity())) {
                     Logger.e("-OnError-", "Error: " + message);
-                   showError( getActivity(),"خطا در دریافت اطلاعات از سرور!");
-                } else
-                {
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                } else {
                     showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
                 }
             }
         }, request);
     }
 
-    private void setFullPositions(List<AllBoxesResult> results)
-    {
+    private void setFullPositions(List<AllBoxesResult> results) {
         Observable.fromIterable(results)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<AllBoxesResult>()
-                {
+                .subscribe(new Observer<AllBoxesResult>() {
                     @Override
-                    public void onSubscribe(Disposable d)
-                    {
+                    public void onSubscribe(Disposable d) {
                     }
 
                     @Override
-                    public void onComplete()
-                    {
+                    public void onComplete() {
                         initFullPart();
 
                     }
 
                     @Override
-                    public void onError(Throwable e)
-                    {
+                    public void onError(Throwable e) {
 
                     }
 
                     @Override
-                    public void onNext(AllBoxesResult result)
-                    {
-                        for (StadiumPositionModel stadiomModel : stadiumPositionModels)
-                        {
+                    public void onNext(AllBoxesResult result) {
+                        for (StadiumPositionModel stadiomModel : stadiumPositionModels) {
 
-                            if (stadiomModel.getNumber().equals(result.getName()))
-                            {
+                            if (stadiomModel.getNumber().equals(result.getName())) {
                                 stadiomModel.setId(result.getId());
                                 stadiomModel.setAmount(result.getTicketAmount());
                                 if (stadiomModel.isFull())
@@ -1203,48 +1109,40 @@ public class SelectPositionFragment
     }
 
 
-    public void initFullPart()
-    {
+    public void initFullPart() {
 
         Observable.fromIterable(stadiumPositionModels)
 //                .subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<StadiumPositionModel>()
-                {
+                .subscribe(new Observer<StadiumPositionModel>() {
                     @Override
-                    public void onSubscribe(Disposable d)
-                    {
+                    public void onSubscribe(Disposable d) {
                     }
 
                     @Override
-                    public void onComplete()
-                    {
-                        ((BuyTicketsActivity)getActivity()).hideLoading();
+                    public void onComplete() {
+                        ((BuyTicketsActivity) getActivity()).hideLoading();
                         handleSetStadiumLayouts();
                     }
 
                     @Override
-                    public void onError(Throwable e)
-                    {
-                        ((BuyTicketsActivity)getActivity()).hideLoading();
+                    public void onError(Throwable e) {
+                        ((BuyTicketsActivity) getActivity()).hideLoading();
 
                     }
 
                     @Override
-                    public void onNext(StadiumPositionModel partStadiomModel)
-                    {
+                    public void onNext(StadiumPositionModel partStadiomModel) {
 
-                        if (partStadiomModel.isFull())
-                        {
+                        if (partStadiomModel.isFull()) {
                             imgView = new ImageView(getContext());
                             rlImageViewsFull.addView(imgView);
                             imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             imgView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT
                                     , RelativeLayout.LayoutParams.MATCH_PARENT));
 
-                            switch (partStadiomModel.getNumber())
-                            {
+                            switch (partStadiomModel.getNumber()) {
                                 case "1":
                                     setImageIntoIV(imgView, R.drawable.ic_one_full);
 //                                    imgView.setImageResource(R.drawable.ic_one_full);
@@ -1438,7 +1336,7 @@ public class SelectPositionFragment
 //                                    imgView.setImageResource(R.drawable.ic_up_stadium_full);
                                     break;
                                 case "47":
-                                    setImageIntoIV(imgView,R.drawable.ic_bottom_full);
+                                    setImageIntoIV(imgView, R.drawable.ic_bottom_full);
 
                             }
 
@@ -1450,8 +1348,7 @@ public class SelectPositionFragment
 
     }
 
-    private void setImageIntoIV(ImageView imgView, int drawable)
-    {
+    private void setImageIntoIV(ImageView imgView, int drawable) {
 //        Bitmap myImg = null;
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
 //        {
@@ -1469,7 +1366,7 @@ public class SelectPositionFragment
         Bitmap mImageBitmap = BitmapFactory.decodeResource(getResources(), drawable, options);*/
 
         Picasso.with(SingletonContext.getInstance().getContext())
-               .load(drawable)
+                .load(drawable)
                 .into(imgView);
         //this code dont work for image larger
    /*     Glide.with(SingletonContext.getInstance().getContext())
@@ -1479,30 +1376,26 @@ public class SelectPositionFragment
 
     }
 
-    private void setAmounts(List<AllBoxesResult> results)
-    {
+    private void setAmounts(List<AllBoxesResult> results) {
 
-     try
-     {
-         amountOneTicket = stadiumPositionModels.get(selectPositionId-1).getAmount();
-         amountForPay = amountOneTicket * count;
+        try {
+            amountOneTicket = stadiumPositionModels.get(selectPositionId - 1).getAmount();
+            amountForPay = amountOneTicket * count;
 //        tvAmountStation.setText("قیمت بلیت این جایگاه:" + Utility.priceFormat(results.get(0).getTicketAmount().toString()) + " ریال");
-         tvAmountStation.setText("قیمت بلیت این جایگاه: " + Utility.priceFormat(String.valueOf(amountOneTicket))+ " ریال");
-         tvAmountForPay.setText("مبلغ قابل پرداخت: " + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
+            tvAmountStation.setText("قیمت بلیت این جایگاه: " + Utility.priceFormat(String.valueOf(amountOneTicket)) + " ریال");
+            tvAmountForPay.setText("مبلغ قابل پرداخت: " + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
 
-     }catch (Exception e){
+        } catch (Exception e) {
 
-     }
+        }
 
     }
 
-    private void setDataSpinnerAllBoxes(List<AllBoxesResult> result)
-    {
+    private void setDataSpinnerAllBoxes(List<AllBoxesResult> result) {
         allBoxes = new ArrayList<String>();
         positionIdAllBoxes = new ArrayList<Integer>();
 
-        for (int i = 0; i < result.size(); i++)
-        {
+        for (int i = 0; i < result.size(); i++) {
             allBoxes.add("جایگاه " + result.get(i).getName());
             //allBoxes.add(result.get(i).getName());
 
@@ -1513,17 +1406,13 @@ public class SelectPositionFragment
                 R.layout.my_spinner_item, allBoxes);
         adapterAllBoxes.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinnerAllBoxes.setAdapter(adapterAllBoxes);
-        spinnerAllBoxes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spinnerAllBoxes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedIndex = position;
 
-                try
-                {
-                    switch (result.get(position).getName())
-                    {
+                try {
+                    switch (result.get(position).getName()) {
                         case "1":
                             setOnePositionSelected();
                             break;
@@ -1679,15 +1568,13 @@ public class SelectPositionFragment
                             break;
                     }
 
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
 
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
@@ -1710,38 +1597,37 @@ public class SelectPositionFragment
     }*/
 
     @Override
-    public void onDetach()
-    {
+    public void onDetach() {
         super.onDetach();
         interactionListener = null;
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.btnPaymentConfirm:
-                ((BuyTicketsActivity)getActivity()).showLoading();
+                ((BuyTicketsActivity) getActivity()).showLoading();
                 callReservationRequest();
+                SingletonNeedGetAllBoxesRequest.getInstance().needRequest=false;
+
                 break;
            /* case R.id.btnBackToDetail:
                 onClickContinueBuyTicketListener.onBackClicked();
                 break;*/
             case R.id.tvM:
-                if (count > 1)
-                {
+                SingletonNeedGetAllBoxesRequest.getInstance().needRequest=true;
+
+                if (count > 1) {
                     count--;
                     setTimerForRequestGetStadiumData();
                 }
                 break;
             case R.id.tvP:
-                if (count == 5)
-                {
+                SingletonNeedGetAllBoxesRequest.getInstance().needRequest=true;
+                if (count == 5) {
                     Tools.showToast(getContext(), "حداکثر تعداد بلیت قابل خرید 5 عدد میباشد.");
                 }
-                if (count < 5)
-                {
+                if (count < 5) {
                     count++;
                     setTimerForRequestGetStadiumData();
                 }
@@ -1751,82 +1637,73 @@ public class SelectPositionFragment
         tvCount.setText(String.valueOf(count));
     }
 
-    public void setTimerForRequestGetStadiumData(){
+    public void setTimerForRequestGetStadiumData() {
 
-        hasTimer=true;
-       // btnPaymentConfirm.clearAnimation();
-       // btnPaymentConfirm.startAnimation();
+        hasTimer = true;
+        // btnPaymentConfirm.clearAnimation();
+        // btnPaymentConfirm.startAnimation();
         btnPaymentConfirm.setText("در حال پردازش ...");
-       // progress.setVisibility(View.VISIBLE);
+        // progress.setVisibility(View.VISIBLE);
         btnPaymentConfirm.setClickable(false);
         handler.removeCallbacks(stadiumInfoRunnable);
         handler.postDelayed(stadiumInfoRunnable, timeForRequestGetData);
     }
 
-    private void callReservationRequest()
-    {
+    private void callReservationRequest() {
         Logger.e("-stadiumPositionModels-", "size: " + stadiumPositionModels.size());
         Logger.e("-callReservationRequest-", "pos: " + selectPositionId);
-        try
-        {
+        try {
             reservationMatch.reservationRequest(this,
                     matchId,
                     count,
                     stadiumPositionModels.get(selectPositionId - 1).getId());
-        }catch (Exception e){
-            Tools.showToast(getContext(),"ظرفیت جایگاه ها پر شده است.");
+        } catch (Exception e) {
+            Tools.showToast(getContext(), "ظرفیت جایگاه ها پر شده است.");
         }
 
 //                stadiumPositionModels.get(selectPositionId).getId() - 1);
     }
 
-    private void setAmounts(int countTicket)
-    {
-        try
-        {
+    private void setAmounts(int countTicket) {
+        try {
             amountForPay = amountOneTicket * countTicket;
             tvAmountForPay.setText("مبلغ قابل پرداخت:" + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
-         }
+    }
 
     @Override
-    public void onFinishedReservation(ReservationResponse response)
-    {
+    public void onFinishedReservation(ReservationResponse response) {
 //        BuyTicketsFragment.buyTicketsFragment.setData(selectPositionId, count, amountForPay,response.getResults());
-        if (selectPositionId==44){
-            selectPosition="مهمان";
-        }else if (selectPositionId==45){
-            selectPosition="CIP";
-        }else {
-            selectPosition=selectPositionId.toString();
+        if (selectPositionId == 44) {
+            selectPosition = "مهمان";
+        } else if (selectPositionId == 45) {
+            selectPosition = "CIP";
+        } else {
+            selectPosition = selectPositionId.toString();
         }
-        ((BuyTicketsActivity)getActivity()).setData(selectPosition, count, response.getAmount(),amountOneTicket, response.getResults(),stadiumId);
+        ((BuyTicketsActivity) getActivity()).setData(selectPosition, count, response.getAmount(), amountOneTicket, response.getResults(), stadiumId);
         onClickContinueBuyTicketListener.onContinueClicked();
-        ((BuyTicketsActivity)getActivity()).hideLoading();
+        ((BuyTicketsActivity) getActivity()).hideLoading();
 
     }
 
     @Override
-    public void onErrorReservation(String error)
-    {
-        ((BuyTicketsActivity)getActivity()).hideLoading();
+    public void onErrorReservation(String error) {
+        ((BuyTicketsActivity) getActivity()).hideLoading();
         Tools.showToast(getContext(), error, R.color.red);
 
     }
 
     @Override
-    public void onError(String message)
-    {
-        ((BuyTicketsActivity)getActivity()).hideLoading();
+    public void onError(String message) {
+        ((BuyTicketsActivity) getActivity()).hideLoading();
 
-        if (Tools.isNetworkAvailable(getActivity()))
-        {
+        if (Tools.isNetworkAvailable(getActivity())) {
             Logger.e("-OnError-", "Error: " + message);
-            showError( getActivity(),"خطا در دریافت اطلاعات از سرور!");
-        } else
-        {
+            showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+        } else {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
         }
     }
@@ -1836,8 +1713,7 @@ public class SelectPositionFragment
      * fragment to allow an interaction in this fragment to be communicated
      * <p/>
      */
-    public interface OnListFragmentInteractionListener
-    {
+    public interface OnListFragmentInteractionListener {
         // void onListFragmentInteraction(SubMenuModel item);
     }
 }

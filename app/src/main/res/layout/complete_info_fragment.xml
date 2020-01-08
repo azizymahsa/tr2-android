@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layoutDirection="ltr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="ltr"
     android:orientation="vertical">
 
 
@@ -15,13 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/llTickets"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+
+
+                >
 
 
                 <LinearLayout
@@ -32,11 +38,6 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10" />
 
                     <LinearLayout
                         android:layout_width="@dimen/_10dp"
@@ -57,6 +58,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="10" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
                 </LinearLayout>
 
                 <!--ticket1-->
@@ -72,8 +78,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5" />
-
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -87,6 +91,17 @@
                             android:layout_height="wrap_content"
                             android:background="@null">
 
+
+                            <ImageView
+                                android:id="@+id/imgDelete1"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="gone" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -107,43 +122,44 @@
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
 
                                         android:id="@+id/etNationalCode_1"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
-                                        android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_12dp" />
-
-                                    <EditText
-                                        android:id="@+id/etName_1"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="نام"
-                                        android:maxLength="40"
-                                        android:maxLines="1"
-                                        android:inputType="text"
-                                        android:singleLine="true"
-
-                                        android:digits="@string/all__alphabet"
+                                        android:maxLength="10"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
+                                        android:id="@+id/etName_1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
+                                        android:hint="نام"
+                                        android:inputType="text"
+                                        android:maxLength="40"
+                                        android:maxLines="1"
+
+                                        android:singleLine="true"
+                                        android:textColor="@color/_title_black"
+                                        android:textColorHint="@color/_disable_color"
+                                        android:textSize="@dimen/textSize_12dp" />
+
+                                    <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etFamily_1"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
                                         android:hint="نام خانوادگی"
+                                        android:inputType="text"
                                         android:maxLength="40"
+
                                         android:maxLines="1"
                                         android:singleLine="true"
-
-                                        android:digits="@string/all__alphabet"
-                                        android:inputType="text"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
@@ -218,24 +234,15 @@
                                 </LinearLayout>
 
                             </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/imgDelete1"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon"
-                                android:visibility="gone"/>
                         </RelativeLayout>
                     </LinearLayout>
+
 
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5" />
+
                 </LinearLayout>
 
                 <!--ticket2-->
@@ -251,8 +258,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5" />
-
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -266,6 +271,17 @@
                             android:layout_height="wrap_content"
                             android:background="@null">
 
+
+                            <ImageView
+                                android:id="@+id/imgDelete2"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="visible" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -286,42 +302,43 @@
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
 
                                         android:id="@+id/etNationalCode_2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
+                                        android:maxLength="10"
+                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etName_2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
                                         android:hint="نام"
+                                        android:inputType="text"
                                         android:maxLength="40"
                                         android:maxLines="1"
-                                        android:digits="@string/all__alphabet"
-                                        android:inputType="text"
                                         android:singleLine="true"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etFamily_2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
                                         android:hint="نام خانوادگی"
+                                        android:inputType="text"
                                         android:maxLength="40"
+
                                         android:maxLines="1"
                                         android:singleLine="true"
-
-                                        android:inputType="text"
-                                        android:digits="@string/all__alphabet"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
@@ -397,19 +414,10 @@
 
                                 </LinearLayout>
                             </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/imgDelete2"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon"
-                                android:visibility="visible"/>
                         </RelativeLayout>
                     </LinearLayout>
+
+
 
                     <Space
                         android:layout_width="0dp"
@@ -425,13 +433,10 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible">
-
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5" />
-
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -445,6 +450,17 @@
                             android:layout_height="wrap_content"
                             android:background="@null">
 
+
+                            <ImageView
+                                android:id="@+id/imgDelete3"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="visible" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -465,42 +481,43 @@
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
 
                                         android:id="@+id/etNationalCode_3"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
+                                        android:maxLength="10"
+                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etName_3"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
                                         android:hint="نام"
+                                        android:inputType="text"
                                         android:maxLength="40"
                                         android:maxLines="1"
-                                        android:inputType="text"
-                                        android:digits="@string/all__alphabet"
                                         android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etFamily_3"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
                                         android:hint="نام خانوادگی"
+                                        android:inputType="text"
                                         android:maxLength="40"
                                         android:maxLines="1"
-                                        android:inputType="text"
-                                        android:digits="@string/all__alphabet"
-android:singleLine="true"
+                                        android:singleLine="true"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
@@ -575,19 +592,11 @@ android:singleLine="true"
 
                                 </LinearLayout>
                             </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/imgDelete3"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon"
-                                android:visibility="visible"/>
                         </RelativeLayout>
                     </LinearLayout>
+
+
+
 
                     <Space
                         android:layout_width="0dp"
@@ -603,13 +612,10 @@ android:singleLine="true"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible">
-
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5" />
-
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -623,6 +629,17 @@ android:singleLine="true"
                             android:layout_height="wrap_content"
                             android:background="@null">
 
+
+                            <ImageView
+                                android:id="@+id/imgDelete4"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="visible" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -643,41 +660,42 @@ android:singleLine="true"
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
 
                                         android:id="@+id/etNationalCode_4"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
+                                        android:maxLength="10"
+                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etName_4"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
                                         android:hint="نام"
+                                        android:inputType="text"
                                         android:maxLength="40"
                                         android:maxLines="1"
-                                        android:inputType="text"
-                                        android:digits="@string/all__alphabet"
                                         android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etFamily_4"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
                                         android:hint="نام خانوادگی"
+                                        android:inputType="text"
                                         android:maxLength="40"
                                         android:maxLines="1"
-                                        android:inputType="text"
-                                        android:digits="@string/all__alphabet"
                                         android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
@@ -754,19 +772,11 @@ android:singleLine="true"
 
                                 </LinearLayout>
                             </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/imgDelete4"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon"
-                                android:visibility="visible"/>
                         </RelativeLayout>
                     </LinearLayout>
+
+
+
 
                     <Space
                         android:layout_width="0dp"
@@ -782,13 +792,10 @@ android:singleLine="true"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible">
-
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5" />
-
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -802,6 +809,16 @@ android:singleLine="true"
                             android:layout_height="wrap_content"
                             android:background="@null">
 
+
+                            <ImageView
+                                android:id="@+id/imgDelete5"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -822,41 +839,42 @@ android:singleLine="true"
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
 
                                         android:id="@+id/etNationalCode_5"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:hint="کد ملی "
                                         android:inputType="number"
-                                        android:maxLength="10"                                        android:textColor="@color/_title_black"
+                                        android:maxLength="10"
+                                        android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etName_5"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
                                         android:hint="نام"
+                                        android:inputType="text"
                                         android:maxLength="40"
                                         android:maxLines="1"
-                                        android:inputType="text"
-                                        android:digits="@string/all__alphabet"
                                         android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
                                         android:textSize="@dimen/textSize_12dp" />
 
-                                    <EditText
+                                    <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etFamily_5"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:digits="@string/all__alphabet"
                                         android:hint="نام خانوادگی"
+                                        android:inputType="text"
                                         android:maxLength="40"
                                         android:maxLines="1"
-                                        android:inputType="text"
-                                        android:digits="@string/all__alphabet"
                                         android:singleLine="true"
 
                                         android:textColor="@color/_title_black"
@@ -933,19 +951,11 @@ android:singleLine="true"
 
                                 </LinearLayout>
                             </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/imgDelete5"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon"
-                                />
                         </RelativeLayout>
                     </LinearLayout>
+
+
+
 
                     <Space
                         android:layout_width="0dp"
@@ -961,12 +971,10 @@ android:singleLine="true"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible">
-
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="10" />
-
                     <LinearLayout
                         android:layout_width="@dimen/_10dp"
                         android:layout_height="wrap_content"
@@ -986,12 +994,13 @@ android:singleLine="true"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="end|center"
                                 android:gravity="end|center">
+
                                 <LinearLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_weight="1"
-                                    android:layout_marginEnd="5dp"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="end|center"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_weight="1"
                                     android:gravity="end|center"
                                     android:orientation="vertical">
                                     <TextView
@@ -1006,8 +1015,8 @@ android:singleLine="true"
                                         android:textSize="@dimen/textSize_12dp" />
                                     <LinearLayout
                                         android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                                                               android:layout_gravity="end|center"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="end|center"
                                         android:gravity="end|center">
 
                                         <TextView
@@ -1023,45 +1032,54 @@ android:singleLine="true"
                                             android:layout_gravity="end|center"
                                             android:gravity="end|center"
                                             android:orientation="vertical">
+
                                             <TextView
                                                 android:id="@+id/txtCondition"
                                                 android:layout_width="wrap_content"
-                                                android:layout_weight="1"
                                                 android:layout_height="wrap_content"
+                                                android:layout_weight="1"
                                                 android:gravity="bottom|end"
+                                                android:padding="1dp"
                                                 android:text="@string/string_under_line"
                                                 android:textAppearance="@style/IranSansBold"
                                                 android:textColor="#000"
-                                                android:padding="1dp"
                                                 android:textSize="@dimen/textSize_12dp" />
+
                                             <View
                                                 android:layout_width="0dp"
-                                                android:layout_weight="1"
                                                 android:layout_height="1dp"
+                                                android:layout_weight="1"
                                                 android:background="#000" />
                                         </LinearLayout>
+
                                     </LinearLayout>
 
+
+
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_weight="0"
-                                    android:layout_marginEnd="5dp"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="end|top"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_weight="0"
                                     android:gravity="end|top"
                                     android:orientation="vertical">
-                                <CheckBox
-                                    android:id="@+id/cbCondition"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:buttonTint="@color/textColorPrimary" />
+
+                                    <CheckBox
+                                        android:id="@+id/cbCondition"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:buttonTint="@color/textColorPrimary" />
                                 </LinearLayout>
                             </LinearLayout>
 
                         </LinearLayout>
 
                     </LinearLayout>
+
+
 
                     <Space
                         android:layout_width="0dp"
@@ -1076,9 +1094,9 @@ android:singleLine="true"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20dp"
                     android:layout_marginBottom="@dimen/_10dp"
-                    android:orientation="horizontal">
-
-
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -1088,6 +1106,7 @@ android:singleLine="true"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="100"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <FrameLayout
@@ -1139,8 +1158,534 @@ android:singleLine="true"
                         android:layout_weight="10" />
 
 
+
+
                 </LinearLayout>
             </LinearLayout>
+
+
+
+            <LinearLayout
+
+                android:id="@+id/llGateWaye"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+
+
+                >
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                  >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text=" ریال"
+                        android:textColor="@color/chargePackTextColor"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10dp"
+                        android:text=""
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="مبلغ قابل پرداخت :"
+                        android:textColor="@color/chargePackTextColor"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/_10dp"
+                    android:gravity="center_vertical|end"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/imgLogo"
+                        android:layout_width="@dimen/_50dp"
+                        android:layout_height="@dimen/_50dp"
+                        android:layout_alignParentEnd="true"
+                        android:scaleType="fitCenter"
+                        android:padding="@dimen/_5dp"
+                        android:background="@drawable/background_disable_rec"
+                        android:src="@drawable/ic_logo_red"
+                        android:visibility="visible" />
+
+
+                    <TextView
+                        android:id="@+id/tvTitlePay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/imgLogo"
+                        android:layout_alignBottom="@+id/imgLogo"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/imgLogo"
+                        android:gravity="center_vertical"
+                        android:text="با انجام این پرداخت مبلغ از حساب شما کسر خواهد شد."
+                        android:textColor="@color/warmGray"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="لطفا روش پرداخت مورد نظر خود را انتخاب نمایید:"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSelect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:id="@+id/llFullInfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="3"
+                            android:background="@drawable/background_border_gray"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvGateway"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/_30dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="درگاه پرداخت"
+                                android:background="@drawable/background_border_a"
+                                android:textColor="@color/borderColorRed"
+                                android:textSize="@dimen/textSize_14dp" />
+
+                            <TextView
+                                android:id="@+id/tvCardsShetab"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/_30dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="کارت های شتابی"
+                                android:textColor="@color/grayColor"
+                                android:textSize="@dimen/textSize_14dp" />
+
+
+                            <TextView
+                                android:id="@+id/tvWallet"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/_30dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="کیف پول"
+                                android:singleLine="true"
+                                android:textColor="@color/grayColor"
+                                android:textSize="@dimen/textSize_14dp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2" />
+
+
+                </LinearLayout>
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:visibility="gone"
+                    app:tabMode="fixed" />
+
+                <com.traap.traapapp.utilities.CustomViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tab_layout"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent" />
+                <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:id="@+id/container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="5dp"
+                                    android:text=" ریال"
+                                    android:textColor="@color/chargePackTextColor"
+                                    android:textSize="@dimen/textSize_14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvAmountF"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/_10dp"
+                                    android:text=""
+                                    android:textColor="@color/textColorPrimary"
+                                    android:textSize="@dimen/textSize_14dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="مبلغ قابل پرداخت :"
+                                    android:textColor="@color/chargePackTextColor"
+                                    android:textSize="@dimen/textSize_14dp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rlTitleF"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="@dimen/_10dp"
+                                android:gravity="center_vertical|end"
+                                android:orientation="horizontal"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:id="@+id/tvTitlePayF"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/imgLogoF"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_toStartOf="@+id/imgLogoF"
+                                    android:gravity="center_vertical"
+                                    android:text=""
+                                    android:textColor="@color/returnButtonColor"
+                                    android:textSize="@dimen/textSize_14dp" />
+                                <ImageView
+                                    android:id="@+id/imgLogoF"
+                                    android:layout_width="@dimen/_50dp"
+                                    android:layout_height="@dimen/_50dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/icon_payment_ticket"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/_select_gateway"
+                                    android:textColor="@color/textColorSecondary" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:gravity="center"
+                                    android:visibility="gone"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/imgTejarat"
+                                            android:layout_width="@dimen/_50dp"
+                                            android:layout_height="@dimen/_50dp"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/background_disable_rec"
+                                            android:scaleType="fitCenter"
+                                            android:padding="3dp"
+                                            app:srcCompat="@drawable/ic_banklogo_tejarat"
+                                            android:tint="@color/_disable_color"
+                                            android:visibility="visible" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_margin="@dimen/_5dp"
+                                            android:text="بانک تجارت"
+                                            android:textColor="@color/_disable_color" />
+                                    </LinearLayout>
+
+                                    <RadioButton
+                                        android:id="@+id/rbTejarat"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:clickable="false"
+                                        android:checked="false"
+
+                                        android:layout_marginEnd="@dimen/radius_15dp"
+                                        android:buttonTint="@color/gray" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:gravity="center"
+                                    android:visibility="gone"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/imgSaman"
+                                            android:layout_width="@dimen/_50dp"
+                                            android:layout_height="@dimen/_50dp"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/background_disable_rec"
+                                            android:scaleType="fitCenter"
+                                            android:padding="3dp"
+                                            app:srcCompat="@drawable/ic_banklogo_saman"
+                                            android:tint="@color/_disable_color"
+                                            android:visibility="visible" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_margin="@dimen/_5dp"
+                                            android:text="بانک سامان"
+                                            android:textColor="@color/_disable_color" />
+                                    </LinearLayout>
+
+                                    <RadioButton
+                                        android:id="@+id/rbSaman"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="@dimen/radius_15dp"
+                                        android:clickable="false"
+                                        android:checked="false"
+
+                                        android:buttonTint="@color/gray" />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/imgMellat"
+                                            android:layout_width="@dimen/_50dp"
+                                            android:layout_height="@dimen/_50dp"
+                                            android:layout_alignParentEnd="true"
+                                            android:scaleType="fitCenter"
+                                            app:srcCompat="@drawable/ic_banklogo_mellat"
+                                            android:visibility="visible" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_margin="@dimen/_5dp"
+                                            android:text="درگاه پرداخت ملت"
+                                            android:textColor="@color/textColorSecondary" />
+                                    </LinearLayout>
+
+                                    <RadioButton
+                                        android:id="@+id/rbMellat"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:enabled="true"
+                                        android:clickable="true"
+                                        android:buttonTint="@color/textColorPrimary"
+                                        android:visibility="gone"/>
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_20dp"
+                                android:orientation="horizontal">
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="20" />
+
+                                <FrameLayout
+                                    android:id="@+id/btnBackF"
+
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:layout_marginEnd="@dimen/_10sdp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_weight="100">
+
+                                    <include
+                                        android:id="@+id/btnBack"
+                                        layout="@layout/return_button" />
+
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:id="@+id/llConfirmff"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:layout_marginEnd="@dimen/_10sdp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_weight="100">
+
+                                    <include
+                                        android:id="@+id/btnBuy"
+                                        layout="@layout/circular_progress_button_peyment" />
+
+                                </FrameLayout>
+
+
+                                <FrameLayout
+                                    android:id="@+id/llInVisiblef"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="100"
+                                    android:visibility="gone">
+
+                                    <include
+                                        android:id="@+id/btnInVisiblef"
+                                        layout="@layout/circular_progress_button_in_visible"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_gravity="center" />
+                                </FrameLayout>
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="20" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.core.widget.NestedScrollView>
+
+                </FrameLayout>
+            </LinearLayout>
+
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

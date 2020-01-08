@@ -180,7 +180,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 //            }
             intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            startActivityForResult(intent,100);
             finish();
         } else
             mobileToCode();

@@ -273,7 +273,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
       /*  intent = new Intent(appContext, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        appContext.startActivity(intent);
+        appContext.startActivityForResult(intent,100);
         ((Activity) activityContext).finish();*/
 
         // sendActiveCode.findCodeDataRequest(this, mobileNumber.getText().toString());

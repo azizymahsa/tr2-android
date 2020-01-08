@@ -385,6 +385,7 @@ android {
 
 //        implementation 'org.tensorflow:tensorflow-lite:1.14.0'
 
+        implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
     }
 }

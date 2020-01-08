@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -187,7 +188,11 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
             {
                 getActivity().onBackPressed();
             });
+            FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+            flLogoToolbar.setOnClickListener(v -> {
+                mainView.backToMainFragment();
 
+            });
             tvTitle.setText("سوابق خرید");
             rlShirt = rootView.findViewById(R.id.rlShirt);
             rlShirt.setOnClickListener(new View.OnClickListener()
@@ -195,7 +200,7 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
                 @Override
                 public void onClick(View v)
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
                 }
             });
             initDate();

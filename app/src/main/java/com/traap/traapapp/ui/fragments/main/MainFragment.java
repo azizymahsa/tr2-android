@@ -54,6 +54,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.activities.web.WebActivity;
@@ -677,7 +678,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivity(intent);
+                startActivityForResult(intent,100);
 
                 // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
@@ -689,7 +690,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivity(intent);
+                startActivityForResult(intent,100);
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
@@ -714,7 +715,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
                         intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
                         intent.putExtra("bimeh_base_url", Prefs.getString("bimeh_base_url", ""));
-                        startActivity(intent);
+                        startActivityForResult(intent,100);
                     }
 
                     @Override
@@ -762,10 +763,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
 
             case R.id.rlShirt:
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
                 break;
             case R.id.btnBuyTicket:
             {
+                SingletonNeedGetAllBoxesRequest.getInstance().needRequest=true;
                 btnBuyTicket.startAnimation();
                 btnBuyTicket.setClickable(false);
 
@@ -825,14 +827,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         if (responseMatchList == null || responseMatchList.info == null)
         {
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivityForResult(new Intent(context, LoginActivity.class),100);
             ((Activity) context).finish();
 
             return;
         }
         if (responseMatchList.info.statusCode != 200)
         {
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivityForResult(new Intent(context, LoginActivity.class),100);
             ((Activity) context).finish();
 
             return;

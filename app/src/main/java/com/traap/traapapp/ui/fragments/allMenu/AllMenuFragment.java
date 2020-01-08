@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -87,6 +88,8 @@ public class AllMenuFragment extends BaseFragment implements
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private FrameLayout flLogoToolbar;
+
     Integer backState;
     public AllMenuFragment()
     {
@@ -141,6 +144,7 @@ public class AllMenuFragment extends BaseFragment implements
 
             //toolbar
             mToolbar = rootView.findViewById(R.id.toolbar);
+            flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -150,22 +154,17 @@ public class AllMenuFragment extends BaseFragment implements
                 @Override
                 public void onClick(View v)
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
                 }
             });
-            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    mainView.openDrawer();
-                }
-            });
+
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvTitle.setText("سرویس ها");
             imgMenu = rootView.findViewById(R.id.imgMenu);
+            imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
+            flLogoToolbar.setOnClickListener(v -> mainView.backToMainFragment());
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
@@ -287,12 +286,12 @@ public class AllMenuFragment extends BaseFragment implements
 
             if (response == null || response.info == null)
             {
-                // startActivity(new Intent(this, A.class));
+                // startActivityForResult(new Intent(this, A.class));
                 return;
             }
             if (response.info.statusCode != 200)
             {
-                // startActivity(new Intent(this, LoginActivity.class));
+                // startActivityForResult(new Intent(this, LoginActivity.class));
                 //  finish();
 
                 return;
@@ -523,7 +522,7 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);
+                startActivityForResult(intent,100);
 
                 break;
             }
@@ -536,7 +535,7 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);
+                startActivityForResult(intent,100);
                 break;
             }
             case 12: //Hotel
@@ -547,7 +546,7 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);
+                startActivityForResult(intent,100);
                 break;
             }
 
@@ -559,7 +558,7 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivity(intent);
+                startActivityForResult(intent,100);
 
                 //mainView.onPackSimCard();
 
@@ -619,7 +618,7 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivity(intent);
+                startActivityForResult(intent,100);
 
                 // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
@@ -631,7 +630,7 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivity(intent);
+                startActivityForResult(intent,100);
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
@@ -656,7 +655,7 @@ public class AllMenuFragment extends BaseFragment implements
                         intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
                         intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
                         intent.putExtra("bimeh_base_url", Prefs.getString("bimeh_base_url", ""));
-                        startActivity(intent);
+                        startActivityForResult(intent,100);
                     }
 
                     @Override

@@ -251,7 +251,7 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
             intent.putExtra("idPhoto", category.getId());
             intent.putExtra("isLike", category.getIsLiked());
             intent.putExtra("isBookmark", category.getIsBookmarked());
-            startActivity(intent);
+            getActivity().startActivityForResult(intent,100);
         }
         else
         {
@@ -262,7 +262,7 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
             intent.putExtra("IdPhoto", category.getId());
             intent.putExtra("positionPhoto", position);
 
-            startActivity(intent);
+            getActivity().startActivityForResult(intent,100);
         }
     }
 

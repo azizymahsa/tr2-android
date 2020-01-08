@@ -113,7 +113,7 @@ public abstract class BasePart
                         }
 //                        if (value.code() == 403)
 //                        {
-//                            SingletonContext.getInstance().getContext().startActivity(new Intent(SingletonContext.getInstance().getContext(),
+//                            SingletonContext.getInstance().getContext().startActivityForResult(new Intent(SingletonContext.getInstance().getContext(),
 //                                    LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 //                            System.exit(0);
 //

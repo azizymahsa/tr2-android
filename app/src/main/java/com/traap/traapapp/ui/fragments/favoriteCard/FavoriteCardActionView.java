@@ -27,5 +27,5 @@ public interface FavoriteCardActionView
 
     void onShareCard(View view);
 
-    void startActivity(GoToActivity activity);
+    void startActivityForResult(GoToActivity activity);
 }

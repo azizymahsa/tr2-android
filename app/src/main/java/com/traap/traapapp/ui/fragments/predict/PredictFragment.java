@@ -225,7 +225,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         tvPredictEmpty = rootView.findViewById(R.id.tvPredictEmpty);
         rlShirt = rootView.findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
+        rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100)
         );
         imgAwayHeader = rootView.findViewById(R.id.imgAwayHeader);
         imgAway = rootView.findViewById(R.id.imgAway);

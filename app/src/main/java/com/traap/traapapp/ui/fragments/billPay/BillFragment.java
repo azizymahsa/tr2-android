@@ -544,13 +544,13 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
         tvBillName.setOnClickListener(view -> {
            /* if (billActiveVm != null) {
-                getActivity().startActivity(new Intent(getActivity(), AvailableBankActivity.class)
+                getActivity().startActivityForResult(new Intent(getActivity(), AvailableBankActivity.class)
                         .putExtra("billActiveVm", new Gson().toJson(billActiveVm)));
             }*/
         });
         tvBillName2.setOnClickListener(view -> {
            /* if (billActiveVm != null) {
-                getActivity().startActivity(new Intent(getActivity(), AvailableBankActivity.class)
+                getActivity().startActivityForResult(new Intent(getActivity(), AvailableBankActivity.class)
                         .putExtra("billActiveVm", new Gson().toJson(billActiveVm)));
             }*/
         });
