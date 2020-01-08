@@ -11,11 +11,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -65,6 +67,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private NewsActionView mainView;
 
     private Context context;
+    private NestedScrollView nestedScrollView;
 
     private ScrollingPagerIndicator indicatorNewestNews;
 
@@ -172,6 +175,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
     private void initView(View rootView)
     {
+        nestedScrollView = rootView.findViewById(R.id.nested);
+
         rlArrowLeft = rootView.findViewById(R.id.rlArrowLeft);
         rlArrowRight = rootView.findViewById(R.id.rlArrowRight);
 
@@ -377,8 +382,21 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private void setPager()
     {
         Collections.reverse(categoriesList);
+        int pagerHeight = (int) (getResources().getDimension(R.dimen.margin_news_main_archive_pager) +
+                getResources().getDimension(R.dimen._80dp));
+
+        LinearLayout.LayoutParams params;
+        int height = 20;
+        if (!categoriesList.isEmpty())
+        {
+            height = pagerHeight * categoriesList.size() / 2;
+        }
+        params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
 
         MyCustomViewPager pager = rootView.findViewById(R.id.view_pager);
+        pager.setLayoutParams(params);
+//        nestedScrollView.scrollTo(pager.getScrollX(), pager.getScrollY() - height);
+
         SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), categoriesList);
 
         pager.setAdapter(adapter);
@@ -388,7 +406,6 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 //        }
 
         TabLayout tabLayout = rootView.findViewById(R.id.tabLayout);
-//        tabLayout.setSelectedTabIndicator(getResources().getDrawable());
         tabLayout.setupWithViewPager(pager);
 
         for (int i = 0; i < tabLayout.getTabCount(); i++)
@@ -398,6 +415,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         }
 
         pager.setCurrentItem(categoriesList.size() - 1);
+
+//        nestedScrollView.scrollBy(tabLayout.getScrollX(), tabLayout.getScrollY());
     }
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter

@@ -62,6 +62,7 @@
     <dimen name="gmdtp_material_button_textpadding_horizontal">8dp</dimen>
 
     <dimen name="margin_news_main_favorite">32dp</dimen>
+    <dimen name="margin_news_main_archive_pager">16dp</dimen>
 
     <dimen name="icon_size">24sp</dimen>
     <dimen name="news_favorite_height" >200dp</dimen>
