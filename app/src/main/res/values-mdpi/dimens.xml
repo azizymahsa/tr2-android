@@ -109,4 +109,5 @@
     <dimen name="mdtp_material_button_textpadding_horizontal">8dp</dimen>
     <dimen name="_8dp">8dp</dimen>
     <dimen name="_56dp">56dp</dimen>
+    <dimen name="_300dp">300dp</dimen>
 </resources>
