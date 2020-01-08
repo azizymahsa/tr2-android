@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -23,25 +25,26 @@ import com.traap.traapapp.utilities.Utility;
 import org.greenrobot.eventbus.Subscribe;
 
 /**
- * Created by MahsaAzizi on 28/12/2019.
+ * Created by MahsaAzizi on 07/01/2020.
  */
-public class MonyTransferFragment extends BaseFragment implements View.OnClickListener
+public class AccountInformationFragment extends BaseFragment implements View.OnClickListener
 {
 
 
     private View rootView, btnChargeConfirmRightel;
     private MainActionView mainView;
     private ClearableEditText edtDestination;
+    private ImageView ivContact;
+    private Spinner spinnerType;
 
-
-    public MonyTransferFragment()
+    public AccountInformationFragment()
     {
 
     }
 
-    public static MonyTransferFragment newInstance(MainActionView mainView)
+    public static AccountInformationFragment newInstance(MainActionView mainView)
     {
-        MonyTransferFragment f = new MonyTransferFragment();
+        AccountInformationFragment f = new AccountInformationFragment();
         f.setMainView(mainView);
         return f;
     }
@@ -56,9 +59,11 @@ public class MonyTransferFragment extends BaseFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        rootView = inflater.inflate(R.layout.fragment_mony_transfer, container, false);
+        rootView = inflater.inflate(R.layout.fragment_account_information, container, false);
 
         initView();
+
+
 
 
         return rootView;
@@ -66,6 +71,9 @@ public class MonyTransferFragment extends BaseFragment implements View.OnClickLi
 
     private void initView()
     {
+
+
+
         edtDestination = rootView.findViewById(R.id.edtDestination);
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(19);
@@ -73,31 +81,39 @@ public class MonyTransferFragment extends BaseFragment implements View.OnClickLi
 
         btnChargeConfirmRightel = rootView.findViewById(R.id.btnChargeConfirmRightel);
         btnChargeConfirmRightel.setOnClickListener(this);
-        edtDestination.addTextChangedListener(new TextWatcher() {
-            int len=0;
+        edtDestination.addTextChangedListener(new TextWatcher()
+        {
+            int len = 0;
+
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 String str = edtDestination.getText().toString();
-                if(str.length()==4&& len <str.length()){//len check for backspace
+                if (str.length() == 4 && len < str.length())
+                {//len check for backspace
                     edtDestination.append("-");
                 }
-                if(str.length()==9&& len <str.length()){//len check for backspace
+                if (str.length() == 9 && len < str.length())
+                {//len check for backspace
                     edtDestination.append("-");
                 }
-                if(str.length()==14&& len <str.length()){//len check for backspace
+                if (str.length() == 14 && len < str.length())
+                {//len check for backspace
                     edtDestination.append("-");
                 }
             }
 
             @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
+            {
 
                 String str = edtDestination.getText().toString();
                 len = str.length();
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
             }
 
 
@@ -123,14 +139,9 @@ public class MonyTransferFragment extends BaseFragment implements View.OnClickLi
     {
         switch (v.getId())
         {
-           /* case R.id.btnChargeConfirmRightel:
-                if (etAmount.getText().toString().length() > 0)
-                    sendRequest();
-                else
-                    mainView.showError("لطفا مبلغ را وارد کنید.");
-                // showAlert(getActivity(), "لطفا مبلغ را وارد کنید.", 0);
-
-                break;*/
+            case R.id.ivContact:
+                mainView.onContact();
+                break;
         /*case R.id.etAmount:
             // sendRequest();
             break;*/

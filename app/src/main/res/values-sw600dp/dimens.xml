@@ -118,4 +118,5 @@
     <dimen name="mdtp_material_button_textpadding_horizontal">12dp</dimen>
     <dimen name="_8dp">17dp</dimen>
     <dimen name="_56dp">70dp</dimen>
+    <dimen name="_300dp">400dp</dimen>
 </resources>
