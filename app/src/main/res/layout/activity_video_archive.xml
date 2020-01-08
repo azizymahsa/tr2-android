@@ -9,7 +9,7 @@
     android:layout_gravity="right">
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:id="@+id/sliding_layout"
+        android:id="@+id/slidingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
@@ -36,7 +36,7 @@
             android:orientation="vertical">
 
             <include
-                android:id="@+id/rlSelectPrice"
+                android:id="@+id/scroll"
                 layout="@layout/search_transaction_view" />
 
 

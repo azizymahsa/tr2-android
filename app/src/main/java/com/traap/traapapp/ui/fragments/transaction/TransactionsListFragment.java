@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.Checkable;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,10 +65,10 @@ public class TransactionsListFragment
     private RecyclerView transactionRecycler;
     private TransactionListAdapter fixTableAdapter;
     private RecyclerView rvCategories;
-    private View llFilter,btnConfirm;
+    private View btnConfirm;
     private CheckBox cbSuccessPayment,cbFailedPayment;
     private TextView etTimeUntil,etTimeFrom;
-    private ImageView imgTimeFromReset,imgTimeUntilReset,ivSearch;
+    private ImageView imgTimeFromReset,imgTimeUntilReset;
 
     private PersianCalendar currentDate;
 
@@ -117,13 +115,10 @@ public class TransactionsListFragment
     {
         try
         {
-            upPanelLayout = rootView.findViewById(R.id.sliding_layout);
+            upPanelLayout = rootView.findViewById(R.id.slidingLayout);
 
             cbSuccessPayment=rootView.findViewById(R.id.cbSuccessPayment);
             cbFailedPayment=rootView.findViewById(R.id.cbFailedPayment);
-
-            ivSearch=rootView.findViewById(R.id.ivSearch);
-            ivSearch.setOnClickListener(this);
 
             rlTimeUntil=rootView.findViewById(R.id.rlTimeUntil);
             rlTimeFrom=rootView.findViewById(R.id.rlTimeFrom);
@@ -141,8 +136,6 @@ public class TransactionsListFragment
 
             btnConfirm=rootView.findViewById(R.id.btnConfirm);
             btnConfirm.setOnClickListener(this);
-            llFilter=rootView.findViewById(R.id.llFilter);
-            llFilter.setOnClickListener(this);
 
             transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
             tvCount = rootView.findViewById(R.id.tvCount);
@@ -340,12 +333,6 @@ public class TransactionsListFragment
     {
         switch (view.getId())
         {
-            case R.id.llFilter:
-
-               // openFilterLayout();
-
-                break;
-
             case R.id.btnConfirm:
 
                 hideFilterSlide();
@@ -365,9 +352,6 @@ public class TransactionsListFragment
 
                 break;
 
-            case R.id.ivSearch:
-
-                break;
             case R.id.rlTimeFrom:
                 pickerDialogDate.show(getActivity().getSupportFragmentManager(),"TimeFrom");
 
