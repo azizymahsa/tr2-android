@@ -29,4 +29,9 @@ public class MainServiceModelItem
 
     @Getter @Setter @Expose
     private String base_url;
+    @Getter @Setter @Expose
+
+    private Integer keyId;
+
+
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -45,7 +44,6 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.activities.web.WebActivity;
 import com.traap.traapapp.ui.adapters.allMenu.AllMenuServiceModelAdapter;
 //import com.traap.traapapp.ui.adapters.AllMenuServiceModelAdapter;
@@ -57,7 +55,6 @@ import com.traap.traapapp.ui.fragments.main.onConfirmUserPassGDS;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
-import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -90,14 +87,14 @@ public class AllMenuFragment extends BaseFragment implements
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-
+    Integer backState;
     public AllMenuFragment()
     {
 
     }
 
 
-    public static AllMenuFragment newInstance(MainActionView mainView, ArrayList<GetMenuItemResponse> allServicesList)
+    public static AllMenuFragment newInstance(MainActionView mainView, ArrayList<GetMenuItemResponse> allServicesList, Integer backState)
     {
         AllMenuFragment f = new AllMenuFragment();
         Bundle args = new Bundle();
@@ -106,12 +103,18 @@ public class AllMenuFragment extends BaseFragment implements
 
         f.setArguments(args);
         f.setMainView(mainView);
+        Log.e("backStateAllMenu", backState+"" );
+        f.setBackState(backState);
         return f;
     }
 
     private void setMainView(MainActionView mainView)
     {
         this.mainView = mainView;
+    }
+    private void setBackState(Integer backState)
+    {
+        this.backState = backState;
     }
 
     @Override
@@ -208,6 +211,26 @@ public class AllMenuFragment extends BaseFragment implements
 
             adapter = new AllMenuServiceModelAdapter(getActivity(), list, this);
             recyclerView.setAdapter(adapter);
+            Log.e("backStateAllMenu2", backState+"" );
+
+            if (list!=null&&backState==2){
+                Log.e("injaaaaaa", "salaaaam" );
+
+                for (int i = 0; i < list.size(); i++)
+                {
+                    Log.e("teeeeeeeeeeeeeeest", list.get(i).getId()+"");
+                        if (list.get(i).getId()==4){
+                            Log.e("teeeeeeeeeeeeeeest", "ok");
+
+                            adapter.setRow_index(i);
+                            OnItemAllMenuClick(null,list.get(i).getId(),list.get(i).getSubMenu());
+                            adapter.notifyDataSetChanged();
+                        }
+                }
+
+            }
+
+
         }
 
 
@@ -234,7 +257,7 @@ public class AllMenuFragment extends BaseFragment implements
                     MainServiceModelItem item = new MainServiceModelItem();
 
                     item.setId(itemResponse.getId());
-                    // item.setId(itemResponse.getKeyId());
+                    item.setKeyId(itemResponse.getKeyId());
                     //item.setTitle(itemResponse.getTitle());
                     item.setTitle(itemResponse.getTitle());
                     // item.setImageLink(itemResponse.getImageName());
@@ -551,13 +574,13 @@ public class AllMenuFragment extends BaseFragment implements
 
             case 42: //Pack
             {
-                mainView.onPackSimCard();
+                mainView.onPackSimCard(2);
                 break;
             }
 
             case 41: //Charge
             {
-                mainView.onChargeSimCard();
+                mainView.onChargeSimCard(2);
                 break;
             }
 

@@ -29,6 +29,16 @@ public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServ
     private int row_index = 0;
     private View view;
 
+    public int getRow_index()
+    {
+        return row_index;
+    }
+
+    public void setRow_index(int row_index)
+    {
+        this.row_index = row_index;
+    }
+
     public AllMenuServiceModelAdapter(Context mContext, List<MainServiceModelItem> list, OnItemAllMenuClickListener mItemClickListener)
     {
         this.mItemClickListener = mItemClickListener;

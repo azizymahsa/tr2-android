@@ -633,13 +633,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             }
             case 42: //Pack
             {
-                mainView.onPackSimCard();
+                mainView.onPackSimCard(0);
                 break;
             }
 
             case 41: //Charge
             {
-                mainView.onChargeSimCard();
+                mainView.onChargeSimCard(0);
                 break;
             }
 

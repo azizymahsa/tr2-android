@@ -1446,13 +1446,13 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void onChargeSimCard()
+    public void onChargeSimCard(Integer backstate)
     {
 
     }
 
     @Override
-    public void onPackSimCard()
+    public void onPackSimCard(Integer status)
     {
 
     }
