@@ -224,7 +224,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         tvBillTitle=v.findViewById(R.id.tvBillTitle);
         tvBillsTitle = v.findViewById(R.id.tvBillsTitle);
         rlBillList = v.findViewById(R.id.rlBillList);
-        upPanelLayout = v.findViewById(R.id.sliding_layout);
+        upPanelLayout = v.findViewById(R.id.slidingLayout);
         cvBarcode = v.findViewById(R.id.cvBarcode);
         nested = v.findViewById(R.id.nested);
         etPayId = v.findViewById(R.id.etPayId);
