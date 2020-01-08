@@ -880,7 +880,7 @@ public class Utility
         String check = number.substring(0, 4);
        return check.equals("0910") || check.equals("0911") || check.equals("0912") || check.equals("0913")
                 || check.equals("0914") || check.equals("0915") || check.equals("0916") || check.equals("0917")
-                || check.equals("0918") || check.equals("0919");
+                || check.equals("0918") || check.equals("0919") || check.equals("0990") || check.equals("0991") || check.equals("0992");
         //return true;
     }
 
@@ -936,7 +936,7 @@ public class Utility
         Logger.e("-startPhoneNo-", startPhoneNo);
 
 
-        String[] typeMCI_No = {"0990","0992","0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919"};
+        String[] typeMCI_No = {"0990","0992","0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919", "0990"};
         String[] typeMTN_No = {"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939"};
         String[] typeRightel_No = {"0920", "0921", "0922"};
 

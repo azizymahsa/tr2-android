@@ -8,6 +8,6 @@
     android:layoutDirection="ltr"
     android:textColor="@color/black"
     android:gravity="center"
-    android:textSize="15sp"
+    android:textSize="@dimen/textSize_12dp"
     android:background="@drawable/spinner_stadium_item"
     android:drawableBottom="@color/black"/>

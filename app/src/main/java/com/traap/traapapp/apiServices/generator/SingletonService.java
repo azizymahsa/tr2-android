@@ -54,6 +54,8 @@ import com.traap.traapapp.apiServices.part.GetMatchListService;
 import com.traap.traapapp.apiServices.part.TransactionDetailService;
 import com.traap.traapapp.apiServices.part.TransactionService;
 import com.traap.traapapp.apiServices.part.VerifyService;
+import com.traap.traapapp.apiServices.part.WithdrawWalletService;
+
 import okhttp3.OkHttpClient;
 
 /**
@@ -236,6 +238,10 @@ public class SingletonService
     public MobileChargeService getMobileCharge()
     {
         return new MobileChargeService(serviceGenerator);
+    }
+    public WithdrawWalletService withdrawWalletService()
+    {
+        return new WithdrawWalletService(serviceGenerator);
     }
 
     public BuyChargeWalletService buyChargeWalletService()
