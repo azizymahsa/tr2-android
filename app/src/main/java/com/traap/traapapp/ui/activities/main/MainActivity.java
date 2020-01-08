@@ -544,7 +544,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS)
                 );
-            } else if(fragment instanceof ChargeFragment && backState==2) {
+            } else if(fragment instanceof ChargeFragment && backState==2 ||fragment instanceof PackFragment && backState==2) {
                 Log.e("backStateBack1", backState+"" );
 
 
@@ -873,10 +873,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onPackSimCard()
+    public void onPackSimCard(Integer status)
     {
         isMainFragment = false;
-
+        this.backState =status;
         fragment = PackFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 

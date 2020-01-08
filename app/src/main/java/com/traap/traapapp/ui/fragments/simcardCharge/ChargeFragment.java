@@ -542,7 +542,7 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnChargeConfirm)
     void setBtnChargeConfirm()
     {
-        if (!Utility.mtnValidation(autoCompletePhoneNumberIrancel.getText().toString()))
+        if (!Utility.getMobileValidation(autoCompletePhoneNumberIrancel.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
@@ -645,7 +645,7 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnChargeConfirmRightel)
     void setBtnChargeConfirmRightel()
     {
-        if (!Utility.rightelValidation(autoCompletePhoneNumberRightel.getText().toString()))
+        if (!Utility.getMobileValidation(autoCompletePhoneNumberRightel.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
@@ -701,7 +701,7 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnMCIChargeConfirm)
     void setBtnMCIChargeConfirm()
     {
-        if (!Utility.mciValidation(autoCompletePhoneNumberMci.getText().toString()))
+        if (!Utility.getMobileValidation(autoCompletePhoneNumberMci.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
 
@@ -1766,7 +1766,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onPackSimCard()
+    public void onPackSimCard(Integer status)
     {
 
     }

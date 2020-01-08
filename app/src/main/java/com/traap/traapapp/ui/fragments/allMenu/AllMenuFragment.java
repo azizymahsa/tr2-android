@@ -574,7 +574,7 @@ public class AllMenuFragment extends BaseFragment implements
 
             case 42: //Pack
             {
-                mainView.onPackSimCard();
+                mainView.onPackSimCard(2);
                 break;
             }
 
