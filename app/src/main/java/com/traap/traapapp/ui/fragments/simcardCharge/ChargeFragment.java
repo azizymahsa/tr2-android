@@ -547,6 +547,12 @@ public class ChargeFragment extends BaseFragment
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
+        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberIrancel.getText().toString())){
+
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
+        }
         if (TextUtils.isEmpty(amount))
         {
             mainView.showError("لطفا مبلغ را وارد نمایید.");
@@ -650,7 +656,12 @@ public class ChargeFragment extends BaseFragment
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
+        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberRightel.getText().toString())){
 
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
+        }
         if (TextUtils.isEmpty(amount))
         {
             mainView.showError("لطفا مبلغ را وارد نمایید.");
@@ -707,7 +718,12 @@ public class ChargeFragment extends BaseFragment
 
             return;
         }
+        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberMci.getText().toString())){
 
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
+        }
         if (TextUtils.isEmpty(amount))
         {
             mainView.showError("لطفا مبلغ را وارد نمایید.");

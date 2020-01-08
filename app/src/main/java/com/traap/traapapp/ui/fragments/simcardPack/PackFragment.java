@@ -757,6 +757,12 @@ public class PackFragment
          //   hideSoftKeyboard(etMobileNumberIranCell);
             return;
         }
+        if (Utility.checkTaliyaValidation(etMobileNumberIranCell.getText().toString())){
+
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
+        }
         if (!Utility.isNetworkAvailable())
         {
             mainView.onInternetAlert();
@@ -781,6 +787,7 @@ public class PackFragment
     void setBtnChargeConfirmRightel()
     {
 
+
         initSpinner();
         setupRecycler();
         if (!Utility.getMobileValidation(etMobileNumberRightel.getText().toString()))
@@ -789,6 +796,12 @@ public class PackFragment
 
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
+        }
+        if (Utility.checkTaliyaValidation(etMobileNumberRightel.getText().toString())){
+
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
         }
         if (!Utility.isNetworkAvailable())
         {
@@ -827,6 +840,12 @@ public class PackFragment
             hideSoftKeyboard(etMobileNumberMCI);
 
             return;
+        }
+        if (Utility.checkTaliyaValidation(etMobileNumberMCI.getText().toString())){
+
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
         }
         if (!Utility.isNetworkAvailable())
         {

@@ -79,7 +79,7 @@
                     android:background="@color/gray"
                     android:foreground="?attr/selectableItemBackground"
                     android:scaleType="fitXY"
-                    app:riv_corner_radius="10dp"
+                    app:riv_corner_radius="15dp"
                     app:riv_mutate_background="true"
                     app:riv_oval="false"/>
             <com.makeramen.roundedimageview.RoundedImageView
@@ -91,7 +91,7 @@
                 android:background="@drawable/big_like"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="center"
-                app:riv_corner_radius="10dp"
+                app:riv_corner_radius="15dp"
                 app:riv_mutate_background="true"
                 app:riv_oval="false"
                 android:visibility="gone"/>
