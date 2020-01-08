@@ -206,6 +206,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         {
             mainView.onNewsFavoriteFragment(parent);
         });
+
     }
 
     private void onSlideRight()
@@ -255,6 +256,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         if (response == null || response.info == null)
         {
             startActivity(new Intent(context, LoginActivity.class));
+            startActivityForResult(new Intent(getActivity(), LoginActivity.class),100);
             getActivity().finish();
 
             return;
@@ -262,6 +264,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         if (response.info.statusCode != 200)
         {
             startActivity(new Intent(context, LoginActivity.class));
+            startActivityForResult(new Intent(getActivity(), LoginActivity.class),100);
             getActivity().finish();
 
             return;
@@ -301,7 +304,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             intent.putExtra("currentId", id);
             intent.putExtra("currentPosition", position);
             intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-            startActivity(intent);
+            startActivityForResult(intent,100);
         });
 
         favNewsAdapter = new NewsMainFavoriteAdapter(context, favoriteNewsList);
@@ -329,7 +332,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             intent.putExtra("currentId", id);
             intent.putExtra("currentPosition", position);
             intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-            startActivity(intent);
+            startActivityForResult(intent,100);
         });
 
 //        favRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()

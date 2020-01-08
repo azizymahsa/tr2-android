@@ -523,7 +523,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
             case R.id.tvBankName:
 //                if (transferLogoVm != null)
 //                {
-//                    getActivity().startActivity(new Intent(getActivity(), AvailableBankActivity.class)
+//                    getActivity().startActivityForResult(new Intent(getActivity(), AvailableBankActivity.class)
 //                            .putExtra("transferLogoVm", new Gson().toJson(transferLogoVm)));
 //                }
                 break;

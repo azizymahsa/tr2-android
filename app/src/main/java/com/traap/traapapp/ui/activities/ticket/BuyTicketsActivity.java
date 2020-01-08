@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +31,10 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.ticket.PagerAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
+import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
+import com.traap.traapapp.ui.fragments.ticket.CompeletInfoFragment;
 import com.traap.traapapp.ui.fragments.ticket.OnClickContinueBuyTicket;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.utilities.CustomViewPager;
@@ -37,8 +42,7 @@ import com.traap.traapapp.utilities.CustomViewPager;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class BuyTicketsActivity extends BaseActivity implements OnClickContinueBuyTicket, OnAnimationEndListener, View.OnClickListener
-{
+public class BuyTicketsActivity extends BaseActivity implements OnClickContinueBuyTicket, OnAnimationEndListener, View.OnClickListener {
     public static BuyTicketsActivity buyTicketsFragment;
     private static boolean paymentIsComplete = false;
     private View rootView;
@@ -48,7 +52,7 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
     private LinearLayout llPrintTicket, llFullInfo, llSelectPosition;
     private TextView btnBackToDetail, tvCountTicket, tvSelectPosition, tvFullInfo, tvPrintTicket;
     private CircularProgressButton btnPaymentConfirm;
-    private ImageView ivCountTicket, ivSelectPosition, ivFullInfo, ivPrintTicket,imgHome;
+    private ImageView ivCountTicket, ivSelectPosition, ivFullInfo, ivPrintTicket, imgHome;
     private View vOneToTow, vZeroToOne, vTowToThree;
     private TextView tvTitle, tvUserName, tvHeaderPopularNo;
     public String namePosition, selectPositionId;
@@ -61,32 +65,22 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
     private String url = "";
     private Integer stadiumId;
     private View rlShirt;
-
-
-    public BuyTicketsActivity()
-    {
-
-    }
+     PagerAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_ticket);
-        showLoading();
-        if (savedInstanceState == null)
-        {
-            try
-            {
+        //  showLoading();
+        if (savedInstanceState == null) {
+            try {
                 Bundle extras = getIntent().getExtras();
-                if (extras == null)
-                {
+                if (extras == null) {
 
-                } else
-                {
+                } else {
                     matchBuyable = extras.getParcelable("MatchBuyable");
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
 
@@ -102,34 +96,31 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //  ViewPager need a PagerAdapter
-        final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount(), this,  matchBuyable);
+        adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount(), this, matchBuyable);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();
         viewPager.setPagingEnabled(false);
 
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
-        {
-            public void onPageScrollStateChanged(int state)
-            {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {
             }
 
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
 
-            public void onPageSelected(int position)
-            {
+            public void onPageSelected(int position) {
 
 
-                if (position == 1)
-                {
+                if (position == 1) {
+                    new Handler().postDelayed(adapter::compeletInfoFragmentData, 200);
 
-                    new Handler().postDelayed(() -> adapter.compeletInfoFragmentData(selectPositionId, count, amountForPay, amountOneTicket, ticketIdList, stadiumId), 200);
+                    new Handler().postDelayed(() -> adapter.compeletInfoFragmentData(selectPositionId, count, amountForPay, amountOneTicket, ticketIdList, stadiumId), 50);
                     //setDataToCompleteInfoFragment(namePosition);
                 }
+
                /* if (position == 2)
                     adapter.createShareShowTicket();*/
 
@@ -137,8 +128,7 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
-        if (paymentIsComplete)
-        {
+        if (paymentIsComplete) {
 
             //   viewPager.setCurrentItem(3, true);
 
@@ -147,30 +137,25 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
         EventBus.getDefault().register(this);
     }
 
-    public void setDataToCompleteInfoFragment(String name)
-    {
+    public void setDataToCompleteInfoFragment(String name) {
         this.namePosition = name;
     }
 
-    public void showLoading()
-    {
+    public void showLoading() {
         findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
     }
 
-    public void hideLoading()
-    {
+    public void hideLoading() {
         findViewById(R.id.rlLoading).setVisibility(View.GONE);
         runOnUiThread(() ->
         {
         });
     }
 
-    private void initView()
-    {
-        try
-        {
+    private void initView() {
+        try {
             rlShirt = findViewById(R.id.rlShirt);
-            imgHome=findViewById(R.id.imgHome);
+            imgHome = findViewById(R.id.imgHome);
             imgHome.setOnClickListener(v -> {
                 finish();
             });
@@ -184,33 +169,31 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
             imgMenu = findViewById(R.id.imgMenu);
             imgMenu.setVisibility(View.GONE);
 
-          /*  imgMenu.setOnClickListener(v -> mainView.openDrawer());*/
+            /*  imgMenu.setOnClickListener(v -> mainView.openDrawer());*/
 
             rlShirt.setOnClickListener(this);
             imgBack = findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
                 onBackClicked();
-               // finish();
+                // finish();
             });
 
             tvTitle.setText("خرید بلیت");
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
-        if (paymentIsComplete)
-        {
+        if (paymentIsComplete) {
 
             //   viewPager.setCurrentItem(3, true);
 
         }
-       // btnPaymentConfirm = rootView.findViewById(R.id.btnPaymentConfirm);
-      //  btnBackToDetail = rootView.findViewById(R.id.btnBackToDetail);
+        // btnPaymentConfirm = rootView.findViewById(R.id.btnPaymentConfirm);
+        //  btnBackToDetail = rootView.findViewById(R.id.btnBackToDetail);
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.pager);
-        llPrintTicket =findViewById(R.id.llPrintTicket);
+        llPrintTicket = findViewById(R.id.llPrintTicket);
         llFullInfo = findViewById(R.id.llFullInfo);
         ivCountTicket = findViewById(R.id.ivCountTicket);
         tvCountTicket = findViewById(R.id.tvCountTicket);
@@ -231,16 +214,13 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
 
     }
 
-    private int getItem(int i)
-    {
+    private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
     }
 
     @Override
-    public void onClick(View view)
-    {
-        switch (view.getId())
-        {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btnPaymentConfirm:
                 viewPager.setCurrentItem(getItem(+1), true);
                 break;
@@ -254,7 +234,7 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
                 // mainView.onPackSimCard();
                 break;
             case R.id.rlShirt:
-                 startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class), 100);
 
                 break;
 
@@ -269,26 +249,21 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
      * @return
      */
     @NonNull
-    private TabLayout.OnTabSelectedListener getOnTabSelectedListener(final ViewPager viewPager)
-    {
-        return new TabLayout.OnTabSelectedListener()
-        {
+    private TabLayout.OnTabSelectedListener getOnTabSelectedListener(final ViewPager viewPager) {
+        return new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab)
-            {
+            public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 Toast.makeText(getApplicationContext(), "Tab selected " + tab.getPosition(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab)
-            {
+            public void onTabUnselected(TabLayout.Tab tab) {
                 // nothing now
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab)
-            {
+            public void onTabReselected(TabLayout.Tab tab) {
                 // nothing now
             }
         };
@@ -296,31 +271,32 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
 
 
     @Override
-    public void onAnimationEnd()
-    {
+    public void onAnimationEnd() {
 
     }
 
     @Override
-    public void onBackClicked()
-    {
+    public void onBackClicked() {
 
-        if(viewPager.getCurrentItem()==0){
-           finish();
+        if (viewPager.getCurrentItem() == 0) {
+            finish();
+
+        }else if(viewPager.getCurrentItem() == 1 &&adapter.getLlGateWaye().getVisibility()==View.VISIBLE){
+           adapter.compeletInfoFragmentData();
+
+            return;
         }
-        else if (viewPager.getCurrentItem() == 1)
-        {
 
-           SelectPositionFragment.fragment.getAllBoxesRequest(true);
+        else if (viewPager.getCurrentItem() == 1) {
+
+            SelectPositionFragment.fragment.getAllBoxesRequest(true);
         }
-
         viewPager.setCurrentItem(getItem(-1), true);
         checkPositionFromSetSelected();
     }
 
     @Override
-    public void onContinueClicked()
-    {
+    public void onContinueClicked() {
 
         viewPager.setCurrentItem(getItem(+1), true);
         checkPositionFromSetSelected();
@@ -328,17 +304,14 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
     }
 
     @Override
-    public void goBuyTicket()
-    {
+    public void goBuyTicket() {
         viewPager.setCurrentItem(0, true);
         checkPositionFromSetSelected();
     }
 
 
-    private void checkPositionFromSetSelected()
-    {
-        if (viewPager.getCurrentItem() == 0)
-        {
+    private void checkPositionFromSetSelected() {
+        if (viewPager.getCurrentItem() == 0) {
             ivCountTicket.setImageResource(R.drawable.select_step_non);
             tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
@@ -355,8 +328,7 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
             vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
 
-        } else if (viewPager.getCurrentItem() == 1)
-        {
+        } else if (viewPager.getCurrentItem() == 1) {
             ivCountTicket.setImageResource(R.drawable.select_step);
             tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
@@ -373,24 +345,18 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
             vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
 
-        } /*else if (viewPager.getCurrentItem() == 2)
-        {
+        } else if (viewPager.getCurrentItem() == 2) {
             ivCountTicket.setImageResource(R.drawable.select_step);
             tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivSelectPosition.setImageResource(R.drawable.select_step);
             tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
-            ivFullInfo.setImageResource(R.drawable.select_step);
-            tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
-
-            ivPrintTicket.setImageResource(R.drawable.select_step);
-            tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
-          *//*  ivFullInfo.setImageResource(R.drawable.select_step_non);
+            ivFullInfo.setImageResource(R.drawable.select_step_non);
             tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
             ivPrintTicket.setImageResource(R.drawable.un_select_step);
@@ -399,9 +365,8 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
             vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
-*//*
-        } else if (viewPager.getCurrentItem() == 3)
-        {
+
+        } else if (viewPager.getCurrentItem() == 3) {
 
             ivCountTicket.setImageResource(R.drawable.select_step);
             tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
@@ -419,11 +384,10 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
             vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
             vTowToThree.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
-        }*/
+        }
     }
 
-    public void setData(String selectPositionId, int count, int amountForPay, int amountOneTicket, List<Integer> results, Integer stadiumId)
-    {
+    public void setData(String selectPositionId, int count, int amountForPay, int amountOneTicket, List<Integer> results, Integer stadiumId) {
 
         this.selectPositionId = selectPositionId;
         this.count = count;
@@ -434,89 +398,116 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
 
     }
 
-    public void setInfoViewers(List<InfoViewer> infoViewers)
-    {
+    public void setInfoViewers(List<InfoViewer> infoViewers) {
         this.infoViewers = infoViewers;
 
     }
 
-    public void setUrlFromWebFragment(String url)
-    {
+    public void setUrlFromWebFragment(String url) {
 
         this.url = url;
 
     }
 
-    public void showError(String message)
-    {
+    public void showError(String message) {
         showToast(this, message, R.color.red);
     }
 
-    public void openWebPayment(String url)
-    {
+    public void openWebPayment(String url) {
 //        Utility.openUrlCustomTab(getActivity(), url);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
-        startActivity(intent);
+        startActivityForResult(intent, 100);
     }
 
 
     @Override
-    public void showPaymentParentLoading()
-    {
+    public void showPaymentParentLoading() {
 
     }
 
     @Override
-    public void hidePaymentParentLoading()
-    {
+    public void hidePaymentParentLoading() {
 
     }
 
     @Override
-    public void onPaymentCancelAndBack()
-    {
+    public void onPaymentCancelAndBack() {
 
     }
 
     @Override
-    public void startAddCardActivity()
-    {
+    public void startAddCardActivity() {
 
     }
 
-    public CustomViewPager getViewpager()
-    {
+    public CustomViewPager getViewpager() {
         return viewPager;
     }
 
 
     @Subscribe
-    public void getHeaderContent(HeaderModel headerModel)
-    {
-        if (headerModel.getPopularNo() != 0)
-        {
+    public void getHeaderContent(HeaderModel headerModel) {
+        if (headerModel.getPopularNo() != 0) {
             tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
         }
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
     }
 
     @Override
-    public void onBackPressed()
-    {
-        try
-        {
+    public void onBackPressed() {
+        try {
             onBackClicked();
 
-            }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
+
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+    public void onPayment() {
+        ivCountTicket.setImageResource(R.drawable.select_step);
+        tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+        ivSelectPosition.setImageResource(R.drawable.select_step);
+        tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+
+        vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+        vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+        vTowToThree.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+        ivFullInfo.setImageResource(R.drawable.select_step_non);
+        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+        ivPrintTicket.setImageResource(R.drawable.un_select_step);
+        tvPrintTicket.setTextColor(getResources().getColor(R.color._disable_color));
+
+        vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+        vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+        vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
+    }
+    public void onBackPayment() {
+        ivCountTicket.setImageResource(R.drawable.select_step);
+        tvCountTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+        ivSelectPosition.setImageResource(R.drawable.select_step_non);
+        tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+        ivFullInfo.setImageResource(R.drawable.un_select_step);
+        tvFullInfo.setTextColor(getResources().getColor(R.color._disable_color));
+
+        ivPrintTicket.setImageResource(R.drawable.un_select_step);
+        tvPrintTicket.setTextColor(getResources().getColor(R.color._disable_color));
+
+        vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
+        vOneToTow.setBackgroundColor(getResources().getColor(R.color._disable_color));
+        vTowToThree.setBackgroundColor(getResources().getColor(R.color._disable_color));
+    }
+
 
 }

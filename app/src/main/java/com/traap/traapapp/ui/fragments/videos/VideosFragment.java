@@ -368,7 +368,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 //                    ArrayList<ListCategory> categoryTitleList = mainVideosResponse.getListCategories();
 //                    Intent intent = new Intent(context, VideoArchiveActivity.class);
 //                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
-//                    startActivity(intent);
+//                    startActivityForResult(intent,100);
 //                } catch (Exception e)
 //                {
 //                    if (Tools.isNetworkAvailable(context))
@@ -389,7 +389,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 //                {
 //                    Intent intent1 = new Intent(context, VideoArchiveActivity.class);
 //                    intent1.putExtra("FLAG_Favorite", true);
-//                    startActivity(intent1);
+//                    startActivityForResult(intent1);
 //                } catch (Exception e)
 //                {
 //                    if (Tools.isNetworkAvailable(context))
@@ -416,7 +416,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         intent.putExtra("positionVideo", position);
         intent.putExtra("idCategoryTitle", idCategoryTitle);
 
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     @Override

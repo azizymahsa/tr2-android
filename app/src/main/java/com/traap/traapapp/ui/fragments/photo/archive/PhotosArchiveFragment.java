@@ -195,7 +195,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.rlShirt))
                 .subscribe(v ->
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
                 })
         );
 

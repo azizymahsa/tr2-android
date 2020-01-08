@@ -1,5 +1,7 @@
 package com.traap.traapapp.ui.adapters.ticket;
 
+import android.widget.LinearLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -65,6 +67,16 @@ public class PagerAdapter
         tab2.getDataFormBefore(selectPositionId,count,amountForPay,amountOneTicket,ticketIdList,stadiumId);
 
     }
+    public void compeletInfoFragmentData()
+{
+    tab2.resetView();
+
+}
+    public LinearLayout getLlGateWaye(){
+        return tab2.getLlGateWaye();
+
+    }
+
 
 
     @Override

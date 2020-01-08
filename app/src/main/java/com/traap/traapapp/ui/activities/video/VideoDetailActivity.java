@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.activities.video;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -104,7 +106,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
                 finish();
             });
             rlShirt = findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
+            rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100)
             );
         } catch (Exception e)
         {
@@ -143,6 +145,15 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         requestGetRelatedVideos(idVideoCategory);
         rlVideo.setOnClickListener(this);
         rlLike.setOnClickListener(this);
+       FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
+
+        flLogoToolbar.setOnClickListener(v ->
+        {
+            Intent returnIntent = new Intent();
+
+            setResult(Activity.RESULT_OK,returnIntent);
+            finish();
+        });
 
     }
 

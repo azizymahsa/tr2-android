@@ -434,7 +434,7 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                 Uri.fromParts("package", getPackageName(), null));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     /**

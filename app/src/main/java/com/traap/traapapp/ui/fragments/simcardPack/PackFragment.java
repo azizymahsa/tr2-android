@@ -178,7 +178,7 @@ public class PackFragment
         @Override
         public void onClick(View v)
         {
-            startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
         }
     });
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import android.widget.TextView;
@@ -148,10 +149,14 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
+            FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
+            flLogoToolbar.setOnClickListener(v -> {
+                mainView.backToMainFragment();
 
+            });
             rlShirt.setOnClickListener(v ->
             {
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
 
             });
             imgBack = rootView.findViewById(R.id.imgBack);

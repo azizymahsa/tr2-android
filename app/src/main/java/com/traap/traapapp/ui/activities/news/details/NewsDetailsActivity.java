@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -72,7 +74,7 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     {
         mToolbar = findViewById(R.id.toolbar);
         rlShirt = findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
+        rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100)
         );
         aviPrev = findViewById(R.id.aviPrev);
         aviNext = findViewById(R.id.aviNext);
@@ -85,8 +87,16 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("جزئیات خبر");
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+        FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+        flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+        flLogoToolbar.setOnClickListener(v -> {
+            Intent returnIntent = new Intent();
 
-        mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class)));
+            setResult(Activity.RESULT_OK,returnIntent);
+            finish();
+        });
+
+        mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100));
 
         rlNextNews = findViewById(R.id.rlNextNews);
         rlPrevNews = findViewById(R.id.rlPrevNews);

@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.activities.photo;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,10 +12,14 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,7 +56,7 @@ import com.traap.traapapp.utilities.Tools;
 public class AlbumDetailActivity extends BaseActivity implements View.OnClickListener, AlbumDetailsItemAdapter.OnItemAllMenuClickListener, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener
 {
     private TextView tvTitle, tvUserName, tvPopularPlayer, tvLike;
-    private View imgBack, imgMenu, rlShirt;
+    private View imgBack, imgMenu, rlShirt,flLogoToolbar;
     private RoundedImageView ivPhoto,ivBigLike;
     private ImageView imgBookmark, imgLike;
     private int positionVideo, idVideoCategory;
@@ -75,6 +80,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     long lastClickTime = 0;
     private boolean doubleClick=false;
     private boolean isMoving=false;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,12 +105,22 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
         initView();
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100&&resultCode == Activity.RESULT_OK) {
+            Intent returnIntent = new Intent();
 
+            setResult(Activity.RESULT_OK,returnIntent);
+            finish();
+        }
+    }
     private void initView()
     {
         try
         {
             tvEmpty = findViewById(R.id.tvEmpty);
+            mToolbar = findViewById(R.id.toolbar);
             bRelatedAlbums = findViewById(R.id.bRelatedAlbums);
             recyclerView = findViewById(R.id.recyclerView);
             titleAlbum = findViewById(R.id.titleAlbum);
@@ -123,12 +139,24 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
             imgBack = findViewById(R.id.imgBack);
+            flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
             imgBack.setOnClickListener(v ->
             {
                 finish();
             });
+
+            flLogoToolbar.setOnClickListener(v ->
+            {
+                Intent returnIntent = new Intent();
+
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
+            });
+
+
+
             rlShirt = findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
+            rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100)
             );
 
         } catch (Exception e)
@@ -380,7 +408,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                                     intent.putExtra("idPhoto", idPhoto);
                                     intent.putExtra("isLike", isLike);
                                     intent.putExtra("isBookmark", isBookmark);
-                                    startActivity(intent);
+                                    startActivityForResult(intent,100);
                                 }else
                                     doubleClick = false;
                             }

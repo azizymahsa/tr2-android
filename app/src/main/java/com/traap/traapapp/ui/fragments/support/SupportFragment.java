@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -127,7 +128,7 @@ public class SupportFragment
                 @Override
                 public void onClick(View v)
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
                 }
             });
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
@@ -138,7 +139,11 @@ public class SupportFragment
                     mainView.openDrawer();
                 }
             });
+            FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+            flLogoToolbar.setOnClickListener(v -> {
+                mainView.backToMainFragment();
 
+            });
             imgMenu = view.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
@@ -293,7 +298,7 @@ public class SupportFragment
                     phone = "021-4855";
                 }
                 intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
-                startActivity(intent2);
+                startActivityForResult(intent2,100);
 
                 break;
             case R.id.tvEmail:
@@ -302,7 +307,7 @@ public class SupportFragment
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:" + email));
                 //                emailIntent.setData(Uri.parse("mailto:info@traap.com"));
-                startActivity(emailIntent);
+                startActivityForResult(emailIntent,100);
 
                 break;
             case R.id.tvSms:
@@ -313,7 +318,7 @@ public class SupportFragment
                     smsIntent.setType("vnd.android-dir/mms-sms");
                     smsIntent.putExtra("address", sms);
                     smsIntent.putExtra("sms_body", "");
-                    startActivity(smsIntent);
+                    startActivityForResult(smsIntent,100);
                 } catch (android.content.ActivityNotFoundException anfe)
                 {
                     Log.d("Error", "Error");

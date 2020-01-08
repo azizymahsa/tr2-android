@@ -416,7 +416,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
 
             intent.putExtra("RefrenceNumber", response.getRefNumber());
             intent.putExtra("isTransactionList", false);
-            startActivity(intent);
+            startActivityForResult(intent,100);
         }
 
 
@@ -452,7 +452,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
        /* Intent intent = new Intent(getContext(), PaymentResultActivity.class);
         intent.putExtra("RefrenceNumber", item.getId().toString());
         intent.putExtra("StatusPayment", false);
-        getContext().startActivity(intent);*/
+        getContext().startActivityForResult(intent,100);*/
 
     }
 }

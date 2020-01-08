@@ -228,7 +228,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
                 finish();
             });
             rlShirt = findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
+            rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100)
             );
         } catch (Exception e)
         {
@@ -260,7 +260,7 @@ public class VideoArchiveActivity extends BaseActivity implements VideosCategory
         intent.putExtra("IdVideo", id);
         intent.putExtra("positionVideo", position);
 
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     @Override

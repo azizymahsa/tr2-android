@@ -68,7 +68,6 @@
                     android:id="@+id/llPrintTicket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackground"
                     android:orientation="horizontal">
 
 
@@ -134,7 +133,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:foreground="?attr/selectableItemBackground"
                     android:orientation="horizontal">
 
 
@@ -208,8 +206,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/tab_layout"
-            android:background="@android:color/white" />
-
+            android:background="@android:color/white"
+            />
+        <FrameLayout
+            android:id="@+id/ticket_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            android:visibility="gone"
+            android:layout_above="@+id/bottom_navigation" />
     </LinearLayout>
 
     <include layout="@layout/loading"

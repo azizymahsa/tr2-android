@@ -98,12 +98,13 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.flLogoToolbar).setOnClickListener(rootView -> mainView.backToMainFragment());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("رسانه");
         rlShirt = mToolbar.findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class)));
+        rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100));
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
