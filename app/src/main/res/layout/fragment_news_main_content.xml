@@ -298,7 +298,7 @@
                 <com.traap.traapapp.utilities.MyCustomViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"/>
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 
