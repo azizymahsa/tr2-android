@@ -63,7 +63,7 @@ public class AlbumDetailsItemAdapter extends RecyclerView.Adapter<AlbumDetailsIt
             public void onClick(View view)
             {
                 row_index = position;
-                mItemClickListener.OnItemAllMenuClick(view, item.getId(), item);
+                mItemClickListener.OnItemAllMenuClick(view, item.getId(), item,position);
                 notifyDataSetChanged();
 
             }
@@ -153,7 +153,7 @@ public class AlbumDetailsItemAdapter extends RecyclerView.Adapter<AlbumDetailsIt
     }
     public interface OnItemAllMenuClickListener
     {
-        public void OnItemAllMenuClick(View view, Integer id,Content content);
+        public void OnItemAllMenuClick(View view, Integer id,Content content,Integer position);
     }
 
 //    public void SetOnItemCheckedChangeListener(final OnItemClickListener mItemClickListener)

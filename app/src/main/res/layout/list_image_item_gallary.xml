@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.wang.avi.AVLoadingIndicatorView
+
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="visible"
+        app:indicatorColor="@color/colorPrimaryDark"
+        app:indicatorName="BallSpinFadeLoaderIndicator"
+        android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:id="@+id/rlLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:padding="3dp"
+            android:layout_alignParentEnd="true"
+            >
+            <ImageView
+                android:id="@+id/btnSharePics"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_35dp"
+                android:src="@drawable/share_nn"
+                android:padding="@dimen/_5sdp"
+                android:tint="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_toRightOf="@id/btnBookmarks"
+                android:layout_marginRight="5dp"
+
+                />
+            <ImageView
+                android:id="@+id/btnBookmarks"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_35dp"
+                android:src="@drawable/book_ic"
+                android:padding="@dimen/_5sdp"
+                android:tint="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_toRightOf="@id/tvLikes"
+                android:layout_marginRight="5dp"
+
+
+
+                />
+
+            <TextView
+                android:id="@+id/tvLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text=""
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize_16dp"
+                android:layout_toRightOf="@id/imgLikes"
+
+
+
+                />
+            <ImageView
+                android:id="@+id/imgLikes"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_35dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="2dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_like_white"
+                android:tint="@color/white"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/_20dp"
+            android:layout_marginRight="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_10dp"
+            >
+
+            <com.jcminarro.roundkornerlayout.RoundKornerRelativeLayout
+                android:id="@+id/rlPic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:corner_radius="10dp"
+
+                >
+
+
+                <com.github.chrisbanes.photoview.PhotoView
+                    android:id="@+id/photo_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_250dp_r"
+                    android:adjustViewBounds="true"
+                    android:background="@color/gray"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:scaleType="fitXY" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/ivBigLikes"
+                    android:layout_width="@dimen/_100dp"
+                    android:layout_height="@dimen/_100dp"
+                    android:adjustViewBounds="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/big_like"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:scaleType="center"
+                    app:riv_corner_radius="10dp"
+                    app:riv_mutate_background="true"
+                    app:riv_oval="false"
+                    android:visibility="gone"/>
+
+
+            </com.jcminarro.roundkornerlayout.RoundKornerRelativeLayout>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
