@@ -19,8 +19,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+//import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+//import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.pixplicity.easyprefs.library.Prefs;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import io.reactivex.disposables.CompositeDisposable;
+
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -47,16 +58,8 @@ import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetime
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
-import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-import io.reactivex.disposables.CompositeDisposable;
-
-
-public class TransactionsListFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
+public class TransactionsListFragment2 extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
         DatePickerDialog.OnDateSetListener//, OnBackPressed
 {
 
@@ -125,13 +128,13 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
     String createDateRange = null;
 
 
-    public TransactionsListFragment()
+    public TransactionsListFragment2()
     {
     }
 
-    public static TransactionsListFragment newInstance(MainActionView mainView)
+    public static TransactionsListFragment2 newInstance(MainActionView mainView)
     {
-        TransactionsListFragment f = new TransactionsListFragment();
+        TransactionsListFragment2 f = new TransactionsListFragment2();
 
         Bundle args = new Bundle();
         f.setArguments(args);
