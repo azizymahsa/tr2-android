@@ -1,6 +1,8 @@
 package com.traap.traapapp.ui.adapters.mainSlider;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Callback;
@@ -20,18 +23,24 @@ import java.util.List;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 
 public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.ViewHolder>
 {
+    private final MainActionView mainView;
     private OnSliderItemClickListener mItemClickListener;
     private Context mContext;
     private List<MatchItem> list;
 
-    public MainSliderAdapter(Context mContext, List<MatchItem> list, OnSliderItemClickListener mItemClickListener)
+    public MainSliderAdapter(MainActionView mainView, Context mContext, List<MatchItem> list, OnSliderItemClickListener mItemClickListener)
     {
         this.mItemClickListener = mItemClickListener;
         this.mContext = mContext;
         this.list = list;
+        this.mainView = mainView;
     }
 
     @NonNull
@@ -52,10 +61,78 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
     {
         MatchItem matchItem = list.get(position);
 
-        //--------------------start------------------------
-//            textSliderView.setColorDateTime("#000");
-//            textSliderView.setColorStadiumName("#aaa");
-        //--------------------end--------------------------
+        //////////////////////
+
+        if (matchItem.getBuyEnable() && matchItem.getIsPredict())
+        {
+            holder.tvBuyTicket.setVisibility(View.VISIBLE);
+            holder.tvPredictResult.setVisibility(View.VISIBLE);
+
+            holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_red);
+            holder.tvBuyTicket.setBackgroundResource(R.drawable.background_border_red);
+            // holder.tvPredictResult.setEnabled(true);
+            // holder.tvPredictResult.setClickable(true);
+            // holder.tvBuyTicket.setEnabled(true);
+            // holder.tvBuyTicket.setClickable(true);
+            holder.tvBuyTicket.setTextColor(Color.WHITE);
+            holder.tvPredictResult.setTextColor(Color.WHITE);
+            // holder.lnrBuyEnable.setVisibility(View.VISIBLE);
+        } else if (matchItem.getIsPredict())
+        {
+            //holder.lnrBuyEnable.setVisibility(View.VISIBLE);
+            holder.tvPredictResult.setVisibility(View.VISIBLE);
+            // holder.tvBuyTicket.setVisibility(View.GONE);
+            holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_red);
+            holder.tvBuyTicket.setBackgroundResource(R.drawable.background_border_a);
+            // holder.tvPredictResult.setEnabled(true);
+            // holder.tvPredictResult.setClickable(true);
+            // holder.tvBuyTicket.setEnabled(false);
+            //  holder.tvBuyTicket.setClickable(false);
+            holder.tvBuyTicket.setTextColor(Color.RED);
+            holder.tvPredictResult.setTextColor(Color.WHITE);
+
+        } else if (matchItem.getBuyEnable())
+        {
+            holder.tvBuyTicket.setVisibility(View.VISIBLE);
+            // holder.tvPredictResult.setVisibility(View.GONE);
+            holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_a);
+            holder.tvBuyTicket.setBackgroundResource(R.drawable.background_border_red);
+            // holder.tvPredictResult.setEnabled(false);
+            // holder.tvPredictResult.setClickable(false);
+            // holder.tvBuyTicket.setEnabled(true);
+            // holder.tvBuyTicket.setClickable(true);
+            holder.tvBuyTicket.setTextColor(Color.WHITE);
+            holder.tvPredictResult.setTextColor(Color.RED);
+            // holder.lnrBuyEnable.setVisibility(View.VISIBLE);
+        } else
+        {
+            // holder.lnrBuyEnable.setVisibility(View.GONE);
+            //  holder.tvPredictResult.setVisibility(View.GONE);
+            //  holder.tvBuyTicket.setVisibility(View.GONE);
+            holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_a);
+            holder.tvBuyTicket.setBackgroundResource(R.drawable.background_border_a);
+            // holder.tvPredictResult.setClickable(false);
+            // holder.tvPredictResult.setEnabled(false);
+            //  holder.tvBuyTicket.setClickable(false);
+            //  holder.tvBuyTicket.setEnabled(false);
+            holder.tvBuyTicket.setTextColor(Color.RED);
+            holder.tvPredictResult.setTextColor(Color.RED);
+
+        }
+        if (matchItem.getIs_chart_predict() != null)
+        {
+            if (matchItem.getIs_chart_predict())
+            {
+                //holder.tvPredictResult.setVisibility(View.VISIBLE);
+
+                //  holder.lnrBuyEnable.setVisibility(View.VISIBLE);
+                holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_red);
+                holder.tvPredictResult.setTextColor(Color.WHITE);
+                //holder.tvPredictResult.setEnabled(true);
+                // holder.tvPredictResult.setClickable(true);
+            }
+        }
+        ///////////////////////////
 
         if (matchItem.getDescription() != null)
         {
@@ -65,8 +142,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
                 holder.tvHeaderText.setText(split[0]);
                 holder.tvHeaderSubText.setText("/" + split[1]);
                 holder.tvHeaderSubText.setVisibility(View.VISIBLE);
-            }
-            else
+            } else
             {
                 holder.tvHeaderText.setText(matchItem.getDescription());
 //                tvHeaderText.setTextSize(mContext.getResources().getDimension(R.dimen.headerMainWeeklessTextSize));
@@ -107,12 +183,11 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
 //            Logger.e("--result test--", test2[1] + "  :  " + test2[0]);
             //---------test----------
             String result[] = matchItem.getResult().split("-");
-            holder.tvMatchResult.setText(Integer.parseInt(result[1] )+ "  -  " + Integer.parseInt(result[0]));
+            holder.tvMatchResult.setText(Integer.parseInt(result[1]) + "  -  " + Integer.parseInt(result[0]));
 
             holder.tvMatchResult.setVisibility(View.VISIBLE);
             holder.imgCenter.setVisibility(View.GONE);
-        }
-        else
+        } else
         {
             holder.tvMatchResult.setVisibility(View.GONE);
             holder.imgCenter.setVisibility(View.VISIBLE);
@@ -141,6 +216,80 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
         holder.progress.setVisibility(View.GONE);
         holder.rlRoot.setVisibility(View.VISIBLE);
 
+        holder.tvPredictResult.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (mItemClickListener != null)
+                {
+                    if (holder.tvBuyTicket.getCurrentTextColor() == Color.WHITE)
+                    {
+                        mItemClickListener.onItemPredictClick(view, position, matchItem);
+                    } else
+                    {
+                        MessageAlertDialog dialog = new MessageAlertDialog((Activity) mContext, "",
+                                "برای این بازی پیش بینی وجود ندارد!",
+                                false, new MessageAlertDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                // PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
+
+                                //  mContext.getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+                            }
+
+                            @Override
+                            public void onCancelClick()
+                            {
+
+                            }
+                        }
+                        );
+                        dialog.show(((Activity) mContext).getFragmentManager(), "dialogMessage");
+                    }
+                }
+            }
+        });
+        holder.tvBuyTicket.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (mItemClickListener != null)
+                {
+                    if (holder.tvBuyTicket.getCurrentTextColor() == Color.WHITE)
+                    {
+                        mItemClickListener.onItemBuyTicketClick(view, position, matchItem);
+                    } else
+                    {
+                        MessageAlertDialog dialog = new MessageAlertDialog((Activity) mContext, "",
+                                "برای این بازی فروش بلیط وجود ندارد!",
+                                false, new MessageAlertDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                // PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
+
+                                //  mContext.getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+                            }
+
+                            @Override
+                            public void onCancelClick()
+                            {
+
+                            }
+                        }
+                        );
+                        dialog.show(((Activity) mContext).getFragmentManager(), "dialogMessage");
+                    }
+
+                }
+
+            }
+        });
     }
 
 
@@ -151,7 +300,9 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
             Picasso.with(mContext).load(Uri.parse(link)).into(imageView, new Callback()
             {
                 @Override
-                public void onSuccess() { }
+                public void onSuccess()
+                {
+                }
 
                 @Override
                 public void onError()
@@ -159,8 +310,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
                     Picasso.with(mContext).load(R.drawable.img_failure).into(imageView);
                 }
             });
-        }
-        catch (NullPointerException e)
+        } catch (NullPointerException e)
         {
             Picasso.with(mContext).load(R.drawable.img_failure).into(imageView);
         }
@@ -172,9 +322,9 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        private TextView tvHeaderText, tvHeaderSubText, tvStadiumName, tvDateTime, tvMatchResult, tvHome, tvAway;
+        private TextView tvHeaderText, tvHeaderSubText, tvStadiumName, tvDateTime, tvMatchResult, tvHome, tvAway, tvPredictResult, tvBuyTicket;
         private ImageView imgGuest, imgHost, imgBackground, imgCenter;
         private RelativeLayout rlRoot;
         private ProgressBar progress;
@@ -195,10 +345,14 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
             tvStadiumName = rootView.findViewById(R.id.tvStadiumName);
             tvDateTime = rootView.findViewById(R.id.tvDateTime);
             tvMatchResult = rootView.findViewById(R.id.tvMatchResult);
+            tvBuyTicket = rootView.findViewById(R.id.tvBuyTicket);
+            tvPredictResult = rootView.findViewById(R.id.tvPredictResult);
 
             progress = rootView.findViewById(R.id.progress);
 
             rootView.setOnClickListener(this);
+            tvPredictResult.setOnClickListener(this);
+            tvBuyTicket.setOnClickListener(this);
         }
 
         @Override
@@ -206,7 +360,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
         {
             if (mItemClickListener != null)
             {
-                mItemClickListener.onSliderItemClick(view,  list.get(getAdapterPosition()).getId(), getAdapterPosition());
+                mItemClickListener.onSliderItemClick(view, list.get(getAdapterPosition()).getId(), getAdapterPosition());
             }
         }
     }
@@ -215,6 +369,11 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
     public interface OnSliderItemClickListener
     {
         public void onSliderItemClick(View view, Integer id, Integer position);
+
+        void onItemPredictClick(View view, int position, MatchItem matchItem);
+
+        void onItemBuyTicketClick(View view, int position, MatchItem matchItem);
+
     }
 
 //    public void SetOnItemCheckedChangeListener(final OnItemClickListener mItemClickListener)
