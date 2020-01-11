@@ -71,6 +71,7 @@
     <dimen name="news_favorite_title_height" >75dp</dimen>
     <dimen name="slider_height" >190dp</dimen>
     <dimen name="slider_height_app">220dp</dimen>
+    <dimen name="slider_height_app_">230dp</dimen>
     <dimen name="_14sdp" >14sp</dimen>
     <dimen name="_12sdp" >12sp</dimen>
     <dimen name="_2sdp" >2dp</dimen>
