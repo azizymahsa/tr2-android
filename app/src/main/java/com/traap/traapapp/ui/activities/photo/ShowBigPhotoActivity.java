@@ -566,7 +566,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
                             if (response.info.statusCode == 200) {
 
-                                setBookMark(response.data);
+                                //setBookMark(response.data);
 
                             } else {
                                 Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
