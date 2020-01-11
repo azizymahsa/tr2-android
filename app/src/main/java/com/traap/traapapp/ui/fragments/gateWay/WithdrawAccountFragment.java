@@ -24,6 +24,7 @@ import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.WalletWithdrawAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
+import com.traap.traapapp.utilities.ConvertPersianNumberToString;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -47,6 +48,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
     private MainActionView mainView;
     private MaskedEditText edtShabaNum;
     private ClearableEditText edtCurrency;
+    ConvertPersianNumberToString convertPersianNumberToString=new ConvertPersianNumberToString();
 
     public WithdrawAccountFragment()
     {
@@ -89,7 +91,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
         btnBackStep.setOnClickListener(this);
 
         InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(19);
+        filterArray[0] = new InputFilter.LengthFilter(10);
         edtCurrency.setFilters(filterArray);
         edtCurrency.addTextChangedListener(new TextWatcher()
         {
@@ -144,7 +146,6 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
         super.onDestroy();
     }
 
-
     @Override
     public void onClick(View v)
     {
@@ -155,7 +156,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                 if(edtCurrency.getText().toString().length()>3){
                     if( !edtShabaNum.getText().toString().contains("_")){
                         String txtAmountDigit=" مبلغ "+edtCurrency.getText().toString()+" ریال ";
-                        String txtAmountChar="";
+                        String txtAmountChar=convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(edtCurrency.getText().toString().replaceAll(",",""))),"ریال");
                         String txtNumberShaba=edtShabaNum.getText().toString()+" به شماره شبا ";
                         String txtName= "";
 

@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 32
-        versionName "1.11.2"
+        versionCode 33
+        versionName "1.11.3"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -355,6 +355,11 @@ android {
 
         //--------------------------yandex end-----------------------------
 
+        //--------------------------materialedittext start---------------------------
+        implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+        //--------------------------materialedittext end-----------------------------
+
+
         //------------------------DateTimePicker start----------------------
 //        implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
         //------------------------DateTimePicker end------------------------
@@ -390,8 +395,6 @@ android {
 //        implementation "io.fotoapparat:fotoapparat:2.5.0" //CameraView
 
 //        implementation 'org.tensorflow:tensorflow-lite:1.14.0'
-
-        implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
     }
 }
