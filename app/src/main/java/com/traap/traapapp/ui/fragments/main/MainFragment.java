@@ -29,6 +29,9 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -69,6 +72,7 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -303,17 +307,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             try
             {
-//                if (matchPredict != null)
-//                {
-//                    Logger.e("predict Id", matchPredict.getResult());
-////                    mainView.onPredict(matchPredict, isPredictable);
-//                }
-//                else
-//                {
-//                    showToast(context, "زمان پیش بینی به پایان رسیده است.", R.color.green);
-//                }
+                list = fillMenuRecyclerList();
+                MainServiceModelItem s=findUrlById(list,"11");
+                mainView.openWebView(mainView,s.getBase_url(),Prefs.getString("gds_token", ""));
 
-                mainView.showLoading();
+
+
+            /*    mainView.showLoading();
 
                 SingletonService.getInstance().getPredictService().getPredictEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
                 {
@@ -378,7 +378,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
                         ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
                     }
-                });
+                });*/
             }
             catch (Exception e)
             {
@@ -387,7 +387,17 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         });
     }
-
+    private MainServiceModelItem findUrlById(List<MainServiceModelItem> userList, final String name) {
+        Optional<MainServiceModelItem> userOptional =
+                FluentIterable.from(userList).firstMatch(new Predicate<MainServiceModelItem>()
+                {
+                    @Override
+                    public boolean apply(@NullableDecl MainServiceModelItem input)
+                    {
+                        return input.getId().toString().equals(name);                    }
+                });
+        return userOptional.isPresent() ? userOptional.get() : null; // return user if found otherwise return null if user name don't exist in user list
+    }
     private void getSliderData()
     {
         mainView.showLoading();
