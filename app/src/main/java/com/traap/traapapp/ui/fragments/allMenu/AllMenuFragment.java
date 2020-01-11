@@ -106,7 +106,6 @@ public class AllMenuFragment extends BaseFragment implements
 
         f.setArguments(args);
         f.setMainView(mainView);
-        Log.e("backStateAllMenu", backState+"" );
         f.setBackState(backState);
         return f;
     }

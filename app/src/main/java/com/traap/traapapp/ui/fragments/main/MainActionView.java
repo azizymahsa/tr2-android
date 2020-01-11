@@ -3,7 +3,6 @@ package com.traap.traapapp.ui.fragments.main;
 import java.util.ArrayList;
 
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
-import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.SubMediaParent;
@@ -89,4 +88,6 @@ public interface MainActionView extends BaseView
 
     void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message);
     void onBackToChargFragment(int PAYMENT_STATUS);
+
+    void backToAllServicePackage(Integer backState);
 }
