@@ -116,17 +116,24 @@ public class PackFragment
     private String title;
     private TextView tvUserName;
     private TextView tvHeaderPopularNo;
+    private Integer backState;
 
     public PackFragment()
     {
 
     }
 
-    public static PackFragment newInstance(MainActionView mainView)
+    public static PackFragment newInstance(MainActionView mainView, Integer backState)
     {
         PackFragment f = new PackFragment();
         f.setMainView(mainView);
+        f.setBackState(backState);
         return f;
+    }
+
+    private void setBackState(Integer backState)
+    {
+        this.backState=backState;
     }
 
     private void setMainView(MainActionView mainView)
@@ -1217,7 +1224,8 @@ public class PackFragment
         mToolbar = v.findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
+                mainView.backToAllServicePackage(backState));
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);

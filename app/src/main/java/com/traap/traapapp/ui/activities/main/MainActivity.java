@@ -521,8 +521,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS)
                 );
             } else if(fragment instanceof ChargeFragment && backState==2 ||fragment instanceof PackFragment && backState==2) {
-                Log.e("backStateBack1", backState+"" );
-
 
 //                        setCheckedBNV(bottomNavigationView, 3);
                     setCheckedBNV(bottomNavigationView, 2);
@@ -799,11 +797,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
    public void onChargeSimCard(Integer backState)
     {
-        Log.e("backState", backState+"");
         this.backState =backState;
         isMainFragment = false;
 
-        fragment = ChargeFragment.newInstance(this);
+        fragment = ChargeFragment.newInstance(this,backState);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -818,7 +815,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
         this.backState =status;
-        fragment = PackFragment.newInstance(this);
+        fragment = PackFragment.newInstance(this,backState);
         transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.main_container, fragment, "packFragment")
@@ -1852,7 +1849,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (PAYMENT_STATUS == 3)
         {
             isMainFragment = false;
-            this.fragment = ChargeFragment.newInstance(this);
+            this.fragment = ChargeFragment.newInstance(this, backState);
 
             transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -1860,13 +1857,36 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     .commit();
         }  else if (PAYMENT_STATUS == 4) {
             isMainFragment = false;
-            this.fragment = PackFragment.newInstance(this);
+            this.fragment = PackFragment.newInstance(this, backState);
 
             transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment, "PackFragment")
                     .commit();
         }
+    }
+
+    @Override
+    public void backToAllServicePackage(Integer backState)
+    {
+
+        if (this.backState ==2){
+
+            setCheckedBNV(bottomNavigationView, 2);
+
+            isMainFragment = false;
+
+            fragment = AllMenuFragment.newInstance(this, allServiceList, this.backState);
+
+            transaction = fragmentManager.beginTransaction();
+//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.replace(R.id.main_container, fragment, "allMenuFragment")
+                    .commit();
+
+        }else {
+            backToMainFragment();
+        }
+
     }
 
 

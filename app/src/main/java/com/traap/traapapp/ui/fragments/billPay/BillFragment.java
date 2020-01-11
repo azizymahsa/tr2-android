@@ -1442,7 +1442,11 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
+    @Override
+    public void backToAllServicePackage(Integer backState)
+    {
 
+    }
 
 
     @Override
