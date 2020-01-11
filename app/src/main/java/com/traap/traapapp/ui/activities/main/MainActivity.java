@@ -899,7 +899,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onContact() {
         new TedPermission(SingletonContext.getInstance().getContext())
-                .setPermissionListener(new PermissionListener() {
+                .setPermissionListener(new PermissionListener()
+                {
                     @Override
                     public void onPermissionGranted() {
 
@@ -1389,22 +1390,26 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void openDrawerNews() {
+            public void openDrawerNews()
+            {
                 openDrawer();
             }
 
             @Override
-            public void closeDrawerNews() {
+            public void closeDrawerNews()
+            {
                 closeDrawer();
             }
 
             @Override
-            public void showLoading() {
+            public void showLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void hideLoading() {
+            public void hideLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
         });
@@ -1739,6 +1744,27 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
+    public void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
+    {
+        isMainFragment = false;
+        Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, imageDrawable,
+                title, amount, paymentInstance, mobile);
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "selectPaymentGatewayFragment")
+                .commit();
+       /* SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(urlPayment, mainView, R.drawable.icon_payment_ticket,
+                title, Utility.priceFormat(amount));
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, fragment2);
+        fragmentTransaction.commit();*/
+
+    }
+
+    @Override
     public void openWebView(MainActionView mainView, String uRl, String gds_token) {
       /*  WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
 
@@ -1842,7 +1868,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     .commit();
         }
     }
-
 
 
     @Override
