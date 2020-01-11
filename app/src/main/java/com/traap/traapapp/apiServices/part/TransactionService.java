@@ -57,11 +57,47 @@ public class TransactionService extends BasePart
         return this;
     }
 
-
-    public void getTransactionList(OnServiceStatus<WebServiceClass<ResponseTransaction>> listener,Integer amountRange,
-                                   Boolean status,Integer typeTransactionId,String createDateRange)
+    public void getTransactionList(OnServiceStatus<WebServiceClass<ResponseTransaction>> listener)
     {
-        start(getServiceGenerator().createService().getTransactionList(amountRange,status,typeTransactionId,createDateRange), listener);
+        start(getServiceGenerator().createService().getTransactionList(), listener);
+    }
+
+    public void getTransactionListByFilter(String typeTransactionIds,
+                                           Integer priceFrom,
+                                           Integer priceTo,
+                                           String dateFrom,
+                                           String dateTo,
+                                           Integer status,
+                                           String searchText,
+                                           OnServiceStatus<WebServiceClass<ResponseTransaction>> listener)
+    {
+        start(getServiceGenerator().createService().getTransactionListByFilter(
+                typeTransactionIds,
+                priceFrom,
+                priceTo,
+                dateFrom,
+                dateTo,
+                status,
+                searchText
+                ), listener);
+    }
+
+    public void getTransactionListByFilterForAllStatus(String typeTransactionIds,
+                                           Integer priceFrom,
+                                           Integer priceTo,
+                                           String dateFrom,
+                                           String dateTo,
+                                           String searchText,
+                                           OnServiceStatus<WebServiceClass<ResponseTransaction>> listener)
+    {
+        start(getServiceGenerator().createService().getTransactionListByFilterForAllStatus(
+                typeTransactionIds,
+                priceFrom,
+                priceTo,
+                dateFrom,
+                dateTo,
+                searchText
+                ), listener);
     }
 
 }

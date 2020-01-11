@@ -355,10 +355,14 @@ android {
 
         //--------------------------yandex end-----------------------------
 
-        //--------------------------materialedittext start---------------------------
+        //--------------------------materialedittext start-----------------------
         implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-        //--------------------------materialedittext end-----------------------------
+        //--------------------------materialedittext end-------------------------
 
+        //--------------------------rangeseekbar start---------------------------
+//        implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+        implementation 'com.edmodo:rangebar:1.0.0'
+        //--------------------------rangeseekbar end-----------------------------
 
         //------------------------DateTimePicker start----------------------
 //        implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'

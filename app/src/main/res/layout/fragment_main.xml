@@ -61,7 +61,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/sliderRecyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/slider_height"
+                        android:layout_height="@dimen/slider_height_app_"
                         android:layout_centerVertical="true"
                         android:background="@android:color/transparent" />
 

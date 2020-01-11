@@ -63,6 +63,7 @@ import com.traap.traapapp.ui.adapters.mainSlider.MainSliderAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.utilities.CountDownTimerPredict;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
@@ -500,7 +501,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         }
 
         //---------------------new---------------------------
-        sliderAdapter = new MainSliderAdapter(context, matchList, this);
+        sliderAdapter = new MainSliderAdapter(mainView,context, matchList, this);
         sliderRecyclerView.setAdapter(sliderAdapter);
 
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -868,6 +869,60 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     public void onSliderItemClick(View view, Integer id, Integer position)
     {
         mainView.onLeageClick(matchList);
+    }
+
+    @Override
+    public void onItemPredictClick(View view, int position, MatchItem matchItem)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
+                "آیا مایلید صفحه پیش بینی نمایش داده شود؟",
+                true, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        }
+        );
+        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");
+
+    }
+
+
+    @Override
+    public void onItemBuyTicketClick(View view, int position, MatchItem matchItem)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
+                "آیا مایلید صفحه خرید بلیط نمایش داده شود؟",
+                true, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                mainView.getBuyEnable(() ->
+                {
+
+                });
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        }
+        );
+        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");
+
     }
 
     public void showIntro(List<ResultHelpMenu> results)

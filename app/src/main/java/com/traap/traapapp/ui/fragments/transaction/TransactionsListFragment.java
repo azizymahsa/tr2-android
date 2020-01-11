@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +41,7 @@ import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.NestedScrollableViewHelper;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
@@ -59,6 +61,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class TransactionsListFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
         DatePickerDialog.OnDateSetListener//, OnBackPressed
 {
+    private NestedScrollView nestedScroll;
 
     private CompositeDisposable disposable = new CompositeDisposable();
     private final int DELAY_TIME_TEXT_CHANGE = 200;
@@ -97,7 +100,6 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
 
 
 
-    private String teamId = "";
     private View rootView;
     private SlidingUpPanelLayout slidingUpPanelLayout;
     private MainActionView mainView;
@@ -157,8 +159,24 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
         {
-            teamId = getArguments().getString("teamId");
+//            teamId = getArguments().getString("teamId");
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState)
+    {
+        if (rootView != null)
+        {
+            rootView = null;
+        }
+
+        rootView = inflater.inflate(R.layout.fragment_transaction_list, container, false);
+        initView();
+
+        EventBus.getDefault().register(this);
+        return rootView;
     }
 
     public void initView()
@@ -166,65 +184,79 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
         try
         {
             slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
+            slidingUpPanelLayout.setScrollableViewHelper(new NestedScrollableViewHelper());
 
             btnFilter = rootView.findViewById(R.id.btnFilter);
+            nestedScroll = rootView.findViewById(R.id.nestedScroll);
 
-            rlTimeUntil = rootView.findViewById(R.id.rlTimeUntil);
-            rlTimeFrom = rootView.findViewById(R.id.rlTimeFrom);
-            rlTimeFrom.setOnClickListener(this);
-            rlTimeUntil.setOnClickListener(this);
+//            slidingUpPanelLayout.
 
-            imgTimeFromReset = rootView.findViewById(R.id.imgTimeFromReset);
-            imgTimeUntilReset = rootView.findViewById(R.id.imgTimeUntilReset);
+            nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener()
+            {
+                @Override
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
+                {
 
-            etTimeUntil = rootView.findViewById(R.id.etTimeUntil);
-            etTimeFrom = rootView.findViewById(R.id.etTimeFrom);
+                }
+            });
 
-            rvCategories = rootView.findViewById(R.id.rvCategories);
-            rvCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
+//            rlTimeUntil = rootView.findViewById(R.id.rlTimeUntil);
+//            rlTimeFrom = rootView.findViewById(R.id.rlTimeFrom);
+//            rlTimeFrom.setOnClickListener(this);
+//            rlTimeUntil.setOnClickListener(this);
+//
+//            imgTimeFromReset = rootView.findViewById(R.id.imgTimeFromReset);
+//            imgTimeUntilReset = rootView.findViewById(R.id.imgTimeUntilReset);
+//
+//            etTimeUntil = rootView.findViewById(R.id.etTimeUntil);
+//            etTimeFrom = rootView.findViewById(R.id.etTimeFrom);
+//
+//            rvCategories = rootView.findViewById(R.id.rvCategories);
+//            rvCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
+//
+//            btnConfirm = rootView.findViewById(R.id.btnConfirm);
+//            btnConfirm.setOnClickListener(this);
+//
+//            transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
+//            tvCount = rootView.findViewById(R.id.tvCount);
 
-            btnConfirm = rootView.findViewById(R.id.btnConfirm);
-            btnConfirm.setOnClickListener(this);
-
-            transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
-            tvCount = rootView.findViewById(R.id.tvCount);
             //Toolbar Create
-            mToolbar = rootView.findViewById(R.id.toolbar);
-            tvUserName = mToolbar.findViewById(R.id.tvUserName);
-            tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
-
-            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-
-            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    mainView.openDrawer();
-                }
-            });
-            tvTitle = rootView.findViewById(R.id.tvTitle);
-            imgMenu = rootView.findViewById(R.id.imgMenu);
-
-            imgMenu.setOnClickListener(v -> mainView.openDrawer());
-            imgBack = rootView.findViewById(R.id.imgBack);
-            imgBack.setOnClickListener(v ->
-            {
-                ((Activity)context).onBackPressed();
-            });
-
-            tvTitle.setText("سوابق خرید");
-            rlShirt = rootView.findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
-                }
-            });
-            initDate();
+//            mToolbar = rootView.findViewById(R.id.toolbar);
+//            tvUserName = mToolbar.findViewById(R.id.tvUserName);
+//            tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+//            tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+//
+//            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+//
+//            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+//            {
+//                @Override
+//                public void onClick(View v)
+//                {
+//                    mainView.openDrawer();
+//                }
+//            });
+//            tvTitle = rootView.findViewById(R.id.tvTitle);
+//            imgMenu = rootView.findViewById(R.id.imgMenu);
+//
+//            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+//            imgBack = rootView.findViewById(R.id.imgBack);
+//            imgBack.setOnClickListener(v ->
+//            {
+//                ((Activity)context).onBackPressed();
+//            });
+//
+//            tvTitle.setText("سوابق خرید");
+//            rlShirt = rootView.findViewById(R.id.rlShirt);
+//            rlShirt.setOnClickListener(new View.OnClickListener()
+//            {
+//                @Override
+//                public void onClick(View v)
+//                {
+//                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+//                }
+//            });
+//            initDate();
 
             disposable.add(RxView.clicks(btnFilter)
                     .throttleFirst(200, TimeUnit.MILLISECONDS)
@@ -237,6 +269,22 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
             slidingUpPanelLayout.setFadeOnClickListener(v ->
             {
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            });
+
+            slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
+            {
+                @Override
+                public void onPanelSlide(View panel, float slideOffset)
+                {
+
+                }
+
+                @Override
+                public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState,
+                                                SlidingUpPanelLayout.PanelState newState)
+                {
+
+                }
             });
 
         }
@@ -258,27 +306,8 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
         pickerDialogDate.setMaxDate(currentDate);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        if (rootView != null)
-        {
-            rootView = null;
-        }
 
-        rootView = inflater.inflate(R.layout.transaction_list_fragment, container, false);
-        initView();
-
-        sendRequest(amountRange, status, typeTransactionId, createDateRange);
-
-
-        EventBus.getDefault().register(this);
-        return rootView;
-    }
-
-
-    private void sendRequest(Integer amountRange, Boolean status, Integer typeTransactionId, String createDateRange)
+    private void sendRequest()
     {
         mainView.showLoading();
 
@@ -331,29 +360,7 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
                     showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
             }
-        }, null, null, null, null);
-    }
-
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-
-
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
+        });
     }
 
 
@@ -362,24 +369,6 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
     {
 
 
-    }
-
-    @Subscribe
-    public void getHeaderContent(HeaderModel headerModel)
-    {
-        if (headerModel.getPopularNo() != 0)
-        {
-            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
-        }
-        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-    }
-
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -450,6 +439,24 @@ public class TransactionsListFragment extends BaseFragment implements OnAnimatio
 
         }
 
+    }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 

@@ -491,13 +491,29 @@ public interface RetroClient
     Single<Response<WebServiceClass<MachListResponse>>> getMatchList();
 
     @GET(Const.GET_Transaction_List)
-    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList(
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList();
 
-            @Query("amount__range") Integer amountRange,
-            @Query("status") Boolean status,
-            @Query("type_transaction_id") Integer typeTransactionId,
-            @Query("create_date__range") String createDateRange
+    @GET(Const.GET_Transaction_List)
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionListByFilter(
+            @Query("type_transaction__id__in") String typeTransactionIds,          //example 1,2,3,4,
+            @Query("amount__gte") Integer priceFrom,                                //example 1000 and ""
+            @Query("amount__lte") Integer priceTo,                                  //example 1000 and ""
+            @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
+            @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
+            @Query("status") Integer status,                                           //example 0=All, 1=Success, 2=Failure
+            @Query("search") String searchText
     );
+
+    @GET(Const.GET_Transaction_List)
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionListByFilterForAllStatus(
+            @Query("type_transaction__id__in") String typeTransactionIds,          //example 1,2,3,4,
+            @Query("amount__gte") Integer priceFrom,                                //example 1000 and ""
+            @Query("amount__lte") Integer priceTo,                                  //example 1000 and ""
+            @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
+            @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
+            @Query("search") String searchText
+    );
+
 
     @GET(Const.GET_TRANSACTION_DETAIL)
     Single<Response<WebServiceClass<TransactionDetailResponse>>> getTransactionDetail(
