@@ -334,7 +334,7 @@ public class TransactionsListFragment2 extends BaseFragment implements OnAnimati
                     showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
             }
-        }, null, null, null, null);
+        });
     }
 
 
