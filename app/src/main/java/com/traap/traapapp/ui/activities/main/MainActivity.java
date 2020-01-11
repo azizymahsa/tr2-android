@@ -102,6 +102,7 @@ import com.traap.traapapp.ui.fragments.support.SupportFragment;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
+import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment2;
 import com.traap.traapapp.ui.fragments.videos.VideosMainActionView;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
@@ -609,9 +610,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 //  showToast(this, "لیست تراکنش ها", R.color.green);
                 isMainFragment = false;
 
-                fragment = TransactionsListFragment2.newInstance(this);
+                fragment = TransactionsListFragment.newInstance(this);
+//                fragment = TransactionsListFragment2.newInstance(this);
                 transaction = fragmentManager.beginTransaction();
-//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
                 transaction.replace(R.id.main_container, fragment, "transactionsListFragment")
                         .commit();

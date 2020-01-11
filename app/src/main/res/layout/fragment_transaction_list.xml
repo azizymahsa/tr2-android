@@ -90,7 +90,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="8dp"
                         android:layout_width="match_parent"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
@@ -177,12 +177,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:focusable="false"
+                android:focusable="true"
                 android:gravity="bottom">
 
                 <include
                     android:id="@+id/scroll"
-                    layout="@layout/search_transaction_view" />
+                    layout="@layout/layout_filter_transaction" />
 
             </FrameLayout>
 
