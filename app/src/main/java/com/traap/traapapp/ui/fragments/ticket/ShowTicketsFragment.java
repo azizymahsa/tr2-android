@@ -226,8 +226,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         ivFullInfo.setImageResource(R.drawable.select_step);
         tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
-        ivPrintTicket.setImageResource(R.drawable.select_step);
-        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
 
         vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
         vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
@@ -301,6 +300,8 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         llErrorPayment.setVisibility(View.VISIBLE);
         Tools.showToast(getContext(), error, R.color.red);
         mainView.hideLoading();
+        ivPrintTicket.setImageResource(R.drawable.un_check_mark);
+        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
     }
 
     @Override
@@ -309,6 +310,8 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         llSuccessPayment.setVisibility(View.GONE);
         llErrorPayment.setVisibility(View.VISIBLE);
         mainView.hideLoading();
+        ivPrintTicket.setImageResource(R.drawable.un_check_mark);
+        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
     }
 

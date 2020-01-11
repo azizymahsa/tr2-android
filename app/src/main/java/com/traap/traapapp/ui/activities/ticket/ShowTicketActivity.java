@@ -188,8 +188,6 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         ivFullInfo.setImageResource(R.drawable.select_step);
         tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
-        ivPrintTicket.setImageResource(R.drawable.select_step);
-        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
         vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
         vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
@@ -240,6 +238,8 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         llErrorPayment.setVisibility(View.GONE);
         hideLoading();
 
+        ivPrintTicket.setImageResource(R.drawable.select_step);
+        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
     }
 
@@ -250,6 +250,8 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         llSuccessPayment.setVisibility(View.GONE);
         llErrorPayment.setVisibility(View.VISIBLE);
         Tools.showToast(this, error, R.color.red);
+        ivPrintTicket.setImageResource(R.drawable.un_check_mark);
+        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
         hideLoading();
     }
 
@@ -259,6 +261,9 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         llSuccessPayment.setVisibility(View.GONE);
         llErrorPayment.setVisibility(View.VISIBLE);
         hideLoading();
+        ivPrintTicket.setImageResource(R.drawable.un_check_mark);
+        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
 
     }
 
