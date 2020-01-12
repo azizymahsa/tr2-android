@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layoutDirection="ltr"
-    android:gravity="center"
     android:layout_gravity="center_horizontal"
-    android:paddingRight="8dp"
+    android:gravity="center"
+    android:layoutDirection="ltr"
     android:paddingLeft="8dp"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:paddingTop="8dp"
+    android:paddingRight="8dp"
+    android:paddingBottom="8dp">
 
     <RelativeLayout
         android:id="@+id/rlRoot"
@@ -22,38 +22,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:foreground="?attr/selectableItemBackground"
             android:background="@drawable/button_main_background_border"
+            android:foreground="?attr/selectableItemBackground"
             android:scaleType="fitXY"
-            app:riv_corner_radius="15dp"
-            app:riv_border_width="1dp"
             app:riv_border_color="@color/buttonMainBorderColor"
+            app:riv_border_width="1dp"
+            app:riv_corner_radius="15dp"
             app:riv_mutate_background="true"
-            app:riv_oval="false"  />
+            app:riv_oval="false" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btnBuyTicket"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="@dimen/_35dp"-->
-<!--            android:paddingRight="16dp"-->
-<!--            android:paddingLeft="16dp"-->
-<!--            android:clickable="false"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="خرید بلیت"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:textColor="@color/textColorButton"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
-<!--            android:background="@drawable/button_main_header_background"/>-->
+        <!--        <Button-->
+        <!--            android:id="@+id/btnBuyTicket"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="@dimen/_35dp"-->
+        <!--            android:paddingRight="16dp"-->
+        <!--            android:paddingLeft="16dp"-->
+        <!--            android:clickable="false"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:text="خرید بلیت"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:textColor="@color/textColorButton"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+        <!--            android:background="@drawable/button_main_header_background"/>-->
 
         <RelativeLayout
             android:id="@+id/llHeaderWeekNo"
             android:layout_width="@dimen/header_week_no_width"
             android:layout_height="@dimen/header_week_no_height"
-            android:gravity="center"
-            android:layout_marginTop="3dp"
             android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
             android:background="@drawable/header_main_week_no_background"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -62,10 +62,10 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:gravity="center"
-                android:textStyle="bold"
                 android:text="5"
                 android:textColor="@color/headerMainWeekNoTextColor"
-                android:textSize="@dimen/headerMainWeekNoTextSize" />
+                android:textSize="@dimen/headerMainWeekNoTextSize"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvHeaderSubText"
@@ -92,32 +92,32 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:gravity="center_horizontal">
-
-                <ImageView
-                    android:id="@+id/imgGuest"
-                    android:layout_width="@dimen/_80dp"
-                    android:layout_height="@dimen/_60dp"
-                    android:layout_centerHorizontal="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/img_tractor" />
-
-                <TextView
-                    android:id="@+id/tvAway"
-                    android:layout_below="@+id/imgGuest"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="right"
-                    android:textSize="@dimen/textSize_10dp"
-                    android:textColor="@color/textColorSecondary"
-                    android:text="میهمان"/>
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_horizontal">
 
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/imgGuest"
+                        android:layout_width="@dimen/_80dp"
+                        android:layout_height="@dimen/_60dp"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/img_tractor" />
+
+                    <TextView
+                        android:id="@+id/tvAway"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imgGuest"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="right"
+                        android:text="میهمان"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_10dp" />
+
+                </RelativeLayout>
 
 
             </RelativeLayout>
@@ -138,13 +138,13 @@
                     android:id="@+id/tvMatchResult"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:text="0 : 0"
-                    android:visibility="gone"
-                    android:textSize="@dimen/textSize_20dp"
                     android:layout_centerInParent="true"
-                    android:textColor="@color/textColorSecondary"/>
+                    android:gravity="center"
+                    android:text="0 : 0"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_20dp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <ProgressBar
                     android:id="@+id/progress"
@@ -175,14 +175,14 @@
 
                     <TextView
                         android:id="@+id/tvHome"
-                        android:layout_below="@+id/imgHost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/imgHost"
                         android:layout_centerHorizontal="true"
                         android:gravity="left"
-                        android:textSize="@dimen/textSize_10dp"
+                        android:text="میزبان"
                         android:textColor="@color/textColorSecondary"
-                        android:text="میزبان"/>
+                        android:textSize="@dimen/textSize_10dp" />
 
                 </RelativeLayout>
 
@@ -216,44 +216,78 @@
                 android:textSize="@dimen/textSize_12dp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/lnrBuyEnable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/_5dp"
-            android:weightSum="2"
             android:layout_below="@+id/llText"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/_5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <TextView
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/tvPredictResult"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_120dp"
                 android:layout_height="@dimen/_30dp"
+                android:layout_alignParentStart="true"
                 android:layout_gravity="center"
-                android:layout_weight="0.8"
-                android:gravity="center"
+                android:background="@drawable/button_buy_ticket_disable"
+                android:elevation="3dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text=" پیش بینی نتیجه"
-                android:layout_marginStart="@dimen/_5dp"
-                android:layout_marginEnd="@dimen/_5dp"
-                android:background="@drawable/background_border_a"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/borderColorRed"
-                android:textSize="@dimen/_10sdp" />
+                android:textStyle="bold"
+                android:transitionName="transition"
+                android:translationZ="3dp"
+                android:visibility="visible"
+                app:finalCornerAngle="15dp"
+                app:initialCornerAngle="15dp"
+                app:spinning_bar_color="@color/gray"
+                app:spinning_bar_width="2dp" />
 
 
-            <TextView
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/tvBuyTicket"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_120dp"
                 android:layout_height="@dimen/_30dp"
+                android:layout_alignParentStart="true"
                 android:layout_gravity="center"
-                android:layout_weight="0.8"
                 android:layout_marginStart="@dimen/_5dp"
-                android:layout_marginEnd="@dimen/_5dp"
-                android:gravity="center"
-                android:text="خرید بلیت "
-                android:background="@drawable/background_border_red"
-                android:textColor="@color/textColorTitle"
-                android:textSize="@dimen/_10sdp" />
+                android:background="@drawable/button_buy_ticket_disable"
+                android:elevation="3dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="خرید بلیت"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/borderColorRed"
+                android:textStyle="bold"
+                android:transitionName="transition"
+                android:translationZ="3dp"
+                android:visibility="visible"
+                app:finalCornerAngle="15dp"
+                app:initialCornerAngle="15dp"
+                app:spinning_bar_color="@color/gray"
+                app:spinning_bar_width="2dp" />
+
+            <!-- <TextView
+                 android:id="@+id/tvBuyTicket"
+                 android:layout_width="0dp"
+                 android:layout_height="@dimen/_30dp"
+                 android:layout_gravity="center"
+                 android:layout_weight="0.8"
+                 android:layout_marginStart="@dimen/_5dp"
+                 android:layout_marginEnd="@dimen/_5dp"
+                 android:gravity="center"
+                 android:text="خرید بلیت "
+                 android:background="@drawable/background_border_red"
+                 android:textColor="@color/textColorTitle"
+                 android:textSize="@dimen/_10sdp" />-->
         </LinearLayout>
 
     </RelativeLayout>
