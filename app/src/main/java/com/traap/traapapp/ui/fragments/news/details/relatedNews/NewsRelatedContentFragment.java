@@ -26,12 +26,15 @@ import com.traap.traapapp.ui.activities.news.NewsDetailsAction;
 import com.traap.traapapp.ui.adapters.news.NewsDetailsRelatedAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
+
 
 @SuppressLint("newsRelatedContentFragment")
 public class NewsRelatedContentFragment extends BaseFragment
 {
     private View rootView;
     private Context context;
+
 
     private List<RelatedNews> relatedNewList = new ArrayList<>();
     private List<MediaDetailsPositionIdsModel> positionIdsList;
@@ -40,6 +43,8 @@ public class NewsRelatedContentFragment extends BaseFragment
 
     private BannerLayout bRelatedNews;
     private NewsDetailsAction actionView;
+
+    private ScrollingPagerIndicator indicatorNewestPhotos;
 
     public NewsRelatedContentFragment() { }
 
@@ -87,6 +92,11 @@ public class NewsRelatedContentFragment extends BaseFragment
         adapter = new NewsDetailsRelatedAdapter(context, relatedNewList);
         bRelatedNews = rootView.findViewById(R.id.banRelatedNews);
         bRelatedNews.setAdapter(adapter);
+        indicatorNewestPhotos = rootView.findViewById(R.id.indicatorNewestPhotos);
+
+        indicatorNewestPhotos.attachToRecyclerView(bRelatedNews.getmRecyclerView());
+
+        bRelatedNews.setAutoPlaying(true);
 
         positionIdsList = new ArrayList<>();
 //        for (RelatedNews news : relatedNewList)
