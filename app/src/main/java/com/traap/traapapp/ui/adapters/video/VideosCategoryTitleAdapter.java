@@ -25,6 +25,11 @@ public class VideosCategoryTitleAdapter extends RecyclerView.Adapter<VideosCateg
     private boolean isClicked = false;
     private int selectedPosition = 0;
 
+    public void setSelectedPosition(int selectedPosition) {
+        this.selectedPosition = selectedPosition;
+       notifyDataSetChanged();
+    }
+
     public VideosCategoryTitleAdapter(List<ListCategory> categories, TitleCategoryListener listener)
     {
         this.listener = listener;
