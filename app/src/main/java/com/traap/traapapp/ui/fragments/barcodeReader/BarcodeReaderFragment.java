@@ -79,7 +79,7 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
     public void onResume() {
         super.onResume();
         new Handler().postDelayed(() -> {
-            mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+            mScannerView.setResultHandler(this); // Register ourselves as a handler for scan transactionLists.
             mScannerView.startCamera();          // Start camera on resume
 
         }, 200);

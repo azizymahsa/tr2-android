@@ -38,7 +38,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
-import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategory;
+import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
@@ -90,7 +90,7 @@ public class TransactionsListFragment2 extends BaseFragment implements OnAnimati
     private PersianCalendar currentDate, startPersianDate, endPersianDate;
     private Integer startDateInt = 0, endDateInt = 0;
 
-    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
+    private ArrayList<TypeCategory> typeCategoryList = new ArrayList<>();
     private List<FilterItem> filteredCategoryList = new ArrayList<>();
     private ArrayList<FilterItem> filteredShowList = new ArrayList<>();
     private ArrayList<FilterItem> tempFilteredCategoryList = new ArrayList<>();
@@ -113,7 +113,7 @@ public class TransactionsListFragment2 extends BaseFragment implements OnAnimati
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
-    private RecyclerView transactionRecycler;
+    private RecyclerView rcTransactionList;
     private TransactionListAdapter fixTableAdapter;
     private RecyclerView rvCategories;
     private View btnConfirm;
@@ -189,7 +189,7 @@ public class TransactionsListFragment2 extends BaseFragment implements OnAnimati
             btnConfirm = rootView.findViewById(R.id.btnConfirm);
             btnConfirm.setOnClickListener(this);
 
-            transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
+            rcTransactionList = rootView.findViewById(R.id.rcTransactionList);
             tvCount = rootView.findViewById(R.id.tvCount);
             //Toolbar Create
             mToolbar = rootView.findViewById(R.id.toolbar);
@@ -306,11 +306,11 @@ public class TransactionsListFragment2 extends BaseFragment implements OnAnimati
                     if (response.info.statusCode == 200)
                     {
 
-                        tvCount.setText(response.data.getResults().size() + "مورد خرید بلیت یافت شد.");
-                        transactionRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-                        fixTableAdapter = new TransactionListAdapter(response.data.getResults(), context);
+                        tvCount.setText(response.data.getTransactionLists().size() + " مورد تراکنش یافت شد.");
+                        rcTransactionList.setLayoutManager(new LinearLayoutManager(getContext()));
+                        fixTableAdapter = new TransactionListAdapter(response.data.getTransactionLists(), context);
                         //fixTableAdapter.setClickListener(this);
-                        transactionRecycler.setAdapter(fixTableAdapter);
+                        rcTransactionList.setAdapter(fixTableAdapter);
 
                     }
                 } catch (Exception e)

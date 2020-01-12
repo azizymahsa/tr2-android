@@ -53,6 +53,7 @@ import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMci
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
+import com.traap.traapapp.apiServices.model.getTypeTransaction.TypeTransaction;
 import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
@@ -66,6 +67,7 @@ import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
 import com.traap.traapapp.apiServices.model.mainPhotos.MainPhotoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
 import com.traap.traapapp.apiServices.model.news.archive.NewsArchiveListByIdResponse;
 import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
@@ -490,28 +492,31 @@ public interface RetroClient
     @GET(Const.GET_Match_List)
     Single<Response<WebServiceClass<MachListResponse>>> getMatchList();
 
+    @GET(Const.GET_TYPE_Transaction_List)
+    Single<Response<WebServiceClass<ArrayList<TypeCategory>>>> getTypeTransactionList();
+
     @GET(Const.GET_Transaction_List)
     Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionList();
 
     @GET(Const.GET_Transaction_List)
     Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionListByFilter(
             @Query("type_transaction__id__in") String typeTransactionIds,          //example 1,2,3,4,
-            @Query("amount__gte") Integer priceFrom,                                //example 1000 and ""
-            @Query("amount__lte") Integer priceTo,                                  //example 1000 and ""
+            @Query("amount__gte") Integer priceFrom,                               //example 1000 and ""
+            @Query("amount__lte") Integer priceTo,                                 //example 1000 and ""
             @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
             @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
-            @Query("status") Integer status,                                           //example 0=All, 1=Success, 2=Failure
-            @Query("search") String searchText
+            @Query("status") Boolean status,                                       //example 0=All, 1=Success, 2=Failure
+            @Query("id__contains") String searchText
     );
 
     @GET(Const.GET_Transaction_List)
     Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionListByFilterForAllStatus(
             @Query("type_transaction__id__in") String typeTransactionIds,          //example 1,2,3,4,
-            @Query("amount__gte") Integer priceFrom,                                //example 1000 and ""
-            @Query("amount__lte") Integer priceTo,                                  //example 1000 and ""
+            @Query("amount__gte") Integer priceFrom,                               //example 1000 and ""
+            @Query("amount__lte") Integer priceTo,                                 //example 1000 and ""
             @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
             @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
-            @Query("search") String searchText
+            @Query("id__contains") String searchText
     );
 
 

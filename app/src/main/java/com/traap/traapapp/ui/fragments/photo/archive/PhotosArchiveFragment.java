@@ -35,7 +35,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategory;
+import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
 import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
@@ -109,8 +109,8 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     private View rootView;
 
     private PhotosArchiveActionView mainView;
-//    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
-    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
+//    private ArrayList<TypeCategory> typeCategoryList = new ArrayList<>();
+    private ArrayList<TypeCategory> typeCategoryList = new ArrayList<>();
     private List<FilterItem> filteredCategoryList = new ArrayList<>();
     private ArrayList<FilterItem> filteredShowList = new ArrayList<>();
     private ArrayList<FilterItem> tempFilteredCategoryList = new ArrayList<>();
@@ -270,7 +270,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                     if (filteredCategoryList.isEmpty())
                     {
                         filteredCategoryList = new ArrayList<>();
-                        for (MediaArchiveCategory item: mediaArchiveCategoryList)
+                        for (TypeCategory item: typeCategoryList)
                         {
                             FilterItem filterItem = new FilterItem();
                             filterItem.setId(item.getId());
@@ -542,7 +542,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                             llFilterHashTag.setVisibility(View.GONE);
 
                             filteredCategoryList = new ArrayList<>();
-                            for (MediaArchiveCategory item: mediaArchiveCategoryList)
+                            for (TypeCategory item: typeCategoryList)
                             {
                                 FilterItem filterItem = new FilterItem();
                                 filterItem.setId(item.getId());
@@ -718,9 +718,9 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         }
         else
         {
-            Collections.reverse(mediaArchiveCategoryList);
+            Collections.reverse(typeCategoryList);
 
-            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), mediaArchiveCategoryList, pagerFromFavorite, pagerWithFilter);
+            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), typeCategoryList, pagerFromFavorite, pagerWithFilter);
 
             pager.setAdapter(adapter);
 
@@ -733,7 +733,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                 tab.setCustomView(adapter.getTabView(i));
             }
 
-            pager.setCurrentItem(mediaArchiveCategoryList.size()-1);
+            pager.setCurrentItem(typeCategoryList.size()-1);
         }
 
     }
@@ -826,7 +826,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         }
         else
         {
-            mediaArchiveCategoryList = response.data.getMediaArchiveCategoryList();
+            typeCategoryList = response.data.getTypeCategoryList();
 
             setPager(pagerWithFilter, pagerFromFavorite);
         }
@@ -867,19 +867,19 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
     {
-        private ArrayList<MediaArchiveCategory> categoryTitleList;
+        private ArrayList<TypeCategory> categoryTitleList;
         private boolean pagerWithFilter = false;
         private boolean pagerFromFavorite = false;
         private Context context = SingletonContext.getInstance().getContext();
 
         @SuppressLint("WrongConstant")
         public SamplePagerAdapter(@NonNull FragmentManager fm,
-                                  ArrayList<MediaArchiveCategory> mediaArchiveCategoryList,
+                                  ArrayList<TypeCategory> typeCategoryList,
                                   boolean pagerFromFavorite,
                                   boolean pagerWithFilter)
         {
             super(fm, 0);
-            this.categoryTitleList = mediaArchiveCategoryList;
+            this.categoryTitleList = typeCategoryList;
             this.pagerWithFilter = pagerWithFilter;
             this.pagerFromFavorite = pagerFromFavorite;
         }

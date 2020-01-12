@@ -14,7 +14,7 @@ public class MediaArchiveCategoryResponse
 {
     @Expose @Getter @Setter
     @SerializedName("results")
-    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList;
+    private ArrayList<TypeCategory> typeCategoryList;
 
     @Expose @Getter @Setter
     @Nullable
