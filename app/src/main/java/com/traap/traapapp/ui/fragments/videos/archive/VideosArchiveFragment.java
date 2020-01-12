@@ -198,6 +198,13 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
                 })
         );
 
+        disposable.add(RxView.clicks(mToolbar.findViewById(R.id.flLogoToolbar))
+                .subscribe(v ->
+                {
+                    mainActionView.backToMainFragment();
+                })
+        );
+
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.rlShirt))
                 .subscribe(v ->
                 {
