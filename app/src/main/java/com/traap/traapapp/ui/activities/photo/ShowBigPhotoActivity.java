@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -18,7 +19,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -82,6 +85,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
     boolean listChange = true;
     int pos;
     private List<Content> list;
+    private Boolean isPlay=false;
 
 
     @Override
@@ -167,14 +171,13 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
 
         try {
-           pos = getIntent().getExtras().getInt("pic");
+            pos = getIntent().getExtras().getInt("pic");
         } catch (Exception e) {
         }
 
 
         thumbnails_scroll_view = findViewById(R.id.thumbnails_scroll_view);
         viewPager = findViewById(R.id.intro_view_pager);
-
 
 
         introAdapter = new IntroAdapter();
@@ -231,6 +234,8 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             }
         });
         viewPager.setCurrentItem(pos);
+        viewPager.setInterval(2000);
+
     }
 
 
@@ -245,7 +250,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-    /*    switch (v.getId()) {
+   /*     switch (v.getId()) {
 
             case R.id.rlLike:
                 // imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
@@ -421,14 +426,19 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public void OnItemAllMenuClick(View view, Integer id, Content content,Integer position) {
-
+    public void OnItemAllMenuClick(View view, Integer id, Content content, Integer position) {
 
 
     }
 
 
     private class IntroAdapter extends PagerAdapter {
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            return POSITION_NONE;
+        }
+
         public IntroAdapter() {
 
         }
@@ -448,24 +458,32 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             View view = View.inflate(container.getContext(), R.layout.list_image_item_gallary, null);
             PhotoView image = view.findViewById(R.id.photo_view);
             final int[] likeCount = {0};
-
+            image.setZoomable(false);
 
 
             ImageView btnSharePic = view.findViewById(R.id.btnSharePics);
             ImageView imgLike = view.findViewById(R.id.imgLikes);
             ImageView btnBookmark = view.findViewById(R.id.btnBookmarks);
+            ImageView btnPlay = view.findViewById(R.id.btnPlay);
             RoundedImageView ivBigLike = view.findViewById(R.id.ivBigLikes);
             TextView tvLike = view.findViewById(R.id.tvLikes);
             RelativeLayout rlPic = view.findViewById(R.id.rlPic);
 
-            tvLike.setText(list.get(position).getLikes()+"");
+            tvLike.setText(list.get(position).getLikes() + "");
 
 
-            if (list.get(position).getIsBookmarked()){
-                btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
+            if (isPlay) {
+                btnPlay.setColorFilter(getResources().getColor(R.color.backgroundButton));
+
+            } else {
+                btnPlay.setColorFilter(getResources().getColor(R.color.white));
 
             }
-            else{
+
+            if (list.get(position).getIsBookmarked()) {
+                btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
+
+            } else {
                 btnBookmark.setColorFilter(getResources().getColor(R.color.white));
 
             }
@@ -485,7 +503,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                 LikeVideoRequest request = new LikeVideoRequest();
                 animateHeart(ivBigLike);
 
-                if ( list.get(position).getIsLiked()){
+                if (list.get(position).getIsLiked()) {
                     imgLike.setColorFilter(getResources().getColor(R.color.gray));
                     tvLike.setTextColor(getResources().getColor(R.color.gray));
 
@@ -495,7 +513,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                     list.get(position).setIsLiked(false);
                     list.get(position).setLikes(likeCount[0]);
 
-                }else{
+                } else {
 
                     imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                     tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
@@ -543,13 +561,12 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             btnBookmark.setOnClickListener(v -> {
 
 
-                if (list.get(position).getIsBookmarked()){
+                if (list.get(position).getIsBookmarked()) {
                     btnBookmark.setColorFilter(getResources().getColor(R.color.white));
 
                     list.get(position).setIsBookmarked(false);
 
-                }
-                else{
+                } else {
                     btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
 
                     list.get(position).setIsBookmarked(true);
@@ -594,7 +611,6 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             });
 
 
-
             btnSharePic.setOnClickListener(v -> {
                 new ScreenShot(rlPic, ShowBigPhotoActivity.this);
 
@@ -609,6 +625,41 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                     //  .centerCrop()
                     // .error(R.drawable.not_found)
                     .into(image);
+     /*       final boolean[] doubleBackToExitPressedOnce = {false};
+
+
+
+
+            rlPic.setOnClickListener(v -> {
+                long currTime = System.currentTimeMillis();
+                if (currTime - mLastClickTime < ViewConfiguration.getDoubleTapTimeout()) {
+                }
+                mLastClickTime = currTime;
+            });
+
+
+
+*/
+
+
+            btnPlay.setOnClickListener(v -> {
+                if (isPlay) {
+                    btnPlay.setColorFilter(getResources().getColor(R.color.white));
+                    isPlay=false;
+                    viewPager.stopAutoScroll();
+
+                } else {
+                    btnPlay.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                    isPlay=true;
+                    viewPager.startAutoScroll();
+
+                }
+                notifyDataSetChanged();
+
+            });
+
+
+
             return view;
         }
 

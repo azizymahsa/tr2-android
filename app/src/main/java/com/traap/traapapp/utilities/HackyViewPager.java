@@ -5,13 +5,14 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import androidx.viewpager.widget.ViewPager;
+import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 /**
  * Authors:
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class HackyViewPager extends ViewPager {
+public class HackyViewPager extends AutoScrollViewPager {
     private boolean isLocked;
 
     public HackyViewPager(Context context) {

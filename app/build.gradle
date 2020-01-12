@@ -151,6 +151,7 @@ android {
 //    implementation project(':taggroup')
         implementation project(':pinentryedittext')
         implementation project(':type')
+        implementation project(':moeidbannerlibrary')
 //    implementation project(path: ':type')
         implementation(name: 'uxcam-3.1.12', ext: 'aar')
         //----------------------my Libraries end-----------------
@@ -315,7 +316,7 @@ android {
         //---------------------shadow-layout end---------------------------
 
         //------------------------banner start-------------------------
-        implementation 'com.github.moeidheidari:banner:1.04'
+     //   implementation 'com.github.moeidheidari:banner:1.04'
         //------------------------banner end---------------------------
 
         //------------------------CoverFlow start-------------------------
@@ -390,8 +391,8 @@ android {
 
 //        implementation 'com.github.mreram:showcaseview:1.1'
 
-//        implementation('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
-//            exclude module: 'support-v4'
+        implementation('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
+            exclude module: 'support-v4'}
 //        }
 //        implementation 'com.scottyab:rootbeer-lib:0.0.7'
 //        implementation 'com.gauravbhola.ripplepulsebackground:library:1.0.0'

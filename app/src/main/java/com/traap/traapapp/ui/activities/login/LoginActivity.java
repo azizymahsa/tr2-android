@@ -149,6 +149,19 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             findViewById(R.id.spaceTop).setLayoutParams(spaceLayoutParams);
             findViewById(R.id.logoTraap).setLayoutParams(logoLayoutParams);
         });
+
+
+
+
+        codeView.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
+            @Override
+            public void onPinEntered(CharSequence str) {
+                if (str.length()==4){
+                    loginPresenter.verifyRequest();
+                }
+
+            }
+        });
     }
 
 

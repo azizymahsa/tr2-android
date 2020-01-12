@@ -45,6 +45,17 @@ public class Content implements Serializable
     @Expose
     private String cover;
 
+    @Expose
+    private Boolean isPlay=false;
+
+    public Boolean getPlay() {
+        return isPlay;
+    }
+
+    public void setPlay(Boolean play) {
+        isPlay = play;
+    }
+
     public String getCover()
     {
         return cover;

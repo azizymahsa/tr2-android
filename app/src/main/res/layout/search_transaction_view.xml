@@ -54,6 +54,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40dp"
                     android:layout_weight="1"
+
                     android:drawableRight="@drawable/ic_search"
                     android:textColor="@color/black"
                     android:gravity="start|center"

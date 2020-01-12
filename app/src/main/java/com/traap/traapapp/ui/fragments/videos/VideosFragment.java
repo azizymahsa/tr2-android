@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
@@ -79,6 +80,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private View tvEmptyFavorite;
     private View llFavorites;
     private SubMediaParent parent;
+    private ScrollingPagerIndicator indicatorNewestPhotos;
+    public static Integer bNewestVideoPosition;
 
     public VideosFragment()
     {
@@ -133,6 +136,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
         nestedScroll = rootView.findViewById(R.id.nestedScroll);
+        indicatorNewestPhotos = rootView.findViewById(R.id.indicatorNewestPhotos);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo = rootView.findViewById(R.id.tvArchivePhotos);
         rvCategories = rootView.findViewById(R.id.rvCategories);
@@ -208,8 +212,30 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void onGetMainVideosSuccess(MainVideosResponse mainVideosResponse)
     {
+
+
         bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(), this));
         setDataFavoriteList(mainVideosResponse);
+        indicatorNewestPhotos.attachToRecyclerView(bNewestVideo.getmRecyclerView());
+
+        bNewestVideo.setAutoPlaying(true);
+
+        if (bNewestVideoPosition!=null){
+            try{
+                bNewestVideo.getmRecyclerView().scrollToPosition(bNewestVideoPosition);
+
+            }catch (Exception e){
+                bNewestVideo.getmRecyclerView().scrollToPosition(0);
+
+            }
+
+
+        }
+
+
+
+
+
         videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(mainVideosResponse.getListCategories(), this);
         rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
         categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), this);
@@ -422,6 +448,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     @Override
     public void onItemNewestVideoClick(int position, Category category)
     {
+        bNewestVideoPosition=position;
         categoriesList = mainVideosResponse.getRecent();
         openVideoDetail(categoriesList, position, category.getCategoryId(), category.getId());
     }

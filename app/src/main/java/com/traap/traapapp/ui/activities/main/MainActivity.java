@@ -610,8 +610,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 //  showToast(this, "لیست تراکنش ها", R.color.green);
                 isMainFragment = false;
 
-                fragment = TransactionsListFragment.newInstance(this);
+                fragment = TransactionsListFragment2.newInstance(this);
 //                fragment = TransactionsListFragment2.newInstance(this);
+               // fragment = TransactionsListFragment.newInstance(this);
                 transaction = fragmentManager.beginTransaction();
 
                 transaction.replace(R.id.main_container, fragment, "transactionsListFragment")
