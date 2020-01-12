@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.gateWay;
 
+import android.app.MediaRouteButton;
 import android.os.Bundle;
 
 import android.text.Editable;
@@ -8,7 +9,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -49,6 +55,10 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
     private MaskedEditText edtShabaNum;
     private ClearableEditText edtCurrency;
     ConvertPersianNumberToString convertPersianNumberToString=new ConvertPersianNumberToString();
+    private Fragment fragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
+    private LinearLayout llWithDraw;
 
     public WithdrawAccountFragment()
     {
@@ -83,6 +93,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
     private void initView()
     {
 
+        llWithDraw = rootView.findViewById(R.id.llWithDraw);
         edtShabaNum = rootView.findViewById(R.id.edtShabaNum);
         edtCurrency = rootView.findViewById(R.id.edtCurrency);
         btnGetMoney = rootView.findViewById(R.id.btnGetMoney);
@@ -187,11 +198,22 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                 }
                 break;
             case R.id.btnBackStep:
-                mainView.backToMainFragment();
+
+                fragment = DetailsCartFragment.newInstance(mainView);
+                showFragment(fragment);
                 break;
         }
     }
+    void showFragment(Fragment fragment)
+    {
+        llWithDraw.setVisibility(View.GONE);
+        fragmentManager = getChildFragmentManager();
 
+
+        transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.container, fragment, "WalletFragment").commit();
+    }
     private void sendRequest()
     {
         mainView.showLoading();

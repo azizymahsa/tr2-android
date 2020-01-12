@@ -20,6 +20,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Utility;
 
@@ -30,7 +31,7 @@ import java.text.DecimalFormat;
 /**
  * Created by MahsaAzizi on 28/12/2019.
  */
-public class IncreaseInventoryFragment extends BaseFragment implements View.OnClickListener
+public class IncreaseInventoryFragment extends BaseFragment implements View.OnClickListener, OnClickContinueSelectPayment
 {
 
 
@@ -43,6 +44,7 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     {
 
     }
+
 
     public static IncreaseInventoryFragment newInstance(MainActionView mainView)
     {
@@ -81,6 +83,7 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
         etAmount.addTextChangedListener(new TextWatcher()
         {
             private String current = "";
+
             @Override
             public void afterTextChanged(Editable ss)
             {
@@ -89,7 +92,8 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
                 String s = etAmount.getText().toString();
 
                 s = s.replace(",", "");
-                if (s.length() > 0) {
+                if (s.length() > 0)
+                {
                     DecimalFormat sdd = new DecimalFormat("#,###");
                     Double doubleNumber = Double.parseDouble(s);
 
@@ -213,16 +217,40 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
     private void openURL(ResponseIncreaseWallet data)
     {
-      //  Utility.openUrlCustomTab(getActivity(), data.getUrl());
+        //  Utility.openUrlCustomTab(getActivity(), data.getUrl());
         SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
         paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STATUS_INCREASE_WALLET);//13
         /*paymentInstance.setOperatorType(operatorType);
         paymentInstance.setSimcardType(simcardType);
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));*/
 
-        String title=" ریال  بابت \"افزایش موجودی\"، از حساب شما کسر خواهد شد."+etAmount.getText().toString()+"با انجام این پرداخت، مبلغ ";
-        String mobile="";
-       /* mainView.openIncreaseWalletPaymentFragment(this,data.getUrl(), R.drawable.ic_inc_inv_small,
-                title, etAmount.getText().toString(), paymentInstance, mobile,TrapConfig.PAYMENT_STAUS_ChargeSimCard);*/
+        String title = "با انجام این پرداخت، مبلغ "+etAmount.getText().toString()+"ریال بابت \"افزایش موجودی\"، از حساب شما کسر خواهد شد.";
+        String mobile = "";
+        mainView.openIncreaseWalletPaymentFragment(this, data.getUrl(), R.drawable.ic_inc_inv,
+                title, etAmount.getText().toString(), paymentInstance, mobile, TrapConfig.PAYMENT_STATUS_INCREASE_WALLET);
+    }
+
+    @Override
+    public void onBackClicked()
+    {
+
+    }
+
+    @Override
+    public void showPaymentParentLoading()
+    {
+
+    }
+
+    @Override
+    public void hidePaymentParentLoading()
+    {
+
+    }
+
+    @Override
+    public void onPaymentCancelAndBack()
+    {
+
     }
 }
