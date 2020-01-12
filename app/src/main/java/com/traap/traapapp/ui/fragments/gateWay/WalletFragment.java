@@ -78,7 +78,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         return fragment;
 }
 
-    public static Fragment newInstance(MainActivity mainView, int i)
+    public static Fragment newInstance(MainActionView mainView, int i)
     {
 
         WalletFragment fragment = new WalletFragment();
