@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -75,9 +76,13 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TransactionsListFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener,
         FilterArchiveAdapter.OnItemCheckedChangeListener, CompoundButton.OnCheckedChangeListener,
-        OnServiceStatus<WebServiceClass<ResponseTransaction>>
+        OnServiceStatus<WebServiceClass<ResponseTransaction>>, SeekBar.OnSeekBarChangeListener
 {
     private ScrollView nestedScroll;
+    private SeekBar seekBar;
+    private TextView tvMaxPrice;
+
+    private Integer maxPrice = 10000000;
 
     private CompositeDisposable disposable = new CompositeDisposable();
     private final int DELAY_TIME_TEXT_CHANGE = 200;
@@ -231,6 +236,9 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     {
         try
         {
+            seekBar = rootView.findViewById(R.id.seekBar);
+            tvMaxPrice = rootView.findViewById(R.id.tvMaxPrice);
+
             rcHashTag = rootView.findViewById(R.id.rcHashTag);
             rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
             rcTransactionList = rootView.findViewById(R.id.rcTransactionList);
@@ -256,6 +264,9 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             chbFailedPayment.setOnCheckedChangeListener(this);
 
             tvCount = rootView.findViewById(R.id.tvCount);
+
+            tvMaxPrice.setText("تا 10,000,000 زیال");
+            seekBar.setOnSeekBarChangeListener(this);
 
             edtSearchText.requestFocus();
             hideKeyboard((Activity) context);
@@ -561,7 +572,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 SingletonService.getInstance().getTransactionService().getTransactionListByFilter(
                         idFilteredList,
                         0,
-                        10000000,
+                        maxPrice,
                         tvStartDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvStartDate.getText().toString()),
                         tvEndDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvEndDate.getText().toString()),
                         status,
@@ -574,7 +585,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 SingletonService.getInstance().getTransactionService().getTransactionListByFilterForAllStatus(
                         idFilteredList,
                         0,
-                        10000000,
+                        maxPrice,
                         tvStartDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvStartDate.getText().toString()),
                         tvEndDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvEndDate.getText().toString()),
                         edtSearchText.getText().toString().trim(),
@@ -644,6 +655,9 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         imgEndDateReset.setVisibility(View.GONE);
         llDeleteFilter.setVisibility(View.GONE);
         llFilterHashTag.setVisibility(View.GONE);
+
+        maxPrice = 10000000;
+        seekBar.setProgress(20);
 
         chbSuccessPayment.setChecked(false);
         chbFailedPayment.setChecked(false);
@@ -1025,5 +1039,24 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 isFilterEnable = false;
             }
         }
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+    {
+        tvMaxPrice.setText("تا " + progress * 500000 + " ریال");
+        maxPrice = progress * 500000;
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar)
+    {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar)
+    {
+
     }
 }

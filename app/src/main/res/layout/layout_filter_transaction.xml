@@ -260,7 +260,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="مبلغ:"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:gravity="right"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="8dp"
@@ -295,10 +295,22 @@
                     android:thumbTint="@color/colorPrimaryDark"
                     app:tickCount="20" />
 
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/seekBar"
+                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="8dp"
+                    android:max="20"
+                    android:progress="20"
+                    android:progressTint="@color/textColorSecondary"
+                    android:progressBackgroundTint="@color/gray"
+                    android:thumbTint="@color/textColorSubTitle"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:orientation="horizontal">
 
                     <TextView
@@ -307,6 +319,7 @@
                         android:layout_height="wrap_content"
                         android:text="min"
                         android:gravity="left"
+                        android:visibility="gone"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="8dp"
                         android:textColor="@color/textColorSubTitle"
@@ -314,11 +327,12 @@
                         android:layout_alignParentRight="true"/>
 
                     <TextView
+                        android:id="@+id/tvMaxPrice"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="max"
-                        android:gravity="right"
+                        android:gravity="center"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="8dp"
                         android:textColor="@color/textColorSubTitle"
