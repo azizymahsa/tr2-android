@@ -6,20 +6,21 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputFilter;
-import android.text.method.DigitsKeyListener;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -83,10 +84,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private CircularProgressButton btnConfirm;
     private ClearableEditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName;
     private ClearableEditText etPopularPlayer;
-    private TextView tvMenu, tvBirthDay, tvUserName, tvHeaderPopularNo;
+    private TextView tvMenu, tvUserName, tvHeaderPopularNo;
+    private EditText tvBirthDay;
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture, fabDeleteProfile;
-    private ImageView imgProfile, imgBirthdayReset;
+    private ImageView imgProfile, imgBirthdayReset,imgBirthdaySet;
 
     private Animation animHideButton, animShowButton;
 
@@ -136,6 +138,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //        btnConfirm.setText("ارسال اطلاعات کاربری");
 
         imgBirthdayReset = findViewById(R.id.imgBirthdayReset);
+        imgBirthdaySet=findViewById(R.id.imgBirthdaySet);
         imgProfile = findViewById(R.id.imgProfile);
         fabCapture = findViewById(R.id.fabCapture);
         fabDeleteProfile = findViewById(R.id.fabDeleteProfile);
@@ -199,22 +202,62 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         btnConfirm.setOnClickListener(v ->
         {
+
+
+            if (TextUtils.isEmpty(tvBirthDay.getText().toString().replaceAll("_","").replaceAll("/","")) || tvBirthDay.getText().toString().replaceAll("_","").length()!=10 )
+            {
+                Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
+
+                return;
+            }
+
+            String [] date=tvBirthDay.getText().toString().replaceAll("_","").split("/");
+            Integer year=Integer.valueOf(date[0]);
+            Integer month=Integer.valueOf(date[1]);
+            Integer day=Integer.valueOf(date[2]);
+
+            if (day<1 || day>31){
+                Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
+
+                return;
+            }
+            if (month<1||month>12){
+                Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
+
+                return;
+            }
+            if (year<1300 || year>1399){
+                Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
+
+                return;
+            }
+
+
+
             btnConfirm.startAnimation();
             btnConfirm.setClickable(false);
+
 
             uploadProfileData();
         });
 
         findViewById(R.id.rlBirthDay).setOnClickListener(v ->
         {
-            pickerDialogDate.show(getSupportFragmentManager(), "CreateDate");
+          //  pickerDialogDate.show(getSupportFragmentManager(), "CreateDate");
 //            pickerDialogDate.show(getFragmentManager(), "CreateDate");
+        });
+
+        imgBirthdaySet.setOnClickListener(v -> {
+            pickerDialogDate.show(getSupportFragmentManager(), "CreateDate");
+
         });
 
         imgBirthdayReset.setOnClickListener(v ->
         {
             tvBirthDay.setText("");
             imgBirthdayReset.setVisibility(View.GONE);
+            imgBirthdaySet.setVisibility(View.VISIBLE);
+
         });
 
         fabCapture.setOnClickListener(v ->
@@ -265,6 +308,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
         });
 
+    }
+    public boolean isValid(String text){
+
+        return text.matches("/^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|31|([1-2][0-9])|(0[1-9]))))$/");
     }
 
     private void callDeletePhoto()
@@ -556,6 +603,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         @Override
                         public void onReady(WebServiceClass<SendProfileResponse> response)
                         {
+                            btnConfirm.revertAnimation();
+                            btnConfirm.setClickable(true);
                             if (response.info.statusCode != 200)
                             {
                                 showError(UserProfileActivity.this, response.info.message);
@@ -611,7 +660,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         @Override
                         public void onError(String message)
                         {
+                            btnConfirm.revertAnimation();
+                            btnConfirm.setClickable(true);
                             sendProfileFailure = true;
+                            finishSendData("");
                             finishSendData("");
                             if (Tools.isNetworkAvailable(UserProfileActivity.this))
                             {
@@ -943,6 +995,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //                    tvBirthDay.setText(getPersianDate(response.data.getBirthday()));
                     tvBirthDay.setText(response.data.getBirthday().replace("-", "/"));
                     imgBirthdayReset.setVisibility(View.VISIBLE);
+                    imgBirthdaySet.setVisibility(View.GONE);
                 }
             }
             catch (Exception e)
@@ -1054,10 +1107,28 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
+            String day;
+            String month;
 
-            String createDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+            if (String.valueOf(dayOfMonth).length()==1){
+                day="0"+dayOfMonth;
+            }else{
+                day=String.valueOf(dayOfMonth);
+
+            }
+
+            if (String.valueOf(monthOfYear+1).length()==1){
+                month="0"+(monthOfYear+1);
+            }else{
+                month=String.valueOf(monthOfYear+1);
+
+            }
+
+            String createDate = year + "/" + (month ) + "/" + day;
             tvBirthDay.setText(createDate);
             imgBirthdayReset.setVisibility(View.VISIBLE);
+            imgBirthdaySet.setVisibility(View.GONE);
+
         }
     }
 }
