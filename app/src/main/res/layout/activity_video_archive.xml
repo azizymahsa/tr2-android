@@ -35,10 +35,10 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
-            <include
+          <!--  <include
                 android:id="@+id/scroll"
                 layout="@layout/search_transaction_view" />
-
+-->
 
         </LinearLayout>
 
