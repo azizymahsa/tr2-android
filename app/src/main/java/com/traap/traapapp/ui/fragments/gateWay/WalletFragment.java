@@ -33,6 +33,7 @@ import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePas
 import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
 import com.traap.traapapp.singleton.SingletonContext;
 
+import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
@@ -62,6 +63,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private int instanceBack=0;
 
     public WalletFragment()
     {
@@ -74,6 +76,21 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         WalletFragment fragment = new WalletFragment();
         fragment.setMainView(mainView);
         return fragment;
+}
+
+    public static Fragment newInstance(MainActionView mainView, int i)
+    {
+
+        WalletFragment fragment = new WalletFragment();
+        fragment.setMainView(mainView);
+        fragment.setInstance(i);
+        return fragment;
+    }
+
+    private void setInstance(int i)
+    {
+        this.instanceBack=i;
+
     }
 
     private void setMainView(MainActionView mainView)
@@ -123,14 +140,25 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                 }
             }
         });
-        fragmentManager = getChildFragmentManager();
+        if(instanceBack==0)
+        {
+            fragmentManager = getChildFragmentManager();
 
-        fragment = DetailsCartFragment.newInstance(mainView);
-        transaction = fragmentManager.beginTransaction();
+            fragment = DetailsCartFragment.newInstance(mainView);
+            transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.container, fragment, "DetailsCartFragment")
-                .commit();
+            transaction.replace(R.id.container, fragment, "DetailsCartFragment")
+                    .commit();
+        }
+        if(instanceBack==1){
+            fragmentManager = getChildFragmentManager();
 
+            fragment = IncreaseInventoryFragment.newInstance(mainView);
+            transaction = fragmentManager.beginTransaction();
+
+            transaction.replace(R.id.container, fragment, "IncreaseInventoryFragment")
+                    .commit();
+        }
         return rootView;
     }
 

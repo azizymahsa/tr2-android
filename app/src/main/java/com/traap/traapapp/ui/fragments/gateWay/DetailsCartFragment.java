@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -54,7 +56,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
 
 
         initView();
-
+        Prefs.putInt("DetailCartStatus",1);
 
         return rootView;
     }
@@ -111,22 +113,31 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
             case R.id.lnrPayment:
                 fragment = WithdrawAccountFragment.newInstance(mainView);
                 showFragment(fragment);
+                Prefs.putInt("DetailCartStatus",0);
                 break;
             case R.id.lnrGetReport:
                 fragment = AccountInformationFragment.newInstance(mainView);
                 showFragment(fragment);
+                Prefs.putInt("DetailCartStatus",0);
+
                 break;
             case R.id.lnrManageWallet:
                 fragment = ManageWalletFragment.newInstance(mainView);
                 showFragment(fragment);
+                Prefs.putInt("DetailCartStatus",0);
+
                 break;
             case R.id.lnrIncreaseInveronment:
                 fragment = IncreaseInventoryFragment.newInstance(mainView);
                 showFragment(fragment);
+                Prefs.putInt("DetailCartStatus",0);
+
                 break;
             case R.id.lnrDoTransfer:
                 fragment = MoneyTransferFragment.newInstance(mainView);
                 showFragment(fragment);
+                Prefs.putInt("DetailCartStatus",0);
+
                 break;
 
 

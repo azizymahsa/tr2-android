@@ -124,7 +124,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private MatchItem matchCurrent, matchBuyable, matchPredict;
     private TextView tvPopularPlayer;
 
-//    private CountdownView countdownView;
+    //    private CountdownView countdownView;
     private int matchCurrentPos = 0;
     private boolean isFirstLoad = true;
     private ImageView imgMenu;
@@ -233,7 +233,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         imgMenu = mToolbar.findViewById(R.id.imgMenu);
         imgMenu.setOnClickListener(v -> mainView.openDrawer());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
-        rlShirt=mToolbar.findViewById(R.id.rlShirt);
+        rlShirt = mToolbar.findViewById(R.id.rlShirt);
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
         tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
@@ -308,8 +308,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             try
             {
                 list = fillMenuRecyclerList();
-                MainServiceModelItem s=findUrlById(list,"11");
-                mainView.openWebView(mainView,s.getBase_url(),Prefs.getString("gds_token", ""));
+                MainServiceModelItem s = findUrlById(list, "11");
+                mainView.openWebView(mainView, s.getBase_url(), Prefs.getString("gds_token", ""));
 
 
 
@@ -379,25 +379,28 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
                     }
                 });*/
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 showToast(context, "زمان پیش بینی به پایان رسیده است.", R.color.green);
             }
 
         });
     }
-    private MainServiceModelItem findUrlById(List<MainServiceModelItem> userList, final String name) {
+
+    private MainServiceModelItem findUrlById(List<MainServiceModelItem> userList, final String name)
+    {
         Optional<MainServiceModelItem> userOptional =
                 FluentIterable.from(userList).firstMatch(new Predicate<MainServiceModelItem>()
                 {
                     @Override
                     public boolean apply(@NullableDecl MainServiceModelItem input)
                     {
-                        return input.getId().toString().equals(name);                    }
+                        return input.getId().toString().equals(name);
+                    }
                 });
         return userOptional.isPresent() ? userOptional.get() : null; // return user if found otherwise return null if user name don't exist in user list
     }
+
     private void getSliderData()
     {
         mainView.showLoading();
@@ -481,8 +484,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     rootView.findViewById(R.id.llTimer).setVisibility(View.VISIBLE);
                     ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("پیش بینی کن جایزه بگیر!");
                     startTimer(remainPredictTime);
-                }
-                else
+                } else
                 {
                     isPredictable = false;
                     rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
@@ -511,7 +513,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         }
 
         //---------------------new---------------------------
-        sliderAdapter = new MainSliderAdapter(mainView,context, matchList, this);
+        sliderAdapter = new MainSliderAdapter(mainView, getActivity(), matchList, this);
         sliderRecyclerView.setAdapter(sliderAdapter);
 
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -626,7 +628,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //    }
 
     @Override
-    public void onChosenItemClick(View view, Integer id,String URl)
+    public void onChosenItemClick(View view, Integer id, String URl)
     {
         switch (id)
         {
@@ -635,7 +637,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             case 12: //Hotel
             case 13: //Bus
             {
-                mainView.openWebView(mainView,URl,Prefs.getString("gds_token", ""));
+                mainView.openWebView(mainView, URl, Prefs.getString("gds_token", ""));
                 break;
             }
             case 65: //Bill
@@ -689,7 +691,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivityForResult(intent,100);
+                startActivityForResult(intent, 100);
 
                 // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
@@ -701,7 +703,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivityForResult(intent,100);
+                startActivityForResult(intent, 100);
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
@@ -726,7 +728,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
                         intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
                         intent.putExtra("bimeh_base_url", Prefs.getString("bimeh_base_url", ""));
-                        startActivityForResult(intent,100);
+                        startActivityForResult(intent, 100);
                     }
 
                     @Override
@@ -755,6 +757,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .check();
     }
+
     private void onGdsFlightAta(GetUserPassResponse response)
     {
         mainView.hideLoading();
@@ -774,11 +777,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
 
             case R.id.rlShirt:
-                startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
+                startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class), 100);
                 break;
             case R.id.btnBuyTicket:
             {
-                SingletonNeedGetAllBoxesRequest.getInstance().needRequest=true;
+                SingletonNeedGetAllBoxesRequest.getInstance().needRequest = true;
                 btnBuyTicket.startAnimation();
                 btnBuyTicket.setClickable(false);
 
@@ -838,19 +841,18 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         if (responseMatchList == null || responseMatchList.info == null)
         {
-            startActivityForResult(new Intent(context, LoginActivity.class),100);
+            startActivityForResult(new Intent(context, LoginActivity.class), 100);
             ((Activity) context).finish();
 
             return;
         }
         if (responseMatchList.info.statusCode != 200)
         {
-            startActivityForResult(new Intent(context, LoginActivity.class),100);
+            startActivityForResult(new Intent(context, LoginActivity.class), 100);
             ((Activity) context).finish();
 
             return;
-        }
-        else
+        } else
         {
             matchList = responseMatchList.data.getMatchList();
             MainActivity.matchList = matchList;
@@ -867,8 +869,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             showError(context, "خطا در دریافت اطلاعات از سرور!");
             Logger.e("--onError--", message);
-        }
-        else
+        } else
         {
             showAlert(context, R.string.networkErrorMessage, R.string.networkError);
         }
@@ -884,17 +885,18 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
+       /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
                 "آیا مایلید صفحه پیش بینی نمایش داده شود؟",
                 true, new MessageAlertDialog.OnConfirmListener()
         {
             @Override
             public void onConfirmClick()
             {
-                PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
+              */
+        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-            }
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+            /*}
 
             @Override
             public void onCancelClick()
@@ -903,7 +905,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             }
         }
         );
-        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");
+        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");*/
 
     }
 
@@ -911,7 +913,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onItemBuyTicketClick(View view, int position, MatchItem matchItem)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
+        btnBuyTicket.startAnimation();
+        btnBuyTicket.setClickable(false);
+
+        mainView.getBuyEnable(() ->
+        {
+            btnBuyTicket.revertAnimation();
+            btnBuyTicket.setClickable(true);
+        });
+       /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
                 "آیا مایلید صفحه خرید بلیط نمایش داده شود؟",
                 true, new MessageAlertDialog.OnConfirmListener()
         {
@@ -931,7 +941,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             }
         }
         );
-        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");
+        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");*/
 
     }
 
@@ -940,8 +950,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         try
         {
             nestedScroll.scrollTo(0, 0);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
 
         }
@@ -983,14 +992,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     if (response.info.statusCode == 200)
                     {
                         showIntro(response.data.getResults());
-                    }
-                    else
+                    } else
                     {
                         Utility.disableEnableControls(true, llRoot);
                         showError(context, response.info.message);
                     }
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     showError(context, e.getMessage());
                 }
@@ -1012,10 +1019,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         super.onResume();
         if (Prefs.getBoolean("intro", true))
         {
-          requestShowTutorialIntro();
+            requestShowTutorialIntro();
 
-        }
-        else
+        } else
         {
             Utility.disableEnableControls(true, llRoot);
         }

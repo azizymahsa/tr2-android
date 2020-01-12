@@ -392,7 +392,7 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
     }
 
     /**
-     * Handle permission results
+     * Handle permission transactionLists
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -403,7 +403,7 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
                     getData();
                     return;
                 }
-                logger.e("Permission not granted: results len = " + grantResults.length +
+                logger.e("Permission not granted: transactionLists len = " + grantResults.length +
                         " Result code = " + (grantResults.length > 0 ? grantResults[0] : "(empty)"));
                 finish();
             }
@@ -414,7 +414,7 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
                     captureImage();
                     return;
                 }
-                logger.e("Permission not granted: results len = " + grantResults.length +
+                logger.e("Permission not granted: transactionLists len = " + grantResults.length +
                         " Result code = " + (grantResults.length > 0 ? grantResults[0] : "(empty)"));
                 finish();
                 break;

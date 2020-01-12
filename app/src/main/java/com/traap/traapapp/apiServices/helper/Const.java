@@ -137,6 +137,7 @@ public class Const
     public final static String DELETE_PROFILE_PHOTO = SubBASEURL + "v1/user/profile/delete_photo/";
 
     //Transaction
+    public final static String GET_TYPE_Transaction_List = SubBASEURL + "v1/user/type_transaction/";
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
     public final static String GET_TRANSACTION_DETAIL = SubBASEURL + "v1/user/{id}/transactions/";
 

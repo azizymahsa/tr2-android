@@ -1388,7 +1388,7 @@ public class SelectPositionFragment
         try {
             amountOneTicket = stadiumPositionModels.get(selectPositionId - 1).getAmount();
             amountForPay = amountOneTicket * count;
-//        tvAmountStation.setText("قیمت بلیت این جایگاه:" + Utility.priceFormat(results.get(0).getTicketAmount().toString()) + " ریال");
+//        tvAmountStation.setText("قیمت بلیت این جایگاه:" + Utility.priceFormat(transactionLists.get(0).getTicketAmount().toString()) + " ریال");
             tvAmountStation.setText("قیمت بلیت این جایگاه: " + Utility.priceFormat(String.valueOf(amountOneTicket)) + " ریال");
             tvAmountForPay.setText("مبلغ قابل پرداخت: " + Utility.priceFormat(String.valueOf(amountForPay)) + " ریال");
 
@@ -1682,7 +1682,7 @@ public class SelectPositionFragment
 
     @Override
     public void onFinishedReservation(ReservationResponse response) {
-//        BuyTicketsFragment.buyTicketsFragment.setData(selectPositionId, count, amountForPay,response.getResults());
+//        BuyTicketsFragment.buyTicketsFragment.setData(selectPositionId, count, amountForPay,response.getTransactionLists());
         if (selectPositionId == 44) {
             selectPosition = "مهمان";
         } else if (selectPositionId == 45) {

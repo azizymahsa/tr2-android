@@ -6,4 +6,6 @@ import com.traap.traapapp.ui.fragments.videos.VideosActionView;
 public interface VideosArchiveActionView extends VideosActionView
 {
     void backToMediaFragment(MediaPosition mediaPosition);
+
+    void backToMainFragment();
 }
