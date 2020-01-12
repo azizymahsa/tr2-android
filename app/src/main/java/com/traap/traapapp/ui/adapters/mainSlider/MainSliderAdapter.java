@@ -28,6 +28,8 @@ import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.ViewHolder>
 {
     private final MainActionView mainView;
@@ -68,53 +70,35 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
             holder.tvBuyTicket.setVisibility(View.VISIBLE);
             holder.tvPredictResult.setVisibility(View.VISIBLE);
 
-            holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_red);
-            holder.tvBuyTicket.setBackgroundResource(R.drawable.background_border_red);
-            // holder.tvPredictResult.setEnabled(true);
-            // holder.tvPredictResult.setClickable(true);
-            // holder.tvBuyTicket.setEnabled(true);
-            // holder.tvBuyTicket.setClickable(true);
+            holder.tvPredictResult.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket));
+            holder.tvBuyTicket.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket));
+
+
             holder.tvBuyTicket.setTextColor(Color.WHITE);
             holder.tvPredictResult.setTextColor(Color.WHITE);
-            // holder.lnrBuyEnable.setVisibility(View.VISIBLE);
         } else if (matchItem.getIsPredict())
         {
-            //holder.lnrBuyEnable.setVisibility(View.VISIBLE);
             holder.tvPredictResult.setVisibility(View.VISIBLE);
-            // holder.tvBuyTicket.setVisibility(View.GONE);
-            holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_red);
-            holder.tvBuyTicket.setBackgroundResource(R.drawable.background_border_a);
-            // holder.tvPredictResult.setEnabled(true);
-            // holder.tvPredictResult.setClickable(true);
-            // holder.tvBuyTicket.setEnabled(false);
-            //  holder.tvBuyTicket.setClickable(false);
+            holder.tvPredictResult.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket));
+            holder.tvBuyTicket.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket_disable));
+
             holder.tvBuyTicket.setTextColor(Color.RED);
             holder.tvPredictResult.setTextColor(Color.WHITE);
 
         } else if (matchItem.getBuyEnable())
         {
             holder.tvBuyTicket.setVisibility(View.VISIBLE);
-            // holder.tvPredictResult.setVisibility(View.GONE);
-            holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_a);
-            holder.tvBuyTicket.setBackgroundResource(R.drawable.background_border_red);
-            // holder.tvPredictResult.setEnabled(false);
-            // holder.tvPredictResult.setClickable(false);
-            // holder.tvBuyTicket.setEnabled(true);
-            // holder.tvBuyTicket.setClickable(true);
+            holder.tvPredictResult.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket_disable));
+            holder.tvBuyTicket.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket));
+
             holder.tvBuyTicket.setTextColor(Color.WHITE);
             holder.tvPredictResult.setTextColor(Color.RED);
-            // holder.lnrBuyEnable.setVisibility(View.VISIBLE);
         } else
         {
-            // holder.lnrBuyEnable.setVisibility(View.GONE);
-            //  holder.tvPredictResult.setVisibility(View.GONE);
-            //  holder.tvBuyTicket.setVisibility(View.GONE);
-            holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_a);
-            holder.tvBuyTicket.setBackgroundResource(R.drawable.background_border_a);
-            // holder.tvPredictResult.setClickable(false);
-            // holder.tvPredictResult.setEnabled(false);
-            //  holder.tvBuyTicket.setClickable(false);
-            //  holder.tvBuyTicket.setEnabled(false);
+
+            holder.tvPredictResult.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket_disable));
+            holder.tvBuyTicket.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket_disable));
+
             holder.tvBuyTicket.setTextColor(Color.RED);
             holder.tvPredictResult.setTextColor(Color.RED);
 
@@ -126,7 +110,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
                 //holder.tvPredictResult.setVisibility(View.VISIBLE);
 
                 //  holder.lnrBuyEnable.setVisibility(View.VISIBLE);
-                holder.tvPredictResult.setBackgroundResource(R.drawable.background_border_red);
+                holder.tvPredictResult.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket));
                 holder.tvPredictResult.setTextColor(Color.WHITE);
                 //holder.tvPredictResult.setEnabled(true);
                 // holder.tvPredictResult.setClickable(true);
@@ -223,8 +207,10 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
             {
                 if (mItemClickListener != null)
                 {
-                    if (holder.tvBuyTicket.getCurrentTextColor() == Color.WHITE)
+                    if (holder.tvPredictResult.getCurrentTextColor() == Color.WHITE)
                     {
+
+
                         mItemClickListener.onItemPredictClick(view, position, matchItem);
                     } else
                     {
@@ -261,7 +247,14 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
                 {
                     if (holder.tvBuyTicket.getCurrentTextColor() == Color.WHITE)
                     {
-                        mItemClickListener.onItemBuyTicketClick(view, position, matchItem);
+                        holder.tvBuyTicket.startAnimation();
+                        holder.tvBuyTicket.setClickable(false);
+
+                        mainView.getBuyEnable(() ->
+                        {
+                            holder.tvBuyTicket.revertAnimation();
+                            holder.tvBuyTicket.setClickable(true);
+                        });//mItemClickListener.onItemBuyTicketClick(view, position, matchItem);
                     } else
                     {
                         MessageAlertDialog dialog = new MessageAlertDialog((Activity) mContext, "",
@@ -324,7 +317,8 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        private TextView tvHeaderText, tvHeaderSubText, tvStadiumName, tvDateTime, tvMatchResult, tvHome, tvAway, tvPredictResult, tvBuyTicket;
+        private TextView tvHeaderText, tvHeaderSubText, tvStadiumName, tvDateTime, tvMatchResult, tvHome, tvAway;
+        private CircularProgressButton tvPredictResult, tvBuyTicket;
         private ImageView imgGuest, imgHost, imgBackground, imgCenter;
         private RelativeLayout rlRoot;
         private ProgressBar progress;
