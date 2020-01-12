@@ -88,8 +88,9 @@
                     <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etFirstName"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right|center_vertical"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center"
+                        android:background="@null"
                         android:inputType="text"
                         android:maxLines="1"
                         android:layout_marginLeft="8dp"

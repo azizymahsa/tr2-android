@@ -69,7 +69,6 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private Context context;
     private NestedScrollView nestedScrollView;
 
-    private ScrollingPagerIndicator indicatorNewestNews;
 
     private NewsMainFavoriteAdapter favNewsAdapter;
     private NewsMainNewestAdapter newestNewsAdapter;
@@ -85,9 +84,9 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private RelativeLayout rlArrowLeft, rlArrowRight;
 
     private LinearLayoutManager favLayoutManager;
-    ;
+
     private RecyclerView favRecyclerView;
-    private ScrollingPagerIndicator indicator;
+    private ScrollingPagerIndicator indicator,indicatorNewestNews;
 
     private BannerLayout bNewestNews;
 
@@ -192,6 +191,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
         favRecyclerView = rootView.findViewById(R.id.favRecyclerView);
         indicator = rootView.findViewById(R.id.indicator);
+        indicatorNewestNews = rootView.findViewById(R.id.indicatorNewestNews);
 
         bNewestNews = rootView.findViewById(R.id.bNewestNews);
 
@@ -287,7 +287,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     {
         newestNewsAdapter = new NewsMainNewestAdapter(context, latestNewsList);
         bNewestNews.setAdapter(newestNewsAdapter);
-
+        indicatorNewestNews.attachToRecyclerView(bNewestNews.getmRecyclerView());
+        bNewestNews.setAutoPlaying(true);
         newestNewsAdapter.SetOnItemClickListener((view, id, position) ->
         {
             List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();

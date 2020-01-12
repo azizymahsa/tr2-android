@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
@@ -67,6 +68,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     private TextView tvArchivePhotos, tvMyFavoritePhoto;
     private View rlShirt;
     private View tvEmpty,tvEmptyFavorite,llFavorites;
+    private ScrollingPagerIndicator indicatorNewestPhotos;
 
     public PhotosFragment()
     {
@@ -120,6 +122,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
+        indicatorNewestPhotos = rootView.findViewById(R.id.indicatorNewestPhotos);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchivePhotos = rootView.findViewById(R.id.tvArchivePhotos);
         tvMyFavoritePhoto = rootView.findViewById(R.id.tvMyFavoritePhoto);
@@ -190,6 +193,10 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     {
         bNewestPhotos.setAdapter(new NewestPhotosAdapter(mainPhotosResponse.getRecent(), this));
         setDataFavoriteList(mainPhotosResponse);
+
+        indicatorNewestPhotos.attachToRecyclerView(bNewestPhotos.getmRecyclerView());
+        bNewestPhotos.setAutoPlaying(true);
+
         photoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(mainPhotosResponse.getListCategories(), this);
         rvCategoryTitles.setAdapter(photoCategoryTitleAdapter);
         categoryAdapter = new CategoryPhotosAdapter(mainPhotosResponse.getCategory(), this);
