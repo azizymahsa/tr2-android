@@ -146,11 +146,11 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 //            Logger.e("-PhotoFailor-", "Error: " + "SplashError");
             if (Prefs.getString("accessToken", "").isEmpty())
             {
-                 startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                 startActivityForResult(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),100);
 
             } else
             {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                startActivityForResult(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),100);
             }
             finish();
         }
@@ -272,7 +272,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         {
             if (description != null)
             {
-                startActivity(new Intent(this, WebHtmlActivity.class).putExtra("description", description));
+                startActivityForResult(new Intent(this, WebHtmlActivity.class).putExtra("description", description),100);
             }
             else
             {
@@ -376,7 +376,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse("https://cafebazaar.ir/app/" + BuildConfig.APPLICATION_ID));
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     @Override
@@ -386,12 +386,12 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + BuildConfig.APPLICATION_ID));
-            startActivity(intent);
+            startActivityForResult(intent,100);
         } catch (ActivityNotFoundException e2)
         {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID));
-            startActivity(intent);
+            startActivityForResult(intent,100);
         }
     }
 
@@ -400,7 +400,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(downloadUrl));
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     @Override
@@ -489,7 +489,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
-//                startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+//                startActivityForResult(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 //                finish();
 
                 if (Utility.isNetworkAvailable())

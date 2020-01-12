@@ -1,13 +1,16 @@
 package com.traap.traapapp.ui.activities.myProfile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
@@ -35,8 +38,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 
-public class MyProfileActivity extends BaseActivity
-{
+public class MyProfileActivity extends BaseActivity {
     private MainActionView mainView;
     private CardView cardView;
     private TextView tvUserName, tvHeaderPopularNo;
@@ -50,16 +52,15 @@ public class MyProfileActivity extends BaseActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         //rootView = inflater.inflate(R.layout.activity_my_profile, container, false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
-        mToolbar =findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setVisibility(View.GONE);
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->                finish()
-);
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> finish()
+        );
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
@@ -70,51 +71,42 @@ public class MyProfileActivity extends BaseActivity
 
         EventBus.getDefault().register(this);
 
-       // return rootView;
+        // return rootView;
     }
 
 
-    public void initView()
-    {
+    public void initView() {
         cardView = findViewById(R.id.card);
-        imgProfile =findViewById(R.id.imgProfile);
+        imgProfile = findViewById(R.id.imgProfile);
 
         tvFullName = findViewById(R.id.tvFullName);
         tvMobile = findViewById(R.id.tvMobile);
         tvInviteCode = findViewById(R.id.tvInviteCode);
-        rlEditProfile =findViewById(R.id.rlEditProfile);
+        rlEditProfile = findViewById(R.id.rlEditProfile);
         rlMyPredict = findViewById(R.id.rlMyPredict);
         rlMyFavorite = findViewById(R.id.rlMyFavorite);
         rlExit = findViewById(R.id.rlExit);
+        FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
 
-        if (Prefs.contains("profileImage"))
-        {
-            try
-            {
-                if (!Prefs.getString("profileImage", "").contains("default_avatar.png"))
-                {
+        flLogoToolbar.setOnClickListener(v -> finish());
+        if (Prefs.contains("profileImage")) {
+            try {
+                if (!Prefs.getString("profileImage", "").contains("default_avatar.png")) {
                     Picasso.with(this).load(Prefs.getString("profileImage", "")).into(imgProfile);
-                }
-                else
-                {
+                } else {
                     Picasso.with(this).load(R.drawable.ic_user_default).into(imgProfile);
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 Logger.e("-Exception photo-", e.getMessage());
                 e.printStackTrace();
                 Picasso.with(this).load(R.drawable.ic_user_default).into(imgProfile);
             }
         }
 
-        if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase(""))
-        {
+        if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase("")) {
             tvFullName.setText(Prefs.getString("mobile", ""));
             tvMobile.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             tvFullName.setText(Prefs.getString("FULLName", ""));
         }
         tvMobile.setText(Prefs.getString("mobile", ""));
@@ -124,7 +116,7 @@ public class MyProfileActivity extends BaseActivity
 
         rlEditProfile.setOnClickListener(v ->
         {
-            startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class),100);
         });
 
         rlMyPredict.setOnClickListener(v ->
@@ -146,11 +138,9 @@ public class MyProfileActivity extends BaseActivity
         rlExit.setOnClickListener(v ->
         {
             MessageAlertDialog dialog = new MessageAlertDialog(this, "", "آیا می خواهید از حساب کاربری خود خارج شوید؟",
-                    true, "خروج", "انصراف", new MessageAlertDialog.OnConfirmListener()
-            {
+                    true, "خروج", "انصراف", new MessageAlertDialog.OnConfirmListener() {
                 @Override
-                public void onConfirmClick()
-                {
+                public void onConfirmClick() {
                     Intent intent = new Intent();
                     String mobile = Prefs.getString("mobile", "");
                     Prefs.clear();
@@ -161,8 +151,7 @@ public class MyProfileActivity extends BaseActivity
                 }
 
                 @Override
-                public void onCancelClick()
-                {
+                public void onCancelClick() {
 
                 }
             });
@@ -171,22 +160,17 @@ public class MyProfileActivity extends BaseActivity
 
     }
 
-    private void sendRequestInvite()
-    {
+    private void sendRequestInvite() {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
-       // SingletonService.getInstance().getProfileService().getProfileService(this);
+        // SingletonService.getInstance().getProfileService().getProfileService(this);
 
-        SingletonService.getInstance().getProfileService().getInviteService(new OnServiceStatus<WebServiceClass<InviteResponse>>()
-        {
+        SingletonService.getInstance().getProfileService().getInviteService(new OnServiceStatus<WebServiceClass<InviteResponse>>() {
             @Override
-            public void onReady(WebServiceClass<InviteResponse> response)
-            {
-               // mainView.hideLoading();
-                try
-                {
+            public void onReady(WebServiceClass<InviteResponse> response) {
+                // mainView.hideLoading();
+                try {
 
-                    if (response.info.statusCode == 200)
-                    {
+                    if (response.info.statusCode == 200) {
                         //share text
                         String shareBody = response.data.getInvite_text();
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -195,27 +179,21 @@ public class MyProfileActivity extends BaseActivity
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "کد عضویت خود را به اشتراک بگذارید: "));
 
-                    } else
-                    {
-                        if (!Tools.isNetworkAvailable(MyProfileActivity.this))
-                        {
+                    } else {
+                        if (!Tools.isNetworkAvailable(MyProfileActivity.this)) {
                             Logger.e("-Faild-", "response.info.statusCode: " + response.info.statusCode);
-                            showError(getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
-                        } else
-                        {
+                            showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
+                        } else {
                             // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
                             showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
                         }
                     }
-                } catch (Exception e)
-                {
-                    if (!Tools.isNetworkAvailable(MyProfileActivity.this))
-                    {
+                } catch (Exception e) {
+                    if (!Tools.isNetworkAvailable(MyProfileActivity.this)) {
                         Logger.e("-OnError-", "response.info.statusCode: " + response.info.statusCode);
-                        showError(getApplicationContext(),"خطا در دریافت اطلاعات از سرور!");
-                    } else
-                    {
+                        showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
+                    } else {
                         // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
                         showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
@@ -225,15 +203,12 @@ public class MyProfileActivity extends BaseActivity
             }
 
             @Override
-            public void onError(String message)
-            {
-               // mainView.hideLoading();
-                if (!Tools.isNetworkAvailable(MyProfileActivity.this))
-                {
+            public void onError(String message) {
+                // mainView.hideLoading();
+                if (!Tools.isNetworkAvailable(MyProfileActivity.this)) {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getBaseContext(),"خطا در دریافت اطلاعات از سرور!");
-                } else
-                {
+                    showError(getBaseContext(), "خطا در دریافت اطلاعات از سرور!");
+                } else {
                     // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
                     showAlert(getBaseContext(), R.string.networkErrorMessage, R.string.networkError);
@@ -243,33 +218,24 @@ public class MyProfileActivity extends BaseActivity
     }
 
     @Subscribe
-    public void getHeaderContent(HeaderModel headerModel)
-    {
-        if (headerModel.getPopularNo() != 0)
-        {
+    public void getHeaderContent(HeaderModel headerModel) {
+        if (headerModel.getPopularNo() != 0) {
             tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
         }
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-        if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase(""))
-        {
+        if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase("")) {
             tvFullName.setText(Prefs.getString("mobile", ""));
             tvMobile.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             tvFullName.setText(Prefs.getString("FULLName", ""));
         }
 
-        try
-        {
+        try {
             Logger.e("EventBus ImageLink", headerModel.getProfileUrl());
-            if (headerModel.getProfileUrl() != null)
-            {
+            if (headerModel.getProfileUrl() != null) {
                 Picasso.with(this).load(headerModel.getProfileUrl()).into(imgProfile);
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Logger.e("-Exception photo-", e.getMessage());
             e.printStackTrace();
         }
@@ -277,10 +243,19 @@ public class MyProfileActivity extends BaseActivity
 
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            Intent returnIntent = new Intent();
+
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }
+    }
 }

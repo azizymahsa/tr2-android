@@ -9,7 +9,6 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,6 +113,7 @@ public class ChargeFragment extends BaseFragment
     private TextView tvUserName;
     private TextView tvHeaderPopularNo;
    private OnClickContinueSelectPayment onClickContinueBuyChargeListener;
+    private Integer backState;
 
 
     public ChargeFragment()
@@ -123,13 +123,20 @@ public class ChargeFragment extends BaseFragment
 
 
 
-    public static ChargeFragment newInstance(MainActionView mainView)//, OnClickContinueSelectPayment onClickContinueBuyCharg)
+    public static ChargeFragment newInstance(MainActionView mainView, Integer backState)//, OnClickContinueSelectPayment onClickContinueBuyCharg)
     {
         ChargeFragment f = new ChargeFragment();
        // f.setContinueSelectPayment(onClickContinueBuyCharg);
         f.setMainView(mainView);
+        f.setBackState(backState);
         return f;
     }
+
+    private void setBackState(Integer backState)
+    {
+        this.backState=backState;
+    }
+
     private void setContinueSelectPayment(OnClickContinueSelectPayment mainView)
     {
         this.onClickContinueBuyChargeListener = mainView;
@@ -542,10 +549,16 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnChargeConfirm)
     void setBtnChargeConfirm()
     {
-        if (!Utility.mtnValidation(autoCompletePhoneNumberIrancel.getText().toString()))
+        if (!Utility.getMobileValidation(autoCompletePhoneNumberIrancel.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
+        }
+        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberIrancel.getText().toString())){
+
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
         }
         if (TextUtils.isEmpty(amount))
         {
@@ -645,12 +658,17 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnChargeConfirmRightel)
     void setBtnChargeConfirmRightel()
     {
-        if (!Utility.rightelValidation(autoCompletePhoneNumberRightel.getText().toString()))
+        if (!Utility.getMobileValidation(autoCompletePhoneNumberRightel.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
+        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberRightel.getText().toString())){
 
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
+        }
         if (TextUtils.isEmpty(amount))
         {
             mainView.showError("لطفا مبلغ را وارد نمایید.");
@@ -701,13 +719,18 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnMCIChargeConfirm)
     void setBtnMCIChargeConfirm()
     {
-        if (!Utility.mciValidation(autoCompletePhoneNumberMci.getText().toString()))
+        if (!Utility.getMobileValidation(autoCompletePhoneNumberMci.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
 
             return;
         }
+        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberMci.getText().toString())){
 
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
+        }
         if (TextUtils.isEmpty(amount))
         {
             mainView.showError("لطفا مبلغ را وارد نمایید.");
@@ -1153,7 +1176,7 @@ public class ChargeFragment extends BaseFragment
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
-               mainView.backToMainFragment()
+               mainView.backToAllServicePackage(backState)
                // onClickContinueBuyChargeListener.onBackClicked()
         );
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -1175,7 +1198,7 @@ public class ChargeFragment extends BaseFragment
 
         imgBack.setOnClickListener(v ->
         {
-            mainView.backToMainFragment();
+            mainView.backToAllServicePackage(backState);
         });
 
         btnChargeConfirmRightel.setText("ادامه");
@@ -1760,13 +1783,13 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onChargeSimCard()
+    public void onChargeSimCard(Integer backState)
     {
 
     }
 
     @Override
-    public void onPackSimCard()
+    public void onPackSimCard(Integer status)
     {
 
     }
@@ -2039,6 +2062,12 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
+    public void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
+    {
+
+    }
+
+    @Override
     public void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
@@ -2060,6 +2089,12 @@ public class ChargeFragment extends BaseFragment
 
     @Override
     public void onBackToChargFragment(int PAYMENT_STATUS)
+    {
+
+    }
+
+    @Override
+    public void backToAllServicePackage(Integer backState)
     {
 
     }

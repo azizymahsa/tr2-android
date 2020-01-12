@@ -177,7 +177,7 @@ public class VideosArchiveCategoryFragment extends BaseFragment implements OnSer
 //                intent.putExtra("currentId", id);
 //                intent.putExtra("currentPosition", position);
 //                intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-//                startActivity(intent);
+//                startActivityForResult(intent,100);
 //            });
 
             adapter.notifyDataSetChanged();
@@ -227,7 +227,7 @@ public class VideosArchiveCategoryFragment extends BaseFragment implements OnSer
 //                intent.putExtra("currentId", id);
 //                intent.putExtra("currentPosition", position);
 //                intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-//                startActivity(intent);
+//                startActivityForResult(intent,100);
 //            });
 
             adapter.notifyDataSetChanged();
@@ -274,7 +274,7 @@ public class VideosArchiveCategoryFragment extends BaseFragment implements OnSer
         intent.putExtra("IdVideo", id);
         intent.putExtra("positionVideo", position);
 
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
 }

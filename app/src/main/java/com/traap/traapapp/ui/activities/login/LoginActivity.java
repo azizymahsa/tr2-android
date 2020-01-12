@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.InputFilter;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.utilities.ClearableEditText;
+import com.traap.traapapp.utilities.KeyboardUtils;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -44,6 +48,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private LoginPresenterImpl loginPresenter;
     private CircularProgressButton btnConfirm;
     private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend,txtCondition;
+    private int dimeSpace80, dimeSpace40, dimeLogo150, dimeLogo70;
+    private RelativeLayout.LayoutParams logoLayoutParams;
+    private LinearLayout.LayoutParams spaceLayoutParams;
 
     private TextInputLayout etLayout;
     private PinEntryEditText codeView;
@@ -121,7 +128,29 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             Utility.openUrlCustomTab(this, "http://www.traap.com/terms");
 
         });
+
+        dimeLogo70 = (int) getResources().getDimension(R.dimen._70dp);
+        dimeLogo150 = (int) getResources().getDimension(R.dimen._150dp);
+        dimeSpace40 = (int) getResources().getDimension(R.dimen._40dp);
+        dimeSpace80 = (int) getResources().getDimension(R.dimen._80dp);
+
+        KeyboardUtils.addKeyboardToggleListener(this, isVisible ->
+        {
+            if (!isVisible)
+            {
+                logoLayoutParams = new RelativeLayout.LayoutParams(dimeLogo150, dimeLogo150);
+                spaceLayoutParams = new LinearLayout.LayoutParams(dimeSpace80, dimeSpace80);
+            }
+            else
+            {
+                logoLayoutParams = new RelativeLayout.LayoutParams(dimeLogo70, dimeLogo70);
+                spaceLayoutParams = new LinearLayout.LayoutParams(dimeSpace40, dimeSpace40);
+            }
+            findViewById(R.id.spaceTop).setLayoutParams(spaceLayoutParams);
+            findViewById(R.id.logoTraap).setLayoutParams(logoLayoutParams);
+        });
     }
+
 
     @Override
     protected void onStart()
@@ -180,7 +209,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 //            }
             intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            startActivityForResult(intent,100);
             finish();
         } else
             mobileToCode();

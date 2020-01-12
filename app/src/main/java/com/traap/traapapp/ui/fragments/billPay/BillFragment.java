@@ -224,7 +224,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         tvBillTitle=v.findViewById(R.id.tvBillTitle);
         tvBillsTitle = v.findViewById(R.id.tvBillsTitle);
         rlBillList = v.findViewById(R.id.rlBillList);
-        upPanelLayout = v.findViewById(R.id.sliding_layout);
+        upPanelLayout = v.findViewById(R.id.slidingLayout);
         cvBarcode = v.findViewById(R.id.cvBarcode);
         nested = v.findViewById(R.id.nested);
         etPayId = v.findViewById(R.id.etPayId);
@@ -544,13 +544,13 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
         tvBillName.setOnClickListener(view -> {
            /* if (billActiveVm != null) {
-                getActivity().startActivity(new Intent(getActivity(), AvailableBankActivity.class)
+                getActivity().startActivityForResult(new Intent(getActivity(), AvailableBankActivity.class)
                         .putExtra("billActiveVm", new Gson().toJson(billActiveVm)));
             }*/
         });
         tvBillName2.setOnClickListener(view -> {
            /* if (billActiveVm != null) {
-                getActivity().startActivity(new Intent(getActivity(), AvailableBankActivity.class)
+                getActivity().startActivityForResult(new Intent(getActivity(), AvailableBankActivity.class)
                         .putExtra("billActiveVm", new Gson().toJson(billActiveVm)));
             }*/
         });
@@ -1411,6 +1411,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
+    public void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
+    {
+
+    }
+
+    @Override
     public void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
@@ -1436,7 +1442,11 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
+    @Override
+    public void backToAllServicePackage(Integer backState)
+    {
 
+    }
 
 
     @Override
@@ -1446,13 +1456,13 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void onChargeSimCard()
+    public void onChargeSimCard(Integer backstate)
     {
 
     }
 
     @Override
-    public void onPackSimCard()
+    public void onPackSimCard(Integer status)
     {
 
     }

@@ -179,7 +179,7 @@ public class WebActivity extends BaseActivity
                 finish();
             });
             rlShirt = findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class))
+            rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100)
             );
             String title = getIntent().getStringExtra("Title");
 

@@ -116,17 +116,24 @@ public class PackFragment
     private String title;
     private TextView tvUserName;
     private TextView tvHeaderPopularNo;
+    private Integer backState;
 
     public PackFragment()
     {
 
     }
 
-    public static PackFragment newInstance(MainActionView mainView)
+    public static PackFragment newInstance(MainActionView mainView, Integer backState)
     {
         PackFragment f = new PackFragment();
         f.setMainView(mainView);
+        f.setBackState(backState);
         return f;
+    }
+
+    private void setBackState(Integer backState)
+    {
+        this.backState=backState;
     }
 
     private void setMainView(MainActionView mainView)
@@ -178,7 +185,7 @@ public class PackFragment
         @Override
         public void onClick(View v)
         {
-            startActivity(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
+            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
         }
     });
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
@@ -757,6 +764,12 @@ public class PackFragment
          //   hideSoftKeyboard(etMobileNumberIranCell);
             return;
         }
+        if (Utility.checkTaliyaValidation(etMobileNumberIranCell.getText().toString())){
+
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
+        }
         if (!Utility.isNetworkAvailable())
         {
             mainView.onInternetAlert();
@@ -781,6 +794,7 @@ public class PackFragment
     void setBtnChargeConfirmRightel()
     {
 
+
         initSpinner();
         setupRecycler();
         if (!Utility.getMobileValidation(etMobileNumberRightel.getText().toString()))
@@ -789,6 +803,12 @@ public class PackFragment
 
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
+        }
+        if (Utility.checkTaliyaValidation(etMobileNumberRightel.getText().toString())){
+
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
         }
         if (!Utility.isNetworkAvailable())
         {
@@ -827,6 +847,12 @@ public class PackFragment
             hideSoftKeyboard(etMobileNumberMCI);
 
             return;
+        }
+        if (Utility.checkTaliyaValidation(etMobileNumberMCI.getText().toString())){
+
+            mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
+            return;
+
         }
         if (!Utility.isNetworkAvailable())
         {
@@ -1198,7 +1224,8 @@ public class PackFragment
         mToolbar = v.findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
+                mainView.backToAllServicePackage(backState));
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);

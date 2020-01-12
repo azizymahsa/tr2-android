@@ -15,9 +15,9 @@ public interface MainActionView extends BaseView
 {
     void onBill();
 
-    void onChargeSimCard();
+    void onChargeSimCard(Integer status);
 
-    void onPackSimCard();
+    void onPackSimCard(Integer status);
 
     void openBarcode(BarcodeType bill);
 
@@ -81,10 +81,13 @@ public interface MainActionView extends BaseView
 
     void openWebView(MainActionView mainView, String uRl, String gds_token);
 
+    void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
     void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
 
     void getBuyEnable(BuyTicketAction buyTicketAction);
 
     void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message);
     void onBackToChargFragment(int PAYMENT_STATUS);
+
+    void backToAllServicePackage(Integer backState);
 }

@@ -81,6 +81,7 @@
             app:initialCornerAngle="15dp"
             android:elevation="3dp"
             android:translationZ="3dp"
+            android:visibility="gone"
             app:spinning_bar_color="@color/gray"
             app:spinning_bar_width="2dp" />
 

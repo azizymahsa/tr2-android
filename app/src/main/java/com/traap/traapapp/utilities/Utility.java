@@ -65,6 +65,8 @@ import saman.zamani.persiandate.PersianDateFormat;
 
 public class Utility
 {
+    private static boolean phoneNumberValidation=false;
+
     public static List<String> splite(String s, int chunkSize)
     {
         List<String> strings = new ArrayList<String>();
@@ -927,7 +929,36 @@ public class Utility
 
     public static boolean getMobileValidation(String number)
     {
-        return !TextUtils.isEmpty(number) && number.startsWith("09") && number.length() >= 11;
+        String startPhoneNo = number.substring(0, 4);
+
+        String[] typePhone_No = {"0990","0992","0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919", "0990"
+        ,"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939",
+                "0920", "0921", "0922" ,"0932","0933"
+        };
+        if (Arrays.asList(typePhone_No).contains(startPhoneNo))
+        {
+            phoneNumberValidation=true;
+        }else {
+            phoneNumberValidation=false;
+
+        }
+
+        return !TextUtils.isEmpty(number) && phoneNumberValidation && number.length() >= 11;
+    }
+
+    public static boolean checkTaliyaValidation(String number)
+    {
+        String startPhoneNo = number.substring(0, 4);
+
+        String[] typePhone_No = {"0932","0933"
+        };
+        if (Arrays.asList(typePhone_No).contains(startPhoneNo))
+        {
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     public static Integer getOperatorType(String number)

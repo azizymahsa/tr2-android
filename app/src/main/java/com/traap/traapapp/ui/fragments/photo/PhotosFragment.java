@@ -82,7 +82,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         intent.putExtra("IdPhoto", id);
         intent.putExtra("positionPhoto", position);
 
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     public static PhotosFragment newInstance(PhotosActionView mainView)
@@ -363,7 +363,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 //                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
 //                    intent.putExtra("FLAG_Favorite", false);
 //
-//                    startActivity(intent);
+//                    startActivityForResult(intent,100);
 //
 //                }
 //                catch (Exception e)
@@ -387,7 +387,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 //                {
 //                    Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
 //                    intent1.putExtra("FLAG_Favorite", true);
-//                    startActivity(intent1);
+//                    startActivityForResult(intent1);
 //                }
 //                catch (Exception e)
 //                {

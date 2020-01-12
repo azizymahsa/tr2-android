@@ -67,33 +67,37 @@
 
 
 
+
+
+
         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextLabel"
-            android:id="@+id/tilMRightel"
-            android:layout_width="@dimen/_180sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="end|center"
-            android:hint="مبلغ (ریال)"
+            android:layout_width="@dimen/_300dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="5dp"
+            android:gravity="start"
+            android:hint="مبلغ را به ریال وارد نمایید"
             android:theme="@style/EditTextHint"
-            android:layout_marginStart="5dp">
+            app:hintTextAppearance="@style/TextLabel">
 
             <com.traap.traapapp.utilities.ClearableEditText
                 android:id="@+id/etAmount"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                android:gravity="end|center"
+                android:layout_gravity="start"
+                android:gravity="start"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:maxLines="1"
                 android:singleLine="true"
                 android:layout_weight="100"
-                android:maxLength="11"
                 android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_16dp" />
+                android:textSize="@dimen/textSize_12dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <Space
             android:layout_width="0dp"

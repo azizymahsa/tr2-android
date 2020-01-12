@@ -6,125 +6,59 @@
     android:background="#A6000000"
 
     >
-    <TextView
-        android:id="@+id/imgBack"
+
+
+
+
+    <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        >
+        <FrameLayout
+            android:id="@+id/flViewPager"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="100">
+
+            <com.traap.traapapp.utilities.HackyViewPager
+
+                android:id="@+id/intro_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+
+
+
+        </FrameLayout>
+
+
+
+        <it.sephiroth.android.library.widget.HListView
+            android:id="@+id/thumbnails_scroll_view"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="16"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+
+            android:scrollbars="none"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/imgBack"
+        android:layout_width="@dimen/_50dp"
+        android:layout_height="wrap_content"
         android:text="&#215;"
         android:textSize="@dimen/_50dp"
         android:textColor="@color/white"
         android:layout_marginStart="@dimen/_10dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
-    <RelativeLayout
-        android:id="@+id/rlLike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10dp"
-        android:layout_marginEnd="@dimen/_10dp"
-        android:padding="3dp"
-        android:layout_alignParentEnd="true"
-        >
-        <ImageView
-            android:id="@+id/btnSharePic"
-            android:layout_width="@dimen/_35dp"
-            android:layout_height="@dimen/_35dp"
-            android:src="@drawable/share_ic"
-            android:padding="@dimen/_5sdp"
-            android:tint="@color/white"
-            android:foreground="?attr/selectableItemBackground"
-            android:layout_toRightOf="@id/btnBookmark"
-            />
-        <ImageView
-            android:id="@+id/btnBookmark"
-            android:layout_width="@dimen/_35dp"
-            android:layout_height="@dimen/_35dp"
-            android:src="@drawable/book_ic"
-            android:padding="@dimen/_5sdp"
-            android:tint="@color/white"
-            android:foreground="?attr/selectableItemBackground"
-            android:layout_toRightOf="@id/tvLike"
-            android:layout_marginStart="@dimen/_10dp"
+        />
 
-
-            />
-
-        <TextView
-            android:id="@+id/tvLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
-            android:text=""
-            android:layout_centerInParent="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSize_16dp"
-            android:layout_toRightOf="@id/imgLike"
-            android:layout_marginEnd="@dimen/_10dp"
-
-            />
-        <ImageView
-            android:id="@+id/imgLike"
-            android:layout_width="@dimen/_30dp"
-            android:layout_height="@dimen/_30dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="2dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_like_white"
-            android:tint="@color/white"
-            />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <RelativeLayout
-            android:id="@+id/rlPic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/ivPhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_250dp_r"
-                    android:adjustViewBounds="true"
-                    android:layout_centerInParent="true"
-                    android:background="@color/gray"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:scaleType="fitXY"
-                    app:riv_corner_radius="10dp"
-                    app:riv_mutate_background="true"
-                    app:riv_oval="false"/>
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/ivBigLike"
-                android:layout_width="@dimen/_100dp"
-                android:layout_height="@dimen/_100dp"
-                android:adjustViewBounds="true"
-                android:layout_centerInParent="true"
-                android:background="@drawable/big_like"
-                android:foreground="?attr/selectableItemBackground"
-                android:scaleType="center"
-                app:riv_corner_radius="10dp"
-                app:riv_mutate_background="true"
-                app:riv_oval="false"
-                android:visibility="gone"/>
-
-
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
-
-</LinearLayout>
 </RelativeLayout>

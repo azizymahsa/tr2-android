@@ -97,45 +97,50 @@
                 android:layout_gravity="end"
                 android:gravity="center|start"
                 android:textStyle="bold"
-                android:textColor="@color/textColorSubTitle"
-                 />
-            <LinearLayout android:layout_width="match_parent"
+                android:textColor="@color/textColorSubTitle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center|end">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textSize="@dimen/textSize_12dp"
-                    android:textColor="@color/warmGray"
-                    android:text="موفق "
-                    android:textAppearance="@style/IranSansBold"
-                    />
+                    android:textColor="@color/textColorSubTitle"
+                    android:text="موفق " />
+
                 <CheckBox
                     android:id="@+id/cbSuccessPayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/warmGray"/>
+                    android:buttonTint="@color/textColorSubTitle"/>
+
             </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center|end">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textSize="@dimen/textSize_12dp"
-                    android:textColor="@color/warmGray"
-                    android:text="نا موفق "
-                    android:textAppearance="@style/IranSansBold"
-                    />
+                    android:textColor="@color/textColorSubTitle"
+                    android:text="نا موفق "/>
+
                 <CheckBox
                     android:id="@+id/cbFailedPayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/warmGray"/>
+                    android:buttonTint="@color/textColorSubTitle"/>
+
             </LinearLayout>
 
             <TextView

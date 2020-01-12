@@ -29,6 +29,9 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -54,6 +57,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.activities.web.WebActivity;
@@ -62,11 +66,13 @@ import com.traap.traapapp.ui.adapters.mainSlider.MainSliderAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.utilities.CountDownTimerPredict;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -301,17 +307,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             try
             {
-//                if (matchPredict != null)
-//                {
-//                    Logger.e("predict Id", matchPredict.getResult());
-////                    mainView.onPredict(matchPredict, isPredictable);
-//                }
-//                else
-//                {
-//                    showToast(context, "زمان پیش بینی به پایان رسیده است.", R.color.green);
-//                }
+                list = fillMenuRecyclerList();
+                MainServiceModelItem s=findUrlById(list,"11");
+                mainView.openWebView(mainView,s.getBase_url(),Prefs.getString("gds_token", ""));
 
-                mainView.showLoading();
+
+
+            /*    mainView.showLoading();
 
                 SingletonService.getInstance().getPredictService().getPredictEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
                 {
@@ -376,7 +378,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
                         ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
                     }
-                });
+                });*/
             }
             catch (Exception e)
             {
@@ -385,7 +387,17 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         });
     }
-
+    private MainServiceModelItem findUrlById(List<MainServiceModelItem> userList, final String name) {
+        Optional<MainServiceModelItem> userOptional =
+                FluentIterable.from(userList).firstMatch(new Predicate<MainServiceModelItem>()
+                {
+                    @Override
+                    public boolean apply(@NullableDecl MainServiceModelItem input)
+                    {
+                        return input.getId().toString().equals(name);                    }
+                });
+        return userOptional.isPresent() ? userOptional.get() : null; // return user if found otherwise return null if user name don't exist in user list
+    }
     private void getSliderData()
     {
         mainView.showLoading();
@@ -499,7 +511,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         }
 
         //---------------------new---------------------------
-        sliderAdapter = new MainSliderAdapter(context, matchList, this);
+        sliderAdapter = new MainSliderAdapter(mainView,context, matchList, this);
         sliderRecyclerView.setAdapter(sliderAdapter);
 
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -633,13 +645,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             }
             case 42: //Pack
             {
-                mainView.onPackSimCard();
+                mainView.onPackSimCard(0);
                 break;
             }
 
             case 41: //Charge
             {
-                mainView.onChargeSimCard();
+                mainView.onChargeSimCard(0);
                 break;
             }
 
@@ -677,7 +689,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivity(intent);
+                startActivityForResult(intent,100);
 
                 // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
@@ -689,7 +701,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivity(intent);
+                startActivityForResult(intent,100);
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
@@ -714,7 +726,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
                         intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
                         intent.putExtra("bimeh_base_url", Prefs.getString("bimeh_base_url", ""));
-                        startActivity(intent);
+                        startActivityForResult(intent,100);
                     }
 
                     @Override
@@ -762,10 +774,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
 
             case R.id.rlShirt:
-                startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
                 break;
             case R.id.btnBuyTicket:
             {
+                SingletonNeedGetAllBoxesRequest.getInstance().needRequest=true;
                 btnBuyTicket.startAnimation();
                 btnBuyTicket.setClickable(false);
 
@@ -825,14 +838,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         if (responseMatchList == null || responseMatchList.info == null)
         {
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivityForResult(new Intent(context, LoginActivity.class),100);
             ((Activity) context).finish();
 
             return;
         }
         if (responseMatchList.info.statusCode != 200)
         {
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivityForResult(new Intent(context, LoginActivity.class),100);
             ((Activity) context).finish();
 
             return;
@@ -866,6 +879,60 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     public void onSliderItemClick(View view, Integer id, Integer position)
     {
         mainView.onLeageClick(matchList);
+    }
+
+    @Override
+    public void onItemPredictClick(View view, int position, MatchItem matchItem)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
+                "آیا مایلید صفحه پیش بینی نمایش داده شود؟",
+                true, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        }
+        );
+        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");
+
+    }
+
+
+    @Override
+    public void onItemBuyTicketClick(View view, int position, MatchItem matchItem)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
+                "آیا مایلید صفحه خرید بلیط نمایش داده شود؟",
+                true, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                mainView.getBuyEnable(() ->
+                {
+
+                });
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        }
+        );
+        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");
+
     }
 
     public void showIntro(List<ResultHelpMenu> results)

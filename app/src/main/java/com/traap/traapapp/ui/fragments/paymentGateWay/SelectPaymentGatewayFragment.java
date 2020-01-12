@@ -71,6 +71,16 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         this.amount = amount;
         this.paymentMatchRequest = paymentMatchRequest;
     }
+    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, int PAYMENT_STATUS)
+    {
+        this.url = url;
+        this.mainView = mainView;
+        this.imageDrawable = imageDrawable;
+        this.title = title;
+        this.amount = amount;
+        this.PAYMENT_STATUS = PAYMENT_STATUS;
+
+    }
 
     public SelectPaymentGatewayFragment()
     {
@@ -83,6 +93,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         this.imageDrawable = imageDrawable;
         this.title = title;
         this.amount = amount;
+
     }
 
  /*   public static SelectPaymentGatewayFragment newInstance(String urlPayment, MainActionView mainView, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance)

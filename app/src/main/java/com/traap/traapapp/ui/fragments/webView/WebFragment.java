@@ -11,6 +11,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -163,7 +164,7 @@ public class WebFragment extends BaseFragment
                 @Override
                 public void onClick(View v)
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
                 }
             });
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -195,6 +196,13 @@ public class WebFragment extends BaseFragment
         {
             e.getMessage();
         }
+
+
+        FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+        flLogoToolbar.setOnClickListener(v -> {
+            mainView.backToMainFragment();
+
+        });
     }
 
 
@@ -213,7 +221,7 @@ public class WebFragment extends BaseFragment
             case R.id.tvMyFavoritePhoto:
                 Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
                 intent1.putExtra("FLAG_Favorite", true);
-                startActivity(intent1);
+                startActivityForResult(intent1);
                 break;
         }
     }*/

@@ -94,7 +94,7 @@ public class UpdateDownloadDialog extends DialogFragment
                     intent.setDataAndType(Uri.fromFile(outputFile), "application/vnd.android.package-archive");
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    activity.startActivity(intent);
+                    activity.startActivityForResult(intent,100);
                 }
                 else
                 {
@@ -132,7 +132,7 @@ public class UpdateDownloadDialog extends DialogFragment
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,100);
     }
 
 
@@ -193,7 +193,7 @@ public class UpdateDownloadDialog extends DialogFragment
                     {
                         try
                         {
-                            activity.startActivity(intent);
+                            activity.startActivityForResult(intent,100);
                         }
                         catch (android.os.FileUriExposedException e)
                         {
@@ -205,7 +205,7 @@ public class UpdateDownloadDialog extends DialogFragment
                     }
                     else
                     {
-                        activity.startActivity(intent);
+                        activity.startActivityForResult(intent,100);
                     }
                 }, 1000);
             }, 2600);

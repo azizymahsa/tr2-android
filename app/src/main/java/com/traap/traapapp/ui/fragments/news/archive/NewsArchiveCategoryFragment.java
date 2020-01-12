@@ -166,7 +166,8 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
                 intent.putExtra("currentId", id);
                 intent.putExtra("currentPosition", position);
                 intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-                startActivity(intent);
+
+                getActivity().startActivityForResult(intent,100);
             });
 
             adapter.notifyDataSetChanged();
@@ -176,6 +177,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
                 tvEmpty.setVisibility(View.VISIBLE);
             }
         }
+
 
         return rootView;
     }
@@ -210,7 +212,7 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
                 intent.putExtra("currentId", id);
                 intent.putExtra("currentPosition", position);
                 intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-                startActivity(intent);
+                getActivity().startActivityForResult(intent,100);
             });
 
             adapter.notifyDataSetChanged();

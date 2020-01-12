@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -132,6 +133,12 @@ public class AboutFragment
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
             TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
             tvTitle.setText("درباره ما");
+            FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+            flLogoToolbar.setOnClickListener(v -> {
+                mainView.backToMainFragment();
+
+            });
+
             mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -162,7 +169,7 @@ public class AboutFragment
                 @Override
                 public void onClick(View v)
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
                 }
             });
             requestGetContactInfo();
@@ -315,7 +322,7 @@ public class AboutFragment
                 try
                 {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(website));
-                    startActivity(browserIntent);
+                    startActivityForResult(browserIntent,100);
                 } catch (Exception e)
                 {
                     e.getMessage();
@@ -324,12 +331,12 @@ public class AboutFragment
             case R.id.ivTwit:
                 try
                 {
-                    //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + "traapapp")));
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
+                    //  startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + "traapapp")));
+                    startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)),100);
                 } catch (Exception e)
                 {
-                    //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/" + "traapapp")));
-                    // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
+                    //startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/" + "traapapp")));
+                    // startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter)));
                 }
                 break;
             case R.id.ivTele:
@@ -337,7 +344,7 @@ public class AboutFragment
                 {
                     // Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/@traapapp"));
                     Intent telegramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(telegram));
-                    startActivity(telegramIntent);
+                    startActivityForResult(telegramIntent,100);
                 } catch (Exception e)
                 {
                     e.getMessage();
@@ -352,13 +359,13 @@ public class AboutFragment
 
                 try
                 {
-                    startActivity(likeIng);
+                    startActivityForResult(likeIng,100);
                 } catch (ActivityNotFoundException e)
                 {
-                   /* startActivity(new Intent(Intent.ACTION_VIEW,
+                   /* startActivityForResult(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://instagram.com/traapapp")));*/
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(instagram)));
+                    startActivityForResult(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(instagram)),100);
                 }
                 break;
             case R.id.btnHistory:
@@ -370,17 +377,17 @@ public class AboutFragment
                 if (tvPhone.getText().toString() == null)
                 {//44890412
                     Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "021-44890412", null));
-                    startActivity(intent2);
+                    startActivityForResult(intent2,100);
                 } else
                 {
                     Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "021-44890412", null));
-                    startActivity(intent2);
+                    startActivityForResult(intent2,100);
                 }/*else {
                     String[] phone = tvPhone.getText().toString().split("\r\n");
                     String phoneCall = phone[0];
                     Log.e("phone", phoneCall+"" );
                     Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",phoneCall, null));
-                    startActivity(intent2);
+                    startActivityForResult(intent2);
                 }*/
                 break;
 

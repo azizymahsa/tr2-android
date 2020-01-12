@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.news.archive;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -83,6 +84,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private RecyclerView rcHashTag;
     private HashTagMediaAdapter adapterHashTag;
+    private Context context;
 
     private String filterStartDate = "", filterEndDate = "";
 
@@ -153,6 +155,13 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     }
 
     @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -194,7 +203,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.rlShirt))
                 .subscribe(v ->
                 {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
                 })
         );
 
@@ -244,6 +253,9 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         edtSearchText = rootView.findViewById(R.id.edtSearchText);
         btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
         btnDeleteFilter = rootView.findViewById(R.id.btnDeleteFilter);
+
+        edtSearchText.requestFocus();
+        hideKeyboard((Activity) context);
 
 //        rcHashTag.setLayoutManager(new GridLayoutManager(getActivity(), 3, RecyclerView.VERTICAL, false));
         rcHashTag.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));

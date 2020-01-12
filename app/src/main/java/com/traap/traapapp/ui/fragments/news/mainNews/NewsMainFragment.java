@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -73,8 +74,17 @@ public class NewsMainFragment extends BaseFragment implements NewsActionView
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("اخبار");
-        rootView.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivity(new Intent(SingletonContext.getInstance().getContext(),
-                MyProfileActivity.class)));
+
+        FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+        flLogoToolbar.setOnClickListener(v -> {
+            mainView.backToMainFragment();
+
+        });
+
+
+
+        rootView.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(),
+                MyProfileActivity.class),100));
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         fragmentManager = getChildFragmentManager();

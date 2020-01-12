@@ -1,47 +1,47 @@
 package com.traap.traapapp.ui.fragments.transaction;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-//import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.pixplicity.easyprefs.library.Prefs;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
+import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategory;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
+import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
+import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
 import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.NestedScrollableViewHelper;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
@@ -49,37 +49,82 @@ import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetime
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class TransactionsListFragment
-        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, DatePickerDialog.OnDateSetListener//, OnBackPressed
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import io.reactivex.disposables.CompositeDisposable;
+
+
+public class TransactionsListFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
+        DatePickerDialog.OnDateSetListener//, OnBackPressed
 {
-    private String teamId = "";
+    private NestedScrollView nestedScroll;
+
+    private CompositeDisposable disposable = new CompositeDisposable();
+    private final int DELAY_TIME_TEXT_CHANGE = 200;
+
+    private RecyclerView rcHashTag;
+    private HashTagMediaAdapter adapterHashTag;
+
+    private String filterStartDate = "", filterEndDate = "";
+
+    private String idFilteredList = "", titleFilteredList = "";
+
+    private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose, imgSearch;
+    private TextView tvStartDate, tvEndDate;
+    private EditText edtSearchFilter, edtSearchText;
+    private CircularProgressButton btnConfirmFilter, btnDeleteFilter;
+
+    private RecyclerView rcFilterCategory;
+
+    private int endDay = 0, endMonth = 0, endYear = 0;
+    private int startDay = 0, startMonth = 0, startYear = 0;
+
+    private LinearLayout btnFilter, llDeleteFilter, llFilterHashTag;
+
+    private DatePickerDialog pickerDialogStartDate, pickerDialogEndDate;
+
+    private PersianCalendar currentDate, startPersianDate, endPersianDate;
+    private Integer startDateInt = 0, endDateInt = 0;
+
+    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
+    private List<FilterItem> filteredCategoryList = new ArrayList<>();
+    private ArrayList<FilterItem> filteredShowList = new ArrayList<>();
+    private ArrayList<FilterItem> tempFilteredCategoryList = new ArrayList<>();
+    private FilterArchiveAdapter adapter;
+    private boolean pagerWithFilter = false;
+
+
+
+
     private View rootView;
-    private SlidingUpPanelLayout upPanelLayout;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
     private MainActionView mainView;
 
+    private Context context;
+
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName,tvPopularPlayer,tvCount, tvHeaderPopularNo;
-    private View imgBack, imgMenu,rlShirt;
+    private TextView tvTitle, tvUserName, tvCount, tvHeaderPopularNo;
+    private View imgBack, imgMenu, rlShirt;
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
     private RecyclerView transactionRecycler;
     private TransactionListAdapter fixTableAdapter;
     private RecyclerView rvCategories;
-    private View llFilter,btnConfirm;
-    private CheckBox cbSuccessPayment,cbFailedPayment;
-    private TextView etTimeUntil,etTimeFrom;
-    private ImageView imgTimeFromReset,imgTimeUntilReset,ivSearch;
-
-    private PersianCalendar currentDate;
+    private View btnConfirm;
+    private TextView etTimeUntil, etTimeFrom;
+    private ImageView imgTimeFromReset, imgTimeUntilReset;
 
     private DatePickerDialog pickerDialogDate;
-    private View rlTimeUntil,rlTimeFrom;
-    Integer amountRange=null;
-    Boolean status=null;
-    Integer typeTransactionId=null;
-    String createDateRange=null;
+    private View rlTimeUntil, rlTimeFrom;
+    Integer amountRange = null;
+    Boolean status = null;
+    Integer typeTransactionId = null;
+    String createDateRange = null;
 
 
     public TransactionsListFragment()
@@ -91,7 +136,6 @@ public class TransactionsListFragment
         TransactionsListFragment f = new TransactionsListFragment();
 
         Bundle args = new Bundle();
-
         f.setArguments(args);
         f.setMainView(mainView);
         return f;
@@ -103,109 +147,20 @@ public class TransactionsListFragment
     }
 
     @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
         {
-            teamId = getArguments().getString("teamId");
+//            teamId = getArguments().getString("teamId");
         }
-
-    }
-
-    public void initView()
-    {
-        try
-        {
-            upPanelLayout = rootView.findViewById(R.id.sliding_layout);
-
-            cbSuccessPayment=rootView.findViewById(R.id.cbSuccessPayment);
-            cbFailedPayment=rootView.findViewById(R.id.cbFailedPayment);
-
-            ivSearch=rootView.findViewById(R.id.ivSearch);
-            ivSearch.setOnClickListener(this);
-
-            rlTimeUntil=rootView.findViewById(R.id.rlTimeUntil);
-            rlTimeFrom=rootView.findViewById(R.id.rlTimeFrom);
-            rlTimeFrom.setOnClickListener(this);
-            rlTimeUntil.setOnClickListener(this);
-
-            imgTimeFromReset=rootView.findViewById(R.id.imgTimeFromReset);
-            imgTimeUntilReset=rootView.findViewById(R.id.imgTimeUntilReset);
-
-            etTimeUntil=rootView.findViewById(R.id.etTimeUntil);
-            etTimeFrom=rootView.findViewById(R.id.etTimeFrom);
-
-            rvCategories=rootView.findViewById(R.id.rvCategories);
-            rvCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-            btnConfirm=rootView.findViewById(R.id.btnConfirm);
-            btnConfirm.setOnClickListener(this);
-            llFilter=rootView.findViewById(R.id.llFilter);
-            llFilter.setOnClickListener(this);
-
-            transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
-            tvCount = rootView.findViewById(R.id.tvCount);
-            //Toolbar Create
-            mToolbar = rootView.findViewById(R.id.toolbar);
-            tvUserName = mToolbar.findViewById(R.id.tvUserName);
-            tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
-
-            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-
-            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    mainView.openDrawer();
-                }
-            });
-            tvTitle = rootView.findViewById(R.id.tvTitle);
-            imgMenu = rootView.findViewById(R.id.imgMenu);
-
-            imgMenu.setOnClickListener(v -> mainView.openDrawer());
-            imgBack = rootView.findViewById(R.id.imgBack);
-            imgBack.setOnClickListener(v ->
-            {
-                getActivity().onBackPressed();
-            });
-
-            tvTitle.setText("سوابق خرید");
-            rlShirt = rootView.findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
-                }
-            });
-            initDate();
-
-        } catch (Exception e)
-        {
-
-        }
-    }
-    private void initDate()
-    {
-        currentDate = new PersianCalendar();
-
-        pickerDialogDate = DatePickerDialog.newInstance(this,
-                currentDate.getPersianYear(),
-                currentDate.getPersianMonth(),
-                currentDate.getPersianDay()
-        );
-        pickerDialogDate.setMaxDate(currentDate);
-    }
-    private void openFilterLayout()
-    {
-        upPanelLayout.setScrollableView(rvCategories);
-
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED), 100);
     }
 
     @Override
@@ -217,19 +172,142 @@ public class TransactionsListFragment
             rootView = null;
         }
 
-        rootView = inflater.inflate(R.layout.transaction_list_fragment, container, false);
+        rootView = inflater.inflate(R.layout.fragment_transaction_list, container, false);
         initView();
-
-        sendRequest(amountRange,status,typeTransactionId,createDateRange);
-
 
         EventBus.getDefault().register(this);
         return rootView;
     }
 
+    public void initView()
+    {
+        try
+        {
+            slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
+            slidingUpPanelLayout.setScrollableViewHelper(new NestedScrollableViewHelper());
+
+            btnFilter = rootView.findViewById(R.id.btnFilter);
+            nestedScroll = rootView.findViewById(R.id.nestedScroll);
+
+//            slidingUpPanelLayout.
+
+            nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener()
+            {
+                @Override
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
+                {
+
+                }
+            });
+
+//            rlTimeUntil = rootView.findViewById(R.id.rlTimeUntil);
+//            rlTimeFrom = rootView.findViewById(R.id.rlTimeFrom);
+//            rlTimeFrom.setOnClickListener(this);
+//            rlTimeUntil.setOnClickListener(this);
+//
+//            imgTimeFromReset = rootView.findViewById(R.id.imgTimeFromReset);
+//            imgTimeUntilReset = rootView.findViewById(R.id.imgTimeUntilReset);
+//
+//            etTimeUntil = rootView.findViewById(R.id.etTimeUntil);
+//            etTimeFrom = rootView.findViewById(R.id.etTimeFrom);
+//
+//            rvCategories = rootView.findViewById(R.id.rvCategories);
+//            rvCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
+//
+//            btnConfirm = rootView.findViewById(R.id.btnConfirm);
+//            btnConfirm.setOnClickListener(this);
+//
+//            transactionRecycler = rootView.findViewById(R.id.transactionRecycler);
+//            tvCount = rootView.findViewById(R.id.tvCount);
+
+            //Toolbar Create
+//            mToolbar = rootView.findViewById(R.id.toolbar);
+//            tvUserName = mToolbar.findViewById(R.id.tvUserName);
+//            tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+//            tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+//
+//            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+//
+//            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+//            {
+//                @Override
+//                public void onClick(View v)
+//                {
+//                    mainView.openDrawer();
+//                }
+//            });
+//            tvTitle = rootView.findViewById(R.id.tvTitle);
+//            imgMenu = rootView.findViewById(R.id.imgMenu);
+//
+//            imgMenu.setOnClickListener(v -> mainView.openDrawer());
+//            imgBack = rootView.findViewById(R.id.imgBack);
+//            imgBack.setOnClickListener(v ->
+//            {
+//                ((Activity)context).onBackPressed();
+//            });
+//
+//            tvTitle.setText("سوابق خرید");
+//            rlShirt = rootView.findViewById(R.id.rlShirt);
+//            rlShirt.setOnClickListener(new View.OnClickListener()
+//            {
+//                @Override
+//                public void onClick(View v)
+//                {
+//                    startActivity(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class));
+//                }
+//            });
+//            initDate();
+
+            disposable.add(RxView.clicks(btnFilter)
+                    .throttleFirst(200, TimeUnit.MILLISECONDS)
+                    .subscribe(v->
+                    {
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                    })
+            );
+
+            slidingUpPanelLayout.setFadeOnClickListener(v ->
+            {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            });
+
+            slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
+            {
+                @Override
+                public void onPanelSlide(View panel, float slideOffset)
+                {
+
+                }
+
+                @Override
+                public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState,
+                                                SlidingUpPanelLayout.PanelState newState)
+                {
+
+                }
+            });
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void initDate()
+    {
+        currentDate = new PersianCalendar();
+
+        pickerDialogDate = DatePickerDialog.newInstance(this,
+                currentDate.getPersianYear(),
+                currentDate.getPersianMonth(),
+                currentDate.getPersianDay()
+        );
+        pickerDialogDate.setMaxDate(currentDate);
+    }
 
 
-    private void sendRequest(Integer amountRange, Boolean status, Integer typeTransactionId, String createDateRange)
+    private void sendRequest()
     {
         mainView.showLoading();
 
@@ -254,9 +332,9 @@ public class TransactionsListFragment
                     if (response.info.statusCode == 200)
                     {
 
-                        tvCount.setText(response.data.getResults().size()+ "مورد خرید بلیت یافت شد.");
+                        tvCount.setText(response.data.getResults().size() + "مورد خرید بلیت یافت شد.");
                         transactionRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-                        fixTableAdapter = new TransactionListAdapter(response.data.getResults(), getActivity());
+                        fixTableAdapter = new TransactionListAdapter(response.data.getResults(), context);
                         //fixTableAdapter.setClickListener(this);
                         transactionRecycler.setAdapter(fixTableAdapter);
 
@@ -271,42 +349,18 @@ public class TransactionsListFragment
             @Override
             public void onError(String message)
             {
-              //  mainView.showError(message);
+                //  mainView.showError(message);
                 mainView.hideLoading();
-                if (Tools.isNetworkAvailable(getActivity()))
+                if (Tools.isNetworkAvailable((Activity) context))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    showError(context, "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
-                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
             }
-        },null,null,null,null);
-    }
-
-
-
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-
-
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
+        });
     }
 
 
@@ -317,35 +371,11 @@ public class TransactionsListFragment
 
     }
 
-    @Subscribe
-    public void getHeaderContent(HeaderModel headerModel)
-    {
-        if (headerModel.getPopularNo() != 0)
-        {
-            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
-        }
-        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-    }
-
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
     @Override
     public void onClick(View view)
     {
         switch (view.getId())
         {
-            case R.id.llFilter:
-
-               // openFilterLayout();
-
-                break;
-
             case R.id.btnConfirm:
 
                 hideFilterSlide();
@@ -365,16 +395,13 @@ public class TransactionsListFragment
 
                 break;
 
-            case R.id.ivSearch:
-
-                break;
             case R.id.rlTimeFrom:
-                pickerDialogDate.show(getActivity().getSupportFragmentManager(),"TimeFrom");
+                pickerDialogDate.show(getActivity().getSupportFragmentManager(), "TimeFrom");
 
                 break;
 
             case R.id.rlTimeUntil:
-                pickerDialogDate.show(getActivity().getSupportFragmentManager(),"TimeUntil");
+                pickerDialogDate.show(getActivity().getSupportFragmentManager(), "TimeUntil");
 
                 break;
 
@@ -384,7 +411,7 @@ public class TransactionsListFragment
 
     private void hideFilterSlide()
     {
-        upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
     }
 
     @Override
@@ -400,8 +427,8 @@ public class TransactionsListFragment
             etTimeFrom.setText(createDate);
             imgTimeFromReset.setVisibility(View.VISIBLE);
 
-        }
-        else if (view.getTag().equals("TimeUntil")){
+        } else if (view.getTag().equals("TimeUntil"))
+        {
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
 
@@ -412,6 +439,24 @@ public class TransactionsListFragment
 
         }
 
+    }
+
+    @Subscribe
+    public void getHeaderContent(HeaderModel headerModel)
+    {
+        if (headerModel.getPopularNo() != 0)
+        {
+            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+        }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+    }
+
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 

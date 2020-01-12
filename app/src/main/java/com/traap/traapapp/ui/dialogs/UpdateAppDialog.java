@@ -384,7 +384,7 @@ public class UpdateAppDialog extends DialogFragment implements View.OnClickListe
             {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("market://details?id=" + packageName));
-                activity.startActivity(intent);
+                activity.startActivityForResult(intent,100);
             }
 //        }
 //        else if (downloadUrl.contains("play.google.com"))
@@ -393,26 +393,26 @@ public class UpdateAppDialog extends DialogFragment implements View.OnClickListe
 //            {
 //                Intent intent = new Intent(Intent.ACTION_VIEW);
 //                intent.setData(Uri.parse("market://details?id=" + packageName));
-//                activity.startActivity(intent);
+//                activity.startActivityForResult(intent,100);
 //            }
 //            catch (ActivityNotFoundException e2)
 //            {
 //                Intent intent = new Intent(Intent.ACTION_VIEW);
 //                intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
-//                activity.startActivity(intent);
+//                activity.startActivityForResult(intent,100);
 //            }
 //        }
 //        else if (downloadUrl.contains("cafebazaar.ir"))
 //        {
 //            Intent intent = new Intent(Intent.ACTION_VIEW);
 //            intent.setData(Uri.parse("https://cafebazaar.ir/app/" + packageName));
-//            activity.startActivity(intent);
+//            activity.startActivityForResult(intent,100);
 //        }
 //        else
 //        {
 //            Intent intent = new Intent(Intent.ACTION_VIEW);
 //            intent.setData(Uri.parse(downloadUrl));
-//            activity.startActivity(intent);
+//            activity.startActivityForResult(intent,100);
 //        }
     }
 

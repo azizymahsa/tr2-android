@@ -185,7 +185,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 
         holder.cvAddCard.setOnClickListener(view ->
         {
-            actionView.startActivity(GoToActivity.AddCardActivity);
+            actionView.startActivityForResult(GoToActivity.AddCardActivity);
         });
 
         holder.imgShare.setOnClickListener(view ->

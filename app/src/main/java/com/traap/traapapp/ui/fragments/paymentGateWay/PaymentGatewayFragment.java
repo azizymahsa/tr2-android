@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -143,6 +144,13 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             rbTejarat.setEnabled(false);
             rbTejarat.setSelected(false);
             rbTejarat.setChecked(false);
+
+            FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
+            flLogoToolbar.setOnClickListener(v -> {
+                mainView.backToMainFragment();
+
+            });
+
         } catch (Exception e)
         {
             Logger.e("---Exception---", e.getMessage());
@@ -161,7 +169,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
-                startActivity(intent);
+                startActivityForResult(intent,100);
 
                 //  BuyTicketsFragment.buyTicketsFragment.openWebPayment(response.getUrl());
 
