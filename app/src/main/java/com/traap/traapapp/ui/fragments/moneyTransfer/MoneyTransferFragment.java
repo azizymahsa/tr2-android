@@ -32,6 +32,10 @@ import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import calendar.CivilDate;
+import calendar.DateConverter;
+import calendar.PersianDate;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferRequest;
 import com.traap.traapapp.conf.TrapConfig;
@@ -135,6 +139,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         initView();
+
 
         EventBus.getDefault().register(this);
 

@@ -352,7 +352,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                 requestLike();
                 break;
             case R.id.ivPhoto:
-           /*     v.setAlpha((float) 1.0);
+                v.setAlpha((float) 1.0);
                 if (!isMoving) {
                     long clickTime = System.currentTimeMillis();
                     if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA) {
@@ -374,11 +374,6 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                                     if (largeImageClick.equals(""))
                                         largeImageClick = coverImg;
 
-                                    intent.putExtra("SRCImage", largeImageClick);
-                                    intent.putExtra("LikeCount", likeCount);
-                                    intent.putExtra("idPhoto", idPhoto);
-                                    intent.putExtra("isLike", isLike);
-                                    intent.putExtra("isBookmark", isBookmark);
                                     intent.putExtra("pic", position);
                                     intent.putExtra("content",new Gson().toJson(list));
                                     startActivityForResult(intent, 100);
@@ -393,14 +388,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                     }
                     lastClickTime = clickTime;
                 }
-*/
-                Intent intent = new Intent(getApplicationContext(), ShowBigPhotoActivity.class);
-              intent.putExtra("pic", position);
 
-                intent.putExtra("content",new Gson().toJson(list));
-                startActivityForResult(intent, 100);
-
-                /*  */
                 break;
         }
     }
