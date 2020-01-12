@@ -3,6 +3,7 @@ package com.traap.traapapp.ui.fragments.ticket;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -760,7 +761,7 @@ public class CompeletInfoFragment
 
 
         if (flagValidations.contains("F")) {
-            ((BuyTicketsActivity) getActivity()).showError(getString(R.string.Error_edit_input));
+           // ((BuyTicketsActivity) getActivity()).showError(getString(R.string.Error_edit_input));
             cbCondition.setChecked(true);
             llConfirm.setVisibility(View.VISIBLE);
             llInVisible.setVisibility(View.GONE);
@@ -795,6 +796,11 @@ public class CompeletInfoFragment
 
     private String PassengerOne() {
         String flagValidations = "";
+
+        if (TextUtils.isEmpty(etNationalCode_1.getText().toString())){
+            etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etNationalCode_1.getText().toString() != null)
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_1.getText().toString())) {
                 flagValidations = flagValidations + "T";
@@ -803,7 +809,7 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_1.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_1.getText().toString());
 
-            } else if (etNationalCode_1.getText().toString().length() < 1) {
+            } else if (etNationalCode_1.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code_null));
             } else {
@@ -811,6 +817,14 @@ public class CompeletInfoFragment
                 etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
 
             }
+
+
+
+        if (TextUtils.isEmpty(etFamily_1.getText().toString().replaceAll(" ",""))){
+            etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
+
         if (etFamily_1.getText().toString() != null) {
 
             //   if (etFamily_1.getText().toString().length() > 1 && !(etFamily_1.getText().toString().toLowerCase().matches("[0-9]")))
@@ -820,7 +834,7 @@ public class CompeletInfoFragment
                 etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_1", etFamily_1.getText().toString());
 
-            } else if (etFamily_1.getText().toString().length() < 1) {
+            } else if (etFamily_1.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             } else {
@@ -829,6 +843,13 @@ public class CompeletInfoFragment
             }
 
         }
+
+
+
+        if (TextUtils.isEmpty(etName_1.getText().toString().replaceAll(" ",""))){
+            etName_1.setError(getString(R.string.Please_enter_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etName_1.getText().toString() != null) {
 
             // if (etName_1.getText().toString().length() > 1 && !(etName_1.getText().toString().toLowerCase().matches("[0-9]")))
@@ -839,7 +860,7 @@ public class CompeletInfoFragment
                 etName_1.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_1", etName_1.getText().toString());
 
-            } else if (etName_1.getText().toString().length() < 1) {
+            } else if (etName_1.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etName_1.setError(getString(R.string.Please_enter_name_in_Persian_null));
             } else {
@@ -866,6 +887,10 @@ public class CompeletInfoFragment
 
     private String PassengerSecond() {
         String flagValidations = "";
+        if (TextUtils.isEmpty(etNationalCode_2.getText().toString())){
+            etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etNationalCode_2.getText().toString() != null)
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_2.getText().toString())) {
                 flagValidations = flagValidations + "T";
@@ -874,13 +899,20 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_2.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_2.getText().toString());
 
-            } else if (etNationalCode_2.getText().toString().length() < 1) {
+            } else if (etNationalCode_2.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code_null));
             } else {
                 flagValidations = flagValidations + "F";
                 etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code));
             }
+
+
+        if (TextUtils.isEmpty(etFamily_2.getText().toString().replaceAll(" ",""))){
+            etFamily_2.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
+
         if (etFamily_2.getText().toString() != null) {
 
             //  if (etFamily_2.getText().toString().length() > 1 && !(etFamily_2.getText().toString().toLowerCase().matches("[0-9]")))
@@ -890,7 +922,7 @@ public class CompeletInfoFragment
                 etFamily_2.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_2", etFamily_2.getText().toString());
 
-            } else if (etFamily_2.getText().toString().length() < 1) {
+            } else if (etFamily_2.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etFamily_2.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             } else {
@@ -899,6 +931,13 @@ public class CompeletInfoFragment
             }
 
         }
+
+
+
+        if (TextUtils.isEmpty(etName_2.getText().toString().replaceAll(" ",""))){
+            etName_2.setError(getString(R.string.Please_enter_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etName_2.getText().toString() != null) {
 
             // if (etName_2.getText().toString().length() > 1 && !(etName_2.getText().toString().toLowerCase().matches("[0-9]")))
@@ -908,7 +947,7 @@ public class CompeletInfoFragment
                 etName_2.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_2", etName_2.getText().toString());
 
-            } else if (etName_2.getText().toString().length() < 1) {
+            } else if (etName_2.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etName_2.setError(getString(R.string.Please_enter_name_in_Persian_null));
             } else {
@@ -918,7 +957,7 @@ public class CompeletInfoFragment
 
         }
         if (flagValidations.contains("F")) {
-            ((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
+           // ((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else {
             Viewers viewer = new Viewers();
@@ -935,6 +974,10 @@ public class CompeletInfoFragment
 
     private String PassengerThird() {
         String flagValidations = "";
+        if (TextUtils.isEmpty(etNationalCode_3.getText().toString())){
+            etNationalCode_3.setError(getString(R.string.Please_enter_the_national_code_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etNationalCode_3.getText().toString() != null)
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_3.getText().toString())) {
                 flagValidations = flagValidations + "T";
@@ -943,13 +986,19 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_3.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_3.getText().toString());
 
-            } else if (etNationalCode_3.getText().toString().length() < 1) {
+            } else if (etNationalCode_3.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etNationalCode_3.setError(getString(R.string.Please_enter_the_national_code_null));
             } else {
                 flagValidations = flagValidations + "F";
                 etNationalCode_3.setError(getString(R.string.Please_enter_the_national_code));
             }
+
+        if (TextUtils.isEmpty(etFamily_3.getText().toString().replaceAll(" ",""))){
+            etFamily_3.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
+
         if (etFamily_3.getText().toString() != null) {
 
             // if (etFamily_3.getText().toString().length() > 1 && !(etFamily_3.getText().toString().toLowerCase().matches("[0-9]")))
@@ -959,7 +1008,7 @@ public class CompeletInfoFragment
                 etFamily_3.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_3", etFamily_3.getText().toString());
 
-            } else if (etFamily_3.getText().toString().length() < 1) {
+            } else if (etFamily_3.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etFamily_3.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             } else {
@@ -968,6 +1017,12 @@ public class CompeletInfoFragment
             }
 
         }
+
+
+        if (TextUtils.isEmpty(etName_3.getText().toString().replaceAll(" ",""))){
+            etName_3.setError(getString(R.string.Please_enter_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etName_3.getText().toString() != null) {
 
             // if (etName_3.getText().toString().length() > 1 && !(etName_3.getText().toString().toLowerCase().matches("[0-9]")))
@@ -977,7 +1032,7 @@ public class CompeletInfoFragment
                 etName_3.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_3", etName_3.getText().toString());
 
-            } else if (etName_3.getText().toString().length() < 1) {
+            } else if (etName_3.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etName_3.setError(getString(R.string.Please_enter_name_in_Persian_null));
             } else {
@@ -987,7 +1042,7 @@ public class CompeletInfoFragment
 
         }
         if (flagValidations.contains("F")) {
-            ((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
+            //((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else {
             Viewers viewer = new Viewers();
@@ -1004,6 +1059,10 @@ public class CompeletInfoFragment
 
     private String PassengerFourth() {
         String flagValidations = "";
+        if (TextUtils.isEmpty(etNationalCode_4.getText().toString())){
+            etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etNationalCode_4.getText().toString() != null)
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_4.getText().toString())) {
                 flagValidations = flagValidations + "T";
@@ -1012,13 +1071,20 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_4.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_4.getText().toString());
 
-            } else if (etNationalCode_4.getText().toString().length() < 1) {
+            } else if (etNationalCode_4.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code_null));
             } else {
                 flagValidations = flagValidations + "F";
                 etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code));
             }
+
+
+
+        if (TextUtils.isEmpty(etFamily_4.getText().toString().replaceAll(" ",""))){
+            etFamily_4.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etFamily_4.getText().toString() != null) {
 
             // if (etFamily_4.getText().toString().length() > 1 && !(etFamily_4.getText().toString().toLowerCase().matches("[0-9]")))
@@ -1028,7 +1094,7 @@ public class CompeletInfoFragment
                 etFamily_4.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_4", etFamily_4.getText().toString());
 
-            } else if (etFamily_4.getText().toString().length() < 1) {
+            } else if (etFamily_4.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etFamily_4.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             } else {
@@ -1037,6 +1103,12 @@ public class CompeletInfoFragment
             }
 
         }
+
+
+        if (TextUtils.isEmpty(etName_4.getText().toString().replaceAll(" ",""))){
+            etName_4.setError(getString(R.string.Please_enter_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etName_4.getText().toString() != null) {
 
             //if (etName_4.getText().toString().length() > 1 && !(etName_4.getText().toString().toLowerCase().matches("[0-9]")))
@@ -1046,7 +1118,7 @@ public class CompeletInfoFragment
                 etName_4.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_4", etName_4.getText().toString());
 
-            } else if (etName_4.getText().toString().length() < 1) {
+            } else if (etName_4.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etName_4.setError(getString(R.string.Please_enter_name_in_Persian_null));
             } else {
@@ -1056,7 +1128,7 @@ public class CompeletInfoFragment
 
         }
         if (flagValidations.contains("F")) {
-            ((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
+         //   ((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else {
             Viewers viewer = new Viewers();
@@ -1073,6 +1145,10 @@ public class CompeletInfoFragment
 
     private String PassengerFifth() {
         String flagValidations = "";
+        if (TextUtils.isEmpty(etNationalCode_5.getText().toString())){
+            etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etNationalCode_5.getText().toString() != null)
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_5.getText().toString())) {
                 flagValidations = flagValidations + "T";
@@ -1081,13 +1157,21 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_5.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_5.getText().toString());
 
-            } else if (etNationalCode_5.getText().toString().length() < 1) {
+            } else if (etNationalCode_5.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code_null));
             } else {
                 flagValidations = flagValidations + "F";
                 etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code));
             }
+
+
+
+        if (TextUtils.isEmpty(etFamily_5.getText().toString().replaceAll(" ",""))){
+            etFamily_5.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
+
         if (etFamily_5.getText().toString() != null) {
 
             // if (etFamily_5.getText().toString().length() > 1 && !(etFamily_5.getText().toString().toLowerCase().matches("[0-9]")))
@@ -1097,7 +1181,7 @@ public class CompeletInfoFragment
                 etFamily_5.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_5", etFamily_5.getText().toString());
 
-            } else if (etFamily_5.getText().toString().length() < 1) {
+            } else if (etFamily_5.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etFamily_5.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             } else {
@@ -1106,6 +1190,12 @@ public class CompeletInfoFragment
             }
 
         }
+
+
+        if (TextUtils.isEmpty(etName_5.getText().toString().replaceAll(" ",""))){
+            etName_5.setError(getString(R.string.Please_enter_name_in_Persian_null));
+            flagValidations = flagValidations + "F";
+        }else
         if (etName_5.getText().toString() != null) {
 
             // if (etName_5.getText().toString().length() > 1 && !(etName_5.getText().toString().toLowerCase().matches("[0-9]")))
@@ -1115,7 +1205,7 @@ public class CompeletInfoFragment
                 etName_5.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_5", etName_5.getText().toString());
 
-            } else if (etName_5.getText().toString().length() < 1) {
+            } else if (etName_5.getText().toString().replace(" ","").length() < 1) {
                 flagValidations = flagValidations + "F";
                 etName_5.setError(getString(R.string.Please_enter_name_in_Persian_null));
             } else {
@@ -1125,7 +1215,7 @@ public class CompeletInfoFragment
 
         }
         if (flagValidations.contains("F")) {
-            ((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
+            //((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
         } else {
             Viewers viewer = new Viewers();

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -83,6 +84,9 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private Toolbar mToolbar;
     private List<Content> list;
     private Integer position;
+    public  Integer clickPositionX=0;
+    public  Integer clickPositionY=0;
+    public  Integer clickPosition;
 
 
     @Override
@@ -174,7 +178,17 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
         sendRequestListPhotos(idAlbum);
 
-
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+/*
+                clickPositionX+= dx;
+                clickPositionY+= dy;
+                Log.e("clickPositionX2", dx+"");
+                Log.e("clickPositionY2", dy+"")*/;
+            }
+        });
     }
 
     public void onResume() {
@@ -252,6 +266,17 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         list.addAll(data.getContent());
         adapter = new AlbumDetailsItemAdapter(this, data.getContent(), this);
         recyclerView.setAdapter(adapter);
+
+        if (clickPosition!=null){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    recyclerView.scrollTo(clickPositionX,clickPositionY);
+                }
+            }, 1000);
+
+
+        }
     }
 
     private void requestGetRelatedVideos(int idVideoCategory) {
@@ -463,7 +488,16 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void OnItemAllMenuClick(View view, Integer id, Content content,Integer position) {
-        // titleAlbum.setText(content.getTitle() + "");
+        // titleAlbum.setText(content.getTitle() +
+
+
+
+       /// clickPositionX=layoutManager.findFirstVisibleItemPosition();;
+
+
+
+
+        clickPosition=position;
         try {
             this.position=position;
             updateContentPhotoItem(id);

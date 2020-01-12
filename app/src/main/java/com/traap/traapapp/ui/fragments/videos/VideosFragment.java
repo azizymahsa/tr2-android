@@ -76,7 +76,11 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private View llFavorites;
     private SubMediaParent parent;
     private ScrollingPagerIndicator indicatorNewestPhotos;
-    public static Integer bNewestVideoPosition;
+    public  Integer bNewestVideoPosition;
+    public  Integer categoryClickPosition;
+    public  Integer categoryClickPositionX;
+    public  Integer categoryClickPositionY;
+    private ListCategory category;
 
     public VideosFragment()
     {
@@ -236,6 +240,32 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), this);
         rvCategories.setAdapter(categoryAdapter);
 
+        if (categoryClickPosition!=null){
+            try{
+                rvCategoryTitles.scrollTo(categoryClickPositionX,categoryClickPositionY);
+                mainView.showLoading();
+
+                idCategoryTitle = category.getId();
+                requestGetCategoryById(idCategoryTitle);
+                videoCategoryTitleAdapter.setSelectedPosition(categoryClickPosition);
+
+  /*              RecyclerView.ViewHolder viewHolder = rvCategoryTitles.findViewHolderForAdapterPosition(position);
+
+
+                ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setTextColor(context.getResources().getColor(R.color.borderColorRed));
+                ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setBackgroundResource(R.drawable.background_border_a);*/
+            }catch (Exception e){
+                rvCategoryTitles.scrollToPosition(0);
+                mainView.showLoading();
+
+                idCategoryTitle = category.getId();
+                requestGetCategoryById(idCategoryTitle);
+            }
+
+
+        }
+
+
     }
 
     private void setDataFavoriteList(MainVideosResponse mainVideosResponse)
@@ -280,7 +310,12 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     @Override
     public void onItemTitleCategoryClick(ListCategory category, int position)
     {
+
+        this.category=category;
+        categoryClickPosition=position;
         mainView.showLoading();
+        categoryClickPositionX=rvCategoryTitles.getScrollX();
+        categoryClickPositionY=rvCategoryTitles.getScrollY();
 
         idCategoryTitle = category.getId();
         requestGetCategoryById(idCategoryTitle);
