@@ -3,9 +3,6 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <compositeConfiguration>
-          <compositeBuild compositeDefinitionSource="SCRIPT" />
-        </compositeConfiguration>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
@@ -18,6 +15,7 @@
             <option value="$PROJECT_DIR$/imagepicker" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/materialdatetimepicker" />
+            <option value="$PROJECT_DIR$/moeidbannerlibrary" />
             <option value="$PROJECT_DIR$/persianmaterialdatetimepicker" />
             <option value="$PROJECT_DIR$/pinentryedittext" />
             <option value="$PROJECT_DIR$/taggroup" />

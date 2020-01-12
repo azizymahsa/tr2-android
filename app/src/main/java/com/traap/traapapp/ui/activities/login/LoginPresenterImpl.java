@@ -148,6 +148,11 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
     }
 
+    public void verifyRequest(){
+        loginView.showLoading();
+        sendVerifyRequest();
+    }
+
     private void sendVerifyRequest()
     {
         VerifyRequest request = new VerifyRequest();
