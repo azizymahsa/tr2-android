@@ -35,7 +35,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategory;
+import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
 import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaArchiveCategoryCall;
@@ -108,7 +108,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
     private View rootView;
 
     private VideosArchiveActionView mainActionView;
-    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
+    private ArrayList<TypeCategory> typeCategoryList = new ArrayList<>();
     private List<FilterItem> filteredCategoryList = new ArrayList<>();
     private ArrayList<FilterItem> filteredShowList = new ArrayList<>();
     private ArrayList<FilterItem> tempFilteredCategoryList = new ArrayList<>();
@@ -198,6 +198,13 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
                 })
         );
 
+        disposable.add(RxView.clicks(mToolbar.findViewById(R.id.flLogoToolbar))
+                .subscribe(v ->
+                {
+                    mainActionView.backToMainFragment();
+                })
+        );
+
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.rlShirt))
                 .subscribe(v ->
                 {
@@ -277,7 +284,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
                     if (filteredCategoryList.isEmpty())
                     {
                         filteredCategoryList = new ArrayList<>();
-                        for (MediaArchiveCategory item: mediaArchiveCategoryList)
+                        for (TypeCategory item: typeCategoryList)
                         {
                             FilterItem filterItem = new FilterItem();
                             filterItem.setId(item.getId());
@@ -579,7 +586,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
                             llFilterHashTag.setVisibility(View.GONE);
 
                             filteredCategoryList = new ArrayList<>();
-                            for (MediaArchiveCategory item: mediaArchiveCategoryList)
+                            for (TypeCategory item: typeCategoryList)
                             {
                                 FilterItem filterItem = new FilterItem();
                                 filterItem.setId(item.getId());
@@ -755,10 +762,10 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
         }
         else
         {
-            Collections.reverse(mediaArchiveCategoryList);
+            Collections.reverse(typeCategoryList);
 
             SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(),
-                    mediaArchiveCategoryList,
+                    typeCategoryList,
                     false,
                     pagerWithFilter
             );
@@ -774,7 +781,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
                 tab.setCustomView(adapter.getTabView(i));
             }
 
-            pager.setCurrentItem(mediaArchiveCategoryList.size()-1);
+            pager.setCurrentItem(typeCategoryList.size()-1);
         }
 
     }
@@ -789,7 +796,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
         }
         else
         {
-            mediaArchiveCategoryList = response.data.getMediaArchiveCategoryList();
+            typeCategoryList = response.data.getTypeCategoryList();
 
             setPager(pagerWithFilter, pagerFromFavorite);
         }
@@ -897,14 +904,14 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
     {
-        private ArrayList<MediaArchiveCategory> videosArchiveCategories;
+        private ArrayList<TypeCategory> videosArchiveCategories;
         private boolean pagerWithFilter = false;
         private boolean pagerFromFavorite = false;
         private Context context = SingletonContext.getInstance().getContext();
 
         @SuppressLint("WrongConstant")
         public SamplePagerAdapter(@NonNull FragmentManager fm,
-                                  ArrayList<MediaArchiveCategory> videosArchiveCategories,
+                                  ArrayList<TypeCategory> videosArchiveCategories,
                                   boolean pagerFromFavorite,
                                   boolean pagerWithFilter)
         {
@@ -965,7 +972,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
             }
             else
             {
-                int Id =  mediaArchiveCategoryList.get(position).getId();
+                int Id =  typeCategoryList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
                 return VideosArchiveCategoryFragment.newInstance(String.valueOf(Id),
                         MediaArchiveCategoryCall.FROM_ID,

@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.getTransaction.Result;
+import com.traap.traapapp.apiServices.model.getTransaction.TransactionList;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
@@ -29,14 +29,14 @@ import static androidx.core.content.ContextCompat.getColor;
 public class TransactionListAdapter extends RecyclerView.Adapter<TransactionListAdapter.ViewHolder>
 {
     private final Context mContext;
-    private final List<Result> mData;
+    private final List<TransactionList> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private String refrenceNumber;
     private Integer typeTransaction = 0;
 
 
-    public TransactionListAdapter(List<Result> mData, Context mContext)
+    public TransactionListAdapter(List<TransactionList> mData, Context mContext)
     {
         this.mContext = mContext;
         this.mInflater = LayoutInflater.from(mContext);
@@ -73,7 +73,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
     public void onBindViewHolder(ViewHolder holder, int position)
     {
 
-        Result item = mData.get(position);
+        TransactionList item = mData.get(position);
 
 
         if (item.getStatus())

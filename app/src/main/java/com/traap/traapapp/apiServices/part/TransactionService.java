@@ -41,6 +41,10 @@ import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
+import com.traap.traapapp.apiServices.model.getTypeTransaction.TypeTransaction;
+import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
+
+import java.util.ArrayList;
 
 
 public class TransactionService extends BasePart
@@ -57,6 +61,11 @@ public class TransactionService extends BasePart
         return this;
     }
 
+    public void getTypeTransactionList(OnServiceStatus<WebServiceClass<ArrayList<TypeCategory>>> listener)
+    {
+        start(getServiceGenerator().createService().getTypeTransactionList(), listener);
+    }
+
     public void getTransactionList(OnServiceStatus<WebServiceClass<ResponseTransaction>> listener)
     {
         start(getServiceGenerator().createService().getTransactionList(), listener);
@@ -67,7 +76,7 @@ public class TransactionService extends BasePart
                                            Integer priceTo,
                                            String dateFrom,
                                            String dateTo,
-                                           Integer status,
+                                           Boolean status,
                                            String searchText,
                                            OnServiceStatus<WebServiceClass<ResponseTransaction>> listener)
     {

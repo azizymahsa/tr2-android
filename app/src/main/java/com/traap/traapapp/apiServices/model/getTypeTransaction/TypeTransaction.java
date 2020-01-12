@@ -1,4 +1,4 @@
-package com.traap.traapapp.apiServices.model.media.category;
+package com.traap.traapapp.apiServices.model.getTypeTransaction;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class MediaArchiveCategory implements Parcelable
+public class TypeTransaction implements Parcelable
 {
     @Expose @Getter @Setter
     @SerializedName("title")
@@ -19,24 +19,28 @@ public class MediaArchiveCategory implements Parcelable
     @SerializedName("id")
     private int id;
 
-    protected MediaArchiveCategory(Parcel in)
+    public TypeTransaction()
+    {
+    }
+
+    protected TypeTransaction(Parcel in)
     {
         title = in.readString();
         id = in.readInt();
     }
 
-    public static final Creator<MediaArchiveCategory> CREATOR = new Creator<MediaArchiveCategory>()
+    public static final Creator<TypeTransaction> CREATOR = new Creator<TypeTransaction>()
     {
         @Override
-        public MediaArchiveCategory createFromParcel(Parcel in)
+        public TypeTransaction createFromParcel(Parcel in)
         {
-            return new MediaArchiveCategory(in);
+            return new TypeTransaction(in);
         }
 
         @Override
-        public MediaArchiveCategory[] newArray(int size)
+        public TypeTransaction[] newArray(int size)
         {
-            return new MediaArchiveCategory[size];
+            return new TypeTransaction[size];
         }
     };
 

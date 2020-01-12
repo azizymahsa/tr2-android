@@ -41,7 +41,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategory;
+import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
 import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaPosition;
@@ -110,7 +110,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     private View rootView;
 
     private NewsArchiveActionView mainNewsView;
-    private ArrayList<MediaArchiveCategory> mediaArchiveCategoryList = new ArrayList<>();
+    private ArrayList<TypeCategory> typeCategoryList = new ArrayList<>();
     private List<FilterItem> filteredCategoryList = new ArrayList<>();
     private ArrayList<FilterItem> filteredShowList = new ArrayList<>();
     private ArrayList<FilterItem> tempFilteredCategoryList = new ArrayList<>();
@@ -207,6 +207,13 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 })
         );
 
+        disposable.add(RxView.clicks(mToolbar.findViewById(R.id.flLogoToolbar))
+                .subscribe(v ->
+                {
+                    mainNewsView.backToMainFragment();
+                })
+        );
+
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgMenu))
                 .subscribe(v ->
                 {
@@ -237,10 +244,11 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private void initView()
     {
-        rcHashTag = rootView.findViewById(R.id.rcHashTag);
-        rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
         slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
         btnFilter = rootView.findViewById(R.id.btnFilter);
+
+        rcHashTag = rootView.findViewById(R.id.rcHashTag);
+        rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
         llDeleteFilter = rootView.findViewById(R.id.llDeleteFilter);
         llFilterHashTag = rootView.findViewById(R.id.llFilterHashTag);
         imgFilterClose = rootView.findViewById(R.id.imgFilterClose);
@@ -257,7 +265,6 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         edtSearchText.requestFocus();
         hideKeyboard((Activity) context);
 
-//        rcHashTag.setLayoutManager(new GridLayoutManager(getActivity(), 3, RecyclerView.VERTICAL, false));
         rcHashTag.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 
         disposable.add(RxView.clicks(btnFilter)
@@ -279,7 +286,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     if (filteredCategoryList.isEmpty())
                     {
                         filteredCategoryList = new ArrayList<>();
-                        for (MediaArchiveCategory item: mediaArchiveCategoryList)
+                        for (TypeCategory item: typeCategoryList)
                         {
                             FilterItem filterItem = new FilterItem();
                             filterItem.setId(item.getId());
@@ -585,7 +592,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                             llFilterHashTag.setVisibility(View.GONE);
 
                             filteredCategoryList = new ArrayList<>();
-                            for (MediaArchiveCategory item: mediaArchiveCategoryList)
+                            for (TypeCategory item: typeCategoryList)
                             {
                                 FilterItem filterItem = new FilterItem();
                                 filterItem.setId(item.getId());
@@ -761,10 +768,10 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         }
         else
         {
-            Collections.reverse(mediaArchiveCategoryList);
+            Collections.reverse(typeCategoryList);
 
             SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(),
-                    mediaArchiveCategoryList,
+                    typeCategoryList,
                     false,
                     pagerWithFilter
             );
@@ -780,7 +787,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 tab.setCustomView(adapter.getTabView(i));
             }
 
-            pager.setCurrentItem(mediaArchiveCategoryList.size()-1);
+            pager.setCurrentItem(typeCategoryList.size()-1);
         }
 
     }
@@ -795,7 +802,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         }
         else
         {
-            mediaArchiveCategoryList = response.data.getMediaArchiveCategoryList();
+            typeCategoryList = response.data.getTypeCategoryList();
 
             setPager(pagerWithFilter, pagerFromFavorite);
         }
@@ -804,7 +811,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     @Override
     public void onError(String message)
     {
-        if (Tools.isNetworkAvailable(getActivity()))
+        if (Tools.isNetworkAvailable((Activity) context))
         {
             Logger.e("-OnError-", "Error: " + message);
             showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
@@ -903,14 +910,14 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
     {
-        private ArrayList<MediaArchiveCategory> newsArchiveCategories;
+        private ArrayList<TypeCategory> newsArchiveCategories;
         private boolean pagerWithFilter = false;
         private boolean pagerFromFavorite = false;
         private Context context = SingletonContext.getInstance().getContext();
 
         @SuppressLint("WrongConstant")
         public SamplePagerAdapter(@NonNull FragmentManager fm,
-                                  ArrayList<MediaArchiveCategory> newsArchiveCategories,
+                                  ArrayList<TypeCategory> newsArchiveCategories,
                                   boolean pagerFromFavorite,
                                   boolean pagerWithFilter)
         {
@@ -972,7 +979,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             }
             else
             {
-                int Id =  mediaArchiveCategoryList.get(position).getId();
+                int Id =  typeCategoryList.get(position).getId();
                 Logger.e("--nID--", "pos: " + position + ", ID:" + Id);
                 return NewsArchiveCategoryFragment.newInstance(String.valueOf(Id),
                         MediaArchiveCategoryCall.FROM_ID,
