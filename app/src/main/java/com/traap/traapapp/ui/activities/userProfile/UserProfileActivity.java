@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputFilter;
 import android.text.TextUtils;
-import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -44,9 +42,6 @@ import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-import calendar.CivilDate;
-import calendar.DateConverter;
-import calendar.PersianDate;
 import okhttp3.MultipartBody;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -69,10 +64,8 @@ import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.MaskWatcher;
 import com.traap.traapapp.utilities.NationalCodeValidation;
 import com.traap.traapapp.utilities.Tools;
-import com.traap.traapapp.utilities.Utility;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
@@ -151,8 +144,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         fabDeleteProfile = findViewById(R.id.fabDeleteProfile);
         spinnerGender = findViewById(R.id.spinnerGender);
         tvBirthDay = findViewById(R.id.tvBirthDay);
-
-        tvBirthDay.addTextChangedListener(new MaskWatcher("####/##/##"));
         etNickName = findViewById(R.id.etNickName);
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
