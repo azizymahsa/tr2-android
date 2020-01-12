@@ -103,7 +103,9 @@
 
                                         <include
                                             android:id="@+id/btnBack"
-                                            layout="@layout/return_button" />
+                                            layout="@layout/return_button"
+                                            android:visibility="gone"
+                                            />
 
                                     </FrameLayout>
 

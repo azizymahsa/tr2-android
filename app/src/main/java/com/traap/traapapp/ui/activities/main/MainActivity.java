@@ -77,6 +77,8 @@ import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
+import com.traap.traapapp.ui.fragments.gateWay.DetailsCartFragment;
+import com.traap.traapapp.ui.fragments.gateWay.IncreaseInventoryFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -115,7 +117,8 @@ import com.yandex.metrica.push.YandexMetricaPush;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
-        , SelectPositionFragment.OnListFragmentInteractionListener {
+        , SelectPositionFragment.OnListFragmentInteractionListener
+{
     private Boolean isMainFragment = true;
     private Boolean isNewsFragment = false;
     private Boolean isFirst = true;
@@ -134,7 +137,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     //    private View btnBuyTicket;
-    private Integer backState=0;
+    private Integer backState = 0;
     private BottomNavigationView bottomNavigationView;
 
     private Bundle mSavedInstanceState;
@@ -165,7 +168,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -236,13 +240,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         Intent intent = getIntent();
 
-        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+        if (Intent.ACTION_VIEW.equals(intent.getAction()))
+        {
             Uri uri = intent.getData();
 
             refrenceNumber = uri.getQueryParameter("refrencenumber").replace("/", "");
             typeTransaction = uri.getQueryParameter("typetransaction").replace("/", "");
-            try {
-                if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard) {
+            try
+            {
+                if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard)
+                {
                     hasPaymentCharge = true;
                 } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
                 {
@@ -268,9 +275,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     .commit();*/
         }
 
-        if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase("")) {
+        if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
+        {
             TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
-        } else {
+        } else
+        {
             TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
         }
 
@@ -297,7 +306,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             Logger.e("--item--", menuItem.getTitle().toString());
             int itemId = menuItem.getItemId();
             //switch fragment
-            switch (itemId) {
+            switch (itemId)
+            {
 //                case R.id.tab_market:
 //                {
 //                    if (!bottomNavigationView.getMenu().getItem(4).isChecked())
@@ -314,9 +324,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                    }
 //                    break;
 //                }
-                case R.id.tab_all_services: {
+                case R.id.tab_all_services:
+                {
 //                    if (!bottomNavigationView.getMenu().getItem(3).isChecked())
-                    if (!bottomNavigationView.getMenu().getItem(2).isChecked()) {
+                    if (!bottomNavigationView.getMenu().getItem(2).isChecked())
+                    {
 //                        setCheckedBNV(bottomNavigationView, 3);
                         setCheckedBNV(bottomNavigationView, 2);
 
@@ -331,18 +343,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     }
                     break;
                 }
-                case R.id.tab_home: {
+                case R.id.tab_home:
+                {
 //                    if (!bottomNavigationView.getMenu().getItem(2).isChecked() || !isMainFragment)
-                    if (!bottomNavigationView.getMenu().getItem(1).isChecked() || !isMainFragment) {
+                    if (!bottomNavigationView.getMenu().getItem(1).isChecked() || !isMainFragment)
+                    {
 //                        setCheckedBNV(bottomNavigationView, 2);
 
                         backToMainFragment();
                     }
                     break;
                 }
-                case R.id.tab_media: {
+                case R.id.tab_media:
+                {
 //                    if (!bottomNavigationView.getMenu().getItem(1).isChecked())
-                    if (!bottomNavigationView.getMenu().getItem(0).isChecked()) {
+                    if (!bottomNavigationView.getMenu().getItem(0).isChecked())
+                    {
 //                        setCheckedBNV(bottomNavigationView, 1);
                         setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
@@ -427,7 +443,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(task ->
                 {
-                    if (!task.isSuccessful()) {
+                    if (!task.isSuccessful())
+                    {
                         Logger.e("-FireBaseInstanceId-", "getInstanceId failed", task.getException());
                         return;
                     }
@@ -445,25 +462,31 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent)
+    {
         super.onNewIntent(intent);
         // Handle your payload.
         String payload = intent.getStringExtra(YandexMetricaPush.EXTRA_PAYLOAD);
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
-        try {
+        try
+        {
             NewsArchiveClickModel fromNewsDetails = SingletonNewsArchiveClick.getInstance().getNewsArchiveClickModel();
-            if (fromNewsDetails != null) {
-                if (fromNewsDetails.getFromNewsDetails()) {
+            if (fromNewsDetails != null)
+            {
+                if (fromNewsDetails.getFromNewsDetails())
+                {
                     fromNewsDetails.setFromNewsDetails(false);
                     SingletonNewsArchiveClick.getInstance().setNewsArchiveClickModel(fromNewsDetails);
                     onNewsArchiveClick(SubMediaParent.MainFragment, MediaPosition.News);
@@ -490,11 +513,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
 
-    private void setCheckedBNV(BottomNavigationView bottomNavigationView, int index) {
-        for (int i = 0; i < 5; i++) {
-            if (i == index) {
+    private void setCheckedBNV(BottomNavigationView bottomNavigationView, int index)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (i == index)
+            {
                 bottomNavigationView.getMenu().getItem(index).setChecked(true);
-            } else {
+            } else
+            {
                 bottomNavigationView.getMenu().getItem(index).setChecked(false);
             }
         }
@@ -503,61 +530,79 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     public void onBackPressed()
     {
-        Log.e("backStateBack", backState+"" );
+        Log.e("backStateBack", backState + "");
 
         try
         {
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
-            if (drawer.isDrawerOpen(GravityCompat.END)) {
+            if (drawer.isDrawerOpen(GravityCompat.END))
+            {
                 drawer.closeDrawer(GravityCompat.END);
             } /*else if (fragment instanceof SelectPaymentGatewayFragment && ((SelectPaymentGatewayFragment) fragment).getViewpager().getCurrentItem()!=0 ){
 
                 //((SelectPaymentGatewayFragment) fragment).onBackClicked();
                 backToMainFragment();
 
-            }*/ else if (fragment instanceof PastResultFragment) {
+            }*/ else if (fragment instanceof WalletFragment )
+            {
+                isMainFragment = false;
+
+                fragment = WalletFragment.newInstance(this, 0);
+
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.main_container, fragment, "DetailsCartFragment")
+                        .commit();
+            } else if (fragment instanceof PastResultFragment)
+            {
                 onLeageClick(matchBuyable);
             } else if (fragment instanceof SelectPaymentGatewayFragment)
             {
-                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS)
-                );
-            } else if(fragment instanceof ChargeFragment && backState==2 ||fragment instanceof PackFragment && backState==2) {
+
+                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS));
+
+            } else if (fragment instanceof ChargeFragment && backState == 2 || fragment instanceof PackFragment && backState == 2)
+            {
 
 //                        setCheckedBNV(bottomNavigationView, 3);
-                    setCheckedBNV(bottomNavigationView, 2);
+                setCheckedBNV(bottomNavigationView, 2);
 
-                    isMainFragment = false;
+                isMainFragment = false;
 
-                    fragment = AllMenuFragment.newInstance(this, allServiceList,backState);
+                fragment = AllMenuFragment.newInstance(this, allServiceList, backState);
 
-                    transaction = fragmentManager.beginTransaction();
+                transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                    transaction.replace(R.id.main_container, fragment, "allMenuFragment")
-                            .commit();
+                transaction.replace(R.id.main_container, fragment, "allMenuFragment")
+                        .commit();
 
 
-
-        }
+            }
 
 
            /* else if (fragment instanceof BuyTicketsActivity && ((BuyTicketsActivity) fragment).getViewpager().getCurrentItem() != 0)
             {
                 ((BuyTicketsActivity) fragment).onBackClicked();
             }*/
-            else {
-                if (isMainFragment) {
+            else
+            {
+                if (isMainFragment)
+                {
 //                    super.onBackPressed();
                     MessageAlertDialog exitDialog = new MessageAlertDialog(this, "", "آیا بابت خروج از برنامه اطمینان دارید؟",
-                            true, "بله", "خیر", new MessageAlertDialog.OnConfirmListener() {
+                            true, "بله", "خیر", new MessageAlertDialog.OnConfirmListener()
+                    {
                         @Override
-                        public void onConfirmClick() {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        public void onConfirmClick()
+                        {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                            {
                                 finishAndRemoveTask();
-                            } else {
+                            } else
+                            {
                                 Intent intent = new Intent(Intent.ACTION_MAIN);
                                 intent.addCategory(Intent.CATEGORY_HOME);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                                startActivityForResult(intent,100);
+                                startActivityForResult(intent, 100);
 
 //                                ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
 //                                am.killBackgroundProcesses(getPackageName());
@@ -568,17 +613,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         }
 
                         @Override
-                        public void onCancelClick() {
+                        public void onCancelClick()
+                        {
                         }
                     });
                     exitDialog.show(getFragmentManager(), "exitDialog");
-                } else {
+                } else
+                {
                     setCheckedBNV(bottomNavigationView, 2);
 
                     backToMainFragment();
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.getMessage();
         }
     }
@@ -601,12 +649,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
 
     @Override
-    public void onDrawerItemSelected(View view, int itemNumber) {
+    public void onDrawerItemSelected(View view, int itemNumber)
+    {
         Logger.e("-onDrawerItemSelected-", "selected " + itemNumber);
 
         final Intent intent = new Intent();
-        switch (itemNumber) {
-            case 1: {
+        switch (itemNumber)
+        {
+            case 1:
+            {
                 //  showToast(this, "لیست تراکنش ها", R.color.green);
                 isMainFragment = false;
 
@@ -618,21 +669,24 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         .commit();
 
                 DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                if (drawer.isDrawerOpen(GravityCompat.END)) {
+                if (drawer.isDrawerOpen(GravityCompat.END))
+                {
                     drawer.closeDrawer(GravityCompat.END);
                 }
                 break;
             }
-            case 2: {
+            case 2:
+            {
 //                showToast(this, "امتیازات", R.color.green);
                 break;
             }
-            case 3: {
+            case 3:
+            {
 //                showToast(this, "جشنواره", R.color.green);
 
                 break;
             }
-               case 4:
+            case 4:
             {
                 // showToast(this, "کیف پول", R.color.green);
                 isMainFragment = false;
@@ -646,17 +700,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 break;
             }
-            case 5: {
+            case 5:
+            {
 //                showToast(this, "مدیریت کارت ها", R.color.green);
 
                 break;
             }
-            case 6: {
+            case 6:
+            {
 //                showToast(this, "دعوت از دوستان", R.color.green);
 
                 break;
             }
-            case 7: {
+            case 7:
+            {
                 // showToast(this, "درباره ما", R.color.green);
                 isMainFragment = false;
 
@@ -676,12 +733,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         .commit();*/
                 break;
             }
-            case 8: {
+            case 8:
+            {
 //                showToast(this, "تنظیمات", R.color.green);
 
                 break;
             }
-            case 9: {
+            case 9:
+            {
                 // showToast(this, "ارتباط با پشتیبانی", R.color.green);
                 isMainFragment = false;
 
@@ -693,10 +752,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         .commit();
                 break;
             }
-            case 10: {
-                if (fragment instanceof MainFragment) {
+            case 10:
+            {
+                if (fragment instanceof MainFragment)
+                {
                     ((MainFragment) fragment).requestGetHelpMenu();
-                } else {
+                } else
+                {
                     backToMainFragment();
                     ((MainFragment) fragment).requestGetHelpMenu();
                 }
@@ -704,26 +766,31 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 break;
             }
-            case 11: {
+            case 11:
+            {
 //                showToast(this, "انتقادات و پیشنهادات", R.color.green);
 
                 break;
             }
-            case 12: {
+            case 12:
+            {
                 MessageAlertDialog dialog = new MessageAlertDialog(this, "", "آیا می خواهید از حساب کاربری خود خارج شوید؟",
-                        true, "خروج", "انصراف", new MessageAlertDialog.OnConfirmListener() {
+                        true, "خروج", "انصراف", new MessageAlertDialog.OnConfirmListener()
+                {
                     @Override
-                    public void onConfirmClick() {
+                    public void onConfirmClick()
+                    {
                         String mobile = Prefs.getString("mobile", "");
                         Prefs.clear();
                         Prefs.putString("mobile", mobile);
                         finish();
                         intent.setClass(MainActivity.this, LoginActivity.class);
-                        startActivityForResult(intent,100);
+                        startActivityForResult(intent, 100);
                     }
 
                     @Override
-                    public void onCancelClick() {
+                    public void onCancelClick()
+                    {
 
                     }
                 });
@@ -732,7 +799,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 return;
 
             }
-            case 13: {
+            case 13:
+            {
 //                showToast(this, "جدول لیگ برتر", R.color.green);
 
                 /*isMainFragment = false;
@@ -748,7 +816,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onUserProfileClick() {
+    public void onUserProfileClick()
+    {
 //        showToast(this, "حساب کاربری من", R.color.green);
         startActivityForResult(new Intent(this, MyProfileActivity.class), 100);
        /* isMainFragment = false;
@@ -762,28 +831,34 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
 
     @Override
-    public void showLoading() {
+    public void showLoading()
+    {
         findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideLoading() {
+    public void hideLoading()
+    {
 //        new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 3000);
-        if (isCompleteThreadAllServices && isCompleteThreadMatch && isCompleteThreadNews) {
+        if (isCompleteThreadAllServices && isCompleteThreadMatch && isCompleteThreadNews)
+        {
 //            Logger.e("isCompleteThreadAllServices", String.valueOf(isCompleteThreadAllServices));
 //            Logger.e("isCompleteThreadMatch", String.valueOf(isCompleteThreadMatch));
 
-            if (isFirst) {
+            if (isFirst)
+            {
                 isFirst = false;
                 new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 1200);
-            } else {
+            } else
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
         }
     }
 
     @Override
-    public void onBill() {
+    public void onBill()
+    {
         isMainFragment = false;
         String titleBill = "قبض تلفن همراه";
         int idBillType = 5;
@@ -796,12 +871,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     }
 
-   public void onChargeSimCard(Integer backState)
+    public void onChargeSimCard(Integer backState)
     {
-        this.backState =backState;
+        this.backState = backState;
         isMainFragment = false;
 
-        fragment = ChargeFragment.newInstance(this,backState);
+        fragment = ChargeFragment.newInstance(this, backState);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -815,8 +890,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onPackSimCard(Integer status)
     {
         isMainFragment = false;
-        this.backState =status;
-        fragment = PackFragment.newInstance(this,backState);
+        this.backState = status;
+        fragment = PackFragment.newInstance(this, backState);
         transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.main_container, fragment, "packFragment")
@@ -825,21 +900,27 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
 
     @Override
-    public void openBarcode(BarcodeType bill) {
+    public void openBarcode(BarcodeType bill)
+    {
         new TedPermission(this)
-                .setPermissionListener(new PermissionListener() {
+                .setPermissionListener(new PermissionListener()
+                {
                     @Override
-                    public void onPermissionGranted() {
-                        try {
+                    public void onPermissionGranted()
+                    {
+                        try
+                        {
                             onBarcodReader();
-                        } catch (Exception e) {
+                        } catch (Exception e)
+                        {
                             e.getMessage();
                         }
 
                     }
 
                     @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
 
                     }
                 })
@@ -850,13 +931,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState)
+    {
 //        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onBarcodReader() {
+    public void onBarcodReader()
+    {
         isMainFragment = false;
 
         fragment = BarcodeReaderFragment.newInstance(this);
@@ -870,7 +953,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onPaymentWithoutCard() {
+    public void onPaymentWithoutCard()
+    {
         isMainFragment = false;
 
         // fragment = PaymentWithoutCardFragment2.newInstance(this);
@@ -883,7 +967,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void doTransferMoney() {
+    public void doTransferMoney()
+    {
         isMainFragment = false;
 
         fragment = MoneyTransferFragment.newInstance(this);
@@ -895,19 +980,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onContact() {
+    public void onContact()
+    {
         new TedPermission(SingletonContext.getInstance().getContext())
                 .setPermissionListener(new PermissionListener()
                 {
                     @Override
-                    public void onPermissionGranted() {
+                    public void onPermissionGranted()
+                    {
 
                         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                         startActivityForResult(intent, 8080);
                     }
 
                     @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
                     }
                 })
                 .setPermissions(Manifest.permission.READ_CONTACTS)
@@ -915,34 +1003,41 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         super.onStop();
         EventBus.getDefault().unregister(this);
 
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
         EventBus.getDefault().register(this);
 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(OnSelectContact event) {
-        if (BuildConfig.DEBUG) {
+    public void onMessageEvent(OnSelectContact event)
+    {
+        if (BuildConfig.DEBUG)
+        {
             showToast(this, "", R.color.gray);
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK && requestCode == 8080) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 8080)
+        {
 
             Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
-            while (cursor.moveToNext()) {
+            while (cursor.moveToNext())
+            {
                 String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
 
                 String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
@@ -952,19 +1047,24 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 else
                     hasPhone = "false";
 
-                if (Boolean.parseBoolean(hasPhone)) {
+                if (Boolean.parseBoolean(hasPhone))
+                {
                     Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
-                    while (phones.moveToNext()) {
+                    while (phones.moveToNext())
+                    {
 
                         OnSelectContact onSelectContact = new OnSelectContact();
                         onSelectContact.setName(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)) == null ? "" : phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
                         onSelectContact.setNumber(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll(" ", "").replace("0098", "0").replace(getString(R.string.plus) + "98", "0"));
-                        if (fragment instanceof ChargeFragment) {
+                        if (fragment instanceof ChargeFragment)
+                        {
                             ((ChargeFragment) fragment).onSelectContact(onSelectContact);
 
-                        } else if (fragment instanceof PackFragment) {
+                        } else if (fragment instanceof PackFragment)
+                        {
                             ((PackFragment) fragment).onSelectContact(onSelectContact);
-                        } else if (fragment instanceof BillFragment) {
+                        } else if (fragment instanceof BillFragment)
+                        {
                             ((BillFragment) fragment).onSelectContact(onSelectContact);
                         }
 
@@ -976,29 +1076,32 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             cursor.close();
 
-        }else if (resultCode == Activity.RESULT_OK && requestCode == 22) {
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 22)
+        {
             showToast(this, "کارت جدید با موفقیت ذخیره شد.", R.color.green);
 
-        }
-
-       else if ( resultCode == Activity.RESULT_OK) {
+        } else if (resultCode == Activity.RESULT_OK)
+        {
             Log.e("12321", "onActivityResult:22222 ");
             backToMainFragment();
         }
     }
 
     @Override
-    public void onInternetAlert() {
+    public void onInternetAlert()
+    {
 
     }
 
     @Override
-    public void showError(String message) {
+    public void showError(String message)
+    {
         showToast(this, message, R.color.red);
     }
 
     @Override
-    public void backToMainFragment() {
+    public void backToMainFragment()
+    {
 //        setCheckedBNV(bottomNavigationView, 2);
         setCheckedBNV(bottomNavigationView, 1);
 
@@ -1006,7 +1109,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        isNewsFragment = false;
         transaction = fragmentManager.beginTransaction();
 
-        if (mainFragment != null) {
+        if (mainFragment != null)
+        {
             Logger.e("--mainFragment--", "not null");
 
 //            Fragment currentFragment = fragmentManager.findFragmentById(R.id.main_container);
@@ -1018,7 +1122,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             fragment = mainFragment;
 //            fragment = existingFragment;
-        } else {
+        } else
+        {
             Logger.e("--mainFragment--", "--null--");
             fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -1029,16 +1134,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void openDrawer() {
+    public void openDrawer()
+    {
         View containerView = findViewById(R.id.fragment_navigation_menudrawer);
         DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayout.openDrawer(containerView);
     }
 
     @Override
-    public void closeDrawer() {
+    public void closeDrawer()
+    {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.END)) {
+        if (drawer.isDrawerOpen(GravityCompat.END))
+        {
             drawer.closeDrawer(GravityCompat.END);
         }
 //        showToast(this, "closeDrawerVideos", R.color.gray);
@@ -1049,12 +1157,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void startAddCardActivity() {
+    public void startAddCardActivity()
+    {
         startActivityForResult(new Intent(this, AddCardActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 22);
     }
 
     @Override
-    public void onBuyTicketClick(MatchItem matchBuyable) {
+    public void onBuyTicketClick(MatchItem matchBuyable)
+    {
 
        /* showLoading();
         isMainFragment = false;
@@ -1069,12 +1179,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         Intent intent = new Intent(this, BuyTicketsActivity.class);
         intent.putExtra("MatchBuyable", (Parcelable) matchBuyable);
         //intent.putExtra("StatusPayment", true);
-        startActivityForResult(intent,100);
+        startActivityForResult(intent, 100);
 
     }
 
     @Override
-    public void onLeageClick(ArrayList<MatchItem> matchBuyable) {
+    public void onLeageClick(ArrayList<MatchItem> matchBuyable)
+    {
         this.matchBuyable = matchBuyable;
         isMainFragment = false;
         fragment = MatchScheduleFragment.newInstance(this, matchBuyable);
@@ -1084,7 +1195,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onPredict(MatchItem matchPredict, Boolean isPredictable) {
+    public void onPredict(MatchItem matchPredict, Boolean isPredictable)
+    {
         isMainFragment = false;
         this.fragment = PredictFragment.newInstance(this, matchPredict, isPredictable);
 
@@ -1095,7 +1207,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onCash() {
+    public void onCash()
+    {
        /* tvTitle.setText("موجودی");
 
         changeFragment(fragments.get(1), "1");
@@ -1108,47 +1221,57 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onFootBallServiceOne() {
+    public void onFootBallServiceOne()
+    {
         isMainFragment = false;
-        fragment = NewsMainFragment.newInstance(new NewsMainActionView() {
+        fragment = NewsMainFragment.newInstance(new NewsMainActionView()
+        {
             @Override
-            public void backToMainFragment() {
+            public void backToMainFragment()
+            {
                 MainActivity.this.backToMainFragment();
             }
 
             @Override
-            public void backToMainNewsFragment() {
+            public void backToMainNewsFragment()
+            {
                 openMainNewsFragment();
             }
 
             @Override
-            public void onNewsArchiveFragment(SubMediaParent parent) {
+            public void onNewsArchiveFragment(SubMediaParent parent)
+            {
                 onNewsArchiveClick(parent, MediaPosition.News);
             }
 
             @Override
-            public void onNewsFavoriteFragment(SubMediaParent parent) {
+            public void onNewsFavoriteFragment(SubMediaParent parent)
+            {
                 onNewsFavoriteClick(parent, MediaPosition.News);
             }
 
 
             @Override
-            public void openDrawerNews() {
+            public void openDrawerNews()
+            {
                 openDrawer();
             }
 
             @Override
-            public void closeDrawerNews() {
+            public void closeDrawerNews()
+            {
                 closeDrawer();
             }
 
             @Override
-            public void showLoading() {
+            public void showLoading()
+            {
                 MainActivity.this.showLoading();
             }
 
             @Override
-            public void hideLoading() {
+            public void hideLoading()
+            {
                 MainActivity.this.hideLoading();
             }
         });
@@ -1158,31 +1281,38 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 .commit();
     }
 
-    private void openMainNewsFragment() {
+    private void openMainNewsFragment()
+    {
         isMainFragment = false;
-        fragment = NewsMainFragment.newInstance(new NewsMainActionView() {
+        fragment = NewsMainFragment.newInstance(new NewsMainActionView()
+        {
             @Override
-            public void backToMainFragment() {
+            public void backToMainFragment()
+            {
                 MainActivity.this.backToMainFragment();
             }
 
             @Override
-            public void backToMainNewsFragment() {
+            public void backToMainNewsFragment()
+            {
                 openMainNewsFragment();
             }
 
             @Override
-            public void onNewsArchiveFragment(SubMediaParent parent) {
+            public void onNewsArchiveFragment(SubMediaParent parent)
+            {
                 onNewsArchiveClick(parent, MediaPosition.News);
             }
 
             @Override
-            public void onNewsFavoriteFragment(SubMediaParent parent) {
+            public void onNewsFavoriteFragment(SubMediaParent parent)
+            {
                 onNewsFavoriteClick(parent, MediaPosition.News);
             }
 
             @Override
-            public void openDrawerNews() {
+            public void openDrawerNews()
+            {
                 openDrawer();
             }
 
@@ -1248,17 +1378,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void closeDrawerVideos() {
+            public void closeDrawerVideos()
+            {
                 closeDrawer();
             }
 
             @Override
-            public void showLoading() {
+            public void showLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void hideLoading() {
+            public void hideLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
         });
@@ -1270,31 +1403,38 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onFootBallServiceThree() {
+    public void onFootBallServiceThree()
+    {
 
     }
 
     @Override
-    public void onFootBallServiceFour() {
+    public void onFootBallServiceFour()
+    {
 
     }
 
     @Override
-    public void onFootBallServiceFive() {
+    public void onFootBallServiceFive()
+    {
 
     }
 
     @Override
-    public void onFootBallServiceSix() {
+    public void onFootBallServiceSix()
+    {
 
     }
 
     @Override
-    public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition) {
+    public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
         isMainFragment = false;
-        this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, false, new NewsArchiveActionView() {
+        this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, false, new NewsArchiveActionView()
+        {
             @Override
-            public void backToMediaFragment(MediaPosition mediaPosition) {
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
                 fragment = MediaFragment.newInstance(mediaPosition, MainActivity.this);
                 transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -1419,11 +1559,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onPhotosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition) {
+    public void onPhotosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
         isMainFragment = false;
-        this.fragment = PhotosArchiveFragment.newInstance(parent, mediaPosition, false, new PhotosArchiveActionView() {
+        this.fragment = PhotosArchiveFragment.newInstance(parent, mediaPosition, false, new PhotosArchiveActionView()
+        {
             @Override
-            public void backToMediaFragment(MediaPosition mediaPosition) {
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
                 fragment = MediaFragment.newInstance(MediaPosition.ImageGallery, MainActivity.this);
                 transaction = fragmentManager.beginTransaction();
 
@@ -1432,35 +1575,42 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void backToMainPhotosFragment() {
+            public void backToMainPhotosFragment()
+            {
             }
 
             @Override
-            public void onPhotosArchiveFragment(SubMediaParent parent) {
+            public void onPhotosArchiveFragment(SubMediaParent parent)
+            {
             }
 
             @Override
-            public void onPhotosFavoriteFragment(SubMediaParent parent) {
+            public void onPhotosFavoriteFragment(SubMediaParent parent)
+            {
                 onPhotosFavoriteClick(parent, MediaPosition.ImageGallery);
             }
 
             @Override
-            public void openDrawerPhotos() {
+            public void openDrawerPhotos()
+            {
                 openDrawer();
             }
 
             @Override
-            public void closeDrawerPhotos() {
+            public void closeDrawerPhotos()
+            {
                 closeDrawer();
             }
 
             @Override
-            public void showLoading() {
+            public void showLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void hideLoading() {
+            public void hideLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
         });
@@ -1471,11 +1621,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition) {
+    public void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
         isMainFragment = false;
-        this.fragment = PhotosArchiveFragment.newInstance(parent, mediaPosition, true, new PhotosArchiveActionView() {
+        this.fragment = PhotosArchiveFragment.newInstance(parent, mediaPosition, true, new PhotosArchiveActionView()
+        {
             @Override
-            public void backToMediaFragment(MediaPosition mediaPosition) {
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
                 fragment = MediaFragment.newInstance(MediaPosition.ImageGallery, MainActivity.this);
                 transaction = fragmentManager.beginTransaction();
 //                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -1485,7 +1638,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void backToMainPhotosFragment() {
+            public void backToMainPhotosFragment()
+            {
 
             }
 
@@ -1495,27 +1649,32 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void onPhotosFavoriteFragment(SubMediaParent parent) {
+            public void onPhotosFavoriteFragment(SubMediaParent parent)
+            {
                 onPhotosFavoriteClick(parent, MediaPosition.ImageGallery);
             }
 
             @Override
-            public void openDrawerPhotos() {
+            public void openDrawerPhotos()
+            {
                 openDrawer();
             }
 
             @Override
-            public void closeDrawerPhotos() {
+            public void closeDrawerPhotos()
+            {
                 closeDrawer();
             }
 
             @Override
-            public void showLoading() {
+            public void showLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void hideLoading() {
+            public void hideLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
         });
@@ -1525,11 +1684,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onVideosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition) {
+    public void onVideosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
         isMainFragment = false;
-        this.fragment = VideosArchiveFragment.newInstance(parent, mediaPosition, false, new VideosArchiveActionView() {
+        this.fragment = VideosArchiveFragment.newInstance(parent, mediaPosition, false, new VideosArchiveActionView()
+        {
             @Override
-            public void backToMainVideosFragment() {
+            public void backToMainVideosFragment()
+            {
                 onMainVideoClick();
             }
 
@@ -1558,7 +1720,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void backToMediaFragment(MediaPosition mediaPosition) {
+            public void backToMediaFragment(MediaPosition mediaPosition)
+            {
                 fragment = MediaFragment.newInstance(MediaPosition.VideoGallery, MainActivity.this);
                 transaction = fragmentManager.beginTransaction();
 
@@ -1567,12 +1730,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void showLoading() {
+            public void showLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void hideLoading() {
+            public void hideLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
         });
@@ -1583,31 +1748,38 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onVideosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition) {
+    public void onVideosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
+    {
         isMainFragment = false;
-        this.fragment = VideosArchiveFragment.newInstance(parent, mediaPosition, true, new VideosArchiveActionView() {
+        this.fragment = VideosArchiveFragment.newInstance(parent, mediaPosition, true, new VideosArchiveActionView()
+        {
             @Override
-            public void backToMainVideosFragment() {
+            public void backToMainVideosFragment()
+            {
                 onMainVideoClick();
             }
 
             @Override
-            public void onVideosArchiveFragment(SubMediaParent parent) {
+            public void onVideosArchiveFragment(SubMediaParent parent)
+            {
                 onMainVideoClick();
             }
 
             @Override
-            public void onVideosFavoriteFragment(SubMediaParent parent) {
+            public void onVideosFavoriteFragment(SubMediaParent parent)
+            {
                 onVideosFavoriteClick(parent, MediaPosition.VideoGallery);
             }
 
             @Override
-            public void openDrawerVideos() {
+            public void openDrawerVideos()
+            {
                 openDrawer();
             }
 
             @Override
-            public void closeDrawerVideos() {
+            public void closeDrawerVideos()
+            {
                 closeDrawer();
             }
 
@@ -1641,21 +1813,26 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onMainVideoClick() {
+    public void onMainVideoClick()
+    {
         isMainFragment = false;
-        this.fragment = VideosMainFragment.newInstance(new VideosMainActionView() {
+        this.fragment = VideosMainFragment.newInstance(new VideosMainActionView()
+        {
             @Override
-            public void backToMainFragment() {
+            public void backToMainFragment()
+            {
                 MainActivity.this.backToMainFragment();
             }
 
             @Override
-            public void backToMainVideosFragment() {
+            public void backToMainVideosFragment()
+            {
                 onMainVideoClick();
             }
 
             @Override
-            public void onVideosArchiveFragment(SubMediaParent parent) {
+            public void onVideosArchiveFragment(SubMediaParent parent)
+            {
                 onVideosArchiveClick(parent, MediaPosition.VideoGallery);
             }
 
@@ -1666,22 +1843,26 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void openDrawerVideos() {
+            public void openDrawerVideos()
+            {
                 openDrawer();
             }
 
             @Override
-            public void closeDrawerVideos() {
+            public void closeDrawerVideos()
+            {
                 closeDrawer();
             }
 
             @Override
-            public void showLoading() {
+            public void showLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void hideLoading() {
+            public void hideLoading()
+            {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
         });
@@ -1694,7 +1875,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void openPastResultFragment(String teamId, String imageLogo, String logoTitle) {
+    public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
+    {
         isMainFragment = false;
         this.fragment = PastResultFragment.newInstance(this, teamId, imageLogo, logoTitle);
 
@@ -1742,7 +1924,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
+    public void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
         isMainFragment = false;
         Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
@@ -1763,7 +1945,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void openWebView(MainActionView mainView, String uRl, String gds_token) {
+    public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    {
       /*  WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();*/
@@ -1780,13 +1963,18 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
 
     @Override
-    public void getBuyEnable(BuyTicketAction buyTicketAction) {
+    public void getBuyEnable(BuyTicketAction buyTicketAction)
+    {
 
-        SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>() {
+        SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
+        {
             @Override
-            public void onReady(WebServiceClass<MatchItem> response) {
-                if (response.info.statusCode == 200) {
-                    if (response.data != null) {
+            public void onReady(WebServiceClass<MatchItem> response)
+            {
+                if (response.info.statusCode == 200)
+                {
+                    if (response.data != null)
+                    {
                         onBuyTicketClick(response.data);
                     } else
                     {
@@ -1800,8 +1988,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void onError(String message) {
-                if (Tools.isNetworkAvailable(MainActivity.this)) {
+            public void onError(String message)
+            {
+                if (Tools.isNetworkAvailable(MainActivity.this))
+                {
                     showAlert(MainActivity.this, "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
                     Logger.e("--onError--", message);
                 } else
@@ -1845,7 +2035,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onBackToChargFragment(int PAYMENT_STATUS) {
+    public void onBackToChargFragment(int PAYMENT_STATUS)
+    {
 
         if (PAYMENT_STATUS == 3)
         {
@@ -1856,13 +2047,23 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment, "ChargeFragment")
                     .commit();
-        }  else if (PAYMENT_STATUS == 4) {
+        } else if (PAYMENT_STATUS == 4)
+        {
             isMainFragment = false;
             this.fragment = PackFragment.newInstance(this, backState);
 
             transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment, "PackFragment")
+                    .commit();
+        } else if (PAYMENT_STATUS == 13)
+        {
+            isMainFragment = false;
+            this.fragment = WalletFragment.newInstance(this, 1);//IncreaseInventoryFragment
+
+            transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.replace(R.id.main_container, this.fragment, "IncreaseInventoryFragment")
                     .commit();
         }
     }
@@ -1871,7 +2072,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void backToAllServicePackage(Integer backState)
     {
 
-        if (this.backState ==2){
+        if (this.backState == 2)
+        {
 
             setCheckedBNV(bottomNavigationView, 2);
 
@@ -1884,7 +2086,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             transaction.replace(R.id.main_container, fragment, "allMenuFragment")
                     .commit();
 
-        }else {
+        } else
+        {
             backToMainFragment();
         }
 
@@ -2186,16 +2389,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         // startActivity(new Intent(this, A.class));
                         return;
                     }
-                    if (response.info.statusCode != 200) {
+                    if (response.info.statusCode != 200)
+                    {
                         // startActivityForResult(new Intent(this, LoginActivity.class));
                         //  finish();
 
                         return;
                     }
-                    if (response.info.statusCode == 200) {
+                    if (response.info.statusCode == 200)
+                    {
                         allServiceList = response.data.getResults();
                     }
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
 //                    mainView.showError(e.getMessage());
                     e.printStackTrace();
                     hideLoading();
@@ -2204,7 +2410,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
-            public void onError(String message) {
+            public void onError(String message)
+            {
                 isCompleteThreadAllServices = true;
                 hideLoading();
 
@@ -2217,12 +2424,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onError(String message) {
+    public void onError(String message)
+    {
         hideLoading();
 
         showError(this, "خطا در دریافت اطلاعات از سرور!");
 
-        startActivityForResult(new Intent(MainActivity.this, LoginActivity.class),100);
+        startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), 100);
         finish();
     }
 
@@ -2249,7 +2457,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     Integer stadiumId;
     private List<Integer> ticketIdList;
 
-    public void setData(String selectPositionId, int count, int amountForPay, int amountOneTicket, List<Integer> results, Integer stadiumId) {
+    public void setData(String selectPositionId, int count, int amountForPay, int amountOneTicket, List<Integer> results, Integer stadiumId)
+    {
 
         this.selectPositionId = selectPositionId;
         this.count = count;
