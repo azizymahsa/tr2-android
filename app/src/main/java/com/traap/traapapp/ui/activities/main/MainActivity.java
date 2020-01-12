@@ -543,15 +543,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 //((SelectPaymentGatewayFragment) fragment).onBackClicked();
                 backToMainFragment();
 
-            }*/ else if (fragment instanceof WalletFragment )
+            }*/ else if (fragment instanceof WalletFragment && Prefs.getInt("DetailCartStatus", 2) == 0)
             {
                 isMainFragment = false;
+                if (Prefs.getInt("DetailCartStatus", 2) == 0)
+                {
+                    fragment = WalletFragment.newInstance(this, 0);
 
-                fragment = WalletFragment.newInstance(this, 0);
-
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.main_container, fragment, "DetailsCartFragment")
-                        .commit();
+                    transaction = fragmentManager.beginTransaction();
+                    transaction.replace(R.id.main_container, fragment, "DetailsCartFragment")
+                            .commit();
+                }
+                
+                //  Prefs.putInt("DetailCartStatus",1);
             } else if (fragment instanceof PastResultFragment)
             {
                 onLeageClick(matchBuyable);
