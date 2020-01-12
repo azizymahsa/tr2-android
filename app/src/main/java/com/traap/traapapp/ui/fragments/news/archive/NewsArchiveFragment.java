@@ -207,6 +207,13 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                 })
         );
 
+        disposable.add(RxView.clicks(mToolbar.findViewById(R.id.flLogoToolbar))
+                .subscribe(v ->
+                {
+                    mainNewsView.backToMainFragment();
+                })
+        );
+
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgMenu))
                 .subscribe(v ->
                 {

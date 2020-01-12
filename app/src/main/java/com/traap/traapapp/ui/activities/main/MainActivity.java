@@ -77,8 +77,6 @@ import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
-import com.traap.traapapp.ui.fragments.gateWay.DetailsCartFragment;
-import com.traap.traapapp.ui.fragments.gateWay.IncreaseInventoryFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -105,7 +103,6 @@ import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
-import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment2;
 import com.traap.traapapp.ui.fragments.videos.VideosMainActionView;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
 import com.traap.traapapp.ui.fragments.videos.archive.VideosArchiveActionView;
@@ -665,9 +662,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 //  showToast(this, "لیست تراکنش ها", R.color.green);
                 isMainFragment = false;
 
-                fragment = TransactionsListFragment2.newInstance(this);
-//                fragment = TransactionsListFragment2.newInstance(this);
-               // fragment = TransactionsListFragment.newInstance(this);
+                fragment = TransactionsListFragment.newInstance(this);
                 transaction = fragmentManager.beginTransaction();
 
                 transaction.replace(R.id.main_container, fragment, "transactionsListFragment")
@@ -1449,6 +1444,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
+            public void backToMainFragment()
+            {
+                MainActivity.this.backToMainFragment();
+            }
+
+            @Override
             public void backToMainNewsFragment()
             {
                 openMainNewsFragment();
@@ -1512,6 +1513,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 transaction.replace(R.id.main_container, fragment, "mediaFragment")
                         .commit();
+            }
+
+            @Override
+            public void backToMainFragment()
+            {
+                MainActivity.this.backToMainFragment();
             }
 
             @Override
@@ -1735,6 +1742,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
 
             @Override
+            public void backToMainFragment()
+            {
+                MainActivity.this.backToMainFragment();
+            }
+
+            @Override
             public void showLoading()
             {
                 findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
@@ -1797,6 +1810,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 transaction.replace(R.id.main_container, fragment, "mediaFragment")
                         .commit();
+            }
+
+            @Override
+            public void backToMainFragment()
+            {
+                MainActivity.this.backToMainFragment();
             }
 
             @Override
