@@ -15,6 +15,19 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorPrimary"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:maxLines="2"
+            android:gravity="center"
+            android:textSize="@dimen/textSize_14dp"
+            android:text="هیچ تراکنشی یافت نشد."/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
