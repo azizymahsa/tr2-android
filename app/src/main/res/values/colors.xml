@@ -135,5 +135,6 @@
     <color name="mdtp_done_text_color_dark_disabled">#888888</color>
     <color name="mdtp_date_picker_selector">#fff</color>
     <color name="greyish">#a8a8a8</color>
+    <color name="colorProgress">#ffffbb33</color>
     <!--  calendar  end-->
 </resources>

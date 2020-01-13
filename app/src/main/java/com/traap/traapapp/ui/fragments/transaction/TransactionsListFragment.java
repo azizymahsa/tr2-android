@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jaygoo.widget.OnRangeChangedListener;
+import com.jaygoo.widget.RangeSeekBar;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
@@ -76,13 +79,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TransactionsListFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener,
         FilterArchiveAdapter.OnItemCheckedChangeListener, CompoundButton.OnCheckedChangeListener,
-        OnServiceStatus<WebServiceClass<ResponseTransaction>>, SeekBar.OnSeekBarChangeListener
+        OnServiceStatus<WebServiceClass<ResponseTransaction>>, OnRangeChangedListener
 {
-    private ScrollView nestedScroll;
-    private SeekBar seekBar;
-    private TextView tvMaxPrice;
+    private RangeSeekBar rangeBar;
+    private TextView tvMaxPrice, tvMinPrice, tvEmpty;
 
-    private Integer maxPrice = 10000000;
+    private static int MAX_PRICE_DEFAULT = 10000000;
+
+    private Integer maxPrice = MAX_PRICE_DEFAULT;
+    private Integer minPrice = 0;
 
     private CompositeDisposable disposable = new CompositeDisposable();
     private final int DELAY_TIME_TEXT_CHANGE = 200;
@@ -236,8 +241,11 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     {
         try
         {
-            seekBar = rootView.findViewById(R.id.seekBar);
+            rangeBar = rootView.findViewById(R.id.rangeBar);
             tvMaxPrice = rootView.findViewById(R.id.tvMaxPrice);
+            tvMinPrice = rootView.findViewById(R.id.tvMinPrice);
+
+            tvEmpty = rootView.findViewById(R.id.tvEmpty);
 
             rcHashTag = rootView.findViewById(R.id.rcHashTag);
             rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
@@ -265,8 +273,13 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
             tvCount = rootView.findViewById(R.id.tvCount);
 
-            tvMaxPrice.setText("تا 10,000,000 زیال");
-            seekBar.setOnSeekBarChangeListener(this);
+            tvMaxPrice.setText("10,000,000 زیال");
+            tvMinPrice.setText("0 زیال");
+
+            rangeBar.setRange(0f, 20f, 1f);
+            rangeBar.setProgress(0f, 20f);
+            rangeBar.setIndicatorTextDecimalFormat("0");
+            rangeBar.setOnRangeChangedListener(this);
 
             edtSearchText.requestFocus();
             hideKeyboard((Activity) context);
@@ -277,7 +290,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             slidingUpPanelLayout.setScrollableViewHelper(new NestedScrollableViewHelper());
 
             btnFilter = rootView.findViewById(R.id.btnFilter);
-            nestedScroll = rootView.findViewById(R.id.nestedScroll);
 
             disposable.add(RxView.clicks(btnFilter)
                     .throttleFirst(200, TimeUnit.MILLISECONDS)
@@ -571,7 +583,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
                 SingletonService.getInstance().getTransactionService().getTransactionListByFilter(
                         idFilteredList,
-                        0,
+                        minPrice,
                         maxPrice,
                         tvStartDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvStartDate.getText().toString()),
                         tvEndDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvEndDate.getText().toString()),
@@ -584,7 +596,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             {
                 SingletonService.getInstance().getTransactionService().getTransactionListByFilterForAllStatus(
                         idFilteredList,
-                        0,
+                        minPrice,
                         maxPrice,
                         tvStartDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvStartDate.getText().toString()),
                         tvEndDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvEndDate.getText().toString()),
@@ -656,8 +668,11 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         llDeleteFilter.setVisibility(View.GONE);
         llFilterHashTag.setVisibility(View.GONE);
 
-        maxPrice = 10000000;
-        seekBar.setProgress(20);
+        maxPrice = MAX_PRICE_DEFAULT;
+        minPrice = 0;
+        tvMaxPrice.setText("10,000,000 زیال");
+        tvMinPrice.setText("0 زیال");
+        rangeBar.setProgress(0f, 20f);
 
         chbSuccessPayment.setChecked(false);
         chbFailedPayment.setChecked(false);
@@ -703,12 +718,14 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 tvStartDate.getText().toString().equalsIgnoreCase("") &&
                 tvEndDate.getText().toString().equalsIgnoreCase("") &&
                 idFilteredList.equalsIgnoreCase("") &&
-                chbSuccessPayment.isChecked() == chbFailedPayment.isChecked()
-        )
+                chbSuccessPayment.isChecked() == chbFailedPayment.isChecked() &&
+                minPrice == 0 &&
+                maxPrice == MAX_PRICE_DEFAULT )
         {
             isAvailable = false;
         }
         Logger.e("isFilterAvailable", String.valueOf(isAvailable));
+        Logger.e("-rangeBar-", "left:" + minPrice + ", right:" + maxPrice);
 
         return isAvailable;
     }
@@ -781,6 +798,11 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                                         titleFilteredList += "نوع پرداخت" + ",";
                                     }
 
+                                    if (minPrice != 0 || maxPrice != MAX_PRICE_DEFAULT)
+                                    {
+                                        titleFilteredList += "مبلغ" + ",";
+                                    }
+
                                     isFilterEnable = true;
                                     llDeleteFilter.setVisibility(View.VISIBLE);
                                     llFilterHashTag.setVisibility(View.VISIBLE);
@@ -801,15 +823,21 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
     private void setHashTag()
     {
-        String[] hashTag = titleFilteredList.substring(0, titleFilteredList.length()-1).split(",");
-        List<String> values = new ArrayList<>();
-        for (String item: hashTag)
+        try
         {
-            values.add("#" + item);
+            String[] hashTag = titleFilteredList.substring(0, titleFilteredList.length()-1).split(",");
+            List<String> values = new ArrayList<>();
+            for (String item: hashTag)
+            {
+                values.add("#" + item);
+            }
+            adapterHashTag = new HashTagMediaAdapter(values);
+            rcHashTag.setAdapter(adapterHashTag);
         }
-//                            adapterHashTag = new ArrayAdapter<String>(getActivity(), R.layout.adapter_filter_hashtag_item, values);
-        adapterHashTag = new HashTagMediaAdapter(values);
-        rcHashTag.setAdapter(adapterHashTag);
+        catch (Exception e)
+        {
+
+        }
     }
 
     private Observable<FilterItem> getNewsArchiveCategoryObservable(final CharSequence sequence)
@@ -983,21 +1011,19 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             }
             else
             {
-//                typeCategoryList = response.data.getTypeCategoryList();
-
-//                setPager(isFilterEnable, pagerFromFavorite);
                 if (response.data.getTransactionLists().isEmpty())
                 {
-                    showAlertAndFinish("خطا در دریافت اطلاعات از سرور!");
+                    tvEmpty.setVisibility(View.VISIBLE);
                 }
                 else
                 {
+                    tvEmpty.setVisibility(View.GONE);
+
                     tvCount.setText(response.data.getTransactionLists().size() + " مورد تراکنش یافت شد.");
                     tvCount.setVisibility(View.VISIBLE);
 
                     rcTransactionList.setLayoutManager(new LinearLayoutManager(getContext()));
                     fixTableAdapter = new TransactionListAdapter(response.data.getTransactionLists(), context);
-                    //fixTableAdapter.setClickListener(this);
                     rcTransactionList.setAdapter(fixTableAdapter);
                 }
             }
@@ -1042,20 +1068,26 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+    public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser)
     {
-        tvMaxPrice.setText("تا " + progress * 500000 + " ریال");
-        maxPrice = progress * 500000;
+        int left = (int) leftValue;
+        int right = (int) rightValue;
+        tvMaxPrice.setText(Utility.priceFormat(right * 500000) + " ریال");
+        tvMinPrice.setText(Utility.priceFormat(left * 500000) + " ریال");
+        maxPrice = right * 500000;
+        minPrice = left * 500000;
+        Logger.e("-onRangeChanged-", "left: " + leftValue + " ,right: " + rightValue);
+        Logger.e("-onRangeChanged2-", "left: " + minPrice + " ,right: " + maxPrice);
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar)
+    public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft)
     {
 
     }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar)
+    public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft)
     {
 
     }

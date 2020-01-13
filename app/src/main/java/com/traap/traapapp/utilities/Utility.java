@@ -441,6 +441,12 @@ public class Utility
         return recieveDate;
     }
 
+    public static String priceFormat(int price)
+    {
+        DecimalFormat df = new DecimalFormat("#,###");
+        return df.format(Double.valueOf(price));
+    }
+
     public static String priceFormat(String price)
     {
         DecimalFormat df = new DecimalFormat("#,###");

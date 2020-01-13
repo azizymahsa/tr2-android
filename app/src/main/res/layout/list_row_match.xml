@@ -207,7 +207,7 @@
             android:layout_marginStart="@dimen/_5dp"
             android:layout_marginEnd="@dimen/_5dp"
             android:background="@drawable/background_border_a"
-            android:textColor="@color/borderColorRed"
+            android:textColor="@color/textColorPrimary"
             android:textSize="@dimen/_10sdp" />
 
 

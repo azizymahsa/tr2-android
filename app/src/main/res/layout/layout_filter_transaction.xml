@@ -268,44 +268,25 @@
                     android:textSize="@dimen/textSize_16dp"
                     android:layout_alignParentRight="true"/>
 
-<!--                <org.florescu.android.rangeseekbar.RangeSeekBar-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:absoluteMinValue="0"-->
-<!--                    app:step="500000"-->
-<!--                    app:thumbShadow="true"-->
-<!--                    app:valuesAboveThumbs="true"-->
-<!--                    app:thumbShadowBlur="3dp"-->
-<!--                    app:thumbShadowXOffset="1dp"-->
-<!--                    app:thumbShadowYOffset="2dp"-->
-<!--                    app:thumbShadowColor="#f5f5f5"/>-->
-
-                <com.edmodo.rangebar.RangeBar
+                <com.jaygoo.widget.RangeSeekBar
                     android:id="@+id/rangeBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="16dp"
-                    android:visibility="gone"
-                    style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:max="20"
-                    android:progress="0"
-                    android:progressTint="@android:color/holo_orange_dark"
-                    android:progressBackgroundTint="@android:color/holo_orange_dark"
-                    android:thumbTint="@color/colorPrimaryDark"
-                    app:tickCount="20" />
-
-                <androidx.appcompat.widget.AppCompatSeekBar
-                    android:id="@+id/seekBar"
-                    style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_marginTop="8dp"
-                    android:max="20"
-                    android:progress="20"
-                    android:progressTint="@color/textColorSecondary"
-                    android:progressBackgroundTint="@color/gray"
-                    android:thumbTint="@color/textColorSubTitle"/>
+                    app:rsb_mode="range"
+                    app:rsb_gravity="bottom"
+                    app:rsb_tick_mark_layout_gravity="bottom"
+                    app:rsb_tick_mark_text_margin="15dp"
+                    app:rsb_progress_color="@color/colorProgress"
+                    app:rsb_min_interval="1"
+                    app:rsb_thumb_inactivated_drawable="@drawable/seekbar_thumb_activated"
+                    app:rsb_thumb_drawable="@drawable/seekbar_thumb_inactivated"
+                    app:rsb_indicator_show_mode="alwaysHide"
+                    app:rsb_indicator_height="30dp"
+                    app:rsb_indicator_width="50dp"
+                    app:rsb_indicator_margin="5dp"
+                    app:rsb_steps="20"
+                    app:rsb_indicator_background_color="@color/colorProgress"
+                    app:rsb_tick_mark_mode="number" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -314,12 +295,13 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tvMinPrice"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="min"
                         android:gravity="left"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="8dp"
                         android:textColor="@color/textColorSubTitle"
@@ -332,7 +314,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="max"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="8dp"
                         android:textColor="@color/textColorSubTitle"
