@@ -60,6 +60,7 @@
     <dimen name="_180dp">250dp</dimen>
     <dimen name="_35dp_iconSize">45dp</dimen>
     <dimen name="_120dp">300dp</dimen>
+    <dimen name="_120_btn_dp">180dp</dimen>
 
     <item name="mdtp_circle_radius_multiplier" format="float" type="string">0.82</item>
     <item name="mdtp_circle_radius_multiplier_24HourMode" format="float" type="string">0.85</item>

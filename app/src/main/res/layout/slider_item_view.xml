@@ -229,7 +229,7 @@
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/tvPredictResult"
-                android:layout_width="@dimen/_120dp"
+                android:layout_width="@dimen/_120_btn_dp"
                 android:layout_height="@dimen/_30dp"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
@@ -253,7 +253,7 @@
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/tvBuyTicket"
-                android:layout_width="@dimen/_120dp"
+                android:layout_width="@dimen/_120_btn_dp"
                 android:layout_height="@dimen/_30dp"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
