@@ -489,16 +489,26 @@
                                         android:textSize="@dimen/textSize_12dp"
                                         android:textColor="@color/textHint" />
 
-                                    <TextView
+                                    <ru.kolotnev.formattedittext.MaskedEditText
                                         android:id="@+id/tvBirthDay"
                                         android:layout_toLeftOf="@+id/tv9"
                                         android:layout_toRightOf="@+id/imgBirthdayReset"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:text=""
+                                        android:inputType="number"
                                         android:gravity="center_vertical|right"
                                         android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textColorSecondary" />
+                                        android:textColor="@color/textColorSecondary"
+                                        android:digits="0,1,2,3,4,5,6,7,8,9"
+                                        android:imeOptions="actionNext"
+                                        android:maxLines="1"
+                                        android:singleLine="true"
+                                        app:mask="9999/99/99"
+                                        android:textColorHint="@color/textColorSecondary"
+                                        app:placeholder="_"
+                                        android:background="@android:color/transparent"
+                                        />
 
                                     <ImageView
                                         android:id="@+id/imgBirthdayReset"
@@ -511,6 +521,18 @@
                                         android:layout_centerVertical="true"
                                         android:tint="@color/textColorPrimary"
                                         app:srcCompat="@drawable/ic_clear" />
+
+                                    <ImageView
+                                        android:id="@+id/imgBirthdaySet"
+                                        style="?android:attr/borderlessButtonStyle"
+                                        android:layout_width="@dimen/_25sdp"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:layout_alignParentLeft="true"
+                                        android:scaleType="centerCrop"
+                                        android:visibility="visible"
+                                        android:layout_centerVertical="true"
+                                        android:tint="@color/textColorPrimary"
+                                        app:srcCompat="@drawable/ic_calendar_black_24dp" />
 
                                     <View
                                         android:layout_width="match_parent"

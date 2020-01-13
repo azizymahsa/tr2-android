@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.activities.web;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -14,6 +15,7 @@ import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -184,6 +186,13 @@ public class WebActivity extends BaseActivity
             String title = getIntent().getStringExtra("Title");
 
             tvTitle.setText(title);
+            FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
+            flLogoToolbar.setOnClickListener(v -> {
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
+            });
+
 
         } catch (Exception e)
         {

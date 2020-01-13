@@ -1041,10 +1041,19 @@ public class SelectPositionFragment
                         if (hasTimer) {
                             btnPaymentConfirm.setClickable(true);
                             btnPaymentConfirm.setText("تایید و مرحله بعد");
-                            // progress.setVisibility(View.GONE);
-                            // btnPaymentConfirm.getAnimation().cancel();
-                            // btnPaymentConfirm.can
-                            // animation.setAnimationListener(null);
+
+                            try
+                            {
+                                if (stadiumPositionModels.get(selectPositionId-1).isFull())
+                                {
+
+                                } else
+                                {
+                                    setSpinnerPositionSelected(stadiumPositionModels.get(selectPositionId-1).getNumber());
+                                }
+                            }catch (Exception e){
+
+                            }
                         }
                     } else {
                         showToast(getContext(), response.info.message, R.color.red);
@@ -1057,9 +1066,6 @@ public class SelectPositionFragment
 
             @Override
             public void onError(String message) {
-               /* btnMyBills.revertAnimation(BillFragment.this);
-                btnMyBills.setClickable(true);*/
-                //  Tools.showToast(getActivity(), message, R.color.red);
                 if (Tools.isNetworkAvailable(getActivity())) {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
@@ -1136,6 +1142,7 @@ public class SelectPositionFragment
                     public void onNext(StadiumPositionModel partStadiomModel) {
 
                         if (partStadiomModel.isFull()) {
+
                             imgView = new ImageView(getContext());
                             rlImageViewsFull.addView(imgView);
                             imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);

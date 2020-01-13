@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -83,6 +84,9 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     private Toolbar mToolbar;
     private List<Content> list;
     private Integer position;
+    public  Integer clickPositionX=0;
+    public  Integer clickPositionY=0;
+    public  Integer clickPosition;
 
 
     @Override
@@ -174,7 +178,17 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
         sendRequestListPhotos(idAlbum);
 
-
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+/*
+                clickPositionX+= dx;
+                clickPositionY+= dy;
+                Log.e("clickPositionX2", dx+"");
+                Log.e("clickPositionY2", dy+"")*/;
+            }
+        });
     }
 
     public void onResume() {
@@ -252,6 +266,17 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         list.addAll(data.getContent());
         adapter = new AlbumDetailsItemAdapter(this, data.getContent(), this);
         recyclerView.setAdapter(adapter);
+
+        if (clickPosition!=null){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    recyclerView.scrollTo(clickPositionX,clickPositionY);
+                }
+            }, 1000);
+
+
+        }
     }
 
     private void requestGetRelatedVideos(int idVideoCategory) {
@@ -352,7 +377,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                 requestLike();
                 break;
             case R.id.ivPhoto:
-           /*     v.setAlpha((float) 1.0);
+                v.setAlpha((float) 1.0);
                 if (!isMoving) {
                     long clickTime = System.currentTimeMillis();
                     if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA) {
@@ -374,11 +399,6 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                                     if (largeImageClick.equals(""))
                                         largeImageClick = coverImg;
 
-                                    intent.putExtra("SRCImage", largeImageClick);
-                                    intent.putExtra("LikeCount", likeCount);
-                                    intent.putExtra("idPhoto", idPhoto);
-                                    intent.putExtra("isLike", isLike);
-                                    intent.putExtra("isBookmark", isBookmark);
                                     intent.putExtra("pic", position);
                                     intent.putExtra("content",new Gson().toJson(list));
                                     startActivityForResult(intent, 100);
@@ -393,14 +413,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                     }
                     lastClickTime = clickTime;
                 }
-*/
-                Intent intent = new Intent(getApplicationContext(), ShowBigPhotoActivity.class);
-              intent.putExtra("pic", position);
 
-                intent.putExtra("content",new Gson().toJson(list));
-                startActivityForResult(intent, 100);
-
-                /*  */
                 break;
         }
     }
@@ -475,7 +488,16 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void OnItemAllMenuClick(View view, Integer id, Content content,Integer position) {
-        // titleAlbum.setText(content.getTitle() + "");
+        // titleAlbum.setText(content.getTitle() +
+
+
+
+       /// clickPositionX=layoutManager.findFirstVisibleItemPosition();;
+
+
+
+
+        clickPosition=position;
         try {
             this.position=position;
             updateContentPhotoItem(id);

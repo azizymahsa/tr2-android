@@ -35,19 +35,14 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
-import com.traap.traapapp.apiServices.model.mainVideos.MainVideoRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.enums.SubMediaParent;
-import com.traap.traapapp.ui.activities.video.VideoArchiveActivity;
 import com.traap.traapapp.ui.activities.video.VideoDetailActivity;
 import com.traap.traapapp.ui.adapters.video.NewestVideosAdapter;
-import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.ui.adapters.video.CategoryAdapter;
 import com.traap.traapapp.ui.adapters.video.VideosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
-import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -81,7 +76,11 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private View llFavorites;
     private SubMediaParent parent;
     private ScrollingPagerIndicator indicatorNewestPhotos;
-    public static Integer bNewestVideoPosition;
+    public  Integer bNewestVideoPosition;
+    public  Integer categoryClickPosition;
+    public  Integer categoryClickPositionX;
+    public  Integer categoryClickPositionY;
+    private ListCategory category;
 
     public VideosFragment()
     {
@@ -241,6 +240,32 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), this);
         rvCategories.setAdapter(categoryAdapter);
 
+        if (categoryClickPosition!=null){
+            try{
+                rvCategoryTitles.scrollTo(categoryClickPositionX,categoryClickPositionY);
+                mainView.showLoading();
+
+                idCategoryTitle = category.getId();
+                requestGetCategoryById(idCategoryTitle);
+                videoCategoryTitleAdapter.setSelectedPosition(categoryClickPosition);
+
+  /*              RecyclerView.ViewHolder viewHolder = rvCategoryTitles.findViewHolderForAdapterPosition(position);
+
+
+                ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setTextColor(context.getResources().getColor(R.color.borderColorRed));
+                ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setBackgroundResource(R.drawable.background_border_a);*/
+            }catch (Exception e){
+                rvCategoryTitles.scrollToPosition(0);
+                mainView.showLoading();
+
+                idCategoryTitle = category.getId();
+                requestGetCategoryById(idCategoryTitle);
+            }
+
+
+        }
+
+
     }
 
     private void setDataFavoriteList(MainVideosResponse mainVideosResponse)
@@ -285,7 +310,12 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     @Override
     public void onItemTitleCategoryClick(ListCategory category, int position)
     {
+
+        this.category=category;
+        categoryClickPosition=position;
         mainView.showLoading();
+        categoryClickPositionX=rvCategoryTitles.getScrollX();
+        categoryClickPositionY=rvCategoryTitles.getScrollY();
 
         idCategoryTitle = category.getId();
         requestGetCategoryById(idCategoryTitle);

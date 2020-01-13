@@ -203,6 +203,10 @@ public class WebFragment extends BaseFragment
             mainView.backToMainFragment();
 
         });
+
+
+
+
     }
 
 

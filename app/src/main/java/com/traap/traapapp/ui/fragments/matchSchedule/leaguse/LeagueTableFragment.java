@@ -28,10 +28,8 @@ import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueR
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.Result;
 import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.ui.activities.video.VideoArchiveActivity;
 import com.traap.traapapp.ui.adapters.Leaguse.FixTableAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
