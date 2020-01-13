@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.gateWay;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -23,6 +24,7 @@ import com.traap.traapapp.apiServices.model.getBalancePasswordLess.ForgetPasswor
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -34,7 +36,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
 {
 
 
-    private View rootView, btnChangePass;
+    private View rootView, btnChangePass, btnForgetPass;
     private MainActionView mainView;
 
     private LinearLayout llDetailDescriptionForgetPass, llChangePass;
@@ -94,8 +96,10 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
         txtChangePass = rootView.findViewById(R.id.txtChangePass);
         llChangePass = rootView.findViewById(R.id.llChangePass);
         btnChangePass = rootView.findViewById(R.id.btnChangePass);
+        btnForgetPass = rootView.findViewById(R.id.btnForgetPass);
         llDetailDescriptionForgetPass = rootView.findViewById(R.id.llDetailDescriptionForgetPass);
 
+        btnForgetPass.setOnClickListener(this);
         btnChangePass.setOnClickListener(this);
         txtChangePass.setOnClickListener(this);
         txtForgetPass.setOnClickListener(this);
@@ -116,7 +120,8 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
         super.onDestroy();
     }
 
-    public void ShowHidePass(View view){
+    public void ShowHidePass(View view)
+    {
 
       /*  if(view.getId()==R.id.edtOldPass){
 
@@ -135,6 +140,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
             }
         }*/
     }
+
     @Override
     public void onClick(View v)
     {
@@ -147,58 +153,79 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                 //hide
                 edtOldPass.setTransformationMethod(PasswordTransformationMethod.getInstance());*/
                 break;
-                case R.id.btnChangePass:
-                if (llDetailDescriptionForgetPass.getVisibility() == View.VISIBLE)
+            case R.id.btnForgetPass:
+
+                MessageAlertDialog dialog1 = new MessageAlertDialog((Activity) mainView, "",
+                        getContext().getString(R.string._request_change_pass), true, "تایید", "انصراف",
+                        true, new MessageAlertDialog.OnConfirmListener()
                 {
-                    requestForgetPassword();
-                } else
-                {
-                    if (edtNewPass.getText().toString().length() > 4 && edtOldPass.getText().toString().length() > 4 && edtTemNewPass.getText().toString().length() > 4)
+                    @Override
+                    public void onConfirmClick()
                     {
-                        if (edtNewPass.getText().toString().equals(edtTemNewPass.getText().toString()))
-                        {
-                            requestChangePassword();
-
-                        } else
-                        {
-                            Toast.makeText(getContext(), getContext().getString(R.string._msg_no_correct_pass), Toast.LENGTH_SHORT).show();
-
-                        }
-                    } else  if (edtNewPass.getText().toString().length()== 0 && edtOldPass.getText().toString().length() == 0 && edtTemNewPass.getText().toString().length() == 0)
-
-                    {
-                        Toast.makeText(getContext(), getContext().getString(R.string._msg_none_fields), Toast.LENGTH_SHORT).show();
-
-                    }else{
-                        Toast.makeText(getContext(), getContext().getString(R.string._not_currect_pass), Toast.LENGTH_SHORT).show();
+                        requestForgetPassword();
 
                     }
 
-                }
-                break;
+                    @Override
+                    public void onCancelClick()
+                    {
 
-            case R.id.txtChangePass:
-                llDetailDescriptionForgetPass.setVisibility(View.GONE);
-                llChangePass.setVisibility(View.VISIBLE);
+                    }
+                });
+                dialog1.setCancelable(false);
+                dialog1.show(((Activity) mainView).getFragmentManager(), "dialogMessage");
 
-                txtChangePass.setTextColor(getResources().getColor(R.color.textColorPrimary));
-                txtChangePass.setBackgroundResource(R.drawable.background_border_a);
-                txtForgetPass.setTextColor(getResources().getColor(R.color.returnButtonColor));
-                txtForgetPass.setBackgroundResource(android.R.color.transparent);
-                break;
-            case R.id.txtForgetPass:
-                llDetailDescriptionForgetPass.setVisibility(View.VISIBLE);
-                llChangePass.setVisibility(View.GONE);
+        break;
+        case R.id.btnChangePass:
 
-                txtChangePass.setTextColor(getResources().getColor(R.color.returnButtonColor));
-                txtChangePass.setBackgroundResource(android.R.color.transparent);
-                txtForgetPass.setTextColor(getResources().getColor(R.color.textColorPrimary));
-                txtForgetPass.setBackgroundResource(R.drawable.background_border_a);
-                break;
+        if (edtNewPass.getText().toString().length() > 4 && edtOldPass.getText().toString().length() > 4 && edtTemNewPass.getText().toString().length() > 4)
+        {
+            if (edtNewPass.getText().toString().equals(edtTemNewPass.getText().toString()))
+            {
+                requestChangePassword();
 
+            } else
+            {
+                Toast.makeText(getContext(), getContext().getString(R.string._msg_no_correct_pass), Toast.LENGTH_SHORT).show();
+
+            }
+        } else if (edtNewPass.getText().toString().length() == 0 && edtOldPass.getText().toString().length() == 0 && edtTemNewPass.getText().toString().length() == 0)
+
+        {
+            Toast.makeText(getContext(), getContext().getString(R.string._msg_none_fields), Toast.LENGTH_SHORT).show();
+
+        } else
+        {
+            Toast.makeText(getContext(), getContext().getString(R.string._not_currect_pass), Toast.LENGTH_SHORT).show();
 
         }
+
+
+        break;
+
+        case R.id.txtChangePass:
+        llDetailDescriptionForgetPass.setVisibility(View.GONE);
+        llChangePass.setVisibility(View.VISIBLE);
+
+        txtChangePass.setTextColor(getResources().getColor(R.color.textColorPrimary));
+        txtChangePass.setBackgroundResource(R.drawable.background_border_a);
+        txtForgetPass.setTextColor(getResources().getColor(R.color.returnButtonColor));
+        txtForgetPass.setBackgroundResource(android.R.color.transparent);
+        break;
+        case R.id.txtForgetPass:
+        llDetailDescriptionForgetPass.setVisibility(View.VISIBLE);
+        llChangePass.setVisibility(View.GONE);
+
+        txtChangePass.setTextColor(getResources().getColor(R.color.returnButtonColor));
+        txtChangePass.setBackgroundResource(android.R.color.transparent);
+        txtForgetPass.setTextColor(getResources().getColor(R.color.textColorPrimary));
+        txtForgetPass.setBackgroundResource(R.drawable.background_border_a);
+        break;
+
+
     }
+
+}
     /*----------------------------------------------------------------------------------------------------*/
 
     private void requestChangePassword()
@@ -222,8 +249,9 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                     if (response.info.statusCode == 200)
                     {
 
+                        showAlert(getActivity(), getActivity().getString(R.string._send_sms_forget_pass), 0);
 
-                        showAlert(getActivity(), response.info.message, 0);
+                     //   showAlert(getActivity(), response.info.message, 0);
                         clearEditText();
                     } else
                     {
