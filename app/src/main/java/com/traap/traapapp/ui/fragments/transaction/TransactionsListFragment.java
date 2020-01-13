@@ -273,8 +273,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
             tvCount = rootView.findViewById(R.id.tvCount);
 
-            tvMaxPrice.setText("10,000,000 زیال");
-            tvMinPrice.setText("0 زیال");
+            tvMaxPrice.setText("10,000,000 ریال");
+            tvMinPrice.setText("0 ریال");
 
             rangeBar.setRange(0f, 20f, 1f);
             rangeBar.setProgress(0f, 20f);
@@ -670,8 +670,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
         maxPrice = MAX_PRICE_DEFAULT;
         minPrice = 0;
-        tvMaxPrice.setText("10,000,000 زیال");
-        tvMinPrice.setText("0 زیال");
+        tvMaxPrice.setText("10,000,000 ریال");
+        tvMinPrice.setText("0 ریال");
         rangeBar.setProgress(0f, 20f);
 
         chbSuccessPayment.setChecked(false);
