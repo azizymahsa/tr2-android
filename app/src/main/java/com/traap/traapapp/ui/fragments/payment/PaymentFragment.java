@@ -51,7 +51,6 @@ import com.traap.traapapp.utilities.Tools;
 public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseFragment implements FavoriteCardParentActionView,
         PaymentParentActionView, PaymentActionView
 {
-
     private Fragment cardFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
