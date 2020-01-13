@@ -69,6 +69,7 @@
     <dimen name="news_archive_width" >120dp</dimen>
     <dimen name="news_newest_height" >160dp</dimen>
     <dimen name="news_favorite_title_height" >75dp</dimen>
+    <dimen name="slider_height_wallet" >100dp</dimen>
     <dimen name="slider_height" >190dp</dimen>
     <dimen name="slider_height_app">220dp</dimen>
     <dimen name="slider_height_app_">230dp</dimen>
@@ -80,6 +81,7 @@
     <dimen name="header_week_no_width">60dp</dimen>
     <dimen name="header_week_no_height">35dp</dimen>
     <dimen name="any_chart_height">220dp</dimen>
+    <dimen name="_120_btn_dp">120dp</dimen>
 
 
     <dimen name="_5dp">5dp</dimen>

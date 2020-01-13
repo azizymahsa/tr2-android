@@ -226,7 +226,7 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
         String title = "با انجام این پرداخت، مبلغ "+etAmount.getText().toString()+"ریال بابت \"افزایش موجودی\"، از حساب شما کسر خواهد شد.";
         String mobile = "";
-        mainView.openIncreaseWalletPaymentFragment(this, data.getUrl(), R.drawable.ic_inc_inv,
+        mainView.openIncreaseWalletPaymentFragment(this, data.getUrl(), R.drawable.ic_increase_payment,
                 title, etAmount.getText().toString(), paymentInstance, mobile, TrapConfig.PAYMENT_STATUS_INCREASE_WALLET);
     }
 

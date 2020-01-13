@@ -229,7 +229,7 @@
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/tvPredictResult"
-                android:layout_width="@dimen/_120dp"
+                android:layout_width="@dimen/_120_btn_dp"
                 android:layout_height="@dimen/_30dp"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
@@ -240,7 +240,7 @@
                 android:paddingEnd="16dp"
                 android:text=" پیش بینی نتیجه"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/borderColorRed"
+                android:textColor="@color/textColorPrimary"
                 android:textStyle="bold"
                 android:transitionName="transition"
                 android:translationZ="3dp"
@@ -253,7 +253,7 @@
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/tvBuyTicket"
-                android:layout_width="@dimen/_120dp"
+                android:layout_width="@dimen/_120_btn_dp"
                 android:layout_height="@dimen/_30dp"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
@@ -265,7 +265,7 @@
                 android:paddingEnd="16dp"
                 android:text="خرید بلیت"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/borderColorRed"
+                android:textColor="@color/textColorPrimary"
                 android:textStyle="bold"
                 android:transitionName="transition"
                 android:translationZ="3dp"
