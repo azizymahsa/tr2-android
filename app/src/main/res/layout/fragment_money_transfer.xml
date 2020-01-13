@@ -84,10 +84,7 @@
             android:gravity="center|end"
             android:orientation="horizontal">
 
-
-
-
-                <ImageView
+              <!--  <ImageView
                     android:id="@+id/ivContact"
                     android:src="@drawable/ic_phone_book"
                     android:layout_width="@dimen/_35dp"
@@ -96,8 +93,9 @@
                     android:padding="@dimen/_5sdp"
                     android:layout_marginEnd="5dp"
                     android:tint="@color/gray"
+                    android:visibility="gone"
                     android:background="@drawable/button_small_border"
-                    android:foreground="?attr/selectableItemBackground" />
+                    android:foreground="?attr/selectableItemBackground" />-->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -114,14 +112,15 @@
                     android:textSize="@dimen/textSize_12dp"
                     android:textColor="@color/warmGray"
                     />
+
                 <Spinner
                     android:id="@+id/spinnerType"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35dp"
+                    android:layout_height="38dp"
                     android:layout_gravity="center"
+                    android:background="@drawable/background_spinner_amount_charge"
                     android:gravity="right"
-                    android:tag="allBox"
-                    android:background="@drawable/background_spinner_amount_charge" />
+                    android:tag="allBox" />
 <!--
                 <AutoCompleteTextView
                     android:id="@+id/autoCompletePhoneNumber"
@@ -153,18 +152,102 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|end"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="20" />
 
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+        <LinearLayout
+            android:id="@+id/llPhoneNumber"
+            android:layout_width="@dimen/_200dp"
+            android:layout_height="@dimen/_60dp"
+            android:gravity="center|end"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/ivContact"
+                android:src="@drawable/ic_phone_book"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_35dp"
+                android:layout_gravity="bottom"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginEnd="5dp"
+                android:tint="@color/gray"
+                android:background="@drawable/button_small_border"
+                android:foreground="?attr/selectableItemBackground" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:gravity="center|end"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    app:hintTextAppearance="@style/TextLabel"
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="@dimen/_60dp"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:hint="به:"
+                    android:theme="@style/EditTextHint"
+                    android:layout_marginStart="5dp">
+
+                    <com.traap.traapapp.utilities.ClearableEditText
+                        android:id="@+id/etPhoneNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="49dp"
+                        android:layout_gravity="start"
+                        android:layout_weight="100"
+                        android:backgroundTint="@color/black"
+                        android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                        android:gravity="start"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/chargePackTextColor"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--
+                                <AutoCompleteTextView
+                                    android:id="@+id/autoCompletePhoneNumber"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_35dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="right"
+                                    android:text=""
+                                    android:inputType="number"
+                                    android:imeOptions="actionDone"
+                                    android:textColor="@color/chargePackTextColor"
+                                    android:textSize="@dimen/textSize_16dp"
+                                    android:background="@drawable/background_spinner_amount_charge"
+                                    />
+                -->
+
+            </LinearLayout>
 
 
+        </LinearLayout>
 
-
+        <LinearLayout
+            android:id="@+id/llCardNumber"
+            android:layout_width="@dimen/_200dp"
+            android:layout_height="@dimen/_60dp"
+            android:gravity="center|end"
+            android:orientation="horizontal"
+            android:visibility="gone">
         <com.google.android.material.textfield.TextInputLayout
             app:hintTextAppearance="@style/TextLabel"
             android:layout_width="@dimen/_200dp"
@@ -176,7 +259,7 @@
             android:layout_marginStart="5dp">
 
             <com.traap.traapapp.utilities.ClearableEditText
-                android:id="@+id/edtDestination"
+                android:id="@+id/etCardNumber"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:layout_gravity="start"
@@ -193,7 +276,46 @@
                 android:textSize="@dimen/textSize_12dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
+        <LinearLayout
+        android:id="@+id/llUserCode"
+        android:layout_width="@dimen/_200dp"
+        android:layout_height="@dimen/_60dp"
+        android:gravity="center|end"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <com.google.android.material.textfield.TextInputLayout
+            app:hintTextAppearance="@style/TextLabel"
+            android:layout_width="@dimen/_200dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:hint="به:"
+            android:theme="@style/EditTextHint"
+            android:layout_marginStart="5dp">
+
+            <com.traap.traapapp.utilities.ClearableEditText
+                android:id="@+id/etUserCode"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:layout_gravity="start"
+                android:layout_weight="100"
+                android:backgroundTint="@color/black"
+                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                android:gravity="start"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="13"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/chargePackTextColor"
+                android:textSize="@dimen/textSize_12dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+</RelativeLayout>
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -213,34 +335,30 @@
 
 
 
-
-
         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextAppearance="@style/TextLabel"
             android:layout_width="@dimen/_200dp"
             android:layout_height="@dimen/_60dp"
+            app:passwordToggleDrawable="@drawable/show_password_selector"
+            android:id="@+id/inputLayout3"
             android:layout_gravity="start"
-            android:gravity="start"
-            android:hint="رمز"
-            android:theme="@style/EditTextHint"
-            android:layout_marginStart="5dp">
+            android:layout_marginStart="5dp"
+            app:passwordToggleEnabled="true">
 
-            <com.traap.traapapp.utilities.ClearableEditText
+            <EditText
+                android:id="@+id/etPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
-                android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                android:layout_gravity="start"
-                android:gravity="start"
-                android:imeOptions="actionDone"
+                android:drawableLeft="@drawable/ic_eye"
+                android:ems="10"
+                android:hint="رمز"
+                android:imeOptions="actionGo"
                 android:inputType="numberPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:layout_weight="100"
-                android:maxLength="10"
+                android:maxLength="12"
                 android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_12dp" />
+                android:textSize="@dimen/textSize_12dp"
+                android:padding="10dp">
 
+            </EditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space
@@ -276,6 +394,7 @@
             android:layout_marginStart="5dp">
 
             <com.traap.traapapp.utilities.ClearableEditText
+                android:id="@+id/etAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
@@ -369,7 +488,7 @@
             android:layout_weight="100">
 
             <include
-                android:id="@+id/btnChargeConfirmRightel"
+                android:id="@+id/btnConfirm"
                 layout="@layout/circular_progress_button_small" />
 
         </FrameLayout>

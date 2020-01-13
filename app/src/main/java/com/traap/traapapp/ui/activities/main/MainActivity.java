@@ -70,6 +70,7 @@ import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
 import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.drawer.MenuDrawer;
@@ -150,6 +151,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private boolean hasPaymentCharge = false;
     private boolean hasPaymentPackageSimcard = false;
     private int PAYMENT_STATUS = 0;
+    private boolean hasPaymentIncreaseWallet=false;
 
 //    private void hideNavBar()
 //    {
@@ -240,7 +242,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (Intent.ACTION_VIEW.equals(intent.getAction()))
         {
             Uri uri = intent.getData();
-
             refrenceNumber = uri.getQueryParameter("refrencenumber").replace("/", "");
             typeTransaction = uri.getQueryParameter("typetransaction").replace("/", "");
             try
@@ -254,6 +255,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
                 {
                     hasPaymentTicket = true;
+                }else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET){
+                    hasPaymentIncreaseWallet=true;
                 }
 
             } catch (Exception e)
@@ -987,7 +990,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                             ((PackFragment) fragment).onSelectContact(onSelectContact);
                         } else if (fragment instanceof BillFragment) {
                             ((BillFragment) fragment).onSelectContact(onSelectContact);
-                        }
+                        }else if(fragment instanceof WalletFragment){}
+                        ((com.traap.traapapp.ui.fragments.gateWay.MoneyTransferFragment) fragment).onSelectContact(onSelectContact);
 
                     }
                     phones.close();
@@ -2065,6 +2069,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         } else if (hasPaymentCharge || hasPaymentPackageSimcard)
         {
             Intent intent = new Intent(this, PaymentResultChargeActivity.class);
+            intent.putExtra("RefrenceNumber", refrenceNumber);
+            //intent.putExtra("StatusPayment", true);
+            startActivity(intent);
+        }else if (hasPaymentIncreaseWallet){
+            Intent intent = new Intent(this, PaymentResultIncreaseInventoryActivity.class);
             intent.putExtra("RefrenceNumber", refrenceNumber);
             //intent.putExtra("StatusPayment", true);
             startActivity(intent);

@@ -8,15 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionList;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.utilities.Utility;
 
@@ -105,28 +109,45 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
                         intent.putExtra("RefrenceNumber", item.getId().toString());
                         intent.putExtra("isTransactionList", true);
                         mContext.startActivity(intent);
-                    } else if (item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_ChargeSimCard||
-                        item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_PackSimCard){
+                    } else if (item.getTypeTransactionId() == TrapConfig.PAYMENT_STAUS_ChargeSimCard ||
+                            item.getTypeTransactionId() == TrapConfig.PAYMENT_STAUS_PackSimCard)
+                    {
 
-                    Intent intent = new Intent(mContext, PaymentResultChargeActivity.class);
-                    intent.putExtra("RefrenceNumber", item.getId().toString());
-                   // intent.putExtra("StatusPayment", item.getStatus());
-                    mContext.startActivity(intent);
-                }else {
-                    Intent intent = new Intent(mContext, PaymentResultActivity.class);
-                    intent.putExtra("RefrenceNumber", item.getId().toString());
-                    // intent.putExtra("StatusPayment", item.getStatus());
-                    mContext.startActivity(intent);
-                }
-            }else if (item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_ChargeSimCard||
-                        item.getTypeTransactionId()==TrapConfig.PAYMENT_STAUS_PackSimCard)
+                        Intent intent = new Intent(mContext, PaymentResultChargeActivity.class);
+                        intent.putExtra("RefrenceNumber", item.getId().toString());
+                        // intent.putExtra("StatusPayment", item.getStatus());
+                        mContext.startActivity(intent);
+                    } else if (item.getTypeTransactionId() == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
+                    {
+
+                        Intent intent = new Intent(mContext, PaymentResultIncreaseInventoryActivity.class);
+                        intent.putExtra("RefrenceNumber", item.getId().toString());
+                        mContext.startActivity(intent);
+
+                    } else
+                    {
+                        Intent intent = new Intent(mContext, PaymentResultActivity.class);
+                        intent.putExtra("RefrenceNumber", item.getId().toString());
+                        // intent.putExtra("StatusPayment", item.getStatus());
+                        mContext.startActivity(intent);
+                    }
+                } else if (item.getTypeTransactionId() == TrapConfig.PAYMENT_STAUS_ChargeSimCard ||
+                        item.getTypeTransactionId() == TrapConfig.PAYMENT_STAUS_PackSimCard)
                 {
 
                     Intent intent = new Intent(mContext, PaymentResultChargeActivity.class);
                     intent.putExtra("RefrenceNumber", item.getId().toString());
                     // intent.putExtra("StatusPayment", item.getStatus());
                     mContext.startActivity(intent);
-                }else  {
+                } else if (item.getTypeTransactionId() == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
+                {
+
+                    Intent intent = new Intent(mContext, PaymentResultIncreaseInventoryActivity.class);
+                    intent.putExtra("RefrenceNumber", item.getId().toString());
+                    mContext.startActivity(intent);
+
+                } else
+                {
                     Intent intent = new Intent(mContext, PaymentResultActivity.class);
                     intent.putExtra("RefrenceNumber", item.getId().toString());
                     // intent.putExtra("StatusPayment", item.getStatus());

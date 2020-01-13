@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/llResult"
+                android:layout_width="@dimen/_220sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/background_charge_result"
+                android:layout_marginTop="@dimen/_40dp"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:paddingTop="@dimen/_10dp"
+                android:paddingBottom="-2dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvStatusPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:textColor="@color/kellyGreen"
+                    android:textSize="@dimen/textSize_12dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:text=""
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvPackageTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/tvCardNumDestination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=" "
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvRefrenceNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/img_bottom_result_charge"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:tint="@color/greyish"
+
+                    />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/llShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_30dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="اشتراک گذاری"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/warmGray"
+                        android:textSize="@dimen/textSize_12dp" />
+
+
+                    <ImageView
+                        android:id="@+id/btnShare"
+                        android:layout_width="@dimen/_35dp"
+                        android:layout_height="@dimen/_35dp"
+                        android:background="@drawable/button_small_border"
+                        app:srcCompat="@drawable/ic_share"
+                        android:padding="@dimen/_5dp"
+                        android:tint="@color/buttonHeaderBackgroundColor"
+                        android:foreground="?attr/selectableItemBackground"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="ذخیره"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/warmGray"
+                        android:textSize="@dimen/textSize_12dp" />
+
+
+                    <ImageView
+                        android:id="@+id/btnSaveResult"
+                        android:layout_width="@dimen/_35dp"
+                        android:layout_height="@dimen/_35dp"
+                        android:background="@drawable/button_small_border"
+                        app:srcCompat="@drawable/ic_save"
+                        android:padding="@dimen/_8dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvBackHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackground"
+                android:text="بازگشت به خانه"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/redBack"
+                android:padding="8dp"
+                android:paddingRight="@dimen/_10dp"
+                android:paddingLeft="@dimen/_10dp"
+                android:layout_gravity="center"
+                android:textSize="@dimen/textSize_14dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:background="@drawable/background_border_a"
+                />
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <include layout="@layout/loading"
+        android:visibility="gone"/>
+</RelativeLayout>
