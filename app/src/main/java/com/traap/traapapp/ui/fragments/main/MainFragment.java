@@ -921,28 +921,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             btnBuyTicket.revertAnimation();
             btnBuyTicket.setClickable(true);
         });
-       /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
-                "آیا مایلید صفحه خرید بلیت نمایش داده شود؟",
-                true, new MessageAlertDialog.OnConfirmListener()
-        {
-            @Override
-            public void onConfirmClick()
-            {
-                mainView.getBuyEnable(() ->
-                {
-
-                });
-            }
-
-            @Override
-            public void onCancelClick()
-            {
-
-            }
-        }
-        );
-        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");*/
-
     }
 
     public void showIntro(List<ResultHelpMenu> results)
