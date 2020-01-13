@@ -82,7 +82,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
             holder.tvPredictResult.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket));
             holder.tvBuyTicket.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket_disable));
 
-            holder.tvBuyTicket.setTextColor(Color.RED);
+            holder.tvBuyTicket.setTextColor(mContext.getResources().getColor(R.color.textColorPrimary));
             holder.tvPredictResult.setTextColor(Color.WHITE);
 
         } else if (matchItem.getBuyEnable())
@@ -92,15 +92,15 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
             holder.tvBuyTicket.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket));
 
             holder.tvBuyTicket.setTextColor(Color.WHITE);
-            holder.tvPredictResult.setTextColor(Color.RED);
+            holder.tvPredictResult.setTextColor(mContext.getResources().getColor(R.color.textColorPrimary));
         } else
         {
 
             holder.tvPredictResult.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket_disable));
             holder.tvBuyTicket.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.button_buy_ticket_disable));
 
-            holder.tvBuyTicket.setTextColor(Color.RED);
-            holder.tvPredictResult.setTextColor(Color.RED);
+            holder.tvBuyTicket.setTextColor(mContext.getResources().getColor(R.color.textColorPrimary));
+            holder.tvPredictResult.setTextColor(mContext.getResources().getColor(R.color.textColorPrimary));
 
         }
         if (matchItem.getIs_chart_predict() != null)

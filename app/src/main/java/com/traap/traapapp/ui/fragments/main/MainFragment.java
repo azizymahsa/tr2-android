@@ -922,7 +922,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             btnBuyTicket.setClickable(true);
         });
        /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
-                "آیا مایلید صفحه خرید بلیط نمایش داده شود؟",
+                "آیا مایلید صفحه خرید بلیت نمایش داده شود؟",
                 true, new MessageAlertDialog.OnConfirmListener()
         {
             @Override
