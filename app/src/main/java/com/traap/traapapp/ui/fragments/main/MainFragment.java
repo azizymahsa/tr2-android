@@ -719,7 +719,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     @Override
                     public void onPermissionGranted()
                     {
-                        // Utility.openUrlCustomTab(getActivity(), URl);
                         Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("URL", URl);
                         intent.putExtra("Title", "بیمه");
