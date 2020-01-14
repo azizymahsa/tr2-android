@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Collections;
 import java.util.List;
 
+import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.models.otherModels.menuItems.MenuItems;
 
@@ -50,7 +51,14 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
 
 //        holder.lyItem.setVisibility(View.VISIBLE);
 
-        holder.MenuIcon.setImageDrawable(context.getResources().getDrawable(current.getImgResID()));
+        if (current.getImgResID() != 0)
+        {
+            holder.MenuIcon.setImageDrawable(context.getResources().getDrawable(current.getImgResID()));
+        }
+        else
+        {
+            Picasso.with(context).load(current.getImgURL()).into(holder.MenuIcon);
+        }
         holder.MenuItem.setText(current.getItemName());
 
         if (!current.getIsActive())
