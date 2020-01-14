@@ -26,6 +26,12 @@ public class GetBalancePasswordLessRequest
     @Setter
     private String pin2_new;
 
+    @SerializedName("username")
+    @Expose
+    @Getter
+    @Setter
+    private String username;
+
     @SerializedName("pin2_old")
     @Expose
     @Getter

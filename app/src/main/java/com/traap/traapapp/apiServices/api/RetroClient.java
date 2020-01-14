@@ -22,6 +22,8 @@ import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardReques
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
+import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletRequest;
+import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletResponse;
 import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferRequest;
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
@@ -472,6 +474,10 @@ public interface RetroClient
             @Body RequestIncreaseWallet request
     );
 
+    @POST(Const.DoTransferWallet)
+    Single<Response<WebServiceClass<DoTransferWalletResponse>>> doTransferWallet(
+            @Body DoTransferWalletRequest request
+    );
 
     @POST(Const.ForgetPasswordWallet)
     Single<Response<WebServiceClass<ForgetPasswordWalletResponse>>> forgetPasswordWallet(

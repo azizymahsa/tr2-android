@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -142,5 +143,11 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
 
 
         }
+    }
+
+    public void onSelectContact(OnSelectContact onSelectContact)
+    {
+        if(fragment instanceof MoneyTransferFragment){}
+        ((MoneyTransferFragment) fragment).onSelectContact(onSelectContact);
     }
 }
