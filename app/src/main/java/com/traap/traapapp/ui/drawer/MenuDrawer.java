@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.drawer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -19,15 +22,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuItemResponse;
 import com.traap.traapapp.models.otherModels.menuItems.MenuItems;
 import com.traap.traapapp.ui.adapters.menuDrawer.MenuDrawerAdapter;
 import com.traap.traapapp.utilities.Logger;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 public class MenuDrawer extends Fragment
 {
     private RelativeLayout cardProfile;
+    private TextView tvMyProfile;
+
+    private Context mContext;
+    private ArrayList<GetMenuItemResponse> drawerListMenu = new ArrayList<>();
 
     private static String TAG = MenuDrawer.class.getSimpleName();
 
@@ -61,6 +73,13 @@ public class MenuDrawer extends Fragment
     }
 
     @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        mContext = context;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
@@ -68,6 +87,7 @@ public class MenuDrawer extends Fragment
         View layout = inflater.inflate(R.layout.menudrawer_fragment, container, false);
 
         recyclerView = layout.findViewById(R.id.drawerList);
+        tvMyProfile = layout.findViewById(R.id.tvMyProfile);
 
         cardProfile = layout.findViewById(R.id.cardProfile);
         cardProfile.setOnClickListener(v ->
@@ -82,74 +102,101 @@ public class MenuDrawer extends Fragment
             mDrawerLayout.closeDrawer(containerView);
         });
 
+        setContent();
 
+        EventBus.getDefault().register(this);
+        return layout;
+    }
+
+    private void setContent()
+    {
         dataList = new ArrayList<>();
 
-        dataList.add(new MenuItems(1, "سوابق خرید و تراکنش ها", R.drawable.ic_transaction_list, true));
-//        dataList.add(new MenuItems(2, "امتیازات", R.drawable.ic_score, false));
-////        dataList.add(new MenuItems(3, "جشنواره", R.drawable.ic_logo_red));
-        dataList.add(new MenuItems(4, "کیف پول", R.drawable.ic_wallet, true));
-//        dataList.add(new MenuItems(5, "مدیریت کارت ها", R.drawable.ic_card_management, false));
-//        dataList.add(new MenuItems(13, "جدول لیگ برتر", R.drawable.icon_leag, false));
-//        dataList.add(new MenuItems(6, "دعوت از دوستان", R.drawable.ic_invite_friends, false));
-//        dataList.add(new MenuItems(8, "تنظیمات", R.drawable.ic_setting, false));
-        dataList.add(new MenuItems(10, "راهنما", R.drawable.ic_help, true));
-        dataList.add(new MenuItems(9, "ارتباط با پشتیبانی", R.drawable.ic_support, true));
-        dataList.add(new MenuItems(7, "درباره ما", R.drawable.ic_about_us, true));
-////        dataList.add(new MenuItems(11, "انتقادات و پیشنهادات", R.drawable.ic_logo_red));
-////        dataList.add(new MenuItems(12, "خروج از حساب کاربری", R.drawable.ic_exit_app, true));
-
-        adapter = new MenuDrawerAdapter(getActivity(), dataList);
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
-                recyclerView, new ClickListener()
+        if (!drawerListMenu.isEmpty())
         {
-            @Override
-            public void onClick(View view, int position)
+            for (GetMenuItemResponse item: drawerListMenu)
             {
-                Logger.e("--click menu Drawer--", "Clicked");
-
-//                Tools.showToast(view.getContext(), "click menu");
-
-                drawerListener.onDrawerItemSelected(view, dataList.get(position).getId());
-                if (position != 0)
+                if (item.getKeyId() == 81)
                 {
-                    mDrawerLayout.closeDrawer(containerView);
+                    tvMyProfile.setText(item.getTitle());
+                }
+                else
+                {
+                    MenuItems menuItem = new MenuItems();
+                    menuItem.setId(item.getKeyId());
+                    menuItem.setItemName(item.getTitle());
+                    menuItem.setIsActive(item.getIsVisible());
+                    menuItem.setImgURL(item.getImageName());
+                    dataList.add(menuItem);
+
+//                dataList.add(new MenuItems(1, "سوابق خرید و تراکنش ها", R.drawable.ic_transaction_list, true));
+//                dataList.add(new MenuItems(4, "کیف پول", R.drawable.ic_wallet, true));
+//                dataList.add(new MenuItems(10, "راهنما", R.drawable.ic_help, true));
+//                dataList.add(new MenuItems(9, "ارتباط با پشتیبانی", R.drawable.ic_support, true));
+//                dataList.add(new MenuItems(7, "درباره ما", R.drawable.ic_about_us, true));
+                }
+            }
+
+            adapter = new MenuDrawerAdapter(mContext, dataList);
+
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(mContext,
+                    recyclerView, new ClickListener()
+            {
+                @Override
+                public void onClick(View view, int position)
+                {
+                    Logger.e("--click menu Drawer--", "Clicked");
+
+                    drawerListener.onDrawerItemSelected(view, dataList.get(position).getId());
+                    if (position != 0)
+                    {
+                        mDrawerLayout.closeDrawer(containerView);
+                    }
                 }
 
-            }
+                @Override
+                public void onLongClick(View view, int position)
+                {
 
-            @Override
-            public void onLongClick(View view, int position)
-            {
+                }
+            }));
+        }
 
-            }
-        }));
+    }
 
-        return layout;
+    @Subscribe
+    public void setData(ArrayList<GetMenuItemResponse> drawerListMenu)
+    {
+        if (!Objects.requireNonNull(drawerListMenu).isEmpty())
+        {
+            this.drawerListMenu = drawerListMenu;
+        }
+        else
+        {
+            this.drawerListMenu = new ArrayList<>();
+        }
+        setContent();
     }
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar)
     {
-        containerView = getActivity().findViewById(fragmentId);
+        containerView = ((Activity) mContext).findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
-        mDrawerToggle = new ActionBarDrawerToggle(getActivity(),
+        mDrawerToggle = new ActionBarDrawerToggle(((Activity) mContext),
                 drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close)
         {
             @Override
             public void onDrawerOpened(View drawerView)
             {
                 super.onDrawerOpened(drawerView);
-//                getActivity().invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerClosed(View drawerView)
             {
                 super.onDrawerClosed(drawerView);
-//                getActivity().invalidateOptionsMenu();
             }
 
             @Override
@@ -240,4 +287,10 @@ public class MenuDrawer extends Fragment
         }
     }
 
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
 }
