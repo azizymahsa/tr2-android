@@ -16,5 +16,6 @@ public interface LoginView extends BaseView
     void onTick(String second);
 
     void onError(String message, String name, boolean showClassName);
+    void onError(String message);
 
 }

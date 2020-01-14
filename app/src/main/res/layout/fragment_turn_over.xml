@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10dp"
+
+                android:layout_marginRight="@dimen/_10dp"
+
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/btnFilter"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/background_border_a"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/imgFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/textColorPrimary"
+                        app:srcCompat="@drawable/ic_filter" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="فیلتر"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/llSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:layout_toLeftOf="@+id/btnFilter"
+                    android:background="@drawable/background_border_gray"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <com.traap.traapapp.utilities.ClearableEditText
+                        android:id="@+id/edtSearchText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_toRightOf="@+id/imgSearch"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:hint="جستجوی کد پیگیری..."
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/textColorSecondary"
+                        android:textColorHint="@color/textHint"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                style="@style/TabLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+
+                android:background="@drawable/background_border_gray"
+                app:tabBackground="@drawable/tab_background"
+                app:tabGravity="fill"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorHeight="0dp"
+
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed"
+                app:tabTextColor="@color/textHint" />
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_300dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:fillViewport="true"
+
+                />
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

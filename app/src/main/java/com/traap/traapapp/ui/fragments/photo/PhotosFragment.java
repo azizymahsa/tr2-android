@@ -152,9 +152,9 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void onReady(WebServiceClass<MainPhotoResponse> response)
             {
-                mainView.hideLoading();
                 try
                 {
+                    mainView.hideLoading();
 
                     if (response.info.statusCode == 200)
                     {
@@ -282,9 +282,9 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
             {
-                mainView.hideLoading();
                 try
-                {
+                {                mainView.hideLoading();
+
 
                     if (response.info.statusCode == 200)
                     {

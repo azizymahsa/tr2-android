@@ -33,6 +33,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.KeyboardUtils;
 import com.traap.traapapp.utilities.Logger;
@@ -265,6 +266,11 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         }
     }
 
+    @Override
+    public void onError(String message) {
+        MessageAlertDialog dialog = new MessageAlertDialog(this, "", message);
+        dialog.show(getFragmentManager(), "dialog");
+    }
 
 
     @Override

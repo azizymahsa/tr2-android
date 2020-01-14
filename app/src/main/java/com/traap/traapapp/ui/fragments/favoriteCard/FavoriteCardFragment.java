@@ -196,46 +196,49 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     @Override
     public void onReady(WebServiceClass<GetCardListResponse> response)
     {
-        parentView.hideFavoriteCardParentLoading();
+        try{
+            parentView.hideFavoriteCardParentLoading();
 
-        progress.setVisibility(View.GONE);
-        llCardList.setVisibility(View.VISIBLE);
-        llIndicator.setVisibility(View.VISIBLE);
+            progress.setVisibility(View.GONE);
+            llCardList.setVisibility(View.VISIBLE);
+            llIndicator.setVisibility(View.VISIBLE);
 
-        //fill adapter
-        if (response.info.statusCode == 200)
-        {
-            Result result = new Result();
-            result.setBankBin("");
-            cardList.add(result);
-            cardList.addAll(response.data.getResults());
-//            adapter = new CardViewPagerAdapter(cardList, this, this);
-            adapter.notifyDataSetChanged();
-
-            rvListCard.setAdapter(adapter);
-            indicator.attachToRecyclerView(rvListCard);
-
-            if (cardList.size() > 2)
+            //fill adapter
+            if (response.info.statusCode == 200)
             {
-                int favorittePos = 0;
-                for (int i = 1 ; i <= response.data.getResults().size() ; i++)
+                Result result = new Result();
+                result.setBankBin("");
+                cardList.add(result);
+                cardList.addAll(response.data.getResults());
+//            adapter = new CardViewPagerAdapter(cardList, this, this);
+                adapter.notifyDataSetChanged();
+
+                rvListCard.setAdapter(adapter);
+                indicator.attachToRecyclerView(rvListCard);
+
+                if (cardList.size() > 2)
                 {
-                    if (response.data.getResults().get(i-1).getIsFavorite())
+                    int favorittePos = 0;
+                    for (int i = 1 ; i <= response.data.getResults().size() ; i++)
                     {
-                        favorittePos = i;
+                        if (response.data.getResults().get(i-1).getIsFavorite())
+                        {
+                            favorittePos = i;
+                        }
                     }
+                    rvListCard.smoothScrollToPosition(favorittePos == 0 ? 1 : favorittePos);
                 }
-                rvListCard.smoothScrollToPosition(favorittePos == 0 ? 1 : favorittePos);
+                else
+                {
+                    rvListCard.smoothScrollToPosition(1);
+                }
             }
             else
             {
-                rvListCard.smoothScrollToPosition(1);
-            }
-        }
-        else
-        {
 
-        }
+            }
+
+        }catch (Exception e){}
 
 
     }
@@ -327,22 +330,25 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             @Override
             public void onReady(WebServiceClass<Result> response)
             {
-                parentView.hideFavoriteCardParentLoading();
+                try{
+                    parentView.hideFavoriteCardParentLoading();
 
-                if (response == null)
-                {
-                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                    return;
-                }
-                if (response.info.statusCode != 200)
-                {
-                    showError(getActivity(), response.info.message);
-                    return;
-                }
+                    if (response == null)
+                    {
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                        return;
+                    }
+                    if (response.info.statusCode != 200)
+                    {
+                        showError(getActivity(), response.info.message);
+                        return;
+                    }
 
-                showToast(getActivity(), "کارت با موفقیت ویرایش و بروزرسانی شد.", R.color.green);
-                cardList.set(position, cardDetail);
-                adapter.notifyDataSetChanged();
+                    showToast(getActivity(), "کارت با موفقیت ویرایش و بروزرسانی شد.", R.color.green);
+                    cardList.set(position, cardDetail);
+                    adapter.notifyDataSetChanged();
+                }catch (Exception e){}
+
             }
 
             @Override
@@ -365,22 +371,25 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             @Override
             public void onReady(WebServiceClass<Object> response)
             {
-                parentView.hideFavoriteCardParentLoading();
+                try{
+                    parentView.hideFavoriteCardParentLoading();
 
-                if (response == null)
-                {
-                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                    return;
-                }
-                if (response.info.statusCode != 204)
-                {
-                    showError(getActivity(), response.info.message);
-                    return;
-                }
+                    if (response == null)
+                    {
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                        return;
+                    }
+                    if (response.info.statusCode != 204)
+                    {
+                        showError(getActivity(), response.info.message);
+                        return;
+                    }
 
-                showToast(getActivity(), "کارت با موفقیت حذف شد.", R.color.green);
-                cardList.remove(position);
-                adapter.notifyDataSetChanged();
+                    showToast(getActivity(), "کارت با موفقیت حذف شد.", R.color.green);
+                    cardList.remove(position);
+                    adapter.notifyDataSetChanged();
+                }catch (Exception e){}
+
             }
 
             @Override
@@ -408,10 +417,13 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             @Override
             public void onReady(WebServiceClass<Object> response)
             {
-                parentView.hideFavoriteCardParentLoading();
+                try {
+                    parentView.hideFavoriteCardParentLoading();
 
-                showAlert(getActivity(), response.info.message, 0);
-            }
+                    showAlert(getActivity(), response.info.message, 0);
+
+                }catch (Exception e){}
+                    }
 
             @Override
             public void onError(String message)
@@ -438,9 +450,12 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             @Override
             public void onReady(WebServiceClass<Object> response)
             {
-                parentView.hideFavoriteCardParentLoading();
+                try {
+                    parentView.hideFavoriteCardParentLoading();
 
-                showAlert(getActivity(), response.info.message, 0);
+                    showAlert(getActivity(), response.info.message, 0);
+                }catch (Exception e){}
+
             }
 
             @Override
