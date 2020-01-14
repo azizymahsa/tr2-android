@@ -172,9 +172,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             @Override
             public void onReady(WebServiceClass<MainVideosResponse> response)
             {
-                mainView.hideLoading();
                 try
                 {
+                    mainView.hideLoading();
+
                     if (response.info.statusCode == 200)
                     {
                         mainVideosResponse = response.data;
@@ -328,9 +329,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
             {
-                mainView.hideLoading();
                 try
                 {
+                    mainView.hideLoading();
+
 
                     if (response.info.statusCode == 200)
                     {

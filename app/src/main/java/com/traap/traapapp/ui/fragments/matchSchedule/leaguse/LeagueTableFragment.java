@@ -169,9 +169,10 @@ public class LeagueTableFragment
     @Override
     public void onReady(WebServiceClass<ResponseLeage> response)
     {
-        mainView.hideLoading();
         try
         {
+            mainView.hideLoading();
+
             if (response == null || response.info == null)
             {
                 return;

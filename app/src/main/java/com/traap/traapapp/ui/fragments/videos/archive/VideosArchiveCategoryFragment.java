@@ -194,22 +194,23 @@ public class VideosArchiveCategoryFragment extends BaseFragment implements OnSer
     @Override
     public void onReady(WebServiceClass<ArchiveVideoResponse> response)
     {
-        if (response.info.statusCode != 200)
-        {
-            showError(context, response.info.message);
-        }
-        else
-        {
-            videosContentList = response.data.getResults();
-
-            Boolean FLAG_Favorite = false;
-            if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
+        try{
+            if (response.info.statusCode != 200)
             {
-                FLAG_Favorite = true;
+                showError(context, response.info.message);
             }
+            else
+            {
+                videosContentList = response.data.getResults();
 
-            adapter = new VideosArchiveAdapter(videosContentList, FLAG_Favorite, this);
-            recyclerView.setAdapter(adapter);
+                Boolean FLAG_Favorite = false;
+                if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
+                {
+                    FLAG_Favorite = true;
+                }
+
+                adapter = new VideosArchiveAdapter(videosContentList, FLAG_Favorite, this);
+                recyclerView.setAdapter(adapter);
 
 //            adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
 //            {
@@ -230,15 +231,17 @@ public class VideosArchiveCategoryFragment extends BaseFragment implements OnSer
 //                startActivityForResult(intent,100);
 //            });
 
-            adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
 
-            if (videosContentList.isEmpty())
-            {
-                tvEmpty.setVisibility(View.VISIBLE);
+                if (videosContentList.isEmpty())
+                {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                }
             }
-        }
 
-        progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }catch (Exception e){}
+
 
     }
 

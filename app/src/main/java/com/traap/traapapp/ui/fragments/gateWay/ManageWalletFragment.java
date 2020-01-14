@@ -242,10 +242,11 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onReady(WebServiceClass<ForgetPasswordWalletResponse> response)
             {
-                mainView.hideLoading();
 
                 try
                 {
+                    mainView.hideLoading();
+
                     if (response.info.statusCode == 200)
                     {
 

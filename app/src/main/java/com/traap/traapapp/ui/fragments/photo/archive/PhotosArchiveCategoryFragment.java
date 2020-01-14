@@ -168,31 +168,34 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
     @Override
     public void onReady(WebServiceClass<PhotoArchiveResponse> response)
     {
-        if (response.info.statusCode != 200)
-        {
-            showError(getActivity(), response.info.message);
-        }
-        else
-        {
-            photosContentList = response.data.getResults();
-
-            Boolean FLAG_Favorite = false;
-            if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
+        try{
+            if (response.info.statusCode != 200)
             {
-                FLAG_Favorite = true;
+                showError(getActivity(), response.info.message);
             }
-            adapter = new PhotosArchiveAdapter(photosContentList, FLAG_Favorite, this);
-            recyclerView.setAdapter(adapter);
-
-            adapter.notifyDataSetChanged();
-
-            if (photosContentList.isEmpty())
+            else
             {
-                tvEmpty.setVisibility(View.VISIBLE);
-            }
-        }
+                photosContentList = response.data.getResults();
 
-        progressBar.setVisibility(View.GONE);
+                Boolean FLAG_Favorite = false;
+                if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
+                {
+                    FLAG_Favorite = true;
+                }
+                adapter = new PhotosArchiveAdapter(photosContentList, FLAG_Favorite, this);
+                recyclerView.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
+
+                if (photosContentList.isEmpty())
+                {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                }
+            }
+
+            progressBar.setVisibility(View.GONE);
+        }catch (Exception e){}
+
 
     }
 

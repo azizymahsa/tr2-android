@@ -201,9 +201,10 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             @Override
             public void onReady(WebServiceClass<ArrayList<TypeCategory>> response)
             {
-                mainView.hideLoading();
                 try
                 {
+                    mainView.hideLoading();
+
                     if (response.info.statusCode != 200)
                     {
                         showAlertAndFinish(response.info.message);
@@ -272,6 +273,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             chbFailedPayment.setOnCheckedChangeListener(this);
 
             tvCount = rootView.findViewById(R.id.tvCount);
+
 
             tvMaxPrice.setText("10,000,000 ریال");
             tvMinPrice.setText("0 ریال");
@@ -1002,9 +1004,10 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     @Override
     public void onReady(WebServiceClass<ResponseTransaction> response)
     {
-        mainView.hideLoading();
         try
         {
+            mainView.hideLoading();
+
             if (response.info.statusCode != 200)
             {
                 showAlertAndFinish(response.info.message);

@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,6 +17,8 @@ import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.turnover.TurnoverFragment;
+
 import org.greenrobot.eventbus.Subscribe;
 
 /**
@@ -23,13 +27,13 @@ import org.greenrobot.eventbus.Subscribe;
 public class DetailsCartFragment extends BaseFragment implements View.OnClickListener
 {
 
-
     private View rootView;
     private MainActionView mainView;
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private LinearLayout lnrPayment, lnrGetReport, lnrManageWallet, lnrIncreaseInveronment, lnrDoTransfer, lnrGrid;
+
 
     public DetailsCartFragment()
     {
@@ -117,7 +121,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
                 Prefs.putInt("DetailCartStatus",0);
                 break;
             case R.id.lnrGetReport:
-                fragment = AccountInformationFragment.newInstance(mainView);
+                fragment = TurnoverFragment.newInstance(mainView);
                 showFragment(fragment);
                 Prefs.putInt("DetailCartStatus",0);
 

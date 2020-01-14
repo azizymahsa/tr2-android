@@ -178,19 +178,20 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
                 @Override
                 public void onReady(WebServiceClass<DecryptQrResponse> decryptQrResponse)
                 {
-                    new Handler().postDelayed(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            btnConfirm.revertAnimation(PaymentWithoutCardFragment2.this);
-                            btnConfirm.setClickable(true);
-                        }
-                    }, 200);
 
 
                     try
                     {
+                        new Handler().postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                btnConfirm.revertAnimation(PaymentWithoutCardFragment2.this);
+                                btnConfirm.setClickable(true);
+                            }
+                        }, 200);
+
                         if (decryptQrResponse.info.statusCode == 200)
                         {
                             if (decryptQrResponse.data.getIsPrintPos())
