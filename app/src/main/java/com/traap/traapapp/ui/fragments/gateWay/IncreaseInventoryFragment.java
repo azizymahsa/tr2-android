@@ -159,9 +159,22 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
                 // showAlert(getActivity(), "لطفا مبلغ را وارد کنید.", 0);
 
                 break;
-        /*case R.id.etAmount:
-            // sendRequest();
-            break;*/
+           /* case R.id.tvPChild:
+            {
+
+
+                child++;
+                tvCChild.setText(child + "");
+            }
+
+            case R.id.tvMChild:
+            {
+                if (child == 0)
+                    return;
+                child--;
+                tvCChild.setText(child + "");
+            }*/
+
         }
 
     }
