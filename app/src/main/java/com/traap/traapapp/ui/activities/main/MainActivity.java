@@ -991,7 +991,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         } else if (fragment instanceof BillFragment) {
                             ((BillFragment) fragment).onSelectContact(onSelectContact);
                         }else if(fragment instanceof WalletFragment){}
-                        ((com.traap.traapapp.ui.fragments.gateWay.MoneyTransferFragment) fragment).onSelectContact(onSelectContact);
+                        ((WalletFragment) fragment).onSelectContact(onSelectContact);
 
                     }
                     phones.close();

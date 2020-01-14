@@ -28,6 +28,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 
+import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
@@ -359,5 +360,11 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                 }
                 break;
         }
+    }
+
+    public void onSelectContact(OnSelectContact onSelectContact)
+    {
+        if(fragment instanceof DetailsCartFragment){}
+        ((DetailsCartFragment) fragment).onSelectContact(onSelectContact);
     }
 }
