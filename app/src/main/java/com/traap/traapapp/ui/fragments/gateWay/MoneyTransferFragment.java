@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.gateWay;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -20,24 +20,27 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
+import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletRequest;
+import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletResponse;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
+import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
 import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
-import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.dialogs.MoneyTransferAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
+import com.traap.traapapp.utilities.ConvertPersianNumberToString;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * Created by MahsaAzizi on 28/12/2019.
@@ -58,7 +61,8 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     private Integer TYPE_USER_CODE=0;
     private Integer TYPE_CARD_NUMBER=1;
     private Integer TYPE_PHONE_NUMBER=2;
-
+    private ConvertPersianNumberToString convertPersianNumberToString;
+    private String userName;
 
 
     public MoneyTransferFragment()
@@ -96,6 +100,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
     private void initView()
     {
+        convertPersianNumberToString=new ConvertPersianNumberToString();
 
         spinnerType=rootView.findViewById(R.id.spinnerType);
         ivContact=rootView.findViewById(R.id.ivContact);
@@ -116,6 +121,11 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         InputFilter[] filterNumber = new InputFilter[1];
         filterNumber[0] = new InputFilter.LengthFilter(11);
         etPhoneNum.setFilters(filterNumber);
+
+        InputFilter[] filterAmount = new InputFilter[1];
+        filterAmount[0] = new InputFilter.LengthFilter(14);
+        etAmount.setFilters(filterAmount);
+
 
         InputFilter[] filterUserCode = new InputFilter[1];
         filterUserCode[0] = new InputFilter.LengthFilter(5);
@@ -156,6 +166,47 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
+            }
+
+
+        });
+
+        etAmount.addTextChangedListener(new TextWatcher()
+        {
+            private String current = "";
+
+            @Override
+            public void afterTextChanged(Editable ss)
+            {
+                etAmount.removeTextChangedListener(this);
+
+                String s = etAmount.getText().toString();
+
+                s = s.replace(",", "");
+                if (s.length() > 0)
+                {
+                    DecimalFormat sdd = new DecimalFormat("#,###");
+                    Double doubleNumber = Double.parseDouble(s);
+
+                    String format = sdd.format(doubleNumber);
+                    etAmount.setText(format);
+                    etAmount.setSelection(format.length());
+
+                }
+                etAmount.addTextChangedListener(this);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
+            {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
             }
 
 
@@ -253,6 +304,8 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
                 mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
                 return;
             }
+            userName=etPhoneNum.getText().toString();
+
 
         }else if (type==TYPE_USER_CODE){
 
@@ -261,11 +314,14 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
                 mainView.showError("لطفا کد مشتری را وارد نمایید.");
                 return;
             }
-            if (etUserCode.getText().length() < 3){
+            if (etUserCode.getText().length() < 4){
 
                 mainView.showError("لطفا کد مشتری را صحیح وارد نمایید.");
                 return;
             }
+
+            userName=etUserCode.getText().toString();
+
 
         }else if (type==TYPE_CARD_NUMBER){
 
@@ -274,6 +330,9 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
                 mainView.showError("لطفا شماره کارت را وارد نمایید.");
                 return;
             }
+
+            userName=etCardNumber.getText().toString().replaceAll("-","");
+
 
         }
 
@@ -287,53 +346,54 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             mainView.showError("لطفا رمز را وارد نمایید.");
             return;
         }
+        if (etPass.getText().toString().length() < 4){
+            mainView.showError("لطفا رمز را صحیح وارد نمایید.");
+            return;
+        }
 
-        showDialogGetInfo();
+        requestGetInfo();
 
     }
 
-    private void showDialogGetInfo()
+    private void showDialogGetInfo(GetInfoWalletResponse data)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "تایید انتقال وجه از کیف پول", "از : کارت کیف پول ...", false,
-                new MessageAlertDialog.OnConfirmListener() {
-                    @Override
-                    public void onConfirmClick() {
+        String txtAmountDigit=" مبلغ: "+etAmount.getText().toString()+" ریال ";
+        String txtAmountChar= "("+convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(etAmount.getText().toString().replaceAll(",",""))),"ریال")+")";
+        String txtUserName=data.getFull_name()+" به: کارت کیف پول ";
+        String txtName= "";
 
-                        showPaymentFragment();
+        MoneyTransferAlertDialog dialog = new MoneyTransferAlertDialog(getActivity(), "تایید انتقال وجه از کیف پول", "از : کارت کیف پول "+ TrapConfig.HEADER_USER_NAME, true,
+                new MoneyTransferAlertDialog.OnConfirmListener()
+                {
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        requestDoTransfer(data.getCard_no());
+
                     }
 
                     @Override
-                    public void onCancelClick() {
-
+                    public void onCancelClick()
+                    {
+                        //mainView.backToMainFragment();
                     }
-                });
-
-        dialog.setCancelable(false);
-        dialog.show(getActivity().getFragmentManager(), "messageDialog");
+                },txtAmountDigit,txtAmountChar,txtUserName,txtName);
+        dialog.show((getActivity()).getFragmentManager(), "dialog");
     }
 
-    private void showPaymentFragment()
-    {
-        SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
-        paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STATUS_TRANSFER_MONEY);//13
-
-        String title = "با انجام این پرداخت، مبلغ "+etAmount.getText().toString()+"ریال بابت \"انتقال وجه\"، از حساب شما کسر خواهد شد.";
-        String mobile = "";
-       /* mainView.openIncreaseWalletPaymentFragment(this, data.getUrl(), R.drawable.ic_inc_inv,
-                title, etAmount.getText().toString(), paymentInstance, mobile, TrapConfig.PAYMENT_STATUS_INCREASE_WALLET);*/
-    }
-
-    private void sendRequest()
+    private void requestDoTransfer(String card_no)
     {
         mainView.showLoading();
-        RequestIncreaseWallet request = new RequestIncreaseWallet();
-        request.setAmount(Integer.parseInt(etCardNumber.getText().toString()));
-        SingletonService.getInstance().getBalancePasswordLessService().IncreaseInventoryWalletService(new OnServiceStatus<WebServiceClass<ResponseIncreaseWallet>>()
+        DoTransferWalletRequest request = new DoTransferWalletRequest();
+        request.setPin2(etPass.getText().toString());
+        request.setAmount(Integer.valueOf(etAmount.getText().toString().replaceAll(",","")));
+        request.setTo(card_no);
+        SingletonService.getInstance().doTransferWalletService().DoTransferWalletService(new OnServiceStatus<WebServiceClass<DoTransferWalletResponse>>()
         {
 
 
             @Override
-            public void onReady(WebServiceClass<ResponseIncreaseWallet> response)
+            public void onReady(WebServiceClass<DoTransferWalletResponse> response)
             {
                 mainView.hideLoading();
 
@@ -341,7 +401,8 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
                 {
                     if (response.info.statusCode == 200)
                     {
-                        openURL(response.data);
+
+                        showResultPayment();
 
                     } else
                     {
@@ -371,11 +432,60 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         }, request);
     }
 
-
-    private void openURL(ResponseIncreaseWallet data)
+    private void showResultPayment()
     {
-        Utility.openUrlCustomTab(getActivity(), data.getUrl());
+        Intent intent = new Intent(this.getContext(), PaymentResultIncreaseInventoryActivity.class);
+       // intent.putExtra("RefrenceNumber", item.getId().toString());
+        this.startActivity(intent);
     }
+
+    private void requestGetInfo()
+    {
+        mainView.showLoading();
+        GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
+        request.setIsWallet(true);
+        request.setUsername(userName);
+        SingletonService.getInstance().getBalancePasswordLessService().GetInfoWalletService(new OnServiceStatus<WebServiceClass<GetInfoWalletResponse>>()
+        {
+
+
+            @Override
+            public void onReady(WebServiceClass<GetInfoWalletResponse> response)
+            {
+                mainView.hideLoading();
+
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        showDialogGetInfo(response.data);
+
+                    } else
+                    {
+
+                        mainView.showError(response.info.message);
+
+                    }
+                } catch (Exception e)
+                {
+                    mainView.showError(e.getMessage());
+
+                }
+
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+
+                mainView.showError(message);
+                mainView.hideLoading();
+
+            }
+        }, request);
+    }
+
 
     public void onSelectContact(OnSelectContact onSelectContact)
     {

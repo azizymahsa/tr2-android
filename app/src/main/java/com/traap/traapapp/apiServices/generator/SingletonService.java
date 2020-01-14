@@ -13,6 +13,7 @@ import com.traap.traapapp.apiServices.part.BuyChargeWalletService;
 import com.traap.traapapp.apiServices.part.CategoryByIdVideosService;
 import com.traap.traapapp.apiServices.part.DeleteCardService;
 import com.traap.traapapp.apiServices.part.DoTransferCardService;
+import com.traap.traapapp.apiServices.part.DoTransferWalletService;
 import com.traap.traapapp.apiServices.part.EditCardService;
 import com.traap.traapapp.apiServices.part.FlightService;
 import com.traap.traapapp.apiServices.part.ForgetPasswordWalletService;
@@ -213,6 +214,12 @@ public class SingletonService
     public GetBalancePasswordLessService getBalancePasswordLessService()
     {
         return new GetBalancePasswordLessService(serviceGenerator);
+    }
+
+
+    public DoTransferWalletService doTransferWalletService()
+    {
+        return new DoTransferWalletService(serviceGenerator);
     }
 
     public TransactionService getTransactionService()
