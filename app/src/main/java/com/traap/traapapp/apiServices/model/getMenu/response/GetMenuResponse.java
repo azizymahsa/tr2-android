@@ -10,6 +10,10 @@ import lombok.Setter;
 
 public class GetMenuResponse
 {
+    @SerializedName("drawer_menu")
+    @Expose @Getter @Setter
+    private ArrayList<GetMenuItemResponse> drawerMenu;
+
     @SerializedName("football_services")
     @Expose @Getter @Setter
     private ArrayList<GetMenuItemResponse> footballServiceList;
@@ -17,5 +21,4 @@ public class GetMenuResponse
     @SerializedName("chosen_services")
     @Expose @Getter @Setter
     private ArrayList<GetMenuItemResponse> chosenServiceList;
-
 }

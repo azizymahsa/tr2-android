@@ -82,6 +82,7 @@
         android:elevation="5dp">
 
         <TextView
+            android:id="@+id/tvMyProfile"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_35dp"
             android:text="حساب کاربری من"

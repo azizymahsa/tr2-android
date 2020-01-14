@@ -143,7 +143,7 @@
                                         android:gravity="right|center"
                                         android:digits="@string/persian_alphabet"
                                         android:nextFocusDown="@+id/etLastName"
-                                        android:inputType="text"
+                                        android:inputType="textNoSuggestions"
                                         android:maxLines="1"
                                         android:paddingTop="8dp"
                                         android:singleLine="true"
@@ -186,7 +186,7 @@
                                         android:gravity="right|center"
                                         android:digits="@string/persian_alphabet"
                                         android:nextFocusDown="@+id/etNickName"
-                                        android:inputType="text"
+                                        android:inputType="textNoSuggestions"
                                         android:maxLines="1"
                                         android:paddingTop="8dp"
                                         android:singleLine="true"
@@ -229,7 +229,7 @@
                                         android:gravity="right|center"
                                         android:digits="@string/all__alphabet"
                                         android:nextFocusDown="@+id/etFirstNameUS"
-                                        android:inputType="text"
+                                        android:inputType="textNoSuggestions"
                                         android:maxLines="1"
                                         android:paddingTop="8dp"
                                         android:singleLine="true"
@@ -272,7 +272,7 @@
                                         android:gravity="left|center_vertical"
                                         android:digits="@string/english_alphabet"
                                         android:nextFocusDown="@+id/etLastNameUS"
-                                        android:inputType="text"
+                                        android:inputType="textNoSuggestions"
                                         android:maxLines="1"
                                         android:paddingTop="8dp"
                                         android:singleLine="true"
@@ -315,7 +315,7 @@
                                         android:digits="@string/english_alphabet"
                                         android:gravity="left|center_vertical"
                                         android:nextFocusDown="@+id/etNationalCode"
-                                        android:inputType="text"
+                                        android:inputType="textNoSuggestions"
                                         android:maxLines="1"
                                         android:paddingTop="8dp"
                                         android:singleLine="true"
@@ -468,8 +468,8 @@
 
                                 <Space
                                     android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="20"/>
 
                                 <RelativeLayout
                                     android:id="@+id/rlBirthDay"
@@ -507,15 +507,14 @@
                                         app:mask="9999/99/99"
                                         android:textColorHint="@color/textColorSecondary"
                                         app:placeholder="_"
-                                        android:background="@android:color/transparent"
-                                        />
+                                        android:background="@android:color/transparent" />
 
                                     <ImageView
                                         android:id="@+id/imgBirthdayReset"
                                         style="?android:attr/borderlessButtonStyle"
                                         android:layout_width="@dimen/_25sdp"
-                                        android:layout_height="@dimen/_30sdp"
-                                        android:layout_alignParentLeft="true"
+                                        android:layout_toRightOf="@+id/imgBirthdaySet"
+                                        android:layout_height="@dimen/_35sdp"
                                         android:scaleType="centerCrop"
                                         android:visibility="gone"
                                         android:layout_centerVertical="true"
@@ -525,8 +524,8 @@
                                     <ImageView
                                         android:id="@+id/imgBirthdaySet"
                                         style="?android:attr/borderlessButtonStyle"
-                                        android:layout_width="@dimen/_25sdp"
-                                        android:layout_height="@dimen/_30sdp"
+                                        android:layout_width="@dimen/_35sdp"
+                                        android:layout_height="@dimen/_35sdp"
                                         android:layout_alignParentLeft="true"
                                         android:scaleType="centerCrop"
                                         android:visibility="visible"
@@ -662,7 +661,7 @@
                         android:visibility="gone"
                         app:elevation="3dp"
                         app:backgroundTint="@color/colorPrimary"
-                        android:src="@android:drawable/ic_delete"
+                        app:srcCompat="@android:drawable/ic_delete"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"/>
 

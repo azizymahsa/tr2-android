@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,7 +89,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private EditText tvBirthDay;
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture, fabDeleteProfile;
-    private ImageView imgProfile, imgBirthdayReset,imgBirthdaySet;
+    private ImageView imgProfile, imgBirthdayReset, imgBirthdaySet;
+    private RelativeLayout btnBirthdaySet;
 
     private Animation animHideButton, animShowButton;
 
@@ -256,7 +258,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
             tvBirthDay.setText("");
             imgBirthdayReset.setVisibility(View.GONE);
-            imgBirthdaySet.setVisibility(View.VISIBLE);
+//            btnBirthdaySet.setVisibility(View.VISIBLE);
 
         });
 
@@ -995,7 +997,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //                    tvBirthDay.setText(getPersianDate(response.data.getBirthday()));
                     tvBirthDay.setText(response.data.getBirthday().replace("-", "/"));
                     imgBirthdayReset.setVisibility(View.VISIBLE);
-                    imgBirthdaySet.setVisibility(View.GONE);
+//                    btnBirthdaySet.setVisibility(View.GONE);
                 }
             }
             catch (Exception e)
@@ -1127,7 +1129,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             String createDate = year + "/" + (month ) + "/" + day;
             tvBirthDay.setText(createDate);
             imgBirthdayReset.setVisibility(View.VISIBLE);
-            imgBirthdaySet.setVisibility(View.GONE);
+//            btnBirthdaySet.setVisibility(View.GONE);
 
         }
     }
