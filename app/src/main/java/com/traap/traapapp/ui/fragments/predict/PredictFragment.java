@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +66,7 @@ import org.greenrobot.eventbus.Subscribe;
  */
 @SuppressLint("ValidFragment")
 public class PredictFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<GetPredictResponse>>,
-        OnAnimationEndListener
+        OnAnimationEndListener, TextWatcher
 {
     private MatchItem matchPredict;
     private TextView tvUserName, tvHeaderPopularNo;
@@ -211,6 +215,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         edtAwayPredict = rootView.findViewById(R.id.edtAwayPredict);
         edtHomePredict = rootView.findViewById(R.id.edtHomePredict);
+
+        edtHomePredict.addTextChangedListener(this);
+        edtAwayPredict.addTextChangedListener(this);
 
         tvAwayPredict = rootView.findViewById(R.id.tvAwayPredict);
         tvHomePredict = rootView.findViewById(R.id.tvHomePredict);
@@ -380,24 +387,31 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 //            }
             if (response.data.getYouPredict())
             {
-                String result[] = response.data.getYouPredictResult().split("\\|");
-                if (isPredictable)
+                try
                 {
-                    edtHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
-                    edtAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
-                }
-                else
-                {
-                    tvHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
-                    tvAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
+                    String result[] = response.data.getYouPredictResult().split("\\|");
+                    if (isPredictable)
+                    {
+                        edtHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
+                        edtAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
+                    }
+                    else
+                    {
+                        tvHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
+                        tvAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
 
-                    sepHome.setVisibility(View.GONE);
-                    sepAway.setVisibility(View.GONE);
-                    edtHomePredict.setVisibility(View.GONE);
-                    edtAwayPredict.setVisibility(View.GONE);
-                    btnSendPredict.setVisibility(View.GONE);
-                    tvHomePredict.setVisibility(View.VISIBLE);
-                    tvAwayPredict.setVisibility(View.VISIBLE);
+                        sepHome.setVisibility(View.GONE);
+                        sepAway.setVisibility(View.GONE);
+                        edtHomePredict.setVisibility(View.GONE);
+                        edtAwayPredict.setVisibility(View.GONE);
+                        btnSendPredict.setVisibility(View.GONE);
+                        tvHomePredict.setVisibility(View.VISIBLE);
+                        tvAwayPredict.setVisibility(View.VISIBLE);
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
                 }
             }
 
@@ -651,6 +665,50 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             }
         });
         dialog.show(getActivity().getFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after)
+    {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count)
+    {
+        try
+        {
+            InputFilter[] fArray = new InputFilter[1];
+            if (s.length() == 0)
+            {
+                fArray[0] = new InputFilter.LengthFilter(2);
+//            edtHomePredict.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+//            edtAwayPredict.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+            }
+            else
+            {
+                if (Integer.parseInt(s.toString()) > 2)
+                {
+                    fArray[0] = new InputFilter.LengthFilter(1);
+                }
+                else
+                {
+                    fArray[0] = new InputFilter.LengthFilter(2);
+                }
+            }
+            edtHomePredict.setFilters(fArray);
+            edtAwayPredict.setFilters(fArray);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s)
+    {
+
     }
 
     @Override
