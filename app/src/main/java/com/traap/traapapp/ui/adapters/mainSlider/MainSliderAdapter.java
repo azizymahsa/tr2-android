@@ -258,7 +258,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
                     } else
                     {
                         MessageAlertDialog dialog = new MessageAlertDialog((Activity) mContext, "",
-                                "برای این بازی فروش بلیط وجود ندارد!",
+                                "برای این بازی فروش بلیت وجود ندارد!",
                                 false, new MessageAlertDialog.OnConfirmListener()
                         {
                             @Override
