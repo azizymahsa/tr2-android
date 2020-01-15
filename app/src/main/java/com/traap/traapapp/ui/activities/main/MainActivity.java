@@ -1068,9 +1068,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         } else if (fragment instanceof BillFragment)
                         {
                             ((BillFragment) fragment).onSelectContact(onSelectContact);
-                        }else if(fragment instanceof WalletFragment){}
+                        }else if(fragment instanceof WalletFragment){
                         ((WalletFragment) fragment).onSelectContact(onSelectContact);
-
+                        }
                     }
                     phones.close();
                 }
