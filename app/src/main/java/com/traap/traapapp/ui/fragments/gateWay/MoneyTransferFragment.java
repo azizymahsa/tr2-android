@@ -403,7 +403,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
                     if (response.info.statusCode == 200)
                     {
 
-                        showResultPayment();
+                        showResultPayment(response);
 
                     } else
                     {
@@ -433,10 +433,10 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         }, request);
     }
 
-    private void showResultPayment()
+    private void showResultPayment(WebServiceClass<DoTransferWalletResponse> response)
     {
         Intent intent = new Intent(this.getContext(), PaymentResultIncreaseInventoryActivity.class);
-       // intent.putExtra("RefrenceNumber", item.getId().toString());
+        intent.putExtra("RefrenceNumber", response.data.getTrnBizKey().toString());
         this.startActivity(intent);
     }
 
