@@ -20,7 +20,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100dp"
+        android:layout_height="@dimen/_120dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="4dp"
         android:layout_marginRight="8dp"
@@ -49,38 +49,29 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="10" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:gravity="center">
 
                     <ImageView
                         android:id="@+id/ivDec"
                         android:layout_width="@dimen/_20dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:tint="@color/grayColor"
+                        android:layout_alignParentLeft="true"
                         app:srcCompat="@drawable/ic_error_outline" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:layout_marginLeft="@dimen/_10dp"
-                        android:gravity="left"
-                        android:textStyle="bold"
-                        android:textColor="@color/kellyGreen"
-                        android:textSize="@dimen/textSize_14dp"
-                        android:visibility="invisible" />
-
-                    <TextView
                         android:id="@+id/txtCheck"
-                        android:layout_width="0dp"
+                        android:layout_toLeftOf="@+id/ivFlagCheck"
+                        android:layout_toRightOf="@+id/ivDec"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_10dp"
                         android:layout_weight="0.9"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:textStyle="bold"
                         android:text=""
                         android:textColor="@color/kellyGreen"
@@ -90,9 +81,10 @@
                         android:id="@+id/ivFlagCheck"
                         android:layout_width="@dimen/_20dp"
                         android:layout_height="@dimen/_20dp"
+                        android:layout_alignParentRight="true"
                         android:src="@drawable/check_mark" />
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <Space
                     android:layout_width="0dp"
@@ -111,7 +103,7 @@
                     android:id="@+id/txtDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
+                    android:layout_weight="1.5"
                     android:gravity="left"
                     android:text="1398/8/02"
                     android:paddingLeft="16dp"
@@ -132,7 +124,7 @@
                     android:id="@+id/txtStatus"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:gravity="right"
                     android:paddingRight="16dp"
                     android:text="ناموفق"

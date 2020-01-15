@@ -12,6 +12,7 @@
     android:textSize="@dimen/textSize_14dp"
     android:textStyle="bold"
     android:transitionName="transition"
+    android:elevation="3dp"
     app:finalCornerAngle="50dp"
     app:spinning_bar_color="@color/black"
     app:initialCornerAngle="50dp"
