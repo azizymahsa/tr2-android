@@ -90,7 +90,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                 }
                 if (mobileNumber.getText().toString().length() != 11)
                 {
-                    loginView.onError("لطفا شماره تلفن همراه خود را صحیح وارد نمایید", this.getClass().getSimpleName(), false);
+                    loginView.onError("لطفا شماره تلفن همراه خود را صحیح وارد نمایید");
                     return;
                 }
                 if (!mobileNumber.getText().toString().startsWith("09"))
@@ -369,18 +369,21 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     @Override
     public void onReady(WebServiceClass<LoginResponse> response)
     {
-        if (response != null)
-        {
-            loginView.onButtonActions(false, null);
-            countDownTimer.start();
-            loginView.hideLoading();
+        try{
+            if (response != null)
+            {
+                loginView.onButtonActions(false, null);
+                countDownTimer.start();
+                loginView.hideLoading();
 
-        }
-        else
-        {
-            Tools.showToast(appContext, "خطایی رخ داده است", R.color.red);
-            loginView.hideLoading();
-        }
+            }
+            else
+            {
+                Tools.showToast(appContext, "خطایی رخ داده است", R.color.red);
+                loginView.hideLoading();
+            }
+        }catch (Exception e){}
+
       /*  if (globalResponseWebServiceClass.statusCode == 200)
         {
             loginView.onButtonActions(false, null);

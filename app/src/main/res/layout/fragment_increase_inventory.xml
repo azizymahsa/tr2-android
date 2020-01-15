@@ -10,32 +10,33 @@
         android:id="@+id/llDetailDescriptionRightel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_gravity="center"
-        android:orientation="horizontal"
         android:layout_marginTop="@dimen/_10dp"
-        android:layout_marginBottom="@dimen/_10dp">
+        android:layout_marginBottom="@dimen/_10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="5"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="جهت افزایش موجودی لطفا مبلغ مورد نظر
- را وارد نمایید"
-            android:textColor="@color/black"
-            android:maxLines="2"
             android:layout_marginEnd="@dimen/_10dp"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="جهت افزایش موجودی لطفا مبلغ مورد نظر
+ را وارد نمایید."
+            android:textColor="@color/black"
             android:textSize="@dimen/textSize_12dp" />
+
         <ImageView
             android:id="@+id/ivContactR"
-            android:src="@drawable/ic_inc_inv_small"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="@dimen/_35dp"
-            android:padding="@dimen/_5sdp"
-            android:background="@drawable/button_small_border"
             android:layout_marginEnd="5dp"
-            android:foreground="?attr/selectableItemBackground" />
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/ic_inc_inv_small" />
 
     </LinearLayout>
 
@@ -57,17 +58,12 @@
             android:layout_height="@dimen/_35dp"
             android:layout_gravity="center"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/ic_list"
             android:background="@drawable/button_small_border"
-            android:textSize="@dimen/textSize_20dp"
             android:padding="@dimen/_5sdp"
+            android:src="@drawable/ic_list"
+            android:textSize="@dimen/textSize_20dp"
             android:transitionName="transition"
-            android:visibility="gone"
-            />
-
-
-
-
+            android:visibility="gone" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -78,21 +74,21 @@
             android:gravity="start"
             android:hint="مبلغ را به ریال وارد نمایید"
             android:theme="@style/EditTextHint"
+            android:visibility="gone"
             app:hintTextAppearance="@style/TextLabel">
 
             <com.traap.traapapp.utilities.ClearableEditText
                 android:id="@+id/etAmount"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="100"
                 android:backgroundTint="@color/black"
                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                android:layout_gravity="start"
                 android:gravity="start"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:singleLine="true"
-                android:layout_weight="100"
                 android:textColor="@color/chargePackTextColor"
                 android:textSize="@dimen/textSize_12dp" />
 
@@ -105,10 +101,160 @@
             android:layout_weight="20" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="144"
+            android:gravity="center|left"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtFive"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_border_a"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="5,000,000 ریال "
+                    android:textColor="@color/borderColorRed"
+                    android:textSize="@dimen/textSize_10dp" />
+
+                <TextView
+                    android:id="@+id/txtThree"
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5dp"
+                    android:layout_marginEnd="@dimen/_5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_border_a"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="3,000,000 ریال "
+                    android:textColor="@color/borderColorRed"
+                    android:textSize="@dimen/textSize_10dp" />
+
+                <TextView
+                    android:id="@+id/txtTwo"
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_border_a"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="2,000,000 ریال "
+                    android:textColor="@color/borderColorRed"
+                    android:textSize="@dimen/textSize_10dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10dp"
+                android:padding="2dp"
+                android:text="مبلغ(ریال)"
+                android:textSize="@dimen/textSize_10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40dp"
+                android:background="@drawable/background_l_r_round"
+                android:gravity="center|left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPlus"
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textColor="@color/red"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/txtAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_rectangle_with_out_round"
+                    android:digits="0,1,2,3,4,5,6,7,8,9"
+                    android:gravity="center"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:maxLength="11"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+
+                    />
+
+
+                <TextView
+                    android:id="@+id/tvMines"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/warmGray"
+                    android:textSize="22dp"
+
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtChrAmount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text=" ریال "
+                android:textSize="@dimen/textSize_12dp" />
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20dp"
         android:gravity="center|end"
         android:orientation="horizontal">
 
@@ -134,10 +280,6 @@
             android:layout_weight="40" />
 
     </LinearLayout>
-
-
-
-
 
 
 </LinearLayout>

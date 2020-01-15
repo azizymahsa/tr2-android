@@ -7,7 +7,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -22,10 +24,13 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.utilities.ClearableEditText;
+import com.traap.traapapp.utilities.ConvertPersianNumberToString;
+import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 /**
@@ -37,7 +42,10 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
     private View rootView, btnChargeConfirmRightel;
     private MainActionView mainView;
-    private ClearableEditText etAmount;
+    //private ClearableEditText etAmount;
+    private EditText txtAmount;
+    private TextView tvMines, tvPlus, txtChrAmount, txtFive, txtTwo, txtThree;
+    private int counterAmount = 0;
 
 
     public IncreaseInventoryFragment()
@@ -73,23 +81,34 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
     private void initView()
     {
-        etAmount = rootView.findViewById(R.id.etAmount);
+        txtFive = rootView.findViewById(R.id.txtFive);
+        txtThree = rootView.findViewById(R.id.txtThree);
+        txtTwo = rootView.findViewById(R.id.txtTwo);
+        txtChrAmount = rootView.findViewById(R.id.txtChrAmount);
+        tvMines = rootView.findViewById(R.id.tvMines);
+        tvPlus = rootView.findViewById(R.id.tvPlus);
+        txtAmount = rootView.findViewById(R.id.txtAmount);
+        //  etAmount = rootView.findViewById(R.id.etAmount);
         btnChargeConfirmRightel = rootView.findViewById(R.id.btnChargeConfirmRightel);
         btnChargeConfirmRightel.setOnClickListener(this);
 
-        InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(10);
-        etAmount.setFilters(filterArray);
-        etAmount.addTextChangedListener(new TextWatcher()
+
+        txtFive.setOnClickListener(this);
+        txtTwo.setOnClickListener(this);
+        txtThree.setOnClickListener(this);
+        tvPlus.setOnClickListener(this);
+        tvMines.setOnClickListener(this);
+
+        txtAmount.addTextChangedListener(new TextWatcher()
         {
             private String current = "";
 
             @Override
             public void afterTextChanged(Editable ss)
             {
-                etAmount.removeTextChangedListener(this);
+                txtAmount.removeTextChangedListener(this);
 
-                String s = etAmount.getText().toString();
+                String s = txtAmount.getText().toString();
 
                 s = s.replace(",", "");
                 if (s.length() > 0)
@@ -98,11 +117,17 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
                     Double doubleNumber = Double.parseDouble(s);
 
                     String format = sdd.format(doubleNumber);
-                    etAmount.setText(format);
-                    etAmount.setSelection(format.length());
+                    txtAmount.setText(format);
+                    txtAmount.setSelection(format.length());
 
                 }
-                etAmount.addTextChangedListener(this);
+                txtAmount.addTextChangedListener(this);
+
+                if (txtAmount.getText().toString().replaceAll(",", "").equals(""))
+                    txtAmount.setText("0");
+
+                txtChrAmount.setText(ConvertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(txtAmount.getText().toString().replaceAll(",", ""))), "ریال"));
+
             }
 
             @Override
@@ -141,12 +166,31 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     {
         switch (v.getId())
         {
+
+            case R.id.txtFive:
+                txtAmount.setText("5,000,000");
+                break;
+            case R.id.txtTwo:
+                txtAmount.setText("2,000,000");
+
+                break;
+            case R.id.txtThree:
+                txtAmount.setText("3,000,000");
+
+                break;
             case R.id.btnChargeConfirmRightel:
-                if (etAmount.getText().toString().length() > 0)
+                if (txtAmount.getText().toString().length() > 0)
                 {
-                    if (etAmount.getText().toString().length() > 3)
+                    if (txtAmount.getText().toString().length() >= 3)
                     {
-                        sendRequest();
+                        if (Integer.parseInt(txtAmount.getText().toString().replaceAll(",", "")) <= 500000000)
+                        {
+                            sendRequest();
+                        } else
+                        {
+                            mainView.showError("مبلغ غیر مجاز می باشد.(حداکثر 500,000,000 ریال)");
+
+                        }
                     } else
                     {
                         mainView.showError("مبلغ کمتر از سه رقم نباشد.");
@@ -159,9 +203,21 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
                 // showAlert(getActivity(), "لطفا مبلغ را وارد کنید.", 0);
 
                 break;
-        /*case R.id.etAmount:
-            // sendRequest();
-            break;*/
+            case R.id.tvPlus:
+
+                counterAmount = Integer.parseInt(txtAmount.getText().toString().replaceAll(",", ""));
+                counterAmount++;
+                txtAmount.setText(counterAmount + "");
+                break;
+
+            case R.id.tvMines:
+                counterAmount = Integer.parseInt(txtAmount.getText().toString().replaceAll(",", ""));
+                if (counterAmount == 0)
+                    return;
+                counterAmount--;
+                txtAmount.setText(counterAmount + "");
+                break;
+
         }
 
     }
@@ -170,7 +226,7 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     {
         mainView.showLoading();
         RequestIncreaseWallet request = new RequestIncreaseWallet();
-        request.setAmount(Integer.parseInt(etAmount.getText().toString().replaceAll(",", "")));
+        request.setAmount(Integer.parseInt(txtAmount.getText().toString().replaceAll(",", "")));
         SingletonService.getInstance().getBalancePasswordLessService().IncreaseInventoryWalletService(new OnServiceStatus<WebServiceClass<ResponseIncreaseWallet>>()
         {
 
@@ -178,10 +234,11 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
             @Override
             public void onReady(WebServiceClass<ResponseIncreaseWallet> response)
             {
-                mainView.hideLoading();
 
                 try
                 {
+                    mainView.hideLoading();
+
                     if (response.info.statusCode == 200)
                     {
                         openURL(response.data);
@@ -224,10 +281,10 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
         paymentInstance.setSimcardType(simcardType);
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));*/
 
-        String title = "با انجام این پرداخت، مبلغ "+etAmount.getText().toString()+"ریال بابت \"افزایش موجودی\"، از حساب شما کسر خواهد شد.";
+        String title = "با انجام این پرداخت، مبلغ " + txtAmount.getText().toString() + "ریال بابت \"افزایش موجودی\"، از حساب شما کسر خواهد شد.";
         String mobile = "";
         mainView.openIncreaseWalletPaymentFragment(this, data.getUrl(), R.drawable.ic_increase_payment,
-                title, etAmount.getText().toString(), paymentInstance, mobile, TrapConfig.PAYMENT_STATUS_INCREASE_WALLET);
+                title, txtAmount.getText().toString(), paymentInstance, mobile, TrapConfig.PAYMENT_STATUS_INCREASE_WALLET);
     }
 
     @Override

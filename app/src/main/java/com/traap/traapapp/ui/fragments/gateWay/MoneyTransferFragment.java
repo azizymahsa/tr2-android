@@ -395,10 +395,11 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             @Override
             public void onReady(WebServiceClass<DoTransferWalletResponse> response)
             {
-                mainView.hideLoading();
 
                 try
                 {
+                    mainView.hideLoading();
+
                     if (response.info.statusCode == 200)
                     {
 

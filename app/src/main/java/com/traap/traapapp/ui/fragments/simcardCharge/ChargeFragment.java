@@ -1242,6 +1242,11 @@ public class ChargeFragment extends BaseFragment
 
         }
         getBoughtForRequest();
+        FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+        flLogoToolbar.setOnClickListener(v -> {
+            mainView.backToMainFragment();
+
+        });
      /*   btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));
         btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));
         btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));*/

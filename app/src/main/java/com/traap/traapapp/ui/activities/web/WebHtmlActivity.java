@@ -52,7 +52,7 @@ public class WebHtmlActivity extends BaseActivity
 
         tvTitle.setText("مشاهده تغییرات");
 
-        tvUserName.setText(Prefs.getString("mobile", ""));
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         imgMenu.setVisibility(View.GONE);
         imgBack.setOnClickListener(v ->

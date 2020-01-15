@@ -73,13 +73,13 @@
             android:theme="@style/EditTextHint"
             app:hintTextAppearance="@style/TextLabel">
 
-            <com.traap.traapapp.utilities.ClearableEditText
+            <EditText
                 android:id="@+id/edtCurrency"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
-                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                android:digits="0,1,2,3,4,5,6,7,8,9"
                 android:layout_gravity="start"
                 android:gravity="start"
                 android:imeOptions="actionDone"
@@ -87,7 +87,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:layout_weight="100"
-                android:maxLength="11"
+                android:maxLength="7"
                 android:textColor="@color/chargePackTextColor"
                 android:textSize="@dimen/textSize_12dp" />
 

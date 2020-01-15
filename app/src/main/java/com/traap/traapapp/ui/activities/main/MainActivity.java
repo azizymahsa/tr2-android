@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -151,7 +152,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private boolean hasPaymentCharge = false;
     private boolean hasPaymentPackageSimcard = false;
     private int PAYMENT_STATUS = 0;
-    private boolean hasPaymentIncreaseWallet=false;
+    private boolean hasPaymentIncreaseWallet = false;
 
 //    private void hideNavBar()
 //    {
@@ -255,8 +256,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
                 {
                     hasPaymentTicket = true;
-                }else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET){
-                    hasPaymentIncreaseWallet=true;
+                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
+                {
+                    hasPaymentIncreaseWallet = true;
                 }
 
             } catch (Exception e)
@@ -298,6 +300,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        });
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setItemIconTintList(null);
+
+
 //        bottomNavigationView.getMenu().getItem(2).setChecked(true);
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
@@ -520,7 +525,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             if (i == index)
             {
                 bottomNavigationView.getMenu().getItem(index).setChecked(true);
-            } else
+            }
+            else
             {
                 bottomNavigationView.getMenu().getItem(index).setChecked(false);
             }
@@ -1120,8 +1126,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            transaction.commit();
 
             fragment = mainFragment;
-//            fragment = existingFragment;
-        } else
+        }
+        else
         {
             Logger.e("--mainFragment--", "--null--");
             fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
@@ -2131,8 +2137,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
-        }
-        else
+        } else
         {
             drawerMenu = response.data.getDrawerMenu();
             chosenServiceList = response.data.getChosenServiceList();
@@ -2240,7 +2245,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             intent.putExtra("RefrenceNumber", refrenceNumber);
             //intent.putExtra("StatusPayment", true);
             startActivity(intent);
-        }else if (hasPaymentIncreaseWallet){
+        } else if (hasPaymentIncreaseWallet)
+        {
             Intent intent = new Intent(this, PaymentResultIncreaseInventoryActivity.class);
             intent.putExtra("RefrenceNumber", refrenceNumber);
             //intent.putExtra("StatusPayment", true);

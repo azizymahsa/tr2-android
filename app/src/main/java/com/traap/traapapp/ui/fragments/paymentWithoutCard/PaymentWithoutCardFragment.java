@@ -237,7 +237,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
 
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
             TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
-            tvUserName.setText(Prefs.getString("mobile", ""));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
             tvTitle = v.findViewById(R.id.tvTitle);
             tvTitle.setText("پرداخت بدون کارت");
@@ -534,19 +534,20 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
             @Override
             public void onReady(WebServiceClass<DecryptQrResponse> decryptQrResponse)
             {
-                new Handler().postDelayed(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        btnConfirm.revertAnimation(PaymentWithoutCardFragment.this);
-                        btnConfirm.setClickable(true);
-                    }
-                }, 200);
+
 
 
                 try
                 {
+                    new Handler().postDelayed(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            btnConfirm.revertAnimation(PaymentWithoutCardFragment.this);
+                            btnConfirm.setClickable(true);
+                        }
+                    }, 200);
                     if (decryptQrResponse.info.statusCode == 200)
                     {
                         if (decryptQrResponse.data.getIsPrintPos())
@@ -630,10 +631,11 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     @Override
     public void onReady(WebServiceClass<PaymentPrintPosResponse> posResponse)
     {
-        btnPaymentConfirm.revertAnimation(this);
-        btnPaymentConfirm.setClickable(true);
+
         try
         {
+            btnPaymentConfirm.revertAnimation(this);
+            btnPaymentConfirm.setClickable(true);
             if (posResponse.info.statusCode == 200)
             {
                 etPassPayment.setText("");

@@ -8,14 +8,12 @@ import android.os.Build;
 
 //import androidx.multidex.MultiDex;
 import com.traap.traapapp.notification.SilentPushReceiver;
-import com.uxcam.UXCam;
 
 import androidx.multidex.MultiDex;
 
 import com.androidnetworking.AndroidNetworking;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.crash.FirebaseCrash;
 import com.jacksonandroidnetworking.JacksonParserFactory;
 //import com.orm.SugarContext;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -59,7 +57,7 @@ public class MyApplication extends ServiceApplication
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/iran_sans_normal.ttf").build());
         Realm.init(this);
 
-        UXCam.startWithKey("h6hki2cq0lq974n");
+       // UXCam.startWithKey("h6hki2cq0lq974n");
 
         FirebaseAnalytics.getInstance(this);
 //        FirebaseCrash.setCrashCollectionEnabled(!BuildConfig.DEBUG);

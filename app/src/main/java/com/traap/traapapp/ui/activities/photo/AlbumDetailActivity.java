@@ -214,8 +214,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         SingletonService.getInstance().categoryByIdVideosService().photosByIdPhotosService(idVideoCategory, request, new OnServiceStatus<WebServiceClass<PhotosByIdResponse>>() {
             @Override
             public void onReady(WebServiceClass<PhotosByIdResponse> response) {
-                hideLoading();
                 try {
+                    hideLoading();
 
                     if (response.info.statusCode == 200) {
 
@@ -287,8 +287,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response) {
-                hideLoading();
                 try {
+                    hideLoading();
 
                     if (response.info.statusCode == 200) {
 
@@ -516,8 +516,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         SingletonService.getInstance().getLikeVideoService().getPhotoDetailService(id, request, new OnServiceStatus<WebServiceClass<Content>>() {
             @Override
             public void onReady(WebServiceClass<Content> content) {
-                hideLoading();
                 try {
+                    hideLoading();
 
                     if (content.info.statusCode == 200) {
 

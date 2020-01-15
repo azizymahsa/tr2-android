@@ -3,11 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/background"
     android:fitsSystemWindows="true"
     tools:context="com.traap.traapapp.ui.activities.userProfile.UserProfileActivity">
 
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/slidingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        app:umanoPanelHeight="0dp"
+        app:umanoShadowHeight="4dp"
+        app:umanoParallaxOffset="0dp"
+        app:umanoOverlay="true"
+        app:umanoClipPanel="false"
+        android:visibility="visible"
+        app:umanoDragView="@+id/nestedScroll">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -31,8 +43,9 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -41,7 +54,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:paddingLeft="16dp"
@@ -50,7 +63,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_45sdp">
 
                         <androidx.cardview.widget.CardView
@@ -66,11 +79,12 @@
                             app:cardMaxElevation="5dp"
                             app:cardUseCompatPadding="true"
                             app:contentPadding="8dp"
-                            app:cardBackgroundColor="#F7F9FA"
+                            app:cardBackgroundColor="#fff"
                             app:strokeColor="@color/borderColorGray">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
+                                android:layout_marginTop="@dimen/_30dp"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
@@ -166,5 +180,18 @@
         </androidx.core.widget.NestedScrollView>
 
     </RelativeLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="bottom">
+
+            <include
+                android:id="@+id/scroll"
+                layout="@layout/layout_filter_turnover" />
+
+        </FrameLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
 </FrameLayout>

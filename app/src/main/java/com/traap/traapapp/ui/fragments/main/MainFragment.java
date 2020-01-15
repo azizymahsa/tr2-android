@@ -836,28 +836,31 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onReady(WebServiceClass<MachListResponse> responseMatchList)
     {
-        mainView.hideLoading();
+        try{
+            mainView.hideLoading();
 
-        if (responseMatchList == null || responseMatchList.info == null)
-        {
-            startActivityForResult(new Intent(context, LoginActivity.class), 100);
-            ((Activity) context).finish();
+            if (responseMatchList == null || responseMatchList.info == null)
+            {
+                startActivityForResult(new Intent(context, LoginActivity.class), 100);
+                ((Activity) context).finish();
 
-            return;
-        }
-        if (responseMatchList.info.statusCode != 200)
-        {
-            startActivityForResult(new Intent(context, LoginActivity.class), 100);
-            ((Activity) context).finish();
+                return;
+            }
+            if (responseMatchList.info.statusCode != 200)
+            {
+                startActivityForResult(new Intent(context, LoginActivity.class), 100);
+                ((Activity) context).finish();
 
-            return;
-        } else
-        {
-            matchList = responseMatchList.data.getMatchList();
-            MainActivity.matchList = matchList;
+                return;
+            } else
+            {
+                matchList = responseMatchList.data.getMatchList();
+                MainActivity.matchList = matchList;
 
-            setSlider();
-        }
+                setSlider();
+            }
+        }catch (Exception e){}
+
     }
 
     @Override
