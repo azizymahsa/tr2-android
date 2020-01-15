@@ -50,6 +50,7 @@ import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.KeyboardUtils;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NestedScrollableViewHelper;
 import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
@@ -84,7 +85,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     private RangeSeekBar rangeBar;
     private TextView tvMaxPrice, tvMinPrice, tvEmpty;
 
-    private static int MAX_PRICE_DEFAULT = 10000000;
+    private final int MAX_PRICE_DEFAULT = 10000000;
 
     private Integer maxPrice = MAX_PRICE_DEFAULT;
     private Integer minPrice = 0;
@@ -297,6 +298,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                     .throttleFirst(200, TimeUnit.MILLISECONDS)
                     .subscribe(v ->
                     {
+                        KeyboardUtils.forceCloseKeyboard(btnFilter);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                         if (isFilterEnable)
                         {
@@ -380,6 +382,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             disposable.add(RxView.clicks(btnConfirmFilter)
                     .subscribe(v ->
                     {
+                        KeyboardUtils.forceCloseKeyboard(btnConfirmFilter);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
                         createItemFilterData();
@@ -394,17 +397,20 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             disposable.add(RxView.clicks(imgSearch)
                     .subscribe(v ->
                     {
+                        KeyboardUtils.forceCloseKeyboard(imgSearch);
                         if (!edtSearchText.getText().toString().equalsIgnoreCase(""))
                         {
                             if (edtSearchText.getText().toString().trim().length() > 2)
                             {
-                                titleFilteredList += "کد پیگیری" + ",";
+                                if (!titleFilteredList.contains("کد پیگیری" + ","))
+                                {
+                                    titleFilteredList += "کد پیگیری" + ",";
+                                }
                                 llFilterHashTag.setVisibility(View.VISIBLE);
                                 setHashTag();
 
                                 isFilterEnable = true;
 
-//                                setPager(true, false);
                                 getData(true);
                             }
                             else
@@ -495,6 +501,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             disposable.add(RxView.clicks(btnDeleteFilter)
                     .subscribe(v ->
                     {
+                        KeyboardUtils.forceCloseKeyboard(btnDeleteFilter);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         edtSearchFilter.setText("");
                         edtSearchText.setText("");
@@ -792,7 +799,10 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
                                     if (!edtSearchText.getText().toString().equalsIgnoreCase(""))
                                     {
-                                        titleFilteredList += "کد پیگیری" + ",";
+                                        if (!titleFilteredList.contains("کد پیگیری" + ","))
+                                        {
+                                            titleFilteredList += "کد پیگیری" + ",";
+                                        }
                                     }
 
                                     if (chbSuccessPayment.isChecked() !=  chbFailedPayment.isChecked())
@@ -1011,12 +1021,15 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             if (response.info.statusCode != 200)
             {
                 showAlertAndFinish(response.info.message);
+                tvEmpty.setVisibility(View.GONE);
             }
             else
             {
                 if (response.data.getTransactionLists().isEmpty())
                 {
                     tvEmpty.setVisibility(View.VISIBLE);
+                    tvCount.setVisibility(View.INVISIBLE);
+                    rcTransactionList.setAdapter(null);
                 }
                 else
                 {
