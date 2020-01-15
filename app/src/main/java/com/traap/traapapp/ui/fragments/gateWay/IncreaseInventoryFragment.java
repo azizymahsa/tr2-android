@@ -25,6 +25,7 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
+import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -43,9 +44,8 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     private MainActionView mainView;
     //private ClearableEditText etAmount;
     private EditText txtAmount;
-    private TextView tvMines, tvPlus,txtChrAmount,txtFive,txtTwo,txtThree;
+    private TextView tvMines, tvPlus, txtChrAmount, txtFive, txtTwo, txtThree;
     private int counterAmount = 0;
-    ConvertPersianNumberToString convertPersianNumberToString=new ConvertPersianNumberToString();
 
 
     public IncreaseInventoryFragment()
@@ -88,7 +88,7 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
         tvMines = rootView.findViewById(R.id.tvMines);
         tvPlus = rootView.findViewById(R.id.tvPlus);
         txtAmount = rootView.findViewById(R.id.txtAmount);
-      //  etAmount = rootView.findViewById(R.id.etAmount);
+        //  etAmount = rootView.findViewById(R.id.etAmount);
         btnChargeConfirmRightel = rootView.findViewById(R.id.btnChargeConfirmRightel);
         btnChargeConfirmRightel.setOnClickListener(this);
 
@@ -98,9 +98,7 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
         txtThree.setOnClickListener(this);
         tvPlus.setOnClickListener(this);
         tvMines.setOnClickListener(this);
-        InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(10);
-        txtAmount.setFilters(filterArray);
+
         txtAmount.addTextChangedListener(new TextWatcher()
         {
             private String current = "";
@@ -125,10 +123,10 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
                 }
                 txtAmount.addTextChangedListener(this);
 
-                if(txtAmount.getText().toString().replaceAll(",","").equals(""))
+                if (txtAmount.getText().toString().replaceAll(",", "").equals(""))
                     txtAmount.setText("0");
 
-                txtChrAmount.setText(convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(txtAmount.getText().toString().replaceAll(",",""))),"ریال"));
+                txtChrAmount.setText(ConvertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(txtAmount.getText().toString().replaceAll(",", ""))), "ریال"));
 
             }
 
@@ -183,9 +181,16 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
             case R.id.btnChargeConfirmRightel:
                 if (txtAmount.getText().toString().length() > 0)
                 {
-                    if (txtAmount.getText().toString().length() > 3)
+                    if (txtAmount.getText().toString().length() >= 3)
                     {
-                        sendRequest();
+                        if (Integer.parseInt(txtAmount.getText().toString().replaceAll(",", "")) <= 500000000)
+                        {
+                            sendRequest();
+                        } else
+                        {
+                            mainView.showError("مبلغ غیر مجاز می باشد.(حداکثر 500,000,000 ریال)");
+
+                        }
                     } else
                     {
                         mainView.showError("مبلغ کمتر از سه رقم نباشد.");

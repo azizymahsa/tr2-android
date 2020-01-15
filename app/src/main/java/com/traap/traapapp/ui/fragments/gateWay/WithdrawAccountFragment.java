@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import com.traap.traapapp.ui.dialogs.WalletWithdrawAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
+import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -53,8 +55,8 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
     private View rootView, btnBackStep, btnGetMoney;
     private MainActionView mainView;
     private MaskedEditText edtShabaNum;
-    private ClearableEditText edtCurrency;
-    ConvertPersianNumberToString convertPersianNumberToString=new ConvertPersianNumberToString();
+    private EditText edtCurrency;
+    ConvertPersianNumberToString convertPersianNumberToString = new ConvertPersianNumberToString();
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -102,9 +104,18 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
         btnBackStep.setOnClickListener(this);
 
         InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(10);
-        edtCurrency.setFilters(filterArray);
-        edtCurrency.addTextChangedListener(new TextWatcher()
+        try
+        {
+            //filterArray[0] = new InputFilter.LengthFilter(8);
+            //edtCurrency.setFilters(filterArray);
+            edtCurrency.addTextChangedListener(new NumberTextWatcher(edtCurrency));
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+
+
+      /*  edtCurrency.addTextChangedListener(new TextWatcher()
         {
             private String current = "";
             @Override
@@ -141,7 +152,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
             }
 
 
-        });
+        });*/
     }
 
     @Subscribe
@@ -164,36 +175,48 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
         {
 
             case R.id.btnGetMoney:
-                if(edtCurrency.getText().toString().length()>3){
-                    if( !edtShabaNum.getText().toString().contains("_")){
-                        String txtAmountDigit=" مبلغ "+edtCurrency.getText().toString()+" ریال ";
-                        String txtAmountChar=convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(edtCurrency.getText().toString().replaceAll(",",""))),"ریال");
-                        String txtNumberShaba=edtShabaNum.getText().toString()+" به شماره شبا ";
-                        String txtName= "";
+                if (edtCurrency.getText().toString().length() > 3)
+                {
+                    if (Integer.parseInt(edtCurrency.getText().toString().replaceAll(",", "")) <= 900000)
+                    {
 
-                        WalletWithdrawAlertDialog dialog = new WalletWithdrawAlertDialog(getActivity(), "تایید برداشت از کیف پول", "از : کارت کیف پول "+TrapConfig.HEADER_USER_NAME, true,
-                                new WalletWithdrawAlertDialog.OnConfirmListener()
-                                {
-                                    @Override
-                                    public void onConfirmClick()
+                        if (!edtShabaNum.getText().toString().contains("_"))
+                        {
+                            String txtAmountDigit = " مبلغ " + edtCurrency.getText().toString() + " ریال ";
+                            String txtAmountChar = convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(edtCurrency.getText().toString().replaceAll(",", ""))), "ریال");
+                            String txtNumberShaba = edtShabaNum.getText().toString() + " به شماره شبا ";
+                            String txtName = "";
+
+                            WalletWithdrawAlertDialog dialog = new WalletWithdrawAlertDialog(getActivity(), "تایید برداشت از کیف پول", "از : کارت کیف پول " + TrapConfig.HEADER_USER_NAME, true,
+                                    new WalletWithdrawAlertDialog.OnConfirmListener()
                                     {
-                                        sendRequest();
+                                        @Override
+                                        public void onConfirmClick()
+                                        {
+                                            sendRequest();
 
-                                    }
+                                        }
 
-                                    @Override
-                                    public void onCancelClick()
-                                    {
-                                        mainView.backToMainFragment();
-                                    }
-                                },txtAmountDigit,txtAmountChar,txtNumberShaba,txtName);
-                        dialog.show((getActivity()).getFragmentManager(), "dialog");
+                                        @Override
+                                        public void onCancelClick()
+                                        {
+                                            mainView.backToMainFragment();
+                                        }
+                                    }, txtAmountDigit, txtAmountChar, txtNumberShaba, txtName);
+                            dialog.show((getActivity()).getFragmentManager(), "dialog");
 
-                    }else {
-                        mainView.showError("لطفا شماره شبا را وارد کنید.");
+                        } else
+                        {
+                            mainView.showError("لطفا شماره شبا را وارد کنید.");
+
+                        }
+                    } else
+                    {
+                        mainView.showError("مبلغ غیر مجاز می باشد.(حداکثر 900,000 ریال)");
 
                     }
-                }else{
+                } else
+                {
                     mainView.showError("لطفا مبلغ را وارد کنید.");
                 }
                 break;
@@ -204,6 +227,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                 break;
         }
     }
+
     void showFragment(Fragment fragment)
     {
         llWithDraw.setVisibility(View.GONE);
@@ -214,12 +238,13 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
 
         transaction.replace(R.id.container, fragment, "WalletFragment").commit();
     }
+
     private void sendRequest()
     {
         mainView.showLoading();
         WithdrawWalletRequest request = new WithdrawWalletRequest();
-        request.setAmount(Integer.parseInt(edtCurrency.getText().toString().replaceAll(",","")));
-        request.setSheba_number(edtShabaNum.getText().toString().replaceAll("-","").replaceAll(" ",""));
+        request.setAmount(Integer.parseInt(edtCurrency.getText().toString().replaceAll(",", "")));
+        request.setSheba_number(edtShabaNum.getText().toString().replaceAll("-", "").replaceAll(" ", ""));
         SingletonService.getInstance().withdrawWalletService().WithdrawWalletService(new OnServiceStatus<WebServiceClass<WithdrawWalletResponse>>()
         {
 
