@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -269,6 +270,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             chbFailedPayment = rootView.findViewById(R.id.chbFailedPayment);
 
             edtSearchText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            edtSearchText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
             chbSuccessPayment.setOnCheckedChangeListener(this);
             chbFailedPayment.setOnCheckedChangeListener(this);
