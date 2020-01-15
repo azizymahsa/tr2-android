@@ -66,7 +66,7 @@ public class ScreenShot
                             e.printStackTrace();
                         }
 
-                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/DCIM/Screenshots/", picName);
+                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/Screenshots/", picName);
 
                         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                         sharingIntent.setType("image/jpg");
@@ -126,7 +126,7 @@ public class ScreenShot
                             e.printStackTrace();
                         }
 
-                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/DCIM/Screenshots/", picName);
+                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/Screenshots/", picName);
 
                        /* Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                         sharingIntent.setType("image/jpg");
