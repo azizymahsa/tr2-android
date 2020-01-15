@@ -105,8 +105,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|end"
         android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|end"
         android:orientation="horizontal">
 
         <Space
@@ -130,13 +130,13 @@
                 <TextView
                     android:id="@+id/txtFive"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/background_border_a"
+                    android:gravity="center"
                     android:padding="2dp"
                     android:text="5,000,000 ریال "
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:background="@drawable/background_border_a"
                     android:textColor="@color/borderColorRed"
                     android:textSize="@dimen/textSize_10dp" />
 
@@ -144,15 +144,15 @@
                     android:id="@+id/txtThree"
 
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5dp"
                     android:layout_marginEnd="@dimen/_5dp"
-                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/background_border_a"
+                    android:gravity="center"
                     android:padding="2dp"
                     android:text="3,000,000 ریال "
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:background="@drawable/background_border_a"
                     android:textColor="@color/borderColorRed"
                     android:textSize="@dimen/textSize_10dp" />
 
@@ -161,19 +161,21 @@
 
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/background_border_a"
+                    android:gravity="center"
                     android:padding="2dp"
                     android:text="2,000,000 ریال "
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:background="@drawable/background_border_a"
                     android:textColor="@color/borderColorRed"
                     android:textSize="@dimen/textSize_10dp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
+
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10dp"
                 android:padding="2dp"
                 android:text="مبلغ(ریال)"
                 android:textSize="@dimen/textSize_10dp" />
@@ -251,7 +253,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_20dp"
         android:gravity="center|end"
         android:orientation="horizontal">
 
