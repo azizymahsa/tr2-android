@@ -46,7 +46,6 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     private EditText txtAmount;
     private TextView tvMines, tvPlus, txtChrAmount, txtFive, txtTwo, txtThree;
     private int counterAmount = 0;
-    ConvertPersianNumberToString convertPersianNumberToString = new ConvertPersianNumberToString();
 
 
     public IncreaseInventoryFragment()
@@ -127,7 +126,7 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
                 if (txtAmount.getText().toString().replaceAll(",", "").equals(""))
                     txtAmount.setText("0");
 
-                txtChrAmount.setText(convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(txtAmount.getText().toString().replaceAll(",", ""))), "ریال"));
+                txtChrAmount.setText(ConvertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(txtAmount.getText().toString().replaceAll(",", ""))), "ریال"));
 
             }
 
