@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -21,6 +22,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.mainVideos.Category;
 import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
+import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.enums.MediaArchiveCategoryCall;
 import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
@@ -247,13 +249,31 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
 
         if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
         {
+
+             List<Content> list=new ArrayList<>();
+
             Intent intent = new Intent(getActivity(), ShowBigPhotoActivity.class);
 
+            for (int i = 0; i <photosContentList.size() ; i++) {
+                Content content = new Content();
+                content.setLikes(photosContentList.get(i).getLikes());
+                content.setIsLiked(photosContentList.get(i).getIsLiked());
+                content.setIsBookmarked(photosContentList.get(i).getIsBookmarked());
+                content.setImageName(photosContentList.get(i).getImageName());
+                list.add(content);
+            }
+/*
             intent.putExtra("SRCImage", category.getImageName().getThumbnailLarge());
             intent.putExtra("LikeCount", category.getLikes());
             intent.putExtra("idPhoto", category.getId());
-            intent.putExtra("isLike", category.getIsLiked());
+            intent.putExtra("isLike", category.getIsLiked()); 021 77735971
             intent.putExtra("isBookmark", category.getIsBookmarked());
+            */
+
+
+            intent.putExtra("pic", position);
+            intent.putExtra("content",new Gson().toJson(list));
+
             getActivity().startActivityForResult(intent,100);
         }
         else

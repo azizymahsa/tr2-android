@@ -23,7 +23,6 @@ import androidx.core.app.NotificationCompat;
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
 
-import net.sourceforge.zbar.Config;
 
 import java.io.IOException;
 import java.io.InputStream;

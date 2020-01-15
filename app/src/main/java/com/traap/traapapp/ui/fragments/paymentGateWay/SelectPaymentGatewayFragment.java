@@ -291,7 +291,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         {
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);
-            tvUserName.setText(Prefs.getString("mobile", ""));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
             imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());

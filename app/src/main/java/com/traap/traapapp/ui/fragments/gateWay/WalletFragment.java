@@ -36,6 +36,7 @@ import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
+import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -205,7 +206,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);
-            tvUserName.setText(Prefs.getString("mobile", ""));
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
             tvHeaderPopularNo = rootView.findViewById(R.id.tvPopularPlayer);
             tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
             imgMenu = rootView.findViewById(R.id.imgMenu);

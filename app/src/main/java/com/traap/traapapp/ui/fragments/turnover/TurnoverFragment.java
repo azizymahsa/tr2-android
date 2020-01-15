@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -30,7 +29,6 @@ public class TurnoverFragment extends BaseFragment {
     private View rootView;
     private MainActionView mainView;
     private ViewPager vp;
-    private FragmentPagerItemAdapter adapter;
     private TabLayout tabLayout;
     private LinearLayout btnFilter;
 
