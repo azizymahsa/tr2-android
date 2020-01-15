@@ -240,7 +240,7 @@ public class Tools
             // File f2 = new File(Environment.getExternalStorageDirectory().toString()+"/Folder/"+file_name+".apk");
             // f2.createNewFile();
 
-            File f2 = new File(Environment.getExternalStorageDirectory().toString() + "/ZappShare" + "/SharedImages");
+            File f2 = new File(Environment.getExternalStorageDirectory().toString() + "/traap" + "/SharedImages");
             f2.mkdirs();
             f2 = new File(f2.getPath() + "/" + file_name + ".jpg");
             f2.createNewFile();
@@ -308,7 +308,7 @@ public class Tools
 
             for (File file : fileList)
             {
-                File filePath = new File(Environment.getExternalStorageDirectory().toString() + "/ZappBackup");
+                File filePath = new File(Environment.getExternalStorageDirectory().toString() + "/traap");
                 filePath.mkdirs();
                 filePath = new File(filePath.getPath() + "/" + file.getName() + ".apk");
                 backupFiles.add(filePath);
