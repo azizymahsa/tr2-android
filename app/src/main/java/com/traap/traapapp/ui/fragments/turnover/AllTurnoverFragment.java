@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.turnover;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,9 +96,9 @@ public class AllTurnoverFragment extends BaseFragment {
         request.setIsWallet(true);
         request.setPageNumber(1);
         request.setPageSize(10);
-        if (toDate != null)
+        if (toDate != null && !TextUtils.isEmpty(toDate))
             request.setToDate(Utility.getGrgDate(toDate));
-        if (fromDate != null)
+        if (fromDate != null && !TextUtils.isEmpty(fromDate))
             request.setFromDate(Utility.getGrgDate(fromDate));
         if (toAmount != null)
             request.setToAmount(toAmount);

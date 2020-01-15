@@ -36,6 +36,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrRequest;
 import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrResponse;
+import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -64,7 +65,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
     {
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
 
-        tvUserName.setText(Prefs.getString("mobile", ""));
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
         llQrScan = rootView.findViewById(R.id.llQrScan);
         llDetailPayment = rootView.findViewById(R.id.llDetailPayment);
