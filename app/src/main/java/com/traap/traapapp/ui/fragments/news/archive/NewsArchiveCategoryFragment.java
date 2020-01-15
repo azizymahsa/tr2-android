@@ -185,45 +185,48 @@ public class NewsArchiveCategoryFragment extends BaseFragment implements OnServi
     @Override
     public void onReady(WebServiceClass<NewsArchiveListByIdResponse> response)
     {
-        if (response.info.statusCode != 200)
-        {
-            showError(getActivity(), response.info.message);
-        }
-        else
-        {
-            newsContentList = response.data.getNewsArchiveListById();
-
-            adapter = new NewsArchiveAdapter(getActivity(), newsContentList);
-            recyclerView.setAdapter(adapter);
-
-            adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
+        try{
+            if (response.info.statusCode != 200)
             {
-                List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
-                for (int i = 0 ; i < newsContentList.size(); i++)
-                {
-                    MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
-                    model.setId(newsContentList.get(i).getId());
-                    model.setPosition(i);
-
-                    positionIdsList.add(model);
-                }
-
-                Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
-                intent.putExtra("currentId", id);
-                intent.putExtra("currentPosition", position);
-                intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
-                getActivity().startActivityForResult(intent,100);
-            });
-
-            adapter.notifyDataSetChanged();
-
-            if (newsContentList.isEmpty())
-            {
-                tvEmpty.setVisibility(View.VISIBLE);
+                showError(getActivity(), response.info.message);
             }
-        }
+            else
+            {
+                newsContentList = response.data.getNewsArchiveListById();
 
-        progressBar.setVisibility(View.GONE);
+                adapter = new NewsArchiveAdapter(getActivity(), newsContentList);
+                recyclerView.setAdapter(adapter);
+
+                adapter.SetOnItemClickListener((id, newsArchiveContent, position) ->
+                {
+                    List<MediaDetailsPositionIdsModel> positionIdsList = new ArrayList<>();
+                    for (int i = 0 ; i < newsContentList.size(); i++)
+                    {
+                        MediaDetailsPositionIdsModel model = new MediaDetailsPositionIdsModel();
+                        model.setId(newsContentList.get(i).getId());
+                        model.setPosition(i);
+
+                        positionIdsList.add(model);
+                    }
+
+                    Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+                    intent.putExtra("currentId", id);
+                    intent.putExtra("currentPosition", position);
+                    intent.putParcelableArrayListExtra("positionIdsList", (ArrayList<? extends Parcelable>) positionIdsList);
+                    getActivity().startActivityForResult(intent,100);
+                });
+
+                adapter.notifyDataSetChanged();
+
+                if (newsContentList.isEmpty())
+                {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                }
+            }
+
+            progressBar.setVisibility(View.GONE);
+
+        }catch (Exception e){}
 
     }
 

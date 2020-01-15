@@ -185,8 +185,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
 
-        ivFullInfo.setImageResource(R.drawable.select_step);
-        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
 
 
         vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
@@ -252,6 +251,10 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         Tools.showToast(this, error, R.color.red);
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+
+        ivFullInfo.setImageResource(R.drawable.un_check_mark);
+        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
         hideLoading();
     }
 
@@ -264,6 +267,10 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
+
+
+        ivFullInfo.setImageResource(R.drawable.un_check_mark);
+        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
     }
 

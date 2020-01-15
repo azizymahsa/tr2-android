@@ -223,8 +223,6 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
 
-        ivFullInfo.setImageResource(R.drawable.select_step);
-        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
 
 
@@ -302,6 +300,12 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         mainView.hideLoading();
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+
+
+
+        ivFullInfo.setImageResource(R.drawable.un_check_mark);
+        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
     }
 
     @Override
@@ -312,6 +316,10 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         mainView.hideLoading();
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+
+        ivFullInfo.setImageResource(R.drawable.un_check_mark);
+        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
     }
 

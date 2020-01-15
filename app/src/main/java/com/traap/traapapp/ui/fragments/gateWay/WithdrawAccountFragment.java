@@ -252,10 +252,11 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
             @Override
             public void onReady(WebServiceClass<WithdrawWalletResponse> response)
             {
-                mainView.hideLoading();
 
                 try
                 {
+                    mainView.hideLoading();
+
                     if (response.info.statusCode == 200)
                     {
                         showAlert(getActivity(), response.info.message, 0);

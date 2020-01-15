@@ -212,38 +212,41 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
     @Override
     public void onReady(WebServiceClass<GetNewsDetailsResponse> response)
     {
+        try{
+            hideLoading();
+
+            if (response.info.statusCode != 200)
+            {
+                showError(this, response.info.message);
+            }
+            else
+            {
+                try
+                {
+                    currentContent = response.data;
+                    setContentData();
+
+                    if (currentPosition > 0)
+                    {
+                        Integer prevPosition = currentPosition - 1;
+
+                        getPrevData(positionIdsList.get(prevPosition).getId());
+                    }
+                    if (currentPosition < positionIdsList.size()-1)
+                    {
+                        Integer nextPosition = currentPosition + 1;
+                        getNextData(positionIdsList.get(nextPosition).getId());
+                    }
+                }
+                catch (Exception e)
+                {
+                    showError(this, "خطای دریافت اطلاعات از سرور!");
+                    finish();
+                }
+            }
+        }catch (Exception e){}
 //            hideLoading();
-        hideLoading();
 
-        if (response.info.statusCode != 200)
-        {
-            showError(this, response.info.message);
-        }
-        else
-        {
-            try
-            {
-                currentContent = response.data;
-                setContentData();
-
-                if (currentPosition > 0)
-                {
-                    Integer prevPosition = currentPosition - 1;
-
-                    getPrevData(positionIdsList.get(prevPosition).getId());
-                }
-                if (currentPosition < positionIdsList.size()-1)
-                {
-                    Integer nextPosition = currentPosition + 1;
-                    getNextData(positionIdsList.get(nextPosition).getId());
-                }
-            }
-            catch (Exception e)
-            {
-                showError(this, "خطای دریافت اطلاعات از سرور!");
-                finish();
-            }
-        }
     }
 
     @Override
@@ -273,17 +276,20 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
             @Override
             public void onReady(WebServiceClass<GetNewsDetailsResponse> response)
             {
-                if (response.info.statusCode != 200)
-                {
-                    disableBtnNext();
-                    Logger.e("-OnFailure Next-", "Error: " + response.info.statusCode + "#" + response.info.message);
-                }
-                else
-                {
-                    nextContent = response.data;
-                }
-                aviNext.setVisibility(View.GONE);
-                rlNextNews.setVisibility(View.VISIBLE);
+                try{
+                    if (response.info.statusCode != 200)
+                    {
+                        disableBtnNext();
+                        Logger.e("-OnFailure Next-", "Error: " + response.info.statusCode + "#" + response.info.message);
+                    }
+                    else
+                    {
+                        nextContent = response.data;
+                    }
+                    aviNext.setVisibility(View.GONE);
+                    rlNextNews.setVisibility(View.VISIBLE);
+                }catch (Exception e){}
+
             }
 
             @Override
@@ -307,17 +313,20 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
             @Override
             public void onReady(WebServiceClass<GetNewsDetailsResponse> response)
             {
-                if (response.info.statusCode != 200)
-                {
-                    disableBtnPrev();
-                    Logger.e("-OnFailure Prev-", "Error: " + response.info.statusCode + "#" + response.info.message);
-                }
-                else
-                {
-                    prevContent = response.data;
-                }
-                aviPrev.setVisibility(View.GONE);
-                rlPrevNews.setVisibility(View.VISIBLE);
+                try{
+                    if (response.info.statusCode != 200)
+                    {
+                        disableBtnPrev();
+                        Logger.e("-OnFailure Prev-", "Error: " + response.info.statusCode + "#" + response.info.message);
+                    }
+                    else
+                    {
+                        prevContent = response.data;
+                    }
+                    aviPrev.setVisibility(View.GONE);
+                    rlPrevNews.setVisibility(View.VISIBLE);
+                }catch (Exception e){}
+
             }
 
             @Override

@@ -820,16 +820,19 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     @Override
     public void onReady(WebServiceClass<MediaArchiveCategoryResponse> response)
     {
-        if (response.info.statusCode != 200)
-        {
-            showError(getActivity(), response.info.message);
-        }
-        else
-        {
-            typeCategoryList = response.data.getTypeCategoryList();
+        try{
+            if (response.info.statusCode != 200)
+            {
+                showError(getActivity(), response.info.message);
+            }
+            else
+            {
+                typeCategoryList = response.data.getTypeCategoryList();
 
-            setPager(pagerWithFilter, pagerFromFavorite);
-        }
+                setPager(pagerWithFilter, pagerFromFavorite);
+            }
+        }catch (Exception e){}
+
     }
 
     @Override

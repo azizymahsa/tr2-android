@@ -251,36 +251,41 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     @Override
     public void onReady(WebServiceClass<NewsMainResponse> response)
     {
-        mainView.hideLoading();
+        try{
+            mainView.hideLoading();
 
-        if (response == null || response.info == null)
-        {
-            startActivity(new Intent(context, LoginActivity.class));
-            startActivityForResult(new Intent(getActivity(), LoginActivity.class),100);
-            getActivity().finish();
+            if (response == null || response.info == null)
+            {
+                startActivity(new Intent(context, LoginActivity.class));
+                startActivityForResult(new Intent(getActivity(), LoginActivity.class),100);
+                getActivity().finish();
 
-            return;
+                return;
+            }
+            if (response.info.statusCode != 200)
+            {
+                startActivity(new Intent(context, LoginActivity.class));
+                startActivityForResult(new Intent(getActivity(), LoginActivity.class),100);
+                getActivity().finish();
+
+                return;
+            }
+            else
+            {
+                newsMainResponse = response.data;
+
+                categoriesList = newsMainResponse.getCategories();
+                latestNewsList = newsMainResponse.getLatestNews();
+                favoriteNewsList = newsMainResponse.getFavoriteNews();
+
+                MainActivity.newsMainResponse = newsMainResponse;
+
+                setContent();
+            }
+        }catch (Exception e){
+
         }
-        if (response.info.statusCode != 200)
-        {
-            startActivity(new Intent(context, LoginActivity.class));
-            startActivityForResult(new Intent(getActivity(), LoginActivity.class),100);
-            getActivity().finish();
 
-            return;
-        }
-        else
-        {
-            newsMainResponse = response.data;
-
-            categoriesList = newsMainResponse.getCategories();
-            latestNewsList = newsMainResponse.getLatestNews();
-            favoriteNewsList = newsMainResponse.getFavoriteNews();
-
-            MainActivity.newsMainResponse = newsMainResponse;
-
-            setContent();
-        }
     }
 
     private void setContent()

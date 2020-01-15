@@ -2,6 +2,7 @@ package com.traap.traapapp.apiServices.api;
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 import com.traap.traapapp.apiServices.helper.Const;
@@ -53,6 +54,8 @@ import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
 import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import com.traap.traapapp.apiServices.model.getReport.request.GetReportRequest;
+import com.traap.traapapp.apiServices.model.getReport.response.GetReportResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.apiServices.model.getTypeTransaction.TypeTransaction;
@@ -654,5 +657,12 @@ public interface RetroClient
     @GET(Const.NEWS_DETAILS_GET_BOOKMARK)
     Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsBookmarks();
 
+
+
+    @POST(Const.GetReport)
+            Observable<Response<GetReportResponse>> getReport(
+
+            @Body GetReportRequest request
+    );
 
 }

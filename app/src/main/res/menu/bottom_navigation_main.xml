@@ -11,21 +11,21 @@
     <item
         android:id="@+id/tab_media"
         android:enabled="true"
-        android:icon="@drawable/ic_media"
+        android:icon="@drawable/ic_nav_media"
         android:title="رسانه"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/tab_home"
         android:enabled="true"
-        android:icon="@drawable/ic_logo_main2"
+        android:icon="@drawable/ic_nav_main"
         android:title="خانه"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/tab_all_services"
         android:enabled="true"
-        android:icon="@drawable/ic_services"
+        android:icon="@drawable/ic_nav_services"
         android:title="سرویس\u200cها"
         app:showAsAction="ifRoom" />
 

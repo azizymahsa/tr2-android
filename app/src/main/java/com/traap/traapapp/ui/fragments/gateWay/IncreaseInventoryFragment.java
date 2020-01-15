@@ -234,10 +234,11 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
             @Override
             public void onReady(WebServiceClass<ResponseIncreaseWallet> response)
             {
-                mainView.hideLoading();
 
                 try
                 {
+                    mainView.hideLoading();
+
                     if (response.info.statusCode == 200)
                     {
                         openURL(response.data);

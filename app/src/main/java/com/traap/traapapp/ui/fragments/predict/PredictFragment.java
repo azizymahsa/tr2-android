@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -275,6 +276,12 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 sendPredict();
             }
         });
+        FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+        flLogoToolbar.setOnClickListener(v -> {
+            mainView.backToMainFragment();
+
+        });
+
     }
 
     private void sendPredict()
@@ -333,6 +340,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     @Override
     public void onReady(WebServiceClass<GetPredictResponse> response)
     {
+
+
         mainView.hideLoading();
         if (response == null || response.data == null)
         {

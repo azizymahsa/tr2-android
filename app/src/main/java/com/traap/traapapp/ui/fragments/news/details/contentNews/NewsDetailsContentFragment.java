@@ -245,21 +245,24 @@ public class NewsDetailsContentFragment extends BaseFragment implements NewsDeta
                 @Override
                 public void onReady(WebServiceClass<NewsBookmarkResponse> response)
                 {
-                    if (response.info.statusCode == 200)
-                    {
-                        if (response.data.getIsBookmarked())
+                    try{
+                        if (response.info.statusCode == 200)
                         {
-                            imgBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
-                            //imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+                            if (response.data.getIsBookmarked())
+                            {
+                                imgBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                                //imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_gold));
+                            } else
+                            {
+                                imgBookmark.setColorFilter(getResources().getColor(R.color.borderBackgroundColor));
+                                // imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
+                            }
                         } else
                         {
-                            imgBookmark.setColorFilter(getResources().getColor(R.color.borderBackgroundColor));
-                            // imgBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_border));
+                            showAlert(context, response.info.message, R.string.error);
                         }
-                    } else
-                    {
-                        showAlert(context, response.info.message, R.string.error);
-                    }
+                    }catch (Exception e){}
+
                 }
 
                 @Override
@@ -363,25 +366,28 @@ public class NewsDetailsContentFragment extends BaseFragment implements NewsDeta
     @Override
     public void onReady(WebServiceClass<LikeNewsDetailResponse> response)
     {
-        if (response.info.statusCode == 200)
-        {
-            animateHeart(ivBigLike);
-            if (response.data.getIsLiked())
+        try{
+            if (response.info.statusCode == 200)
             {
-                imgLike.setColorFilter(getResources().getColor(R.color.imageLikedNewsTintColor));
-                tvLikeCounter.setTextColor(getResources().getColor(R.color.imageLikedNewsTintColor));
-                int likeCounter = response.data.getLikeCount();
-                tvLikeCounter.setText(String.valueOf(likeCounter));
-                content.setLikeCounter(likeCounter);
-            } else
-            {
-                imgLike.setColorFilter(getResources().getColor(R.color.textHint));
-                tvLikeCounter.setTextColor(getResources().getColor(R.color.textHint));
-                int likeCounter = response.data.getLikeCount();
-                tvLikeCounter.setText(String.valueOf(likeCounter));
-                content.setLikeCounter(likeCounter);
+                animateHeart(ivBigLike);
+                if (response.data.getIsLiked())
+                {
+                    imgLike.setColorFilter(getResources().getColor(R.color.imageLikedNewsTintColor));
+                    tvLikeCounter.setTextColor(getResources().getColor(R.color.imageLikedNewsTintColor));
+                    int likeCounter = response.data.getLikeCount();
+                    tvLikeCounter.setText(String.valueOf(likeCounter));
+                    content.setLikeCounter(likeCounter);
+                } else
+                {
+                    imgLike.setColorFilter(getResources().getColor(R.color.textHint));
+                    tvLikeCounter.setTextColor(getResources().getColor(R.color.textHint));
+                    int likeCounter = response.data.getLikeCount();
+                    tvLikeCounter.setText(String.valueOf(likeCounter));
+                    content.setLikeCounter(likeCounter);
+                }
             }
-        }
+        }catch (Exception e){}
+
     }
 
     @Override

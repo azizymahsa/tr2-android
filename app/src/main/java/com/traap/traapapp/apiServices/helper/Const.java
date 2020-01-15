@@ -177,4 +177,8 @@ public class Const
     public final static String NEWS_DETAILS_GET_BOOKMARK = SubBASEURL + "v1/news/bookmarks/";
 
 
+
+    public final static String GetReport = SubBASEURL + "v1/shetac/get_report/";
+
+
 }

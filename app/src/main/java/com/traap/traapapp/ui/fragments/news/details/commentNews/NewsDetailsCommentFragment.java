@@ -140,18 +140,21 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
                     @Override
                     public void onReady(WebServiceClass<Object> response)
                     {
-                        btnSendComment.revertAnimation(NewsDetailsCommentFragment.this);
-                        btnSendComment.setClickable(true);
+                        try{
+                            btnSendComment.revertAnimation(NewsDetailsCommentFragment.this);
+                            btnSendComment.setClickable(true);
 
-                        if (response.info.statusCode == 200)
-                        {
-                            showAlert(context, response.info.message, 0);
-                            edtComment.setText("");
-                        }
-                        else
-                        {
-                            showAlert(context, response.info.message, 0);
-                        }
+                            if (response.info.statusCode == 200)
+                            {
+                                showAlert(context, response.info.message, 0);
+                                edtComment.setText("");
+                            }
+                            else
+                            {
+                                showAlert(context, response.info.message, 0);
+                            }
+                        }catch (Exception e){}
+
                     }
 
                     @Override
@@ -178,29 +181,32 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
     @Override
     public void onReady(WebServiceClass<ArrayList<GetNewsCommentResponse>> response)
     {
-        progress.setVisibility(View.GONE);
+        try{
+            progress.setVisibility(View.GONE);
 
-        if (response.info.statusCode != 200)
-        {
-            rootView.findViewById(R.id.llCommentList).setVisibility(View.GONE);
-        }
-        else
-        {
-            if (response.data.isEmpty())
+            if (response.info.statusCode != 200)
             {
                 rootView.findViewById(R.id.llCommentList).setVisibility(View.GONE);
             }
             else
             {
-                list = new ArrayList<>();
-                list = response.data;
-                rootView.findViewById(R.id.llCommentList).setVisibility(View.VISIBLE);
-                Logger.e("-Comment List Size-", "Size: " + list.size());
-                //--------------
-                adapter = new NewsCommentListAdapter(context, list, this);
-                rcCommentList.setAdapter(adapter);
+                if (response.data.isEmpty())
+                {
+                    rootView.findViewById(R.id.llCommentList).setVisibility(View.GONE);
+                }
+                else
+                {
+                    list = new ArrayList<>();
+                    list = response.data;
+                    rootView.findViewById(R.id.llCommentList).setVisibility(View.VISIBLE);
+                    Logger.e("-Comment List Size-", "Size: " + list.size());
+                    //--------------
+                    adapter = new NewsCommentListAdapter(context, list, this);
+                    rcCommentList.setAdapter(adapter);
+                }
             }
-        }
+        }catch (Exception e){}
+
     }
 
     @Override
@@ -240,17 +246,20 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
             @Override
             public void onReady(WebServiceClass<LikeNewsDetailResponse> response)
             {
-                if (response.info.statusCode == 200)
-                {
-                    int type = likeOrDislike ? 1 : 0;
+                try{
+                    if (response.info.statusCode == 200)
+                    {
+                        int type = likeOrDislike ? 1 : 0;
 
 //                    list.get(position).setRated(response.data.getIsLiked() ? type : 0);
 //                    adapter.notifyDataSetChanged();
-                }
-                else
-                {
-                    showToast(context, "خطا در ثبت رخداد!", R.color.red);
-                }
+                    }
+                    else
+                    {
+                        showToast(context, "خطا در ثبت رخداد!", R.color.red);
+                    }
+                }catch (Exception e){}
+
             }
 
             @Override
