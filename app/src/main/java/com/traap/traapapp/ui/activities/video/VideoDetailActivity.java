@@ -260,7 +260,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
                 public void onSuccess() { }
 
                 @Override
-                public void onError()
+                public void showErrorMessage()
                 {
                     Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
                 }

@@ -261,7 +261,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
         } else if (v.getId() == R.id.btnBack)
         {
             MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
-                    true, "بله", "خیر", listener);
+                    true, "بله", "خیر", MessageAlertDialog.TYPE_MESSAGE, listener);
             dialog.show(getActivity().getFragmentManager(), "dialog");
         }
     };

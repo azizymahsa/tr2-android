@@ -9,7 +9,8 @@ import com.traap.traapapp.apiServices.model.login.LoginResponse;
 /**
  * Created by MahtabAzizi on 10/15/2019.
  */
-public class LoginService extends BasePart {
+public class LoginService extends BasePart
+{
     public LoginService(ServiceGenerator serviceGenerator)
     {
         super(serviceGenerator);

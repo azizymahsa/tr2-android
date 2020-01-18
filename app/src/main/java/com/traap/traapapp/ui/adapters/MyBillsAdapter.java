@@ -91,14 +91,14 @@ public class MyBillsAdapter extends RecyclerView.Adapter<MyBillsAdapter.MyViewHo
                             holder.tvBillName.setText(title);
                           //  mainView.message("ویرایش با موفقیت ثبت شد");
                         } else {
-                            mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+                            mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
                         }
 
                     }
 
                     @Override
-                    public void onError(String message) {
-                        mainView.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                    public void showErrorMessage(String message) {
+                        mainView.showErrorMessage(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
                         holder.btnEdit.setClickable(true);
                         holder.btnEdit.revertAnimation();
 
@@ -128,14 +128,14 @@ public class MyBillsAdapter extends RecyclerView.Adapter<MyBillsAdapter.MyViewHo
                                     recyclerView.removeViewAt(position);
                                     notifyDataSetChanged();
                                 } else {
-                                    mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+                                    mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
                                 }
 
                             }
 
                             @Override
-                            public void onError(String message) {
-                                mainView.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                            public void showErrorMessage(String message) {
+                                mainView.showErrorMessage(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
                             }
                         }, deleteMyBillRequest);

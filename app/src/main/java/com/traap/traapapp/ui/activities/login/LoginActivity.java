@@ -29,6 +29,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.base.GoToActivity;
@@ -48,7 +49,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 {
     private LoginPresenterImpl loginPresenter;
     private CircularProgressButton btnConfirm;
-    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend,txtCondition;
+    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, txtCondition;
     private int dimeSpace80, dimeSpace40, dimeLogo150, dimeLogo70;
     private RelativeLayout.LayoutParams logoLayoutParams;
     private LinearLayout.LayoutParams spaceLayoutParams;
@@ -57,7 +58,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private PinEntryEditText codeView;
     private boolean isCode = false;
     private ClearableEditText etMobileNumber;
-    private LinearLayout countDownTimer, llPin,llCondition;
+    private LinearLayout countDownTimer, llPin, llCondition;
 
 
     @Override
@@ -73,10 +74,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 //        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        Prefs.putString("accessToken","");
+        Prefs.putString("accessToken", "");
         loginPresenter = new LoginPresenterImpl(getApplicationContext(), this, this);
         initView();
-
 
 
         //-----------------test------------------
@@ -114,17 +114,21 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         loginPresenter.getCode(codeView);
         loginPresenter.getMobile(etMobileNumber);
         btnConfirm.setOnClickListener(loginPresenter);
+
         btnConfirm.setTag("mobile");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + "  شماره تلفن همراه خود را وارد کنید."));
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         loginPresenter.setScreenSize(displayMetrics.heightPixels, displayMetrics.widthPixels);
-        tvResend.setOnClickListener(view -> {
+
+        tvResend.setOnClickListener(view ->
+        {
             loginPresenter.sendMobileRequest();
             tvResend.setVisibility(View.GONE);
             codeView.setText("");
             tvCountDown.setVisibility(View.VISIBLE);
         });
+
         txtCondition.setOnClickListener(view -> {
             Utility.openUrlCustomTab(this, "http://www.traap.com/terms");
 
@@ -141,8 +145,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             {
                 logoLayoutParams = new RelativeLayout.LayoutParams(dimeLogo150, dimeLogo150);
                 spaceLayoutParams = new LinearLayout.LayoutParams(dimeSpace80, dimeSpace80);
-            }
-            else
+            } else
             {
                 logoLayoutParams = new RelativeLayout.LayoutParams(dimeLogo70, dimeLogo70);
                 spaceLayoutParams = new LinearLayout.LayoutParams(dimeSpace40, dimeSpace40);
@@ -152,13 +155,18 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         });
 
 
-
-
-        codeView.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
+        codeView.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener()
+        {
             @Override
-            public void onPinEntered(CharSequence str) {
-                if (str.length()==4){
+            public void onPinEntered(CharSequence str)
+            {
+                if (str.length() == 4)
+                {
                     loginPresenter.verifyRequest();
+                }
+                else
+                {
+                    showAlert(LoginActivity.this, "لطفا کد فعال سازی خود را صحیح وارد نمایید.", R.string.error);
                 }
 
             }
@@ -223,7 +231,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 //            }
             intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivityForResult(intent,100);
+            startActivityForResult(intent, 100);
             finish();
         } else
             mobileToCode();
@@ -248,17 +256,14 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     }
 
     @Override
-    public void onError(String message, String name, boolean b)
+    public void showErrorMessage(String message, String name, boolean b)
     {
-
-      //  showError(this, message);
-
-        if (!Tools.isNetworkAvailable(LoginActivity.this))
+        //  showError(this, message);
+        if (Tools.isNetworkAvailable(LoginActivity.this))
         {
             Logger.e("-OnError-", "Error: " + message);
-            Tools.showToast(this, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+            showErrorMessage(message);
 
-            // showError(appContext, "خطا در دریافت اطلاعات از سرور!");
         }
         else
         {
@@ -267,9 +272,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     }
 
     @Override
-    public void onError(String message) {
-        MessageAlertDialog dialog = new MessageAlertDialog(this, "", message);
-        dialog.show(getFragmentManager(), "dialog");
+    public void showErrorMessage(String message)
+    {
+        showAlert(this, message, R.string.error);
     }
 
 

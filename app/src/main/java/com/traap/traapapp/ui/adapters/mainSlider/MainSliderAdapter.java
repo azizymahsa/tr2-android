@@ -216,7 +216,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
                     {
                         MessageAlertDialog dialog = new MessageAlertDialog((Activity) mContext, "",
                                 "برای این بازی پیش بینی وجود ندارد!",
-                                false, new MessageAlertDialog.OnConfirmListener()
+                                false, MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()
@@ -259,7 +259,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
                     {
                         MessageAlertDialog dialog = new MessageAlertDialog((Activity) mContext, "",
                                 "برای این بازی فروش بلیت وجود ندارد!",
-                                false, new MessageAlertDialog.OnConfirmListener()
+                                false, MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()

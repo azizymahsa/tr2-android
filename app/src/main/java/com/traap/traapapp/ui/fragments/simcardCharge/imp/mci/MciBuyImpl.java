@@ -65,7 +65,7 @@ public class MciBuyImpl implements MciBuyInteractor
 //            }
 //
 //            @Override
-//            public void onError(String message)
+//            public void showErrorMessage(String message)
 //            {
 //                listener.onErrorMciBuyIn(message);
 //

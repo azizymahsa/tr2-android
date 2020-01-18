@@ -600,7 +600,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     public void onError(String message)
     {
         mainView.hideLoading();
-        Logger.e("-onError-", "Error: " + message);
+        Logger.e("-showErrorMessage-", "Error: " + message);
         showErrorAndBackToMain("خطا در دریافت اطلاعات از سرور!");
     }
 
@@ -643,7 +643,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private void showErrorAndBackToMain(String message)
     {
         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), getResources().getString(R.string.error),
-                message, false, new MessageAlertDialog.OnConfirmListener()
+                message, false, MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
         {
             @Override
             public void onConfirmClick()

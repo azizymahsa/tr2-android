@@ -297,7 +297,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 public void onSuccess() { }
 
                 @Override
-                public void onError()
+                public void showErrorMessage()
                 {
                     Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
                 }

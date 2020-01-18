@@ -928,25 +928,25 @@ public class Utility
             return false;
         }
         String check = number.substring(0, 4);
-              return check.equals("0921") || check.equals("0922");
-        //return true;
-
+        return check.equals("0921") || check.equals("0922");
     }
 
     public static boolean getMobileValidation(String number)
     {
         String startPhoneNo = number.substring(0, 4);
 
-        String[] typePhone_No = {"0990","0992","0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919", "0990"
+        String[] typePhone_No = {"0990","0992","0991", "0910", "0911", "0912", "0913", "0914", "0915",
+                "0916", "0917", "0918", "0919", "0990"
         ,"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939",
                 "0920", "0921", "0922" ,"0932","0933"
         };
         if (Arrays.asList(typePhone_No).contains(startPhoneNo))
         {
             phoneNumberValidation=true;
-        }else {
+        }
+        else
+        {
             phoneNumberValidation=false;
-
         }
 
         return !TextUtils.isEmpty(number) && phoneNumberValidation && number.length() >= 11;

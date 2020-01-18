@@ -215,7 +215,7 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
         progress.setVisibility(View.GONE);
         rootView.findViewById(R.id.llCommentList).setVisibility(View.GONE);
 
-        Logger.e("-onError CommentList-", "Error: " + message);
+        Logger.e("-showErrorMessage CommentList-", "Error: " + message);
     }
 
     @Override

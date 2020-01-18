@@ -74,7 +74,7 @@ public class VideosArchiveAdapter extends RecyclerView.Adapter<VideosArchiveAdap
                 public void onSuccess() { }
 
                 @Override
-                public void onError()
+                public void showErrorMessage()
                 {
                     Picasso.with(context).load(R.drawable.img_failure).into(image);
                 }

@@ -138,7 +138,7 @@ public class MyProfileActivity extends BaseActivity {
         rlExit.setOnClickListener(v ->
         {
             MessageAlertDialog dialog = new MessageAlertDialog(this, "", "آیا می خواهید از حساب کاربری خود خارج شوید؟",
-                    true, "خروج", "انصراف", new MessageAlertDialog.OnConfirmListener() {
+                    true, "خروج", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener() {
                 @Override
                 public void onConfirmClick() {
                     Intent intent = new Intent();

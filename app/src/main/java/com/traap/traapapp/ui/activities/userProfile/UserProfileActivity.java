@@ -80,7 +80,8 @@ import org.json.JSONObject;
  * Created by Javad.Abadi on 10/7/2019.
  */
 public class UserProfileActivity extends BaseActivity implements UserProfileActionView,
-        OnAnimationEndListener, OnServiceStatus<WebServiceClass<GetProfileResponse>>, DatePickerDialog.OnDateSetListener {
+        OnAnimationEndListener, OnServiceStatus<WebServiceClass<GetProfileResponse>>, DatePickerDialog.OnDateSetListener
+{
     private Toolbar mToolbar;
     private CircularProgressButton btnConfirm;
     private ClearableEditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName;
@@ -117,7 +118,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     @SuppressLint("RestrictedApi")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
@@ -179,14 +181,18 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         initDate();
         getDataProfileUser();
 
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener()
+        {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY - oldScrollY > 0) {
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
+            {
+                if (scrollY - oldScrollY > 0)
+                {
                     Animation animHide = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.hide_button);
                     findViewById(R.id.rlImageProfile).startAnimation(animHide);
                     findViewById(R.id.rlImageProfile).setVisibility(View.GONE);
-                } else {
+                } else
+                {
                     Animation animShow = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.show_button);
                     findViewById(R.id.rlImageProfile).startAnimation(animShow);
                     findViewById(R.id.rlImageProfile).setVisibility(View.VISIBLE);
@@ -199,7 +205,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
 
 
-            if (TextUtils.isEmpty(tvBirthDay.getText().toString().replaceAll("_", "").replaceAll("/", "")) || tvBirthDay.getText().toString().replaceAll("_", "").length() != 10) {
+            if (TextUtils.isEmpty(tvBirthDay.getText().toString().replaceAll("_", "").replaceAll("/", "")) || tvBirthDay.getText().toString().replaceAll("_", "").length() != 10)
+            {
                 Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
 
                 return;
@@ -210,17 +217,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             Integer month = Integer.valueOf(date[1]);
             Integer day = Integer.valueOf(date[2]);
 
-            if (day < 1 || day > 31) {
+            if (day < 1 || day > 31)
+            {
                 Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
 
                 return;
             }
-            if (month < 1 || month > 12) {
+            if (month < 1 || month > 12)
+            {
                 Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
 
                 return;
             }
-            if (year < 1300 || year > 1399) {
+            if (year < 1300 || year > 1399)
+            {
                 Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
 
                 return;
@@ -271,23 +281,29 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         fabDeleteProfile.setOnClickListener(v ->
         {
-            if (isProfileImageAvailable) {
+            if (isProfileImageAvailable)
+            {
                 MessageAlertDialog dialog = new MessageAlertDialog(this, "",
                         "آیا از حذف عکس پروفایل خود اطمینان دارید؟",
-                        true, "حذف", "انصراف", false,
-                        new MessageAlertDialog.OnConfirmListener() {
+                        true, "حذف", "انصراف", MessageAlertDialog.TYPE_MESSAGE,
+                        new MessageAlertDialog.OnConfirmListener()
+                        {
                             @Override
-                            public void onConfirmClick() {
+                            public void onConfirmClick()
+                            {
                                 callDeletePhoto();
                             }
 
                             @Override
-                            public void onCancelClick() {
+                            public void onCancelClick()
+                            {
                             }
                         });
                 dialog.setCancelable(true);
                 dialog.show(getFragmentManager(), "alertDialog");
-            } else {
+            }
+            else
+            {
                 Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
                 fabDeleteProfile.startAnimation(animHideButton);
                 fabDeleteProfile.setVisibility(View.GONE);
@@ -296,20 +312,27 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     }
 
-    public boolean isValid(String text) {
+    public boolean isValid(String text)
+    {
 
         return text.matches("/^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|31|([1-2][0-9])|(0[1-9]))))$/");
     }
 
-    private void callDeletePhoto() {
-        SingletonService.getInstance().sendProfileService().deleteProfilePhoto(new OnServiceStatus<WebServiceClass<DeleteProfileResponse>>() {
+    private void callDeletePhoto()
+    {
+        SingletonService.getInstance().sendProfileService().deleteProfilePhoto(new OnServiceStatus<WebServiceClass<DeleteProfileResponse>>()
+        {
             @SuppressLint("RestrictedApi")
             @Override
-            public void onReady(WebServiceClass<DeleteProfileResponse> response) {
-                try {
-                    if (response.info.statusCode != 200) {
+            public void onReady(WebServiceClass<DeleteProfileResponse> response)
+            {
+                try
+                {
+                    if (response.info.statusCode != 200)
+                    {
                         showError(UserProfileActivity.this, response.info.message);
-                    } else {
+                    } else
+                    {
                         showToast(UserProfileActivity.this, response.info.message, R.color.green);
 
                         Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
@@ -320,39 +343,48 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         fabDeleteProfile.startAnimation(animHideButton);
                         fabDeleteProfile.setVisibility(View.GONE);
                     }
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
 
                 }
             }
 
             @Override
-            public void onError(String message) {
+            public void onError(String message)
+            {
                 showError(UserProfileActivity.this, "خطای ارتباط با سرور!");
             }
         });
 
     }
 
-    private void getPermission() {
+    private void getPermission()
+    {
         new TedPermission(SingletonContext.getInstance().getContext())
-                .setPermissionListener(new PermissionListener() {
+                .setPermissionListener(new PermissionListener()
+                {
                     @Override
-                    public void onPermissionGranted() {
+                    public void onPermissionGranted()
+                    {
                         openImageChooser();
                     }
 
                     @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
                         MessageAlertDialog dialog = new MessageAlertDialog(UserProfileActivity.this, "",
                                 "برای دسترسی به عکس های دستگاهتان اخذ این مجوز الزامی است. ",
-                                true, new MessageAlertDialog.OnConfirmListener() {
+                                true, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                        {
                             @Override
-                            public void onConfirmClick() {
+                            public void onConfirmClick()
+                            {
                                 getPermission();
                             }
 
                             @Override
-                            public void onCancelClick() {
+                            public void onCancelClick()
+                            {
 
                             }
                         }
@@ -364,7 +396,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 .check();
     }
 
-    private void initDate() {
+    private void initDate()
+    {
         currentDate = new PersianCalendar();
 
         pickerDialogDate = DatePickerDialog.newInstance(this,
@@ -375,21 +408,26 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         pickerDialogDate.setMaxDate(currentDate);
     }
 
-    private boolean setError() {
+    private boolean setError()
+    {
         boolean err = true;
         String message = "";
-        if (etNationalCode.getText().toString().length() < 10 && etNationalCode.getText().toString().length() > 0) {
+        if (etNationalCode.getText().toString().length() < 10 && etNationalCode.getText().toString().length() > 0)
+        {
             message = message + "کد ملی،";
             err = false;
 //            etNationalCode.setError("کد ملی باید 10رقمی باشد!");
-        } else if (etNationalCode.getText().toString().length() == 10) {
-            if (!NationalCodeValidation.isValidNationalCode(etNationalCode.getText().toString())) {
+        } else if (etNationalCode.getText().toString().length() == 10)
+        {
+            if (!NationalCodeValidation.isValidNationalCode(etNationalCode.getText().toString()))
+            {
                 message = message + "کد ملی،";
                 err = false;
 //                ((TextView)etNationalCode).setError("کد ملی نامعتبر است!");
             }
         }
-        if (!etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-zA-Z]+.[a-zA-Z]+") && !etEmail.getText().toString().equalsIgnoreCase("")) {
+        if (!etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-zA-Z]+.[a-zA-Z]+") && !etEmail.getText().toString().equalsIgnoreCase(""))
+        {
             message = message + "ایمیل،";
             err = false;
 //            etEmail.setError("ایمیل درست نیست!");
@@ -423,7 +461,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 ////            etLastNameUS.setError("نام خانوادگی انگلیسی درست نیست!");
 //        }
 
-        if (!err) {
+        if (!err)
+        {
             message = message + " باید اصلاح گردد.";
             showError(this, message);
         }
@@ -444,30 +483,35 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         return err;
     }
 
-    private void getDataProfileUser() {
+    private void getDataProfileUser()
+    {
         showLoading();
         SingletonService.getInstance().getProfileService().getProfileService(this);
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading()
+    {
         findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideLoading() {
+    public void hideLoading()
+    {
         findViewById(R.id.rlLoading).setVisibility(View.GONE);
     }
 
     @Override
-    public void onAnimationEnd() {
+    public void onAnimationEnd()
+    {
 //        btnConfirm.setText("ارسال اطلاعات کاربری");
         btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
 
     }
 
     @Override
-    public void openImageChooser() {
+    public void openImageChooser()
+    {
 //        ImagePicker.create(this)
 //                .returnMode(ReturnMode.GALLERY_ONLY) // set whether pick action or camera action should return immediate result or not. Only works in single mode for image picker
 //                .folderMode(true) // set folder mode (false by default)
@@ -483,39 +527,50 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     }
 
     @Override
-    public void uploadProfileData() {
+    public void uploadProfileData()
+    {
 //        if (!isChangePic)
 //            return;
 
-        if (!setError()) {
+        if (!setError())
+        {
 //            hideLoading();
             hideSendDataLoading();
-        } else {
-            try {
+        } else
+        {
+            try
+            {
                 if (!etPopularPlayer.getText().toString().equalsIgnoreCase("") &&
-                        !etPopularPlayer.getText().toString().equalsIgnoreCase("0")) {
+                        !etPopularPlayer.getText().toString().equalsIgnoreCase("0"))
+                {
                     popularPlayer = Integer.parseInt(etPopularPlayer.getText().toString().trim());
-                } else {
+                } else
+                {
                     popularPlayer = 12;
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
 
             }
             headerModel = new HeaderModel();
 
-            try {
+            try
+            {
 
 //                part = PrepareImageFilePart.prepareFilePart(userPic.getName(), userPic);
 //                part = PrepareImageFilePart.prepareFilePart("photo", userPic);
 //                part = MultipartBody.Part.createFormData("photo", userPic.getName(),
 //                        RequestBody.create(MediaType.parse("image/*"), userPic));
-                if (isImageFileExist) {
+                if (isImageFileExist)
+                {
                     isImageFileExist = false;
                     sendProfilePhoto();
-                } else {
+                } else
+                {
                     sendPhotoSuccess = true;
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 sendPhotoSuccess = true;
                 Logger.e("-Exception Photo-", e.getMessage());
 //                part = null;
@@ -539,17 +594,22 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             request.setGender(spinnerGender.getSelectedItemPosition() + 1);
 
             SingletonService.getInstance().sendProfileService().sendProfileService(request,
-                    new OnServiceStatus<WebServiceClass<SendProfileResponse>>() {
+                    new OnServiceStatus<WebServiceClass<SendProfileResponse>>()
+                    {
                         @Override
-                        public void onReady(WebServiceClass<SendProfileResponse> response) {
-                            try {
+                        public void onReady(WebServiceClass<SendProfileResponse> response)
+                        {
+                            try
+                            {
                                 btnConfirm.revertAnimation();
                                 btnConfirm.setClickable(true);
-                                if (response.info.statusCode != 200) {
+                                if (response.info.statusCode != 200)
+                                {
                                     showError(UserProfileActivity.this, response.info.message);
                                     sendProfileFailure = true;
                                     finishSendData("");
-                                } else {
+                                } else
+                                {
                                     //------------------------------------------
                                     Prefs.putString("firstName", etFirstName.getText().toString());
                                     Prefs.putString("lastName", etLastName.getText().toString());
@@ -560,22 +620,27 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                     Prefs.putString("email", etEmail.getText().toString());
                                     Prefs.putInt("gender", spinnerGender.getSelectedItemPosition());
 
-                                    if (tvBirthDay.getText() != null) {
+                                    if (tvBirthDay.getText() != null)
+                                    {
                                         Prefs.putString("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ?
                                                 null :
                                                 tvBirthDay.getText().toString());
                                     }
-                                    if (popularPlayer != 0) {
+                                    if (popularPlayer != 0)
+                                    {
                                         Prefs.putInt("popularPlayer", popularPlayer);
-                                    } else {
+                                    } else
+                                    {
                                         Prefs.putInt("popularPlayer", 12);
                                     }
                                     Prefs.putString("nationalCode", etNationalCode.getText().toString());
 
                                     if (!Prefs.getString("FULLName", "").trim().replace(" ", "")
-                                            .equalsIgnoreCase("")) {
+                                            .equalsIgnoreCase(""))
+                                    {
                                         TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
-                                    } else {
+                                    } else
+                                    {
                                         TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
                                     }
 
@@ -585,23 +650,27 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                     sendProfileSuccess = true;
                                     finishSendData("");
                                 }
-                            } catch (Exception e) {
+                            } catch (Exception e)
+                            {
                             }
 
                         }
 
                         @Override
-                        public void onError(String message) {
+                        public void onError(String message)
+                        {
                             btnConfirm.revertAnimation();
                             btnConfirm.setClickable(true);
                             sendProfileFailure = true;
                             finishSendData("");
                             finishSendData("");
-                            if (Tools.isNetworkAvailable(UserProfileActivity.this)) {
+                            if (Tools.isNetworkAvailable(UserProfileActivity.this))
+                            {
                                 Logger.e("-OnError-", "Error: " + message);
                                 showError(UserProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
 
-                            } else {
+                            } else
+                            {
                                 showAlert(UserProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
                             }
                         }
@@ -611,18 +680,21 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     }
 
     @Override
-    public void showSendDataLoading() {
+    public void showSendDataLoading()
+    {
         btnConfirm.startAnimation();
         btnConfirm.setClickable(false);
     }
 
     @Override
-    public void hideSendDataLoading() {
+    public void hideSendDataLoading()
+    {
         btnConfirm.revertAnimation(UserProfileActivity.this);
         btnConfirm.setClickable(true);
     }
 
-    private void sendProfilePhoto() {
+    private void sendProfilePhoto()
+    {
         //---------------------new FAN--------------------------
         Logger.e("--imagePath--", userPic.getAbsolutePath());
         Logger.e("--url--", Const.BASEURL + Const.SEND_PROFILE_PHOTO);
@@ -655,22 +727,25 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //                    }
 //
 //                    @Override
-//                    public void onError(ANError anError)
+//                    public void showErrorMessage(ANError anError)
 //                    {
 //                        sendPhotoFailure = true;
-//                        Logger.e("-onError Photo1-", "Error: " + anError.getErrorDetail());
-//                        Logger.e("-onError Photo2-", "Error: " + anError);
+//                        Logger.e("-showErrorMessage Photo1-", "Error: " + anError.getErrorDetail());
+//                        Logger.e("-showErrorMessage Photo2-", "Error: " + anError);
 //
 //                        finishSendData();
 //                    }
 //                });
-                .getAsString(new StringRequestListener() {
+                .getAsString(new StringRequestListener()
+                {
                     @SuppressLint("RestrictedApi")
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(String response)
+                    {
                         Log.e("--Upload Response--", response + " ##");
 
-                        try {
+                        try
+                        {
                             JSONObject object = new JSONObject(response);
                             JSONObject info = object.getJSONObject("info");
                             Logger.e("+info+", info.toString());
@@ -681,7 +756,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
                             Logger.e("-status Response1-", status.toString() + " ");
                             Logger.e("-status Response2-", info.getString("code"));
-                            if (status == 201) {
+                            if (status == 201)
+                            {
                                 String imageURL = data.getString("photo");
                                 headerModel.setProfileUrl(imageURL);
                                 Logger.e("-image Link Response-", imageURL.toString() + " ");
@@ -695,7 +771,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 sendPhotoSuccess = true;
                                 finishSendData("");
                             }
-                        } catch (JSONException e) {
+                        } catch (JSONException e)
+                        {
                             e.printStackTrace();
                         }
                         sendPhotoSuccess = true;
@@ -703,14 +780,17 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     }
 
                     @Override
-                    public void onError(ANError anError) {
+                    public void onError(ANError anError)
+                    {
                         sendPhotoFailure = true;
 
-                        if (Tools.isNetworkAvailable(UserProfileActivity.this)) {
-                            Logger.e("-onError Photo1-", "Error: " + anError.getErrorDetail());
-                            Logger.e("-onError Photo2-", "Error: " + anError);
+                        if (Tools.isNetworkAvailable(UserProfileActivity.this))
+                        {
+                            Logger.e("-showErrorMessage Photo1-", "Error: " + anError.getErrorDetail());
+                            Logger.e("-showErrorMessage Photo2-", "Error: " + anError);
 
-                        } else {
+                        } else
+                        {
                             showAlert(UserProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
                         }
                         finishSendData(anError + " ");
@@ -747,7 +827,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 ////                            }
 ////
 ////                            @Override
-////                            public void onError()
+////                            public void showErrorMessage()
 ////                            { }
 ////                        });
 //                        }
@@ -765,10 +845,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //                }
 //
 //                @Override
-//                public void onError(String message)
+//                public void showErrorMessage(String message)
 //                {
 //                    sendPhotoFailure = true;
-//                    Logger.e("-onError Photo-", "Error: " + message);
+//                    Logger.e("-showErrorMessage Photo-", "Error: " + message);
 //
 //                    finishSendData();
 //                }
@@ -781,8 +861,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //        }
     }
 
-    private void finishSendData(String photoErrorMessage) {
-        if (sendPhotoSuccess && sendProfileSuccess) {
+    private void finishSendData(String photoErrorMessage)
+    {
+        if (sendPhotoSuccess && sendProfileSuccess)
+        {
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
 
@@ -791,22 +873,27 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             //success
             showToast(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", R.color.green);
             finish();
-        } else if (sendPhotoFailure && sendProfileFailure) {
+        } else if (sendPhotoFailure && sendProfileFailure)
+        {
 //            hideLoading();
             //Fail
-            if (!Tools.isNetworkAvailable(this)) {
+            if (!Tools.isNetworkAvailable(this))
+            {
                 Logger.e("-PhotoFailor-", "Error: " + "PhotoFailor");
                 showError(this, "خطا در دریافت اطلاعات از سرور!");
-            } else {
+            } else
+            {
                 showAlert(this, R.string.networkErrorMessage, R.string.networkError);
             }
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
-        } else if (sendPhotoFailure && sendProfileSuccess) {
+        } else if (sendPhotoFailure && sendProfileSuccess)
+        {
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
             String message = "اطلاعات شما با موفقیت ارسال گردید" + "\n" + "اما" + "\n" + "ارسال عکس ناموفق بود.";
-            if (BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG)
+            {
                 message = message + "\n" + photoErrorMessage;
             }
             showAlert(UserProfileActivity.this, message, R.string.error, false);
@@ -821,11 +908,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     @SuppressLint("RestrictedApi")
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+        {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK)
+            {
                 isImageFileExist = true;
                 imageUri = result.getUri();
                 imgProfile.setImageBitmap(BitmapFactory.decodeFile(imageUri.getPath()));
@@ -833,13 +923,15 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
                 fabDeleteProfile.startAnimation(animShowButton);
                 fabDeleteProfile.setVisibility(View.VISIBLE);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE)
+            {
                 Exception error = result.getError();
             }
         }
     }
 
-    private void saveImage(Bitmap finalBitmap) {
+    private void saveImage(Bitmap finalBitmap)
+    {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/traap");
         myDir.mkdirs();
@@ -849,156 +941,187 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         String fname = "profile" + ".jpg";
         userPic = new File(myDir, fname);
         if (userPic.exists()) userPic.delete();
-        try {
+        try
+        {
             FileOutputStream out = new FileOutputStream(userPic);
             finalBitmap.compress(Bitmap.CompressFormat.JPEG, 30, out);
             out.flush();
             out.close();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
     @SuppressLint("RestrictedApi")
     @Override
-    public void onReady(WebServiceClass<GetProfileResponse> response) {
-        try {
+    public void onReady(WebServiceClass<GetProfileResponse> response)
+    {
+        try
+        {
             hideLoading();
 
-            if (response.info.statusCode == 200) {
-                if (response.data.getPopularPlayer() != 0) {
+            if (response.info.statusCode == 200)
+            {
+                if (response.data.getPopularPlayer() != 0)
+                {
                     Prefs.putInt("favPlayerNo", response.data.getPopularPlayer());
                 }
-                try {
-                etFirstName.setText(response.data.getFirstName());
-                etLastName.setText(response.data.getLastName());
+                try
+                {
+                    etFirstName.setText(response.data.getFirstName());
+                    etLastName.setText(response.data.getLastName());
 
-                if (!Prefs.getString("FULLName", "").replace(" ", "").equalsIgnoreCase("")) {
-                    TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
-                } else {
-                    TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
-                }
+                    if (!Prefs.getString("FULLName", "").replace(" ", "").equalsIgnoreCase(""))
+                    {
+                        TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
+                    } else
+                    {
+                        TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
+                    }
 
-                try {
-                    if (!response.data.getBirthday().equalsIgnoreCase("")) {
+                    try
+                    {
+                        if (!response.data.getBirthday().equalsIgnoreCase(""))
+                        {
 //                    tvBirthDay.setText(getPersianDate(response.data.getBirthday()));
+                            tvBirthDay.setText(response.data.getBirthday().replace("-", "/"));
+                            imgBirthdayReset.setVisibility(View.VISIBLE);
+                            imgBirthdaySet.setVisibility(View.GONE);
+                        }
+                    } catch (Exception e)
+                    {
                         tvBirthDay.setText(response.data.getBirthday().replace("-", "/"));
                         imgBirthdayReset.setVisibility(View.VISIBLE);
-                        imgBirthdaySet.setVisibility(View.GONE);
-                    }
-                } catch (Exception e) {
-                    tvBirthDay.setText(response.data.getBirthday().replace("-", "/"));
-                    imgBirthdayReset.setVisibility(View.VISIBLE);
 //                    btnBirthdaySet.setVisibility(View.GONE);
+                    }
+                } catch (Exception e)
+                {
+
                 }
-            }
-            catch(Exception e)
-            {
-
-            }
-            etNickName.setText(response.data.getEnglishName());
-            if (response.data.getNationalCode().equalsIgnoreCase("0")) {
-                etNationalCode.setText("");
-            } else {
-                etNationalCode.setText(response.data.getNationalCode());
-            }
-            etFirstNameUS.setText(response.data.getFirstNameUS());
-            etLastNameUS.setText(response.data.getLastNameUS());
-            etEmail.setText(response.data.getEmail());
-
-            headerModel = new HeaderModel();
-            headerModel.setPopularNo(response.data.getPopularPlayer());
-            headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
-
-            try {
-                if (!response.data.getPhotoUrl().contains("default_avatar.png")) {
-                    Picasso.with(this).load(response.data.getPhotoUrl()).into(imgProfile, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Prefs.putString("profileImage", response.data.getPhotoUrl());
-                            headerModel.setProfileUrl(response.data.getPhotoUrl());
-
-                            isProfileImageAvailable = true;
-
-                            fabDeleteProfile.startAnimation(animShowButton);
-                            fabDeleteProfile.setVisibility(View.VISIBLE);
-                        }
-
-                        @Override
-                        public void onError() {
-                            Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
-                        }
-                    });
-                } else {
-                    Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
-
-                    fabDeleteProfile.startAnimation(animHideButton);
-                    fabDeleteProfile.setVisibility(View.GONE);
+                etNickName.setText(response.data.getEnglishName());
+                if (response.data.getNationalCode().equalsIgnoreCase("0"))
+                {
+                    etNationalCode.setText("");
+                } else
+                {
+                    etNationalCode.setText(response.data.getNationalCode());
                 }
-            } catch (Exception e) {
-                if (Tools.isNetworkAvailable(this)) {
-                    Logger.e("-OnError-", "Error: " + e.getMessage());
+                etFirstNameUS.setText(response.data.getFirstNameUS());
+                etLastNameUS.setText(response.data.getLastNameUS());
+                etEmail.setText(response.data.getEmail());
+
+                headerModel = new HeaderModel();
+                headerModel.setPopularNo(response.data.getPopularPlayer());
+                headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
+
+                try
+                {
+                    if (!response.data.getPhotoUrl().contains("default_avatar.png"))
+                    {
+                        Picasso.with(this).load(response.data.getPhotoUrl()).into(imgProfile, new Callback()
+                        {
+                            @Override
+                            public void onSuccess()
+                            {
+                                Prefs.putString("profileImage", response.data.getPhotoUrl());
+                                headerModel.setProfileUrl(response.data.getPhotoUrl());
+
+                                isProfileImageAvailable = true;
+
+                                fabDeleteProfile.startAnimation(animShowButton);
+                                fabDeleteProfile.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onError()
+                            {
+                                Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
+                            }
+                        });
+                    } else
+                    {
+                        Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
+
+                        fabDeleteProfile.startAnimation(animHideButton);
+                        fabDeleteProfile.setVisibility(View.GONE);
+                    }
+                } catch (Exception e)
+                {
+                    if (Tools.isNetworkAvailable(this))
+                    {
+                        Logger.e("-OnError-", "Error: " + e.getMessage());
 //                    showError(this, "خطا در دریافت اطلاعات از سرور!");
-                } else {
-                    showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+                    } else
+                    {
+                        showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+                    }
                 }
+
+                spinnerGender.setSelection(response.data.getGender() - 1);
+
+                EventBus.getDefault().post(headerModel);
+
+                if (headerModel.getPopularNo() != 0)
+                {
+                    etPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
+                }
+                tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
+                Prefs.putString("shareText", response.data.getShareText());
+            } else
+            {
+                showError(this, response.info.message);
             }
+        } catch (
+                Exception e)
 
-            spinnerGender.setSelection(response.data.getGender() - 1);
-
-            EventBus.getDefault().post(headerModel);
-
-            if (headerModel.getPopularNo() != 0) {
-                etPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
-            }
-            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-
-            Prefs.putString("shareText", response.data.getShareText());
-        }
-            else
         {
-            showError(this, response.info.message);
         }
-    }catch(
-    Exception e)
 
-    {
     }
 
-}
-
     @Override
-    public void onError(String message) {
+    public void onError(String message)
+    {
         hideLoading();
 
-        if (Tools.isNetworkAvailable(this)) {
+        if (Tools.isNetworkAvailable(this))
+        {
             Logger.e("-OnError-", "Error: " + message);
             showError(this, "خطا در دریافت اطلاعات از سرور!");
-        } else {
+        } else
+        {
             showAlert(this, R.string.networkErrorMessage, R.string.networkError);
         }
     }
 
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay) {
-        if (view.getTag().equals("CreateDate")) {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
+    {
+        if (view.getTag().equals("CreateDate"))
+        {
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
             String day;
             String month;
 
-            if (String.valueOf(dayOfMonth).length() == 1) {
+            if (String.valueOf(dayOfMonth).length() == 1)
+            {
                 day = "0" + dayOfMonth;
-            } else {
+            } else
+            {
                 day = String.valueOf(dayOfMonth);
 
             }
 
-            if (String.valueOf(monthOfYear + 1).length() == 1) {
+            if (String.valueOf(monthOfYear + 1).length() == 1)
+            {
                 month = "0" + (monthOfYear + 1);
-            } else {
+            } else
+            {
                 month = String.valueOf(monthOfYear + 1);
 
             }

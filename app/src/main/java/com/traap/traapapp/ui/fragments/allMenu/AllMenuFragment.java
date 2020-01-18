@@ -662,7 +662,7 @@ public class AllMenuFragment extends BaseFragment implements
                     {
                         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
                                 "برای ارسال تصویر اسناد بیمه، اخذ این مجوز الزامی است. ",
-                                true, new MessageAlertDialog.OnConfirmListener()
+                                true, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()

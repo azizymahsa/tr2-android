@@ -30,25 +30,60 @@ public class BaseFragment extends Fragment
 
     public void showToast(Context context, String message, int color)
     {
-        Tools.showToast(context, message, color);
+//        Tools.showToast(context, message, color);
+        if (color == R.color.green)
+        {
+            ShowAlertSuccess(context, message, "", false);
+        }
+        else if (color == R.color.red)
+        {
+            ShowAlertFailure(context, message, context.getString(R.string.error), false);
+        }
+        else
+        {
+            showAlert(context, message, 0);
+        }
     }
 
     public void showError(Context context, String message)
     {
-        Tools.showToast(context, message, R.color.red);
+//        Tools.showToast(context, message, R.color.red);
+        ShowAlertFailure(context, message, context.getString(R.string.error), false);
+    }
+
+    public void ShowAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_SUCCESS);
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
+
+        if (finish)
+        {
+            ((Activity) context).finish();
+        }
+    }
+
+    public void ShowAlertFailure(Context context, String Msg, String mTitle, boolean finish)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_ERROR);
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
+
+        if (finish)
+        {
+            ((Activity) context).finish();
+        }
     }
 
     public static void showAlert(Context context, String Msg, int title)
     {
         String mTitle = title == 0 ? "" : context.getString(title);
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg);
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_MESSAGE);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
     public static void showAlert(Context context, String Msg, int title, boolean finish)
     {
         String mTitle = title == 0 ? "" : context.getString(title);
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg);
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_MESSAGE);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
 
         if (finish)
@@ -60,7 +95,7 @@ public class BaseFragment extends Fragment
     public static void showAlert(Context context, int Msg, int title, boolean finish)
     {
         String mTitle = title == 0 ? "" : context.getString(title);
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, context.getString(Msg));
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, context.getString(Msg), MessageAlertDialog.TYPE_MESSAGE);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
 
         if (finish)
@@ -72,7 +107,7 @@ public class BaseFragment extends Fragment
     public static void showAlert(Context context, int Msg, int title)
     {
         String mTitle = title == 0 ? "" : context.getString(title);
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, context.getString(Msg));
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, context.getString(Msg), MessageAlertDialog.TYPE_MESSAGE);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 

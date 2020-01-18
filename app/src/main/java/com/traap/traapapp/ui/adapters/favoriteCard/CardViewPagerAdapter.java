@@ -210,7 +210,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
         }
         catch (Exception e)
         {
-//                mainView.onError(e.getMessage());
+//                mainView.showErrorMessage(e.getMessage());
             e.printStackTrace();
         }
     }

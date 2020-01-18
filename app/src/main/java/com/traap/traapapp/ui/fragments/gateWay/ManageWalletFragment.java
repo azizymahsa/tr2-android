@@ -157,7 +157,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
 
                 MessageAlertDialog dialog1 = new MessageAlertDialog((Activity) mainView, "",
                         getContext().getString(R.string._request_change_pass), true, "تایید", "انصراف",
-                        true, new MessageAlertDialog.OnConfirmListener()
+                        MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()

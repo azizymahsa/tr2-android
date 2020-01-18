@@ -524,7 +524,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
                     @Override
                     public void onError(Throwable e)
                     {
-                        Logger.e("onError ", "onError");
+                        Logger.e("showErrorMessage ", "showErrorMessage");
                     }
 
                     @Override
@@ -649,7 +649,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
             @Override
             public void onError(Throwable e)
             {
-                Logger.e("--searchCategory--", "onError: " + e.getMessage());
+                Logger.e("--searchCategory--", "showErrorMessage: " + e.getMessage());
             }
 
             @Override

@@ -2,7 +2,6 @@ package com.traap.traapapp.ui.activities.login;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -33,11 +32,8 @@ import com.traap.traapapp.apiServices.model.verify.Profile;
 import com.traap.traapapp.apiServices.model.verify.VerifyRequest;
 import com.traap.traapapp.apiServices.model.verify.VerifyResponse;
 import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.notification.NotificationJobService;
-import com.traap.traapapp.notification.PushMessageReceiver;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.GoToActivity;
-import com.traap.traapapp.utilities.IMEI_Device;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -81,26 +77,32 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         switch (view.getId())
         {
             case R.id.btnConfirm:
-
-
-                if (TextUtils.isEmpty(mobileNumber.getText().toString()))
+            {
+                Logger.e("-Login000-", "Length:" + mobileNumber.getText().toString().trim().length() + ", text:" + mobileNumber.getText().toString().trim());
+                if (TextUtils.isEmpty(mobileNumber.getText().toString().trim()))
                 {
-                    loginView.onError("لطفا شماره تلفن همراه خود را وارد نمایید", this.getClass().getSimpleName(), false);
+                    loginView.showErrorMessage("لطفا شماره تلفن همراه خود را وارد نمایید.", this.getClass().getSimpleName(), false);
                     return;
                 }
-                if (mobileNumber.getText().toString().length() != 11)
+                if (mobileNumber.getText().toString().trim().length() != 11)
                 {
-                    loginView.onError("لطفا شماره تلفن همراه خود را صحیح وارد نمایید");
+                    loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
                     return;
                 }
-                if (!mobileNumber.getText().toString().startsWith("09"))
+                if (!mobileNumber.getText().toString().trim().startsWith("09"))
                 {
-                    loginView.onError("لطفا شماره تلفن همراه خود را صحیح وارد نمایید", this.getClass().getSimpleName(), false);
+                    loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
                     return;
                 }
-                if (!Utility.isNetworkAvailable())
+//                else if (!Utility.getMobileValidation(mobileNumber.getText().toString().trim()))
+//                {
+//                    loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
+//                    return;
+//                }
+                if (!Tools.isNetworkAvailable((Activity) activityContext))
                 {
-                    loginView.onError("اینترنت خود را بررسی نمایید", this.getClass().getSimpleName(), false);
+                    loginView.showErrorMessage(appContext.getResources().getString(R.string.networkErrorMessage),
+                            this.getClass().getSimpleName(), false);
                     return;
 
                 }
@@ -114,7 +116,6 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                                 @Override
                                 public void onPermissionGranted()
                                 {
-
                                     sendMobileRequest();
                                 }
 
@@ -126,11 +127,12 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                             })
                             .setPermissions(Manifest.permission.RECEIVE_SMS)
                             .check();
-                } else
+                }
+                else
                 {
                     if (TextUtils.isEmpty(codeView.getText().toString()))
                     {
-                        loginView.onError("لطفا کد فعال سازی را وارد نمایید", this.getClass().getSimpleName(), false);
+                        loginView.showErrorMessage("لطفا کد فعال سازی را وارد نمایید.", this.getClass().getSimpleName(), false);
                         return;
                     }
                     loginView.showLoading();
@@ -141,14 +143,13 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                             codeView.getText().toString(), height, width);*/
 
                 }
-
                 break;
-
+            }
         }
-
     }
 
-    public void verifyRequest(){
+    public void verifyRequest()
+    {
         loginView.showLoading();
         sendVerifyRequest();
     }
@@ -326,10 +327,10 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         } else if (activeCodeResponse.getServiceMessage().getCode() == 201)
         {
             loginView.onButtonActions(false, null);
-            loginView.onError(activeCodeResponse.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+            loginView.showErrorMessage(activeCodeResponse.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
         } else
         {
-            loginView.onError(activeCodeResponse.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+            loginView.showErrorMessage(activeCodeResponse.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
             countDownTimer.cancel();
         }
     }
@@ -338,7 +339,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     public void onErrorSendCode(String error)
     {
         loginView.hideFavoriteCardParentLoading();
-        loginView.onError(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+        loginView.showErrorMessage(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
     }
 */
@@ -390,7 +391,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             countDownTimer.start();
         } else
         {
-            loginView.onError(activeCodeResponse.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+            loginView.showErrorMessage(activeCodeResponse.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
             countDownTimer.cancel();
         }*/
     }
@@ -452,14 +453,14 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         } else
         {
             codeView.clearComposingText();
-            loginView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+            loginView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
         }
     }
 
     @Override
     public void onErrorActive(String error)
     {
-        loginView.onError(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+        loginView.showErrorMessage(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
         loginView.hideFavoriteCardParentLoading();
     }*/
 

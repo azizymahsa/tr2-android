@@ -78,7 +78,7 @@ public class NewestPhotosAdapter extends RecyclerView.Adapter<NewestPhotosAdapte
                 public void onSuccess() { }
 
                 @Override
-                public void onError()
+                public void showErrorMessage()
                 {
                     Picasso.with(context).load(R.drawable.img_failure).into(image);
                 }

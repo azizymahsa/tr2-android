@@ -234,21 +234,21 @@ public class DialogEditCard extends DialogFragment implements View.OnClickListen
 //                        etCardNameEdit.setText(getFullNameCardResponse.getFirstName() + " " + getFullNameCardResponse.getLastName());
 //                    } else
 //                    {
-//                        //  AddCardActivity.this.onError(getFullNameCardResponse.getServiceMessage().getMessage(),this.getClass().getSimpleName(), Config.showClassNameInMessage);
+//                        //  AddCardActivity.this.showErrorMessage(getFullNameCardResponse.getServiceMessage().getMessage(),this.getClass().getSimpleName(), Config.showClassNameInMessage);
 //                    }
 //                } catch (Exception e)
 //                {
-//                    //  AddCardActivity.this.onError(e.getMessage(),this.getClass().getSimpleName(), Config.showClassNameInException);
+//                    //  AddCardActivity.this.showErrorMessage(e.getMessage(),this.getClass().getSimpleName(), Config.showClassNameInException);
 //                }
 //
 //            }
 //
 //            @Override
-//            public void onError(String message)
+//            public void showErrorMessage(String message)
 //            {
 //                mainView.hideProgress();
 //
-//                // AddCardActivity.this.onError(message,this.getClass().getSimpleName(), Config.showClassNameInException);
+//                // AddCardActivity.this.showErrorMessage(message,this.getClass().getSimpleName(), Config.showClassNameInException);
 //
 //            }
 //        }, request);

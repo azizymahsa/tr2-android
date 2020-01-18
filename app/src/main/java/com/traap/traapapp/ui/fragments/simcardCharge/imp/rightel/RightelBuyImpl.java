@@ -67,7 +67,7 @@ public class RightelBuyImpl implements RightelBuyInteractor
 //            }
 //
 //            @Override
-//            public void onError(String message)
+//            public void showErrorMessage(String message)
 //            {
 //                listener.onErrorRightelBuy(message);
 //
