@@ -123,8 +123,8 @@ public class Const
     public final static String Get_Past_result = SubBASEURL + "v1/livescore/get_past_result/";
 
     //Predict
-    public final static String GET_PREDICT = SubBASEURL + "v1/predict/";
-    public final static String SEND_PREDICT = SubBASEURL + "v1/predict/";
+    public final static String GET_PREDICT = SubBASEURL + "v2/predict/";
+    public final static String SEND_PREDICT = SubBASEURL + "v2/predict/";
     public final static String GET_PREDICT_ENABLE = SubBASEURL + "v1/match/predict_enable/";
 
     //Rule

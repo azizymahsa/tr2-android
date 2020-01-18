@@ -12,72 +12,48 @@ import lombok.Setter;
 
 public class GetPredictResponse
 {
-    @SerializedName("you_predict")
-    @Expose @Getter @Setter
-    private Boolean youPredict;
-
-    @SerializedName("you_predict_result")
-    @Expose @Getter @Setter
-    @Nullable
-    private String youPredictResult = null;
-
-    @SerializedName("home_team_logo")
-    @Expose @Getter @Setter
-    private String homeTeamLogo;
-
-    @SerializedName("away_team_name")
-    @Expose @Getter @Setter
-    private String awayTeamName;
-
-    @SerializedName("chart")
+    @SerializedName("charts")
     @Expose @Getter @Setter
     private List<Chart> chart = null;
-
-    @SerializedName("match_datetime")
-    @Expose @Getter @Setter
-    private Integer matchDatetime;
-
-    @SerializedName("match_datetime_formatted")
-    @Expose @Getter @Setter
-    private String matchDatetimeStr;
-
-    @SerializedName("predict")
-    @Expose @Getter @Setter
-    private List<Predict> predict = null;
 
     @SerializedName("home_last_plays")
     @Expose @Getter @Setter
     private List<String> homeLastPlays = null;
 
-    @SerializedName("cup")
-    @Expose @Getter @Setter
-    private String cup;
-
-    @SerializedName("home_score")
-    @Expose @Getter @Setter
-    private Integer homeScore;
-
     @SerializedName("away_last_plays")
     @Expose @Getter @Setter
     private List<String> awayLastPlays = null;
 
-    @SerializedName("home_team_color_code")
+    @SerializedName("team_results")
     @Expose @Getter @Setter
-    private String homeTeamColorCode;
+    private List<TeamResults> teamResults = null;
 
-    @SerializedName("away_score")
+    @SerializedName("predicts")
     @Expose @Getter @Setter
-    private Integer awayScore;
+    private List<Predict> predict = null;
 
-    @SerializedName("away_team_logo")
+    @SerializedName("home_team")
     @Expose @Getter @Setter
-    private String awayTeamLogo;
+    private TeamDetails homeTeam;
 
-    @SerializedName("away_team_color_code")
+    @SerializedName("away_team")
     @Expose @Getter @Setter
-    private String awayTeamColorCode;
+    private TeamDetails awayTeam;
 
-    @SerializedName("home_team_name")
+    @SerializedName("match_datetime_formatted")
     @Expose @Getter @Setter
-    private String homeTeamName;
+    private String matchDatetimeStr;
+
+    @SerializedName("you_predict")
+    @Expose @Getter @Setter
+    private Boolean youPredict;
+
+    @SerializedName("match_datetime")
+    @Expose @Getter @Setter
+    private Integer matchDatetime;
+
+    @SerializedName("you_predict_result")
+    @Expose @Getter @Setter
+    @Nullable
+    private YouPredictResult youPredictResult = null;
 }

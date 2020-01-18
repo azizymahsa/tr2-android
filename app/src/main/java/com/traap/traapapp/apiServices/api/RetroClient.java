@@ -58,7 +58,6 @@ import com.traap.traapapp.apiServices.model.getReport.request.GetReportRequest;
 import com.traap.traapapp.apiServices.model.getReport.response.GetReportResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
-import com.traap.traapapp.apiServices.model.getTypeTransaction.TypeTransaction;
 import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
@@ -86,6 +85,7 @@ import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
 import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse2;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import com.traap.traapapp.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
 import com.traap.traapapp.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
@@ -556,6 +556,7 @@ public interface RetroClient
 
 
     @GET(Const.GET_PREDICT + "{matchId}/")
+//    Single<Response<WebServiceClass<GetPredictResponse2>>> getPredict(
     Single<Response<WebServiceClass<GetPredictResponse>>> getPredict(
             @Path("matchId") Integer matchId
     );
