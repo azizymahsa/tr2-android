@@ -39,7 +39,7 @@
                     android:layout_gravity="center_vertical"
                     android:background="@android:color/transparent"
                     android:gravity="right"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="36dp"
                     android:layout_marginRight="8dp"
                     android:layout_centerVertical="true"
                     android:text="Title"
@@ -51,21 +51,37 @@
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginBottom="24dp">
 
-                    <TextView
-                        android:id="@+id/confirm_msessage"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="2dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginLeft="8dp"
                         android:gravity="center"
-                        android:text="Content"
-                        android:textColor="@color/black"
-                        android:padding="10dp" />
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:layout_marginLeft="@dimen/_20dp">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="@dimen/_20dp"
+                            android:layout_height="@dimen/_20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:src="@drawable/check_mark" />
+
+                        <TextView
+                            android:id="@+id/confirm_msessage"
+                            android:layout_toLeftOf="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Content"
+                            android:textColor="@color/black"
+                            android:padding="10dp" />
+
+                    </RelativeLayout>
 
                 </androidx.core.widget.NestedScrollView>
 

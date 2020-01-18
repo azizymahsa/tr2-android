@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
 
     private View rootView;
 
+    private ImageView imageView;
+
     private Dialog dialog;
     private Activity activity;
     private CircularProgressButton btnConfirm, btnCancel;
@@ -40,29 +43,35 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
     private Boolean isCancelable;
     private String btnConfirmText = "";
     private String btnCancelText = "";
+    public static final int TYPE_ERROR = -1;
+    public static final int TYPE_MESSAGE = 0;
+    public static final int TYPE_SUCCESS = 1;
+    private int type = 0;
 
 
     public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable,
-                              OnConfirmListener listener)
+                              int messageType ,OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;
         this.title = title;
         this.messages = messages;
         this.isCancelable = isCancelable;
+        type = messageType;
     }
 
-    public MessageAlertDialog(Activity activity, String title, String messages)
+    public MessageAlertDialog(Activity activity, String title, String messages ,int messageType)
     {
         this.activity = activity;
         this.listener = null;
         this.title = title;
         this.messages = messages;
         this.isCancelable = false;
+        type = messageType;
     }
 
     public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable,
-                              String btnConfirmText, String btnCancelText, OnConfirmListener listener)
+                              String btnConfirmText, String btnCancelText, int messageType ,OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;
@@ -71,10 +80,11 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         this.isCancelable = isCancelable;
         this.btnConfirmText = btnConfirmText;
         this.btnCancelText = btnCancelText;
+        type = messageType;
     }
 
-    public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable,
-                              String btnConfirmText, String btnCancelText, Boolean isRightToLeft, OnConfirmListener listener)
+    public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable, String btnConfirmText,
+                              String btnCancelText, Boolean isRightToLeft, OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;
@@ -84,6 +94,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         this.btnConfirmText = btnConfirmText;
         this.btnCancelText = btnCancelText;
         this.isRightToLeft = isRightToLeft;
+        this.type = TYPE_MESSAGE;
     }
 
     @NonNull
@@ -96,6 +107,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
+        imageView = dialog.findViewById(R.id.imageView);
         tvTitle = dialog.findViewById(R.id.confirm_title);
         tvMessage = dialog.findViewById(R.id.confirm_msessage);
         btnConfirm = dialog.findViewById(R.id.btnConfirm);
@@ -131,6 +143,31 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         if (!btnCancelText.equalsIgnoreCase(""))
         {
             btnCancel.setText(btnCancelText);
+        }
+
+        switch (type)
+        {
+            case TYPE_MESSAGE:
+            {
+                imageView.setVisibility(View.GONE);
+                tvMessage.setTextColor(getResources().getColor(R.color.textColorSecondary));
+                break;
+            }
+            case TYPE_ERROR:
+            {
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.un_check_mark));
+                imageView.setVisibility(View.VISIBLE);
+                tvMessage.setTextColor(getResources().getColor(R.color.red_light));
+                break;
+            }
+            case TYPE_SUCCESS:
+            {
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.check_mark));
+                imageView.setVisibility(View.VISIBLE);
+                tvMessage.setTextColor(getResources().getColor(R.color.green_light));
+                break;
+            }
+
         }
 
         btnConfirm.setOnClickListener(this);

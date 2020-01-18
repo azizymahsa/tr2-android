@@ -380,7 +380,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             if (addToMyBill) {
 
               /*  if (TextUtils.isEmpty(etTitleAddMyBill.getText())) {
-                    mainView.onError("لطفا عنوان را وارد نمایید.", this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+                    mainView.showErrorMessage("لطفا عنوان را وارد نمایید.", this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
                     return;
                 } else {
                     btnBillInfoEnd.startAnimation();
@@ -697,19 +697,19 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                             upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
                         } else {
-                            mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+                            mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
 
                         }
                     } catch (Exception e) {
-                        mainView.onError(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                        mainView.showErrorMessage(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
                     }
                 }
 
                 @Override
-                public void onError(String message) {
+                public void showErrorMessage(String message) {
 
-                    mainView.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                    mainView.showErrorMessage(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
                     btnAddBill.revertAnimation(BillFragment.this);
                     btnAddBill.setClickable(true);
                 }
@@ -841,7 +841,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             }
 
             @Override
-            public void onError(String message) {
+            public void showErrorMessage(String message) {
               //  loginView.hideLoading();
                 btnMyBills.revertAnimation(BillFragment.this);
                 btnMyBills.setClickable(true);
@@ -933,18 +933,18 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
 
                     } else {
-                        mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+                        mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
                     }
 
                 } catch (Exception e) {
-                    mainView.onError(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                    mainView.showErrorMessage(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
                 }
             }
 
             @Override
-            public void onError(String message) {
-                mainView.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+            public void showErrorMessage(String message) {
+                mainView.showErrorMessage(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
                 btnPassConfirm.revertAnimation(BillFragment.this);
                 btnPassConfirm.setClickable(true);
             }
@@ -959,19 +959,19 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                     if (response.getServiceMessage().getCode() == 200) {
                         mainView.openWeb(response.getUrl(), false);
                     } else {
-                        mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), Config.showClassNameInMessage);
+                        mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), Config.showClassNameInMessage);
                     }
 
                 } catch (Exception e) {
-                    mainView.onError(e.getMessage(), this.getClass().getSimpleName(), Config.showClassNameInException);
+                    mainView.showErrorMessage(e.getMessage(), this.getClass().getSimpleName(), Config.showClassNameInException);
 
                 }
 
             }
 
             @Override
-            public void onError(String message) {
-                mainView.onError(message, this.getClass().getSimpleName(), Config.showClassNameInException);
+            public void showErrorMessage(String message) {
+                mainView.showErrorMessage(message, this.getClass().getSimpleName(), Config.showClassNameInException);
 
                 btnConfirm.revertAnimation(BillFragment.this);
                 btnConfirm.setClickable(true);
@@ -1046,7 +1046,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                     etPayId.setText(barcode.substring(13));
                     //  payBillRequest();
                 } catch (Exception e) {
-                    mainView.onError(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                    mainView.showErrorMessage(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
                 }
 
             }
@@ -1134,12 +1134,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
 
                     } else {
-                        mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+                        mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
 
                     }
 
                 } catch (Exception e) {
-                    mainView.onError(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                    mainView.showErrorMessage(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
                 }
 
@@ -1147,8 +1147,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             }
 
             @Override
-            public void onError(String message) {
-                mainView.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+            public void showErrorMessage(String message) {
+                mainView.showErrorMessage(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
                 btnPhoneInfo.revertAnimation(BillFragment.this);
                 btnPhoneInfo.setClickable(true);
 
@@ -1216,11 +1216,11 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
 
                     } else {
-                        mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+                        mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
                     }
 
                 } catch (Exception e) {
-                    mainView.onError(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                    mainView.showErrorMessage(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
                 }
 
@@ -1228,8 +1228,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             }
 
             @Override
-            public void onError(String message) {
-                mainView.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+            public void showErrorMessage(String message) {
+                mainView.showErrorMessage(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
                 btnConfirm.revertAnimation(BillFragment.this);
                 btnConfirm.setClickable(true);
 

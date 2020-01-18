@@ -95,7 +95,7 @@ public class AddCardPresenterImpl
 //                List<ArchiveCardDBModel> archiveCardDBModels = ArchiveCardDBModel.listAll(ArchiveCardDBModel.class);
 //                if (contains(archiveCardDBModels, cardNumber))
 //                {
-//                    addCardView.onError("این کارت قبلا ذخیره شده است.", this.getClass().getSimpleName(), TrapConfig.showClassNameInMessage);
+//                    addCardView.showErrorMessage("این کارت قبلا ذخیره شده است.", this.getClass().getSimpleName(), TrapConfig.showClassNameInMessage);
 //                    Utility.hideSoftKeyboard(view, context);
 //
 //                    return;
@@ -176,7 +176,7 @@ public class AddCardPresenterImpl
 //            addCardView.onFinish(Activity.RESULT_OK);
 //
 //        } else
-//            addCardView.onError(addCardResponse.getServiceMessage().getMessage(), this.getClass().getSimpleName(), TrapConfig.showClassNameInMessage);
+//            addCardView.showErrorMessage(addCardResponse.getServiceMessage().getMessage(), this.getClass().getSimpleName(), TrapConfig.showClassNameInMessage);
         Utility.hideSoftKeyboard(view, context);
 
 

@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation_menudrawer"
-        android:name="com.traap.traapapp.ui.drawer.MenuDrawer"
+        android:name="com.traap.traapapp.ui.drawer.MenuDrawerFragment"
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="right"

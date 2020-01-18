@@ -1695,7 +1695,7 @@ public class PackFragment
 //
 //        } else
 //        {
-//            mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+//            mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
 //
 //        }
 //
@@ -1709,7 +1709,7 @@ public class PackFragment
 //        etCvv2.setText("");
 //        btnBuyCharge.revertAnimation(this);
 //        btnBuyCharge.setClickable(true);
-//        mainView.onError(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+//        mainView.showErrorMessage(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 //
 //    }
 

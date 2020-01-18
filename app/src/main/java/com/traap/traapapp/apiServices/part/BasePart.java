@@ -193,7 +193,7 @@ public abstract class BasePart
 
                             try {
                                 JSONObject json = new JSONObject(value.errorBody().string()); ;
-                                listener.onError(json.getString("error"));
+                                listener.showErrorMessage(json.getString("error"));
 
                             } catch (IOException e) {
                                 e.printStackTrace();

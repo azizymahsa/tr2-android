@@ -673,7 +673,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 //                }
 //
 //                @Override
-//                public void onError(String message)
+//                public void showErrorMessage(String message)
 //                {
 //                    Utility.hideSoftKeyboard(view, getActivity());
 //
@@ -730,7 +730,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 //                }
 //
 //                @Override
-//                public void onError(String message)
+//                public void showErrorMessage(String message)
 //                {
 //                    Utility.hideSoftKeyboard(view, getActivity());
 //
@@ -782,7 +782,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 //            }
 //
 //            @Override
-//            public void onError(String message)
+//            public void showErrorMessage(String message)
 //            {
 //                mainView.showError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 //                btnContactTransfer.revertAnimation(MoneyTransferFragment.this);
@@ -930,7 +930,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 //                }
 //
 //                @Override
-//                public void onError(String message)
+//                public void showErrorMessage(String message)
 //                {
 //                    Utility.hideSoftKeyboard(view, getActivity());
 //
@@ -1005,7 +1005,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 //    }
 //
 //    @Override
-//    public void onError(String message)
+//    public void showErrorMessage(String message)
 //    {
 //        btnContinue.revertAnimation(MoneyTransferFragment.this);
 //        btnContinue.setClickable(true);
@@ -1194,7 +1194,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 //            }
 //
 //            @Override
-//            public void onError(String message)
+//            public void showErrorMessage(String message)
 //            {
 //                Utility.hideSoftKeyboard(view, getActivity());
 //                mainView.showError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
@@ -1221,7 +1221,7 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
 //            }
 //
 //            @Override
-//            public void onError(String message)
+//            public void showErrorMessage(String message)
 //            {
 //
 //            }

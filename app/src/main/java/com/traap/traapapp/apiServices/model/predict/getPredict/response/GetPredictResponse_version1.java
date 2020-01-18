@@ -10,7 +10,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class GetPredictResponse2
+public class GetPredictResponse_version1
 {
     @SerializedName("you_predict")
     @Expose @Getter @Setter

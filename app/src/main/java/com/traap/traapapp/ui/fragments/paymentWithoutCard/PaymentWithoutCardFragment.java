@@ -126,7 +126,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
         //--------------------------test--------------------
 
         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد.", false,
-                new MessageAlertDialog.OnConfirmListener()
+                MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()
@@ -743,25 +743,25 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
 
                     } else
                     {
-                        mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+                        mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
 
                     }
 
                 } catch (Exception e)
                 {
 
-                    mainView.onError(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                    mainView.showErrorMessage(e.getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
                 }
 
             }
 
             @Override
-            public void onError(String message)
+            public void showErrorMessage(String message)
             {
                 btnConfirm.revertAnimation(PaymentWithoutCardFragment.this);
                 btnConfirm.setClickable(true);
-                mainView.onError(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+                mainView.showErrorMessage(message, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 
             }
         }, request);

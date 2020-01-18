@@ -574,7 +574,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     @Override
                     public void onError(Throwable e)
                     {
-                        Logger.e("onError ", "onError");
+                        Logger.e("showErrorMessage ", "showErrorMessage");
                     }
 
                     @Override
@@ -695,7 +695,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
             @Override
             public void onError(Throwable e)
             {
-                Logger.e("--searchCategory--", "onError: " + e.getMessage());
+                Logger.e("--searchCategory--", "showErrorMessage: " + e.getMessage());
             }
 
             @Override

@@ -234,7 +234,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         try
         {
             MessageAlertDialog dialog = new MessageAlertDialog(this, title, message, false,
-                    new MessageAlertDialog.OnConfirmListener()
+                    MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
                     {
                         @Override
                         public void onConfirmClick()
@@ -456,7 +456,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             String message = "برای ادامه کار حتما باید مجوز دسترسی به وضعیت دستگاه صادر شود.لطفا در تنظیمات برنامه مجوز مربوطه را صادر نمایید.";
 
             MessageAlertDialog dialog = new MessageAlertDialog(this, "خطای مجوز دسترسی", message, true,
-                    new MessageAlertDialog.OnConfirmListener()
+                    MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
                     {
                         @Override
                         public void onConfirmClick()

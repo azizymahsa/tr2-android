@@ -559,8 +559,11 @@ public class CompeletInfoFragment
     }
 
 
-    private void showDialogDelete() {
-        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "حذف بلیت", "آیا از حذف این بلیت مطمئن هستید؟", true, "بله", "خیر", listener);
+    private void showDialogDelete()
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(),
+                "حذف بلیت", "آیا از حذف این بلیت مطمئن هستید؟",
+                true, "بله", "خیر", MessageAlertDialog.TYPE_MESSAGE, listener);
         dialog.show(getActivity().getFragmentManager(), "dialog");
     }
 

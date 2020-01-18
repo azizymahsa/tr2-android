@@ -88,13 +88,17 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private View rootView;
     private Context context;
 
+    private Handler mHandler;
+
     private long dateTimeNow;
 
     private NestedScrollView nestedScroll;
-    private RecyclerView recyclerView, sliderRecyclerView;
-    //    private MultiSnapRecyclerView recyclerView;
+    private RecyclerView rcFavoriteServices, sliderRecyclerView;
+    //    private MultiSnapRecyclerView rcFavoriteServices;
     private LinearLayoutManager layoutManager, sliderLayoutManager;
     private MainServiceModelAdapter adapter;
+    private int favoriteServicesCount = 0;
+    private int favoriteServicesIndex = 0;
     private MainSliderAdapter sliderAdapter;
     private CountDownTimer countDownTimer;
     private TextView tvShowIntro, tvCancelIntro, tvIntroTitle, tvTimePredict;
@@ -212,7 +216,74 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         list = fillMenuRecyclerList();
 
         adapter = new MainServiceModelAdapter(context, list, this);
-        recyclerView.setAdapter(adapter);
+        rcFavoriteServices.setAdapter(adapter);
+        favoriteServicesCount = list.size();
+
+        rcFavoriteServices.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
+            {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    Logger.e("-+- Scroll Index -+-", favoriteServicesIndex + ", " + layoutManager.findLastVisibleItemPosition());
+                    if (favoriteServicesIndex != layoutManager.findLastVisibleItemPosition()+1)
+                    {
+                        favoriteServicesIndex = layoutManager.findLastCompletelyVisibleItemPosition()-1;
+                    }
+                }
+            }
+        });
+
+        mHandler = new Handler();
+        startAutoAnimFavoriteServices();
+    }
+
+    private Runnable repeatTask = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            try
+            {
+                rcFavoriteServices.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
+                        if (favoriteServicesIndex < favoriteServicesCount)
+                        {
+                            favoriteServicesIndex++;
+                        }
+                        else
+                        {
+                            favoriteServicesIndex = 0;
+                        }
+                        rcFavoriteServices.smoothScrollToPosition(favoriteServicesIndex);
+                    }
+                });
+            }
+            finally
+            {
+                mHandler.postDelayed(repeatTask, 2500);
+            }
+        }
+    };
+
+    private void startAutoAnimFavoriteServices()
+    {
+        new Handler().postDelayed(() -> rcFavoriteServices.post(() ->
+        {
+            rcFavoriteServices.smoothScrollToPosition(adapter.getItemCount()-1);
+
+            new Handler().postDelayed(() -> rcFavoriteServices.post(() -> rcFavoriteServices.smoothScrollToPosition(0)),
+                    1000);
+
+        }), 2000);
+
+        repeatTask.run();
     }
 
     private void initView(View rootView)
@@ -235,7 +306,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
         tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
-        recyclerView = rootView.findViewById(R.id.recyclerView);
+        rcFavoriteServices = rootView.findViewById(R.id.recyclerView);
         sliderRecyclerView = rootView.findViewById(R.id.sliderRecyclerView);
 
         btnBuyTicket = rootView.findViewById(R.id.btnBuyTicket);
@@ -290,7 +361,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ", "%20"));
 
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true);
-        recyclerView.setLayoutManager(layoutManager);
+        rcFavoriteServices.setLayoutManager(layoutManager);
         sliderLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         sliderRecyclerView.setLayoutManager(sliderLayoutManager);
 
@@ -367,7 +438,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     }
 
                     @Override
-                    public void onError(String message)
+                    public void showErrorMessage(String message)
                     {
                         mainView.hideLoading();
                         showError(context, "خطا در دریافت اطلاعات از سرور!");
@@ -732,7 +803,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     {
                         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
                                 "برای ارسال تصویر اسناد بیمه، اخذ این مجوز الزامی است. ",
-                                true, new MessageAlertDialog.OnConfirmListener()
+                                true, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()
@@ -867,7 +938,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         if (Tools.isNetworkAvailable((Activity) context))
         {
             showError(context, "خطا در دریافت اطلاعات از سرور!");
-            Logger.e("--onError--", message);
+            Logger.e("--showErrorMessage--", message);
         } else
         {
             showAlert(context, R.string.networkErrorMessage, R.string.networkError);
@@ -1154,7 +1225,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                                         focusOnServiceViewList();
                                         new Handler().postDelayed(() ->
                                         {
-                                            intro(recyclerView, helpMenuResult.get(iFromService).getTitle(), helpMenuResult.get(iFromService).getDescription(), 9);
+                                            intro(rcFavoriteServices, helpMenuResult.get(iFromService).getTitle(), helpMenuResult.get(iFromService).getDescription(), 9);
 
                                         }, 1000);
                                     } catch (Exception e)
@@ -1185,7 +1256,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             @Override
             public void run()
             {
-                nestedScroll.scrollTo(0, recyclerView.getBottom());
+                nestedScroll.scrollTo(0, rcFavoriteServices.getBottom());
             }
         });
     }

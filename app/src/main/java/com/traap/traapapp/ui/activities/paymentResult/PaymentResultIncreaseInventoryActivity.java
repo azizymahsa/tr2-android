@@ -170,7 +170,7 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
     private void showDialog()
     {
         MessageAlertDialog dialog = new MessageAlertDialog(this, "", "رسید شما با موفقیت در گالری ذخیره شد.", false,
-                new MessageAlertDialog.OnConfirmListener()
+                MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()

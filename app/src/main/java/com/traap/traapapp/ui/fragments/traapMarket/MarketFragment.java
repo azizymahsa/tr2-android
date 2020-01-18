@@ -67,7 +67,7 @@ public class MarketFragment extends BaseFragment
     public void initView()
     {
         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "این سرویس بزودی راه اندازی میگردد.", false,
-                new MessageAlertDialog.OnConfirmListener()
+                MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()

@@ -33,7 +33,7 @@ import com.traap.traapapp.utilities.Logger;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class MenuDrawer extends Fragment
+public class MenuDrawerFragment extends Fragment
 {
     private RelativeLayout cardProfile;
     private TextView tvMyProfile;
@@ -41,7 +41,7 @@ public class MenuDrawer extends Fragment
     private Context mContext;
     private ArrayList<GetMenuItemResponse> drawerListMenu = new ArrayList<>();
 
-    private static String TAG = MenuDrawer.class.getSimpleName();
+    private static String TAG = MenuDrawerFragment.class.getSimpleName();
 
     private RecyclerView recyclerView;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -55,7 +55,7 @@ public class MenuDrawer extends Fragment
     private List<MenuItems> dataList;
     private ImageView imgMenu;
 
-    public MenuDrawer()
+    public MenuDrawerFragment()
     {
 
     }

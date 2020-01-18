@@ -704,7 +704,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     private void showAlertAndFinish(String message)
     {
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, getString(R.string.error), message,
-                false, "تایید", "", new MessageAlertDialog.OnConfirmListener()
+                false, "تایید", "", MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
         {
             @Override
             public void onConfirmClick()
@@ -764,7 +764,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                             @Override
                             public void onError(Throwable e)
                             {
-                                Logger.e("onError ", "onError");
+                                Logger.e("showErrorMessage ", "showErrorMessage");
                             }
 
                             @Override
@@ -897,7 +897,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             @Override
             public void onError(Throwable e)
             {
-                Logger.e("--searchCategory--", "onError: " + e.getMessage());
+                Logger.e("--searchCategory--", "showErrorMessage: " + e.getMessage());
             }
 
             @Override

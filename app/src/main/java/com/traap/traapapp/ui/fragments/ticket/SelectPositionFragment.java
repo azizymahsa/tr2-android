@@ -580,7 +580,7 @@ public class SelectPositionFragment
         isShowDialog = true;
 
         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "", "ظرفیت این جایگاه پر شده است.", false,
-                new MessageAlertDialog.OnConfirmListener() {
+                MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener() {
                     @Override
                     public void onConfirmClick() {
                         isShowDialog = false;

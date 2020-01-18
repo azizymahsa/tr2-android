@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -74,7 +73,7 @@ import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivit
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
-import com.traap.traapapp.ui.drawer.MenuDrawer;
+import com.traap.traapapp.ui.drawer.MenuDrawerFragment;
 import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
@@ -114,7 +113,7 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.yandex.metrica.push.YandexMetricaPush;
 
-public class MainActivity extends BaseActivity implements MainActionView, MenuDrawer.FragmentDrawerListener,
+public class MainActivity extends BaseActivity implements MainActionView, MenuDrawerFragment.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>
         , SelectPositionFragment.OnListFragmentInteractionListener
 {
@@ -125,7 +124,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     private Toolbar mToolbar;
-    private MenuDrawer drawerFragment;
+    private MenuDrawerFragment drawerFragment;
     public static ArrayList<MatchItem> matchList;
     public static ArrayList<GetMenuItemResponse> allServiceList;
     public static NewsMainResponse newsMainResponse;
@@ -285,7 +284,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
         }
 
-        drawerFragment = (MenuDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_menudrawer);
+        drawerFragment = (MenuDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_menudrawer);
         drawerFragment.setUp(R.id.fragment_navigation_menudrawer, findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
@@ -598,7 +597,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
 //                    super.onBackPressed();
                     MessageAlertDialog exitDialog = new MessageAlertDialog(this, "", "آیا بابت خروج از برنامه اطمینان دارید؟",
-                            true, "بله", "خیر", new MessageAlertDialog.OnConfirmListener()
+                            true, "بله", "خیر", MessageAlertDialog.TYPE_MESSAGE,
+                            new MessageAlertDialog.OnConfirmListener()
                     {
                         @Override
                         public void onConfirmClick()
@@ -2022,7 +2022,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 if (Tools.isNetworkAvailable(MainActivity.this))
                 {
                     showAlert(MainActivity.this, "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
-                    Logger.e("--onError--", message);
+                    Logger.e("--showErrorMessage--", message);
                 } else
                 {
                     showAlert(MainActivity.this, R.string.networkErrorMessage, R.string.networkError);
@@ -2030,15 +2030,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 buyTicketAction.onEndListener();
             }
         });
-
-
     }
 
     @Override
     public void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message)
     {
         MessageAlertDialog dialog = new MessageAlertDialog(this, "", message, false,
-                "تایید", "", new MessageAlertDialog.OnConfirmListener()
+                "تایید", "", MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
         {
             @Override
             public void onConfirmClick()
@@ -2047,7 +2045,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 fragment = PredictFragment.newInstance(MainActivity.this, matchPredict, isPredictable);
 
                 transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 transaction.replace(R.id.main_container, fragment, "predictFragment")
                         .commit();
             }
@@ -2214,7 +2211,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 hideLoading();
 
 //                showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                Logger.e("--onError--", message);
+                Logger.e("--showErrorMessage--", message);
             }
         });
 
@@ -2394,7 +2391,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 isCompleteThreadNews = true;
                 hideLoading();
 
-                Logger.e("--onError--", message);
+                Logger.e("--showErrorMessage--", message);
             }
         });
 
@@ -2450,7 +2447,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 isCompleteThreadAllServices = true;
                 hideLoading();
 
-                Logger.e("--onError--", message);
+                Logger.e("--showErrorMessage--", message);
             }
         }, request);
 
