@@ -1290,10 +1290,10 @@ public class PackFragment
                         onGetBoutForSuccess(response.data.getResults());
 
                     } else {
-                        Tools.showToast(getContext(),response.info.message,R.color.red);
+                        showToast(getContext(),response.info.message,R.color.red);
                     }
                 } catch (Exception e) {
-                    Tools.showToast(getContext(),e.getMessage(),R.color.red);
+                    showToast(getContext(),e.getMessage(),R.color.red);
 
                 }
             }
@@ -1302,7 +1302,7 @@ public class PackFragment
             public void onError(String message)
             {
 
-                Tools.showToast(getActivity(),message,R.color.red);
+                showToast(getActivity(),message,R.color.red);
             }
         });
     }
@@ -2315,7 +2315,7 @@ public class PackFragment
     {
         mainView.hideLoading();
 
-        Tools.showToast(getContext(),message,R.color.red);
+        showToast(getContext(),message,R.color.red);
 
     }
 

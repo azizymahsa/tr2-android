@@ -92,7 +92,7 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
                     hideLoading();
                 }
             }
@@ -100,7 +100,7 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
             @Override
             public void onError(String message)
             {
-                Tools.showToast(getApplicationContext(), message, R.color.red);
+                showToast(getApplicationContext(), message, R.color.red);
                 hideLoading();
             }
         });

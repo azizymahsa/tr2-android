@@ -39,6 +39,7 @@ import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInsta
 import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.adapters.paymentGateway.SelectPaymentAdapter;
+import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.paymentGateWay.PaymentGateWayParentActionView;
@@ -55,7 +56,7 @@ import com.traap.traapapp.utilities.Utility;
 import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
 
 public class CompeletInfoFragment
-        extends Fragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener {
+        extends BaseFragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener {
     private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
     private TextView txtCondition;
@@ -1586,7 +1587,7 @@ public class CompeletInfoFragment
     public void onErrorPaymentTicket(String error) {
         infoViewers.clear();
         ((BuyTicketsActivity) getActivity()).hideLoading();
-        Tools.showToast(getContext(), error, R.color.red);
+        showToast(getContext(), error, R.color.red);
 
     }
 
@@ -1617,7 +1618,7 @@ public class CompeletInfoFragment
     @Override
     public void onErrorStadiumRules(String error) {
         ((BuyTicketsActivity) getActivity()).hideLoading();
-        //Tools.showToast(getContext(), error, R.color.red);
+        //showToast(getContext(), error, R.color.red);
         if (Tools.isNetworkAvailable(getActivity())) {
             Logger.e("-OnError-", "Error: " + error);
             ((BuyTicketsActivity) getActivity()).showError("خطا در دریافت اطلاعات از سرور!");

@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:foreground="?attr/selectableItemBackground"
-                    android:background="@drawable/ic_ata_flight">
+                    android:background="@drawable/background_ata_flight">
 
                     <TextView
                         android:id="@+id/tvPredictText"
@@ -119,7 +119,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="gone"
-
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
                         android:gravity="center">
@@ -153,7 +152,6 @@
                             android:text="00 : 00 : 00 : 00"
                             android:textStyle="bold"
                             android:visibility="gone"
-
                             android:textColor="@color/textColorTitle"
                             android:textSize="@dimen/textSize_16dp"/>
 
@@ -163,7 +161,6 @@
                             android:text="مانده به پایان پیش\u200cبینی"
                             android:textColor="@color/textColorTitle"
                             android:visibility="gone"
-
                             android:textSize="@dimen/textSize_12dp"/>
 
                     </LinearLayout>

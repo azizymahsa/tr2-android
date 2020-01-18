@@ -269,7 +269,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btnShareTicket:
                 new ScreenShot(rvTickets, getActivity());
-                // Tools.showToast(getContext(), "share");
+                // showToast(getContext(), "share");
                 break;
 
             case R.id.btnReturn:
@@ -296,7 +296,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     {
         llSuccessPayment.setVisibility(View.GONE);
         llErrorPayment.setVisibility(View.VISIBLE);
-        Tools.showToast(getContext(), error, R.color.red);
+        showToast(getContext(), error, R.color.red);
         mainView.hideLoading();
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));

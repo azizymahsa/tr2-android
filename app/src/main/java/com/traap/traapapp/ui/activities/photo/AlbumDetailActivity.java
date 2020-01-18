@@ -224,10 +224,10 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                         requestGetRelatedVideos(idAlbum);
 
                     } else {
-                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e) {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -235,7 +235,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onError(String message) {
                 hideLoading();
-                // Tools.showToast(getApplicationContext(), message, R.color.red);
+                // showToast(getApplicationContext(), message, R.color.red);
 
             }
         });
@@ -295,10 +295,10 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                         setRelatedVideoData(response.data);
 
                     } else {
-                        //  Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        //  showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e) {
-                    //  Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    //  showToast(getApplicationContext(), e.getMessage(), R.color.red);
                     Logger.e("-onReady-", "Error: " + e.getMessage());
 
                 }
@@ -307,7 +307,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onError(String message) {
                 hideLoading();
-                // Tools.showToast(getApplicationContext(), message, R.color.red);
+                // showToast(getApplicationContext(), message, R.color.red);
                 if (!Tools.isNetworkAvailable(AlbumDetailActivity.this)) {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
@@ -437,10 +437,10 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                         setLiked(response.data);
 
                     } else {
-                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e) {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -448,7 +448,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onError(String message) {
                 // hideLoading();
-                //  Tools.showToast(getApplicationContext(), message, R.color.red);
+                //  showToast(getApplicationContext(), message, R.color.red);
                 if (!Tools.isNetworkAvailable(AlbumDetailActivity.this)) {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");

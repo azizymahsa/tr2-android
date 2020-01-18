@@ -143,7 +143,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
         {
             case R.id.cvBarcode:
 
-                Tools.showToast(this, "فعلا غیر فعال است!", R.color.red);
+                showToast(this, "فعلا غیر فعال است!", R.color.red);
 
 //                new TedPermission(AddCardActivity.this)
 //                        .setPermissionListener(new PermissionListener()
@@ -288,7 +288,7 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onError(String message)
     {
-        Tools.showToast(this, message, R.color.red);
+        showToast(this, message, R.color.red);
     }
 
     @Override

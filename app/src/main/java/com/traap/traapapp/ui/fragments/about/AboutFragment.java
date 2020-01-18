@@ -199,11 +199,11 @@ public class AboutFragment
 
                     } else
                     {
-                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                        showToast(getContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+                    showToast(getContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -311,7 +311,7 @@ public class AboutFragment
             case R.id.ivImage:
                 count++;
                 if (count==7){
-                    Tools.showToast(getActivity(), Const.BASEURL, Toast.LENGTH_LONG);
+                    showToast(getActivity(), Const.BASEURL, Toast.LENGTH_LONG);
                     count=0;
                 }
                 break;

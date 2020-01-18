@@ -262,7 +262,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             } catch (Exception e)
             {
-                Tools.showToast(getApplicationContext(), "شماره پیگیری: " + refrenceNumber);
+                showToast(getApplicationContext(), "شماره پیگیری: " + refrenceNumber, 0);
             }
 
             /*showLoading();

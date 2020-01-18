@@ -182,11 +182,11 @@ public class SupportFragment
 
                     } else
                     {
-                        Tools.showToast(getContext(), response.info.message, R.color.red);
+                        showToast(getContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getContext(), e.getMessage(), R.color.red);
+                    showToast(getContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -195,7 +195,7 @@ public class SupportFragment
             public void onError(String message)
             {
                 hideLoading();
-                //    Tools.showToast(getActivity(), message, R.color.red);
+                //    showToast(getActivity(), message, R.color.red);
                 if (Tools.isNetworkAvailable(getActivity()))
                 {
                     Logger.e("-OnError-", "Error: " + message);

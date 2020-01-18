@@ -1096,11 +1096,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         } else
                         {
                             Utility.disableEnableControls(true, llRoot);
-                            Tools.showToast(getContext(), response.info.message, R.color.red);
+                            showToast(getContext(), response.info.message, R.color.red);
                         }
                     } catch (Exception e)
                     {
-                        Tools.showToast(getContext(), e.getMessage(), R.color.red);
+                        showToast(getContext(), e.getMessage(), R.color.red);
 
                     }
                 }

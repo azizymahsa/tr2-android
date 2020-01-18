@@ -19,6 +19,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
+import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.utilities.Tools;
@@ -26,7 +27,7 @@ import com.traap.traapapp.utilities.Tools;
 /**
  * Created by MahtabAzizi on 11/16/2019.
  */
-public class PastMatchesFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener,MatchAdapter.ItemClickListener
+public class PastMatchesFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,MatchAdapter.ItemClickListener
 {
     private View rootView;
 
@@ -184,7 +185,7 @@ public class PastMatchesFragment extends Fragment implements OnAnimationEndListe
     public void onItemLogoTeamClick(View view, Integer id, String logo, String title)
     {
         if (id==0){
-            Tools.showToast(getContext(),"متاسفانه اطلاعاتی برای نمایش وجود ندارد.");
+            showToast(getContext(),"متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
         }else
         {
             mainView.openPastResultFragment(id.toString(), logo, title);

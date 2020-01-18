@@ -72,7 +72,7 @@ public class PaymentResultActivity extends BaseActivity implements View.OnClickL
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
                     hideLoading();
                 }
             }
@@ -80,7 +80,7 @@ public class PaymentResultActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onError(String message)
             {
-                Tools.showToast(getApplicationContext(), message, R.color.red);
+                showToast(getApplicationContext(), message, R.color.red);
                 hideLoading();
             }
         });
