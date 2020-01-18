@@ -209,7 +209,7 @@ public class SelectPositionFragment
             tvDateTime.setText(matchBuyable.getMatchDatetimeStr());
 
         } catch (Exception e) {
-            Tools.showToast(getContext(), e.getMessage(), R.color.red);
+            showToast(getContext(), e.getMessage(), R.color.red);
             llSliderItemMatch.setVisibility(View.GONE);
 
         }
@@ -596,7 +596,7 @@ public class SelectPositionFragment
         dialog.setCancelable(false);
         dialog.show(getActivity().getFragmentManager(), "messageDialog");
 
-        // Tools.showToast(getActivity(), "ظرفیت این جایگاه پر شده است");
+        // showToast(getActivity(), "ظرفیت این جایگاه پر شده است");
     }
 
     private void setCIPPositionSelected() {
@@ -1632,7 +1632,7 @@ public class SelectPositionFragment
             case R.id.tvP:
                 SingletonNeedGetAllBoxesRequest.getInstance().needRequest=true;
                 if (count == 5) {
-                    Tools.showToast(getContext(), "حداکثر تعداد بلیت قابل خرید 5 عدد میباشد.");
+                    showToast(getContext(), "حداکثر تعداد بلیت قابل خرید 5 عدد میباشد.", 0);
                 }
                 if (count < 5) {
                     count++;
@@ -1665,7 +1665,7 @@ public class SelectPositionFragment
                     count,
                     stadiumPositionModels.get(selectPositionId - 1).getId());
         } catch (Exception e) {
-            Tools.showToast(getContext(), "ظرفیت جایگاه ها پر شده است.");
+            showToast(getContext(), "ظرفیت جایگاه ها پر شده است.", 0);
         }
 
 //                stadiumPositionModels.get(selectPositionId).getId() - 1);
@@ -1699,7 +1699,7 @@ public class SelectPositionFragment
     @Override
     public void onErrorReservation(String error) {
         ((BuyTicketsActivity) getActivity()).hideLoading();
-        Tools.showToast(getContext(), error, R.color.red);
+        showToast(getContext(), error, R.color.red);
 
     }
 

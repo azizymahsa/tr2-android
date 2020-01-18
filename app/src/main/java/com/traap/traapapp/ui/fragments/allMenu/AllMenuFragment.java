@@ -418,7 +418,7 @@ public class AllMenuFragment extends BaseFragment implements
     {
         mainView.hideLoading();
 
-        Tools.showToast(getActivity(), message, R.color.red);
+        showToast(getActivity(), message, R.color.red);
     }
 
 

@@ -564,21 +564,21 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     @Override
     public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
     {
-        Tools.showToast(getActivity(), "خرید شارژ برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
+        showToast(getActivity(), "خرید شارژ برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
         getActivity().onBackPressed();
     }
 
     @Override
     public void onPaymentPackSimCard(PackageBuyResponse response, String mobile)
     {
-        Tools.showToast(getActivity(), "خرید بسته برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
+        showToast(getActivity(), "خرید بسته برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
         getActivity().onBackPressed();
     }
 
     @Override
     public void onErrorPackSimcard(String message)
     {
-        Tools.showToast(getContext(), message, R.color.red);
+        showToast(getContext(), message, R.color.red);
     }
 
     @Override
@@ -608,7 +608,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     @Override
     public void onErrorCharge(String message)
     {
-        Tools.showToast(getContext(), message, R.color.red);
+        showToast(getContext(), message, R.color.red);
     }
 
     @Override

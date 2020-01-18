@@ -150,7 +150,7 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     public void onItemLogoTeamClick(View view, Integer id, String logo, String title)
     {
         if (id==0){
-            Tools.showToast(getContext(),"متاسفانه اطلاعاتی برای نمایش وجود ندارد.");
+            showToast(getContext(),"متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
         }else
         {
             mainActionView.openPastResultFragment(id.toString(), logo, title);

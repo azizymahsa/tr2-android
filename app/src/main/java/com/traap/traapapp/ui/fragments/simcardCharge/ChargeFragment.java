@@ -1266,10 +1266,10 @@ public class ChargeFragment extends BaseFragment
                         onGetBoutForSuccess(response.data.getResults());
 
                     } else {
-                        Tools.showToast(getContext(),response.info.message,R.color.red);
+                        showToast(getContext(),response.info.message,R.color.red);
                     }
                 } catch (Exception e) {
-                    Tools.showToast(getContext(),e.getMessage(),R.color.red);
+                    showToast(getContext(),e.getMessage(),R.color.red);
 
                 }
             }
@@ -1278,7 +1278,7 @@ public class ChargeFragment extends BaseFragment
             public void onError(String message)
             {
 
-                Tools.showToast(getActivity(),message,R.color.red);
+                showToast(getActivity(),message,R.color.red);
             }
         });
     }

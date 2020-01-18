@@ -218,7 +218,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.btnShareTicket:
                 new ScreenShot(rvTickets, this);
-                // Tools.showToast(getContext(), "share");
+                // showToast(getContext(), "share");
                 break;
 
             case R.id.btnReturn:
@@ -248,7 +248,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
       //  ((TextView) findViewById(R.id.tvMessage)).setText("کاربر گرامی؛ متاسفانه خرید شما ناموفق بوده است.");
         llSuccessPayment.setVisibility(View.GONE);
         llErrorPayment.setVisibility(View.VISIBLE);
-        Tools.showToast(this, error, R.color.red);
+        showToast(this, error, R.color.red);
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 

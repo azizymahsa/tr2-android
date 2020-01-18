@@ -40,6 +40,7 @@ import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
+import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletImpl;
@@ -53,7 +54,7 @@ import com.traap.traapapp.utilities.Utility;
 /**
  * Created by MahsaAzizi on 11/25/2019.
  */
-public class PaymentWalletFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener, BuyChargeWalletInteractor.OnBuyChargeWalletListener
+public class PaymentWalletFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener, BuyChargeWalletInteractor.OnBuyChargeWalletListener
 {
     private View rootView;
 
@@ -253,7 +254,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
                 }
             } else
             {
-                Tools.showToast(getContext(), "رمز کارت وارد نشده است.", R.color.red);
+                showToast(getContext(), "رمز کارت وارد نشده است.", R.color.red);
 
             }
 
@@ -407,7 +408,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
         mainView.hideLoading();
         if (response.getMessage().contains("خطا"))
         {
-            Tools.showToast(getContext(), response.getMessage(), R.color.red);
+            showToast(getContext(), response.getMessage(), R.color.red);
 
 
         } else
@@ -426,7 +427,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
     public void onErrorPaymentWallet(String error)
     {
         mainView.hideLoading();
-        Tools.showToast(getContext(), error, R.color.red);
+        showToast(getContext(), error, R.color.red);
     }
 
     @Override
@@ -434,7 +435,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
     {
         mainView.hideLoading();
 
-        // Tools.showToast(getContext(), "خرید شارژ با موفقیت انجام شد.", R.color.green);
+        // showToast(getContext(), "خرید شارژ با موفقیت انجام شد.", R.color.green);
         Intent intent = new Intent(getContext(), PaymentResultActivity.class);
         intent.putExtra("RefrenceNumber", response.data.getRefNumber());
         intent.putExtra("StatusPayment", true);
@@ -447,7 +448,7 @@ public class PaymentWalletFragment extends Fragment implements OnAnimationEndLis
     {
         mainView.hideLoading();
 
-        Tools.showToast(getContext(), "پرداخت ناموفق", R.color.red);
+        showToast(getContext(), "پرداخت ناموفق", R.color.red);
 
        /* Intent intent = new Intent(getContext(), PaymentResultActivity.class);
         intent.putExtra("RefrenceNumber", item.getId().toString());
