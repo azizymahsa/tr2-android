@@ -28,7 +28,6 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
@@ -51,7 +50,6 @@ import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpResponse;
 import com.traap.traapapp.apiServices.model.getMenuHelp.ResultHelpMenu;
 import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
@@ -78,7 +76,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-import cn.iwgang.countdownview.CountdownView;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;

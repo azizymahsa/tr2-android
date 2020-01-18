@@ -6,17 +6,13 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Predict
+public class YouPredictResult
 {
-    @SerializedName("away_score")
-    @Expose @Getter @Setter
-    private Integer awayScore;
-
     @SerializedName("home_score")
     @Expose @Getter @Setter
     private Integer homeScore;
 
-    @SerializedName("total_user")
+    @SerializedName("away_score")
     @Expose @Getter @Setter
-    private Double totalUser;
+    private Integer awayScore;
 }

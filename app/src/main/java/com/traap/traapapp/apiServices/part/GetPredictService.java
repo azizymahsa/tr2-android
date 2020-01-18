@@ -5,6 +5,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse2;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 
 public class GetPredictService extends BasePart

@@ -1,6 +1,8 @@
 package com.traap.traapapp.ui.fragments.predict;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -8,7 +10,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -53,6 +57,7 @@ import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPred
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.adapters.predict.PredictMatchResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -72,9 +77,13 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private MatchItem matchPredict;
     private TextView tvUserName, tvHeaderPopularNo;
 
+    private Context context;
+
+    private RecyclerView rcMatchResult;
+
     private LinearLayout llAwayResultList, llHomeResultList, llChart;
-    private TextView tvAwayHeader, tvHomeHeader, tvAway, tvHome, tvCupTitle, tvDate, tvMatchResult, tvPredictEmpty, tvAwayPredict, tvHomePredict;
-    private ImageView imgHomeHeader, imgAwayHeader, imgHome, imgAway, imgHomePredict, imgAwayPredict;
+    private TextView tvAwayHeader, tvHomeHeader, tvPredictEmpty, tvAwayPredict, tvHomePredict;
+    private ImageView imgHomeHeader, imgAwayHeader, imgHomePredict, imgAwayPredict;
 
     private EditText edtAwayPredict, edtHomePredict;
     private View sepHome, sepAway;
@@ -127,6 +136,13 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     }
 
     @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -171,6 +187,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private void initView()
     {
+        rcMatchResult = rootView.findViewById(R.id.rcMatchResult);
+
         chartViewPie = rootView.findViewById(R.id.chartViewPie);
 //        APIlib.getInstance().setActiveAnyChartView(chartViewPie);
 
@@ -225,27 +243,15 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         tvAwayHeader = rootView.findViewById(R.id.tvAwayHeader);
         tvHomeHeader = rootView.findViewById(R.id.tvHomeHeader);
-        tvHome = rootView.findViewById(R.id.tvHome);
-        tvAway = rootView.findViewById(R.id.tvAway);
-        tvCupTitle = rootView.findViewById(R.id.tvCupTitle);
-        tvDate = rootView.findViewById(R.id.tvDate);
-        tvMatchResult = rootView.findViewById(R.id.tvMatchResult);
 
         tvPredictEmpty = rootView.findViewById(R.id.tvPredictEmpty);
         rlShirt = rootView.findViewById(R.id.rlShirt);
         rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100)
         );
         imgAwayHeader = rootView.findViewById(R.id.imgAwayHeader);
-        imgAway = rootView.findViewById(R.id.imgAway);
         imgAwayPredict = rootView.findViewById(R.id.imgAway3);
         imgHomeHeader = rootView.findViewById(R.id.imgHomeHeader);
-        imgHome = rootView.findViewById(R.id.imgHome1);
         imgHomePredict = rootView.findViewById(R.id.imgHome3);
-
-        vHome = rootView.findViewById(R.id.vHome);
-        vHome2 = rootView.findViewById(R.id.vHome2);
-        vAway = rootView.findViewById(R.id.vAway);
-        vAway2 = rootView.findViewById(R.id.vAway2);
 
         pieChart = AnyChart.pie();
 
@@ -257,6 +263,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             edtAwayPredict.setVisibility(View.GONE);
             btnSendPredict.setVisibility(View.GONE);
         }
+        rcMatchResult.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         getBaseData();
 
         btnSendPredict.setOnClickListener(v ->
@@ -340,8 +347,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     @Override
     public void onReady(WebServiceClass<GetPredictResponse> response)
     {
-
-
         mainView.hideLoading();
         if (response == null || response.data == null)
         {
@@ -351,10 +356,11 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         if (response.info.statusCode != 200)
         {
             showErrorAndBackToMain(response.info.message);
-            return;
         }
         else
         {
+            rcMatchResult.setAdapter(new PredictMatchResultAdapter(context, response.data.getTeamResults()));
+
             llAwayResultList.removeAllViews();
             llHomeResultList.removeAllViews();
 
@@ -367,47 +373,28 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 llHomeResultList.addView(getWinLoseListView(itemStr));
             }
 
-            setImageIntoIV(imgAwayHeader, response.data.getAwayTeamLogo());
-            setImageIntoIV(imgHomeHeader, response.data.getHomeTeamLogo());
+            setImageIntoIV(imgAwayHeader, response.data.getAwayTeam().getLogo());
+            setImageIntoIV(imgHomeHeader, response.data.getHomeTeam().getLogo());
 
-            tvHomeHeader.setText(response.data.getHomeTeamName());
-            tvAwayHeader.setText(response.data.getAwayTeamName());
+            tvAwayHeader.setText(response.data.getAwayTeam().getName());
+            tvHomeHeader.setText(response.data.getHomeTeam().getName());
 
-            setImageIntoIV(imgHome, response.data.getHomeTeamLogo());
-            setImageIntoIV(imgAway, response.data.getAwayTeamLogo());
+            setImageIntoIV(imgAwayPredict, response.data.getAwayTeam().getLogo());
+            setImageIntoIV(imgHomePredict, response.data.getHomeTeam().getLogo());
 
-            setImageIntoIV(imgHomePredict, response.data.getHomeTeamLogo());
-            setImageIntoIV(imgAwayPredict, response.data.getAwayTeamLogo());
-
-            tvHome.setText(response.data.getHomeTeamName());
-            tvAway.setText(response.data.getAwayTeamName());
-
-            tvCupTitle.setText(response.data.getCup());
-            tvDate.setText(response.data.getMatchDatetimeStr());
-
-            vAway.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
-            vAway2.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
-            vHome.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
-            vHome2.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
-
-//            if (!response.data.getYouPredict())
-//            {
-//
-//            }
             if (response.data.getYouPredict())
             {
                 try
                 {
-                    String result[] = response.data.getYouPredictResult().split("\\|");
                     if (isPredictable)
                     {
-                        edtHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
-                        edtAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
+                        edtHomePredict.setText(response.data.getYouPredictResult().getHomeScore());
+                        edtAwayPredict.setText(response.data.getYouPredictResult().getAwayScore());
                     }
                     else
                     {
-                        tvHomePredict.setText(String.valueOf(Integer.parseInt(result[0])));
-                        tvAwayPredict.setText(String.valueOf(Integer.parseInt(result[1])));
+                        tvHomePredict.setText(response.data.getYouPredictResult().getHomeScore());
+                        tvAwayPredict.setText(response.data.getYouPredictResult().getAwayScore());
 
                         sepHome.setVisibility(View.GONE);
                         sepAway.setVisibility(View.GONE);
@@ -424,22 +411,20 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 }
             }
 
-            tvMatchResult.setText(response.data.getAwayScore() + " - " + response.data.getHomeScore());
-
             if (response.data.getPredict() == null || response.data.getPredict().isEmpty() ||
                     response.data.getChart() == null || response.data.getChart().isEmpty())
             {
                 llChart.setVisibility(View.GONE);
                 tvPredictEmpty.setVisibility(View.VISIBLE);
-            } else
+            }
+            else
             {
                 llChart.setVisibility(View.VISIBLE);
                 tvPredictEmpty.setVisibility(View.GONE);
 
-//                List<DataEntry> data = new ArrayList<>();
                 List<DataEntry> data = new ArrayList<>();
                 ArrayList<String> colorList = new ArrayList<>();
-//                String color[] = new String[3];
+
                 for (Chart chart : response.data.getChart())
                 {
                     try
@@ -455,7 +440,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         }
                         else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
                         {
-                            colorList.add(response.data.getHomeTeamColorCode());
+                            colorList.add(response.data.getHomeTeam().getColorCode());
 //                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getHomeTeamName(),
 //                                    chart.getTotalUser(),
 //                                    getPersianChar(String.valueOf(chart.getTotalUser())));
@@ -463,12 +448,12 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 ////                                    getPersianChar(String.valueOf(chart.getTotalUser())));
 //                            data.add(item);
 
-                            data.add(new ValueDataEntry("برد " + response.data.getHomeTeamName(),
+                            data.add(new ValueDataEntry("برد " + response.data.getHomeTeam().getName(),
                                     chart.getTotalUser()));
                         }
                         else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
                         {
-                            colorList.add(response.data.getAwayTeamColorCode());
+                            colorList.add(response.data.getAwayTeam().getColorCode());
 //                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getAwayTeamName(),
 //                                    chart.getTotalUser(),
 //                                    getPersianChar(String.valueOf(chart.getTotalUser())));
@@ -476,7 +461,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 ////                                    getPersianChar(String.valueOf(chart.getTotalUser())));
 //                            data.add(item);
 
-                            data.add(new ValueDataEntry("برد " + response.data.getAwayTeamName(),
+                            data.add(new ValueDataEntry("برد " + response.data.getAwayTeam().getName(),
                                     chart.getTotalUser()));
                         }
                     }
@@ -546,10 +531,10 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                     llChart1.setVisibility(View.VISIBLE);
                     tvChartTotalUserOne.setText(predictList.get(0).getTotalUser().toString() + " %");
-                    vColorHomeOne.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
-                    vColorAwayOne.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
-                    String result[] = predictList.get(0).getPredict().split("\\|");
-                    tvChartPredictOne.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
+                    vColorHomeOne.setBackgroundColor(Color.parseColor(response.data.getHomeTeam().getColorCode()));
+                    vColorAwayOne.setBackgroundColor(Color.parseColor(response.data.getAwayTeam().getColorCode()));
+
+                    tvChartPredictOne.setText(predictList.get(0).getAwayScore() + "-" + predictList.get(0).getHomeScore());
                 }
 //                else
 //                {
@@ -568,10 +553,10 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                     llChart2.setVisibility(View.VISIBLE);
                     tvChartTotalUserTwo.setText(predictList.get(1).getTotalUser().toString() + " %");
-                    vColorHomeTwo.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
-                    vColorAwayTwo.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
-                    String result[] = predictList.get(1).getPredict().split("\\|");
-                    tvChartPredictTwo.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
+                    vColorHomeTwo.setBackgroundColor(Color.parseColor(response.data.getHomeTeam().getColorCode()));
+                    vColorAwayTwo.setBackgroundColor(Color.parseColor(response.data.getAwayTeam().getColorCode()));
+
+                    tvChartPredictTwo.setText(predictList.get(1).getAwayScore() + "-" + predictList.get(1).getHomeScore());
                 }
                 else
                 {
@@ -590,26 +575,25 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                     llChart3.setVisibility(View.VISIBLE);
                     tvChartTotalUserThree.setText(predictList.get(2).getTotalUser().toString() + " %");
-                    vColorHomeThree.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
-                    vColorAwayThree.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
-                    String result[] = predictList.get(2).getPredict().split("\\|");
-                    tvChartPredictThree.setText(Integer.parseInt(result[1]) + "-" + Integer.parseInt(result[0]));
+                    vColorHomeThree.setBackgroundColor(Color.parseColor(response.data.getHomeTeam().getColorCode()));
+                    vColorAwayThree.setBackgroundColor(Color.parseColor(response.data.getAwayTeam().getColorCode()));
+
+                    tvChartPredictThree.setText(predictList.get(2).getAwayScore() + "-" + predictList.get(2).getHomeScore());
                 }
                 else if (predictList.size() < 3)
                 {
                     llChart3.setVisibility(View.GONE);
                 }
 
-                vColorHomeFour.setBackgroundColor(Color.parseColor(response.data.getHomeTeamColorCode()));
-                vColorAwayFour.setBackgroundColor(Color.parseColor(response.data.getAwayTeamColorCode()));
+                vColorHomeFour.setBackgroundColor(Color.parseColor(response.data.getHomeTeam().getColorCode()));
+                vColorAwayFour.setBackgroundColor(Color.parseColor(response.data.getAwayTeam().getColorCode()));
 
-                tvHomeChartTitle.setText(response.data.getHomeTeamName());
-                tvAwayChartTitle.setText(response.data.getAwayTeamName());
+                tvHomeChartTitle.setText(response.data.getHomeTeam().getName());
+                tvAwayChartTitle.setText(response.data.getAwayTeam().getName());
 
             }
 
         }
-
     }
 
     @Override
