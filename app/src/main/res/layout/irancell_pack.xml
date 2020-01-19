@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llMTNCharge"
     android:layout_width="match_parent"
@@ -60,26 +61,26 @@
             android:gravity="center|end"
             android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:text="شماره تلفن همراه "
-            android:textColor="@color/warmGray" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end"
+                android:text="شماره تلفن همراه "
+                android:textColor="@color/warmGray" />
 
-        <AutoCompleteTextView
-            android:id="@+id/etMobileCharge"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_35dp"
-            android:layout_gravity="center"
-            android:gravity="left"
-            android:paddingLeft="24dp"
-            android:text=""
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:textColor="@color/chargePackTextColor"
-            android:textSize="@dimen/textSize_16dp"
-            android:background="@drawable/background_spinner_amount_charge"/>
+            <AutoCompleteTextView
+                android:id="@+id/etMobileCharge"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35dp"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:paddingLeft="24dp"
+                android:text=""
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:textColor="@color/chargePackTextColor"
+                android:textSize="@dimen/textSize_16dp"
+                android:background="@drawable/background_spinner_amount_charge"/>
 
         </LinearLayout>
 

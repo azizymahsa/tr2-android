@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35dp"
                     android:layout_gravity="center"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text=""
                     android:inputType="number"
                     android:imeOptions="actionDone"
@@ -127,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35dp"
                     android:layout_gravity="center"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:tag="allBox"
                     android:background="@drawable/background_spinner_amount_charge" />
          <!--       <com.google.android.material.textfield.TextInputLayout

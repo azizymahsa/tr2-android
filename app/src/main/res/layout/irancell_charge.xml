@@ -10,6 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:gravity="center|end"
         android:orientation="horizontal">
 
@@ -18,45 +20,32 @@
             android:layout_height="wrap_content"
             android:layout_weight="20" />
 
+        <ImageView
+            android:id="@+id/btnIrancellRecent"
+            android:layout_width="@dimen/_45dp"
+            android:layout_height="@dimen/_45dp"
+            android:src="@drawable/ic_list"
+            android:padding="10dp"
+            android:background="@drawable/button_small_border"
+            android:layout_marginRight="5dp"
+            android:foreground="?attr/selectableItemBackground" />
+
+        <ImageView
+            android:id="@+id/ivContactI"
+            android:src="@drawable/ic_phone_book"
+            android:layout_width="@dimen/_45dp"
+            android:layout_height="@dimen/_45dp"
+            android:padding="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/button_small_border"
+            android:foreground="?attr/selectableItemBackground" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="100"
             android:gravity="center|end"
             android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="@dimen/_80dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_5sdp"
-               android:layout_gravity="top"
-                android:layout_marginTop="@dimen/_30dp"
-                android:gravity="right"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/btnIrancellRecent"
-                    android:layout_width="@dimen/_35dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="top"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/button_small_border"
-                    android:padding="@dimen/_5sdp"
-                    android:src="@drawable/ic_list"
-                    android:textSize="@dimen/textSize_20dp"
-                    android:transitionName="transition"
-                    android:visibility="visible" />
-
-            <ImageView
-                android:id="@+id/ivContactI"
-                android:src="@drawable/ic_phone_book"
-                android:layout_width="@dimen/_35dp"
-                android:layout_height="@dimen/_35dp"
-                android:layout_gravity="top"
-                android:padding="@dimen/_5sdp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/button_small_border"
-                android:foreground="?attr/selectableItemBackground" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -70,14 +59,15 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|end"
                     android:text="شماره موبایل"
-                    android:textColor="@color/warmGray"
-                    />
+                    android:textColor="@color/warmGray" />
+
                 <AutoCompleteTextView
                     android:id="@+id/autoCompletePhoneNumberIrancel"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35dp"
                     android:layout_gravity="center"
-                    android:gravity="right"
+                    android:gravity="left"
+                    android:paddingLeft="24dp"
                     android:text=""
                     android:inputType="number"
                     android:imeOptions="actionDone"
@@ -90,51 +80,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|end"
                     android:text="مبلغ (ریال)"
-                    android:textColor="@color/warmGray"
-                    />
+                    android:textColor="@color/warmGray" />
+
                 <Spinner
                     android:id="@+id/spinnerAmountIrancell"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35dp"
                     android:layout_gravity="center"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:tag="allBox"
                     android:background="@drawable/background_spinner_amount_charge" />
-          <!--  <com.google.android.material.textfield.TextInputLayout
-                app:hintTextAppearance="@style/TextLabel"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_gravity="center|end"
-                android:hint="مبلغ (ریال)"
-                android:theme="@style/EditTextHint">
-
-                <com.traap.traapapp.utilities.ClearableEditText
-                    android:id="@+id/etChargeAmount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="100"
-                    android:backgroundTint="@color/black"
-                    android:digits="0,1,2,3,4,5,6,7,8,9,,"
-                    android:gravity="end|center"
-                    android:imeOptions="actionDone"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/chargePackTextColor"
-                    android:textSize="@dimen/textSize_16dp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>-->
 
             </LinearLayout>
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:text="@string/sim_icon"-->
-<!--                android:textAppearance="@style/IconFonts"-->
-<!--                android:textColor="@color/textColorPrimary"-->
-<!--                android:textSize="@dimen/_20dp"-->
-<!--                android:visibility="gone" />-->
 
         </LinearLayout>
 
