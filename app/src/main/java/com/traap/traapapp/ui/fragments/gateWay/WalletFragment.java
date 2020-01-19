@@ -45,6 +45,7 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.turnover.ClickTurnOverEvent;
 import com.traap.traapapp.ui.fragments.turnover.EventTurnoverModel;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
@@ -52,6 +53,8 @@ import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetime
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
@@ -324,9 +327,17 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
             @Override
             public void onError(String message) {
-
                 mainView.showError(message);
                 mainView.hideLoading();
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+                }
+                else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+
 
             }
         }, request);
@@ -370,6 +381,16 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
                 mainView.showError(message);
                 mainView.hideLoading();
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError("خطای ارتباط با سرور!");
+
+                }
+                else
+                {
+                    mainView.showError(getString(R.string.networkErrorMessage));
+
+                }
 
             }
         }, request);
@@ -410,9 +431,10 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ClickTurnOverEvent event) {
+        if (event.getFilterClick()){
+            slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
 
-        slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-
+        }
     }
 
     @Override

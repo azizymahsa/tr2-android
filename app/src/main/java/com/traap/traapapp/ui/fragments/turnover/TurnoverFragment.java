@@ -1,9 +1,11 @@
 package com.traap.traapapp.ui.fragments.turnover;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.ClearableEditText;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -31,6 +34,8 @@ public class TurnoverFragment extends BaseFragment {
     private ViewPager vp;
     private TabLayout tabLayout;
     private LinearLayout btnFilter;
+    private ImageView imgSearch;
+    private ClearableEditText edtSearchText;
 
 
     public static TurnoverFragment newInstance(MainActionView mainView) {
@@ -65,6 +70,8 @@ public class TurnoverFragment extends BaseFragment {
         vp = rootView.findViewById(R.id.vp);
         tabLayout = rootView.findViewById(R.id.tabLayout);
         btnFilter = rootView.findViewById(R.id.btnFilter);
+        imgSearch = rootView.findViewById(R.id.imgSearch);
+        edtSearchText = rootView.findViewById(R.id.edtSearchText);
 
 
         vp.setAdapter(new TurnOverPagerAdapter(getActivity().getSupportFragmentManager(),mainView));
@@ -74,8 +81,21 @@ public class TurnoverFragment extends BaseFragment {
         vp.setCurrentItem(2);
 
         btnFilter.setOnClickListener(v -> {
+            ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
+            clickTurnOverEvent.setFilterClick(true);
 
-            EventBus.getDefault().post(new ClickTurnOverEvent());
+            EventBus.getDefault().post(clickTurnOverEvent);
+
+
+        });
+        imgSearch.setOnClickListener(v -> {
+            ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
+            clickTurnOverEvent.setSearchClick(true);
+            if (TextUtils.isEmpty(edtSearchText.getText().toString()))
+                return;
+            clickTurnOverEvent.setSearch(edtSearchText.getText().toString());
+
+            EventBus.getDefault().post(clickTurnOverEvent);
 
 
         });

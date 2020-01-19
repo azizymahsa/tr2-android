@@ -41,6 +41,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -1277,8 +1278,15 @@ public class ChargeFragment extends BaseFragment
             @Override
             public void onError(String message)
             {
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    showToast(getActivity(), "خطای دسترسی به سرور!", 0);
+                }
+                else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
 
-                showToast(getActivity(),message,R.color.red);
             }
         });
     }

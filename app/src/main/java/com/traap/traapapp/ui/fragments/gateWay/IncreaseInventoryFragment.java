@@ -21,17 +21,20 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
 import com.traap.traapapp.utilities.NumberTextWatcher;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 /**
  * Created by MahsaAzizi on 28/12/2019.
@@ -266,6 +269,17 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
                 mainView.showError(message);
                 mainView.hideLoading();
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError("خطای ارتباط با سرور!");
+
+                }
+                else
+                {
+                    mainView.showError(getString(R.string.networkErrorMessage));
+
+                }
+
 
             }
         }, request);

@@ -39,6 +39,7 @@ import com.squareup.picasso.Picasso;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -1056,7 +1057,18 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             {
                 Utility.disableEnableControls(true, llRoot);
 
-                showError(context, message);
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    showError(context, message);
+
+
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+
+                }
+
+
             }
         }, request);
     }
@@ -1110,7 +1122,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 {
                     Utility.disableEnableControls(true, llRoot);
 
-                    showError(context, message);
+                    if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                    {
+                        showError(context, message);
+
+
+                    } else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+
+                    }
                 }
             }, request);
 

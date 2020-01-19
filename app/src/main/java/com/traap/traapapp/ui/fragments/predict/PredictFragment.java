@@ -41,6 +41,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -57,12 +58,14 @@ import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPred
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.predict.PredictMatchResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -332,8 +335,17 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             {
                 btnSendPredict.revertAnimation(PredictFragment.this);
                 btnSendPredict.setClickable(true);
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
 
-                showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
+                }
+                else
+                {
+                    showError(getActivity(),  getString(R.string.networkErrorMessage));
+
+
+                }
             }
         });
     }
@@ -602,6 +614,21 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         mainView.hideLoading();
         Logger.e("-showErrorMessage-", "Error: " + message);
         showErrorAndBackToMain("خطا در دریافت اطلاعات از سرور!");
+
+
+        if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+        {
+            showErrorAndBackToMain("خطا در دریافت اطلاعات از سرور!");
+
+
+        }
+        else
+        {
+            showErrorAndBackToMain( getString(R.string.networkErrorMessage));
+
+
+
+        }
     }
 
     private void setImageIntoIV(ImageView imageView, String link)

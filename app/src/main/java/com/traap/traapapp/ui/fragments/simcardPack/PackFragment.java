@@ -1290,10 +1290,10 @@ public class PackFragment
                         onGetBoutForSuccess(response.data.getResults());
 
                     } else {
-                        showToast(getContext(),response.info.message,R.color.red);
+                        Tools.showToast(getContext(),response.info.message,R.color.red);
                     }
                 } catch (Exception e) {
-                    showToast(getContext(),e.getMessage(),R.color.red);
+                    Tools.showToast(getContext(),e.getMessage(),R.color.red);
 
                 }
             }
@@ -1301,8 +1301,17 @@ public class PackFragment
             @Override
             public void onError(String message)
             {
+                if (Tools.isNetworkAvailable(getActivity()))
+                {
+                    showToast(getActivity(),message,R.color.red);
 
-                showToast(getActivity(),message,R.color.red);
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+
+
+
             }
         });
     }
@@ -1695,7 +1704,7 @@ public class PackFragment
 //
 //        } else
 //        {
-//            mainView.showErrorMessage(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
+//            mainView.onError(response.getServiceMessage().getMessage(), this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
 //
 //        }
 //
@@ -1709,7 +1718,7 @@ public class PackFragment
 //        etCvv2.setText("");
 //        btnBuyCharge.revertAnimation(this);
 //        btnBuyCharge.setClickable(true);
-//        mainView.showErrorMessage(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
+//        mainView.onError(error, this.getClass().getSimpleName(), DibaConfig.showClassNameInException);
 //
 //    }
 

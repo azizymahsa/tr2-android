@@ -45,10 +45,13 @@ import com.traap.traapapp.ui.dialogs.PaymentResultDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NumberTextWatcher;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.Objects;
 
 
 @SuppressLint("ValidFragment")
@@ -605,7 +608,17 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
             public void onError(String message)
             {
 //...
-                mainView.showError(message);
+
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError("خطای ارتباط با سرور!");
+
+                }
+                else
+                {
+                    mainView.showError(getString(R.string.networkErrorMessage));
+
+                }
 /*                llPayment.setVisibility(View.VISIBLE);
                 llDetailPayment.setVisibility(View.GONE);*/
                 backToHome();
@@ -666,7 +679,19 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     {
         btnPaymentConfirm.revertAnimation(this);
         btnPaymentConfirm.setClickable(true);
+
         mainView.showError(message);
+        mainView.hideLoading();
+        if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+        {
+            mainView.showError("خطای ارتباط با سرور!");
+
+        }
+        else
+        {
+            mainView.showError(getString(R.string.networkErrorMessage));
+
+        }
 
 
     }

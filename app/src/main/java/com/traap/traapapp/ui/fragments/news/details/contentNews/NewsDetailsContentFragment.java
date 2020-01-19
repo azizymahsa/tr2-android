@@ -268,7 +268,14 @@ public class NewsDetailsContentFragment extends BaseFragment implements NewsDeta
                 @Override
                 public void onError(String message)
                 {
-                    showAlert(context, "خطای ارتباط با سرور!", R.string.error);
+                    if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                    {
+                        showAlert(context, "خطای ارتباط با سرور!", R.string.error);
+                    }
+                    else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
                 }
             });
         });

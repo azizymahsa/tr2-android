@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Collections;
 import java.util.List;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.models.otherModels.menuItems.MenuItems;
@@ -57,7 +58,9 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.My
         }
         else
         {
-            Picasso.with(context).load(current.getImgURL()).into(holder.MenuIcon);
+       //     Picasso.with(context).load(current.getImgURL()).into(holder.MenuIcon);
+            Glide.with(context).load(current.getImgURL()).into(holder.MenuIcon);
+
         }
         holder.MenuItem.setText(current.getItemName());
 

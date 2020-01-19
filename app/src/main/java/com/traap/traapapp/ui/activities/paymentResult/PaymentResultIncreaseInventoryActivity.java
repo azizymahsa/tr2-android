@@ -100,8 +100,22 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
             @Override
             public void onError(String message)
             {
-                showToast(getApplicationContext(), message, R.color.red);
                 hideLoading();
+
+
+                if (Tools.isNetworkAvailable(PaymentResultIncreaseInventoryActivity.this))
+                {
+                    showToast(getApplicationContext(), message, R.color.red);
+
+
+                } else
+                {
+                    Tools.showToast(getApplicationContext(), getString(R.string.networkErrorMessage), R.color.red);
+
+
+
+                }
+
             }
         });
     }

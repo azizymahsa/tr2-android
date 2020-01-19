@@ -47,12 +47,9 @@ android {
 //                    universalApk true
 //                }
 //            }
-            debuggable false
-            minifyEnabled true
-            shrinkResources true
-            useProguard true
-            signingConfig signingConfigs.release
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 

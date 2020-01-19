@@ -33,6 +33,7 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
 import com.traap.traapapp.utilities.NumberTextWatcher;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -40,6 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Objects;
 
 import ru.kolotnev.formattedittext.MaskedEditText;
 
@@ -281,9 +283,19 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
             @Override
             public void onError(String message)
             {
-
-                mainView.showError(message);
                 mainView.hideLoading();
+
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError(message);
+
+
+                } else
+                {
+                    mainView.showError(getString(R.string.networkErrorMessage));
+
+                }
+
 
             }
         }, request);
