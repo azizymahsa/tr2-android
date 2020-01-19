@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.traap.traapapp.R;
@@ -229,7 +230,7 @@ public class PastResultFragment
     {
        // mainView.showError(message);
         mainView.hideLoading();
-        if (Tools.isNetworkAvailable(getActivity()))
+        if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
         {
             Logger.e("-OnError-", "Error: " + message);
             mainView.showError( "خطا در دریافت اطلاعات از سرور!");

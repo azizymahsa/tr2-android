@@ -4,6 +4,7 @@ package com.traap.traapapp.ui.activities.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -2126,14 +2127,56 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         if (response == null || response.info == null)
         {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
+            MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
+                    false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+            {
+                @Override
+                public void onConfirmClick()
+                {
+                    GetMenuRequest request = new GetMenuRequest();
+                    request.setDeviceType(TrapConfig.AndroidDeviceType);
+                    request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
+                    SingletonService.getInstance().getMenuService().getMenu(MainActivity.this, request);
+
+
+                }
+
+                @Override
+                public void onCancelClick()
+                {
+
+                }
+            });
+            dialog.setCancelable(false);
+            dialog.show(getFragmentManager(), "dialogAlert");
             return;
         }
         if (response.info.statusCode != 200)
         {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
+            MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
+                    false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+            {
+                @Override
+                public void onConfirmClick()
+                {
+                    GetMenuRequest request = new GetMenuRequest();
+                    request.setDeviceType(TrapConfig.AndroidDeviceType);
+                    request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
+                    SingletonService.getInstance().getMenuService().getMenu(MainActivity.this, request);
+
+
+                }
+
+                @Override
+                public void onCancelClick()
+                {
+
+                }
+            });
+            dialog.setCancelable(false);
+            dialog.show(getFragmentManager(), "dialogAlert");
+          /*  startActivity(new Intent(this, LoginActivity.class));
+            finish();*/
         } else
         {
             drawerMenu = response.data.getDrawerMenu();
@@ -2267,9 +2310,25 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     isCompleteThreadMatch = true;
                     isCompleteThreadNews = true;
                     hideLoading();
+                    MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
+                            false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                    {
+                        @Override
+                        public void onConfirmClick()
+                        {
+                            getBankList();
 
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();
+                        }
+
+                        @Override
+                        public void onCancelClick()
+                        {
+
+                        }
+                    });
+
+               /*     startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();*/
 
                     return;
                 }
@@ -2280,9 +2339,24 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     isCompleteThreadMatch = true;
                     isCompleteThreadNews = true;
                     hideLoading();
+                    MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
+                            false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                    {
+                        @Override
+                        public void onConfirmClick()
+                        {
+                            getBankList();
 
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();
+                        }
+
+                        @Override
+                        public void onCancelClick()
+                        {
+
+                        }
+                    });
+                  /*  startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();*/
 
                     return;
                 } else
@@ -2444,6 +2518,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void onError(String message)
             {
+
                 isCompleteThreadAllServices = true;
                 hideLoading();
 
@@ -2459,11 +2534,40 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onError(String message)
     {
         hideLoading();
+        String error;
 
-        showError(this, "خطا در دریافت اطلاعات از سرور!");
 
+
+        if (Tools.isNetworkAvailable(this))
+        {
+            error="خطا در دریافت اطلاعات از سرور!";
+        } else
+        {
+            error=getString( R.string.networkErrorMessage);
+        }
+
+
+        MessageAlertDialog dialog = new MessageAlertDialog(this, "", error,
+                false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                getAllServicesList();
+
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show(getFragmentManager(), "messageDialog");
+/*
         startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), 100);
-        finish();
+        finish();*/
     }
 
     //    @Override

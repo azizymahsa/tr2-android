@@ -34,6 +34,9 @@ import com.traap.traapapp.ui.activities.card.add.request.AddCardServiceImpl;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+
+import java.util.Objects;
+
 import ru.kolotnev.formattedittext.MaskedEditText;
 
 public class AddCardActivity extends BaseActivity implements View.OnClickListener, PinEntryEditText.OnPinEnteredListener,
@@ -288,7 +291,18 @@ public class AddCardActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onError(String message)
     {
-        showToast(this, message, R.color.red);
+
+        if (Tools.isNetworkAvailable(Objects.requireNonNull(AddCardActivity.this)))
+        {
+            showToast(this, "خطای ارتباط با سرور!", R.color.red);
+
+        }
+        else
+        {
+            Tools.showToast(this, getString(R.string.networkErrorMessage), R.color.red);
+
+
+        }
     }
 
     @Override

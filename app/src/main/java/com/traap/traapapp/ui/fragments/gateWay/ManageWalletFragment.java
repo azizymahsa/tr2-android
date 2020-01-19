@@ -26,8 +26,11 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.Objects;
 
 /**
  * Created by MahsaAzizi on 25/12/2019.
@@ -273,10 +276,18 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onError(String message)
             {
-
                 mainView.showError(message);
                 mainView.hideLoading();
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError("خطای ارتباط با سرور!");
 
+                }
+                else
+                {
+                    mainView.showError(getString(R.string.networkErrorMessage));
+
+                }
             }
         }, request);
     }
@@ -330,9 +341,18 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onError(String message)
             {
-
                 mainView.showError(message);
                 mainView.hideLoading();
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError("خطای ارتباط با سرور!");
+
+                }
+                else
+                {
+                    mainView.showError(getString(R.string.networkErrorMessage));
+
+                }
 
             }
         }, request);

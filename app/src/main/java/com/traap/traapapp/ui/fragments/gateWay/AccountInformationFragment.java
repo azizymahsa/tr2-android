@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.gateWay;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -20,9 +21,13 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
+import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.Objects;
 
 /**
  * Created by MahsaAzizi on 07/01/2020.
@@ -189,9 +194,17 @@ public class AccountInformationFragment extends BaseFragment implements View.OnC
             @Override
             public void onError(String message)
             {
-
-                mainView.showError(message);
                 mainView.hideLoading();
+
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError(message);
+                } else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+
+
 
             }
         }, request);

@@ -35,12 +35,14 @@ import com.traap.traapapp.ui.dialogs.MoneyTransferAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 /**
  * Created by MahsaAzizi on 28/12/2019.
@@ -426,8 +428,19 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             public void onError(String message)
             {
 
-                mainView.showError(message);
                 mainView.hideLoading();
+
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError(message);
+
+
+                } else
+                {
+
+                    mainView.showError(getString(R.string.networkErrorMessage));
+
+                }
 
             }
         }, request);
@@ -480,8 +493,20 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             public void onError(String message)
             {
 
-                mainView.showError(message);
                 mainView.hideLoading();
+
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError(message);
+
+
+                } else
+                {
+                    mainView.showError(getString(R.string.networkErrorMessage));
+
+
+                }
+
 
             }
         }, request);

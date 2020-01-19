@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,7 +45,9 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.TagGroup;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
 import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
 import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
@@ -66,6 +69,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -137,7 +141,9 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
     private PersianCalendar currentDate, startPersianDate, endPersianDate;
     private Integer startDateInt = 0, endDateInt = 0;
+    private TagGroup tagGroup;
 
+    private List<String> tags = new ArrayList<>();
 
     public TransactionsListFragment()
     {
@@ -235,7 +241,19 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             public void onError(String message)
             {
                 mainView.hideLoading();
-                TransactionsListFragment.this.onError(message);
+
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    TransactionsListFragment.this.onError(message);
+
+
+                } else
+                {
+                    TransactionsListFragment.this.onError(getString(R.string.networkErrorMessage));
+
+
+
+                }
             }
         });
     }
@@ -247,6 +265,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             rangeBar = rootView.findViewById(R.id.rangeBar);
             tvMaxPrice = rootView.findViewById(R.id.tvMaxPrice);
             tvMinPrice = rootView.findViewById(R.id.tvMinPrice);
+            tagGroup = rootView.findViewById(R.id.tag_group);
 
             tvEmpty = rootView.findViewById(R.id.tvEmpty);
 
@@ -289,7 +308,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             edtSearchText.requestFocus();
             hideKeyboard((Activity) context);
 
-            rcHashTag.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+          //  rcHashTag.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 
             slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
             slidingUpPanelLayout.setScrollableViewHelper(new NestedScrollableViewHelper());
@@ -845,11 +864,15 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             {
                 values.add("#" + item);
             }
-            adapterHashTag = new HashTagMediaAdapter(values);
-            rcHashTag.setAdapter(adapterHashTag);
+ /*           adapterHashTag = new HashTagMediaAdapter(values);
+            rcHashTag.setAdapter(adapterHashTag);*/
+            llFilterHashTag.setVisibility(View.VISIBLE);
+
+            tagGroup.setTags(hashTag);
         }
         catch (Exception e)
         {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
     }

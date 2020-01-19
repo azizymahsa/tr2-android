@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -159,5 +160,11 @@ public class AllTurnoverFragment extends BaseFragment {
         getAllReport(event.getTo_date(), event.getFrom_date(), event.getTo_amount(), event.getFrom_amount() );
 
 
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ClickTurnOverEvent event) {
+      //  Toast.makeText(getActivity(), event.getSearch(), Toast.LENGTH_SHORT).show();
     }
 }

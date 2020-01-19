@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
@@ -41,6 +42,7 @@ import com.traap.traapapp.ui.adapters.aboutUs.ExpandableListPlayerHistoryAdapter
 import com.traap.traapapp.ui.adapters.aboutUs.NoScrollExListView;
 import com.traap.traapapp.ui.adapters.aboutUs.ExpandableListHistoryAdapter;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -309,7 +311,17 @@ public class HistoryFragment
             {
                 mainView.hideLoading();
 
-                mainView.showError(message);
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    mainView.showError("خطای ارتباط با سرور!");
+
+                }
+                else
+                {
+                    mainView.showError(getString(R.string.networkErrorMessage));
+
+                }
+
 
             }
         });

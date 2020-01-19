@@ -62,6 +62,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -808,7 +809,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
     @Override
     public void onError(String message)
     {
-        if (Tools.isNetworkAvailable(getActivity()))
+        if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
         {
             Logger.e("-OnError-", "Error: " + message);
             showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");

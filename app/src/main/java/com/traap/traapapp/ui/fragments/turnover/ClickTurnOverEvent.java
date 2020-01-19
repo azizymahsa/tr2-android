@@ -6,13 +6,31 @@ package com.traap.traapapp.ui.fragments.turnover;
  * Copyright © 2017
  */
 public class ClickTurnOverEvent {
-    private Boolean isClick;
+    private Boolean isFilterClick;
+    private Boolean isSearchClick;
+    private String search;
 
-    public Boolean getClick() {
-        return isClick;
+    public Boolean getFilterClick() {
+        return isFilterClick;
     }
 
-    public void setClick(Boolean click) {
-        isClick = click;
+    public void setFilterClick(Boolean filterClick) {
+        isFilterClick = filterClick;
+    }
+
+    public Boolean getSearchClick() {
+        return isSearchClick;
+    }
+
+    public void setSearchClick(Boolean searchClick) {
+        isSearchClick = searchClick;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 }

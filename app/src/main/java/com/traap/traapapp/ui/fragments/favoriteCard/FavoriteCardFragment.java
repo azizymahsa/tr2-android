@@ -42,8 +42,11 @@ import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.dialogs.ChangePasswordDialog;
 import com.traap.traapapp.ui.dialogs.DialogDeleteCard;
 import com.traap.traapapp.ui.dialogs.DialogEditCard;
+import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.utilities.LinearLayoutManagerWithSmoothScroller;
 import com.traap.traapapp.utilities.ScreenShot;
+import com.traap.traapapp.utilities.Tools;
+
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 public class FavoriteCardFragment extends BaseFragment implements FavoriteCardActionView,
@@ -250,6 +253,17 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
 
         progress.setVisibility(View.GONE);
 
+        if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+        {
+            showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+        }
+        else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
+
+
+
     }
 
     @Override
@@ -355,8 +369,14 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             public void onError(String message)
             {
                 parentView.hideFavoriteCardParentLoading();
-
-                showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+                }
+                else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         });
     }
@@ -397,7 +417,14 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             {
                 parentView.hideFavoriteCardParentLoading();
 
-                showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+                }
+                else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         });
     }
@@ -430,7 +457,14 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             {
                 parentView.hideFavoriteCardParentLoading();
 
-                showAlert(getActivity(), "خطا در دریافت اطلاعات از سرور!", 0);
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+                }
+                else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         });
     }
@@ -463,8 +497,14 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             {
                 parentView.hideFavoriteCardParentLoading();
 
-                showAlert(getActivity(), "خطا در دریافت اطلاعات از سرور!", 0);
-
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+                }
+                else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
         });
     }

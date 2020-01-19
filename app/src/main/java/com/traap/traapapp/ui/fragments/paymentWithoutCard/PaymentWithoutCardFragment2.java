@@ -27,6 +27,7 @@ import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -41,6 +42,7 @@ import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Tools;
 
 public class PaymentWithoutCardFragment2 extends BaseFragment implements View.OnClickListener, OnAnimationEndListener
 {
@@ -250,7 +252,6 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
                 public void onError(String message)
                 {
 //...
-                    mainView.showError(message);
 /*                llPayment.setVisibility(View.VISIBLE);
                 llDetailPayment.setVisibility(View.GONE);*/
                     backToHome();
@@ -265,6 +266,16 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
                             btnConfirm.setClickable(true);
                         }
                     }, 200);
+                    if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                    {
+                        mainView.showError(message);
+                    }
+                    else
+                    {
+
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+
 
                 }
             }, request);

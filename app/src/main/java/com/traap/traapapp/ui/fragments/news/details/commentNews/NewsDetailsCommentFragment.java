@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -33,6 +34,7 @@ import com.traap.traapapp.ui.activities.news.NewsDetailsAction;
 import com.traap.traapapp.ui.adapters.news.NewsCommentListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 
 @SuppressLint("newsCommentFragment")
 public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimationEndListener,
@@ -162,8 +164,17 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
                     {
                         btnSendComment.revertAnimation(NewsDetailsCommentFragment.this);
                         btnSendComment.setClickable(true);
+                        if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                        {
+                            showAlert(context, "خطای دسترسی به سرور!", 0);
+                        }
+                        else
+                        {
+                            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                        }
 
-                        showAlert(context, "خطای دسترسی به سرور!", 0);
+
+
                     }
                 });
             }
@@ -215,7 +226,17 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
         progress.setVisibility(View.GONE);
         rootView.findViewById(R.id.llCommentList).setVisibility(View.GONE);
 
-        Logger.e("-showErrorMessage CommentList-", "Error: " + message);
+        if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+        {
+            showAlert(context, "خطای دسترسی به سرور!", 0);
+        }
+        else
+        {
+            showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+        }
+
+
+        Logger.e("-onError CommentList-", "Error: " + message);
     }
 
     @Override
@@ -265,7 +286,15 @@ public class NewsDetailsCommentFragment extends BaseFragment implements OnAnimat
             @Override
             public void onError(String message)
             {
-                showToast(context, "خطای ارتباط با سرور!", R.color.red);
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+                    showToast(context, "خطای ارتباط با سرور!", R.color.red);
+                }
+                else
+                {
+                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                }
+
             }
         });
     }

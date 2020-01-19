@@ -159,4 +159,36 @@
         <item name="fontFamily">@font/iransans_mobile_bold</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+
+
+
+
+
+
+
+
+    <style name="TagGroup2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="atg_isAppendMode">false</item>
+        <item name="atg_inputHint">اضافه کردن برچسب</item>
+        <item name="atg_borderColor">#FFFFFF</item>
+        <item name="atg_textColor">#FFFFFF</item>
+        <item name="atg_backgroundColor">@color/textColorPrimary</item>
+        <item name="atg_dashBorderColor">#FFFFFF</item>
+        <item name="atg_inputHintColor">#80000000</item>
+        <item name="atg_inputTextColor">#ffffff</item>
+        <item name="atg_checkedBorderColor">#49C120</item>
+        <item name="atg_checkedTextColor">#FFFFFF</item>
+        <item name="atg_checkedMarkerColor">#FFFFFF</item>
+        <item name="atg_checkedBackgroundColor">#49C120</item>
+        <item name="atg_pressedBackgroundColor">#EDEDED</item>
+        <item name="atg_borderStrokeWidth">0.0dp</item>
+        <item name="atg_textSize">14sp</item>
+        <item name="atg_horizontalSpacing">8dp</item>
+        <item name="atg_verticalSpacing">4dp</item>
+        <item name="atg_horizontalPadding">12dp</item>
+        <item name="atg_verticalPadding">3dp</item>
+    </style>
 </resources>
