@@ -243,6 +243,7 @@
             android:textSize="@dimen/textSize_12dp" />
         <ImageView
             android:src="@drawable/ic_warning"
+            android:tint="@color/imageBookmarkNewsTintColor"
             android:layout_width="@dimen/_25dp"
             android:layout_height="@dimen/_25dp"
           />
