@@ -15,6 +15,7 @@
     <color name="textHint">#aaa</color>
     <color name="transparentGray">#70000000</color>
 
+    <color name="imageWarningTintColor">#ecc011</color>
     <color name="imageBookmarkNewsTintColor">#edcb62</color>
     <color name="imageLikedNewsTintColor">#d5282e</color>
     <color name="imageLikedTintColor">#00a537</color>

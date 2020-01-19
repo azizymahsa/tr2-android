@@ -71,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
                 android:gravity="left"
                 android:paddingLeft="24dp"
                 android:text=""
@@ -147,6 +148,7 @@
         <ImageView
             android:id="@+id/img1"
             android:src="@drawable/ic_warning"
+            android:tint="@color/imageWarningTintColor"
             android:layout_width="@dimen/_25dp"
             android:layout_height="@dimen/_25dp"
             android:layout_alignParentRight="true"/>
