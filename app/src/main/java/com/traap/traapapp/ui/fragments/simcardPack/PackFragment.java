@@ -2324,7 +2324,7 @@ public class PackFragment
     {
         mainView.hideLoading();
 
-        showToast(getContext(),message,R.color.red);
+        showToast(getActivity(),message,R.color.red);
 
     }
 

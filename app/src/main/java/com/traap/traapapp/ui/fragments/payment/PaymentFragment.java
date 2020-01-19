@@ -578,7 +578,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     @Override
     public void onErrorPackSimcard(String message)
     {
-        showToast(getContext(), message, R.color.red);
+        showToast(getActivity(), message, R.color.red);
     }
 
     @Override
@@ -608,7 +608,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     @Override
     public void onErrorCharge(String message)
     {
-        showToast(getContext(), message, R.color.red);
+        showToast(getActivity(), message, R.color.red);
     }
 
     @Override

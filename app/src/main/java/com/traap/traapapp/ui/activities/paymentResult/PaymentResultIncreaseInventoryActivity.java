@@ -92,7 +92,7 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
                     }
                 } catch (Exception e)
                 {
-                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    showToast(PaymentResultIncreaseInventoryActivity.this, e.getMessage(), R.color.red);
                     hideLoading();
                 }
             }
@@ -105,12 +105,12 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
 
                 if (Tools.isNetworkAvailable(PaymentResultIncreaseInventoryActivity.this))
                 {
-                    showToast(getApplicationContext(), message, R.color.red);
+                    showToast(PaymentResultIncreaseInventoryActivity.this, message, R.color.red);
 
 
                 } else
                 {
-                    Tools.showToast(getApplicationContext(), getString(R.string.networkErrorMessage), R.color.red);
+                    showToast(PaymentResultIncreaseInventoryActivity.this, getString(R.string.networkErrorMessage), R.color.red);
 
 
 

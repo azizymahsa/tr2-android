@@ -93,7 +93,7 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
                     }
                 } catch (Exception e)
                 {
-                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    showToast(PaymentResultChargeActivity.this, e.getMessage(), R.color.red);
                     hideLoading();
                 }
             }
@@ -101,7 +101,7 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
             @Override
             public void onError(String message)
             {
-                showToast(getApplicationContext(), message, R.color.red);
+                showToast(PaymentResultChargeActivity.this, message, R.color.red);
                 hideLoading();
             }
         });

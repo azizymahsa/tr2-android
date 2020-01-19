@@ -1,6 +1,8 @@
 package com.traap.traapapp.ui.fragments.billPay;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -43,6 +46,7 @@ import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -75,18 +79,20 @@ import com.traap.traapapp.utilities.Utility;
  * Created by Javad.Abadi on 1/31/2019.
  */
 @SuppressLint("ValidFragment")
-public class BillFragment extends BaseFragment implements  MainActionView,OnAnimationEndListener,CompoundButton.OnCheckedChangeListener {
+public class BillFragment extends BaseFragment implements MainActionView, OnAnimationEndListener, CompoundButton.OnCheckedChangeListener
+{
+    private Context context;
     private View v;
     private CardView cvBarcode;
     private ClearableEditText etPayId, etBillId, etMobile, etTitleAddMyBill;
-    private CircularProgressButton btnConfirm, btnAddBill, btnBillInfoEnd, btnMyBills,btnPhoneInfo;
-    private View  btnContact;
+    private CircularProgressButton btnConfirm, btnAddBill, btnBillInfoEnd, btnMyBills, btnPhoneInfo;
+    private View btnContact;
     private RecyclerView rvInfo, rvMyBills;
-    private LinearLayout llDetailPayment, llCardDetail, llBill, llCvv2, llSelect, rlBillList, llTitleAddMyBill,llContinueBill;
+    private LinearLayout llDetailPayment, llCardDetail, llBill, llCvv2, llSelect, rlBillList, llTitleAddMyBill, llContinueBill;
     private List<LstPhoneBill> lstPhoneBills = new ArrayList<>();
-   // private BillInfoAdapter billInfoAdapter;
+    // private BillInfoAdapter billInfoAdapter;
     private String billId, payId;
-    private CircularProgressButton  btnPassConfirm;
+    private CircularProgressButton btnPassConfirm;
     private View btnBackToList;
     private TextInputLayout etLayoutPass, etLayoutCvv;
     private EditText etPass, etCvv2;
@@ -117,38 +123,50 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     private int idBillNowEndSelected = -1;
     private CheckBox cbAddToMyBill;
     private boolean addToMyBill = false;
-    private View vDateEnd,vDateFirst;
+    private View vDateEnd, vDateFirst;
     private TextView tvBillTitle;
 
 
-    public BillFragment() {
+    public BillFragment()
+    {
 
     }
 
-    public static BillFragment newInstance(MainActionView mainView,String billTitle,int idSelectedBillType) {
+    public static BillFragment newInstance(MainActionView mainView, String billTitle, int idSelectedBillType)
+    {
         BillFragment f = new BillFragment();
         f.setMainView(mainView);
 
         Bundle args = new Bundle();
         args.putString("TITLE", billTitle);
-        args.putInt("ID_BILL_TYPE",idSelectedBillType);
+        args.putInt("ID_BILL_TYPE", idSelectedBillType);
 
         f.setArguments(args);
 
         return f;
     }
 
-    private void setMainView(MainActionView mainView) {
+    private void setMainView(MainActionView mainView)
+    {
         this.mainView = mainView;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
         YoYo.with(Techniques.FadeIn)
                 .duration(700)
@@ -156,25 +174,30 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
         EventBus.getDefault().register(this);
         upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         Log.e("testspeech8", "onSpeechBill: " + phone);
 
         if (v != null)
+        {
             v = null;
+        }
 
         v = inflater.inflate(R.layout.bill_fragment, container, false);
         ((TextView) v.findViewById(R.id.tvTitle)).setText("پرداخت قبض");
@@ -190,7 +213,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         Log.e("testspeech7", "onSpeechBill: " + phone);
 
@@ -202,7 +226,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy()
+    {
         super.onDestroy();
         etMobile.setText("");
         etCvv2.setText("");
@@ -215,14 +240,15 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
-    private void initView() {
+    private void initView()
+    {
         Log.e("sssss", "initView: ");
         if (getArguments() != null)
         {
             idSelectedBillType = getArguments().getInt("ID_BILL_TYPE");
             billTitle = getArguments().getString("TITLE");
         }
-        tvBillTitle=v.findViewById(R.id.tvBillTitle);
+        tvBillTitle = v.findViewById(R.id.tvBillTitle);
         tvBillsTitle = v.findViewById(R.id.tvBillsTitle);
         rlBillList = v.findViewById(R.id.rlBillList);
         upPanelLayout = v.findViewById(R.id.slidingLayout);
@@ -255,8 +281,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         llbillCodePayCodeEnd = v.findViewById(R.id.llbillCodePayCodeEnd);
         llAddToMyBills = v.findViewById(R.id.llAddToMyBills);
         tvBillEnd = v.findViewById(R.id.tvBillEnd);
-        llbillFirst=v.findViewById(R.id.llbillFirst);
-        llContinueBill=v.findViewById(R.id.llContinueBill);
+        llbillFirst = v.findViewById(R.id.llbillFirst);
+        llContinueBill = v.findViewById(R.id.llContinueBill);
         llBill = v.findViewById(R.id.llBill);
         llCvv2 = v.findViewById(R.id.llCvv2);
         tvPrice = v.findViewById(R.id.tvPrice);
@@ -275,8 +301,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         llTitleAddMyBill = v.findViewById(R.id.llTitleAddMyBill);
         tvBillCodeFirst = v.findViewById(R.id.tvBillCodeFirst);
         tvDateFirst = v.findViewById(R.id.tvDateFirst);
-        vDateFirst=v.findViewById(R.id.vDateFirst);
-        llDateFirst=v.findViewById(R.id.llDateFirst);
+        vDateFirst = v.findViewById(R.id.vDateFirst);
+        llDateFirst = v.findViewById(R.id.llDateFirst);
         tvAmountFirst = v.findViewById(R.id.tvAmountFirst);
         tvPayCodeFirst = v.findViewById(R.id.tvPayCodeFirst);
         // btnBillInfoFirst = v.findViewById(R.id.btnBillInfoFirst);
@@ -286,25 +312,30 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         tvDateEnd = v.findViewById(R.id.tvDateEnd);
         tvAmountEnd = v.findViewById(R.id.tvAmountEnd);
         tvPayCodeEnd = v.findViewById(R.id.tvPayCodeEnd);
-        vDateEnd=v.findViewById(R.id.vDateEnd);
-        llDateEnd=v.findViewById(R.id.llDateEnd);
+        vDateEnd = v.findViewById(R.id.vDateEnd);
+        llDateEnd = v.findViewById(R.id.llDateEnd);
         btnBillInfoEnd = v.findViewById(R.id.btnBillInfoEnd);
         rbBillEnd = v.findViewById(R.id.rbBillEnd);
         rbBillFirst.setOnCheckedChangeListener(this);
         rbBillEnd.setOnCheckedChangeListener(this);
         llContinueBill.setVisibility(View.GONE);
         tvBillTitle.setText(billTitle);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
             ivBillPayment.setImageTintList(null);
             ivBillInfo.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColorSecondary));
         }
 
-        llAddToMyBills.setOnClickListener(view -> {
-            if (cbAddToMyBill.isChecked()) {
+        llAddToMyBills.setOnClickListener(view ->
+        {
+            if (cbAddToMyBill.isChecked())
+            {
                 cbAddToMyBill.setChecked(false);
                 llTitleAddMyBill.setVisibility(View.GONE);
                 addToMyBill = false;
-            } else {
+            }
+            else
+            {
                 cbAddToMyBill.setChecked(true);
                 llTitleAddMyBill.setVisibility(View.VISIBLE);
                 addToMyBill = true;
@@ -313,7 +344,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
 
         //tvBillInfo.setText(billSubMenus.get(1).getTitle());
-      //  tvBillPayment.setText(billSubMenus.get(0).getTitle());
+        //  tvBillPayment.setText(billSubMenus.get(0).getTitle());
 
 //        if (billSubMenus != null) {
 //            if (billSubMenus.get(1).getVisible()) {
@@ -325,11 +356,11 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 //            }
 //
 //            if (billSubMenus.get(0).getVisible()) {
-                llSelect.setVisibility(View.GONE);
-                llMobileNumber.setVisibility(View.VISIBLE);
-                llbillCodePayCodeNow.setVisibility(View.GONE);
-                llbillCodePayCodeEnd.setVisibility(View.GONE);
-                llDetailPayment.setVisibility(View.GONE);
+        llSelect.setVisibility(View.GONE);
+        llMobileNumber.setVisibility(View.VISIBLE);
+        llbillCodePayCodeNow.setVisibility(View.GONE);
+        llbillCodePayCodeEnd.setVisibility(View.GONE);
+        llDetailPayment.setVisibility(View.GONE);
 
 //            }
 //
@@ -342,14 +373,15 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 //            }
 
 
-      //  }
+        //  }
 
 
        /* if (billActiveVm != null) {
             setDataSpinnerBillTypesList(billActiveVm);
             setDescriptionBillText(billActiveVm.get(0).getDescription());
         }*/
-        new Handler(Looper.getMainLooper()).post(() -> {
+        new Handler(Looper.getMainLooper()).post(() ->
+        {
 //            billInfoAdapter = new BillInfoAdapter(lstPhoneBills, this, mainView);
 //            rvInfo.setLayoutManager(new LinearLayoutManager(getActivity()));
 //            rvInfo.setAdapter(billInfoAdapter);
@@ -358,7 +390,7 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         etLayoutPass.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         etLayoutCvv.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         btnConfirm.setText("تایید");
-       // btnBackToList.setText("بازگشت");
+        // btnBackToList.setText("بازگشت");
         btnPassConfirm.setText("پرداخت");
         ViewCompat.setNestedScrollingEnabled(nested, false);
 
@@ -366,19 +398,26 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             llCvv2.setVisibility(View.VISIBLE);
         }*/
 
-        btnBillInfoEnd.setOnClickListener(view -> {
+        btnBillInfoEnd.setOnClickListener(view ->
+        {
 
-            if (idBillNowEndSelected == 0) {
+            if (idBillNowEndSelected == 0)
+            {
                 billId = tvBillCodeFirst.getText().toString();
                 payId = tvPayCodeFirst.getText().toString();
-            } else if (idBillNowEndSelected == 1) {
-                billId = tvBillCodeEnd.getText().toString();
-                payId = tvPayCodeEnd.getText().toString();
-            } else {
+            }
+            else if (idBillNowEndSelected == 1)
+            {
                 billId = tvBillCodeEnd.getText().toString();
                 payId = tvPayCodeEnd.getText().toString();
             }
-            if (addToMyBill) {
+            else
+            {
+                billId = tvBillCodeEnd.getText().toString();
+                payId = tvPayCodeEnd.getText().toString();
+            }
+            if (addToMyBill)
+            {
 
               /*  if (TextUtils.isEmpty(etTitleAddMyBill.getText())) {
                     mainView.onError("لطفا عنوان را وارد نمایید.", this.getClass().getSimpleName(), DibaConfig.showClassNameInMessage);
@@ -390,7 +429,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                     getBillInfoRequest();
                 }*/
 
-            } else
+            }
+            else
             {
                 btnBillInfoEnd.startAnimation();
                 btnBillInfoEnd.setClickable(false);
@@ -398,21 +438,23 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             }
 
         });
-        btnAddBill.setOnClickListener(view -> {
+        btnAddBill.setOnClickListener(view ->
+        {
 //            addMyBillDialog = new AddMyBillDialog(getActivity(), this, billActiveVm, mainView);
 //            addMyBillDialog.show(getActivity().getFragmentManager(), "addBill");
         });
 
-        btnConfirm.setOnClickListener(view -> {
+        btnConfirm.setOnClickListener(view ->
+        {
             if (TextUtils.isEmpty(etPayId.getText()))
             {
-                showToast(getContext(), "لطفا شناسه پرداخت را وارد نمایید.", R.color.red);
+                showToast(((Activity) context), "لطفا شناسه پرداخت را وارد نمایید.", R.color.red);
 
                 return;
             }
             if (TextUtils.isEmpty(etBillId.getText()))
             {
-                showToast(getContext(), "لطفا شناسه قبض را وارد نمایید.", R.color.red);
+                showToast(((Activity) context), "لطفا شناسه قبض را وارد نمایید.", R.color.red);
 
                 return;
             }
@@ -425,19 +467,23 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
             getBillInfoRequest();
         });
 
-        cvBarcode.setOnClickListener(view -> {
+        cvBarcode.setOnClickListener(view ->
+        {
             //  mainView.openBarcode(BarcodeType.Bill);
         });
 
-        btnContact.setOnClickListener(view -> {
+        btnContact.setOnClickListener(view ->
+        {
             mainView.onContact();
         });
-        btnMyBills.setOnClickListener(view -> {
+        btnMyBills.setOnClickListener(view ->
+        {
             openMyBills();
         });
 
 
-        btnPhoneInfo.setOnClickListener(view -> {
+        btnPhoneInfo.setOnClickListener(view ->
+        {
          /*   if (idSelectedBillType == 1 || idSelectedBillType == 2 || idSelectedBillType == 3) {
                 llAddToMyBills.setVisibility(View.VISIBLE);
             } else {
@@ -454,10 +500,12 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                 if (idSelectedBillType == 1 || idSelectedBillType == 2 || idSelectedBillType == 3)
                 {
 
-                    showToast(getContext(), "لطفا شناسه قبض را وارد نمایید.", R.color.red);
+                    showToast(((Activity) context), "لطفا شناسه قبض را وارد نمایید.", R.color.red);
 
-                } else {
-                    showToast(getContext(), "لطفا شماره ثابت یا همراه را وارد نمایید.", R.color.red);
+                }
+                else
+                {
+                    showToast(((Activity) context), "لطفا شماره ثابت یا همراه را وارد نمایید.", R.color.red);
                 }
                 return;
             }
@@ -473,7 +521,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         });
 
 
-        btnBackToList.setOnClickListener(view -> {
+        btnBackToList.setOnClickListener(view ->
+        {
             // mainView.needExpanded(false);
 
             llCardDetail.setVisibility(View.GONE);
@@ -486,24 +535,25 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         });
 
 
-        btnPassConfirm.setOnClickListener(view -> {
+        btnPassConfirm.setOnClickListener(view ->
+        {
 
             if (!cardNumberCheck.equals("003725"))
             {
                 if (TextUtils.isEmpty(etCvv2.getText().toString()))
                 {
-                    showToast(getContext(), "لطفا شماره cvv2 کارت را وارد نمایید.", 0);
+                    showToast(((Activity) context), "لطفا شماره cvv2 کارت را وارد نمایید.", 0);
                     return;
                 }
                 if (TextUtils.isEmpty(etPass.getText().toString()))
                 {
-                    showToast(getContext(), "لطفا رمز کارت را وارد نمایید.", 0);
+                    showToast(((Activity) context), "لطفا رمز کارت را وارد نمایید.", 0);
                     return;
                 }
             }
             else
             {
-                showToast(getContext(), "پرداخت قبوض فقط با کارت بانکی امکان پذیر می باشد.", 0);
+                showToast(((Activity) context), "پرداخت قبوض فقط با کارت بانکی امکان پذیر می باشد.", 0);
                 return;
             }
 
@@ -513,12 +563,14 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                 mainView.onInternetAlert();
                 return;
             }
-         ////////   payBillRequest();
+            ////////   payBillRequest();
         });
 
 
-        llBillInfo.setOnClickListener(view -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        llBillInfo.setOnClickListener(view ->
+        {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
                 ivBillInfo.setImageTintList(null);
                 ivBillPayment.setImageTintList(ContextCompat.getColorStateList(getActivity(), R.color.textColorSecondary));
             }
@@ -533,7 +585,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         });
 
 
-        llBillPayment.setOnClickListener(view -> {
+        llBillPayment.setOnClickListener(view ->
+        {
             tvBillPayment.setTextColor(getActivity().getResources().getColor(R.color.warmGray));
             tvBillInfo.setTextColor(getActivity().getResources().getColor(R.color.warmGray));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -551,13 +604,15 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         });
         etMobile.setLength(40);
 
-        tvBillName.setOnClickListener(view -> {
+        tvBillName.setOnClickListener(view ->
+        {
            /* if (billActiveVm != null) {
                 getActivity().startActivityForResult(new Intent(getActivity(), AvailableBankActivity.class)
                         .putExtra("billActiveVm", new Gson().toJson(billActiveVm)));
             }*/
         });
-        tvBillName2.setOnClickListener(view -> {
+        tvBillName2.setOnClickListener(view ->
+        {
            /* if (billActiveVm != null) {
                 getActivity().startActivityForResult(new Intent(getActivity(), AvailableBankActivity.class)
                         .putExtra("billActiveVm", new Gson().toJson(billActiveVm)));
@@ -591,27 +646,29 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
                         onGetBillCodePayCodeSuccess(response.data);
 
-                    } else
+                    }
+                    else
                     {
-                        showToast(getContext(), response.info.message, R.color.red);
+                        showToast(((Activity) context), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    showToast(getContext(), e.getMessage(), R.color.red);
+                    showToast(((Activity) context), e.getMessage(), R.color.red);
                 }
 
 
             }
 
             @Override
-            public void onError(String message) {
+            public void onError(String message)
+            {
                 btnPhoneInfo.revertAnimation(BillFragment.this);
                 btnPhoneInfo.setClickable(true);
                 // Utility.hideSoftKeyboard(view, getActivity());
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
 
-                    showToast(getContext(), message, R.color.red);
+                    showToast(((Activity) context), message, R.color.red);
 
 
                 }
@@ -627,14 +684,15 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
-    private void onGetBillCodePayCodeSuccess(GetBillCodePayCodeResponse response) {
+    private void onGetBillCodePayCodeSuccess(GetBillCodePayCodeResponse response)
+    {
         llContinueBill.setVisibility(View.VISIBLE);
         setVisibleCodePayCodeLayout(response);
         setDataBillCodePayCode(response);
     }
 
-    private void setDataBillCodePayCode(GetBillCodePayCodeResponse response) {
-        Toast.makeText(getContext(), "setDataBillCodePayCode", Toast.LENGTH_SHORT).show();
+    private void setDataBillCodePayCode(GetBillCodePayCodeResponse response)
+    {
 
     /*    if (response.getBillNow() != null) {
             tvBillCodeFirst.setText(response.getBillNow().getBillCode().toString());
@@ -666,8 +724,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
-    private void setVisibleCodePayCodeLayout(GetBillCodePayCodeResponse response) {
-        Toast.makeText(getContext(), "setVisibleCodePayCodeLayout", Toast.LENGTH_SHORT).show();
+    private void setVisibleCodePayCodeLayout(GetBillCodePayCodeResponse response)
+    {
   /*      if (response.getBillNow() == null&&response.getBill()!=null) {
             idBillNowEndSelected = 1;
             llSelect.setVisibility(View.GONE);
@@ -807,18 +865,21 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         if (hasContact)
         {
             btnContact.setVisibility(View.VISIBLE);
-        } else
+        }
+        else
         {
             btnContact.setVisibility(View.GONE);
         }
     }
 
-    private void openMyBills() {
+    private void openMyBills()
+    {
 
         myBillsRequest();
     }
 
-    private void myBillsRequest() {
+    private void myBillsRequest()
+    {
         btnMyBills.startAnimation();
         btnMyBills.setClickable(false);
         GetMyBillRequest request = new GetMyBillRequest();
@@ -838,13 +899,14 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
                         onGetMyBillsServiceSuccess(response.data.getResults());
 
-                    } else
+                    }
+                    else
                     {
-                        showToast(getContext(), response.info.message, R.color.red);
+                        showToast(((Activity) context), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    showToast(getContext(), e.getMessage(), R.color.red);
+                    showToast(((Activity) context), e.getMessage(), R.color.red);
 
                 }
             }
@@ -879,10 +941,10 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                         onGetMyBillsServiceSuccess(response.getBills());
 
                     } else {
-                        Tools.showToast(getContext(),response.getServiceMessage().getMessage(),R.color.red);
+                        Tools.showToast(((Activity) context),response.getServiceMessage().getMessage(),R.color.red);
                     }
                 } catch (Exception e) {
-                    Tools.showToast(getContext(),e.getMessage(),R.color.red);
+                    Tools.showToast(((Activity) context),e.getMessage(),R.color.red);
 
                 }
             }
@@ -899,10 +961,14 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
-    private void onGetMyBillsServiceSuccess(List<Bills> bills) {
-        if (bills.size() == 0) {
+    private void onGetMyBillsServiceSuccess(List<Bills> bills)
+    {
+        if (bills.size() == 0)
+        {
             tvBillsTitle.setText("تا این لحظه شما قبضی را اضافه نکرده اید.");
-        } else {
+        }
+        else
+        {
             billsList.clear();
             billsList.addAll(bills);
             myBillsAdapter = new MyBillsAdapter(billsList, rvMyBills, getActivity(), this);
@@ -921,26 +987,35 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
-    private void setClicklbtnContact() {
-        btnContact.setOnClickListener(view -> {
+    private void setClicklbtnContact()
+    {
+        btnContact.setOnClickListener(view ->
+        {
             mainView.onContact();
         });
     }
 
-    private void setDescriptionBillText(String description) {
+    private void setDescriptionBillText(String description)
+    {
         tvBillDescription.setText(description.toString());
     }
 
-    public void initSpeesh() {
+    public void initSpeesh()
+    {
         Log.e("testspeech4", "onSpeechBill: " + phone);
-        if (!TextUtils.isEmpty(phone)) {
+        if (!TextUtils.isEmpty(phone))
+        {
             etMobile.setText(phone);
             getPhoneInfoRequest(phone);
-        } else if (!TextUtils.isEmpty(contactPhone)) {
+        }
+        else if (!TextUtils.isEmpty(contactPhone))
+        {
             etMobile.setText(contactPhone);
             mianDore = false;
             payanDore = false;
-        } else {
+        }
+        else
+        {
             etMobile.setText(contactPhone);
             mianDore = false;
             payanDore = false;
@@ -1107,29 +1182,34 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 //    }
 
     @Override
-    public void onAnimationEnd() {
+    public void onAnimationEnd()
+    {
         btnConfirm.setBackground(ContextCompat.getDrawable(SingletonContext.getInstance().getContext(), R.drawable.button_small_border));
         btnPassConfirm.setBackground(ContextCompat.getDrawable(SingletonContext.getInstance().getContext(), R.drawable.button_small_border));
 
     }
 
-    public void onSelectContact(OnSelectContact onSelectContact) {
+    public void onSelectContact(OnSelectContact onSelectContact)
+    {
         //todo change this
-        try {
+        try
+        {
             contactPhone = onSelectContact.getNumber().replaceAll(" ", "") + " ( " + onSelectContact.getName() + " ) ";
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
         }
     }
 
-    public void getPhoneInfoRequest(String number) {
+    public void getPhoneInfoRequest(String number)
+    {
 
       /*  if (TextUtils.isEmpty(etMobile.getText().toString())) {
 
             if (idSelectedBillType == 1 || idSelectedBillType == 2 || idSelectedBillType == 3) {
-                Tools.showToast(getContext(),"لطفا شناسه قبض را وارد نمایید.",R.color.red);
+                Tools.showToast(((Activity) context),"لطفا شناسه قبض را وارد نمایید.",R.color.red);
             } else {
-                Tools.showToast(getContext(),"لطفا شماره ثابت یا همراه را وارد نمایید.",R.color.red);
+                Tools.showToast(((Activity) context),"لطفا شماره ثابت یا همراه را وارد نمایید.",R.color.red);
             }
             return;
         }
@@ -1206,19 +1286,21 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
 
     }
 
-    public void onClickBill(LstPhoneBill lstPhoneBills) {
+    public void onClickBill(LstPhoneBill lstPhoneBills)
+    {
 
         amount = lstPhoneBills.getAmount();
         billId = lstPhoneBills.getBillId();
         payId = lstPhoneBills.getPayId();
         //  billTitle=lstPhoneBills.getMidTerm();
         getBillInfoRequest();
-       // mainView.showProgress();
+        // mainView.showProgress();
 
     }
 
 
-    public void getBillInfoRequest() {
+    public void getBillInfoRequest()
+    {
 
        /* GetInfoBillRequest request = new GetInfoBillRequest();
 
@@ -1292,14 +1374,14 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }*/
 
 
-
-
-    public void transactionsCollapsed() {
+    public void transactionsCollapsed()
+    {
         upPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
     }
 
     @Override
-    public void onInternetAlert() {
+    public void onInternetAlert()
+    {
 
     }
 
@@ -1449,8 +1531,6 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
 
-
-
     @Override
     public void openWebView(MainActionView mainView, String uRl, String gds_token)
     {
@@ -1468,7 +1548,6 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     {
 
     }
-
 
 
     @Override
@@ -1527,7 +1606,6 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
 
-
     @Override
     public void onPaymentWithoutCard()
     {
@@ -1541,7 +1619,8 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Override
-    public void onContact() {
+    public void onContact()
+    {
 
     }
 
@@ -1549,17 +1628,20 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
         this.billSubMenus = billSubMenus;
     }*/
 
-    public void onSpeechBill(boolean billInfo, String phone, boolean mianDore, boolean payanDore) {
+    public void onSpeechBill(boolean billInfo, String phone, boolean mianDore, boolean payanDore)
+    {
         this.phone = phone;
         this.mianDore = mianDore;
         this.payanDore = payanDore;
         Log.e("testspeech2", "onSpeechBill: " + phone);
 
-        if (v != null) {
+        if (v != null)
+        {
             Log.e("testspeech1", "onSpeechBill: " + phone);
             etMobile.setText("");
 
-            if (!TextUtils.isEmpty(phone)) {
+            if (!TextUtils.isEmpty(phone))
+            {
                 Log.e("testspeech3", "onSpeechBill: " + phone);
 
                 etMobile.setText(phone);
@@ -1572,8 +1654,10 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(Bills event) {
-        try {
+    public void onMessageEvent(Bills event)
+    {
+        try
+        {
             etMobile.setText(event.getParameter());
             idSelectedBillType = event.getType();
            /* for (int i = 0; i < billsTypePosition.size(); i++) {
@@ -1581,29 +1665,36 @@ public class BillFragment extends BaseFragment implements  MainActionView,OnAnim
                     spinnerBillTypes.setSelection(i);
                 }
             }*/
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             etMobile.setText("");
         }
     }
 
 
-   /* @Override
-    public void addBill(String parameter, String title, Integer type) {
-        addMyBillRequest(parameter, title, type);
-    }
-*/
+    /* @Override
+     public void addBill(String parameter, String title, Integer type) {
+         addMyBillRequest(parameter, title, type);
+     }
+ */
     @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId()) {
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+    {
+        switch (compoundButton.getId())
+        {
             case R.id.rbBillFirst:
                 if (rbBillFirst.isChecked())
+                {
                     rbBillEnd.setChecked(false);
+                }
                 idBillNowEndSelected = 0;
 
                 break;
             case R.id.rbBillEnd:
                 if (rbBillEnd.isChecked())
+                {
                     rbBillFirst.setChecked(false);
+                }
                 idBillNowEndSelected = 1;
 
                 break;

@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.about;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -47,8 +48,7 @@ import java.util.List;
 public class AboutFragment
         extends BaseFragment implements View.OnClickListener
 {
-
-
+    private Context context;
     private View view;
     private Toolbar mToolbar;
     private TextView tvTitle, tvUserName, tvPhone, tvPopularPlayer;
@@ -199,11 +199,11 @@ public class AboutFragment
 
                     } else
                     {
-                        showToast(getContext(), response.info.message, R.color.red);
+                        showToast(((Activity) context), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    showToast(getContext(), e.getMessage(), R.color.red);
+                    showToast(((Activity) context), e.getMessage(), R.color.red);
 
                 }
             }
@@ -293,7 +293,7 @@ public class AboutFragment
     public void onAttach(Context context)
     {
         super.onAttach(context);
-
+        this.context = context;
     }
 
     @Override

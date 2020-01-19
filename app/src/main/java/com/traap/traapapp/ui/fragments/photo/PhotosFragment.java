@@ -163,11 +163,11 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
                     } else
                     {
-                        showToast(getContext(), response.info.message, R.color.red);
+                        showToast(getActivity(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    showToast(getContext(), e.getMessage(), R.color.red);
+                    showToast(getActivity(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -293,11 +293,11 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
                     } else
                     {
-                        showToast(getContext(), response.info.message, R.color.red);
+                        showToast(getActivity(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    showToast(getContext(), e.getMessage(), R.color.red);
+                    showToast(getActivity(), e.getMessage(), R.color.red);
 
                 }
             }

@@ -182,11 +182,11 @@ public class SupportFragment
 
                     } else
                     {
-                        showToast(getContext(), response.info.message, R.color.red);
+                        showToast(getActivity(), response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    showToast(getContext(), e.getMessage(), R.color.red);
+                    showToast(getActivity(), e.getMessage(), R.color.red);
 
                 }
             }
