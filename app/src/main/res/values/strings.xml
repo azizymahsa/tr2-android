@@ -6,6 +6,7 @@
     <string name="send_code">تایید کد</string>
     <string name="enter">ورود</string>
     <string name="confirm">تایید</string>
+    <string name="back_to_home">بازگشت به خانه</string>
     <string name="cancel">انصراف</string>
     <string name="error">خطا!</string>
     <string name="enter_mobile_number">شماره تلفن همراه</string>
@@ -182,7 +183,8 @@
     <string name="mdtp_day_of_week_label_typeface" translatable="false">sans-serif</string>
     <string name="_send_sms_forget_pass">تغییر رمز کیف پول با موفقیت انجام شد.</string>
     <string name="_msg_none_fields">فیلدها خالی می باشد.</string>
-    <string name="_msg_no_correct_pass">رمز جدید وارد شده منطبق نمی باشد.</string>
+    <string name="_msg_no_correct_pass">رمز جديد با تکرار رمز جديد مطابقت ندارد.</string>
     <string name="_not_currect_pass">رمز صحیح وارد کنید.</string>
     <string name="_request_change_pass">آیا مایل به تغییر رمز کیف پول خود هستید؟</string>
+    <string name="_deny_currency_max_five">مبلغ غیر مجاز می باشد.(حداکثر 500,000,000 ریال)</string>
 </resources>

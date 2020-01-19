@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import androidx.core.view.ViewCompat;
+
+import com.google.android.material.textfield.TextInputLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -65,6 +68,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     private Integer TYPE_PHONE_NUMBER=2;
     private ConvertPersianNumberToString convertPersianNumberToString;
     private String userName;
+    private TextInputLayout inputLayout3;
 
 
     public MoneyTransferFragment()
@@ -102,6 +106,11 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
     private void initView()
     {
+
+
+        inputLayout3 = rootView.findViewById(R.id.inputLayout3);
+
+        ViewCompat.setLayoutDirection(inputLayout3, ViewCompat.LAYOUT_DIRECTION_RTL);
         convertPersianNumberToString=new ConvertPersianNumberToString();
 
         spinnerType=rootView.findViewById(R.id.spinnerType);

@@ -181,7 +181,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                 {
                     if (Integer.parseInt(edtCurrency.getText().toString().replaceAll(",", "")) <= 900000)
                     {
-
+//if (edtShabaNum.getText().toString().length()==24){
                         if (!edtShabaNum.getText().toString().contains("_"))
                         {
                             String txtAmountDigit = " مبلغ " + edtCurrency.getText().toString() + " ریال ";
@@ -202,7 +202,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                                         @Override
                                         public void onCancelClick()
                                         {
-                                            mainView.backToMainFragment();
+                                          //  mainView.backToMainFragment();
                                         }
                                     }, txtAmountDigit, txtAmountChar, txtNumberShaba, txtName);
                             dialog.show((getActivity()).getFragmentManager(), "dialog");
