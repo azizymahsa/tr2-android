@@ -157,14 +157,14 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
             {
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.un_check_mark));
                 imageView.setVisibility(View.VISIBLE);
-                tvMessage.setTextColor(getResources().getColor(R.color.red_light));
+                tvMessage.setTextColor(getResources().getColor(R.color.red));
                 break;
             }
             case TYPE_SUCCESS:
             {
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.check_mark));
                 imageView.setVisibility(View.VISIBLE);
-                tvMessage.setTextColor(getResources().getColor(R.color.green_light));
+                tvMessage.setTextColor(getResources().getColor(R.color.green));
                 break;
             }
 
