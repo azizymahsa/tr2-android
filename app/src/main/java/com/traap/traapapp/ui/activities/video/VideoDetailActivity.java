@@ -178,11 +178,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                        // Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        // Tools.showToast(VideoDetailActivity.this, response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    //  Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    //  Tools.showToast(VideoDetailActivity.this, e.getMessage(), R.color.red);
 
                 }
             }
@@ -193,12 +193,12 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
                 if (!Tools.isNetworkAvailable(VideoDetailActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
+                    showError(VideoDetailActivity.this, "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
-                    // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+                    // showError(VideoDetailActivity.this,String.valueOf(R.string.networkErrorMessage));
 
-                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                    showAlert(VideoDetailActivity.this, R.string.networkErrorMessage, R.string.networkError);
                 }
             }
         });
@@ -358,11 +358,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                        // Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        // Tools.showToast(VideoDetailActivity.this, response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    //    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    //    Tools.showToast(VideoDetailActivity.this, e.getMessage(), R.color.red);
 
                 }
             }
@@ -373,12 +373,12 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
                 if (!Tools.isNetworkAvailable(VideoDetailActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
+                    showError(VideoDetailActivity.this, "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
-                    // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+                    // showError(VideoDetailActivity.this,String.valueOf(R.string.networkErrorMessage));
 
-                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                    showAlert(VideoDetailActivity.this, R.string.networkErrorMessage, R.string.networkError);
                 }
             }
         });
@@ -429,11 +429,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     } else
                     {
-                        //  Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        //  Tools.showToast(VideoDetailActivity.this, response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    // Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    // Tools.showToast(VideoDetailActivity.this, e.getMessage(), R.color.red);
 
                 }
             }
@@ -442,17 +442,17 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             public void onError(String message)
             {
                 //  mainView.hideLoading();
-                //  Tools.showToast(getApplicationContext(), message, R.color.red);
+                //  Tools.showToast(VideoDetailActivity.this, message, R.color.red);
                 //rlLike.setClickable(true);
                 if (!Tools.isNetworkAvailable(VideoDetailActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
+                    showError(VideoDetailActivity.this, "خطا در دریافت اطلاعات از سرور!");
                 } else
                 {
-                    // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+                    // showError(VideoDetailActivity.this,String.valueOf(R.string.networkErrorMessage));
 
-                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                    showAlert(VideoDetailActivity.this, R.string.networkErrorMessage, R.string.networkError);
                 }
             }
         });

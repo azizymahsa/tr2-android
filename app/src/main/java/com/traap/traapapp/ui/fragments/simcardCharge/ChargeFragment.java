@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.simcardCharge;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -24,8 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
@@ -91,6 +92,7 @@ public class ChargeFragment extends BaseFragment
     ,OnClickContinueSelectPayment
 {
 
+    private Context context;
     private Fragment pFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -122,7 +124,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
-
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public static ChargeFragment newInstance(MainActionView mainView, Integer backState)//, OnClickContinueSelectPayment onClickContinueBuyCharg)
     {
@@ -1267,10 +1274,10 @@ public class ChargeFragment extends BaseFragment
                         onGetBoutForSuccess(response.data.getResults());
 
                     } else {
-                        showToast(getContext(),response.info.message,R.color.red);
+                        showToast(((Activity) context),response.info.message,R.color.red);
                     }
                 } catch (Exception e) {
-                    showToast(getContext(),e.getMessage(),R.color.red);
+                    showToast(((Activity) context),e.getMessage(),R.color.red);
 
                 }
             }
@@ -1865,7 +1872,7 @@ public class ChargeFragment extends BaseFragment
     {
 
         mainView.hideLoading();
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        ShowAlertFailure(((Activity) context), message, "", false);
     }
 
     @Override
@@ -2176,7 +2183,6 @@ public class ChargeFragment extends BaseFragment
   /*  @Override
     public void onContactClicked(String number, String name)
     {
-        Toast.makeText(getContext(), "cliiick", Toast.LENGTH_SHORT).show();
         try
         {
             if (isMtn)

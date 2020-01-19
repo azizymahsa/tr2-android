@@ -296,7 +296,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     {
         llSuccessPayment.setVisibility(View.GONE);
         llErrorPayment.setVisibility(View.VISIBLE);
-        showToast(getContext(), error, R.color.red);
+        showToast(getActivity(), error, R.color.red);
         mainView.hideLoading();
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
