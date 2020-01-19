@@ -422,7 +422,7 @@ public class ChargeFragment extends BaseFragment
     void irancell()
     {
 
-        tvChargeTitle.setText("خرید شارژ آنلاین " + "ایرانسل");
+//        tvChargeTitle.setText("خرید شارژ آنلاین " + "ایرانسل");
         ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
         ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
         ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
@@ -456,7 +456,7 @@ public class ChargeFragment extends BaseFragment
 
         rlIrancellSpinner.setVisibility(View.INVISIBLE);
 
-        tvChargeTitle.setText("خرید شارژ آنلاین " + "همراه اول");
+//        tvChargeTitle.setText("خرید شارژ آنلاین " + "همراه اول");
         ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
         ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
         ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
@@ -485,7 +485,7 @@ public class ChargeFragment extends BaseFragment
 
         rlIrancellSpinner.setVisibility(View.INVISIBLE);
 
-        tvChargeTitle.setText("خرید شارژ آنلاین " + "رایتل");
+//        tvChargeTitle.setText("خرید شارژ آنلاین " + "رایتل");
         ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
         ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
         ivRightel.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
@@ -1322,7 +1322,7 @@ public class ChargeFragment extends BaseFragment
         {
             case 2:
             {
-                tvChargeTitle.setText("خرید شارژ آنلاین " + "همراه اول");
+//                tvChargeTitle.setText("خرید شارژ آنلاین " + "همراه اول");
 
                 llMCICharge.setVisibility(View.VISIBLE);
                 llMTNCharge.setVisibility(View.GONE);
@@ -1345,7 +1345,7 @@ public class ChargeFragment extends BaseFragment
             }
             case 1:
             {
-                tvChargeTitle.setText("خرید شارژ آنلاین " + "ایرانسل");
+//                tvChargeTitle.setText("خرید شارژ آنلاین " + "ایرانسل");
 
                 llMCICharge.setVisibility(View.GONE);
                 llMTNCharge.setVisibility(View.VISIBLE);
@@ -1374,7 +1374,7 @@ public class ChargeFragment extends BaseFragment
             }
             case 3:
             {
-                tvChargeTitle.setText("خرید شارژ آنلاین " + "رایتل");
+//                tvChargeTitle.setText("خرید شارژ آنلاین " + "رایتل");
 
                 llMCICharge.setVisibility(View.GONE);
                 llMTNCharge.setVisibility(View.GONE);

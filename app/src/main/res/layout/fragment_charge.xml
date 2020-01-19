@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center|end"
+                    android:gravity="center"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginTop="5dp">
 
@@ -81,10 +81,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_14dp"
-                        android:textColor="@color/textColorPrimary"
-                        android:text="خرید شارژ آنلاین همراه اول"
+                        android:textColor="@color/textColorSecondary"
+                        android:text="لطفا شماره تلفن همراه خود را وارد نمایید."
                         android:layout_marginEnd="10dp"
-                        android:visibility="gone"/>
+                        android:visibility="visible"/>
 
                 </LinearLayout>
 
@@ -92,7 +92,6 @@
                     android:id="@+id/llOperatorImages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <FrameLayout
@@ -104,9 +103,9 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/ivRightel"
-                            android:layout_width="@dimen/_60dp"
-                            android:layout_height="@dimen/_60dp"
-                            android:layout_gravity="center"
+                            android:layout_width="@dimen/_90dp"
+                            android:layout_height="@dimen/_90dp"
+                            android:layout_gravity="right"
                             android:src="@drawable/rightel2"
                             app:civ_border_color="@color/colorPrimaryDark"
                             app:civ_border_width="0dp" />
@@ -122,8 +121,8 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/ivIrancell"
-                            android:layout_width="@dimen/_60dp"
-                            android:layout_height="@dimen/_60dp"
+                            android:layout_width="@dimen/_90dp"
+                            android:layout_height="@dimen/_90dp"
                             android:layout_gravity="center"
                             android:src="@drawable/irancell2"
                             app:civ_border_color="@color/colorPrimaryDark"
@@ -140,9 +139,9 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/ivHamraheAval"
-                            android:layout_width="@dimen/_60dp"
-                            android:layout_height="@dimen/_60dp"
-                            android:layout_gravity="center"
+                            android:layout_width="@dimen/_90dp"
+                            android:layout_height="@dimen/_90dp"
+                            android:layout_gravity="left"
                             android:src="@drawable/hamrahe_aval"
                             app:civ_border_color="@color/btnColorSecondary"
                             app:civ_border_width="0dp" />
