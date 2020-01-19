@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
 import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
 import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
@@ -124,17 +126,19 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
     private PersianCalendar currentDate, startPersianDate, endPersianDate;
     private Integer startDateInt = 0, endDateInt = 0;
+    private MainActionView mainActionView;
 
     public PhotosArchiveFragment()
     {
     }
 
-    public static PhotosArchiveFragment newInstance(SubMediaParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite,
+    public static PhotosArchiveFragment newInstance(MainActionView mainActionView, SubMediaParent parent, MediaPosition mediaPosition, boolean pagerFromFavorite,
                                                     PhotosArchiveActionView mainView)
     {
         PhotosArchiveFragment fragment = new PhotosArchiveFragment();
         fragment.setMainView(mainView);
         fragment.setParent(parent);
+        fragment.setMainActionView(mainActionView);
         fragment.setMediaPosition(mediaPosition);
 
         Bundle arg = new Bundle();
@@ -146,6 +150,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     }
 
     private void setParent(SubMediaParent parent) { this.parent = parent; }
+    private void setMainActionView(MainActionView mainActionView) { this.mainActionView = mainActionView; }
 
     private void setMediaPosition(MediaPosition mediaPosition) { this.mediaPosition = mediaPosition; }
 
@@ -224,6 +229,12 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         }
 
         EventBus.getDefault().register(this);
+        FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
+        flLogoToolbar.setOnClickListener(v -> {
+            mainActionView.backToMainFragment();
+
+        });
+
         return rootView;
     }
 

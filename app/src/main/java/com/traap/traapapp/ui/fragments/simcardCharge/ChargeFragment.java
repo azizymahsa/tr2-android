@@ -179,6 +179,7 @@ public class ChargeFragment extends BaseFragment
     @BindView(R.id.imgMenu)
     ImageView imgMenu;
 
+
     @BindView(R.id.tvAmpuntPassCharge)
     TextView tvAmpuntPassCharge;
     @BindView(R.id.tvDescriptionSelectedOperator)
@@ -1181,6 +1182,12 @@ public class ChargeFragment extends BaseFragment
     private void initView()
     {
         mToolbar = rootView.findViewById(R.id.toolbar);
+       FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
+        flLogoToolbar.setOnClickListener(v ->
+        {
+            mainView.backToMainFragment();
+
+        });
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
@@ -1250,11 +1257,10 @@ public class ChargeFragment extends BaseFragment
 
         }
         getBoughtForRequest();
-        FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
-        flLogoToolbar.setOnClickListener(v -> {
+/*        flLogoToolbar.setOnClickListener(v -> {
             mainView.backToMainFragment();
 
-        });
+        });*/
      /*   btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));
         btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));
         btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_phone_book));*/

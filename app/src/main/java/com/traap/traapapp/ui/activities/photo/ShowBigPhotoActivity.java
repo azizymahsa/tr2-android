@@ -58,8 +58,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickListener, AlbumDetailsItemAdapter.OnItemAllMenuClickListener
-{
+public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickListener, AlbumDetailsItemAdapter.OnItemAllMenuClickListener {
     private TextView tvLike;
     private TextView imgBack;
     private RoundedImageView ivPhoto, ivBigLike;
@@ -87,12 +86,11 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
     boolean listChange = true;
     int pos;
     private List<Content> list;
-    private Boolean isPlay = false;
+    private Boolean isPlay=false;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_photo);
         Bundle extras = getIntent().getExtras();
@@ -101,8 +99,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         Gson gson = new Gson();
 
         list = gson.fromJson(extras.getString("content", ""),
-                new TypeToken<ArrayList<Content>>()
-                {
+                new TypeToken<ArrayList<Content>>() {
                 }.getType());
         initView();
 
@@ -176,17 +173,14 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             btnBookmark.setOnClickListener(this);
 
 */
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.getMessage();
         }
 
 
-        try
-        {
+        try {
             pos = getIntent().getExtras().getInt("pic");
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
 
 
@@ -199,26 +193,19 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         viewPager.setAdapter(new IntroAdapter());
         thumbnails_scroll_view.setAdapter(imageListAdapter);
         // viewPager.setCurrentItem(getIntent().getExtras().getInt("pic"));
-        if (pos == 0 || pos == 1)
-        {
+        if (pos == 0 || pos == 1) {
 
             thumbnails_scroll_view.setSelection(pos);
 
 
-        }
-        else if (pos == list.size())
-        {
+        } else if (pos == list.size()) {
             thumbnails_scroll_view.setSelection(pos);
 
 
-        }
-        else if (pos == list.size() - 1 || pos == list.size() - 2)
-        {
+        } else if (pos == list.size() - 1 || pos == list.size() - 2) {
             thumbnails_scroll_view.setSelection(pos);
 
-        }
-        else
-        {
+        } else {
 
             thumbnails_scroll_view.setSelection(pos - 1);
 
@@ -226,23 +213,18 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         }
 
 
-        viewPager.setOnTouchListener(new View.OnTouchListener()
-        {
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
+            public boolean onTouch(View v, MotionEvent event) {
                 listChange = true;
 
                 return false;
             }
         });
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
-        {
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
-                if (listChange)
-                {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (listChange) {
 
                     thumbnails_scroll_view.smoothScrollToPosition(position);
 
@@ -250,14 +232,12 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             }
 
             @Override
-            public void onPageSelected(int position)
-            {
+            public void onPageSelected(int position) {
 
             }
 
             @Override
-            public void onPageScrollStateChanged(int state)
-            {
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
@@ -267,21 +247,17 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-    private void setImageBackground(ImageView image, String link)
-    {
-        try
-        {
+    private void setImageBackground(ImageView image, String link) {
+        try {
             Glide.with(this).load(Uri.parse(link)).into(image);
 
-        } catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             Picasso.with(this).load(R.drawable.img_failure).into(image);
         }
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
    /*     switch (v.getId()) {
 
             case R.id.rlLike:
@@ -332,21 +308,16 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         }*/
     }
 
-    private void requestBookMark()
-    {
+    private void requestBookMark() {
         BookMarkPhotoRequest request = new BookMarkPhotoRequest();
 
-        SingletonService.getInstance().getLikeVideoService().bookMarkPhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<BookMarkPhotoResponse>>()
-        {
+        SingletonService.getInstance().getLikeVideoService().bookMarkPhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<BookMarkPhotoResponse>>() {
             @Override
-            public void onReady(WebServiceClass<BookMarkPhotoResponse> response)
-            {
+            public void onReady(WebServiceClass<BookMarkPhotoResponse> response) {
 
-                try
-                {
+                try {
 
-                    if (response.info.statusCode == 200)
-                    {
+                    if (response.info.statusCode == 200) {
 
                         setBookMark(response.data);
 
@@ -396,21 +367,16 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private void requestLike()
-    {
+    private void requestLike() {
         LikeVideoRequest request = new LikeVideoRequest();
 
-        SingletonService.getInstance().getLikeVideoService().likePhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
-        {
+        SingletonService.getInstance().getLikeVideoService().likePhotoService(idPhoto, request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>() {
             @Override
-            public void onReady(WebServiceClass<LikeVideoResponse> response)
-            {
+            public void onReady(WebServiceClass<LikeVideoResponse> response) {
 
-                try
-                {
+                try {
 
-                    if (response.info.statusCode == 200)
-                    {
+                    if (response.info.statusCode == 200) {
                         animateHeart(ivBigLike);
                         setLiked(response.data);
 
@@ -429,7 +395,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onError(String message)
             {
-                if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                if (Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(ShowBigPhotoActivity.this, "خطا در دریافت اطلاعات از سرور!");
@@ -486,50 +452,42 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private Animation prepareAnimation(Animation animation)
-    {
+    private Animation prepareAnimation(Animation animation) {
         animation.setRepeatCount(1);
         animation.setRepeatMode(Animation.REVERSE);
         return animation;
     }
 
     @Override
-    public void OnItemAllMenuClick(View view, Integer id, Content content, Integer position)
-    {
+    public void OnItemAllMenuClick(View view, Integer id, Content content, Integer position) {
 
 
     }
 
 
-    private class IntroAdapter extends PagerAdapter
-    {
+    private class IntroAdapter extends PagerAdapter {
 
         @Override
-        public int getItemPosition(@NonNull Object object)
-        {
+        public int getItemPosition(@NonNull Object object) {
             return POSITION_NONE;
         }
 
-        public IntroAdapter()
-        {
+        public IntroAdapter() {
 
         }
 
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return list.size();
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object object)
-        {
+        public boolean isViewFromObject(View view, Object object) {
             return view.equals(object);
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, final int position)
-        {
+        public Object instantiateItem(ViewGroup container, final int position) {
             View view = View.inflate(container.getContext(), R.layout.list_image_item_gallary, null);
             PhotoView image = view.findViewById(R.id.photo_view);
             final int[] likeCount = {0};
@@ -547,49 +505,38 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             tvLike.setText(list.get(position).getLikes() + "");
 
 
-            if (isPlay)
-            {
+            if (isPlay) {
                 btnPlay.setColorFilter(getResources().getColor(R.color.backgroundButton));
 
-            }
-            else
-            {
+            } else {
                 btnPlay.setColorFilter(getResources().getColor(R.color.white));
 
             }
 
-            if (list.get(position).getIsBookmarked())
-            {
+            if (list.get(position).getIsBookmarked()) {
                 btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
 
-            }
-            else
-            {
+            } else {
                 btnBookmark.setColorFilter(getResources().getColor(R.color.white));
 
             }
 
-            if (list.get(position).getIsLiked())
-            {
+            if (list.get(position).getIsLiked()) {
                 imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                 tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
-            }
-            else
-            {
+            } else {
                 imgLike.setColorFilter(getResources().getColor(R.color.white));
                 tvLike.setTextColor(getResources().getColor(R.color.white));
             }
             likeCount[0] = list.get(position).getLikes();
 
 
-            imgLike.setOnClickListener(v ->
-            {
+            imgLike.setOnClickListener(v -> {
                 ivBigLike.setVisibility(View.VISIBLE);
                 LikeVideoRequest request = new LikeVideoRequest();
                 animateHeart(ivBigLike);
 
-                if (list.get(position).getIsLiked())
-                {
+                if (list.get(position).getIsLiked()) {
                     imgLike.setColorFilter(getResources().getColor(R.color.gray));
                     tvLike.setTextColor(getResources().getColor(R.color.gray));
 
@@ -616,17 +563,13 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
                 }
 
-                SingletonService.getInstance().getLikeVideoService().likePhotoService(list.get(position).getId(), request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
-                {
+                SingletonService.getInstance().getLikeVideoService().likePhotoService(list.get(position).getId(), request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>() {
                     @Override
-                    public void onReady(WebServiceClass<LikeVideoResponse> response)
-                    {
+                    public void onReady(WebServiceClass<LikeVideoResponse> response) {
 
-                        try
-                        {
+                        try {
 
-                            if (response.info.statusCode == 200)
-                            {
+                            if (response.info.statusCode == 200) {
 
                             }
                             else
@@ -680,17 +623,13 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
                 BookMarkPhotoRequest request = new BookMarkPhotoRequest();
 
-                SingletonService.getInstance().getLikeVideoService().bookMarkPhotoService(list.get(position).getId(), request, new OnServiceStatus<WebServiceClass<BookMarkPhotoResponse>>()
-                {
+                SingletonService.getInstance().getLikeVideoService().bookMarkPhotoService(list.get(position).getId(), request, new OnServiceStatus<WebServiceClass<BookMarkPhotoResponse>>() {
                     @Override
-                    public void onReady(WebServiceClass<BookMarkPhotoResponse> response)
-                    {
+                    public void onReady(WebServiceClass<BookMarkPhotoResponse> response) {
 
-                        try
-                        {
+                        try {
 
-                            if (response.info.statusCode == 200)
-                            {
+                            if (response.info.statusCode == 200) {
 
                                 //setBookMark(response.data);
 
@@ -727,8 +666,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             });
 
 
-            btnSharePic.setOnClickListener(v ->
-            {
+            btnSharePic.setOnClickListener(v -> {
                 new ScreenShot(rlPic, ShowBigPhotoActivity.this);
 
 
@@ -759,19 +697,17 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 */
 
 
-            btnPlay.setOnClickListener(v ->
-            {
-                if (isPlay)
-                {
+            btnPlay.setOnClickListener(v -> {
+                if (isPlay) {
                     btnPlay.setColorFilter(getResources().getColor(R.color.white));
-                    isPlay = false;
+                    isPlay=false;
                     viewPager.stopAutoScroll();
 
                 }
                 else
                 {
                     btnPlay.setColorFilter(getResources().getColor(R.color.backgroundButton));
-                    isPlay = true;
+                    isPlay=true;
                     viewPager.startAutoScroll();
 
                 }
@@ -780,60 +716,51 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             });
 
 
+
             return view;
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object)
-        {
+        public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
         }
     }
 
 
-    public class ImageListAdapter extends BaseAdapter
-    {
+    public class ImageListAdapter extends BaseAdapter {
         private LayoutInflater inflater;
         private ViewHolder holder;
 
 
-        public ImageListAdapter()
-        {
+        public ImageListAdapter() {
             inflater = LayoutInflater.from(ShowBigPhotoActivity.this);
 
         }
 
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return list.size();
         }
 
         @Override
-        public Object getItem(int position)
-        {
+        public Object getItem(int position) {
             return position;
         }
 
         @Override
-        public long getItemId(int position)
-        {
+        public long getItemId(int position) {
             return position;
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent)
-        {
-            if (convertView == null)
-            {
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
                 convertView = inflater.inflate(R.layout.row_item_image, null);
                 holder = new ViewHolder();
                 holder.ivImage = convertView.findViewById(R.id.ivImage);
 
                 convertView.setTag(holder);
-            }
-            else
-            {
+            } else {
                 holder = (ViewHolder) convertView.getTag();
             }
             Glide.with(ShowBigPhotoActivity.this)
@@ -842,11 +769,9 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                     // .error(R.drawable.not_found)
                     .into(holder.ivImage);
 
-            holder.ivImage.setOnClickListener(new View.OnClickListener()
-            {
+            holder.ivImage.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
                     listChange = false;
                     viewPager.setCurrentItem(position);
                 }
@@ -856,8 +781,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         }
 
 
-        public class ViewHolder
-        {
+        public class ViewHolder {
             ImageView ivImage;
 
         }
