@@ -20,13 +20,12 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="15" />
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10dp"
-            android:layout_marginEnd="@dimen/_10dp"
+
             android:layout_marginBottom="2dp"
             android:layout_weight="100"
             android:padding="@dimen/_5dp">
@@ -36,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:singleLine="false"
-                android:text="لطفا مبلغ مورد نظر خود برای نقد کردن را مشخص نمایید، با انجام این فرایند موجودی کیف پول شما به حساب مورد نظرتان منتقل می شود."
+                android:text="لطفا مبلغ مورد نظر جهت برداشت از کیف پول و شماره شبا، جهت واریز پول را وارد نمایید."
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize_14dp" />
 
@@ -47,7 +46,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="15" />
 
     </LinearLayout>
 
@@ -89,7 +88,7 @@
                 android:layout_weight="100"
                 android:maxLength="7"
                 android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_12dp" />
+                android:textSize="@dimen/textSize_14dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -204,14 +203,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="لازم بذکر است:"
-            android:textColor="@color/red"
+            android:textColor="@color/backgroundButton"
             android:textSize="@dimen/_10dp" />
 
         <ImageView
             android:id="@+id/ivDec"
             android:layout_width="@dimen/_20dp"
             android:layout_height="match_parent"
-            android:tint="@color/red"
+            android:tint="@color/backgroundButton"
             app:srcCompat="@drawable/ic_error_outline" />
 
 
@@ -231,19 +230,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="98"
-            android:text="در طول هر ماه فقط یکبار می توانید موجودی کیف پول خود را نقد کنید."
+            android:text=" - در طول هر ماه فقط یکبار می توانید موجودی کیف پول خود را نقد کنید. "
             android:textColor="@color/black"
             android:singleLine="false"
             android:textSize="@dimen/_10dp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text=" - "
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10dp" />
+
 
 
     </LinearLayout>

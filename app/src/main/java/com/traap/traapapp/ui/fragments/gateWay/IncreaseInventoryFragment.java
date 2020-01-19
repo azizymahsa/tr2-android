@@ -191,7 +191,7 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
                             sendRequest();
                         } else
                         {
-                            mainView.showError("مبلغ غیر مجاز می باشد.(حداکثر 500,000,000 ریال)");
+                            mainView.showError(getResources().getString(R.string._deny_currency_max_five));
 
                         }
                     } else

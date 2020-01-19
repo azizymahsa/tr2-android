@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.dialogs.MessageAlertSuccesDialog;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -77,6 +78,12 @@ public class BaseFragment extends Fragment
     {
         String mTitle = title == 0 ? "" : context.getString(title);
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_MESSAGE);
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
+    }
+public static void showAlertSuccess(Context context, String Msg, int title,int type)
+    {
+        String mTitle = title == 0 ? "" : context.getString(title);
+        MessageAlertSuccesDialog dialog = new MessageAlertSuccesDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_SUCCESS);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 

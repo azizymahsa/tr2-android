@@ -25,6 +25,7 @@ import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePas
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.dialogs.MessageAlertSuccesDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Tools;
 
@@ -157,78 +158,79 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                 edtOldPass.setTransformationMethod(PasswordTransformationMethod.getInstance());*/
                 break;
             case R.id.btnForgetPass:
+                requestForgetPassword();
 
-                MessageAlertDialog dialog1 = new MessageAlertDialog((Activity) mainView, "",
-                        getContext().getString(R.string._request_change_pass), true, "تایید", "انصراف",
-                        MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+
+                break;
+            case R.id.btnChangePass:
+
+                if (edtNewPass.getText().toString().length() > 4 && edtOldPass.getText().toString().length() > 4 && edtTemNewPass.getText().toString().length() > 4)
                 {
-                    @Override
-                    public void onConfirmClick()
+                    if (edtNewPass.getText().toString().equals(edtTemNewPass.getText().toString()))
                     {
-                        requestForgetPassword();
+                        MessageAlertDialog dialog1 = new MessageAlertDialog((Activity) mainView, "",
+                                getContext().getString(R.string._request_change_pass), true, "تایید", "انصراف",
+                                MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                requestChangePassword();
+
+                            }
+
+                            @Override
+                            public void onCancelClick()
+                            {
+
+                            }
+                        });
+                        dialog1.setCancelable(false);
+                        dialog1.show(((Activity) mainView).getFragmentManager(), "dialogMessage");
+
+
+                    } else
+                    {
+                        Toast.makeText(getContext(), getContext().getString(R.string._msg_no_correct_pass), Toast.LENGTH_SHORT).show();
 
                     }
+                } else if (edtNewPass.getText().toString().length() == 0 && edtOldPass.getText().toString().length() == 0 && edtTemNewPass.getText().toString().length() == 0)
 
-                    @Override
-                    public void onCancelClick()
-                    {
+                {
+                    Toast.makeText(getContext(), getContext().getString(R.string._msg_none_fields), Toast.LENGTH_SHORT).show();
 
-                    }
-                });
-                dialog1.setCancelable(false);
-                dialog1.show(((Activity) mainView).getFragmentManager(), "dialogMessage");
+                } else
+                {
+                    Toast.makeText(getContext(), getContext().getString(R.string._not_currect_pass), Toast.LENGTH_SHORT).show();
 
-        break;
-        case R.id.btnChangePass:
+                }
 
-        if (edtNewPass.getText().toString().length() > 4 && edtOldPass.getText().toString().length() > 4 && edtTemNewPass.getText().toString().length() > 4)
-        {
-            if (edtNewPass.getText().toString().equals(edtTemNewPass.getText().toString()))
-            {
-                requestChangePassword();
 
-            } else
-            {
-                Toast.makeText(getContext(), getContext().getString(R.string._msg_no_correct_pass), Toast.LENGTH_SHORT).show();
+                break;
 
-            }
-        } else if (edtNewPass.getText().toString().length() == 0 && edtOldPass.getText().toString().length() == 0 && edtTemNewPass.getText().toString().length() == 0)
+            case R.id.txtChangePass:
+                llDetailDescriptionForgetPass.setVisibility(View.GONE);
+                llChangePass.setVisibility(View.VISIBLE);
 
-        {
-            Toast.makeText(getContext(), getContext().getString(R.string._msg_none_fields), Toast.LENGTH_SHORT).show();
+                txtChangePass.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                txtChangePass.setBackgroundResource(R.drawable.background_border_a);
+                txtForgetPass.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                txtForgetPass.setBackgroundResource(android.R.color.transparent);
+                break;
+            case R.id.txtForgetPass:
+                llDetailDescriptionForgetPass.setVisibility(View.VISIBLE);
+                llChangePass.setVisibility(View.GONE);
 
-        } else
-        {
-            Toast.makeText(getContext(), getContext().getString(R.string._not_currect_pass), Toast.LENGTH_SHORT).show();
+                txtChangePass.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                txtChangePass.setBackgroundResource(android.R.color.transparent);
+                txtForgetPass.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                txtForgetPass.setBackgroundResource(R.drawable.background_border_a);
+                break;
+
 
         }
 
-
-        break;
-
-        case R.id.txtChangePass:
-        llDetailDescriptionForgetPass.setVisibility(View.GONE);
-        llChangePass.setVisibility(View.VISIBLE);
-
-        txtChangePass.setTextColor(getResources().getColor(R.color.textColorPrimary));
-        txtChangePass.setBackgroundResource(R.drawable.background_border_a);
-        txtForgetPass.setTextColor(getResources().getColor(R.color.returnButtonColor));
-        txtForgetPass.setBackgroundResource(android.R.color.transparent);
-        break;
-        case R.id.txtForgetPass:
-        llDetailDescriptionForgetPass.setVisibility(View.VISIBLE);
-        llChangePass.setVisibility(View.GONE);
-
-        txtChangePass.setTextColor(getResources().getColor(R.color.returnButtonColor));
-        txtChangePass.setBackgroundResource(android.R.color.transparent);
-        txtForgetPass.setTextColor(getResources().getColor(R.color.textColorPrimary));
-        txtForgetPass.setBackgroundResource(R.drawable.background_border_a);
-        break;
-
-
     }
-
-}
     /*----------------------------------------------------------------------------------------------------*/
 
     private void requestChangePassword()
@@ -252,10 +254,23 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
 
                     if (response.info.statusCode == 200)
                     {
+                        MessageAlertSuccesDialog dialog = new MessageAlertSuccesDialog(getActivity(), "", getActivity().getString(R.string._send_sms_forget_pass), false,
+                                "بازگشت به خانه", "ی", 1, new MessageAlertSuccesDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                mainView.backToMainFragment();
 
-                        showAlert(getActivity(), getActivity().getString(R.string._send_sms_forget_pass), 0);
+                            }
 
-                     //   showAlert(getActivity(), response.info.message, 0);
+                            @Override
+                            public void onCancelClick()
+                            {
+                            }
+                        });
+                        dialog.show(getActivity().getFragmentManager(), "dialog");
+
                         clearEditText();
                     } else
                     {
@@ -320,8 +335,23 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                     if (response.info.statusCode == 200)
                     {
 
+                        MessageAlertSuccesDialog dialog = new MessageAlertSuccesDialog(getActivity(), "", getActivity().getString(R.string._send_sms_forget_pass), false,
+                                "بازگشت به خانه", "ی", 1, new MessageAlertSuccesDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                mainView.backToMainFragment();
 
-                        showAlert(getActivity(), getActivity().getString(R.string._send_sms_forget_pass), 0);
+                            }
+
+                            @Override
+                            public void onCancelClick()
+                            {
+                            }
+                        });
+                        dialog.show(getActivity().getFragmentManager(), "dialog");
+                        //  showAlertSuccess(getActivity(), getActivity().getString(R.string._send_sms_forget_pass), 0,1);
                     } else
                     {
 
