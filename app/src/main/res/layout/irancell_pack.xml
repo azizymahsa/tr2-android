@@ -268,41 +268,28 @@
         android:layout_marginLeft="32dp"
         android:visibility="gone"
         android:orientation="vertical">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutIrancell"
+        style="@style/TabLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10dp"
+        android:background="@drawable/background_border_gray"
+        app:tabBackground="@drawable/tab_background"
+        app:tabGravity="fill"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="0dp"
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="@dimen/_10dp"
-            android:orientation="horizontal">
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/textHint" />
 
-            <Spinner
-                android:id="@+id/spinnerIrancell"
-                android:layout_width="match_parent"
-                android:layout_toLeftOf="@+id/tv1"
-                android:layout_height="@dimen/_35dp"
-                android:layout_gravity="center"
-                android:layout_weight="100"
-                android:gravity="right"
-                android:tag="irancell"
-                android:background="@drawable/background_spinner_custom" />
 
-            <TextView
-                android:id="@+id/tv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_centerVertical="true"
-                android:text="نوع سیمکارت: "
-                android:layout_marginLeft="16dp"
-                android:layout_alignParentRight="true"
-                android:textAppearance="@style/IranSansBold"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize_16dp"/>
-
-        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/_10dp"
+
             android:id="@+id/irancellRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

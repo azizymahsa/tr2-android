@@ -21,6 +21,8 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
+import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
+
 /**
  * Authors:
  * Reza Nejati <reza.n.j.t.i@gmail.com>
@@ -85,6 +87,20 @@ public class TurnoverFragment extends BaseFragment {
             clickTurnOverEvent.setFilterClick(true);
 
             EventBus.getDefault().post(clickTurnOverEvent);
+            ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
+            clickTurnOverEvent.setFilterClick(true);
+
+
+        });
+        imgSearch.setOnClickListener(v -> {
+            ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
+            clickTurnOverEvent.setSearchClick(true);
+            if (TextUtils.isEmpty(edtSearchText.getText().toString()))
+                return;
+            clickTurnOverEvent.setSearch(edtSearchText.getText().toString());
+
+            EventBus.getDefault().post(clickTurnOverEvent);
+            EventBus.getDefault().post(clickTurnOverEvent);
 
 
         });
@@ -102,15 +118,6 @@ public class TurnoverFragment extends BaseFragment {
 
     }
 
-    void changeFontInViewGroup(ViewGroup viewGroup, String fontPath) {
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            View child = viewGroup.getChildAt(i);
-            if (TextView.class.isAssignableFrom(child.getClass())) {
-                CalligraphyUtils.applyFontToTextView(child.getContext(), (TextView) child, fontPath);
-            } else if (ViewGroup.class.isAssignableFrom(child.getClass())) {
-                changeFontInViewGroup((ViewGroup) viewGroup.getChildAt(i), fontPath);
-            }
-        }
-    }
+
 
 }
