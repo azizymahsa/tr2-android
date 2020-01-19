@@ -87,8 +87,6 @@ public class TurnoverFragment extends BaseFragment {
             clickTurnOverEvent.setFilterClick(true);
 
             EventBus.getDefault().post(clickTurnOverEvent);
-            ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
-            clickTurnOverEvent.setFilterClick(true);
 
 
         });
