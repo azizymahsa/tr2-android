@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llMTNCharge"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
@@ -110,40 +110,50 @@
         android:visibility="invisible"
         android:layout_marginTop="@dimen/_10dp"
         android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20" />
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinnerIrancell"
-            android:layout_width="0dp"
-            android:layout_weight="50"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:background="@drawable/background_spinner_amount_charge"
-            android:gravity="right"
-            android:tag="irancell"/>
-
+        android:orientation="vertical">
         <Spinner
             android:id="@+id/spinnerChargeTypeIrancell"
-            android:layout_width="0dp"
-            android:layout_weight="50"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginStart="8dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
+
             android:background="@drawable/background_spinner_amount_charge" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10dp"
+            >
 
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutIrancell"
+                style="@style/TabLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_gravity="center"
+                android:background="@drawable/background_border_gray"
+                app:tabBackground="@drawable/tab_background"
+                app:tabGravity="fill"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorHeight="0dp"
+
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed"
+                app:tabTextColor="@color/textHint" />
+
+
+
+
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
@@ -151,7 +161,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_5dp"
         android:layout_marginBottom="@dimen/_20dp"
         android:orientation="horizontal"
         android:visibility="gone"

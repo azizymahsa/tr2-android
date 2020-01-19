@@ -86,11 +86,11 @@ public class TurnoverFragment extends BaseFragment {
         btnFilter.setOnClickListener(v -> {
             ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
             clickTurnOverEvent.setFilterClick(true);
-
             EventBus.getDefault().post(clickTurnOverEvent);
-
-
         });
+
+
+
         imgSearch.setOnClickListener(v -> {
             ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
             clickTurnOverEvent.setSearchClick(true);

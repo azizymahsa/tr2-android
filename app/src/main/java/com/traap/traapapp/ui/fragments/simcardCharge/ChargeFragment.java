@@ -36,6 +36,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -75,10 +76,13 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImp
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyImpl;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyImpl;
+import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
+
+import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
 
 /**
  * Created by Javad.Abadi on 7/14/2018.
@@ -169,6 +173,8 @@ public class ChargeFragment extends BaseFragment
     private int rightelType = 2;
     private boolean isMci = true, isMtn = false, isRightel = false, isInitView = true;
 
+    @BindView(R.id.tabLayoutIrancell)
+    TabLayout tabLayoutIrancell;
 
     @BindView(R.id.contentView)
     LinearLayout contentView;
@@ -218,8 +224,6 @@ public class ChargeFragment extends BaseFragment
     @BindView(R.id.btnMCIChargeConfirm)
     CircularProgressButton btnMCIChargeConfirm;
 
-    @BindView(R.id.spinnerIrancell)
-    Spinner spinnerIrancell;
 
     @BindView(R.id.spinnerAmountIrancell)
     Spinner spinnerAmountIrancell;
@@ -315,7 +319,6 @@ public class ChargeFragment extends BaseFragment
     TextInputLayout tipCvv2;
     @BindView(R.id.nested)
     NestedScrollView nested;
-
     @OnClick(R.id.ivContactR)
     void ivContactR()
     {
@@ -1091,29 +1094,45 @@ public class ChargeFragment extends BaseFragment
             }
         });
 
-        ArrayAdapter<String> adapterIrancell = new ArrayAdapter<String>(getActivity(),
-                R.layout.simple_spinner_item, irancellFilter);
-        adapterIrancell.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
-        spinnerIrancell.setAdapter(adapterIrancell);
-        spinnerIrancell.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+        
+
+
+
+        if (tabLayoutIrancell.getTabCount()==2)
+            return;
+        tabLayoutIrancell.addTab(tabLayoutIrancell.newTab().setText("سیم کارت دائمی"));
+        tabLayoutIrancell.addTab(tabLayoutIrancell.newTab().setText(" سیم کارت اعتباری"), true);
+        tabLayoutIrancell.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            public void onTabSelected(TabLayout.Tab tab)
             {
-                if (spinnerIrancell.getSelectedItemPosition() == 0)
-                {
-                    simcardType = SIMCARD_TYPE_ETEBARI;
-                } else
-                {
+                if(tabLayoutIrancell.getSelectedTabPosition() == 0){
                     simcardType = SIMCARD_TYPE_DAEMI;
+                }else{
+                    simcardType = SIMCARD_TYPE_ETEBARI;
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
+            public void onTabUnselected(TabLayout.Tab tab)
             {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab)
+            {
+
             }
         });
+
+
+
+        changeFontInViewGroup(tabLayoutIrancell,"fonts/iran_sans_normal.ttf");
+
+
     }
 
     private void setDataAmountSpinner()

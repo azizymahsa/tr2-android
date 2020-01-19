@@ -1006,6 +1006,7 @@ public class PackFragment
                 etPassCharge.setText("");
                 
 
+
             }
             initSpinner();
             setupRecycler();
@@ -1276,7 +1277,7 @@ public class PackFragment
                     break;
             }
         }
-        if (parent.getId() == R.id.spinnerIrancell)
+/*        if (parent.getId() == R.id.spinnerIrancell)
         {
             switch (position)
             {
@@ -1293,7 +1294,7 @@ public class PackFragment
             }
 
 
-        }
+        }*/
         if (parent.getId() == R.id.spinnerRightel)
         {
 
