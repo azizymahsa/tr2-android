@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.fragments.gateWay;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -41,6 +42,7 @@ import com.traap.traapapp.utilities.ConvertPersianNumberToString;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
@@ -97,11 +99,27 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
         initView();
 
+       // WalletFragment.setTitleFragmentWallet("انتقال وجه");
 
         onGetBoutForSuccess();
 
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("انتقال وجه");
+
+        EventBus.getDefault().post(walletTitle);
+
 
         return rootView;
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("کیف پول");
+
+        EventBus.getDefault().post(walletTitle);
     }
 
     private void initView()
