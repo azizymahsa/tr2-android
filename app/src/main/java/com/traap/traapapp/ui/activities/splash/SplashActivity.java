@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.activities.splash;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -184,7 +185,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         if (response.info.statusCode != 200)
         {
 //            showError(response.info.message);
-            Tools.showToast(this, response.info.message, R.color.red);
+            MessageAlertDialog dialog = new MessageAlertDialog(this, "", response.info.message,
+                    MessageAlertDialog.TYPE_ERROR);
+            dialog.show(this.getFragmentManager(), "dialog");
             goToActivity();
         }
         else
@@ -251,7 +254,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         }
         catch (Exception e)
         {
-            Tools.showToast(this, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+            MessageAlertDialog dialog = new MessageAlertDialog(this, "", "خطا در دریافت اطلاعات از سرور!",
+                    MessageAlertDialog.TYPE_ERROR);
+            dialog.show(this.getFragmentManager(), "dialog");
             goToActivity();
 //            finish();
         }
@@ -278,7 +283,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             {
                 Logger.e("-description-", "null");
 //                showError("خطا در دریافت اطلاعات از سرور!", getResources().getString(R.string.error));
-                Tools.showToast(this, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+                MessageAlertDialog dialog = new MessageAlertDialog(this, "", "خطا در دریافت اطلاعات از سرور!",
+                        MessageAlertDialog.TYPE_ERROR);
+                dialog.show(this.getFragmentManager(), "dialog");
             }
         }
         catch (Exception e)
@@ -286,7 +293,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             Logger.e("-description-", "Exception");
             e.printStackTrace();
 //            showError("خطا در دریافت اطلاعات از سرور!", getResources().getString(R.string.error));
-            Tools.showToast(this, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+            MessageAlertDialog dialog = new MessageAlertDialog(this, "", "خطا در دریافت اطلاعات از سرور!",
+                    MessageAlertDialog.TYPE_ERROR);
+            dialog.show(this.getFragmentManager(), "dialog");
         }
     }
 
@@ -474,7 +483,6 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                     });
             dialog.show((this).getFragmentManager(), "dialog");
 
-//            Tools.showToast(this, "برای ادامه کار حتما باید مجوز دسترسی به وضعیت دستگاه صادر شود.لطفا در تنظیمات برنامه مجوز مربوطه را صادر نمایید.");
         } else
         {
             ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE},

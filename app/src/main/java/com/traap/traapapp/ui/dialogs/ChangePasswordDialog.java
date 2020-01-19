@@ -138,26 +138,31 @@ public class ChangePasswordDialog extends DialogFragment implements View.OnClick
                 {
                     if (TextUtils.isEmpty(etPass.getText().toString()))
                     {
-                        Tools.showToast(activity, "رمز کارت را وارد نمایید.", R.color.red);
+                        MessageAlertDialog dialog = new MessageAlertDialog(activity, "",
+                                "رمز کارت را وارد نمایید.", MessageAlertDialog.TYPE_SUCCESS);
+                        dialog.show((activity).getFragmentManager(), "dialog");
 
                         return;
                     }
                     if (TextUtils.isEmpty(etNewPass.getText().toString()))
                     {
-                        Tools.showToast(activity, "رمز جدید را وارد نمایید.", R.color.red);
+                        MessageAlertDialog dialog = new MessageAlertDialog(activity, "", "رمز جدید را وارد نمایید.", MessageAlertDialog.TYPE_SUCCESS);
+                        dialog.show(activity.getFragmentManager(), "dialog");
 
                         return;
                     }
                     if (TextUtils.isEmpty(etRepeatNewPass.getText().toString()))
                     {
-                        Tools.showToast(activity, "تکرار رمز جدید را وارد نمایید.", R.color.red);
+                        MessageAlertDialog dialog = new MessageAlertDialog(activity, "", "تکرار رمز جدید را وارد نمایید.", MessageAlertDialog.TYPE_SUCCESS);
+                        dialog.show((activity).getFragmentManager(), "dialog");
 
                         return;
                     }
 
                     if (!etRepeatNewPass.getText().toString().equals(etNewPass.getText().toString()))
                     {
-                        Tools.showToast(activity, "تکرار رمز صحیح نمی باشد.", R.color.red);
+                        MessageAlertDialog dialog = new MessageAlertDialog(activity, "", "تکرار رمز صحیح نمی باشد.", MessageAlertDialog.TYPE_SUCCESS);
+                        dialog.show((activity).getFragmentManager(), "dialog");
 
                         return;
                     }

@@ -142,7 +142,6 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 
         holder.imgDelete.setOnClickListener(view ->
         {
-            Tools.showToast(context, "Delete", R.color.gray);
             actionView.onShowConfirmDeleteDialog(item, position);
 
         });
@@ -150,8 +149,6 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 
 //        holder.imgStar.setOnClickListener(view ->
 //        {
-//            Tools.showToast(context, "Star", R.color.gray);
-//
 //            action.onFavorite(position, item.getCardId());
 ////            mainView.onFavoriteRequest(Prefs.getInt("userId", 0), model.getCardId());
 //            if (item.getIsFavorite())
@@ -190,8 +187,6 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 
         holder.imgShare.setOnClickListener(view ->
         {
-            Tools.showToast(context, "Share", R.color.gray);
-
             actionView.onShareCard(holder.cvContent);
 
         });

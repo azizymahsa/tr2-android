@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.dialogs;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -157,24 +158,30 @@ public class DialogEditCard extends DialogFragment implements View.OnClickListen
 //                }
                 if (etNumberCardEdit.getText().toString().replaceAll("-", "").replaceAll("_", "").length() != 16)
                 {
-                    Tools.showToast(context, context.getString(R.string.enter_card_number), R.color.red);
+                    MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, "",
+                            context.getString(R.string.enter_card_number), MessageAlertDialog.TYPE_ERROR);
+                    dialog.show(((Activity) context).getFragmentManager(), "dialog");
                     return;
                 }
 
                 if (TextUtils.isEmpty(etCardNameEdit.getText().toString()))
                 {
-                    Tools.showToast(context, context.getString(R.string.enter_name), R.color.red);
+                    MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, "",
+                            context.getString(R.string.enter_name), MessageAlertDialog.TYPE_ERROR);
+                    dialog.show(((Activity) context).getFragmentManager(), "dialog");
                     return;
                 }
 
                 if (TextUtils.isEmpty(etNumberCardEdit.getText().toString()))
                 {
-                    Tools.showToast(context, context.getString(R.string.enter_card_number), R.color.red);
+                    MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, "",
+                            context.getString(R.string.enter_card_number), MessageAlertDialog.TYPE_ERROR);
                     return;
                 }
                 if (etCardNameEdit.getText().toString().length() < 2 || Utility.containsNumber(etCardNameEdit.getText().toString()))
                 {
-                    Tools.showToast(context, "لطفا نام و نام خانوادگی را درست وارد نمایید.", R.color.red);
+                    MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, "",
+                            "لطفا نام و نام خانوادگی را درست وارد نمایید.", MessageAlertDialog.TYPE_ERROR);
 
                     return;
                 }

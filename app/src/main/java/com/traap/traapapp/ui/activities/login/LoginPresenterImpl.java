@@ -34,6 +34,7 @@ import com.traap.traapapp.apiServices.model.verify.VerifyResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.GoToActivity;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -213,12 +214,18 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     else
                     {
                         codeView.setText("");
-                        Tools.showToast(appContext, response.info.message, R.color.red);
+                        MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
+                                response.info.message,
+                                MessageAlertDialog.TYPE_ERROR);
+                        dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
                         loginView.hideLoading();
                     }
                 } catch (Exception e)
                 {
-                    Tools.showToast(appContext, e.getMessage(), R.color.red);
+                    MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
+                            response.info.message,
+                            MessageAlertDialog.TYPE_ERROR);
+                    dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
                     loginView.hideLoading();
                 }
             }
@@ -230,7 +237,10 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                 if (Tools.isNetworkAvailable((Activity) activityContext))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    Tools.showToast(appContext, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+                    MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
+                            "خطا در دریافت اطلاعات از سرور!",
+                            MessageAlertDialog.TYPE_ERROR);
+                    dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
 
                     // showError(appContext, "خطا در دریافت اطلاعات از سرور!");
                 }
@@ -380,7 +390,10 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             }
             else
             {
-                Tools.showToast(appContext, "خطایی رخ داده است", R.color.red);
+                MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
+                        "خطایی رخ داده است.",
+                        MessageAlertDialog.TYPE_ERROR);
+                dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
                 loginView.hideLoading();
             }
         }catch (Exception e){}
@@ -400,12 +413,14 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     @Override
     public void onError(String message)
     {
-     //   Tools.showToast(appContext, message, R.color.red);
         loginView.hideLoading();
         if (Tools.isNetworkAvailable((Activity) activityContext))
         {
             Logger.e("-OnError-", "Error: " + message);
-            Tools.showToast(appContext, "خطا در دریافت اطلاعات از سرور!", R.color.red);
+            MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
+                    "خطا در دریافت اطلاعات از سرور!",
+                    MessageAlertDialog.TYPE_ERROR);
+            dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
 
             // showError(appContext, "خطا در دریافت اطلاعات از سرور!");
         }
