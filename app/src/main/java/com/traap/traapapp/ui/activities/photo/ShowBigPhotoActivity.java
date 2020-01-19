@@ -314,17 +314,17 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                         setBookMark(response.data);
 
                     } else {
-                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e) {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
 
             @Override
             public void onError(String message) {
-                // Tools.showToast(getApplicationContext(), message, R.color.red);
+                // showToast(getApplicationContext(), message, R.color.red);
                 if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this)) {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
@@ -362,10 +362,10 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                         setLiked(response.data);
 
                     } else {
-                        Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                        showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
                 } catch (Exception e) {
-                    Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                 }
             }
@@ -535,10 +535,10 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                             if (response.info.statusCode == 200) {
 
                             } else {
-                                Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                                showToast(getApplicationContext(), response.info.message, R.color.red);
                             }
                         } catch (Exception e) {
-                            Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                            showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                         }
                     }
@@ -586,17 +586,17 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                                 //setBookMark(response.data);
 
                             } else {
-                                Tools.showToast(getApplicationContext(), response.info.message, R.color.red);
+                                showToast(getApplicationContext(), response.info.message, R.color.red);
                             }
                         } catch (Exception e) {
-                            Tools.showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                            showToast(getApplicationContext(), e.getMessage(), R.color.red);
 
                         }
                     }
 
                     @Override
                     public void onError(String message) {
-                        // Tools.showToast(getApplicationContext(), message, R.color.red);
+                        // showToast(getApplicationContext(), message, R.color.red);
                         if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this)) {
                             Logger.e("-OnError-", "Error: " + message);
                             showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
