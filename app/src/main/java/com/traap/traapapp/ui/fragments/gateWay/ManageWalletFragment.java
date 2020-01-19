@@ -29,6 +29,7 @@ import com.traap.traapapp.ui.dialogs.MessageAlertSuccesDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Tools;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Objects;
@@ -107,10 +108,26 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
         btnChangePass.setOnClickListener(this);
         txtChangePass.setOnClickListener(this);
         txtForgetPass.setOnClickListener(this);
-
+        changeTitle();
 
     }
+    private void changeTitle()
+    {
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("مدیریت کیف پول");
 
+        EventBus.getDefault().post(walletTitle);
+
+    }
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("کیف پول");
+
+        EventBus.getDefault().post(walletTitle);
+    }
     @Subscribe
     public void getHeaderContent(HeaderModel headerModel)
     {

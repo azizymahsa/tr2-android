@@ -36,6 +36,7 @@ import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
@@ -116,45 +117,25 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
             e.getMessage();
         }
 
+        changeTitle();
 
-      /*  edtCurrency.addTextChangedListener(new TextWatcher()
-        {
-            private String current = "";
-            @Override
-            public void afterTextChanged(Editable ss)
-            {
-                edtCurrency.removeTextChangedListener(this);
+    }
+    private void changeTitle()
+    {
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("برداشت از کیف پول");
 
-                String s = edtCurrency.getText().toString();
+        EventBus.getDefault().post(walletTitle);
 
-                s = s.replace(",", "");
-                if (s.length() > 0) {
-                    DecimalFormat sdd = new DecimalFormat("#,###");
-                    Double doubleNumber = Double.parseDouble(s);
+    }
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("کیف پول");
 
-                    String format = sdd.format(doubleNumber);
-                    edtCurrency.setText(format);
-                    edtCurrency.setSelection(format.length());
-
-                }
-                edtCurrency.addTextChangedListener(this);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
-            {
-
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
-
-            }
-
-
-        });*/
+        EventBus.getDefault().post(walletTitle);
     }
 
     @Subscribe

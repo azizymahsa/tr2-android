@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.gateWay.WalletTitle;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 
@@ -114,6 +115,25 @@ public class TurnoverFragment extends BaseFragment {
 
         });
 
+        changeTitle();
+
+    }
+    private void changeTitle()
+    {
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("گردش حساب");
+
+        EventBus.getDefault().post(walletTitle);
+
+    }
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("کیف پول");
+
+        EventBus.getDefault().post(walletTitle);
     }
 
 

@@ -30,6 +30,7 @@ import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
@@ -84,70 +85,89 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
     private void initView()
     {
-        txtFive = rootView.findViewById(R.id.txtFive);
-        txtThree = rootView.findViewById(R.id.txtThree);
-        txtTwo = rootView.findViewById(R.id.txtTwo);
-        txtChrAmount = rootView.findViewById(R.id.txtChrAmount);
-        tvMines = rootView.findViewById(R.id.tvMines);
-        tvPlus = rootView.findViewById(R.id.tvPlus);
-        txtAmount = rootView.findViewById(R.id.txtAmount);
-        //  etAmount = rootView.findViewById(R.id.etAmount);
-        btnChargeConfirmRightel = rootView.findViewById(R.id.btnChargeConfirmRightel);
-        btnChargeConfirmRightel.setOnClickListener(this);
+    txtFive = rootView.findViewById(R.id.txtFive);
+    txtThree = rootView.findViewById(R.id.txtThree);
+    txtTwo = rootView.findViewById(R.id.txtTwo);
+    txtChrAmount = rootView.findViewById(R.id.txtChrAmount);
+    tvMines = rootView.findViewById(R.id.tvMines);
+    tvPlus = rootView.findViewById(R.id.tvPlus);
+    txtAmount = rootView.findViewById(R.id.txtAmount);
+    //  etAmount = rootView.findViewById(R.id.etAmount);
+    btnChargeConfirmRightel = rootView.findViewById(R.id.btnChargeConfirmRightel);
+    btnChargeConfirmRightel.setOnClickListener(this);
 
 
-        txtFive.setOnClickListener(this);
-        txtTwo.setOnClickListener(this);
-        txtThree.setOnClickListener(this);
-        tvPlus.setOnClickListener(this);
-        tvMines.setOnClickListener(this);
+    txtFive.setOnClickListener(this);
+    txtTwo.setOnClickListener(this);
+    txtThree.setOnClickListener(this);
+    tvPlus.setOnClickListener(this);
+    tvMines.setOnClickListener(this);
 
-        txtAmount.addTextChangedListener(new TextWatcher()
+    txtAmount.addTextChangedListener(new TextWatcher()
+    {
+        private String current = "";
+
+        @Override
+        public void afterTextChanged(Editable ss)
         {
-            private String current = "";
+            txtAmount.removeTextChangedListener(this);
 
-            @Override
-            public void afterTextChanged(Editable ss)
+            String s = txtAmount.getText().toString();
+
+            s = s.replace(",", "");
+            if (s.length() > 0)
             {
-                txtAmount.removeTextChangedListener(this);
+                DecimalFormat sdd = new DecimalFormat("#,###");
+                Double doubleNumber = Double.parseDouble(s);
 
-                String s = txtAmount.getText().toString();
-
-                s = s.replace(",", "");
-                if (s.length() > 0)
-                {
-                    DecimalFormat sdd = new DecimalFormat("#,###");
-                    Double doubleNumber = Double.parseDouble(s);
-
-                    String format = sdd.format(doubleNumber);
-                    txtAmount.setText(format);
-                    txtAmount.setSelection(format.length());
-
-                }
-                txtAmount.addTextChangedListener(this);
-
-                if (txtAmount.getText().toString().replaceAll(",", "").equals(""))
-                    txtAmount.setText("0");
-
-                txtChrAmount.setText(ConvertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(txtAmount.getText().toString().replaceAll(",", ""))), "ریال"));
+                String format = sdd.format(doubleNumber);
+                txtAmount.setText(format);
+                txtAmount.setSelection(format.length());
 
             }
+            txtAmount.addTextChangedListener(this);
 
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
-            {
+            if (txtAmount.getText().toString().replaceAll(",", "").equals(""))
+                txtAmount.setText("0");
+
+            txtChrAmount.setText(ConvertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(txtAmount.getText().toString().replaceAll(",", ""))), "ریال"));
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
+        {
 
 
-            }
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count)
+        {
 
-            }
+        }
 
 
-        });
+    });
+        changeTitle();
+
+    }
+    private void changeTitle()
+    {
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("افزایش موجودی");
+
+        EventBus.getDefault().post(walletTitle);
+
+    }
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("کیف پول");
+
+        EventBus.getDefault().post(walletTitle);
     }
 
     @Subscribe
