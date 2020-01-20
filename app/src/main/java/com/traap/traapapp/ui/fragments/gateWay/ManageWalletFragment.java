@@ -208,17 +208,20 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
 
                     } else
                     {
-                        Toast.makeText(getContext(), getContext().getString(R.string._msg_no_correct_pass), Toast.LENGTH_SHORT).show();
+                        mainView.showError(getContext().getString(R.string._msg_no_correct_pass));
+
 
                     }
                 } else if (edtNewPass.getText().toString().length() == 0 && edtOldPass.getText().toString().length() == 0 && edtTemNewPass.getText().toString().length() == 0)
 
                 {
-                    Toast.makeText(getContext(), getContext().getString(R.string._msg_none_fields), Toast.LENGTH_SHORT).show();
+                    mainView.showError(getContext().getString(R.string._msg_none_fields));
+
 
                 } else
                 {
-                    Toast.makeText(getContext(), getContext().getString(R.string._not_currect_pass), Toast.LENGTH_SHORT).show();
+                    mainView.showError(getContext().getString(R.string._not_currect_pass));
+
 
                 }
 
