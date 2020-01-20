@@ -93,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginEnd="@dimen/_20dp"
                     android:text=" "
                     android:textColor="@color/chargePackTextColor"
                     android:textSize="@dimen/textSize_12dp" />

@@ -90,4 +90,6 @@ public interface MainActionView extends BaseView
     void onBackToChargFragment(int PAYMENT_STATUS);
 
     void backToAllServicePackage(Integer backState);
+
+    void onBackToHomeWallet(int i);
 }

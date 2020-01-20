@@ -1547,6 +1547,12 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     }
 
+    @Override
+    public void onBackToHomeWallet(int i)
+    {
+
+    }
+
 
     @Override
     public void onBill()

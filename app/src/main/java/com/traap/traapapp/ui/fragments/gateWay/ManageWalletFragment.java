@@ -277,7 +277,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                             @Override
                             public void onConfirmClick()
                             {
-                                mainView.backToMainFragment();
+                                mainView.onBackToHomeWallet(0);
 
                             }
 
@@ -358,7 +358,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                             @Override
                             public void onConfirmClick()
                             {
-                                mainView.backToMainFragment();
+                                mainView.onBackToHomeWallet(0);
 
                             }
 
