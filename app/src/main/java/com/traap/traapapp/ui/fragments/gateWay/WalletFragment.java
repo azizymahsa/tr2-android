@@ -91,7 +91,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private int endDay = 0, endMonth = 0, endYear = 0;
     private int startDay = 0, startMonth = 0, startYear = 0;
     private String filterStartDate = "", filterEndDate = "";
-    private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose, imgSearch;
+    private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose, imgSearch,ivRefreshing;
     private CircularProgressButton btnConfirmFilter, btnDeleteFilter;
     private String idFilteredList = "", titleFilteredList = "";
     private String TitleFragment="کیف پول";
@@ -212,6 +212,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             rangeBar = rootView.findViewById(R.id.rangeBar);
             imgEndDateReset = rootView.findViewById(R.id.imgDateToReset);
             imgStartDateReset = rootView.findViewById(R.id.imgDateFromReset);
+            ivRefreshing = rootView.findViewById(R.id.ivRefreshing);
             tvMaxPrice = rootView.findViewById(R.id.tvMaxPrice);
             tvMinPrice = rootView.findViewById(R.id.tvMinPrice);
             tvEmpty = rootView.findViewById(R.id.tvEmpty);
@@ -269,6 +270,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         txtFullName = rootView.findViewById(R.id.txtFullName);
 
         rlImageProfile.setOnClickListener(this);
+        ivRefreshing.setOnClickListener(this);
 
         tvStartDate.setOnClickListener(v -> {
             pickerDialogStartDate.show(getFragmentManager(), "StartDate");
@@ -427,6 +429,12 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivRefreshing:
+                mainView.showLoading();
+
+                requestGetBalance();
+                requestGetInfo();
+                break;
             case R.id.rlImageProfile:
                 if (incBackCart.getVisibility() == View.GONE) {
                     incBackCart.setVisibility(View.VISIBLE);

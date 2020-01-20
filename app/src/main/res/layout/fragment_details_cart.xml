@@ -42,8 +42,10 @@
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/background_disable_rec"
-                            android:scaleType="center"
+                            android:background="@drawable/background_gray_rec"
+                            android:scaleType="fitCenter"
+                            android:padding="@dimen/_10dp"
+
                             android:src="@drawable/mony_transfer" />
 
 
@@ -77,8 +79,9 @@
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/background_disable_rec"
-                            android:scaleType="center"
+                            android:background="@drawable/background_gray_rec"
+                            android:scaleType="centerInside"
+                            android:padding="@dimen/_10dp"
                             android:src="@drawable/ic_inc_inv" />
 
 
@@ -121,8 +124,10 @@
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/background_disable_rec"
-                            android:scaleType="center"
+                            android:background="@drawable/background_gray_rec"
+                            android:scaleType="fitCenter"
+                            android:padding="@dimen/_10dp"
+
                             android:src="@drawable/manage_cart" />
 
 
@@ -156,8 +161,9 @@
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/background_disable_rec"
-                            android:scaleType="center"
+                            android:background="@drawable/background_gray_rec"
+                            android:scaleType="fitCenter"
+                            android:padding="@dimen/_10dp"
                             android:src="@drawable/ic_report" />
 
 
@@ -238,8 +244,10 @@
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/background_disable_rec"
-                            android:scaleType="center"
+                            android:background="@drawable/background_gray_rec"
+                            android:scaleType="fitCenter"
+                            android:padding="@dimen/_10dp"
+
                             android:src="@drawable/digital_wallet" />
 
 
