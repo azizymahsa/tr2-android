@@ -2,6 +2,7 @@ package com.traap.traapapp.apiServices.part;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -98,6 +99,7 @@ public abstract class BasePart
                     @Override
                     public void onSuccess(Response<WebServiceClass<T>> value)
                     {
+                        Log.e("12333", "onSuccess: " );
                         if (BuildConfig.DEBUG && Const.TEST)
                         {
                             SingletonResponse.getInstance().addResponse(value);
