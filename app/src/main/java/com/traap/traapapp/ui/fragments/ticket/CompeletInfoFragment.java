@@ -634,7 +634,7 @@ public class CompeletInfoFragment
 
                 } else
                 {
-                    ShowAlertFailure(getContext(),"رمز کارت وارد نشده است.","",true);
+                    showAlertFailure(getContext(),"رمز کارت وارد نشده است.","",true);
 
                 }
 
@@ -2167,7 +2167,7 @@ public class CompeletInfoFragment
     public void onErrorPaymentWallet(String error)
     {
         ((BuyTicketsActivity) getActivity()).hideLoading();
-        ShowAlertFailure(context,error,"",false);
+        showAlertFailure(context,error,"",false);
 
     }
 }
