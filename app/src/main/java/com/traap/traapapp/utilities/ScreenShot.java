@@ -153,7 +153,7 @@ public class ScreenShot
     public void store(Bitmap bm, String fileName)
     {
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/DCIM/Screenshots");
+        File myDir = new File(root + "/traap/Screenshots/");
         if (!myDir.exists())
             myDir.mkdirs();
         File file = new File(myDir, fileName);
