@@ -1095,7 +1095,7 @@ public class ChargeFragment extends BaseFragment
         });
 
 
-        
+
 
 
 
@@ -1888,7 +1888,7 @@ public class ChargeFragment extends BaseFragment
 
 
         mainView.openChargePaymentFragment(this,urlPayment, imageDrawable,
-                title, amount, paymentInstance, mobile,TrapConfig.PAYMENT_STAUS_ChargeSimCard);
+                title, amount.replaceAll(",",""), paymentInstance, mobile,TrapConfig.PAYMENT_STAUS_ChargeSimCard);
 
     }
 
@@ -2205,39 +2205,5 @@ public class ChargeFragment extends BaseFragment
     {
 
     }
-  /*  @Override
-    public void onContactClicked(String number, String name)
-    {
-        try
-        {
-            if (isMtn)
-            {
-                etMobileCharge.setText(number.replaceAll(" ", ""));
-                tilMIrancell.setHint(name);
 
-
-                return;
-            }
-            if (isMci)
-            {
-                etMCINumber.setText(number.replaceAll(" ", ""));
-                tilMMci.setHint(name);
-
-
-                return;
-
-
-            }
-            if (isRightel)
-            {
-                etMobileChargeRightel.setText(number.replaceAll(" ", ""));
-                tilMRightel.setHint(name);
-
-
-            }
-
-        } catch (Exception e)
-        {
-        }
-    }*/
 }

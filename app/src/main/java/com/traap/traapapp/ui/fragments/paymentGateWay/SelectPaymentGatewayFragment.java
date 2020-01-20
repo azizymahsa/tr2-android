@@ -158,7 +158,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         args.putString("mobile", mobile);
         args.putString("title", title);
        // args.putParcelable("paymentInstance", paymentInstance);
-       // args.putParcelable("paymentPackInstance", paymentInstance);
+        args.putParcelable("paymentPackInstance", paymentInstance);
 
         fragment.setArguments(args);
 
@@ -179,7 +179,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         args.putString("mobile", mobile);
         args.putString("title", title);
        // args.putParcelable("paymentPackInstance", paymentInstance);
-        //args.putParcelable("paymentInstance", paymentInstance);
+        args.putParcelable("paymentInstance", paymentInstance);
 
         fragment.setArguments(args);
 
@@ -223,8 +223,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             imageDrawable = getArguments().getInt("imageDrawable", 0);
             mobile = getArguments().getString("mobile", "");
             url=getArguments().getString("url", "");
-          //  simChargePaymentInstance = getArguments().getParcelable("paymentInstance");
-            // simPackPaymentInstance = getArguments().getParcelable("paymentPackInstance");
+            simChargePaymentInstance = getArguments().getParcelable("paymentInstance");
+            simPackPaymentInstance = getArguments().getParcelable("paymentPackInstance");
 
 
         }
@@ -389,18 +389,17 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
                 tvWallet.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 tvGateway.setTextColor(getResources().getColor(R.color.borderColorRed));
-                tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.gray));
 
                 break;
             case R.id.tvWallet:
-               /* viewPager.setCurrentItem(2, true);
+                viewPager.setCurrentItem(2, true);
                 tvWallet.setBackgroundResource(R.drawable.background_border_a);
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
                 tvGateway.setBackgroundColor(Color.TRANSPARENT);
                 tvWallet.setTextColor(getResources().getColor(R.color.borderColorRed));
-                tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.gray));
                 tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
-*/
                 break;
             case R.id.tvCardsShetab:
                /* viewPager.setCurrentItem(1, true);

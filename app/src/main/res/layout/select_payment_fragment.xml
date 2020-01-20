@@ -181,7 +181,7 @@
                         android:gravity="center"
                         android:singleLine="true"
                         android:text="کارت های شتابی"
-                        android:textColor="@color/returnButtonColor"
+                        android:textColor="@color/gray"
                         android:textSize="@dimen/textSize_14dp" />
 
 

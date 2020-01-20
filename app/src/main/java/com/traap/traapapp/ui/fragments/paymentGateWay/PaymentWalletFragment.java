@@ -28,6 +28,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
+import com.traap.traapapp.apiServices.model.buyPackage.response.BuyPackageWalletResponse;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
@@ -37,6 +38,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
@@ -47,6 +49,8 @@ import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalle
 import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletImpl;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletInteractor;
+import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageWalletImpl;
+import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageWalletInteractor;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -54,7 +58,7 @@ import com.traap.traapapp.utilities.Utility;
 /**
  * Created by MahsaAzizi on 11/25/2019.
  */
-public class PaymentWalletFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener, BuyChargeWalletInteractor.OnBuyChargeWalletListener
+public class PaymentWalletFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener, BuyChargeWalletInteractor.OnBuyChargeWalletListener, BuyPackageWalletInteractor.OnBuyPackageWalletListener
 {
     private View rootView;
 
@@ -70,6 +74,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private PaymentMatchRequest paymentMatchRequest;
     private PaymentWalletImpl paymentWallet;
     private BuyChargeWalletImpl buyChargeWallet;
+    private BuyPackageWalletImpl buyPackWallet;
     private TextView tvBalance,tvDate;
     private int imageDrawable;
     private String amount;
@@ -80,6 +85,8 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private TextView tvAmount;
     private TextView tvTitlePay;
     private ImageView imgLogo;
+    private int PAYMENT_STATUS =0;
+
 
 
     public PaymentWalletFragment()
@@ -99,16 +106,16 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
 
 
-    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance)
+    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS)
     {
         PaymentWalletFragment fragment = new PaymentWalletFragment();
         Bundle args = new Bundle();
 
-        fragment.setMainView(mainActionView, imageDrawable, amount, title,simChargePaymentInstance,mobile,simPackPaymentInstance);
+        fragment.setMainView(mainActionView, imageDrawable, amount, title,simChargePaymentInstance,mobile,simPackPaymentInstance,PAYMENT_STATUS);
         return fragment;
     }
 
-    private void setMainView(MainActionView mainView, int imageDrawable, String amount, String title, SimChargePaymentInstance simChargePaymentInstance, String mobile, SimPackPaymentInstance simPackPaymentInstance)
+    private void setMainView(MainActionView mainView, int imageDrawable, String amount, String title, SimChargePaymentInstance simChargePaymentInstance, String mobile, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS)
     {
         this.mainView = mainView;
         this.imageDrawable=imageDrawable;
@@ -117,6 +124,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         this.simChargePaymentInstance=simChargePaymentInstance;
         this.mobile=mobile;
         this.simPackPaymentInstance=simPackPaymentInstance;
+        this.PAYMENT_STATUS=PAYMENT_STATUS;
 
     }
 
@@ -226,7 +234,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
     private void setBalanceData(GetBalancePasswordLessResponse data)
     {
-        tvBalance.setText(data.getBalanceAmount());
+        tvBalance.setText(Utility.priceFormat(data.getBalanceAmount()));
         tvDate.setText(data.getDateTime());
     }
 
@@ -261,14 +269,14 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
         } else if (v.getId() == R.id.btnBack)
         {
-            MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
-                    true, "بله", "خیر", MessageAlertDialog.TYPE_MESSAGE, listener);
-            dialog.show(getActivity().getFragmentManager(), "dialog");
+            mainView.onBackToChargFragment(PAYMENT_STATUS);
         }
     };
 
-    private void requestBuyPackageWallet(String toString, SimPackPaymentInstance simPackPaymentInstance, String mobile, String amount)
+    private void requestBuyPackageWallet(String pin2, SimPackPaymentInstance simPackPaymentInstance, String mobile, String amount)
     {
+        buyPackWallet.findBuyPackageWalletRequest(this,simPackPaymentInstance.getOperatorType().toString(),amount,mobile,pin2,simPackPaymentInstance.getRequestId()
+        ,simPackPaymentInstance.getProfileId().toString(),simPackPaymentInstance.getTitlePackageType());
 
     }
 
@@ -320,6 +328,8 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         initView();
         paymentWallet = new PaymentWalletImpl();
         buyChargeWallet=new BuyChargeWalletImpl();
+        buyPackWallet=new BuyPackageWalletImpl();
+
         addDataRecyclerList();
 
         return rootView;
@@ -435,10 +445,8 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     {
         mainView.hideLoading();
 
-        // showToast(getContext(), "خرید شارژ با موفقیت انجام شد.", R.color.green);
-        Intent intent = new Intent(getContext(), PaymentResultActivity.class);
+        Intent intent = new Intent(getContext(), PaymentResultChargeActivity.class);
         intent.putExtra("RefrenceNumber", response.data.getRefNumber());
-        intent.putExtra("StatusPayment", true);
         getContext().startActivity(intent);
 
     }
@@ -450,10 +458,23 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
         showToast(getActivity(), "پرداخت ناموفق", R.color.red);
 
-       /* Intent intent = new Intent(getContext(), PaymentResultActivity.class);
-        intent.putExtra("RefrenceNumber", item.getId().toString());
-        intent.putExtra("StatusPayment", false);
-        getContext().startActivityForResult(intent,100);*/
+    }
 
+    @Override
+    public void onSuccessBuyPackageWallet(WebServiceClass<BuyPackageWalletResponse> response)
+    {
+        mainView.hideLoading();
+
+        Intent intent = new Intent(getContext(), PaymentResultChargeActivity.class);
+        intent.putExtra("RefrenceNumber", response.data.getRefNumber());
+        getContext().startActivity(intent);
+    }
+
+    @Override
+    public void onErrorBuyPackageWallet(String error)
+    {
+        mainView.hideLoading();
+
+        showToast(getContext(), "پرداخت ناموفق", R.color.red);
     }
 }
