@@ -148,7 +148,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
         dialog.show(getActivity().getFragmentManager(), "messageDialog");
         //--------------------------test--------------------
 
-//        initView();
+//        setPager();
 
         EventBus.getDefault().register(this);
         return v;

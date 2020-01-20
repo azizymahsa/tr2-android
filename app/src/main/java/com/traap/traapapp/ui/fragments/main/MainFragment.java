@@ -956,30 +956,10 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
-       /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
-                "آیا مایلید صفحه پیش بینی نمایش داده شود؟",
-                true, new MessageAlertDialog.OnConfirmListener()
-        {
-            @Override
-            public void onConfirmClick()
-            {
-              */
-        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
-
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-            /*}
-
-            @Override
-            public void onCancelClick()
-            {
-
-            }
-        }
-        );
-        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");*/
-
+//        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit()
+        mainView.onPredict(matchItem, matchItem.getIsPredict());
     }
-
 
     @Override
     public void onItemBuyTicketClick(View view, int position, MatchItem matchItem)

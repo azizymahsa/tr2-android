@@ -86,6 +86,8 @@
     <dimen name="news_favorite_height" >300dp</dimen>
     <dimen name="any_chart_height">240dp</dimen>
 
+    <dimen name="point_card_radius">120dp</dimen>
+    <dimen name="point_text_height">120dp</dimen>
 
     <dimen name="mdtp_time_label_size">100sp</dimen>
     <dimen name="mdtp_extra_time_label_margin">-50dp</dimen>

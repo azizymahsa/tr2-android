@@ -2,20 +2,14 @@ package com.traap.traapapp.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.os.Build;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
-import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.Tools;
-import com.yandex.metrica.YandexMetrica;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -71,11 +65,11 @@ public class BaseActivity extends AppCompatActivity
     {
         if (color == R.color.green)
         {
-            ShowAlertSuccess(context, message, "", false);
+            showAlertSuccess(context, message, "", false);
         }
         else if (color == R.color.red)
         {
-            ShowAlertFailure(context, message, context.getString(R.string.error), false);
+            showAlertFailure(context, message, context.getString(R.string.error), false);
         }
         else
         {
@@ -85,10 +79,10 @@ public class BaseActivity extends AppCompatActivity
 
     public void showError(Context context, String message)
     {
-        ShowAlertFailure(context, message, context.getString(R.string.error), false);
+        showAlertFailure(context, message, context.getString(R.string.error), false);
     }
 
-    public void ShowAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
+    public void showAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
     {
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_SUCCESS);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
@@ -99,7 +93,7 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
-    public void ShowAlertFailure(Context context, String Msg, String mTitle, boolean finish)
+    public void showAlertFailure(Context context, String Msg, String mTitle, boolean finish)
     {
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_ERROR);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
