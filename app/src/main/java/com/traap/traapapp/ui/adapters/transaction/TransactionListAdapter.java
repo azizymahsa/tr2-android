@@ -103,7 +103,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             {
                 if (item.getStatus())
                 {
-                    if (item.getTypeTransactionId() == TrapConfig.PAYMENT_STAUS_StudiomTicket)
+                    if (item.getTypeTransactionId() == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
                     {
                         Intent intent = new Intent(mContext, ShowTicketActivity.class);
                         intent.putExtra("RefrenceNumber", item.getId().toString());
