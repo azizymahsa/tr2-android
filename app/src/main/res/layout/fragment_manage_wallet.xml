@@ -152,7 +152,7 @@
 
                 android:imeOptions="actionGo"
                 android:inputType="numberPassword"
-                android:maxLength="12"
+                android:maxLength="15"
                 android:padding="10dp">
 
             </EditText>
@@ -178,7 +178,7 @@
 
                 android:imeOptions="actionGo"
                 android:inputType="numberPassword"
-                android:maxLength="12"
+                android:maxLength="15"
                 android:padding="10dp">
 
             </EditText>
@@ -203,7 +203,7 @@
                 android:hint="تکرار رمز جدید کیف پول"
                 android:imeOptions="actionGo"
                 android:inputType="numberPassword"
-                android:maxLength="12"
+                android:maxLength="15"
                 android:padding="10dp">
 
             </EditText>

@@ -2187,6 +2187,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onBackToHomeWallet(int i)
+    {
+
+    }
+
     private void closeAutoComplete()
     {
         autoCompletePhoneNumberRightel.dismissDropDown();

@@ -2120,6 +2120,18 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     }
 
+    @Override
+    public void onBackToHomeWallet(int i)
+    {
+        isMainFragment = false;
+        this.fragment = WalletFragment.newInstance(this, i);//IncreaseInventoryFragment
+
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, this.fragment, "IncreaseInventoryFragment")
+                .commit();
+    }
+
 
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
