@@ -381,7 +381,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_eye"
                 android:ems="10"
-                android:hint="رمز"
+                android:hint="رمز کیف پول"
                 android:imeOptions="actionNext"
                 android:inputType="numberPassword"
                 android:maxLength="18"
