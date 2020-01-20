@@ -28,6 +28,7 @@ import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -61,6 +62,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
+import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 
 public class Utility
@@ -1183,6 +1185,16 @@ public class Utility
         recyclerView.setLayoutAnimation(controller);
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
+    }
+  public static void changeFontInViewGroup(ViewGroup viewGroup, String fontPath) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View child = viewGroup.getChildAt(i);
+            if (TextView.class.isAssignableFrom(child.getClass())) {
+                CalligraphyUtils.applyFontToTextView(child.getContext(), (TextView) child, fontPath);
+            } else if (ViewGroup.class.isAssignableFrom(child.getClass())) {
+                changeFontInViewGroup((ViewGroup) viewGroup.getChildAt(i), fontPath);
+            }
+        }
     }
 
 }

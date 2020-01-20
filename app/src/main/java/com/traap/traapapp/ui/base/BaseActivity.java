@@ -69,7 +69,6 @@ public class BaseActivity extends AppCompatActivity
 
     public void showToast(Context context, String message, int color)
     {
-//        Tools.showToast(context, message, color);
         if (color == R.color.green)
         {
             ShowAlertSuccess(context, message, "", false);
@@ -86,7 +85,6 @@ public class BaseActivity extends AppCompatActivity
 
     public void showError(Context context, String message)
     {
-//        Tools.showToast(context, message, R.color.red);
         ShowAlertFailure(context, message, context.getString(R.string.error), false);
     }
 

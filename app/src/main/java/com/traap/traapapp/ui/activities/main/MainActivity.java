@@ -263,7 +263,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             } catch (Exception e)
             {
-                showToast(getApplicationContext(), "شماره پیگیری: " + refrenceNumber, 0);
+                showToast(MainActivity.this, "شماره پیگیری: " + refrenceNumber, 0);
             }
 
             /*showLoading();
@@ -1580,7 +1580,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onPhotosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = PhotosArchiveFragment.newInstance(parent, mediaPosition, false, new PhotosArchiveActionView()
+        this.fragment = PhotosArchiveFragment.newInstance(this,parent, mediaPosition, false, new PhotosArchiveActionView()
         {
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
@@ -1642,7 +1642,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = PhotosArchiveFragment.newInstance(parent, mediaPosition, true, new PhotosArchiveActionView()
+        this.fragment = PhotosArchiveFragment.newInstance(this,parent, mediaPosition, true, new PhotosArchiveActionView()
         {
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)

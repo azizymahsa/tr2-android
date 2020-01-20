@@ -262,7 +262,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
                 }
             } else
             {
-                showToast(getContext(), "رمز کارت وارد نشده است.", R.color.red);
+                showToast(getActivity(), "رمز کارت وارد نشده است.", R.color.red);
 
             }
 
@@ -418,7 +418,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         mainView.hideLoading();
         if (response.getMessage().contains("خطا"))
         {
-            showToast(getContext(), response.getMessage(), R.color.red);
+            showToast(getActivity(), response.getMessage(), R.color.red);
 
 
         } else
@@ -437,7 +437,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     public void onErrorPaymentWallet(String error)
     {
         mainView.hideLoading();
-        showToast(getContext(), error, R.color.red);
+        showToast(getActivity(), error, R.color.red);
     }
 
     @Override
@@ -456,7 +456,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     {
         mainView.hideLoading();
 
-        showToast(getContext(), "پرداخت ناموفق", R.color.red);
+        showToast(getActivity(), "پرداخت ناموفق", R.color.red);
 
     }
 

@@ -93,8 +93,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private String filterStartDate = "", filterEndDate = "";
     private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose, imgSearch;
     private CircularProgressButton btnConfirmFilter, btnDeleteFilter;
-
     private String idFilteredList = "", titleFilteredList = "";
+    private String TitleFragment="کیف پول";
 
     public WalletFragment() {
 
@@ -134,6 +134,16 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private void setMainView(MainActionView mainView) {
         this.mainView = mainView;
     }
+    public  void setTitleFragmentWallet(String Title, MainActionView mainView) {
+        //this.TitleFragment = Title;
+        try
+        {
+            tvTitle.setText(Title);
+
+        }catch (Exception e){
+            e.getMessage();
+        }
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -143,13 +153,14 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                 .playOn(rootView);
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView != null)
             return rootView;
         rootView = inflater.inflate(R.layout.fragment_wallet, container, false);
-
         initView();
 
         mainView.showLoading();
@@ -192,6 +203,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         }
         return rootView;
     }
+
 
     private void initView() {
         try {
@@ -567,4 +579,13 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         if(fragment instanceof DetailsCartFragment){}
         ((DetailsCartFragment) fragment).onSelectContact(onSelectContact);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(WalletTitle event) {
+        tvTitle.setText(event.title);
+
+
+
+    }
+
 }

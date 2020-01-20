@@ -41,8 +41,7 @@
                     android:layout_marginEnd="@dimen/_10dp"
                     android:gravity="center_vertical"
                     android:singleLine="false"
-                    android:text="جهت انتقال وجه لطفا مبلغ مورد نظر و
- رمز دوم کیف پول خود را وارد نمایید."
+                    android:text="جهت انتقال وجه لطفا اطلاعات خواسته شده را تکمیل نمایید."
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize_12dp" />
 

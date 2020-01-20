@@ -71,7 +71,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
             } else
             {
                 refrenceNumber = extras.getString("RefrenceNumber");
-                isTransactionList=extras.getBoolean(            "isTransactionList",false);
+                isTransactionList=extras.getBoolean("isTransactionList",false);
             }
         }
         ticketInfo = new TicketInfoImpl();
@@ -183,10 +183,6 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
 
         ivSelectPosition.setImageResource(R.drawable.select_step);
         tvSelectPosition.setTextColor(getResources().getColor(R.color.textColorPrimary));
-
-
-
-
 
         vZeroToOne.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
         vOneToTow.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));

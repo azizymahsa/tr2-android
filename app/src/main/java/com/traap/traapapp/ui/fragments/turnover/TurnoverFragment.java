@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.gateWay.WalletTitle;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 
@@ -20,6 +21,8 @@ import org.greenrobot.eventbus.EventBus;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
+
+import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
 
 /**
  * Authors:
@@ -83,7 +86,19 @@ public class TurnoverFragment extends BaseFragment {
         btnFilter.setOnClickListener(v -> {
             ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
             clickTurnOverEvent.setFilterClick(true);
+            EventBus.getDefault().post(clickTurnOverEvent);
+        });
 
+
+
+        imgSearch.setOnClickListener(v -> {
+            ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
+            clickTurnOverEvent.setSearchClick(true);
+            if (TextUtils.isEmpty(edtSearchText.getText().toString()))
+                return;
+            clickTurnOverEvent.setSearch(edtSearchText.getText().toString());
+
+            EventBus.getDefault().post(clickTurnOverEvent);
             EventBus.getDefault().post(clickTurnOverEvent);
 
 
@@ -100,17 +115,27 @@ public class TurnoverFragment extends BaseFragment {
 
         });
 
+        changeTitle();
+
+    }
+    private void changeTitle()
+    {
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("گردش حساب");
+
+        EventBus.getDefault().post(walletTitle);
+
+    }
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("کیف پول");
+
+        EventBus.getDefault().post(walletTitle);
     }
 
-    void changeFontInViewGroup(ViewGroup viewGroup, String fontPath) {
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            View child = viewGroup.getChildAt(i);
-            if (TextView.class.isAssignableFrom(child.getClass())) {
-                CalligraphyUtils.applyFontToTextView(child.getContext(), (TextView) child, fontPath);
-            } else if (ViewGroup.class.isAssignableFrom(child.getClass())) {
-                changeFontInViewGroup((ViewGroup) viewGroup.getChildAt(i), fontPath);
-            }
-        }
-    }
+
 
 }

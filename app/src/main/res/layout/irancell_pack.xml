@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llMTNCharge"
     android:layout_width="match_parent"
@@ -60,26 +61,27 @@
             android:gravity="center|end"
             android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:text="شماره تلفن همراه "
-            android:textColor="@color/warmGray" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end"
+                android:text="شماره تلفن همراه "
+                android:textColor="@color/warmGray" />
 
-        <AutoCompleteTextView
-            android:id="@+id/etMobileCharge"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_35dp"
-            android:layout_gravity="center"
-            android:gravity="left"
-            android:paddingLeft="24dp"
-            android:text=""
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:textColor="@color/chargePackTextColor"
-            android:textSize="@dimen/textSize_16dp"
-            android:background="@drawable/background_spinner_amount_charge"/>
+            <AutoCompleteTextView
+                android:id="@+id/etMobileCharge"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35dp"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:paddingLeft="24dp"
+                android:layout_marginLeft="8dp"
+                android:text=""
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:textColor="@color/chargePackTextColor"
+                android:textSize="@dimen/textSize_16dp"
+                android:background="@drawable/background_spinner_amount_charge"/>
 
         </LinearLayout>
 
@@ -201,7 +203,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="در صورتیکه خط خود را ترابرد کرده اید، مطمئن شوید اپراتور مقصد درست انتخاب شده است."
+            android:layout_centerVertical="true"
+            android:text="در صورتیکه ترابرد کرده اید، اپراتور خود را انتخاب کنید."
             android:textColor="@color/textColorSecondary"
             android:layout_marginEnd="8dp"
             android:textSize="@dimen/textSize_12dp" />
@@ -209,6 +212,7 @@
         <ImageView
             android:id="@+id/img1"
             android:src="@drawable/ic_warning"
+            android:tint="@color/imageWarningTintColor"
             android:layout_width="@dimen/_25dp"
             android:layout_height="@dimen/_25dp"
             android:layout_alignParentRight="true"/>
@@ -267,41 +271,28 @@
         android:layout_marginLeft="32dp"
         android:visibility="gone"
         android:orientation="vertical">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutIrancell"
+        style="@style/TabLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10dp"
+        android:background="@drawable/background_border_gray"
+        app:tabBackground="@drawable/tab_background"
+        app:tabGravity="fill"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="0dp"
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="@dimen/_10dp"
-            android:orientation="horizontal">
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/textHint" />
 
-            <Spinner
-                android:id="@+id/spinnerIrancell"
-                android:layout_width="match_parent"
-                android:layout_toLeftOf="@+id/tv1"
-                android:layout_height="@dimen/_35dp"
-                android:layout_gravity="center"
-                android:layout_weight="100"
-                android:gravity="right"
-                android:tag="irancell"
-                android:background="@drawable/background_spinner_custom" />
 
-            <TextView
-                android:id="@+id/tv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_centerVertical="true"
-                android:text="نوع سیمکارت: "
-                android:layout_marginLeft="16dp"
-                android:layout_alignParentRight="true"
-                android:textAppearance="@style/IranSansBold"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize_16dp"/>
-
-        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/_10dp"
+
             android:id="@+id/irancellRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -29,647 +29,762 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested"
+        <com.sothree.slidinguppanel.SlidingUpPanelLayout
+            android:id="@+id/slidingLayout"
             android:layout_below="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            app:umanoPanelHeight="0dp"
+            app:umanoShadowHeight="4dp"
+            app:umanoParallaxOffset="0dp"
+            app:umanoOverlay="true"
+            app:umanoClipPanel="false"
+            android:visibility="visible">
+<!--            app:umanoDragView="@+id/nestedScroll">-->
 
-            <RelativeLayout
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nested"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:background="@android:color/transparent"
-                android:paddingBottom="16dp"
-                android:paddingRight="16dp"
-                android:paddingLeft="16dp">
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_45sdp">
+                    android:gravity="center"
+                    android:background="@android:color/transparent"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card"
-                        style="@style/Widget.MaterialComponents.CardView"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        app:strokeColor="@color/borderColorGray"
-                        app:cardElevation="3dp"
-                        app:cardUseCompatPadding="true"
-                        app:contentPadding="8dp"
-                        app:cardCornerRadius="5dp"
-                        app:cardMaxElevation="5dp"
-                        android:elevation="3dp"
-                        android:translationZ="1dp">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_45sdp">
 
-                        <LinearLayout
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card"
+                            style="@style/Widget.MaterialComponents.CardView"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_70sdp"
-                            android:orientation="vertical">
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            app:strokeColor="@color/borderColorGray"
+                            app:cardElevation="3dp"
+                            app:cardUseCompatPadding="true"
+                            app:contentPadding="8dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardMaxElevation="5dp"
+                            android:elevation="3dp"
+                            android:translationZ="1dp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:visibility="gone">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="10" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_70sdp"
+                                android:orientation="vertical">
 
                                 <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="100"
-                                    android:layout_marginTop="@dimen/_20dp"
-                                    android:orientation="vertical">
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
 
-                                    <TextView
-                                        android:layout_width="match_parent"
+                                    <Space
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:text="لطفا مشخصات خود را وارد نمایید"
-                                        android:textColor="@color/textColorSecondary"
-                                        android:textSize="@dimen/textSize_14dp"
-                                        android:layout_marginTop="@dimen/_10dp" />
+                                        android:layout_weight="10" />
 
-                                    <TextView
-                                        android:layout_width="match_parent"
+                                    <LinearLayout
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:text="@string/profile_desc"
-                                        android:textColor="@color/textColorSecondary"
-                                        android:textSize="@dimen/textSize_14dp"
-                                        android:layout_marginBottom="@dimen/_10dp"
-                                        android:layout_marginTop="@dimen/_10dp" />
+                                        android:layout_weight="100"
+                                        android:layout_marginTop="@dimen/_20dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="لطفا مشخصات خود را وارد نمایید"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_14dp"
+                                            android:layout_marginTop="@dimen/_10dp" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="@string/profile_desc"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_14dp"
+                                            android:layout_marginBottom="@dimen/_10dp"
+                                            android:layout_marginTop="@dimen/_10dp" />
+
+                                    </LinearLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="10" />
 
                                 </LinearLayout>
 
-                                <Space
-                                    android:layout_width="0dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="10" />
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
 
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_gravity="center"
-                                    android:layout_weight="100"
-                                    android:hint="نام"
-                                    android:theme="@style/EditTextHint"
-                                    app:hintTextAppearance="@style/TextLabelProfile">
-
-                                    <com.traap.traapapp.utilities.ClearableEditText
-                                        android:id="@+id/etFirstName"
-                                        android:layout_width="match_parent"
+                                    <Space
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="right|center"
-                                        android:digits="@string/persian_alphabet"
-                                        android:nextFocusDown="@+id/etLastName"
-                                        android:inputType="textNoSuggestions"
-                                        android:maxLines="1"
-                                        android:paddingTop="8dp"
-                                        android:singleLine="true"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textColorSecondary" />
+                                        android:layout_weight="20" />
 
-                                </com.google.android.material.textfield.TextInputLayout>
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="100"
+                                        android:hint="نام"
+                                        android:theme="@style/EditTextHint"
+                                        app:hintTextAppearance="@style/TextLabelProfile">
 
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/etFirstName"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="right|center"
+                                            android:digits="@string/persian_alphabet"
+                                            android:nextFocusDown="@+id/etLastName"
+                                            android:inputType="textNoSuggestions"
+                                            android:maxLines="1"
+                                            android:paddingTop="8dp"
+                                            android:singleLine="true"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/textColorSecondary" />
 
-                            </LinearLayout>
+                                    </com.google.android.material.textfield.TextInputLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|right"
-                                android:orientation="horizontal">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_gravity="center|right"
-                                    android:layout_weight="100"
-                                    android:hint="نام خانوادگی"
-                                    android:theme="@style/EditTextHint"
-                                    app:hintTextAppearance="@style/TextLabelProfile">
-
-                                    <com.traap.traapapp.utilities.ClearableEditText
-                                        android:id="@+id/etLastName"
-                                        android:layout_width="match_parent"
+                                    <Space
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="right|center"
-                                        android:digits="@string/persian_alphabet"
-                                        android:nextFocusDown="@+id/etNickName"
-                                        android:inputType="textNoSuggestions"
-                                        android:maxLines="1"
-                                        android:paddingTop="8dp"
-                                        android:singleLine="true"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textColorSecondary" />
+                                        android:layout_weight="20" />
 
-                                </com.google.android.material.textfield.TextInputLayout>
+                                </LinearLayout>
 
-                                <Space
-                                    android:layout_width="0dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
 
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|right"
-                                android:orientation="horizontal">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_gravity="center|right"
-                                    android:layout_weight="100"
-                                    android:hint="نام مستعار"
-                                    android:theme="@style/EditTextHint"
-                                    app:hintTextAppearance="@style/TextLabelProfile">
-
-                                    <com.traap.traapapp.utilities.ClearableEditText
-                                        android:id="@+id/etNickName"
-                                        android:layout_width="match_parent"
+                                    <Space
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="right|center"
-                                        android:digits="@string/all__alphabet"
-                                        android:nextFocusDown="@+id/etFirstNameUS"
-                                        android:inputType="textNoSuggestions"
-                                        android:maxLines="1"
-                                        android:paddingTop="8dp"
-                                        android:singleLine="true"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textColorSecondary" />
+                                        android:layout_weight="20" />
 
-                                </com.google.android.material.textfield.TextInputLayout>
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100"
+                                        android:hint="نام خانوادگی"
+                                        android:theme="@style/EditTextHint"
+                                        app:hintTextAppearance="@style/TextLabelProfile">
 
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/etLastName"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="right|center"
+                                            android:digits="@string/persian_alphabet"
+                                            android:nextFocusDown="@+id/etNickName"
+                                            android:inputType="textNoSuggestions"
+                                            android:maxLines="1"
+                                            android:paddingTop="8dp"
+                                            android:singleLine="true"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/textColorSecondary" />
 
-                            </LinearLayout>
+                                    </com.google.android.material.textfield.TextInputLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|right"
-                                android:orientation="horizontal">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_gravity="center|left"
-                                    android:layout_weight="100"
-                                    android:hint="First Name"
-                                    android:theme="@style/EditTextHint"
-                                    app:hintTextAppearance="@style/TextLabelProfile">
-
-                                    <com.traap.traapapp.utilities.ClearableEditText
-                                        android:id="@+id/etFirstNameUS"
-                                        android:layout_width="match_parent"
+                                    <Space
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="left|center_vertical"
-                                        android:digits="@string/english_alphabet"
-                                        android:nextFocusDown="@+id/etLastNameUS"
-                                        android:inputType="textNoSuggestions"
-                                        android:maxLines="1"
-                                        android:paddingTop="8dp"
-                                        android:singleLine="true"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textColorSecondary" />
+                                        android:layout_weight="20" />
 
-                                </com.google.android.material.textfield.TextInputLayout>
+                                </LinearLayout>
 
-                                <Space
-                                    android:layout_width="0dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
 
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|right"
-                                android:orientation="horizontal">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_gravity="center|right"
-                                    android:layout_weight="100"
-                                    android:hint="Last Name"
-                                    android:theme="@style/EditTextHint"
-                                    app:hintTextAppearance="@style/TextLabelProfile">
-
-                                    <com.traap.traapapp.utilities.ClearableEditText
-                                        android:id="@+id/etLastNameUS"
-                                        android:layout_width="match_parent"
+                                    <Space
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:digits="@string/english_alphabet"
-                                        android:gravity="left|center_vertical"
-                                        android:nextFocusDown="@+id/etNationalCode"
-                                        android:inputType="textNoSuggestions"
-                                        android:maxLines="1"
-                                        android:paddingTop="8dp"
-                                        android:singleLine="true"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textColorSecondary" />
+                                        android:layout_weight="20" />
 
-                                </com.google.android.material.textfield.TextInputLayout>
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100"
+                                        android:hint="نام مستعار"
+                                        android:theme="@style/EditTextHint"
+                                        app:hintTextAppearance="@style/TextLabelProfile">
 
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/etNickName"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="right|center"
+                                            android:digits="@string/all__alphabet"
+                                            android:nextFocusDown="@+id/etFirstNameUS"
+                                            android:inputType="textNoSuggestions"
+                                            android:maxLines="1"
+                                            android:paddingTop="8dp"
+                                            android:singleLine="true"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/textColorSecondary" />
 
-                            </LinearLayout>
+                                    </com.google.android.material.textfield.TextInputLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|right"
-                                android:orientation="horizontal">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_gravity="center|right"
-                                    android:layout_weight="100"
-                                    android:hint="کد ملی"
-                                    android:theme="@style/EditTextHint"
-                                    app:hintTextAppearance="@style/TextLabelProfile">
-
-                                    <com.traap.traapapp.utilities.ClearableEditText
-                                        android:id="@+id/etNationalCode"
-                                        android:layout_width="match_parent"
+                                    <Space
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:digits="0,1,2,3,4,5,6,7,8,9"
-                                        android:gravity="right|center"
-                                        android:nextFocusDown="@+id/etEmail"
-                                        android:inputType="number"
-                                        android:maxLines="1"
-                                        android:maxLength="10"
-                                        android:paddingTop="8dp"
-                                        android:singleLine="true"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textColorSecondary" />
+                                        android:layout_weight="20" />
 
-                                </com.google.android.material.textfield.TextInputLayout>
+                                </LinearLayout>
 
-                                <Space
-                                    android:layout_width="0dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
 
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|right"
-                                android:orientation="horizontal">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_gravity="center|right"
-                                    android:layout_weight="100"
-                                    android:hint="ایمیل"
-                                    android:theme="@style/EditTextHint"
-                                    app:hintTextAppearance="@style/TextLabelProfile">
-
-                                    <com.traap.traapapp.utilities.ClearableEditText
-                                        android:id="@+id/etEmail"
-                                        android:layout_width="match_parent"
+                                    <Space
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:gravity="right|center"
-                                        android:imeOptions="actionDone"
-                                        android:inputType="textEmailAddress"
-                                        android:paddingTop="8dp"
-                                        android:singleLine="true"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textColorSecondary" />
+                                        android:layout_weight="20" />
 
-                                </com.google.android.material.textfield.TextInputLayout>
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_gravity="center|left"
+                                        android:layout_weight="100"
+                                        android:hint="First Name"
+                                        android:theme="@style/EditTextHint"
+                                        app:hintTextAppearance="@style/TextLabelProfile">
 
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/etFirstNameUS"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="left|center_vertical"
+                                            android:digits="@string/english_alphabet"
+                                            android:nextFocusDown="@+id/etLastNameUS"
+                                            android:inputType="textNoSuggestions"
+                                            android:maxLines="1"
+                                            android:paddingTop="8dp"
+                                            android:singleLine="true"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/textColorSecondary" />
 
-                            </LinearLayout>
+                                    </com.google.android.material.textfield.TextInputLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_gravity="center|right"
-                                    android:layout_weight="100"
-                                    android:visibility="gone"
-                                    android:hint="شماره بازیکن محبوب"
-                                    android:theme="@style/EditTextHint"
-                                    app:hintTextAppearance="@style/TextLabelProfile">
-
-                                    <com.traap.traapapp.utilities.ClearableEditText
-                                        android:id="@+id/etPopularPlayer"
-                                        android:layout_width="match_parent"
+                                    <Space
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:digits="0,1,2,3,4,5,6,7,8,9"
-                                        android:gravity="right|center"
-                                        android:inputType="number"
-                                        android:maxLines="1"
-                                        android:maxLength="2"
-                                        android:paddingTop="8dp"
-                                        android:singleLine="true"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/warmGray" />
+                                        android:layout_weight="20" />
 
-                                </com.google.android.material.textfield.TextInputLayout>
+                                </LinearLayout>
 
-                                <Space
-                                    android:layout_width="0dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
 
-                            </LinearLayout>
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|right"
-                                android:orientation="horizontal">
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100"
+                                        android:hint="Last Name"
+                                        android:theme="@style/EditTextHint"
+                                        app:hintTextAppearance="@style/TextLabelProfile">
 
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="20"/>
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/etLastNameUS"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:digits="@string/english_alphabet"
+                                            android:gravity="left|center_vertical"
+                                            android:nextFocusDown="@+id/etNationalCode"
+                                            android:inputType="textNoSuggestions"
+                                            android:maxLines="1"
+                                            android:paddingTop="8dp"
+                                            android:singleLine="true"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/textColorSecondary" />
 
-                                <RelativeLayout
-                                    android:id="@+id/rlBirthDay"
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_35sdp"
-                                    android:layout_weight="100"
-                                    android:layout_gravity="center|right">
+                                    </com.google.android.material.textfield.TextInputLayout>
 
-                                    <TextView
-                                        android:id="@+id/tv9"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:text="تاریخ تولد"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_marginLeft="4dp"
-                                        android:gravity="center_vertical|right"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textHint" />
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
 
-                                    <ru.kolotnev.formattedittext.MaskedEditText
-                                        android:id="@+id/tvBirthDay"
-                                        android:layout_toLeftOf="@+id/tv9"
-                                        android:layout_toRightOf="@+id/imgBirthdayReset"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text=""
-                                        android:inputType="number"
-                                        android:gravity="center_vertical|right"
-                                        android:textSize="@dimen/textSize_12dp"
-                                        android:textColor="@color/textColorSecondary"
-                                        android:digits="0,1,2,3,4,5,6,7,8,9"
-                                        android:imeOptions="actionNext"
-                                        android:maxLines="1"
-                                        android:singleLine="true"
-                                        app:mask="9999/99/99"
-                                        android:textColorHint="@color/textColorSecondary"
-                                        app:placeholder="_"
-                                        android:background="@android:color/transparent" />
+                                </LinearLayout>
 
-                                    <ImageView
-                                        android:id="@+id/imgBirthdayReset"
-                                        style="?android:attr/borderlessButtonStyle"
-                                        android:layout_width="@dimen/_25sdp"
-                                        android:layout_toRightOf="@+id/imgBirthdaySet"
-                                        android:layout_height="@dimen/_35sdp"
-                                        android:scaleType="centerCrop"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100"
+                                        android:hint="کد ملی"
+                                        android:theme="@style/EditTextHint"
+                                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/etNationalCode"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:digits="0,1,2,3,4,5,6,7,8,9"
+                                            android:gravity="right|center"
+                                            android:nextFocusDown="@+id/etEmail"
+                                            android:inputType="number"
+                                            android:maxLines="1"
+                                            android:maxLength="10"
+                                            android:paddingTop="8dp"
+                                            android:singleLine="true"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/textColorSecondary" />
+
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100"
+                                        android:hint="ایمیل"
+                                        android:theme="@style/EditTextHint"
+                                        app:hintTextAppearance="@style/TextLabelProfile">
+
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/etEmail"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="right|center"
+                                            android:imeOptions="actionDone"
+                                            android:inputType="textEmailAddress"
+                                            android:paddingTop="8dp"
+                                            android:singleLine="true"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/textColorSecondary" />
+
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100"
                                         android:visibility="gone"
-                                        android:layout_centerVertical="true"
-                                        android:tint="@color/textColorPrimary"
-                                        app:srcCompat="@drawable/ic_clear" />
+                                        android:hint="شماره بازیکن محبوب"
+                                        android:theme="@style/EditTextHint"
+                                        app:hintTextAppearance="@style/TextLabelProfile">
 
-                                    <ImageView
-                                        android:id="@+id/imgBirthdaySet"
-                                        style="?android:attr/borderlessButtonStyle"
-                                        android:layout_width="@dimen/_35sdp"
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/etPopularPlayer"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:digits="0,1,2,3,4,5,6,7,8,9"
+                                            android:gravity="right|center"
+                                            android:inputType="number"
+                                            android:maxLines="1"
+                                            android:maxLength="2"
+                                            android:paddingTop="8dp"
+                                            android:singleLine="true"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/warmGray" />
+
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="20"/>
+
+                                    <RelativeLayout
+                                        android:id="@+id/rlBirthDay"
+                                        android:layout_width="0dp"
                                         android:layout_height="@dimen/_35sdp"
-                                        android:layout_alignParentLeft="true"
-                                        android:scaleType="centerCrop"
-                                        android:visibility="visible"
-                                        android:layout_centerVertical="true"
-                                        android:tint="@color/textColorPrimary"
-                                        app:srcCompat="@drawable/ic_calendar_black_24dp" />
+                                        android:layout_weight="100"
+                                        android:layout_gravity="center|right">
 
-                                    <View
-                                        android:layout_width="match_parent"
-                                        android:layout_height="1dp"
-                                        android:layout_alignParentBottom="true"
-                                        android:background="@color/textHint"/>
+                                        <TextView
+                                            android:id="@+id/tv9"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:text="تاریخ تولد"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_marginLeft="4dp"
+                                            android:gravity="center_vertical|right"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/textHint" />
 
-                                </RelativeLayout>
+                                        <ru.kolotnev.formattedittext.MaskedEditText
+                                            android:id="@+id/tvBirthDay"
+                                            android:layout_toLeftOf="@+id/tv9"
+                                            android:layout_toRightOf="@+id/imgBirthdayReset"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:text=""
+                                            android:inputType="number"
+                                            android:gravity="center_vertical|right"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:digits="0,1,2,3,4,5,6,7,8,9"
+                                            android:imeOptions="actionNext"
+                                            android:maxLines="1"
+                                            android:singleLine="true"
+                                            app:mask="9999/99/99"
+                                            android:textColorHint="@color/textColorSecondary"
+                                            app:placeholder="_"
+                                            android:background="@android:color/transparent" />
 
-                                <Space
-                                    android:layout_width="0dp"
+                                        <ImageView
+                                            android:id="@+id/imgBirthdayReset"
+                                            style="?android:attr/borderlessButtonStyle"
+                                            android:layout_width="@dimen/_25sdp"
+                                            android:layout_toRightOf="@+id/imgBirthdaySet"
+                                            android:layout_height="@dimen/_35sdp"
+                                            android:scaleType="centerCrop"
+                                            android:visibility="gone"
+                                            android:layout_centerVertical="true"
+                                            android:tint="@color/textColorPrimary"
+                                            app:srcCompat="@drawable/ic_clear" />
+
+                                        <ImageView
+                                            android:id="@+id/imgBirthdaySet"
+                                            style="?android:attr/borderlessButtonStyle"
+                                            android:layout_width="@dimen/_35sdp"
+                                            android:layout_height="@dimen/_35sdp"
+                                            android:layout_alignParentLeft="true"
+                                            android:scaleType="centerCrop"
+                                            android:visibility="visible"
+                                            android:layout_centerVertical="true"
+                                            android:tint="@color/textColorPrimary"
+                                            app:srcCompat="@drawable/ic_calendar_black_24dp" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:layout_alignParentBottom="true"
+                                            android:background="@color/textHint"/>
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                                    android:gravity="center|right"
+                                    android:layout_marginTop="16dp"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                    <Spinner
+                                        android:id="@+id/spinnerGender"
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_weight="100"
+                                        android:layout_gravity="center"
+                                        android:gravity="right"
+                                        android:tag="allBox"
+                                        android:background="@drawable/background_spinner_custom" />
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_20dp"
+                                    android:layout_marginBottom="@dimen/_20dp"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="50" />
+
+                                    <FrameLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="100">
+
+                                        <include
+                                            android:id="@+id/btnConfirm"
+                                            layout="@layout/circular_progress_button_small" />
+
+                                    </FrameLayout>
+
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="50" />
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|right"
-                                android:layout_marginTop="16dp"
-                                android:orientation="horizontal">
+                        </androidx.cardview.widget.CardView>
 
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
+                    </RelativeLayout>
 
-                                <Spinner
-                                    android:id="@+id/spinnerGender"
-                                    android:layout_width="0dp"
-                                    android:layout_height="@dimen/_35dp"
-                                    android:layout_weight="100"
-                                    android:layout_gravity="center"
-                                    android:gravity="right"
-                                    android:tag="allBox"
-                                    android:background="@drawable/background_spinner_custom" />
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_20dp"
-                                android:layout_marginBottom="@dimen/_20dp"
-                                android:gravity="center|right"
-                                android:orientation="horizontal">
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="50" />
-
-                                <FrameLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="100">
-
-                                    <include
-                                        android:id="@+id/btnConfirm"
-                                        layout="@layout/circular_progress_button_small" />
-
-                                </FrameLayout>
-
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="50" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rlImageProfile"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_120sdp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentTop="true">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/imgProfile"
+                    <RelativeLayout
+                        android:id="@+id/rlImageProfile"
                         android:layout_width="@dimen/_120sdp"
                         android:layout_height="@dimen/_120sdp"
-                        android:scaleType="fitXY"
                         android:layout_centerHorizontal="true"
-                        android:layout_alignParentTop="true"
-                        app:riv_corner_radius="30dip"
-                        app:riv_border_width="2dip"
-                        android:src="@drawable/ic_user_default"
-                        app:riv_border_color="@color/borderColorGray"
-                        app:riv_mutate_background="true"
-                        app:riv_tile_mode="clamp"
-                        app:riv_oval="true" />
+                        android:layout_alignParentTop="true">
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fabCapture"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginBottom="4dp"
-                        app:fabSize="mini"
-                        android:visibility="visible"
-                        app:elevation="3dp"
-                        app:backgroundTint="@color/colorPrimary"
-                        android:src="@drawable/ic_capture"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"/>
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/imgProfile"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_120sdp"
+                            android:scaleType="fitXY"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            app:riv_corner_radius="30dip"
+                            app:riv_border_width="2dip"
+                            android:elevation="3dp"
+                            android:src="@drawable/ic_user_default"
+                            app:riv_border_color="@color/borderColorGray"
+                            app:riv_mutate_background="true"
+                            app:riv_tile_mode="clamp"
+                            app:riv_oval="true" />
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fabDeleteProfile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginTop="4dp"
-                        app:fabSize="mini"
-                        android:visibility="gone"
-                        app:elevation="3dp"
-                        app:backgroundTint="@color/colorPrimary"
-                        app:srcCompat="@android:drawable/ic_delete"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"/>
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/fabCapture"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:layout_marginBottom="4dp"
+                            app:fabSize="mini"
+                            android:visibility="visible"
+                            app:elevation="3dp"
+                            app:backgroundTint="@color/colorPrimary"
+                            android:src="@drawable/ic_capture"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"/>
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/fabDeleteProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="4dp"
+                            app:fabSize="mini"
+                            android:visibility="gone"
+                            app:elevation="3dp"
+                            app:backgroundTint="@color/colorPrimary"
+                            app:srcCompat="@android:drawable/ic_delete"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"/>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
-            </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
 
-        </androidx.core.widget.NestedScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="32dp"
+                    android:background="@drawable/background_border_white_16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="تغییر عکس پروفایل"
+                        android:gravity="right"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_16dp"
+                        android:layout_alignParentRight="true"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="@color/gray"/>
+
+                    <RelativeLayout
+                        android:id="@+id/rlSelectImage"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/imgCap"
+                            android:gravity="right|center_vertical"
+                            android:paddingRight="10dp"
+                            android:text="انتخاب عکس"
+                            style="@style/Regular"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/textSize_14dp" />
+
+                        <ImageView
+                            android:id="@+id/imgCap"
+                            android:layout_width="@dimen/_20dp"
+                            android:layout_height="@dimen/_20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_capture" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlDeleteImage"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/imgDel"
+                            android:gravity="right|center_vertical"
+                            android:paddingRight="10dp"
+                            android:text="حذف عکس"
+                            style="@style/Regular"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/textSize_14dp" />
+
+                        <ImageView
+                            android:id="@+id/imgDel"
+                            android:layout_width="@dimen/_20dp"
+                            android:layout_height="@dimen/_20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_recyclebin" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
         <include layout="@layout/loading"
             android:visibility="gone"/>

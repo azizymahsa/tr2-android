@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.fragments.gateWay;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -15,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import androidx.core.view.ViewCompat;
+
+import com.google.android.material.textfield.TextInputLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -38,6 +42,7 @@ import com.traap.traapapp.utilities.ConvertPersianNumberToString;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
@@ -65,6 +70,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     private Integer TYPE_PHONE_NUMBER=2;
     private ConvertPersianNumberToString convertPersianNumberToString;
     private String userName;
+    private TextInputLayout inputLayout3;
 
 
     public MoneyTransferFragment()
@@ -93,15 +99,36 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
         initView();
 
+       // WalletFragment.setTitleFragmentWallet("انتقال وجه");
 
         onGetBoutForSuccess();
+
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("انتقال وجه");
+
+        EventBus.getDefault().post(walletTitle);
 
 
         return rootView;
     }
 
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("کیف پول");
+
+        EventBus.getDefault().post(walletTitle);
+    }
+
     private void initView()
     {
+
+
+        inputLayout3 = rootView.findViewById(R.id.inputLayout3);
+
+        ViewCompat.setLayoutDirection(inputLayout3, ViewCompat.LAYOUT_DIRECTION_RTL);
         convertPersianNumberToString=new ConvertPersianNumberToString();
 
         spinnerType=rootView.findViewById(R.id.spinnerType);

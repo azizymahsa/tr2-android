@@ -16,14 +16,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import com.traap.traapapp.R;
+
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 /**
  * Created by Javad.Abadi on 6/24/2019.
  */
 @SuppressLint("ValidFragment")
-public class MessageAlertDialog extends DialogFragment implements View.OnClickListener
+public class MessageAlertSuccesDialog extends DialogFragment implements View.OnClickListener
 {
     private OnConfirmListener listener;
 
@@ -35,11 +36,10 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
 
     private Dialog dialog;
     private Activity activity;
-    private CircularProgressButton btnConfirm, btnCancel;
+    private CircularProgressButton btnConfirm;
     private String messages, title;
     private TextView tvMessage, tvTitle;
-    private RelativeLayout rlCancel;
-    private Space spaceCancel;
+   // private RelativeLayout rlCancel;
     private Boolean isCancelable;
     private String btnConfirmText = "";
     private String btnCancelText = "";
@@ -49,8 +49,8 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
     private int type = 0;
 
 
-    public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable,
-                              int messageType ,OnConfirmListener listener)
+    public MessageAlertSuccesDialog(Activity activity, String title, String messages, Boolean isCancelable,
+                                    int messageType , OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;
@@ -60,7 +60,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         type = messageType;
     }
 
-    public MessageAlertDialog(Activity activity, String title, String messages ,int messageType)
+    public MessageAlertSuccesDialog(Activity activity, String title, String messages , int messageType)
     {
         this.activity = activity;
         this.listener = null;
@@ -70,21 +70,21 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         type = messageType;
     }
 
-    public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable,
-                              String btnConfirmText, String btnCancelText, int messageType ,OnConfirmListener listener)
+    public MessageAlertSuccesDialog(Activity activity, String title, String messages, Boolean isCancelable,
+                                    String btnConfirmText, String btnCancelText, int messageType , OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;
         this.title = title;
         this.messages = messages;
-        this.isCancelable = isCancelable;
+        this.isCancelable = false;
         this.btnConfirmText = btnConfirmText;
         this.btnCancelText = btnCancelText;
         type = messageType;
     }
 
-    public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable, String btnConfirmText,
-                              String btnCancelText, Boolean isRightToLeft, OnConfirmListener listener)
+    public MessageAlertSuccesDialog(Activity activity, String title, String messages, Boolean isCancelable, String btnConfirmText,
+                                    String btnCancelText, Boolean isRightToLeft, OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;
@@ -103,7 +103,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
     {
         super.onCreate(savedInstanceState);
         dialog = new Dialog(activity, R.style.MyAlertDialogStyle);
-        dialog.setContentView(R.layout.alert_dialog_layout);
+        dialog.setContentView(R.layout.alert_dialog_success_layout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
@@ -111,15 +111,11 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         tvTitle = dialog.findViewById(R.id.confirm_title);
         tvMessage = dialog.findViewById(R.id.confirm_msessage);
         btnConfirm = dialog.findViewById(R.id.btnConfirm);
-        btnCancel = dialog.findViewById(R.id.btnCancel);
-        rlCancel = dialog.findViewById(R.id.rlCancel);
-        spaceCancel = dialog.findViewById(R.id.spaceCancel);
+       // btnCancel = dialog.findViewById(R.id.btnCancel);
+       // rlCancel = dialog.findViewById(R.id.rlCancel);
+      //  spaceCancel = dialog.findViewById(R.id.spaceCancel);
 
-        if (!isCancelable)
-        {
-            rlCancel.setVisibility(View.GONE);
-            spaceCancel.setVisibility(View.GONE);
-        }
+
         if (title.equalsIgnoreCase(""))
         {
             tvTitle.setVisibility(View.INVISIBLE);
@@ -140,10 +136,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
             btnConfirm.setText(btnConfirmText);
         }
 
-        if (!btnCancelText.equalsIgnoreCase(""))
-        {
-            btnCancel.setText(btnCancelText);
-        }
+
 
         switch (type)
         {
@@ -157,36 +150,25 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
             {
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.un_check_mark));
                 imageView.setVisibility(View.VISIBLE);
-                tvMessage.setTextColor(getResources().getColor(R.color.red));
+                tvMessage.setTextColor(getResources().getColor(R.color.red_light));
                 break;
             }
             case TYPE_SUCCESS:
             {
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.check_mark));
                 imageView.setVisibility(View.VISIBLE);
-                tvMessage.setTextColor(getResources().getColor(R.color.green));
+                tvMessage.setTextColor(getResources().getColor(R.color.kellyGreen));
                 break;
             }
 
         }
 
         btnConfirm.setOnClickListener(this);
-        btnCancel.setOnClickListener(this);
 
         return dialog;
     }
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
-//    {
-//        rootView = inflater.inflate(R.layout.alert_dialog_layout, container, true);
-////        getDialog().requestWindowFeature(STYLE_NO_TITLE);
-//        setCancelable(isCancelable);
-//        getDialog().setCanceledOnTouchOutside(isCancelable);
-//
-//        return rootView;
-//    }
+
 
     @Override
     public void onClick(View v)
@@ -199,15 +181,11 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
                 {
                     listener.onConfirmClick();
                 }
+
                 dismiss();
                 break;
             }
-            case R.id.btnCancel:
-            {
-                listener.onCancelClick();
-                dismiss();
-                break;
-            }
+
         }
     }
 

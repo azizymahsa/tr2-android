@@ -39,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -84,6 +85,10 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
+import org.w3c.dom.Text;
+
+import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
+
 /**
  * Created by Javad.Abadi on 7/14/2018.
  */
@@ -112,7 +117,7 @@ public class PackFragment
     private MainActionView mainView;
     private BuyPackageImpl buyPackageImpl;
     private SimPackPaymentInstance paymentInstance;
-    private int imageDrawable=0;
+    private int imageDrawable = 0;
     private String title;
     private TextView tvUserName;
     private TextView tvHeaderPopularNo;
@@ -133,7 +138,7 @@ public class PackFragment
 
     private void setBackState(Integer backState)
     {
-        this.backState=backState;
+        this.backState = backState;
     }
 
     private void setMainView(MainActionView mainView)
@@ -172,6 +177,7 @@ public class PackFragment
 
     @BindView(R.id.rlShirt)
     View rlShirt;
+
 
 
     //toolbar
@@ -220,6 +226,14 @@ public class PackFragment
     RecyclerView mciRecycler;
     @BindView(R.id.irancellRecycler)
     RecyclerView irancellRecycler;
+
+    @BindView(R.id.tabLayoutIrancell)
+    TabLayout tabLayoutIrancell;
+
+    @BindView(R.id.tabLayoutRightel)
+    TabLayout tabLayoutRightel;
+
+
     @BindView(R.id.tvAmountPackage)
     TextView tvAmountPackage;
     @BindView(R.id.ivContactI)
@@ -348,40 +362,42 @@ public class PackFragment
     ClearableEditText etCvv2;
     @BindView(R.id.spinnerMci)
     Spinner spinnerMci;
-    @BindView(R.id.spinnerIrancell)
-    Spinner spinnerIrancell;
+
     @BindView(R.id.llMciSpinner)
     LinearLayout llMciSpinner;
     @BindView(R.id.llRightelSpinner)
     LinearLayout llRightelSpinner;
-    @BindView(R.id.spinnerRightel)
-    Spinner spinnerRightel;
+
     @BindView(R.id.llIrancellSpinner)
     LinearLayout llIrancellSpinner;
 
     private String[] mciFilter = {"همه", "اعتباری و دائمی", "اعتباری", "دائمی"};
-    private String[] irancellFilter = { " اعتباري", " دائمي"};
-    private String[] rightelFilter = { "اعتباری", "دائمی", "دیتا" };
+    private String[] irancellFilter = {" اعتباري", " دائمي"};
+    private String[] rightelFilter = {"اعتباری", "دائمی", "دیتا"};
 
     @OnClick(R.id.imgUserMobileIranCell)
     void onUserMobileIranCell()
     {
         etMobileNumberIranCell.setText(Prefs.getString("mobile", ""));
-    };
+    }
+
+    ;
 
     @OnClick(R.id.imgUserMobileMci)
     void onUserMobileMci()
     {
         etMobileNumberMCI.setText(Prefs.getString("mobile", ""));
-    };
+    }
+
+    ;
 
     @OnClick(R.id.imgUserMobileRightel)
     void onUserMobileRightel()
     {
         etMobileNumberRightel.setText(Prefs.getString("mobile", ""));
-    };
+    }
 
-
+    ;
 
 
     @OnClick(R.id.ivContactR)
@@ -420,7 +436,7 @@ public class PackFragment
             mainView.onInternetAlert();
             return;
         }
-     //   transactionsRequest();
+        //   transactionsRequest();
     }
 
     @OnClick(R.id.btnMciRecent)
@@ -431,7 +447,7 @@ public class PackFragment
             mainView.onInternetAlert();
             return;
         }
-       // transactionsRequest();
+        // transactionsRequest();
     }
 
     @OnClick(R.id.btnRightelRecent)
@@ -547,8 +563,8 @@ public class PackFragment
         isMtn = true;
         isMci = false;
         isRightel = false;
-      //  etMobileNumberMCI.setText(etMobileNumberIranCell.getText());
-       // etMobileNumberRightel.setText(etMobileNumberIranCell.getText());
+        //  etMobileNumberMCI.setText(etMobileNumberIranCell.getText());
+        // etMobileNumberRightel.setText(etMobileNumberIranCell.getText());
         btnChargeConfirm.setVisibility(View.VISIBLE);
         llPackBackIrancell.setVisibility(View.GONE);
         llDescriptionSelectPack.setVisibility(View.GONE);
@@ -590,8 +606,8 @@ public class PackFragment
         isMtn = false;
         isMci = true;
         isRightel = false;
-      //  etMobileNumberRightel.setText(etMobileNumberMCI.getText());
-       // etMobileNumberIranCell.setText(etMobileNumberMCI.getText());
+        //  etMobileNumberRightel.setText(etMobileNumberMCI.getText());
+        // etMobileNumberIranCell.setText(etMobileNumberMCI.getText());
 
 
     }
@@ -640,8 +656,8 @@ public class PackFragment
         isMtn = false;
         isMci = false;
         isRightel = true;
-       // etMobileNumberMCI.setText(etMobileNumberRightel.getText());
-       // etMobileNumberIranCell.setText(etMobileNumberRightel.getText());
+        // etMobileNumberMCI.setText(etMobileNumberRightel.getText());
+        // etMobileNumberIranCell.setText(etMobileNumberRightel.getText());
     }
 
 
@@ -761,10 +777,11 @@ public class PackFragment
         if (!Utility.getMobileValidation(etMobileNumberIranCell.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
-         //   hideSoftKeyboard(etMobileNumberIranCell);
+            //   hideSoftKeyboard(etMobileNumberIranCell);
             return;
         }
-        if (Utility.checkTaliyaValidation(etMobileNumberIranCell.getText().toString())){
+        if (Utility.checkTaliyaValidation(etMobileNumberIranCell.getText().toString()))
+        {
 
             mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
             return;
@@ -781,7 +798,7 @@ public class PackFragment
         getPackageIrancell.findGetPackageIrancellDataRequest(this, etMobileNumberIranCell.getText().toString());
 //        llDetailDescription.setVisibility(View.GONE);
 //        llDescriptionSelectPack.setVisibility(View.VISIBLE);
-     //   hideSoftKeyboard(etMobileNumberIranCell);
+        //   hideSoftKeyboard(etMobileNumberIranCell);
 
         isMtn = true;
         isMci = false;
@@ -799,12 +816,13 @@ public class PackFragment
         setupRecycler();
         if (!Utility.getMobileValidation(etMobileNumberRightel.getText().toString()))
         {
-           // hideSoftKeyboard(etMobileNumberRightel);
+            // hideSoftKeyboard(etMobileNumberRightel);
 
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
-        if (Utility.checkTaliyaValidation(etMobileNumberRightel.getText().toString())){
+        if (Utility.checkTaliyaValidation(etMobileNumberRightel.getText().toString()))
+        {
 
             mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
             return;
@@ -821,7 +839,7 @@ public class PackFragment
         btnChargeConfirmRightel.startAnimation();
         btnChargeConfirmRightel.setClickable(false);
         rightelPack.findRightelPackData(this, etMobileNumberRightel.getText().toString());
-       // hideSoftKeyboard(etMobileNumberRightel);
+        // hideSoftKeyboard(etMobileNumberRightel);
 
         isMtn = false;
         isMci = false;
@@ -848,7 +866,8 @@ public class PackFragment
 
             return;
         }
-        if (Utility.checkTaliyaValidation(etMobileNumberMCI.getText().toString())){
+        if (Utility.checkTaliyaValidation(etMobileNumberMCI.getText().toString()))
+        {
 
             mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
             return;
@@ -906,17 +925,87 @@ public class PackFragment
     {
         super.onResume();
         checkPhoneNumberOperator();
-
         try
         {
 
             if (isInitView)
             {
+                tabLayoutIrancell.addTab(tabLayoutIrancell.newTab().setText("سیم کارت دائمی"));
+                tabLayoutIrancell.addTab(tabLayoutIrancell.newTab().setText(" سیم کارت اعتباری"), true);
+                tabLayoutIrancell.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+                {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab)
+                    {
+                        if(tabLayoutIrancell.getSelectedTabPosition() == 0){
+                            filterType = "2";
+                            new ChangeData().execute();
+                        }else{
+                            filterType = "1";
+                            new ChangeData().execute();
+                        }
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab)
+                    {
+
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab)
+                    {
+
+                    }
+                });
+                tabLayoutRightel.addTab(tabLayoutRightel.newTab().setText("سیم کارت دیتا"));
+
+                tabLayoutRightel.addTab(tabLayoutRightel.newTab().setText("سیم کارت دائمی"));
+                tabLayoutRightel.addTab(tabLayoutRightel.newTab().setText(" سیم کارت اعتباری"), true);
+                tabLayoutRightel.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+                {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab)
+                    {
+                        if(tabLayoutRightel.getSelectedTabPosition() == 0){
+                            filterType = "3";
+                            new ChangeData().execute();
+                        }else if (tabLayoutRightel.getSelectedTabPosition() == 1){
+                            filterType = "2";
+                            new ChangeData().execute();
+                        }else{
+                            filterType = "1";
+                            new ChangeData().execute();
+
+                        }
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab)
+                    {
+
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab)
+                    {
+
+                    }
+                });
+
+
+
+
+
+                changeFontInViewGroup(tabLayoutIrancell,"fonts/iran_sans_normal.ttf");
+                changeFontInViewGroup(tabLayoutRightel,"fonts/iran_sans_normal.ttf");
                 isInitView = false;
                 initView();
                 initDefaultOperatorView();
                 etCvv2.setText("");
                 etPassCharge.setText("");
+                
+
 
             }
             initSpinner();
@@ -944,13 +1033,15 @@ public class PackFragment
             {
                 try
                 {
-                    operatorType=getOperatorType(charSequence.toString());
+                    operatorType = getOperatorType(charSequence.toString());
 
-                    if (OPERATOR_TYPE_MCI==getOperatorType(charSequence.toString())){
+                    if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isMci){
+                        if (isMci)
+                        {
 
-                        }else
+                        } else
                         {
                             etMobileNumberMCI.setText(charSequence.toString());
                             hamraheAval();
@@ -958,11 +1049,13 @@ public class PackFragment
 
                         }
 
-                    }else  if (OPERATOR_TYPE_RIGHTEL==getOperatorType(charSequence.toString())){
+                    } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isRightel){
+                        if (isRightel)
+                        {
 
-                        }else
+                        } else
                         {
                             etMobileNumberRightel.setText(charSequence.toString());
                             rightel();
@@ -970,7 +1063,8 @@ public class PackFragment
 
                         }
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
 
@@ -995,13 +1089,15 @@ public class PackFragment
             {
                 try
                 {
-                    operatorType=getOperatorType(charSequence.toString());
+                    operatorType = getOperatorType(charSequence.toString());
 
-                    if (OPERATOR_TYPE_MTN==getOperatorType(charSequence.toString())){
+                    if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isMtn){
+                        if (isMtn)
+                        {
 
-                        }else
+                        } else
                         {
                             etMobileNumberIranCell.setText(charSequence.toString());
                             irancell();
@@ -1009,11 +1105,13 @@ public class PackFragment
                         }
 
 
-                    }else if (OPERATOR_TYPE_RIGHTEL==getOperatorType(charSequence.toString())){
+                    } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isRightel){
+                        if (isRightel)
+                        {
 
-                        }else
+                        } else
                         {
                             etMobileNumberRightel.setText(charSequence.toString());
                             rightel();
@@ -1022,7 +1120,8 @@ public class PackFragment
                         }
 
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
 
@@ -1047,23 +1146,27 @@ public class PackFragment
             {
                 try
                 {
-                    operatorType=getOperatorType(charSequence.toString());
+                    operatorType = getOperatorType(charSequence.toString());
 
-                    if (OPERATOR_TYPE_MCI==getOperatorType(charSequence.toString())){
+                    if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isMci){
+                        if (isMci)
+                        {
 
-                        }else
+                        } else
                         {
                             etMobileNumberMCI.setText(charSequence.toString());
                             hamraheAval();
                         }
 
-                    }else if (OPERATOR_TYPE_MTN==getOperatorType(charSequence.toString())){
+                    } else if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isMtn){
+                        if (isMtn)
+                        {
 
-                        }else
+                        } else
                         {
                             etMobileNumberIranCell.setText(charSequence.toString());
                             irancell();
@@ -1071,7 +1174,8 @@ public class PackFragment
 
 
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
 
@@ -1102,12 +1206,13 @@ public class PackFragment
         }
 
     }
+
     private int getOperatorType(String phoneNo)
     {
         String startPhoneNo = phoneNo.substring(0, 4);
         Logger.e("-startPhoneNo-", startPhoneNo);
 
-        String[] typeMCI_No = {"0990", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919","0992"};
+        String[] typeMCI_No = {"0990", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919", "0992"};
         String[] typeMTN_No = {"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939"};
         String[] typeRightel_No = {"0920", "0921", "0922"};
 
@@ -1125,6 +1230,7 @@ public class PackFragment
             return OPERATOR_TYPE_MCI;
         }
     }
+
     public void initSpinner()
     {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -1138,11 +1244,11 @@ public class PackFragment
         adapterIrancell.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         adapterRightel.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinnerMci.setAdapter(adapter);
-        spinnerIrancell.setAdapter(adapterIrancell);
-        spinnerRightel.setAdapter(adapterRightel);
+       // spinnerIrancell.setAdapter(adapterIrancell);
+       // spinnerRightel.setAdapter(adapterRightel);
         spinnerMci.setOnItemSelectedListener(this);
-        spinnerIrancell.setOnItemSelectedListener(this);
-        spinnerRightel.setOnItemSelectedListener(this);
+        //spinnerIrancell.setOnItemSelectedListener(this);
+     //   spinnerRightel.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -1171,7 +1277,7 @@ public class PackFragment
                     break;
             }
         }
-        if (parent.getId() == R.id.spinnerIrancell)
+/*        if (parent.getId() == R.id.spinnerIrancell)
         {
             switch (position)
             {
@@ -1188,7 +1294,7 @@ public class PackFragment
             }
 
 
-        }
+        }*/
         if (parent.getId() == R.id.spinnerRightel)
         {
 
@@ -1224,6 +1330,8 @@ public class PackFragment
         mToolbar = v.findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
+        mToolbar.findViewById(R.id.flLogoToolbar).setOnClickListener(v -> mainView.backToMainFragment());
+
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
                 mainView.backToAllServicePackage(backState));
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -1264,9 +1372,9 @@ public class PackFragment
 /*        rbAll.setChecked(true);
         rbRightelAll.setChecked(true);
         rbMciAll.setChecked(true);*/
-      //  etMobileNumberIranCell.addTextChangedListener(this);
-       // etMobileNumberMCI.addTextChangedListener(this);
-       // etMobileNumberRightel.addTextChangedListener(this);
+        //  etMobileNumberIranCell.addTextChangedListener(this);
+        // etMobileNumberMCI.addTextChangedListener(this);
+        // etMobileNumberRightel.addTextChangedListener(this);
         if (!cardNumberCheck.equals("003725"))
         {
             llCvv2.setVisibility(View.VISIBLE);
@@ -1274,6 +1382,11 @@ public class PackFragment
 //        btnMciRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 //        btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 //        btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
+
+
+
+
+
 
     }
 
@@ -1659,10 +1772,7 @@ public class PackFragment
             // llRightelFilter.setVisibility(View.VISIBLE);
             llRightelSpinner.setVisibility(View.VISIBLE);
             rightelRecycler.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(() ->
-            {
-                spinnerRightel.performClick();
-            }, 500);
+
         } else
         {
             mainView.showError(packResponse.info.message);
@@ -2087,10 +2197,10 @@ public class PackFragment
             llDescriptionSelectPack.setVisibility(View.VISIBLE);
             irancellRecycler.setVisibility(View.VISIBLE);
             llIrancellSpinner.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(() ->
+           /* new Handler().postDelayed(() ->
             {
-                spinnerIrancell.performClick();
-            }, 500);
+                //spinnerIrancell.performClick();
+            }, 500);*/
         } else
         {
             mainView.showError(packRespone.info.message);
@@ -2324,7 +2434,7 @@ public class PackFragment
     {
         mainView.hideLoading();
 
-        showToast(getContext(),message,R.color.red);
+        showToast(getActivity(),message,R.color.red);
 
     }
 

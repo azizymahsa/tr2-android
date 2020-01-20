@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import it.sephiroth.android.library.widget.HListView;
 
 import com.bumptech.glide.Glide;
@@ -131,16 +132,23 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private void setColorBookmark() {
+    private void setColorBookmark()
+    {
         if (isBookmark)
+        {
             btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
+        }
         else
+        {
             btnBookmark.setColorFilter(getResources().getColor(R.color.white));
+        }
     }
 
 
-    private void initView() {
-        try {
+    private void initView()
+    {
+        try
+        {
 
             imgBack = findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
@@ -313,36 +321,47 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
                         setBookMark(response.data);
 
-                    } else {
-                        showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
-                } catch (Exception e) {
-                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    else
+                    {
+                        showToast(ShowBigPhotoActivity.this, response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    showToast(ShowBigPhotoActivity.this, e.getMessage(), R.color.red);
 
                 }
             }
 
             @Override
-            public void onError(String message) {
-                // showToast(getApplicationContext(), message, R.color.red);
-                if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this)) {
+            public void onError(String message)
+            {
+                // showToast(ShowBigPhotoActivity.this, message, R.color.red);
+                if (Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
-                } else {
-                    // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+                    showError(ShowBigPhotoActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    // showError(ShowBigPhotoActivity.this,String.valueOf(R.string.networkErrorMessage));
 
-                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                    showAlert(ShowBigPhotoActivity.this, R.string.networkErrorMessage, R.string.networkError);
                 }
             }
         });
     }
 
-    private void setBookMark(BookMarkPhotoResponse data) {
-        if (data.getBookMarked()) {
+    private void setBookMark(BookMarkPhotoResponse data)
+    {
+        if (data.getBookMarked())
+        {
             btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
 
 
-        } else {
+        }
+        else
+        {
             btnBookmark.setColorFilter(getResources().getColor(R.color.white));
 
         }
@@ -361,47 +380,61 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                         animateHeart(ivBigLike);
                         setLiked(response.data);
 
-                    } else {
-                        showToast(getApplicationContext(), response.info.message, R.color.red);
                     }
-                } catch (Exception e) {
-                    showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                    else
+                    {
+                        showToast(ShowBigPhotoActivity.this, response.info.message, R.color.red);
+                    }
+                } catch (Exception e)
+                {
+                    showToast(ShowBigPhotoActivity.this, e.getMessage(), R.color.red);
 
                 }
             }
 
             @Override
-            public void onError(String message) {
-                if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this)) {
+            public void onError(String message)
+            {
+                if (Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
-                } else {
-                    // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+                    showError(ShowBigPhotoActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    // showError(ShowBigPhotoActivity.this,String.valueOf(R.string.networkErrorMessage));
 
-                    showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                    showAlert(ShowBigPhotoActivity.this, R.string.networkErrorMessage, R.string.networkError);
                 }
             }
         });
     }
 
-    private void setLiked(LikeVideoResponse data) {
-        if (data.getIsLiked()) {
+    private void setLiked(LikeVideoResponse data)
+    {
+        if (data.getIsLiked())
+        {
             imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
             tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
             likeCount = likeCount + 1;
             tvLike.setText(likeCount + "");
 
-        } else {
+        }
+        else
+        {
             imgLike.setColorFilter(getResources().getColor(R.color.gray));
             tvLike.setTextColor(getResources().getColor(R.color.gray));
             if (likeCount > 0)
+            {
                 likeCount = likeCount - 1;
+            }
             tvLike.setText(likeCount + "");
         }
 
     }
 
-    public void animateHeart(final ImageView view) {
+    public void animateHeart(final ImageView view)
+    {
         ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         prepareAnimation(scaleAnimation);
@@ -508,12 +541,16 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                     tvLike.setTextColor(getResources().getColor(R.color.gray));
 
                     if (likeCount[0] > 0)
+                    {
                         likeCount[0] = likeCount[0] - 1;
+                    }
                     tvLike.setText(likeCount[0] + "");
                     list.get(position).setIsLiked(false);
                     list.get(position).setLikes(likeCount[0]);
 
-                } else {
+                }
+                else
+                {
 
                     imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                     tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
@@ -534,39 +571,50 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
                             if (response.info.statusCode == 200) {
 
-                            } else {
-                                showToast(getApplicationContext(), response.info.message, R.color.red);
                             }
-                        } catch (Exception e) {
-                            showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                            else
+                            {
+                                showToast(ShowBigPhotoActivity.this, response.info.message, R.color.red);
+                            }
+                        } catch (Exception e)
+                        {
+                            showToast(ShowBigPhotoActivity.this, e.getMessage(), R.color.red);
 
                         }
                     }
 
                     @Override
-                    public void onError(String message) {
-                        if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this)) {
+                    public void onError(String message)
+                    {
+                        if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                        {
                             Logger.e("-OnError-", "Error: " + message);
-                            showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
-                        } else {
-                            // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+                            showError(ShowBigPhotoActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                        }
+                        else
+                        {
+                            // showError(ShowBigPhotoActivity.this,String.valueOf(R.string.networkErrorMessage));
 
-                            showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                            showAlert(ShowBigPhotoActivity.this, R.string.networkErrorMessage, R.string.networkError);
                         }
                     }
                 });
             });
 
 
-            btnBookmark.setOnClickListener(v -> {
+            btnBookmark.setOnClickListener(v ->
+            {
 
 
-                if (list.get(position).getIsBookmarked()) {
+                if (list.get(position).getIsBookmarked())
+                {
                     btnBookmark.setColorFilter(getResources().getColor(R.color.white));
 
                     list.get(position).setIsBookmarked(false);
 
-                } else {
+                }
+                else
+                {
                     btnBookmark.setColorFilter(getResources().getColor(R.color.backgroundButton));
 
                     list.get(position).setIsBookmarked(true);
@@ -585,25 +633,32 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
                                 //setBookMark(response.data);
 
-                            } else {
-                                showToast(getApplicationContext(), response.info.message, R.color.red);
                             }
-                        } catch (Exception e) {
-                            showToast(getApplicationContext(), e.getMessage(), R.color.red);
+                            else
+                            {
+                                showToast(ShowBigPhotoActivity.this, response.info.message, R.color.red);
+                            }
+                        } catch (Exception e)
+                        {
+                            showToast(ShowBigPhotoActivity.this, e.getMessage(), R.color.red);
 
                         }
                     }
 
                     @Override
-                    public void onError(String message) {
-                        // showToast(getApplicationContext(), message, R.color.red);
-                        if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this)) {
+                    public void onError(String message)
+                    {
+                        // showToast(ShowBigPhotoActivity.this, message, R.color.red);
+                        if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                        {
                             Logger.e("-OnError-", "Error: " + message);
-                            showError(getApplicationContext(), "خطا در دریافت اطلاعات از سرور!");
-                        } else {
-                            // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
+                            showError(ShowBigPhotoActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                        }
+                        else
+                        {
+                            // showError(ShowBigPhotoActivity.this,String.valueOf(R.string.networkErrorMessage));
 
-                            showAlert(getApplicationContext(), R.string.networkErrorMessage, R.string.networkError);
+                            showAlert(ShowBigPhotoActivity.this, R.string.networkErrorMessage, R.string.networkError);
                         }
                     }
                 });
@@ -648,7 +703,9 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                     isPlay=false;
                     viewPager.stopAutoScroll();
 
-                } else {
+                }
+                else
+                {
                     btnPlay.setColorFilter(getResources().getColor(R.color.backgroundButton));
                     isPlay=true;
                     viewPager.startAutoScroll();

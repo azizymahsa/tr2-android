@@ -26,7 +26,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="208dp"
+            android:layout_height="240dp"
             android:background="@drawable/background_main_header" />
 
         <androidx.appcompat.widget.Toolbar
@@ -64,7 +64,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/_45sdp">
+                        android:layout_marginTop="@dimen/_100dp">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/card"

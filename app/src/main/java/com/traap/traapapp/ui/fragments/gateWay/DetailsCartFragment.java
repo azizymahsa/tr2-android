@@ -19,6 +19,7 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.turnover.TurnoverFragment;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 /**
@@ -66,6 +67,8 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
         return rootView;
     }
 
+
+
     private void initView()
     {
 
@@ -84,6 +87,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
         lnrGrid.setOnClickListener(this);
 
     }
+
 
     @Subscribe
     public void getHeaderContent(HeaderModel headerModel)
@@ -142,6 +146,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
                 fragment = MoneyTransferFragment.newInstance(mainView);
                 showFragment(fragment);
                 Prefs.putInt("DetailCartStatus",0);
+
 
                 break;
 
