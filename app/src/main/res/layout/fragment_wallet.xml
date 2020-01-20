@@ -162,9 +162,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true">
-                        <include layout="@layout/wallet_card_layout_front"
-                            android:visibility="visible"
-                            android:id="@+id/incFrontCart"/>
+
+                        <include
+                            android:id="@+id/incFrontCart"
+                            layout="@layout/wallet_card_layout_front"
+                            android:visibility="visible" />
+
                         <include layout="@layout/wallet_card_layout_back"
                             android:visibility="gone"
                             android:id="@+id/incBackCart"/>

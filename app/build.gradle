@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 39
-        versionName "1.12.6"
+        versionCode 41
+        versionName "1.12.7"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -47,7 +47,11 @@ android {
 //                    universalApk true
 //                }
 //            }
-            minifyEnabled false
+            useProguard true
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

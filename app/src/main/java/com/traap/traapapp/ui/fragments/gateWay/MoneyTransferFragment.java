@@ -56,18 +56,18 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 {
 
 
-    private View rootView, btnConfirm,llCardNumber,llPhoneNumber,llUserCode;
+    private View rootView, btnConfirm, llCardNumber, llPhoneNumber, llUserCode;
     private MainActionView mainView;
-    private ClearableEditText etCardNumber,etPhoneNum,etUserCode,etAmount;
+    private ClearableEditText etCardNumber, etPhoneNum, etUserCode, etAmount;
     private EditText etPass;
-    private ImageView ivContact;
+    private ImageView ivContact, ivCreditCart;
     private Spinner spinnerType;
     private String[] ListType = {"کدمشتری", "شماره کارت", "شماره موبایل"};
-    private String strType="";
-    private Integer type=0;
-    private Integer TYPE_USER_CODE=0;
-    private Integer TYPE_CARD_NUMBER=1;
-    private Integer TYPE_PHONE_NUMBER=2;
+    private String strType = "";
+    private Integer type = 0;
+    private Integer TYPE_USER_CODE = 0;
+    private Integer TYPE_CARD_NUMBER = 1;
+    private Integer TYPE_PHONE_NUMBER = 2;
     private ConvertPersianNumberToString convertPersianNumberToString;
     private String userName;
     private TextInputLayout inputLayout3;
@@ -99,7 +99,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
         initView();
 
-       // WalletFragment.setTitleFragmentWallet("انتقال وجه");
+        // WalletFragment.setTitleFragmentWallet("انتقال وجه");
 
         onGetBoutForSuccess();
 
@@ -129,20 +129,22 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         inputLayout3 = rootView.findViewById(R.id.inputLayout3);
 
         ViewCompat.setLayoutDirection(inputLayout3, ViewCompat.LAYOUT_DIRECTION_RTL);
-        convertPersianNumberToString=new ConvertPersianNumberToString();
+        convertPersianNumberToString = new ConvertPersianNumberToString();
 
-        spinnerType=rootView.findViewById(R.id.spinnerType);
-        ivContact=rootView.findViewById(R.id.ivContact);
+        spinnerType = rootView.findViewById(R.id.spinnerType);
+        ivContact = rootView.findViewById(R.id.ivContact);
         ivContact.setOnClickListener(this);
+        ivCreditCart = rootView.findViewById(R.id.ivCreditCart);
+        ivCreditCart.setOnClickListener(this);
 
-        llCardNumber=rootView.findViewById(R.id.llCardNumber);
-        llPhoneNumber=rootView.findViewById(R.id.llPhoneNumber);
-        llUserCode=rootView.findViewById(R.id.llUserCode);
+        llCardNumber = rootView.findViewById(R.id.llCardNumber);
+        llPhoneNumber = rootView.findViewById(R.id.llPhoneNumber);
+        llUserCode = rootView.findViewById(R.id.llUserCode);
         etCardNumber = rootView.findViewById(R.id.etCardNumber);
-        etPhoneNum=rootView.findViewById(R.id.etPhoneNum);
-        etUserCode=rootView.findViewById(R.id.etUserCode);
-        etAmount=rootView.findViewById(R.id.etAmount);
-        etPass=rootView.findViewById(R.id.etPass);
+        etPhoneNum = rootView.findViewById(R.id.etPhoneNum);
+        etUserCode = rootView.findViewById(R.id.etUserCode);
+        etAmount = rootView.findViewById(R.id.etAmount);
+        etPass = rootView.findViewById(R.id.etPass);
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(19);
         etCardNumber.setFilters(filterArray);
@@ -241,6 +243,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
         });
     }
+
     private void onGetBoutForSuccess()
     {
         ArrayAdapter<String> adapterAmount = new ArrayAdapter<String>(getActivity(),
@@ -267,25 +270,34 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     private void setTypeLayout(Integer position)
     {
 
-        if (position==TYPE_USER_CODE){
+        if (position == TYPE_USER_CODE)
+        {
 
-            type=TYPE_USER_CODE;
+            type = TYPE_USER_CODE;
             llCardNumber.setVisibility(View.GONE);
+            ivCreditCart.setVisibility(View.GONE);
+            ivContact.setVisibility(View.GONE);
             llPhoneNumber.setVisibility(View.GONE);
             llUserCode.setVisibility(View.VISIBLE);
 
 
-        }else if (position==TYPE_CARD_NUMBER){
+        } else if (position == TYPE_CARD_NUMBER)
+        {
 
-            type=TYPE_CARD_NUMBER;
+            type = TYPE_CARD_NUMBER;
             llCardNumber.setVisibility(View.VISIBLE);
+            ivCreditCart.setVisibility(View.VISIBLE);
+            ivContact.setVisibility(View.GONE);
             llPhoneNumber.setVisibility(View.GONE);
             llUserCode.setVisibility(View.GONE);
 
-        }else if (position==TYPE_PHONE_NUMBER){
+        } else if (position == TYPE_PHONE_NUMBER)
+        {
 
-            type=TYPE_PHONE_NUMBER;
+            type = TYPE_PHONE_NUMBER;
             llCardNumber.setVisibility(View.GONE);
+            ivCreditCart.setVisibility(View.GONE);
+            ivContact.setVisibility(View.VISIBLE);
             llPhoneNumber.setVisibility(View.VISIBLE);
             llUserCode.setVisibility(View.GONE);
 
@@ -327,32 +339,36 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
     private void onConfirmClicked()
     {
-        if (type==TYPE_PHONE_NUMBER){
+        if (type == TYPE_PHONE_NUMBER)
+        {
             if (!Utility.getMobileValidation(etPhoneNum.getText().toString()))
             {
                 mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
                 return;
             }
-            userName=etPhoneNum.getText().toString();
+            userName = etPhoneNum.getText().toString();
 
 
-        }else if (type==TYPE_USER_CODE){
+        } else if (type == TYPE_USER_CODE)
+        {
 
             if (TextUtils.isEmpty(etUserCode.getText().toString()))
             {
                 mainView.showError("لطفا کد مشتری را وارد نمایید.");
                 return;
             }
-            if (etUserCode.getText().length() < 4){
+            if (etUserCode.getText().length() < 4)
+            {
 
                 mainView.showError("لطفا کد مشتری را صحیح وارد نمایید.");
                 return;
             }
 
-            userName=etUserCode.getText().toString();
+            userName = etUserCode.getText().toString();
 
 
-        }else if (type==TYPE_CARD_NUMBER){
+        } else if (type == TYPE_CARD_NUMBER)
+        {
 
             if (TextUtils.isEmpty(etCardNumber.getText().toString()))
             {
@@ -360,7 +376,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
                 return;
             }
 
-            userName=etCardNumber.getText().toString().replaceAll("-","");
+            userName = etCardNumber.getText().toString().replaceAll("-", "");
 
 
         }
@@ -371,11 +387,13 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             return;
         }
 
-        if (TextUtils.isEmpty(etPass.getText().toString())){
+        if (TextUtils.isEmpty(etPass.getText().toString()))
+        {
             mainView.showError("لطفا رمز را وارد نمایید.");
             return;
         }
-        if (etPass.getText().toString().length() < 4){
+        if (etPass.getText().toString().length() < 4)
+        {
             mainView.showError("لطفا رمز را صحیح وارد نمایید.");
             return;
         }
@@ -386,12 +404,12 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
     private void showDialogGetInfo(GetInfoWalletResponse data)
     {
-        String txtAmountDigit=" مبلغ: "+etAmount.getText().toString()+" ریال ";
-        String txtAmountChar= "("+convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(etAmount.getText().toString().replaceAll(",",""))),"ریال")+")";
-        String txtUserName=data.getFull_name()+" به: کارت کیف پول ";
-        String txtName= "";
+        String txtAmountDigit = " مبلغ: " + etAmount.getText().toString() + " ریال ";
+        String txtAmountChar = "(" + convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(etAmount.getText().toString().replaceAll(",", ""))), "ریال") + ")";
+        String txtUserName = data.getFull_name() + " به: کارت کیف پول ";
+        String txtName = "";
 
-        MoneyTransferAlertDialog dialog = new MoneyTransferAlertDialog(getActivity(), "تایید انتقال وجه از کیف پول", "از : کارت کیف پول "+ TrapConfig.HEADER_USER_NAME, true,
+        MoneyTransferAlertDialog dialog = new MoneyTransferAlertDialog(getActivity(), "تایید انتقال وجه از کیف پول", "از : کارت کیف پول " + TrapConfig.HEADER_USER_NAME, true,
                 new MoneyTransferAlertDialog.OnConfirmListener()
                 {
                     @Override
@@ -406,7 +424,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
                     {
                         //mainView.backToMainFragment();
                     }
-                },txtAmountDigit,txtAmountChar,txtUserName,txtName);
+                }, txtAmountDigit, txtAmountChar, txtUserName, txtName);
         dialog.show((getActivity()).getFragmentManager(), "dialog");
     }
 
@@ -415,7 +433,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         mainView.showLoading();
         DoTransferWalletRequest request = new DoTransferWalletRequest();
         request.setPin2(etPass.getText().toString());
-        request.setAmount(Integer.valueOf(etAmount.getText().toString().replaceAll(",","")));
+        request.setAmount(Integer.valueOf(etAmount.getText().toString().replaceAll(",", "")));
         request.setTo(card_no);
         SingletonService.getInstance().doTransferWalletService().DoTransferWalletService(new OnServiceStatus<WebServiceClass<DoTransferWalletResponse>>()
         {
@@ -544,7 +562,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     {
         try
         {
-                etPhoneNum.setText(onSelectContact.getNumber().replaceAll(" ", ""));
+            etPhoneNum.setText(onSelectContact.getNumber().replaceAll(" ", ""));
 
         } catch (Exception e)
         {

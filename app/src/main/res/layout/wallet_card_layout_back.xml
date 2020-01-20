@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/slider_height"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true">
 
@@ -48,37 +48,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="4dp"
+                    android:paddingStart="8dp"
                     android:paddingTop="4dp"
                     android:paddingEnd="8dp"
-                    android:paddingStart="8dp"
-                    android:gravity="center"
-                    >
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="شماره کارت"
+                        android:textColor="@color/chargePackTextColor"
+                        android:textSize="@dimen/textSize_14dp" />
 
                     <TextView
                         android:id="@+id/cartNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5dp"
                         android:text="5029-3810-2353-1205"
-                        android:textStyle="bold"
                         android:textColor="@color/chargePackTextColor"
-                        android:textSize="@dimen/textSize_16dp" />
-
-                    <TextView
-                        android:id="@+id/txtFullName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="فاطمه خانی"
-                        android:textColor="@color/chargePackTextColor"
-                        android:textSize="@dimen/textSize_14dp" />
-                    <TextView
-                        android:id="@+id/customNo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=":کدمشتری"
-                        android:textColor="@color/chargePackTextColor"
-                        android:textSize="@dimen/textSize_14dp" />
+                        android:fontFamily="@font/iransans_mobile_bold"
+                        android:textSize="@dimen/textSize_18dp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -91,7 +86,54 @@
                     android:text=" "
                     android:textColor="@color/chargePackTextColor"
                     android:textSize="@dimen/textSize_12dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/customNo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=":کدمشتری"
+                        android:textColor="@color/chargePackTextColor"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <TextView
+                        android:id="@+id/txtFullName"
+                        android:layout_width="0dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="فاطمه خانی"
+                        android:textColor="@color/chargePackTextColor"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                </LinearLayout>
+
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivDec"
+                android:layout_width="@dimen/_20dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:paddingBottom="@dimen/_10dp"
+                android:tint="@color/grayColor"
+                app:srcCompat="@drawable/ic_error_outline" />
         </RelativeLayout>
 
 

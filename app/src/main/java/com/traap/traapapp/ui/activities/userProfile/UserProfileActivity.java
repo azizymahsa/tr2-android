@@ -212,40 +212,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         btnConfirm.setOnClickListener(v ->
         {
-
-
-            if (TextUtils.isEmpty(tvBirthDay.getText().toString().replaceAll("_", "").replaceAll("/", "")) || tvBirthDay.getText().toString().replaceAll("_", "").length() != 10)
-            {
-                Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
-
-                return;
-            }
-
-            String[] date = tvBirthDay.getText().toString().replaceAll("_", "").split("/");
-            Integer year = Integer.valueOf(date[0]);
-            Integer month = Integer.valueOf(date[1]);
-            Integer day = Integer.valueOf(date[2]);
-
-            if (day < 1 || day > 31)
-            {
-                Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
-
-                return;
-            }
-            if (month < 1 || month > 12)
-            {
-                Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
-
-                return;
-            }
-            if (year < 1300 || year > 1399)
-            {
-                Toast.makeText(this, "تاریخ تولد وارد شده صحیح نمی باشد.", Toast.LENGTH_SHORT).show();
-
-                return;
-            }
-
-
             btnConfirm.startAnimation();
             btnConfirm.setClickable(false);
 
@@ -453,54 +419,34 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             err = false;
 //            etEmail.setError("ایمیل درست نیست!");
         }
+        if (!TextUtils.isEmpty(tvBirthDay.getText().toString().replaceAll("_", "").replaceAll("/", "")))
+        {
+            if (tvBirthDay.getText().toString().replaceAll("_", "").length() != 10)
+            {
+                message = message + "تاریخ تولد،";
+                err = false;
+            }
+            else
+            {
+                String[] date = tvBirthDay.getText().toString().replaceAll("_", "").split("/");
+                Integer year = Integer.valueOf(date[0]);
+                Integer month = Integer.valueOf(date[1]);
+                Integer day = Integer.valueOf(date[2]);
 
-//        if (!etFirstName.getText().toString().trim().matches("[ آئءا-ی]+") && !etFirstName.getText().toString().equalsIgnoreCase(""))
-//        {
-//            message = message + "نام فارسی،";
-//            err = false;
-////            etFirstNameUS.setError("نام انگلیسی درست نیست!");
-//        }
-//
-//        if (!etLastName.getText().toString().trim().matches("[ آئءا-ی]+") && !etLastName.getText().toString().equalsIgnoreCase(""))
-//        {
-//            message = message + "نام خانوادگی فارسی،";
-//            err = false;
-////            etFirstNameUS.setError("نام انگلیسی درست نیست!");
-//        }
+                if (day < 1 || day > 31 || month < 1 || month > 12  || year < 1300 || year > 1399)
+                {
+                    message = message + "تاریخ تولد،";
+                    err = false;
+                }
+            }
+        }
 
-//        if (!etFirstNameUS.getText().toString().trim().matches("[a-zA-Z ]+") && !etFirstNameUS.getText().toString().equalsIgnoreCase(""))
-//        {
-//            message = message + "نام انگلیسی،";
-//            err = false;
-////            etFirstNameUS.setError("نام انگلیسی درست نیست!");
-//        }
-//
-//        if (!etLastNameUS.getText().toString().trim().matches("[a-zA-Z ]+") && !etLastNameUS.getText().toString().equalsIgnoreCase(""))
-//        {
-//            message = message + "نام خانوادگی انگلیسی،";
-//            err = false;
-////            etLastNameUS.setError("نام خانوادگی انگلیسی درست نیست!");
-//        }
 
         if (!err)
         {
             message = message + " باید اصلاح گردد.";
             showError(this, message);
         }
-//        else if (etNationalCode.getText().toString().trim().equalsIgnoreCase("") &&
-//                etFirstNameUS.getText().toString().trim().equalsIgnoreCase("") &&
-//                etLastNameUS.getText().toString().trim().equalsIgnoreCase("") &&
-//                etFirstName.getText().toString().trim().equalsIgnoreCase("") &&
-//                etLastName.getText().toString().trim().equalsIgnoreCase("") &&
-//                tvBirthDay.getText().toString().trim().equalsIgnoreCase("") &&
-//                spinnerGender.getSelectedItemPosition() == 0 &&
-//                etEmail.getText().toString().trim().equalsIgnoreCase("") &&
-//                (etPopularPlayer.getText().toString().equalsIgnoreCase("") ||
-//                        etPopularPlayer.getText().toString().trim().equalsIgnoreCase("0")) )
-//        {
-//            err = false;
-//            showError(this, "اطلاعاتی جهت ارسال مشخص نشد.");
-//        }
         return err;
     }
 
@@ -592,10 +538,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 else
                 {
                     sendPhotoSuccess = true;
+                    sendPhotoFailure = false;
                 }
             } catch (Exception e)
             {
                 sendPhotoSuccess = true;
+                sendPhotoFailure = false;
                 Logger.e("-Exception Photo-", e.getMessage());
 //                part = null;
             }
@@ -631,25 +579,26 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 {
                                     showError(UserProfileActivity.this, response.info.message);
                                     sendProfileFailure = true;
+                                    sendProfileSuccess = false;
                                     finishSendData("");
                                 }
                                 else
                                 {
                                     //------------------------------------------
-                                    Prefs.putString("firstName", etFirstName.getText().toString());
-                                    Prefs.putString("lastName", etLastName.getText().toString());
-                                    Prefs.putString("FULLName", etFirstName.getText().toString() + " " + etLastName.getText().toString());
-                                    Prefs.putString("nickName", etNickName.getText().toString());
-                                    Prefs.putString("firstNameUS", etFirstNameUS.getText().toString());
-                                    Prefs.putString("lastNameUS", etLastNameUS.getText().toString());
-                                    Prefs.putString("email", etEmail.getText().toString());
+                                    Prefs.putString("firstName", etFirstName.getText().toString().trim());
+                                    Prefs.putString("lastName", etLastName.getText().toString().trim());
+                                    Prefs.putString("FULLName", etFirstName.getText().toString().trim() + " " + etLastName.getText().toString().trim());
+                                    Prefs.putString("nickName", etNickName.getText().toString().trim());
+                                    Prefs.putString("firstNameUS", etFirstNameUS.getText().toString().trim());
+                                    Prefs.putString("lastNameUS", etLastNameUS.getText().toString().trim());
+                                    Prefs.putString("email", etEmail.getText().toString().trim());
                                     Prefs.putInt("gender", spinnerGender.getSelectedItemPosition());
 
                                     if (tvBirthDay.getText() != null)
                                     {
                                         Prefs.putString("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ?
                                                 null :
-                                                tvBirthDay.getText().toString());
+                                                tvBirthDay.getText().toString().trim());
                                     }
                                     if (popularPlayer != 0)
                                     {
@@ -659,7 +608,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                     {
                                         Prefs.putInt("popularPlayer", 12);
                                     }
-                                    Prefs.putString("nationalCode", etNationalCode.getText().toString());
+                                    Prefs.putString("nationalCode", etNationalCode.getText().toString().trim());
 
                                     if (!Prefs.getString("FULLName", "").trim().replace(" ", "")
                                             .equalsIgnoreCase(""))
@@ -675,6 +624,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                     headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
 
                                     sendProfileSuccess = true;
+                                    sendProfileFailure = false;
                                     finishSendData("");
                                 }
                             } catch (Exception e)
@@ -689,17 +639,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             btnConfirm.revertAnimation();
                             btnConfirm.setClickable(true);
                             sendProfileFailure = true;
-                            finishSendData("");
+                            sendProfileSuccess = false;
                             finishSendData("");
                             if (Tools.isNetworkAvailable(UserProfileActivity.this))
                             {
                                 Logger.e("-OnError-", "Error: " + message);
                                 showError(UserProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
-
                             }
                             else
                             {
-                                showAlert(UserProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                                ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
                             }
                         }
                     });
@@ -799,6 +748,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 rlDeleteImage.setClickable(true);
 
                                 sendPhotoSuccess = true;
+                                sendPhotoFailure = false;
                                 finishSendData("");
                             }
                         } catch (JSONException e)
@@ -806,6 +756,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             e.printStackTrace();
                         }
                         sendPhotoSuccess = true;
+                        sendPhotoFailure = false;
                         finishSendData("");
                     }
 
@@ -813,6 +764,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     public void onError(ANError anError)
                     {
                         sendPhotoFailure = true;
+                        sendPhotoSuccess = false;
 
                         if (Tools.isNetworkAvailable(UserProfileActivity.this))
                         {
@@ -822,7 +774,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         }
                         else
                         {
-                            showAlert(UserProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                            ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
                         }
                         finishSendData(anError + " ");
                     }
@@ -902,7 +854,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             EventBus.getDefault().post(headerModel);
 
             //success
-            showToast(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", R.color.green);
+            ShowAlertSuccess(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", "", false);
+
 //            finish();
 
         }
@@ -910,14 +863,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
 //            hideLoading();
             //Fail
-            if (!Tools.isNetworkAvailable(this))
+            if (Tools.isNetworkAvailable(this))
             {
                 Logger.e("-PhotoFailor-", "Error: " + "PhotoFailor");
                 showError(this, "خطا در دریافت اطلاعات از سرور!");
             }
             else
             {
-                showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+                ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
             }
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
@@ -931,7 +884,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             {
                 message = message + "\n" + photoErrorMessage;
             }
-            showAlert(UserProfileActivity.this, message, R.string.error, false);
+            ShowAlertFailure(UserProfileActivity.this, message, getString(R.string.error), false);
         }
 //        else
 //        {
@@ -1102,7 +1055,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     }
                     else
                     {
-                        showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+                        ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
                     }
                 }
 
@@ -1142,7 +1095,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         else
         {
-            showAlert(this, R.string.networkErrorMessage, R.string.networkError);
+            ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
         }
     }
 

@@ -93,7 +93,7 @@ public class ChargeFragment extends BaseFragment
         ChargeFragmentInteractor, CompoundButton.OnCheckedChangeListener, OnAnimationEndListener, View.OnFocusChangeListener,
         RightelBuyImpl.OnFinishedRightelBuyListener, PaymentParentActionView,
         MciBuyInteractor.OnFinishedMciBuyInListener, TextWatcher, MainActionView, PaymentActionView
-    ,OnClickContinueSelectPayment
+        , OnClickContinueSelectPayment
 {
 
     private Context context;
@@ -119,7 +119,7 @@ public class ChargeFragment extends BaseFragment
     private View mToolbar;
     private TextView tvUserName;
     private TextView tvHeaderPopularNo;
-   private OnClickContinueSelectPayment onClickContinueBuyChargeListener;
+    private OnClickContinueSelectPayment onClickContinueBuyChargeListener;
     private Integer backState;
 
 
@@ -138,7 +138,7 @@ public class ChargeFragment extends BaseFragment
     public static ChargeFragment newInstance(MainActionView mainView, Integer backState)//, OnClickContinueSelectPayment onClickContinueBuyCharg)
     {
         ChargeFragment f = new ChargeFragment();
-       // f.setContinueSelectPayment(onClickContinueBuyCharg);
+        // f.setContinueSelectPayment(onClickContinueBuyCharg);
         f.setMainView(mainView);
         f.setBackState(backState);
         return f;
@@ -146,21 +146,22 @@ public class ChargeFragment extends BaseFragment
 
     private void setBackState(Integer backState)
     {
-        this.backState=backState;
+        this.backState = backState;
     }
 
     private void setContinueSelectPayment(OnClickContinueSelectPayment mainView)
     {
         this.onClickContinueBuyChargeListener = mainView;
     }
+
     private void setMainView(MainActionView mainView)
     {
         this.mainView = mainView;
     }
 
     private String[] irancellFilter = {"سیم کارت اعتباري", "سیم کارت دائمي"};
-    private String[] irancelTypeChargelFilter = {"شارژ مستقیم","شارژ شگفت انگیز" };
-    private String[] rightelTypeChargelFilter = {"شارژ مستقیم","شارژ شور انگیز" };
+    private String[] irancelTypeChargelFilter = {"شارژ مستقیم", "شارژ شگفت انگیز"};
+    private String[] rightelTypeChargelFilter = {"شارژ مستقیم", "شارژ شور انگیز"};
     private String[] amountFilter = {"10,000", "20,000", "50,000", "100,000", "200,000", "500,000"};
 
 
@@ -266,8 +267,8 @@ public class ChargeFragment extends BaseFragment
     ClearableEditText etMobileChargeRightel;*/
 
 
-   /* @BindView(R.id.etMobileCharge)
-    ClearableEditText etMobileCharge;*/
+    /* @BindView(R.id.etMobileCharge)
+     ClearableEditText etMobileCharge;*/
     /*@BindView(R.id.etMCINumber)
     ClearableEditText etMCINumber;*/
     @BindView(R.id.tvChargeTitle)
@@ -308,8 +309,8 @@ public class ChargeFragment extends BaseFragment
     RadioButton rbSpecialChargeRightel;
     @BindView(R.id.rbNormalChargeRightel)
     RadioButton rbNormalChargeRightel;
-   /* @BindView(R.id.tilMIrancell)
-    TextInputLayout tilMIrancell;*/
+    /* @BindView(R.id.tilMIrancell)
+     TextInputLayout tilMIrancell;*/
     /*@BindView(R.id.tilMMci)
     TextInputLayout tilMMci;*/
 /*    @BindView(R.id.tilMRightel)
@@ -319,6 +320,7 @@ public class ChargeFragment extends BaseFragment
     TextInputLayout tipCvv2;
     @BindView(R.id.nested)
     NestedScrollView nested;
+
     @OnClick(R.id.ivContactR)
     void ivContactR()
     {
@@ -331,7 +333,8 @@ public class ChargeFragment extends BaseFragment
     {
 
         View view = getActivity().getCurrentFocus();
-        if (view != null) {
+        if (view != null)
+        {
             InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
@@ -373,7 +376,8 @@ public class ChargeFragment extends BaseFragment
             mainView.onInternetAlert();
             return;
 
-        }else {
+        } else
+        {
             autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
             autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
             autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
@@ -392,7 +396,8 @@ public class ChargeFragment extends BaseFragment
             mainView.onInternetAlert();
             return;
 
-        }else {
+        } else
+        {
             autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
             autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
             autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
@@ -411,7 +416,8 @@ public class ChargeFragment extends BaseFragment
             mainView.onInternetAlert();
             return;
 
-        }else {
+        } else
+        {
             autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
             autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
             autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
@@ -561,12 +567,18 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnChargeConfirm)
     void setBtnChargeConfirm()
     {
+        if (TextUtils.isEmpty(autoCompletePhoneNumberIrancel.getText().toString()))
+        {
+            mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
+            return;
+        }
         if (!Utility.getMobileValidation(autoCompletePhoneNumberIrancel.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
-        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberIrancel.getText().toString())){
+        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberIrancel.getText().toString()))
+        {
 
             mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
             return;
@@ -601,7 +613,7 @@ public class ChargeFragment extends BaseFragment
             imageDrawable = R.drawable.irancell;
             chargeStr = "ایرانسل";
             mobile = autoCompletePhoneNumberIrancel.getText().toString();
-           // chargeType=spinnerChargeTypeIrancell.getSelectedItem().toString();
+            // chargeType=spinnerChargeTypeIrancell.getSelectedItem().toString();
 
         } else if (isMci)
         {
@@ -610,7 +622,7 @@ public class ChargeFragment extends BaseFragment
             imageDrawable = R.drawable.hamrahe_aval;
             chargeStr = "همراه اول";
             mobile = autoCompletePhoneNumberMci.getText().toString();
-           // chargeType=spinnerChargeTypeMci.getSelectedItem().toString();
+            // chargeType=spinnerChargeTypeMci.getSelectedItem().toString();
 
         } else if (isRightel)
         {
@@ -670,12 +682,19 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnChargeConfirmRightel)
     void setBtnChargeConfirmRightel()
     {
+        if (TextUtils.isEmpty(autoCompletePhoneNumberRightel.getText().toString()))
+        {
+            mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
+            return;
+        }
+
         if (!Utility.getMobileValidation(autoCompletePhoneNumberRightel.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
-        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberRightel.getText().toString())){
+        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberRightel.getText().toString()))
+        {
 
             mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
             return;
@@ -731,13 +750,19 @@ public class ChargeFragment extends BaseFragment
     @OnClick(R.id.btnMCIChargeConfirm)
     void setBtnMCIChargeConfirm()
     {
+        if (TextUtils.isEmpty(autoCompletePhoneNumberMci.getText().toString()))
+        {
+            mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
+            return;
+        }
         if (!Utility.getMobileValidation(autoCompletePhoneNumberMci.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
 
             return;
         }
-        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberMci.getText().toString())){
+        if (Utility.checkTaliyaValidation(autoCompletePhoneNumberMci.getText().toString()))
+        {
 
             mainView.showError("شماره تلفن وارد شده تالیا می باشد،امکان خرید شارژ برای این شماره وجود ندارد.");
             return;
@@ -748,7 +773,7 @@ public class ChargeFragment extends BaseFragment
             mainView.showError("لطفا مبلغ را وارد نمایید.");
             return;
         }
-       // hideSoftKeyboard(etMCINumber);
+        // hideSoftKeyboard(etMCINumber);
         etPassCharge.requestFocus();
 
         isMci = true;
@@ -804,7 +829,6 @@ public class ChargeFragment extends BaseFragment
         rightelBuy = new RightelBuyImpl();
 
 
-
 //        fragmentManager = getChildFragmentManager();
 //        pFragment = FavoriteCardFragment.newInstance(this);
 //
@@ -839,13 +863,17 @@ public class ChargeFragment extends BaseFragment
             {
                 try
                 {
-                    operatorType=getOperatorType(charSequence.toString());
+                    if (autoCompletePhoneNumberIrancel.getText().toString().length()!=4)
+                        return;
+                    operatorType = getOperatorType(charSequence.toString());
 
-                    if (OPERATOR_TYPE_MCI==getOperatorType(charSequence.toString())){
+                    if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isMci){
+                        if (isMci)
+                        {
 
-                        }else
+                        } else
                         {
                             autoCompletePhoneNumberMci.setText(charSequence.toString());
                             hamraheAval();
@@ -853,11 +881,13 @@ public class ChargeFragment extends BaseFragment
 
                         }
 
-                    }else  if (OPERATOR_TYPE_RIGHTEL==getOperatorType(charSequence.toString())){
+                    } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isRightel){
+                        if (isRightel)
+                        {
 
-                        }else
+                        } else
                         {
                             autoCompletePhoneNumberRightel.setText(charSequence.toString());
                             rightel();
@@ -865,7 +895,8 @@ public class ChargeFragment extends BaseFragment
 
                         }
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
 
@@ -890,13 +921,17 @@ public class ChargeFragment extends BaseFragment
             {
                 try
                 {
-                    operatorType=getOperatorType(charSequence.toString());
+                    if (autoCompletePhoneNumberMci.getText().toString().length()!=4)
+                        return;
+                    operatorType = getOperatorType(charSequence.toString());
 
-                    if (OPERATOR_TYPE_MTN==getOperatorType(charSequence.toString())){
+                    if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isMtn){
+                        if (isMtn)
+                        {
 
-                        }else
+                        } else
                         {
                             autoCompletePhoneNumberIrancel.setText(charSequence.toString());
                             irancell();
@@ -904,11 +939,13 @@ public class ChargeFragment extends BaseFragment
                         }
 
 
-                    }else if (OPERATOR_TYPE_RIGHTEL==getOperatorType(charSequence.toString())){
+                    } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isRightel){
+                        if (isRightel)
+                        {
 
-                        }else
+                        } else
                         {
                             autoCompletePhoneNumberRightel.setText(charSequence.toString());
                             rightel();
@@ -917,7 +954,8 @@ public class ChargeFragment extends BaseFragment
                         }
 
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
 
@@ -942,23 +980,29 @@ public class ChargeFragment extends BaseFragment
             {
                 try
                 {
-                    operatorType=getOperatorType(charSequence.toString());
+                    if (autoCompletePhoneNumberRightel.getText().toString().length()!=4)
+                        return;
+                    operatorType = getOperatorType(charSequence.toString());
 
-                    if (OPERATOR_TYPE_MCI==getOperatorType(charSequence.toString())){
+                    if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isMci){
+                        if (isMci)
+                        {
 
-                        }else
+                        } else
                         {
                             autoCompletePhoneNumberMci.setText(charSequence.toString());
                             hamraheAval();
                         }
 
-                    }else if (OPERATOR_TYPE_MTN==getOperatorType(charSequence.toString())){
+                    } else if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
+                    {
 
-                        if (isMtn){
+                        if (isMtn)
+                        {
 
-                        }else
+                        } else
                         {
                             autoCompletePhoneNumberIrancel.setText(charSequence.toString());
                             irancell();
@@ -966,7 +1010,8 @@ public class ChargeFragment extends BaseFragment
 
 
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
 
@@ -1095,11 +1140,7 @@ public class ChargeFragment extends BaseFragment
         });
 
 
-
-
-
-
-        if (tabLayoutIrancell.getTabCount()==2)
+        if (tabLayoutIrancell.getTabCount() == 2)
             return;
         tabLayoutIrancell.addTab(tabLayoutIrancell.newTab().setText("سیم کارت دائمی"));
         tabLayoutIrancell.addTab(tabLayoutIrancell.newTab().setText(" سیم کارت اعتباری"), true);
@@ -1108,9 +1149,11 @@ public class ChargeFragment extends BaseFragment
             @Override
             public void onTabSelected(TabLayout.Tab tab)
             {
-                if(tabLayoutIrancell.getSelectedTabPosition() == 0){
+                if (tabLayoutIrancell.getSelectedTabPosition() == 0)
+                {
                     simcardType = SIMCARD_TYPE_DAEMI;
-                }else{
+                } else
+                {
                     simcardType = SIMCARD_TYPE_ETEBARI;
                 }
             }
@@ -1129,8 +1172,7 @@ public class ChargeFragment extends BaseFragment
         });
 
 
-
-        changeFontInViewGroup(tabLayoutIrancell,"fonts/iran_sans_normal.ttf");
+        changeFontInViewGroup(tabLayoutIrancell, "fonts/iran_sans_normal.ttf");
 
 
     }
@@ -1201,7 +1243,7 @@ public class ChargeFragment extends BaseFragment
     private void initView()
     {
         mToolbar = rootView.findViewById(R.id.toolbar);
-       FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
+        FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
         flLogoToolbar.setOnClickListener(v ->
         {
             mainView.backToMainFragment();
@@ -1210,8 +1252,8 @@ public class ChargeFragment extends BaseFragment
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
-               mainView.backToAllServicePackage(backState)
-               // onClickContinueBuyChargeListener.onBackClicked()
+                        mainView.backToAllServicePackage(backState)
+                // onClickContinueBuyChargeListener.onBackClicked()
         );
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
@@ -1257,9 +1299,9 @@ public class ChargeFragment extends BaseFragment
         rbNormalChargeRightel.setChecked(true);
 
 
-       // etMobileCharge.setFilters(filterArray);
-       // etMCINumber.setFilters(filterArray);
-       // etMobileChargeRightel.setFilters(filterArray);
+        // etMobileCharge.setFilters(filterArray);
+        // etMCINumber.setFilters(filterArray);
+        // etMobileChargeRightel.setFilters(filterArray);
 
         initDefaultOperatorView();
 
@@ -1293,16 +1335,20 @@ public class ChargeFragment extends BaseFragment
             @Override
             public void onReady(WebServiceClass<GetBoughtForResponse> response)
             {
-                try {
-                    if (response.info.statusCode == 200) {
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
 
                         onGetBoutForSuccess(response.data.getResults());
 
-                    } else {
-                        showToast(((Activity) context),response.info.message,R.color.red);
+                    } else
+                    {
+                        showToast(((Activity) context), response.info.message, R.color.red);
                     }
-                } catch (Exception e) {
-                    showToast(((Activity) context),e.getMessage(),R.color.red);
+                } catch (Exception e)
+                {
+                    showToast(((Activity) context), e.getMessage(), R.color.red);
 
                 }
             }
@@ -1313,8 +1359,7 @@ public class ChargeFragment extends BaseFragment
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
                     showToast(getActivity(), "خطای دسترسی به سرور!", 0);
-                }
-                else
+                } else
                 {
                     showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
                 }
@@ -1327,7 +1372,7 @@ public class ChargeFragment extends BaseFragment
     {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (getContext(),R.layout.custom_spinner_dropdown_item,results);
+                (getContext(), R.layout.custom_spinner_dropdown_item, results);
         autoCompletePhoneNumberMci.setThreshold(1);//will start working from first character
         autoCompletePhoneNumberMci.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
 
@@ -1340,8 +1385,8 @@ public class ChargeFragment extends BaseFragment
 
     private void initDefaultOperatorView()
     {
-         operatorType = getOperatorType(Prefs.getString("mobile", ""));
-       // operatorType = getOperatorType("09121234567");
+        operatorType = getOperatorType(Prefs.getString("mobile", ""));
+        // operatorType = getOperatorType("09121234567");
 
         switch (operatorType)
         {
@@ -1444,9 +1489,9 @@ public class ChargeFragment extends BaseFragment
         // etMCIAmount.setInputType(InputType.TYPE_NULL);
         // etChargeAmountRightel.setInputType(InputType.TYPE_NULL);
 
-       // etMobileCharge.addTextChangedListener(this);
-       // etMCINumber.addTextChangedListener(this);
-       // etMobileChargeRightel.addTextChangedListener(this);
+        // etMobileCharge.addTextChangedListener(this);
+        // etMCINumber.addTextChangedListener(this);
+        // etMobileChargeRightel.addTextChangedListener(this);
 
     }
 
@@ -1455,7 +1500,7 @@ public class ChargeFragment extends BaseFragment
         String startPhoneNo = phoneNo.substring(0, 4);
         Logger.e("-startPhoneNo-", startPhoneNo);
 
-        String[] typeMCI_No = {"0990", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919","0992"};
+        String[] typeMCI_No = {"0990", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919", "0992"};
         String[] typeMTN_No = {"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939"};
         String[] typeRightel_No = {"0920", "0921", "0922"};
 
@@ -1887,8 +1932,8 @@ public class ChargeFragment extends BaseFragment
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
 
 
-        mainView.openChargePaymentFragment(this,urlPayment, imageDrawable,
-                title, amount.replaceAll(",",""), paymentInstance, mobile,TrapConfig.PAYMENT_STAUS_ChargeSimCard);
+        mainView.openChargePaymentFragment(this, urlPayment, imageDrawable,
+                title, amount, paymentInstance, mobile, TrapConfig.PAYMENT_STAUS_ChargeSimCard);
 
     }
 
@@ -2099,7 +2144,6 @@ public class ChargeFragment extends BaseFragment
     }
 
 
-
     @Override
     public void openWebView(MainActionView mainView, String uRl, String gds_token)
     {
@@ -2117,7 +2161,6 @@ public class ChargeFragment extends BaseFragment
     {
 
     }
-
 
 
     @Override
@@ -2144,6 +2187,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onBackToHomeWallet(int i)
+    {
+
+    }
+
     private void closeAutoComplete()
     {
         autoCompletePhoneNumberRightel.dismissDropDown();
@@ -2158,7 +2207,7 @@ public class ChargeFragment extends BaseFragment
             if (isMtn)
             {
                 autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
-              //  tilMIrancell.setHint(event.getName());
+                //  tilMIrancell.setHint(event.getName());
 
 
                 return;
@@ -2166,7 +2215,7 @@ public class ChargeFragment extends BaseFragment
             if (isMci)
             {
                 autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
-               // tilMMci.setHint(event.getName());
+                // tilMMci.setHint(event.getName());
 
 
                 return;
@@ -2176,7 +2225,7 @@ public class ChargeFragment extends BaseFragment
             if (isRightel)
             {
                 autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
-               // tilMRightel.setHint(event.getName());
+                // tilMRightel.setHint(event.getName());
 
 
             }
@@ -2205,5 +2254,39 @@ public class ChargeFragment extends BaseFragment
     {
 
     }
+  /*  @Override
+    public void onContactClicked(String number, String name)
+    {
+        try
+        {
+            if (isMtn)
+            {
+                etMobileCharge.setText(number.replaceAll(" ", ""));
+                tilMIrancell.setHint(name);
 
+
+                return;
+            }
+            if (isMci)
+            {
+                etMCINumber.setText(number.replaceAll(" ", ""));
+                tilMMci.setHint(name);
+
+
+                return;
+
+
+            }
+            if (isRightel)
+            {
+                etMobileChargeRightel.setText(number.replaceAll(" ", ""));
+                tilMRightel.setHint(name);
+
+
+            }
+
+        } catch (Exception e)
+        {
+        }
+    }*/
 }
