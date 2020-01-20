@@ -774,6 +774,11 @@ public class PackFragment
     {
         initSpinner();
         setupRecycler();
+        if (TextUtils.isEmpty(etMobileNumberIranCell.getText().toString()))
+        {
+            mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
+            return;
+        }
         if (!Utility.getMobileValidation(etMobileNumberIranCell.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
@@ -814,6 +819,11 @@ public class PackFragment
 
         initSpinner();
         setupRecycler();
+        if (TextUtils.isEmpty(etMobileNumberRightel.getText().toString()))
+        {
+            mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
+            return;
+        }
         if (!Utility.getMobileValidation(etMobileNumberRightel.getText().toString()))
         {
             // hideSoftKeyboard(etMobileNumberRightel);
@@ -859,6 +869,11 @@ public class PackFragment
     {
         initSpinner();
         setupRecycler();
+        if (TextUtils.isEmpty(etMobileNumberMCI.getText().toString()))
+        {
+            mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
+            return;
+        }
         if (!Utility.getMobileValidation(etMobileNumberMCI.getText().toString()))
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
@@ -1033,6 +1048,8 @@ public class PackFragment
             {
                 try
                 {
+                    if (etMobileNumberIranCell.getText().toString().length()!=4)
+                        return;
                     operatorType = getOperatorType(charSequence.toString());
 
                     if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
@@ -1089,6 +1106,8 @@ public class PackFragment
             {
                 try
                 {
+                    if (etMobileNumberMCI.getText().toString().length()!=4)
+                        return;
                     operatorType = getOperatorType(charSequence.toString());
 
                     if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
@@ -1146,6 +1165,8 @@ public class PackFragment
             {
                 try
                 {
+                    if (etMobileNumberRightel.getText().toString().length()!=4)
+                        return;
                     operatorType = getOperatorType(charSequence.toString());
 
                     if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
