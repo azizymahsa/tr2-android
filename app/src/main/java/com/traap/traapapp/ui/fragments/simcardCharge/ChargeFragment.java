@@ -45,6 +45,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import butterknife.BindView;
@@ -55,6 +56,8 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.availableAmount.AvailableAmounResponse;
+import com.traap.traapapp.apiServices.model.availableAmount.Result;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
 import com.traap.traapapp.apiServices.model.getBoughtFor.GetBoughtForResponse;
@@ -67,6 +70,7 @@ import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
+import com.traap.traapapp.ui.adapters.adapter.ChargeAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -185,6 +189,15 @@ public class ChargeFragment extends BaseFragment
 
     @BindView(R.id.imgMenu)
     ImageView imgMenu;
+
+    @BindView(R.id.rvMciAmount)
+    RecyclerView rvMciAmount;
+
+    @BindView(R.id.rvIrancellAmount)
+    RecyclerView rvIrancellAmount;
+
+    @BindView(R.id.rvRightelAmount)
+    RecyclerView rvRightelAmount;
 
 
     @BindView(R.id.tvAmpuntPassCharge)
@@ -830,6 +843,7 @@ public class ChargeFragment extends BaseFragment
         irancellBuy = new IrancellBuyImpl();
         mciBuy = new MciBuyImpl();
         rightelBuy = new RightelBuyImpl();
+        getAvailableAmount();
 
 
 //        fragmentManager = getChildFragmentManager();
@@ -2292,4 +2306,65 @@ public class ChargeFragment extends BaseFragment
         {
         }
     }*/
+  public void getAvailableAmount(){
+      SingletonService.getInstance().getMobileCharge().getAvailableAmount(new OnServiceStatus<WebServiceClass<AvailableAmounResponse>>()
+      {
+          @Override
+          public void onReady(WebServiceClass<AvailableAmounResponse> response)
+          {
+
+              try{
+
+                  List<Result> mciResultList = new ArrayList<>();
+                  List<Result> mtnResultList = new ArrayList<>();
+                  List<Result> rightelResultList = new ArrayList<>();
+
+
+                  for (Result data : response.data.getResults())
+                  {
+                      if (data.getOperatorType()==1){
+                          mtnResultList.add(data);
+
+                      }
+                      if (data.getOperatorType()==2){
+                          mciResultList.add(data);
+
+
+                      }
+                      if (data.getOperatorType()==3){
+                          rightelResultList.add(data);
+
+                      }
+
+
+                  }
+
+                  rvMciAmount.setAdapter(new ChargeAdapter(mciResultList,getActivity()));
+                  rvIrancellAmount.setAdapter(new ChargeAdapter(mtnResultList,getActivity()));
+                  rvRightelAmount.setAdapter(new ChargeAdapter(rightelResultList,getActivity()));
+
+
+
+
+              }catch (Exception e){}
+
+
+
+          }
+
+          @Override
+          public void onError(String message)
+          {
+              if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+              {
+                  showToast(getActivity(), "خطای دسترسی به سرور!", 0);
+              } else
+              {
+                  showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+              }
+
+
+          }
+      });
+  }
 }
