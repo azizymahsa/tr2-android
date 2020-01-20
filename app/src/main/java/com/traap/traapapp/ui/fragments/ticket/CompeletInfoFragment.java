@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.fragments.ticket;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,20 +32,30 @@ import java.util.List;
 import java.util.Collections;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
 import com.traap.traapapp.apiServices.model.paymentMatch.Viewers;
+import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
+import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.adapters.paymentGateway.SelectPaymentAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.paymentGateWay.PaymentGateWayParentActionView;
+import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletImpl;
+import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletInteractor;
 import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
 import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
@@ -58,12 +69,12 @@ import com.traap.traapapp.utilities.Utility;
 import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
 
 public class CompeletInfoFragment
-        extends BaseFragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener
+        extends BaseFragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener
 {
     private Context context;
     private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
-    private TextView txtCondition;
+    private TextView txtCondition,tvBalance,tvDate;
     private View btnBackToDetail, btnPaymentConfirm;
     private int count = 1;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
@@ -72,7 +83,7 @@ public class CompeletInfoFragment
     private com.rengwuxian.materialedittext.MaterialEditText etNationalCode_3, etFamily_3, etName_3;
     private com.rengwuxian.materialedittext.MaterialEditText etNationalCode_4, etFamily_4, etName_4;
     private com.rengwuxian.materialedittext.MaterialEditText etNationalCode_5, etFamily_5, etName_5;
-    private LinearLayout llBoxTicket1, llBoxTicket2, llBoxTicket3, llBoxTicket4, llBoxTicket5;
+    private LinearLayout llBoxTicket1, llBoxTicket2, llBoxTicket3, llBoxTicket4, llBoxTicket5,llPaymentGateway,llPaymentWallet;
     private TextView tvStation_1, tvStation_2, tvStation_3, tvStation_4, tvStation_5;
     private TextView tvPerson_1, tvPerson_2, tvPerson_3, tvPerson_4, tvPerson_5;
     private ImageView imgDelete1, imgDelete2, imgDelete3, imgDelete4, imgDelete5;
@@ -97,6 +108,7 @@ public class CompeletInfoFragment
     private int counterPerson = 0;
     private NestedScrollView nested;
     private LinearLayout llTickets, llGateWaye;
+    private EditText etPin2;
 
     //GateWaye
     private String url = "";
@@ -104,15 +116,15 @@ public class CompeletInfoFragment
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    private View imgBack, imgMenu;
+    private View imgBack, imgMenu,btnBuyWallet,btnBackWallet;
     private ArrayList<MatchItem> matchBuyable;
 
     private String amount = "";
     private String title = "";
     private int imageDrawable = 1;
     private String mobile = "";
-    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay;
-    private ImageView imgLogo;
+    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay,tvAmountPay,tvTitlePayWallet;
+    private ImageView imgLogo,imgLogoWallet;
 
     private SimChargePaymentInstance simChargePaymentInstance;
     private int PAYMENT_STATUS;
@@ -124,6 +136,7 @@ public class CompeletInfoFragment
     private CircularProgressButton btnBuy;
 
     public static CompeletInfoFragment fragment;
+    private PaymentWalletImpl paymentWallet;
 
 
     public CompeletInfoFragment()
@@ -183,7 +196,17 @@ public class CompeletInfoFragment
         tvAmountF = view.findViewById(R.id.tvAmountF);
         llConfirmff = view.findViewById(R.id.llConfirmff);
         btnBackF = view.findViewById(R.id.btnBackF);
+        btnBackWallet=view.findViewById(R.id.btnBackWallet);
         btnBuy = view.findViewById(R.id.btnBuy);
+        btnBuyWallet=view.findViewById(R.id.btnBuyWallet);
+        btnBuyWallet.setOnClickListener(this);
+        btnBackWallet.setOnClickListener(v -> {
+
+            llGateWaye.setVisibility(View.GONE);
+            llTickets.setVisibility(View.VISIBLE);
+            ((BuyTicketsActivity) getActivity()).onBackPayment();
+
+        });
         btnBackF.setOnClickListener(v ->
         {
             llGateWaye.setVisibility(View.GONE);
@@ -203,6 +226,8 @@ public class CompeletInfoFragment
 
     public void initView()
     {
+        paymentMatchRequest = new PaymentMatchRequest();
+
         etNationalCode_1 = view.findViewById(R.id.etNationalCode_1);
         etFamily_1 = view.findViewById(R.id.etFamily_1);
         etName_1 = view.findViewById(R.id.etName_1);
@@ -223,6 +248,16 @@ public class CompeletInfoFragment
 
         llTickets = view.findViewById(R.id.llTickets);
         llGateWaye = view.findViewById(R.id.llGateWaye);
+
+        tvBalance=view.findViewById(R.id.tvBalance);
+        tvDate=view.findViewById(R.id.tvDate);
+        tvAmountPay=view.findViewById(R.id.tvAmountPay);
+        tvTitlePayWallet=view.findViewById(R.id.tvTitlePayWallet);
+        imgLogoWallet=view.findViewById(R.id.imgLogoWallet);
+        etPin2=view.findViewById(R.id.etPin2);
+
+        llPaymentGateway=view.findViewById(R.id.llPaymentGateway);
+        llPaymentWallet=view.findViewById(R.id.llPaymentWallet);
 
 
         etNationalCode_4 = view.findViewById(R.id.etNationalCode_4);
@@ -406,6 +441,7 @@ public class CompeletInfoFragment
             }
         };
         paymentTicket = new PaymentTicketImpl();
+        paymentWallet = new PaymentWalletImpl();
         rulesStadium = new RulesStadiumImpl();
         initView();
         initGateWayView();
@@ -562,13 +598,46 @@ public class CompeletInfoFragment
         switch (view.getId())
         {
             case R.id.tvGateway:
-                viewPager.setCurrentItem(0, true);
+               // viewPager.setCurrentItem(0, true);
+                llPaymentGateway.setVisibility(View.VISIBLE);
+                llPaymentWallet.setVisibility(View.GONE);
                 tvGateway.setBackgroundResource(R.drawable.background_border_a);
                 tvWallet.setBackgroundColor(Color.TRANSPARENT);
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
                 tvWallet.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 tvGateway.setTextColor(getResources().getColor(R.color.borderColorRed));
-                tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.gray));
+                break;
+
+            case R.id.tvWallet:
+                //viewPager.setCurrentItem(2, true);
+                requestGetBalance();
+                llPaymentGateway.setVisibility(View.GONE);
+                llPaymentWallet.setVisibility(View.VISIBLE);
+                tvWallet.setBackgroundResource(R.drawable.background_border_a);
+                tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
+                tvGateway.setBackgroundColor(Color.TRANSPARENT);
+                tvWallet.setTextColor(getResources().getColor(R.color.borderColorRed));
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.gray));
+                tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                break;
+
+            case R.id.btnBuyWallet:
+
+                if (etPin2.getText().toString() != null && etPin2.getText().toString().length() > 3)
+                {
+                    ((BuyTicketsActivity) getActivity()).showLoading();
+
+                   // paymentMatchRequest.setViewers(infoViewers);
+                    paymentMatchRequest.setPin2(etPin2.getText().toString());
+                    paymentWallet.paymentWalletRequest(this,paymentMatchRequest);
+
+                } else
+                {
+                    ShowAlertFailure(getContext(),"رمز کارت وارد نشده است.","",true);
+
+                }
+
 
                 break;
             case R.id.imgDelete1:
@@ -674,6 +743,60 @@ public class CompeletInfoFragment
         }
     }
 
+
+    private void requestGetBalance()
+    {
+        ((BuyTicketsActivity) getActivity()).showLoading();
+        GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
+        request.setIsWallet(true);
+        SingletonService.getInstance().getBalancePasswordLessService().GetBalancePasswordLessService(new OnServiceStatus<WebServiceClass<GetBalancePasswordLessResponse>>()
+        {
+
+
+            @Override
+            public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response)
+            {
+                ((BuyTicketsActivity) getActivity()).hideLoading();
+
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        setBalanceData(response.data);
+
+                    } else
+                    {
+
+                        ((BuyTicketsActivity) getActivity()).showError(response.info.message);
+
+
+                    }
+                } catch (Exception e)
+                {
+                    ((BuyTicketsActivity) getActivity()).showError(e.getMessage());
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                ((BuyTicketsActivity) getActivity()).hideLoading();
+
+                ((BuyTicketsActivity) getActivity()).showError(message);
+
+            }
+        }, request);
+    }
+
+    private void setBalanceData(GetBalancePasswordLessResponse data)
+    {
+        tvBalance.setText(Utility.priceFormat(data.getBalanceAmount()));
+        tvDate.setText(data.getDateTime());
+    }
 
     private void showDialogDelete()
     {
@@ -1877,11 +2000,16 @@ public class CompeletInfoFragment
     public void onFinishedPaymentTicket(PaymentMatchResponse response)
     {
         ((BuyTicketsActivity) getActivity()).hideLoading();
+        List<Viewers> infoViewers_n = new ArrayList<>(infoViewers);
 
-        paymentMatchRequest = new PaymentMatchRequest();
+
+
+        paymentMatchRequest.setViewers(infoViewers_n);
+
         paymentMatchRequest.setAmount(amountForPay);
-        paymentMatchRequest.setViewers(infoViewers);
         String title = "با انجام این پرداخت ، مبلغ" + Utility.priceFormat(Integer.toString(amountForPay)) + " ریال بابت خرید" + " " + count + " " + "بلیت بازی ازحساب شما کسر خواهد شد.";
+
+
         /*String title = "با انجام این پرداخت ، مبلغ" + Utility.priceFormat(Integer.toString(amountForPay)) + "ریال بابت خرید" + " " + count + " " + "بلیت بازی ازحساب شما کسر خواهد شد.";
         SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(response.getUrl(), mainView, R.drawable.icon_payment_ticket,
                 title, Utility.priceFormat(Integer.toString(amountForPay)),
@@ -1895,7 +2023,19 @@ public class CompeletInfoFragment
         //((BuyTicketsActivity) getActivity()).openWebPayment(response.getUrl());
         llGateWaye.setVisibility(View.VISIBLE);
         llTickets.setVisibility(View.GONE);
+        llPaymentWallet.setVisibility(View.GONE);
+        llPaymentGateway.setVisibility(View.VISIBLE);
+
+        tvGateway.setBackgroundResource(R.drawable.background_border_a);
+        tvWallet.setBackgroundColor(Color.TRANSPARENT);
+        tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
+        tvWallet.setTextColor(getResources().getColor(R.color.returnButtonColor));
+        tvGateway.setTextColor(getResources().getColor(R.color.borderColorRed));
+        tvCardsShetab.setTextColor(getResources().getColor(R.color.gray));
+
         tvTitlePayF.setText(title);
+        tvTitlePayWallet.setText(title);
+        tvAmountPay.setText(Utility.priceFormat(Integer.toString(amountForPay)));
         tvAmountF.setText(Utility.priceFormat(Integer.toString(amountForPay)));
         infoViewers.clear();
         urlf = response.getUrl();
@@ -2010,6 +2150,24 @@ public class CompeletInfoFragment
     public void onResume()
     {
         super.onResume();
+
+    }
+
+    @Override
+    public void onFinishedPaymentWallet(ResponsePaymentWallet response)
+    {
+        ((BuyTicketsActivity) getActivity()).hideLoading();
+
+        Intent intent = new Intent(getContext(), ShowTicketActivity.class);
+        intent.putExtra("RefrenceNumber", response.getRefNumber());
+        getContext().startActivity(intent);
+    }
+
+    @Override
+    public void onErrorPaymentWallet(String error)
+    {
+        ((BuyTicketsActivity) getActivity()).hideLoading();
+        ShowAlertFailure(context,error,"",false);
 
     }
 }

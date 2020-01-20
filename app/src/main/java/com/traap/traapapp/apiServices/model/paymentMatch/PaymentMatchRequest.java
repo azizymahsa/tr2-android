@@ -15,7 +15,7 @@ public class PaymentMatchRequest
     private String pin2;
     @SerializedName("viewers")
     @Expose
-    private List<Viewers> viewers = null;
+    private List<Viewers> viewers;
     @SerializedName("cvv2")
     @Expose
     private String cvv2;
