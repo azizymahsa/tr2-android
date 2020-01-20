@@ -126,6 +126,7 @@
 
             <ImageView
                 android:id="@+id/ivDec"
+                android:layout_above="@+id/lnrInventory"
                 android:layout_width="@dimen/_20dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
