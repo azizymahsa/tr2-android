@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.text.method.BaseKeyListener;
+import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -400,13 +402,13 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 {
                     if (isPredictable)
                     {
-                        edtHomePredict.setText(response.data.getYouPredictResult().getHomeScore());
-                        edtAwayPredict.setText(response.data.getYouPredictResult().getAwayScore());
+                        edtHomePredict.setText(String.valueOf(response.data.getYouPredictResult().getHomeScore()));
+                        edtAwayPredict.setText(String.valueOf(response.data.getYouPredictResult().getAwayScore()));
                     }
                     else
                     {
-                        tvHomePredict.setText(response.data.getYouPredictResult().getHomeScore());
-                        tvAwayPredict.setText(response.data.getYouPredictResult().getAwayScore());
+                        tvHomePredict.setText(String.valueOf(response.data.getYouPredictResult().getHomeScore()));
+                        tvAwayPredict.setText(String.valueOf(response.data.getYouPredictResult().getAwayScore()));
 
                         sepHome.setVisibility(View.GONE);
                         sepAway.setVisibility(View.GONE);
@@ -707,7 +709,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             }
             else
             {
-                if (Integer.parseInt(s.toString()) > 2)
+                if (Integer.parseInt(s.toString()) > 1)
                 {
                     fArray[0] = new InputFilter.LengthFilter(1);
                 }
