@@ -14,6 +14,8 @@
 
     <dimen name="margin_static">1dp</dimen>
     <dimen name="win_lose_view_height">30dp</dimen>
+    <dimen name="point_card_radius">80dp</dimen>
+    <dimen name="point_text_height">80dp</dimen>
 
     <item name="gmdtp_circle_radius_multiplier" format="float" type="string" translatable="false">0.82</item>
     <item name="gmdtp_circle_radius_multiplier_24HourMode" format="float" type="string" translatable="false">0.85</item>

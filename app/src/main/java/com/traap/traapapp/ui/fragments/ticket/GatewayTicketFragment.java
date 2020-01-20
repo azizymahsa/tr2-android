@@ -99,7 +99,7 @@ public class GatewayTicketFragment extends BaseFragment implements OnAnimationEn
 
 
         rootView = inflater.inflate(R.layout.select_payment_fragment, container, false);
-        initView();
+        setPager();
 
 
         setContent();
@@ -153,7 +153,7 @@ public class GatewayTicketFragment extends BaseFragment implements OnAnimationEn
     }
 
 
-    private void initView()
+    private void setPager()
     {
 
 

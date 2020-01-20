@@ -80,7 +80,6 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImp
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyImpl;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyImpl;
-import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
@@ -1959,7 +1958,7 @@ public class ChargeFragment extends BaseFragment
     {
 
         mainView.hideLoading();
-        ShowAlertFailure(((Activity) context), message, "", false);
+        showAlertFailure(((Activity) context), message, "", false);
     }
 
     @Override
