@@ -73,7 +73,8 @@
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 
--keep class eniac.shetac.model.** { *; }
+-keep class com.traap.traapapp.apiServices.model.** { *; }
+-keep class com.traap.traapapp.** { *; }
 -keep class com.wooplr.spotlight.** { *; }
 -keep interface com.wooplr.spotlight.**
 -keep enum com.wooplr.spotlight.**
@@ -156,3 +157,4 @@
 
 -keep class com.uxcam.** { *; }
 -dontwarn com.uxcam.**
+-keepnames class **
