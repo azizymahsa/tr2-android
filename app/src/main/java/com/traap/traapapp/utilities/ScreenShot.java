@@ -13,6 +13,8 @@ import android.view.View;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -89,7 +91,7 @@ public class ScreenShot
 
     }
 
-    public ScreenShot(View v, final Activity activity_,boolean isSava)
+    public ScreenShot(View v, final Activity activity_,boolean isSava,String message)
     {
         this.view = v;
         this.activity = activity_;
@@ -120,6 +122,10 @@ public class ScreenShot
                         try
                         {
                             store(bitmap, picName);
+                            if (isSava)
+                            {
+                                showDialogSuccessSaveToGallery();
+                            }
                         }
                         catch (Exception e)
                         {
@@ -128,10 +134,14 @@ public class ScreenShot
 
                         final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/Screenshots/", picName);
 
-                       /* Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                        sharingIntent.setType("image/jpg");
-                        sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
-                        activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));*/
+                        if (!isSava)
+                        {
+                            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                            sharingIntent.setType("image/jpg");
+                            sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
+                            activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                        }
+
 
 
                     }
@@ -139,6 +149,26 @@ public class ScreenShot
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
+
+                        MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(activity, "",
+                                message,
+                                true,"نمایش دوباره دسترسی","انصراف",  MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                getPermission(bitmap,message,isSava);
+                            }
+
+                            @Override
+                            public void onCancelClick()
+                            {
+
+                            }
+                        }
+                        );
+                        dialog.show(activity.getFragmentManager(), "dialogMessage");
+
 
                     }
                 })
@@ -149,6 +179,88 @@ public class ScreenShot
 
     }
 
+    private void showDialogSuccessSaveToGallery()
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog(activity, "", "رسید شما با موفقیت در گالری ذخیره شد.", false,
+                MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+
+        dialog.setCancelable(false);
+        dialog.show(activity.getFragmentManager(), "messageDialog");
+    }
+
+    public void getPermission(Bitmap bitmap, String message, boolean isSava){
+        new TedPermission(activity)
+                .setPermissionListener(new PermissionListener()
+                {
+                    @Override
+                    public void onPermissionGranted()
+                    {
+
+                        try
+                        {
+                            store(bitmap, picName);
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/Screenshots/", picName);
+
+                        if (!isSava)
+                        {
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        sharingIntent.setType("image/jpg");
+                        sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
+                        activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
+
+                        MessageAlertPermissionDialog dialog =new MessageAlertPermissionDialog(activity, "",
+                                message,
+                                true,"نمایش دوباره دسترسی","انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                        {
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                getPermission(bitmap,message,isSava);
+                            }
+
+                            @Override
+                            public void onCancelClick()
+                            {
+
+                            }
+                        }
+                        );
+                        dialog.show(activity.getFragmentManager(), "dialogMessage");
+
+
+                    }
+                })
+                .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .check();
+    }
 
     public void store(Bitmap bm, String fileName)
     {
