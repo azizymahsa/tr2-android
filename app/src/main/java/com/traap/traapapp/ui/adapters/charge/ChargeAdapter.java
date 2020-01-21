@@ -1,31 +1,21 @@
-package com.traap.traapapp.ui.adapters.adapter;
+package com.traap.traapapp.ui.adapters.charge;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.Context;
-import android.text.TextUtils;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableLayout;
-import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
-import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.github.aakira.expandablelayout.Utils;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.availableAmount.Result;
-import com.traap.traapapp.apiServices.model.getRightelPack.response.Detail;
-import com.traap.traapapp.models.otherModels.pack.RightelPackModel;
 import com.traap.traapapp.ui.adapters.pack.DetailPackAdapter;
-import com.traap.traapapp.utilities.SimpleDividerItemDecoration;
 import com.traap.traapapp.utilities.Utility;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;

@@ -264,7 +264,8 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             }
 
 
-        } else if (v.getId() == R.id.btnBack)
+        }
+        else if (v.getId() == R.id.btnBack)
         {
             mainView.onBackToChargFragment(PAYMENT_STATUS);
         }
