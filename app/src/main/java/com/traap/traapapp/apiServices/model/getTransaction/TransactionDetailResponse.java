@@ -3,6 +3,9 @@ package com.traap.traapapp.apiServices.model.getTransaction;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by MahtabAzizi on 12/11/2019.
  */
@@ -38,6 +41,12 @@ public class TransactionDetailResponse
     @SerializedName("type_transaction_id")
     @Expose
     private Integer typeTransactionId;
+
+    @SerializedName("mobile_number")
+    @Expose
+    @Getter
+    @Setter
+    private String mobile;
 
     @SerializedName("detail")
     @Expose

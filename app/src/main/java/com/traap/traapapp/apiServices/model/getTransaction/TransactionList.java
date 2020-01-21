@@ -43,4 +43,8 @@ public class TransactionList
     @SerializedName("type_transaction_id")
     @Expose @Getter @Setter
     private Integer typeTransactionId;
+
+    @SerializedName("detail")
+    @Expose @Getter @Setter
+    private Detail detail;
 }
