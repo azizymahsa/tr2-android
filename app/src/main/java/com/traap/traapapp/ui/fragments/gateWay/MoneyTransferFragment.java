@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.core.view.ViewCompat;
 
@@ -60,6 +61,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     private MainActionView mainView;
     private ClearableEditText etCardNumber, etPhoneNum, etUserCode, etAmount;
     private EditText etPass;
+    private TextView txtChrAmount;
     private ImageView ivContact, ivCreditCart;
     private Spinner spinnerType;
     private String[] ListType = {"کدمشتری", "شماره کارت", "شماره موبایل"};
@@ -108,7 +110,36 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
         EventBus.getDefault().post(walletTitle);
 
+        etAmount.addTextChangedListener(new TextWatcher()
+        {
+            private String current = "";
 
+            @Override
+            public void afterTextChanged(Editable ss)
+            {
+                if (etAmount.getText().toString().replaceAll(",", "").equals(""))
+                    etAmount.setText("0");
+
+                if (etAmount.getText().toString().length() > 2)
+                    txtChrAmount.setText(ConvertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(etAmount.getText().toString().replaceAll(",", ""))), "ریال"));
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
+            {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+
+        });
         return rootView;
     }
 
@@ -144,6 +175,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         etPhoneNum = rootView.findViewById(R.id.etPhoneNum);
         etUserCode = rootView.findViewById(R.id.etUserCode);
         etAmount = rootView.findViewById(R.id.etAmount);
+        txtChrAmount = rootView.findViewById(R.id.txtChrAmount);
         etPass = rootView.findViewById(R.id.etPass);
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(19);
