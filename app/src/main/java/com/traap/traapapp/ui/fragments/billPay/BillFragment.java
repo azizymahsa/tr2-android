@@ -239,7 +239,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     private void initView()
     {
-        Log.e("sssss", "initView: ");
+        Log.e("sssss", "setPager: ");
         if (getArguments() != null)
         {
             idSelectedBillType = getArguments().getInt("ID_BILL_TYPE");

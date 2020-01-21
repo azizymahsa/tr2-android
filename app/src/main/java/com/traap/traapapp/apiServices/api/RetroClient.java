@@ -10,6 +10,7 @@ import com.traap.traapapp.apiServices.model.GlobalResponse2;
 import com.traap.traapapp.apiServices.model.GlobalResponse3;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
+import com.traap.traapapp.apiServices.model.availableAmount.AvailableAmounResponse;
 import com.traap.traapapp.apiServices.model.billPayment.request.BillPaymentRequest;
 import com.traap.traapapp.apiServices.model.billPayment.response.BillPaymentResponse;
 import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
@@ -663,6 +664,9 @@ public interface RetroClient
 
     @GET(Const.NEWS_DETAILS_GET_BOOKMARK)
     Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsBookmarks();
+
+    @GET(Const.AvailableAmount)
+    Single<Response<WebServiceClass<AvailableAmounResponse>>> getAvailableAmount();
 
 
 

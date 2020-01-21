@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -648,7 +647,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             }
                             else
                             {
-                                ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+                                showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
                             }
                         }
                     });
@@ -774,7 +773,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         }
                         else
                         {
-                            ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+                            showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
                         }
                         finishSendData(anError + " ");
                     }
@@ -854,7 +853,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             EventBus.getDefault().post(headerModel);
 
             //success
-            ShowAlertSuccess(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", "", false);
+            showAlertSuccess(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", "", false);
 
 //            finish();
 
@@ -870,7 +869,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
             else
             {
-                ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+                showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
             }
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
@@ -884,7 +883,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             {
                 message = message + "\n" + photoErrorMessage;
             }
-            ShowAlertFailure(UserProfileActivity.this, message, getString(R.string.error), false);
+            showAlertFailure(UserProfileActivity.this, message, getString(R.string.error), false);
         }
 //        else
 //        {
@@ -1055,7 +1054,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     }
                     else
                     {
-                        ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+                        showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
                     }
                 }
 
@@ -1095,7 +1094,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         else
         {
-            ShowAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+            showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
         }
     }
 

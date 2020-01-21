@@ -180,6 +180,7 @@ public class Const
 
 
     public final static String GetReport = SubBASEURL + "v1/shetac/get_report/";
+    public final static String AvailableAmount = SubBASEURL + "v1/topupcharge/available_amount/";
 
 
 }
