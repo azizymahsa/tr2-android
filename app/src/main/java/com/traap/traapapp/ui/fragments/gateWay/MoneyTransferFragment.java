@@ -159,7 +159,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
 
         InputFilter[] filterUserCode = new InputFilter[1];
-        filterUserCode[0] = new InputFilter.LengthFilter(5);
+        filterUserCode[0] = new InputFilter.LengthFilter(15);
         etUserCode.setFilters(filterUserCode);
 
         btnConfirm = rootView.findViewById(R.id.btnConfirm);
@@ -357,10 +357,10 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
                 mainView.showError("لطفا کد مشتری را وارد نمایید.");
                 return;
             }
-            if (etUserCode.getText().length() < 4)
+            if (etUserCode.getText().length() <= 4)
             {
 
-                mainView.showError("لطفا کد مشتری را صحیح وارد نمایید.");
+                mainView.showError("لطفا کد مشتری را صحیح وارد نمایید.(حداقل 5 رقم)");
                 return;
             }
 
