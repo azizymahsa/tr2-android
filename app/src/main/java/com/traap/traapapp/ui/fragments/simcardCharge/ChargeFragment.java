@@ -1923,7 +1923,7 @@ public class ChargeFragment extends BaseFragment
     {
 
         mainView.hideLoading();
-        ShowAlertFailure(((Activity) context), message, "", false);
+        showAlertFailure(((Activity) context), message, "", false);
     }
 
     @Override

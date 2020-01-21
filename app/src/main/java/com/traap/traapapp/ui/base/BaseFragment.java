@@ -50,24 +50,48 @@ public class BaseFragment extends Fragment
 
     public void showAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_SUCCESS);
-        dialog.show(((Activity) context).getFragmentManager(), "dialog");
-
-        if (finish)
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
+                MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
         {
-            ((Activity) context).finish();
-        }
+            @Override
+            public void onConfirmClick()
+            {
+                if (finish)
+                {
+                    ((Activity) context).finish();
+                }
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
     public void showAlertFailure(Context context, String Msg, String mTitle, boolean finish)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_ERROR);
-        dialog.show(((Activity) context).getFragmentManager(), "dialog");
-
-        if (finish)
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
+                MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
         {
-            ((Activity) context).finish();
-        }
+            @Override
+            public void onConfirmClick()
+            {
+                if (finish)
+                {
+                    ((Activity) context).finish();
+                }
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
     public static void showAlert(Context context, String Msg, int title)
