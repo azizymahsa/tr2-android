@@ -649,7 +649,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         minPrice = 0;
         tvMaxPrice.setText("10,000,000 زیال");
         tvMinPrice.setText("0 زیال");
-        rangeBar.setProgress(0f, 20f);
+        rangeBar.setProgress(0f, RANGEBAR_STEP_COUNT);
 
 
     }

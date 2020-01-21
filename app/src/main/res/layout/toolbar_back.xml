@@ -63,13 +63,13 @@
 
                 <ImageView
                     android:id="@+id/imgBack1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/_35dp"
+                    android:layout_height="@dimen/_20dp"
                     android:layout_gravity="center_vertical|left"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:tint="@color/mainMenuColor"
-                    android:src="@drawable/arrowleft" />
+                    android:src="@drawable/ic_undo" />
 
                 <TextView
                     android:id="@+id/tvTitle"
