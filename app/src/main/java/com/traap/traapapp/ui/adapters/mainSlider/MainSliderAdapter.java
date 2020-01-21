@@ -243,6 +243,8 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
             @Override
             public void onClick(View view)
             {
+                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+
                 if (mItemClickListener != null)
                 {
                     if (holder.tvBuyTicket.getCurrentTextColor() == Color.WHITE)
@@ -354,6 +356,7 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
         {
             if (mItemClickListener != null)
             {
+
                 mItemClickListener.onSliderItemClick(view, list.get(getAdapterPosition()).getId(), getAdapterPosition());
             }
         }

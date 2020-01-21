@@ -117,20 +117,39 @@
                             android:text="(  ریال)"
                             android:textColor="@color/black"
                             android:padding="10dp" />
-                        <TextView
-                            android:id="@+id/txtCustomerName"
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="2dp"
                             android:layout_marginTop="2dp"
                             android:layout_marginRight="8dp"
                             android:layout_marginLeft="8dp"
+                            android:padding="10dp"
                             android:gravity="center"
-                            android:text="به کارت کیف پول "
-                            android:textSize="@dimen/textSize_14dp"
+                            android:orientation="horizontal">
 
-                            android:textColor="@color/black"
-                            android:padding="10dp" />
+                            <TextView
+                                android:id="@+id/txtCustomerName"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:layout_marginRight="5dp"
+                                android:textSize="@dimen/textSize_14dp"
+                                android:textColor="@color/black"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="به: کارت کیف پول "
+                                android:textSize="@dimen/textSize_14dp"
+                                android:textColor="@color/black"
+                                />
+
+                        </LinearLayout>
+
 
                         <TextView
                             android:id="@+id/txtName"
@@ -142,6 +161,7 @@
                             android:layout_marginBottom="2dp"
                             android:gravity="center"
                             android:padding="10dp"
+
                             android:text=":بنام"
                             android:textSize="@dimen/textSize_16dp"
                             android:textColor="@color/black"
