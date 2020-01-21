@@ -106,7 +106,7 @@ public class PointsRecordFragment extends BaseFragment implements OnServiceStatu
         {
             if (response.info.statusCode != 200)
             {
-                showAlertFailure(context, response.info.message, "", false);
+                showAlertFailure(context, response.info.message, "", true);
             }
             else
             {
@@ -145,11 +145,11 @@ public class PointsRecordFragment extends BaseFragment implements OnServiceStatu
         if (Tools.isNetworkAvailable((Activity) context))
         {
             Logger.e("-PointsRecord onError-", "message: " + message);
-            showAlertFailure(context, "خطای دسترسی به سرور!", "", false);
+            showAlertFailure(context, "خطای دسترسی به سرور!", "", true);
         }
         else
         {
-            showAlertFailure(context, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+            showAlertFailure(context, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
         }
     }
 }

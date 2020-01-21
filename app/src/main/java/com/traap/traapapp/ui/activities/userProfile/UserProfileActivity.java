@@ -647,7 +647,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             }
                             else
                             {
-                                showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+                                showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
                             }
                         }
                     });
@@ -773,7 +773,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         }
                         else
                         {
-                            showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+                            showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
                         }
                         finishSendData(anError + " ");
                     }
@@ -853,7 +853,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             EventBus.getDefault().post(headerModel);
 
             //success
-            showAlertSuccess(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", "", false);
+            showAlertSuccess(UserProfileActivity.this, "اطلاعات کاربری شما با موفقیت بروزرسانی شد.", "", true);
 
 //            finish();
 
@@ -869,7 +869,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
             else
             {
-                showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+                showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
             }
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
@@ -1054,7 +1054,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     }
                     else
                     {
-                        showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+                        showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
                     }
                 }
 
@@ -1094,7 +1094,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
         else
         {
-            showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), false);
+            showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
         }
     }
 
