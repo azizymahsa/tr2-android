@@ -406,7 +406,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     {
         String txtAmountDigit = " مبلغ: " + etAmount.getText().toString() + " ریال ";
         String txtAmountChar = "(" + convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(etAmount.getText().toString().replaceAll(",", ""))), "ریال") + ")";
-        String txtUserName = data.getFull_name() + " به: کارت کیف پول ";
+        String txtUserName = data.getFull_name();
         String txtName = "";
 
         MoneyTransferAlertDialog dialog = new MoneyTransferAlertDialog(getActivity(), "تایید انتقال وجه از کیف پول", "از : کارت کیف پول " + TrapConfig.HEADER_USER_NAME, true,
