@@ -157,7 +157,7 @@ public class ScreenShot
                             @Override
                             public void onConfirmClick()
                             {
-                                getPermission(bitmap,message);
+                                getPermission(bitmap,message,isSava);
                             }
 
                             @Override
@@ -201,7 +201,7 @@ public class ScreenShot
         dialog.show(activity.getFragmentManager(), "messageDialog");
     }
 
-    public void getPermission(Bitmap bitmap,String message){
+    public void getPermission(Bitmap bitmap, String message, boolean isSava){
         new TedPermission(activity)
                 .setPermissionListener(new PermissionListener()
                 {
@@ -220,10 +220,13 @@ public class ScreenShot
 
                         final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/Screenshots/", picName);
 
-                       /* Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        if (!isSava)
+                        {
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                         sharingIntent.setType("image/jpg");
                         sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
-                        activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));*/
+                        activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                        }
 
 
                     }
@@ -239,7 +242,7 @@ public class ScreenShot
                             @Override
                             public void onConfirmClick()
                             {
-                                getPermission(bitmap,message);
+                                getPermission(bitmap,message,);
                             }
 
                             @Override
