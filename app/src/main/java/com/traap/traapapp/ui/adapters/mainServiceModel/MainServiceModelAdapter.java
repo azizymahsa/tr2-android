@@ -116,7 +116,7 @@ public class MainServiceModelAdapter extends RecyclerView.Adapter<MainServiceMod
         {
             if (mItemClickListener != null)
             {
-                mItemClickListener.onChosenItemClick(view,  list.get(getAdapterPosition()).getId(),list.get(getAdapterPosition()).getBase_url());
+                mItemClickListener.onChosenItemClick(view,  list.get(getAdapterPosition()).getId(),list.get(getAdapterPosition()).getLogin_url());
             }
         }
     }
