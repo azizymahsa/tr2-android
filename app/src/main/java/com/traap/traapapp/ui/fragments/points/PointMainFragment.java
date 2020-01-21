@@ -30,6 +30,8 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveCategoryFragment;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
+import com.traap.traapapp.ui.fragments.points.groupBy.PointsGroupByFragment;
+import com.traap.traapapp.ui.fragments.points.guide.PointsGuideFragment;
 import com.traap.traapapp.ui.fragments.points.records.PointsRecordFragment;
 import com.traap.traapapp.utilities.CustomViewPager;
 import com.traap.traapapp.utilities.Logger;
@@ -166,11 +168,11 @@ public class PointMainFragment extends BaseFragment
             {
                 case 2:
                 {
-
+                    return PointsGuideFragment.newInstance();
                 }
                 case 1:
                 {
-
+                    return PointsGroupByFragment.newInstance();
                 }
                 case 0:
                 {
