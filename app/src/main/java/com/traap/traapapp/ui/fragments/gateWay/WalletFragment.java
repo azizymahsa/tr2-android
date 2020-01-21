@@ -61,8 +61,11 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 /**
  * Created by MahtabAzizi on 12/8/2019.
  */
-public class WalletFragment extends BaseFragment implements View.OnClickListener, OnRangeChangedListener, DatePickerDialog.OnDateSetListener {
+public class WalletFragment extends BaseFragment implements View.OnClickListener, OnRangeChangedListener, DatePickerDialog.OnDateSetListener
+{
     private static int MAX_PRICE_DEFAULT = 10000000;
+    private static int RANGEBAR_STEP = 200000;
+    private static Float RANGEBAR_STEP_COUNT = 50f;
     private MainActionView mainView;
     private View rootView;
     private TextView tvBalance, tvDate;
@@ -70,7 +73,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private ImageView imgCart;
     private View imgBack, imgMenu;
     private TextView tvTitle, tvUserName, tvHeaderPopularNo;
-    private TextView txtFullName, customNo, cartNo;
+    private TextView txtFullName, customNo, cartNo,tvWalletName;
     private View btnForgetPass;
     private View btnBack, rlImageProfile, incBackCart, incFrontCart, lnrInventory;
     private NestedScrollView scrollView;
@@ -91,28 +94,32 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private int endDay = 0, endMonth = 0, endYear = 0;
     private int startDay = 0, startMonth = 0, startYear = 0;
     private String filterStartDate = "", filterEndDate = "";
-    private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose, imgSearch,ivRefreshing;
+    private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose, imgSearch, ivRefreshing;
     private CircularProgressButton btnConfirmFilter, btnDeleteFilter;
     private String idFilteredList = "", titleFilteredList = "";
-    private String TitleFragment="کیف پول";
+    private String TitleFragment = "کیف پول";
 
-    public WalletFragment() {
+    public WalletFragment()
+    {
 
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
-    public static WalletFragment newInstance(MainActionView mainView) {
+    public static WalletFragment newInstance(MainActionView mainView)
+    {
         WalletFragment fragment = new WalletFragment();
         fragment.setMainView(mainView);
         return fragment;
@@ -159,7 +166,9 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView != null)
+        {
             return rootView;
+        }
         rootView = inflater.inflate(R.layout.fragment_wallet, container, false);
         initView();
 
@@ -208,6 +217,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private void initView() {
         try {
             rlShirt = rootView.findViewById(R.id.rlShirt);
+            tvWalletName = rootView.findViewById(R.id.tvWalletName);
             slidingLayout = rootView.findViewById(R.id.slidingLayout);
             rangeBar = rootView.findViewById(R.id.rangeBar);
             imgEndDateReset = rootView.findViewById(R.id.imgDateToReset);
@@ -223,6 +233,9 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
+
+            tvWalletName.setText(TrapConfig.HEADER_USER_NAME);
             tvHeaderPopularNo = rootView.findViewById(R.id.tvPopularPlayer);
             tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
             imgMenu = rootView.findViewById(R.id.imgMenu);

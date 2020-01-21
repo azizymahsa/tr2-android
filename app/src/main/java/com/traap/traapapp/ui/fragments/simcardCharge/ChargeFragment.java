@@ -1059,12 +1059,12 @@ public class ChargeFragment extends BaseFragment
 
 
 
-                Toast.makeText(context, "شارژ عادی", Toast.LENGTH_SHORT).show();
                 chargeType = "0";
                 profileType = 0;
                 chargeName = "شارژ عادی";
 
             }
+            irancellFilter(simcardType,profileType);
 
         });
 
@@ -1149,6 +1149,7 @@ public class ChargeFragment extends BaseFragment
                 {
                     simcardType = SIMCARD_TYPE_ETEBARI;
                 }
+                irancellFilter(simcardType,profileType);
             }
 
             @Override
@@ -1923,7 +1924,7 @@ public class ChargeFragment extends BaseFragment
     {
 
         mainView.hideLoading();
-        showAlertFailure(((Activity) context), message, "", false);
+        showError(message);
     }
 
     @Override
@@ -2307,7 +2308,7 @@ public class ChargeFragment extends BaseFragment
                   rvMciAmount.setAdapter(new ChargeAdapter(mciResultList,getActivity(),ChargeFragment.this));
                  // rvIrancellAmount.setAdapter(new ChargeAdapter(mtnResultList,getActivity(),ChargeFragment.this));
                   rvRightelAmount.setAdapter(new ChargeAdapter(rightelResultList,getActivity(),ChargeFragment.this));
-                  irancellFilter(0,1);
+                  irancellFilter(0,0);
 
 
 

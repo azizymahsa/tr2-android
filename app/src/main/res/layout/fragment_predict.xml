@@ -353,6 +353,7 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:textSize="@dimen/textSize_18dp"
+                android:visibility="gone"
                 android:textColor="@color/textColorPrimary"
                 android:text="تاکنون کسی اقدام به پیش بینی نکرده است."/>
 

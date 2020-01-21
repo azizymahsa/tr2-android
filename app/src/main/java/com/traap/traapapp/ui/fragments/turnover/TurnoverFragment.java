@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
@@ -29,7 +30,8 @@ import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class TurnoverFragment extends BaseFragment {
+public class TurnoverFragment extends BaseFragment
+{
 
 
     private View rootView;
@@ -41,18 +43,21 @@ public class TurnoverFragment extends BaseFragment {
     private ClearableEditText edtSearchText;
 
 
-    public static TurnoverFragment newInstance(MainActionView mainView) {
+    public static TurnoverFragment newInstance(MainActionView mainView)
+    {
         TurnoverFragment f = new TurnoverFragment();
         f.setMainView(mainView);
         return f;
     }
 
-    private void setMainView(MainActionView mainView) {
+    private void setMainView(MainActionView mainView)
+    {
         this.mainView = mainView;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
@@ -60,7 +65,8 @@ public class TurnoverFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         rootView = inflater.inflate(R.layout.fragment_turn_over, container, false);
         initView();
 
@@ -68,8 +74,8 @@ public class TurnoverFragment extends BaseFragment {
     }
 
 
-
-    private void initView() {
+    private void initView()
+    {
         vp = rootView.findViewById(R.id.vp);
         tabLayout = rootView.findViewById(R.id.tabLayout);
         btnFilter = rootView.findViewById(R.id.btnFilter);
@@ -77,25 +83,28 @@ public class TurnoverFragment extends BaseFragment {
         edtSearchText = rootView.findViewById(R.id.edtSearchText);
 
 
-        vp.setAdapter(new TurnOverPagerAdapter(getActivity().getSupportFragmentManager(),mainView));
+        vp.setAdapter(new TurnOverPagerAdapter(getActivity().getSupportFragmentManager(), mainView));
         vp.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(vp);
-        changeFontInViewGroup(tabLayout,"fonts/iran_sans_normal.ttf");
+        changeFontInViewGroup(tabLayout, "fonts/iran_sans_normal.ttf");
         vp.setCurrentItem(2);
 
-        btnFilter.setOnClickListener(v -> {
+        btnFilter.setOnClickListener(v ->
+        {
             ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
             clickTurnOverEvent.setFilterClick(true);
             EventBus.getDefault().post(clickTurnOverEvent);
         });
 
 
-
-        imgSearch.setOnClickListener(v -> {
+        imgSearch.setOnClickListener(v ->
+        {
             ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
             clickTurnOverEvent.setSearchClick(true);
             if (TextUtils.isEmpty(edtSearchText.getText().toString()))
+            {
                 return;
+            }
             clickTurnOverEvent.setSearch(edtSearchText.getText().toString());
 
             EventBus.getDefault().post(clickTurnOverEvent);
@@ -103,11 +112,14 @@ public class TurnoverFragment extends BaseFragment {
 
 
         });
-        imgSearch.setOnClickListener(v -> {
+        imgSearch.setOnClickListener(v ->
+        {
             ClickTurnOverEvent clickTurnOverEvent = new ClickTurnOverEvent();
             clickTurnOverEvent.setSearchClick(true);
             if (TextUtils.isEmpty(edtSearchText.getText().toString()))
+            {
                 return;
+            }
             clickTurnOverEvent.setSearch(edtSearchText.getText().toString());
 
             EventBus.getDefault().post(clickTurnOverEvent);
@@ -118,6 +130,7 @@ public class TurnoverFragment extends BaseFragment {
         changeTitle();
 
     }
+
     private void changeTitle()
     {
         WalletTitle walletTitle = new WalletTitle();
@@ -126,6 +139,7 @@ public class TurnoverFragment extends BaseFragment {
         EventBus.getDefault().post(walletTitle);
 
     }
+
     @Override
     public void onStop()
     {
@@ -135,7 +149,6 @@ public class TurnoverFragment extends BaseFragment {
 
         EventBus.getDefault().post(walletTitle);
     }
-
 
 
 }

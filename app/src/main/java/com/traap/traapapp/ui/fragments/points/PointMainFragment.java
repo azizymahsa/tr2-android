@@ -24,11 +24,13 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaArchiveCategoryCall;
+import com.traap.traapapp.models.otherModels.points.PointScoreModel;
 import com.traap.traapapp.models.otherModels.points.PointTabModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveCategoryFragment;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
+import com.traap.traapapp.ui.fragments.points.records.PointsRecordFragment;
 import com.traap.traapapp.utilities.CustomViewPager;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Utility;
@@ -164,46 +166,19 @@ public class PointMainFragment extends BaseFragment
             {
                 case 2:
                 {
-//                    return NewsArchiveCategoryFragment.newInstance("",
-//                            MediaArchiveCategoryCall.FROM_FAVORITE,
-//                            null,
-//                            null,
-//                            null,
-//                            null
-//                    );
-//                    break;
+
                 }
                 case 1:
                 {
-//                    return NewsArchiveCategoryFragment.newInstance("",
-//                            MediaArchiveCategoryCall.FROM_FAVORITE,
-//                            null,
-//                            null,
-//                            null,
-//                            null
-//                    );
-//                    break;
+
                 }
                 case 0:
                 {
-                    return NewsArchiveCategoryFragment.newInstance("",
-                            MediaArchiveCategoryCall.FROM_FAVORITE,
-                            null,
-                            null,
-                            null,
-                            null
-                    );
-//                    break;
+                    return PointsRecordFragment.newInstance();
                 }
                 default:
                 {
-                    return NewsArchiveCategoryFragment.newInstance("",
-                            MediaArchiveCategoryCall.FROM_FAVORITE,
-                            null,
-                            null,
-                            null,
-                            null
-                    );
+                    return PointsRecordFragment.newInstance();
                 }
             }
         }
@@ -237,11 +212,26 @@ public class PointMainFragment extends BaseFragment
         }
     }
 
-//    @Subscribe
-//    public void getData()
-//    {
-////        tvPointScore.setText(String.valueOf());
-//    }
+    @Subscribe
+    public void getData(PointScoreModel model)
+    {
+        try
+        {
+            tvPointScore.setText(model.getScore());
+
+            ViewPager.LayoutParams params = new ViewPager.LayoutParams();
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.height = model.getMaxHeight();
+
+//            viewPager.setLayoutParams(params);
+            Logger.e("---height---", model.getMaxHeight().toString());
+        }
+        catch (Exception e)
+        {
+
+        }
+
+    }
 
     @Override
     public void onDestroyView()

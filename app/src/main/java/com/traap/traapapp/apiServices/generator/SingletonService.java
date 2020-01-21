@@ -47,6 +47,7 @@ import com.traap.traapapp.apiServices.part.MobileChargeService;
 import com.traap.traapapp.apiServices.part.NewsService;
 import com.traap.traapapp.apiServices.part.PackageBuyService;
 import com.traap.traapapp.apiServices.part.PhotoArchiveService;
+import com.traap.traapapp.apiServices.part.PointsService;
 import com.traap.traapapp.apiServices.part.ReservationMatchService;
 import com.traap.traapapp.apiServices.part.SendPredictService;
 import com.traap.traapapp.apiServices.part.SendProfileService;
@@ -374,6 +375,11 @@ public class SingletonService
     public SendProfileService sendProfileService()
     {
         return new SendProfileService(serviceGenerator);
+    }
+
+    public PointsService getPointsService()
+    {
+        return new PointsService(serviceGenerator);
     }
 
     public NewsService getNewsService()

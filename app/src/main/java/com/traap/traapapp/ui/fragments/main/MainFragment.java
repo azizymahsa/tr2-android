@@ -86,6 +86,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
         , OnServiceStatus<WebServiceClass<MachListResponse>>, CountDownTimerView, OnAnimationEndListener
 {
+    private static final int TIME_INTERVAL_FAV_SERVICE_ANIM = 5500;
     private View rootView;
     private Context context;
 
@@ -248,27 +249,23 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             try
             {
-                rcFavoriteServices.post(new Runnable()
+                rcFavoriteServices.post(() ->
                 {
-                    @Override
-                    public void run()
+                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
+                    if (favoriteServicesIndex < favoriteServicesCount)
                     {
-                        Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
-                        if (favoriteServicesIndex < favoriteServicesCount)
-                        {
-                            favoriteServicesIndex++;
-                        }
-                        else
-                        {
-                            favoriteServicesIndex = 0;
-                        }
-                        rcFavoriteServices.smoothScrollToPosition(favoriteServicesIndex);
+                        favoriteServicesIndex++;
                     }
+                    else
+                    {
+                        favoriteServicesIndex = 0;
+                    }
+                    rcFavoriteServices.smoothScrollToPosition(favoriteServicesIndex);
                 });
             }
             finally
             {
-                mHandler.postDelayed(repeatTask, 2500);
+                mHandler.postDelayed(repeatTask, TIME_INTERVAL_FAV_SERVICE_ANIM);
             }
         }
     };
