@@ -242,7 +242,7 @@ public class ScreenShot
                             @Override
                             public void onConfirmClick()
                             {
-                                getPermission(bitmap,message,);
+                                getPermission(bitmap,message,isSava);
                             }
 
                             @Override
