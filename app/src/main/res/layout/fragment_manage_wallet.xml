@@ -38,7 +38,7 @@
                 android:layout_weight="5"
                 android:background="@drawable/background_border_a"
                 android:gravity="center"
-                android:text="فراموشی رمز عبور"
+                android:text="فراموشی رمز کیف پول"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="@dimen/textSize_14dp" />
 
@@ -48,7 +48,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:gravity="center"
-                android:text="تغییر رمز عبور"
+                android:text="تغییر رمز کیف پول"
                 android:textColor="@color/returnButtonColor"
                 android:textSize="@dimen/textSize_14dp" />
 

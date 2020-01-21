@@ -32,6 +32,8 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WebActivity extends BaseActivity
 {
@@ -67,7 +69,7 @@ public class WebActivity extends BaseActivity
 
 
             String url = getIntent().getStringExtra("URL");
-            if (getIntent().hasExtra("Title"))
+           /* if (getIntent().hasExtra("Title"))
             {
                 if (getIntent().getStringExtra("Title").contains("بیمه"))
                 {
@@ -83,11 +85,17 @@ public class WebActivity extends BaseActivity
                     postData = "auth=" + URLEncoder.encode(getIntent().getStringExtra("TOKEN"), "UTF-8");
                 }
 
-            }
+            }*/
+
             webView.setInitialScale(0);
             webView.setVerticalScrollBarEnabled(false);
 
-            webView.postUrl(url, postData.getBytes());
+            //postData="Authorization="+ URLEncoder.encode(Prefs.getString("accessToken",""), "UTF-8");
+            //webView.postUrl(url, postData.getBytes());
+
+            Map<String, String> extraHeaders = new HashMap<String, String>();
+            extraHeaders.put("Authorization",Prefs.getString("accessToken",""));
+            webView.loadUrl(url,extraHeaders);
 
             WebSettings settings = webView.getSettings();
             initWebViewSettings();
@@ -132,14 +140,7 @@ public class WebActivity extends BaseActivity
 
             });
 
-        }
-
-        catch (UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-            hideLoading();
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
             hideLoading();

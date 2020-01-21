@@ -29,6 +29,8 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by MahsaAzizi .
@@ -107,7 +109,10 @@ public class WebFragment extends BaseFragment
             webView.setWebViewClient(new WebViewClient());
             webView.setClickable(true);
             webView.setWebChromeClient(new WebChromeClient());
-            webView.postUrl(URL, postData.getBytes());
+          //  webView.postUrl(URL, postData.getBytes());
+            Map<String, String> extraHeaders = new HashMap<String, String>();
+            extraHeaders.put("Authorization",Prefs.getString("accessToken",""));
+            webView.loadUrl(URL,extraHeaders);
             // Enable responsive layout
             webView.getSettings().setUseWideViewPort(true);
 // Zoom out if the content width is greater than the width of the viewport
