@@ -687,6 +687,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             case 83: //امتیازات
             {
 //                showToast(this, "امتیازات", R.color.green);
+                closeDrawer();
                 startActivityForResult(new Intent(this, PointsActivity.class) ,100);
                 break;
             }
