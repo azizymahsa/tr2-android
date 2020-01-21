@@ -64,8 +64,8 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 public class WalletFragment extends BaseFragment implements View.OnClickListener, OnRangeChangedListener, DatePickerDialog.OnDateSetListener
 {
     private static int MAX_PRICE_DEFAULT = 10000000;
-    private static int RANGEBAR_STEP = 500000;
-    private static Float RANGEBAR_STEP_COUNT = 20f;
+    private static int RANGEBAR_STEP = 200000;
+    private static Float RANGEBAR_STEP_COUNT = 50f;
     private MainActionView mainView;
     private View rootView;
     private TextView tvBalance, tvDate;
