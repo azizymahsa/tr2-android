@@ -177,6 +177,11 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         etAmount = rootView.findViewById(R.id.etAmount);
         txtChrAmount = rootView.findViewById(R.id.txtChrAmount);
         etPass = rootView.findViewById(R.id.etPass);
+
+        InputFilter[] filterPass = new InputFilter[1];
+        filterPass[0] = new InputFilter.LengthFilter(12);
+        etPass.setFilters(filterPass);
+
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(19);
         etCardNumber.setFilters(filterArray);
@@ -424,7 +429,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             mainView.showError("لطفا رمز را وارد نمایید.");
             return;
         }
-        if (etPass.getText().toString().length() < 4)
+        if (etPass.getText().toString().length() < 4 || etPass.getText().toString().length()>12)
         {
             mainView.showError("لطفا رمز را صحیح وارد نمایید.");
             return;
@@ -438,7 +443,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     {
         String txtAmountDigit = " مبلغ: " + etAmount.getText().toString() + " ریال ";
         String txtAmountChar = "(" + convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(etAmount.getText().toString().replaceAll(",", ""))), "ریال") + ")";
-        String txtUserName = data.getFull_name() + " به: کارت کیف پول ";
+        String txtUserName = data.getFull_name();
         String txtName = "";
 
         MoneyTransferAlertDialog dialog = new MoneyTransferAlertDialog(getActivity(), "تایید انتقال وجه از کیف پول", "از : کارت کیف پول " + TrapConfig.HEADER_USER_NAME, true,
@@ -526,7 +531,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     private void showResultPayment(WebServiceClass<DoTransferWalletResponse> response)
     {
         Intent intent = new Intent(this.getContext(), PaymentResultIncreaseInventoryActivity.class);
-        intent.putExtra("RefrenceNumber", response.data.getTrnBizKey().toString());
+        intent.putExtra("RefrenceNumber", response.data.getRefrenceNumber());
         this.startActivity(intent);
     }
 

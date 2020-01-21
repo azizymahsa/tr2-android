@@ -29,6 +29,20 @@ public class DoTransferWalletResponse
     @Expose
     private String trnBizKey;
 
+    @SerializedName("ref_no")
+    @Expose
+    private String refrenceNumber;
+
+    public String getRefrenceNumber()
+    {
+        return refrenceNumber;
+    }
+
+    public void setRefrenceNumber(String refrenceNumber)
+    {
+        this.refrenceNumber = refrenceNumber;
+    }
+
     public boolean isLoyal()
     {
         return isLoyal;

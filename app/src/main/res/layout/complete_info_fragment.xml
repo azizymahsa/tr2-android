@@ -25,6 +25,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
+                android:visibility="visible"
 
 
                 >
@@ -1324,7 +1325,7 @@
                                 android:gravity="center"
                                 android:singleLine="true"
                                 android:text="کارت های شتابی"
-                                android:textColor="@color/grayColor"
+                                android:textColor="@color/gray"
                                 android:textSize="@dimen/textSize_14dp" />
 
 
@@ -1380,10 +1381,353 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
                         <LinearLayout
+                            android:id="@+id/llPaymentWallet"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/_30dp"
+                            android:visibility="gone">
+
+                            <FrameLayout
+                                android:id="@+id/containerWallet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="5dp"
+                                    android:text=" ریال"
+                                    android:textColor="@color/chargePackTextColor"
+                                    android:textSize="@dimen/textSize_14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvAmountWallet"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/_10dp"
+                                    android:text=""
+                                    android:textColor="@color/textColorPrimary"
+                                    android:textSize="@dimen/textSize_14dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="مبلغ قابل پرداخت :"
+                                    android:textColor="@color/chargePackTextColor"
+                                    android:textSize="@dimen/textSize_14dp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_20dp"
+                                android:orientation="horizontal">
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="20" />
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="100"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    >
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/_180dp"
+                                        android:layout_centerInParent="true"
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/wallet_cart" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_centerVertical="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_marginRight="@dimen/_10dp"
+                                        android:layout_marginLeft="@dimen/_10dp"
+                                        android:layout_gravity="center"
+                                        android:gravity="right"
+
+                                        >
+                                        <LinearLayout
+                                            android:id="@+id/llBalance"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text=" ریال"
+                                                android:textColor="@color/chargePackTextColor"
+                                                android:textSize="@dimen/textSize_12dp"
+                                                />
+                                            <TextView
+                                                android:id="@+id/tvBalance"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="000"
+                                                android:textColor="@color/borderColorRed"
+                                                android:textSize="@dimen/textSize_12dp"
+                                                android:textStyle="bold" />
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="موجودی: "
+                                                android:textColor="@color/chargePackTextColor"
+                                                android:textSize="@dimen/textSize_12dp"
+                                                />
+
+
+                                        </LinearLayout>
+
+
+                                        <TextView
+                                            android:id="@+id/tvDate"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text=" "
+                                            android:layout_marginTop="@dimen/_10dp"
+                                            android:textColor="@color/chargePackTextColor"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            />
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="20" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="5dp"
+                                    android:text=" ریال"
+                                    android:textColor="@color/chargePackTextColor"
+                                    android:textSize="@dimen/textSize_14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvAmountPay"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/_10dp"
+                                    android:text=""
+                                    android:textColor="@color/textColorPrimary"
+                                    android:textSize="@dimen/textSize_14dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="مبلغ قابل پرداخت :"
+                                    android:textColor="@color/chargePackTextColor"
+                                    android:textSize="@dimen/textSize_14dp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rlTitleWallet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="@dimen/_10dp"
+                                android:gravity="center_vertical|end"
+                                android:orientation="horizontal"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:id="@+id/tvTitlePayWallet"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/imgLogoWallet"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_toStartOf="@+id/imgLogoWallet"
+                                    android:gravity="center_vertical"
+                                    android:text=""
+                                    android:textColor="@color/returnButtonColor"
+                                    android:textSize="@dimen/textSize_14dp" />
+
+                                <ImageView
+                                    android:id="@+id/imgLogoWallet"
+                                    android:layout_width="@dimen/_50dp"
+                                    android:layout_height="@dimen/_50dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/icon_payment_ticket"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_20dp"
+                                android:orientation="horizontal">
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="10" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:id="@+id/etLayoutPass"
+                                        android:layout_width="@dimen/_180sdp"
+                                        android:layout_height="@dimen/_45sdp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="5dp"
+                                        android:theme="@style/EditTextHint"
+                                        app:hintTextAppearance="@style/TextLabel">
+                                        <EditText
+                                            android:id="@+id/etPin2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:backgroundTint="@color/textColorSecondary"
+                                            android:gravity="start|center"
+                                            android:hint="رمز کارت را وارد نمایید"
+                                            android:inputType="numberPassword"
+                                            android:maxLines="1"
+                                            android:maxLength="6"
+                                            android:nextFocusDown="@+id/etNewPass"
+                                            android:singleLine="true"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_14dp" />
+                                        <!-- <EditText
+                                             android:id="@+id/etPin2"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:backgroundTint="@color/textColorSecondary"
+                                             android:gravity="start|center"
+                                             android:hint="رمز کارت را وارد نمایید"
+                                             android:inputType="numberPassword"
+                                             android:maxLines="1"
+                                             android:nextFocusDown="@+id/etNewPass"
+                                             android:singleLine="true"
+                                             android:textColor="@color/textColorSecondary"
+                                             android:textSize="@dimen/_10sdp" />-->
+
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                </RelativeLayout>
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="10" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_20dp"
+                                android:orientation="horizontal">
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="20" />
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:layout_marginEnd="@dimen/_10sdp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_weight="100">
+
+                                    <include
+                                        android:id="@+id/btnBackWallet"
+                                        layout="@layout/return_button" />
+
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:id="@+id/llConfirmWallet"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:layout_marginEnd="@dimen/_10sdp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_weight="100">
+
+                                    <include
+                                        android:id="@+id/btnBuyWallet"
+                                        layout="@layout/circular_progress_button_peyment"
+                                        />
+
+                                </FrameLayout>
+
+
+                                <FrameLayout
+                                    android:id="@+id/llInVisibleWallet"
+                                    android:layout_width="0dp"
+                                    android:visibility="gone"
+
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="100">
+
+                                    <include
+                                        android:id="@+id/btnInVisible"
+                                        layout="@layout/circular_progress_button_in_visible"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_gravity="center" />
+                                </FrameLayout>
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="20" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llPaymentGateway"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:visibility="visible">
 
                             <FrameLayout
                                 android:id="@+id/container"
@@ -1679,6 +2023,7 @@
                             </LinearLayout>
 
                         </LinearLayout>
+                        </RelativeLayout>
 
                     </androidx.core.widget.NestedScrollView>
 

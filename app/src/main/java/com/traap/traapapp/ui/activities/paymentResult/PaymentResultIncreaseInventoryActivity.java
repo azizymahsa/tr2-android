@@ -11,6 +11,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
+import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.ScreenShot;
@@ -22,7 +23,7 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
 
     private String refrenceNumber;
     private boolean statusPayment;
-    private TextView tvTitle,tvStatusPayment,tvDate,tvPayment,tvAmount,tvCardNumDestination,tvRefrenceNumber,tvPackageTitle;
+    private TextView tvTitle,tvStatusPayment,tvDate,tvPayment,tvAmount,tvCardNumDestination,tvRefrenceNumber,tvPackageTitle,tvPhoneNumber;
     private View btnShare,tvBackHome,llResult;
     private View btnSaveResult;
 
@@ -59,6 +60,7 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
         tvCardNumDestination=findViewById(R.id.tvCardNumDestination);
         tvRefrenceNumber=findViewById(R.id.tvRefrenceNumber);
 
+        tvPhoneNumber=findViewById(R.id.tvPhoneNumber);
         tvPackageTitle=findViewById(R.id.tvPackageTitle);
 
         btnShare=findViewById(R.id.btnShare);
@@ -137,7 +139,20 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
         tvPayment.setText(response.data.getTypePayment());
         tvDate.setText(response.data.getCreate_date_formatted());
         tvAmount.setText("مبلغ: "+ Utility.priceFormat(response.data.getAmount().toString())+" ریال" );
-        tvCardNumDestination.setText("کیف پول مقصد: "+response.data.getDetailTransaction().getMobileNumber());
+
+
+
+
+        if (response.data.getTypeTransactionId() == TrapConfig.PAYMENT_STATUS_TRANSFER_MONEY_WALLET)
+        {
+            tvCardNumDestination.setText("مقصد: " + response.data.getDetailTransaction().getDestinationCard());
+            tvPhoneNumber.setText( "شماره تلفن همراه واریز کننده: " + response.data.getMobile());
+
+        }else if (response.data.getTypeTransactionId() == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET){
+            tvPhoneNumber.setText( "شماره تلفن همراه: " + response.data.getMobile());
+            tvCardNumDestination.setVisibility(View.GONE);
+        }
+
         tvRefrenceNumber.setText("کد پیگیری: "+response.data.getId());
        /* if (response.data.getDetailTransaction().getTitlePackage()!=null)
         {
@@ -169,10 +184,10 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
     {
         switch (v.getId()){
             case R.id.btnShare:
-                new ScreenShot(llResult, this);
+                new ScreenShot(llResult, this,false,"برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");
                 break;
             case R.id.btnSaveResult:
-                new ScreenShot(llResult, this,true);
+                new ScreenShot(llResult, this,true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
                 showDialog();
                 break;
             case R.id.tvBackHome:

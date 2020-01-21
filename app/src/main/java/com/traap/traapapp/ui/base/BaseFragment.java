@@ -2,20 +2,16 @@ package com.traap.traapapp.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import butterknife.ButterKnife;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.MessageAlertSuccesDialog;
-import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.Tools;
 
 import java.util.Objects;
 
@@ -34,11 +30,11 @@ public class BaseFragment extends Fragment
 //        Tools.showToast(context, message, color);
         if (color == R.color.green)
         {
-            ShowAlertSuccess(context, message, "", false);
+            showAlertSuccess(context, message, "", false);
         }
         else if (color == R.color.red)
         {
-            ShowAlertFailure(context, message, context.getString(R.string.error), false);
+            showAlertFailure(context, message, context.getString(R.string.error), false);
         }
         else
         {
@@ -49,29 +45,53 @@ public class BaseFragment extends Fragment
     public void showError(Context context, String message)
     {
 //        Tools.showToast(context, message, R.color.red);
-        ShowAlertFailure(context, message, context.getString(R.string.error), false);
+        showAlertFailure(context, message, context.getString(R.string.error), false);
     }
 
-    public void ShowAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
+    public void showAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_SUCCESS);
-        dialog.show(((Activity) context).getFragmentManager(), "dialog");
-
-        if (finish)
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
+                MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
         {
-            ((Activity) context).finish();
-        }
+            @Override
+            public void onConfirmClick()
+            {
+                if (finish)
+                {
+                    ((Activity) context).finish();
+                }
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
-    public void ShowAlertFailure(Context context, String Msg, String mTitle, boolean finish)
+    public void showAlertFailure(Context context, String Msg, String mTitle, boolean finish)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, MessageAlertDialog.TYPE_ERROR);
-        dialog.show(((Activity) context).getFragmentManager(), "dialog");
-
-        if (finish)
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
+                MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
         {
-            ((Activity) context).finish();
-        }
+            @Override
+            public void onConfirmClick()
+            {
+                if (finish)
+                {
+                    ((Activity) context).finish();
+                }
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
     public static void showAlert(Context context, String Msg, int title)

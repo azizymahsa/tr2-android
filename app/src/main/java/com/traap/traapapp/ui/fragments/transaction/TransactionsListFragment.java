@@ -872,7 +872,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         }
         catch (Exception e)
         {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
     }

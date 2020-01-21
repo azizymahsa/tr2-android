@@ -156,11 +156,11 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
     {
         switch (v.getId()){
             case R.id.btnShare:
-                new ScreenShot(llResult, this);
+                new ScreenShot(llResult, this,false,"برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");
                 break;
             case R.id.btnSaveResult:
-                new ScreenShot(llResult, this,true);
-                showDialog();
+                new ScreenShot(llResult, this,true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+               // showDialog();
                 break;
             case R.id.tvBackHome:
                 finish();
@@ -168,25 +168,5 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         }
     }
 
-    private void showDialog()
-    {
-        MessageAlertDialog dialog = new MessageAlertDialog(this, "", "رسید شما با موفقیت در گالری ذخیره شد.", false,
-                MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
-                {
-                    @Override
-                    public void onConfirmClick()
-                    {
 
-                    }
-
-                    @Override
-                    public void onCancelClick()
-                    {
-
-                    }
-                });
-
-        dialog.setCancelable(false);
-        dialog.show(getFragmentManager(), "messageDialog");
-    }
 }

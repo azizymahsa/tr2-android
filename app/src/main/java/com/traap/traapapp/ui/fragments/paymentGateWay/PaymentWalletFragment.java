@@ -10,10 +10,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,6 @@ import java.util.List;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
-import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -262,12 +259,13 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
                 }
             } else
             {
-                showToast(getActivity(), "رمز کارت وارد نشده است.", R.color.red);
+                showAlertFailure(getContext(),"رمز کارت وارد نشده است.","",true);
 
             }
 
 
-        } else if (v.getId() == R.id.btnBack)
+        }
+        else if (v.getId() == R.id.btnBack)
         {
             mainView.onBackToChargFragment(PAYMENT_STATUS);
         }
@@ -330,16 +328,9 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         buyChargeWallet=new BuyChargeWalletImpl();
         buyPackWallet=new BuyPackageWalletImpl();
 
-        addDataRecyclerList();
-
         return rootView;
     }
 
-    private void addDataRecyclerList()
-    {
-
-
-    }
 
 
     @Override
@@ -418,7 +409,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         mainView.hideLoading();
         if (response.getMessage().contains("خطا"))
         {
-            showToast(getActivity(), response.getMessage(), R.color.red);
+            showAlertFailure(getContext(),response.getMessage(),"",true);
 
 
         } else
@@ -437,7 +428,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     public void onErrorPaymentWallet(String error)
     {
         mainView.hideLoading();
-        showToast(getActivity(), error, R.color.red);
+        showAlertFailure(getContext(),error,"",true);
     }
 
     @Override
@@ -456,7 +447,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     {
         mainView.hideLoading();
 
-        showToast(getActivity(), "پرداخت ناموفق", R.color.red);
+        showAlertFailure(getContext(),error,"",true);
 
     }
 
@@ -475,6 +466,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     {
         mainView.hideLoading();
 
-        showToast(getContext(), "پرداخت ناموفق", R.color.red);
+        showAlertFailure(getContext(),error,"",true);
+
     }
 }

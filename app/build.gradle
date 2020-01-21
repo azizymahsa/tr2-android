@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 41
-        versionName "1.12.7"
+        versionCode 43
+        versionName "1.13.1"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -154,7 +154,7 @@ android {
         implementation project(':type')
         implementation project(':moeidbannerlibrary')
 //    implementation project(path: ':type')
-       // implementation(name: 'uxcam-3.1.12', ext: 'aar')
+        // implementation(name: 'uxcam-3.1.12', ext: 'aar')
         //----------------------my Libraries end-----------------
 
         //-----------------------google start--------------------
@@ -163,9 +163,9 @@ android {
         implementation 'com.google.code.gson:gson:2.8.2'
         implementation 'com.google.android:flexbox:0.3.0-alpha2'
         implementation "com.google.android.gms:play-services-gcm:17.0.0"
-      //  implementation 'com.google.android.gms:play-services-location:17.0.0'
+        //  implementation 'com.google.android.gms:play-services-location:17.0.0'
         implementation 'com.google.android.gms:play-services-vision:18.0.0'
-       // implementation "com.google.android.gms:play-services-base:16.1.0" //for yandex
+        // implementation "com.google.android.gms:play-services-base:16.1.0" //for yandex
         //-----------------------google end----------------------
 
         //-------------------accubin start-----------------------
@@ -193,11 +193,11 @@ android {
         //------------------------rxbinding2 end------------------------
 
         //------------------------FireBase start----------------------
-       // implementation 'com.google.firebase:firebase-analytics:17.2.1'
-       // implementation 'com.google.firebase:firebase-auth:19.2.0'
-   //   implementation 'com.google.firebase:firebase-core:17.2.1'
+        // implementation 'com.google.firebase:firebase-analytics:17.2.1'
+        // implementation 'com.google.firebase:firebase-auth:19.2.0'
+        //   implementation 'com.google.firebase:firebase-core:17.2.1'
         implementation 'com.google.firebase:firebase-firestore:21.3.1'
-      //  implementation 'com.google.firebase:firebase-crash:16.2.1'
+        //  implementation 'com.google.firebase:firebase-crash:16.2.1'
         implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
         implementation "com.google.firebase:firebase-messaging:20.1.0" // for yandex and FCM
         //------------------------FireBase end------------------------
@@ -218,7 +218,7 @@ android {
         annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
 //        implementation 'com.appyvet:materialrangebar:1.4.6'
-   /*     implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
+        /*     implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
         implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'*/
         implementation 'com.makeramen:roundedimageview:2.3.0'
         implementation 'com.squareup.picasso:picasso:2.5.2'
@@ -234,7 +234,7 @@ android {
 //        implementation "com.mlsdev.animatedrv:library:1.0.1" //animation for recyclerView
 //        implementation 'com.github.devlight.shadowlayout:library:1.0.2' //shadowlayout
         implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
-      //  implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
+        //  implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
         implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
         implementation 'com.jcminarro:RoundKornerLayouts:0.4.0'
 //        implementation 'com.fujiyuu75:sequent:0.2.1' //animation
@@ -276,7 +276,7 @@ android {
         //---------------RX java + retrofit end--------------------------
 
         //---------------QRGenerator start--------------------------
-     //   implementation 'com.github.kenglxn.QRGen:android:2.5.0'
+        //   implementation 'com.github.kenglxn.QRGen:android:2.5.0'
         //---------------QRGenerator end----------------------------
 
         //---------------PersianCalendar start----------------------------
@@ -289,9 +289,9 @@ android {
         //---------------Timer end----------------------------
 
         //---------------Others start----------------------------
-    //    implementation "com.github.skydoves:elasticviews:2.0.1"
+        //    implementation "com.github.skydoves:elasticviews:2.0.1"
 
-       implementation 'com.github.Ajian-studio:GADownloading:v1.0.2'
+        implementation 'com.github.Ajian-studio:GADownloading:v1.0.2'
 
         implementation 'com.sothree.slidinguppanel:library:3.4.0' //slidinguppanel
 
@@ -333,23 +333,23 @@ android {
         //------------------------CoverFlow end---------------------------
 
         //------------------------RxBinding start-------------------------
-     //   implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+        //   implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
         //------------------------RxBinding end---------------------------
 
         //--------------------------uxcam start---------------------------
-//        implementation 'com.uxcam:uxcam:3.1.12@aar'
+        implementation 'com.uxcam:uxcam:3.1.12@aar'
         //--------------------------uxcam end-----------------------------
 
         //--------------------------yandex start---------------------------
         // AppMetrica SDK.
-    //    implementation 'com.yandex.android:mobmetricalib:3.8.0'
+        //    implementation 'com.yandex.android:mobmetricalib:3.8.0'
         // Optionally. Play Install Referrer library.
-       // implementation 'com.android.installreferrer:installreferrer:1.0'
+        // implementation 'com.android.installreferrer:installreferrer:1.0'
 //        implementation "com.yandex.android:mobmetricapushlib:1.5.1"   // With Caching
         implementation('com.yandex.android:mobmetricapushlib:1.5.1') { // Without Caching
             exclude group: 'com.squareup.okhttp3', module: 'okhttp'
         }
-      //  implementation 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2'
+        //  implementation 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2'
         implementation 'com.github.chrisbanes:PhotoView:2.1.3'
 
 
@@ -393,10 +393,11 @@ android {
 //        implementation 'com.github.mreram:showcaseview:1.1'
 
         implementation('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
-            exclude module: 'support-v4'}
+            exclude module: 'support-v4'
+        }
 
         implementation 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2'
-      //  implementation 'com.github.chrisbanes:PhotoView:2.1.3'
+        //  implementation 'com.github.chrisbanes:PhotoView:2.1.3'
 //        }
 
 //        implementation 'com.scottyab:rootbeer-lib:0.0.7'
@@ -405,6 +406,7 @@ android {
 //        implementation "io.fotoapparat:fotoapparat:2.5.0" //CameraView
 
 //        implementation 'org.tensorflow:tensorflow-lite:1.14.0'
+        compile 'nl.garvelink.oss:iban:1.6.1'
 
     }
 }

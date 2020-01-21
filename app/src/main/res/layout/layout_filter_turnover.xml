@@ -180,7 +180,7 @@
                 app:rsb_indicator_height="30dp"
                 app:rsb_indicator_width="50dp"
                 app:rsb_indicator_margin="5dp"
-                app:rsb_steps="20"
+                app:rsb_steps="50"
                 app:rsb_indicator_background_color="@color/colorProgress"
                 app:rsb_tick_mark_mode="number" />
 

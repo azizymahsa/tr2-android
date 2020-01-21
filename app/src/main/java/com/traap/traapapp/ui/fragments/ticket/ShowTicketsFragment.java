@@ -288,6 +288,18 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         llErrorPayment.setVisibility(View.GONE);
         mainView.hideLoading();
 
+        ivPrintTicket.setImageResource(R.drawable.select_step);
+        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+
+
+
+        ivFullInfo.setImageResource(R.drawable.select_step);
+        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+
+
+
 
     }
 

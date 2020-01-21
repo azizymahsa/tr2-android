@@ -86,6 +86,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
         , OnServiceStatus<WebServiceClass<MachListResponse>>, CountDownTimerView, OnAnimationEndListener
 {
+    private static final int TIME_INTERVAL_FAV_SERVICE_ANIM = 5500;
     private View rootView;
     private Context context;
 
@@ -248,27 +249,23 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             try
             {
-                rcFavoriteServices.post(new Runnable()
+                rcFavoriteServices.post(() ->
                 {
-                    @Override
-                    public void run()
+                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
+                    if (favoriteServicesIndex < favoriteServicesCount)
                     {
-                        Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
-                        if (favoriteServicesIndex < favoriteServicesCount)
-                        {
-                            favoriteServicesIndex++;
-                        }
-                        else
-                        {
-                            favoriteServicesIndex = 0;
-                        }
-                        rcFavoriteServices.smoothScrollToPosition(favoriteServicesIndex);
+                        favoriteServicesIndex++;
                     }
+                    else
+                    {
+                        favoriteServicesIndex = 0;
+                    }
+                    rcFavoriteServices.smoothScrollToPosition(favoriteServicesIndex);
                 });
             }
             finally
             {
-                mHandler.postDelayed(repeatTask, 2500);
+                mHandler.postDelayed(repeatTask, TIME_INTERVAL_FAV_SERVICE_ANIM);
             }
         }
     };
@@ -957,30 +954,10 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
-       /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
-                "آیا مایلید صفحه پیش بینی نمایش داده شود؟",
-                true, new MessageAlertDialog.OnConfirmListener()
-        {
-            @Override
-            public void onConfirmClick()
-            {
-              */
-        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
-
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-            /*}
-
-            @Override
-            public void onCancelClick()
-            {
-
-            }
-        }
-        );
-        dialog.show(((Activity) context).getFragmentManager(), "dialogMessage");*/
-
+//        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit()
+        mainView.onPredict(matchItem, matchItem.getIsPredict());
     }
-
 
     @Override
     public void onItemBuyTicketClick(View view, int position, MatchItem matchItem)

@@ -4,7 +4,6 @@ package com.traap.traapapp.ui.activities.main;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -68,8 +67,8 @@ import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentIns
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
+import com.traap.traapapp.ui.activities.points.PointsActivity;
 import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
-import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
@@ -688,6 +687,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             case 83: //امتیازات
             {
 //                showToast(this, "امتیازات", R.color.green);
+                closeDrawer();
+                startActivityForResult(new Intent(this, PointsActivity.class) ,100);
                 break;
             }
             case 81: //حساب کاربری من

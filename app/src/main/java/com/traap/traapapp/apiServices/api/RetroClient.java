@@ -10,6 +10,7 @@ import com.traap.traapapp.apiServices.model.GlobalResponse2;
 import com.traap.traapapp.apiServices.model.GlobalResponse3;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
+import com.traap.traapapp.apiServices.model.availableAmount.AvailableAmounResponse;
 import com.traap.traapapp.apiServices.model.billPayment.request.BillPaymentRequest;
 import com.traap.traapapp.apiServices.model.billPayment.response.BillPaymentResponse;
 import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
@@ -86,6 +87,9 @@ import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
 import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
 import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
+import com.traap.traapapp.apiServices.model.points.groupBy.PointsGroupByResponse;
+import com.traap.traapapp.apiServices.model.points.guide.PointsGuideResponse;
+import com.traap.traapapp.apiServices.model.points.records.PointsRecordResponse;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import com.traap.traapapp.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -663,6 +667,18 @@ public interface RetroClient
 
     @GET(Const.NEWS_DETAILS_GET_BOOKMARK)
     Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsBookmarks();
+
+    @GET(Const.AvailableAmount)
+    Single<Response<WebServiceClass<AvailableAmounResponse>>> getAvailableAmount();
+
+    @GET(Const.GET_POINTS_RECORD)
+    Single<Response<WebServiceClass<PointsRecordResponse>>> getPointRecord();
+
+    @GET(Const.GET_POINTS_GUIDE)
+    Single<Response<WebServiceClass<PointsGuideResponse>>> getPointGuide();
+
+    @GET(Const.GET_POINTS_GROUP_BY)
+    Single<Response<WebServiceClass<PointsGroupByResponse>>> getPointGroupBy();
 
 
 

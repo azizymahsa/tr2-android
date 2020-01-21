@@ -254,7 +254,7 @@ public class BuyTicketsActivity extends BaseActivity implements OnClickContinueB
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                Toast.makeText(getApplicationContext(), "Tab selected " + tab.getPosition(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Tab selected " + tab.getPosition(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

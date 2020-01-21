@@ -536,6 +536,8 @@ public class PackFragment
     @OnClick(R.id.flIrancell)
     void irancell()
     {
+        etMobileNumberIranCell.requestFocus();
+
         closeAutoComplete();
 //        mainView.needExpanded(false);
 //        tvPackTitle.setText("خرید بسته اینترنت " + "ایرانسل");
@@ -575,6 +577,7 @@ public class PackFragment
     @OnClick(R.id.flHamraheAval)
     void hamraheAval()
     {
+        etMobileNumberMCI.requestFocus();
         closeAutoComplete();
 //        mainView.needExpanded(false);
         llDetailDescriptionMci.setVisibility(View.VISIBLE);
@@ -622,6 +625,8 @@ public class PackFragment
     @OnClick(R.id.flRightel)
     void rightel()
     {
+        etMobileNumberRightel.requestFocus();
+
         closeAutoComplete();
         llDescriptionSelectPackRightel.setVisibility(View.GONE);
         llDetailDescriptionRightel.setVisibility(View.VISIBLE);
@@ -2073,7 +2078,7 @@ public class PackFragment
     {
         // initDefaultOperatorView();
 
-        Toast.makeText(getContext(), "mciii", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "mciii", Toast.LENGTH_SHORT).show();
 
         btnBuyCharge.revertAnimation(this);
         btnBuyCharge.setClickable(true);

@@ -18,7 +18,6 @@ public class Const
     public final static String Login = SubBASEURL + "v1/user/login/";
     public final static String Verify = SubBASEURL + "v1/user/login/verify/";
 
-
     //contactInfo
     public final static String GetContactInfo = SubBASEURL + "v1/info/contact/";
 
@@ -39,13 +38,12 @@ public class Const
     public final static String GET_BOUGHT_FOR = SubBASEURL + "v1/topupcharge/bought_for/";
     public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
     public final static String BUY_CHARGE_WALLET = SubBASEURL + "v1/topupcharge/buy_charge_wallet/";
+    public final static String AvailableAmount = SubBASEURL + "v1/topupcharge/available_amount/";
     public final static String BUY_PACKAGE_WALLET = SubBASEURL + "v1/internetpackage/package_buy_wallet/";
     public final static String BUY_MOBILE_PACKAGE = SubBASEURL + "v1/internetpackage/package_buy/";
     public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/";
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
-
-
 
     //Bill
     public final static String GetMyBills = SubBASEURL + "v1/bill/";
@@ -103,6 +101,7 @@ public class Const
     public final static String GetBalancePasswordLess = SubBASEURL + "v1/shetac/get_balance_password_less/";
     public final static String ForgetPasswordWallet = SubBASEURL + "v1/shetac/forget_password_tow/";
     public final static String ChangePasswordWallet = SubBASEURL + "v1/shetac/change_password_tow/";
+    public final static String GetReport = SubBASEURL + "v1/shetac/get_report/";
 
     //Bank List
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";
@@ -177,9 +176,10 @@ public class Const
     public final static String NEWS_DETAILS_SET_BOOKMARK = SubBASEURL + "v1/news/";
     public final static String NEWS_DETAILS_GET_BOOKMARK = SubBASEURL + "v1/news/bookmarks/";
 
-
-
-    public final static String GetReport = SubBASEURL + "v1/shetac/get_report/";
+    //Points
+    public final static String GET_POINTS_RECORD = SubBASEURL + "v1/point/";
+    public final static String GET_POINTS_GUIDE = SubBASEURL + "v1/point/info/";
+    public final static String GET_POINTS_GROUP_BY = SubBASEURL + "v1/point/group_by/";
 
 
 }

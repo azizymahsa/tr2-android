@@ -79,6 +79,18 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:text=""
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_14dp"
+                    />
+
+                <TextView
                     android:id="@+id/tvAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -75,21 +75,6 @@
                     android:textSize="@dimen/textSize_16dp"
                     android:background="@drawable/background_spinner_amount_charge"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|end"
-                    android:text="مبلغ (ریال)"
-                    android:textColor="@color/warmGray" />
-
-                <Spinner
-                    android:id="@+id/spinnerAmountIrancell"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35dp"
-                    android:layout_gravity="center"
-                    android:gravity="left"
-                    android:tag="allBox"
-                    android:background="@drawable/background_spinner_amount_charge" />
 
             </LinearLayout>
 
@@ -111,20 +96,38 @@
         android:layout_marginTop="@dimen/_10dp"
         android:layout_marginBottom="5dp"
         android:orientation="vertical">
-        <Spinner
-            android:id="@+id/spinnerChargeTypeIrancell"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginStart="8dp"
 
-            android:background="@drawable/background_spinner_amount_charge" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_10dp">
+            <Switch
+                android:id="@+id/swIrancell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_25dp"
+                android:gravity="center_vertical"
+                android:text="شارژ شگفت انگیز"
+                android:textColor="@color/textColorSecondary"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:textSize="@dimen/textSize_12dp" />
+
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_10dp"
             >
 
 
@@ -203,35 +206,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:gravity="center|end"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="40" />
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="100">
-
-            <include
-                android:id="@+id/btnChargeConfirm"
-                layout="@layout/circular_progress_button_small" />
-
-        </FrameLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="40" />
-
-    </LinearLayout>
 
 
 
@@ -257,6 +231,31 @@
             android:layout_width="@dimen/_25dp"
             android:layout_height="@dimen/_25dp"
           />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_20dp"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/rvIrancellAmount"/>
+
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10" />
 
     </LinearLayout>
 </LinearLayout>
