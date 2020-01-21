@@ -111,7 +111,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_250dp_r"
             android:orientation="vertical"
             android:layout_marginLeft="@dimen/_20dp"
             android:layout_marginRight="@dimen/_20dp"
@@ -121,18 +121,18 @@
             <com.jcminarro.roundkornerlayout.RoundKornerRelativeLayout
                 android:id="@+id/rlPic"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
 
                 app:corner_radius="10dp"
 
                 >
 
 
-                <com.github.chrisbanes.photoview.PhotoView
+                <ImageView
                     android:id="@+id/photo_view"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_250dp_r"
-                    android:adjustViewBounds="true"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="false"
                     android:background="@color/gray"
                     android:foreground="?attr/selectableItemBackground"
                     android:scaleType="fitXY" />

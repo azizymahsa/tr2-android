@@ -44,6 +44,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Objects;
 
+import nl.garvelink.iban.IBAN;
+import nl.garvelink.iban.Modulo97;
 import ru.kolotnev.formattedittext.MaskedEditText;
 
 //import br.com.sapereaude.maskedEditText.MaskedEditText;
@@ -165,6 +167,13 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
 //if (edtShabaNum.getText().toString().length()==24){
                         if (!edtShabaNum.getText().toString().contains("_"))
                         {
+
+                            if (!Modulo97.verifyCheckDigits(edtShabaNum.getText().toString().replaceAll("-", ""))){
+                                mainView.showError("لطفا شماره شبا را صحیح وارد کنید.");
+
+                                return;
+                            }
+
                             String txtAmountDigit = " مبلغ " + edtCurrency.getText().toString() + " ریال ";
                             String txtAmountChar = convertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(Integer.parseInt(edtCurrency.getText().toString().replaceAll(",", ""))), "ریال");
                             String txtNumberShaba = edtShabaNum.getText().toString() + " به شماره شبا ";

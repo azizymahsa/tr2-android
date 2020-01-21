@@ -341,7 +341,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
             @Override
             public void onError(String message) {
-                mainView.showError(message);
+                //mainView.showError(message);
                 mainView.hideLoading();
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
@@ -349,7 +349,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                 }
                 else
                 {
-                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    mainView.showError(getString(R.string.networkErrorMessage));
                 }
 
 
@@ -393,7 +393,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void onError(String message) {
 
-                mainView.showError(message);
+             //   mainView.showError(message);
                 mainView.hideLoading();
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {

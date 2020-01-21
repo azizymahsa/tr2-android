@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 import com.bumptech.glide.Glide;
 import com.example.moeidbannerlibrary.banner.BannerLayout;
@@ -88,6 +89,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
     public Integer clickPositionX = 0;
     public Integer clickPositionY = 0;
     public Integer clickPosition;
+    ScrollingPagerIndicator indicator;
 
 
     @Override
@@ -138,6 +140,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             recyclerView = findViewById(R.id.recyclerView);
             titleAlbum = findViewById(R.id.titleAlbum);
             tvCaption = findViewById(R.id.tvCaption);
+            indicator = findViewById(R.id.indicator);
 
             tvTitle = findViewById(R.id.tvTitle);
             tvTitle.setText("محتوای یک عکس");
@@ -375,6 +378,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             bRelatedAlbums.setVisibility(View.VISIBLE);
             tvEmpty.setVisibility(View.GONE);
             bRelatedAlbums.setAdapter(new NewestPhotosAdapter(data.getResults(), this::OnItemRelatedAlbumsClick));
+            indicator.attachToRecyclerView(bRelatedAlbums.getmRecyclerView());
+
         }
 
     }

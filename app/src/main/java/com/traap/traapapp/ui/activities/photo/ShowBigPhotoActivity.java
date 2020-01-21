@@ -489,9 +489,8 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
             View view = View.inflate(container.getContext(), R.layout.list_image_item_gallary, null);
-            PhotoView image = view.findViewById(R.id.photo_view);
+            ImageView image = view.findViewById(R.id.photo_view);
             final int[] likeCount = {0};
-            image.setZoomable(false);
 
 
             ImageView btnSharePic = view.findViewById(R.id.btnSharePics);
@@ -714,6 +713,105 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                 notifyDataSetChanged();
 
             });
+
+
+            rlPic.setOnClickListener(v ->
+            {
+                if (!isMoving) {
+                    long clickTime = System.currentTimeMillis();
+                    if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA) {
+                        doubleClick = true;
+                        System.out.println("-----------doubleClick");
+                        lastClickTime = 0;
+                        ivBigLike.setVisibility(View.VISIBLE);
+                        ivBigLike.setVisibility(View.VISIBLE);
+                        LikeVideoRequest request = new LikeVideoRequest();
+                        animateHeart(ivBigLike);
+
+                        if (list.get(position).getIsLiked()) {
+                            imgLike.setColorFilter(getResources().getColor(R.color.gray));
+                            tvLike.setTextColor(getResources().getColor(R.color.gray));
+
+                            if (likeCount[0] > 0)
+                            {
+                                likeCount[0] = likeCount[0] - 1;
+                            }
+                            tvLike.setText(likeCount[0] + "");
+                            list.get(position).setIsLiked(false);
+                            list.get(position).setLikes(likeCount[0]);
+
+                        }
+                        else
+                        {
+
+                            imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                            tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                            likeCount[0] = likeCount[0] + 1;
+                            tvLike.setText(likeCount[0] + "");
+                            list.get(position).setIsLiked(true);
+
+                            list.get(position).setLikes(likeCount[0]);
+
+
+                        }
+
+                        SingletonService.getInstance().getLikeVideoService().likePhotoService(list.get(position).getId(), request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>() {
+                            @Override
+                            public void onReady(WebServiceClass<LikeVideoResponse> response) {
+
+                                try {
+
+                                    if (response.info.statusCode == 200) {
+
+                                    }
+                                    else
+                                    {
+                                        showToast(ShowBigPhotoActivity.this, response.info.message, R.color.red);
+                                    }
+                                } catch (Exception e)
+                                {
+                                    showToast(ShowBigPhotoActivity.this, e.getMessage(), R.color.red);
+
+                                }
+                            }
+
+                            @Override
+                            public void onError(String message)
+                            {
+                                if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                                {
+                                    Logger.e("-OnError-", "Error: " + message);
+                                    showError(ShowBigPhotoActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                                }
+                                else
+                                {
+                                    // showError(ShowBigPhotoActivity.this,String.valueOf(R.string.networkErrorMessage));
+
+                                    showAlert(ShowBigPhotoActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                                }
+                            }
+                        });
+
+
+                    } else {
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!doubleClick) {
+                                    System.out.println("--------------singleClick");
+
+                                } else
+                                    doubleClick = false;
+                            }
+                        }, 350);
+                    }
+                    lastClickTime = clickTime;
+                }
+            });
+
+
+
 
 
 

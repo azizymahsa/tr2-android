@@ -39,12 +39,13 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.ViewHolder
     private final List<Result> data;
 
     private Activity activity;
-    private DetailPackAdapter detailPackAdapter;
+    public ChargeAdapterEvent event;
 
-    public ChargeAdapter(final List<Result> data, Activity activity)
+    public ChargeAdapter(final List<Result> data, Activity activity,ChargeAdapterEvent event)
     {
         this.data = data;
         this.activity = activity;
+        this.event = event;
 
     }
 
@@ -74,6 +75,16 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.ViewHolder
             holder.llImage.setBackground(activity.getResources().getDrawable(R.drawable.circle_background_3));
 
         }
+
+        holder.rlRoot.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                event.onClickChargeAmount(item);
+
+            }
+        });
 
 
 
@@ -105,6 +116,7 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.ViewHolder
     {
         public TextView tvTitle;
         public LinearLayout llImage;
+        public RelativeLayout rlRoot;
 
         //  public RelativeLayout tvArrow;
         RelativeLayout buttonLayout;
@@ -115,8 +127,14 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.ViewHolder
             tvTitle = v.findViewById(R.id.tvTitle);
             buttonLayout = v.findViewById(R.id.buttonLayout);
             llImage = v.findViewById(R.id.llImage);
+            rlRoot = v.findViewById(R.id.rlRoot);
         }
     }
 
+    public interface ChargeAdapterEvent{
+        void onClickChargeAmount(Result result);
+
+
+}
 
 }

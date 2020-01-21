@@ -236,6 +236,16 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         ivPrintTicket.setImageResource(R.drawable.select_step);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
+
+
+        ivPrintTicket.setImageResource(R.drawable.select_step);
+        tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+
+
+
+        ivFullInfo.setImageResource(R.drawable.select_step);
+        tvFullInfo.setTextColor(getResources().getColor(R.color.textColorPrimary));
     }
 
     @Override
