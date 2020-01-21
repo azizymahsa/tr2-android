@@ -1390,7 +1390,7 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:layout_marginBottom="@dimen/_30dp"
-                            android:visibility="visible">
+                            android:visibility="gone">
 
                             <FrameLayout
                                 android:id="@+id/containerWallet"
@@ -1727,7 +1727,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
-                            android:visibility="gone">
+                            android:visibility="visible">
 
                             <FrameLayout
                                 android:id="@+id/container"

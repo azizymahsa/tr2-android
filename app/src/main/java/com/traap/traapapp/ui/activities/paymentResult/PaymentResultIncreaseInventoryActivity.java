@@ -169,10 +169,10 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
     {
         switch (v.getId()){
             case R.id.btnShare:
-                new ScreenShot(llResult, this);
+                new ScreenShot(llResult, this,false,"برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");
                 break;
             case R.id.btnSaveResult:
-                new ScreenShot(llResult, this,true);
+                new ScreenShot(llResult, this,true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
                 showDialog();
                 break;
             case R.id.tvBackHome:
