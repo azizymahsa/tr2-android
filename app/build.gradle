@@ -406,6 +406,7 @@ android {
 //        implementation "io.fotoapparat:fotoapparat:2.5.0" //CameraView
 
 //        implementation 'org.tensorflow:tensorflow-lite:1.14.0'
+        compile 'nl.garvelink.oss:iban:1.6.1'
 
     }
 }

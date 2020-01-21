@@ -39,12 +39,7 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp">
 
-                    <ImageView
-                        android:id="@+id/imgFilter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/textColorPrimary"
-                        app:srcCompat="@drawable/ic_filter" />
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -52,7 +47,12 @@
                         android:text="فیلتر"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/textSize_14dp" />
-
+                    <ImageView
+                        android:id="@+id/imgFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/textColorPrimary"
+                        app:srcCompat="@drawable/ic_filter" />
                 </LinearLayout>
 
                 <RelativeLayout

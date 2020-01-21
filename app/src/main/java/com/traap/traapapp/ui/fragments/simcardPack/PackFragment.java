@@ -2078,7 +2078,7 @@ public class PackFragment
     {
         // initDefaultOperatorView();
 
-        Toast.makeText(getContext(), "mciii", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "mciii", Toast.LENGTH_SHORT).show();
 
         btnBuyCharge.revertAnimation(this);
         btnBuyCharge.setClickable(true);
