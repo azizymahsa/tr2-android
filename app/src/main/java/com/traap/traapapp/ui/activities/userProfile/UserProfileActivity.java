@@ -418,7 +418,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             err = false;
 //            etEmail.setError("ایمیل درست نیست!");
         }
-        if (!TextUtils.isEmpty(tvBirthDay.getText().toString().replaceAll("_", "").replaceAll("/", "")))
+        if (!TextUtils.isEmpty(tvBirthDay.getText().toString().replaceAll("_", "").replaceAll("/", "").trim()))
         {
             if (tvBirthDay.getText().toString().replaceAll("_", "").length() != 10)
             {
