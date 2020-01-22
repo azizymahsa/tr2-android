@@ -140,7 +140,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
                     intent.putExtra("RefrenceNumber", item.getId().toString());
                     // intent.putExtra("StatusPayment", item.getStatus());
                     mContext.startActivity(intent);
-                } else if (item.getTypeTransactionId() == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
+                } else if (item.getTypeTransactionId() == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET ||item.getTypeTransactionId() == TrapConfig.PAYMENT_STATUS_TRANSFER_MONEY_WALLET)
                 {
 
                     Intent intent = new Intent(mContext, PaymentResultIncreaseInventoryActivity.class);

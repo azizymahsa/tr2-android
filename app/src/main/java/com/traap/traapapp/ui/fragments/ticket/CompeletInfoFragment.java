@@ -634,7 +634,7 @@ public class CompeletInfoFragment
 
                 } else
                 {
-                    showAlertFailure(getContext(),"رمز کارت وارد نشده است.","",true);
+                    showAlertFailure(context,"رمز کارت وارد نشده است.","",false);
 
                 }
 
@@ -2159,8 +2159,16 @@ public class CompeletInfoFragment
         ((BuyTicketsActivity) getActivity()).hideLoading();
 
         Intent intent = new Intent(getContext(), ShowTicketActivity.class);
+        intent.putExtra("RefrenceNumber", response.getRefNumber().toString());
+        intent.putExtra("isTransactionList", false);
+        startActivity(intent);
+
+     /*   Intent intent = new Intent(getActivity(), ShowTicketActivity.class);
+
         intent.putExtra("RefrenceNumber", response.getRefNumber());
-        getContext().startActivity(intent);
+        intent.putExtra("isTransactionList", false);
+        startActivityForResult(intent,100);*/
+
     }
 
     @Override
