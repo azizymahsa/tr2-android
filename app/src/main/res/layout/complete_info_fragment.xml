@@ -93,17 +93,6 @@
                             android:background="@null">
 
 
-                            <ImageView
-                                android:id="@+id/imgDelete1"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon"
-                                android:visibility="gone" />
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -235,6 +224,18 @@
                                 </LinearLayout>
 
                             </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/imgDelete1"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="gone" />
+
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -273,16 +274,7 @@
                             android:background="@null">
 
 
-                            <ImageView
-                                android:id="@+id/imgDelete2"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon"
-                                android:visibility="visible" />
+
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -415,6 +407,16 @@
 
                                 </LinearLayout>
                             </LinearLayout>
+                            <ImageView
+                                android:id="@+id/imgDelete2"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="visible" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -451,17 +453,6 @@
                             android:layout_height="wrap_content"
                             android:background="@null">
 
-
-                            <ImageView
-                                android:id="@+id/imgDelete3"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon"
-                                android:visibility="visible" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -593,6 +584,17 @@
 
                                 </LinearLayout>
                             </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/imgDelete3"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="visible" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -630,17 +632,6 @@
                             android:layout_height="wrap_content"
                             android:background="@null">
 
-
-                            <ImageView
-                                android:id="@+id/imgDelete4"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon"
-                                android:visibility="visible" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -773,6 +764,18 @@
 
                                 </LinearLayout>
                             </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/imgDelete4"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon"
+                                android:visibility="visible" />
+
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -810,16 +813,6 @@
                             android:layout_height="wrap_content"
                             android:background="@null">
 
-
-                            <ImageView
-                                android:id="@+id/imgDelete5"
-                                android:layout_width="@dimen/_40dp"
-                                android:layout_height="@dimen/_40dp"
-                                android:layout_marginTop="@dimen/_30dp"
-                                android:background="@drawable/edit_text_background_border_white"
-                                android:padding="8dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/garbage_icon" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -952,6 +945,17 @@
 
                                 </LinearLayout>
                             </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/imgDelete5"
+                                android:layout_width="@dimen/_40dp"
+                                android:layout_height="@dimen/_40dp"
+                                android:layout_marginTop="@dimen/_30dp"
+                                android:background="@drawable/edit_text_background_border_white"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/garbage_icon" />
+
                         </RelativeLayout>
                     </LinearLayout>
 

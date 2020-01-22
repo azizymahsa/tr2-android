@@ -431,7 +431,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         }
         if (etPass.getText().toString().length() < 4 || etPass.getText().toString().length()>12)
         {
-            mainView.showError("لطفا رمز را صحیح وارد نمایید.");
+            mainView.showError("رمز وارد شده حداقل باید 4 کارکتر باشد.");
             return;
         }
 
