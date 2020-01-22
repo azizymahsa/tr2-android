@@ -155,7 +155,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="60" />
+            android:layout_weight="40" />
 
         <FrameLayout
             android:layout_width="0dp"
@@ -163,7 +163,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginBottom="2dp"
-            android:layout_weight="80">
+            android:layout_weight="50">
 
             <include
                 android:id="@+id/btnBackStep"
@@ -174,7 +174,7 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="140">
+            android:layout_weight="150">
 
             <include
                 android:id="@+id/btnGetMoney"
@@ -185,7 +185,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="60" />
+            android:layout_weight="40" />
 
     </LinearLayout>
 
