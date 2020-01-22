@@ -105,7 +105,8 @@
                     android:layout_marginEnd="@dimen/_20dp"
                     android:text=""
                     android:textColor="@color/chargePackTextColor"
-                    android:textSize="@dimen/textSize_12dp" />
+                    android:textSize="@dimen/textSize_12dp"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 
