@@ -18,7 +18,6 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
-
     signingConfigs {
         release {
             keyAlias 'key0'
@@ -193,11 +192,11 @@ android {
         //------------------------rxbinding2 end------------------------
 
         //------------------------FireBase start----------------------
-        // implementation 'com.google.firebase:firebase-analytics:17.2.1'
-        // implementation 'com.google.firebase:firebase-auth:19.2.0'
-        //   implementation 'com.google.firebase:firebase-core:17.2.1'
+        implementation 'com.google.firebase:firebase-analytics:17.2.1'
+        implementation 'com.google.firebase:firebase-auth:19.2.0'
+        implementation 'com.google.firebase:firebase-core:17.2.1'
         implementation 'com.google.firebase:firebase-firestore:21.3.1'
-        //  implementation 'com.google.firebase:firebase-crash:16.2.1'
+        implementation 'com.google.firebase:firebase-crash:16.2.1'
         implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
         implementation "com.google.firebase:firebase-messaging:20.1.0" // for yandex and FCM
         //------------------------FireBase end------------------------
@@ -342,17 +341,14 @@ android {
 
         //--------------------------yandex start---------------------------
         // AppMetrica SDK.
-        //    implementation 'com.yandex.android:mobmetricalib:3.8.0'
+        implementation 'com.yandex.android:mobmetricalib:3.8.0'
         // Optionally. Play Install Referrer library.
-        // implementation 'com.android.installreferrer:installreferrer:1.0'
+        implementation 'com.android.installreferrer:installreferrer:1.0'
 //        implementation "com.yandex.android:mobmetricapushlib:1.5.1"   // With Caching
         implementation('com.yandex.android:mobmetricapushlib:1.5.1') { // Without Caching
             exclude group: 'com.squareup.okhttp3', module: 'okhttp'
         }
-        //  implementation 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2'
         implementation 'com.github.chrisbanes:PhotoView:2.1.3'
-
-
         //--------------------------yandex end-----------------------------
 
         //--------------------------materialedittext start-----------------------
@@ -389,15 +385,29 @@ android {
 //        implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
         //----------------Chart for end------------------------
 
+        //----------------expandablerecyclerview for start----------------------
+        implementation 'com.thoughtbot:expandablerecyclerview:1.3'
+        //----------------expandablerecyclerview for end------------------------
 
 //        implementation 'com.github.mreram:showcaseview:1.1'
 
+        //----------------autoscrollviewpager for start----------------------
         implementation('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
             exclude module: 'support-v4'
         }
+        //----------------autoscrollviewpager for end------------------------
 
+        //----------------horizontallistview for start----------------------
         implementation 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2'
-        //  implementation 'com.github.chrisbanes:PhotoView:2.1.3'
+        //----------------horizontallistview for end------------------------
+
+        //----------------IBAN Passport for start----------------------
+        implementation 'nl.garvelink.oss:iban:1.6.1'
+        //----------------IBAN Passport for end------------------------
+
+        //----------------IBAN Passport for start----------------------
+        implementation 'com.github.chrisbanes:PhotoView:2.1.3'
+        //----------------IBAN Passport for end------------------------
 //        }
 
 //        implementation 'com.scottyab:rootbeer-lib:0.0.7'
@@ -406,7 +416,6 @@ android {
 //        implementation "io.fotoapparat:fotoapparat:2.5.0" //CameraView
 
 //        implementation 'org.tensorflow:tensorflow-lite:1.14.0'
-        compile 'nl.garvelink.oss:iban:1.6.1'
 
     }
 }
@@ -429,6 +438,6 @@ apply plugin: 'com.google.gms.google-services'
 dependencies {
     implementation 'androidx.appcompat:appcompat:+'
     implementation 'androidx.constraintlayout:constraintlayout:+'
-    implementation 'com.google.firebase:firebase-core:17.2.1'
-    implementation "com.google.firebase:firebase-messaging:20.1.0"
+//    implementation 'com.google.firebase:firebase-core:17.2.1'
+//    implementation "com.google.firebase:firebase-messaging:20.1.0"
 }
