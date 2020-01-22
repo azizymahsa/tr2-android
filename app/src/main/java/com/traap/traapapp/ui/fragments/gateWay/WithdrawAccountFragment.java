@@ -160,7 +160,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
         {
 
             case R.id.btnGetMoney:
-                if (edtCurrency.getText().toString().length() > 3)
+                if (edtCurrency.getText().toString().length() >= 3)
                 {
                     if (Integer.parseInt(edtCurrency.getText().toString().replaceAll(",", "")) <= 900000)
                     {
@@ -194,7 +194,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                                         {
                                           //  mainView.backToMainFragment();
                                         }
-                                    }, txtAmountDigit, txtAmountChar, txtNumberShaba, txtName);
+                                    }, txtAmountDigit,"("+ txtAmountChar+")", txtNumberShaba, txtName);
                             dialog.show((getActivity()).getFragmentManager(), "dialog");
 
                         } else
@@ -209,7 +209,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                     }
                 } else
                 {
-                    mainView.showError("لطفا مبلغ را وارد کنید.");
+                    mainView.showError("لطفا مبلغ را وارد کنید.(حداقل سه رقم)");
                 }
                 break;
             case R.id.btnBackStep:
