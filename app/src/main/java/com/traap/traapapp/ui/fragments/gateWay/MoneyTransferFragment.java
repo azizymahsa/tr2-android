@@ -394,7 +394,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
                 mainView.showError("لطفا کد مشتری را وارد نمایید.");
                 return;
             }
-            if (etUserCode.getText().length() <= 4)
+            if (etUserCode.getText().length() <= 5)
             {
 
                 mainView.showError("لطفا کد مشتری را صحیح وارد نمایید.(حداقل 5 رقم)");

@@ -34,16 +34,16 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
+                        android:layout_width="@dimen/_100dp"
+                        android:layout_height="@dimen/_100dp"
                         android:layout_gravity="center">
 
                         <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
+                            android:layout_width="@dimen/_80dp"
+                            android:layout_height="@dimen/_80dp"
                             android:layout_centerInParent="true"
                             android:background="@drawable/background_gray_rec"
-                            android:scaleType="fitCenter"
+                            android:scaleType="center"
                             android:padding="@dimen/_10dp"
 
                             android:src="@drawable/mony_transfer" />
@@ -71,16 +71,16 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
+                        android:layout_width="@dimen/_100dp"
+                        android:layout_height="@dimen/_100dp"
                         android:layout_gravity="center">
 
                         <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
+                            android:layout_width="@dimen/_80dp"
+                            android:layout_height="@dimen/_80dp"
                             android:layout_centerInParent="true"
                             android:background="@drawable/background_gray_rec"
-                            android:scaleType="centerInside"
+                            android:scaleType="center"
                             android:padding="@dimen/_10dp"
                             android:src="@drawable/ic_inc_inv" />
 
@@ -116,16 +116,16 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
+                        android:layout_width="@dimen/_100dp"
+                        android:layout_height="@dimen/_100dp"
                         android:layout_gravity="center">
 
                         <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
+                            android:layout_width="@dimen/_80dp"
+                            android:layout_height="@dimen/_80dp"
                             android:layout_centerInParent="true"
                             android:background="@drawable/background_gray_rec"
-                            android:scaleType="fitCenter"
+                            android:scaleType="center"
                             android:padding="@dimen/_10dp"
 
                             android:src="@drawable/manage_cart" />
@@ -153,16 +153,16 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
+                        android:layout_width="@dimen/_100dp"
+                        android:layout_height="@dimen/_100dp"
                         android:layout_gravity="center">
 
                         <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
+                            android:layout_width="@dimen/_80dp"
+                            android:layout_height="@dimen/_80dp"
                             android:layout_centerInParent="true"
                             android:background="@drawable/background_gray_rec"
-                            android:scaleType="fitCenter"
+                            android:scaleType="center"
                             android:padding="@dimen/_10dp"
                             android:src="@drawable/ic_report" />
 
@@ -236,16 +236,16 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
+                        android:layout_width="@dimen/_100dp"
+                        android:layout_height="@dimen/_100dp"
                         android:layout_gravity="center">
 
                         <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
+                            android:layout_width="@dimen/_80dp"
+                            android:layout_height="@dimen/_80dp"
                             android:layout_centerInParent="true"
                             android:background="@drawable/background_gray_rec"
-                            android:scaleType="fitCenter"
+                            android:scaleType="center"
                             android:padding="@dimen/_10dp"
 
                             android:src="@drawable/digital_wallet" />
