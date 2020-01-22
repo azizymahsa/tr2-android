@@ -69,7 +69,7 @@
                         android:layout_centerVertical="true"
                         android:text="تایید برداشت از کیف پول"
                         android:drawableTint="@color/textColorPrimary"
-                        android:textColor="@color/textColorPrimary"
+                        android:textColor="@color/kellyGreen"
                         android:textStyle="bold"
                         android:textSize="@dimen/textSize_16dp"
 
