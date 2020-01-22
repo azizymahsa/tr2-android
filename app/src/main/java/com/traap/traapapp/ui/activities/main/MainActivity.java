@@ -15,6 +15,8 @@ import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -109,17 +111,26 @@ import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
 import com.traap.traapapp.ui.fragments.videos.archive.VideosArchiveActionView;
 import com.traap.traapapp.ui.fragments.videos.archive.VideosArchiveFragment;
 import com.traap.traapapp.ui.fragments.webView.WebFragment;
+import com.traap.traapapp.utilities.KeyboardUtils;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.yandex.metrica.push.YandexMetricaPush;
 
 public class MainActivity extends BaseActivity implements MainActionView, MenuDrawerFragment.FragmentDrawerListener,
-        OnServiceStatus<WebServiceClass<GetMenuResponse>>
+        OnServiceStatus<WebServiceClass<GetMenuResponse>>, KeyboardUtils.SoftKeyboardToggleListener
         , SelectPositionFragment.OnListFragmentInteractionListener
 {
     private Boolean isMainFragment = true;
     private Boolean isNewsFragment = false;
     private Boolean isFirst = true;
+
+//    private String selectPositionId;
+//    private int count;
+//    private int amountForPay;
+//    private int amountOneTicket;
+//    private List<Integer> results;
+//    private Integer stadiumId;
+//    private List<Integer> ticketIdList;
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
@@ -236,6 +247,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        }
 
         //-----------------------test------------------------
+
+        KeyboardUtils.addKeyboardToggleListener(this, this);
 
         Intent intent = getIntent();
 
@@ -516,6 +529,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        NotificationUtils.clearNotifications(getApplicationContext());
     }
 
+    //
 
     private void setCheckedBNV(BottomNavigationView bottomNavigationView, int index)
     {
@@ -2549,8 +2563,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         hideLoading();
         String error;
 
-
-
         if (Tools.isNetworkAvailable(this))
         {
             error="خطا در دریافت اطلاعات از سرور!";
@@ -2598,24 +2610,33 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                break;
 //        }
 //    }
-    String selectPositionId;
-    int count;
-    int amountForPay;
-    int amountOneTicket;
-    List<Integer> results;
-    Integer stadiumId;
-    private List<Integer> ticketIdList;
 
-    public void setData(String selectPositionId, int count, int amountForPay, int amountOneTicket, List<Integer> results, Integer stadiumId)
+//    public void setData(String selectPositionId, int count, int amountForPay, int amountOneTicket, List<Integer> results, Integer stadiumId)
+//    {
+//
+//        this.selectPositionId = selectPositionId;
+//        this.count = count;
+//        this.amountForPay = amountForPay;
+//        this.amountOneTicket = amountOneTicket;
+//        this.ticketIdList = results;
+//        this.stadiumId = stadiumId;
+//    }
+
+    @Override
+    public void onToggleSoftKeyboard(boolean isVisible)
     {
-
-        this.selectPositionId = selectPositionId;
-        this.count = count;
-        this.amountForPay = amountForPay;
-        this.amountOneTicket = amountOneTicket;
-        this.ticketIdList = results;
-        this.stadiumId = stadiumId;
-
+        if (isVisible)
+        {
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.movedown);
+            bottomNavigationView.startAnimation(animation);
+            bottomNavigationView.setVisibility(View.GONE);
+        }
+        else
+        {
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.moveup);
+            bottomNavigationView.startAnimation(animation);
+            bottomNavigationView.setVisibility(View.VISIBLE);
+        }
+//        showDebugToast(this, "Keyboard Visibility: " + isVisible);
     }
-
 }
