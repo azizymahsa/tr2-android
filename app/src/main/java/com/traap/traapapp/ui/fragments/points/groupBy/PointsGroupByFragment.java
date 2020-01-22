@@ -18,9 +18,9 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.points.groupBy.PointGroupBy;
 import com.traap.traapapp.apiServices.model.points.groupBy.PointsGroupByResponse;
 import com.traap.traapapp.apiServices.model.points.guide.PointGuide;
-import com.traap.traapapp.apiServices.model.points.guide.PointsGuideResponse;
 import com.traap.traapapp.ui.adapters.points.PointGuidesAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.utilities.Logger;
@@ -39,8 +39,8 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
 //    private TextView tvEmpty;
-    private PointGuidesAdapter adapter;
-    private List<PointGuide> guideList;
+//    private PointGuidesAdapter adapter;
+    private List<PointGroupBy> groupByList;
 
     public PointsGroupByFragment()
     {
@@ -68,7 +68,7 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
         {
             return rootView;
         }
-        rootView = inflater.inflate(R.layout.fragment_point_guide, container, false);
+        rootView = inflater.inflate(R.layout.fragment_point_group_by, container, false);
 
         initView();
 
@@ -86,13 +86,12 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
         layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        //SingletonService.getInstance().getNewsService().getNewsArchiveCategoryBySingleId(Ids, this);
-//        SingletonService.getInstance().getPointsService().getPointGuide(this);
+        SingletonService.getInstance().getPointsService().getPointGroupBy(this);
 
-        //-------test------
-        progressBar.setVisibility(View.GONE);
-        rootView.findViewById(R.id.tvEmpty).setVisibility(View.VISIBLE);
-        //-------test------
+//        //-------test------
+//        progressBar.setVisibility(View.GONE);
+//        rootView.findViewById(R.id.tvEmpty).setVisibility(View.VISIBLE);
+//        //-------test------
     }
 
     @Override
@@ -107,13 +106,13 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
             }
             else
             {
-//                guideList = response.data.getGuideList();
-                if (!guideList.isEmpty())
+//                groupByList = response.data.getGuideList();
+                if (!groupByList.isEmpty())
                 {
                     llHeader.setVisibility(View.VISIBLE);
-                    adapter = new PointGuidesAdapter(context, guideList);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+//                    adapter = new PointGuidesAdapter(context, groupByList);
+//                    recyclerView.setAdapter(adapter);
+//                    adapter.notifyDataSetChanged();
                 }
                 else
                 {
