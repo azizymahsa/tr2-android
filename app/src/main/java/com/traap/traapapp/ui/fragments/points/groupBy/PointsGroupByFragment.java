@@ -21,6 +21,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.points.groupBy.PointGroupBy;
 import com.traap.traapapp.apiServices.model.points.groupBy.PointsGroupByResponse;
 import com.traap.traapapp.apiServices.model.points.guide.PointGuide;
+import com.traap.traapapp.ui.adapters.points.PointGroupByParentAdapter;
 import com.traap.traapapp.ui.adapters.points.PointGuidesAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.utilities.Logger;
@@ -32,14 +33,13 @@ import java.util.List;
 @SuppressLint("pointsRecordFragment")
 public class PointsGroupByFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<PointsGroupByResponse>>
 {
-    private LinearLayout llHeader;
     private Context context;
     private View rootView;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
 //    private TextView tvEmpty;
-//    private PointGroupByParentAdapter adapter;
+    private PointGroupByParentAdapter adapter;
     private List<PointGroupBy> groupByList;
 
     public PointsGroupByFragment()
@@ -78,12 +78,11 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
 
     public void initView()
     {
-        llHeader = rootView.findViewById(R.id.llHeader);
         progressBar = rootView.findViewById(R.id.progressbar);
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
-        layoutManager = new GridLayoutManager(getActivity(), 1);
+        layoutManager = new GridLayoutManager(context, 1);
         recyclerView.setLayoutManager(layoutManager);
 
         SingletonService.getInstance().getPointsService().getPointGroupBy(this);
@@ -106,17 +105,15 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
             }
             else
             {
-//                groupByList = response.data.getGuideList();
+                groupByList = response.data.getGroupByList();
                 if (!groupByList.isEmpty())
                 {
-                    llHeader.setVisibility(View.VISIBLE);
-//                    adapter = new PointGroupByParentAdapter(context, groupByList);
-//                    recyclerView.setAdapter(adapter);
-//                    adapter.notifyDataSetChanged();
+                    adapter = new PointGroupByParentAdapter(context, groupByList);
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
                 else
                 {
-                    llHeader.setVisibility(View.GONE);
                     //show Empty
                 }
             }
