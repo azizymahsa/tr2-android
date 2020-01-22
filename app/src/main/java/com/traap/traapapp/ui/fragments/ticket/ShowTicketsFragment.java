@@ -48,7 +48,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     private TextView tvPopularPlayer;
     private View view;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private View btnShareTicket, btnPaymentConfirm, btnBackToHome,btnReturn;
+    private View btnShareTicket, btnPaymentConfirm, btnBackToHome,btnReturn,btnSaveResult;
     private TextView tvDescTicket;
     private String firstName, lastName;
     private RecyclerView rvTickets;
@@ -185,6 +185,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         llErrorPayment=view.findViewById(R.id.llErrorPayment);
         btnShareTicket = view.findViewById(R.id.btnShareTicket);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
+        btnSaveResult=view.findViewById(R.id.btnSaveResult);
 
         btnReturn=view.findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(this);
@@ -193,6 +194,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         rvTickets = view.findViewById(R.id.rvTickets);
         btnShareTicket.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
+        btnSaveResult.setOnClickListener(this);
         btnBackToHome.setOnClickListener(this);
 
         if(isTransactionList){
@@ -261,6 +263,11 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
                 // onClickContinueBuyTicketListener.goBuyTicket();
                 mainView.getBuyEnable(() -> { });
 
+                break;
+
+            case R.id.btnSaveResult:
+                new ScreenShot(rvTickets, getActivity(),true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                // showDialog();
                 break;
             case R.id.btnBackToHome:
 
