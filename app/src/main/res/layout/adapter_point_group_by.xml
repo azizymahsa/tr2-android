@@ -10,6 +10,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/llParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
@@ -66,7 +67,6 @@
 
         </RelativeLayout>
 
-
     </LinearLayout>
 
     <View
@@ -81,7 +81,8 @@
         android:id="@+id/rcChild"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="34dp"
+        android:visibility="gone"
+        android:layout_marginRight="28dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:padding="8dp"/>

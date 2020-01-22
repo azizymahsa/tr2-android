@@ -1,45 +1,37 @@
 package com.traap.traapapp.ui.adapters.points;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.news.main.News;
 import com.traap.traapapp.apiServices.model.points.records.PointRecord;
-import com.traap.traapapp.utilities.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class PointRecordsAdapter extends RecyclerView.Adapter<PointRecordsAdapter.ViewHolder>
+public class PointGroupByChildAdapter extends RecyclerView.Adapter<PointGroupByChildAdapter.ViewHolder>
 {
     private Context mContext;
     private List<PointRecord> list;
     private List<Integer> heightList;
 
-    public PointRecordsAdapter(Context mContext, List<PointRecord> list, List<Integer> heightList)
+    public PointGroupByChildAdapter(Context mContext, List<PointRecord> list, List<Integer> heightList)
     {
         this.mContext = mContext;
         this.list = list;
         this.heightList = heightList;
     }
 
-    public PointRecordsAdapter(Context mContext, List<PointRecord> list)
+    public PointGroupByChildAdapter(Context mContext, List<PointRecord> list)
     {
         this.mContext = mContext;
         this.list = list;
@@ -51,7 +43,7 @@ public class PointRecordsAdapter extends RecyclerView.Adapter<PointRecordsAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.adapter_point_records, null);
+                R.layout.adapter_point_group_by_child, null);
 
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 

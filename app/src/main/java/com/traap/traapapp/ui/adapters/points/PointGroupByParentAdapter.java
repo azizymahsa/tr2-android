@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.traap.traapapp.R;
@@ -37,7 +39,7 @@ public class PointGroupByParentAdapter extends RecyclerView.Adapter<PointGroupBy
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.adapter_point_records, null);
+                R.layout.adapter_point_group_by, null);
 
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 
@@ -50,20 +52,47 @@ public class PointGroupByParentAdapter extends RecyclerView.Adapter<PointGroupBy
     {
         PointGroupBy item = list.get(position);
 
-//        if (item.getDate() != null)
-//        {
-//            holder.tvDate.setText(item.getDate());
-//        }
+        if (item.getTitle() != null)
+        {
+            holder.tvTitle.setText(item.getTitle());
+        }
 //
-//        if (item.getTitle() != null)
-//        {
-//            holder.tvTitle.setText(item.getTitle());
-//        }
-//
-//        if (Objects.requireNonNull(item.getValue()) != null)
-//        {
-//            holder.tvValue.setText(item.getValue() + " تراپ");
-//        }
+        if (Objects.requireNonNull(item.getCount()) != null)
+        {
+            holder.tvCount.setText(item.getCount() + " بار");
+        }
+
+        if (Objects.requireNonNull(item.getValueSum()) != null)
+        {
+            holder.tvValueSum.setText(item.getValueSum() + " تراپ");
+        }
+
+        if (!item.getPointChildList().isEmpty())
+        {
+            holder.rcChild.setLayoutManager(new GridLayoutManager(mContext, 1));
+            holder.rcChild.setAdapter(new PointGroupByChildAdapter(mContext, item.getPointChildList()));
+        }
+
+        holder.llParent.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (!item.getPointChildList().isEmpty())
+                {
+                    if (holder.rcChild.getVisibility() == View.VISIBLE)
+                    {
+                        holder.rcChild.setVisibility(View.GONE);
+                        holder.imgIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_plus));
+                    }
+                    else
+                    {
+                        holder.rcChild.setVisibility(View.VISIBLE);
+                        holder.imgIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_minus));
+                    }
+                }
+            }
+        });
 
     }
 
@@ -74,19 +103,45 @@ public class PointGroupByParentAdapter extends RecyclerView.Adapter<PointGroupBy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
+//            implements View.OnClickListener
     {
-        private TextView tvTitle, tvDate, tvValue;
-        private LinearLayout root;
+        private TextView tvTitle, tvCount, tvValueSum;
+        private ImageView imgIcon;
+        private RecyclerView rcChild;
+        private LinearLayout root, llParent;
 
         public ViewHolder(@NonNull View rootView)
         {
             super(rootView);
 
             root = rootView.findViewById(R.id.rootView);
+            llParent = rootView.findViewById(R.id.llParent);
+
             tvTitle = rootView.findViewById(R.id.tvTitle);
-            tvDate = rootView.findViewById(R.id.tvDate);
-            tvValue = rootView.findViewById(R.id.tvValue);
+            tvCount = rootView.findViewById(R.id.tvCount);
+            tvValueSum = rootView.findViewById(R.id.tvValueSum);
+
+            imgIcon = rootView.findViewById(R.id.imgIcon);
+
+            rcChild = rootView.findViewById(R.id.rcChild);
+
+//            llParent.setOnClickListener(this);
         }
+
+//        @Override
+//        public void onClick(View v)
+//        {
+//            if (rcChild.getVisibility() == View.VISIBLE)
+//            {
+//                rcChild.setVisibility(View.GONE);
+//                imgIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_minus));
+//            }
+//            else
+//            {
+//                rcChild.setVisibility(View.VISIBLE);
+//                imgIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_plus));
+//            }
+//        }
     }
 
 }

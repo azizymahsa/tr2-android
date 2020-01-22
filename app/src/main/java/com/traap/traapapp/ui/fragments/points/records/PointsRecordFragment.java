@@ -116,7 +116,8 @@ public class PointsRecordFragment extends BaseFragment implements OnServiceStatu
 //                Logger.e("-recordList size-", "size: " + recordList.size());
                 if (!recordList.isEmpty())
                 {
-                    adapter = new PointRecordsAdapter(context, recordList, heightList);
+//                    adapter = new PointRecordsAdapter(context, recordList, heightList);
+                    adapter = new PointRecordsAdapter(context, recordList);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
