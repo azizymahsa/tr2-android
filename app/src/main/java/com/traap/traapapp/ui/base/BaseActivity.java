@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.traap.traapapp.BuildConfig;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.utilities.Tools;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -166,6 +169,14 @@ public class BaseActivity extends AppCompatActivity
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
+    public static void showDebugToast(Activity activity, String message)
+    {
+        String TAG = activity.getClass().getSimpleName();
+        if (BuildConfig.DEBUG)
+        {
+            Tools.showToast(activity, TAG + " # " + message, 0, Toast.LENGTH_LONG, R.color.gray);
+        }
+    }
 
     public static void hideKeyboard(Activity activity)
     {

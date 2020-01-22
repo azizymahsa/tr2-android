@@ -5,13 +5,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import butterknife.ButterKnife;
+
+import com.traap.traapapp.BuildConfig;
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.MessageAlertSuccesDialog;
+import com.traap.traapapp.utilities.Tools;
 
 import java.util.Objects;
 
@@ -23,6 +27,15 @@ public class BaseFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+    }
+
+    public static void showDebugToast(Activity activity, String message)
+    {
+        String TAG = activity.getClass().getSimpleName();
+        if (BuildConfig.DEBUG)
+        {
+            Tools.showToast(activity, TAG + " # " + message, 0, Toast.LENGTH_LONG, R.color.gray);
+        }
     }
 
     public void showToast(Context context, String message, int color)

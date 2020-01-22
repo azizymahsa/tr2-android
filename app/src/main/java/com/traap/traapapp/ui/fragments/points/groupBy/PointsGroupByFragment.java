@@ -39,7 +39,7 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
 //    private TextView tvEmpty;
-//    private PointGuidesAdapter adapter;
+//    private PointGroupByParentAdapter adapter;
     private List<PointGroupBy> groupByList;
 
     public PointsGroupByFragment()
@@ -110,7 +110,7 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
                 if (!groupByList.isEmpty())
                 {
                     llHeader.setVisibility(View.VISIBLE);
-//                    adapter = new PointGuidesAdapter(context, groupByList);
+//                    adapter = new PointGroupByParentAdapter(context, groupByList);
 //                    recyclerView.setAdapter(adapter);
 //                    adapter.notifyDataSetChanged();
                 }
