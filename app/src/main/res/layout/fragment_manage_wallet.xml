@@ -59,33 +59,36 @@
             android:layout_height="wrap_content"
             android:layout_weight="2" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/llDetailDescriptionForgetPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_10dp"
-        android:layout_marginBottom="@dimen/_10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:layout_weight="5"
-            android:gravity="center_vertical"
-            android:maxLines="2"
-            android:text="جهت دریافت پیامک بازیابی رمز کیف پول، دکمه زیر را لمس کنید."
-            android:textColor="@color/black"
-            android:textSize="@dimen/textSize_14dp" />
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="جهت دریافت پیامک بازیابی رمز کیف پول، دکمه زیر را لمس کنید."
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_14dp" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,130 +120,135 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/llChangePass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_10dp"
-        android:layout_marginBottom="@dimen/_10dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="visible">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayout"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:passwordToggleDrawable="@drawable/show_password_selector"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-            app:passwordToggleEnabled="true">
-
-            <EditText
-                android:id="@+id/edtOldPass"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:drawableLeft="@drawable/ic_eye_no"
-                android:ems="10"
-                android:hint="رمز قبلی کیف پول"
+                app:passwordToggleDrawable="@drawable/show_password_selector"
 
-                android:imeOptions="actionGo"
-                android:inputType="numberPassword"
-                android:maxLength="15"
-                android:padding="10dp">
+                app:passwordToggleEnabled="true">
 
-            </EditText>
-        </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/edtOldPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:drawableLeft="@drawable/ic_eye_no"
+                    android:ems="10"
+                    android:hint="رمز قبلی کیف پول"
+                    android:imeOptions="actionGo"
+                    android:inputType="numberPassword"
+                    android:maxLength="15"
+                    android:padding="10dp"
+                    android:textSize="@dimen/textSize_14dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayout2"
+                </EditText>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleDrawable="@drawable/show_password_selector"
-            app:passwordToggleEnabled="true">
-
-            <EditText
-                android:id="@+id/edtNewPass"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayout2"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:drawableLeft="@drawable/ic_eye"
-                android:ems="10"
-                android:hint="رمز جدید کیف پول"
+                app:passwordToggleDrawable="@drawable/show_password_selector"
+                app:passwordToggleEnabled="true">
 
-                android:imeOptions="actionGo"
-                android:inputType="numberPassword"
-                android:maxLength="15"
-                android:padding="10dp">
+                <EditText
+                    android:id="@+id/edtNewPass"
 
-            </EditText>
-        </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:drawableLeft="@drawable/ic_eye"
+                    android:ems="10"
+                    android:hint="رمز جدید کیف پول"
+                    android:imeOptions="actionGo"
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleDrawable="@drawable/show_password_selector"
-            android:id="@+id/inputLayout3"
+                    android:inputType="numberPassword"
+                    android:maxLength="15"
+                    android:padding="10dp"
+                    android:textSize="@dimen/textSize_14dp">
 
-            app:passwordToggleEnabled="true">
+                </EditText>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/edtTemNewPass"
-
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:drawableLeft="@drawable/ic_eye"
-                android:ems="10"
-                android:hint="تکرار رمز جدید کیف پول"
-                android:imeOptions="actionGo"
-                android:inputType="numberPassword"
-                android:maxLength="15"
-                android:padding="10dp">
+                app:passwordToggleDrawable="@drawable/show_password_selector"
 
-            </EditText>
-        </com.google.android.material.textfield.TextInputLayout>
+                app:passwordToggleEnabled="true">
 
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/edtTemNewPass"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:drawableLeft="@drawable/ic_eye"
+                    android:ems="10"
+                    android:hint="تکرار رمز جدید کیف پول"
+                    android:imeOptions="actionGo"
+
+                    android:inputType="numberPassword"
+                    android:maxLength="15"
+                    android:padding="10dp"
+                    android:textSize="@dimen/textSize_14dp">
+
+                </EditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:gravity="center|end"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="40" />
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center|end"
+            android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="100">
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
 
-            <include
-                android:id="@+id/btnChangePass"
-                layout="@layout/circular_progress_button_small" />
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="100">
 
-        </FrameLayout>
+                <include
+                    android:id="@+id/btnChangePass"
+                    layout="@layout/circular_progress_button_small" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="40" />
+            </FrameLayout>
 
-    </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
