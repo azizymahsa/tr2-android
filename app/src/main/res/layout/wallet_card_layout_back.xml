@@ -71,8 +71,7 @@
                         android:layout_marginTop="@dimen/_5dp"
                         android:text="5029-3810-2353-1205"
                         android:textColor="@color/chargePackTextColor"
-                        android:fontFamily="@font/iransans_mobile_bold"
-                        android:textSize="@dimen/textSize_18dp"
+                        android:textSize="@dimen/_16sdp"
                         android:textStyle="bold" />
 
                 </LinearLayout>

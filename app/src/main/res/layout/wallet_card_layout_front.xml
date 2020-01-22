@@ -48,6 +48,7 @@
 
                 <LinearLayout
                     android:id="@+id/llBalance"
+                    android:layout_marginTop="@dimen/_20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -65,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:text="000"
                         android:textColor="@color/borderColorRed"
-                        android:textSize="@dimen/textSize_12dp"
+                        android:textSize="@dimen/textSize_14dp"
                         android:textStyle="bold" />
 
                     <TextView
