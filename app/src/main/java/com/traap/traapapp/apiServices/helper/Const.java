@@ -22,7 +22,7 @@ public class Const
     public final static String GetContactInfo = SubBASEURL + "v1/info/contact/";
 
     //Menu
-    public final static String GetMenu = SubBASEURL + "v1/menu/get_menu/";
+    public final static String GetMenu = SubBASEURL + "v2/menu/get_menu/";
     public final static String GetMenuAll = SubBASEURL + "v2/menu/get_all_services/";
     public final static String GetMenuHelp = SubBASEURL + "v1/menu/help/";
 
@@ -32,7 +32,9 @@ public class Const
     public final static String GetTicketInfo = SubBASEURL + "v1/match/ticket_info/";
     public final static String GetTicketBuyEnable = SubBASEURL + "v1/match/buy_enable/";
 
+
     //Mobile
+
     public final static String GET_BOUGHT_FOR = SubBASEURL + "v1/topupcharge/bought_for/";
     public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
     public final static String BUY_CHARGE_WALLET = SubBASEURL + "v1/topupcharge/buy_charge_wallet/";
@@ -50,6 +52,7 @@ public class Const
     public final static String BillPayment = SubBASEURL + "Bill/v1/BillPayment";
     public final static String GetInfoBill = SubBASEURL + "Bill/v1/GetInfoBill";
 
+
     //card_Shetac (HappyCard)
     public final static String FORGOT_PASS2 = SubBASEURL + "v1/shetac/forget_password_tow/";
     public final static String CHANGE_PASS2 = SubBASEURL + "v1/shetac/change_password_tow/";
@@ -62,26 +65,31 @@ public class Const
     public final static String Get_Withdraw_Wallet = SubBASEURL + "v1/shetac/withdraw/";
     public final static String DoTransferWallet=SubBASEURL+"v1/shetac/do_transfer/";
 
+
     //card
     public final static String GetCardList = SubBASEURL + "v1/card/";
     public final static String AddCard = SubBASEURL + "v1/card/";
     public final static String DeleteCard = SubBASEURL + "v1/card/";
     public final static String EditCard = SubBASEURL + "v1/card/";
 
+
     //Hotel
     public final static String HotelSendMessage = SubBASEURL + "GdsHotel/v1/SendMessage";
     public final static String HotelGetUserPass = SubBASEURL + "GdsHotel/v1/GetAccountInfo";
     public final static String HotelPayment = SubBASEURL + "GdsHotel/v1/HotelPayment";
+
 
     //flight
     public final static String FlightPayment = SubBASEURL + "GdsFlight/v1/FlightPayment";
     public final static String FlightSendMessage = SubBASEURL + "GdsFlight/v1/SendMessage";
     public final static String FlightGetUserPass = SubBASEURL + "GdsFlight/v1/GetAccountInfo";
 
+
     //Bus
     public final static String SendBusMessage = SubBASEURL + "GdsBus/v1/SendMessage";
     public final static String GetBusUserPass = SubBASEURL + "GdsBus/v1/GetAccountInfo";
     public final static String BusPayment = SubBASEURL + "GdsBus/v1/BusPayment";
+
 
     //Pos
     public final static String DECRYPTQRCODE = SubBASEURL + "v1/payment/decrypt_qr_code/";
@@ -98,11 +106,14 @@ public class Const
     //Bank List
     public final static String BANK_LIST = SubBASEURL + "v1/menu/bank/";
 
+
     //MatchList
     public final static String GET_Match_List = SubBASEURL + "v1/match/";
 
+
     //History
     public final static String GetHistory = SubBASEURL + "v1/club_history/get_history/";
+
 
     //Version
     public final static String GET_VERSION = SubBASEURL + "v1/version/get_version_android/";

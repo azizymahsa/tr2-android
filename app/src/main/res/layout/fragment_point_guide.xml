@@ -32,15 +32,87 @@
             android:maxLines="2"
             android:gravity="center"
             android:textSize="@dimen/textSize_14dp"
-            android:text="هیچ اخباری در این گروه یافت نشد."/>
+            android:text="هیچ آیتمی در این گروه یافت نشد."/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:background="@android:color/transparent"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="32dp"
+            android:paddingLeft="32dp"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:id="@+id/llHeader"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_margin="8dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|center_vertical"
+                        android:text="امتیاز"
+                        android:textStyle="normal"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:gravity="right|center_vertical"
+                        android:paddingRight="12dp"
+                        android:text="موارد دارای امتیاز"
+                        android:textStyle="normal"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="2dp"
+                        android:background="@color/drawerSepratorColor" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|center_vertical"
+                        android:text="ردیف"
+                        android:layout_margin="8dp"
+                        android:textStyle="normal"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_14dp" />
 
 
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/drawerSepratorColor" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

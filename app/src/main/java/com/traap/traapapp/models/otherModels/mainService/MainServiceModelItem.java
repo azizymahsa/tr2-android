@@ -33,5 +33,7 @@ public class MainServiceModelItem
 
     private Integer keyId;
 
+    @Getter @Setter @Expose
+    private String login_url;
 
 }

@@ -122,7 +122,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         {
             if (mItemClickListener != null)
             {
-                mItemClickListener.onChosenItemClickk(view,  list.get(getAdapterPosition()).getKeyId(),list.get(getAdapterPosition()).getBaseUrl());
+                mItemClickListener.onChosenItemClickk(view,  list.get(getAdapterPosition()).getKeyId(),list.get(getAdapterPosition()).getLoginUrl());
             }
         }
     }

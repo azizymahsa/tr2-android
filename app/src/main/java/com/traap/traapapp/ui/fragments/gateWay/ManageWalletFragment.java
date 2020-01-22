@@ -111,6 +111,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
         changeTitle();
 
     }
+
     private void changeTitle()
     {
         WalletTitle walletTitle = new WalletTitle();
@@ -119,6 +120,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
         EventBus.getDefault().post(walletTitle);
 
     }
+
     @Override
     public void onStop()
     {
@@ -128,6 +130,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
 
         EventBus.getDefault().post(walletTitle);
     }
+
     @Subscribe
     public void getHeaderContent(HeaderModel headerModel)
     {
@@ -180,11 +183,11 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
 
                 break;
             case R.id.btnChangePass:
-
-                if (edtNewPass.getText().toString().length() > 4 && edtOldPass.getText().toString().length() > 4 && edtTemNewPass.getText().toString().length() > 4)
+                if (edtNewPass.getText().toString().equals(edtTemNewPass.getText().toString()))
                 {
-                    if (edtNewPass.getText().toString().equals(edtTemNewPass.getText().toString()))
+                    if (edtNewPass.getText().toString().length() > 4 && edtOldPass.getText().toString().length() > 4 && edtTemNewPass.getText().toString().length() > 4)
                     {
+
                         MessageAlertDialog dialog1 = new MessageAlertDialog((Activity) mainView, "",
                                 getContext().getString(R.string._request_change_pass), true, "تایید", "انصراف",
                                 MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
@@ -206,25 +209,24 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                         dialog1.show(((Activity) mainView).getFragmentManager(), "dialogMessage");
 
 
+                    } else if (edtNewPass.getText().toString().length() == 0 && edtOldPass.getText().toString().length() == 0 && edtTemNewPass.getText().toString().length() == 0)
+
+                    {
+                        mainView.showError(getContext().getString(R.string._msg_none_fields));
+
+
                     } else
                     {
-                        mainView.showError(getContext().getString(R.string._msg_no_correct_pass));
+                        mainView.showError(getContext().getString(R.string._not_currect_pass));
 
 
                     }
-                } else if (edtNewPass.getText().toString().length() == 0 && edtOldPass.getText().toString().length() == 0 && edtTemNewPass.getText().toString().length() == 0)
-
-                {
-                    mainView.showError(getContext().getString(R.string._msg_none_fields));
-
-
                 } else
                 {
-                    mainView.showError(getContext().getString(R.string._not_currect_pass));
+                    mainView.showError(getContext().getString(R.string._msg_no_correct_pass));
 
 
                 }
-
 
                 break;
 
@@ -317,8 +319,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                 {
                     mainView.showError("خطای ارتباط با سرور!");
 
-                }
-                else
+                } else
                 {
                     mainView.showError(getString(R.string.networkErrorMessage));
 
@@ -397,8 +398,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                 {
                     mainView.showError("خطای ارتباط با سرور!");
 
-                }
-                else
+                } else
                 {
                     mainView.showError(getString(R.string.networkErrorMessage));
 

@@ -57,6 +57,13 @@ public class GetMenuItemResponse implements Parcelable
     @Getter
     @Setter
     private String baseUrl;
+
+    @SerializedName("login_url")
+    @Expose
+    @Getter
+    @Setter
+    private String loginUrl;
+
     protected GetMenuItemResponse(Parcel in)
     {
         if (in.readByte() == 0)
@@ -68,6 +75,7 @@ public class GetMenuItemResponse implements Parcelable
         }
         imageName = in.readString();
         title = in.readString();
+        loginUrl=in.readString();
         byte tmpIsVisible = in.readByte();
         isVisible = tmpIsVisible == 0 ? null : tmpIsVisible == 1;
         if (in.readByte() == 0)
@@ -121,6 +129,7 @@ public class GetMenuItemResponse implements Parcelable
         }
         dest.writeString(imageName);
         dest.writeString(title);
+        dest.writeString(loginUrl);
         dest.writeByte((byte) (isVisible == null ? 0 : isVisible ? 1 : 2));
         if (keyId == null)
         {
