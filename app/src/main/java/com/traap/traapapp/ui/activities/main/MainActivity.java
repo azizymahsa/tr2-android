@@ -163,19 +163,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private int PAYMENT_STATUS = 0;
     private boolean hasPaymentIncreaseWallet = false;
 
-//    private void hideNavBar()
-//    {
-//        bottomNavigationView = findViewById(R.id.bottom_navigation);
-//        bottomNavigationView.setVisibility(View.GONE);
-//    }
-
-//    private void showNavBar()
-//    {
-//
-//        bottomNavigationView = findViewById(R.id.bottom_navigation);
-//        bottomNavigationView.setVisibility(View.VISIBLE);
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
