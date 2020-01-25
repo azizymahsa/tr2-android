@@ -32,6 +32,7 @@ import com.traap.traapapp.ui.dialogs.WalletWithdrawAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -252,6 +253,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                     if (response.info.statusCode == 200)
                     {
                         showAlert(getActivity(), response.info.message, 0);
+                        showResultPayment();
                         clearEditText();
                     } else
                     {
@@ -289,6 +291,12 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
 
             }
         }, request);
+    }
+
+    private void showResultPayment()
+    {
+
+
     }
 
     private void clearEditText()
