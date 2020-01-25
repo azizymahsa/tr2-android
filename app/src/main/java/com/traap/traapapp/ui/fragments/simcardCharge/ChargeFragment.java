@@ -1999,6 +1999,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onBackToMatch()
+    {
+
+    }
+
     private void closeAutoComplete()
     {
         autoCompletePhoneNumberRightel.dismissDropDown();
