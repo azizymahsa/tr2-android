@@ -538,8 +538,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             if (i == index)
             {
                 bottomNavigationView.getMenu().getItem(index).setChecked(true);
-            }
-            else
+            } else
             {
                 bottomNavigationView.getMenu().getItem(index).setChecked(false);
             }
@@ -613,33 +612,33 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     MessageAlertDialog exitDialog = new MessageAlertDialog(this, "", "آیا بابت خروج از برنامه اطمینان دارید؟",
                             true, "بله", "خیر", MessageAlertDialog.TYPE_MESSAGE,
                             new MessageAlertDialog.OnConfirmListener()
-                    {
-                        @Override
-                        public void onConfirmClick()
-                        {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             {
-                                finishAndRemoveTask();
-                            } else
-                            {
-                                Intent intent = new Intent(Intent.ACTION_MAIN);
-                                intent.addCategory(Intent.CATEGORY_HOME);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                                startActivityForResult(intent, 100);
+                                @Override
+                                public void onConfirmClick()
+                                {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                                    {
+                                        finishAndRemoveTask();
+                                    } else
+                                    {
+                                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                                        intent.addCategory(Intent.CATEGORY_HOME);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                        startActivityForResult(intent, 100);
 
 //                                ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
 //                                am.killBackgroundProcesses(getPackageName());
 //                                android.os.Process.killProcess(android.os.Process.myPid());
 //
-                                System.exit(0);
-                            }
-                        }
+                                        System.exit(0);
+                                    }
+                                }
 
-                        @Override
-                        public void onCancelClick()
-                        {
-                        }
-                    });
+                                @Override
+                                public void onCancelClick()
+                                {
+                                }
+                            });
                     exitDialog.show(getFragmentManager(), "exitDialog");
                 } else
                 {
@@ -702,7 +701,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
 //                showToast(this, "امتیازات", R.color.green);
                 closeDrawer();
-                startActivityForResult(new Intent(this, PointsActivity.class) ,100);
+                startActivityForResult(new Intent(this, PointsActivity.class), 100);
                 break;
             }
             case 81: //حساب کاربری من
@@ -783,8 +782,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 if (fragment instanceof MainFragment)
                 {
                     ((MainFragment) fragment).requestGetHelpMenu();
-                }
-                else
+                } else
                 {
                     backToMainFragment();
                     ((MainFragment) fragment).requestGetHelpMenu();
@@ -1084,7 +1082,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         } else if (fragment instanceof BillFragment)
                         {
                             ((BillFragment) fragment).onSelectContact(onSelectContact);
-                        }else if(fragment instanceof WalletFragment){
+                        } else if (fragment instanceof WalletFragment)
+                        {
                             ((WalletFragment) fragment).onSelectContact(onSelectContact);
 
                         }
@@ -1142,8 +1141,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            transaction.commit();
 
             fragment = mainFragment;
-        }
-        else
+        } else
         {
             Logger.e("--mainFragment--", "--null--");
             fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
@@ -1595,7 +1593,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onPhotosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = PhotosArchiveFragment.newInstance(this,parent, mediaPosition, false, new PhotosArchiveActionView()
+        this.fragment = PhotosArchiveFragment.newInstance(this, parent, mediaPosition, false, new PhotosArchiveActionView()
         {
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
@@ -1657,7 +1655,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = PhotosArchiveFragment.newInstance(this,parent, mediaPosition, true, new PhotosArchiveActionView()
+        this.fragment = PhotosArchiveFragment.newInstance(this, parent, mediaPosition, true, new PhotosArchiveActionView()
         {
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
@@ -2010,31 +2008,39 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void getBuyEnable(BuyTicketAction buyTicketAction)
     {
-
+        showLoading();
         SingletonService.getInstance().getReservation().getTicketBuyEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
         {
             @Override
             public void onReady(WebServiceClass<MatchItem> response)
             {
-                if (response.info.statusCode == 200)
-                {
-                    if (response.data != null)
+                try{
+
+                    hideLoading();
+                    if (response.info.statusCode == 200)
                     {
-                        onBuyTicketClick(response.data);
+                        if (response.data != null)
+                        {
+                            onBuyTicketClick(response.data);
+                        } else
+                        {
+                            showAlert(MainActivity.this, response.info.message, 0);
+                        }
                     } else
                     {
                         showAlert(MainActivity.this, response.info.message, 0);
                     }
-                } else
-                {
-                    showAlert(MainActivity.this, response.info.message, 0);
-                }
-                buyTicketAction.onEndListener();
+                    buyTicketAction.onEndListener();
+
+                }catch (Exception e){}
+
             }
 
             @Override
             public void onError(String message)
             {
+                hideLoading();
+
                 if (Tools.isNetworkAvailable(MainActivity.this))
                 {
                     showAlert(MainActivity.this, "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
@@ -2151,72 +2157,78 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
-
-        if (response == null || response.info == null)
-        {
-            MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                    false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+        try{
+            if (response == null || response.info == null)
             {
-                @Override
-                public void onConfirmClick()
+                MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
+                        false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
                 {
-                    GetMenuRequest request = new GetMenuRequest();
-                    request.setDeviceType(TrapConfig.AndroidDeviceType);
-                    request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
-                    SingletonService.getInstance().getMenuService().getMenu(MainActivity.this, request);
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        GetMenuRequest request = new GetMenuRequest();
+                        request.setDeviceType(TrapConfig.AndroidDeviceType);
+                        request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
+                        SingletonService.getInstance().getMenuService().getMenu(MainActivity.this, request);
 
 
-                }
+                    }
 
-                @Override
-                public void onCancelClick()
-                {
+                    @Override
+                    public void onCancelClick()
+                    {
 
-                }
-            });
-            dialog.setCancelable(false);
-            dialog.show(getFragmentManager(), "dialogAlert");
-            return;
-        }
-        if (response.info.statusCode != 200)
-        {
-            MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                    false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                    }
+                });
+                dialog.setCancelable(false);
+                dialog.show(getFragmentManager(), "dialogAlert");
+                return;
+            }
+            if (response.info.statusCode != 200)
             {
-                @Override
-                public void onConfirmClick()
+                MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
+                        false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
                 {
-                    GetMenuRequest request = new GetMenuRequest();
-                    request.setDeviceType(TrapConfig.AndroidDeviceType);
-                    request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
-                    SingletonService.getInstance().getMenuService().getMenu(MainActivity.this, request);
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        GetMenuRequest request = new GetMenuRequest();
+                        request.setDeviceType(TrapConfig.AndroidDeviceType);
+                        request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
+                        SingletonService.getInstance().getMenuService().getMenu(MainActivity.this, request);
 
 
-                }
+                    }
 
-                @Override
-                public void onCancelClick()
-                {
+                    @Override
+                    public void onCancelClick()
+                    {
 
-                }
-            });
-            dialog.setCancelable(false);
-            dialog.show(getFragmentManager(), "dialogAlert");
+                    }
+                });
+                dialog.setCancelable(false);
+                dialog.show(getFragmentManager(), "dialogAlert");
           /*  startActivity(new Intent(this, LoginActivity.class));
             finish();*/
-        } else
-        {
-            drawerMenu = response.data.getDrawerMenu();
-            chosenServiceList = response.data.getChosenServiceList();
-            footballServiceList = response.data.getFootballServiceList();
+            } else
+            {
+                drawerMenu = response.data.getDrawerMenu();
+                chosenServiceList = response.data.getChosenServiceList();
+                footballServiceList = response.data.getFootballServiceList();
 
-            Logger.e("--List size--", "chosenServiceList: " + chosenServiceList.size() +
-                    "footballServiceList: " + footballServiceList.size());
+                Logger.e("--List size--", "chosenServiceList: " + chosenServiceList.size() +
+                        "footballServiceList: " + footballServiceList.size());
 
-            EventBus.getDefault().post(drawerMenu);
+                EventBus.getDefault().post(drawerMenu);
 
-            getBankList();
+                getBankList();
+            }
+        }catch (Exception e){
+        //    onError(e.getMessage());
+
         }
+
+
 
     }
 
@@ -2230,47 +2242,53 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void onReady(WebServiceClass<MachListResponse> responseMatchList)
             {
-                isCompleteThreadMatch = true;
+                try{
 
-                hideLoading();
+                    isCompleteThreadMatch = true;
 
-                if (responseMatchList == null || responseMatchList.info == null)
-                {
-//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                    finish();
+                    hideLoading();
 
-                    return;
-                }
-                if (responseMatchList.info.statusCode != 200)
-                {
-//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                    finish();
-
-                    return;
-                } else
-                {
-                    matchList = (ArrayList<MatchItem>) responseMatchList.data.getMatchList();
-
-                    fragmentManager = getSupportFragmentManager();
-                    fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
-
-                    mainFragment = fragment;
-
-                    transaction = fragmentManager.beginTransaction();
-//            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                    if (mSavedInstanceState == null)
+                    if (responseMatchList == null || responseMatchList.info == null)
                     {
-                        transaction.add(R.id.main_container, fragment, "mainFragment")
-                                .commit();
+//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                    finish();
+
+                        return;
+                    }
+                    if (responseMatchList.info.statusCode != 200)
+                    {
+//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                    finish();
+
+                        return;
                     } else
                     {
-                        transaction.replace(R.id.main_container, fragment, "mainFragment")
-                                .commit();
-                    }
+                        matchList = (ArrayList<MatchItem>) responseMatchList.data.getMatchList();
 
+                        fragmentManager = getSupportFragmentManager();
+                        fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
+
+                        mainFragment = fragment;
+
+                        transaction = fragmentManager.beginTransaction();
+//            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
+                        if (mSavedInstanceState == null)
+                        {
+                            transaction.add(R.id.main_container, fragment, "mainFragment")
+                                    .commit();
+                        } else
+                        {
+                            transaction.replace(R.id.main_container, fragment, "mainFragment")
+                                    .commit();
+                        }
+
+                    }
+                    showPymentResults();
+                }catch (Exception e){
+                    //onError(e.getMessage());
                 }
-                showPymentResults();
+
             }
 
             @Override
@@ -2329,114 +2347,119 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             public void onReady(WebServiceClass<BankListResponse> responseBankList)
             {
 //                hideLoading();
-
-                if (responseBankList == null || responseBankList.info == null)
-                {
-//                    Prefs.clear();
-                    isCompleteThreadAllServices = true;
-                    isCompleteThreadMatch = true;
-                    isCompleteThreadNews = true;
-                    hideLoading();
-                    MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                            false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                try{
+                    if (responseBankList == null || responseBankList.info == null)
                     {
-                        @Override
-                        public void onConfirmClick()
+//                    Prefs.clear();
+                        isCompleteThreadAllServices = true;
+                        isCompleteThreadMatch = true;
+                        isCompleteThreadNews = true;
+                        hideLoading();
+                        MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
+                                false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
                         {
-                            getBankList();
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                getBankList();
 
-                        }
+                            }
 
-                        @Override
-                        public void onCancelClick()
-                        {
+                            @Override
+                            public void onCancelClick()
+                            {
 
-                        }
-                    });
+                            }
+                        });
 
                /*     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();*/
 
-                    return;
-                }
-                if (responseBankList.info.statusCode != 200)
-                {
-//                    Prefs.clear();
-                    isCompleteThreadAllServices = true;
-                    isCompleteThreadMatch = true;
-                    isCompleteThreadNews = true;
-                    hideLoading();
-                    MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                            false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                        return;
+                    }
+                    if (responseBankList.info.statusCode != 200)
                     {
-                        @Override
-                        public void onConfirmClick()
+//                    Prefs.clear();
+                        isCompleteThreadAllServices = true;
+                        isCompleteThreadMatch = true;
+                        isCompleteThreadNews = true;
+                        hideLoading();
+                        MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
+                                false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
                         {
-                            getBankList();
+                            @Override
+                            public void onConfirmClick()
+                            {
+                                getBankList();
 
-                        }
+                            }
 
-                        @Override
-                        public void onCancelClick()
-                        {
+                            @Override
+                            public void onCancelClick()
+                            {
 
-                        }
-                    });
+                            }
+                        });
                   /*  startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();*/
 
-                    return;
-                } else
-                {
-                    Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
-
-                    try
+                        return;
+                    } else
                     {
-                        realm.executeTransaction(realm1 ->
+                        Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
+
+                        try
                         {
-                            realm1.delete(BankDB.class);
-                        });
-                    } catch (RealmException ex)
-                    {
-                        Logger.e("--BankDB Delete--", "false");
-
-                        ex.printStackTrace();
-                    }
-
-                    for (Bank bank : responseBankList.data.getBankList())
-                    {
-                        realm.executeTransaction(realm ->
-                        {
-                            try
+                            realm.executeTransaction(realm1 ->
                             {
-                                BankDB bankDB = realm.createObject(BankDB.class);
-                                int maxId = 0;
-                                if (realm.where(BankDB.class).findAll().size() != 0)
+                                realm1.delete(BankDB.class);
+                            });
+                        } catch (RealmException ex)
+                        {
+                            Logger.e("--BankDB Delete--", "false");
+
+                            ex.printStackTrace();
+                        }
+
+                        for (Bank bank : responseBankList.data.getBankList())
+                        {
+                            realm.executeTransaction(realm ->
+                            {
+                                try
                                 {
-                                    maxId = realm.where(BankDB.class).max("_ID").intValue();
+                                    BankDB bankDB = realm.createObject(BankDB.class);
+                                    int maxId = 0;
+                                    if (realm.where(BankDB.class).findAll().size() != 0)
+                                    {
+                                        maxId = realm.where(BankDB.class).max("_ID").intValue();
+                                    }
+                                    bankDB.set_ID(maxId + 1);
+                                    bankDB.setId(bank.getId());
+                                    bankDB.setBankBin(bank.getBankBin());
+                                    bankDB.setBankName(bank.getBankName());
+                                    bankDB.setColorNumber(bank.getColorNumber());
+                                    bankDB.setColorText(bank.getColorText());
+                                    bankDB.setImageCard(bank.getImageCard());
+                                    bankDB.setImageCardBack(bank.getImageCardBack());
+                                    bankDB.setOrderItem(bank.getOrderItem());
+                                } catch (RealmException e)
+                                {
+                                    e.printStackTrace();
                                 }
-                                bankDB.set_ID(maxId + 1);
-                                bankDB.setId(bank.getId());
-                                bankDB.setBankBin(bank.getBankBin());
-                                bankDB.setBankName(bank.getBankName());
-                                bankDB.setColorNumber(bank.getColorNumber());
-                                bankDB.setColorText(bank.getColorText());
-                                bankDB.setImageCard(bank.getImageCard());
-                                bankDB.setImageCardBack(bank.getImageCardBack());
-                                bankDB.setOrderItem(bank.getOrderItem());
-                            } catch (RealmException e)
-                            {
-                                e.printStackTrace();
-                            }
-                        });
+                            });
+                        }
+
+                        Logger.e("--BankDB size after delete--", "size: " + realm.where(BankDB.class).findAll().size());
+
+                        getMatchList();
+                        getAllServicesList();
+                        getNewsMainContent();
                     }
-
-                    Logger.e("--BankDB size after delete--", "size: " + realm.where(BankDB.class).findAll().size());
-
-                    getMatchList();
-                    getAllServicesList();
-                    getNewsMainContent();
+                }catch (Exception e){
+                  //  onError(e.getMessage());
                 }
+
+
             }
 
             @Override
@@ -2444,7 +2467,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 hideLoading();
 
-                showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                if (Tools.isNetworkAvailable(MainActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    showError(MainActivity.this, getString(R.string.networkErrorMessage));
+
+                }
+
             }
         });
     }
@@ -2492,7 +2525,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 isCompleteThreadNews = true;
                 hideLoading();
 
-                Logger.e("--showErrorMessage--", message);
+                if (Tools.isNetworkAvailable(MainActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    showError(MainActivity.this, getString(R.string.networkErrorMessage));
+
+                }
+
             }
         });
 
@@ -2549,7 +2592,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 isCompleteThreadAllServices = true;
                 hideLoading();
 
-                Logger.e("--showErrorMessage--", message);
+                if (Tools.isNetworkAvailable(MainActivity.this))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    showError(MainActivity.this, getString(R.string.networkErrorMessage));
+
+                }
+
             }
         }, request);
 
@@ -2563,12 +2616,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         hideLoading();
         String error;
 
+
         if (Tools.isNetworkAvailable(this))
         {
-            error="خطا در دریافت اطلاعات از سرور!";
+            error = "خطا در دریافت اطلاعات از سرور!";
         } else
         {
-            error=getString( R.string.networkErrorMessage);
+            error = getString(R.string.networkErrorMessage);
         }
 
 

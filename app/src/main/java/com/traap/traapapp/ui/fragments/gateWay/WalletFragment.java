@@ -73,7 +73,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private ImageView imgCart;
     private View imgBack, imgMenu;
     private TextView tvTitle, tvUserName, tvHeaderPopularNo;
-    private TextView txtFullName, customNo, cartNo,tvWalletName;
+    private TextView txtFullName, customNo, cartNo;
     private View btnForgetPass;
     private View btnBack, rlImageProfile, incBackCart, incFrontCart, lnrInventory;
     private NestedScrollView scrollView;
@@ -125,8 +125,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         return fragment;
     }
 
-    public static Fragment newInstance(MainActionView mainView, int i)
-    {
+    public static Fragment newInstance(MainActionView mainView, int i) {
 
         WalletFragment fragment = new WalletFragment();
         fragment.setMainView(mainView);
@@ -134,33 +133,27 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         return fragment;
     }
 
-    private void setInstance(int i)
-    {
+    private void setInstance(int i) {
         this.instanceBack = i;
 
     }
 
-    private void setMainView(MainActionView mainView)
-    {
+    private void setMainView(MainActionView mainView) {
         this.mainView = mainView;
     }
-
-    public void setTitleFragmentWallet(String Title, MainActionView mainView)
-    {
+    public  void setTitleFragmentWallet(String Title, MainActionView mainView) {
         //this.TitleFragment = Title;
         try
         {
             tvTitle.setText(Title);
 
-        } catch (Exception e)
-        {
+        }catch (Exception e){
             e.getMessage();
         }
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         YoYo.with(Techniques.FadeIn)
                 .duration(700)
@@ -168,10 +161,10 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+                             Bundle savedInstanceState) {
         if (rootView != null)
         {
             return rootView;
@@ -185,27 +178,21 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         requestGetInfo();
         initDatePicker();
 
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener()
-        {
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
-            {
-                if (scrollY - oldScrollY > 0)
-                {
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY - oldScrollY > 0) {
                     Animation animHide = AnimationUtils.loadAnimation(getContext(), R.anim.hide_button);
                     rootView.findViewById(R.id.rlImageProfile).startAnimation(animHide);
                     rootView.findViewById(R.id.rlImageProfile).setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     Animation animShow = AnimationUtils.loadAnimation(getContext(), R.anim.show_button);
                     rootView.findViewById(R.id.rlImageProfile).startAnimation(animShow);
                     rootView.findViewById(R.id.rlImageProfile).setVisibility(View.VISIBLE);
                 }
             }
         });
-        if (instanceBack == 0)
-        {
+        if (instanceBack == 0) {
             fragmentManager = getChildFragmentManager();
 
             fragment = DetailsCartFragment.newInstance(mainView);
@@ -214,8 +201,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             transaction.replace(R.id.container, fragment, "DetailsCartFragment")
                     .commit();
         }
-        if (instanceBack == 1)
-        {
+        if (instanceBack == 1) {
             fragmentManager = getChildFragmentManager();
 
             fragment = IncreaseInventoryFragment.newInstance(mainView);
@@ -228,12 +214,9 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     }
 
 
-    private void initView()
-    {
-        try
-        {
+    private void initView() {
+        try {
             rlShirt = rootView.findViewById(R.id.rlShirt);
-            tvWalletName = rootView.findViewById(R.id.tvWalletName);
             slidingLayout = rootView.findViewById(R.id.slidingLayout);
             rangeBar = rootView.findViewById(R.id.rangeBar);
             imgEndDateReset = rootView.findViewById(R.id.imgDateToReset);
@@ -245,13 +228,14 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
             btnDeleteFilter = rootView.findViewById(R.id.btnDeleteFilter);
             btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
+            txtFullName = rootView.findViewById(R.id.txtFullName);
 
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
 
-            tvWalletName.setText(TrapConfig.HEADER_USER_NAME);
+            txtFullName.setText(TrapConfig.HEADER_USER_NAME);
             tvHeaderPopularNo = rootView.findViewById(R.id.tvPopularPlayer);
             tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
             imgMenu = rootView.findViewById(R.id.imgMenu);
@@ -260,8 +244,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
             FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
-            flLogoToolbar.setOnClickListener(v ->
-            {
+            flLogoToolbar.setOnClickListener(v -> {
                 mainView.backToMainFragment();
 
             });
@@ -283,8 +266,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
             tvTitle.setText("کیف پول");
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
@@ -303,18 +285,15 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         rlImageProfile.setOnClickListener(this);
         ivRefreshing.setOnClickListener(this);
 
-        tvStartDate.setOnClickListener(v ->
-        {
+        tvStartDate.setOnClickListener(v -> {
             pickerDialogStartDate.show(getFragmentManager(), "StartDate");
 
         });
-        tvEndDate.setOnClickListener(v ->
-        {
+        tvEndDate.setOnClickListener(v -> {
             pickerDialogEndDate.show(getFragmentManager(), "EndDate");
 
         });
-        btnDeleteFilter.setOnClickListener(v ->
-        {
+        btnDeleteFilter.setOnClickListener(v -> {
             resetAll();
 
             EventTurnoverModel turnoverModel = new EventTurnoverModel();
@@ -322,8 +301,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
             EventBus.getDefault().post(turnoverModel);
         });
-        btnConfirmFilter.setOnClickListener(v ->
-        {
+        btnConfirmFilter.setOnClickListener(v -> {
             slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
             EventTurnoverModel turnoverModel = new EventTurnoverModel();
@@ -336,8 +314,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             EventBus.getDefault().post(turnoverModel);
         });
 
-        rangeBar.setRange(0f, RANGEBAR_STEP_COUNT, 1f);
-        rangeBar.setProgress(0f, RANGEBAR_STEP_COUNT);
+        rangeBar.setRange(0f, 20f, 1f);
+        rangeBar.setProgress(0f, 20f);
         rangeBar.setIndicatorTextDecimalFormat("0");
         rangeBar.setOnRangeChangedListener(this);
         tvMaxPrice.setText("10,000,000 ریال");
@@ -347,34 +325,26 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
     /*----------------------------------------------------------------------------------------------------*/
 
-    private void requestGetBalance()
-    {
+    private void requestGetBalance() {
         GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
         request.setIsWallet(true);
-        SingletonService.getInstance().getBalancePasswordLessService().GetBalancePasswordLessService(new OnServiceStatus<WebServiceClass<GetBalancePasswordLessResponse>>()
-        {
+        SingletonService.getInstance().getBalancePasswordLessService().GetBalancePasswordLessService(new OnServiceStatus<WebServiceClass<GetBalancePasswordLessResponse>>() {
 
 
             @Override
-            public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response)
-            {
+            public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response) {
                 mainView.hideLoading();
 
-                try
-                {
-                    if (response.info.statusCode == 200)
-                    {
+                try {
+                    if (response.info.statusCode == 200) {
                         setBalanceData(response.data);
 
-                    }
-                    else
-                    {
+                    } else {
 
                         mainView.showError(response.info.message);
 
                     }
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     mainView.showError(e.getMessage());
 
                 }
@@ -383,8 +353,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             }
 
             @Override
-            public void onError(String message)
-            {
+            public void onError(String message) {
                 //mainView.showError(message);
                 mainView.hideLoading();
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
@@ -401,41 +370,32 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         }, request);
     }
 
-    private void setBalanceData(GetBalancePasswordLessResponse data)
-    {
+    private void setBalanceData(GetBalancePasswordLessResponse data) {
         tvBalance.setText(Utility.priceFormat(data.getBalanceAmount()));
         tvDate.setText(data.getDateTime());
     }
 
     /*----------------------------------------------------------------------------------------------------*/
-    private void requestGetInfo()
-    {
+    private void requestGetInfo() {
         GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
         request.setIsWallet(true);
-        SingletonService.getInstance().getBalancePasswordLessService().GetInfoWalletService(new OnServiceStatus<WebServiceClass<GetInfoWalletResponse>>()
-        {
+        SingletonService.getInstance().getBalancePasswordLessService().GetInfoWalletService(new OnServiceStatus<WebServiceClass<GetInfoWalletResponse>>() {
 
 
             @Override
-            public void onReady(WebServiceClass<GetInfoWalletResponse> response)
-            {
+            public void onReady(WebServiceClass<GetInfoWalletResponse> response) {
                 mainView.hideLoading();
 
-                try
-                {
-                    if (response.info.statusCode == 200)
-                    {
+                try {
+                    if (response.info.statusCode == 200) {
                         setInfoData(response.data);
 
-                    }
-                    else
-                    {
+                    } else {
 
                         mainView.showError(response.info.message);
 
                     }
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     mainView.showError(e.getMessage());
 
                 }
@@ -444,10 +404,9 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             }
 
             @Override
-            public void onError(String message)
-            {
+            public void onError(String message) {
 
-                //   mainView.showError(message);
+             //   mainView.showError(message);
                 mainView.hideLoading();
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
@@ -464,30 +423,25 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         }, request);
     }
 
-    private void setInfoData(GetInfoWalletResponse data)
-    {
-        try
-        {
+    private void setInfoData(GetInfoWalletResponse data) {
+        try {
             Iterable<String> result = Splitter.fixedLength(4).split(data.getCard_no());
             String[] parts = Iterables.toArray(result, String.class);
 
 
             cartNo.setText(parts[0] + "-" + parts[1] + "-" + parts[2] + "-" + parts[3]);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             cartNo.setText(data.getCard_no() + "");
 
         }
         customNo.setText("کدمشتری: " + data.getCustomer_code());
-        txtFullName.setText(data.getFull_name() + "");
+       // txtFullName.setText(data.getFull_name() + "");
     }
     /*----------------------------------------------------------------------------------------------------*/
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.ivRefreshing:
                 mainView.showLoading();
 
@@ -495,14 +449,11 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                 requestGetInfo();
                 break;
             case R.id.rlImageProfile:
-                if (incBackCart.getVisibility() == View.GONE)
-                {
+                if (incBackCart.getVisibility() == View.GONE) {
                     incBackCart.setVisibility(View.VISIBLE);
                     incFrontCart.setVisibility(View.GONE);
                     // lnrInventory.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     incBackCart.setVisibility(View.GONE);
                     incFrontCart.setVisibility(View.VISIBLE);
                     //lnrInventory.setVisibility(View.VISIBLE);
@@ -512,43 +463,37 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ClickTurnOverEvent event)
-    {
-        if (event.getFilterClick())
-        {
+    public void onMessageEvent(ClickTurnOverEvent event) {
+        if (event.getFilterClick()!=null && event.getFilterClick()){
             slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
 
         }
     }
 
     @Override
-    public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser)
-    {
+    public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
         int left = (int) leftValue;
         int right = (int) rightValue;
-        tvMaxPrice.setText(Utility.priceFormat(right * RANGEBAR_STEP) + " ریال");
-        tvMinPrice.setText(Utility.priceFormat(left * RANGEBAR_STEP) + " ریال");
-        maxPrice = right * RANGEBAR_STEP;
-        minPrice = left * RANGEBAR_STEP;
+        tvMaxPrice.setText(Utility.priceFormat(right * 500000) + " ریال");
+        tvMinPrice.setText(Utility.priceFormat(left * 500000) + " ریال");
+        maxPrice = right * 500000;
+        minPrice = left * 500000;
         Logger.e("-onRangeChanged-", "left: " + leftValue + " ,right: " + rightValue);
         Logger.e("-onRangeChanged2-", "left: " + minPrice + " ,right: " + maxPrice);
     }
 
     @Override
-    public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft)
-    {
+    public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
 
     }
 
     @Override
-    public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft)
-    {
+    public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
 
     }
 
 
-    private void initDatePicker()
-    {
+    private void initDatePicker() {
         currentDate = new PersianCalendar();
 
         pickerDialogStartDate = DatePickerDialog.newInstance(this,
@@ -586,24 +531,20 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         pickerDialogEndDate.setMaxDate(endPersianDate);
     }
 
-    private Integer getDateInt(int year, int month, int day)
-    {
+    private Integer getDateInt(int year, int month, int day) {
         return (year - year / 100) * 10000 + month * 100 + day;
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
-    {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay) {
 
-        if (view.getTag().equals("StartDate"))
-        {
+        if (view.getTag().equals("StartDate")) {
             startPersianDate.set(year, monthOfYear, dayOfMonth);
             pickerDialogEndDate.setMinDate(startPersianDate);
             pickerDialogEndDate.setMaxDate(currentDate);
             startDateInt = getDateInt(year, monthOfYear, dayOfMonth);
 
-            if (startDateInt > endDateInt)
-            {
+            if (startDateInt > endDateInt) {
                 tvEndDate.setText("");
                 filterEndDate = "";
                 imgEndDateReset.setVisibility(View.GONE);
@@ -612,15 +553,12 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             filterStartDate = year + "/" + Utility.getFormatDateMonth(monthOfYear + 1) + "/" + Utility.getFormatDateMonth(dayOfMonth);
             tvStartDate.setText(filterStartDate);
             imgStartDateReset.setVisibility(View.VISIBLE);
-        }
-        else if (view.getTag().equals("EndDate"))
-        {
+        } else if (view.getTag().equals("EndDate")) {
             endPersianDate.set(year, monthOfYear, dayOfMonth);
             pickerDialogStartDate.setMaxDate(endPersianDate);
             endDateInt = getDateInt(year, monthOfYear, dayOfMonth);
 
-            if (startDateInt > endDateInt)
-            {
+            if (startDateInt > endDateInt) {
                 tvStartDate.setText("");
                 filterStartDate = "";
                 imgStartDateReset.setVisibility(View.GONE);
@@ -635,8 +573,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-    private void resetAll()
-    {
+    private void resetAll() {
         slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
         tvStartDate.setText("");
@@ -653,21 +590,21 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         minPrice = 0;
         tvMaxPrice.setText("10,000,000 زیال");
         tvMinPrice.setText("0 زیال");
-        rangeBar.setProgress(0f, RANGEBAR_STEP_COUNT);
+        rangeBar.setProgress(0f, 20f);
+
+
     }
 
     public void onSelectContact(OnSelectContact onSelectContact)
     {
-        if (fragment instanceof DetailsCartFragment)
-        {
-        }
+        if(fragment instanceof DetailsCartFragment){}
         ((DetailsCartFragment) fragment).onSelectContact(onSelectContact);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(WalletTitle event)
-    {
+    public void onMessageEvent(WalletTitle event) {
         tvTitle.setText(event.title);
+
 
 
     }

@@ -40,7 +40,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
     private TextView tvPopularPlayer;
     private View view;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private View btnShareTicket, btnPaymentConfirm, btnBackToHome,btnReturn;
+    private View btnShareTicket, btnPaymentConfirm, btnBackToHome,btnReturn,btnSaveResult;
     private TextView tvDescTicket;
     private String firstName, lastName;
     private RecyclerView rvTickets;
@@ -146,6 +146,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         llSuccessPayment = findViewById(R.id.llSuccessPayment);
         llErrorPayment=findViewById(R.id.llErrorPayment);
         btnShareTicket = findViewById(R.id.btnShareTicket);
+        btnSaveResult=findViewById(R.id.btnSaveResult);
         btnPaymentConfirm = findViewById(R.id.btnPaymentConfirm);
 
         btnReturn=findViewById(R.id.btnReturn);
@@ -154,6 +155,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
         btnBackToHome = findViewById(R.id.btnBackToHome);
         rvTickets = findViewById(R.id.rvTickets);
         btnShareTicket.setOnClickListener(this);
+        btnSaveResult.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
         btnBackToHome.setOnClickListener(this);
 
@@ -211,6 +213,10 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
                 dialog.show(this.getFragmentManager(), "dialog");*/
 
 
+                break;
+            case R.id.btnSaveResult:
+                new ScreenShot(rvTickets, this,true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                // showDialog();
                 break;
             case R.id.btnShareTicket:
                 new ScreenShot(rvTickets, this,false,"برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");

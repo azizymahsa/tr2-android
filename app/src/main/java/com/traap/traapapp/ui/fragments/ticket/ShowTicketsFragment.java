@@ -20,6 +20,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.showTicket.ShowTicketItem;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.ticket.ShowTicketAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -48,7 +49,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     private TextView tvPopularPlayer;
     private View view;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private View btnShareTicket, btnPaymentConfirm, btnBackToHome,btnReturn;
+    private View btnShareTicket, btnPaymentConfirm, btnBackToHome,btnReturn,btnSaveResult;
     private TextView tvDescTicket;
     private String firstName, lastName;
     private RecyclerView rvTickets;
@@ -185,6 +186,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         llErrorPayment=view.findViewById(R.id.llErrorPayment);
         btnShareTicket = view.findViewById(R.id.btnShareTicket);
         btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
+        btnSaveResult=view.findViewById(R.id.btnSaveResult);
 
         btnReturn=view.findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(this);
@@ -193,6 +195,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         rvTickets = view.findViewById(R.id.rvTickets);
         btnShareTicket.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
+        btnSaveResult.setOnClickListener(this);
         btnBackToHome.setOnClickListener(this);
 
         if(isTransactionList){
@@ -257,22 +260,34 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         switch (v.getId())
         {
             case R.id.btnPaymentConfirm:
+                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
 
                 // onClickContinueBuyTicketListener.goBuyTicket();
                 mainView.getBuyEnable(() -> { });
+             //   getActivity().finish();
 
                 break;
+
+            case R.id.btnSaveResult:
+                new ScreenShot(rvTickets, getActivity(),true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                // showDialog();
+                break;
             case R.id.btnBackToHome:
+                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
 
                 getActivity().onBackPressed();
 
                 break;
             case R.id.btnShareTicket:
+                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+
                 new ScreenShot(rvTickets, getActivity());
                 // showToast(getContext(), "share");
                 break;
 
             case R.id.btnReturn:
+                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+
                 getActivity().onBackPressed();
                 break;
         }

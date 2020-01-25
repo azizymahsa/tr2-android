@@ -933,7 +933,7 @@ public class Utility
         return check.equals("0921") || check.equals("0922");
     }
 
-    public static boolean getMobileValidation(String number)
+    public static boolean getMobileValidation(String number) throws Exception
     {
         String startPhoneNo = number.substring(0, 4);
 

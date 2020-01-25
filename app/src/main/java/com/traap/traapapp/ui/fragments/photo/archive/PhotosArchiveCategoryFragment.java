@@ -260,6 +260,7 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
                 content.setIsLiked(photosContentList.get(i).getIsLiked());
                 content.setIsBookmarked(photosContentList.get(i).getIsBookmarked());
                 content.setImageName(photosContentList.get(i).getImageName());
+                content.setId(photosContentList.get(i).getId());
                 list.add(content);
             }
 /*

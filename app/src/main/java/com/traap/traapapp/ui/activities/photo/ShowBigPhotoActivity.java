@@ -506,9 +506,12 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
             if (isPlay) {
                 btnPlay.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                viewPager.startAutoScroll();
+
 
             } else {
                 btnPlay.setColorFilter(getResources().getColor(R.color.white));
+                viewPager.stopAutoScroll();
 
             }
 
@@ -585,7 +588,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void onError(String message)
                     {
-                        if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                        if (Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
                         {
                             Logger.e("-OnError-", "Error: " + message);
                             showError(ShowBigPhotoActivity.this, "خطا در دریافت اطلاعات از سرور!");
@@ -648,7 +651,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                     public void onError(String message)
                     {
                         // showToast(ShowBigPhotoActivity.this, message, R.color.red);
-                        if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                        if (Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
                         {
                             Logger.e("-OnError-", "Error: " + message);
                             showError(ShowBigPhotoActivity.this, "خطا در دریافت اطلاعات از سرور!");
@@ -778,7 +781,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                             @Override
                             public void onError(String message)
                             {
-                                if (!Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
+                                if (Tools.isNetworkAvailable(ShowBigPhotoActivity.this))
                                 {
                                     Logger.e("-OnError-", "Error: " + message);
                                     showError(ShowBigPhotoActivity.this, "خطا در دریافت اطلاعات از سرور!");

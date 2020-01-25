@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -47,8 +49,21 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
     public static final int TYPE_MESSAGE = 0;
     public static final int TYPE_SUCCESS = 1;
     private int type = 0;
+    private static boolean shown = false;
 
+    @Override
+    public void show(FragmentManager manager, String tag) {
+        if (shown) return;
 
+        super.show(manager, tag);
+        shown = true;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        shown = false;
+        super.onDismiss(dialog);
+    }
     public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable,
                               int messageType ,OnConfirmListener listener)
     {

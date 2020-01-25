@@ -138,5 +138,7 @@
     <color name="greyish">#a8a8a8</color>
     <color name="colorProgress">#ffffbb33</color>
     <color name="backgroudPointMain">#d5282e</color>
+    <color name="irancell">#ecc011</color>
+    <color name="rightel">#9b2777</color>
     <!--  calendar  end-->
 </resources>

@@ -4,7 +4,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Browser;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -30,6 +34,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -612,13 +617,29 @@ public class AllMenuFragment extends BaseFragment implements
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+
+                Bundle headers = new Bundle();
+                headers.putString("Authorization", Prefs.getString("accessToken",""));
+
+                Uri uri = Uri.parse(Prefs.getString("alopark_token", ""));
+                CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
+                intentBuilder.setToolbarColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorPrimaryDark));
+                intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+
+                CustomTabsIntent customTabsIntent = intentBuilder.build();
+                customTabsIntent.intent.putExtra(Browser.EXTRA_HEADERS, headers);
+
+                customTabsIntent.launchUrl(getActivity(), uri);
+
+
+
+             /*   Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", Prefs.getString("alopark_token", ""));
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
                 startActivityForResult(intent,100);
-
+*/
                 // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
             }

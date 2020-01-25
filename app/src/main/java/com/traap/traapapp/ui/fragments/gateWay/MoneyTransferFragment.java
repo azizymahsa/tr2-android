@@ -376,9 +376,16 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
     private void onConfirmClicked()
     {
-        if (type == TYPE_PHONE_NUMBER)
+        if (type.equals(TYPE_PHONE_NUMBER))
         {
-            if (!Utility.getMobileValidation(etPhoneNum.getText().toString()))
+            try
+            {
+                if (!Utility.getMobileValidation(etPhoneNum.getText().toString()))
+                {
+                    mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+                    return;
+                }
+            } catch (Exception e)
             {
                 mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
                 return;
@@ -386,7 +393,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             userName = etPhoneNum.getText().toString();
 
 
-        } else if (type == TYPE_USER_CODE)
+        } else if (type.equals(TYPE_USER_CODE))
         {
 
             if (TextUtils.isEmpty(etUserCode.getText().toString()))
@@ -431,7 +438,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         }
         if (etPass.getText().toString().length() < 4 || etPass.getText().toString().length()>12)
         {
-            mainView.showError("لطفا رمز را صحیح وارد نمایید.");
+            mainView.showError("رمز وارد شده حداقل باید 4 کارکتر باشد.");
             return;
         }
 
