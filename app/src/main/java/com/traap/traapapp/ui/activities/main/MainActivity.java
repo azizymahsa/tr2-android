@@ -38,7 +38,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.realm.Realm;
@@ -1207,7 +1206,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         this.matchBuyable = matchBuyable;
         isMainFragment = false;
-        fragment = MatchScheduleFragment.newInstance(this, matchBuyable);
+        fragment = MatchScheduleFragment.newInstance(this, matchBuyable, 1);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, fragment, "leagueTableFragment").commit();
@@ -2151,6 +2150,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "IncreaseInventoryFragment")
                 .commit();
+    }
+
+    @Override
+    public void onBackToMatch()
+    {
+        isMainFragment = false;
+        fragment = MatchScheduleFragment.newInstance(this, matchBuyable,0);
+        transaction = fragmentManager.beginTransaction();
+//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.main_container, fragment, "leagueTableFragment").commit();
+
     }
 
 

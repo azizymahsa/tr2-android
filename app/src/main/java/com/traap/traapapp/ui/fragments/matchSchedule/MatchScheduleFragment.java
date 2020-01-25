@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,6 +57,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     List<MatchItem> pastMatchesList,nextMatchesList;
     private View imgBack, imgMenu;
     private ArrayList<MatchItem> matchBuyable;
+    private Integer selectedTab;
 
 
     public MatchScheduleFragment()
@@ -72,10 +72,10 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
         this.context = context;
     }
 
-    public static MatchScheduleFragment newInstance(MainActionView mainView, ArrayList<MatchItem> matchBuyable)
+    public static MatchScheduleFragment newInstance(MainActionView mainView, ArrayList<MatchItem> matchBuyable, Integer selectedTab)
     {
         matchScheduleFragment = new MatchScheduleFragment();
-        matchScheduleFragment.setMainView(mainView,matchBuyable);
+        matchScheduleFragment.setMainView(mainView,matchBuyable,selectedTab);
         return matchScheduleFragment;
     }
 
@@ -173,6 +173,9 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
             }
        // mainView.hideLoading();
         createTabLayout();
+            if (selectedTab==0)
+        onClick(tvTableLeage);
+
     }
 
     private void initView()
@@ -220,10 +223,11 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
     }
 
-    private void setMainView(MainActionView mainView,ArrayList<MatchItem> matchBuyable)
+    private void setMainView(MainActionView mainView,ArrayList<MatchItem> matchBuyable,Integer selectedTab)
     {
         this.mainView = mainView;
         this.matchBuyable = matchBuyable;
+        this.selectedTab = selectedTab;
     }
 
     /**
@@ -285,7 +289,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
                     tvNowSchedule.setTextColor(context.getResources().getColor(R.color._disable_color));
                     viewPager.setCurrentItem(2, true);
 
-                }, 1000);
+                }, 200);
 
 
                 break;
@@ -305,7 +309,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
                     viewPager.setCurrentItem(1, true);
 
-                }, 1000);
+                }, 200);
 
 
                 break;
@@ -327,7 +331,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
                     viewPager.setCurrentItem(0, true);
 
-                }, 1000);
+                }, 200);
 
                 break;
         }
