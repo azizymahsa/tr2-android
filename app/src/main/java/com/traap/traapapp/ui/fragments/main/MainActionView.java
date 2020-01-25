@@ -92,4 +92,6 @@ public interface MainActionView extends BaseView
     void backToAllServicePackage(Integer backState);
 
     void onBackToHomeWallet(int i);
+
+    void onBackToMatch();
 }

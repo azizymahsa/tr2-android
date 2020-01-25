@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -21,6 +22,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.points.groupBy.PointGroupBy;
 import com.traap.traapapp.apiServices.model.points.groupBy.PointsGroupByResponse;
 import com.traap.traapapp.apiServices.model.points.guide.PointGuide;
+import com.traap.traapapp.ui.activities.points.PointActionView;
 import com.traap.traapapp.ui.adapters.points.PointGroupByParentAdapter;
 import com.traap.traapapp.ui.adapters.points.PointGuidesAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -29,16 +31,20 @@ import com.traap.traapapp.utilities.Tools;
 
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 
 @SuppressLint("pointsRecordFragment")
 public class PointsGroupByFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<PointsGroupByResponse>>
 {
     private Context context;
+    private PointActionView actionView;
     private View rootView;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
-//    private TextView tvEmpty;
+    private LinearLayout llEmpty;
+    private CircularProgressButton btnInviteFriend;
     private PointGroupByParentAdapter adapter;
     private List<PointGroupBy> groupByList;
 
@@ -47,10 +53,16 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
 
     }
 
-    public static PointsGroupByFragment newInstance()
+    public static PointsGroupByFragment newInstance(PointActionView actionView)
     {
         PointsGroupByFragment f = new PointsGroupByFragment();
+        f.setActionView(actionView);
         return f;
+    }
+
+    private void setActionView(PointActionView actionView)
+    {
+        this.actionView = actionView;
     }
 
     @Override
@@ -68,6 +80,7 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
         {
             return rootView;
         }
+
         rootView = inflater.inflate(R.layout.fragment_point_group_by, container, false);
 
         initView();
@@ -80,10 +93,15 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
     {
         progressBar = rootView.findViewById(R.id.progressbar);
 
+        llEmpty = rootView.findViewById(R.id.llEmpty);
+        btnInviteFriend = rootView.findViewById(R.id.btnInviteFriend);
+
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
         layoutManager = new GridLayoutManager(context, 1);
         recyclerView.setLayoutManager(layoutManager);
+
+        btnInviteFriend.setOnClickListener(v -> actionView.onInviteFriend());
 
         SingletonService.getInstance().getPointsService().getPointGroupBy(this);
 
@@ -115,6 +133,7 @@ public class PointsGroupByFragment extends BaseFragment implements OnServiceStat
                 else
                 {
                     //show Empty
+                    llEmpty.setVisibility(View.VISIBLE);
                 }
             }
 

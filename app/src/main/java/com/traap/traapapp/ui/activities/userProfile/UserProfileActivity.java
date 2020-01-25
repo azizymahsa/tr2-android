@@ -319,6 +319,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
                         Prefs.putString("profileImage", response.data.getPhotoUrl());
 
+                        headerModel = new HeaderModel();
+                        headerModel.setPopularNo(popularPlayer);
+                        headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
+                        headerModel.setProfileUrl(response.data.getPhotoUrl());
+                        EventBus.getDefault().post(headerModel);
+
                         isProfileImageAvailable = false;
 
                         rlDeleteImage.setAlpha(0.3f);

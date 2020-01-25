@@ -170,5 +170,8 @@ public class Const
     public final static String GET_POINTS_GUIDE = SubBASEURL + "v1/point/info/";
     public final static String GET_POINTS_GROUP_BY = SubBASEURL + "v1/point/group_by/";
 
+    //Setting
+    public final static String SETTING = SubBASEURL + "v1/setting/";
+
 
 }

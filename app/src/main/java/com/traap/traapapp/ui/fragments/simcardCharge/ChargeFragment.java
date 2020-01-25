@@ -126,7 +126,7 @@ public class ChargeFragment extends BaseFragment
     private static final int SIMCARD_TYPE_ETEBARI = 0;
     private static final int SIMCARD_TYPE_DAEMI = 1;
     private int simcardType = 0;
-    private String amount;
+    private String amount,amounAfterTax;
     private String mobile;
     private int imageDrawable = 0;
     private View mToolbar;
@@ -635,7 +635,7 @@ public class ChargeFragment extends BaseFragment
         paymentInstance.setSimcardType(simcardType);
         paymentInstance.setTypeCharge(Integer.valueOf(chargeType));
 
-        getUrlChargePayment(amount, operatorType, simcardType, chargeType, mobile);
+        getUrlChargePayment(amounAfterTax, operatorType, simcardType, chargeType, mobile);
 
         //////////////////////////////////////////////////////////////////////
 
@@ -1726,7 +1726,30 @@ public class ChargeFragment extends BaseFragment
 
         mainView.hideLoading();
         String urlPayment = data.getUrl();
-        String title = "با انجام این پرداخت ، مبلغ " + amount + " ریال بابت شارژ موبایل " + mobile + " از حساب شما کسر خواهد شد.";
+        
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("با انجام این پرداخت ، مبلغ ");
+        builder.append(amounAfterTax);
+        builder.append(" ریال با احتساب 9 درصد مالیات بر ارزش افزوده، بابت \"خرید شارژ");
+
+
+        if (getOperatorType(mobile)==1){
+            builder.append(" ایرانسل");
+
+        }else if (operatorType==2){
+            builder.append(" همراه اول");
+
+        }else{
+            builder.append(" رایتل");
+
+        }
+        builder.append("\"");
+        builder.append("برای شماره ");
+        builder.append(mobile);
+        builder.append("، ");
+        builder.append("از کیف پول شما کسر خواهد شد.");
+
 
         //fragmentManager = getChildFragmentManager();
         operatorType = getOperatorType(mobile);
@@ -1739,7 +1762,7 @@ public class ChargeFragment extends BaseFragment
 
 
         mainView.openChargePaymentFragment(this, urlPayment, imageDrawable,
-                title, amount, paymentInstance, mobile, TrapConfig.PAYMENT_STAUS_ChargeSimCard);
+                builder.toString(), amounAfterTax, paymentInstance, mobile, TrapConfig.PAYMENT_STAUS_ChargeSimCard);
 
     }
 
@@ -1999,6 +2022,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onBackToMatch()
+    {
+
+    }
+
     private void closeAutoComplete()
     {
         autoCompletePhoneNumberRightel.dismissDropDown();
@@ -2194,6 +2223,7 @@ public class ChargeFragment extends BaseFragment
 
             }
             amount = result.getAmount().toString();
+            amounAfterTax = result.getAmount_with_tax().toString();
 
             isMtn = true;
             isMci = false;
@@ -2230,6 +2260,8 @@ public class ChargeFragment extends BaseFragment
 
             }
             amount = result.getAmount().toString();
+            amounAfterTax = result.getAmount_with_tax().toString();
+
             etPassCharge.requestFocus();
 
             isMci = true;
@@ -2287,6 +2319,7 @@ public class ChargeFragment extends BaseFragment
             //mainView.needExpanded(true);
             llRightelCharge.setVisibility(View.GONE);
             amount = result.getAmount().toString();
+            amounAfterTax = result.getAmount_with_tax().toString();
 
             setDataLayoutPassCharge();
 

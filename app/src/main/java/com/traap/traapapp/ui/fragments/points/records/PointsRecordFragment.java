@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import com.traap.traapapp.apiServices.model.points.records.PointRecord;
 import com.traap.traapapp.apiServices.model.points.records.PointsRecordResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.points.PointScoreModel;
+import com.traap.traapapp.ui.activities.points.PointActionView;
 import com.traap.traapapp.ui.adapters.points.PointRecordsAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -36,19 +38,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 
 @SuppressLint("pointsRecordFragment")
 public class PointsRecordFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<PointsRecordResponse>>
 {
     private Context context;
+    private PointActionView actionView;
     private View rootView;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
-//    private TextView tvEmpty;
+    private LinearLayout llEmpty;
+    private CircularProgressButton btnInviteFriend;
     private PointRecordsAdapter adapter;
     private List<PointRecord> recordList;
-    private Integer maxHeightView;
+//    private Integer maxHeightView;
     private List<Integer> heightList = new ArrayList<>();
 
     public PointsRecordFragment()
@@ -56,11 +62,18 @@ public class PointsRecordFragment extends BaseFragment implements OnServiceStatu
 
     }
 
-    public static PointsRecordFragment newInstance()
+    public static PointsRecordFragment newInstance(PointActionView actionView)
     {
         PointsRecordFragment f = new PointsRecordFragment();
+        f.setActionView(actionView);
         return f;
     }
+
+    private void setActionView(PointActionView actionView)
+    {
+        this.actionView = actionView;
+    }
+
 
     @Override
     public void onAttach(@NonNull Context context)
@@ -89,12 +102,15 @@ public class PointsRecordFragment extends BaseFragment implements OnServiceStatu
     {
         progressBar = rootView.findViewById(R.id.progressbar);
 
+        llEmpty = rootView.findViewById(R.id.llEmpty);
+        btnInviteFriend = rootView.findViewById(R.id.btnInviteFriend);
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
         layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        //SingletonService.getInstance().getNewsService().getNewsArchiveCategoryBySingleId(Ids, this);
+        btnInviteFriend.setOnClickListener(v -> actionView.onInviteFriend());
+
         SingletonService.getInstance().getPointsService().getPointRecord(this);
     }
 
@@ -110,7 +126,7 @@ public class PointsRecordFragment extends BaseFragment implements OnServiceStatu
             }
             else
             {
-                maxHeightView = 0;
+//                maxHeightView = 0;
 
                 recordList = response.data.getRecordList();
 //                Logger.e("-recordList size-", "size: " + recordList.size());
@@ -124,10 +140,11 @@ public class PointsRecordFragment extends BaseFragment implements OnServiceStatu
                 else
                 {
                     //show Empty
+                    llEmpty.setVisibility(View.VISIBLE);
                 }
 //                maxHeightView = adapter.getMaxHeightViewItem() * (adapter.getItemCount() > 12 ? 12: adapter.getItemCount());
 ////                maxHeightView = Collections.max(heightList) * adapter.getItemCount();
-                EventBus.getDefault().post(new PointScoreModel(response.data.getBalance(), maxHeightView));
+                EventBus.getDefault().post(new PointScoreModel(response.data.getBalance(), 0));
             }
 
         }

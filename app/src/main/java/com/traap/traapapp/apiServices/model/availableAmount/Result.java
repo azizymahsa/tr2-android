@@ -12,6 +12,9 @@ public class Result {
     @SerializedName("amount")
     @Expose
     private Integer amount;
+    @SerializedName("amount_with_tax")
+    @Expose
+    private Integer amount_with_tax;
     @SerializedName("charge_type")
     @Expose
     private Integer chargeType;
@@ -29,6 +32,16 @@ public class Result {
 
     public Integer getAmount() {
         return amount;
+    }
+
+    public Integer getAmount_with_tax()
+    {
+        return amount_with_tax;
+    }
+
+    public void setAmount_with_tax(Integer amount_with_tax)
+    {
+        this.amount_with_tax = amount_with_tax;
     }
 
     public void setAmount(Integer amount) {
