@@ -3,6 +3,7 @@ package com.traap.traapapp.ui.fragments.points;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -21,12 +22,18 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.invite.InviteResponse;
 import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.MediaArchiveCategoryCall;
 import com.traap.traapapp.models.otherModels.points.PointScoreModel;
 import com.traap.traapapp.models.otherModels.points.PointTabModel;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
+import com.traap.traapapp.ui.activities.points.PointActionView;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveCategoryFragment;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
@@ -35,6 +42,7 @@ import com.traap.traapapp.ui.fragments.points.guide.PointsGuideFragment;
 import com.traap.traapapp.ui.fragments.points.records.PointsRecordFragment;
 import com.traap.traapapp.utilities.CustomViewPager;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,7 +53,7 @@ import java.util.List;
 
 
 @SuppressLint("ValidFragment")
-public class PointMainFragment extends BaseFragment
+public class PointMainFragment extends BaseFragment implements PointActionView
 {
     private List<PointTabModel> tabList;
     private View rootView;
@@ -101,6 +109,10 @@ public class PointMainFragment extends BaseFragment
 
         tvPointScore = rootView.findViewById(R.id.tvPointScore);
 
+        rootView.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(),
+                MyProfileActivity.class), 100)
+        );
+        
         tabList = new ArrayList<>(3);
 
         PointTabModel tabItem = new PointTabModel(2, "راهنمای امتیازات");
@@ -136,6 +148,76 @@ public class PointMainFragment extends BaseFragment
         viewPager.setCurrentItem(tabList.size()-1);
     }
 
+    @Override
+    public void onInviteFriend()
+    {
+        SingletonService.getInstance().getProfileService().getInviteService(new OnServiceStatus<WebServiceClass<InviteResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<InviteResponse> response)
+            {
+                // mainView.hideLoading();
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+                        //share text
+                        String shareBody = response.data.getInvite_text();
+                        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                        sharingIntent.setType("text/plain");
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "دعوت از دوستان");
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        startActivity(Intent.createChooser(sharingIntent, "کد عضویت خود را به اشتراک بگذارید: "));
+                    }
+                    else
+                    {
+                        if (Tools.isNetworkAvailable((Activity) context))
+                        {
+                            showError(context, "خطا در دریافت اطلاعات از سرور!");
+                        }
+                        else
+                        {
+                            showAlert(context, R.string.networkErrorMessage, R.string.networkError);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    if (Tools.isNetworkAvailable((Activity) context))
+                    {
+                        Logger.e("-OnError-", "response.info.statusCode: " + response.info.statusCode);
+                        showError(context, "خطا در دریافت اطلاعات از سرور!");
+                    }
+                    else
+                    {
+                        // showError(MyProfileActivity.this,String.valueOf(R.string.networkErrorMessage));
+
+                        showAlert(context, R.string.networkErrorMessage, R.string.networkError);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                // mainView.hideLoading();
+                if (Tools.isNetworkAvailable((Activity) context))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(context, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    // showError(MyProfileActivity.this,String.valueOf(R.string.networkErrorMessage));
+
+                    showAlert(context, R.string.networkErrorMessage, R.string.networkError);
+                }
+            }
+        });
+    }
+
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
     {
         private Context context = SingletonContext.getInstance().getContext();
@@ -168,19 +250,19 @@ public class PointMainFragment extends BaseFragment
             {
                 case 2:
                 {
-                    return PointsGuideFragment.newInstance();
+                    return PointsGuideFragment.newInstance(PointMainFragment.this);
                 }
                 case 1:
                 {
-                    return PointsGroupByFragment.newInstance();
+                    return PointsGroupByFragment.newInstance(PointMainFragment.this);
                 }
                 case 0:
                 {
-                    return PointsRecordFragment.newInstance();
+                    return PointsRecordFragment.newInstance(PointMainFragment.this);
                 }
                 default:
                 {
-                    return PointsRecordFragment.newInstance();
+                    return PointsRecordFragment.newInstance(PointMainFragment.this);
                 }
             }
         }

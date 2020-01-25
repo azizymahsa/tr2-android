@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,6 +21,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.points.guide.PointGuide;
 import com.traap.traapapp.apiServices.model.points.guide.PointsGuideResponse;
+import com.traap.traapapp.ui.activities.points.PointActionView;
 import com.traap.traapapp.ui.adapters.points.PointGuidesAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.utilities.Logger;
@@ -32,12 +34,13 @@ import java.util.List;
 public class PointsGuideFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<PointsGuideResponse>>
 {
     private LinearLayout llHeader;
+    private PointActionView actionView;
     private Context context;
     private View rootView;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
-//    private TextView tvEmpty;
+    private TextView tvEmpty;
     private PointGuidesAdapter adapter;
     private List<PointGuide> guideList;
 
@@ -46,10 +49,16 @@ public class PointsGuideFragment extends BaseFragment implements OnServiceStatus
 
     }
 
-    public static PointsGuideFragment newInstance()
+    public static PointsGuideFragment newInstance(PointActionView actionView)
     {
         PointsGuideFragment f = new PointsGuideFragment();
+        f.setActionView(actionView);
         return f;
+    }
+
+    private void setActionView(PointActionView actionView)
+    {
+        this.actionView = actionView;
     }
 
     @Override
@@ -79,6 +88,7 @@ public class PointsGuideFragment extends BaseFragment implements OnServiceStatus
     {
         llHeader = rootView.findViewById(R.id.llHeader);
         progressBar = rootView.findViewById(R.id.progressbar);
+        tvEmpty = rootView.findViewById(R.id.tvEmpty);
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
@@ -87,6 +97,8 @@ public class PointsGuideFragment extends BaseFragment implements OnServiceStatus
 
         //SingletonService.getInstance().getNewsService().getNewsArchiveCategoryBySingleId(Ids, this);
         SingletonService.getInstance().getPointsService().getPointGuide(this);
+
+
     }
 
     @Override
@@ -114,6 +126,7 @@ public class PointsGuideFragment extends BaseFragment implements OnServiceStatus
                 {
                     llHeader.setVisibility(View.GONE);
                     //show Empty
+                    tvEmpty.setVisibility(View.VISIBLE);
                 }
             }
 

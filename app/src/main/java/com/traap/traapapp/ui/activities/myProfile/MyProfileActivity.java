@@ -72,8 +72,6 @@ public class MyProfileActivity extends BaseActivity
         initView();
 
         EventBus.getDefault().register(this);
-
-        // return rootView;
     }
 
 
@@ -177,9 +175,6 @@ public class MyProfileActivity extends BaseActivity
 
     private void sendRequestInvite()
     {
-        CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
-        // SingletonService.getInstance().getProfileService().getProfileService(this);
-
         SingletonService.getInstance().getProfileService().getInviteService(new OnServiceStatus<WebServiceClass<InviteResponse>>()
         {
             @Override
@@ -202,21 +197,18 @@ public class MyProfileActivity extends BaseActivity
                     }
                     else
                     {
-                        if (!Tools.isNetworkAvailable(MyProfileActivity.this))
+                        if (Tools.isNetworkAvailable(MyProfileActivity.this))
                         {
-                            Logger.e("-Faild-", "response.info.statusCode: " + response.info.statusCode);
                             showError(MyProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
                         }
                         else
                         {
-                            // showError(MyProfileActivity.this,String.valueOf(R.string.networkErrorMessage));
-
                             showAlert(MyProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
                         }
                     }
                 } catch (Exception e)
                 {
-                    if (!Tools.isNetworkAvailable(MyProfileActivity.this))
+                    if (Tools.isNetworkAvailable(MyProfileActivity.this))
                     {
                         Logger.e("-OnError-", "response.info.statusCode: " + response.info.statusCode);
                         showError(MyProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
@@ -235,7 +227,7 @@ public class MyProfileActivity extends BaseActivity
             public void onError(String message)
             {
                 // mainView.hideLoading();
-                if (!Tools.isNetworkAvailable(MyProfileActivity.this))
+                if (Tools.isNetworkAvailable(MyProfileActivity.this))
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MyProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
@@ -273,7 +265,14 @@ public class MyProfileActivity extends BaseActivity
             Logger.e("EventBus ImageLink", headerModel.getProfileUrl());
             if (headerModel.getProfileUrl() != null)
             {
-                Picasso.with(this).load(headerModel.getProfileUrl()).into(imgProfile);
+                if (!Prefs.getString("profileImage", "").contains("default_avatar.png"))
+                {
+                    Picasso.with(this).load(headerModel.getProfileUrl()).into(imgProfile);
+                }
+                else
+                {
+                    Picasso.with(this).load(R.drawable.ic_user_default).into(imgProfile);
+                }
             }
         } catch (Exception e)
         {

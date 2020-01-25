@@ -32,14 +32,14 @@
             android:maxLines="2"
             android:gravity="center"
             android:textSize="@dimen/textSize_14dp"
-            android:text="هیچ آیتمی در این گروه یافت نشد."/>
+            android:text="کاربر گرامی شما تاکنون موفق به دریافت امتیاز نشده\u200cاید،برای شروع کلیک کنید."/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingRight="32dp"
-            android:paddingLeft="32dp"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
             android:layout_marginTop="8dp">
 
             <LinearLayout
