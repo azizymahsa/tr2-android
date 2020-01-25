@@ -107,7 +107,8 @@
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_10dp">
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
+                android:theme="@style/IrancellSwitchTheme"
                 android:id="@+id/swIrancell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

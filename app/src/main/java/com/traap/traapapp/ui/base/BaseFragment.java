@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.base;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -63,6 +64,9 @@ public class BaseFragment extends Fragment
 
     public void showAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
     {
+
+
+
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
                 MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
         {

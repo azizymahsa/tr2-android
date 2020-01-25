@@ -17,6 +17,7 @@
         android:textSize="@dimen/textSize_16dp"
         android:textColor="@color/red"
         android:gravity="center"
+        android:text="نتیجه ای یافت نشد."
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -87,6 +87,9 @@ public class BaseActivity extends AppCompatActivity
 
     public void showAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
     {
+
+
+
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
                 MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
         {
