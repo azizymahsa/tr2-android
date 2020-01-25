@@ -264,7 +264,10 @@ public class PaymentResultDialog extends DialogFragment implements View.OnClickL
             tvShare.setVisibility(View.INVISIBLE);
             tvShareText.setVisibility(View.INVISIBLE);
             tvClose.setVisibility(View.INVISIBLE);
-            new ScreenShot(dialog.getWindow().getDecorView(), activity);
+            new ScreenShot(dialog.getWindow().getDecorView(), activity, () ->
+            {
+
+            });
             tvCardNumberDialog.setText(Utility.cardFormat(cardNumber));
             tvShareImage.setVisibility(View.VISIBLE);
             tvShare.setVisibility(View.VISIBLE);

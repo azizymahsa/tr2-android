@@ -3,6 +3,7 @@ package com.traap.traapapp.ui.activities.paymentResult;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,11 +15,12 @@ import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResp
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
-public class PaymentResultIncreaseInventoryActivity extends BaseActivity implements View.OnClickListener
+public class PaymentResultIncreaseInventoryActivity extends BaseActivity implements View.OnClickListener, ScreenShot.DenyAction
 {
 
     private String refrenceNumber;
@@ -26,7 +28,13 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
     private TextView tvTitle,tvStatusPayment,tvDate,tvPayment,tvAmount,tvCardNumDestination,tvRefrenceNumber,tvPackageTitle,tvPhoneNumber;
     private View btnShare,tvBackHome,llResult;
     private View btnSaveResult;
-
+    private     MessageAlertPermissionDialog dialog;
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        //No call for super(). Bug on API Level > 11.
+        super.onSaveInstanceState(outState);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -184,11 +192,13 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
     {
         switch (v.getId()){
             case R.id.btnShare:
-                new ScreenShot(llResult, this,false,"برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");
+                new ScreenShot(llResult, this, false, this);
+             ;
                 break;
             case R.id.btnSaveResult:
-                new ScreenShot(llResult, this,true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
-                showDialog();
+
+                new ScreenShot(llResult, this, false, this);
+
                 break;
             case R.id.tvBackHome:
                 finish();
@@ -196,25 +206,43 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
         }
     }
 
-    private void showDialog()
+    @Override
+    public void onDeny()
     {
-        MessageAlertDialog dialog = new MessageAlertDialog(this, "", "رسید شما با موفقیت در گالری ذخیره شد.", false,
-                MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+
+                dialog = new MessageAlertPermissionDialog(PaymentResultIncreaseInventoryActivity.this, "",
+                        "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.",
+                        true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()
                     {
+                        new ScreenShot(llResult, PaymentResultIncreaseInventoryActivity.this, false, PaymentResultIncreaseInventoryActivity.this);
+
+                        dialog.dismiss();
 
                     }
 
                     @Override
                     public void onCancelClick()
                     {
+                        dialog.dismiss();
 
                     }
-                });
+                }
+                );
 
-        dialog.setCancelable(false);
-        dialog.show(getFragmentManager(), "messageDialog");
+
+                dialog.show(getFragmentManager(), "dialogMessage");
+            }
+        },1000);
+
+
+
     }
 }

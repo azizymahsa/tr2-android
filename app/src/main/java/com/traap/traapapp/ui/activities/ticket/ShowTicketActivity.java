@@ -215,11 +215,17 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
 
                 break;
             case R.id.btnSaveResult:
-                new ScreenShot(rvTickets, this,true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                new ScreenShot(rvTickets, this, true, () ->
+                {
+
+                });
                 // showDialog();
                 break;
             case R.id.btnShareTicket:
-                new ScreenShot(rvTickets, this,false,"برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");
+                new ScreenShot(rvTickets, this, false, () ->
+                {
+
+                });
                 // showToast(getContext(), "share");
                 break;
 

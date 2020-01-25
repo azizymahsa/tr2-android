@@ -33,11 +33,13 @@ public class ScreenShot
     View view;
     Activity activity;
     String picName;
+    DenyAction action;
 
-    public ScreenShot(View v, final Activity activity_)
+    public ScreenShot(View v, final Activity activity_,DenyAction action)
     {
         this.view = v;
         this.activity = activity_;
+        this.action = action;
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
@@ -51,8 +53,7 @@ public class ScreenShot
                 Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bitmap);
         view.draw(c);
-       // MediaStore.Images.Media.insertImage(activity_.getContentResolver(), bitmap, picName , "");
-
+        // MediaStore.Images.Media.insertImage(activity_.getContentResolver(), bitmap, picName , "");
 
 
         new TedPermission(activity)
@@ -65,8 +66,7 @@ public class ScreenShot
                         try
                         {
                             store(bitmap, picName);
-                        }
-                        catch (Exception e)
+                        } catch (Exception e)
                         {
                             e.printStackTrace();
                         }
@@ -84,6 +84,7 @@ public class ScreenShot
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
+                        action.onDeny();
 
                     }
                 })
@@ -94,7 +95,7 @@ public class ScreenShot
 
     }
 
-    public ScreenShot(View v, final Activity activity_,boolean isSava,String message)
+    public ScreenShot(View v, final Activity activity_, boolean isSava,DenyAction action)
     {
         this.view = v;
         this.activity = activity_;
@@ -111,8 +112,7 @@ public class ScreenShot
                 Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bitmap);
         view.draw(c);
-       // MediaStore.Images.Media.insertImage(activity_.getContentResolver(), bitmap, picName , "");
-
+        // MediaStore.Images.Media.insertImage(activity_.getContentResolver(), bitmap, picName , "");
 
 
         new TedPermission(activity)
@@ -129,8 +129,7 @@ public class ScreenShot
                             {
                                 showDialogSuccessSaveToGallery();
                             }
-                        }
-                        catch (Exception e)
+                        } catch (Exception e)
                         {
                             e.printStackTrace();
                         }
@@ -146,31 +145,14 @@ public class ScreenShot
                         }
 
 
-
                     }
 
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
+                        action.onDeny();
 
-                        MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(activity, "",
-                                message,
-                                true,"نمایش دوباره دسترسی","انصراف",  MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
-                        {
-                            @Override
-                            public void onConfirmClick()
-                            {
-                                getPermission(bitmap,message,isSava);
-                            }
 
-                            @Override
-                            public void onCancelClick()
-                            {
-
-                            }
-                        }
-                        );
-                        dialog.show(activity.getFragmentManager(), "dialogMessage");
 
 
                     }
@@ -204,7 +186,8 @@ public class ScreenShot
         dialog.show(activity.getFragmentManager(), "messageDialog");
     }
 
-    public void getPermission(Bitmap bitmap, String message, boolean isSava){
+    public void getPermission(Bitmap bitmap, String message, boolean isSava)
+    {
         new TedPermission(activity)
                 .setPermissionListener(new PermissionListener()
                 {
@@ -215,8 +198,7 @@ public class ScreenShot
                         try
                         {
                             store(bitmap, picName);
-                        }
-                        catch (Exception e)
+                        } catch (Exception e)
                         {
                             e.printStackTrace();
                         }
@@ -225,10 +207,10 @@ public class ScreenShot
 
                         if (!isSava)
                         {
-                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                        sharingIntent.setType("image/jpg");
-                        sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
-                        activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                            sharingIntent.setType("image/jpg");
+                            sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
+                            activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
                         }
 
 
@@ -238,14 +220,14 @@ public class ScreenShot
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
 
-                        MessageAlertPermissionDialog dialog =new MessageAlertPermissionDialog(activity, "",
+                        MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(activity, "",
                                 message,
-                                true,"نمایش دوباره دسترسی","انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                                true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()
                             {
-                                getPermission(bitmap,message,isSava);
+                                getPermission(bitmap, message, isSava);
                             }
 
                             @Override
@@ -284,10 +266,13 @@ public class ScreenShot
         {
             e.printStackTrace();
         }
-        try{
-            addPicToGallery(activity,file.getAbsolutePath());
+        try
+        {
+            addPicToGallery(activity, file.getAbsolutePath());
 
-        }catch (Exception e){}
+        } catch (Exception e)
+        {
+        }
 
     }
 
@@ -328,15 +313,23 @@ public class ScreenShot
 
     }
 
-    public static void addPicToGallery(Context context, String photoPath) {
+    public static void addPicToGallery(Context context, String photoPath)
+    {
         MediaScannerConnection.scanFile(context,
-                new String[] { photoPath }, null,
-                new MediaScannerConnection.OnScanCompletedListener() {
+                new String[]{photoPath}, null,
+                new MediaScannerConnection.OnScanCompletedListener()
+                {
 
-                    public void onScanCompleted(String path, Uri uri) {
+                    public void onScanCompleted(String path, Uri uri)
+                    {
                         Log.i("TAG", "Finished scanning " + path);
                     }
                 });
+    }
+
+    public interface DenyAction{
+        void onDeny();
+
     }
 }
 

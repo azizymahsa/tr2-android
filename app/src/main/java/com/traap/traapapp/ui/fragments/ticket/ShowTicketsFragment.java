@@ -269,7 +269,10 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
                 break;
 
             case R.id.btnSaveResult:
-                new ScreenShot(rvTickets, getActivity(),true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                new ScreenShot(rvTickets, getActivity(), true, () ->
+                {
+
+                });
                 // showDialog();
                 break;
             case R.id.btnBackToHome:
@@ -281,7 +284,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
             case R.id.btnShareTicket:
                 SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
 
-                new ScreenShot(rvTickets, getActivity());
+                new ScreenShot(rvTickets, getActivity(), () -> {});
                 // showToast(getContext(), "share");
                 break;
 
