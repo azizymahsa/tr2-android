@@ -59,11 +59,11 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="40" />
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="@dimen/_300dp"
+            android:layout_width="@dimen/_180sdp"
             android:layout_height="@dimen/_60dp"
             android:layout_gravity="start"
             android:layout_marginStart="5dp"
@@ -88,14 +88,14 @@
                 android:layout_weight="100"
                 android:maxLength="7"
                 android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_14dp" />
+                android:textSize="@dimen/textSize_12dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="40" />
 
     </LinearLayout>
 
@@ -108,11 +108,11 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="40" />
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="@dimen/_300dp"
+            android:layout_width="@dimen/_180sdp"
             android:layout_height="@dimen/_60dp"
             android:layout_gravity="start"
             android:layout_marginStart="5dp"
@@ -129,7 +129,7 @@
                 android:gravity="start"
                 android:inputType="text"
                 android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_14dp"
+                android:textSize="@dimen/textSize_12dp"
                 app:mask="IR99 -9999-9999-9999-9999-9999-99"
                 app:placeholder="_"
 
@@ -140,7 +140,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="40" />
 
     </LinearLayout>
 
