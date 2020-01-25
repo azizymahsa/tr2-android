@@ -512,7 +512,10 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     @Override
     public void onShareCard(View view)
     {
-        new ScreenShot(view,getActivity());
+        new ScreenShot(view, getActivity(), () ->
+        {
+
+        });
     }
 
     @Override

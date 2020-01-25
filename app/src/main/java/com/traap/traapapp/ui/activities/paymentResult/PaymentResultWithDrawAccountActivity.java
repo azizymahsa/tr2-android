@@ -3,7 +3,7 @@ package com.traap.traapapp.ui.activities.paymentResult;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,26 +12,29 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
+import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletResponse;
+import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
-public class PaymentResultChargeActivity extends BaseActivity implements View.OnClickListener
+public class PaymentResultWithDrawAccountActivity extends BaseActivity implements View.OnClickListener
 {
 
     private String refrenceNumber;
     private boolean statusPayment;
-    private TextView tvTitle,tvStatusPayment,tvDate,tvPayment,tvAmount,tvPhoneNumber,tvRefrenceNumber,tvPackageTitle;
+    private TextView tvTitle,tvStatusPayment,tvDate,tvFrom,tvAmount,tvSheba,tvRefrenceNumber;
     private View btnShare,tvBackHome,llResult;
     private View btnSaveResult;
+    private WithdrawWalletResponse response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment_result_charge);
+        setContentView(R.layout.activity_payment_result_with_draw_account);
         showLoading();
 
         if (savedInstanceState == null)
@@ -42,12 +45,14 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
 
             } else
             {
-                refrenceNumber = extras.getString("RefrenceNumber");
+                response = extras.getParcelable("response");
                 // statusPayment=extras.getBoolean(            "StatusPayment",false);
             }
         }
         initView();
-        requestGetDetailTransaction(refrenceNumber);
+
+        checkStatusAndSetData(response);
+
     }
 
     private void initView()
@@ -55,12 +60,10 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         tvTitle=findViewById(R.id.tvTitle);
         tvStatusPayment=findViewById(R.id.tvStatusPayment);
         tvDate=findViewById(R.id.tvDate);
-        tvPayment=findViewById(R.id.tvPayment);
+        tvFrom=findViewById(R.id.tvFrom);
         tvAmount=findViewById(R.id.tvAmount);
-        tvPhoneNumber=findViewById(R.id.tvPhoneNumber);
+        tvSheba=findViewById(R.id.tvSheba);
         tvRefrenceNumber=findViewById(R.id.tvRefrenceNumber);
-
-        tvPackageTitle=findViewById(R.id.tvPackageTitle);
 
         btnShare=findViewById(R.id.btnShare);
         btnShare.setOnClickListener(this);
@@ -71,45 +74,10 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         btnSaveResult.setOnClickListener(this);
     }
 
-    private void requestGetDetailTransaction(String refrenceNumber)
+
+    private void checkStatusAndSetData(WithdrawWalletResponse response)
     {
-
-        SingletonService.getInstance().getTransactionDetailService().getTransactionDetail(Long.parseLong(refrenceNumber),new OnServiceStatus<WebServiceClass<TransactionDetailResponse>>()
-        {
-            @Override
-            public void onReady(WebServiceClass<TransactionDetailResponse> response)
-            {
-                try
-                {
-
-                    if (response.info.statusCode == 200)
-                    {
-
-                        statusPayment =response.data.getStatus();
-                        checkStatusAndSetData(response);
-                        hideLoading();
-
-
-                    }
-                } catch (Exception e)
-                {
-                    showToast(PaymentResultChargeActivity.this, e.getMessage(), R.color.red);
-                    hideLoading();
-                }
-            }
-
-            @Override
-            public void onError(String message)
-            {
-                showToast(PaymentResultChargeActivity.this, message, R.color.red);
-                hideLoading();
-            }
-        });
-    }
-
-    private void checkStatusAndSetData(WebServiceClass<TransactionDetailResponse> response)
-    {
-        if (statusPayment){
+      /*  if (statusPayment){
             tvStatusPayment.setTextColor(getResources().getColor(R.color.kellyGreen));
             tvStatusPayment.setText("پرداخت موفق");
             //imgPaymentStatus.setImageResource(R.drawable.check_mark);
@@ -118,24 +86,18 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
             tvStatusPayment.setTextColor(getResources().getColor(R.color.aviColor));
             tvStatusPayment.setText("پرداخت ناموفق");
             //imgPaymentStatus.setImageResource(R.drawable.un_check_mark);
-        }
+        }*/
 
-        tvTitle.setText("رسید "+response.data.getTypeTransaction());
-        tvPayment.setText(response.data.getTypePayment());
-        tvDate.setText(response.data.getCreate_date_formatted());
-        tvAmount.setText("مبلغ: "+Utility.priceFormat(response.data.getAmount().toString())+" ریال" );
-        tvPhoneNumber.setText("شماره موبایل: "+response.data.getDetailTransaction().getMobileNumber());
-        tvRefrenceNumber.setText("کد پیگیری: "+response.data.getId());
-        if (response.data.getDetailTransaction().getTitlePackage()!=null)
-        {
-            tvPackageTitle.setText(response.data.getDetailTransaction().getTitlePackage());
-            tvPackageTitle.setVisibility(View.VISIBLE);
-        }else {
-            tvPackageTitle.setVisibility(View.GONE);
+        tvStatusPayment.setTextColor(getResources().getColor(R.color.kellyGreen));
+        tvStatusPayment.setText("پرداخت موفق");
+        tvTitle.setText("رسید برداشت از کیف پول");
+        tvFrom.setText("کارت مبدا: "+response.getFrom());
+        tvDate.setText(response.getDateTime());
+        tvAmount.setText("مبلغ: "+ Utility.priceFormat(response.getAmount().toString())+" ریال" );
+        tvSheba.setText("شماره شبا: " + response.getShebaNumber());
+        tvRefrenceNumber.setText("کد پیگیری: "+response.getRefNumber());
 
-        }
-
-
+        hideLoading();
     }
 
     public void showLoading()
@@ -156,17 +118,17 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
     {
         switch (v.getId()){
             case R.id.btnShare:
-                new ScreenShot(llResult, this, false, () ->
+                new ScreenShot(llResult, this,false,() ->
                 {
 
                 });
                 break;
             case R.id.btnSaveResult:
-                new ScreenShot(llResult, this, true, () ->
+                new ScreenShot(llResult, this,true,() ->
                 {
 
                 });
-               // showDialog();
+                //showDialog();
                 break;
             case R.id.tvBackHome:
                 finish();
