@@ -669,10 +669,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
 
             btnSharePic.setOnClickListener(v -> {
-                new ScreenShot(rlPic, ShowBigPhotoActivity.this,() ->
-                {
-
-                });
+                new ScreenShot(rlPic, ShowBigPhotoActivity.this);
 
 
             });

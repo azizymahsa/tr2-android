@@ -200,10 +200,7 @@ public class ResultBuyCharge extends DialogFragment implements View.OnClickListe
                 tvShareP.setVisibility(View.INVISIBLE);
                 tvShareText.setVisibility(View.INVISIBLE);
                 tvClose.setVisibility(View.INVISIBLE);
-                new ScreenShot(dialog.getWindow().getDecorView(), activity, () ->
-                {
-
-                });
+                new ScreenShot(dialog.getWindow().getDecorView(), activity);
                 tvCardNumberDialog.setText(Utility.cardFormat(cardNumber));
                 tvShareImageP.setVisibility(View.VISIBLE);
                 tvShareP.setVisibility(View.VISIBLE);

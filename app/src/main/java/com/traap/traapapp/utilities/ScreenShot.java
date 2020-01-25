@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
@@ -34,13 +33,11 @@ public class ScreenShot
     View view;
     Activity activity;
     String picName;
-    DenyAction action;
 
-    public ScreenShot(View v, final Activity activity_,DenyAction action)
+    public ScreenShot(View v, final Activity activity_)
     {
         this.view = v;
         this.activity = activity_;
-        this.action = action;
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
@@ -79,13 +76,11 @@ public class ScreenShot
                         sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
                         activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
 
-
                     }
 
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
-                        showDialog();
 
                     }
                 })
@@ -96,7 +91,7 @@ public class ScreenShot
 
     }
 
-    public ScreenShot(View v, final Activity activity_, boolean isSava,DenyAction action)
+    public ScreenShot(View v, final Activity activity_, boolean isSava,String message)
     {
         this.view = v;
         this.activity = activity_;
@@ -151,7 +146,7 @@ public class ScreenShot
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
-                        showDialog();
+                        showDialog(message,isSava,bitmap);
 
 
 
@@ -164,7 +159,7 @@ public class ScreenShot
 
 
     }
-    public void showDialog(){
+    public void showDialog(String message, boolean isSava, Bitmap bitmap){
 
 
         new Handler().postDelayed(new Runnable()
@@ -173,13 +168,14 @@ public class ScreenShot
             public void run()
             {
                 MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(activity, "",
-                        "",
+                        message,
                         true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()
                     {
-                        //  getPermission(bitmap, message, isSava);
+                        getPermission(bitmap,message,isSava);
+
                     }
 
                     @Override
@@ -257,7 +253,7 @@ public class ScreenShot
                     {
 
 
-                        showDialog();
+                        showDialog(message, isSava, bitmap);
 
                     }
                 })
@@ -346,9 +342,6 @@ public class ScreenShot
                 });
     }
 
-    public interface DenyAction{
-        void onDeny();
 
-    }
 }
 
