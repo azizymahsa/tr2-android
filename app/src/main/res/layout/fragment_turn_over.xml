@@ -85,7 +85,7 @@
                         android:layout_toRightOf="@+id/imgSearch"
                         android:background="@null"
                         android:gravity="right|center_vertical"
-                        android:hint="جستجوی کد پیگیری..."
+                        android:hint="جستجوی ..."
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:maxLines="1"

@@ -191,4 +191,17 @@
         <item name="atg_horizontalPadding">12dp</item>
         <item name="atg_verticalPadding">3dp</item>
     </style>
+
+
+
+    <style name="RightelSwitchTheme">
+        <item name="colorControlActivated">@color/rightel</item>
+    </style>
+
+
+
+
+    <style name="IrancellSwitchTheme">
+        <item name="colorControlActivated">@color/irancell</item>
+    </style>
 </resources>

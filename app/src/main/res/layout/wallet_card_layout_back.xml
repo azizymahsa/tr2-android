@@ -115,9 +115,9 @@
 
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="فاطمه خانی"
                         android:textColor="@color/chargePackTextColor"
                         android:textSize="@dimen/textSize_14dp" />
+
 
                 </LinearLayout>
 

@@ -71,7 +71,7 @@ public class ScreenShot
                             e.printStackTrace();
                         }
 
-                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/TraapScreenshots/", picName);
+                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/", picName);
 
                         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                         sharingIntent.setType("image/jpg");
@@ -135,7 +135,7 @@ public class ScreenShot
                             e.printStackTrace();
                         }
 
-                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/TraapScreenshots/", picName);
+                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/", picName);
 
                         if (!isSava)
                         {
@@ -221,7 +221,7 @@ public class ScreenShot
                             e.printStackTrace();
                         }
 
-                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/TraapScreenshots/", picName);
+                        final File myDir = new File(Environment.getExternalStorageDirectory().toString() + "/traap/", picName);
 
                         if (!isSava)
                         {
@@ -268,7 +268,7 @@ public class ScreenShot
     public void store(Bitmap bm, String fileName)
     {
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/traap/TraapScreenshots/");
+        File myDir = new File(root + "/traap/");
         if (!myDir.exists())
             myDir.mkdirs();
         File file = new File(myDir, fileName);

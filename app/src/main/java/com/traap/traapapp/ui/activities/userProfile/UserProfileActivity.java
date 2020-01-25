@@ -560,7 +560,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             request.setNickName(etNickName.getText().toString().trim());
 //            request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ? "" :
 //                    getGrgDate(tvBirthDay.getText().toString().trim()));
-            request.setBirthday(tvBirthDay.getText().toString().trim().replace("/", "-"));
+
+            if (tvBirthDay.getText().toString().equals("____/__/__")){
+                request.setBirthday("");
+
+            }else{
+                request.setBirthday(tvBirthDay.getText().toString().trim().replace("/", "-"));
+
+            }
 
             request.setGender(spinnerGender.getSelectedItemPosition() + 1);
 

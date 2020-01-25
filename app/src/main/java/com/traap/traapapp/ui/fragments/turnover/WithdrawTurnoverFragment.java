@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.turnover;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.getReport.request.GetReportRequest;
 import com.traap.traapapp.apiServices.model.getReport.response.GetReportResponse;
+import com.traap.traapapp.apiServices.model.getReport.response.ListTransaction;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Tools;
@@ -21,8 +23,16 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.reactivex.Observable;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Authors:
@@ -37,6 +47,7 @@ public class WithdrawTurnoverFragment extends BaseFragment {
     private MainActionView mainView;
     private ProgressBar pb;
     private TextView tvError;
+    private List<ListTransaction> listTransaction= new ArrayList<>();
 
 
     public static WithdrawTurnoverFragment newInstance(MainActionView mainView) {
@@ -92,7 +103,7 @@ public class WithdrawTurnoverFragment extends BaseFragment {
         request.setIsWallet(true);
         request.setPageNumber(1);
         request.setPageSize(10);
-        request.setOperationType(2);
+        request.setOperationType(1);
         if (toDate != null)
             request.setToDate(Utility.getGrgDate(toDate));
         if (fromDate != null)
@@ -116,6 +127,8 @@ public class WithdrawTurnoverFragment extends BaseFragment {
 
                 try {
                     if (response.getInfo().getCode() == 200) {
+                        listTransaction.clear();
+                        listTransaction.addAll(response.getData().getListTransaction());
                         rcAllList.setAdapter(new TurnoverAdapter(getActivity(),response.getData().getListTransaction()));
                     } else {
 
@@ -156,5 +169,71 @@ public class WithdrawTurnoverFragment extends BaseFragment {
         getAllReport(event.getTo_date(), event.getFrom_date(), event.getTo_amount(), event.getFrom_amount() );
 
 
+    }
+
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ClickTurnOverEvent event) {
+        if (event.getSearch().equals("")){
+            rcAllList.removeAllViews();
+            tvError.setVisibility(View.GONE);
+            rcAllList.setVisibility(View.VISIBLE);
+            rcAllList.setAdapter(new TurnoverAdapter(getActivity(), listTransaction));
+            Log.e("ssd3", listTransaction.size()+"");
+
+            return;
+        }
+        filter(event.getSearch());
+    }
+
+
+    public void filter(String text)
+    {
+        Observable
+                .fromIterable(listTransaction)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.computation())
+                .filter(x ->
+                        {
+                            return x.getDesc().contains(text);
+
+
+                        }
+
+                )
+                .toList()
+                .subscribe(new SingleObserver<List<ListTransaction>>()
+                {
+                    @Override
+                    public void onSubscribe(Disposable d)
+                    {
+                    }
+
+                    @Override
+                    public void onSuccess(List<ListTransaction> results)
+                    {
+                        tvError.setVisibility(View.GONE);
+                        rcAllList.setVisibility(View.VISIBLE);
+                        rcAllList.removeAllViews();
+
+                        rcAllList.setAdapter(new TurnoverAdapter(getActivity(), results));
+                        if (results.size()==0){
+                            tvError.setVisibility(View.VISIBLE);
+                            rcAllList.setVisibility(View.GONE);
+                            Log.e("ssd6", listTransaction.size()+"");
+
+                        }
+
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e)
+                    {
+                    }
+                });
     }
 }

@@ -20,6 +20,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.showTicket.ShowTicketItem;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.ticket.ShowTicketAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -259,9 +260,11 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         switch (v.getId())
         {
             case R.id.btnPaymentConfirm:
+                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
 
                 // onClickContinueBuyTicketListener.goBuyTicket();
                 mainView.getBuyEnable(() -> { });
+             //   getActivity().finish();
 
                 break;
 
@@ -270,16 +273,21 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
                 // showDialog();
                 break;
             case R.id.btnBackToHome:
+                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
 
                 getActivity().onBackPressed();
 
                 break;
             case R.id.btnShareTicket:
+                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+
                 new ScreenShot(rvTickets, getActivity());
                 // showToast(getContext(), "share");
                 break;
 
             case R.id.btnReturn:
+                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+
                 getActivity().onBackPressed();
                 break;
         }

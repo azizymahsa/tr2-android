@@ -784,7 +784,15 @@ public class PackFragment
             mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
             return;
         }
-        if (!Utility.getMobileValidation(etMobileNumberIranCell.getText().toString()))
+        try
+        {
+            if (!Utility.getMobileValidation(etMobileNumberIranCell.getText().toString()))
+            {
+                mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+                //   hideSoftKeyboard(etMobileNumberIranCell);
+                return;
+            }
+        } catch (Exception e)
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             //   hideSoftKeyboard(etMobileNumberIranCell);
@@ -829,10 +837,17 @@ public class PackFragment
             mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
             return;
         }
-        if (!Utility.getMobileValidation(etMobileNumberRightel.getText().toString()))
+        try
         {
-            // hideSoftKeyboard(etMobileNumberRightel);
+            if (!Utility.getMobileValidation(etMobileNumberRightel.getText().toString()))
+            {
+                // hideSoftKeyboard(etMobileNumberRightel);
 
+                mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+                return;
+            }
+        } catch (Exception e)
+        {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
@@ -879,12 +894,20 @@ public class PackFragment
             mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
             return;
         }
-        if (!Utility.getMobileValidation(etMobileNumberMCI.getText().toString()))
+        try
+        {
+            if (!Utility.getMobileValidation(etMobileNumberMCI.getText().toString()))
+            {
+                mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+                hideSoftKeyboard(etMobileNumberMCI);
+
+                return;
+            }
+        } catch (Exception e)
         {
             mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
-            hideSoftKeyboard(etMobileNumberMCI);
-
             return;
+
         }
         if (Utility.checkTaliyaValidation(etMobileNumberMCI.getText().toString()))
         {
@@ -1321,7 +1344,7 @@ public class PackFragment
 
 
         }*/
-        if (parent.getId() == R.id.spinnerRightel)
+        /*if (parent.getId() == R.id.spinnerRightel)
         {
 
             switch (position)
@@ -1341,7 +1364,7 @@ public class PackFragment
                     break;
 
             }
-        }
+        }*/
     }
 
     @Override
@@ -1717,7 +1740,6 @@ public class PackFragment
             requestId = packResponse.data.getPackages().getRequestId();
             rightelRecycler.setNestedScrollingEnabled(false);
 //            mainView.needExpanded(false);
-            llRightelMobile.setVisibility(View.GONE);
             irancellPack.clear();
 
             if (packResponse.data.getPackages().getDaily() != null && packResponse.data.getPackages().getDaily().size() != 0)
@@ -1792,7 +1814,8 @@ public class PackFragment
 
             rightelRecycler.setAdapter(packAdapter);
 
-            btnChargeConfirmRightel.setVisibility(View.GONE);
+            btnChargeConfirmRightel.setVisibility(View.VISIBLE);
+            llRightelMobile.setVisibility(View.VISIBLE);
             llChargeBackRightel.setVisibility(View.VISIBLE);
             llDescriptionSelectPackRightel.setVisibility(View.VISIBLE);
             // llRightelFilter.setVisibility(View.VISIBLE);
