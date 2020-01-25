@@ -197,7 +197,33 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
                 break;
             case R.id.btnSaveResult:
 
-                new ScreenShot(llResult, this, false, this);
+                new ScreenShot(llResult, this, false, () -> {
+
+                    MessageAlertPermissionDialog    dialog = new MessageAlertPermissionDialog(PaymentResultIncreaseInventoryActivity.this, "",
+                            "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.",
+                            true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                    {
+                        @Override
+                        public void onConfirmClick()
+                        {
+                            new ScreenShot(llResult, PaymentResultIncreaseInventoryActivity.this, false, PaymentResultIncreaseInventoryActivity.this);
+
+                          //  dialog.dismiss();
+
+                        }
+
+                        @Override
+                        public void onCancelClick()
+                        {
+
+                        }
+                    }
+                    );
+
+
+                    dialog.show(getFragmentManager(), "dialogMessage");
+
+                });
 
                 break;
             case R.id.tvBackHome:
@@ -209,38 +235,6 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
     @Override
     public void onDeny()
     {
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-
-                dialog = new MessageAlertPermissionDialog(PaymentResultIncreaseInventoryActivity.this, "",
-                        "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.",
-                        true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
-                {
-                    @Override
-                    public void onConfirmClick()
-                    {
-                        new ScreenShot(llResult, PaymentResultIncreaseInventoryActivity.this, false, PaymentResultIncreaseInventoryActivity.this);
-
-                        dialog.dismiss();
-
-                    }
-
-                    @Override
-                    public void onCancelClick()
-                    {
-                        dialog.dismiss();
-
-                    }
-                }
-                );
-
-
-                dialog.show(getFragmentManager(), "dialogMessage");
-            }
-        },1000);
 
 
 

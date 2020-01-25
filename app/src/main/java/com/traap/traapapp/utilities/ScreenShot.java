@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -84,11 +85,11 @@ public class ScreenShot
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
-                        action.onDeny();
+                        showDialog();
 
                     }
                 })
-                .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
+               // .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .check();
 
@@ -144,22 +145,57 @@ public class ScreenShot
                             activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
                         }
 
-
+//
                     }
 
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
-                        action.onDeny();
+                        showDialog();
 
 
 
 
                     }
                 })
-                .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
+               // .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .check();
+
+
+    }
+    public void showDialog(){
+
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(activity, "",
+                        "",
+                        true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                {
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        //  getPermission(bitmap, message, isSava);
+                    }
+
+                    @Override
+                    public void onCancelClick()
+                    {
+
+                    }
+                }
+                );
+                dialog.show(activity.getFragmentManager(), "dialogMessage");
+
+            }
+        },500);
+
+
+
 
 
     }
@@ -220,29 +256,12 @@ public class ScreenShot
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
 
-                        MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(activity, "",
-                                message,
-                                true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
-                        {
-                            @Override
-                            public void onConfirmClick()
-                            {
-                                getPermission(bitmap, message, isSava);
-                            }
 
-                            @Override
-                            public void onCancelClick()
-                            {
-
-                            }
-                        }
-                        );
-                        dialog.show(activity.getFragmentManager(), "dialogMessage");
-
+                        showDialog();
 
                     }
                 })
-                .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
+                //.setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .check();
     }
