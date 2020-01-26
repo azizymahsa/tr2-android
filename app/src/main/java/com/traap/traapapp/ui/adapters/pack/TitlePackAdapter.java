@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,12 +40,14 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
     private SparseBooleanArray expandState = new SparseBooleanArray();
     private DetailPackAdapter.GetPackInAdapter getPackInAdapter;
     private String type;
+    private Integer operatorType;
 
-    public TitlePackAdapter(final List<RightelPackModel> data, DetailPackAdapter.GetPackInAdapter getPackInAdapter, String type)
+    public TitlePackAdapter(final List<RightelPackModel> data, DetailPackAdapter.GetPackInAdapter getPackInAdapter, String type,Integer operatorType)
     {
         this.data = data;
         this.getPackInAdapter = getPackInAdapter;
         this.type = type;
+        this.operatorType = operatorType;
         for (int i = 0; i < data.size(); i++)
         {
             expandState.append(i, false);
@@ -84,13 +87,13 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
                         details.add(item.getDetail().get(i));
 
                 }
-                detailPackAdapter = new DetailPackAdapter(details, getPackInAdapter);
+                detailPackAdapter = new DetailPackAdapter(details, getPackInAdapter,operatorType);
                 holder.tvTitle.setText(item.getTitle() + " (" + details.size() + ")");
 
 
         } else
         {
-            detailPackAdapter = new DetailPackAdapter(item.getDetail(), getPackInAdapter);
+            detailPackAdapter = new DetailPackAdapter(item.getDetail(), getPackInAdapter,operatorType);
             holder.tvTitle.setText(item.getTitle() + " (" + item.getDetail().size() + ")");
 
 
@@ -130,6 +133,23 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
                 onClickButton(holder.expandableLayout);
             }
         });
+
+
+
+
+        if (operatorType==1){
+            holder.llImage.setBackground(context.getResources().getDrawable(R.drawable.circle_background_1));
+
+
+        }else if (operatorType==2){
+            holder.llImage.setBackground(context.getResources().getDrawable(R.drawable.circle_background_2));
+
+        }else{
+            holder.llImage.setBackground(context.getResources().getDrawable(R.drawable.circle_background_3));
+
+        }
+
+
     }
 
     private void onClickButton(final ExpandableLayout expandableLayout)
@@ -156,6 +176,7 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
         public ImageView imgArrow;
         public TextView tvTitle;
         public RecyclerView detailRecycler;
+        public LinearLayout llImage;
 
         public ExpandableLinearLayout expandableLayout;
         //  public RelativeLayout tvArrow;
@@ -169,6 +190,7 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
             imgArrow = v.findViewById(R.id.imgArrow);
             tvTitle = v.findViewById(R.id.tvTitle);
             buttonLayout = v.findViewById(R.id.buttonLayout);
+            llImage = v.findViewById(R.id.llImage);
         }
     }
 

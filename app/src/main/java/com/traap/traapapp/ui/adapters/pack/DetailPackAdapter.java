@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,11 +25,13 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
     private final List<Detail> data;
     private Context context;
     private GetPackInAdapter getPackInAdapter;
+    private Integer operatorType;
 
-    public DetailPackAdapter(final List<Detail> data, GetPackInAdapter getPackInAdapter)
+    public DetailPackAdapter(final List<Detail> data, GetPackInAdapter getPackInAdapter,Integer operatorType)
     {
         this.data = data;
         this.getPackInAdapter = getPackInAdapter;
+        this.operatorType = operatorType;
 
     }
 
@@ -68,6 +71,17 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
             getPackInAdapter.getPackRightel(item);
         });
 
+        if (operatorType==1){
+            holder.imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.left_arrow_irancell));
+
+
+        }else if (operatorType==2){
+            holder.imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.left_arrow_mci));
+
+        }else{
+            holder.imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.left_arrow_rightel));
+
+        }
 
     }
 
@@ -83,6 +97,8 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
     {
         public TextView tvTitle, tvAmount,tvMainAmount;
         public LinearLayout container;
+        public ImageView imgArrow;
+
 
         public ViewHolder(View v)
         {
@@ -91,6 +107,7 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
             tvAmount = v.findViewById(R.id.tvAmount);
             container = v.findViewById(R.id.container);
             tvMainAmount=v.findViewById(R.id.tvMainAmount);
+            imgArrow=v.findViewById(R.id.imgArrow);
         }
     }
 
