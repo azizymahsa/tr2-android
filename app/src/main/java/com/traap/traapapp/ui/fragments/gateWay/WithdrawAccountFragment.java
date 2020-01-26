@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.gateWay;
 
 import android.app.MediaRouteButton;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.text.Editable;
@@ -26,6 +27,8 @@ import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletRequest
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
+import com.traap.traapapp.ui.activities.paymentResult.PaymentResultWithDrawAccountActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.WalletWithdrawAlertDialog;
@@ -252,8 +255,8 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
 
                     if (response.info.statusCode == 200)
                     {
-                        showAlert(getActivity(), response.info.message, 0);
-                        showResultPayment();
+                        //showAlert(getActivity(), response.info.message, 0);
+                        showResultPayment(response);
                         clearEditText();
                     } else
                     {
@@ -293,9 +296,12 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
         }, request);
     }
 
-    private void showResultPayment()
+    private void showResultPayment(WebServiceClass<WithdrawWalletResponse> response)
     {
 
+        Intent intent = new Intent(getContext(), PaymentResultWithDrawAccountActivity.class);
+        intent.putExtra("response", response.data);
+        getContext().startActivity(intent);
 
     }
 

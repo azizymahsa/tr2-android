@@ -709,7 +709,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             }
             else
             {
-                if (Integer.parseInt(s.toString()) > 1)
+                if (Integer.parseInt(s.toString()) > 2)
                 {
                     fArray[0] = new InputFilter.LengthFilter(1);
                 }
@@ -720,6 +720,19 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             }
             edtHomePredict.setFilters(fArray);
             edtAwayPredict.setFilters(fArray);
+
+            if (Integer.parseInt(edtAwayPredict.getText().toString().trim()) > 20)
+            {
+                edtAwayPredict.setText("2");
+                edtAwayPredict.post(() -> edtAwayPredict.setSelection(edtAwayPredict.getText().length()));
+            }
+
+            if (Integer.parseInt(edtHomePredict.getText().toString().trim()) > 20)
+            {
+                edtHomePredict.setText("2");
+                edtHomePredict.post(() -> edtHomePredict.setSelection(edtHomePredict.getText().length()));
+            }
+
         }
         catch (Exception e)
         {

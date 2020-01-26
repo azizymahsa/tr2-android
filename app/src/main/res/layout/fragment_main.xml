@@ -538,7 +538,7 @@
             android:layout_centerInParent="true"
             android:layout_marginBottom="@dimen/_20dp"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_logo_main" />
+            android:src="@drawable/traap_logo_white" />
 
         <TextView
             android:id="@+id/tvIntroTitle"

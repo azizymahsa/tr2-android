@@ -3,6 +3,7 @@ package com.traap.traapapp.ui.activities.paymentResult;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResp
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -26,7 +28,13 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
     private TextView tvTitle,tvStatusPayment,tvDate,tvPayment,tvAmount,tvCardNumDestination,tvRefrenceNumber,tvPackageTitle,tvPhoneNumber;
     private View btnShare,tvBackHome,llResult;
     private View btnSaveResult;
-
+    private     MessageAlertPermissionDialog dialog;
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        //No call for super(). Bug on API Level > 11.
+        super.onSaveInstanceState(outState);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -185,10 +193,14 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
         switch (v.getId()){
             case R.id.btnShare:
                 new ScreenShot(llResult, this,false,"برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");
+
                 break;
             case R.id.btnSaveResult:
+
                 new ScreenShot(llResult, this,true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
-                showDialog();
+
+
+
                 break;
             case R.id.tvBackHome:
                 finish();
@@ -196,25 +208,5 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
         }
     }
 
-    private void showDialog()
-    {
-        MessageAlertDialog dialog = new MessageAlertDialog(this, "", "رسید شما با موفقیت در گالری ذخیره شد.", false,
-                MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
-                {
-                    @Override
-                    public void onConfirmClick()
-                    {
 
-                    }
-
-                    @Override
-                    public void onCancelClick()
-                    {
-
-                    }
-                });
-
-        dialog.setCancelable(false);
-        dialog.show(getFragmentManager(), "messageDialog");
-    }
 }

@@ -9,8 +9,8 @@ import android.graphics.Canvas;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
@@ -51,8 +51,7 @@ public class ScreenShot
                 Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bitmap);
         view.draw(c);
-       // MediaStore.Images.Media.insertImage(activity_.getContentResolver(), bitmap, picName , "");
-
+        // MediaStore.Images.Media.insertImage(activity_.getContentResolver(), bitmap, picName , "");
 
 
         new TedPermission(activity)
@@ -65,8 +64,7 @@ public class ScreenShot
                         try
                         {
                             store(bitmap, picName);
-                        }
-                        catch (Exception e)
+                        } catch (Exception e)
                         {
                             e.printStackTrace();
                         }
@@ -78,7 +76,6 @@ public class ScreenShot
                         sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
                         activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
 
-
                     }
 
                     @Override
@@ -87,14 +84,14 @@ public class ScreenShot
 
                     }
                 })
-                .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
+               // .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .check();
 
 
     }
 
-    public ScreenShot(View v, final Activity activity_,boolean isSava,String message)
+    public ScreenShot(View v, final Activity activity_, boolean isSava,String message)
     {
         this.view = v;
         this.activity = activity_;
@@ -111,8 +108,7 @@ public class ScreenShot
                 Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bitmap);
         view.draw(c);
-       // MediaStore.Images.Media.insertImage(activity_.getContentResolver(), bitmap, picName , "");
-
+        // MediaStore.Images.Media.insertImage(activity_.getContentResolver(), bitmap, picName , "");
 
 
         new TedPermission(activity)
@@ -129,8 +125,7 @@ public class ScreenShot
                             {
                                 showDialogSuccessSaveToGallery();
                             }
-                        }
-                        catch (Exception e)
+                        } catch (Exception e)
                         {
                             e.printStackTrace();
                         }
@@ -145,39 +140,58 @@ public class ScreenShot
                             activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
                         }
 
-
-
+//
                     }
 
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
+                        showDialog(message,isSava,bitmap);
 
-                        MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(activity, "",
-                                message,
-                                true,"نمایش دوباره دسترسی","انصراف",  MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
-                        {
-                            @Override
-                            public void onConfirmClick()
-                            {
-                                getPermission(bitmap,message,isSava);
-                            }
 
-                            @Override
-                            public void onCancelClick()
-                            {
-
-                            }
-                        }
-                        );
-                        dialog.show(activity.getFragmentManager(), "dialogMessage");
 
 
                     }
                 })
-                .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
+               // .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .check();
+
+
+    }
+    public void showDialog(String message, boolean isSava, Bitmap bitmap){
+
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(activity, "",
+                        message,
+                        true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                {
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        getPermission(bitmap,message,isSava);
+
+                    }
+
+                    @Override
+                    public void onCancelClick()
+                    {
+
+                    }
+                }
+                );
+                dialog.show(activity.getFragmentManager(), "dialogMessage");
+
+            }
+        },500);
+
+
+
 
 
     }
@@ -204,7 +218,8 @@ public class ScreenShot
         dialog.show(activity.getFragmentManager(), "messageDialog");
     }
 
-    public void getPermission(Bitmap bitmap, String message, boolean isSava){
+    public void getPermission(Bitmap bitmap, String message, boolean isSava)
+    {
         new TedPermission(activity)
                 .setPermissionListener(new PermissionListener()
                 {
@@ -215,8 +230,7 @@ public class ScreenShot
                         try
                         {
                             store(bitmap, picName);
-                        }
-                        catch (Exception e)
+                        } catch (Exception e)
                         {
                             e.printStackTrace();
                         }
@@ -225,10 +239,10 @@ public class ScreenShot
 
                         if (!isSava)
                         {
-                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                        sharingIntent.setType("image/jpg");
-                        sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
-                        activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                            sharingIntent.setType("image/jpg");
+                            sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myDir));
+                            activity.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
                         }
 
 
@@ -238,29 +252,12 @@ public class ScreenShot
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
 
-                        MessageAlertPermissionDialog dialog =new MessageAlertPermissionDialog(activity, "",
-                                message,
-                                true,"نمایش دوباره دسترسی","انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
-                        {
-                            @Override
-                            public void onConfirmClick()
-                            {
-                                getPermission(bitmap,message,isSava);
-                            }
 
-                            @Override
-                            public void onCancelClick()
-                            {
-
-                            }
-                        }
-                        );
-                        dialog.show(activity.getFragmentManager(), "dialogMessage");
-
+                        showDialog(message, isSava, bitmap);
 
                     }
                 })
-                .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
+                //.setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .check();
     }
@@ -284,10 +281,13 @@ public class ScreenShot
         {
             e.printStackTrace();
         }
-        try{
-            addPicToGallery(activity,file.getAbsolutePath());
+        try
+        {
+            addPicToGallery(activity, file.getAbsolutePath());
 
-        }catch (Exception e){}
+        } catch (Exception e)
+        {
+        }
 
     }
 
@@ -328,15 +328,20 @@ public class ScreenShot
 
     }
 
-    public static void addPicToGallery(Context context, String photoPath) {
+    public static void addPicToGallery(Context context, String photoPath)
+    {
         MediaScannerConnection.scanFile(context,
-                new String[] { photoPath }, null,
-                new MediaScannerConnection.OnScanCompletedListener() {
+                new String[]{photoPath}, null,
+                new MediaScannerConnection.OnScanCompletedListener()
+                {
 
-                    public void onScanCompleted(String path, Uri uri) {
+                    public void onScanCompleted(String path, Uri uri)
+                    {
                         Log.i("TAG", "Finished scanning " + path);
                     }
                 });
     }
+
+
 }
 

@@ -269,7 +269,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
                 break;
 
             case R.id.btnSaveResult:
-                new ScreenShot(rvTickets, getActivity(),true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                new ScreenShot(rvTickets, getActivity(), true, "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
                 // showDialog();
                 break;
             case R.id.btnBackToHome:

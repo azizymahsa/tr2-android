@@ -35,6 +35,7 @@ import com.traap.traapapp.apiServices.part.GetPackageMciService;
 import com.traap.traapapp.apiServices.part.GetPredictService;
 import com.traap.traapapp.apiServices.part.GetProfileService;
 import com.traap.traapapp.apiServices.part.GetRightelPackService;
+import com.traap.traapapp.apiServices.part.GetSettingService;
 import com.traap.traapapp.apiServices.part.GetShetabCardInfoService;
 import com.traap.traapapp.apiServices.part.GetTicketInfoService;
 import com.traap.traapapp.apiServices.part.GetVersionService;
@@ -266,6 +267,11 @@ public class SingletonService
     public GetRightelPackService getPackageRightelService()
     {
         return new GetRightelPackService(serviceGenerator);
+    }
+
+    public GetSettingService getSettingService()
+    {
+        return new GetSettingService(serviceGenerator);
     }
 
     public GetPackageMciService getPackageMciService()

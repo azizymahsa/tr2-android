@@ -715,7 +715,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         if (isFilterEnable)
         {
             isFilterEnable = false;
-//            getTypeTransactionList();
+
             getData(false);
         }
     }
@@ -1095,16 +1095,16 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
-        if (chbFailedPayment.isChecked() ^ chbSuccessPayment.isChecked())
+        if (chbFailedPayment.isChecked() != chbSuccessPayment.isChecked())
         {
             isFilterEnable = true;
         }
         else
         {
-            if (!getFilterAvailable())
-            {
-                isFilterEnable = false;
-            }
+//            if (!getFilterAvailable())
+//            {
+//                isFilterEnable = false;
+//            }
         }
     }
 

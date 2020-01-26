@@ -112,6 +112,7 @@ import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfi
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
+import com.traap.traapapp.apiServices.model.setting.SettingResponse;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
@@ -680,7 +681,10 @@ public interface RetroClient
     @GET(Const.GET_POINTS_GROUP_BY)
     Single<Response<WebServiceClass<PointsGroupByResponse>>> getPointGroupBy();
 
+    @GET(Const.SETTING)
+    Single<Response<WebServiceClass<SettingResponse>>> getSetting();
 
+    
 
     @POST(Const.GetReport)
             Observable<Response<GetReportResponse>> getReport(

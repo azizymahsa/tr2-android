@@ -171,7 +171,8 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
 
 
             rlShirt = findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class), 100)
+            rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(),
+                    MyProfileActivity.class), 100)
             );
 
         } catch (Exception e)

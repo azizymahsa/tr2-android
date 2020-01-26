@@ -52,8 +52,12 @@ public class MessageAlertPermissionDialog extends DialogFragment implements View
     private int type = 0;
 
 
+    public MessageAlertPermissionDialog() {
+
+    }
+
     public MessageAlertPermissionDialog(Activity activity, String title, String messages, Boolean isCancelable,
-                              int messageType , MessageAlertDialog.OnConfirmListener listener)
+                                        int messageType , MessageAlertDialog.OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;

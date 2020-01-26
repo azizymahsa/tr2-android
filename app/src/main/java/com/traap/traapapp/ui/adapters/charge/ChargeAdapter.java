@@ -115,7 +115,6 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.ViewHolder
         {
             super(v);
             tvTitle = v.findViewById(R.id.tvTitle);
-            buttonLayout = v.findViewById(R.id.buttonLayout);
             llImage = v.findViewById(R.id.llImage);
             rlRoot = v.findViewById(R.id.rlRoot);
         }

@@ -1809,7 +1809,7 @@ public class PackFragment
 
             }
 
-            packAdapter = new TitlePackAdapter(irancellPack, this, "");
+            packAdapter = new TitlePackAdapter(irancellPack, this, "",3);
 
 
             rightelRecycler.setAdapter(packAdapter);
@@ -2071,7 +2071,7 @@ public class PackFragment
 
             }
 
-            packAdapter = new TitlePackAdapter(irancellPack, this, "");
+            packAdapter = new TitlePackAdapter(irancellPack, this, "",2);
             mciRecycler.setAdapter(packAdapter);
             btnMCIPackConfirm.setVisibility(View.GONE);
             llPackBackMci.setVisibility(View.VISIBLE);
@@ -2239,7 +2239,7 @@ public class PackFragment
             }
 
 
-            packAdapter = new TitlePackAdapter(irancellPack, this, "");
+            packAdapter = new TitlePackAdapter(irancellPack, this, "",1);
             irancellRecycler.setAdapter(packAdapter);
             btnChargeConfirm.setVisibility(View.GONE);
             llPackBackIrancell.setVisibility(View.VISIBLE);
@@ -2532,7 +2532,7 @@ public class PackFragment
             try
             {
                 Thread.sleep(300);
-                packAdapter = new TitlePackAdapter(irancellPack, PackFragment.this, filterType);
+                packAdapter = new TitlePackAdapter(irancellPack, PackFragment.this, filterType,1);
 
             } catch (InterruptedException e)
             {

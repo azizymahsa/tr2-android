@@ -146,7 +146,7 @@ public class PastResultFragment
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
-                getActivity().onBackPressed();
+               mainView.onBackToMatch();
             });
 
             tvTitle.setText("برنامه بازی ها");
@@ -305,7 +305,7 @@ public class PastResultFragment
     }
     public void onBackClicked(ArrayList<MatchItem> matchBuyable){
 
-        MatchScheduleFragment matchScheduleFragment = MatchScheduleFragment.newInstance(mainView,matchBuyable);
+        MatchScheduleFragment matchScheduleFragment = MatchScheduleFragment.newInstance(mainView,matchBuyable, 1);
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, matchScheduleFragment,"leagueTableFragment").commit();
     }
