@@ -135,6 +135,14 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
 
     }
     @Override
+    public void onResume(){
+        super.onResume();
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("برداشت از کیف پول");
+
+        EventBus.getDefault().post(walletTitle);
+    }
+    @Override
     public void onStop()
     {
         super.onStop();
