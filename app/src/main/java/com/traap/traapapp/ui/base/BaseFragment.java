@@ -64,9 +64,6 @@ public class BaseFragment extends Fragment
 
     public void showAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
     {
-
-
-
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
                 MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
         {
@@ -85,6 +82,7 @@ public class BaseFragment extends Fragment
 
             }
         });
+        dialog.setCancelable(!finish);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
@@ -108,6 +106,7 @@ public class BaseFragment extends Fragment
 
             }
         });
+        dialog.setCancelable(!finish);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
