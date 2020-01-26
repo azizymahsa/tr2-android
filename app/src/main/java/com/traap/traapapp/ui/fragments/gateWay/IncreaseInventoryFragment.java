@@ -161,6 +161,15 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
     }
     @Override
+    public void onResume(){
+        super.onResume();
+        WalletTitle walletTitle = new WalletTitle();
+        walletTitle.setTitle("افزایش موجودی");
+
+        EventBus.getDefault().post(walletTitle);
+    }
+
+    @Override
     public void onStop()
     {
         super.onStop();
