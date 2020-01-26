@@ -74,6 +74,7 @@ import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivit
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
 import com.traap.traapapp.ui.drawer.MenuDrawerFragment;
 import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
@@ -926,7 +927,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                     }
                 })
-                .setDeniedMessage("If you reject permission,you can not use this application, Please turn on permissions at [Setting] > [Permission]")
+                //  .setDeniedMessage("If you reject permission,you can not use this application, Please turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.CAMERA)
                 .check();
 
@@ -998,6 +999,87 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     @Override
                     public void onPermissionDenied(ArrayList<String> deniedPermissions)
                     {
+                        new Handler().postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(MainActivity.this, "",
+                                        "برای استفاده از دفترچه تلفن، اخذ این مجوز الزامی است.  ",
+                                        true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                                {
+                                    @Override
+                                    public void onConfirmClick()
+                                    {
+
+
+                                        getPermission();
+                                    }
+
+                                    @Override
+                                    public void onCancelClick()
+                                    {
+
+                                    }
+                                }
+                                );
+                                dialog.show(MainActivity.this.getFragmentManager(), "dialogMessage");
+                            }
+                        }, 500);
+
+
+                    }
+                })
+                .setPermissions(Manifest.permission.READ_CONTACTS)
+                .check();
+    }
+
+    private void getPermission()
+    {
+        new TedPermission(SingletonContext.getInstance().getContext())
+                .setPermissionListener(new PermissionListener()
+                {
+                    @Override
+                    public void onPermissionGranted()
+                    {
+
+                        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                        startActivityForResult(intent, 8080);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
+
+                        new Handler().postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+
+                                MessageAlertPermissionDialog dialog = new MessageAlertPermissionDialog(MainActivity.this, "",
+                                        "برای استفاده از دفترچه تلفن، اخذ این مجوز الزامی است.  ",
+                                        true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                                {
+                                    @Override
+                                    public void onConfirmClick()
+                                    {
+
+
+                                        getPermission();
+                                    }
+
+                                    @Override
+                                    public void onCancelClick()
+                                    {
+
+                                    }
+                                }
+                                );
+                                dialog.show(MainActivity.this.getFragmentManager(), "dialogMessage");
+                            }
+                        }, 500);
+
                     }
                 })
                 .setPermissions(Manifest.permission.READ_CONTACTS)
@@ -2000,7 +2082,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void onReady(WebServiceClass<MatchItem> response)
             {
-                try{
+                try
+                {
 
                     hideLoading();
                     if (response.info.statusCode == 200)
@@ -2018,7 +2101,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     }
                     buyTicketAction.onEndListener();
 
-                }catch (Exception e){}
+                } catch (Exception e)
+                {
+                }
 
             }
 
@@ -2154,7 +2239,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void onReady(WebServiceClass<GetMenuResponse> response)
     {
-        try{
+        try
+        {
             if (response == null || response.info == null)
             {
                 MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
@@ -2220,11 +2306,11 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                 getBankList();
             }
-        }catch (Exception e){
-        //    onError(e.getMessage());
+        } catch (Exception e)
+        {
+            //    onError(e.getMessage());
 
         }
-
 
 
     }
@@ -2239,7 +2325,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void onReady(WebServiceClass<MachListResponse> responseMatchList)
             {
-                try{
+                try
+                {
 
                     isCompleteThreadMatch = true;
 
@@ -2282,7 +2369,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                     }
                     showPymentResults();
-                }catch (Exception e){
+                } catch (Exception e)
+                {
                     //onError(e.getMessage());
                 }
 
@@ -2344,7 +2432,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             public void onReady(WebServiceClass<BankListResponse> responseBankList)
             {
 //                hideLoading();
-                try{
+                try
+                {
                     if (responseBankList == null || responseBankList.info == null)
                     {
 //                    Prefs.clear();
@@ -2452,8 +2541,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         getAllServicesList();
                         getNewsMainContent();
                     }
-                }catch (Exception e){
-                  //  onError(e.getMessage());
+                } catch (Exception e)
+                {
+                    //  onError(e.getMessage());
                 }
 
 
@@ -2468,8 +2558,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                }
-                else
+                } else
                 {
                     showError(MainActivity.this, getString(R.string.networkErrorMessage));
 
@@ -2526,8 +2615,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                }
-                else
+                } else
                 {
                     showError(MainActivity.this, getString(R.string.networkErrorMessage));
 
@@ -2593,8 +2681,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                }
-                else
+                } else
                 {
                     showError(MainActivity.this, getString(R.string.networkErrorMessage));
 
@@ -2681,8 +2768,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.movedown);
             bottomNavigationView.startAnimation(animation);
             bottomNavigationView.setVisibility(View.GONE);
-        }
-        else
+        } else
         {
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.moveup);
             bottomNavigationView.startAnimation(animation);
