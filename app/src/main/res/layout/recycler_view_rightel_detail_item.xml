@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -49,6 +50,14 @@
             android:textColor="@color/clearButtonColor"
             android:textSize="@dimen/textSize_14dp"
             android:textAppearance="@style/IranSansBold"/>
+        <ImageView
+            android:id="@+id/imgArrow"
+            android:layout_width="@dimen/_20dp"
+            android:layout_height="@dimen/_20dp"
+            android:scaleType="centerInside"
+
+
+/>
 
     </RelativeLayout>
 
