@@ -544,8 +544,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
                         if (isFilterEnable)
                         {
-                            chbSuccessPayment.setChecked(false);
-                            chbFailedPayment.setChecked(false);
+                            chbSuccessPayment.setChecked(true);
+                            chbFailedPayment.setChecked(true);
 
                             isFilterEnable = false;
 //                            SingletonService.getInstance().getNewsService().getNewsArchiveCategory(this);
@@ -704,8 +704,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         tvMinPrice.setText("0 ریال");
         rangeBar.setProgress(0f, 20f);
 
-        chbSuccessPayment.setChecked(false);
-        chbFailedPayment.setChecked(false);
+        chbSuccessPayment.setChecked(true);
+        chbFailedPayment.setChecked(true);
 
         adapter = new FilterArchiveAdapter(getActivity(), filteredCategoryList);
         adapter.notifyDataSetChanged();

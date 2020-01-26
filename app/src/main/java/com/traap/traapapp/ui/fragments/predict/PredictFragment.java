@@ -38,6 +38,7 @@ import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 import com.anychart.graphics.vector.text.Direction;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
@@ -47,6 +48,10 @@ import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -77,8 +82,10 @@ import org.greenrobot.eventbus.Subscribe;
  */
 @SuppressLint("ValidFragment")
 public class PredictFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<GetPredictResponse>>,
-        OnAnimationEndListener, TextWatcher
+        OnAnimationEndListener
 {
+    private CompositeDisposable disposable = new CompositeDisposable();
+
     private MatchItem matchPredict;
     private TextView tvUserName, tvHeaderPopularNo;
 
@@ -240,9 +247,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         edtAwayPredict = rootView.findViewById(R.id.edtAwayPredict);
         edtHomePredict = rootView.findViewById(R.id.edtHomePredict);
 
-        edtHomePredict.addTextChangedListener(this);
-        edtAwayPredict.addTextChangedListener(this);
-
         tvAwayPredict = rootView.findViewById(R.id.tvAwayPredict);
         tvHomePredict = rootView.findViewById(R.id.tvHomePredict);
 
@@ -257,6 +261,86 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         imgAwayPredict = rootView.findViewById(R.id.imgAway3);
         imgHomeHeader = rootView.findViewById(R.id.imgHomeHeader);
         imgHomePredict = rootView.findViewById(R.id.imgHome3);
+
+        disposable.add(RxTextView.textChanges(edtHomePredict)
+                .skipInitialValue()
+                .filter(new Predicate<CharSequence>()
+                {
+                    @Override
+                    public boolean test(CharSequence sequence) throws Exception
+                    {
+                        InputFilter[] fArray = new InputFilter[1];
+                        if (sequence.length() == 0)
+                        {
+                            fArray[0] = new InputFilter.LengthFilter(2);
+                            edtHomePredict.setFilters(fArray);
+                            return false;
+                        }
+                        else
+                        {
+                            if (Integer.parseInt(sequence.toString()) > 2)
+                            {
+                                fArray[0] = new InputFilter.LengthFilter(1);
+                            }
+                            else
+                            {
+                                fArray[0] = new InputFilter.LengthFilter(2);
+                            }
+                        }
+                        edtHomePredict.setFilters(fArray);
+                        return true;
+                    }
+                })
+                .subscribe(sequence ->
+                {
+                    if (Integer.parseInt(sequence.toString().trim()) > 20)
+                    {
+                        edtHomePredict.setText("2");
+//                        edtHomePredict.post(() -> );
+                        edtHomePredict.setSelection(edtHomePredict.getText().toString().length());
+                    }
+                })
+        );
+
+        disposable.add(RxTextView.textChanges(edtAwayPredict)
+                .skipInitialValue()
+                .filter(new Predicate<CharSequence>()
+                {
+                    @Override
+                    public boolean test(CharSequence sequence) throws Exception
+                    {
+                        InputFilter[] fArray = new InputFilter[1];
+                        if (sequence.length() == 0)
+                        {
+                            fArray[0] = new InputFilter.LengthFilter(2);
+                            edtAwayPredict.setFilters(fArray);
+                            return false;
+                        }
+                        else
+                        {
+                            if (Integer.parseInt(sequence.toString()) > 2)
+                            {
+                                fArray[0] = new InputFilter.LengthFilter(1);
+                            }
+                            else
+                            {
+                                fArray[0] = new InputFilter.LengthFilter(2);
+                            }
+                        }
+                        edtAwayPredict.setFilters(fArray);
+                        return true;
+                    }
+                })
+                .subscribe(sequence ->
+                {
+                    if (Integer.parseInt(sequence.toString().trim()) > 20)
+                    {
+                        edtAwayPredict.setText("2");
+//                        edtHomePredict.post(() -> );
+                        edtAwayPredict.setSelection(edtAwayPredict.getText().toString().length());
+                    }
+                })
+        );
 
         pieChart = AnyChart.pie();
 
@@ -689,62 +773,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         dialog.show(getActivity().getFragmentManager(), "dialog");
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after)
-    {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count)
-    {
-        try
-        {
-            InputFilter[] fArray = new InputFilter[1];
-            if (s.length() == 0)
-            {
-                fArray[0] = new InputFilter.LengthFilter(2);
-//            edtHomePredict.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
-//            edtAwayPredict.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
-            }
-            else
-            {
-                if (Integer.parseInt(s.toString()) > 2)
-                {
-                    fArray[0] = new InputFilter.LengthFilter(1);
-                }
-                else
-                {
-                    fArray[0] = new InputFilter.LengthFilter(2);
-                }
-            }
-            edtHomePredict.setFilters(fArray);
-            edtAwayPredict.setFilters(fArray);
-
-            if (Integer.parseInt(edtAwayPredict.getText().toString().trim()) > 20)
-            {
-                edtAwayPredict.setText("2");
-                edtAwayPredict.post(() -> edtAwayPredict.setSelection(edtAwayPredict.getText().length()));
-            }
-
-            if (Integer.parseInt(edtHomePredict.getText().toString().trim()) > 20)
-            {
-                edtHomePredict.setText("2");
-                edtHomePredict.post(() -> edtHomePredict.setSelection(edtHomePredict.getText().length()));
-            }
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void afterTextChanged(Editable s)
-    {
-
-    }
 
     @Override
     public void onAnimationEnd()
@@ -766,8 +794,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     @Override
     public void onDestroy()
     {
-        super.onDestroy();
+        disposable.clear();
         EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
 }

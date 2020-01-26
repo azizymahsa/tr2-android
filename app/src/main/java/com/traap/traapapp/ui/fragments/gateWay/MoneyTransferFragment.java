@@ -40,6 +40,7 @@ import com.traap.traapapp.ui.dialogs.MoneyTransferAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
+import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
@@ -362,6 +363,8 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         switch (v.getId())
         {
             case R.id.ivContact:
+               // new ScreenShot(v, getActivity(),true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+
                 mainView.onContact();
                 break;
             case R.id.btnConfirm:

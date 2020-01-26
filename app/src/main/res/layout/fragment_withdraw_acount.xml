@@ -126,6 +126,7 @@
                 android:layout_height="@dimen/_40dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:backgroundTint="@color/black"
+                android:background="@null"
                 android:gravity="start"
                 android:inputType="text"
                 android:textColor="@color/chargePackTextColor"
