@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
@@ -71,6 +72,7 @@ import com.traap.traapapp.utilities.NationalCodeValidation;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
+import com.wang.avi.AVLoadingIndicatorView;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -92,6 +94,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture;
     private ImageView imgProfile, imgBirthdayReset, imgBirthdaySet;
+    private AVLoadingIndicatorView progressImageProfile;
 
     private SlidingUpPanelLayout slidingUpPanelLayout;
     private RelativeLayout rlSelectImage, rlDeleteImage;
@@ -142,6 +145,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nested);
         btnConfirm = findViewById(R.id.btnConfirm);
 //        btnConfirm.setText("ارسال اطلاعات کاربری");
+
+        progressImageProfile = findViewById(R.id.progressImageProfile);
 
         slidingUpPanelLayout = findViewById(R.id.slidingLayout);
         rlDeleteImage = findViewById(R.id.rlDeleteImage);
@@ -214,7 +219,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             btnConfirm.startAnimation();
             btnConfirm.setClickable(false);
 
-
             uploadProfileData();
         });
 
@@ -267,7 +271,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             {
                             }
                         });
-                dialog.setCancelable(true);
+                dialog.setCancelable(false);
                 dialog.show(getFragmentManager(), "alertDialog");
             }
             else
@@ -294,18 +298,21 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     public boolean isValid(String text)
     {
-
         return text.matches("/^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|31|([1-2][0-9])|(0[1-9]))))$/");
     }
 
     private void callDeletePhoto()
     {
+        progressImageProfile.setVisibility(View.VISIBLE);
+
         SingletonService.getInstance().sendProfileService().deleteProfilePhoto(new OnServiceStatus<WebServiceClass<DeleteProfileResponse>>()
         {
             @SuppressLint("RestrictedApi")
             @Override
             public void onReady(WebServiceClass<DeleteProfileResponse> response)
             {
+                progressImageProfile.setVisibility(View.GONE);
+
                 try
                 {
                     if (response.info.statusCode != 200)
@@ -332,7 +339,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         rlDeleteImage.setEnabled(false);
                         rlDeleteImage.setClickable(false);
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
 
                 }
@@ -341,6 +349,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             @Override
             public void onError(String message)
             {
+                progressImageProfile.setVisibility(View.GONE);
+
                 showError(UserProfileActivity.this, "خطای ارتباط با سرور!");
             }
         });
@@ -380,6 +390,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             }
                         }
                         );
+                        dialog.setCancelable(false);
                         dialog.show(getFragmentManager(), "dialogMessage");
                     }
                 })
@@ -684,6 +695,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private void sendProfilePhoto()
     {
+        progressImageProfile.setVisibility(View.VISIBLE);
+
         //---------------------new FAN--------------------------
         Logger.e("--imagePath--", userPic.getAbsolutePath());
         Logger.e("--url--", Const.BASEURL + Const.SEND_PROFILE_PHOTO);
@@ -763,10 +776,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 sendPhotoFailure = false;
                                 finishSendData("");
                             }
-                        } catch (JSONException e)
+                        }
+                        catch (JSONException e)
                         {
                             e.printStackTrace();
                         }
+                        progressImageProfile.setVisibility(View.GONE);
+
                         sendPhotoSuccess = true;
                         sendPhotoFailure = false;
                         finishSendData("");
