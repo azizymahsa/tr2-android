@@ -301,9 +301,12 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setItemIconTintList(null);
 
+//        bottomNavigationView.addv
 
 //        bottomNavigationView.getMenu().getItem(2).setChecked(true);
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
+
+//        bottomNavigationView.getMenu().getItem(0).getActionView().setBackground();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem ->
         {
