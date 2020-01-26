@@ -20,7 +20,7 @@ import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
-public class PaymentResultIncreaseInventoryActivity extends BaseActivity implements View.OnClickListener, ScreenShot.DenyAction
+public class PaymentResultIncreaseInventoryActivity extends BaseActivity implements View.OnClickListener
 {
 
     private String refrenceNumber;
@@ -192,38 +192,14 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
     {
         switch (v.getId()){
             case R.id.btnShare:
-                new ScreenShot(llResult, this, false, this);
-             ;
+                new ScreenShot(llResult, this,false,"برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");
+
                 break;
             case R.id.btnSaveResult:
 
-                new ScreenShot(llResult, this, false, () -> {
-
-                    MessageAlertPermissionDialog    dialog = new MessageAlertPermissionDialog(PaymentResultIncreaseInventoryActivity.this, "",
-                            "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.",
-                            true, "نمایش دوباره دسترسی", "انصراف", MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
-                    {
-                        @Override
-                        public void onConfirmClick()
-                        {
-                            new ScreenShot(llResult, PaymentResultIncreaseInventoryActivity.this, false, PaymentResultIncreaseInventoryActivity.this);
-
-                          //  dialog.dismiss();
-
-                        }
-
-                        @Override
-                        public void onCancelClick()
-                        {
-
-                        }
-                    }
-                    );
+                new ScreenShot(llResult, this,true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
 
 
-                    dialog.show(getFragmentManager(), "dialogMessage");
-
-                });
 
                 break;
             case R.id.tvBackHome:
@@ -232,11 +208,5 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
         }
     }
 
-    @Override
-    public void onDeny()
-    {
 
-
-
-    }
 }
