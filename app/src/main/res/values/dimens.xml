@@ -72,6 +72,8 @@
     <dimen name="news_newest_height" >160dp</dimen>
     <dimen name="news_favorite_title_height" >75dp</dimen>
     <dimen name="slider_height_wallet" >80dp</dimen>
+    <dimen name="cardView_height_wallet" >100dp</dimen>
+    <dimen name="header_cover_height_wallet" >240dp</dimen>
     <dimen name="slider_height" >190dp</dimen>
     <dimen name="slider_height_app">220dp</dimen>
     <dimen name="slider_height_app_">230dp</dimen>
