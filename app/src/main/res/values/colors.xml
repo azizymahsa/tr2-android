@@ -46,7 +46,7 @@
     <color name="headerMainWeekNoTextColor">#fff</color>
     <color name="textColorStadiumName">#888</color>
     <color name="grayColor">#888</color>
-    <color name="mainNavigationBottomBackgroundColor">#fff</color>
+    <color name="mainNavigationBottomBackgroundColor">#ffffff</color>
 
     <color name="chargePackTextColor">#3e3e3e</color>
 
