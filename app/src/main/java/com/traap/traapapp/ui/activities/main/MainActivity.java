@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,11 +15,15 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -123,14 +128,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     private Boolean isMainFragment = true;
     private Boolean isNewsFragment = false;
     private Boolean isFirst = true;
-
-//    private String selectPositionId;
-//    private int count;
-//    private int amountForPay;
-//    private int amountOneTicket;
-//    private List<Integer> results;
-//    private Integer stadiumId;
-//    private List<Integer> ticketIdList;
+    private ImageView indicator_0, indicator_1, indicator_2;
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
@@ -298,12 +296,27 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //
 //        });
 
+        indicator_0 = findViewById(R.id.indicator_0);
+        indicator_1 = findViewById(R.id.indicator_1);
+        indicator_2 = findViewById(R.id.indicator_2);
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setItemIconTintList(null);
 
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
+//        {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
+//            {
+////                return bottomNavigationView.getMenu().getItem(bottomNavigationView.getChildAt());
+//            }
+//        });
 
 //        bottomNavigationView.getMenu().getItem(2).setChecked(true);
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
+        setIndicator(1);
+
+//        bottomNavigationView.getMenu().getItem(0).getActionView().setBackground();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem ->
         {
@@ -465,6 +478,40 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     }
 
+    private void setIndicator(int index)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            switch (index)
+            {
+                case 0:
+                {
+                    indicator_0.setImageDrawable(getResources().getDrawable(R.drawable.img_indicator));
+                    indicator_0.setColorFilter(null);
+                    indicator_1.setColorFilter(Color.argb(255, 255, 255, 255));
+                    indicator_2.setColorFilter(Color.argb(255, 255, 255, 255));
+                    break;
+                }
+                case 1:
+                {
+                    indicator_0.setColorFilter(Color.argb(255, 255, 255, 255));
+                    indicator_1.setImageDrawable(getResources().getDrawable(R.drawable.img_indicator));
+                    indicator_1.setColorFilter(null);
+                    indicator_2.setColorFilter(Color.argb(255, 255, 255, 255));
+                    break;
+                }
+                case 2:
+                {
+                    indicator_0.setColorFilter(Color.argb(255, 255, 255, 255));
+                    indicator_1.setColorFilter(Color.argb(255, 255, 255, 255));
+                    indicator_2.setImageDrawable(getResources().getDrawable(R.drawable.img_indicator));
+                    indicator_2.setColorFilter(null);
+                    break;
+                }
+            }
+        }
+    }
+
     @Override
     protected void onNewIntent(Intent intent)
     {
@@ -520,16 +567,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private void setCheckedBNV(BottomNavigationView bottomNavigationView, int index)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             if (i == index)
             {
                 bottomNavigationView.getMenu().getItem(index).setChecked(true);
-            } else
+            }
+            else
             {
                 bottomNavigationView.getMenu().getItem(index).setChecked(false);
             }
         }
+
+        setIndicator(index);
     }
 
 
@@ -2244,7 +2294,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             if (response == null || response.info == null)
             {
                 MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                        false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                        false, "تلاش مجدد", "", false,MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()
@@ -2253,8 +2303,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         request.setDeviceType(TrapConfig.AndroidDeviceType);
                         request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
                         SingletonService.getInstance().getMenuService().getMenu(MainActivity.this, request);
-
-
                     }
 
                     @Override
@@ -2270,7 +2318,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             if (response.info.statusCode != 200)
             {
                 MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                        false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                        false, "تلاش مجدد", "", false,MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()
@@ -2442,7 +2490,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         isCompleteThreadNews = true;
                         hideLoading();
                         MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                                false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                                false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()
@@ -2471,7 +2519,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         isCompleteThreadNews = true;
                         hideLoading();
                         MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                                false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                                false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,new MessageAlertDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()
@@ -2711,7 +2759,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
 
         MessageAlertDialog dialog = new MessageAlertDialog(this, "", error,
-                false, "تلاش مجدد", "", false, new MessageAlertDialog.OnConfirmListener()
+                false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,
+                new MessageAlertDialog.OnConfirmListener()
         {
             @Override
             public void onConfirmClick()
@@ -2766,13 +2815,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (isVisible)
         {
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.movedown);
-            bottomNavigationView.startAnimation(animation);
-            bottomNavigationView.setVisibility(View.GONE);
+            findViewById(R.id.llBottomNavigation).startAnimation(animation);
+            findViewById(R.id.llBottomNavigation).setVisibility(View.GONE);
         } else
         {
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.moveup);
-            bottomNavigationView.startAnimation(animation);
-            bottomNavigationView.setVisibility(View.VISIBLE);
+            findViewById(R.id.llBottomNavigation).startAnimation(animation);
+            findViewById(R.id.llBottomNavigation).setVisibility(View.VISIBLE);
         }
 //        showDebugToast(this, "Keyboard Visibility: " + isVisible);
     }

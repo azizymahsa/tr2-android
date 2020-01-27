@@ -2078,7 +2078,7 @@ public class CompeletInfoFragment
 
         flagDelete = false;
         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "قوانین و مقررات", response.getRules(), true,
-                "تایید", "بستن", true, listener);
+                "تایید", "بستن", true, MessageAlertDialog.TYPE_MESSAGE, listener);
 
         dialog.show(getActivity().getFragmentManager(), "dialog");
     }

@@ -88,6 +88,7 @@ public class BaseActivity extends AppCompatActivity
     public void showAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
     {
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
+                "تایید", "", true,
                 MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
         {
             @Override
@@ -112,6 +113,7 @@ public class BaseActivity extends AppCompatActivity
     public void showAlertFailure(Context context, String Msg, String mTitle, boolean finish)
     {
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
+                "تایید", "", true,
                 MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
         {
             @Override

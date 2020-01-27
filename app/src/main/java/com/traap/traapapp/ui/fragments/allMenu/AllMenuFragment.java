@@ -65,6 +65,19 @@ import com.traap.traapapp.utilities.Tools;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+//import library.android.eniac.StartEniacBusActivity;
+//import library.android.eniac.StartEniacFlightActivity;
+//import library.android.eniac.StartEniacHotelActivity;
+//import library.android.eniac.interfaces.BusLockSeat;
+//import library.android.eniac.interfaces.FlightReservationData;
+//import library.android.eniac.interfaces.HotelReservationData;
+//import library.android.eniac.model.FlightReservation;
+//import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
+//import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
+//import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
+//import library.android.service.model.bus.searchBus.response.Company;
+//import library.android.service.model.flight.reservation.response.ReservationResponse;
+
 /**
  * Created by MahsaAzizi
  */
@@ -73,8 +86,7 @@ public class AllMenuFragment extends BaseFragment implements
         ItemRecyclerViewAdapter.OnItemClickListenerItem, TextWatcher,
         OnServiceStatus<WebServiceClass<GetAllMenuResponse>>,
         onConfirmUserPassGDS, AllMenuServiceModelAdapter.OnItemAllMenuClickListener
-//        ,
-//        HotelReservationData, BusLockSeat, FlightReservationData
+//        , HotelReservationData, BusLockSeat, FlightReservationData
 {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -432,19 +444,19 @@ public class AllMenuFragment extends BaseFragment implements
 //    {
 //
 //    }
-
+//
 //    @Override
 //    public void hotelConfirmToSendSmsListener(Boolean aBoolean)
 //    {
 //
 //    }
-
+//
 //    @Override
 //    public void LockSeatListener(LockSeatResponse lockSeatResponse, String s, String s1, List<Company> list)
 //    {
 //
 //    }
-
+//
 //    @Override
 //    public void issueBusReservation(SaleVerifyResponse saleVerifyResponse, boolean b)
 //    {
@@ -515,12 +527,8 @@ public class AllMenuFragment extends BaseFragment implements
     {
         switch (id)
         {
-
-
             case 11://Flight ata
             {
-//
-
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
@@ -532,8 +540,6 @@ public class AllMenuFragment extends BaseFragment implements
             }
             case 14://Flight all
             {
-
-
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");

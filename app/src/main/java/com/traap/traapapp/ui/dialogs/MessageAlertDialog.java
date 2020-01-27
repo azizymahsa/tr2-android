@@ -99,7 +99,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
     }
 
     public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable, String btnConfirmText,
-                              String btnCancelText, Boolean isRightToLeft, OnConfirmListener listener)
+                              String btnCancelText, Boolean isRightToLeft, int messageType, OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;
@@ -109,7 +109,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         this.btnConfirmText = btnConfirmText;
         this.btnCancelText = btnCancelText;
         this.isRightToLeft = isRightToLeft;
-        this.type = TYPE_MESSAGE;
+        this.type = messageType;
     }
 
     @NonNull

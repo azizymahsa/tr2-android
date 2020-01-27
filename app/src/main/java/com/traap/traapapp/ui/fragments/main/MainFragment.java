@@ -77,6 +77,18 @@ import org.greenrobot.eventbus.Subscribe;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+//import library.android.eniac.StartEniacBusActivity;
+//import library.android.eniac.StartEniacFlightActivity;
+//import library.android.eniac.StartEniacHotelActivity;
+//import library.android.eniac.interfaces.BusLockSeat;
+//import library.android.eniac.interfaces.FlightReservationData;
+//import library.android.eniac.interfaces.HotelReservationData;
+//import library.android.eniac.model.FlightReservation;
+//import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
+//import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
+//import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
+//import library.android.service.model.bus.searchBus.response.Company;
+//import library.android.service.model.flight.reservation.response.ReservationResponse;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
@@ -610,7 +622,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                response.getUsername(), response.getPassword(), this, 0);
 //        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(TrapConfig.UNIQUE_CODE_Flight_All,
 //                "0037250100293610", "1397", this, 0);
-//
+
 //        flightActivity.startMainFlight();
     }
 
@@ -680,8 +692,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //    {
 //
 //    }
-
-
+//
+//
 //    @Override
 //    public void hotelReserveListener(HotelItem hotelItem, String s)
 //    {
@@ -700,10 +712,23 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         switch (id)
         {
             case 11: //Flight ATA
+            {
+//                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, this);
+//                break;
+            }
             case 14: //Flight
+            {
+//                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, this);
+//                break;
+            }
             case 12: //Hotel
+            {
+//                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_HOTEL, this);
+//                break;
+            }
             case 13: //Bus
             {
+//                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, this);
                 mainView.openWebView(mainView, URl, Prefs.getString("gds_token", ""));
                 break;
             }
