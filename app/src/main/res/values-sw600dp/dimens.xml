@@ -61,6 +61,7 @@
     <dimen name="_35dp_iconSize">45dp</dimen>
     <dimen name="_120dp">300dp</dimen>
     <dimen name="_120_btn_dp">180dp</dimen>
+    <dimen name="height_ticket_app_">385dp</dimen>
 
     <item name="mdtp_circle_radius_multiplier" format="float" type="string">0.82</item>
     <item name="mdtp_circle_radius_multiplier_24HourMode" format="float" type="string">0.85</item>
@@ -74,7 +75,9 @@
     <item name="mdtp_text_size_multiplier_outer" format="float" type="string">0.08</item>
 
     <dimen name="slider_height_wallet" >90dp</dimen>
+    <dimen name="cardView_height_wallet" >140dp</dimen>
     <dimen name="slider_height" >280dp</dimen>
+    <dimen name="header_cover_height_wallet" >300dp</dimen>
     <dimen name="slider_height_app">310dp</dimen>
     <dimen name="slider_height_app_">320dp</dimen>
     <dimen name="header_week_no_width">80dp</dimen>
