@@ -256,7 +256,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                     }
                 } catch (Exception e)
                 {
-                    showToast(AlbumDetailActivity.this, e.getMessage(), R.color.red);
+                    showToast(AlbumDetailActivity.this, "خطا در دریافت اطلاعات از سرور!", R.color.red);
 
                 }
             }

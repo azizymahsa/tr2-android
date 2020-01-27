@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.ticket;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -45,6 +46,8 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     private TicketInfoImpl ticketInfo;
     private TextView tvTitle, tvUserName;
     private View imgBack, imgMenu;
+
+    private Context context;
 
     private TextView tvPopularPlayer;
     private View view;
@@ -102,9 +105,9 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -238,7 +241,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     public void onAttach(Context context)
     {
         super.onAttach(context);
-
+        this.context = context;
     }
 
     @Override
@@ -269,7 +272,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
                 break;
 
             case R.id.btnSaveResult:
-                new ScreenShot(rvTickets, getActivity(), true, "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                new ScreenShot(rvTickets, (Activity) context, true, "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
                 // showDialog();
                 break;
             case R.id.btnBackToHome:
@@ -281,7 +284,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
             case R.id.btnShareTicket:
                 SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
 
-                new ScreenShot(rvTickets, getActivity());
+                new ScreenShot(rvTickets, (Activity) context);
                 // showToast(getContext(), "share");
                 break;
 
@@ -323,7 +326,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     {
         llSuccessPayment.setVisibility(View.GONE);
         llErrorPayment.setVisibility(View.VISIBLE);
-        showToast(getActivity(), error, R.color.red);
+        showToast(context, error, R.color.red);
         mainView.hideLoading();
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
