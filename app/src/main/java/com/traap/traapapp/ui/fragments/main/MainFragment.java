@@ -541,37 +541,39 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 Logger.e("--matchCurrentPos--", "pos: " + matchCurrentPos);
             }
 
-            if (matchItem.getIsPredict() && matchPredict == null)
+            try
             {
-                this.matchPredict = matchItem;
-
-                Timestamp myTimestamp = new Timestamp(System.currentTimeMillis());
-                long myTime = myTimestamp.getTime();
-                long matchTime = matchPredict.getMatchDatetime().longValue() * 1000;
-                Logger.e("--Time--", "myTime:" + myTime + ", MatchTime: " + matchTime);
-                long time = matchTime - myTime;
-                Logger.e("--diff Time--", "Time: " + time);
-
-                long predictTime = matchPredict.getPredictTime().longValue() * 1000;
-                dateTimeNow = matchPredict.getDateTimeNow().longValue() * 1000;
-                long remainPredictTime = predictTime - dateTimeNow;
-                Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
-
-                if (remainPredictTime > 0)
+                if (matchItem.getIsPredict() && matchPredict == null)
                 {
-                    isPredictable = true;
-                    rootView.findViewById(R.id.llTimer).setVisibility(View.VISIBLE);
-                    ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("پیش بینی کن جایزه بگیر!");
-                    startTimer(remainPredictTime);
-                } else
-                {
-                    isPredictable = false;
-                    rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
-                    ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
-                }
+                    this.matchPredict = matchItem;
+
+                    Timestamp myTimestamp = new Timestamp(System.currentTimeMillis());
+                    long myTime = myTimestamp.getTime();
+                    long matchTime = matchPredict.getMatchDatetime().longValue() * 1000;
+                    Logger.e("--Time--", "myTime:" + myTime + ", MatchTime: " + matchTime);
+                    long time = matchTime - myTime;
+                    Logger.e("--diff Time--", "Time: " + time);
+
+                    long predictTime = matchPredict.getPredictTime().longValue() * 1000;
+                    dateTimeNow = matchPredict.getDateTimeNow().longValue() * 1000;
+                    long remainPredictTime = predictTime - dateTimeNow;
+                    Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
+
+                    if (remainPredictTime > 0)
+                    {
+                        isPredictable = true;
+                        rootView.findViewById(R.id.llTimer).setVisibility(View.VISIBLE);
+                        ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("پیش بینی کن جایزه بگیر!");
+                        startTimer(remainPredictTime);
+                    } else
+                    {
+                        isPredictable = false;
+                        rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
+                        ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
+                    }
 
 //                Timestamp timestamp = matchPredict.getMatchDatetime().intValue();
-            }
+                }
 //            else
 //            {
 //                isPredictable = false;
@@ -579,6 +581,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
 //            }
 
+
+            }
+            catch (Exception e)
+            {
+
+            }
             if (matchItem.getBuyEnable())
             {
                 this.matchBuyable = matchItem;

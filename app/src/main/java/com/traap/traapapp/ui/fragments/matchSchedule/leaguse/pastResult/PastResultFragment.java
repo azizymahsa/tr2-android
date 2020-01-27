@@ -1,5 +1,7 @@
 package com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +36,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.pastResult.PastResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 import com.traap.traapapp.utilities.Logger;
@@ -42,11 +46,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class PastResultFragment
-        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
+        extends BaseFragment implements OnAnimationEndListener,
         OnServiceStatus<WebServiceClass<ResponsePastResult>>//, OnBackPressed
 {
     private String teamId = "";
     private View rootView;
+
+    private Context context;
 
     private MainActionView mainView;
 
@@ -86,8 +92,14 @@ public class PastResultFragment
 
     }
 
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
 
-    public static PastResultFragment newInstance(MainActionView mainView, String teamId, String logoPath,String logoTitle)
+    public static PastResultFragment newInstance(MainActionView mainView, String teamId, String logoPath, String logoTitle)
     {
         PastResultFragment f = new PastResultFragment();
 
@@ -200,29 +212,49 @@ public class PastResultFragment
             mainView.hideLoading();
             if (response == null || response.info == null)
             {
+                showMyAlertFailure("خطا در دریافت اطلاعات از سرور!");
                 return;
             }
             if (response.info.statusCode != 200)
             {
-
-
+                showMyAlertFailure(response.info.message);
                 return;
             }
-            if (response.info.statusCode == 200)
+            else
             {
-
-
                 leagRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
                 fixTableAdapter = new PastResultAdapter(response.data.getResults(), getActivity());
                 //fixTableAdapter.setClickListener(this);
                 leagRecycler.setAdapter(fixTableAdapter);
-
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             mainView.showError(e.getMessage());
             mainView.hideLoading();
         }
+    }
+
+    private void showMyAlertFailure(String message)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, "", message, false,
+                "بازگشت به صفحه اصلی", "", true,
+                MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                mainView.backToMainFragment();
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
     @Override
@@ -230,7 +262,7 @@ public class PastResultFragment
     {
        // mainView.showError(message);
         mainView.hideLoading();
-        if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+        if (Tools.isNetworkAvailable((Activity) context))
         {
             Logger.e("-OnError-", "Error: " + message);
             mainView.showError( "خطا در دریافت اطلاعات از سرور!");
@@ -242,48 +274,9 @@ public class PastResultFragment
         }
     }
 
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-
-
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-    }
-
-
     @Override
     public void onAnimationEnd()
     {
-
-
-    }
-
-    @Override
-    public void onClick(View view)
-    {
-       /* switch (view.getId())
-        {
-            case R.id.btnConfirm:
-
-                break;
-
-
-        }*/
-
     }
 
     @Subscribe
