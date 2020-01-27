@@ -2213,7 +2213,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             this.fragment = ChargeFragment.newInstance(this, backState);
 
             transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment, "ChargeFragment")
                     .commit();
         } else if (PAYMENT_STATUS == 4)
@@ -2222,10 +2221,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             this.fragment = PackFragment.newInstance(this, backState);
 
             transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.main_container, this.fragment, "PackFragment")
                     .commit();
-        } else if (PAYMENT_STATUS == 13)
+        }
+        else if (PAYMENT_STATUS == 13)
         {
             isMainFragment = false;
             this.fragment = WalletFragment.newInstance(this, 1);//IncreaseInventoryFragment
