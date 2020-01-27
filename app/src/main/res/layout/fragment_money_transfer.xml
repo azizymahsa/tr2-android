@@ -43,6 +43,7 @@
                     android:singleLine="false"
                     android:text="جهت انتقال وجه لطفا اطلاعات خواسته شده را تکمیل نمایید."
                     android:textColor="@color/black"
+                    android:layout_margin="2dp"
                     android:textSize="@dimen/textSize_12dp" />
 
 
