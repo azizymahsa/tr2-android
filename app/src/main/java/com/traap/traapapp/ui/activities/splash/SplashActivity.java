@@ -527,7 +527,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
                 MessageAlertDialog dialog1 = new MessageAlertDialog(this, "هشدار!",
                         getResources().getString(R.string.get_permission), true, "بله", "خیر",
-                        true, new MessageAlertDialog.OnConfirmListener()
+                        true, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()
