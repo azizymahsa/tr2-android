@@ -26,7 +26,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="@dimen/header_cover_height_wallet"
             android:background="@drawable/background_main_header" />
 
         <androidx.appcompat.widget.Toolbar
@@ -64,7 +64,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/_100dp">
+                        android:layout_marginTop="@dimen/cardView_height_wallet">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/card"
