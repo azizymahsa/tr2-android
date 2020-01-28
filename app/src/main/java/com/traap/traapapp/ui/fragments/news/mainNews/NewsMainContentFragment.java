@@ -66,6 +66,9 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
     private View rootView;
     private NewsActionView mainView;
 
+    private MyCustomViewPager pager;
+    private TabLayout tabLayout;
+
     private Context context;
     private NestedScrollView nestedScrollView;
 
@@ -393,7 +396,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         Collections.reverse(categoriesList);
         int pagerHeight = (int) (getResources().getDimension(R.dimen.margin_news_main_archive_pager) +
                 getResources().getDimension(R.dimen._80dp));
-
+//
         LinearLayout.LayoutParams params;
         int height = 20;
         if (!categoriesList.isEmpty())
@@ -401,8 +404,10 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             height = pagerHeight * categoriesList.size() / 2;
         }
         params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-
-        MyCustomViewPager pager = rootView.findViewById(R.id.view_pager);
+//
+//        showDebugToast((Activity) context, "height: " + height);
+//
+        pager = rootView.findViewById(R.id.view_pager);
         pager.setLayoutParams(params);
 //        nestedScrollView.scrollTo(pager.getScrollX(), pager.getScrollY() - height);
 
@@ -414,7 +419,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 //            pager.setPageTransformer(true, (ViewPager.PageTransformer) new RotateUpTransformer());
 //        }
 
-        TabLayout tabLayout = rootView.findViewById(R.id.tabLayout);
+        tabLayout = rootView.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(pager);
 
         for (int i = 0; i < tabLayout.getTabCount(); i++)
@@ -423,9 +428,32 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             tab.setCustomView(adapter.getTabView(i));
         }
 
-        pager.setCurrentItem(categoriesList.size() - 1);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab)
+            {
+//                tab.getPosition();
+                Logger.e("--position--", "pos: " + tab.getPosition() + ", size: " +
+                        categoriesList.get(tab.getPosition()).getNews().size());
 
-//        nestedScrollView.scrollBy(tabLayout.getScrollX(), tabLayout.getScrollY());
+                setPagerHeight(categoriesList.get(tab.getPosition()).getNews().size());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab)
+            {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab)
+            {
+                setPagerHeight(categoriesList.get(tab.getPosition()).getNews().size());
+            }
+        });
+
+        pager.setCurrentItem(categoriesList.size() - 1);
     }
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
@@ -453,7 +481,10 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         {
 //            Collections.reverse(categoriesList);
             int Id = categoriesList.get(position).getId();
-            Logger.e("-getNews " + position + " size-", categoriesList.get(position).getTitle() + " size: " + categoriesList.get(position).getNews().size());
+            Logger.e("-getNews " + position + " size-", categoriesList.get(position).getTitle()
+                    + " size: " + categoriesList.get(position).getNews().size());
+
+//            setPagerHeight(categoriesList.get(position).getNews().size());
 
             return NewsArchiveCategoryFragment.newInstance("",
                     MediaArchiveCategoryCall.FROM_SINGLE_CONTENT,
@@ -485,6 +516,45 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             return v;
         }
 
+    }
+
+    private void setPagerHeight(int itemHeightSize)
+    {
+
+        LinearLayout.LayoutParams params;
+        int height = 20;
+
+        int pagerHeight = (int) (getResources().getDimension(R.dimen.margin_news_main_archive_pager) +
+                getResources().getDimension(R.dimen._80dp));
+
+        if (itemHeightSize != 0)
+        {
+            height = pagerHeight * itemHeightSize;
+        }
+        else
+        {
+            height = pagerHeight;
+        }
+        params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+
+//        showDebugToast((Activity) context, "height: " + height);
+
+        pager = rootView.findViewById(R.id.view_pager);
+        pager.setLayoutParams(params);
+
+        try
+        {
+            int scrollTo = tabLayout.getTop();
+            nestedScrollView.smoothScrollTo(0, scrollTo);
+//            nestedScrollView.scrollBy(0, scrollTo);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Logger.e("--Exception--", "message: " + e.getMessage());
+        }
+
+//        setPagerHeight(itemHeightSize);
     }
 
 }
