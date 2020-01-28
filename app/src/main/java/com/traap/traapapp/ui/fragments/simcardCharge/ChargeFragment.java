@@ -454,6 +454,7 @@ public class ChargeFragment extends BaseFragment
 
         autoCompletePhoneNumberIrancel.requestFocus();
         autoCompletePhoneNumberIrancel.setSelection(autoCompletePhoneNumberIrancel.getText().length());
+        closeAutoComplete();
 
 //        tvChargeTitle.setText("خرید شارژ آنلاین " + "ایرانسل");
         ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
@@ -489,6 +490,8 @@ public class ChargeFragment extends BaseFragment
 
         autoCompletePhoneNumberMci.requestFocus();
         autoCompletePhoneNumberMci.setSelection(autoCompletePhoneNumberMci.getText().length());
+        closeAutoComplete();
+
         rlIrancellSpinner.setVisibility(View.INVISIBLE);
 
 //        tvChargeTitle.setText("خرید شارژ آنلاین " + "همراه اول");
@@ -520,6 +523,7 @@ public class ChargeFragment extends BaseFragment
 
         autoCompletePhoneNumberRightel.requestFocus();
         autoCompletePhoneNumberRightel.setSelection(autoCompletePhoneNumberRightel.getText().length());
+        closeAutoComplete();
 
         rlIrancellSpinner.setVisibility(View.INVISIBLE);
 
