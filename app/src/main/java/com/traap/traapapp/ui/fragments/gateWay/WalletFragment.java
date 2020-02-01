@@ -435,7 +435,11 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
         }
         customNo.setText("کدمشتری: " + data.getCustomer_code());
-       // txtFullName.setText(data.getFull_name() + "");
+        Prefs.putString("W_CustomerCode",data.getCustomer_code());
+        Prefs.putString("W_CardNo",data.getCard_no());
+        Prefs.putString("W_Phone",TrapConfig.HEADER_USER_NAME);//data.getLstPhoneBill());//        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
+        // txtFullName.setText(data.getFull_name() + "");
     }
     /*----------------------------------------------------------------------------------------------------*/
 
