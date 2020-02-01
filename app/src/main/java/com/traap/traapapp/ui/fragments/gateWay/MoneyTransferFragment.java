@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.core.view.ViewCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -363,7 +364,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
         switch (v.getId())
         {
             case R.id.ivContact:
-               // new ScreenShot(v, getActivity(),true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                // new ScreenShot(v, getActivity(),true,"برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
 
                 mainView.onContact();
                 break;
@@ -439,12 +440,26 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             mainView.showError("لطفا رمز را وارد نمایید.");
             return;
         }
-        if (etPass.getText().toString().length() < 4 || etPass.getText().toString().length()>12)
+        if (etPass.getText().toString().length() < 4 || etPass.getText().toString().length() > 12)
         {
             mainView.showError("رمز وارد شده حداقل باید 4 کارکتر باشد.");
             return;
         }
-
+        if (Prefs.getString("W_CustomerCode", "").equals(etUserCode.getText().toString()))
+        {
+            mainView.showError("کد مشتری مبدا و مقصد یکسان می باشد.");
+            return;
+        }
+        if (Prefs.getString("W_CardNo", "").equals(etCardNumber.getText().toString().replaceAll("-","")))
+        {
+            mainView.showError("شماره کارت مبدا و مقصد یکسان می باشد.");
+            return;
+        }
+        if (Prefs.getString("W_Phone", "").equals(etPhoneNum.getText().toString()))
+        {
+            mainView.showError("شماره موبایل مبدا و مقصد یکسان می باشد.");
+            return;
+        }
         requestGetInfo();
 
     }
