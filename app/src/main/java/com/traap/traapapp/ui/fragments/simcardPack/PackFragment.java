@@ -537,6 +537,7 @@ public class PackFragment
     void irancell()
     {
         etMobileNumberIranCell.requestFocus();
+        etMobileNumberIranCell.setSelection(etMobileNumberIranCell.getText().length());
 
         closeAutoComplete();
 //        mainView.needExpanded(false);
@@ -578,6 +579,8 @@ public class PackFragment
     void hamraheAval()
     {
         etMobileNumberMCI.requestFocus();
+        etMobileNumberMCI.setSelection(etMobileNumberMCI.getText().length());
+
         closeAutoComplete();
 //        mainView.needExpanded(false);
         llDetailDescriptionMci.setVisibility(View.VISIBLE);
@@ -626,6 +629,7 @@ public class PackFragment
     void rightel()
     {
         etMobileNumberRightel.requestFocus();
+        etMobileNumberRightel.setSelection(etMobileNumberRightel.getText().length());
 
         closeAutoComplete();
         llDescriptionSelectPackRightel.setVisibility(View.GONE);
@@ -1076,36 +1080,37 @@ public class PackFragment
             {
                 try
                 {
-                    if (etMobileNumberIranCell.getText().toString().length()!=4)
-                        return;
-                    operatorType = getOperatorType(charSequence.toString());
-
-                    if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
+                    if (etMobileNumberIranCell.getText().toString().length() == 4 || etMobileNumberIranCell.getText().toString().length() ==11 )
                     {
+                        operatorType = getOperatorType(charSequence.toString());
 
-                        if (isMci)
+                        if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
                         {
 
-                        } else
+                            if (isMci)
+                            {
+
+                            } else
+                            {
+                                etMobileNumberMCI.setText(charSequence.toString());
+                                hamraheAval();
+                                return;
+
+                            }
+
+                        } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
                         {
-                            etMobileNumberMCI.setText(charSequence.toString());
-                            hamraheAval();
-                            return;
 
-                        }
+                            if (isRightel)
+                            {
 
-                    } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
-                    {
+                            } else
+                            {
+                                etMobileNumberRightel.setText(charSequence.toString());
+                                rightel();
+                                return;
 
-                        if (isRightel)
-                        {
-
-                        } else
-                        {
-                            etMobileNumberRightel.setText(charSequence.toString());
-                            rightel();
-                            return;
-
+                            }
                         }
                     }
                 } catch (Exception e)
@@ -1134,38 +1139,40 @@ public class PackFragment
             {
                 try
                 {
-                    if (etMobileNumberMCI.getText().toString().length()!=4)
-                        return;
-                    operatorType = getOperatorType(charSequence.toString());
+                    if (etMobileNumberMCI.getText().toString().length() == 4 || etMobileNumberMCI.getText().toString().length() ==11 )
 
-                    if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
                     {
+                        operatorType = getOperatorType(charSequence.toString());
 
-                        if (isMtn)
+                        if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
                         {
 
-                        } else
+                            if (isMtn)
+                            {
+
+                            } else
+                            {
+                                etMobileNumberIranCell.setText(charSequence.toString());
+                                irancell();
+                                return;
+                            }
+
+
+                        } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
                         {
-                            etMobileNumberIranCell.setText(charSequence.toString());
-                            irancell();
-                            return;
+
+                            if (isRightel)
+                            {
+
+                            } else
+                            {
+                                etMobileNumberRightel.setText(charSequence.toString());
+                                rightel();
+                                return;
+
+                            }
+
                         }
-
-
-                    } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
-                    {
-
-                        if (isRightel)
-                        {
-
-                        } else
-                        {
-                            etMobileNumberRightel.setText(charSequence.toString());
-                            rightel();
-                            return;
-
-                        }
-
                     }
                 } catch (Exception e)
                 {
@@ -1193,8 +1200,9 @@ public class PackFragment
             {
                 try
                 {
-                    if (etMobileNumberRightel.getText().toString().length()!=4)
-                        return;
+
+                    if (etMobileNumberRightel.getText().toString().length() == 4 || etMobileNumberRightel.getText().toString().length() ==11 )
+                    {
                     operatorType = getOperatorType(charSequence.toString());
 
                     if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
@@ -1221,7 +1229,7 @@ public class PackFragment
                             irancell();
                         }
 
-
+                    }
                     }
                 } catch (Exception e)
                 {

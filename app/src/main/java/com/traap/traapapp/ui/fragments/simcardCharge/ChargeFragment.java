@@ -453,6 +453,9 @@ public class ChargeFragment extends BaseFragment
     {
 
         autoCompletePhoneNumberIrancel.requestFocus();
+        autoCompletePhoneNumberIrancel.setSelection(autoCompletePhoneNumberIrancel.getText().length());
+        closeAutoComplete();
+
 //        tvChargeTitle.setText("خرید شارژ آنلاین " + "ایرانسل");
         ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
         ivHamraheAval.setBorderColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
@@ -486,6 +489,9 @@ public class ChargeFragment extends BaseFragment
     {
 
         autoCompletePhoneNumberMci.requestFocus();
+        autoCompletePhoneNumberMci.setSelection(autoCompletePhoneNumberMci.getText().length());
+        closeAutoComplete();
+
         rlIrancellSpinner.setVisibility(View.INVISIBLE);
 
 //        tvChargeTitle.setText("خرید شارژ آنلاین " + "همراه اول");
@@ -516,6 +522,9 @@ public class ChargeFragment extends BaseFragment
     {
 
         autoCompletePhoneNumberRightel.requestFocus();
+        autoCompletePhoneNumberRightel.setSelection(autoCompletePhoneNumberRightel.getText().length());
+        closeAutoComplete();
+
         rlIrancellSpinner.setVisibility(View.INVISIBLE);
 
 //        tvChargeTitle.setText("خرید شارژ آنلاین " + "رایتل");
@@ -726,36 +735,37 @@ public class ChargeFragment extends BaseFragment
             {
                 try
                 {
-                    if (autoCompletePhoneNumberIrancel.getText().toString().length() != 4)
-                        return;
-                    operatorType = getOperatorType(charSequence.toString());
-
-                    if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
+                    if (autoCompletePhoneNumberIrancel.getText().toString().length() == 4 || autoCompletePhoneNumberIrancel.getText().toString().length() ==11 )
                     {
+                        operatorType = getOperatorType(charSequence.toString());
 
-                        if (isMci)
+                        if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
                         {
 
-                        } else
+                            if (isMci)
+                            {
+
+                            } else
+                            {
+                                autoCompletePhoneNumberMci.setText(charSequence.toString());
+                                hamraheAval();
+                                return;
+
+                            }
+
+                        } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
                         {
-                            autoCompletePhoneNumberMci.setText(charSequence.toString());
-                            hamraheAval();
-                            return;
 
-                        }
+                            if (isRightel)
+                            {
 
-                    } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
-                    {
+                            } else
+                            {
+                                autoCompletePhoneNumberRightel.setText(charSequence.toString());
+                                rightel();
+                                return;
 
-                        if (isRightel)
-                        {
-
-                        } else
-                        {
-                            autoCompletePhoneNumberRightel.setText(charSequence.toString());
-                            rightel();
-                            return;
-
+                            }
                         }
                     }
                 } catch (Exception e)
@@ -784,38 +794,39 @@ public class ChargeFragment extends BaseFragment
             {
                 try
                 {
-                    if (autoCompletePhoneNumberMci.getText().toString().length() != 4)
-                        return;
-                    operatorType = getOperatorType(charSequence.toString());
-
-                    if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
+                    if (autoCompletePhoneNumberMci.getText().toString().length() == 4 || autoCompletePhoneNumberMci.getText().toString().length() == 11)
                     {
+                        operatorType = getOperatorType(charSequence.toString());
 
-                        if (isMtn)
+                        if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
                         {
 
-                        } else
+                            if (isMtn)
+                            {
+
+                            } else
+                            {
+                                autoCompletePhoneNumberIrancel.setText(charSequence.toString());
+                                irancell();
+                                return;
+                            }
+
+
+                        } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
                         {
-                            autoCompletePhoneNumberIrancel.setText(charSequence.toString());
-                            irancell();
-                            return;
+
+                            if (isRightel)
+                            {
+
+                            } else
+                            {
+                                autoCompletePhoneNumberRightel.setText(charSequence.toString());
+                                rightel();
+                                return;
+
+                            }
+
                         }
-
-
-                    } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
-                    {
-
-                        if (isRightel)
-                        {
-
-                        } else
-                        {
-                            autoCompletePhoneNumberRightel.setText(charSequence.toString());
-                            rightel();
-                            return;
-
-                        }
-
                     }
                 } catch (Exception e)
                 {
@@ -843,8 +854,7 @@ public class ChargeFragment extends BaseFragment
             {
                 try
                 {
-                    if (autoCompletePhoneNumberRightel.getText().toString().length() != 4)
-                        return;
+                    if (autoCompletePhoneNumberRightel.getText().toString().length() == 4 || autoCompletePhoneNumberRightel.getText().toString().length() == 11){
                     operatorType = getOperatorType(charSequence.toString());
 
                     if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
@@ -871,7 +881,7 @@ public class ChargeFragment extends BaseFragment
                             irancell();
                         }
 
-
+                    }
                     }
                 } catch (Exception e)
                 {
@@ -2043,6 +2053,7 @@ public class ChargeFragment extends BaseFragment
             {
                 autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
                 //  tilMIrancell.setHint(event.getName());
+                closeAutoComplete();
 
 
                 return;
@@ -2051,7 +2062,7 @@ public class ChargeFragment extends BaseFragment
             {
                 autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
                 // tilMMci.setHint(event.getName());
-
+                closeAutoComplete();
 
                 return;
 
@@ -2062,9 +2073,8 @@ public class ChargeFragment extends BaseFragment
                 autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
                 // tilMRightel.setHint(event.getName());
 
-
+                return;
             }
-            closeAutoComplete();
 
         } catch (Exception e)
         {

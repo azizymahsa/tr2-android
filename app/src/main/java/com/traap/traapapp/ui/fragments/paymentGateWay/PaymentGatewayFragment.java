@@ -153,7 +153,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
         } catch (Exception e)
         {
-            Logger.e("---Exception---", e.getMessage());
+          //  Logger.e("---Exception---", e.getMessage());
         }
     }
 
