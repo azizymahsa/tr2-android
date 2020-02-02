@@ -40,11 +40,7 @@ public class CategoryByIdVideosService extends BasePart
         start(getServiceGenerator().createService().getCategoryByIdVideos2(categoryId), listener);
     }
 
-
-
-
-
-    public void categoryByIdPhotosService(Integer categoryId, CategoryByIdVideosRequest request, OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>> listener)
+    public void categoryByIdPhotosService(Integer categoryId, OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>> listener)
     {
         start(getServiceGenerator().createService().getCategoryByIdPhotos(categoryId), listener);
     }

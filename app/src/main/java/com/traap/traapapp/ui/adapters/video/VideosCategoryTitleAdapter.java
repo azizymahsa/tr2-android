@@ -57,7 +57,7 @@ public class VideosCategoryTitleAdapter extends RecyclerView.Adapter<VideosCateg
             public void onClick(View view)
             {
                 selectedPosition = position;
-                notifyDataSetChanged();
+              //  notifyDataSetChanged();
                 listener.onItemTitleCategoryClick(category, position);
             }
         });
