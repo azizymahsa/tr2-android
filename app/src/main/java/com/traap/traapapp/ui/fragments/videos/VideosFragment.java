@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 import com.bumptech.glide.Glide;
@@ -54,6 +56,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 {
     private VideosActionView mainView;
     private View rootView;
+    private LinearLayout llPager;
 
     private Context context;
 
@@ -76,10 +79,6 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private View llFavorites;
     private SubMediaParent parent;
     private ScrollingPagerIndicator indicatorNewestPhotos;
-    public  Integer bNewestVideoPosition;
-    public  Integer categoryClickPosition;
-    public  Integer categoryClickPositionX;
-    public  Integer categoryClickPositionY;
     private ListCategory category;
 
     public VideosFragment()
@@ -126,10 +125,12 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                              Bundle savedInstanceState)
     {
         if (rootView != null)
+        {
             return rootView;
+        }
         rootView = inflater.inflate(R.layout.fragment_videos, container, false);
 
-        mainView.showLoading();
+        llPager = rootView.findViewById(R.id.llPager);
         bNewestVideo = rootView.findViewById(R.id.bNewestPhotos);
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
@@ -139,8 +140,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo = rootView.findViewById(R.id.tvArchivePhotos);
         rvCategories = rootView.findViewById(R.id.rvCategories);
-        tvEmpty=rootView.findViewById(R.id.tvEmpty);
-        tvEmptyFavorite=rootView.findViewById(R.id.tvEmptyFavorite);
+        tvEmpty = rootView.findViewById(R.id.tvEmpty);
+        tvEmptyFavorite = rootView.findViewById(R.id.tvEmptyFavorite);
         llFavorites = rootView.findViewById(R.id.llFavorites);
         tvMyFavoriteVideo = rootView.findViewById(R.id.tvMyFavoriteVideo);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
@@ -152,7 +153,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         tvArchiveVideo.setOnClickListener(this);
         LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
         rvCategories.setLayoutManager(layoutManagerCategory);
-       // requestMainVideos();
+        // requestMainVideos();
 
         return rootView;
     }
@@ -167,14 +168,15 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void requestMainVideos()
     {
+        mainView.showLoading();
         SingletonService.getInstance().getMainVideosService().getMainVideos(new OnServiceStatus<WebServiceClass<MainVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<MainVideosResponse> response)
             {
+                mainView.hideLoading();
                 try
                 {
-                    mainView.hideLoading();
 
                     if (response.info.statusCode == 200)
                     {
@@ -183,13 +185,14 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     }
                     else
                     {
-                      //  Tools.showToast(getContext(), response.info.message, R.color.red);
+                        //  Tools.showToast(getContext(), response.info.message, R.color.red);
+                        Logger.e("-getMainVideos-", "status: " + response.info.statusCode);
                     }
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
-                  //  Tools.showToast(getContext(), e.getMessage(), R.color.red);
+                    //  Tools.showToast(getContext(), e.getMessage(), R.color.red);
 
+                    Logger.e("-getMainVideos Exception-", "Exception: " + e.getMessage());
                 }
             }
 
@@ -201,7 +204,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(context, "خطا در دریافت اطلاعات از سرور!");
-                } else
+                }
+                else
                 {
                     showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
@@ -212,61 +216,51 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void onGetMainVideosSuccess(MainVideosResponse mainVideosResponse)
     {
-
-
         bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(), this));
         setDataFavoriteList(mainVideosResponse);
         indicatorNewestPhotos.attachToRecyclerView(bNewestVideo.getmRecyclerView());
 
         bNewestVideo.setAutoPlaying(true);
 
-        if (bNewestVideoPosition!=null){
-            try{
-                bNewestVideo.getmRecyclerView().scrollToPosition(bNewestVideoPosition);
+//        nestedScroll.post(() -> nestedScroll.smoothScrollTo(0, llPager.getTop()));
 
-            }catch (Exception e){
-                bNewestVideo.getmRecyclerView().scrollToPosition(0);
-
-            }
-
-
-        }
-
-
-
-
+//        if (bNewestVideoPosition != null)
+//        {
+//            try
+//            {
+//                bNewestVideo.getmRecyclerView().scrollToPosition(bNewestVideoPosition);
+//
+//            } catch (Exception e)
+//            {
+//                bNewestVideo.getmRecyclerView().scrollToPosition(0);
+//
+//            }
+//
+//
+//        }
 
         videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(mainVideosResponse.getListCategories(), this);
         rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
         categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), this);
         rvCategories.setAdapter(categoryAdapter);
 
-        if (categoryClickPosition!=null){
-            try{
-                rvCategoryTitles.scrollTo(categoryClickPositionX,categoryClickPositionY);
-                mainView.showLoading();
-
-                idCategoryTitle = category.getId();
-                requestGetCategoryById(idCategoryTitle);
-                videoCategoryTitleAdapter.setSelectedPosition(categoryClickPosition);
+        try
+        {
+            idCategoryTitle = category.getId();
+            requestGetCategoryById(idCategoryTitle);
 
   /*              RecyclerView.ViewHolder viewHolder = rvCategoryTitles.findViewHolderForAdapterPosition(position);
 
 
                 ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setTextColor(context.getResources().getColor(R.color.borderColorRed));
                 ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setBackgroundResource(R.drawable.background_border_a);*/
-            }catch (Exception e){
-                rvCategoryTitles.scrollToPosition(0);
-                mainView.showLoading();
-
-                idCategoryTitle = category.getId();
-                requestGetCategoryById(idCategoryTitle);
-            }
-
-
         }
-
-
+        catch (Exception e)
+        {
+//                rvCategoryTitles.scrollToPosition(0);
+            idCategoryTitle = category.getId();
+            requestGetCategoryById(idCategoryTitle);
+        }
     }
 
     private void setDataFavoriteList(MainVideosResponse mainVideosResponse)
@@ -279,7 +273,9 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             setImageBackground(ivFavorite1, favoriteList.get(0).getBigPoster().replace("\\", ""));
             setImageBackground(ivFavorite2, favoriteList.get(1).getBigPoster().replace("\\", ""));
             setImageBackground(ivFavorite3, favoriteList.get(2).getBigPoster().replace("\\", ""));
-        }else {
+        }
+        else
+        {
             llFavorites.setVisibility(View.GONE);
             tvEmptyFavorite.setVisibility(View.VISIBLE);
         }
@@ -302,7 +298,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
                 }
             });*/
-        } catch (NullPointerException e)
+        }
+        catch (NullPointerException e)
         {
             Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
         }
@@ -312,11 +309,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     public void onItemTitleCategoryClick(ListCategory category, int position)
     {
 
-        this.category=category;
-        categoryClickPosition=position;
-        mainView.showLoading();
-        categoryClickPositionX=rvCategoryTitles.getScrollX();
-        categoryClickPositionY=rvCategoryTitles.getScrollY();
+        this.category = category;
 
         idCategoryTitle = category.getId();
         requestGetCategoryById(idCategoryTitle);
@@ -324,29 +317,30 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void requestGetCategoryById(Integer idCategoryTitle)
     {
+        mainView.showLoading();
+
         SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idCategoryTitle, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
             {
+                mainView.hideLoading();
                 try
                 {
-                    mainView.hideLoading();
-
-
                     if (response.info.statusCode == 200)
                     {
 
                         setCategoryListData(response.data);
 
-                    } else
-                    {
-                      //  Tools.showToast(getContext(), response.info.message, R.color.red);
                     }
-                } catch (Exception e)
+                    else
+                    {
+                        //  Tools.showToast(getContext(), response.info.message, R.color.red);
+                    }
+                }
+                catch (Exception e)
                 {
-                  //  Tools.showToast(getContext(), e.getMessage(), R.color.red);
-
+                    //  Tools.showToast(getContext(), e.getMessage(), R.color.red);
                 }
             }
 
@@ -358,7 +352,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(context, "خطا در دریافت اطلاعات از سرور!");
-                } else
+                }
+                else
                 {
                     showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
@@ -369,10 +364,13 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void setCategoryListData(CategoryByIdVideosResponse data)
     {
-        if (data.getResults().isEmpty()){
+        if (data.getResults().isEmpty())
+        {
             tvEmpty.setVisibility(View.VISIBLE);
             rvCategories.setVisibility(View.GONE);
-        }else {
+        }
+        else
+        {
             tvEmpty.setVisibility(View.GONE);
             rvCategories.setVisibility(View.VISIBLE);
             categoryAdapter = new CategoryAdapter(data.getResults(), this);
@@ -474,13 +472,12 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         intent.putExtra("positionVideo", position);
         intent.putExtra("idCategoryTitle", idCategoryTitle);
 
-        startActivityForResult(intent,100);
+        startActivityForResult(intent, 100);
     }
 
     @Override
     public void onItemNewestVideoClick(int position, Category category)
     {
-        bNewestVideoPosition=position;
         categoriesList = mainVideosResponse.getRecent();
         openVideoDetail(categoriesList, position, category.getCategoryId(), category.getId());
     }

@@ -1,5 +1,7 @@
 package com.traap.traapapp.ui.fragments.photo;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,12 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 import com.bumptech.glide.Glide;
@@ -52,7 +58,10 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         PhotosCategoryTitleAdapter.TitleCategoryListener, PhotosArchiveAdapter.ArchivePhotosListener
         , CategoryPhotosAdapter.TitleCategoryListener, NewestPhotosAdapter.OnItemRelatedAlbumsClickListener
 {
+    private Context context;
     private PhotosActionView mainView;
+    private LinearLayout llPager;
+    private NestedScrollView nestedScrollView;
     private View rootView;
     private BannerLayout bNewestPhotos;
     private RoundedImageView ivFavorite1, ivFavorite2, ivFavorite3;
@@ -67,7 +76,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     private Integer id;
     private TextView tvArchivePhotos, tvMyFavoritePhoto;
     private View rlShirt;
-    private View tvEmpty,tvEmptyFavorite,llFavorites;
+    private View tvEmpty, tvEmptyFavorite, llFavorites;
     private ScrollingPagerIndicator indicatorNewestPhotos;
 
     public PhotosFragment()
@@ -75,16 +84,23 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
     }
 
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
+
     private void openAlbumDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
-        Intent intent = new Intent(getActivity(), AlbumDetailActivity.class);
+        Intent intent = new Intent(context, AlbumDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Photos", categoriesList);
         intent.putExtra("IdVideoCategory", idVideo);
         intent.putExtra("IdPhoto", id);
         intent.putExtra("positionPhoto", position);
 
-        startActivityForResult(intent,100);
+        startActivityForResult(intent, 100);
     }
 
     public static PhotosFragment newInstance(PhotosActionView mainView)
@@ -113,11 +129,15 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         if (rootView != null)
+        {
             return rootView;
+        }
         rootView = inflater.inflate(R.layout.fragment_photos, container, false);
 
 
         mainView.showLoading();
+        llPager = rootView.findViewById(R.id.llPager);
+        nestedScrollView = rootView.findViewById(R.id.nestedScroll);
         bNewestPhotos = rootView.findViewById(R.id.bNewestPhotos);
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
@@ -127,8 +147,8 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         tvArchivePhotos = rootView.findViewById(R.id.tvArchivePhotos);
         tvMyFavoritePhoto = rootView.findViewById(R.id.tvMyFavoritePhoto);
         rvGrideCategories = rootView.findViewById(R.id.rvCategories);
-        tvEmpty=rootView.findViewById(R.id.tvEmpty);
-        tvEmptyFavorite=rootView.findViewById(R.id.tvEmptyFavorite);
+        tvEmpty = rootView.findViewById(R.id.tvEmpty);
+        tvEmptyFavorite = rootView.findViewById(R.id.tvEmptyFavorite);
         llFavorites = rootView.findViewById(R.id.llFavorites);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
@@ -161,13 +181,14 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                         mainPhotosResponse = response.data;
                         onGetMainVideosSuccess(response.data);
 
-                    } else
+                    }
+                    else
                     {
-                        showToast(getActivity(), response.info.message, R.color.red);
+                        showToast(context, response.info.message, R.color.red);
                     }
                 } catch (Exception e)
                 {
-                    showToast(getActivity(), e.getMessage(), R.color.red);
+                    showToast(context, e.getMessage(), R.color.red);
 
                 }
             }
@@ -176,15 +197,16 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             public void onError(String message)
             {
                 mainView.hideLoading();
-                if (Tools.isNetworkAvailable(getActivity()))
+                if (Tools.isNetworkAvailable((Activity) context))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                } else
-                {
-                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    showError(context, "خطا در دریافت اطلاعات از سرور!");
                 }
-                //  showToast(getActivity(), message, R.color.red);
+                else
+                {
+                    showAlert(context, R.string.networkErrorMessage, R.string.networkError);
+                }
+                //  showToast(context, message, R.color.red);
             }
         });
     }
@@ -226,7 +248,9 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                 Log.d("Favorit:", e.getMessage());
             }
 
-        }else {
+        }
+        else
+        {
 
             llFavorites.setVisibility(View.GONE);
             tvEmptyFavorite.setVisibility(View.VISIBLE);
@@ -274,31 +298,27 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
     private void requestGetCategoryById(Integer idCategoryTitle)
     {
-
-        CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
-
-        SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService(idCategoryTitle, request, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdPhotosService(idCategoryTitle, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
             {
                 try
-                {                mainView.hideLoading();
-
-
+                {
+                    mainView.hideLoading();
                     if (response.info.statusCode == 200)
                     {
 
                         setCategoryListData(response.data);
-
-                    } else
-                    {
-                        showToast(getActivity(), response.info.message, R.color.red);
                     }
-                } catch (Exception e)
+                    else
+                    {
+                        showToast(context, response.info.message, R.color.red);
+                    }
+                }
+                catch (Exception e)
                 {
-                    showToast(getActivity(), e.getMessage(), R.color.red);
-
+                    showToast(context, e.getMessage(), R.color.red);
                 }
             }
 
@@ -306,15 +326,16 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             public void onError(String message)
             {
                 mainView.hideLoading();
-                if (Tools.isNetworkAvailable(getActivity()))
+                if (Tools.isNetworkAvailable((Activity) context))
                 {
                     Logger.e("-OnError-", "Error: " + message);
-                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                } else
-                {
-                    showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    showError(context, "خطا در دریافت اطلاعات از سرور!");
                 }
-                //  showToast(getActivity(), message, R.color.red);
+                else
+                {
+                    showAlert(context, R.string.networkErrorMessage, R.string.networkError);
+                }
+                //  showToast(context, message, R.color.red);
             }
         });
     }
@@ -366,7 +387,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 //                {
 //
 //                    ArrayList<ListCategory> categoryTitleList = mainPhotosResponse.getListCategories();
-//                    Intent intent = new Intent(getActivity(), PhotoArchiveActivity.class);
+//                    Intent intent = new Intent(context, PhotoArchiveActivity.class);
 //                    intent.putParcelableArrayListExtra("CategoryTitle", categoryTitleList);
 //                    intent.putExtra("FLAG_Favorite", false);
 //
@@ -375,13 +396,13 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 //                }
 //                catch (Exception e)
 //                {
-//                    if (Tools.isNetworkAvailable(getActivity()))
+//                    if (Tools.isNetworkAvailable(context))
 //                    {
 //                        Logger.e("-OnError-", "Error: " + e.getMessage());
-//                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+//                        showError(context, "خطا در دریافت اطلاعات از سرور!");
 //                    } else
 //                    {
-//                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+//                        showAlert(context, R.string.networkErrorMessage, R.string.networkError);
 //                    }
 //                }
                 break;
@@ -392,19 +413,19 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                 mainView.onPhotosFavoriteFragment(SubMediaParent.MediaFragment);
 //                try
 //                {
-//                    Intent intent1 = new Intent(getActivity(), PhotoArchiveActivity.class);
+//                    Intent intent1 = new Intent(context, PhotoArchiveActivity.class);
 //                    intent1.putExtra("FLAG_Favorite", true);
 //                    startActivityForResult(intent1);
 //                }
 //                catch (Exception e)
 //                {
-//                    if (Tools.isNetworkAvailable(getActivity()))
+//                    if (Tools.isNetworkAvailable(context))
 //                    {
 //                        Logger.e("-OnError-", "Error: " + e.getMessage());
-//                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+//                        showError(context, "خطا در دریافت اطلاعات از سرور!");
 //                    } else
 //                    {
-//                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+//                        showAlert(context, R.string.networkErrorMessage, R.string.networkError);
 //                    }
 //                }
                 break;
@@ -420,18 +441,20 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
     private void setCategoryListData(CategoryByIdVideosResponse data)
     {
-        if (data.getResults().isEmpty()){
+        if (data.getResults().isEmpty())
+        {
             tvEmpty.setVisibility(View.VISIBLE);
             rvGrideCategories.setVisibility(View.GONE);
-        }else {
+        }
+        else
+        {
             tvEmpty.setVisibility(View.GONE);
             rvGrideCategories.setVisibility(View.VISIBLE);
             categoryAdapter = new CategoryPhotosAdapter(data.getResults(), this);
             rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
             rvGrideCategories.setAdapter(categoryAdapter);
         }
-
-
+        nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, llPager.getTop()));
 
         // rvGrid.setLayoutManager(new GridLayoutManager(getContext(), 3));
         // rvGrid.setAdapter(new ItemRecyclerViewAdapter(getContext(), list, this));//, interactionListener));

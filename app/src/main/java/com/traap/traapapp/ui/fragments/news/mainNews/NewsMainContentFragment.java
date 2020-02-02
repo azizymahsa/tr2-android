@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -57,6 +58,14 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
 import com.traap.traapapp.utilities.Tools;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 
@@ -65,6 +74,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 {
     private View rootView;
     private NewsActionView mainView;
+    private boolean FLAG_IS_FIRST_LOAD = true;
 
     private MyCustomViewPager pager;
     private TabLayout tabLayout;
@@ -151,7 +161,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
             if (parent == SubMediaParent.MediaFragment)
             {
-                Logger.e("-categoriesList size-", "size: " + categoriesList.size());
+//                Logger.e("-categoriesList size-", "size: " + categoriesList.size());
                 Collections.reverse(categoriesList);
             }
 
@@ -433,11 +443,22 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
             @Override
             public void onTabSelected(TabLayout.Tab tab)
             {
-//                tab.getPosition();
                 Logger.e("--position--", "pos: " + tab.getPosition() + ", size: " +
-                        categoriesList.get(tab.getPosition()).getNews().size());
+                        categoriesList.get(tab.getPosition()).getNews().size() + ", title: " + tab.getText());
 
                 setPagerHeight(categoriesList.get(tab.getPosition()).getNews().size());
+//                Observable.just(categoriesList.get(tab.getPosition()).getNews().size())
+//                        .repeat(2)
+//                        .subscribe(new Consumer<Integer>()
+//                        {
+//                            @Override
+//                            public void accept(Integer integer) throws Exception
+//                            {
+//                                Logger.e("-+ repeat +-", ":) ##########################");
+//                                setPagerHeight(integer);
+//                            }
+//                        });
+
             }
 
             @Override
@@ -481,8 +502,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
         {
 //            Collections.reverse(categoriesList);
             int Id = categoriesList.get(position).getId();
-            Logger.e("-getNews " + position + " size-", categoriesList.get(position).getTitle()
-                    + " size: " + categoriesList.get(position).getNews().size());
+//            Logger.e("-getNews " + position + " size-", categoriesList.get(position).getTitle()
+//                    + " size: " + categoriesList.get(position).getNews().size());
 
 //            setPagerHeight(categoriesList.get(position).getNews().size());
 
@@ -518,6 +539,8 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
     }
 
+
+    @SuppressLint("CheckResult")
     private void setPagerHeight(int itemHeightSize)
     {
 
@@ -544,9 +567,21 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
 
         try
         {
-            int scrollTo = tabLayout.getTop();
-            nestedScrollView.smoothScrollTo(0, scrollTo);
-//            nestedScrollView.scrollBy(0, scrollTo);
+            if (!FLAG_IS_FIRST_LOAD)
+            {
+                Observable.just(tabLayout.getTop())
+//                        .repeat(2)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(scrollTo ->
+                        {
+                            nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, scrollTo));
+                        });
+            }
+            else
+            {
+                FLAG_IS_FIRST_LOAD = false;
+            }
         }
         catch (Exception e)
         {
