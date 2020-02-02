@@ -18,6 +18,7 @@ public class HackyViewPager extends AutoScrollViewPager {
     public HackyViewPager(Context context) {
         super(context);
         isLocked = false;
+
     }
 
     public HackyViewPager(Context context, AttributeSet attrs) {
