@@ -27,6 +27,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import it.sephiroth.android.library.widget.HListView;
+import me.angeldevil.autoscrollviewpager.AutoScrollViewPager;
 
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -80,13 +81,14 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
 
     HListView thumbnails_scroll_view;
-    private HackyViewPager viewPager;
+    private AutoScrollViewPager viewPager;
     IntroAdapter introAdapter;
     ImageListAdapter imageListAdapter;
     boolean listChange = true;
     int pos;
     private List<Content> list;
     private Boolean isPlay=false;
+    private int positionClicked;
 
 
     @Override
@@ -191,6 +193,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
         introAdapter = new IntroAdapter();
         imageListAdapter = new ImageListAdapter();
         viewPager.setAdapter(new IntroAdapter());
+      //  viewPager.setOffscreenPageLimit(100);
         thumbnails_scroll_view.setAdapter(imageListAdapter);
         // viewPager.setCurrentItem(getIntent().getExtras().getInt("pic"));
         if (pos == 0 || pos == 1) {
@@ -481,6 +484,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             return list.size();
         }
 
+
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view.equals(object);
@@ -506,12 +510,12 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
             if (isPlay) {
                 btnPlay.setColorFilter(getResources().getColor(R.color.backgroundButton));
-                viewPager.startAutoScroll();
+             //   viewPager.startAutoScroll();
 
 
             } else {
                 btnPlay.setColorFilter(getResources().getColor(R.color.white));
-                viewPager.stopAutoScroll();
+             //   viewPager.stopAutoScroll();
 
             }
 
@@ -713,7 +717,11 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                     viewPager.startAutoScroll();
 
                 }
+                positionClicked=viewPager.getCurrentItem();
                 notifyDataSetChanged();
+                viewPager.setAdapter(null);
+                viewPager.setAdapter(new IntroAdapter());
+                viewPager.setCurrentItem(positionClicked);
 
             });
 
