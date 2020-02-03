@@ -29,16 +29,29 @@
             android:layout_margin="32dp"
             android:visibility="gone">
 
-            <TextView
-                android:id="@+id/tvEmpty"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/textColorPrimary"
-                android:textStyle="bold"
-                android:maxLines="2"
-                android:gravity="center"
-                android:textSize="@dimen/textSize_14dp"
-                android:text="کاربر گرامی شما تاکنون موفق به دریافت امتیاز نشده\u200cاید،برای شروع کلیک کنید."/>
+                android:layout_height="@dimen/_120dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/background_point_empty"/>
+
+                <TextView
+                    android:id="@+id/tvEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorPrimary"
+                    android:textStyle="bold"
+                    android:layout_margin="32dp"
+                    android:maxLines="2"
+                    android:gravity="center"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:text="کاربر گرامی شما تاکنون موفق به دریافت امتیاز نشده\u200cاید،برای شروع کلیک کنید."/>
+
+            </RelativeLayout>
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/btnInviteFriend"
@@ -56,7 +69,7 @@
                 app:initialCornerAngle="50dp"
                 app:spinning_bar_width="2dp"
                 android:layout_marginBottom="2dp"
-                android:layout_marginTop="64dp" />
+                android:layout_marginTop="32dp" />
 
         </LinearLayout>
 
