@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getTransaction.FilterTransactionSetting;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
 import com.traap.traapapp.conf.TrapConfig;
@@ -90,10 +92,14 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     private RangeSeekBar rangeBar;
     private TextView tvMaxPrice, tvMinPrice, tvEmpty;
 
-    private final int MAX_PRICE_DEFAULT = 10000000;
+    private int MAX_PRICE_DEFAULT = 10000000;
+    private int MIN_PRICE_DEFAULT = 0;
 
     private Integer maxPrice = MAX_PRICE_DEFAULT;
-    private Integer minPrice = 0;
+    private Integer minPrice = MIN_PRICE_DEFAULT;
+    private Integer priceInterval = 500000;
+
+    private FilterTransactionSetting filterSetting;
 
     private CompositeDisposable disposable = new CompositeDisposable();
     private final int DELAY_TIME_TEXT_CHANGE = 200;
@@ -185,11 +191,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        if (rootView != null)
-        {
-            rootView = null;
-        }
-
         rootView = inflater.inflate(R.layout.fragment_transaction_list, container, false);
 
         getTypeTransactionList();
@@ -228,7 +229,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                             typeCategoryList = response.data;
                             getData(false);
                         }
-
                     }
                 }
                 catch (Exception e)
@@ -245,14 +245,10 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
                     TransactionsListFragment.this.onError(message);
-
-
-                } else
+                }
+                else
                 {
                     TransactionsListFragment.this.onError(getString(R.string.networkErrorMessage));
-
-
-
                 }
             }
         });
@@ -262,6 +258,43 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     {
         try
         {
+
+            mToolbar = rootView.findViewById(R.id.toolbar);
+
+            ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("سوابق خرید");
+            disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
+                    .subscribe(v ->
+                    {
+                        mainView.backToMainFragment();
+                    })
+            );
+
+            disposable.add(RxView.clicks(mToolbar.findViewById(R.id.flLogoToolbar))
+                    .subscribe(v ->
+                    {
+                        mainView.backToMainFragment();
+                    })
+            );
+
+            disposable.add(RxView.clicks(mToolbar.findViewById(R.id.rlShirt))
+                    .subscribe(v ->
+                    {
+                        startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
+                    })
+            );
+
+            disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgMenu))
+                    .subscribe(v ->
+                    {
+                        mainView.openDrawer();
+                    })
+            );
+
+            tvUserName = mToolbar.findViewById(R.id.tvUserName);
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+            tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
+            tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+
             rangeBar = rootView.findViewById(R.id.rangeBar);
             tvMaxPrice = rootView.findViewById(R.id.tvMaxPrice);
             tvMinPrice = rootView.findViewById(R.id.tvMinPrice);
@@ -297,15 +330,16 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             tvCount = rootView.findViewById(R.id.tvCount);
 
 
-            tvMaxPrice.setText("10,000,000 ریال");
-            tvMinPrice.setText("0 ریال");
+//            tvMaxPrice.setText("10,000,000 ریال");
+//            tvMinPrice.setText("0 ریال");
 
-            rangeBar.setRange(0f, 20f, 1f);
-            rangeBar.setProgress(0f, 20f);
-            rangeBar.setIndicatorTextDecimalFormat("0");
-            rangeBar.setOnRangeChangedListener(this);
+//            rangeBar.setRange(0f, filterSetting.getStepCount(), 1f);
+//            rangeBar.setProgress(0f, filterSetting.getStepCount());
+//            rangeBar.setIndicatorTextDecimalFormat("0");
+//            rangeBar.setOnRangeChangedListener(this);
 
             edtSearchText.requestFocus();
+
             hideKeyboard((Activity) context);
 
           //  rcHashTag.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
@@ -361,42 +395,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             {
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             });
-
-            mToolbar = rootView.findViewById(R.id.toolbar);
-
-            ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("سوابق خرید");
-            disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
-                            .subscribe(v ->
-                            {
-                                mainView.backToMainFragment();
-                            })
-            );
-
-            disposable.add(RxView.clicks(mToolbar.findViewById(R.id.flLogoToolbar))
-                            .subscribe(v ->
-                            {
-                                mainView.backToMainFragment();
-                            })
-            );
-
-            disposable.add(RxView.clicks(mToolbar.findViewById(R.id.rlShirt))
-                    .subscribe(v ->
-                    {
-                        startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
-                    })
-            );
-
-            disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgMenu))
-                    .subscribe(v ->
-                    {
-                        mainView.openDrawer();
-                    })
-            );
-
-            tvUserName = mToolbar.findViewById(R.id.tvUserName);
-            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-            tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
             initDatePicker();
 
@@ -585,6 +583,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         }
         catch (Exception e)
         {
+            Logger.e("-Exception-", "message: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -698,11 +697,15 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         llDeleteFilter.setVisibility(View.GONE);
         llFilterHashTag.setVisibility(View.GONE);
 
-        maxPrice = MAX_PRICE_DEFAULT;
-        minPrice = 0;
-        tvMaxPrice.setText("10,000,000 ریال");
-        tvMinPrice.setText("0 ریال");
-        rangeBar.setProgress(0f, 20f);
+//        maxPrice = MAX_PRICE_DEFAULT;
+//        minPrice = 0;
+        maxPrice = filterSetting.getMaxAmount();
+        minPrice = filterSetting.getMinAmount();
+//        tvMaxPrice.setText("10,000,000 ریال");
+//        tvMinPrice.setText("0 ریال");
+        tvMaxPrice.setText(Utility.priceFormat(filterSetting.getMaxAmount()) + " ریال");
+        tvMinPrice.setText(Utility.priceFormat(filterSetting.getMinAmount()) + " ریال");
+        rangeBar.setProgress(0f, filterSetting.getStepCount());
 
         chbSuccessPayment.setChecked(true);
         chbFailedPayment.setChecked(true);
@@ -749,7 +752,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 tvEndDate.getText().toString().equalsIgnoreCase("") &&
                 idFilteredList.equalsIgnoreCase("") &&
                 chbSuccessPayment.isChecked() == chbFailedPayment.isChecked() &&
-                minPrice == 0 &&
+                minPrice == MIN_PRICE_DEFAULT &&
                 maxPrice == MAX_PRICE_DEFAULT )
         {
             isAvailable = false;
@@ -831,7 +834,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                                         titleFilteredList += "نوع پرداخت" + ",";
                                     }
 
-                                    if (minPrice != 0 || maxPrice != MAX_PRICE_DEFAULT)
+                                    if (minPrice != MIN_PRICE_DEFAULT || maxPrice != MAX_PRICE_DEFAULT)
                                     {
                                         titleFilteredList += "مبلغ" + ",";
                                     }
@@ -1029,14 +1032,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
 
     @Override
-    public void onDestroy()
-    {
-        disposable.clear();
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
-
-    @Override
     public void onReady(WebServiceClass<ResponseTransaction> response)
     {
         try
@@ -1067,6 +1062,18 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                     fixTableAdapter = new TransactionListAdapter(response.data.getTransactionLists(), context);
                     rcTransactionList.setAdapter(fixTableAdapter);
                 }
+                filterSetting = response.data.getTransactionSetting().getFilters();
+                MIN_PRICE_DEFAULT = filterSetting.getMinAmount();
+                MAX_PRICE_DEFAULT = filterSetting.getMaxAmount();
+                priceInterval = (filterSetting.getMaxAmount() - filterSetting.getMinAmount()) / filterSetting.getStepCount();
+
+                rangeBar.setRange(0f, filterSetting.getStepCount(), 1f);
+                rangeBar.setProgress(0f, filterSetting.getStepCount());
+                rangeBar.setIndicatorTextDecimalFormat("0");
+                rangeBar.setOnRangeChangedListener(this);
+
+                tvMaxPrice.setText(Utility.priceFormat(filterSetting.getMaxAmount()) + " ریال");
+                tvMinPrice.setText(Utility.priceFormat(filterSetting.getMinAmount()) + " ریال");
             }
         }
         catch (Exception e)
@@ -1113,10 +1120,10 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     {
         int left = (int) leftValue;
         int right = (int) rightValue;
-        tvMaxPrice.setText(Utility.priceFormat(right * 500000) + " ریال");
-        tvMinPrice.setText(Utility.priceFormat(left * 500000) + " ریال");
-        maxPrice = right * 500000;
-        minPrice = left * 500000;
+        tvMaxPrice.setText(Utility.priceFormat(right * priceInterval + MIN_PRICE_DEFAULT) + " ریال");
+        tvMinPrice.setText(Utility.priceFormat(left * priceInterval + MIN_PRICE_DEFAULT) + " ریال");
+        maxPrice = right * priceInterval + MIN_PRICE_DEFAULT;
+        minPrice = left * priceInterval + MIN_PRICE_DEFAULT;
         Logger.e("-onRangeChanged-", "left: " + leftValue + " ,right: " + rightValue);
         Logger.e("-onRangeChanged2-", "left: " + minPrice + " ,right: " + maxPrice);
     }
@@ -1132,4 +1139,14 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     {
 
     }
+
+
+    @Override
+    public void onDestroy()
+    {
+        disposable.clear();
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
 }
