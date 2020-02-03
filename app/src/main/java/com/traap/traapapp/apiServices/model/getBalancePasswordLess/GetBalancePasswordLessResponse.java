@@ -34,12 +34,6 @@ public class GetBalancePasswordLessResponse
     @Setter
     private SettingBalance setting;
 
-    @SerializedName("filters")
-    @Expose
-    @Getter
-    @Setter
-    private FilterBalance filters;
-
 
 
 }

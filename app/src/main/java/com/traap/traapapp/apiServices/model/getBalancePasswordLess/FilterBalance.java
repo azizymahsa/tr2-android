@@ -15,18 +15,18 @@ public class FilterBalance
     @Expose
     @Getter
     @Setter
-    private Long stepCount;
+    private Integer stepCount;
 
     @SerializedName("min_amount")
     @Expose
     @Getter
     @Setter
-    private Long minAmount;
+    private Integer minAmount;
 
     @SerializedName("max_amount")
     @Expose
     @Getter
     @Setter
-    private Long maxAmount;
+    private Integer maxAmount;
 
 }

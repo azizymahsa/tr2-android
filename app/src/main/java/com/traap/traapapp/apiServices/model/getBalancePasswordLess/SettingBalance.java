@@ -17,4 +17,10 @@ public class SettingBalance
     @Setter
     private WalletCheckout walletCheckout;
 
+    @SerializedName("filters")
+    @Expose
+    @Getter
+    @Setter
+    private FilterBalance filters;
+
 }

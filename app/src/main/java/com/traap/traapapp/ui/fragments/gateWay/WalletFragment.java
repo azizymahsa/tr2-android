@@ -33,6 +33,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.FilterBalance;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.SettingBalance;
@@ -65,6 +66,7 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 public class WalletFragment extends BaseFragment implements View.OnClickListener, OnRangeChangedListener, DatePickerDialog.OnDateSetListener
 {
     private static int MAX_PRICE_DEFAULT = 10000000;
+    private static int MIN_PRICE_DEFAULT = 0;
     private static int RANGEBAR_STEP = 200000;
     private static Float RANGEBAR_STEP_COUNT = 50f;
     private MainActionView mainView;
@@ -100,6 +102,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private String idFilteredList = "", titleFilteredList = "";
     private String TitleFragment = "کیف پول";
     private SettingBalance settingsData;
+    private FilterBalance filterSetting;
+    private Integer priceInterval = 500000;
 
     public WalletFragment()
     {
@@ -299,12 +303,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             EventBus.getDefault().post(turnoverModel);
         });
 
-        rangeBar.setRange(0f, 20f, 1f);
-        rangeBar.setProgress(0f, 20f);
-        rangeBar.setIndicatorTextDecimalFormat("0");
-        rangeBar.setOnRangeChangedListener(this);
-        tvMaxPrice.setText("10,000,000 ریال");
-        tvMinPrice.setText("0 زیال");
+
     }
 
 
@@ -324,6 +323,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                     if (response.info.statusCode == 200) {
                         setBalanceData(response.data);
                         settingsData=response.data.getSetting();
+                        setFilterData(response.data.getSetting().getFilters());
                         setContainers();
 
                     } else {
@@ -355,6 +355,24 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
             }
         }, request);
+    }
+
+    private void setFilterData(FilterBalance filters)
+    {
+        filterSetting = filters;
+        MIN_PRICE_DEFAULT = filterSetting.getMinAmount();
+        MAX_PRICE_DEFAULT = filterSetting.getMaxAmount();
+        priceInterval = filterSetting.getStepCount();
+
+        rangeBar.setRange(MIN_PRICE_DEFAULT, MAX_PRICE_DEFAULT,priceInterval);
+        rangeBar.setProgress(0, MAX_PRICE_DEFAULT);
+
+
+        rangeBar.setIndicatorTextDecimalFormat("0");
+        rangeBar.setOnRangeChangedListener(this);
+
+        tvMaxPrice.setText(Utility.priceFormat(filterSetting.getMaxAmount()) + " ریال");
+        tvMinPrice.setText(Utility.priceFormat(filterSetting.getMinAmount()) + " ریال");
     }
 
     private void setContainers()
@@ -485,14 +503,15 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
+
         int left = (int) leftValue;
         int right = (int) rightValue;
-        tvMaxPrice.setText(Utility.priceFormat(right * 500000) + " ریال");
-        tvMinPrice.setText(Utility.priceFormat(left * 500000) + " ریال");
-        maxPrice = right * 500000;
-        minPrice = left * 500000;
+        tvMaxPrice.setText(Utility.priceFormat(right) + " ریال");
+        tvMinPrice.setText(Utility.priceFormat(left) + " ریال");
+      /*  maxPrice = right * priceInterval + MIN_PRICE_DEFAULT;
+        minPrice = left * priceInterval + MIN_PRICE_DEFAULT;
         Logger.e("-onRangeChanged-", "left: " + leftValue + " ,right: " + rightValue);
-        Logger.e("-onRangeChanged2-", "left: " + minPrice + " ,right: " + maxPrice);
+        Logger.e("-onRangeChanged2-", "left: " + minPrice + " ,right: " + maxPrice);*/
     }
 
     @Override
@@ -599,11 +618,14 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         imgEndDateReset.setVisibility(View.GONE);
 
 
-        maxPrice = MAX_PRICE_DEFAULT;
-        minPrice = 0;
-        tvMaxPrice.setText("10,000,000 ریال");
-        tvMinPrice.setText("0 ریال");
-        rangeBar.setProgress(0f, 20f);
+        maxPrice = filterSetting.getMaxAmount();
+        minPrice = filterSetting.getMinAmount();
+//        tvMaxPrice.setText("10,000,000 ریال");
+//        tvMinPrice.setText("0 ریال");
+        tvMaxPrice.setText(Utility.priceFormat(filterSetting.getMaxAmount()) + " ریال");
+        tvMinPrice.setText(Utility.priceFormat(filterSetting.getMinAmount()) + " ریال");
+     //   rangeBar.setProgress(0f, filterSetting.getStepCount());
+
 
 
     }
