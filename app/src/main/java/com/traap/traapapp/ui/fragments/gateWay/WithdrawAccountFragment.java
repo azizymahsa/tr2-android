@@ -1,18 +1,15 @@
 package com.traap.traapapp.ui.fragments.gateWay;
 
-import android.app.MediaRouteButton;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,20 +19,17 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.SettingBalance;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletRequest;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
-import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultWithDrawAccountActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.WalletWithdrawAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
-import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -44,11 +38,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Objects;
 
-import nl.garvelink.iban.IBAN;
 import nl.garvelink.iban.Modulo97;
 import ru.kolotnev.formattedittext.MaskedEditText;
 
@@ -70,17 +61,25 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private LinearLayout llWithDraw;
+    private SettingBalance settingsData;
+    private TextView tvValue,tvTitle;
 
     public WithdrawAccountFragment()
     {
 
     }
 
-    public static WithdrawAccountFragment newInstance(MainActionView mainView)
+    public static WithdrawAccountFragment newInstance(MainActionView mainView, SettingBalance settingsData)
     {
         WithdrawAccountFragment f = new WithdrawAccountFragment();
         f.setMainView(mainView);
+        f.setSettingsData(settingsData);
         return f;
+    }
+
+    private void setSettingsData(SettingBalance settingsData)
+    {
+        this.settingsData=settingsData;
     }
 
     private void setMainView(MainActionView mainView)
@@ -107,6 +106,8 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
         llWithDraw = rootView.findViewById(R.id.llWithDraw);
         edtShabaNum = rootView.findViewById(R.id.edtShabaNum);
         edtCurrency = rootView.findViewById(R.id.edtCurrency);
+        tvValue=rootView.findViewById(R.id.tvValue);
+        tvTitle=rootView.findViewById(R.id.tvTitle);
         btnGetMoney = rootView.findViewById(R.id.btnGetMoney);
         btnGetMoney.setOnClickListener(this);
         btnBackStep = rootView.findViewById(R.id.btnBackStep);
@@ -123,6 +124,8 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
             e.getMessage();
         }
 
+        tvTitle.setText(" - "+settingsData.getWalletCheckout().getWithdrawIntervalTitle());
+        tvValue.setText(" - "+ settingsData.getWalletCheckout().getWithdrawIntervalValue());
         changeTitle();
 
     }
@@ -226,7 +229,7 @@ public class WithdrawAccountFragment extends BaseFragment implements View.OnClic
                 break;
             case R.id.btnBackStep:
 
-                fragment = DetailsCartFragment.newInstance(mainView);
+                fragment = DetailsCartFragment.newInstance(mainView, settingsData);
                 showFragment(fragment);
                 break;
         }

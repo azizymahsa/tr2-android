@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -14,12 +13,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.SettingBalance;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.turnover.TurnoverFragment;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 /**
@@ -34,6 +33,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private LinearLayout lnrPayment, lnrGetReport, lnrManageWallet, lnrIncreaseInveronment, lnrDoTransfer, lnrGrid;
+    private SettingBalance settingsData;
 
 
     public DetailsCartFragment()
@@ -41,11 +41,17 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
 
     }
 
-    public static DetailsCartFragment newInstance(MainActionView mainView)
+    public static DetailsCartFragment newInstance(MainActionView mainView, SettingBalance settingsData)
     {
         DetailsCartFragment f = new DetailsCartFragment();
         f.setMainView(mainView);
+        f.setSettingData(settingsData);
         return f;
+    }
+
+    private void setSettingData(SettingBalance settingsData)
+    {
+        this.settingsData=settingsData;
     }
 
     private void setMainView(MainActionView mainView)
@@ -120,7 +126,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
         switch (v.getId())
         {
             case R.id.lnrPayment:
-                fragment = WithdrawAccountFragment.newInstance(mainView);
+                fragment = WithdrawAccountFragment.newInstance(mainView,settingsData);
                 showFragment(fragment);
                 Prefs.putInt("DetailCartStatus",0);
                 break;
@@ -137,7 +143,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
 
                 break;
             case R.id.lnrIncreaseInveronment:
-                fragment = IncreaseInventoryFragment.newInstance(mainView);
+                fragment = IncreaseInventoryFragment.newInstance(mainView,settingsData);
                 showFragment(fragment);
                 Prefs.putInt("DetailCartStatus",0);
 

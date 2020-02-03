@@ -3,6 +3,9 @@ package com.traap.traapapp.apiServices.model.getBalancePasswordLess;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by MahtabAzizi on 12/8/2019.
  */
@@ -11,35 +14,26 @@ public class GetBalancePasswordLessResponse
 
     @SerializedName("balance_amount")
     @Expose
+    @Getter
+    @Setter
     private String balanceAmount;
     @SerializedName("is_loyal")
     @Expose
+    @Getter
+    @Setter
     private String isLoyal;
     @SerializedName("date_time")
     @Expose
+    @Getter
+    @Setter
     private String dateTime;
 
-    public String getBalanceAmount() {
-        return balanceAmount;
-    }
+    @SerializedName("setting")
+    @Expose
+    @Getter
+    @Setter
+    private SettingBalance setting;
 
-    public void setBalanceAmount(String balanceAmount) {
-        this.balanceAmount = balanceAmount;
-    }
 
-    public String getIsLoyal() {
-        return isLoyal;
-    }
 
-    public void setIsLoyal(String isLoyal) {
-        this.isLoyal = isLoyal;
-    }
-
-    public String getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
 }
