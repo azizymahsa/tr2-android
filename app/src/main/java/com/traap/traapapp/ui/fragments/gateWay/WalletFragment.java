@@ -35,6 +35,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.SettingBalance;
 import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -98,6 +99,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private CircularProgressButton btnConfirmFilter, btnDeleteFilter;
     private String idFilteredList = "", titleFilteredList = "";
     private String TitleFragment = "کیف پول";
+    private SettingBalance settingsData;
 
     public WalletFragment()
     {
@@ -192,24 +194,7 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                 }
             }
         });
-        if (instanceBack == 0) {
-            fragmentManager = getChildFragmentManager();
 
-            fragment = DetailsCartFragment.newInstance(mainView);
-            transaction = fragmentManager.beginTransaction();
-
-            transaction.replace(R.id.container, fragment, "DetailsCartFragment")
-                    .commit();
-        }
-        if (instanceBack == 1) {
-            fragmentManager = getChildFragmentManager();
-
-            fragment = IncreaseInventoryFragment.newInstance(mainView);
-            transaction = fragmentManager.beginTransaction();
-
-            transaction.replace(R.id.container, fragment, "IncreaseInventoryFragment")
-                    .commit();
-        }
         return rootView;
     }
 
@@ -338,6 +323,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                 try {
                     if (response.info.statusCode == 200) {
                         setBalanceData(response.data);
+                        settingsData=response.data.getSetting();
+                        setContainers();
 
                     } else {
 
@@ -368,6 +355,28 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
             }
         }, request);
+    }
+
+    private void setContainers()
+    {
+        if (instanceBack == 0) {
+            fragmentManager = getChildFragmentManager();
+
+            fragment = DetailsCartFragment.newInstance(mainView,settingsData);
+            transaction = fragmentManager.beginTransaction();
+
+            transaction.replace(R.id.container, fragment, "DetailsCartFragment")
+                    .commit();
+        }
+        if (instanceBack == 1) {
+            fragmentManager = getChildFragmentManager();
+
+            fragment = IncreaseInventoryFragment.newInstance(mainView, settingsData);
+            transaction = fragmentManager.beginTransaction();
+
+            transaction.replace(R.id.container, fragment, "IncreaseInventoryFragment")
+                    .commit();
+        }
     }
 
     private void setBalanceData(GetBalancePasswordLessResponse data) {
@@ -592,8 +601,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
         maxPrice = MAX_PRICE_DEFAULT;
         minPrice = 0;
-        tvMaxPrice.setText("10,000,000 زیال");
-        tvMinPrice.setText("0 زیال");
+        tvMaxPrice.setText("10,000,000 ریال");
+        tvMinPrice.setText("0 ریال");
         rangeBar.setProgress(0f, 20f);
 
 

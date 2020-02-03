@@ -2,33 +2,32 @@ package com.traap.traapapp.ui.fragments.gateWay;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getBalancePasswordLess.SettingBalance;
 import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
+import com.traap.traapapp.ui.adapters.increaseinventory.IncreaseInventoryAmountsAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
-import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
-import com.traap.traapapp.utilities.NumberTextWatcher;
+import com.traap.traapapp.utilities.MyGridView;
 import com.traap.traapapp.utilities.Tools;
-import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -40,7 +39,7 @@ import java.util.Objects;
 /**
  * Created by MahsaAzizi on 28/12/2019.
  */
-public class IncreaseInventoryFragment extends BaseFragment implements View.OnClickListener, OnClickContinueSelectPayment
+public class IncreaseInventoryFragment extends BaseFragment implements View.OnClickListener, OnClickContinueSelectPayment, IncreaseInventoryAmountsAdapter.IncreaseInventoryAmounts
 {
 
 
@@ -48,8 +47,11 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     private MainActionView mainView;
     //private ClearableEditText etAmount;
     private EditText txtAmount;
-    private TextView tvMines, tvPlus, txtChrAmount, txtFive, txtTwo, txtThree;
+    private TextView tvMines, tvPlus, txtChrAmount;
     private int counterAmount = 0;
+    private SettingBalance settingsData;
+    private MyGridView rvAmounts;
+    private IncreaseInventoryAmountsAdapter amountsAdapter;
 
 
     public IncreaseInventoryFragment()
@@ -58,11 +60,17 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     }
 
 
-    public static IncreaseInventoryFragment newInstance(MainActionView mainView)
+    public static IncreaseInventoryFragment newInstance(MainActionView mainView, SettingBalance settingsData)
     {
         IncreaseInventoryFragment f = new IncreaseInventoryFragment();
         f.setMainView(mainView);
+        f.setSetting(settingsData);
         return f;
+    }
+
+    private void setSetting(SettingBalance settingsData)
+    {
+        this.settingsData=settingsData;
     }
 
     private void setMainView(MainActionView mainView)
@@ -79,15 +87,15 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
         initView();
 
+        setAmountsList();
 
         return rootView;
     }
 
     private void initView()
     {
-    txtFive = rootView.findViewById(R.id.txtFive);
-    txtThree = rootView.findViewById(R.id.txtThree);
-    txtTwo = rootView.findViewById(R.id.txtTwo);
+        rvAmounts=rootView.findViewById(R.id.rvAmounts);
+
     txtChrAmount = rootView.findViewById(R.id.txtChrAmount);
     tvMines = rootView.findViewById(R.id.tvMines);
     tvPlus = rootView.findViewById(R.id.tvPlus);
@@ -96,10 +104,6 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     btnChargeConfirmRightel = rootView.findViewById(R.id.btnChargeConfirmRightel);
     btnChargeConfirmRightel.setOnClickListener(this);
 
-
-    txtFive.setOnClickListener(this);
-    txtTwo.setOnClickListener(this);
-    txtThree.setOnClickListener(this);
     tvPlus.setOnClickListener(this);
     tvMines.setOnClickListener(this);
 
@@ -152,6 +156,24 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
         changeTitle();
 
     }
+
+    private void setAmountsList()
+    {
+
+        amountsAdapter = new IncreaseInventoryAmountsAdapter(settingsData.getWalletCheckout().getAddValueList(),mainView,IncreaseInventoryFragment.this);
+
+        amountsAdapter.setHasStableIds(true);
+        rvAmounts.setAdapter(amountsAdapter);
+        rvAmounts.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        rvAmounts.setHasFixedSize(true);
+       // rvTagCharities.setItemViewCacheSize(20);
+      //  rvTagCharities.setDrawingCacheEnabled(true);
+      //  rvAmounts.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+       // ViewCompat.setNestedScrollingEnabled(rvTagCharities, false);
+       // ViewCompat.setNestedScrollingEnabled(nested, false);
+    }
+
     private void changeTitle()
     {
         WalletTitle walletTitle = new WalletTitle();
@@ -198,18 +220,6 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     {
         switch (v.getId())
         {
-
-            case R.id.txtFive:
-                txtAmount.setText("5,000,000");
-                break;
-            case R.id.txtTwo:
-                txtAmount.setText("2,000,000");
-
-                break;
-            case R.id.txtThree:
-                txtAmount.setText("3,000,000");
-
-                break;
             case R.id.btnChargeConfirmRightel:
                 if (txtAmount.getText().toString().length() > 0)
                 {
@@ -351,6 +361,13 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
     @Override
     public void onPaymentCancelAndBack()
     {
+
+    }
+
+    @Override
+    public void onBalanceClicked(String balance)
+    {
+        txtAmount.setText(balance);
 
     }
 }

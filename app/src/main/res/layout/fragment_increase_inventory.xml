@@ -124,55 +124,17 @@
             android:gravity="center|left"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.traap.traapapp.utilities.MyGridView
+                android:id="@+id/rvAmounts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|left"
-                android:orientation="horizontal">
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
 
-                <TextView
-                    android:id="@+id/txtFive"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_30dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_border_a"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:text="5,000,000 ریال "
-                    android:textColor="@color/borderColorRed"
-                    android:textSize="@dimen/textSize_12dp" />
+                />
 
-                <TextView
-                    android:id="@+id/txtThree"
 
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_5dp"
-                    android:layout_marginEnd="@dimen/_5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_border_a"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:text="3,000,000 ریال "
-                    android:textColor="@color/borderColorRed"
-                    android:textSize="@dimen/textSize_12dp" />
 
-                <TextView
-                    android:id="@+id/txtTwo"
-
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_border_a"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:text="2,000,000 ریال "
-                    android:textColor="@color/borderColorRed"
-                    android:textSize="@dimen/textSize_12dp" />
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
