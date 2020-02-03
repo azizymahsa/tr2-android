@@ -386,12 +386,15 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             {
                 if (!Utility.getMobileValidation(etPhoneNum.getText().toString()))
                 {
-                    mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+
+                    showAlertFailure(getContext(), "لطفا شماره تلفن همراه را صحیح وارد نمایید.", "", false);
+
                     return;
                 }
             } catch (Exception e)
             {
-                mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+                showAlertFailure(getContext(), "لطفا شماره تلفن همراه را صحیح وارد نمایید.", "", false);
+
                 return;
             }
             userName = etPhoneNum.getText().toString();
@@ -402,13 +405,14 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
             if (TextUtils.isEmpty(etUserCode.getText().toString()))
             {
-                mainView.showError("لطفا کد مشتری را وارد نمایید.");
+                showAlertFailure(getContext(), "لطفا کد مشتری را وارد نمایید.", "", false);
+
                 return;
             }
             if (etUserCode.getText().length() < 4)
             {
+                showAlertFailure(getContext(), "لطفا کد مشتری را صحیح وارد نمایید.(حداقل 4 رقم)", "", false);
 
-                mainView.showError("لطفا کد مشتری را صحیح وارد نمایید.(حداقل 4 رقم)");
                 return;
             }
 
@@ -420,7 +424,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
             if (TextUtils.isEmpty(etCardNumber.getText().toString()))
             {
-                mainView.showError("لطفا شماره کارت را وارد نمایید.");
+                showAlertFailure(getContext(), "لطفا شماره کارت را وارد نمایید.", "", false);
                 return;
             }
 
@@ -431,33 +435,38 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
         if (TextUtils.isEmpty(etAmount.getText().toString()))
         {
-            mainView.showError("لطفا مبلغ را وارد نمایید.");
+            showAlertFailure(getContext(), "لطفا مبلغ را وارد نمایید.", "", false);
             return;
         }
 
         if (TextUtils.isEmpty(etPass.getText().toString()))
         {
-            mainView.showError("لطفا رمز را وارد نمایید.");
+            showAlertFailure(getContext(), "لطفا رمز را وارد نمایید.", "", false);
+
             return;
         }
         if (etPass.getText().toString().length() < 4 || etPass.getText().toString().length() > 12)
         {
-            mainView.showError("رمز وارد شده حداقل باید 4 کارکتر باشد.");
+            showAlertFailure(getContext(), "رمز وارد شده حداقل باید 4 کارکتر باشد.", "", false);
+
             return;
         }
         if (Prefs.getString("W_CustomerCode", "").equals(etUserCode.getText().toString()))
         {
-            mainView.showError("کد مشتری مبدا و مقصد یکسان می باشد.");
+            showAlertFailure(getContext(), "کد مشتری مبدا و مقصد یکسان می باشد.", "", false);
+
             return;
         }
-        if (Prefs.getString("W_CardNo", "").equals(etCardNumber.getText().toString().replaceAll("-","")))
+        if (Prefs.getString("W_CardNo", "").equals(etCardNumber.getText().toString().replaceAll("-", "")))
         {
-            mainView.showError("شماره کارت مبدا و مقصد یکسان می باشد.");
+            showAlertFailure(getContext(), "شماره کارت مبدا و مقصد یکسان می باشد.", "", false);
+
             return;
         }
         if (Prefs.getString("W_Phone", "").equals(etPhoneNum.getText().toString()))
         {
-            mainView.showError("شماره موبایل مبدا و مقصد یکسان می باشد.");
+            showAlertFailure(getContext(), "شماره موبایل مبدا و مقصد یکسان می باشد.", "", false);
+
             return;
         }
         requestGetInfo();
@@ -516,15 +525,15 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
                     } else
                     {
+                        showAlertFailure(getContext(), response.info.message, "", false);
 
-                        mainView.showError(response.info.message);
 
                     }
                 } catch (Exception e)
                 {
                     mainView.hideLoading();
+                    showAlertFailure(getContext(), e.getMessage(), "", false);
 
-                    mainView.showError(e.getMessage());
 
                 }
 
@@ -539,13 +548,13 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
-                    mainView.showError(message);
+                    showAlertFailure(getContext(), message, "", false);
 
 
                 } else
                 {
+                    showAlertFailure(getContext(), getString(R.string.networkErrorMessage), "", false);
 
-                    mainView.showError(getString(R.string.networkErrorMessage));
 
                 }
 
@@ -583,13 +592,15 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
                     } else
                     {
+                        showAlertFailure(getContext(), response.info.message, "", false);
 
-                        mainView.showError(response.info.message);
 
                     }
                 } catch (Exception e)
                 {
-                    mainView.showError(e.getMessage());
+
+                    showAlertFailure(getContext(), e.getMessage(), "", false);
+
 
                 }
 
@@ -604,12 +615,12 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
-                    mainView.showError(message);
+                    showAlertFailure(getContext(), message, "", false);
 
 
                 } else
                 {
-                    mainView.showError(getString(R.string.networkErrorMessage));
+                    showAlertFailure(getContext(), getString(R.string.networkErrorMessage), "", false);
 
 
                 }
