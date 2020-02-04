@@ -101,7 +101,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private Context context;
 
     private LinearLayout llPredict, llTimer;
-    private TextView tvPredictText, tvTimePredict;
+    private TextView tvPredictText, tvTimePredict, tvHomePieChartTitle, tvEqualPieChartTitle, tvAwayPieChartTitle;
     private CountDownTimer countDownTimer;
 
     private RecyclerView rcMatchResult, rcBarChart;
@@ -110,7 +110,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private TextView tvAwayHeader, tvHomeHeader, tvPredictEmpty, tvAwayPredict, tvHomePredict;
     private ImageView imgHomeHeader, imgAwayHeader, imgHomePredict, imgAwayPredict;
 
-    private View vHome, vHome2, vAway, vAway2;
+    private View vColorHomePieChart, vColorEqualPieChart, vColorAwayPieChart;
 
     private CircularProgressButton btnSendPredict;
 
@@ -215,6 +215,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         numPickerAway = rootView.findViewById(R.id.numPickerAway);
         numPickerHome = rootView.findViewById(R.id.numPickerHome);
         tvPredictText = rootView.findViewById(R.id.tvPredictText);
+        tvAwayPieChartTitle = rootView.findViewById(R.id.tvAwayPieChartTitle);
+        tvHomePieChartTitle = rootView.findViewById(R.id.tvHomePieChartTitle);
+        tvEqualPieChartTitle = rootView.findViewById(R.id.tvEqualPieChartTitle);
         tvTimePredict = rootView.findViewById(R.id.tvTimePredict);
         rcMatchResult = rootView.findViewById(R.id.rcMatchResult);
         rcBarChart = rootView.findViewById(R.id.rcBarChart);
@@ -253,6 +256,10 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         tvChartTotalUserOne = rootView.findViewById(R.id.tvChartTotalUserOne);
         tvChartTotalUserTwo = rootView.findViewById(R.id.tvChartTotalUserTwo);
         tvChartTotalUserThree = rootView.findViewById(R.id.tvChartTotalUserThree);
+
+        vColorEqualPieChart = rootView.findViewById(R.id.vColorEqualPieChart);
+        vColorAwayPieChart = rootView.findViewById(R.id.vColorAwayPieChart);
+        vColorHomePieChart = rootView.findViewById(R.id.vColorHomePieChart);
 
         llAwayResultList = rootView.findViewById(R.id.llAwayResultList);
         llHomeResultList = rootView.findViewById(R.id.llHomeResultList);
@@ -510,6 +517,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     {
                         if (pieChart.getChartPrediction() == 0) //0 = مساوی
                         {
+                            tvEqualPieChartTitle.setText("مساوی (%" + pieChart.getTotalUser() + ")");
+
                             colorList.add("#de9b89");
 //                            PredictDataEntry item = new PredictDataEntry("مساوی", pieChart.getTotalUser(), getPersianChar(String.valueOf(pieChart.getTotalUser())));
 ////                            item.setValue("مساوی", getPersianChar(String.valueOf(pieChart.getTotalUser())));
@@ -519,6 +528,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         }
                         else if (pieChart.getChartPrediction() == 1) //1 = میزبان برنده
                         {
+                            String teamName = response.data.getMatchPredict().getHomeTeam().getTeamName();
+                            tvHomePieChartTitle.setText("برد " + teamName + " (%" + pieChart.getTotalUser() + ")");
+
                             colorList.add(response.data.getMatchPredict().getHomeTeam().getTeamColorCode());
 //                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getHomeTeamName(),
 //                                    pieChart.getTotalUser(),
@@ -533,6 +545,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         }
                         else if (pieChart.getChartPrediction() == 2) //2 = مهمان برنده
                         {
+                            String teamName = response.data.getMatchPredict().getAwayTeam().getTeamName();
+                            tvAwayPieChartTitle.setText("برد " + teamName + " (%" + pieChart.getTotalUser() + ")");
                             colorList.add(response.data.getMatchPredict().getAwayTeam().getTeamColorCode());
 //                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getAwayTeamName(),
 //                                    pieChart.getTotalUser(),
@@ -581,7 +595,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         .wordWrap(WordWrap.NORMAL)
                         .vAlign(VAlign.BOTTOM)
                         .hAlign(HAlign.RIGHT)
-                        .align(Align.CENTER);
+                        .align(Align.CENTER)
+                        .enabled(false);
+
 
                 pieChart.tooltip()
 //                        .title().align("right")
@@ -600,6 +616,11 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 //                });
                 chartViewPie.setProgressBar(progressPieChart);
                 chartViewPie.setChart(pieChart);
+
+                vColorHomePieChart.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getHomeTeam().getTeamColorCode()));
+                vColorAwayPieChart.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getAwayTeam().getTeamColorCode()));
+                vColorEqualPieChart.setBackgroundColor(Color.parseColor("#de9b89"));
+
                 //-----------------------------------PieChart end-------------------------------------
 
                 //-----------------------------------BarChart start-----------------------------------b v
