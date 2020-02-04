@@ -9,7 +9,7 @@ public class Const
     //-----------------------------------------------------------------------------
 //    public final static String BASEURL = "http://5.253.25.117:7000/";
     public final static String BASEURL = "http://5.253.25.117:9999/";
-    // public final static String BASEURL = "https://restapp.traap.com/";
+//     public final static String BASEURL = "https://restapp.traap.com/";
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ public class Const
     public final static String GET_Leage = SubBASEURL + "v1/livescore/get_leagues/";
     public final static String Get_Past_result = SubBASEURL + "v1/livescore/get_past_result/";
 
-    //Predict
+    //BarChart
     public final static String GET_PREDICT = SubBASEURL + "v2/predict/";
     public final static String SEND_PREDICT = SubBASEURL + "v2/predict/";
     public final static String GET_PREDICT_ENABLE = SubBASEURL + "v1/match/predict_enable/";

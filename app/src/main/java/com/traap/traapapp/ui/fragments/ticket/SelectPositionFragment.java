@@ -1541,7 +1541,7 @@ public class SelectPositionFragment
         for (int i = 0; i < result.size(); i++)
         {
             allBoxes.add("جایگاه " + result.get(i).getName());
-            //allBoxes.add(result.get(i).getName());
+            //allBoxes.add(result.get(i).getCupName());
 
             positionIdAllBoxes.add(result.get(i).getId());
         }

@@ -14,15 +14,15 @@ public class TeamDetails
 
     @SerializedName("logo")
     @Expose @Getter @Setter
-    private String logo;
+    private String teamLogo;
 
     @SerializedName("name")
     @Expose @Getter @Setter
-    private String name;
+    private String teamName;
 
     @SerializedName("color_code")
     @Expose @Getter @Setter
-    private String colorCode;
+    private String teamColorCode;
 
     @SerializedName("livescore_id")
     @Expose @Getter @Setter

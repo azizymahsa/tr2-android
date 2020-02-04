@@ -14,14 +14,9 @@ public class Cup
 
     @SerializedName("logo")
     @Expose @Getter @Setter
-    private String logo;
+    private String cupLogo;
 
     @SerializedName("name")
     @Expose @Getter @Setter
-    private String name;
-
-    @SerializedName("description")
-    @Expose @Getter @Setter
-    private String description;
-
+    private String cupName;
 }

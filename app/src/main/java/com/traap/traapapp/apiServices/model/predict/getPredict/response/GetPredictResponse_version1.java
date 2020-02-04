@@ -29,9 +29,9 @@ public class GetPredictResponse_version1
     @Expose @Getter @Setter
     private String awayTeamName;
 
-    @SerializedName("chart")
+    @SerializedName("pieChart")
     @Expose @Getter @Setter
-    private List<Chart> chart = null;
+    private List<PieChart> pieChart = null;
 
     @SerializedName("match_datetime")
     @Expose @Getter @Setter
@@ -41,9 +41,9 @@ public class GetPredictResponse_version1
     @Expose @Getter @Setter
     private String matchDatetimeStr;
 
-    @SerializedName("predict")
+    @SerializedName("barChart")
     @Expose @Getter @Setter
-    private List<Predict> predict = null;
+    private List<BarChart> barChart = null;
 
     @SerializedName("home_last_plays")
     @Expose @Getter @Setter

@@ -6,19 +6,11 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TeamResults
+public class MatchTeamResults
 {
     @SerializedName("id")
     @Expose @Getter @Setter
     private Integer teamResultsId;
-
-    @SerializedName("home_team")
-    @Expose @Getter @Setter
-    private TeamDetails homeTeam;
-
-    @SerializedName("away_team")
-    @Expose @Getter @Setter
-    private TeamDetails awayTeam;
 
     @SerializedName("cup")
     @Expose @Getter @Setter
@@ -28,14 +20,7 @@ public class TeamResults
     @Expose @Getter @Setter
     private String matchDatetimeStr;
 
-    @SerializedName("home_team_score")
+    @SerializedName("score")
     @Expose @Getter @Setter
-    private Integer homeTeamScore;
-
-    @SerializedName("away_team_score")
-    @Expose @Getter @Setter
-    private Integer awayTeamScore;
-
-
-
+    private TeamResultScore teamResultScore;
 }

@@ -26,7 +26,7 @@ public class Bank
     @Expose @Getter @Setter
     private String bankBin;
 
-    @SerializedName("name")
+    @SerializedName("cupName")
     @Expose @Getter @Setter
     private String bankName;
 

@@ -77,7 +77,7 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
 
     // When the week starts; numbered like Time.<WEEKDAY> (e.g. SUNDAY=0).
     protected int mFirstDayOfWeek;
-    // The last name announced by accessibility
+    // The last cupName announced by accessibility
     protected CharSequence mPrevMonthName;
     // which month should be displayed/highlighted [0-11]
     protected int mCurrentMonthDisplayed;

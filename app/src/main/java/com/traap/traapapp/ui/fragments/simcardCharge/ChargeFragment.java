@@ -2009,7 +2009,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message)
+    public void onSetPredictCompleted(Integer matchId, Boolean isPredictable, String message)
     {
 
     }
@@ -2052,7 +2052,7 @@ public class ChargeFragment extends BaseFragment
             if (isMtn)
             {
                 autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
-                //  tilMIrancell.setHint(event.getName());
+                //  tilMIrancell.setHint(event.getCupName());
                 closeAutoComplete();
 
 
@@ -2061,7 +2061,7 @@ public class ChargeFragment extends BaseFragment
             if (isMci)
             {
                 autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
-                // tilMMci.setHint(event.getName());
+                // tilMMci.setHint(event.getCupName());
                 closeAutoComplete();
 
                 return;
@@ -2071,7 +2071,7 @@ public class ChargeFragment extends BaseFragment
             if (isRightel)
             {
                 autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
-                // tilMRightel.setHint(event.getName());
+                // tilMRightel.setHint(event.getCupName());
 
                 return;
             }
@@ -2101,14 +2101,14 @@ public class ChargeFragment extends BaseFragment
     }
 
     /*  @Override
-      public void onContactClicked(String number, String name)
+      public void onContactClicked(String number, String cupName)
       {
           try
           {
               if (isMtn)
               {
                   etMobileCharge.setText(number.replaceAll(" ", ""));
-                  tilMIrancell.setHint(name);
+                  tilMIrancell.setHint(cupName);
 
 
                   return;
@@ -2116,7 +2116,7 @@ public class ChargeFragment extends BaseFragment
               if (isMci)
               {
                   etMCINumber.setText(number.replaceAll(" ", ""));
-                  tilMMci.setHint(name);
+                  tilMMci.setHint(cupName);
 
 
                   return;
@@ -2126,7 +2126,7 @@ public class ChargeFragment extends BaseFragment
               if (isRightel)
               {
                   etMobileChargeRightel.setText(number.replaceAll(" ", ""));
-                  tilMRightel.setHint(name);
+                  tilMRightel.setHint(cupName);
 
 
               }

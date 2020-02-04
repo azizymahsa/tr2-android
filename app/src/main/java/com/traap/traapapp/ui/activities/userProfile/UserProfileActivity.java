@@ -542,9 +542,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             try
             {
 
-//                part = PrepareImageFilePart.prepareFilePart(userPic.getName(), userPic);
+//                part = PrepareImageFilePart.prepareFilePart(userPic.getCupName(), userPic);
 //                part = PrepareImageFilePart.prepareFilePart("photo", userPic);
-//                part = MultipartBody.Part.createFormData("photo", userPic.getName(),
+//                part = MultipartBody.Part.createFormData("photo", userPic.getCupName(),
 //                        RequestBody.create(MediaType.parse("image/*"), userPic));
                 if (isImageFileExist)
                 {

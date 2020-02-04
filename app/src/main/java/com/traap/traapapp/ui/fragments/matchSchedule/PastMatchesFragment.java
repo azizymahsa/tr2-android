@@ -176,7 +176,7 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
-        PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
+        PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem.getId(), matchItem.getIsPredict());
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
     }
