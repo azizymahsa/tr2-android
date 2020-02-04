@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Result {
 
-    @SerializedName("name")
+    @SerializedName("cupName")
     @Expose
     private String name;
     @SerializedName("goal_diff")

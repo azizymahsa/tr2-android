@@ -3,19 +3,17 @@ package com.traap.traapapp.apiServices.model.predict.getPredict.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class Chart
+public class TeamResultScore
 {
-    @SerializedName("bar")
+    @SerializedName("home_team")
     @Expose @Getter @Setter
-    private List<BarChart> barChart = null;
+    private Integer homeTeamScore;
 
-    @SerializedName("pie")
+    @SerializedName("away_team")
     @Expose @Getter @Setter
-    private List<PieChart> pieChart = null;
+    private Integer awayTeamScore;
 
 }

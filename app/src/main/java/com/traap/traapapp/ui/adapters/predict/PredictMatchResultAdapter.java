@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,14 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.card.Result;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.TeamResults;
+import com.traap.traapapp.apiServices.model.predict.getPredict.response.MatchTeamResults;
+import com.traap.traapapp.apiServices.model.predict.getPredict.response.TeamDetails;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.base.GoToActivity;
-import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardActionView;
-import com.traap.traapapp.utilities.Tools;
-import com.traap.traapapp.utilities.Utility;
-import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.List;
 
@@ -34,14 +27,17 @@ import java.util.List;
 public class PredictMatchResultAdapter extends RecyclerView.Adapter<PredictMatchResultAdapter.MyViewHolder>
 {
 
-    private List<TeamResults> cardList;
+    private List<MatchTeamResults> cardList;
     private Context context;
+    private TeamDetails homeTeam, awayTeam;
     private Context appContext;
 
-    public PredictMatchResultAdapter(Context context, List<TeamResults> models)
+    public PredictMatchResultAdapter(Context context, List<MatchTeamResults> models, TeamDetails homeTeam, TeamDetails awayTeam)
     {
         this.cardList = models;
         this.context = context;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
         appContext = SingletonContext.getInstance().getContext();
     }
 
@@ -59,24 +55,25 @@ public class PredictMatchResultAdapter extends RecyclerView.Adapter<PredictMatch
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
     {
-        TeamResults item = cardList.get(position);
+        MatchTeamResults item = cardList.get(position);
 
         try
         {
-            holder.tvCupTitle.setText(item.getCup().getName());
-            holder.tvMatchResult.setText(item.getAwayTeamScore() + "-" + item.getHomeTeamScore());
-            holder.tvHome.setText(item.getHomeTeam().getName());
-            holder.tvAway.setText(item.getAwayTeam().getName());
+            holder.tvCupTitle.setText(item.getCup().getCupName());
+            holder.tvMatchResult.setText(item.getTeamResultScore().getAwayTeamScore() + " - " + item.getTeamResultScore().getHomeTeamScore());
+            holder.tvHome.setText(homeTeam.getTeamName());
+            holder.tvAway.setText(awayTeam.getTeamName());
             holder.tvDate.setText(item.getMatchDatetimeStr());
 
-            loadImageIntoIV(item.getHomeTeam().getLogo(), holder.imgHome, holder);
-            loadImageIntoIV(item.getAwayTeam().getLogo(), holder.imgAway, holder);
+            loadImageIntoIV(homeTeam.getTeamLogo(), holder.imgHome, holder);
+            loadImageIntoIV(awayTeam.getTeamLogo(), holder.imgAway, holder);
+            loadImageIntoIV(item.getCup().getCupLogo(), holder.imgCupLogo, holder);
 
-            holder.vAway.setBackgroundColor(Color.parseColor(item.getAwayTeam().getColorCode()));
-            holder.vAway2.setBackgroundColor(Color.parseColor(item.getAwayTeam().getColorCode()));
+            holder.vAway.setBackgroundColor(Color.parseColor(awayTeam.getTeamColorCode()));
+            holder.vAway2.setBackgroundColor(Color.parseColor(awayTeam.getTeamColorCode()));
 
-            holder.vHome.setBackgroundColor(Color.parseColor(item.getHomeTeam().getColorCode()));
-            holder.vHome2.setBackgroundColor(Color.parseColor(item.getHomeTeam().getColorCode()));
+            holder.vHome.setBackgroundColor(Color.parseColor(homeTeam.getTeamColorCode()));
+            holder.vHome2.setBackgroundColor(Color.parseColor(homeTeam.getTeamColorCode()));
         }
         catch (Exception e)
         {
@@ -111,9 +108,8 @@ public class PredictMatchResultAdapter extends RecyclerView.Adapter<PredictMatch
     class MyViewHolder extends RecyclerView.ViewHolder
     {
         private TextView tvDate, tvCupTitle, tvAway, tvMatchResult, tvHome;
-        private ImageView imgAway, imgHome;
+        private ImageView imgAway, imgHome, imgCupLogo;
         private View vAway, vAway2, vHome2, vHome;
-
 
         private MyViewHolder(View convertView)
         {
@@ -122,11 +118,12 @@ public class PredictMatchResultAdapter extends RecyclerView.Adapter<PredictMatch
             tvDate = itemView.findViewById(R.id.tvDate);
             tvCupTitle = itemView.findViewById(R.id.tvCupTitle);
             tvAway = itemView.findViewById(R.id.tvAway);
+            tvHome = itemView.findViewById(R.id.tvHome);
             tvMatchResult = itemView.findViewById(R.id.tvMatchResult);
 
-            tvHome = itemView.findViewById(R.id.tvHome);
             imgAway = itemView.findViewById(R.id.imgAway);
             imgHome = itemView.findViewById(R.id.imgHome);
+            imgCupLogo = itemView.findViewById(R.id.imgCupLogo);
 
             vAway = itemView.findViewById(R.id.vAway);
             vAway2 = itemView.findViewById(R.id.vAway2);

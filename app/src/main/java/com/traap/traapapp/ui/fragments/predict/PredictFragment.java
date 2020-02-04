@@ -7,11 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Editable;
+import android.os.CountDownTimer;
 import android.text.InputFilter;
-import android.text.TextWatcher;
-import android.text.method.BaseKeyListener;
-import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +16,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
@@ -27,9 +25,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anychart.APIlib;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
@@ -37,7 +37,12 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
+import com.anychart.enums.LegendPositionMode;
+import com.anychart.enums.WordWrap;
 import com.anychart.graphics.vector.text.Direction;
+import com.anychart.graphics.vector.text.FontStyle;
+import com.anychart.graphics.vector.text.HAlign;
+import com.anychart.graphics.vector.text.VAlign;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
@@ -49,8 +54,6 @@ import java.util.Objects;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 
 import com.traap.traapapp.R;
@@ -58,21 +61,24 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.Chart;
+import com.traap.traapapp.apiServices.model.predict.getPredict.response.BarChart;
+import com.traap.traapapp.apiServices.model.predict.getPredict.response.PieChart;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.Predict;
 import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
+import com.traap.traapapp.ui.adapters.predict.PredictBarChartProgressAdapter;
 import com.traap.traapapp.ui.adapters.predict.PredictMatchResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.fragments.main.CountDownTimerView;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
+import com.traap.traapapp.utilities.CountDownTimerPredict;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -82,23 +88,27 @@ import org.greenrobot.eventbus.Subscribe;
  */
 @SuppressLint("ValidFragment")
 public class PredictFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<GetPredictResponse>>,
-        OnAnimationEndListener
+        OnAnimationEndListener, CountDownTimerView
 {
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    private MatchItem matchPredict;
+    private Integer matchId;
+    private AVLoadingIndicatorView progressPieChart;
     private TextView tvUserName, tvHeaderPopularNo;
+
+    private NumberPicker numPickerAway, numPickerHome;
 
     private Context context;
 
-    private RecyclerView rcMatchResult;
+    private LinearLayout llPredict, llTimer;
+    private TextView tvPredictText, tvTimePredict;
+    private CountDownTimer countDownTimer;
+
+    private RecyclerView rcMatchResult, rcBarChart;
 
     private LinearLayout llAwayResultList, llHomeResultList, llChart;
     private TextView tvAwayHeader, tvHomeHeader, tvPredictEmpty, tvAwayPredict, tvHomePredict;
     private ImageView imgHomeHeader, imgAwayHeader, imgHomePredict, imgAwayPredict;
-
-    private EditText edtAwayPredict, edtHomePredict;
-    private View sepHome, sepAway;
 
     private View vHome, vHome2, vAway, vAway2;
 
@@ -129,12 +139,12 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     {
     }
 
-    public static PredictFragment newInstance(MainActionView mainView, MatchItem matchPredict, Boolean isPredictable)
+    public static PredictFragment newInstance(MainActionView mainView, Integer matchId, Boolean isPredictable)
     {
         PredictFragment f = new PredictFragment();
         f.setMainView(mainView);
         Bundle arg = new Bundle();
-        arg.putParcelable("matchPredict", matchPredict);
+        arg.putInt("matchId", matchId);
         arg.putBoolean("isPredictable", isPredictable);
 
         f.setArguments(arg);
@@ -160,7 +170,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
         {
-            matchPredict = getArguments().getParcelable("matchPredict");
+            matchId = getArguments().getInt("matchId");
             isPredictable = getArguments().getBoolean("isPredictable");
         }
     }
@@ -199,10 +209,18 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private void initView()
     {
+        progressPieChart = rootView.findViewById(R.id.progressPieChart);
+        llPredict = rootView.findViewById(R.id.llPredict);
+        llTimer = rootView.findViewById(R.id.llTimer);
+        numPickerAway = rootView.findViewById(R.id.numPickerAway);
+        numPickerHome = rootView.findViewById(R.id.numPickerHome);
+        tvPredictText = rootView.findViewById(R.id.tvPredictText);
+        tvTimePredict = rootView.findViewById(R.id.tvTimePredict);
         rcMatchResult = rootView.findViewById(R.id.rcMatchResult);
+        rcBarChart = rootView.findViewById(R.id.rcBarChart);
 
         chartViewPie = rootView.findViewById(R.id.chartViewPie);
-//        APIlib.getInstance().setActiveAnyChartView(chartViewPie);
+        APIlib.getInstance().setActiveAnyChartView(chartViewPie);
 
 //        chartViewColumn = rootView.findViewById(R.id.chartViewColumn);
 //        APIlib.getInstance().setActiveAnyChartView(chartViewColumn);
@@ -241,12 +259,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         llChart = rootView.findViewById(R.id.llChart);
 
-        sepAway = rootView.findViewById(R.id.sepAway);
-        sepHome = rootView.findViewById(R.id.sepHome);
-
-        edtAwayPredict = rootView.findViewById(R.id.edtAwayPredict);
-        edtHomePredict = rootView.findViewById(R.id.edtHomePredict);
-
         tvAwayPredict = rootView.findViewById(R.id.tvAwayPredict);
         tvHomePredict = rootView.findViewById(R.id.tvHomePredict);
 
@@ -255,123 +267,40 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         tvPredictEmpty = rootView.findViewById(R.id.tvPredictEmpty);
         rlShirt = rootView.findViewById(R.id.rlShirt);
-        rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100)
+        rlShirt.setOnClickListener(v ->
+                startActivityForResult(new Intent(SingletonContext.getInstance().getContext(),
+                MyProfileActivity.class),100)
         );
         imgAwayHeader = rootView.findViewById(R.id.imgAwayHeader);
         imgAwayPredict = rootView.findViewById(R.id.imgAway3);
         imgHomeHeader = rootView.findViewById(R.id.imgHomeHeader);
         imgHomePredict = rootView.findViewById(R.id.imgHome3);
 
-        disposable.add(RxTextView.textChanges(edtHomePredict)
-                .skipInitialValue()
-                .filter(new Predicate<CharSequence>()
-                {
-                    @Override
-                    public boolean test(CharSequence sequence) throws Exception
-                    {
-                        InputFilter[] fArray = new InputFilter[1];
-                        if (sequence.length() == 0)
-                        {
-                            fArray[0] = new InputFilter.LengthFilter(2);
-                            edtHomePredict.setFilters(fArray);
-                            return false;
-                        }
-                        else
-                        {
-                            if (Integer.parseInt(sequence.toString()) > 2)
-                            {
-                                fArray[0] = new InputFilter.LengthFilter(1);
-                            }
-                            else
-                            {
-                                fArray[0] = new InputFilter.LengthFilter(2);
-                            }
-                        }
-                        edtHomePredict.setFilters(fArray);
-                        return true;
-                    }
-                })
-                .subscribe(sequence ->
-                {
-                    if (Integer.parseInt(sequence.toString().trim()) > 20)
-                    {
-                        edtHomePredict.setText("2");
-//                        edtHomePredict.post(() -> );
-                        edtHomePredict.setSelection(edtHomePredict.getText().toString().length());
-                    }
-                })
-        );
+        numPickerAway.setMinValue(0);
+        numPickerAway.setMaxValue(20);
+        numPickerAway.setWrapSelectorWheel(false);
 
-        disposable.add(RxTextView.textChanges(edtAwayPredict)
-                .skipInitialValue()
-                .filter(new Predicate<CharSequence>()
-                {
-                    @Override
-                    public boolean test(CharSequence sequence) throws Exception
-                    {
-                        InputFilter[] fArray = new InputFilter[1];
-                        if (sequence.length() == 0)
-                        {
-                            fArray[0] = new InputFilter.LengthFilter(2);
-                            edtAwayPredict.setFilters(fArray);
-                            return false;
-                        }
-                        else
-                        {
-                            if (Integer.parseInt(sequence.toString()) > 2)
-                            {
-                                fArray[0] = new InputFilter.LengthFilter(1);
-                            }
-                            else
-                            {
-                                fArray[0] = new InputFilter.LengthFilter(2);
-                            }
-                        }
-                        edtAwayPredict.setFilters(fArray);
-                        return true;
-                    }
-                })
-                .subscribe(sequence ->
-                {
-                    if (Integer.parseInt(sequence.toString().trim()) > 20)
-                    {
-                        edtAwayPredict.setText("2");
-//                        edtHomePredict.post(() -> );
-                        edtAwayPredict.setSelection(edtAwayPredict.getText().toString().length());
-                    }
-                })
-        );
+        numPickerHome.setMinValue(0);
+        numPickerHome.setMaxValue(20);
+        numPickerHome.setWrapSelectorWheel(false);
 
         pieChart = AnyChart.pie();
 
         if (!isPredictable)
         {
-            sepHome.setVisibility(View.GONE);
-            sepAway.setVisibility(View.GONE);
-            edtHomePredict.setVisibility(View.GONE);
-            edtAwayPredict.setVisibility(View.GONE);
+            numPickerHome.setVisibility(View.GONE);
+            numPickerAway.setVisibility(View.GONE);
             btnSendPredict.setVisibility(View.GONE);
         }
         rcMatchResult.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+        rcBarChart.setLayoutManager(new GridLayoutManager(context, 1, RecyclerView.VERTICAL, false));
         getBaseData();
 
         btnSendPredict.setOnClickListener(v ->
         {
-            if (edtAwayPredict.getText().toString().trim().equalsIgnoreCase(""))
-            {
-                edtAwayPredict.requestFocus();
-                showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
-            }
-            else if (edtHomePredict.getText().toString().trim().equalsIgnoreCase(""))
-            {
-                edtHomePredict.requestFocus();
-                showToast(getActivity(), "مقدار پیش بینی خود را وارد نمایید.", R.color.red);
-            }
-            else
-            {
-                sendPredict();
-            }
+            sendPredict();
         });
+
         FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
         flLogoToolbar.setOnClickListener(v -> {
             mainView.backToMainFragment();
@@ -387,9 +316,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         btnSendPredict.setClickable(false);
 
         SendPredictRequest request = new SendPredictRequest();
-        request.setMatchId(matchPredict.getId());
-        request.setAwayTeamScore(Integer.parseInt(edtAwayPredict.getText().toString().trim()));
-        request.setHomeTeamScore(Integer.parseInt(edtHomePredict.getText().toString().trim()));
+        request.setMatchId(matchId);
+        request.setAwayTeamScore(numPickerAway.getValue());
+        request.setHomeTeamScore(numPickerHome.getValue());
 
         SingletonService.getInstance().sendPredictService().sendPredictService(request, new OnServiceStatus<WebServiceClass<Object>>()
         {
@@ -403,16 +332,16 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 {
                     if (response.info.statusCode != 200)
                     {
-                        showAlert(getActivity(), response.info.message, 0);
+                        showAlert(context, response.info.message, 0);
                     }
                     else
                     {
-                        mainView.onSetPredictCompleted(matchPredict, true, response.info.message);
+                        mainView.onSetPredictCompleted(matchId, true, response.info.message);
                     }
                 }
                 catch (NullPointerException e)
                 {
-                    showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
+                    showAlert(context, "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
                 }
             }
 
@@ -421,25 +350,28 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             {
                 btnSendPredict.revertAnimation(PredictFragment.this);
                 btnSendPredict.setClickable(true);
-                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                if (Tools.isNetworkAvailable((Activity) context))
                 {
-                    showAlert(getActivity(), "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
-
+                    showAlert(context, "خطای ارتباط با سرور!" + "\n" + "لطفا مجددا اقدام نمایید.", R.string.error);
                 }
                 else
                 {
-                    showError(getActivity(),  getString(R.string.networkErrorMessage));
-
-
+                    showError(context,  getString(R.string.networkErrorMessage));
                 }
             }
         });
     }
 
+    public void startTimer(long time)
+    {
+        countDownTimer = new CountDownTimerPredict(time, 1000, this);
+        countDownTimer.start();
+    }
+
     private void getBaseData()
     {
         mainView.showLoading();
-        SingletonService.getInstance().getPredictService().getPredictService(matchPredict.getId(), this);
+        SingletonService.getInstance().getPredictService().getPredictService(matchId, this);
     }
 
     @Override
@@ -449,6 +381,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         if (response == null || response.data == null)
         {
             showErrorAndBackToMain("خطا در دریافت اطلاعات از سرور!");
+            Logger.e("-GetPredictResponse-", "null");
             return;
         }
         if (response.info.statusCode != 200)
@@ -457,7 +390,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         }
         else
         {
-            rcMatchResult.setAdapter(new PredictMatchResultAdapter(context, response.data.getTeamResults()));
+            rcMatchResult.setAdapter(new PredictMatchResultAdapter(context, response.data.getMatchTeamResults(),
+                    response.data.getMatchPredict().getHomeTeam(), response.data.getMatchPredict().getAwayTeam()));
 
             llAwayResultList.removeAllViews();
             llHomeResultList.removeAllViews();
@@ -471,14 +405,62 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 llHomeResultList.addView(getWinLoseListView(itemStr));
             }
 
-            setImageIntoIV(imgAwayHeader, response.data.getAwayTeam().getLogo());
-            setImageIntoIV(imgHomeHeader, response.data.getHomeTeam().getLogo());
+            setImageIntoIV(imgAwayHeader, response.data.getMatchPredict().getAwayTeam().getTeamLogo());
+            setImageIntoIV(imgHomeHeader, response.data.getMatchPredict().getHomeTeam().getTeamLogo());
 
-            tvAwayHeader.setText(response.data.getAwayTeam().getName());
-            tvHomeHeader.setText(response.data.getHomeTeam().getName());
+            tvAwayHeader.setText(response.data.getMatchPredict().getAwayTeam().getTeamName());
+            tvHomeHeader.setText(response.data.getMatchPredict().getHomeTeam().getTeamName());
 
-            setImageIntoIV(imgAwayPredict, response.data.getAwayTeam().getLogo());
-            setImageIntoIV(imgHomePredict, response.data.getHomeTeam().getLogo());
+            setImageIntoIV(imgAwayPredict, response.data.getMatchPredict().getAwayTeam().getTeamLogo());
+            setImageIntoIV(imgHomePredict, response.data.getMatchPredict().getHomeTeam().getTeamLogo());
+
+            //-------------------timer----------------------------
+            try
+            {
+                if (response.data.getMatchPredict().isPredict())
+                {
+                    isPredictable = true;
+                    long predictTime = response.data.getMatchPredict().getPredictTime().longValue() * 1000;
+                    long dateTimeNow = response.data.getMatchPredict().getServerTime().longValue() * 1000;
+                    long remainPredictTime = predictTime - dateTimeNow;
+                    Logger.e("--PredictTime--", "predictTime: " + predictTime + ", dateTimeNow: " + dateTimeNow);
+                    Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
+
+                    if (remainPredictTime > 0)
+                    {
+                        isPredictable = true;
+                        llTimer.setVisibility(View.VISIBLE);
+                        tvPredictText.setText("پیش بینی کن برنده شو!");
+
+                        startTimer(remainPredictTime);
+                    }
+                    else
+                    {
+                        isPredictable = false;
+                        llTimer.setVisibility(View.GONE);
+                        tvPredictText.setTextSize(14f);
+                        tvPredictText.setText("هیچ بازی جهت پیش بینی وجود ندارد!");
+                    }
+                }
+                else
+                {
+                    isPredictable = false;
+                    llTimer.setVisibility(View.GONE);
+                    tvPredictText.setText("هیچ بازی جهت پیشبینی وجود ندارد!");
+                    tvPredictText.setTextSize(14f);
+                    btnSendPredict.setVisibility(View.GONE);
+                    numPickerHome.setVisibility(View.GONE);
+                    numPickerAway.setVisibility(View.GONE);
+                    tvAwayPredict.setVisibility(View.VISIBLE);
+                    tvHomePredict.setVisibility(View.VISIBLE);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.e("-predict Timer Exception", "Exception: " + e.getMessage());
+                e.printStackTrace();
+            }
+            //-------------------timer----------------------------
 
             if (response.data.getYouPredict())
             {
@@ -486,18 +468,16 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 {
                     if (isPredictable)
                     {
-                        edtHomePredict.setText(String.valueOf(response.data.getYouPredictResult().getHomeScore()));
-                        edtAwayPredict.setText(String.valueOf(response.data.getYouPredictResult().getAwayScore()));
+                        numPickerHome.setValue(response.data.getYouPredictResult().getHomeScore());
+                        numPickerAway.setValue(response.data.getYouPredictResult().getAwayScore());
                     }
                     else
                     {
                         tvHomePredict.setText(String.valueOf(response.data.getYouPredictResult().getHomeScore()));
                         tvAwayPredict.setText(String.valueOf(response.data.getYouPredictResult().getAwayScore()));
 
-                        sepHome.setVisibility(View.GONE);
-                        sepAway.setVisibility(View.GONE);
-                        edtHomePredict.setVisibility(View.GONE);
-                        edtAwayPredict.setVisibility(View.GONE);
+                        numPickerHome.setVisibility(View.GONE);
+                        numPickerAway.setVisibility(View.GONE);
                         btnSendPredict.setVisibility(View.GONE);
                         tvHomePredict.setVisibility(View.VISIBLE);
                         tvAwayPredict.setVisibility(View.VISIBLE);
@@ -509,8 +489,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 }
             }
 
-            if (response.data.getPredict() == null || response.data.getPredict().isEmpty() ||
-                    response.data.getChart() == null || response.data.getChart().isEmpty())
+            if (response.data.getChart().getBarChart() == null || response.data.getChart().getBarChart().isEmpty() ||
+                    response.data.getChart().getPieChart() == null || response.data.getChart().getPieChart().isEmpty())
             {
                 llChart.setVisibility(View.GONE);
                 tvPredictEmpty.setVisibility(View.VISIBLE);
@@ -520,47 +500,50 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                 llChart.setVisibility(View.VISIBLE);
                 tvPredictEmpty.setVisibility(View.GONE);
 
+                //-----------------------------------PieChart start-----------------------------------
                 List<DataEntry> data = new ArrayList<>();
                 ArrayList<String> colorList = new ArrayList<>();
 
-                for (Chart chart : response.data.getChart())
+                for (PieChart pieChart : response.data.getChart().getPieChart())
                 {
                     try
                     {
-                        if (chart.getChartPrediction() == 0) //0 = مساوی
+                        if (pieChart.getChartPrediction() == 0) //0 = مساوی
                         {
                             colorList.add("#de9b89");
-//                            PredictDataEntry item = new PredictDataEntry("مساوی", chart.getTotalUser(), getPersianChar(String.valueOf(chart.getTotalUser())));
-////                            item.setValue("مساوی", getPersianChar(String.valueOf(chart.getTotalUser())));
+//                            PredictDataEntry item = new PredictDataEntry("مساوی", pieChart.getTotalUser(), getPersianChar(String.valueOf(pieChart.getTotalUser())));
+////                            item.setValue("مساوی", getPersianChar(String.valueOf(pieChart.getTotalUser())));
 //                            data.add(item);
 
-                            data.add(new ValueDataEntry("مساوی", chart.getTotalUser()));
+                            data.add(new ValueDataEntry("مساوی (%" + pieChart.getTotalUser() + ")", pieChart.getTotalUser()));
                         }
-                        else if (chart.getChartPrediction() == 1) //1 = میزبان برنده
+                        else if (pieChart.getChartPrediction() == 1) //1 = میزبان برنده
                         {
-                            colorList.add(response.data.getHomeTeam().getColorCode());
+                            colorList.add(response.data.getMatchPredict().getHomeTeam().getTeamColorCode());
 //                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getHomeTeamName(),
-//                                    chart.getTotalUser(),
-//                                    getPersianChar(String.valueOf(chart.getTotalUser())));
+//                                    pieChart.getTotalUser(),
+//                                    getPersianChar(String.valueOf(pieChart.getTotalUser())));
 ////                            item.setValue("برد " + response.data.getHomeTeamName(),
-////                                    getPersianChar(String.valueOf(chart.getTotalUser())));
+////                                    getPersianChar(String.valueOf(pieChart.getTotalUser())));
 //                            data.add(item);
 
-                            data.add(new ValueDataEntry("برد " + response.data.getHomeTeam().getName(),
-                                    chart.getTotalUser()));
+                            data.add(new ValueDataEntry("برد " + response.data.getMatchPredict().getHomeTeam().getTeamName()
+                                    + "(%" + pieChart.getTotalUser() + ")",
+                                    pieChart.getTotalUser()));
                         }
-                        else if (chart.getChartPrediction() == 2) //2 = مهمان برنده
+                        else if (pieChart.getChartPrediction() == 2) //2 = مهمان برنده
                         {
-                            colorList.add(response.data.getAwayTeam().getColorCode());
+                            colorList.add(response.data.getMatchPredict().getAwayTeam().getTeamColorCode());
 //                            PredictDataEntry item = new PredictDataEntry("برد " + response.data.getAwayTeamName(),
-//                                    chart.getTotalUser(),
-//                                    getPersianChar(String.valueOf(chart.getTotalUser())));
+//                                    pieChart.getTotalUser(),
+//                                    getPersianChar(String.valueOf(pieChart.getTotalUser())));
 ////                            item.setValue("برد " + response.data.getAwayTeamName(),
-////                                    getPersianChar(String.valueOf(chart.getTotalUser())));
+////                                    getPersianChar(String.valueOf(pieChart.getTotalUser())));
 //                            data.add(item);
 
-                            data.add(new ValueDataEntry("برد " + response.data.getAwayTeam().getName(),
-                                    chart.getTotalUser()));
+                            data.add(new ValueDataEntry("برد " + response.data.getMatchPredict().getAwayTeam().getTeamName()
+                                    + "(%" + pieChart.getTotalUser() + ")",
+                                    pieChart.getTotalUser()));
                         }
                     }
                     catch (Exception e)
@@ -569,6 +552,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     }
                 }
                 pieChart.data(data);
+                pieChart.innerRadius(30);
 
                 String color[] = new String[colorList.size()];
 //                String color[] = {"#de9b89", response.data.getHomeTeamColorCode(), response.data.getAwayTeamColorCode()};
@@ -580,16 +564,23 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                 pieChart.labels().position("outside");
                 pieChart.labels().fontColor("#000");
-//                Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf");
-                Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/IRANSansMobile_Bold.ttf");
+                pieChart.labels().enabled(false);
+//                Typeface face = Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf");
+                Typeface face = Typeface.createFromAsset(context.getAssets(), "fonts/IRANSansMobile_Bold.ttf");
                 pieChart.labels().fontFamily(face.toString());
 //                File font = new File("file:///android_asset/fonts/iran_sans_normal.ttf");
 
                 pieChart.legend()
 //                        .position("center-bottom")
-                        .position("right")
-                        .itemsLayout(LegendLayout.VERTICAL)
+                        .position("left")
+                        .itemsLayout(LegendLayout.VERTICAL_EXPANDABLE)
                         .textDirection(Direction.RTL)
+                        .fontSize(14)
+                        .inverted(false)
+                        .positionMode(LegendPositionMode.OUTSIDE)
+                        .wordWrap(WordWrap.NORMAL)
+                        .vAlign(VAlign.BOTTOM)
+                        .hAlign(HAlign.RIGHT)
                         .align(Align.CENTER);
 
                 pieChart.tooltip()
@@ -598,7 +589,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 //                pieChart.tooltip()
 //                        .format("درصد پیش بینی: " + )
 //                        .enabled(true);
-//                showError(getActivity(), pieChart.tooltip().getJsBase());
+//                showError(context, pieChart.tooltip().getJsBase());
 //                pieChart.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"})
 //                {
 //                    @Override
@@ -607,32 +598,40 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 //                        pieChart.tooltip().format(event.getData().put("ارزش: ", event.getData().get("value")));
 //                    }
 //                });
-
+                chartViewPie.setProgressBar(progressPieChart);
                 chartViewPie.setChart(pieChart);
+                //-----------------------------------PieChart end-------------------------------------
 
-                if (response.data.getPredict().isEmpty())
+                //-----------------------------------BarChart start-----------------------------------b v
+                if (response.data.getChart().getBarChart().isEmpty())
                 {
                     llChartLinear.setVisibility(View.GONE);
                 }
 
-                List<Predict> predictList = response.data.getPredict();
-//                Collections.reverse(predictList);
+                List<BarChart> barChartList = response.data.getChart().getBarChart();
 
-                if (predictList.size() >= 1)
+                rcBarChart.setAdapter(new PredictBarChartProgressAdapter(context,
+                        barChartList,
+                        response.data.getMatchPredict().getHomeTeam(),
+                        response.data.getMatchPredict().getAwayTeam() )
+                );
+
+                //--------------BarChart OLD-------------
+                if (barChartList.size() >= 1)
                 {
                     LinearLayout.LayoutParams paramsSpace = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
-                    params.weight = Float.valueOf(predictList.get(0).getTotalUser().toString());
-                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - predictList.get(0).getTotalUser()));
+                    params.weight = Float.valueOf(barChartList.get(0).getTotalUser().toString());
+                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - barChartList.get(0).getTotalUser()));
                     rlChartPredictOne.setLayoutParams(params);
                     spChartPredictOne.setLayoutParams(paramsSpace);
 
                     llChart1.setVisibility(View.VISIBLE);
-                    tvChartTotalUserOne.setText(predictList.get(0).getTotalUser().toString() + " %");
-                    vColorHomeOne.setBackgroundColor(Color.parseColor(response.data.getHomeTeam().getColorCode()));
-                    vColorAwayOne.setBackgroundColor(Color.parseColor(response.data.getAwayTeam().getColorCode()));
+                    tvChartTotalUserOne.setText(barChartList.get(0).getTotalUser().toString() + " %");
+                    vColorHomeOne.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getHomeTeam().getTeamColorCode()));
+                    vColorAwayOne.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getAwayTeam().getTeamColorCode()));
 
-                    tvChartPredictOne.setText(predictList.get(0).getAwayScore() + "-" + predictList.get(0).getHomeScore());
+                    tvChartPredictOne.setText(barChartList.get(0).getAwayScore() + "-" + barChartList.get(0).getHomeScore());
                 }
 //                else
 //                {
@@ -640,21 +639,21 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 //                    llChart3.setVisibility(View.GONE);
 //                }
 
-                if (predictList.size() >= 2)
+                if (barChartList.size() >= 2)
                 {
                     LinearLayout.LayoutParams paramsSpace = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
-                    params.weight = Float.valueOf(predictList.get(1).getTotalUser().toString());
-                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - predictList.get(1).getTotalUser()));
+                    params.weight = Float.valueOf(barChartList.get(1).getTotalUser().toString());
+                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - barChartList.get(1).getTotalUser()));
                     rlChartPredictTwo.setLayoutParams(params);
                     spChartPredictTwo.setLayoutParams(paramsSpace);
 
                     llChart2.setVisibility(View.VISIBLE);
-                    tvChartTotalUserTwo.setText(predictList.get(1).getTotalUser().toString() + " %");
-                    vColorHomeTwo.setBackgroundColor(Color.parseColor(response.data.getHomeTeam().getColorCode()));
-                    vColorAwayTwo.setBackgroundColor(Color.parseColor(response.data.getAwayTeam().getColorCode()));
+                    tvChartTotalUserTwo.setText(barChartList.get(1).getTotalUser().toString() + " %");
+                    vColorHomeTwo.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getHomeTeam().getTeamColorCode()));
+                    vColorAwayTwo.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getAwayTeam().getTeamColorCode()));
 
-                    tvChartPredictTwo.setText(predictList.get(1).getAwayScore() + "-" + predictList.get(1).getHomeScore());
+                    tvChartPredictTwo.setText(barChartList.get(1).getAwayScore() + "-" + barChartList.get(1).getHomeScore());
                 }
                 else
                 {
@@ -662,32 +661,35 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     llChart3.setVisibility(View.GONE);
                 }
 
-                if (predictList.size() == 3)
+                if (barChartList.size() == 3)
                 {
                     LinearLayout.LayoutParams paramsSpace = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
-                    params.weight = Float.valueOf(predictList.get(2).getTotalUser().toString());
-                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - predictList.get(2).getTotalUser()));
+                    params.weight = Float.valueOf(barChartList.get(2).getTotalUser().toString());
+                    paramsSpace.weight = Float.valueOf(String.valueOf(100 - barChartList.get(2).getTotalUser()));
                     rlChartPredictThree.setLayoutParams(params);
                     spChartPredictThree.setLayoutParams(paramsSpace);
 
                     llChart3.setVisibility(View.VISIBLE);
-                    tvChartTotalUserThree.setText(predictList.get(2).getTotalUser().toString() + " %");
-                    vColorHomeThree.setBackgroundColor(Color.parseColor(response.data.getHomeTeam().getColorCode()));
-                    vColorAwayThree.setBackgroundColor(Color.parseColor(response.data.getAwayTeam().getColorCode()));
+                    tvChartTotalUserThree.setText(barChartList.get(2).getTotalUser().toString() + " %");
+                    vColorHomeThree.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getHomeTeam().getTeamColorCode()));
+                    vColorAwayThree.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getAwayTeam().getTeamColorCode()));
 
-                    tvChartPredictThree.setText(predictList.get(2).getAwayScore() + "-" + predictList.get(2).getHomeScore());
+                    tvChartPredictThree.setText(barChartList.get(2).getAwayScore() + "-" + barChartList.get(2).getHomeScore());
                 }
-                else if (predictList.size() < 3)
+                else if (barChartList.size() < 3)
                 {
                     llChart3.setVisibility(View.GONE);
                 }
 
-                vColorHomeFour.setBackgroundColor(Color.parseColor(response.data.getHomeTeam().getColorCode()));
-                vColorAwayFour.setBackgroundColor(Color.parseColor(response.data.getAwayTeam().getColorCode()));
+                vColorHomeFour.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getHomeTeam().getTeamColorCode()));
+                vColorAwayFour.setBackgroundColor(Color.parseColor(response.data.getMatchPredict().getAwayTeam().getTeamColorCode()));
 
-                tvHomeChartTitle.setText(response.data.getHomeTeam().getName());
-                tvAwayChartTitle.setText(response.data.getAwayTeam().getName());
+                tvHomeChartTitle.setText(response.data.getMatchPredict().getHomeTeam().getTeamName());
+                tvAwayChartTitle.setText(response.data.getMatchPredict().getAwayTeam().getTeamName());
+                //--------------BarChart OLD-------------
+
+                //-----------------------------------BarChart end-------------------------------------
 
             }
 
@@ -699,32 +701,25 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     {
         mainView.hideLoading();
         Logger.e("-showErrorMessage-", "Error: " + message);
-        showErrorAndBackToMain("خطا در دریافت اطلاعات از سرور!");
 
-
-        if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+        if (Tools.isNetworkAvailable((Activity) context))
         {
             showErrorAndBackToMain("خطا در دریافت اطلاعات از سرور!");
-
-
         }
         else
         {
             showErrorAndBackToMain( getString(R.string.networkErrorMessage));
-
-
-
         }
     }
 
     private void setImageIntoIV(ImageView imageView, String link)
     {
-        Picasso.with(getActivity()).load(link).into(imageView);
+        Picasso.with(context).load(link).into(imageView);
     }
 
     private RelativeLayout getWinLoseListView(String itemStr)
     {
-        RelativeLayout rl = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.item_win_lose, null, false);
+        RelativeLayout rl = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.item_win_lose, null, false);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ((int) getResources().getDimension(R.dimen.win_lose_view_height)),
@@ -753,9 +748,29 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         return rl;
     }
 
+    @Override
+    public void onFinishTimer()
+    {
+        isPredictable = false;
+        llTimer.setVisibility(View.GONE);
+        tvPredictText.setText("زمان پیش بینی به پایان رسیده است!");
+    }
+
+    @Override
+    public void onTickTimer(String time)
+    {
+        tvTimePredict.setText(time);
+    }
+
+    @Override
+    public void onErrorTimer(String message)
+    {
+
+    }
+
     private void showErrorAndBackToMain(String message)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), getResources().getString(R.string.error),
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, getResources().getString(R.string.error),
                 message, false, MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
         {
             @Override
@@ -770,14 +785,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
             }
         });
-        dialog.show(getActivity().getFragmentManager(), "dialog");
+        dialog.show(((Activity)context).getFragmentManager(), "dialog");
     }
 
 
     @Override
     public void onAnimationEnd()
     {
-        btnSendPredict.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.background_button_login));
+        btnSendPredict.setBackground(ContextCompat.getDrawable(context, R.drawable.background_button_login));
     }
 
     @Subscribe

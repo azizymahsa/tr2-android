@@ -24,13 +24,22 @@
 
         <TextView
             android:id="@+id/tvCupTitle"
+            android:layout_toLeftOf="@+id/imgCupLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textSize_16dp"
+            android:layout_marginRight="4dp"
             android:textColor="@color/textColorSecondary"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="جام"/>
+
+        <ImageView
+            android:id="@+id/imgCupLogo"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitCenter"/>
 
     </RelativeLayout>
 
@@ -61,12 +70,12 @@
                 android:layout_toRightOf="@+id/imgAway"
                 android:layout_centerVertical="true"
                 android:textColor="@color/textColorSecondary"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
             <ImageView
                 android:id="@+id/imgAway"
-                android:layout_width="@dimen/_35dp"
-                android:layout_height="@dimen/_35dp"
+                android:layout_width="@dimen/_45dp"
+                android:layout_height="@dimen/_45dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:scaleType="fitCenter"/>
@@ -76,7 +85,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="2">
 
             <View
                 android:id="@+id/vAway"
@@ -115,6 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:layout_centerInParent="true"
                 android:textStyle="bold"
                 android:background="@color/white"
                 android:textColor="@color/textColorSecondary"
@@ -126,7 +136,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="2">
 
             <View
                 android:id="@+id/vHome"
@@ -150,12 +160,12 @@
                 android:layout_toLeftOf="@+id/imgHome"
                 android:layout_centerVertical="true"
                 android:textColor="@color/textColorSecondary"
-                android:gravity="center"/>
+                android:gravity="right"/>
 
             <ImageView
                 android:id="@+id/imgHome"
-                android:layout_width="@dimen/_35dp"
-                android:layout_height="@dimen/_35dp"
+                android:layout_width="@dimen/_45dp"
+                android:layout_height="@dimen/_45dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="fitCenter"/>

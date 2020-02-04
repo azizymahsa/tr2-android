@@ -145,7 +145,7 @@ android {
         //----------------------Chabok end-----------------
 
         //----------------------my Libraries start---------------
-//        implementation(name: 'flight-debug_v89', ext: 'aar')
+//        implementation(cupName: 'flight-debug_v89', ext: 'aar')
 //    implementation project(':bubbleseekbar')
 //        implementation project(':imagepicker')
 //    implementation project(':taggroup')
@@ -153,7 +153,7 @@ android {
         implementation project(':type')
         implementation project(':moeidbannerlibrary')
 //    implementation project(path: ':type')
-        // implementation(name: 'uxcam-3.1.12', ext: 'aar')
+        // implementation(cupName: 'uxcam-3.1.12', ext: 'aar')
         //----------------------my Libraries end-----------------
 
         //-----------------------google start--------------------
@@ -168,7 +168,7 @@ android {
         //-----------------------google end----------------------
 
         //-------------------accubin start-----------------------
-//    implementation(name: 'accubin-sdk-3.0', ext: 'aar')
+//    implementation(cupName: 'accubin-sdk-3.0', ext: 'aar')
 //        implementation 'com.google.zxing:core:3.2.1'
         implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
         //com.journeyapps.barcodescanner
@@ -381,9 +381,9 @@ android {
 //        implementation 'com.github.rubensousa:gravitysnaphelper:1.5'
 
 
-        //----------------Chart for start----------------------
+        //----------------PieChart for start----------------------
 //        implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
-        //----------------Chart for end------------------------
+        //----------------PieChart for end------------------------
 
         //----------------expandablerecyclerview for start----------------------
 //        implementation 'com.thoughtbot:expandablerecyclerview:1.3'

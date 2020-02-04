@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-<!--    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">-->
+<!--    <style cupName="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">-->
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -27,17 +27,17 @@
     <style name="EditTextHint" parent="TextAppearance.AppCompat">
         <item name="colorAccent">@color/black</item>
         <item name="android:textColorHint">@color/textHint</item>
-<!--        <item name="colorControlNormal">@color/textColor2</item>-->
-<!--        <item name="colorControlActivated">@color/textColor2</item>-->
-<!--        <item name="colorControlHighlight">@color/textColor2</item>-->
+<!--        <item cupName="colorControlNormal">@color/textColor2</item>-->
+<!--        <item cupName="colorControlActivated">@color/textColor2</item>-->
+<!--        <item cupName="colorControlHighlight">@color/textColor2</item>-->
     </style>
 
     <style name="EditTextHint2" parent="TextAppearance.AppCompat">
         <item name="colorAccent">@android:color/black</item>
         <item name="android:textColorHint">@color/black</item>
         <item name="colorControlNormal">@color/black</item>
-<!--        <item name="colorControlActivated">@color/textColorPrimary</item>-->
-<!--        <item name="colorControlHighlight">@color/textColorPrimary</item>-->
+<!--        <item cupName="colorControlActivated">@color/textColorPrimary</item>-->
+<!--        <item cupName="colorControlHighlight">@color/textColorPrimary</item>-->
     </style>
 
     <style name="TextLabel" parent="TextAppearance.Design.Hint">
@@ -56,8 +56,8 @@
         <item name="colorAccent">@android:color/white</item>
         <item name="android:textColorHint">@color/textHint</item>
         <item name="colorControlNormal">@android:color/transparent</item>
-<!--        <item name="colorControlActivated">@color/textColor2</item>-->
-<!--        <item name="colorControlHighlight">@color/textColor2</item>-->
+<!--        <item cupName="colorControlActivated">@color/textColor2</item>-->
+<!--        <item cupName="colorControlHighlight">@color/textColor2</item>-->
     </style>
 
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -99,7 +99,7 @@
     </style>
 
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
-<!--        <item name="android:textSize">14sp</item>-->
+<!--        <item cupName="android:textSize">14sp</item>-->
         <item name="android:textColor">@color/textHint</item>
         <item name = "android:fontFamily">@fonts/iran_sans_normal</item>
         <item name="textAllCaps">true</item>

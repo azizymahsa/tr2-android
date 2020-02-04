@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Predict
+public class BarChart
 {
     @SerializedName("away_score")
     @Expose @Getter @Setter

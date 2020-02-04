@@ -246,7 +246,7 @@ public class PersianCalendar extends JalaliCalendar implements Serializable{
 
 	/**
 	 *
-	 * @return String persian month name
+	 * @return String persian month cupName
 	 */
 	public String getPersianMonthName() {
 		// calculatePersianDate();

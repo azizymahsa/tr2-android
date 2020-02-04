@@ -2289,7 +2289,7 @@ public class PackFragment
             if (isMtn)
             {
                 etMobileNumberIranCell.setText(onSelectContact.getNumber().replaceAll(" ", ""));
-               // tilMIrancell.setHint(onSelectContact.getName());
+               // tilMIrancell.setHint(onSelectContact.getCupName());
 
 
                 return;
@@ -2297,7 +2297,7 @@ public class PackFragment
             if (isMci)
             {
                 etMobileNumberMCI.setText(onSelectContact.getNumber().replaceAll(" ", ""));
-              //  tilMMci.setHint(onSelectContact.getName());
+              //  tilMMci.setHint(onSelectContact.getCupName());
 
 
                 return;
@@ -2307,7 +2307,7 @@ public class PackFragment
             if (isRightel)
             {
                 etMobileNumberRightel.setText(onSelectContact.getNumber().replaceAll(" ", ""));
-                //tilMRightel.setHint(onSelectContact.getName());
+                //tilMRightel.setHint(onSelectContact.getCupName());
 
 
             }

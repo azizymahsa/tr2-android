@@ -11,7 +11,7 @@ public class League implements Serializable
     @SerializedName("country_id")
     @Expose
     private String countryId;
-    @SerializedName("name")
+    @SerializedName("cupName")
     @Expose
     private String name;
     @SerializedName("id")

@@ -1335,7 +1335,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onPredict(MatchItem matchPredict, Boolean isPredictable)
     {
         isMainFragment = false;
-        this.fragment = PredictFragment.newInstance(this, matchPredict, isPredictable);
+        this.fragment = PredictFragment.newInstance(this, matchPredict.getId(), isPredictable);
 
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -2176,7 +2176,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     }
 
     @Override
-    public void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message)
+    public void onSetPredictCompleted(Integer matchId, Boolean isPredictable, String message)
     {
         MessageAlertDialog dialog = new MessageAlertDialog(this, "", message, false,
                 "تایید", "", MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
@@ -2185,7 +2185,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             public void onConfirmClick()
             {
                 isMainFragment = false;
-                fragment = PredictFragment.newInstance(MainActivity.this, matchPredict, isPredictable);
+                fragment = PredictFragment.newInstance(MainActivity.this, matchId, isPredictable);
 
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.main_container, fragment, "predictFragment")
