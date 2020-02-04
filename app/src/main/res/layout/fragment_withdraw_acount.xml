@@ -228,10 +228,11 @@
 
 
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="98"
-            android:text=" - در طول هر ماه فقط یکبار می توانید موجودی کیف پول خود را نقد کنید. "
+            android:text=" -   "
             android:textColor="@color/black"
             android:singleLine="false"
             android:textSize="@dimen/_10dp" />
@@ -251,10 +252,11 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tvValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="98"
-            android:text=" - سقف برداشت از کیف پول 900,000 ریال می باشد. "
+            android:text=" -  "
             android:textColor="@color/black"
             android:singleLine="false"
             android:textSize="@dimen/_10dp" />

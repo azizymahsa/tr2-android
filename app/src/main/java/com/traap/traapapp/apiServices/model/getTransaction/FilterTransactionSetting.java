@@ -1,25 +1,24 @@
 package com.traap.traapapp.apiServices.model.getTransaction;
 
-import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class ResponseTransaction
+public class FilterTransactionSetting
 {
-    @SerializedName("count")
+    @SerializedName("step_count")
     @Expose @Getter @Setter
-    private Integer count;
+    private Integer stepCount;
 
-    @SerializedName("setting")
+    @SerializedName("min_amount")
     @Expose @Getter @Setter
-    private TransactionSetting transactionSetting;
+    private Integer minAmount;
 
-    @SerializedName("results")
+    @SerializedName("max_amount")
     @Expose @Getter @Setter
-    private List<TransactionList> transactionLists = null;
+    private Integer maxAmount;
+
 
 }
