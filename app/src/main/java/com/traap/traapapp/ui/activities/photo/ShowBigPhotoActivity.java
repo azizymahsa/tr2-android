@@ -1,15 +1,12 @@
 package com.traap.traapapp.ui.activities.photo;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -47,15 +44,9 @@ import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
 import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.ui.adapters.photo.AlbumDetailsItemAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
-import com.traap.traapapp.utilities.HackyViewPager;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 

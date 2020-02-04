@@ -61,6 +61,7 @@ import com.traap.traapapp.ui.fragments.main.onConfirmUserPassGDS;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -672,7 +673,8 @@ public class AllMenuFragment extends BaseFragment implements
                     @Override
                     public void onPermissionGranted()
                     {
-                        // Utility.openUrlCustomTab(getActivity(), URl);
+
+                       // Utility.openUrlCustomTab(getActivity(), URl);
                         Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("URL", URl);
                         intent.putExtra("Title", "بیمه");
