@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.traap.traapapp.R;
@@ -136,7 +135,7 @@ public class PastResultFragment
     {
         try
         {
-            leagRecycler = rootView.findViewById(R.id.leagRecycler);
+            leagRecycler = rootView.findViewById(R.id.leagueRecycler);
             //Toolbar Create
             mToolbar = rootView.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
