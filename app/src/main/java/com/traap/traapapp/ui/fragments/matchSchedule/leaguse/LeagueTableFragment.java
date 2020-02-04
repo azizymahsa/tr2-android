@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -97,7 +96,7 @@ public class LeagueTableFragment
     {
         try
         {
-            leagRecycler = rootView.findViewById(R.id.leagRecycler);
+            leagRecycler = rootView.findViewById(R.id.leagueRecycler);
 
             mToolbar = rootView.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -188,20 +187,20 @@ public class LeagueTableFragment
                 //scrollView
                 for (int i = 0; i < response.data.getResults().size(); i++)
                 {
-                    Result responseLeage = response.data.getResults().get(i);
+                    Result responseLeague = response.data.getResults().get(i);
                     data.add(new DataBean(
-                            responseLeage.getTeamId(),
+                            responseLeague.getTeamId(),
                             //title
-                            responseLeage.getName(),
-                            responseLeage.getMatches(),
-                            responseLeage.getWon(),
-                            responseLeage.getDrawn(),
-                            responseLeage.getLost(),
-                            responseLeage.getGoalsScored(),
-                            responseLeage.getGoalsConceded(),
-                            responseLeage.getGoalDiff(),
-                            responseLeage.getPoints(),
-                            responseLeage.getTeamLogo()));
+                            responseLeague.getName(),
+                            responseLeague.getMatches(),
+                            responseLeague.getWon(),
+                            responseLeague.getDrawn(),
+                            responseLeague.getLost(),
+                            responseLeague.getGoalsScored(),
+                            responseLeague.getGoalsConceded(),
+                            responseLeague.getGoalDiff(),
+                            responseLeague.getPoints(),
+                            responseLeague.getTeamLogo()));
                 }
                 fixTableAdapter = new FixTableAdapter(data, this.getContext());
                 leagRecycler.setAdapter(fixTableAdapter);
