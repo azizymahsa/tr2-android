@@ -27,6 +27,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import library.android.eniac.StartEniacBusActivity;
+import library.android.eniac.StartEniacFlightActivity;
+import library.android.eniac.StartEniacHotelActivity;
+import library.android.eniac.interfaces.BusLockSeat;
+import library.android.eniac.interfaces.FlightReservationData;
+import library.android.eniac.interfaces.HotelReservationData;
+import library.android.eniac.model.FlightReservation;
+import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
+import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
+import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
+import library.android.service.model.bus.searchBus.response.Company;
+import library.android.service.model.flight.reservation.response.ReservationResponse;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -107,6 +119,7 @@ public class AllMenuFragment extends BaseFragment implements
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private FrameLayout flLogoToolbar;
+    private StartEniacFlightActivity startEniacFlightActivity;
 
     Integer backState;
     public AllMenuFragment()
@@ -536,11 +549,44 @@ public class AllMenuFragment extends BaseFragment implements
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivityForResult(intent,100);
+         /*       startEniacFlightActivity =new StartEniacFlightActivity(
+                        "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh", "0037250100293610", "1397",
+                        new FlightReservationData()
+                        {
+                            @Override
+                            public void flightReservationListener(ReservationResponse reservationResponse, FlightReservation flightReservation, String s, String s1)
+                            {
 
+                            }
+
+                            @Override
+                            public void flightConfirmToSendSms(Boolean aBoolean)
+                            {
+
+                            }
+                        }, 2);
+                startEniacFlightActivity.startMainFlight();*/
                 break;
             }
             case 14://Flight all
             {
+             /*   startEniacFlightActivity =new StartEniacFlightActivity(
+                        "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh", "0037250100293610", "1397",
+                        new FlightReservationData()
+                        {
+                            @Override
+                            public void flightReservationListener(ReservationResponse reservationResponse, FlightReservation flightReservation, String s, String s1)
+                            {
+
+                            }
+
+                            @Override
+                            public void flightConfirmToSendSms(Boolean aBoolean)
+                            {
+
+                            }
+                        }, 2);
+                startEniacFlightActivity.startMainFlight();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
@@ -551,7 +597,22 @@ public class AllMenuFragment extends BaseFragment implements
             }
             case 12: //Hotel
             {
+ /*               StartEniacHotelActivity   eniacHotelActivity =new StartEniacHotelActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+                        "0037250100293610", "1397", getActivity(), new HotelReservationData()
+                {
+                    @Override
+                    public void hotelReserveListener(HotelItem hotelItem, String s)
+                    {
 
+                    }
+
+                    @Override
+                    public void hotelConfirmToSendSmsListener(Boolean aBoolean)
+                    {
+
+                    }
+                }, 2);
+                eniacHotelActivity.startMainHotelActivity();*/
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
@@ -563,6 +624,22 @@ public class AllMenuFragment extends BaseFragment implements
 
             case 13: //Bus
             {
+        /*        StartEniacBusActivity eniacBusActivity = new StartEniacBusActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+                        "0037250100293610", "1397", getActivity(), new BusLockSeat()
+                {
+                    @Override
+                    public void LockSeatListener(LockSeatResponse lockSeatResponse, String s, String s1, List<Company> list)
+                    {
+
+                    }
+
+                    @Override
+                    public void issueBusReservation(SaleVerifyResponse saleVerifyResponse, boolean b)
+                    {
+
+                    }
+                }, 2);
+                eniacBusActivity.startMainBusActivity();*/
 
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
@@ -570,7 +647,6 @@ public class AllMenuFragment extends BaseFragment implements
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivityForResult(intent,100);
-
                 //mainView.onPackSimCard();
 
                 break;

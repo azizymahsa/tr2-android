@@ -33,6 +33,12 @@ import com.traap.traapapp.utilities.font.TextField;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 import com.yandex.metrica.push.YandexMetricaPush;
+
+import library.android.service.di.component.DaggerNetGdsComponent;
+import library.android.service.di.component.NetGdsComponent;
+import library.android.service.di.module.NetModule;
+import library.android.service.generator.SingletonGdsService;
+import library.android.service.helper.Const;
 import okhttp3.OkHttpClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -67,7 +73,12 @@ public class MyApplication extends ServiceApplication
                 .debuggable(false) // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
+        SingletonGdsService.getInstance().setContext(this);
 
+        NetGdsComponent mNetGdsComponent = DaggerNetGdsComponent.builder()
+                .netModule(new NetModule(Const.BASEURL))
+                .build();
+        SingletonGdsService.getInstance().setNetGdsComponent(mNetGdsComponent).inject();
 
 //        SingletonGdsService.getInstance().setContext(this);
 //        NetGdsComponent mNetGdsComponent = DaggerNetGdsComponent.builder()

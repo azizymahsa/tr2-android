@@ -89,6 +89,10 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 //import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
 //import library.android.service.model.bus.searchBus.response.Company;
 //import library.android.service.model.flight.reservation.response.ReservationResponse;
+import library.android.eniac.StartEniacFlightActivity;
+import library.android.eniac.interfaces.FlightReservationData;
+import library.android.eniac.model.FlightReservation;
+import library.android.service.model.flight.reservation.response.ReservationResponse;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
@@ -295,6 +299,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         repeatTask.run();
     }
 
+
+    private StartEniacFlightActivity startEniacFlightActivity;
     private void initView(View rootView)
     {
         mToolbar = rootView.findViewById(R.id.toolbar);
@@ -384,9 +390,39 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             try
             {
+
+        /*        startEniacFlightActivity =new  StartEniacFlightActivity(
+                        "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh", "0037250100293610", "1397",
+                        new FlightReservationData()
+                        {
+                            @Override
+                            public void flightReservationListener(ReservationResponse reservationResponse, FlightReservation flightReservation, String s, String s1)
+                            {
+
+                            }
+
+                            @Override
+                            public void flightConfirmToSendSms(Boolean aBoolean)
+                            {
+
+                            }
+                        }, 2);
+                startEniacFlightActivity.startMainFlight();*/
                 list = fillMenuRecyclerList();
                 MainServiceModelItem s = findUrlById(list, "11");
                 mainView.openWebView(mainView, s.getBase_url(), Prefs.getString("gds_token", ""));
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

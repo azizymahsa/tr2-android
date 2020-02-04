@@ -3,6 +3,8 @@
     <color name="colorPrimary">#fff</color>
     <color name="colorwhite">#F7F2F2</color>
     <color name="colorPrimaryDark">#810000</color>
+    <color name="light_app_color">#D57E7E</color>
+    <color name="light_app_color2">#F7C2C2</color>
     <color name="colorAccent">#f58232</color>
 
     <color name="textColorTitle">#fff</color>
