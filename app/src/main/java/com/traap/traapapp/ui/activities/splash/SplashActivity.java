@@ -15,6 +15,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +40,7 @@ import io.realm.RealmConfiguration;
 import com.traap.traapapp.BuildConfig;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.helper.Const;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getVersion.request.GetVersionRequest;
@@ -97,6 +99,9 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
         SingletonContext.getInstance().setHeight(height);
         SingletonContext.getInstance().setWidth(width);
+        if (!Const.BASEURL.contains("https://restapp.traap.com/")){
+            Toast.makeText(this, "نسخه تست", Toast.LENGTH_LONG).show();
+        }
 
         PackageInfo pInfo = null;
         try

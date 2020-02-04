@@ -146,6 +146,7 @@ android {
 
         //----------------------my Libraries start---------------
 //        implementation(cupName: 'flight-debug_v89', ext: 'aar')
+        implementation(name: 'flight-debug_94', ext: 'aar')
 //    implementation project(':bubbleseekbar')
 //        implementation project(':imagepicker')
 //    implementation project(':taggroup')
@@ -233,7 +234,7 @@ android {
 //        implementation "com.mlsdev.animatedrv:library:1.0.1" //animation for recyclerView
 //        implementation 'com.github.devlight.shadowlayout:library:1.0.2' //shadowlayout
         implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
-        //  implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
+        implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
         implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
         implementation 'com.jcminarro:RoundKornerLayouts:0.4.0'
 //        implementation 'com.fujiyuu75:sequent:0.2.1' //animation
@@ -419,6 +420,11 @@ android {
 //        implementation "io.fotoapparat:fotoapparat:2.5.0" //CameraView
 
 //        implementation 'org.tensorflow:tensorflow-lite:1.14.0'
+
+
+        implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+        compile 'com.miguelcatalan:materialsearchview:1.4.0'
+        implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
 
     }
 }

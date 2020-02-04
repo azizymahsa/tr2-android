@@ -92,6 +92,7 @@
         android:name="firebase_analytics_collection_enabled"
         android:value="true" />
 
+    <!-- <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" /> -->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -104,7 +105,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".ui.activities.paymentResult.PaymentResultWithDrawAccountActivity"></activity>
+        <activity android:name=".ui.activities.SearchCountryActivity"></activity>
+        <activity android:name=".ui.activities.paymentResult.PaymentResultWithDrawAccountActivity" />
         <activity android:name=".ui.activities.points.PointsActivity" />
         <activity android:name=".ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity" />
         <activity
@@ -113,14 +115,11 @@
         <!-- <meta-data -->
         <!-- android:cupName="com.google.android.geo.API_KEY" -->
         <!-- android:value="AIzaSyD0Sz5c524BMxUW_YzlRW7K7g8R1jrzD7o" /> -->
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false" />
-
         <activity
             android:name=".ui.activities.paymentResult.PaymentResultActivity"
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activities.news.details.NewsDetailsActivity"
             android:configChanges="keyboardHidden"
@@ -205,6 +204,15 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:configChanges="keyboardHidden"
             android:theme="@style/Base.Theme.AppCompat" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.traap.traapapp.android.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -221,14 +229,6 @@
 
         <service android:name="com.uxcam.service.HttpPostService" /> <!-- <service -->
         <!-- android:cupName=".notification.NotificationJobService" -->
-        <!-- android:exported="true" -->
-        <!-- android:permission="android.permission.BIND_JOB_SERVICE" /> -->
-        <!-- <receiver android:cupName=".notification.PushMessageReceiver"> -->
-        <!-- <intent-filter> -->
-        <!-- <category android:cupName="com.traap.traapapp" /> -->
-        <!-- <action android:cupName="com.adpdigital.push.client.MSGRECEIVE" /> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
         <receiver
             android:name=".notification.SilentPushReceiver"
             android:exported="false">
@@ -237,7 +237,17 @@
                 <!-- Receive silent push notifications. -->
                 <action android:name="com.traap.traapapp.action.ymp.SILENT_PUSH_RECEIVE" />
             </intent-filter>
-        </receiver>
+        </receiver> <!-- <service -->
+        <!-- android:name=".notification.NotificationJobService" -->
+        <!-- android:exported="true" -->
+        <!-- android:permission="android.permission.BIND_JOB_SERVICE" /> -->
+        <!-- <receiver android:cupName=".notification.PushMessageReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <category android:cupName="com.traap.traapapp" /> -->
+        <!-- <action android:cupName="com.adpdigital.push.client.MSGRECEIVE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <service android:name="com.uxcam.service.HttpPostService" />
 
         <service
             android:name=".notification.MyFireBaseMessagingService"
@@ -256,15 +266,97 @@
         <!-- <action android:cupName="com.google.firebase.INSTANCE_ID_EVENT" /> -->
         <!-- </intent-filter> -->
         <!-- </service> -->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.traap.traapapp.android.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@mipmap/ic_launcher" />
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_color"
+        android:resource="@android:color/transparent" />
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_channel_id"
+        android:value="@string/app_english_name" />
+    <meta-data
+        android:name="firebase_messaging_auto_init_enabled"
+        android:value="true" />
+    <meta-data
+        android:name="firebase_analytics_collection_enabled"
+        android:value="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-permission
+        android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"
+        tools:node="remove" />
+    <uses-permission
+        android:name="com.anddoes.launcher.permission.UPDATE_COUNT"
+        tools:node="remove" />
+    <uses-permission
+        android:name="com.majeur.launcher.permission.UPDATE_BADGE"
+        tools:node="remove" />
+    <uses-permission
+        android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"
+        tools:node="remove" />
+    <uses-permission
+        android:name="com.huawei.android.launcher.permission.READ_SETTINGS"
+        tools:node="remove" /> <!-- <uses-permission -->
+    <!-- android:name="android.permission.MANAGE_DOCUMENTS" -->
+    <!-- tools:ignore="ProtectedPermissions" /> -->
+    <uses-permission
+        android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.READ_APP_BADGE"
+        tools:node="remove" /> <!-- HTC -->
+    <uses-permission
+        android:name="com.oppo.launcher.permission.READ_SETTINGS"
+        tools:node="remove" />
+    <uses-permission
+        android:name="com.oppo.launcher.permission.WRITE_SETTINGS"
+        tools:node="remove" /> <!-- Sony -->
+    <uses-permission
+        android:name="me.everything.badger.permission.BADGE_COUNT_READ"
+        tools:node="remove" />
+    <uses-permission
+        android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"
+        tools:node="remove" /> <!-- Apex -->
+    <uses-permission
+        android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"
+        tools:node="remove" /> <!-- Solid -->
+    <uses-permission
+        android:name="com.sonymobile.home.permission.PROVIDE_INSERT_BADGE"
+        tools:node="remove" /> <!-- <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> &lt;!&ndash; Huawei &ndash;&gt; -->
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" /> <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
+    <!-- <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> -->
+    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" /> <!-- <uses-permission android:name="android.permission.RECEIVE_SMS" /> -->
+    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" />
+    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" /> <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" /> <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
+    <!-- <meta-data -->
+    <!-- android:name="com.adpdigital.push.client.SHOW_ONLY_CHABOK_NOTIFICATIONS" -->
+    <!-- android:value="ENABLE" /> -->
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

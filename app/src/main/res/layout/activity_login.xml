@@ -119,6 +119,42 @@
                     app:pinLineColors="@color/textColorSecondary" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/etCountryName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="right"
+                        android:text="ایران"
+                        android:editable="false"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_18dp" />
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -130,16 +166,50 @@
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="40" />
+                    android:layout_weight="20" />
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="100">
+                    android:layout_weight="100"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rlCountryCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="@dimen/_10dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/textSize_18dp"
+                            android:text="+"
+                            android:layout_centerVertical="true"/>
+                        <EditText
+                            android:id="@+id/etCountryCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/_10dp"
+                            android:layout_gravity="center"
+                            android:minWidth="@dimen/_50dp"
+                            android:gravity="center"
+                            android:text="98"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLength="4"
+
+
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/textSize_18dp" />
+                    </RelativeLayout>
 
                     <com.traap.traapapp.utilities.ClearableEditText
                         android:id="@+id/etMobileNumber"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="100"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -152,12 +222,12 @@
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_18dp" />
 
-                </FrameLayout>
+                </LinearLayout>
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="40" />
+                    android:layout_weight="20" />
 
             </LinearLayout>
 
