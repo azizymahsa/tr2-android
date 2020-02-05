@@ -1,8 +1,8 @@
 [
   {
-    "name": "Israel",
-    "dial_code": "+972",
-    "code": "IL"
+    "name": "Iran, Islamic Republic of",
+    "dial_code": "+98",
+    "code": "IR"
   },
   {
     "name": "Afghanistan",
@@ -1029,11 +1029,6 @@
     "name": "Hong Kong",
     "dial_code": "+852",
     "code": "HK"
-  },
-  {
-    "name": "Iran, Islamic Republic of",
-    "dial_code": "+98",
-    "code": "IR"
   },
   {
     "name": "Isle of Man",
