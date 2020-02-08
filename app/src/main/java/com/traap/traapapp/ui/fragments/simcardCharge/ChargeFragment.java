@@ -2176,7 +2176,7 @@ public class ChargeFragment extends BaseFragment
                     // rvIrancellAmount.setAdapter(new ChargeAdapter(mtnResultList,getActivity(),ChargeFragment.this));
                     //rvRightelAmount.setAdapter(new ChargeAdapter(rightelResultList, getActivity(), ChargeFragment.this));
                     irancellFilter(0, 0);
-                    rightelFilter(0, 1);
+                    rightelFilter(0, 0);
 
 
                 } catch (Exception e)

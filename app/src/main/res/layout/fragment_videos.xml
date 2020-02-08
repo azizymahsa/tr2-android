@@ -3,14 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nestedScroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layoutDirection="ltr">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -157,8 +162,8 @@
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/ivFavorite2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="103dp"
+                        android:layout_height="83dp"
                         android:layout_centerInParent="true"
                         android:layout_marginRight="@dimen/_10dp"
                         android:layout_marginBottom="@dimen/_5dp"
@@ -229,6 +234,10 @@
             </RelativeLayout>
         </LinearLayout>
 
+    </LinearLayout>
+
+
+
         <LinearLayout
             android:id="@+id/llPager"
             android:layout_width="match_parent"
@@ -273,9 +282,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategories"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_10dp" />
+                android:layout_marginBottom="@dimen/_10dp"
+                />
 
             <TextView
                 android:id="@+id/tvEmpty"
