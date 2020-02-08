@@ -424,7 +424,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     });
 
                 }
-            },50);
+            },200);
            /* new Handler().postDelayed(new Runnable()
             {
                 @Override
