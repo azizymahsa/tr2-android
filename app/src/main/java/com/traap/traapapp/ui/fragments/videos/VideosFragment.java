@@ -64,7 +64,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private VideosActionView mainView;
     private View rootView;
     private LinearLayout llPager;
-
+    public  Integer bNewestVideoPosition;
+    public  Integer categoryClickPosition;
+    public  Integer categoryClickPositionX;
+    public  Integer categoryClickPositionY;
     private Context context;
 
     private BannerLayout bNewestVideo;
@@ -230,7 +233,18 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         indicatorNewestPhotos.attachToRecyclerView(bNewestVideo.getmRecyclerView());
 
         bNewestVideo.setAutoPlaying(true);
+        if (bNewestVideoPosition!=null)
+        {
+            try
+            {
+                bNewestVideo.getmRecyclerView().scrollToPosition(bNewestVideoPosition);
 
+            } catch (Exception e)
+            {
+                bNewestVideo.getmRecyclerView().scrollToPosition(0);
+
+            }
+        }
 //        nestedScroll.post(() -> nestedScroll.smoothScrollTo(0, llPager.getTop()));
 
 //        if (bNewestVideoPosition != null)
@@ -253,24 +267,29 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), this);
         rvCategories.setAdapter(categoryAdapter);
         rvCategories.setNestedScrollingEnabled(false);
-
-
-        try
+        if (categoryClickPosition!=null)
         {
-            idCategoryTitle = category.getId();
-            requestGetCategoryById(idCategoryTitle);
+            try
+            {
+                rvCategoryTitles.scrollTo(categoryClickPositionX, categoryClickPositionY);
+                mainView.showLoading();
+
+                idCategoryTitle = category.getId();
+                requestGetCategoryById(idCategoryTitle);
+                videoCategoryTitleAdapter.setSelectedPosition(categoryClickPosition);
+
 
   /*              RecyclerView.ViewHolder viewHolder = rvCategoryTitles.findViewHolderForAdapterPosition(position);
 
 
                 ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setTextColor(context.getResources().getColor(R.color.borderColorRed));
                 ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setBackgroundResource(R.drawable.background_border_a);*/
-        }
-        catch (Exception e)
-        {
-//                rvCategoryTitles.scrollToPosition(0);
-            idCategoryTitle = category.getId();
-            requestGetCategoryById(idCategoryTitle);
+            } catch (Exception e)
+            {
+                rvCategoryTitles.scrollToPosition(0);
+                idCategoryTitle = category.getId();
+                requestGetCategoryById(idCategoryTitle);
+            }
         }
     }
 
@@ -321,7 +340,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     {
 
         this.category = category;
-
+        categoryClickPosition=position;
+        mainView.showLoading();
+        categoryClickPositionX=rvCategoryTitles.getScrollX();
+        categoryClickPositionY=rvCategoryTitles.getScrollY();
         idCategoryTitle = category.getId();
         requestGetCategoryById(idCategoryTitle);
     }
@@ -387,7 +409,11 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             rvCategories.setVisibility(View.VISIBLE);
             categoryAdapter = new CategoryAdapter(data.getResults(), this);
             rvCategories.setAdapter(categoryAdapter);
-
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
             Observable.just(llTop.getHeight())
 //                        .repeat(2)
                     .subscribeOn(Schedulers.io())
@@ -396,6 +422,9 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     {
                         nestedScroll.post(() -> nestedScroll.smoothScrollTo(0, scrollTo));
                     });
+
+                }
+            },50);
            /* new Handler().postDelayed(new Runnable()
             {
                 @Override
@@ -512,6 +541,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     @Override
     public void onItemNewestVideoClick(int position, Category category)
     {
+        bNewestVideoPosition=position;
+
         categoriesList = mainVideosResponse.getRecent();
         openVideoDetail(categoriesList, position, category.getCategoryId(), category.getId());
     }
