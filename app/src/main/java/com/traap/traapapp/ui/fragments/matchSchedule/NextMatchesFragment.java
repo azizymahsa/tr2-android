@@ -141,7 +141,7 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
-        PredictFragment pastResultFragment =  PredictFragment.newInstance(mainActionView, matchItem, matchItem.getIsPredict());
+        PredictFragment pastResultFragment =  PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
     }

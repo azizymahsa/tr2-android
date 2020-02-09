@@ -69,6 +69,8 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
     }
 
+
+
     public static MediaFragment newInstance(MediaPosition mediaPosition, MainActionView mainView)
     {
         MediaFragment f = new MediaFragment();

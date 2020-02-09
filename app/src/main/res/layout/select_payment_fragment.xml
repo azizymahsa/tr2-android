@@ -168,9 +168,9 @@
                         android:gravity="center"
                         android:singleLine="true"
                         android:text="درگاه پرداخت"
-                        android:background="@drawable/background_border_a"
-                        android:textColor="@color/borderColorRed"
-                        android:textSize="@dimen/textSize_14dp" />
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/textSize_14dp"
+                        />
 
                     <TextView
                         android:id="@+id/tvCardsShetab"
@@ -194,7 +194,7 @@
                         android:gravity="center"
                         android:text="کیف پول"
                         android:singleLine="true"
-                        android:textColor="@color/returnButtonColor"
+                        android:textColor="@color/gray"
                         android:textSize="@dimen/textSize_14dp" />
 
                 </LinearLayout>

@@ -1,22 +1,21 @@
 package com.traap.traapapp.apiServices.model.predict.getPredict.response;
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
 public class Chart
 {
-    @SerializedName("chart_prediction")
+    @SerializedName("bar")
     @Expose @Getter @Setter
-    @Nullable
-    private Integer chartPrediction;
+    private List<BarChart> barChart = null;
 
-    @SerializedName("total_user")
+    @SerializedName("pie")
     @Expose @Getter @Setter
-    private Double totalUser;
+    private List<PieChart> pieChart = null;
 
 }

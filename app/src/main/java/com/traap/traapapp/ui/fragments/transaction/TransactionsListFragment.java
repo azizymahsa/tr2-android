@@ -62,8 +62,8 @@ import com.traap.traapapp.utilities.NestedScrollableViewHelper;
 import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
-import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-import com.traap.traapapp.utilities.calendar.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
+import com.traap.traapapp.utilities.calendar.mohamadamin_t.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.traap.traapapp.utilities.calendar.mohamadamin_t.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -79,6 +79,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.observers.DisposableObserver;
@@ -986,38 +987,16 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         Logger.e("-filter Selected-", id + ", " + filterItem.getTitle() + ", " + !isChecked);
 
         disposable.add(Observable.fromIterable(tempFilteredCategoryList)
-                .filter(new Predicate<FilterItem>()
+                .filter(fFilterItem -> fFilterItem.getId() == id)
+                .doOnNext(fFilterItem ->
                 {
-                    @Override
-                    public boolean test(FilterItem fFilterItem) throws Exception
-                    {
-                        return fFilterItem.getId() == id;
-                    }
+                    int index = tempFilteredCategoryList.indexOf(fFilterItem);
+                    Logger.e("-change-", "isChecked: " +  isChecked);
+                    tempFilteredCategoryList.set(index, filterItem);
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<FilterItem>()
-                {
-                    @Override
-                    public void onNext(FilterItem fFilterItem)
-                    {
-                        int index = tempFilteredCategoryList.indexOf(fFilterItem);
-                        Logger.e("-change-", "isChecked: " +  isChecked);
-                        tempFilteredCategoryList.set(index, filterItem);
-                    }
-
-                    @Override
-                    public void onError(Throwable e)
-                    {
-
-                    }
-
-                    @Override
-                    public void onComplete()
-                    {
-
-                    }
-                }));
+                .subscribe());
     }
 
     @Subscribe

@@ -23,7 +23,7 @@ public class PrepareImageFilePart
                         file
                 );
 
-        // MultipartBody.Part is used to send also the actual file name
+        // MultipartBody.Part is used to send also the actual file cupName
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
     }
 
@@ -36,7 +36,7 @@ public class PrepareImageFilePart
                         file
                 );
 
-        // MultipartBody.Part is used to send also the actual file name
+        // MultipartBody.Part is used to send also the actual file cupName
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
 //        return MultipartBody.Part.createFormData(partName,"photo", requestFile);
     }

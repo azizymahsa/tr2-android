@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.SearchCountryActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/background_main_header">
+        <RelativeLayout
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/borderlessButtonStyle"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/imgBack1"
+                android:layout_width="@dimen/_35dp"
+                android:layout_height="@dimen/_20dp"
+                android:layout_gravity="center_vertical|left"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:tint="@color/white"
+                android:src="@drawable/ic_undo" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_toRightOf="@+id/imgBack1"
+                android:layout_gravity="center_vertical|left"
+                android:gravity="left"
+                android:padding="3dp"
+                android:layout_centerVertical="true"
+                android:text="انتخاب کد کشور"
+                android:visibility="visible"
+                android:textStyle="normal"
+                android:textColor="@color/textColorTitle"
+                android:textSize="@dimen/textSize_14dp" />
+
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/imgSearch"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp"
+            android:padding="6dp"
+            app:srcCompat="@drawable/ic_search"
+            android:tint="@color/white"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/rlToolbar"
+        android:id="@+id/rvCountry"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+
+
+</RelativeLayout>

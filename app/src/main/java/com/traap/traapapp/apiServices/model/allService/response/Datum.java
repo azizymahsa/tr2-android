@@ -16,7 +16,7 @@ public class Datum {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("logo")
+    @SerializedName("cupLogo")
     @Expose
     private String logo;
     @SerializedName("label")

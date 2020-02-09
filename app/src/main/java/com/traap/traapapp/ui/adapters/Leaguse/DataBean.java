@@ -4,7 +4,8 @@ package com.traap.traapapp.ui.adapters.Leaguse;
  * Created by feng on 2017/4/10.
  */
 
-public class DataBean {
+public class DataBean
+{
     public String teamId;
     public String teamTitle;
     public String matches;
@@ -18,8 +19,9 @@ public class DataBean {
     public String imageLogo;
 
     public DataBean(String teamId,
-            String teamTitle, String matches, String won, String drawn, String lost, String goals_score, String goals_canceded,
-            String goals_diff, String point,String imageLogo) {
+                    String teamTitle, String matches, String won, String drawn, String lost, String goals_score, String goals_canceded,
+                    String goals_diff, String point, String imageLogo)
+    {
         this.teamTitle = teamTitle;
         this.matches = matches;
         this.won = won;

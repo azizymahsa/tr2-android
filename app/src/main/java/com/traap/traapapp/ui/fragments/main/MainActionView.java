@@ -86,7 +86,7 @@ public interface MainActionView extends BaseView
 
     void getBuyEnable(BuyTicketAction buyTicketAction);
 
-    void onSetPredictCompleted(MatchItem matchPredict, Boolean isPredictable, String message);
+    void onSetPredictCompleted(Integer matchIdt, Boolean isPredictable, String message);
     void onBackToChargFragment(int PAYMENT_STATUS);
 
     void backToAllServicePackage(Integer backState);

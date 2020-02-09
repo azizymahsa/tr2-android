@@ -1,10 +1,12 @@
 package com.traap.traapapp.ui.fragments.photo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 
 import com.bumptech.glide.Glide;
@@ -60,7 +65,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 {
     private Context context;
     private PhotosActionView mainView;
-    private LinearLayout llPager;
+    private LinearLayout llPager,llTop;
     private NestedScrollView nestedScrollView;
     private View rootView;
     private BannerLayout bNewestPhotos;
@@ -137,6 +142,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
 
         mainView.showLoading();
         llPager = rootView.findViewById(R.id.llPager);
+        llTop=rootView.findViewById(R.id.llTop);
         nestedScrollView = rootView.findViewById(R.id.nestedScroll);
         bNewestPhotos = rootView.findViewById(R.id.bNewestPhotos);
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
@@ -439,6 +445,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         openAlbumDetail(recent, position, category.getId(), category.getId());
     }
 
+    @SuppressLint("CheckResult")
     private void setCategoryListData(CategoryByIdVideosResponse data)
     {
         if (data.getResults().isEmpty())
@@ -453,8 +460,23 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             categoryAdapter = new CategoryPhotosAdapter(data.getResults(), this);
             rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
             rvGrideCategories.setAdapter(categoryAdapter);
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Observable.just(llTop.getHeight())
+//                        .repeat(2)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(scrollTo ->
+                            {
+                                nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, scrollTo));
+                            });}
+            },220);
         }
-        nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, llPager.getTop()));
+        //nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, llPager.getTop()));
+
 
         // rvGrid.setLayoutManager(new GridLayoutManager(getContext(), 3));
         // rvGrid.setAdapter(new ItemRecyclerViewAdapter(getContext(), list, this));//, interactionListener));

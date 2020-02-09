@@ -567,7 +567,7 @@ public interface RetroClient
 
 
     @GET(Const.GET_PREDICT + "{matchId}/")
-//    Single<Response<WebServiceClass<GetPredictResponse_version1>>> getPredict(
+//    Single<Response<WebServiceClass<GetPredictResponse_version1>>> getBarChart(
     Single<Response<WebServiceClass<GetPredictResponse>>> getPredict(
             @Path("matchId") Integer matchId
     );

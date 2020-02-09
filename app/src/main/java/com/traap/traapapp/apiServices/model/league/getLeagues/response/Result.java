@@ -3,7 +3,8 @@ package com.traap.traapapp.apiServices.model.league.getLeagues.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class Result
+{
 
     @SerializedName("name")
     @Expose
@@ -39,91 +40,113 @@ public class Result {
     @Expose
     private String teamLogo;
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public String getGoalDiff() {
+    public String getGoalDiff()
+    {
         return goalDiff;
     }
 
-    public void setGoalDiff(String goalDiff) {
+    public void setGoalDiff(String goalDiff)
+    {
         this.goalDiff = goalDiff;
     }
 
-    public String getTeamId() {
+    public String getTeamId()
+    {
         return teamId;
     }
 
-    public void setTeamId(String teamId) {
+    public void setTeamId(String teamId)
+    {
         this.teamId = teamId;
     }
 
-    public String getWon() {
+    public String getWon()
+    {
         return won;
     }
 
-    public void setWon(String won) {
+    public void setWon(String won)
+    {
         this.won = won;
     }
 
-    public String getGoalsConceded() {
+    public String getGoalsConceded()
+    {
         return goalsConceded;
     }
 
-    public void setGoalsConceded(String goalsConceded) {
+    public void setGoalsConceded(String goalsConceded)
+    {
         this.goalsConceded = goalsConceded;
     }
 
-    public String getPoints() {
+    public String getPoints()
+    {
         return points;
     }
 
-    public void setPoints(String points) {
+    public void setPoints(String points)
+    {
         this.points = points;
     }
 
-    public String getGoalsScored() {
+    public String getGoalsScored()
+    {
         return goalsScored;
     }
 
-    public void setGoalsScored(String goalsScored) {
+    public void setGoalsScored(String goalsScored)
+    {
         this.goalsScored = goalsScored;
     }
 
-    public String getMatches() {
+    public String getMatches()
+    {
         return matches;
     }
 
-    public void setMatches(String matches) {
+    public void setMatches(String matches)
+    {
         this.matches = matches;
     }
 
-    public String getLost() {
+    public String getLost()
+    {
         return lost;
     }
 
-    public void setLost(String lost) {
+    public void setLost(String lost)
+    {
         this.lost = lost;
     }
 
-    public String getDrawn() {
+    public String getDrawn()
+    {
         return drawn;
     }
 
-    public void setDrawn(String drawn) {
+    public void setDrawn(String drawn)
+    {
         this.drawn = drawn;
     }
 
-    public String getTeamLogo() {
+    public String getTeamLogo()
+    {
         return teamLogo;
     }
 
-    public void setTeamLogo(String teamLogo) {
+    public void setTeamLogo(String teamLogo)
+    {
         this.teamLogo = teamLogo;
     }
 
