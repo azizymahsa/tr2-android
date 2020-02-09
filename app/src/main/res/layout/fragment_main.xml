@@ -52,10 +52,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_anchor="@id/header"
-                    app:layout_anchorGravity="bottom|center_horizontal|end"
-                    android:layout_marginEnd="8dp"
+                    app:layout_anchorGravity="bottom|center_horizontal|right"
                     android:orientation="vertical"
-                    android:layout_marginStart="8dp"
                     android:layout_marginBottom="8dp">
 
                     <androidx.recyclerview.widget.RecyclerView
