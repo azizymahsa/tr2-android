@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
 import com.traap.traapapp.apiServices.model.paymentMatch.Viewers;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
+import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
@@ -355,6 +358,150 @@ public class CompeletInfoFragment
         btnPaymentConfirm.setOnClickListener(this);
         cbCondition.setOnClickListener(this);
         etNationalCode_1.setOnFocusChangeListener(this);
+        etNationalCode_1.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                try
+                {
+                    if (etNationalCode_1.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_1.getText().toString()))
+                    {
+                        requestSpectatorInfo(etNationalCode_1.getText().toString(),1);
+                    }
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+
+        etNationalCode_2.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                try
+                {
+                    if (etNationalCode_2.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_2.getText().toString()))
+                    {
+                        requestSpectatorInfo(etNationalCode_2.getText().toString(),2);
+                    }
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+
+        etNationalCode_3.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                try
+                {
+                    if (etNationalCode_3.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_3.getText().toString()))
+                    {
+                        requestSpectatorInfo(etNationalCode_3.getText().toString(),3);
+                    }
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+
+        etNationalCode_4.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                try
+                {
+                    if (etNationalCode_4.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_4.getText().toString()))
+                    {
+                        requestSpectatorInfo(etNationalCode_4.getText().toString(),4);
+                    }
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
+
+        etNationalCode_5.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                try
+                {
+                    if (etNationalCode_5.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_5.getText().toString()))
+                    {
+                        requestSpectatorInfo(etNationalCode_5.getText().toString(),5);
+                    }
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
         etFamily_1.setOnFocusChangeListener(this);
         etName_1.setOnFocusChangeListener(this);
 
@@ -393,6 +540,74 @@ public class CompeletInfoFragment
         etFamily_5.setPrimaryColor(R.color._disable_color);
         etName_5.setPrimaryColor(R.color._disable_color);
 
+    }
+
+    private void requestSpectatorInfo(String nationalCode,Integer number)
+    {
+        ((BuyTicketsActivity) getActivity()).showLoading();
+
+        SingletonService.getInstance().getSpectatorInfoService().getSpectatorInfo(nationalCode, new OnServiceStatus<WebServiceClass<SpectatorInfoResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<SpectatorInfoResponse> response)
+            {
+                ((BuyTicketsActivity) getActivity()).hideLoading();
+
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+                        setDataSpectorInfo(response,number);
+                    }
+                    else
+                    {
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                ((BuyTicketsActivity) getActivity()).hideLoading();
+
+                if (Tools.isNetworkAvailable((Activity) context))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(context, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    showAlert(context, R.string.networkErrorMessage, R.string.networkError);
+                }
+
+            }
+        });
+
+    }
+
+    private void setDataSpectorInfo(WebServiceClass<SpectatorInfoResponse> response, Integer number)
+    {
+        if (number==1){
+            etName_1.setText(response.data.getFirstName());
+            etFamily_1.setText(response.data.getLastName());
+        }else if (number==2){
+            etName_2.setText(response.data.getFirstName());
+            etFamily_2.setText(response.data.getLastName());
+        }else if (number==3){
+            etName_3.setText(response.data.getFirstName());
+            etFamily_3.setText(response.data.getLastName());
+        }else if (number==4){
+            etName_4.setText(response.data.getFirstName());
+            etFamily_4.setText(response.data.getLastName());
+        }else if (number==5){
+            etName_5.setText(response.data.getFirstName());
+            etFamily_5.setText(response.data.getLastName());
+        }
     }
 
 
@@ -1097,6 +1312,7 @@ public class CompeletInfoFragment
         paymentTicket.paymentTicketRequest(this, infoViewers, amountForPay);
 
     }
+
 
     private String PassengerOne()
     {
