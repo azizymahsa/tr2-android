@@ -37,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+
 import com.traap.traapapp.BuildConfig;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -58,6 +59,7 @@ import com.traap.traapapp.ui.dialogs.UpdateDownloadDialog;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
+
 import okhttp3.OkHttpClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -99,8 +101,10 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
         SingletonContext.getInstance().setHeight(height);
         SingletonContext.getInstance().setWidth(width);
-        if (!Const.BASEURL.contains("https://restapp.traap.com/")){
-            Toast.makeText(this, "نسخه تست", Toast.LENGTH_LONG).show();
+
+        if (!Const.BASEURL.contains("https://restapp.traap.com/"))
+        {
+            Tools.showToast(this, "نسخه تست");
         }
 
         PackageInfo pInfo = null;
@@ -152,19 +156,19 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 //            Logger.e("-PhotoFailor-", "Error: " + "SplashError");
             if (Prefs.getString("accessToken", "").isEmpty())
             {
-                 startActivityForResult(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),100);
+                startActivityForResult(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 100);
 
-            } else
+            }
+            else
             {
-                startActivityForResult(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),100);
+                startActivityForResult(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 100);
             }
             finish();
         }
         else
         {
-            showAlert( this.getString(R.string.networkErrorMessage) ,this.getString(R.string.networkError));
+            showAlert(this.getString(R.string.networkErrorMessage), this.getString(R.string.networkError));
         }
-
 
 
     }
@@ -200,7 +204,8 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             if (BuildConfig.VERSION_CODE >= response.data.getVersion())
             {
                 goToActivity();
-            } else
+            }
+            else
             {
                 description = response.data.getDescription();
 
@@ -218,8 +223,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                 try
                 {
                     updateAppAlert.show(getSupportFragmentManager(), "updateDialog");
-                }
-                catch (IllegalStateException e)
+                } catch (IllegalStateException e)
                 {
                     e.printStackTrace();
                 }
@@ -237,27 +241,26 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         goToActivity();
     }
 
-    private void showError(String message,String title)
+    private void showError(String message, String title)
     {
         try
         {
             MessageAlertDialog dialog = new MessageAlertDialog(this, title, message, false,
                     MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
-                    {
-                        @Override
-                        public void onConfirmClick()
-                        {
-                            goToActivity();
-                        }
+            {
+                @Override
+                public void onConfirmClick()
+                {
+                    goToActivity();
+                }
 
-                        @Override
-                        public void onCancelClick()
-                        {
-                        }
-                    });
+                @Override
+                public void onCancelClick()
+                {
+                }
+            });
             dialog.show((this).getFragmentManager(), "dialog");
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             MessageAlertDialog dialog = new MessageAlertDialog(this, "", "خطا در دریافت اطلاعات از سرور!",
                     MessageAlertDialog.TYPE_ERROR);
@@ -282,7 +285,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         {
             if (description != null)
             {
-                startActivityForResult(new Intent(this, WebHtmlActivity.class).putExtra("description", description),100);
+                startActivityForResult(new Intent(this, WebHtmlActivity.class).putExtra("description", description), 100);
             }
             else
             {
@@ -292,8 +295,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
                         MessageAlertDialog.TYPE_ERROR);
                 dialog.show(this.getFragmentManager(), "dialog");
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             Logger.e("-description-", "Exception");
             e.printStackTrace();
@@ -390,7 +392,7 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse("https://cafebazaar.ir/app/" + BuildConfig.APPLICATION_ID));
-        startActivityForResult(intent,100);
+        startActivityForResult(intent, 100);
     }
 
     @Override
@@ -400,12 +402,12 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + BuildConfig.APPLICATION_ID));
-            startActivityForResult(intent,100);
+            startActivityForResult(intent, 100);
         } catch (ActivityNotFoundException e2)
         {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID));
-            startActivityForResult(intent,100);
+            startActivityForResult(intent, 100);
         }
     }
 
@@ -414,13 +416,13 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
     {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(downloadUrl));
-        startActivityForResult(intent,100);
+        startActivityForResult(intent, 100);
     }
 
     @Override
-    public void showAlert(String message,String title)
+    public void showAlert(String message, String title)
     {
-        showError(message,title);
+        showError(message, title);
     }
 
     @Override
@@ -436,7 +438,8 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
         {
             requestPermissions();
             return false;
-        } else
+        }
+        else
         {
             return true;
         }
@@ -471,24 +474,25 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
 
             MessageAlertDialog dialog = new MessageAlertDialog(this, "خطای مجوز دسترسی", message, true,
                     MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
-                    {
-                        @Override
-                        public void onConfirmClick()
-                        {
-                            ActivityCompat.requestPermissions(SplashActivity.this,
-                                    new String[]{Manifest.permission.READ_PHONE_STATE},
-                                    REQUEST_CODE);
-                        }
+            {
+                @Override
+                public void onConfirmClick()
+                {
+                    ActivityCompat.requestPermissions(SplashActivity.this,
+                            new String[]{Manifest.permission.READ_PHONE_STATE},
+                            REQUEST_CODE);
+                }
 
-                        @Override
-                        public void onCancelClick()
-                        {
-                            finish();
-                        }
-                    });
+                @Override
+                public void onCancelClick()
+                {
+                    finish();
+                }
+            });
             dialog.show((this).getFragmentManager(), "dialog");
 
-        } else
+        }
+        else
         {
             ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE},
                     REQUEST_CODE);

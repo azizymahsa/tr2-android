@@ -58,6 +58,7 @@ import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
 import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
+import com.traap.traapapp.utilities.TagGroup;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 import com.traap.traapapp.utilities.calendar.mohamadamin_t.persianmaterialdatetimepicker.date.DatePickerDialog;
@@ -84,6 +85,8 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
 
     private RecyclerView rcHashTag;
     private HashTagMediaAdapter adapterHashTag;
+    private TagGroup tagGroup;
+
     private Context context;
 
     private String filterStartDate = "", filterEndDate = "";
@@ -248,6 +251,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         btnFilter = rootView.findViewById(R.id.btnFilter);
 
         rcHashTag = rootView.findViewById(R.id.rcHashTag);
+        tagGroup = rootView.findViewById(R.id.tagGroup);
         rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
         llDeleteFilter = rootView.findViewById(R.id.llDeleteFilter);
         llFilterHashTag = rootView.findViewById(R.id.llFilterHashTag);
@@ -647,9 +651,10 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         {
             values.add("#" + item);
         }
-//                            adapterHashTag = new ArrayAdapter<String>(getActivity(), R.layout.adapter_filter_hashtag_item, values);
         adapterHashTag = new HashTagMediaAdapter(values);
         rcHashTag.setAdapter(adapterHashTag);
+
+        tagGroup.setTags(values);
     }
 
     private Observable<FilterItem> getNewsArchiveCategoryObservable(final CharSequence sequence)
