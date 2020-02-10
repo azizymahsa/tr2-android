@@ -67,8 +67,8 @@
                 app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="15dp"
                 app:contentPaddingTop="8dp"
-                app:contentPaddingRight="2dp"
-                app:contentPaddingLeft="2dp"
+                app:contentPaddingRight="1dp"
+                app:contentPaddingLeft="1dp"
                 app:contentPaddingBottom="8dp"
                 app:cardElevation="2dp">
 
@@ -170,7 +170,8 @@
                             android:layout_below="@+id/rlHomeHeader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="6dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="6dp"
                             android:gravity="center"
                             android:layout_centerHorizontal="true"
                             android:orientation="horizontal"/>
