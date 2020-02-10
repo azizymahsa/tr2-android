@@ -145,7 +145,7 @@ android {
         //----------------------Chabok end-----------------
 
         //----------------------my Libraries start---------------
-//        implementation(cupName: 'flight-debug_v89', ext: 'aar')
+//        implementation(name: 'flight-debug_v89', ext: 'aar')
         implementation(name: 'flight-debug_94', ext: 'aar')
 //    implementation project(':bubbleseekbar')
 //        implementation project(':imagepicker')
@@ -154,7 +154,7 @@ android {
         implementation project(':type')
         implementation project(':moeidbannerlibrary')
 //    implementation project(path: ':type')
-        // implementation(cupName: 'uxcam-3.1.12', ext: 'aar')
+        // implementation(name: 'uxcam-3.1.12', ext: 'aar')
         //----------------------my Libraries end-----------------
 
         //-----------------------google start--------------------
@@ -169,7 +169,7 @@ android {
         //-----------------------google end----------------------
 
         //-------------------accubin start-----------------------
-//    implementation(cupName: 'accubin-sdk-3.0', ext: 'aar')
+//    implementation(name: 'accubin-sdk-3.0', ext: 'aar')
 //        implementation 'com.google.zxing:core:3.2.1'
         implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
         //com.journeyapps.barcodescanner

@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 public class Competition implements Serializable
 {
 
-    @SerializedName("cupName")
+    @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("id")

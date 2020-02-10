@@ -5,5 +5,5 @@ package com.traap.traapapp.ui.activities.main;
  */
 public interface OnContactClick
 {
-   // void onContactClicked(String number, String cupName);
+   // void onContactClicked(String number, String name);
 }
