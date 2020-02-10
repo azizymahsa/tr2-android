@@ -473,7 +473,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                             {
                                 nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, scrollTo));
                             });}
-            },220);
+            },260);
         }
         //nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, llPager.getTop()));
 
