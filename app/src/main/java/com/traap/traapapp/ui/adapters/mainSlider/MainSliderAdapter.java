@@ -209,30 +209,16 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
                 {
                     if (holder.tvPredictResult.getCurrentTextColor() == Color.WHITE)
                     {
-
+                        holder.tvPredictResult.startAnimation();
+                        holder.tvPredictResult.setClickable(false);
 
                         mItemClickListener.onItemPredictClick(view, position, matchItem);
-                    } else
+                    }
+                    else
                     {
                         MessageAlertDialog dialog = new MessageAlertDialog((Activity) mContext, "",
                                 "برای این بازی پیش بینی وجود ندارد!",
-                                false, MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
-                        {
-                            @Override
-                            public void onConfirmClick()
-                            {
-                                // PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
-
-                                //  mContext.getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-                            }
-
-                            @Override
-                            public void onCancelClick()
-                            {
-
-                            }
-                        }
-                        );
+                                MessageAlertDialog.TYPE_ERROR);
                         dialog.show(((Activity) mContext).getFragmentManager(), "dialogMessage");
                     }
                 }
@@ -257,32 +243,15 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
                             holder.tvBuyTicket.revertAnimation();
                             holder.tvBuyTicket.setClickable(true);
                         });//mItemClickListener.onItemBuyTicketClick(view, position, matchItem);
-                    } else
+                    }
+                    else
                     {
                         MessageAlertDialog dialog = new MessageAlertDialog((Activity) mContext, "",
                                 "برای این بازی فروش بلیت وجود ندارد!",
-                                false, MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
-                        {
-                            @Override
-                            public void onConfirmClick()
-                            {
-                                // PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
-
-                                //  mContext.getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-                            }
-
-                            @Override
-                            public void onCancelClick()
-                            {
-
-                            }
-                        }
-                        );
+                                MessageAlertDialog.TYPE_ERROR);
                         dialog.show(((Activity) mContext).getFragmentManager(), "dialogMessage");
                     }
-
                 }
-
             }
         });
     }
