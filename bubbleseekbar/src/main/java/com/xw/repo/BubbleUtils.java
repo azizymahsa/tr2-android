@@ -14,7 +14,7 @@ import java.util.Properties;
 
 class BubbleUtils {
 
-    private static final String KEY_MIUI_MANE = "ro.miui.ui.version.cupName";
+    private static final String KEY_MIUI_MANE = "ro.miui.ui.version.name";
     private static Properties sProperties = new Properties();
     private static Boolean miui;
 

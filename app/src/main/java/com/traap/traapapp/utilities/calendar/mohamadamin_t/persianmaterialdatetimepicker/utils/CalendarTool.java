@@ -179,7 +179,7 @@ public class CalendarTool {
 
     /**
      * getWeekDayStr:
-     * Returns the week day cupName.
+     * Returns the week day name.
      * @return String
      */
     public String getWeekDayStr()

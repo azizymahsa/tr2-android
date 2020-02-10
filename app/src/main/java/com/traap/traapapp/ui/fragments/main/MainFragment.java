@@ -511,7 +511,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         return input.getId().toString().equals(name);
                     }
                 });
-        return userOptional.isPresent() ? userOptional.get() : null; // return user if found otherwise return null if user cupName don't exist in user list
+        return userOptional.isPresent() ? userOptional.get() : null; // return user if found otherwise return null if user name don't exist in user list
     }
 
     private void getSliderData()
