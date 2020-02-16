@@ -146,7 +146,7 @@ android {
 
         //----------------------my Libraries start---------------
 //        implementation(name: 'flight-debug_v89', ext: 'aar')
-        implementation(name: 'flight-debug_94', ext: 'aar')
+        implementation(name: 'flight-debug_95', ext: 'aar')
 //    implementation project(':bubbleseekbar')
 //        implementation project(':imagepicker')
 //    implementation project(':taggroup')
