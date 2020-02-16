@@ -75,106 +75,158 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvMatchDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/textSize_16dp"
+                        android:textColor="@color/textColorSecondary"
+                        android:gravity="center"/>
 
                     <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <RelativeLayout
-                            android:id="@+id/rlAway"
-                            android:layout_width="@dimen/_120dp"
-                            android:layout_height="@dimen/_120dp"
-                            android:background="@drawable/ic_ball"
-                            android:layout_centerHorizontal="true"
-                            android:gravity="center"
-                            android:layout_alignParentTop="true">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent">
+
+                                <RelativeLayout
+                                    android:id="@+id/rlAway"
+                                    android:layout_width="@dimen/_120dp"
+                                    android:layout_height="@dimen/_120dp"
+                                    android:background="@drawable/ic_ball"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:layout_alignParentTop="true">
+
+                                    <ImageView
+                                        android:id="@+id/imgAwayHeader"
+                                        android:layout_width="@dimen/_60dp"
+                                        android:layout_height="@dimen/_60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_alignParentTop="true"
+                                        android:scaleType="fitXY"/>
+
+                                    <TextView
+                                        android:id="@+id/tvAwayHeader"
+                                        android:layout_below="@+id/imgAwayHeader"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="عنوان"
+                                        android:textStyle="bold"
+                                        android:textSize="@dimen/textSize_16dp"
+                                        android:textColor="@color/textColorSecondary"
+                                        android:gravity="center"/>
+
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/llAwayResultList"
+                                    android:layout_below="@+id/rlAway"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:layout_marginBottom="6dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"/>
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/drawerSepratorColor"/>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent">
+
+                                <RelativeLayout
+                                    android:id="@+id/rlHomeHeader"
+                                    android:layout_width="@dimen/_120dp"
+                                    android:layout_height="@dimen/_120dp"
+                                    android:background="@drawable/ic_ball"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:layout_alignParentTop="true">
+
+                                    <ImageView
+                                        android:id="@+id/imgHomeHeader"
+                                        android:layout_width="@dimen/_60dp"
+                                        android:layout_height="@dimen/_60dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_alignParentTop="true"
+                                        android:scaleType="fitXY"/>
+
+                                    <TextView
+                                        android:id="@+id/tvHomeHeader"
+                                        android:layout_below="@+id/imgHomeHeader"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="عنوان"
+                                        android:textStyle="bold"
+                                        android:textSize="@dimen/textSize_16dp"
+                                        android:textColor="@color/textColorSecondary"
+                                        android:gravity="center"/>
+
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/llHomeResultList"
+                                    android:layout_below="@+id/rlHomeHeader"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:layout_marginBottom="6dp"
+                                    android:gravity="center"
+                                    android:layout_centerHorizontal="true"
+                                    android:orientation="horizontal"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_70dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/imgAwayHeader"
-                                android:layout_width="@dimen/_60dp"
-                                android:layout_height="@dimen/_60dp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignParentTop="true"
-                                android:scaleType="fitXY"/>
+                                android:id="@+id/imgCupLogo"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitCenter"/>
 
                             <TextView
-                                android:id="@+id/tvAwayHeader"
-                                android:layout_below="@+id/imgAwayHeader"
+                                android:id="@+id/tvCurrentMatchResult"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="عنوان"
+                                android:text=""
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="12dp"
                                 android:textStyle="bold"
-                                android:textSize="@dimen/textSize_16dp"
+                                android:textSize="@dimen/textSize_18dp"
                                 android:textColor="@color/textColorSecondary"
                                 android:gravity="center"/>
 
-                        </RelativeLayout>
-
-                        <LinearLayout
-                            android:id="@+id/llAwayResultList"
-                            android:layout_below="@+id/rlAway"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginBottom="6dp"
-                            android:layout_centerHorizontal="true"
-                            android:gravity="center"
-                            android:orientation="horizontal"/>
-
-                    </RelativeLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/drawerSepratorColor"/>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-
-                        <RelativeLayout
-                            android:id="@+id/rlHomeHeader"
-                            android:layout_width="@dimen/_120dp"
-                            android:layout_height="@dimen/_120dp"
-                            android:background="@drawable/ic_ball"
-                            android:layout_centerHorizontal="true"
-                            android:gravity="center"
-                            android:layout_alignParentTop="true">
-
-                            <ImageView
-                                android:id="@+id/imgHomeHeader"
-                                android:layout_width="@dimen/_60dp"
-                                android:layout_height="@dimen/_60dp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignParentTop="true"
-                                android:scaleType="fitXY"/>
-
-                            <TextView
-                                android:id="@+id/tvHomeHeader"
-                                android:layout_below="@+id/imgHomeHeader"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="عنوان"
-                                android:textStyle="bold"
-                                android:textSize="@dimen/textSize_16dp"
-                                android:textColor="@color/textColorSecondary"
-                                android:gravity="center"/>
-
-                        </RelativeLayout>
-
-                        <LinearLayout
-                            android:id="@+id/llHomeResultList"
-                            android:layout_below="@+id/rlHomeHeader"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginBottom="6dp"
-                            android:gravity="center"
-                            android:layout_centerHorizontal="true"
-                            android:orientation="horizontal"/>
+                        </LinearLayout>
 
                     </RelativeLayout>
 

@@ -171,7 +171,8 @@ public class MainSliderAdapter extends RecyclerView.Adapter<MainSliderAdapter.Vi
 
             holder.tvMatchResult.setVisibility(View.VISIBLE);
             holder.imgCenter.setVisibility(View.GONE);
-        } else
+        }
+        else
         {
             holder.tvMatchResult.setVisibility(View.GONE);
             holder.imgCenter.setVisibility(View.VISIBLE);
