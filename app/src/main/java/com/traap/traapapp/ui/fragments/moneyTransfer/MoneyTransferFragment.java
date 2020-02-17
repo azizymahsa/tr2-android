@@ -77,7 +77,6 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
     private int len = 0;
     private String pass, toUser;
     private int amount;
-//    private ArchiveCardDBModel archiveCardDBModels;
     private TextInputLayout etLayoutPass, etLayoutDestination, etLayoutDestination2, etLayoutCvv, tilKeshavarszi;
     private TransferType transferType;
     private boolean needrequest = true;
@@ -85,15 +84,9 @@ public class MoneyTransferFragment extends BaseFragment implements OnAnimationEn
     private ImageView ivCard,tvChangeInput,tvBarcode;
     private ImageView ivLogo;
     private CheckBox cbAddFavoriteCard;
-//    private List<TransferLogoVm> transferLogoVm;
     private String stna;
     private MainActionView mainView;
 
-
-//    public void setTransferLogoVm(List<TransferLogoVm> transferLogoVm)
-//    {
-//        this.transferLogoVm = transferLogoVm;
-//    }
 
 
     public MoneyTransferFragment()
