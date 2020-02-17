@@ -42,7 +42,7 @@ public class ImagePickerUtils {
             }
         }
 
-        // Create a media file cupName
+        // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "IMG_" + timeStamp;
 

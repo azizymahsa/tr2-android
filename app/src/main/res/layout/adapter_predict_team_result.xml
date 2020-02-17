@@ -58,38 +58,41 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="6.5">
-
-            <TextView
-                android:id="@+id/tvAway"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="عنوان"
-                android:layout_toRightOf="@+id/imgAway"
-                android:layout_centerVertical="true"
-                android:textColor="@color/textColorSecondary"
-                android:gravity="left"/>
-
-            <ImageView
-                android:id="@+id/imgAway"
-                android:layout_width="@dimen/_45dp"
-                android:layout_height="@dimen/_45dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:scaleType="fitCenter"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="8.5">
+
+            <RelativeLayout
+                android:id="@+id/rlContentLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvAway"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="عنوان"
+                    android:layout_toRightOf="@+id/imgAway"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/textColorSecondary"
+                    android:gravity="left"/>
+
+                <ImageView
+                    android:id="@+id/imgAway"
+                    android:layout_width="@dimen/_45dp"
+                    android:layout_height="@dimen/_45dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitCenter"/>
+
+            </RelativeLayout>
 
             <View
                 android:id="@+id/vAway"
-                android:layout_width="match_parent"
+                android:layout_toRightOf="@+id/rlContentLeft"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="2dp"
                 android:layout_height="2dp"
                 android:layout_centerVertical="true"/>
 
@@ -135,26 +138,12 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-
-            <View
-                android:id="@+id/vHome"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_centerVertical="true"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="6.5">
+            android:layout_weight="8.5">
 
             <TextView
                 android:id="@+id/tvHome"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="عنوان"
                 android:layout_toLeftOf="@+id/imgHome"
@@ -169,6 +158,14 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="fitCenter"/>
+
+            <View
+                android:id="@+id/vHome"
+                android:layout_toLeftOf="@+id/tvHome"
+                android:layout_marginRight="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 

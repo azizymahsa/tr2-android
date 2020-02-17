@@ -119,13 +119,13 @@ public class AddCardPresenterImpl
 
     }
 
-//    boolean contains(List<ArchiveCardDBModel> list, String cupName)
+//    boolean contains(List<ArchiveCardDBModel> list, String name)
 //    {
 //        for (ArchiveCardDBModel item : list)
 //        {
 //            if (item.getNumber() != null)
 //            {
-//                if (item.getNumber().equals(cupName))
+//                if (item.getNumber().equals(name))
 //                {
 //                    return true;
 //                }

@@ -115,6 +115,7 @@ import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse
 import com.traap.traapapp.apiServices.model.setting.SettingResponse;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
+import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
 import com.traap.traapapp.apiServices.model.tourism.bus.getPaymentBus.request.RequestBusPayment;
@@ -583,6 +584,13 @@ public interface RetroClient
     @GET(Const.GET_RULES + "{id}/stadium_rules/")
     Single<Response<WebServiceClass<ResponseStadiumRules>>> getRulsStadium(
             @Path("id") Integer id
+    );
+
+
+
+    @GET(Const.GetSpectatorInfo)
+    Single<Response<WebServiceClass<SpectatorInfoResponse>>> getSpectatorInfo(
+            @Path("national_code") String nationalCode
     );
 
     @GET(Const.GET_PROFILE)

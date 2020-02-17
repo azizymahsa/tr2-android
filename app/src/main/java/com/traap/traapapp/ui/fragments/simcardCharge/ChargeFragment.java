@@ -2101,14 +2101,14 @@ public class ChargeFragment extends BaseFragment
     }
 
     /*  @Override
-      public void onContactClicked(String number, String cupName)
+      public void onContactClicked(String number, String name)
       {
           try
           {
               if (isMtn)
               {
                   etMobileCharge.setText(number.replaceAll(" ", ""));
-                  tilMIrancell.setHint(cupName);
+                  tilMIrancell.setHint(name);
 
 
                   return;
@@ -2116,7 +2116,7 @@ public class ChargeFragment extends BaseFragment
               if (isMci)
               {
                   etMCINumber.setText(number.replaceAll(" ", ""));
-                  tilMMci.setHint(cupName);
+                  tilMMci.setHint(name);
 
 
                   return;
@@ -2126,7 +2126,7 @@ public class ChargeFragment extends BaseFragment
               if (isRightel)
               {
                   etMobileChargeRightel.setText(number.replaceAll(" ", ""));
-                  tilMRightel.setHint(cupName);
+                  tilMRightel.setHint(name);
 
 
               }

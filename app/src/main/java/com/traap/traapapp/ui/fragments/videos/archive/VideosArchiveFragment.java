@@ -51,6 +51,7 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.MyCustomViewPager;
 import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
+import com.traap.traapapp.utilities.TagGroup;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 import com.traap.traapapp.utilities.calendar.mohamadamin_t.persianmaterialdatetimepicker.date.DatePickerDialog;
@@ -84,6 +85,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
 
     private RecyclerView rcHashTag;
     private HashTagMediaAdapter adapterHashTag;
+    private TagGroup tagGroup;
 
     private String filterStartDate = "", filterEndDate = "";
 
@@ -244,6 +246,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
     private void initView()
     {
         rcHashTag = rootView.findViewById(R.id.rcHashTag);
+        tagGroup = rootView.findViewById(R.id.tagGroup);
         rcFilterCategory = rootView.findViewById(R.id.rcFilterCategory);
         slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
         btnFilter = rootView.findViewById(R.id.btnFilter);
@@ -332,6 +335,10 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
                     {
                         if (edtSearchText.getText().toString().trim().length() > 2)
                         {
+                            titleFilteredList += "جستجو" + ",";
+                            llFilterHashTag.setVisibility(View.VISIBLE);
+                            setHashTag();
+
                             pagerWithFilter = true;
 
                             rootView.findViewById(R.id.tabLayout).setVisibility(View.GONE);
@@ -642,9 +649,10 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
         {
             values.add("#" + item);
         }
-//                            adapterHashTag = new ArrayAdapter<String>(getActivity(), R.layout.adapter_filter_hashtag_item, values);
         adapterHashTag = new HashTagMediaAdapter(values);
         rcHashTag.setAdapter(adapterHashTag);
+
+        tagGroup.setTags(values);
     }
 
     private Observable<FilterItem> getVideosArchiveCategoryObservable(final CharSequence sequence)

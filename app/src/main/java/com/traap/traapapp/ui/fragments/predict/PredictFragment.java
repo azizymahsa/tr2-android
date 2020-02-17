@@ -107,8 +107,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private RecyclerView rcMatchResult, rcBarChart;
 
     private LinearLayout llAwayResultList, llHomeResultList, llChart;
-    private TextView tvAwayHeader, tvHomeHeader, tvPredictEmpty, tvAwayPredict, tvHomePredict;
-    private ImageView imgHomeHeader, imgAwayHeader, imgHomePredict, imgAwayPredict;
+    private TextView tvAwayHeader, tvHomeHeader, tvPredictEmpty, tvAwayPredict, tvHomePredict, tvMatchDate, tvCurrentMatchResult;
+    private ImageView imgHomeHeader, imgAwayHeader, imgHomePredict, imgAwayPredict, imgCupLogo;
 
     private View vColorHomePieChart, vColorEqualPieChart, vColorAwayPieChart;
 
@@ -133,7 +133,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private View vColorHomeOne, vColorHomeTwo, vColorHomeThree, vColorAwayOne, vColorAwayTwo, vColorAwayThree, vColorHomeFour, vColorAwayFour;
     private TextView tvChartPredictOne, tvChartPredictTwo, tvChartPredictThree, tvHomeChartTitle, tvAwayChartTitle;
     private TextView tvChartTotalUserOne, tvChartTotalUserTwo, tvChartTotalUserThree;
-
 
     public PredictFragment()
     {
@@ -210,10 +209,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private void initView()
     {
         progressPieChart = rootView.findViewById(R.id.progressPieChart);
+
+        tvMatchDate = rootView.findViewById(R.id.tvMatchDate);
+
         llPredict = rootView.findViewById(R.id.llPredict);
         llTimer = rootView.findViewById(R.id.llTimer);
         numPickerAway = rootView.findViewById(R.id.numPickerAway);
         numPickerHome = rootView.findViewById(R.id.numPickerHome);
+        tvCurrentMatchResult = rootView.findViewById(R.id.tvCurrentMatchResult);
         tvPredictText = rootView.findViewById(R.id.tvPredictText);
         tvAwayPieChartTitle = rootView.findViewById(R.id.tvAwayPieChartTitle);
         tvHomePieChartTitle = rootView.findViewById(R.id.tvHomePieChartTitle);
@@ -282,6 +285,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         imgAwayPredict = rootView.findViewById(R.id.imgAway3);
         imgHomeHeader = rootView.findViewById(R.id.imgHomeHeader);
         imgHomePredict = rootView.findViewById(R.id.imgHome3);
+
+        imgCupLogo = rootView.findViewById(R.id.imgCupLogo);
 
         numPickerAway.setMinValue(0);
         numPickerAway.setMaxValue(20);
@@ -397,6 +402,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         }
         else
         {
+            tvMatchDate.setText(response.data.getMatchPredict().getMatchDatetimeStr());
+
             rcMatchResult.setAdapter(new PredictMatchResultAdapter(context, response.data.getMatchTeamResults(),
                     response.data.getMatchPredict().getHomeTeam(), response.data.getMatchPredict().getAwayTeam()));
 
@@ -415,11 +422,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             setImageIntoIV(imgAwayHeader, response.data.getMatchPredict().getAwayTeam().getTeamLogo());
             setImageIntoIV(imgHomeHeader, response.data.getMatchPredict().getHomeTeam().getTeamLogo());
 
+            tvCurrentMatchResult.setText("? - ?");
+
             tvAwayHeader.setText(response.data.getMatchPredict().getAwayTeam().getTeamName());
             tvHomeHeader.setText(response.data.getMatchPredict().getHomeTeam().getTeamName());
 
             setImageIntoIV(imgAwayPredict, response.data.getMatchPredict().getAwayTeam().getTeamLogo());
             setImageIntoIV(imgHomePredict, response.data.getMatchPredict().getHomeTeam().getTeamLogo());
+            setImageIntoIV(imgCupLogo, response.data.getMatchPredict().getCup().getCupLogo());
 
             //-------------------timer----------------------------
             try

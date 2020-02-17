@@ -12,23 +12,16 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
-import android.widget.ScrollView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -47,9 +40,8 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.TagGroup;
+import com.traap.traapapp.utilities.TagGroup;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
-import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
 import com.traap.traapapp.ui.adapters.media.HashTagMediaAdapter;
 import com.traap.traapapp.ui.adapters.transaction.TransactionListAdapter;
@@ -79,9 +71,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -299,7 +289,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             rangeBar = rootView.findViewById(R.id.rangeBar);
             tvMaxPrice = rootView.findViewById(R.id.tvMaxPrice);
             tvMinPrice = rootView.findViewById(R.id.tvMinPrice);
-            tagGroup = rootView.findViewById(R.id.tag_group);
+            tagGroup = rootView.findViewById(R.id.tagGroup);
 
             tvEmpty = rootView.findViewById(R.id.tvEmpty);
 
@@ -872,7 +862,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             rcHashTag.setAdapter(adapterHashTag);*/
             llFilterHashTag.setVisibility(View.VISIBLE);
 
-            tagGroup.setTags(hashTag);
+//            tagGroup.setTags(hashTag);
+            tagGroup.setTags(values);
         }
         catch (Exception e)
         {

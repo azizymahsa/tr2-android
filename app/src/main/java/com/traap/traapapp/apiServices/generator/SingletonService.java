@@ -55,6 +55,7 @@ import com.traap.traapapp.apiServices.part.SendProfileService;
 import com.traap.traapapp.apiServices.part.SheatcChangePassService;
 import com.traap.traapapp.apiServices.part.SheatcForgotPassService;
 import com.traap.traapapp.apiServices.part.GetMatchListService;
+import com.traap.traapapp.apiServices.part.SpectatorInfoService;
 import com.traap.traapapp.apiServices.part.TransactionDetailService;
 import com.traap.traapapp.apiServices.part.TransactionService;
 import com.traap.traapapp.apiServices.part.VerifyService;
@@ -366,6 +367,11 @@ public class SingletonService
     public GetPredictService getPredictService()
     {
         return new GetPredictService(serviceGenerator);
+    }
+
+    public SpectatorInfoService getSpectatorInfoService()
+    {
+        return new SpectatorInfoService(serviceGenerator);
     }
 
     public SendPredictService sendPredictService()

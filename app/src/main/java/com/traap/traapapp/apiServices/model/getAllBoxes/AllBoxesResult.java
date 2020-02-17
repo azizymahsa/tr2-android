@@ -18,7 +18,7 @@ public class AllBoxesResult
     @SerializedName("sex")
     @Expose
     private Integer sex;
-    @SerializedName("cupName")
+    @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("amount")

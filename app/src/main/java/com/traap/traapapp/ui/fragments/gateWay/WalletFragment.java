@@ -362,13 +362,16 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         filterSetting = filters;
         MIN_PRICE_DEFAULT = filterSetting.getMinAmount();
         MAX_PRICE_DEFAULT = filterSetting.getMaxAmount();
-        priceInterval = filterSetting.getStepCount();
+        priceInterval = (filterSetting.getMaxAmount() - filterSetting.getMinAmount()) / filterSetting.getStepCount();
 
-        rangeBar.setRange(MIN_PRICE_DEFAULT, MAX_PRICE_DEFAULT,priceInterval);
-        rangeBar.setProgress(0, MAX_PRICE_DEFAULT);
+        //rangeBar.setRange(MIN_PRICE_DEFAULT, MAX_PRICE_DEFAULT,filterSetting.getStepCount());
+        //rangeBar.setProgress(0, MAX_PRICE_DEFAULT);
 
+        rangeBar.setRange(0f, filterSetting.getStepCount(), 1f);
+        rangeBar.setProgress(0f, filterSetting.getStepCount());
 
         rangeBar.setIndicatorTextDecimalFormat("0");
+
         rangeBar.setOnRangeChangedListener(this);
 
         tvMaxPrice.setText(Utility.priceFormat(filterSetting.getMaxAmount()) + " ریال");
@@ -506,8 +509,14 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
         int left = (int) leftValue;
         int right = (int) rightValue;
-        tvMaxPrice.setText(Utility.priceFormat(right) + " ریال");
-        tvMinPrice.setText(Utility.priceFormat(left) + " ریال");
+
+        tvMaxPrice.setText(Utility.priceFormat(right * priceInterval + MIN_PRICE_DEFAULT) + " ریال");
+        tvMinPrice.setText(Utility.priceFormat(left * priceInterval + MIN_PRICE_DEFAULT) + " ریال");
+        maxPrice = right * priceInterval + MIN_PRICE_DEFAULT;
+        minPrice = left * priceInterval + MIN_PRICE_DEFAULT;
+
+       // tvMaxPrice.setText(Utility.priceFormat(right) + " ریال");
+       // tvMinPrice.setText(Utility.priceFormat(left) + " ریال");
       /*  maxPrice = right * priceInterval + MIN_PRICE_DEFAULT;
         minPrice = left * priceInterval + MIN_PRICE_DEFAULT;
         Logger.e("-onRangeChanged-", "left: " + leftValue + " ,right: " + rightValue);
