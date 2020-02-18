@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 import com.traap.traapapp.R;
 
 /**
@@ -52,20 +53,26 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
     private static boolean shown = false;
 
     @Override
-    public void show(FragmentManager manager, String tag) {
-        if (shown) return;
+    public void show(FragmentManager manager, String tag)
+    {
+        if (shown)
+        {
+            return;
+        }
 
         super.show(manager, tag);
         shown = true;
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(DialogInterface dialog)
+    {
         shown = false;
         super.onDismiss(dialog);
     }
+
     public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable,
-                              int messageType ,OnConfirmListener listener)
+                              int messageType, OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;
@@ -75,7 +82,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
         type = messageType;
     }
 
-    public MessageAlertDialog(Activity activity, String title, String messages ,int messageType)
+    public MessageAlertDialog(Activity activity, String title, String messages, int messageType)
     {
         this.activity = activity;
         this.listener = null;
@@ -86,7 +93,7 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
     }
 
     public MessageAlertDialog(Activity activity, String title, String messages, Boolean isCancelable,
-                              String btnConfirmText, String btnCancelText, int messageType ,OnConfirmListener listener)
+                              String btnConfirmText, String btnCancelText, int messageType, OnConfirmListener listener)
     {
         this.activity = activity;
         this.listener = listener;
@@ -118,7 +125,9 @@ public class MessageAlertDialog extends DialogFragment implements View.OnClickLi
     {
         super.onCreate(savedInstanceState);
         dialog = new Dialog(activity, R.style.MyAlertDialogStyle);
+
         dialog.setContentView(R.layout.alert_dialog_layout);
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 

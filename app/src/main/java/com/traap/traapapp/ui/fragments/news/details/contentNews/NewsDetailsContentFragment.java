@@ -200,7 +200,6 @@ public class NewsDetailsContentFragment extends BaseFragment implements NewsDeta
         {
             tvSubTitle.setText(content.getSubtitle());
         }
-        tvBody.setText(content.getBody().replace(".", ".\r\n"));
 
         tvSubTitle.setTypeFace(Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf"));
         tvBody.setTypeFace(Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf"));
