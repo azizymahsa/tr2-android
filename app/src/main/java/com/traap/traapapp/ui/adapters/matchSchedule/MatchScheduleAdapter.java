@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
-import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
+import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.matchSchedule.NextMatchesFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.PastMatchesFragment;
