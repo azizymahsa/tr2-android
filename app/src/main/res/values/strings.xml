@@ -159,6 +159,7 @@
     <string name="_not_currect_pass">رمز صحیح وارد کنید.(حداقل 4 کارکتر و حداکثر 15 کاراکتر)</string>
     <string name="_request_change_pass">آیا مایل به تغییر رمز کیف پول خود هستید؟</string>
     <string name="_deny_currency_max_five">مبلغ غیر مجاز می باشد.(حداکثر 500,000,000 ریال)</string>
+    <string name="back">بازگشت</string>
     <string-array name="string_array_alcohol">
         <item>Vodka</item>
         <item>Rum</item>

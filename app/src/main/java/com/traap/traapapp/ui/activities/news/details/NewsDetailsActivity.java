@@ -347,25 +347,18 @@ public class NewsDetailsActivity extends BaseActivity implements OnServiceStatus
         {
             newsDetailFragment = NewsDetailsContentFragment.newInstance(this, currentContent);
             transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
             transaction.replace(R.id.newsDetailContainer, newsDetailFragment, "newsDetailsContentFragment")
                     .commit();
 
 
-
             newsRelatedFragment = NewsRelatedContentFragment.newInstance(this, currentContent.getRelatedNews());
             transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
             transaction.replace(R.id.newsRelatedContainer, newsRelatedFragment, "newsRelatedContentFragment")
                     .commit();
 
 
-
             newsCommentFragment = NewsDetailsCommentFragment.newInstance(this, currentContent.getId());
             transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.newsCommentContainer, newsCommentFragment, "newsCommentFragment")
                     .commit();
 

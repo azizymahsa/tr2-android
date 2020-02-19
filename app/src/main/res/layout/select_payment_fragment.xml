@@ -168,8 +168,9 @@
                         android:gravity="center"
                         android:singleLine="true"
                         android:text="درگاه پرداخت"
-                        android:textColor="@color/gray"
+                        android:textColor="@color/borderColorRed"
                         android:textSize="@dimen/textSize_14dp"
+                        android:background="@drawable/background_border_a"
                         />
 
                     <TextView
@@ -194,7 +195,7 @@
                         android:gravity="center"
                         android:text="کیف پول"
                         android:singleLine="true"
-                        android:textColor="@color/gray"
+                        android:textColor="@color/returnButtonColor"
                         android:textSize="@dimen/textSize_14dp" />
 
                 </LinearLayout>

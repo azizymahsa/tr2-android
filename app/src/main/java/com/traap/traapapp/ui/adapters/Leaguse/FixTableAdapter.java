@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import com.traap.traapapp.R;
-import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
+import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableFragment;
 
 
 public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHolder>
