@@ -381,6 +381,21 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             bRelatedAlbums.setAdapter(new NewestPhotosAdapter(data.getResults(), this::OnItemRelatedAlbumsClick));
             indicator.attachToRecyclerView(bRelatedAlbums.getmRecyclerView());
 
+
+            bRelatedAlbums.setAutoPlaying(true);
+    /*        if (bNewestVideoPosition!=null)
+            {
+                try
+                {
+                    bRelatedAlbums.getmRecyclerView().scrollToPosition(bNewestVideoPosition);
+
+                } catch (Exception e)
+                {
+                    bRelatedAlbums.getmRecyclerView().scrollToPosition(0);
+
+                }
+            }*/
+
         }
 
     }
