@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult;
+package com.traap.traapapp.ui.fragments.matchSchedule.pastResult;
 
 import android.app.Activity;
 import android.content.Context;
