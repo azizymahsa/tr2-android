@@ -196,7 +196,8 @@ public class NewsDetailsContentFragment extends BaseFragment implements NewsDeta
         if (content.getSubtitle().equalsIgnoreCase(""))
         {
             tvSubTitle.setVisibility(View.GONE);
-        } else
+        }
+        else
         {
             tvSubTitle.setText(content.getSubtitle());
         }
