@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:text="اخبار مرتبط"
             android:gravity="start"
-            android:paddingRight="8dp"
-            android:paddingLeft="8dp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
             android:paddingTop="8dp"
             android:textSize="@dimen/textSize_14dp"
             android:textColor="@color/textColorSecondary"/>
