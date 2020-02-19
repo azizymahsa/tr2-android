@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="16dp"
             android:layout_toRightOf="@+id/rlLike"
             android:gravity="right"
             android:maxLines="2"
@@ -60,7 +60,6 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
-
 
     <RelativeLayout
         android:id="@+id/rlImegess"
@@ -108,20 +107,19 @@
 
         </RelativeLayout>
 
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/ivBigLike"
-                android:layout_width="@dimen/_100dp"
-                android:layout_height="@dimen/_100dp"
-                android:layout_centerInParent="true"
-                android:adjustViewBounds="true"
-                android:background="@drawable/big_like"
-                android:foreground="?attr/selectableItemBackground"
-                android:scaleType="center"
-                android:visibility="gone"
-                app:riv_corner_radius="10dp"
-                app:riv_mutate_background="true"
-                app:riv_oval="false" />
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivBigLike"
+            android:layout_width="@dimen/_100dp"
+            android:layout_height="@dimen/_100dp"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:background="@drawable/big_like"
+            android:foreground="?attr/selectableItemBackground"
+            android:scaleType="center"
+            android:visibility="gone"
+            app:riv_corner_radius="10dp"
+            app:riv_mutate_background="true"
+            app:riv_oval="false" />
 
 
     </RelativeLayout>
@@ -174,9 +172,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_20dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:layout_toRightOf="@+id/imgBookmark"
             android:gravity="right"
@@ -243,7 +241,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_20dp"
             android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="@dimen/_10dp"
             android:layout_toRightOf="@+id/tvNewsArchive"
             android:foreground="?attr/selectableItemBackground"
