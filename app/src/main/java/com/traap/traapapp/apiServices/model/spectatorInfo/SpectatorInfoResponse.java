@@ -23,4 +23,11 @@ public class SpectatorInfoResponse
     @SerializedName("first_name")
     private String firstName;
 
+    @Expose
+    @Getter
+    @Setter
+    @SerializedName("national_code")
+    private String nationalCode;
+
+
 }

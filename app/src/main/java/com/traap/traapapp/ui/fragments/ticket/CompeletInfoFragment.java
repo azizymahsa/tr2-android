@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -44,6 +45,7 @@ import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
 import com.traap.traapapp.apiServices.model.paymentMatch.Viewers;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
+import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
@@ -90,6 +92,7 @@ public class CompeletInfoFragment
     private TextView tvStation_1, tvStation_2, tvStation_3, tvStation_4, tvStation_5;
     private TextView tvPerson_1, tvPerson_2, tvPerson_3, tvPerson_4, tvPerson_5;
     private ImageView imgDelete1, imgDelete2, imgDelete3, imgDelete4, imgDelete5;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
     private CheckBox cbCondition;
     private View llConfirm, llInVisible;
     private MessageAlertDialog.OnConfirmListener listener;
@@ -140,6 +143,7 @@ public class CompeletInfoFragment
 
     public static CompeletInfoFragment fragment;
     private PaymentWalletImpl paymentWallet;
+    private View llSelectSpectator;
 
 
     public CompeletInfoFragment()
@@ -231,11 +235,17 @@ public class CompeletInfoFragment
     {
         paymentMatchRequest = new PaymentMatchRequest();
 
+        slidingUpPanelLayout = view.findViewById(R.id.slidingLayout);
+
+
         etNationalCode_1 = view.findViewById(R.id.etNationalCode_1);
         etFamily_1 = view.findViewById(R.id.etFamily_1);
         etName_1 = view.findViewById(R.id.etName_1);
         tvStation_1 = view.findViewById(R.id.tvStation_1);
         tvPerson_1 = view.findViewById(R.id.tvPerson_1);
+
+        llSelectSpectator=view.findViewById(R.id.llSelectSpectator);
+        llSelectSpectator.setOnClickListener(this);
 
         etNationalCode_2 = view.findViewById(R.id.etNationalCode_2);
         etFamily_2 = view.findViewById(R.id.etFamily_2);
@@ -542,6 +552,59 @@ public class CompeletInfoFragment
 
     }
 
+    private void requestGetSpectatorListInfo(){
+
+        ((BuyTicketsActivity) getActivity()).showLoading();
+
+        SingletonService.getInstance().getSpectatorInfoService().getSpectatorList(new OnServiceStatus<WebServiceClass<GetSpectatorListResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetSpectatorListResponse> response)
+            {
+                ((BuyTicketsActivity) getActivity()).hideLoading();
+
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+                        setDataSpectatorList(response);
+                    }
+                    else
+                    {
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                ((BuyTicketsActivity) getActivity()).hideLoading();
+
+                if (Tools.isNetworkAvailable((Activity) context))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(context, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    showAlert(context, R.string.networkErrorMessage, R.string.networkError);
+                }
+
+            }
+        });
+
+    }
+
+    private void setDataSpectatorList(WebServiceClass<GetSpectatorListResponse> response)
+    {
+
+    }
+
     private void requestSpectatorInfo(String nationalCode,Integer number)
     {
         ((BuyTicketsActivity) getActivity()).showLoading();
@@ -812,6 +875,13 @@ public class CompeletInfoFragment
     {
         switch (view.getId())
         {
+
+            case R.id.llSelectSpectator:
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+
+                requestGetSpectatorListInfo();
+                break;
+
             case R.id.tvGateway:
                // viewPager.setCurrentItem(0, true);
                 llPaymentGateway.setVisibility(View.VISIBLE);

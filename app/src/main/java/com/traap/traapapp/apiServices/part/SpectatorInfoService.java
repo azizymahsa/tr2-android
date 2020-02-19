@@ -3,6 +3,7 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 
 /**
@@ -25,5 +26,9 @@ public class SpectatorInfoService extends BasePart
     public void getSpectatorInfo(String nationalCode , OnServiceStatus<WebServiceClass<SpectatorInfoResponse>> listener)
     {
         start(getServiceGenerator().createService().getSpectatorInfo(nationalCode ), listener);
+    }
+
+    public void getSpectatorList(OnServiceStatus<WebServiceClass<GetSpectatorListResponse>> listener){
+        start(getServiceGenerator().createService().getSpectatorList(),listener);
     }
 }
