@@ -1,13 +1,6 @@
 package com.traap.traapapp.ui.fragments.turnover;
 
-import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.fragments.matchSchedule.NextMatchesFragment;
-import com.traap.traapapp.ui.fragments.matchSchedule.PastMatchesFragment;
-import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

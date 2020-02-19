@@ -3,8 +3,8 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPastResult;
-import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.LeagueTableFragment;
-import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
+import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableFragment;
+import com.traap.traapapp.ui.fragments.matchSchedule.pastResult.PastResultFragment;
 
 
 public class LiveScoreService extends BasePart
