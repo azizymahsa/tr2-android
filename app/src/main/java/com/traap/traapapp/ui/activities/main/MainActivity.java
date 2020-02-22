@@ -2339,8 +2339,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 });
                 dialog.setCancelable(false);
                 dialog.show(getFragmentManager(), "dialogAlert");
-          /*  startActivity(new Intent(this, LoginActivity.class));
-            finish();*/
+
             } else
             {
                 drawerMenu = response.data.getDrawerMenu();
