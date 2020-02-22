@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.models.CountryCodeModel;

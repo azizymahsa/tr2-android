@@ -74,6 +74,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
+import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
@@ -1881,7 +1882,13 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onPredict(MatchItem matchPredict, Boolean isPredictable)
+    public void onPredict(Integer matchId, Boolean isPredictable)
+    {
+
+    }
+
+    @Override
+    public void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable)
     {
 
     }
@@ -1971,7 +1978,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
+    public void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle)
     {
 
     }

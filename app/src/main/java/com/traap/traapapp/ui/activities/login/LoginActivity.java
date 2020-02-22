@@ -30,7 +30,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -86,8 +86,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private boolean isCode = false;
     private ClearableEditText etMobileNumber;
     private LinearLayout countDownTimer, llPin, llCondition;
-    private ArrayList<CountryCodeModel> countryCodeModels=new ArrayList<>();
-    private EditText etCountryName,etCountryCode;
+    private ArrayList<CountryCodeModel> countryCodeModels = new ArrayList<>();
+    private EditText etCountryName, etCountryCode;
     private CompositeDisposable disposable = new CompositeDisposable();
     private RelativeLayout rlCountryCode;
 
@@ -122,7 +122,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     {
         Gson gson = new Gson();
         String json = null;
-        try {
+        try
+        {
             InputStream inputStream = getAssets().open("country.json");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
@@ -130,35 +131,44 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             inputStream.close();
             json = new String(buffer, "UTF-8");
 
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
 
-        countryCodeModels= gson.fromJson(json,
-                new TypeToken<ArrayList<CountryCodeModel>>() {
+        countryCodeModels = gson.fromJson(json,
+                new TypeToken<ArrayList<CountryCodeModel>>()
+                {
                 }.getType());
 
     }
+
     @SuppressLint("CheckResult")
-    private void filter() {
-
-
+    private void filter()
+    {
         RxTextView.textChangeEvents(etCountryCode)
 
-                .subscribe(e ->{
+                .subscribe(e ->
+                        {
                             Observable.fromIterable(countryCodeModels)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribeOn(Schedulers.computation())
-                                    .filter(x -> {return x.getDialCode().equals("+"+e.text().toString());})
+                                    .filter(x ->
+                                    {
+                                        return x.getDialCode().equals("+" + e.getText().toString());
+                                    })
                                     .toList()
-                                    .subscribe(new SingleObserver<List<CountryCodeModel>>() {
+                                    .subscribe(new SingleObserver<List<CountryCodeModel>>()
+                                    {
                                         @Override
-                                        public void onSubscribe(Disposable d) {
+                                        public void onSubscribe(Disposable d)
+                                        {
                                         }
 
                                         @Override
-                                        public void onSuccess(List<CountryCodeModel> codeModels) {
-                                            if (codeModels.size()>0)
+                                        public void onSuccess(List<CountryCodeModel> codeModels)
+                                        {
+                                            if (codeModels.size() > 0)
                                             {
                                                 etCountryName.setText(codeModels.get(0).getName());
                                             }
@@ -166,13 +176,13 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
                                         }
 
                                         @Override
-                                        public void onError(Throwable e) {
+                                        public void onError(Throwable e)
+                                        {
                                         }
                                     });
 
                         }
-                       );
-
+                );
 
 
     }
@@ -223,7 +233,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             tvCountDown.setVisibility(View.VISIBLE);
         });
 
-        txtCondition.setOnClickListener(view -> {
+        txtCondition.setOnClickListener(view ->
+        {
             Utility.openUrlCustomTab(this, "http://www.traap.com/terms");
 
         });
@@ -239,7 +250,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             {
                 logoLayoutParams = new RelativeLayout.LayoutParams(dimeLogo150, dimeLogo150);
                 spaceLayoutParams = new LinearLayout.LayoutParams(dimeSpace80, dimeSpace80);
-            } else
+            }
+            else
             {
                 logoLayoutParams = new RelativeLayout.LayoutParams(dimeLogo70, dimeLogo70);
                 spaceLayoutParams = new LinearLayout.LayoutParams(dimeSpace40, dimeSpace40);
@@ -263,11 +275,14 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         });
 
 
-        etCountryName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etCountryName.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
             @Override
-            public void onFocusChange(View arg0, boolean hasfocus) {
-                if (hasfocus) {
-                    startActivityForResult(new Intent(LoginActivity.this, SearchCountryActivity.class),1002);
+            public void onFocusChange(View arg0, boolean hasfocus)
+            {
+                if (hasfocus)
+                {
+                    startActivityForResult(new Intent(LoginActivity.this, SearchCountryActivity.class), 1002);
                     etCountryName.clearFocus();
                 }
             }
@@ -335,8 +350,11 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityForResult(intent, 100);
             finish();
-        } else
+        }
+        else
+        {
             mobileToCode();
+        }
 
 
     }
@@ -502,8 +520,11 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         if (isCode)
         {
             codeToMobile();
-        } else
+        }
+        else
+        {
             super.onBackPressed();
+        }
     }
 
     @Override
@@ -512,8 +533,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1002 && resultCode == Activity.RESULT_OK)
         {
-         etCountryName.setText(data.getExtras().getString("name"));
-         etCountryCode.setText(data.getExtras().getString("code").replace("+",""));
+            etCountryName.setText(data.getExtras().getString("name"));
+            etCountryCode.setText(data.getExtras().getString("code").replace("+", ""));
 
         }
     }

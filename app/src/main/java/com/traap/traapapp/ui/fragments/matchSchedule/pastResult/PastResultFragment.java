@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -30,6 +31,8 @@ import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPas
 import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponsePastResult;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.enums.LeagueTableParent;
+import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
@@ -44,19 +47,21 @@ import com.traap.traapapp.utilities.Tools;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class PastResultFragment
-        extends BaseFragment implements OnAnimationEndListener,
+public class PastResultFragment extends BaseFragment implements OnAnimationEndListener,
         OnServiceStatus<WebServiceClass<ResponsePastResult>>//, OnBackPressed
 {
-    private String teamId = "";
+    private String teamId = "0", matchId = "0";
+    private Boolean isPredictable = false;
     private View rootView;
+
+    private LeagueTableParent parent;
 
     private Context context;
 
     private MainActionView mainView;
 
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName,tvPopularPlayer;
+    private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
 
     /*scroll view*/
@@ -68,7 +73,7 @@ public class PastResultFragment
     private ImageView imgLogo;
     private String logoPath;
     private TextView tvNameLeage;
-    private String logoTitle="";
+    private String logoTitle = "";
 
     public PastResultFragment()
     {
@@ -84,13 +89,6 @@ public class PastResultFragment
     }
 */
 
-    public PastResultFragment(MainActionView mainView, String teamId)
-    {
-        this.mainView = mainView;
-        this.teamId = teamId;
-
-    }
-
     @Override
     public void onAttach(@NonNull Context context)
     {
@@ -98,23 +96,38 @@ public class PastResultFragment
         this.context = context;
     }
 
-    public static PastResultFragment newInstance(MainActionView mainView, String teamId, String logoPath, String logoTitle)
+    public static PastResultFragment newInstance(LeagueTableParent parent,
+                                                 MainActionView mainView,
+                                                 String matchId,
+                                                 Boolean isPredictable,
+                                                 String teamId,
+                                                 String logoPath,
+                                                 String logoTitle)
     {
         PastResultFragment f = new PastResultFragment();
 
         Bundle args = new Bundle();
         args.putString("teamId", teamId);
+        args.putString("matchId", matchId);
         args.putString("logoPath", logoPath);
         args.putString("logoTitle", logoTitle);
+        args.putBoolean("isPredictable", isPredictable);
 
         f.setArguments(args);
         f.setMainView(mainView);
+        f.setParent(parent);
         return f;
     }
 
     private void setMainView(MainActionView mainView)
     {
         this.mainView = mainView;
+    }
+
+
+    private void setParent(LeagueTableParent parent)
+    {
+        this.parent = parent;
     }
 
     @Override
@@ -124,8 +137,10 @@ public class PastResultFragment
         if (getArguments() != null)
         {
             teamId = getArguments().getString("teamId");
+            matchId = getArguments().getString("matchId");
             logoPath = getArguments().getString("logoPath");
             logoTitle = getArguments().getString("logoTitle");
+            isPredictable = getArguments().getBoolean("isPredictable", false);
         }
 
         EventBus.getDefault().register(this);
@@ -157,14 +172,21 @@ public class PastResultFragment
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
-               mainView.onBackToMatch();
+                if (parent == LeagueTableParent.MatchScheduleFragment)
+                {
+                    mainView.onBackToMatch();
+                }
+                else if (parent == LeagueTableParent.PredictFragment)
+                {
+                    mainView.onPredictLeagueTable(Integer.parseInt(teamId), Integer.parseInt(matchId), isPredictable);
+                }
             });
 
             tvTitle.setText("برنامه بازی ها");
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
-            tvNameLeage=rootView.findViewById(R.id.tvNameLeage);
+            tvNameLeage = rootView.findViewById(R.id.tvNameLeage);
             tvNameLeage.setText(logoTitle);
             imgLogo = rootView.findViewById(R.id.imgLogo);
             Picasso.with(SingletonContext.getInstance().getContext()).load(logoPath).into(imgLogo);
@@ -191,7 +213,6 @@ public class PastResultFragment
 
         return rootView;
     }
-
 
 
     private void sendRequest()
@@ -226,8 +247,7 @@ public class PastResultFragment
                 //fixTableAdapter.setClickListener(this);
                 leagRecycler.setAdapter(fixTableAdapter);
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             mainView.showError(e.getMessage());
             mainView.hideLoading();
@@ -259,13 +279,14 @@ public class PastResultFragment
     @Override
     public void onError(String message)
     {
-       // mainView.showError(message);
+        // mainView.showError(message);
         mainView.hideLoading();
         if (Tools.isNetworkAvailable((Activity) context))
         {
             Logger.e("-OnError-", "Error: " + message);
-            mainView.showError( "خطا در دریافت اطلاعات از سرور!");
-        } else
+            mainView.showError("خطا در دریافت اطلاعات از سرور!");
+        }
+        else
         {
             mainView.showError(String.valueOf(R.string.networkErrorMessage));
 
@@ -295,11 +316,13 @@ public class PastResultFragment
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-    public void onBackClicked(ArrayList<MatchItem> matchBuyable){
 
-        MatchScheduleFragment matchScheduleFragment = MatchScheduleFragment.newInstance(mainView,matchBuyable, 1);
+    public void onBackClicked(ArrayList<MatchItem> matchBuyable)
+    {
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, matchScheduleFragment,"leagueTableFragment").commit();
+        MatchScheduleFragment matchScheduleFragment = MatchScheduleFragment.newInstance(mainView, MatchScheduleParent.MainActivity, matchBuyable, 1);
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, matchScheduleFragment, "leagueTableFragment").commit();
     }
 
 }

@@ -63,6 +63,8 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
+import com.traap.traapapp.enums.LeagueTableParent;
+import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.dbModels.BankDB;
@@ -84,6 +86,7 @@ import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
+import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableMainFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
@@ -91,6 +94,7 @@ import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
 import com.traap.traapapp.ui.fragments.moneyTransfer.MainMoneyTransferFragment;
+import com.traap.traapapp.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
@@ -245,13 +249,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard)
                 {
                     hasPaymentCharge = true;
-                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
+                }
+                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
                 {
                     hasPaymentPackageSimcard = true;
-                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
+                }
+                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
                 {
                     hasPaymentTicket = true;
-                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
+                }
+                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
                 {
                     hasPaymentIncreaseWallet = true;
                 }
@@ -275,7 +282,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
         {
             TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
-        } else
+        }
+        else
         {
             TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
         }
@@ -583,20 +591,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     public void onBackPressed()
     {
-        Log.e("backStateBack", backState + "");
-
         try
         {
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             if (drawer.isDrawerOpen(GravityCompat.END))
             {
                 drawer.closeDrawer(GravityCompat.END);
-            } /*else if (fragment instanceof SelectPaymentGatewayFragment && ((SelectPaymentGatewayFragment) fragment).getViewpager().getCurrentItem()!=0 ){
+            }
+            /*else if (fragment instanceof SelectPaymentGatewayFragment && ((SelectPaymentGatewayFragment) fragment).getViewpager().getCurrentItem()!=0 ){
 
                 //((SelectPaymentGatewayFragment) fragment).onBackClicked();
                 backToMainFragment();
 
-            }*/ else if (fragment instanceof WalletFragment && Prefs.getInt("DetailCartStatus", 2) == 0)
+            }*/
+            else if (fragment instanceof WalletFragment && Prefs.getInt("DetailCartStatus", 2) == 0)
             {
                 isMainFragment = false;
                 if (Prefs.getInt("DetailCartStatus", 2) == 0)
@@ -609,14 +617,17 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
 
                 //  Prefs.putInt("DetailCartStatus",1);
-            } else if (fragment instanceof PastResultFragment)
+            }
+            else if (fragment instanceof PastResultFragment)
             {
                 onLeageClick(matchBuyable);
-            } else if (fragment instanceof SelectPaymentGatewayFragment)
+            }
+            else if (fragment instanceof SelectPaymentGatewayFragment)
             {
                 onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS)
                 );
-            } else if (fragment instanceof ChargeFragment && backState == 2 || fragment instanceof PackFragment && backState == 2)
+            }
+            else if (fragment instanceof ChargeFragment && backState == 2 || fragment instanceof PackFragment && backState == 2)
             {
 
 //                        setCheckedBNV(bottomNavigationView, 3);
@@ -654,7 +665,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                                     {
                                         finishAndRemoveTask();
-                                    } else
+                                    }
+                                    else
                                     {
                                         Intent intent = new Intent(Intent.ACTION_MAIN);
                                         intent.addCategory(Intent.CATEGORY_HOME);
@@ -675,7 +687,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                                 }
                             });
                     exitDialog.show(getFragmentManager(), "exitDialog");
-                } else
+                }
+                else
                 {
                     setCheckedBNV(bottomNavigationView, 2);
 
@@ -817,7 +830,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 if (fragment instanceof MainFragment)
                 {
                     ((MainFragment) fragment).requestGetHelpMenu();
-                } else
+                }
+                else
                 {
                     backToMainFragment();
                     ((MainFragment) fragment).requestGetHelpMenu();
@@ -900,7 +914,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 isFirst = false;
                 new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 1200);
-            } else
+            }
+            else
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
@@ -1175,9 +1190,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 
                 if (hasPhone.equalsIgnoreCase("1"))
+                {
                     hasPhone = "true";
+                }
                 else
+                {
                     hasPhone = "false";
+                }
 
                 if (Boolean.parseBoolean(hasPhone))
                 {
@@ -1192,13 +1211,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         {
                             ((ChargeFragment) fragment).onSelectContact(onSelectContact);
 
-                        } else if (fragment instanceof PackFragment)
+                        }
+                        else if (fragment instanceof PackFragment)
                         {
                             ((PackFragment) fragment).onSelectContact(onSelectContact);
-                        } else if (fragment instanceof BillFragment)
+                        }
+                        else if (fragment instanceof BillFragment)
                         {
                             ((BillFragment) fragment).onSelectContact(onSelectContact);
-                        } else if (fragment instanceof WalletFragment)
+                        }
+                        else if (fragment instanceof WalletFragment)
                         {
                             ((WalletFragment) fragment).onSelectContact(onSelectContact);
 
@@ -1212,13 +1234,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             }
             cursor.close();
 
-        } else if (resultCode == Activity.RESULT_OK && requestCode == 22)
+        }
+        else if (resultCode == Activity.RESULT_OK && requestCode == 22)
         {
             showToast(this, "کارت جدید با موفقیت ذخیره شد.", R.color.green);
 
-        } else if (resultCode == Activity.RESULT_OK)
+        }
+        else if (resultCode == Activity.RESULT_OK)
         {
-            Log.e("12321", "onActivityResult:22222 ");
             backToMainFragment();
         }
     }
@@ -1257,7 +1280,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //            transaction.commit();
 
             fragment = mainFragment;
-        } else
+        }
+        else
         {
             Logger.e("--mainFragment--", "--null--");
             fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
@@ -1323,21 +1347,31 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         this.matchBuyable = matchBuyable;
         isMainFragment = false;
-        fragment = MatchScheduleFragment.newInstance(this, matchBuyable, 1);
+        fragment = MatchScheduleFragment.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable, 1);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, fragment, "leagueTableFragment").commit();
     }
 
     @Override
-    public void onPredict(MatchItem matchPredict, Boolean isPredictable)
+    public void onPredict(Integer matchId, Boolean isPredictable)
     {
         isMainFragment = false;
-        this.fragment = PredictFragment.newInstance(this, matchPredict.getId(), isPredictable);
+        this.fragment = PredictFragment.newInstance(this, matchId, isPredictable);
 
         transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "predictFragment")
+                .commit();
+    }
+
+    @Override
+    public void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable)
+    {
+        isMainFragment = false;
+        this.fragment = LeagueTableMainFragment.newInstance(this, teamId, matchId, isPredictable);
+
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_container, this.fragment, "leagueTableMainFragment")
                 .commit();
     }
 
@@ -2030,17 +2064,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "videosMainFragment")
                 .commit();
-
     }
 
     @Override
-    public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
+    public void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle)
     {
         isMainFragment = false;
-        this.fragment = PastResultFragment.newInstance(this, teamId, imageLogo, logoTitle);
+        this.fragment = PastResultFragment.newInstance(parent, this, matchId, isPredictable, teamId, imageLogo, logoTitle);
 
         transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, this.fragment, "pastResultFragment")
                 .commit();
     }
@@ -2139,11 +2171,13 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         if (response.data != null)
                         {
                             onBuyTicketClick(response.data);
-                        } else
+                        }
+                        else
                         {
                             showAlert(MainActivity.this, response.info.message, 0);
                         }
-                    } else
+                    }
+                    else
                     {
                         showAlert(MainActivity.this, response.info.message, 0);
                     }
@@ -2164,7 +2198,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     showAlert(MainActivity.this, "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
                     Logger.e("--showErrorMessage--", message);
-                } else
+                }
+                else
                 {
                     showAlert(MainActivity.this, R.string.networkErrorMessage, R.string.networkError);
                 }
@@ -2213,7 +2248,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.main_container, this.fragment, "ChargeFragment")
                     .commit();
-        } else if (PAYMENT_STATUS == 4)
+        }
+        else if (PAYMENT_STATUS == 4)
         {
             isMainFragment = false;
             this.fragment = PackFragment.newInstance(this, backState);
@@ -2252,7 +2288,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             transaction.replace(R.id.main_container, fragment, "allMenuFragment")
                     .commit();
 
-        } else
+        }
+        else
         {
             backToMainFragment();
         }
@@ -2275,7 +2312,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onBackToMatch()
     {
         isMainFragment = false;
-        fragment = MatchScheduleFragment.newInstance(this, matchBuyable,0);
+        fragment = MatchScheduleFragment.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable, 0);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.main_container, fragment, "leagueTableFragment").commit();
@@ -2291,7 +2328,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             if (response == null || response.info == null)
             {
                 MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                        false, "تلاش مجدد", "", false,MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                        false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()
@@ -2315,7 +2352,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             if (response.info.statusCode != 200)
             {
                 MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                        false, "تلاش مجدد", "", false,MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                        false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                 {
                     @Override
                     public void onConfirmClick()
@@ -2337,7 +2374,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 dialog.setCancelable(false);
                 dialog.show(getFragmentManager(), "dialogAlert");
 
-            } else
+            }
+            else
             {
                 drawerMenu = response.data.getDrawerMenu();
                 chosenServiceList = response.data.getChosenServiceList();
@@ -2389,7 +2427,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 //                    finish();
 
                         return;
-                    } else
+                    }
+                    else
                     {
                         matchList = (ArrayList<MatchItem>) responseMatchList.data.getMatchList();
 
@@ -2405,7 +2444,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         {
                             transaction.add(R.id.main_container, fragment, "mainFragment")
                                     .commit();
-                        } else
+                        }
+                        else
                         {
                             transaction.replace(R.id.main_container, fragment, "mainFragment")
                                     .commit();
@@ -2453,13 +2493,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
             startActivity(intent);*/
 
-        } else if (hasPaymentCharge || hasPaymentPackageSimcard)
+        }
+        else if (hasPaymentCharge || hasPaymentPackageSimcard)
         {
             Intent intent = new Intent(this, PaymentResultChargeActivity.class);
             intent.putExtra("RefrenceNumber", refrenceNumber);
             //intent.putExtra("StatusPayment", true);
             startActivity(intent);
-        } else if (hasPaymentIncreaseWallet)
+        }
+        else if (hasPaymentIncreaseWallet)
         {
             Intent intent = new Intent(this, PaymentResultIncreaseInventoryActivity.class);
             intent.putExtra("RefrenceNumber", refrenceNumber);
@@ -2515,7 +2557,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         isCompleteThreadNews = true;
                         hideLoading();
                         MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
-                                false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,new MessageAlertDialog.OnConfirmListener()
+                                false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()
@@ -2534,7 +2576,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     finish();*/
 
                         return;
-                    } else
+                    }
+                    else
                     {
                         Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
 
@@ -2602,7 +2645,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                } else
+                }
+                else
                 {
                     showError(MainActivity.this, getString(R.string.networkErrorMessage));
 
@@ -2659,7 +2703,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                } else
+                }
+                else
                 {
                     showError(MainActivity.this, getString(R.string.networkErrorMessage));
 
@@ -2725,7 +2770,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                } else
+                }
+                else
                 {
                     showError(MainActivity.this, getString(R.string.networkErrorMessage));
 
@@ -2748,7 +2794,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (Tools.isNetworkAvailable(this))
         {
             error = "خطا در دریافت اطلاعات از سرور!";
-        } else
+        }
+        else
         {
             error = getString(R.string.networkErrorMessage);
         }
@@ -2757,20 +2804,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         MessageAlertDialog dialog = new MessageAlertDialog(this, "", error,
                 false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,
                 new MessageAlertDialog.OnConfirmListener()
-        {
-            @Override
-            public void onConfirmClick()
-            {
-                getAllServicesList();
+                {
+                    @Override
+                    public void onConfirmClick()
+                    {
+                        getAllServicesList();
 
-            }
+                    }
 
-            @Override
-            public void onCancelClick()
-            {
+                    @Override
+                    public void onCancelClick()
+                    {
 
-            }
-        });
+                    }
+                });
         dialog.setCancelable(false);
         dialog.show(getFragmentManager(), "messageDialog");
 /*
@@ -2813,7 +2860,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.movedown);
             findViewById(R.id.llBottomNavigation).startAnimation(animation);
             findViewById(R.id.llBottomNavigation).setVisibility(View.GONE);
-        } else
+        }
+        else
         {
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.moveup);
             findViewById(R.id.llBottomNavigation).startAnimation(animation);
