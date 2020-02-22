@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuItemResponse;
 import com.traap.traapapp.models.otherModels.menuItems.MenuItems;
@@ -128,13 +129,17 @@ public class MenuDrawerFragment extends Fragment
                     menuItem.setIsActive(item.getIsVisible());
                     menuItem.setImgURL(item.getImageName());
                     dataList.add(menuItem);
-
+                    if (item.getKeyId() == 82)
+                    {
+                        Prefs.putString("menu_transfer",item.getTitle());
+                    }
 //                dataList.add(new MenuItems(1, "سوابق خرید و تراکنش ها", R.drawable.ic_transaction_list, true));
 //                dataList.add(new MenuItems(4, "کیف پول", R.drawable.ic_wallet, true));
 //                dataList.add(new MenuItems(10, "راهنما", R.drawable.ic_help, true));
 //                dataList.add(new MenuItems(9, "ارتباط با پشتیبانی", R.drawable.ic_support, true));
 //                dataList.add(new MenuItems(7, "درباره ما", R.drawable.ic_about_us, true));
                 }
+
             }
 
             adapter = new MenuDrawerAdapter(mContext, dataList);

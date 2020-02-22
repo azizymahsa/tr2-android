@@ -438,6 +438,11 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
             showAlertFailure(getContext(), "لطفا مبلغ را وارد نمایید.", "", false);
             return;
         }
+        if (etAmount.getText().toString().length()>1 & Integer.parseInt(etAmount.getText().toString().replaceAll(",",""))<20000)
+        {
+            showAlertFailure(getContext(), "حداقل مبلغ 20,000 ریال می باشد.", "", false);
+            return;
+        }
 
         if (TextUtils.isEmpty(etPass.getText().toString()))
         {
