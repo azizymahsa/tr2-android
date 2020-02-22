@@ -89,7 +89,7 @@ import com.traap.traapapp.ui.fragments.main.MainFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
-import com.traap.traapapp.ui.fragments.moneyTransfer.MoneyTransferFragment;
+import com.traap.traapapp.ui.fragments.moneyTransfer.MainMoneyTransferFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
@@ -1021,7 +1021,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        fragment = MoneyTransferFragment.newInstance(this);
+        fragment = MainMoneyTransferFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 

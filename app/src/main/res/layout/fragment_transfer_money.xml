@@ -9,707 +9,517 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="112dp"
-        android:layout_marginBottom="4dp"
-        android:background="@android:color/transparent"
-        android:elevation="3dp">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="112dp"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/background_main_header">
-
-            <include layout="@layout/toolbar_back" />
-
-        </androidx.appcompat.widget.Toolbar>
-
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"/>
-
-
+            android:layout_height="wrap_content">
             <LinearLayout
-                android:id="@+id/llTransfer"
+                android:id="@+id/llCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+               >
 
-                <LinearLayout
-                    android:gravity="center|end"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    app:cardCornerRadius="@dimen/_300dp"
+                    app:cardElevation="5dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBankLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
 
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
+                        />
+                </androidx.cardview.widget.CardView>
 
-                    <TextView
-                        android:id="@+id/tvTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="100"
-                        android:text="انتقال از کارت: "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textSize_14dp" />
-
-                    <!--                <TextView-->
-                    <!--                    android:text="@string/credit_card_icon"-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:textAppearance="@style/IconFonts"-->
-                    <!--                    android:textSize="@dimen/_20dp"-->
-                    <!--                    android:textColor="@color/textColorPrimary"-->
-                    <!--                    android:visibility="gone" />-->
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:gravity="center|end"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="100"
-                        android:gravity="center|end"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/tvBarcode"
-                            android:layout_width="@dimen/_35dp"
-                            android:layout_height="@dimen/_35dp"
-                            android:layout_marginEnd="5dp"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:src="@drawable/barcode"
-                            android:visibility="gone" />
-
-
-                        <ImageView
-                            android:id="@+id/tvChangeInput"
-                            android:layout_width="@dimen/_35dp"
-                            android:layout_height="@dimen/_35dp"
-                            android:layout_marginEnd="5dp"
-                            android:foreground="?attr/selectableItemBackground" />
-
-                        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-                            android:id="@+id/btnContactTransfer"
-                            android:layout_width="@dimen/_35dp"
-                            android:layout_height="@dimen/_35dp"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="5dp"
-                            android:background="@color/white"
-                            android:textSize="@dimen/textSize_20dp"
-                            android:transitionName="transition"
-                            app:finalCornerAngle="40dp"
-                            app:initialCornerAngle="40dp"
-                            app:spinning_bar_color="@color/btnColorSecondary"
-                            app:spinning_bar_width="2dp" />
-
-                        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-                            android:id="@+id/btnDestinationHistory"
-                            android:layout_width="@dimen/_35dp"
-                            android:layout_height="@dimen/_35dp"
-                            android:layout_gravity="center"
-                            android:background="@color/white"
-                            android:transitionName="transition"
-                            app:finalCornerAngle="40dp"
-                            app:initialCornerAngle="40dp"
-                            app:spinning_bar_color="@color/btnColorSecondary"
-                            app:spinning_bar_width="2dp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            app:hintTextAppearance="@style/TextLabel"
-                            android:id="@+id/etLayoutDestination"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_60sdp"
-                            android:layout_weight="100"
-                            android:layout_gravity="center|end"
-                            android:hint="شماره کارت مقصد"
-                            android:theme="@style/EditTextHint3">
-
-                            <com.traap.traapapp.utilities.ClearableEditText
-                                android:id="@+id/etDestination"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end|center"
-                                android:inputType="number"
-                                android:backgroundTint="@color/textColorSecondary"
-                                android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                                android:imeOptions="actionNext"
-                                android:maxLines="1"
-                                android:singleLine="true"
-                                android:textSize="@dimen/textSize_16dp"
-                                app:mask="9999-9999-9999-9999"
-                                android:textColor="@color/textColorSecondary"
-                                android:textColorHint="@color/textColorSecondary"
-                                app:placeholder="_" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            app:hintTextAppearance="@style/TextLabel"
-                            android:id="@+id/etLayoutDestination2"
-                            android:layout_gravity="center|end"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_60sdp"
-                            android:layout_weight="100"
-                            android:theme="@style/EditTextHint"
-                            android:visibility="gone">
-
-                            <com.traap.traapapp.utilities.ClearableEditText
-                                android:id="@+id/etDestination2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end|center"
-                                android:inputType="number"
-                                android:backgroundTint="@color/textColorSecondary"
-                                android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                                android:imeOptions="actionNext"
-                                android:maxLines="1"
-                                android:singleLine="true"
-                                android:textColor="@color/textColorSecondary"
-                                android:textColorHint="@color/textColorSecondary"
-                                android:textSize="@dimen/textSize_16dp" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <!--                    <TextView-->
-                        <!--                        android:text="@string/card_icon"-->
-                        <!--                        android:layout_width="wrap_content"-->
-                        <!--                        android:layout_height="match_parent"-->
-                        <!--                        android:gravity="center"-->
-                        <!--                        android:minWidth="@dimen/_20dp"-->
-                        <!--                        android:textAppearance="@style/IconFonts"-->
-                        <!--                        android:textSize="@dimen/_20dp"-->
-                        <!--                        android:textColor="@color/textColorPrimary"-->
-                        <!--                        android:visibility="gone" />-->
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/ivLogo"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="5"
-                        android:layout_gravity="center"
-                        android:tint="@color/white" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|end"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        app:hintTextAppearance="@style/TextLabel"
-                        android:id="@+id/etLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:layout_weight="100"
-                        android:layout_gravity="center|end"
-                        android:hint="مبلغ را به ریال وارد نمایید"
-
-
-                        android:theme="@style/EditTextHint">
-
-                        <com.traap.traapapp.utilities.ClearableEditText
-                            android:id="@+id/etAmount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end|center"
-                            android:inputType="number"
-                            android:backgroundTint="@color/textColorSecondary"
-                            android:imeOptions="actionDone"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/textColorSecondary"
-                            android:textColorHint="@color/textColorSecondary"
-                            android:textSize="@dimen/textSize_16dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <!--                <TextView-->
-                    <!--                    android:text="@string/money_icon"-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:minWidth="@dimen/_20dp"-->
-                    <!--                    android:textAppearance="@style/IconFonts"-->
-                    <!--                    android:textSize="@dimen/_20dp"-->
-                    <!--                    android:textColor="@color/textColorPrimary"-->
-                    <!--                    android:visibility="gone" />-->
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|end"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5" />
-
-                    <include
-                        android:id="@+id/btnConfirm"
-                        layout="@layout/circular_progress_button" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5" />
-
-                </LinearLayout>
-
-                <TextView
+                <com.traap.traapapp.utilities.TextViewEx
                     android:id="@+id/tvBankName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:textColor="@color/textHint"
+                    android:textSize="@dimen/textSize_14dp"
                     android:gravity="center"
-                    android:text="لیست بانک های مبدا جهت کارت به کارت"
-                    android:textColor="@android:color/holo_blue_bright"
-                    android:textSize="@dimen/textSize_16dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="حداکثر مبلغ قابل انتقال در هر تراکنش 10,000,000 ریال می باشد"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="@dimen/textSize_12dp" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/llCardDetail"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
+                    />
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|end"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
-
-                    <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
-                        android:id="@+id/etLayoutPass"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:layout_weight="100"
-                        android:layout_gravity="center|end"
-                        android:hint="رمز دوم کارت را وارد نمایید"
-                        android:theme="@style/EditTextHint">
-
-                        <com.traap.traapapp.utilities.ClearableEditText
-                            android:id="@+id/etPass"
-                            android:gravity="end|center"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberPassword"
-                            android:tag="amount"
-                            android:backgroundTint="@color/textColorSecondary"
-                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                            android:imeOptions="actionNext"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/textColorSecondary"
-                            android:textColorHint="@color/textColorSecondary"
-                            android:textSize="@dimen/textSize_16dp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llCvv2"
-                    android:gravity="center|end"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
-
-                    <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
-                        android:id="@+id/etLayoutCvv"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:layout_weight="100"
-                        android:layout_gravity="center|end"
-                        android:hint="شماره cvv2 را وارد نمایید"
-                        android:theme="@style/EditTextHint">
-
-                        <com.traap.traapapp.utilities.ClearableEditText
-                            android:id="@+id/etCvv2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end|center"
-                            android:inputType="numberPassword"
-                            android:backgroundTint="@color/textColorSecondary"
-                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                            android:imeOptions="actionDone"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/textColorSecondary"
-                            android:textColorHint="@color/textColorSecondary"
-                            android:textSize="@dimen/textSize_16dp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:gravity="center|right"
                     android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10" />
+                    <ImageView
+                        android:id="@+id/ivOrigin"
+                        android:src="@drawable/traap_home_logo"
+                        android:layout_width="@dimen/_35dp"
+                        android:layout_height="@dimen/_35dp"
+                        android:layout_marginRight="5dp"
 
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_10dp"
-                        android:layout_weight="100">
+                        android:foreground="?attr/selectableItemBackground"
 
-                        <include
-                            android:id="@+id/btnBackToTransfer"
-                            android:layout_width="@dimen/_120sdp"
-                            android:layout_height="@dimen/_30dp"
-                            android:layout_gravity="center"
-                            layout="@layout/circular_progress_button"
-                            android:layout_margin="2dp" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="100"
-                        android:layout_marginStart="@dimen/_10dp">
-
-                        <include
-                            android:id="@+id/btnPassConfirm"
-                            android:layout_width="@dimen/_120sdp"
-                            android:layout_height="@dimen/_30dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="2dp"
-                            layout="@layout/circular_progress_button" />
-
-                    </FrameLayout>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llConfirmTransfer"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:text="تایید کارت به کارت"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <!--                <TextView-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:textAppearance="@style/IconFonts"-->
-                    <!--                    android:text="@string/credit_card_icon"-->
-                    <!--                    android:textColor="@color/textColorPrimary"-->
-                    <!--                    android:textSize="@dimen/_20dp" />-->
-
-                </LinearLayout>
-
-                <com.jcminarro.roundkornerlayout.RoundKornerLinearLayout
-                    android:id="@+id/view1"
-                    android:layout_width="@dimen/_180sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical"
-                    app:corner_radius="@dimen/radius_15dp">
-
+                        />
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_weight="100"
+                        android:layout_gravity="center|right">
                         <ImageView
-                            android:id="@+id/ivCard"
+                            android:src="@drawable/traap_home_logo"
+                            android:layout_width="@dimen/_35dp"
+                            android:layout_height="@dimen/_35dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_centerVertical="true"
+
+                            android:foreground="?attr/selectableItemBackground"
+
+                            />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etLayoutDestination"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY" />
+                            android:layout_gravity="center|right"
 
-                        <TextView
-                            android:id="@+id/tvCardNum"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_30dp"
-                            android:layout_centerInParent="true"
-                            android:paddingTop="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textSize_14dp" />
+                            android:hint="شماره کارت مبدا"
+                            android:theme="@style/EditTextHint4">
+                            <com.traap.traapapp.utilities.TraapMaskedEditText
+                                android:paddingLeft="@dimen/_35dp"
+                                android:id="@+id/etOrigin"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="number"
+                                android:backgroundTint="@color/black"
+                                android:textAlignment="textStart"
+                                android:hint="شماره کارت مبدا"
 
-                        <TextView
-                            android:id="@+id/tvCardName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvCardNum"
-                            android:layout_marginTop="@dimen/_10dp"
-                            android:paddingStart="@dimen/_10sdp"
-                            android:gravity="center"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textSize_12dp" />
+                                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                                android:imeOptions="actionNext"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textSize="@dimen/textSize_18dp"
+                                app:mask="9999-9999-9999-9999"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/black"
+                                app:placeholder="_"
+                                />
+
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                     </RelativeLayout>
 
-                </com.jcminarro.roundkornerlayout.RoundKornerLinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/tvAmount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:textAppearance="@style/IranSansBold"
-                        android:text="50,000,000 ریال"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="@dimen/textSize_16dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:textAppearance="@style/IranSansBold"
-                        android:text="مبلغ (ریال): "
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="@dimen/textSize_16dp" />
+
+
+
 
                 </LinearLayout>
-
                 <LinearLayout
-                    android:id="@+id/llKeshavarszi"
-                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:gravity="center|right"
+                    android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
 
-                    <com.google.android.material.textfield.TextInputLayout app:hintTextAppearance="@style/TextLabel"
-                        android:id="@+id/tilKeshavarszi"
+
+
+
+
+
+
+                    <ImageView
+                        android:id="@+id/tvChangeInput"
+                        android:src="@drawable/traap_home_logo"
+                        android:layout_width="@dimen/_35dp"
+                        android:layout_height="@dimen/_35dp"
+                        android:layout_marginRight="5dp"
+
+                        android:foreground="?attr/selectableItemBackground"
+
+                        />
+                    <RelativeLayout
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:layout_weight="100"
-                        android:layout_gravity="center|end"
-                        android:hint="کد معتبر سازی از بانک کشاورزی را وارد نمایید"
-                        android:theme="@style/EditTextHint">
+                        android:layout_gravity="center|right">
+                        <ImageView
+                            android:src="@drawable/traap_home_logo"
+                            android:layout_width="@dimen/_35dp"
+                            android:layout_height="@dimen/_35dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_centerVertical="true"
 
-                        <com.traap.traapapp.utilities.ClearableEditText
-                            android:id="@+id/etKeshavarszi"
+                            android:foreground="?attr/selectableItemBackground"
+
+                            />
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:inputType="numberPassword"
-                            android:backgroundTint="@color/textColorSecondary"
-                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                            android:imeOptions="actionDone"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/textColorSecondary"
-                            android:textColorHint="@color/textColorSecondary"
-                            android:textSize="@dimen/textSize_16dp" />
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center|right"
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:hint="شماره کارت مقصد"
+                            android:theme="@style/EditTextHint4">
+                            <com.traap.traapapp.utilities.TraapMaskedEditText
+                                android:id="@+id/etDestination"
 
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20" />
+                                android:paddingLeft="@dimen/_35dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="number"
+                                android:backgroundTint="@color/black"
+                                android:textAlignment="textStart"
+                                android:hint="شماره کارت مبدا"
 
-                </LinearLayout>
+                                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                                android:imeOptions="actionNext"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textSize="@dimen/textSize_18dp"
+                                app:mask="9999-9999-9999-9999"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/black"
+                                app:placeholder="_"
+                                />
 
-                <LinearLayout
-                    android:layout_width="@dimen/_250dp_r"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:gravity="center">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:textAppearance="@style/IranSansBold"
-                        android:text="افزودن به کارت های مقصد"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="@dimen/textSize_12dp" />
 
-                    <CheckBox
-                        android:id="@+id/cbAddFavoriteCard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/textColorPrimary" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                    </RelativeLayout>
+
+
+
+
+
+
+
 
                 </LinearLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|right"
+                    android:hint="مبلغ را به ریال وارد نمایید"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:theme="@style/EditTextHint4">
+
+                    <com.traap.traapapp.utilities.TraapMaskedEditText
+                        android:id="@+id/etAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:backgroundTint="@color/black"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textAlignment="textStart"
+
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="@dimen/textSize_16dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|right"
+                    android:hint="شرح تراکنش"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:theme="@style/EditTextHint4">
+
+                    <com.traap.traapapp.utilities.TraapMaskedEditText
+                        android:id="@+id/etDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:backgroundTint="@color/black"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="@dimen/textSize_16dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="0dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp">
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:theme="@style/RightelSwitchTheme"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="10" />
-
-                    <FrameLayout
+                        android:layout_marginRight="5dp"
+                        />
+                    <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_10dp"
-                        android:layout_weight="100">
-
-                        <include
-                            android:id="@+id/btnBackToDetail"
-                            android:layout_width="@dimen/_120sdp"
-                            android:layout_height="@dimen/_30dp"
-                            android:layout_gravity="center"
-                            layout="@layout/circular_progress_button"
-                            android:layout_margin="2dp" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="100"
-                        android:layout_marginStart="@dimen/_10dp">
+                        android:layout_height="@dimen/_25dp"
+                        android:gravity="center_vertical"
+                        android:text="ذخیره کارت مبدا"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_16dp" />
 
-                        <include
-                            android:id="@+id/btnContinue"
-                            android:layout_width="@dimen/_120sdp"
-                            android:layout_height="@dimen/_30dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="2dp"
-                            layout="@layout/circular_progress_button" />
 
-                    </FrameLayout>
-
-                    <Space
-                        android:layout_width="0dp"
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp">
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:theme="@style/RightelSwitchTheme"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="10" />
+                        android:layout_marginRight="5dp"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="100"
+                        android:layout_height="@dimen/_25dp"
+                        android:gravity="center_vertical"
+                        android:text="ذخیره کارت مقصد"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_16dp" />
+
 
                 </LinearLayout>
 
-            </LinearLayout>
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnCardConfirm"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_marginTop="@dimen/_10dp"
 
+                    android:layout_gravity="center"
+                    android:background="@drawable/background_button_login"
+                    android:text="تایید و مرحله بعد"
+                    android:textColor="@color/textColorButton"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:textStyle="bold"
+                    android:transitionName="transition"
+                    app:finalCornerAngle="50dp"
+                    app:spinning_bar_color="@color/white"
+                    app:initialCornerAngle="50dp"
+                    app:spinning_bar_width="2dp"
+                    android:layout_marginBottom="2dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llCarDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:gravity="center"
+                    android:text="اطلاعات کارت مبدا را وارد نمایید."
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10dp"
+                    >
+                    <ImageView
+                        android:src="@drawable/traap_home_logo"
+                        android:layout_width="@dimen/_25dp"
+                        android:layout_height="@dimen/_25dp"
+                        android:layout_marginRight="5dp"
+
+                        android:foreground="?attr/selectableItemBackground"
+
+                        />
+                    <TextView
+                        android:id="@+id/tvOriginCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="@color/textHint"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:gravity="center"
+                        android:text="کارت مبدا:"
+                        />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:textColor="@color/textHint"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:gravity="center"
+                    android:text="مبلغ:"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|right"
+                    android:hint="رمز دوم کارت را وارد نمایید."
+                    android:layout_marginTop="@dimen/_30dp"
+                    android:layout_marginLeft="@dimen/_40dp"
+                    android:layout_marginRight="@dimen/_40dp"
+                    android:theme="@style/EditTextHint4">
+
+                    <com.traap.traapapp.utilities.TraapMaskedEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center"
+                        android:inputType="number"
+                        android:backgroundTint="@color/black"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="@dimen/textSize_16dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|right"
+                    android:hint="شماره cvv2 را وارد نمایید."
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_40dp"
+                    android:layout_marginRight="@dimen/_40dp"
+                    android:theme="@style/EditTextHint4">
+
+                    <com.traap.traapapp.utilities.TraapMaskedEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center"
+                        android:inputType="number"
+                        android:backgroundTint="@color/black"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="@dimen/textSize_16dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|right"
+                    android:hint="تاریخ انقضا"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_40dp"
+                    android:layout_marginRight="@dimen/_40dp"
+                    android:theme="@style/EditTextHint4">
+
+
+                    <com.traap.traapapp.utilities.TraapMaskedEditText
+                        android:id="@+id/etExpireDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center"
+                        android:backgroundTint="@color/black"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:hint="تاریخ انقضا"
+                        app:mask="99/99"
+                        app:placeholder="_"
+
+
+
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_30dp"
+                    >
+                    <TextView
+                        android:layout_width="@dimen/_100dp"
+                        android:layout_height="@dimen/_30dp"
+                        android:text="@string/returnButton"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:gravity="center"
+                        android:background="@drawable/background_border_a"
+                        android:textColor="@color/textColorPrimary"
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/textSize_14dp" />
+                    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                        android:layout_width="@dimen/_100dp"
+                        android:layout_height="@dimen/_30dp"
+
+                        android:layout_gravity="center"
+                        android:background="@drawable/background_button_login"
+                        android:text="تایید"
+                        android:textColor="@color/textColorButton"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textStyle="bold"
+                        android:transitionName="transition"
+                        app:finalCornerAngle="50dp"
+                        app:spinning_bar_color="@color/white"
+                        app:initialCornerAngle="50dp"
+                        app:spinning_bar_width="2dp"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
+
+
+
 
     </androidx.core.widget.NestedScrollView>
 

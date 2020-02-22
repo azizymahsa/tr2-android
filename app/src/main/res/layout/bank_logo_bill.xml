@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10dp">
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="@dimen/_30dp"
+        android:layout_height="@dimen/_30dp"
+        android:scaleType="fitXY"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        app:riv_corner_radius="30dip"
+        app:riv_border_width="0dip"
+        android:elevation="3dp"
+        android:visibility="visible"
+        android:src="@drawable/traap_home_logo"
+        app:riv_mutate_background="true"
+        app:riv_tile_mode="clamp"
+        app:riv_oval="true" />
+
+
+</LinearLayout>
