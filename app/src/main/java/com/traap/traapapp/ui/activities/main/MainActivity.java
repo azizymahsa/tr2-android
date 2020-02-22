@@ -15,15 +15,12 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -91,9 +88,9 @@ import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
-import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
+import com.traap.traapapp.ui.fragments.matchSchedule.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
-import com.traap.traapapp.ui.fragments.moneyTransfer.MoneyTransferFragment;
+import com.traap.traapapp.ui.fragments.moneyTransfer.MainMoneyTransferFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
@@ -1025,7 +1022,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        fragment = MoneyTransferFragment.newInstance(this);
+        fragment = MainMoneyTransferFragment.newInstance(this);
         transaction = fragmentManager.beginTransaction();
 //        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 

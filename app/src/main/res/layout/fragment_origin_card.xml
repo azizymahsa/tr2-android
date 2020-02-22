@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/imgAdd"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginRight="@dimen/_20dp"
+            android:padding="6dp"
+            app:srcCompat="@drawable/ic_plus"
+            android:layout_alignParentRight="true"
+            android:tint="@color/white"
+            android:background="@drawable/background_border_red"
+            />
+
+        <RelativeLayout
+            android:id="@+id/llSearch"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_toLeftOf="@+id/btnFilter"
+            android:orientation="horizontal"
+            android:background="@drawable/background_border_gray">
+
+
+            <com.traap.traapapp.utilities.ClearableEditText
+                android:id="@+id/edtSearchText"
+                android:layout_toLeftOf="@+id/imgSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:inputType="text"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:maxLines="1"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="8dp"
+                android:singleLine="true"
+                android:textSize="@dimen/textSize_12dp"
+                android:hint="جستجوی کنید"
+                android:imeOptions="actionDone"
+                android:textColorHint="@color/textHint"
+                android:textColor="@color/textColorSecondary" />
+
+            <ImageView
+                android:id="@+id/imgSearch"
+                android:layout_width="@dimen/_40dp"
+                android:layout_height="@dimen/_40dp"
+                android:padding="6dp"
+                style="?android:attr/borderlessButtonStyle"
+                app:srcCompat="@drawable/ic_search"
+                android:layout_alignParentRight="true"
+                android:tint="@color/textHint"
+               />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

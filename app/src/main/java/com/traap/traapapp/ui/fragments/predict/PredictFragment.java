@@ -72,6 +72,7 @@ import com.traap.traapapp.ui.adapters.predict.PredictBarChartProgressAdapter;
 import com.traap.traapapp.ui.adapters.predict.PredictMatchResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.dialogs.PredictWinListDialog;
 import com.traap.traapapp.ui.fragments.main.CountDownTimerView;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
@@ -313,6 +314,13 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             sendPredict();
         });
 
+        llPredict.setOnClickListener(v ->
+        {
+            //show alert dialog
+            PredictWinListDialog dialog = new PredictWinListDialog(matchId);
+            dialog.show(getActivity().getFragmentManager(), "predictWinListDialog");
+        });
+
         FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
         flLogoToolbar.setOnClickListener(v -> {
             mainView.backToMainFragment();
@@ -447,7 +455,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     {
                         isPredictable = true;
                         llTimer.setVisibility(View.VISIBLE);
-                        tvPredictText.setText("پیش بینی کن برنده شو!");
+                        tvPredictText.setText(" پیش بینی کن برنده شو!");
 
                         startTimer(remainPredictTime);
                     }
@@ -456,14 +464,14 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                         isPredictable = false;
                         llTimer.setVisibility(View.GONE);
                         tvPredictText.setTextSize(14f);
-                        tvPredictText.setText("هیچ بازی جهت پیش بینی وجود ندارد!");
+                        tvPredictText.setText("مشاهده برندگان پیش بینی");
                     }
                 }
                 else
                 {
                     isPredictable = false;
                     llTimer.setVisibility(View.GONE);
-                    tvPredictText.setText("هیچ بازی جهت پیشبینی وجود ندارد!");
+                    tvPredictText.setText("مشاهده برندگان پیش بینی");
                     tvPredictText.setTextSize(14f);
                     btnSendPredict.setVisibility(View.GONE);
                     numPickerHome.setVisibility(View.GONE);
@@ -784,7 +792,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     {
         isPredictable = false;
         llTimer.setVisibility(View.GONE);
-        tvPredictText.setText("زمان پیش بینی به پایان رسیده است!");
+        tvPredictText.setText("مشاهده برندگان پیش بینی");
     }
 
     @Override

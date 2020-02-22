@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layoutDirection="ltr"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/alert_backgroundd"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/progress"
+                        style="@style/AVLoadingIndicatorView"
+                        android:layout_width="@dimen/_50dp"
+                        android:layout_height="@dimen/_50dp"
+                        android:layout_marginTop="@dimen/_100dp"
+                        android:layout_centerInParent="true"
+                        android:visibility="visible"
+                        app:indicatorColor="@color/textColorPrimary"
+                        app:indicatorName="BallGridPulseIndicator" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitCenter"
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:layout_marginLeft="@dimen/_20dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginTop="@dimen/_50dp"
+                        android:gravity="center"
+                        app:riv_corner_radius="15dp"
+                        app:riv_mutate_background="true"
+                        app:riv_oval="false" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:layout_marginLeft="@dimen/_20dp"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/content"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                        android:id="@+id/btnBack"
+                        android:layout_width="@dimen/_120dp"
+                        android:layout_height="@dimen/_35dp"
+                        android:layout_gravity="center"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/background_button_login"
+                        android:text="@string/back"
+                        android:textColor="@color/textColorTitle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/textSize_16dp"
+                        android:transitionName="transition"
+                        app:finalCornerAngle="50dp"
+                        app:initialCornerAngle="50dp"
+                        app:spinning_bar_color="@color/black"
+                        app:spinning_bar_width="2dp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/_70dp"
+        android:layout_height="@dimen/_70dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/alert_background_icon"
+        android:src="@drawable/ic_logo_main"
+        android:padding="@dimen/_10dp"/>
+
+</RelativeLayout>

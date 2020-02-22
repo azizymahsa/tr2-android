@@ -425,6 +425,7 @@ android {
         implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
         compile 'com.miguelcatalan:materialsearchview:1.4.0'
         implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
+        implementation 'com.github.arefbhrn:JustifiedTextView:1.0.5'
 
     }
 }
