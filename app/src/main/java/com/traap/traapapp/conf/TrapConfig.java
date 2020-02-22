@@ -3,6 +3,9 @@ package com.traap.traapapp.conf;
 public class TrapConfig
 {
     public static final int AndroidDeviceType = 1;
+
+    public static final int TRACTOR_TEAM_ID = 2;
+    public static final int TRACTOR_LIVE_SCORE_ID = 992;
     public static final String HappyBaseCardNo = "003725";
 
     public static final String TOPIC_GLOBAL = "global";

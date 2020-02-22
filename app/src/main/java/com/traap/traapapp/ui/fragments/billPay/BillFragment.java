@@ -59,6 +59,7 @@ import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillRequest;
 import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
+import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.dbModels.ArchiveCardDBModel;
@@ -1401,11 +1402,16 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void onPredict(MatchItem matchPredict, Boolean isPredictable)
+    public void onPredict(Integer matchId, Boolean isPredictable)
     {
 
     }
 
+    @Override
+    public void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable)
+    {
+
+    }
 
     @Override
     public void onCash()
@@ -1492,7 +1498,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
+    public void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle)
     {
 
     }

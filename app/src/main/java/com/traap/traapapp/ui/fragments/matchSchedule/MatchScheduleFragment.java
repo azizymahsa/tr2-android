@@ -28,6 +28,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.matchSchedule.MatchScheduleAdapter;
@@ -59,11 +60,11 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     private ArrayList<MatchItem> matchBuyable;
     private Integer selectedTab;
 
+    private MatchScheduleParent parent;
+
 
     public MatchScheduleFragment()
-    {
-
-    }
+    { }
 
     @Override
     public void onAttach(@NonNull Context context)
@@ -72,17 +73,36 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
         this.context = context;
     }
 
-    public static MatchScheduleFragment newInstance(MainActionView mainView, ArrayList<MatchItem> matchBuyable, Integer selectedTab)
+    public static MatchScheduleFragment newInstance(MainActionView mainView, MatchScheduleParent parent, ArrayList<MatchItem> matchBuyable, Integer selectedTab)
     {
         matchScheduleFragment = new MatchScheduleFragment();
-        matchScheduleFragment.setMainView(mainView,matchBuyable,selectedTab);
+        matchScheduleFragment.setMainView(mainView);
+        matchScheduleFragment.setParent(parent);
+
+        Bundle args = new Bundle();
+        args.putInt("selectedTab", selectedTab);
+        args.putParcelableArrayList("MatchList", matchBuyable);
+
+        matchScheduleFragment.setArguments(args);
         return matchScheduleFragment;
+    }
+
+    private void setParent(MatchScheduleParent parent)
+    {
+        this.parent = parent;
+    }
+
+    private void setMainView(MainActionView mainView)
+    {
+        this.mainView = mainView;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        matchBuyable = getArguments().getParcelableArrayList("MatchList");
+        selectedTab = getArguments().getInt("selectedTab");
         EventBus.getDefault().register(this);
     }
 
@@ -221,13 +241,6 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
         });
 
 
-    }
-
-    private void setMainView(MainActionView mainView,ArrayList<MatchItem> matchBuyable,Integer selectedTab)
-    {
-        this.mainView = mainView;
-        this.matchBuyable = matchBuyable;
-        this.selectedTab = selectedTab;
     }
 
     /**

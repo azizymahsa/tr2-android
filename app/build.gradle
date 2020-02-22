@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 51
-        versionName "1.14.8"
+        versionCode 52
+        versionName "1.15.0"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -189,7 +189,8 @@ android {
         //---------------------TableView Scrolling end---------------------
 
         //------------------------rxbinding2 start----------------------
-        implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+        implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
+        //   implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
         //------------------------rxbinding2 end------------------------
 
         //------------------------FireBase start----------------------
@@ -332,11 +333,6 @@ android {
         //implementation 'com.github.crosswall:Android-Coverflow:release-v1.0.5'
         //------------------------CoverFlow end---------------------------
 
-        //------------------------RxBinding start-------------------------
-        //   implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-        //------------------------RxBinding end---------------------------
-
-        //--------------------------uxcam start---------------------------
         implementation 'com.uxcam:uxcam:3.1.12@aar'
         //--------------------------uxcam end-----------------------------
 
