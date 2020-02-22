@@ -166,7 +166,6 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
         rvCategories.setLayoutManager(layoutManagerCategory);
         // requestMainVideos();
-
         return rootView;
     }
 
