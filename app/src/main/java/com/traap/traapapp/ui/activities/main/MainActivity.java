@@ -87,7 +87,7 @@ import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
-import com.traap.traapapp.ui.fragments.matchSchedule.leaguse.pastResult.PastResultFragment;
+import com.traap.traapapp.ui.fragments.matchSchedule.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
 import com.traap.traapapp.ui.fragments.moneyTransfer.MainMoneyTransferFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;

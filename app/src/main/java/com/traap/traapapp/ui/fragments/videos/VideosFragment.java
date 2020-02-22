@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -63,12 +66,13 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 {
     private VideosActionView mainView;
     private View rootView;
-    private LinearLayout llPager;
+    private LinearLayout rlLoading;
     public  Integer bNewestVideoPosition;
     public  Integer categoryClickPosition;
     public  Integer categoryClickPositionX;
     public  Integer categoryClickPositionY;
     private Context context;
+    private FrameLayout flProgress;
 
     private BannerLayout bNewestVideo;
     private RoundedImageView ivFavorite1, ivFavorite2, ivFavorite3;
@@ -141,7 +145,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         }
         rootView = inflater.inflate(R.layout.fragment_videos, container, false);
 
-        llPager = rootView.findViewById(R.id.llPager);
+        flProgress = rootView.findViewById(R.id.flProgress);
         bNewestVideo = rootView.findViewById(R.id.bNewestPhotos);
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
@@ -166,6 +170,9 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
         rvCategories.setLayoutManager(layoutManagerCategory);
         // requestMainVideos();
+
+
+
         return rootView;
     }
 
@@ -179,13 +186,13 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void requestMainVideos()
     {
-        mainView.showLoading();
+          flProgress.setVisibility(View.VISIBLE);
         SingletonService.getInstance().getMainVideosService().getMainVideos(new OnServiceStatus<WebServiceClass<MainVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<MainVideosResponse> response)
             {
-                mainView.hideLoading();
+                  flProgress.setVisibility(View.GONE);
                 try
                 {
 
@@ -210,7 +217,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             @Override
             public void onError(String message)
             {
-                mainView.hideLoading();
+                  flProgress.setVisibility(View.GONE);
                 if (Tools.isNetworkAvailable((Activity) context))
                 {
                     Logger.e("-OnError-", "Error: " + message);
@@ -271,7 +278,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             try
             {
                 rvCategoryTitles.scrollTo(categoryClickPositionX, categoryClickPositionY);
-                mainView.showLoading();
+                  flProgress.setVisibility(View.VISIBLE);
 
                 idCategoryTitle = category.getId();
                 requestGetCategoryById(idCategoryTitle);
@@ -340,7 +347,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
         this.category = category;
         categoryClickPosition=position;
-        mainView.showLoading();
+          flProgress.setVisibility(View.VISIBLE);
         categoryClickPositionX=rvCategoryTitles.getScrollX();
         categoryClickPositionY=rvCategoryTitles.getScrollY();
         idCategoryTitle = category.getId();
@@ -349,14 +356,13 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
     private void requestGetCategoryById(Integer idCategoryTitle)
     {
-        mainView.showLoading();
+          flProgress.setVisibility(View.VISIBLE);
 
         SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idCategoryTitle, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
             {
-                mainView.hideLoading();
                 try
                 {
                     if (response.info.statusCode == 200)
@@ -379,7 +385,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             @Override
             public void onError(String message)
             {
-                mainView.hideLoading();
+                  flProgress.setVisibility(View.GONE);
                 if (Tools.isNetworkAvailable((Activity) context))
                 {
                     Logger.e("-OnError-", "Error: " + message);
@@ -401,6 +407,8 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         {
             tvEmpty.setVisibility(View.VISIBLE);
             rvCategories.setVisibility(View.GONE);
+            flProgress.setVisibility(View.GONE);
+
         }
         else
         {
@@ -408,22 +416,18 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             rvCategories.setVisibility(View.VISIBLE);
             categoryAdapter = new CategoryAdapter(data.getResults(), this);
             rvCategories.setAdapter(categoryAdapter);
-            new Handler().postDelayed(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-            Observable.just(llTop.getHeight())
-//                        .repeat(2)
+            Observable.just(rvCategories.getHeight())
                     .subscribeOn(Schedulers.io())
+                    .delay(250, TimeUnit.MILLISECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(scrollTo ->
-                    {
-                        nestedScroll.post(() -> nestedScroll.smoothScrollTo(0, scrollTo));
-                    });
+                    .subscribe(scrollTo -> {
 
-                }
-            },200);
+                        flProgress.setVisibility(View.GONE);
+
+                        nestedScroll.post(() ->{nestedScroll.scrollTo(0, llTop.getHeight()); } ); });
+
+        }
+
            /* new Handler().postDelayed(new Runnable()
             {
                 @Override
@@ -437,7 +441,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             },50);*/
 
 
-        }
+
 
     }
 

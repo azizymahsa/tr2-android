@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -83,6 +85,9 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     private View rlShirt;
     private View tvEmpty, tvEmptyFavorite, llFavorites;
     private ScrollingPagerIndicator indicatorNewestPhotos;
+    private boolean isFirstClick=true;
+    private FrameLayout flProgress;
+
 
     public PhotosFragment()
     {
@@ -139,8 +144,9 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         }
         rootView = inflater.inflate(R.layout.fragment_photos, container, false);
 
+        flProgress = rootView.findViewById(R.id.flProgress);
 
-        mainView.showLoading();
+        flProgress.setVisibility(View.VISIBLE);
         llPager = rootView.findViewById(R.id.llPager);
         llTop=rootView.findViewById(R.id.llTop);
         nestedScrollView = rootView.findViewById(R.id.nestedScroll);
@@ -180,7 +186,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             {
                 try
                 {
-                    mainView.hideLoading();
+                    flProgress.setVisibility(View.GONE);
 
                     if (response.info.statusCode == 200)
                     {
@@ -202,7 +208,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void onError(String message)
             {
-                mainView.hideLoading();
+                flProgress.setVisibility(View.GONE);
                 if (Tools.isNetworkAvailable((Activity) context))
                 {
                     Logger.e("-OnError-", "Error: " + message);
@@ -295,7 +301,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         category1.setTitle(category.getTitle());
         categoriesList.add(category1);
         ///*/
-        mainView.showLoading();
+        flProgress.setVisibility(View.VISIBLE);
         idCategoryTitle = category.getId();
         requestGetCategoryById(idCategoryTitle);
         //  openAlbumDetail(categoriesList,position,category.getId(),category.getId());
@@ -311,7 +317,6 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             {
                 try
                 {
-                    mainView.hideLoading();
                     if (response.info.statusCode == 200)
                     {
 
@@ -331,7 +336,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void onError(String message)
             {
-                mainView.hideLoading();
+                flProgress.setVisibility(View.GONE);
                 if (Tools.isNetworkAvailable((Activity) context))
                 {
                     Logger.e("-OnError-", "Error: " + message);
@@ -452,29 +457,59 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         {
             tvEmpty.setVisibility(View.VISIBLE);
             rvGrideCategories.setVisibility(View.GONE);
-        }
-        else
+            flProgress.setVisibility(View.GONE);
+
+        } else
         {
             tvEmpty.setVisibility(View.GONE);
             rvGrideCategories.setVisibility(View.VISIBLE);
             categoryAdapter = new CategoryPhotosAdapter(data.getResults(), this);
             rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
             rvGrideCategories.setAdapter(categoryAdapter);
-            new Handler().postDelayed(new Runnable()
-            {
-                @Override
-                public void run()
+
+    /*            new Handler().postDelayed(new Runnable()
                 {
-                    Observable.just(llTop.getHeight())
+                    @Override
+                    public void run()
+                    {
+                        Observable.just(llTop.getHeight())
 //                        .repeat(2)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(scrollTo ->
-                            {
-                                nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, scrollTo));
-                            });}
-            },260);
-        }
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(scrollTo ->
+                                {
+                                    nestedScrollView.post(() -> nestedScrollView.scrollTo(0, scrollTo));
+                                });
+                    }
+                }, 300);*/
+
+
+            Observable.just(rvGrideCategories.getHeight())
+                    .subscribeOn(Schedulers.io())
+                    .delay(250, TimeUnit.MILLISECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(scrollTo -> {
+
+                        flProgress.setVisibility(View.GONE);
+
+                        nestedScrollView.post(() ->{nestedScrollView.scrollTo(0, llTop.getHeight()); } ); });
+          //  flProgress.setVisibility(View.GONE);
+
+            // isFirstClick=false;
+             /*else
+            {
+                Observable.just(llTop.getHeight())
+//                        .repeat(2)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(scrollTo ->
+                        {
+                            nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, scrollTo));
+                        });
+            }
+*/
+
+    }
         //nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, llPager.getTop()));
 
 
