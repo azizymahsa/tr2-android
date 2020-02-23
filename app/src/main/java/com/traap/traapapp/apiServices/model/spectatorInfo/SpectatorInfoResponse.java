@@ -11,6 +11,17 @@ import lombok.Setter;
  */
 public class SpectatorInfoResponse
 {
+    public SpectatorInfoResponse(String lastName, String firstName, String nationalCode)
+    {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.nationalCode = nationalCode;
+    }
+
+    public SpectatorInfoResponse()
+    {
+    }
+
     @Expose
     @Getter
     @Setter

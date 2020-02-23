@@ -83,7 +83,20 @@
                     android:id="@+id/rvSpectatorList"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150dp"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginBottom="8dp"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:textColor="@color/red"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_20dp"
+                    android:text="نتیجه ای یافت نشد."
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -102,7 +115,7 @@
                         android:id="@+id/llDeleteFilter"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="140"
+                        android:layout_weight="120"
                         android:orientation="horizontal">
 
                         <FrameLayout
@@ -119,7 +132,7 @@
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="40" />
+                            android:layout_weight="20" />
 
                     </LinearLayout>
 

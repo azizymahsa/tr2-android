@@ -18,5 +18,5 @@ public class GetSpectatorListResponse
     @Expose
     @Getter
     @Setter
-    private ArrayList<SpectatorInfoResponse> results = null;
+    private ArrayList<SpectatorInfoResponse> results ;
 }
