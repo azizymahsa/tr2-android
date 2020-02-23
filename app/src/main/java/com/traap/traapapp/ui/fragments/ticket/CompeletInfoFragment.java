@@ -615,15 +615,21 @@ public class CompeletInfoFragment
             @Override
             public void afterTextChanged(Editable s)
             {
-                if (TextUtils.isEmpty(edtSearchFilter.getText().toString())){
+                try
+                {
+                    if (TextUtils.isEmpty(edtSearchFilter.getText().toString())){
 
-                 //   KeyboardUtils.forceCloseKeyboard(edtSearchFilter);
-                    filter("");
+                        //   KeyboardUtils.forceCloseKeyboard(edtSearchFilter);
+                        filter("");
 
 
-                }else {
-                    filter(edtSearchFilter.getText().toString());
+                    }else {
+                        filter(edtSearchFilter.getText().toString());
+                    }
+                }catch (Exception e){
+
                 }
+
 
             }
         });
@@ -756,6 +762,12 @@ public class CompeletInfoFragment
 
     private void setDataSpectatorList(WebServiceClass<GetSpectatorListResponse> response)
     {
+        if (response.data.getResults().isEmpty()){
+            rvSpectatorList.setVisibility(View.GONE);
+            tvError.setVisibility(View.VISIBLE);
+        }
+        rvSpectatorList.setVisibility(View.VISIBLE);
+        tvError.setVisibility(View.GONE);
         spectatorAdapter = new SpectatorListAdapter(response.data.getResults(),this);
         rvSpectatorList.setAdapter(spectatorAdapter);
     }
