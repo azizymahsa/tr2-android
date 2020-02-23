@@ -27,13 +27,19 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private List<DataBean> mData;
+    private Integer teamId;
+    private String matchId;
+    private Boolean isPredictable;
 
 
-    public FixTableAdapter(List<DataBean> mData, Context mContext)
+    public FixTableAdapter(List<DataBean> mData, Context mContext, String matchId, Boolean isPredictable, Integer teamId)
     {
         this.mContext = mContext;
         this.mInflater = LayoutInflater.from(mContext);
         this.mData = mData;
+        this.teamId = teamId;
+        this.matchId = matchId;
+        this.isPredictable = isPredictable;
     }
 
     @Override
@@ -61,10 +67,16 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
         });*/
         try
         {
-            if(item.teamTitle.contains("تراکتور"))
-                holder.llItem.setBackgroundColor(Color.rgb(226, 226 ,226));
+            //Tractor teamId is equal with 2
+//            if(item.teamTitle.contains("تراکتور"))
+            if(item.teamId.equalsIgnoreCase(String.valueOf(teamId)))
+            {
+                holder.llItem.setBackgroundColor(Color.rgb(226, 226, 226));
+            }
             else
+            {
                 holder.llItem.setBackgroundColor(Color.TRANSPARENT);
+            }
 
         }
         catch (Exception e)
@@ -165,7 +177,8 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
         @Override
         public void onClick(View view)
         {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition(), mData.get(getAdapterPosition()).imageLogo,mData.get(getAdapterPosition()).teamTitle);
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition(),
+                    mData.get(getAdapterPosition()).imageLogo,mData.get(getAdapterPosition()).teamTitle, matchId, isPredictable);
         }
     }
 
@@ -184,7 +197,7 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener
     {
-        void onItemClick(View view, int position, String imageLogo, String logoTitle);
+        void onItemClick(View view, int position, String imageLogo, String logoTitle, String matchId, Boolean isPredictable);
     }
 }
 

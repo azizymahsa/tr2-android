@@ -1030,7 +1030,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit()
-        mainView.onPredict(matchItem, matchItem.getIsPredict());
+        mainView.onPredict(matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override

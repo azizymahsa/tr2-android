@@ -175,5 +175,8 @@ public class Const
     //Setting
     public final static String SETTING = SubBASEURL + "v1/setting/";
 
+    //moneyTransfer
+    public final static String mainpage = SubBASEURL + "v1/shetab/main_page/";
+
 
 }

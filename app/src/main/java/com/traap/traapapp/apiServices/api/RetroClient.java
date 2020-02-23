@@ -71,6 +71,7 @@ import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponseP
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
+import com.traap.traapapp.apiServices.model.mainPage.MainPageResponse;
 import com.traap.traapapp.apiServices.model.mainPhotos.MainPhotoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
@@ -696,7 +697,8 @@ public interface RetroClient
     @GET(Const.SETTING)
     Single<Response<WebServiceClass<SettingResponse>>> getSetting();
 
-    
+    @GET(Const.mainpage)
+    Observable<Response<MainPageResponse>> mainpage();
 
     @POST(Const.GetReport)
             Observable<Response<GetReportResponse>> getReport(

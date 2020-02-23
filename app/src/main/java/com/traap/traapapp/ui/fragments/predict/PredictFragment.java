@@ -43,7 +43,8 @@ import com.anychart.graphics.vector.text.Direction;
 import com.anychart.graphics.vector.text.FontStyle;
 import com.anychart.graphics.vector.text.HAlign;
 import com.anychart.graphics.vector.text.VAlign;
-import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding3.view.RxView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
@@ -98,6 +99,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private TextView tvUserName, tvHeaderPopularNo;
 
     private NumberPicker numPickerAway, numPickerHome;
+
+    private Integer teamHomeId, teamAwayId;
 
     private Context context;
 
@@ -317,15 +320,31 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         llPredict.setOnClickListener(v ->
         {
             //show alert dialog
-            PredictWinListDialog dialog = new PredictWinListDialog(matchId);
-            dialog.show(getActivity().getFragmentManager(), "predictWinListDialog");
+//            PredictWinListDialog dialog = new PredictWinListDialog(matchId);
+//            dialog.show(getActivity().getFragmentManager(), "predictWinListDialog");
         });
 
         FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
-        flLogoToolbar.setOnClickListener(v -> {
+        flLogoToolbar.setOnClickListener(v ->
+        {
             mainView.backToMainFragment();
-
         });
+
+        disposable.add(RxView.clicks(imgAwayHeader)
+                .mergeWith(RxView.clicks(imgAwayPredict))
+                .subscribe(v ->
+                {
+                    mainView.onPredictLeagueTable(teamAwayId, matchId, isPredictable);
+                })
+        );
+
+        disposable.add(RxView.clicks(imgHomeHeader)
+                .mergeWith(RxView.clicks(imgHomePredict))
+                .subscribe(v ->
+                {
+                    mainView.onPredictLeagueTable(teamHomeId, matchId, isPredictable);
+                })
+        );
 
     }
 
@@ -410,10 +429,30 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         }
         else
         {
+            teamHomeId = response.data.getMatchPredict().getHomeTeam().getLiveScoreId();
+            teamAwayId = response.data.getMatchPredict().getAwayTeam().getLiveScoreId();
+
             tvMatchDate.setText(response.data.getMatchPredict().getMatchDatetimeStr());
 
-            rcMatchResult.setAdapter(new PredictMatchResultAdapter(context, response.data.getMatchTeamResults(),
-                    response.data.getMatchPredict().getHomeTeam(), response.data.getMatchPredict().getAwayTeam()));
+            rcMatchResult.setAdapter(new PredictMatchResultAdapter(
+                    response.data.getMatchTeamResults(),
+                    response.data.getMatchPredict().getHomeTeam(),
+                    response.data.getMatchPredict().getAwayTeam(),
+                    new PredictMatchResultAdapter.OnLogoClickListener()
+                    {
+                        @Override
+                        public void onHomeLogoClick()
+                        {
+                            mainView.onPredictLeagueTable(teamHomeId, matchId, isPredictable);
+                        }
+
+                        @Override
+                        public void onAwayLogoClick()
+                        {
+                            mainView.onPredictLeagueTable(teamAwayId, matchId, isPredictable);
+                        }
+                    })
+            );
 
             llAwayResultList.removeAllViews();
             llHomeResultList.removeAllViews();
@@ -430,7 +469,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             setImageIntoIV(imgAwayHeader, response.data.getMatchPredict().getAwayTeam().getTeamLogo());
             setImageIntoIV(imgHomeHeader, response.data.getMatchPredict().getHomeTeam().getTeamLogo());
 
-            tvCurrentMatchResult.setText("? - ?");
+//            tvCurrentMatchResult.setText("? - ?");
 
             tvAwayHeader.setText(response.data.getMatchPredict().getAwayTeam().getTeamName());
             tvHomeHeader.setText(response.data.getMatchPredict().getHomeTeam().getTeamName());
@@ -826,7 +865,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         });
         dialog.show(((Activity)context).getFragmentManager(), "dialog");
     }
-
 
     @Override
     public void onAnimationEnd()

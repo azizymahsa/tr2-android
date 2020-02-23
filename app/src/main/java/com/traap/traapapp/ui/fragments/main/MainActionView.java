@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
+import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
@@ -45,7 +46,9 @@ public interface MainActionView extends BaseView
 
     void onLeageClick (ArrayList<MatchItem> matchBuyable);
 
-    void onPredict(MatchItem matchPredict, Boolean isPredictable);
+    void onPredict(Integer matchId, Boolean isPredictable);
+
+    void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable);
 
     void onCash();
 
@@ -75,7 +78,7 @@ public interface MainActionView extends BaseView
 
     void onMainVideoClick();
 
-    void openPastResultFragment(String teamId, String imageLogo, String logoTitle);
+    void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle);
 
     void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
 

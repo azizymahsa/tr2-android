@@ -23,8 +23,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jakewharton.rxbinding2.view.RxView;
-import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.google.gson.Gson;
+import com.jakewharton.rxbinding3.view.RxView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -33,6 +34,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuItemResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.FilterTransactionSetting;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
@@ -59,6 +61,7 @@ import com.traap.traapapp.utilities.calendar.mohamadamin_t.persianmaterialdateti
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -141,6 +144,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     private TagGroup tagGroup;
 
     private List<String> tags = new ArrayList<>();
+    private ArrayList<GetMenuItemResponse> drawerListMenu = new ArrayList<>();
 
     public TransactionsListFragment()
     {
@@ -252,7 +256,14 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
             mToolbar = rootView.findViewById(R.id.toolbar);
 
-            ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("سوابق خرید");
+            try
+            {
+                ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText(Prefs.getString("menu_transfer", "سوابق تراکنش"));
+            }
+            catch (Throwable tx)
+            {
+            }
+
             disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
                     .subscribe(v ->
                     {
@@ -270,7 +281,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             disposable.add(RxView.clicks(mToolbar.findViewById(R.id.rlShirt))
                     .subscribe(v ->
                     {
-                        startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
+                        startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class), 100);
                     })
             );
 
