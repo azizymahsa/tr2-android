@@ -1224,6 +1224,17 @@ public class CompeletInfoFragment
     {
         try
         {
+           /* if (llBoxTicket1.getVisibility()== View.VISIBLE)
+            {
+                etName_1.setText(selectedInfo.get(0).getFirstName());
+                etFamily_1.setText(selectedInfo.get(0).getLastName());
+                etNationalCode_1.setText(selectedInfo.get(0).getNationalCode());
+            }else if (llBoxTicket2.getVisibility()== View.VISIBLE){
+                etName_2.setText(selectedInfo.get(0).getFirstName());
+                etFamily_2.setText(selectedInfo.get(0).getLastName());
+                etNationalCode_2.setText(selectedInfo.get(0).getNationalCode());
+            }
+*/
             etName_1.setText(selectedInfo.get(0).getFirstName());
             etFamily_1.setText(selectedInfo.get(0).getLastName());
             etNationalCode_1.setText(selectedInfo.get(0).getNationalCode());
