@@ -320,8 +320,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         llPredict.setOnClickListener(v ->
         {
             //show alert dialog
-//            PredictWinListDialog dialog = new PredictWinListDialog(matchId);
-//            dialog.show(getActivity().getFragmentManager(), "predictWinListDialog");
+            PredictWinListDialog dialog = new PredictWinListDialog(matchId);
+            dialog.show(getActivity().getFragmentManager(), "predictWinListDialog");
         });
 
         FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
@@ -330,22 +330,11 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             mainView.backToMainFragment();
         });
 
-        disposable.add(RxView.clicks(imgAwayHeader)
-                .mergeWith(RxView.clicks(imgAwayPredict))
-                .subscribe(v ->
-                {
-                    mainView.onPredictLeagueTable(teamAwayId, matchId, isPredictable);
-                })
-        );
+        imgAwayHeader.setOnClickListener(v -> mainView.onPredictLeagueTable(teamAwayId, matchId, isPredictable));
+        imgAwayPredict.setOnClickListener(v -> mainView.onPredictLeagueTable(teamAwayId, matchId, isPredictable));
 
-        disposable.add(RxView.clicks(imgHomeHeader)
-                .mergeWith(RxView.clicks(imgHomePredict))
-                .subscribe(v ->
-                {
-                    mainView.onPredictLeagueTable(teamHomeId, matchId, isPredictable);
-                })
-        );
-
+        imgHomeHeader.setOnClickListener(v -> mainView.onPredictLeagueTable(teamHomeId, matchId, isPredictable));
+        imgHomePredict.setOnClickListener(v -> mainView.onPredictLeagueTable(teamHomeId, matchId, isPredictable));
     }
 
     private void sendPredict()
@@ -469,7 +458,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             setImageIntoIV(imgAwayHeader, response.data.getMatchPredict().getAwayTeam().getTeamLogo());
             setImageIntoIV(imgHomeHeader, response.data.getMatchPredict().getHomeTeam().getTeamLogo());
 
-//            tvCurrentMatchResult.setText("? - ?");
+            tvCurrentMatchResult.setText("? - ?");
 
             tvAwayHeader.setText(response.data.getMatchPredict().getAwayTeam().getTeamName());
             tvHomeHeader.setText(response.data.getMatchPredict().getHomeTeam().getTeamName());

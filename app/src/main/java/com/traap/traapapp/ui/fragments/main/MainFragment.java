@@ -1016,7 +1016,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             showAlert(context, R.string.networkErrorMessage, R.string.networkError);
         }
-
     }
 
     @Override

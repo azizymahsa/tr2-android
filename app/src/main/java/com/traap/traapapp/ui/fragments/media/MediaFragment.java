@@ -99,8 +99,10 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
         mToolbar = rootView.findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
-        mToolbar.findViewById(R.id.flLogoToolbar).setOnClickListener(rootView -> mainView.backToMainFragment());
+//        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> getActivity().onBackPressed());
+//        mToolbar.findViewById(R.id.flLogoToolbar).setOnClickListener(rootView -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.flLogoToolbar).setOnClickListener(rootView -> getActivity().onBackPressed());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
@@ -167,6 +169,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
                     transaction = fragmentManager.beginTransaction();
                     transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
                             .commit();
+
                     break;
                 }
                 case ImageGallery:
@@ -178,6 +181,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
                     transaction.replace(R.id.main_container, fragment, "photosFragment")
                             .commit();
+
                     break;
                 }
                 case VideoGallery:
@@ -189,6 +193,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
                     transaction.replace(R.id.main_container, fragment, "videosFragment")
                             .commit();
+
                     break;
                 }
             }
@@ -220,6 +225,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
                     transaction.replace(R.id.main_container, fragment, "newsMainContentFragment")
                             .commit();
+                    mainView.onChangeMediaPosition(MediaPosition.News);
                 }
                 break;
             }
@@ -234,6 +240,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
                     transaction.replace(R.id.main_container, fragment, "photosFragment")
                             .commit();
+                    mainView.onChangeMediaPosition(MediaPosition.ImageGallery);
                 }
                 break;
             }
@@ -248,6 +255,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
 
                     transaction.replace(R.id.main_container, fragment, "videosFragment")
                             .commit();
+                    mainView.onChangeMediaPosition(MediaPosition.VideoGallery);
                 }
                 break;
             }
@@ -257,7 +265,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     @Override
     public void backToMainNewsFragment()
     {
-
+        getActivity().onBackPressed();
     }
 
     @Override
@@ -317,7 +325,7 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
     @Override
     public void backToMainPhotosFragment()
     {
-
+        getActivity().onBackPressed();
     }
 
     @Override
