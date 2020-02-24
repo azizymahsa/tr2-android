@@ -78,6 +78,7 @@ import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.ui.base.BaseMainActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
 import com.traap.traapapp.ui.drawer.MenuDrawerFragment;
@@ -123,12 +124,12 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.yandex.metrica.push.YandexMetricaPush;
 
-public class MainActivity extends BaseActivity implements MainActionView, MenuDrawerFragment.FragmentDrawerListener,
+public class MainActivity extends BaseMainActivity implements MainActionView, MenuDrawerFragment.FragmentDrawerListener,
         OnServiceStatus<WebServiceClass<GetMenuResponse>>, KeyboardUtils.SoftKeyboardToggleListener
         , SelectPositionFragment.OnListFragmentInteractionListener
 {
     private Boolean isMainFragment = true;
-    private Boolean isNewsFragment = false;
+//    private Boolean isNewsFragment = false;
     private Boolean isFirst = true;
     private ImageView indicator_0, indicator_1, indicator_2;
 
@@ -142,10 +143,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
     private Realm realm;
 
-    private Fragment fragment, mainFragment;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction transaction;
-    //    private View btnBuyTicket;
     private Integer backState = 0;
     private BottomNavigationView bottomNavigationView;
 
@@ -173,6 +170,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         realm = Realm.getDefaultInstance();
 
         mSavedInstanceState = savedInstanceState;
+
+        setContainerViewId(R.id.main_container);
 
 //        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
 ////        {
@@ -357,12 +356,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
                         isMainFragment = false;
 
-                        fragment = AllMenuFragment.newInstance(this, allServiceList, 0);
-
-                        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                        transaction.replace(R.id.main_container, fragment, "allMenuFragment")
-                                .commit();
+                        setFragment(AllMenuFragment.newInstance(this, allServiceList, 0));
+                        replaceFragment(getFragment(), "allMenuFragment");
                     }
                     break;
                 }
@@ -386,12 +381,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 
-                        fragment = MediaFragment.newInstance(MediaPosition.News, this);
-                        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                        transaction.replace(R.id.main_container, fragment, "mediaFragment")
-                                .commit();
+                        setFragment(MediaFragment.newInstance(MediaPosition.News, this));
+                        replaceFragment(getFragment(), "mediaFragment");
                     }
                     break;
                 }
@@ -588,7 +579,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         setIndicator(index);
     }
 
-
+    @Override
     public void onBackPressed()
     {
         try
@@ -598,63 +589,47 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 drawer.closeDrawer(GravityCompat.END);
             }
-            /*else if (fragment instanceof SelectPaymentGatewayFragment && ((SelectPaymentGatewayFragment) fragment).getViewpager().getCurrentItem()!=0 ){
-
-                //((SelectPaymentGatewayFragment) fragment).onBackClicked();
-                backToMainFragment();
-
-            }*/
-            else if (fragment instanceof WalletFragment && Prefs.getInt("DetailCartStatus", 2) == 0)
+            else if (getFragment() instanceof WalletFragment && !Prefs.getBoolean("isMainWalletFragment", true))
             {
-                isMainFragment = false;
-                if (Prefs.getInt("DetailCartStatus", 2) == 0)
-                {
-                    fragment = WalletFragment.newInstance(this, 0);
-
-                    transaction = fragmentManager.beginTransaction();
-                    transaction.replace(R.id.main_container, fragment, "DetailsCartFragment")
-                            .commit();
-                }
-
-                //  Prefs.putInt("DetailCartStatus",1);
+                fragmentList.remove(fragmentList.size()-1); //remove WalletFragment
+//                fragmentList.remove(fragmentList.size()-1); //remove child Fragment and add it again.
+                setFragment(WalletFragment.newInstance(this, 0));
+                replaceFragment(getFragment(), "DetailsCartFragment");
             }
-            else if (fragment instanceof PastResultFragment)
+            else if ((getFragment() instanceof PastResultFragment) &&
+                    Prefs.getInt("LeagueTableParent", 0) == LeagueTableParent.MatchScheduleFragment.ordinal())
             {
-                onLeageClick(matchBuyable);
+                onBackToMatch();
             }
-            else if (fragment instanceof SelectPaymentGatewayFragment)
+            else if (getFragment() instanceof SelectPaymentGatewayFragment)
             {
-                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS)
-                );
-            }
-            else if (fragment instanceof ChargeFragment && backState == 2 || fragment instanceof PackFragment && backState == 2)
-            {
+                fragmentList.remove(fragmentList.size()-1); //remove SelectPaymentGatewayFragment
+                fragmentList.remove(fragmentList.size()-1); //remove ChargeFragment and add it again.
 
+                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS));
+            }
+            else if (getFragment() instanceof ChargeFragment && backState == 2 || getFragment() instanceof PackFragment && backState == 2)
+            {
 //                        setCheckedBNV(bottomNavigationView, 3);
                 setCheckedBNV(bottomNavigationView, 2);
 
                 isMainFragment = false;
 
-                fragment = AllMenuFragment.newInstance(this, allServiceList, backState);
+                fragmentList.remove(fragmentList.size()-1); //remove ChargeFragment || PackFragment
+                fragmentList.remove(fragmentList.size()-1); //remove AllMenuFragment and add it again.
 
-                transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                transaction.replace(R.id.main_container, fragment, "allMenuFragment")
-                        .commit();
-
+                setFragment(AllMenuFragment.newInstance(this, allServiceList, backState));
+                replaceFragment(getFragment(), "allMenuFragment");
 
             }
-
-
            /* else if (fragment instanceof BuyTicketsActivity && ((BuyTicketsActivity) fragment).getViewpager().getCurrentItem() != 0)
             {
                 ((BuyTicketsActivity) fragment).onBackClicked();
             }*/
             else
             {
-                if (isMainFragment)
+                if (isMainFragment && fragmentList.size() == 1)
                 {
-//                    super.onBackPressed();
                     MessageAlertDialog exitDialog = new MessageAlertDialog(this, "", "آیا بابت خروج از برنامه اطمینان دارید؟",
                             true, "بله", "خیر", MessageAlertDialog.TYPE_MESSAGE,
                             new MessageAlertDialog.OnConfirmListener()
@@ -690,14 +665,23 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 }
                 else
                 {
-                    setCheckedBNV(bottomNavigationView, 2);
+//                    setCheckedBNV(bottomNavigationView, 2);
 
-                    backToMainFragment();
+                    if (fragmentList.size() > 2)
+                    {
+                        backToParentFragment();
+                    }
+                    else
+                    {
+                        backToMainFragment();
+                    }
                 }
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
+            Logger.e("--OnBackPressed Exception--", e.getMessage());
         }
     }
     /*    DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -731,12 +715,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 //  showToast(this, "لیست تراکنش ها", R.color.green);
                 isMainFragment = false;
 
-                fragment = TransactionsListFragment.newInstance(this);
-//                fragment = TransactionsListFragment2.newInstance(this);
-                transaction = fragmentManager.beginTransaction();
-
-                transaction.replace(R.id.main_container, fragment, "transactionsListFragment")
-                        .commit();
+                setFragment(TransactionsListFragment.newInstance(this));
+                replaceFragment(getFragment(), "transactionsListFragment");
 
                 DrawerLayout drawer = findViewById(R.id.drawer_layout);
                 if (drawer.isDrawerOpen(GravityCompat.END))
@@ -764,12 +744,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 // showToast(this, "کیف پول", R.color.green);
                 isMainFragment = false;
 
-                fragment = WalletFragment.newInstance(this);
-                transaction = fragmentManager.beginTransaction();
-                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                transaction.replace(R.id.main_container, fragment, "walletFragment")
-                        .commit();
+                setFragment(WalletFragment.newInstance(this));
+                replaceFragment(getFragment(), "walletFragment");
 
                 break;
             }
@@ -790,12 +766,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 // showToast(this, "درباره ما", R.color.green);
                 isMainFragment = false;
 
-                fragment = AboutFragment.newInstance(this);
-                transaction = fragmentManager.beginTransaction();
-//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                transaction.replace(R.id.main_container, fragment, "aboutFragment")
-                        .commit();
+                setFragment(AboutFragment.newInstance(this));
+                replaceFragment(getFragment(), "aboutFragment");
                /* isMainFragment = false;
 
                 fragment = PaymentGateWayDialog.newInstance(this);
@@ -817,24 +789,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 // showToast(this, "ارتباط با پشتیبانی", R.color.green);
                 isMainFragment = false;
 
-                fragment = SupportFragment.newInstance(this);
-                transaction = fragmentManager.beginTransaction();
-//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                transaction.replace(R.id.main_container, fragment, "SupportFragment")
-                        .commit();
+                setFragment(SupportFragment.newInstance(this));
+                replaceFragment(getFragment(), "SupportFragment");
                 break;
             }
             case 89: //راهنما
             {
-                if (fragment instanceof MainFragment)
+                if (getFragment() instanceof MainFragment)
                 {
-                    ((MainFragment) fragment).requestGetHelpMenu();
+                    ((MainFragment) getFragment()).requestGetHelpMenu();
                 }
                 else
                 {
                     backToMainFragment();
-                    ((MainFragment) fragment).requestGetHelpMenu();
+                    ((MainFragment) getFragment()).requestGetHelpMenu();
                 }
                 break;
             }
@@ -928,12 +896,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         isMainFragment = false;
         String titleBill = "قبض تلفن همراه";
         int idBillType = 5;
-        fragment = BillFragment.newInstance(this, titleBill, idBillType);
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        transaction.replace(R.id.main_container, fragment, "billFragment")
-                .commit();
+        setFragment(BillFragment.newInstance(this, titleBill, idBillType));
+        replaceFragment(getFragment(), "billFragment");
 
     }
 
@@ -942,13 +906,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         this.backState = backState;
         isMainFragment = false;
 
-        fragment = ChargeFragment.newInstance(this, backState);
-
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        transaction.replace(R.id.main_container, fragment, "chargeFragment")
-                .commit();
+        setFragment(ChargeFragment.newInstance(this, backState));
+        replaceFragment(getFragment(), "chargeFragment");
 
     }
 
@@ -957,11 +916,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
         this.backState = status;
-        fragment = PackFragment.newInstance(this, backState);
-        transaction = fragmentManager.beginTransaction();
-
-        transaction.replace(R.id.main_container, fragment, "packFragment")
-                .commit();
+        setFragment(PackFragment.newInstance(this, backState));
+        replaceFragment(getFragment(), "packFragment");
     }
 
 
@@ -1008,13 +964,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        fragment = BarcodeReaderFragment.newInstance(this);
-        //  transaction.commitAllowingStateLoss();
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        transaction.replace(R.id.main_container, fragment, "barcodeReaderFragment")
-                .commit();
+        setFragment(BarcodeReaderFragment.newInstance(this));
+        replaceFragment(getFragment(), "barcodeReaderFragment");
 
     }
 
@@ -1023,13 +974,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        // fragment = PaymentWithoutCardFragment2.newInstance(this);
-        fragment = PaymentWithoutCardFragment.newInstance(this);
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        transaction.replace(R.id.main_container, fragment, "paymentWithoutCardFragment")
-                .commit();
+        setFragment(PaymentWithoutCardFragment.newInstance(this));
+        replaceFragment(getFragment(), "paymentWithoutCardFragment");
     }
 
     @Override
@@ -1037,12 +983,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
 
-        fragment = MainMoneyTransferFragment.newInstance(this);
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        transaction.replace(R.id.main_container, fragment, "moneyTransferFragment")
-                .commit();
+        setFragment(MainMoneyTransferFragment.newInstance(this));
+        replaceFragment(getFragment(), "moneyTransferFragment");
     }
 
     @Override
@@ -1207,22 +1149,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         OnSelectContact onSelectContact = new OnSelectContact();
                         onSelectContact.setName(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)) == null ? "" : phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
                         onSelectContact.setNumber(phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll(" ", "").replace("0098", "0").replace(getString(R.string.plus) + "98", "0"));
-                        if (fragment instanceof ChargeFragment)
+                        if (getFragment() instanceof ChargeFragment)
                         {
-                            ((ChargeFragment) fragment).onSelectContact(onSelectContact);
+                            ((ChargeFragment) getFragment()).onSelectContact(onSelectContact);
 
                         }
-                        else if (fragment instanceof PackFragment)
+                        else if (getFragment() instanceof PackFragment)
                         {
-                            ((PackFragment) fragment).onSelectContact(onSelectContact);
+                            ((PackFragment) getFragment()).onSelectContact(onSelectContact);
                         }
-                        else if (fragment instanceof BillFragment)
+                        else if (getFragment() instanceof BillFragment)
                         {
-                            ((BillFragment) fragment).onSelectContact(onSelectContact);
+                            ((BillFragment) getFragment()).onSelectContact(onSelectContact);
                         }
-                        else if (fragment instanceof WalletFragment)
+                        else if (getFragment() instanceof WalletFragment)
                         {
-                            ((WalletFragment) fragment).onSelectContact(onSelectContact);
+                            ((WalletFragment) getFragment()).onSelectContact(onSelectContact);
 
                         }
 
@@ -1255,7 +1197,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void showError(String message)
     {
-        showToast(this, message, R.color.red);
+        try
+        {
+            showToast(this, message, R.color.red);
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     @Override
@@ -1265,31 +1214,19 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         setCheckedBNV(bottomNavigationView, 1);
 
         isMainFragment = true;
-//        isNewsFragment = false;
-        transaction = fragmentManager.beginTransaction();
+////        isNewsFragment = false;
 
-        if (mainFragment != null)
-        {
-            Logger.e("--mainFragment--", "not null");
-
-//            Fragment currentFragment = fragmentManager.findFragmentById(R.id.main_container);
-//            transaction.hide(currentFragment);
-//
-////            Fragment existingFragment = fragmentManager.findFragmentByTag("mainFragment");
-//            transaction.show(mainFragment);
-//            transaction.commit();
-
-            fragment = mainFragment;
-        }
-        else
-        {
-            Logger.e("--mainFragment--", "--null--");
-            fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        }
-        transaction.replace(R.id.main_container, fragment, "mainFragment")
-                .commit();
+//        if (getMainFragment() != null)
+//        {
+//            setFragment(getMainFragment());
+//        }
+//        else
+//        {
+//            Logger.e("--mainFragment--", "--null--");
+//            setFragment(MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList));
+//        }
+//        replaceFragment(getFragment(), "mainFragment");
+        removeAndBackToMainFragment();
     }
 
     @Override
@@ -1347,32 +1284,24 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         this.matchBuyable = matchBuyable;
         isMainFragment = false;
-        fragment = MatchScheduleFragment.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable, 1);
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, fragment, "leagueTableFragment").commit();
+        setFragment(MatchScheduleFragment.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable, 1));
+        replaceFragment(getFragment(), "leagueTableFragment");
     }
 
     @Override
     public void onPredict(Integer matchId, Boolean isPredictable)
     {
         isMainFragment = false;
-        this.fragment = PredictFragment.newInstance(this, matchId, isPredictable);
-
-        transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, this.fragment, "predictFragment")
-                .commit();
+        setFragment(PredictFragment.newInstance(this, matchId, isPredictable));
+        replaceFragment(getFragment(), "predictFragment");
     }
 
     @Override
     public void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable)
     {
         isMainFragment = false;
-        this.fragment = LeagueTableMainFragment.newInstance(this, teamId, matchId, isPredictable);
-
-        transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, this.fragment, "leagueTableMainFragment")
-                .commit();
+        setFragment(LeagueTableMainFragment.newInstance(this, teamId, matchId, isPredictable));
+        replaceFragment(getFragment(), "leagueTableMainFragment");
     }
 
     @Override
@@ -1393,7 +1322,7 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onFootBallServiceOne()
     {
         isMainFragment = false;
-        fragment = NewsMainFragment.newInstance(new NewsMainActionView()
+        setFragment(NewsMainFragment.newInstance(new NewsMainActionView()
         {
             @Override
             public void backToMainFragment()
@@ -1443,17 +1372,14 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 MainActivity.this.hideLoading();
             }
-        });
-        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, fragment, "newsMainFragment")
-                .commit();
+        }));
+        replaceFragment(getFragment(), "newsMainFragment");
     }
 
     private void openMainNewsFragment()
     {
         isMainFragment = false;
-        fragment = NewsMainFragment.newInstance(new NewsMainActionView()
+        setFragment(NewsMainFragment.newInstance(new NewsMainActionView()
         {
             @Override
             public void backToMainFragment()
@@ -1502,19 +1428,15 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 MainActivity.this.hideLoading();
             }
-        });
-        transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-        transaction.replace(R.id.main_container, fragment, "newsMainFragment")
-                .commit();
+        }));
+        replaceFragment(getFragment(), "newsMainFragment");
     }
 
     @Override
     public void onFootBallServiceTwo()
     {
         isMainFragment = false;
-        this.fragment = VideosMainFragment.newInstance(new VideosMainActionView()
+        setFragment(VideosMainFragment.newInstance(new VideosMainActionView()
         {
             @Override
             public void backToMainFragment()
@@ -1563,12 +1485,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
-        });
+        }));
 
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "videosMainFragment")
-                .commit();
+        replaceFragment(getFragment(), "videosMainFragment");
     }
 
     @Override
@@ -1599,29 +1518,28 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, false, new NewsArchiveActionView()
+        setFragment(NewsArchiveFragment.newInstance(parent, mediaPosition, false, new NewsArchiveActionView()
         {
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
             {
-                fragment = MediaFragment.newInstance(mediaPosition, MainActivity.this);
-                transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                transaction.replace(R.id.main_container, fragment, "mediaFragment")
-                        .commit();
+                onBackPressed();
+//                setFragment(MediaFragment.newInstance(mediaPosition, MainActivity.this));
+//                replaceFragment(getFragment(), "mediaFragment");
             }
 
             @Override
             public void backToMainFragment()
             {
-                MainActivity.this.backToMainFragment();
+//                MainActivity.this.backToMainFragment();
+                onBackPressed();
             }
 
             @Override
             public void backToMainNewsFragment()
             {
-                openMainNewsFragment();
+//                openMainNewsFragment();
+                onBackPressed();
             }
 
             @Override
@@ -1659,47 +1577,44 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
-        });
+        }));
 
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "newsArchiveCategoryFragment")
-                .commit();
+        replaceFragment(getFragment(), "newsArchiveCategoryFragment");
     }
 
     @Override
     public void onNewsFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = NewsArchiveFragment.newInstance(parent, mediaPosition, true, new NewsArchiveActionView()
+        setFragment(NewsArchiveFragment.newInstance(parent, mediaPosition, true, new NewsArchiveActionView()
         {
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
             {
-                fragment = MediaFragment.newInstance(mediaPosition, MainActivity.this);
-                transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                transaction.replace(R.id.main_container, fragment, "mediaFragment")
-                        .commit();
+                onBackPressed();
+//                setFragment(MediaFragment.newInstance(mediaPosition, MainActivity.this));
+//                replaceFragment(getFragment(), "mediaFragment");
             }
 
             @Override
             public void backToMainFragment()
             {
-                MainActivity.this.backToMainFragment();
+//                MainActivity.this.backToMainFragment();
+                onBackPressed();
             }
 
             @Override
             public void backToMainNewsFragment()
             {
-                openMainNewsFragment();
+//                openMainNewsFragment();
+                onBackPressed();
             }
 
             @Override
             public void onNewsArchiveFragment(SubMediaParent parent)
             {
-                onNewsArchiveClick(SubMediaParent.MainFragment, MediaPosition.News);
+//                onNewsArchiveClick(SubMediaParent.MainFragment, MediaPosition.News);
+                onBackPressed();
             }
 
             @Override
@@ -1731,28 +1646,23 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
-        });
+        }));
 
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "newsArchiveCategoryFragment")
-                .commit();
+        replaceFragment(getFragment(), "newsArchiveCategoryFragment");
     }
 
     @Override
     public void onPhotosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = PhotosArchiveFragment.newInstance(this, parent, mediaPosition, false, new PhotosArchiveActionView()
+        setFragment(PhotosArchiveFragment.newInstance(this, parent, mediaPosition, false, new PhotosArchiveActionView()
         {
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
             {
-                fragment = MediaFragment.newInstance(MediaPosition.ImageGallery, MainActivity.this);
-                transaction = fragmentManager.beginTransaction();
-
-                transaction.replace(R.id.main_container, fragment, "mediaFragment")
-                        .commit();
+//                setFragment(MediaFragment.newInstance(MediaPosition.ImageGallery, MainActivity.this));
+//                replaceFragment(getFragment(), "mediaFragment");
+                onBackPressed();
             }
 
             @Override
@@ -1794,34 +1704,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
-        });
+        }));
 
-        transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, this.fragment, "photosArchiveCategoryFragment")
-                .commit();
+        replaceFragment(getFragment(), "photosArchiveCategoryFragment");
     }
 
     @Override
     public void onPhotosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = PhotosArchiveFragment.newInstance(this, parent, mediaPosition, true, new PhotosArchiveActionView()
+        setFragment(PhotosArchiveFragment.newInstance(this, parent, mediaPosition, true, new PhotosArchiveActionView()
         {
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
             {
-                fragment = MediaFragment.newInstance(MediaPosition.ImageGallery, MainActivity.this);
-                transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                transaction.replace(R.id.main_container, fragment, "mediaFragment")
-                        .commit();
+//                setFragment(MediaFragment.newInstance(MediaPosition.ImageGallery, MainActivity.this));
+//                replaceFragment(getFragment(), "mediaFragment");
+                onBackPressed();
             }
 
             @Override
             public void backToMainPhotosFragment()
             {
-
+                onBackPressed();
             }
 
             @Override
@@ -1858,22 +1763,21 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
-        });
-        transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, this.fragment, "photosArchiveCategoryFragment")
-                .commit();
+        }));
+        replaceFragment(getFragment(), "photosArchiveCategoryFragment");
     }
 
     @Override
     public void onVideosArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = VideosArchiveFragment.newInstance(parent, mediaPosition, false, new VideosArchiveActionView()
+        setFragment(VideosArchiveFragment.newInstance(parent, mediaPosition, false, new VideosArchiveActionView()
         {
             @Override
             public void backToMainVideosFragment()
             {
-                onMainVideoClick();
+//                onMainVideoClick();
+                onBackPressed();
             }
 
             @Override
@@ -1903,17 +1807,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
             {
-                fragment = MediaFragment.newInstance(MediaPosition.VideoGallery, MainActivity.this);
-                transaction = fragmentManager.beginTransaction();
-
-                transaction.replace(R.id.main_container, fragment, "mediaFragment")
-                        .commit();
+//                setFragment(MediaFragment.newInstance(MediaPosition.VideoGallery, MainActivity.this));
+//                replaceFragment(getFragment(), "mediaFragment");
+                onBackPressed();
             }
 
             @Override
             public void backToMainFragment()
             {
-                MainActivity.this.backToMainFragment();
+//                MainActivity.this.backToMainFragment();
+                onBackPressed();
             }
 
             @Override
@@ -1927,23 +1830,22 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
-        });
+        }));
 
-        transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, this.fragment, "videosArchiveCategoryFragment")
-                .commit();
+        replaceFragment(getFragment(), "videosArchiveCategoryFragment");
     }
 
     @Override
     public void onVideosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
-        this.fragment = VideosArchiveFragment.newInstance(parent, mediaPosition, true, new VideosArchiveActionView()
+        setFragment(VideosArchiveFragment.newInstance(parent, mediaPosition, true, new VideosArchiveActionView()
         {
             @Override
             public void backToMainVideosFragment()
             {
-                onMainVideoClick();
+//                onMainVideoClick();
+                onBackPressed();
             }
 
             @Override
@@ -1973,18 +1875,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             @Override
             public void backToMediaFragment(MediaPosition mediaPosition)
             {
-                fragment = MediaFragment.newInstance(MediaPosition.VideoGallery, MainActivity.this);
-                transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                transaction.replace(R.id.main_container, fragment, "mediaFragment")
-                        .commit();
+//                setFragment(MediaFragment.newInstance(MediaPosition.VideoGallery, MainActivity.this));
+//                replaceFragment(getFragment(), "mediaFragment");
+                onBackPressed();
             }
 
             @Override
             public void backToMainFragment()
             {
-                MainActivity.this.backToMainFragment();
+//                MainActivity.this.backToMainFragment();
+                onBackPressed();
             }
 
             @Override
@@ -1998,29 +1898,29 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
-        });
+        }));
 
-        transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, this.fragment, "videosArchiveCategoryFragment")
-                .commit();
+        replaceFragment(getFragment(), "videosArchiveCategoryFragment");
     }
 
     @Override
     public void onMainVideoClick()
     {
         isMainFragment = false;
-        this.fragment = VideosMainFragment.newInstance(new VideosMainActionView()
+        setFragment(VideosMainFragment.newInstance(new VideosMainActionView()
         {
             @Override
             public void backToMainFragment()
             {
-                MainActivity.this.backToMainFragment();
+//                MainActivity.this.backToMainFragment();
+                onBackPressed();
             }
 
             @Override
             public void backToMainVideosFragment()
             {
-                onMainVideoClick();
+//                onMainVideoClick();
+                onBackPressed();
             }
 
             @Override
@@ -2058,23 +1958,16 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
-        });
-
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "videosMainFragment")
-                .commit();
+        }));
+        replaceFragment(getFragment(), "videosMainFragment");
     }
 
     @Override
     public void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle)
     {
         isMainFragment = false;
-        this.fragment = PastResultFragment.newInstance(parent, this, matchId, isPredictable, teamId, imageLogo, logoTitle);
-
-        transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, this.fragment, "pastResultFragment")
-                .commit();
+        setFragment(PastResultFragment.newInstance(parent, this, matchId, isPredictable, teamId, imageLogo, logoTitle));
+        replaceFragment(getFragment(), "pastResultFragment");
     }
 
     @Override
@@ -2083,13 +1976,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         isMainFragment = false;
         Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
-        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, imageDrawable,
-                title, amount, paymentInstance, mobile);
-
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "selectPaymentGatewayFragment")
-                .commit();
+        setFragment(SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, imageDrawable,
+                title, amount, paymentInstance, mobile));
+        replaceFragment(getFragment(), "selectPaymentGatewayFragment");
 
     }
 
@@ -2099,13 +1988,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         isMainFragment = false;
         Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
-        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, icon_payment,
-                title, amount, paymentInstance, mobile);
-
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "selectPaymentGatewayFragment")
-                .commit();
+        setFragment(SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, icon_payment,
+                title, amount, paymentInstance, mobile));
+        replaceFragment(getFragment(), "selectPaymentGatewayFragment");
        /* SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(urlPayment, mainView, R.drawable.icon_payment_ticket,
                 title, Utility.priceFormat(amount));
         FragmentManager fragmentManager = getFragmentManager();
@@ -2119,13 +2004,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     {
         isMainFragment = false;
         Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
-        this.fragment = SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, imageDrawable,
-                title, amount, paymentInstance, mobile);
-
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "selectPaymentGatewayFragment")
-                .commit();
+        setFragment(SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, imageDrawable,
+                title, amount, paymentInstance, mobile));
+        replaceFragment(getFragment(), "selectPaymentGatewayFragment");
        /* SelectPaymentGatewayFragment fragment2 = new SelectPaymentGatewayFragment(urlPayment, mainView, R.drawable.icon_payment_ticket,
                 title, Utility.priceFormat(amount));
         FragmentManager fragmentManager = getFragmentManager();
@@ -2138,18 +2019,9 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
     @Override
     public void openWebView(MainActionView mainView, String uRl, String gds_token)
     {
-      /*  WebFragment fragment =  WebFragment.newInstance(mainView,URl,Prefs.getString("gds_token", ""));
-
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();*/
         isMainFragment = false;
-        this.fragment = WebFragment.newInstance(mainView, uRl, gds_token);
-
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "WebFragment")
-                .commit();
-
-
+        setFragment(WebFragment.newInstance(mainView, uRl, gds_token));
+        replaceFragment(getFragment(), "WebFragment");
     }
 
 
@@ -2164,7 +2036,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             {
                 try
                 {
-
                     hideLoading();
                     if (response.info.statusCode == 200)
                     {
@@ -2182,8 +2053,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         showAlert(MainActivity.this, response.info.message, 0);
                     }
                     buyTicketAction.onEndListener();
-
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                 }
 
@@ -2218,11 +2089,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
             public void onConfirmClick()
             {
                 isMainFragment = false;
-                fragment = PredictFragment.newInstance(MainActivity.this, matchId, isPredictable);
-
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.main_container, fragment, "predictFragment")
-                        .commit();
+                setFragment(PredictFragment.newInstance(MainActivity.this, matchId, isPredictable));
+                replaceFragment(getFragment(), "predictFragment");
             }
 
             @Override
@@ -2233,7 +2101,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         });
         dialog.setCancelable(false);
         dialog.show(getFragmentManager(), "dialogAlert");
-
     }
 
     @Override
@@ -2243,30 +2110,20 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (PAYMENT_STATUS == 3)
         {
             isMainFragment = false;
-            this.fragment = ChargeFragment.newInstance(this, backState);
-
-            transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.main_container, this.fragment, "ChargeFragment")
-                    .commit();
+            setFragment(ChargeFragment.newInstance(this, backState));
+            replaceFragment(getFragment(), "ChargeFragment");
         }
         else if (PAYMENT_STATUS == 4)
         {
             isMainFragment = false;
-            this.fragment = PackFragment.newInstance(this, backState);
-
-            transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.main_container, this.fragment, "PackFragment")
-                    .commit();
+            setFragment(PackFragment.newInstance(this, backState));
+            replaceFragment(getFragment(), "PackFragment");
         }
         else if (PAYMENT_STATUS == 13)
         {
             isMainFragment = false;
-            this.fragment = WalletFragment.newInstance(this, 1);//IncreaseInventoryFragment
-
-            transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            transaction.replace(R.id.main_container, this.fragment, "IncreaseInventoryFragment")
-                    .commit();
+            setFragment(WalletFragment.newInstance(this, 1));//IncreaseInventoryFragment
+            replaceFragment(getFragment(), "IncreaseInventoryFragment");
         }
     }
 
@@ -2276,47 +2133,51 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
 
         if (this.backState == 2)
         {
-
             setCheckedBNV(bottomNavigationView, 2);
 
             isMainFragment = false;
 
-            fragment = AllMenuFragment.newInstance(this, allServiceList, this.backState);
-
-            transaction = fragmentManager.beginTransaction();
-//                        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            transaction.replace(R.id.main_container, fragment, "allMenuFragment")
-                    .commit();
-
+            setFragment(AllMenuFragment.newInstance(this, allServiceList, this.backState));
+            replaceFragment(getFragment(), "allMenuFragment");
         }
         else
         {
             backToMainFragment();
         }
-
     }
 
     @Override
     public void onBackToHomeWallet(int i)
     {
-        isMainFragment = false;
-        this.fragment = WalletFragment.newInstance(this, i);//IncreaseInventoryFragment
+        fragmentList.remove(fragmentList.size()-1); //remove current Fragment
+        fragmentList.remove(fragmentList.size()-1); //remove IncreaseInventoryFragment and add it again.
 
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, this.fragment, "IncreaseInventoryFragment")
-                .commit();
+        isMainFragment = false;
+        setFragment(WalletFragment.newInstance(this, i));//IncreaseInventoryFragment
+        replaceFragment(getFragment(), "IncreaseInventoryFragment");
     }
 
     @Override
     public void onBackToMatch()
     {
-        isMainFragment = false;
-        fragment = MatchScheduleFragment.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable, 0);
-        transaction = fragmentManager.beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.replace(R.id.main_container, fragment, "leagueTableFragment").commit();
+        fragmentList.remove(fragmentList.size()-1); //remove current Fragment
+        fragmentList.remove(fragmentList.size()-1); //remove leagueTableFragment and add it again.
 
+        isMainFragment = false;
+        setFragment(MatchScheduleFragment.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable,
+                Prefs.getInt("selectedTab", 0)));
+        replaceFragment(getFragment(), "leagueTableFragment");
+
+    }
+
+    @Override
+    public void onChangeMediaPosition(MediaPosition mediaPosition)
+    {
+//        showDebugToast(this, mediaPosition + " # " + fragmentList.get(fragmentList.size()-1).getTag());
+        fragmentList.remove(fragmentList.size() - 1);
+        setFragment(MediaFragment.newInstance(mediaPosition, this));
+        fragmentList.add(getFragment());
+//        showDebugToast(this, mediaPosition + " # " + fragmentList.get(fragmentList.size()-1).getTag());
     }
 
 
@@ -2361,8 +2222,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                         request.setDeviceType(TrapConfig.AndroidDeviceType);
                         request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
                         SingletonService.getInstance().getMenuService().getMenu(MainActivity.this, request);
-
-
                     }
 
                     @Override
@@ -2432,23 +2291,18 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                     {
                         matchList = (ArrayList<MatchItem>) responseMatchList.data.getMatchList();
 
-                        fragmentManager = getSupportFragmentManager();
-                        fragment = MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList);
+                        setMyFragmentManager(getSupportFragmentManager());
 
-                        mainFragment = fragment;
+                        setFragment(MainFragment.newInstance(MainActivity.this, footballServiceList, chosenServiceList, matchList));
 
-                        transaction = fragmentManager.beginTransaction();
-//            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
+                        setMainFragment(getFragment());
                         if (mSavedInstanceState == null)
                         {
-                            transaction.add(R.id.main_container, fragment, "mainFragment")
-                                    .commit();
+                            addFragment(getFragment(), "mainFragment");
                         }
                         else
                         {
-                            transaction.replace(R.id.main_container, fragment, "mainFragment")
-                                    .commit();
+                            replaceFragment(getFragment(), "mainFragment");
                         }
 
                     }
@@ -2466,7 +2320,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                 isCompleteThreadMatch = true;
 
                 hideLoading();
-
 //                showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
                 Logger.e("--showErrorMessage--", message);
             }
@@ -2480,12 +2333,8 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         if (hasPaymentTicket)
         {
             isMainFragment = false;
-            this.fragment = ShowTicketsFragment.newInstance(this, refrenceNumber);
-
-            transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            transaction.replace(R.id.main_container, this.fragment)
-                    .commit();
+            setFragment(ShowTicketsFragment.newInstance(this, refrenceNumber));
+            replaceFragment(getFragment(), "ShowTicketsFragment");
            /* Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
 
             intent.putExtra("RefrenceNumber", refrenceNumber);
@@ -2534,7 +2383,6 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
                             public void onConfirmClick()
                             {
                                 getBankList();
-
                             }
 
                             @Override
@@ -2869,4 +2717,10 @@ public class MainActivity extends BaseActivity implements MainActionView, MenuDr
         }
 //        showDebugToast(this, "Keyboard Visibility: " + isVisible);
     }
+
+//    @Override
+//    public void onPointerCaptureChanged(boolean hasCapture)
+//    {
+//
+//    }
 }

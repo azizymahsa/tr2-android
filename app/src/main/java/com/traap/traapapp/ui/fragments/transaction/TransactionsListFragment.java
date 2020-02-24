@@ -727,23 +727,30 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
     private void showAlertAndFinish(String message)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, getString(R.string.error), message,
-                false, "تایید", "", MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
+        try
         {
-            @Override
-            public void onConfirmClick()
+            MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, getString(R.string.error), message,
+                    false, "تایید", "", MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
             {
-                mainView.backToMainFragment();
-            }
+                @Override
+                public void onConfirmClick()
+                {
+                    mainView.backToMainFragment();
+                }
 
-            @Override
-            public void onCancelClick()
-            {
+                @Override
+                public void onCancelClick()
+                {
 
-            }
-        });
-        dialog.setCancelable(false);
-        dialog.show(((Activity) context).getFragmentManager(), "dialog");
+                }
+            });
+            dialog.setCancelable(false);
+            dialog.show(((Activity) context).getFragmentManager(), "dialog");
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     private boolean getFilterAvailable()
