@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
@@ -50,12 +51,12 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
     private static MatchScheduleFragment matchScheduleFragment;
     private MainActionView mainView;
-    private View rootView,rlShirt;
+    private View rootView, rlShirt;
     private TabLayout tabLayout;
     private Toolbar mToolbar;
     private CustomViewPager viewPager;
     private TextView tvTitle, tvUserName, tvPopularPlayer, tvLastSchecdule, tvNowSchedule, tvTableLeage;
-    List<MatchItem> pastMatchesList,nextMatchesList;
+    List<MatchItem> pastMatchesList, nextMatchesList;
     private View imgBack, imgMenu;
     private ArrayList<MatchItem> matchBuyable;
     private Integer selectedTab;
@@ -64,7 +65,8 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
 
     public MatchScheduleFragment()
-    { }
+    {
+    }
 
     @Override
     public void onAttach(@NonNull Context context)
@@ -102,7 +104,10 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     {
         super.onCreate(savedInstanceState);
         matchBuyable = getArguments().getParcelableArrayList("MatchList");
-        selectedTab = getArguments().getInt("selectedTab");
+        selectedTab = getArguments().getInt("selectedTab", 0);
+
+        Logger.e("-MatchSchedule-", "size: " + matchBuyable.size() + ", selectedTab: " + selectedTab);
+
         EventBus.getDefault().register(this);
     }
 
@@ -122,7 +127,6 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
         sendRequest();
 
-
         return rootView;
     }
 
@@ -134,7 +138,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
         tabLayout.addTab(tabLayout.newTab().setText("جدول لیگ برتر"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final MatchScheduleAdapter adapter = new MatchScheduleAdapter
-                (getFragmentManager(), tabLayout.getTabCount(), mainView,nextMatchesList,pastMatchesList);
+                (getFragmentManager(), tabLayout.getTabCount(), mainView, nextMatchesList, pastMatchesList);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();
@@ -165,15 +169,15 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
     private void sendRequest()
     {
-       // mainView.showLoading();
+        // mainView.showLoading();
         ArrayList<MatchItem> result = matchBuyable;
-       // if (response.info.statusCode == 200)
-            if (result.size() > 0)
+        // if (response.info.statusCode == 200)
+        if (result.size() > 0)
+        {
+            pastMatchesList = new ArrayList<>();
+            nextMatchesList = new ArrayList<>();
+            for (int i = 0; i < result.size(); i++)
             {
-                pastMatchesList = new ArrayList<>();
-                nextMatchesList = new ArrayList<>();
-                for (int i = 0; i < result.size(); i++)
-                {
                   /*  if (result.get(i).getResult() != null)
                     {
                         pastMatchesList.add(result.get(i));
@@ -182,19 +186,35 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
                         nextMatchesList.add(result.get(i));
 
                     }*/
-                  if(result.get(i).getDateTimeNow()>=result.get(i).getMatchDatetime()){
-                      pastMatchesList.add(result.get(i));
+                if (result.get(i).getDateTimeNow() >= result.get(i).getMatchDatetime())
+                {
+                    pastMatchesList.add(result.get(i));
 
-                  }else{
-                      nextMatchesList.add(result.get(i));
+                }
+                else
+                {
+                    nextMatchesList.add(result.get(i));
 
-                  }
                 }
             }
-       // mainView.hideLoading();
+        }
+        // mainView.hideLoading();
         createTabLayout();
-            if (selectedTab==0)
-        onClick(tvTableLeage);
+        if (selectedTab == 0)
+        {
+            Prefs.putInt("selectedTab", 0);
+            onClick(tvTableLeage);
+        }
+        else if (selectedTab == 1)
+        {
+            Prefs.putInt("selectedTab", 1);
+            onClick(tvNowSchedule);
+        }
+        else
+        {
+            Prefs.putInt("selectedTab", 2);
+            onClick(tvLastSchecdule);
+        }
 
     }
 
@@ -202,7 +222,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     {
         try
         {
-            mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100));
+            mToolbar.findViewById(R.id.rlShirt).setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class), 100));
 
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvUserName = rootView.findViewById(R.id.tvUserName);
@@ -221,9 +241,10 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
             });
 
             tvTitle.setText("برنامه بازی ها");
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
-            Logger.d("--Exception--",e.getMessage());
+            Logger.d("--Exception--", e.getMessage());
         }
         tabLayout = rootView.findViewById(R.id.tab_layout);
         viewPager = rootView.findViewById(R.id.pager);
@@ -235,12 +256,11 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
         tvNowSchedule.setOnClickListener(this);
         tvTableLeage.setOnClickListener(this);
         FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
-        flLogoToolbar.setOnClickListener(v -> {
+
+        flLogoToolbar.setOnClickListener(v ->
+        {
             mainView.backToMainFragment();
-
         });
-
-
     }
 
     /**
@@ -275,7 +295,6 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
     }
 
 
-
     private int getItem(int i)
     {
         return viewPager.getCurrentItem() + i;
@@ -287,6 +306,8 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
         switch (v.getId())
         {
             case R.id.tvTableLeage:
+            {
+                Prefs.putInt("selectedTab", 0);
                 new Handler().postDelayed(() ->
                 {
                     tvTableLeage.setVisibility(View.VISIBLE);
@@ -304,9 +325,11 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
                 }, 200);
 
-
                 break;
+            }
             case R.id.tvLastSchecdule:
+            {
+                Prefs.putInt("selectedTab", 2);
                 new Handler().postDelayed(() ->
                 {
                     tvLastSchecdule.setVisibility(View.VISIBLE);
@@ -324,9 +347,11 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
 
                 }, 200);
 
-
                 break;
+            }
             case R.id.tvNowSchedule:
+            {
+                Prefs.putInt("selectedTab", 1);
                 new Handler().postDelayed(() ->
                 {
                     tvNowSchedule.setVisibility(View.VISIBLE);
@@ -347,6 +372,7 @@ public class MatchScheduleFragment extends BaseFragment implements OnAnimationEn
                 }, 200);
 
                 break;
+            }
         }
     }
 

@@ -157,29 +157,25 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
-            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    mainView.openDrawer();
-                }
-            });
+            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
             tvTitle = rootView.findViewById(R.id.tvTitle);
-            imgMenu = rootView.findViewById(R.id.imgMenu);
 
-            imgMenu.setOnClickListener(v -> mainView.openDrawer());
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
                 if (parent == LeagueTableParent.MatchScheduleFragment)
                 {
-                    mainView.onBackToMatch();
+                    Prefs.putInt("LeagueTableParent",LeagueTableParent.MatchScheduleFragment.ordinal());
+//                    mainView.onBackToMatch();
+                    getActivity().onBackPressed();
                 }
                 else if (parent == LeagueTableParent.PredictFragment)
                 {
-                    mainView.onPredictLeagueTable(Integer.parseInt(teamId), Integer.parseInt(matchId), isPredictable);
+//                    mainView.onPredictLeagueTable(Integer.parseInt(teamId), Integer.parseInt(matchId), isPredictable);
+                    Prefs.putInt("LeagueTableParent",LeagueTableParent.PredictFragment.ordinal());
+                    getActivity().onBackPressed();
                 }
+//                getActivity().onBackPressed();
             });
 
             tvTitle.setText("برنامه بازی ها");
@@ -209,7 +205,6 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
         rootView = inflater.inflate(R.layout.past_result_fragment, container, false);
         initView();
         sendRequest();
-
 
         return rootView;
     }

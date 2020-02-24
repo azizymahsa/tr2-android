@@ -1565,6 +1565,12 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     }
 
+    @Override
+    public void onChangeMediaPosition(MediaPosition mediaPosition)
+    {
+
+    }
+
 
     @Override
     public void onBill()

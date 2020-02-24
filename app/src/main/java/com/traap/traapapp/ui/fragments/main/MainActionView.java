@@ -97,4 +97,6 @@ public interface MainActionView extends BaseView
     void onBackToHomeWallet(int i);
 
     void onBackToMatch();
+
+    void onChangeMediaPosition(MediaPosition mediaPosition);
 }
