@@ -40,5 +40,16 @@ public class SpectatorInfoResponse
     @SerializedName("national_code")
     private String nationalCode;
 
+    @Expose
 
+
+    private Boolean isChecked=false;
+
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
+    }
 }
