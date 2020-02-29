@@ -59,6 +59,7 @@ import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.models.otherModels.ticket.SpectatorInfoModel;
 import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
@@ -161,13 +162,14 @@ public class CompeletInfoFragment
     private View llSelectSpectator;
     private RecyclerView rvSpectatorList;
     private SpectatorListAdapter spectatorAdapter;
-    private ArrayList<SpectatorInfoResponse> selectedInfo;
+    private ArrayList<SpectatorInfoModel> selectedInfo;
     private View btnConfirmFilter;
     private View btnDeleteFilter;
     private View imgFilterClose;
     private EditText edtSearchFilter;
     private ArrayList<SpectatorInfoResponse> spectatorList;
     private TextView tvError;
+    private ArrayList<SpectatorInfoResponse> spectatorListData;
 
 
     public CompeletInfoFragment()
@@ -665,7 +667,7 @@ public class CompeletInfoFragment
                         rvSpectatorList.setVisibility(View.VISIBLE);
                         rvSpectatorList.removeAllViews();
 
-                        spectatorAdapter = new SpectatorListAdapter(results,CompeletInfoFragment.this);
+                        spectatorAdapter = new SpectatorListAdapter(results,CompeletInfoFragment.this,count);
                         rvSpectatorList.setAdapter(spectatorAdapter);
 
                         if (results.size()==0){
@@ -768,9 +770,8 @@ public class CompeletInfoFragment
         }
         rvSpectatorList.setVisibility(View.VISIBLE);
         tvError.setVisibility(View.GONE);
-        spectatorAdapter = new SpectatorListAdapter(response.data.getResults(),this);
-        rvSpectatorList.setAdapter(spectatorAdapter);
-    }
+        spectatorListData=response.data.getResults();
+         }
 
     private void requestSpectatorInfo(String nationalCode,Integer number)
     {
@@ -2439,6 +2440,10 @@ public class CompeletInfoFragment
         this.stadiumId = stadiumId;
         Prefs.putInt("CountTicket", count);
 
+
+        spectatorAdapter = new SpectatorListAdapter(spectatorListData,this,count);
+        rvSpectatorList.setAdapter(spectatorAdapter);
+
         //  this.paymentMatchRequest = paymentMatchRequest;
 
         if (view == null)
@@ -2703,7 +2708,7 @@ public class CompeletInfoFragment
     }
 
     @Override
-    public void OnItemSpectatorListClick(ArrayList<SpectatorInfoResponse> selectedInfo)
+    public void OnItemSpectatorListClick(ArrayList<SpectatorInfoModel> selectedInfo)
     {
 
         this.selectedInfo=selectedInfo;

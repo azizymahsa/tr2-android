@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.adapters.spectatorList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
+import com.traap.traapapp.models.otherModels.ticket.SpectatorInfoModel;
+import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,18 +23,22 @@ import java.util.List;
 /**
  * Created by MahtabAzizi on 2/22/2020.
  */
-public class SpectatorListAdapter extends RecyclerView.Adapter<SpectatorListAdapter.ViewHolder> implements CompoundButton.OnCheckedChangeListener
+public class SpectatorListAdapter extends RecyclerView.Adapter<SpectatorListAdapter.ViewHolder>
 {
     private SpectatorListAdapter.OnItemSpectatorListClickListener mItemClickListener;
     private Context context;
     private List<SpectatorInfoResponse> spectatorInfoResponse;
-    private ArrayList<SpectatorInfoResponse> selectedInfo = new ArrayList<SpectatorInfoResponse>();
+   private ArrayList<SpectatorInfoModel> selectedInfo = new ArrayList<>();
+    private int countChecked=0;
+    private int countTicket;
+    private int positionSelectedInfos=0;
 
 
-    public SpectatorListAdapter(List<SpectatorInfoResponse> spectatorInfoResponse, SpectatorListAdapter.OnItemSpectatorListClickListener mItemClickListener)
+    public SpectatorListAdapter(List<SpectatorInfoResponse> spectatorInfoResponse, SpectatorListAdapter.OnItemSpectatorListClickListener mItemClickListener,Integer countTicket)
     {
         this.spectatorInfoResponse = spectatorInfoResponse;
         this.mItemClickListener = mItemClickListener;
+        this.countTicket=countTicket;
 
         // this.mainView=mainView;
     }
@@ -57,26 +64,88 @@ public class SpectatorListAdapter extends RecyclerView.Adapter<SpectatorListAdap
     {
         SpectatorInfoResponse spectatorInfo = spectatorInfoResponse.get(position);
         holder.tvSpectatorInfo.setText(spectatorInfo.getFirstName() + " " + spectatorInfo.getLastName() + "-" + spectatorInfo.getNationalCode());
+        //holder.cbSelectSpectator.setChecked(spectatorInfo.getChecked());
         holder.cbSelectSpectator.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
+                spectatorInfo.setChecked(isChecked);
+
+                if (isChecked){
+
+                    if (countChecked>=countTicket){
+                        showDialogError();
+                        holder.cbSelectSpectator.setChecked(false);
+                    }else {
+                        selectedInfo.add(countChecked,new SpectatorInfoModel(spectatorInfo.getFirstName(), spectatorInfo.getLastName(), spectatorInfo.getNationalCode()));
+                        countChecked = countChecked + 1;
+                    }
+                }else{
+                    for (int i = 0; i <selectedInfo.size() ; i++) {
+                        if (selectedInfo.get(i).getFirstName().equals(spectatorInfo.getFirstName())){
+                            selectedInfo.remove(i);
+                            countChecked=countChecked-1;
+                            break;
+                        }
+
+                    }
+
+
+                }
+
+
+
+
+                /*
                 if (isChecked)
                 {
-                    // selectedInfo=new ArrayList<SpectatorInfoResponse>();
 
-                    selectedInfo.add(position, new SpectatorInfoResponse(spectatorInfo.getFirstName(), spectatorInfo.getLastName(), spectatorInfo.getNationalCode()));
+                    if (countChecked>=countTicket){
+                        showDialogError();
+                        holder.cbSelectSpectator.setChecked(false);
+                    }else {
+                        selectedInfo.add(position, new SpectatorInfoModel(spectatorInfo.getFirstName(), spectatorInfo.getLastName(), spectatorInfo.getNationalCode()));
+                        countChecked = countChecked + 1;
+                    }
+
                 } else
                 {
                     selectedInfo.remove(position);
-                }
+                    countChecked=countChecked-1;
+*/
+            //    }
 
                 mItemClickListener.OnItemSpectatorListClick(selectedInfo);
 
             }
         });
         //  mItemClickListener.OnItemRelatedAlbumsClick(view, recentItem);
+    }
+
+    private void showDialogError() {
+
+        String txtError = "تعداد تماشاگر انتخاب شده ی شما بیش از تعداد " + countTicket + " بلیت میباشد.";
+
+        MessageAlertDialog dialog = new MessageAlertDialog(((Activity) context), "",txtError, false,
+                MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+
+
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+
+        dialog.setCancelable(false);
+        dialog.show(((Activity) context).getFragmentManager(), "messageDialog");
     }
 
 
@@ -87,16 +156,6 @@ public class SpectatorListAdapter extends RecyclerView.Adapter<SpectatorListAdap
         return spectatorInfoResponse.size();
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-    {
-
-        if (isChecked)
-        {
-
-
-        }
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
@@ -115,7 +174,7 @@ public class SpectatorListAdapter extends RecyclerView.Adapter<SpectatorListAdap
     public interface OnItemSpectatorListClickListener
     {
 
-        void OnItemSpectatorListClick(ArrayList<SpectatorInfoResponse> selectedInfo);
+        void OnItemSpectatorListClick(ArrayList<SpectatorInfoModel> selectedInfo);
     }
 
 }
