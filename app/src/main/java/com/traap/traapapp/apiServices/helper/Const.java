@@ -113,9 +113,10 @@ public class Const
     public final static String GET_Leage = SubBASEURL + "v1/livescore/get_leagues/";
     public final static String Get_Past_result = SubBASEURL + "v1/livescore/get_past_result/";
 
-    //BarChart
+    //Predict
     public final static String GET_PREDICT = SubBASEURL + "v2/predict/";
     public final static String SEND_PREDICT = SubBASEURL + "v2/predict/";
+    public final static String GET_MY_PREDICTS = SubBASEURL + "v1/user/my_predicts/";
     public final static String GET_PREDICT_ENABLE = SubBASEURL + "v1/match/predict_enable/";
 
     //Rule

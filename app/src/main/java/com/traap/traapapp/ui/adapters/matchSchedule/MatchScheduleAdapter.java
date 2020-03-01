@@ -19,14 +19,13 @@ import com.traap.traapapp.ui.fragments.matchSchedule.PastMatchesFragment;
 /**
  * Created by MahtabAzizi on 11/16/2019.
  */
-public class MatchScheduleAdapter  extends FragmentStatePagerAdapter implements LeagueTableActionView
+public class MatchScheduleAdapter extends FragmentStatePagerAdapter implements LeagueTableActionView
 {
 
     private final MainActionView mainActionView;
-    private  List<MatchItem> nextMatchesList=new ArrayList<>();
-    private  List<MatchItem> pastMatchesList=new ArrayList<>();
+    private List<MatchItem> nextMatchesList = new ArrayList<>();
+    private List<MatchItem> pastMatchesList = new ArrayList<>();
     private int numTabs;
-
 
 
     public MatchScheduleAdapter(FragmentManager fm, int numTabs, MainActionView mainActionView,
@@ -65,7 +64,6 @@ public class MatchScheduleAdapter  extends FragmentStatePagerAdapter implements 
                 throw new RuntimeException("Tab position invalid " + position);
         }
     }
-
 
 
     @Override

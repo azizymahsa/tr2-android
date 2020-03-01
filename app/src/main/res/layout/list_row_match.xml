@@ -3,66 +3,66 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/background_disable_rec"
+    android:padding="@dimen/_10dp"
     android:orientation="vertical"
-    android:padding="@dimen/_10dp">
+    android:background="@drawable/background_disable_rec">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="right">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="right"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="right">
 
             <TextView
                 android:id="@+id/tvStadiumname"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
+                android:layout_gravity="center"
                 android:gravity="left"
-                android:text="ورزشگاه تختی"
+                android:textSize="@dimen/_10sdp"
                 android:textColor="#484848"
-                android:textSize="@dimen/_10sdp" />
+                android:text="ورزشگاه تختی"/>
 
             <TextView
                 android:id="@+id/tvLeageName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="1"
+                android:layout_gravity="center"
                 android:gravity="right|center"
-                android:text="لیگ برتر"
+                android:textSize="@dimen/_10sdp"
                 android:textColor="#484848"
-                android:textSize="@dimen/_10sdp" />
+                android:text="لیگ برتر"/>
         </LinearLayout>
 
         <ImageView
             android:layout_width="@dimen/_30dp"
             android:layout_height="@dimen/_30dp"
             android:layout_gravity="center"
-            android:adjustViewBounds="true"
             android:padding="8dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon_match" />
+            android:adjustViewBounds="true"
+            android:src="@drawable/icon_match"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/shadow_b"
-        android:backgroundTint="@color/_disable_color" />
+        android:backgroundTint="@color/_disable_color"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:padding="5dp"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:gravity="center">
 
 
         <TextView
@@ -70,10 +70,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="جمعه 23 اسفند 1398"
-            android:textColor="#484848"
             android:textSize="@dimen/_10sdp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="#484848"
+            android:text="جمعه 23 اسفند 1398"/>
     </LinearLayout>
 
 
@@ -101,7 +101,7 @@
                     android:layout_height="@dimen/_50dp"
                     android:layout_centerHorizontal="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/img_tractor" />
+                    android:src="@drawable/img_tractor"/>
 
                 <TextView
                     android:id="@+id/tvAway"
@@ -110,9 +110,9 @@
                     android:layout_below="@+id/imgGuest"
                     android:layout_centerHorizontal="true"
                     android:gravity="right"
-                    android:text="میهمان"
+                    android:textSize="@dimen/textSize_12dp"
                     android:textColor="@color/textColorSecondary"
-                    android:textSize="@dimen/textSize_12dp" />
+                    android:text="میهمان"/>
 
             </RelativeLayout>
 
@@ -129,25 +129,25 @@
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_soccer2" />
+                android:src="@drawable/ic_soccer2"/>
 
             <TextView
                 android:id="@+id/tvMatchResult"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="0 : 0"
-                android:textColor="@color/textColorSecondary"
                 android:textSize="@dimen/textSize_20dp"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:textColor="@color/textColorSecondary"
+                android:text="0 : 0"/>
 
             <ProgressBar
                 android:id="@+id/progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"/>
 
         </RelativeLayout>
 
@@ -169,7 +169,7 @@
                     android:layout_height="@dimen/_50dp"
                     android:layout_centerHorizontal="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/img_tractor" />
+                    android:src="@drawable/img_tractor"/>
 
                 <TextView
                     android:id="@+id/tvHome"
@@ -178,9 +178,9 @@
                     android:layout_below="@+id/imgHost"
                     android:layout_centerHorizontal="true"
                     android:gravity="left"
-                    android:text="میزبان"
+                    android:textSize="@dimen/textSize_12dp"
                     android:textColor="@color/textColorSecondary"
-                    android:textSize="@dimen/textSize_12dp" />
+                    android:text="میزبان"/>
 
             </RelativeLayout>
 
@@ -191,38 +191,38 @@
         android:id="@+id/lnrBuyEnable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="@dimen/_5dp"
-        android:weightSum="2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
 
         <TextView
             android:id="@+id/tvPredictResult"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="0.8"
-            android:gravity="center"
-            android:text=" پیش بینی نتیجه"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/_5dp"
             android:layout_marginEnd="@dimen/_5dp"
+            android:gravity="center"
             android:background="@drawable/background_border_a"
+            android:textSize="@dimen/_10sdp"
             android:textColor="@color/textColorPrimary"
-            android:textSize="@dimen/_10sdp" />
+            android:text=" پیش بینی نتیجه"/>
 
 
         <TextView
             android:id="@+id/tvBuyTicket"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:layout_weight="0.8"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/_5dp"
             android:layout_marginEnd="@dimen/_5dp"
             android:gravity="center"
-            android:text="خرید بلیت "
             android:background="@drawable/background_border_red"
+            android:textSize="@dimen/_10sdp"
             android:textColor="@color/textColorTitle"
-            android:textSize="@dimen/_10sdp" />
+            android:text="خرید بلیت "/>
     </LinearLayout>
 </LinearLayout>
