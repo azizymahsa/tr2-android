@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.activities.myPredicts.MyPredictsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="208dp"
+        android:background="@drawable/background_main_header"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent">
+
+        <include layout="@layout/toolbar_back" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:paddingBottom="16dp"
+            android:paddingRight="6dp"
+            android:paddingLeft="6dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_45sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card"
+                    style="@style/Widget.MaterialComponents.CardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    app:strokeColor="@color/borderColorGray"
+                    app:cardElevation="3dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardMaxElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_70sdp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvAllPredictCount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="normal"
+                            android:text="تعداد پیش بینی های شرکت کننده"
+                            android:textSize="@dimen/textSize_16dp"
+                            android:textColor="@color/textColorSecondary"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/tvTruePredictCount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="normal"
+                            android:text="تعداد پیش بینی های درست"
+                            android:textSize="@dimen/textSize_16dp"
+                            android:textColor="@color/textColorSecondary"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/tvYourRate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="normal"
+                            android:text="رتبه شما"
+                            android:textSize="@dimen/textSize_16dp"
+                            android:textColor="@color/textColorSecondary"
+                            android:gravity="center"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardPoints"
+                    style="@style/Widget.MaterialComponents.CardView"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="3dp"
+                    app:strokeColor="@color/borderColorGray"
+                    app:contentPadding="2dp"
+                    app:cardElevation="3dp"
+                    app:cardUseCompatPadding="false"
+                    app:cardCornerRadius="@dimen/point_card_radius"
+                    app:cardMaxElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/background_border_white_full"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/tvPointScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/point_text_height"
+                            android:textStyle="bold"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/textColorTitle"
+                            android:textSize="@dimen/_48sdp"
+                            android:text="0"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/textColorTitle"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_20sdp"
+                            android:text="تراپ"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/loading"
+        android:visibility="gone"/>
+
+</RelativeLayout>

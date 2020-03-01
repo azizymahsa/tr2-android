@@ -91,6 +91,7 @@ import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
 import com.traap.traapapp.apiServices.model.points.groupBy.PointsGroupByResponse;
 import com.traap.traapapp.apiServices.model.points.guide.PointsGuideResponse;
 import com.traap.traapapp.apiServices.model.points.records.PointsRecordResponse;
+import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import com.traap.traapapp.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -562,21 +563,28 @@ public interface RetroClient
             @Query("search") String searchText
     );
 
+
     @GET(Const.GET_CATEGORY_ARCHIVE_PHOTO)
     Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getPhotosArchiveCategory();
+
 
     @GET(Const.GetHistory)
     Single<Response<WebServiceClass<ResponseHistory>>> getHistory();
 
 
     @GET(Const.GET_PREDICT + "{matchId}/")
-//    Single<Response<WebServiceClass<GetPredictResponse_version1>>> getBarChart(
     Single<Response<WebServiceClass<GetPredictResponse>>> getPredict(
             @Path("matchId") Integer matchId
     );
 
+
+    @GET(Const.GET_MY_PREDICTS)
+    Single<Response<WebServiceClass<MyPredictResponse>>> getMyPredict();
+
+
     @GET(Const.GET_PREDICT_ENABLE)
     Single<Response<WebServiceClass<MatchItem>>> getPredictEnable();
+
 
     @POST(Const.SEND_PREDICT)
     Single<Response<WebServiceClass<Object>>> sendPredict(
@@ -587,7 +595,6 @@ public interface RetroClient
     Single<Response<WebServiceClass<ResponseStadiumRules>>> getRulsStadium(
             @Path("id") Integer id
     );
-
 
 
     @GET(Const.GetSpectatorInfo)

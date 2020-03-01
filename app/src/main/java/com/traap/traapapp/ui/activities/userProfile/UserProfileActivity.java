@@ -166,6 +166,17 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etEmail = findViewById(R.id.etEmail);
         etNationalCode = findViewById(R.id.etNationalCode);
 
+        FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
+
+        flLogoToolbar.setOnClickListener(v ->
+        {
+            Intent returnIntent = new Intent();
+
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+
+        });
+
         etFirstName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etLastName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etFirstNameUS.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
@@ -283,16 +294,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
         });
 
-        FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
-
-        flLogoToolbar.setOnClickListener(v ->
-        {
-            Intent returnIntent = new Intent();
-
-            setResult(Activity.RESULT_OK, returnIntent);
-            finish();
-
-        });
     }
 
     public boolean isValid(String text)

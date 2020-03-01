@@ -27,6 +27,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
+import com.traap.traapapp.ui.activities.myPredicts.MyPredictsActivity;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -131,7 +132,7 @@ public class MyProfileActivity extends BaseActivity
 
         rlMyPredict.setOnClickListener(v ->
         {
-
+            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyPredictsActivity.class), 100);
         });
 
         rlMyFavorite.setOnClickListener(v ->

@@ -15,20 +15,17 @@
         style="@style/AVLoadingIndicatorView"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:indicatorColor="@android:color/white"
-        app:indicatorName="BallSpinFadeLoaderIndicator"
+        app:indicatorColor="@color/textColorPrimary"
+        app:indicatorName="BallGridPulseIndicator"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        />
+        android:layout_marginBottom="20dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18dp"
-        android:text="لطفا کمی صبر کنید..."
+        android:text="لطفا کمی صبر کنید ..."
         android:gravity="center"
         android:textColor="@android:color/white"/>
-
-
-
 
 </LinearLayout>
