@@ -1,7 +1,9 @@
 package com.traap.traapapp.ui.fragments.main;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.LeagueTableParent;
@@ -99,4 +101,6 @@ public interface MainActionView extends BaseView
     void onBackToMatch();
 
     void onChangeMediaPosition(MediaPosition mediaPosition);
+
+    void onShowDetailWinnerList(List<Winner> winnerList);
 }

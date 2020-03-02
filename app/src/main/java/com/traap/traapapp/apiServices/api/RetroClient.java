@@ -71,6 +71,7 @@ import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponseP
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
+import com.traap.traapapp.apiServices.model.lottery.GetLotteryWinnerListResponse;
 import com.traap.traapapp.apiServices.model.mainPage.MainPageResponse;
 import com.traap.traapapp.apiServices.model.mainPhotos.MainPhotoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
@@ -114,7 +115,6 @@ import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfi
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
-import com.traap.traapapp.apiServices.model.setting.SettingResponse;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
 import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
@@ -701,16 +701,20 @@ public interface RetroClient
     @GET(Const.GET_POINTS_GROUP_BY)
     Single<Response<WebServiceClass<PointsGroupByResponse>>> getPointGroupBy();
 
-    @GET(Const.SETTING)
-    Single<Response<WebServiceClass<SettingResponse>>> getSetting();
+//    @GET(Const.SETTING)
+//    Single<Response<WebServiceClass<SettingResponse>>> getSetting();
 
     @GET(Const.mainpage)
     Observable<Response<MainPageResponse>> mainpage();
 
     @POST(Const.GetReport)
             Observable<Response<GetReportResponse>> getReport(
-
             @Body GetReportRequest request
+    );
+
+    @GET(Const.GET_LOTTERY_WINNER_LIST)
+    Single<Response<WebServiceClass<GetLotteryWinnerListResponse>>> getLotteryWinnerList(
+            @Path("matchId") Integer id
     );
 
 }

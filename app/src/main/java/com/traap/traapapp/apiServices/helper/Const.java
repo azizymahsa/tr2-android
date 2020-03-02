@@ -173,11 +173,13 @@ public class Const
     public final static String GET_POINTS_GUIDE = SubBASEURL + "v1/point/info/";
     public final static String GET_POINTS_GROUP_BY = SubBASEURL + "v1/point/group_by/";
 
-    //Setting
-    public final static String SETTING = SubBASEURL + "v1/setting/";
+//    //Setting
+//    public final static String SETTING = SubBASEURL + "v1/setting/";
 
     //moneyTransfer
     public final static String mainpage = SubBASEURL + "v1/shetab/main_page/";
 
+    //Lottery for Predict
+    public final static String GET_LOTTERY_WINNER_LIST = SubBASEURL + "v1/lottery/{matchId}";
 
 }

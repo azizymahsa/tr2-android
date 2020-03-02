@@ -41,6 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -69,6 +70,7 @@ import com.traap.traapapp.apiServices.model.getBankList.response.BankListRespons
 import com.traap.traapapp.apiServices.model.getMenu.request.GetMenuRequest;
 import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuItemResponse;
 import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuResponse;
+import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
@@ -99,6 +101,7 @@ import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableMainFragment;
+import com.traap.traapapp.ui.fragments.lotteryWinnerList.LotteryWinnerDetailsFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
@@ -2189,6 +2192,18 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         setFragment(MediaFragment.newInstance(mediaPosition, this));
         fragmentList.add(getFragment());
 //        showDebugToast(this, mediaPosition + " # " + fragmentList.get(fragmentList.size()-1).getTag());
+    }
+
+    @Override
+    public void onShowDetailWinnerList(List<Winner> winnerList)
+    {
+        isMainFragment = false;
+
+//        List<Winner> mWinnerList = new ArrayList<>();
+//        mWinnerList.addAll(winnerList);
+
+        setFragment(LotteryWinnerDetailsFragment.newInstance(MainActivity.this, winnerList));
+        replaceFragment(getFragment(), "lotteryWinnerDetailsFragment");
     }
 
 

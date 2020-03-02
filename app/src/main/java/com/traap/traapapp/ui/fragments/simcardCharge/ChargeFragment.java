@@ -70,6 +70,7 @@ import com.traap.traapapp.apiServices.model.availableAmount.Result;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
 import com.traap.traapapp.apiServices.model.getBoughtFor.GetBoughtForResponse;
+import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.conf.TrapConfig;
@@ -2047,6 +2048,12 @@ public class ChargeFragment extends BaseFragment
 
     @Override
     public void onChangeMediaPosition(MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onShowDetailWinnerList(List<Winner> winnerList)
     {
 
     }

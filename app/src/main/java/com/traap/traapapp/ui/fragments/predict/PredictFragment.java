@@ -8,11 +8,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,28 +38,23 @@ import com.anychart.enums.LegendLayout;
 import com.anychart.enums.LegendPositionMode;
 import com.anychart.enums.WordWrap;
 import com.anychart.graphics.vector.text.Direction;
-import com.anychart.graphics.vector.text.FontStyle;
 import com.anychart.graphics.vector.text.HAlign;
 import com.anychart.graphics.vector.text.VAlign;
-import com.jakewharton.rxbinding3.view.RxView;
-import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Predicate;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.BarChart;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.PieChart;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
@@ -73,7 +66,7 @@ import com.traap.traapapp.ui.adapters.predict.PredictBarChartProgressAdapter;
 import com.traap.traapapp.ui.adapters.predict.PredictMatchResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
-import com.traap.traapapp.ui.dialogs.PredictWinListDialog;
+import com.traap.traapapp.ui.dialogs.LotteryWinnerListDialog;
 import com.traap.traapapp.ui.fragments.main.CountDownTimerView;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
@@ -90,7 +83,7 @@ import org.greenrobot.eventbus.Subscribe;
  */
 @SuppressLint("ValidFragment")
 public class PredictFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<GetPredictResponse>>,
-        OnAnimationEndListener, CountDownTimerView
+        OnAnimationEndListener, CountDownTimerView, PredictActionView
 {
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -320,7 +313,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         llPredict.setOnClickListener(v ->
         {
             //show alert dialog
-            PredictWinListDialog dialog = new PredictWinListDialog(matchId);
+            LotteryWinnerListDialog dialog = new LotteryWinnerListDialog(matchId, this);
             dialog.show(getActivity().getFragmentManager(), "predictWinListDialog");
         });
 
@@ -872,6 +865,18 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     public void onAnimationEnd()
     {
         btnSendPredict.setBackground(ContextCompat.getDrawable(context, R.drawable.background_button_login));
+    }
+
+    @Override
+    public void showAlertFailure(String message)
+    {
+        showAlertFailure(context, message, "خطا!", false);
+    }
+
+    @Override
+    public void onShowDetailWinnerList(List<Winner> winnerList)
+    {
+        mainView.onShowDetailWinnerList(winnerList);
     }
 
     @Subscribe
