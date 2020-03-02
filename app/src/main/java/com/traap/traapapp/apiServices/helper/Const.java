@@ -179,6 +179,9 @@ public class Const
     //moneyTransfer
     public final static String mainpage = SubBASEURL + "v1/shetab/main_page/";
 
+    //inviteFriend
+    public final static String Get_Invite_Friend=SubBASEURL+"v1/invite_friend/";
+
     //Lottery for Predict
     public final static String GET_LOTTERY_WINNER_LIST = SubBASEURL + "v1/lottery/{matchId}";
 

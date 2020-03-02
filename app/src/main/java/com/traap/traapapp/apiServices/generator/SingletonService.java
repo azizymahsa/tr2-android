@@ -25,6 +25,7 @@ import com.traap.traapapp.apiServices.part.GetBoughtForService;
 import com.traap.traapapp.apiServices.part.GetCardListService;
 import com.traap.traapapp.apiServices.part.GetContactInfoService;
 import com.traap.traapapp.apiServices.part.GetHappyCardInfoService;
+import com.traap.traapapp.apiServices.part.GetInviteFriendService;
 import com.traap.traapapp.apiServices.part.GetMainPhotosService;
 import com.traap.traapapp.apiServices.part.GetMainVideosService;
 import com.traap.traapapp.apiServices.part.GetMenuHelpService;
@@ -179,6 +180,11 @@ public class SingletonService
     public GetContactInfoService getContactInfoService()
     {
         return new GetContactInfoService(serviceGenerator);
+    }
+
+    public GetInviteFriendService getInviteFriendService(){
+
+        return new GetInviteFriendService(serviceGenerator);
     }
 
     public GetMenuHelpService getMenuHelpService(){
