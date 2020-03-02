@@ -57,6 +57,7 @@ import com.traap.traapapp.apiServices.model.getInfoPhoneBill.LstPhoneBill;
 import com.traap.traapapp.apiServices.model.getMyBill.Bills;
 import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillRequest;
 import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
+import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.LeagueTableParent;
@@ -1567,6 +1568,12 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     @Override
     public void onChangeMediaPosition(MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onShowDetailWinnerList(List<Winner> winnerList)
     {
 
     }
