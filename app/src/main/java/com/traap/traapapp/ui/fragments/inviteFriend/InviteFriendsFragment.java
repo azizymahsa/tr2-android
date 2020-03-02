@@ -41,15 +41,13 @@ import java.io.File;
 
 public class InviteFriendsFragment extends BaseFragment implements View.OnClickListener
 {
-
-
     private View view;
     private Toolbar mToolbar;
     private LinearLayout llEditInvite;
-    private View btnConfirm,rlShirt,imgMenu,imgBack;
+    private View btnConfirm, rlShirt, imgMenu, imgBack;
     private MainActionView mainView;
-    private TextView tvTitle , tvDesc ,tvInviteCode,tvLinkAddress,tvUserName,tvPopularPlayer,tvInviteTitle;
-    private boolean isDescriptionEdited=false;
+    private TextView tvTitle, tvDesc, tvInviteCode, tvLinkAddress, tvUserName, tvPopularPlayer, tvInviteTitle;
+    private boolean isDescriptionEdited = false;
     private String linkAddres;
     private ImageView ivTraap;
 
@@ -97,11 +95,11 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
             tvTitle = view.findViewById(R.id.tvTitle);
             tvDesc = view.findViewById(R.id.tvDesc);
 
-            ivTraap=view.findViewById(R.id.ivTraap);
+            ivTraap = view.findViewById(R.id.ivTraap);
             tvInviteCode = view.findViewById(R.id.tvInviteCode);
             tvLinkAddress = view.findViewById(R.id.tvLinkAddress);
-            btnConfirm=view.findViewById(R.id.btnConfirm);
-            tvInviteTitle=view.findViewById(R.id.tvInviteTitle);
+            btnConfirm = view.findViewById(R.id.btnConfirm);
+            tvInviteTitle = view.findViewById(R.id.tvInviteTitle);
 
             btnConfirm.setOnClickListener(this);
             tvLinkAddress.setOnClickListener(this);
@@ -120,7 +118,7 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
                 @Override
                 public void onClick(View v)
                 {
-                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
+                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class), 100);
                 }
             });
             mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
@@ -132,7 +130,8 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
                 }
             });
             FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
-            flLogoToolbar.setOnClickListener(v -> {
+            flLogoToolbar.setOnClickListener(v ->
+            {
                 mainView.backToMainFragment();
 
             });
@@ -155,7 +154,8 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private void requestGetInviteFriendInfo() {
+    private void requestGetInviteFriendInfo()
+    {
         SingletonService.getInstance().getInviteFriendService().GetInviteFriendService(new OnServiceStatus<WebServiceClass<InviteFriendResponse>>()
         {
             @Override
@@ -195,12 +195,13 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
         });
     }
 
-    private void onGetInviteFriendSuccess(InviteFriendResponse data) {
+    private void onGetInviteFriendSuccess(InviteFriendResponse data)
+    {
 
         tvDesc.setText(data.getBody());
-        tvInviteCode.setText("کد معرف: "+data.getInviteKey());
+        tvInviteCode.setText("کد معرف: " + data.getInviteKey());
         tvLinkAddress.setText(data.getUrl());
-        linkAddres=data.getUrl();
+        linkAddres = data.getUrl();
     }
 
     private void hideLoading()
@@ -259,7 +260,7 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
                         "\n" +
                         "لینک دانلود اپلیکیشن: " + linkAddres;
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, stringBuilder);
-             //   sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareText);
+                //   sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareText);
                 startActivity(Intent.createChooser(sharingIntent, "ارسال با"));
 
               /*  Intent shareIntent;
@@ -295,7 +296,7 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
                 break;
             case R.id.llEditInvite:
 
-                isDescriptionEdited=true;
+                isDescriptionEdited = true;
                 tvDesc.setVisibility(View.GONE);
                 break;
 

@@ -48,7 +48,7 @@ public class LotteryPredictDetailsAdapter extends RecyclerView.Adapter<LotteryPr
     {
         Winner item = list.get(position);
 
-        holder.tvFullName.setText(item.getFirstName() + item.getLastName());
+        holder.tvFullName.setText(item.getFirstName() + " " + item.getLastName());
 
         holder.tvMobile.setText(item.getMobile());
 
