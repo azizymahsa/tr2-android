@@ -23,6 +23,10 @@ public class MatchMyPredict
     private String matchDate;
 
     @Expose @Getter @Setter
+    @SerializedName("match_datetime_formatted")
+    private String matchDateStr;
+
+    @Expose @Getter @Setter
     @SerializedName("stadium")
     private String stadium;
 

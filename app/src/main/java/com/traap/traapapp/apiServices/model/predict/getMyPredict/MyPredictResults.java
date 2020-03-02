@@ -9,8 +9,8 @@ import lombok.Setter;
 public class MyPredictResults
 {
     @Expose @Getter @Setter
-    @SerializedName("create_date")
-    private String date;
+    @SerializedName("point")
+    private Integer point;
 
     @Expose @Getter @Setter
     @SerializedName("match")
