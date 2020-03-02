@@ -767,30 +767,24 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             case 85: //مدیریت کارت ها
             {
 //                showToast(this, "مدیریت کارت ها", R.color.green);
+                isMainFragment = false;
 
                 break;
             }
             case 87: //دعوت از دوستان
             {
-//                showToast(this, "دعوت از دوستان", R.color.green);
+                isMainFragment = false;
+                setFragment(InviteFriendsFragment.newInstance(this));
+                replaceFragment(getFragment(), "inviteFriendsFragment");
 
                 break;
             }
             case 91: //درباره ما
             {
-                // showToast(this, "درباره ما", R.color.green);
                 isMainFragment = false;
 
                 setFragment(AboutFragment.newInstance(this));
                 replaceFragment(getFragment(), "aboutFragment");
-               /* isMainFragment = false;
-
-                fragment = PaymentGateWayDialog.newInstance(this);
-                transaction = fragmentManager.beginTransaction();
-//                transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-
-                transaction.replace(R.id.main_container, fragment, "aboutFragment")
-                        .commit();*/
                 break;
             }
             case 88: //تنظیمات
