@@ -42,7 +42,18 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.AsyncSubject;
+import io.reactivex.subjects.Subject;
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
 
@@ -133,6 +144,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 //    private Boolean isNewsFragment = false;
     private Boolean isFirst = true;
     private ImageView indicator_0, indicator_1, indicator_2;
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
@@ -708,7 +720,6 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     {
         Logger.e("-onDrawerItemSelected-", "selected " + itemNumber);
 
-        final Intent intent = new Intent();
         switch (itemNumber)
         {
             case 82: //لیست تراکنش ها
@@ -803,7 +814,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 else
                 {
                     backToMainFragment();
-                    ((MainFragment) getFragment()).requestGetHelpMenu();
+                    ((MainFragment) getMainFragment()).requestGetHelpMenu();
                 }
                 break;
             }
@@ -2724,4 +2735,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 //    {
 //
 //    }
+
+
+    @Override
+    protected void onDestroy()
+    {
+        disposable.dispose();
+        super.onDestroy();
+    }
 }
