@@ -245,7 +245,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE)
                 {
-                    Logger.e("-+- Scroll Index -+-", favoriteServicesIndex + ", " + layoutManager.findLastVisibleItemPosition());
+//                    Logger.e("-+- Scroll Index -+-", favoriteServicesIndex + ", " + layoutManager.findLastVisibleItemPosition());
                     if (favoriteServicesIndex != layoutManager.findLastVisibleItemPosition() + 1)
                     {
                         favoriteServicesIndex = layoutManager.findLastCompletelyVisibleItemPosition() - 1;
@@ -267,7 +267,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             {
                 rcFavoriteServices.post(() ->
                 {
-                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
+//                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
                     if (favoriteServicesIndex < favoriteServicesCount)
                     {
                         favoriteServicesIndex++;
