@@ -23,12 +23,6 @@
                 android:layout_height="102dp"
                 android:background="@drawable/background_main_header" />
 
-            <!--            <RelativeLayout-->
-            <!--                android:id="@+id/header"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="102dp"-->
-            <!--                android:background="@drawable/img_header_background" />-->
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -62,7 +56,8 @@
                     android:layout_gravity="right"
                     android:layout_marginBottom="@dimen/_20dp"
                     android:layout_marginTop="@dimen/_20dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
 
                     <TextView
@@ -91,7 +86,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_20dp"
                     android:layout_marginBottom="@dimen/_30dp"
                     android:layout_marginRight="@dimen/_10dp"
                     android:layout_marginLeft="@dimen/_10dp"
@@ -100,6 +95,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/ivTraap"
                         android:layout_width="@dimen/_80dp"
                         android:layout_height="@dimen/_80dp"
                         android:layout_centerInParent="true"
@@ -110,6 +106,7 @@
                         android:src="@drawable/traap_home_logo" />
 
                     <TextView
+                        android:id="@+id/tvInviteTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -125,12 +122,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="تراپ،اپلیکیشن هواداران باشگاه تراکتور"
-                        android:textColor="@color/black"
+                        android:textColor="@color/greyishBrown"
                         android:layout_marginTop="@dimen/_10dp"
                         android:layout_marginBottom="@dimen/_10dp"
-                        android:textSize="@dimen/textSize_16dp"/>
+                        android:textSize="@dimen/textSize_14dp"/>
 
-                    <TextView
+                  <!--  <TextView
                         android:id="@+id/tvDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -138,22 +135,25 @@
                         android:text="اپلیکیشن هواداران باشگاه تراکتور"
                         android:textColor="@color/black"
                         android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginLeft="@dimen/_10dp"
+                        android:layout_marginRight="@dimen/_10dp"
+                        android:gravity="center"
                         android:layout_marginBottom="@dimen/_10dp"
                         android:visibility="visible"
-                        android:textSize="@dimen/textSize_16dp"/>
+                        android:textSize="@dimen/textSize_12dp"/>
+-->
 
-
-                    <EditText
-                        android:id="@+id/etEditDesc"
+                    <TextView
+                        android:id="@+id/tvDesc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:background="@drawable/background_rectangle_dotted_15dp"
-                        android:textColor="@color/textColorSecondary"
+                        android:textColor="@color/warmGray"
                         android:layout_margin="@dimen/_10dp"
                         android:padding="@dimen/_10dp"
-                        android:textSize="@dimen/textSize_16dp"
-                        android:gravity="right|center_vertical"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:gravity="center"
                         android:visibility="visible"/>
 
                     <TextView
@@ -162,12 +162,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="کد معرف"
-                        android:textColor="@color/black"
+                        android:textColor="@color/greyishBrown"
                         android:layout_marginTop="@dimen/_10dp"
                         android:layout_marginBottom="@dimen/_10dp"
                         android:visibility="visible"
                         android:textStyle="bold"
-                        android:textSize="@dimen/textSize_16dp"/>
+                        android:textSize="@dimen/textSize_14dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -176,9 +176,8 @@
                         android:text="لینک دانلود اپلیکیشن"
                         android:textColor="@color/black"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:layout_marginBottom="@dimen/_10dp"
                         android:visibility="visible"
-                        android:textSize="@dimen/textSize_16dp"/>
+                        android:textSize="@dimen/textSize_12dp"/>
 
                     <TextView
                         android:id="@+id/tvLinkAddress"
@@ -186,11 +185,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text=""
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:layout_marginBottom="@dimen/_10dp"
+                        android:textColor="@color/greyishBrown"
+                        android:layout_marginBottom="@dimen/_20dp"
+                        android:layout_marginTop="@dimen/_5dp"
                         android:visibility="visible"
-                        android:textSize="@dimen/textSize_16dp"/>
+                        android:textSize="@dimen/textSize_12dp"/>
 
 
                     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton

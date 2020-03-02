@@ -64,6 +64,7 @@ import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResp
 import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
+import com.traap.traapapp.apiServices.model.inviteFriend.InviteFriendResponse;
 import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
 import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPastResult;
@@ -712,5 +713,8 @@ public interface RetroClient
 
             @Body GetReportRequest request
     );
+
+    @GET(Const.Get_Invite_Friend)
+    Single<Response<WebServiceClass<InviteFriendResponse>>> getInviteFriend();
 
 }

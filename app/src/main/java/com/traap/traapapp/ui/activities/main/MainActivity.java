@@ -98,6 +98,7 @@ import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
+import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
 import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableMainFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;

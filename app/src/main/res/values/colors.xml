@@ -125,6 +125,7 @@
     <color name="mdtp_button_color">#AD0000</color>
     <color name="mdtp_button_text_color">#fff</color>
     <color name="mdtp_button_selected">#33969696</color>
+    <color name="greyishBrown">#484848</color>
 
     <!-- TimePicker Dark Theme -->
     <color name="mdtp_circle_background_dark_theme">#EBE095</color>
