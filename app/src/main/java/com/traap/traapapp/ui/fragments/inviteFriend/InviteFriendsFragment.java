@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,7 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
     private LinearLayout llEditInvite;
     private View btnConfirm, rlShirt, imgMenu, imgBack;
     private MainActionView mainView;
-    private TextView tvTitle, tvDesc, tvInviteCode, tvLinkAddress, tvUserName, tvPopularPlayer, tvInviteTitle;
+    private TextView tvTraapTitle, tvDesc, tvInviteCode, tvLinkAddress, tvUserName, tvPopularPlayer, tvInviteTitle;
     private boolean isDescriptionEdited = false;
     private String linkAddres;
     private ImageView ivTraap;
@@ -92,7 +93,7 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
         {
             showLoading();
             llEditInvite = view.findViewById(R.id.llEditInvite);
-            tvTitle = view.findViewById(R.id.tvTitle);
+            tvTraapTitle = view.findViewById(R.id.tvTraapTitle);
             tvDesc = view.findViewById(R.id.tvDesc);
 
             ivTraap = view.findViewById(R.id.ivTraap);
@@ -146,6 +147,10 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
 
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
+
+
+            String styledText = " <font color='red'>تراپ</font>، اپلیکیشن هواداران باشگاه تراکتور";
+            tvTraapTitle.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE);
 
             requestGetInviteFriendInfo();
         } catch (Exception e)
@@ -252,7 +257,7 @@ public class InviteFriendsFragment extends BaseFragment implements View.OnClickL
                 sharingIntent.setType("text/plain");
                 String stringBuilder = tvInviteTitle.getText().toString() +
                         "\n" +
-                        tvTitle.getText().toString() +
+                        tvTraapTitle.getText().toString() +
                         "\n" +
                         tvDesc.getText().toString() +
                         "\n" +
