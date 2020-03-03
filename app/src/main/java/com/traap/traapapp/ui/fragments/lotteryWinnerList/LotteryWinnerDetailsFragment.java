@@ -20,26 +20,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.generator.SingletonService;
-import com.traap.traapapp.apiServices.listener.OnServiceStatus;
-import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.lottery.GetLotteryWinnerListResponse;
 import com.traap.traapapp.apiServices.model.lottery.Winner;
-import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.ui.activities.myPredicts.MyPredictsActivity;
 import com.traap.traapapp.ui.adapters.lotteryWinnerList.LotteryPredictDetailsAdapter;
-import com.traap.traapapp.ui.adapters.lotteryWinnerList.LotteryPredictGeneralAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.utilities.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
-
 
 @SuppressLint("ValidFragment")
 public class LotteryWinnerDetailsFragment extends BaseFragment
