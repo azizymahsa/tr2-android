@@ -56,7 +56,7 @@
     <string name="select_position_tiitle">انتخاب از روی نقشه استادیوم:</string>
     <string name="_confirm_next">تایید و مرحله بعد</string>
     <string name="_confirm_peyment">تایید و پرداخت</string>
-    <string name="buy_ticket_description">کاربر گرامی؛ خرید با موفقیت انجام شد. </string>
+    <string name="buy_ticket_description">کاربر گرامی، خرید با موفقیت انجام شد. </string>
     <string name="buy_ticket_description_2">همراه داشتن کارت ملی برای همه افراد جهت ورود به ورزشگاه الزامی می باشد. </string>
     <string name="backToBuyTicket"> خرید مجدد</string>
     <string name="Please_enter_the_national_code">لطفا کد ملی صحیح وارد کنید</string>
@@ -73,7 +73,7 @@
     <string name="Error_nationall_code_input">کد ملی تکراری است</string>
     <string name="Please_enter_first_name_in_Persian">لطفا نام صحیح وارد کنید</string>
     <string name="profile_desc">وارد کردن تمامی موارد به صورت اختیاری می باشد</string>
-    <string name="error_ticket_payment">کاربر گرامی؛  متاسفانه پرداخت شما ناموفق بوده است.</string>
+    <string name="error_ticket_payment">کاربر گرامی،  متاسفانه پرداخت شما ناموفق بوده است.</string>
     <string name="networkError">خطای دسترسی</string>
     <string name="networkErrorMessage">اینترنت شما قطع یا از دسترس خارج می باشد.</string>
     <string name="login">ورود</string>
