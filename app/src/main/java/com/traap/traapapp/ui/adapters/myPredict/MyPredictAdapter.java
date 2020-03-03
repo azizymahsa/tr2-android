@@ -179,7 +179,7 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
                     }
                     case R.id.rlWinnerList:
                     {
-                        mItemClickListener.onShowWinnerList();
+                        mItemClickListener.onShowWinnerList(list.get(getAdapterPosition()).getMatchMyPredict().getId());
                         break;
                     }
                 }
@@ -190,7 +190,7 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
 
     public interface OnItemClickListener
     {
-        public void onShowWinnerList();
+        public void onShowWinnerList(Integer matchId);
 
         public void onHomeTeamClick(Integer teamId);
 

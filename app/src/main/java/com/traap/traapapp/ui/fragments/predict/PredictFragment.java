@@ -312,7 +312,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
         llPredict.setOnClickListener(v ->
         {
-            //show alert dialog
             LotteryWinnerListDialog dialog = new LotteryWinnerListDialog(matchId, this);
             dialog.show(getActivity().getFragmentManager(), "predictWinListDialog");
         });

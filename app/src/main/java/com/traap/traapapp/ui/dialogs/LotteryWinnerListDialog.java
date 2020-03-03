@@ -145,6 +145,7 @@ public class LotteryWinnerListDialog extends DialogFragment
                 else if (response.info.statusCode != 200)
                 {
                     //showAlert and dismiss
+                    dismiss();
                     actionView.showAlertFailure(response.info.message);
                 }
                 else
@@ -178,8 +179,8 @@ public class LotteryWinnerListDialog extends DialogFragment
             {
 //                progress.hide();
                 rlProgress.setVisibility(View.GONE);
-                //showAlert and dismiss
-//                dismiss();
+                dismiss();
+                actionView.showAlertFailure("خطا در دریافت اطلاعات از سرور!");
 
             }
         });
