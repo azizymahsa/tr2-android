@@ -9,8 +9,6 @@ import lombok.Setter;
 public class RequestPastResult
 {
     @SerializedName("team")
-    @Expose
-    @Getter
-    @Setter
+    @Expose @Getter @Setter
     private String team;
 }

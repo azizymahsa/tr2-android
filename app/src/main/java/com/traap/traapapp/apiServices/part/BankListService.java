@@ -29,7 +29,7 @@ public class BankListService extends BasePart
     }
 
 
-    public void mainpage(OnServiceStatus<MainPageResponse> listener)
+    public void mainpage(OnServiceStatus<WebServiceClass<MainPageResponse>> listener)
     {
         start(getServiceGenerator().createService().mainpage(), listener);
     }

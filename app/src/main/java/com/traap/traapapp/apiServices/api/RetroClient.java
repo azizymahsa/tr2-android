@@ -50,6 +50,8 @@ import com.traap.traapapp.apiServices.model.getInfoBill.response.GetInfoBillResp
 import com.traap.traapapp.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillRequest;
 import com.traap.traapapp.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillResponse;
 import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
+import com.traap.traapapp.apiServices.model.getLast5PastMatch.request.Last5PastMatchRequest;
+import com.traap.traapapp.apiServices.model.getLast5PastMatch.response.Last5PastMatchResponse;
 import com.traap.traapapp.apiServices.model.getMenu.request.GetMenuRequest;
 import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuResponse;
 import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpResponse;
@@ -312,13 +314,19 @@ public interface RetroClient
     Single<Response<WebServiceClass<WithdrawWalletResponse>>> withdrawWallet(
             @Body WithdrawWalletRequest request);
 
-    @POST(Const.GET_Leage)
+    @POST(Const.GET_League)
     Single<Response<WebServiceClass<ResponseLeage>>> getLeage(
             @Body GetLeagueRequest request);
 
-    @POST(Const.Get_Past_result)
+    @POST(Const.Get_Past_Result)
     Single<Response<WebServiceClass<ResponsePastResult>>> getPastResult(
             @Body RequestPastResult request);
+
+
+    @POST(Const.Get_Past_Result_v2)
+    Single<Response<WebServiceClass<Last5PastMatchResponse>>> getPastResult_v2(
+            @Body Last5PastMatchRequest request);
+
 
     @POST(Const.GET_PACKAGE_IRANCELL)
     Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(
@@ -706,13 +714,14 @@ public interface RetroClient
 //    Single<Response<WebServiceClass<SettingResponse>>> getSetting();
 
     @GET(Const.mainpage)
-    Observable<Response<MainPageResponse>> mainpage();
+    Single<Response<WebServiceClass<MainPageResponse>>> mainpage();
+
 
     @POST(Const.GetReport)
-            Observable<Response<GetReportResponse>> getReport(
-
+    Single<Response<WebServiceClass<GetReportResponse>>> getReport(
             @Body GetReportRequest request
     );
+
 
     @GET(Const.Get_Invite_Friend)
     Single<Response<WebServiceClass<InviteFriendResponse>>> getInviteFriend();

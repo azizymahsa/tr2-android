@@ -41,10 +41,9 @@ public class MyPredictsActivity extends BaseActivity implements MyPredictActionV
         OnServiceStatus<WebServiceClass<MyPredictResponse>>, MyPredictAdapter.OnItemClickListener
 {
     private Toolbar mToolbar;
-
     private TextView tvUserName, tvHeaderPopularNo;
     private TextView tvPointScore, tvAllPredictCount, tvTruePredictCount, tvYourRate;
-    
+
     private NestedScrollView scrollView;
     private CardView cardPoints;
 
