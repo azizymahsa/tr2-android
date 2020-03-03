@@ -120,7 +120,6 @@ public class LeagueTableMainFragment extends BaseFragment implements LeagueTable
         transaction.replace(R.id.container, fragment, "leagueTableFragment")
                 .commit();
 
-
         EventBus.getDefault().register(this);
         return rootView;
     }
