@@ -31,7 +31,7 @@ public class DoTransferCardService extends BasePart
     }
 
 
-    public void getReport(OnServiceStatus<GetReportResponse> listener, GetReportRequest req)
+    public void getReport(OnServiceStatus<WebServiceClass<GetReportResponse>> listener, GetReportRequest req)
     {
         start(getServiceGenerator().createService().getReport(req), listener);
     }

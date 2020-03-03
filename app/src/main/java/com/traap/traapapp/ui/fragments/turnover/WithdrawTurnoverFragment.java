@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getReport.request.GetReportRequest;
 import com.traap.traapapp.apiServices.model.getReport.response.GetReportResponse;
 import com.traap.traapapp.apiServices.model.getReport.response.ListTransaction;
@@ -28,6 +29,7 @@ import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,7 +41,8 @@ import io.reactivex.schedulers.Schedulers;
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class WithdrawTurnoverFragment extends BaseFragment {
+public class WithdrawTurnoverFragment extends BaseFragment
+{
     private RecyclerView rcAllList;
 
 
@@ -47,33 +50,39 @@ public class WithdrawTurnoverFragment extends BaseFragment {
     private MainActionView mainView;
     private ProgressBar pb;
     private TextView tvError;
-    private List<ListTransaction> listTransaction= new ArrayList<>();
+    private List<ListTransaction> listTransaction = new ArrayList<>();
 
 
-    public static WithdrawTurnoverFragment newInstance(MainActionView mainView) {
+    public static WithdrawTurnoverFragment newInstance(MainActionView mainView)
+    {
         WithdrawTurnoverFragment f = new WithdrawTurnoverFragment();
         f.setMainView(mainView);
         return f;
     }
+
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
-    private void setMainView(MainActionView mainView) {
+    private void setMainView(MainActionView mainView)
+    {
         this.mainView = mainView;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         rootView = inflater.inflate(R.layout.fragment_all_turn_over, container, false);
 
         initView();
@@ -83,7 +92,8 @@ public class WithdrawTurnoverFragment extends BaseFragment {
     }
 
 
-    private void initView() {
+    private void initView()
+    {
         rcAllList = rootView.findViewById(R.id.rcAllList);
         pb = rootView.findViewById(R.id.pb);
         tvError = rootView.findViewById(R.id.tvError);
@@ -95,7 +105,8 @@ public class WithdrawTurnoverFragment extends BaseFragment {
     }
 
 
-    public void getAllReport(String toDate, String fromDate, Integer toAmount, Integer fromAmount) {
+    public void getAllReport(String toDate, String fromDate, Integer toAmount, Integer fromAmount)
+    {
         pb.setVisibility(View.VISIBLE);
         rcAllList.setVisibility(View.VISIBLE);
         tvError.setVisibility(View.GONE);
@@ -110,9 +121,10 @@ public class WithdrawTurnoverFragment extends BaseFragment {
             request.setFromDate(Utility.getGrgDate(fromDate));
         if (toAmount != null)
             request.setToAmount(toAmount);
-        if (fromAmount != null){
+        if (fromAmount != null)
+        {
 
-            if (fromAmount==0)
+            if (fromAmount == 0)
                 request.setFromAmount(1);
             else
 
@@ -120,31 +132,38 @@ public class WithdrawTurnoverFragment extends BaseFragment {
 
         }
 
-        SingletonService.getInstance().doTransferCardService().getReport(new OnServiceStatus<GetReportResponse>() {
+        SingletonService.getInstance().doTransferCardService().getReport(new OnServiceStatus<WebServiceClass<GetReportResponse>>()
+        {
             @Override
-            public void onReady(GetReportResponse response) {
+            public void onReady(WebServiceClass<GetReportResponse> response)
+            {
                 pb.setVisibility(View.GONE);
 
-                try {
-                    if (response.getInfo().getCode() == 200) {
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
                         listTransaction.clear();
-                        listTransaction.addAll(response.getData().getListTransaction());
-                        rcAllList.setAdapter(new TurnoverAdapter(getActivity(),response.getData().getListTransaction()));
-                    } else {
+                        listTransaction.addAll(response.data.getListTransaction());
+                        rcAllList.setAdapter(new TurnoverAdapter(getActivity(), response.data.getListTransaction()));
+                    } else
+                    {
 
                         tvError.setVisibility(View.VISIBLE);
                         rcAllList.setVisibility(View.GONE);
 
-                        tvError.setText(response.getInfo().getMessage());
+                        tvError.setText(response.info.message);
                     }
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
                     mainView.showError(e.getMessage());
 
                 }
             }
 
             @Override
-            public void onError(String message) {
+            public void onError(String message)
+            {
                 pb.setVisibility(View.GONE);
                 if (Tools.isNetworkAvailable(getActivity()))
                 {
@@ -160,28 +179,30 @@ public class WithdrawTurnoverFragment extends BaseFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EventTurnoverModel event) {
-        if (event.getRemove()){
+    public void onMessageEvent(EventTurnoverModel event)
+    {
+        if (event.getRemove())
+        {
             getAllReport(null, null, null, null);
 
             return;
         }
-        getAllReport(event.getTo_date(), event.getFrom_date(), event.getTo_amount(), event.getFrom_amount() );
+        getAllReport(event.getTo_date(), event.getFrom_date(), event.getTo_amount(), event.getFrom_amount());
 
 
     }
 
 
-
-
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ClickTurnOverEvent event) {
-        if (event.getSearch().equals("")){
+    public void onMessageEvent(ClickTurnOverEvent event)
+    {
+        if (event.getSearch().equals(""))
+        {
             rcAllList.removeAllViews();
             tvError.setVisibility(View.GONE);
             rcAllList.setVisibility(View.VISIBLE);
             rcAllList.setAdapter(new TurnoverAdapter(getActivity(), listTransaction));
-            Log.e("ssd3", listTransaction.size()+"");
+            Log.e("ssd3", listTransaction.size() + "");
 
             return;
         }
@@ -219,13 +240,13 @@ public class WithdrawTurnoverFragment extends BaseFragment {
                         rcAllList.removeAllViews();
 
                         rcAllList.setAdapter(new TurnoverAdapter(getActivity(), results));
-                        if (results.size()==0){
+                        if (results.size() == 0)
+                        {
                             tvError.setVisibility(View.VISIBLE);
                             rcAllList.setVisibility(View.GONE);
-                            Log.e("ssd6", listTransaction.size()+"");
+                            Log.e("ssd6", listTransaction.size() + "");
 
                         }
-
 
 
                     }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.mainPage.MainPageResponse;
 import com.traap.traapapp.ui.adapters.MoneyTransferBankLogoAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -270,10 +271,10 @@ public class MoneyTransferFragment extends BaseFragment
     public void getMainpage()
     {
         mainView.showLoading();
-        SingletonService.getInstance().getBankListService().mainpage(new OnServiceStatus<MainPageResponse>()
+        SingletonService.getInstance().getBankListService().mainpage(new OnServiceStatus<WebServiceClass<MainPageResponse>>()
         {
             @Override
-            public void onReady(MainPageResponse response)
+            public void onReady(WebServiceClass<MainPageResponse> response)
             {
                 mainView.hideLoading();
                 try
@@ -281,10 +282,10 @@ public class MoneyTransferFragment extends BaseFragment
                     StringBuilder bankname = new StringBuilder();
                     bankname.append("شما میتوانید از مبدا بانکهای ");
 
-                    for (int i = 0; i < response.getData().getBank().size(); i++)
+                    for (int i = 0; i < response.data.getBank().size(); i++)
                     {
-                        bankname.append(response.getData().getBank().get(i).getName());
-                        if (i != response.getData().getBank().size() - 2)
+                        bankname.append(response.data.getBank().get(i).getName());
+                        if (i != response.data.getBank().size() - 2)
                             bankname.append("، ");
                         else
                             bankname.append(" و ");

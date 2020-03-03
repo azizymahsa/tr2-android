@@ -102,6 +102,8 @@ public class Const
 
     //MatchList
     public final static String GET_Match_List = SubBASEURL + "v1/match/";
+    public final static String Get_Past_Result = SubBASEURL + "v1/livescore/get_past_result/";
+    public final static String Get_Past_Result_v2 = SubBASEURL + "v2/livescore/get_past_result/";
 
     //History
     public final static String GetHistory = SubBASEURL + "v1/club_history/get_history/";
@@ -110,8 +112,7 @@ public class Const
     public final static String GET_VERSION = SubBASEURL + "v1/version/get_version_android/";
 
     //Leagues
-    public final static String GET_Leage = SubBASEURL + "v1/livescore/get_leagues/";
-    public final static String Get_Past_result = SubBASEURL + "v1/livescore/get_past_result/";
+    public final static String GET_League = SubBASEURL + "v1/livescore/get_leagues/";
 
     //Predict
     public final static String GET_PREDICT = SubBASEURL + "v2/predict/";
