@@ -103,4 +103,6 @@ public interface MainActionView extends BaseView
     void onChangeMediaPosition(MediaPosition mediaPosition);
 
     void onShowDetailWinnerList(List<Winner> winnerList);
+
+    void onShowLast5PastMatch(Integer teamLiveScoreId);
 }

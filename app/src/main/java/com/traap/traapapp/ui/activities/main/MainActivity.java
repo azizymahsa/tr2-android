@@ -101,6 +101,7 @@ import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
+import com.traap.traapapp.ui.fragments.lastPast5Match.Last5PastMatchFragment;
 import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableMainFragment;
 import com.traap.traapapp.ui.fragments.lotteryWinnerList.LotteryWinnerDetailsFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
@@ -2194,11 +2195,16 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     {
         isMainFragment = false;
 
-//        List<Winner> mWinnerList = new ArrayList<>();
-//        mWinnerList.addAll(winnerList);
-
         setFragment(LotteryWinnerDetailsFragment.newInstance(MainActivity.this, winnerList));
         replaceFragment(getFragment(), "lotteryWinnerDetailsFragment");
+    }
+
+    @Override
+    public void onShowLast5PastMatch(Integer teamLiveScoreId)
+    {
+        isMainFragment = false;
+        setFragment(Last5PastMatchFragment.newInstance(MainActivity.this, teamLiveScoreId));
+        replaceFragment(getFragment(), "last5PastMatchFragment");
     }
 
 

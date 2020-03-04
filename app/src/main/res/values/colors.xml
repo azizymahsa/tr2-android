@@ -147,5 +147,9 @@
     <color name="predeictedFalseBackgroundColor">#facecf</color>
     <color name="predeictedTrueTextColor">#369251</color>
     <color name="predeictedFalseTextColor">#d0555a</color>
+    <color name="colorBorderMatchCard">#cccccc</color>
+    <color name="backgroundLastLooseMatch">#facecf</color>
+    <color name="backgroundLastEqualMatch">#e4cfbc</color>
+    <color name="backgroundLastWinMatch">#d3ead8</color>
     <!--  calendar  end-->
 </resources>

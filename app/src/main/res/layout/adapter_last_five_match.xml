@@ -8,9 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         android:orientation="vertical"
-        android:background="@drawable/background_disable_rec">
+        android:background="@drawable/background_border_16dp">
 
         <RelativeLayout
             android:id="@+id/rlHeader"
@@ -21,10 +21,10 @@
 
             <ImageView
                 android:id="@+id/imgCupLogo"
-                android:layout_width="@dimen/_30dp"
+                android:layout_width="@dimen/_40dp"
                 android:layout_height="@dimen/_30dp"
                 android:layout_gravity="center"
-                android:padding="6dp"
+                android:padding="2dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:scaleType="fitCenter"
@@ -60,6 +60,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@drawable/shadow_b"
             android:backgroundTint="@color/_disable_color"/>
 

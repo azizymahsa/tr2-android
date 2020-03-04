@@ -36,32 +36,32 @@ public class Last5PastMatchItem
     private Cup cup;
 
     @SerializedName("status")
-    @Expose @Setter
+    @Expose @Getter @Setter
     private String status;
 
-    @Getter
-    private MatchStatus matchStatus = getMatchStatusBackground();
-
-    private MatchStatus getMatchStatusBackground()
-    {
-        if (status.equals("-1"))
-        {
-            return MatchStatus.Loose;
-        }
-        else if (status.equals("0"))
-        {
-            return MatchStatus.Equal;
-        }
-        else if (status.equals("1"))
-        {
-            return MatchStatus.Win;
-        }
-        return MatchStatus.Equal;
-    }
-
-    public enum MatchStatus
-    {
-        Win, Equal, Loose
-    }
+//    @Getter
+//    private MatchStatus matchStatus = getMatchStatusBackground();
+//
+//    private MatchStatus getMatchStatusBackground()
+//    {
+//        if (status.equals("-1"))
+//        {
+//            return MatchStatus.Loose;
+//        }
+//        else if (status.equals("0"))
+//        {
+//            return MatchStatus.Equal;
+//        }
+//        else if (status.equals("1"))
+//        {
+//            return MatchStatus.Win;
+//        }
+//        return MatchStatus.Equal;
+//    }
+//
+//    public enum MatchStatus
+//    {
+//        Win, Equal, Loose
+//    }
 
 }
