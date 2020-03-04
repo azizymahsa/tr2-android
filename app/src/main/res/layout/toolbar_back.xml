@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layoutDirection="ltr"
-    android:layout_height="102dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -50,7 +50,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="60dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -113,8 +113,8 @@
                 android:layout_centerVertical="true">
 
                 <ImageView
-                    android:layout_width="@dimen/_40dp"
-                    android:layout_height="@dimen/_40dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/img_shirt"
                     android:layout_marginRight="32dp"/>
