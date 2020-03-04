@@ -159,6 +159,7 @@ public class LotteryWinnerListDialog extends DialogFragment
                     }
 
                     winnerList = response.data.getWinnerList();
+
                     List<Winner> generalWinnerList= new ArrayList<>();
                     Observable.fromIterable(winnerList)
                             .filter(winner -> winnerList.indexOf(winner) < 3)

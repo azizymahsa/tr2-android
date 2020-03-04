@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.adapters.Leaguse.pastResult;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.getLast5PastMatch.response.Last5PastMatchItem;
 import com.traap.traapapp.apiServices.model.league.pastResult.response.Result;
 
 import saman.zamani.persiandate.PersianDate;
@@ -27,13 +29,13 @@ import saman.zamani.persiandate.PersianDateFormat;
 public class PastResultAdapter extends RecyclerView.Adapter<PastResultAdapter.ViewHolder>
 {
     private final Context mContext;
-    private final List<Result> mData;
+    private final List<Last5PastMatchItem> mData;
     // private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
 
-    public PastResultAdapter(List<Result> mData, Context mContext)
+    public PastResultAdapter(List<Last5PastMatchItem> mData, Context mContext)
     {
         this.mContext = mContext;
         this.mInflater = LayoutInflater.from(mContext);
@@ -47,116 +49,53 @@ public class PastResultAdapter extends RecyclerView.Adapter<PastResultAdapter.Vi
         return new ViewHolder(view);
     }
 
-    private String getDate(Date d)
-    {
-
-
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd" );
-        String date = dateFormat.format(d);  // formatted date in string
-        String[] splitsDate = date.split("-");
-
-        PersianDate persianDate = new PersianDate();
-        persianDate.setGrgYear(Integer.valueOf(splitsDate[0]));
-        persianDate.setGrgMonth(Integer.valueOf(splitsDate[1]));
-        persianDate.setGrgDay(Integer.valueOf(splitsDate[2]));
-
-
-        PersianDateFormat pdformater1 = new PersianDateFormat("Y/m/d");
-        pdformater1.format(persianDate);//1396/05/20
-
-        //PersianDateFormat pdformater2 = new PersianDateFormat("l j F y ");
-        // date = String.valueOf(pdformater2.format(pdate));//۱۹ تیر ۹۶
-        date = String.valueOf(pdformater1.format(persianDate));//1396/05/20
-
-        return date;
-    }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position)
     {
 
-        Result item = mData.get(position);
+        Last5PastMatchItem item = mData.get(position);
 
-        holder.tvNameAway.setText(item.getAwayName());
-        holder.tvNameHome.setText(item.getHomeName());
-        holder.txtCompetition_name.setText(item.getCompetitionName());
+        holder.tvNameAway.setText(item.getAwayTeam().getTeamName());
+        holder.tvNameHome.setText(item.getHomeTeam().getTeamName());
+        holder.txtCompetition_name.setText(item.getCup().getCupName());
 
+        holder.tvDateLeage.setText(item.getDateStr());
 
-       /* String strDate = item.getDate();//"2013-05-15T10:00:00-0700";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-        Date date = null;
-        try
-        {
-            date = dateFormat.parse(strDate);
-            Log.d("time:",getDate(date)+" $$$$$$$"+item.getDate());*/
-            holder.tvDateLeage.setText(item.getDateFormatted());
-        /*} catch (ParseException e)
-        {
-            e.printStackTrace();
-        }*/
-        //-----------------------------------------------------------------------------------------------
-        try
-        {
-            String s = item.getFtScore();//2-0
-            String[] i = s.split("-");
-            holder.ftScoreAway.setText(i[1]);//2
-            holder.ftScoreHome.setText(i[0]);//0
-        } catch (Exception e)
-        {
-            e.getMessage();
-        }
-        //-----------------------------------------------------------------------------------------------
-        try
-        {
-            Picasso.with(mContext).load(item.getHomeLogo()).into(holder.ivNameHome, new Callback()
-            {
-                @Override
-                public void onSuccess()
-                {
-                    // holder.progressBar.setVisibility(View.GONE);
-                }
+        holder.ftScoreAway.setText(String.valueOf(item.getResult().getAwayScore()));
+        holder.ftScoreHome.setText(String.valueOf(item.getResult().getHomeScore()));
 
-                @Override
-                public void onError()
-                {
-                    //holder.progressBar.setVisibility(View.GONE);
-
-                    Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.ivNameHome);
-                }
-            });
-        } catch (Exception e1)
-        {
-            //  holder.progressBar.setVisibility(View.GONE);
-            Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.ivNameAway);
-        }
-        //-----------------------------------------------------------------------------------------------
-        try
-        {
-            Picasso.with(mContext).load(item.getAwayLogo()).into(holder.ivNameAway, new Callback()
-            {
-                @Override
-                public void onSuccess()
-                {
-                    // holder.progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onError()
-                {
-                    //holder.progressBar.setVisibility(View.GONE);
-                    Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.ivNameAway);
-                }
-            });
-        } catch (Exception e1)
-        {
-            //  holder.progressBar.setVisibility(View.GONE);
-            Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.ivNameAway);
-        }
-        //-----------------------------------------------------------------------------------------------
+        setImageBackground(holder.ivNameAway, item.getAwayTeam().getTeamLogo());
+        setImageBackground(holder.ivNameHome, item.getHomeTeam().getTeamLogo());
+//        setImageBackground(holder.imgCupLogo, item.getCup().getCupLogo());
 
 
     }
+
+    private void setImageBackground(ImageView imageView, String link)
+    {
+        try
+        {
+            Picasso.with(mContext).load(Uri.parse(link)).into(imageView, new Callback()
+            {
+                @Override
+                public void onSuccess()
+                {
+                }
+
+                @Override
+                public void onError()
+                {
+                    Picasso.with(mContext).load(R.drawable.img_failure).into(imageView);
+                }
+            });
+        }
+        catch (NullPointerException e)
+        {
+            Picasso.with(mContext).load(R.drawable.img_failure).into(imageView);
+        }
+    }
+
+
 
     // total number of rows
     @Override

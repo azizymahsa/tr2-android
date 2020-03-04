@@ -27,6 +27,8 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getLast5PastMatch.request.Last5PastMatchRequest;
+import com.traap.traapapp.apiServices.model.getLast5PastMatch.response.Last5PastMatchResponse;
 import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPastResult;
 import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponsePastResult;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
@@ -48,7 +50,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class PastResultFragment extends BaseFragment implements OnAnimationEndListener,
-        OnServiceStatus<WebServiceClass<ResponsePastResult>>//, OnBackPressed
+//        OnServiceStatus<WebServiceClass<ResponsePastResult>>//, OnBackPressed
+        OnServiceStatus<WebServiceClass<Last5PastMatchResponse>>//, OnBackPressed
 {
     private String teamId = "0", matchId = "0";
     private Boolean isPredictable = false;
@@ -213,14 +216,18 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
     private void sendRequest()
     {
         mainView.showLoading();
-        RequestPastResult request = new RequestPastResult();
-        request.setTeam(teamId);
-        SingletonService.getInstance().getLiveScoreService().PastResultService(PastResultFragment.this, request);
+//        RequestPastResult request = new RequestPastResult();
+//        request.setTeamLiveScoreId(teamId);
+//        SingletonService.getInstance().getLiveScoreService().PastResultService(PastResultFragment.this, request);
+
+        Last5PastMatchRequest request1 = new Last5PastMatchRequest();
+        request1.setLiveScoreId(teamId);
+        SingletonService.getInstance().getLiveScoreService().getPastResult_v2_Service(request1, this);
     }
 
 
     @Override
-    public void onReady(WebServiceClass<ResponsePastResult> response)
+    public void onReady(WebServiceClass<Last5PastMatchResponse> response)
     {
         try
         {
@@ -238,7 +245,7 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
             else
             {
                 leagRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-                fixTableAdapter = new PastResultAdapter(response.data.getResults(), getActivity());
+                fixTableAdapter = new PastResultAdapter(response.data.getLastMatchList(), getActivity());
                 //fixTableAdapter.setClickListener(this);
                 leagRecycler.setAdapter(fixTableAdapter);
             }
@@ -252,7 +259,7 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
     private void showMyAlertFailure(String message)
     {
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, "", message, false,
-                "بازگشت به صفحه اصلی", "", true,
+                "بازگشت به خانه", "", true,
                 MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
         {
             @Override

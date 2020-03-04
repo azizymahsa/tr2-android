@@ -30,12 +30,15 @@ import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.adapters.last5PastMatch.Last5PastMatchAdapter;
 import com.traap.traapapp.ui.adapters.lotteryWinnerList.LotteryPredictDetailsAdapter;
+import com.traap.traapapp.ui.adapters.lotteryWinnerList.LotteryPredictGeneralAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
 
 @SuppressLint("ValidFragment")
 public class Last5PastMatchFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<Last5PastMatchResponse>>, Last5PastMatchAdapter.OnItemClickListener
@@ -134,10 +137,21 @@ public class Last5PastMatchFragment extends BaseFragment implements OnServiceSta
         }
         else
         {
-            last5PastMatchList = response.data.getLastMatchList();
+//            last5PastMatchList = response.data.getLastMatchList();
+            Observable.fromIterable(response.data.getLastMatchList())
+                    .filter(last5PastMatchItem -> response.data.getLastMatchList().indexOf(last5PastMatchItem) < 5)
+                    .toList()
+                    .doOnSuccess(last5PastMatchItem ->
+                    {
+                        last5PastMatchList.addAll(last5PastMatchItem);
+                        Logger.e("-last5PastMatchList-", "Size: " + last5PastMatchList.size());
+                        recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
+                        recyclerView.setAdapter(new Last5PastMatchAdapter(context, last5PastMatchList, this));
+                    })
+                    .subscribe();
 
-            recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
-            recyclerView.setAdapter(new Last5PastMatchAdapter(context, last5PastMatchList, this));
+//            recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
+//            recyclerView.setAdapter(new Last5PastMatchAdapter(context, last5PastMatchList, this));
         }
     }
 
