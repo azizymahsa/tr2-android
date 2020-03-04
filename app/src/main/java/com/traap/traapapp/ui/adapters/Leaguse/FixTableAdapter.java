@@ -177,8 +177,17 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
         @Override
         public void onClick(View view)
         {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition(),
-                    mData.get(getAdapterPosition()).imageLogo,mData.get(getAdapterPosition()).teamTitle, matchId, isPredictable);
+            if (mClickListener != null && !matchId.equals("0"))
+            {
+                mClickListener.onItemClick(
+                        view,
+                        getAdapterPosition(),
+                        mData.get(getAdapterPosition()).imageLogo,
+                        mData.get(getAdapterPosition()).teamTitle,
+                        matchId,
+                        isPredictable
+                );
+            }
         }
     }
 

@@ -310,6 +310,16 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             sendPredict();
         });
 
+        llAwayResultList.setOnClickListener(v ->
+        {
+            mainView.onShowLast5PastMatch(teamAwayId);
+        });
+
+        llHomeResultList.setOnClickListener(v ->
+        {
+            mainView.onShowLast5PastMatch(teamHomeId);
+        });
+
         llPredict.setOnClickListener(v ->
         {
             LotteryWinnerListDialog dialog = new LotteryWinnerListDialog(matchId, this);

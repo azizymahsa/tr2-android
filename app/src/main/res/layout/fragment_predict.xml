@@ -136,6 +136,7 @@
                                 <LinearLayout
                                     android:id="@+id/llAwayResultList"
                                     android:layout_below="@+id/rlAway"
+                                    android:foreground="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="6dp"
@@ -189,6 +190,7 @@
                                 <LinearLayout
                                     android:id="@+id/llHomeResultList"
                                     android:layout_below="@+id/rlHomeHeader"
+                                    android:foreground="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="6dp"
