@@ -1133,7 +1133,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         if (Prefs.getBoolean("intro", true))
         {
             requestShowTutorialIntro();
-
         }
         else
         {
