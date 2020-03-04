@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -23,8 +26,14 @@ import android.widget.Toast;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import io.reactivex.Observable;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -33,6 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -44,15 +54,18 @@ import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
 import com.traap.traapapp.apiServices.model.paymentMatch.Viewers;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
+import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.models.otherModels.ticket.SpectatorInfoModel;
 import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.adapters.paymentGateway.SelectPaymentAdapter;
+import com.traap.traapapp.ui.adapters.spectatorList.SpectatorListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -63,16 +76,20 @@ import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketImpl;
 import com.traap.traapapp.ui.fragments.ticket.paymentTicket.PaymentTicketInteractor;
 import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumImpl;
 import com.traap.traapapp.ui.fragments.ticket.rulesStadium.RulesStadiumInteractor;
+import com.traap.traapapp.ui.fragments.turnover.ClickTurnOverEvent;
 import com.traap.traapapp.utilities.CustomViewPager;
+import com.traap.traapapp.utilities.KeyboardUtils;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NationalCodeValidation;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
+import org.greenrobot.eventbus.EventBus;
+
 import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
 
 public class CompeletInfoFragment
-        extends BaseFragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener
+        extends BaseFragment implements View.OnClickListener, View.OnFocusChangeListener, PaymentTicketInteractor.OnFinishedPaymentTicketListener, RulesStadiumInteractor.OnFinishedRulesStadiumListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener, SpectatorListAdapter.OnItemSpectatorListClickListener
 {
     private Context context;
     private static final String KEY_MODEL = "KEY_MODEL";
@@ -81,15 +98,17 @@ public class CompeletInfoFragment
     private View btnBackToDetail, btnPaymentConfirm;
     private int count = 1;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private com.rengwuxian.materialedittext.MaterialEditText etNationalCode_1, etFamily_1, etName_1;
-    private com.rengwuxian.materialedittext.MaterialEditText etNationalCode_2, etFamily_2, etName_2;
-    private com.rengwuxian.materialedittext.MaterialEditText etNationalCode_3, etFamily_3, etName_3;
-    private com.rengwuxian.materialedittext.MaterialEditText etNationalCode_4, etFamily_4, etName_4;
-    private com.rengwuxian.materialedittext.MaterialEditText etNationalCode_5, etFamily_5, etName_5;
+    private AutoCompleteTextView etNationalCode_1,etNationalCode_2,etNationalCode_3,etNationalCode_4,etNationalCode_5;
+    private com.rengwuxian.materialedittext.MaterialEditText  etFamily_1, etName_1;
+    private com.rengwuxian.materialedittext.MaterialEditText etFamily_2, etName_2;
+    private com.rengwuxian.materialedittext.MaterialEditText  etFamily_3, etName_3;
+    private com.rengwuxian.materialedittext.MaterialEditText  etFamily_4, etName_4;
+    private com.rengwuxian.materialedittext.MaterialEditText  etFamily_5, etName_5;
     private LinearLayout llBoxTicket1, llBoxTicket2, llBoxTicket3, llBoxTicket4, llBoxTicket5,llPaymentGateway,llPaymentWallet;
     private TextView tvStation_1, tvStation_2, tvStation_3, tvStation_4, tvStation_5;
     private TextView tvPerson_1, tvPerson_2, tvPerson_3, tvPerson_4, tvPerson_5;
     private ImageView imgDelete1, imgDelete2, imgDelete3, imgDelete4, imgDelete5;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
     private CheckBox cbCondition;
     private View llConfirm, llInVisible;
     private MessageAlertDialog.OnConfirmListener listener;
@@ -140,6 +159,17 @@ public class CompeletInfoFragment
 
     public static CompeletInfoFragment fragment;
     private PaymentWalletImpl paymentWallet;
+    private View llSelectSpectator;
+    private RecyclerView rvSpectatorList;
+    private SpectatorListAdapter spectatorAdapter;
+    private ArrayList<SpectatorInfoModel> selectedInfo;
+    private View btnConfirmFilter;
+    private View btnDeleteFilter;
+    private View imgFilterClose;
+    private EditText edtSearchFilter;
+    private ArrayList<SpectatorInfoResponse> spectatorList;
+    private TextView tvError;
+    private ArrayList<SpectatorInfoResponse> spectatorListData;
 
 
     public CompeletInfoFragment()
@@ -209,12 +239,24 @@ public class CompeletInfoFragment
             llTickets.setVisibility(View.VISIBLE);
             ((BuyTicketsActivity) getActivity()).onBackPayment();
 
+            if (slidingUpPanelLayout.getPanelState().equals(SlidingUpPanelLayout.PanelState.EXPANDED))
+            {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                return;
+            }
+
         });
         btnBackF.setOnClickListener(v ->
         {
             llGateWaye.setVisibility(View.GONE);
             llTickets.setVisibility(View.VISIBLE);
             ((BuyTicketsActivity) getActivity()).onBackPayment();
+
+            if (slidingUpPanelLayout.getPanelState().equals(SlidingUpPanelLayout.PanelState.EXPANDED))
+            {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                return;
+            }
 
         });
 
@@ -231,11 +273,27 @@ public class CompeletInfoFragment
     {
         paymentMatchRequest = new PaymentMatchRequest();
 
+        slidingUpPanelLayout = view.findViewById(R.id.slidingLayout);
+
+        btnConfirmFilter=view.findViewById(R.id.btnConfirmFilter);
+        btnConfirmFilter.setOnClickListener(this);
+        imgFilterClose=view.findViewById(R.id.imgFilterClose);
+        imgFilterClose.setOnClickListener(this);
+        btnDeleteFilter=view.findViewById(R.id.btnDeleteFilter);
+        btnDeleteFilter.setOnClickListener(this);
+        rvSpectatorList=view.findViewById(R.id.rvSpectatorList);
+        tvError=view.findViewById(R.id.tvError);
+
+        edtSearchFilter=view.findViewById(R.id.edtSearchFilter);
+
         etNationalCode_1 = view.findViewById(R.id.etNationalCode_1);
         etFamily_1 = view.findViewById(R.id.etFamily_1);
         etName_1 = view.findViewById(R.id.etName_1);
         tvStation_1 = view.findViewById(R.id.tvStation_1);
         tvPerson_1 = view.findViewById(R.id.tvPerson_1);
+
+        llSelectSpectator=view.findViewById(R.id.llSelectSpectator);
+        llSelectSpectator.setOnClickListener(this);
 
         etNationalCode_2 = view.findViewById(R.id.etNationalCode_2);
         etFamily_2 = view.findViewById(R.id.etFamily_2);
@@ -524,23 +582,196 @@ public class CompeletInfoFragment
         txtCondition.setOnClickListener(this);
 
         clearAllEditText();
-        etNationalCode_1.setPrimaryColor(R.color._disable_color);
+        //etNationalCode_1.setPrimaryColor(R.color._disable_color);
         etFamily_1.setPrimaryColor(R.color._disable_color);
         etName_1.setPrimaryColor(R.color._disable_color);
-        etNationalCode_2.setPrimaryColor(R.color._disable_color);
+       // etNationalCode_2.setPrimaryColor(R.color._disable_color);
         etFamily_2.setPrimaryColor(R.color._disable_color);
         etName_2.setPrimaryColor(R.color._disable_color);
-        etNationalCode_3.setPrimaryColor(R.color._disable_color);
+       // etNationalCode_3.setPrimaryColor(R.color._disable_color);
         etFamily_3.setPrimaryColor(R.color._disable_color);
         etName_3.setPrimaryColor(R.color._disable_color);
-        etNationalCode_4.setPrimaryColor(R.color._disable_color);
+     //   etNationalCode_4.setPrimaryColor(R.color._disable_color);
         etFamily_4.setPrimaryColor(R.color._disable_color);
         etName_4.setPrimaryColor(R.color._disable_color);
-        etNationalCode_5.setPrimaryColor(R.color._disable_color);
+      //  etNationalCode_5.setPrimaryColor(R.color._disable_color);
         etFamily_5.setPrimaryColor(R.color._disable_color);
         etName_5.setPrimaryColor(R.color._disable_color);
 
+        requestGetSpectatorListInfo();
+
+        edtSearchFilter.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                try
+                {
+                    if (TextUtils.isEmpty(edtSearchFilter.getText().toString())){
+
+                        //   KeyboardUtils.forceCloseKeyboard(edtSearchFilter);
+                        filter("");
+
+
+                    }else {
+                        filter(edtSearchFilter.getText().toString());
+                    }
+                }catch (Exception e){
+
+                }
+
+
+            }
+        });
+
     }
+
+    public void filter(String text)
+    {
+        Observable
+                .fromIterable(spectatorList)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.computation())
+                .filter(x ->
+                        {
+                            return x.getNationalCode().contains(text) ||x.getFirstName().contains(text)||x.getLastName().contains(text);
+
+
+                        }
+
+                )
+                .toList()
+                .subscribe(new SingleObserver<List<SpectatorInfoResponse>>()
+                {
+                    @Override
+                    public void onSubscribe(Disposable d)
+                    {
+                    }
+
+                    @Override
+                    public void onSuccess(List<SpectatorInfoResponse> results)
+                    {
+                        tvError.setVisibility(View.GONE);
+                        rvSpectatorList.setVisibility(View.VISIBLE);
+                        rvSpectatorList.removeAllViews();
+
+                        spectatorAdapter = new SpectatorListAdapter(results,CompeletInfoFragment.this,count);
+                        rvSpectatorList.setAdapter(spectatorAdapter);
+
+                        if (results.size()==0){
+                            tvError.setVisibility(View.VISIBLE);
+                            rvSpectatorList.setVisibility(View.GONE);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e)
+                    {
+                    }
+                });
+    }
+    private void onGetSpectatorListSuccess(ArrayList<SpectatorInfoResponse> results)
+    {
+        ArrayList<String> nationalcodesList = new ArrayList<>();
+
+        for (int i=0; i<results.size();i++){
+            nationalcodesList.add(i,results.get(i).getNationalCode());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (getContext(), R.layout.custom_spinner_dropdown_item, nationalcodesList);
+        etNationalCode_1.setThreshold(1);
+        etNationalCode_1.setAdapter(adapter);
+
+        etNationalCode_2.setThreshold(1);
+        etNationalCode_2.setAdapter(adapter);
+
+        etNationalCode_3.setThreshold(1);
+        etNationalCode_3.setAdapter(adapter);
+
+        etNationalCode_4.setThreshold(1);
+        etNationalCode_4.setAdapter(adapter);
+
+        etNationalCode_5.setThreshold(1);
+        etNationalCode_5.setAdapter(adapter);
+
+    }
+
+
+    private void requestGetSpectatorListInfo(){
+
+        ((BuyTicketsActivity) getActivity()).showLoading();
+
+        SingletonService.getInstance().getSpectatorInfoService().getSpectatorList(new OnServiceStatus<WebServiceClass<GetSpectatorListResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetSpectatorListResponse> response)
+            {
+                ((BuyTicketsActivity) getActivity()).hideLoading();
+
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+                        spectatorList=response.data.getResults();
+                        setDataSpectatorList(response);
+                        onGetSpectatorListSuccess(response.data.getResults());
+                    }
+                    else
+                    {
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                ((BuyTicketsActivity) getActivity()).hideLoading();
+
+                if (Tools.isNetworkAvailable((Activity) context))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(context, "خطا در دریافت اطلاعات از سرور!");
+                }
+                else
+                {
+                    showAlert(context, R.string.networkErrorMessage, R.string.networkError);
+                }
+
+            }
+        });
+
+    }
+
+    private void setDataSpectatorList(WebServiceClass<GetSpectatorListResponse> response)
+    {
+        if (response.data.getResults().isEmpty()){
+            rvSpectatorList.setVisibility(View.GONE);
+            tvError.setVisibility(View.VISIBLE);
+        }
+        rvSpectatorList.setVisibility(View.VISIBLE);
+        tvError.setVisibility(View.GONE);
+        spectatorListData=response.data.getResults();
+         }
 
     private void requestSpectatorInfo(String nationalCode,Integer number)
     {
@@ -812,6 +1043,32 @@ public class CompeletInfoFragment
     {
         switch (view.getId())
         {
+
+            case R.id.llSelectSpectator:
+
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                //requestGetSpectatorListInfo();
+
+                break;
+
+            case R.id.btnConfirmFilter:
+
+                setSpectatorListData();
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                break;
+            case R.id.btnDeleteFilter:
+
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                break;
+
+            case R.id.imgFilterClose:
+
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                break;
+
             case R.id.tvGateway:
                // viewPager.setCurrentItem(0, true);
                 llPaymentGateway.setVisibility(View.VISIBLE);
@@ -936,6 +1193,12 @@ public class CompeletInfoFragment
                 Prefs.putInt("CountTicket", count);
                 onClickContinueBuyTicketListener.onBackClicked();
 
+                if (slidingUpPanelLayout.getPanelState().equals(SlidingUpPanelLayout.PanelState.EXPANDED))
+                {
+                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    return;
+                }
+
                 break;
 
             case R.id.txtCondition:
@@ -955,6 +1218,47 @@ public class CompeletInfoFragment
                     llInVisible.setVisibility(View.VISIBLE);
                 }
                 break;
+        }
+    }
+
+    private void setSpectatorListData()
+    {
+        try
+        {
+           /* if (llBoxTicket1.getVisibility()== View.VISIBLE)
+            {
+                etName_1.setText(selectedInfo.get(0).getFirstName());
+                etFamily_1.setText(selectedInfo.get(0).getLastName());
+                etNationalCode_1.setText(selectedInfo.get(0).getNationalCode());
+            }else if (llBoxTicket2.getVisibility()== View.VISIBLE){
+                etName_2.setText(selectedInfo.get(0).getFirstName());
+                etFamily_2.setText(selectedInfo.get(0).getLastName());
+                etNationalCode_2.setText(selectedInfo.get(0).getNationalCode());
+            }
+*/
+            etName_1.setText(selectedInfo.get(0).getFirstName());
+            etFamily_1.setText(selectedInfo.get(0).getLastName());
+            etNationalCode_1.setText(selectedInfo.get(0).getNationalCode());
+
+            etName_2.setText(selectedInfo.get(1).getFirstName());
+            etFamily_2.setText(selectedInfo.get(1).getLastName());
+            etNationalCode_2.setText(selectedInfo.get(1).getNationalCode());
+
+            etName_3.setText(selectedInfo.get(2).getFirstName());
+            etFamily_3.setText(selectedInfo.get(2).getLastName());
+            etNationalCode_3.setText(selectedInfo.get(2).getNationalCode());
+
+            etName_4.setText(selectedInfo.get(3).getFirstName());
+            etFamily_4.setText(selectedInfo.get(3).getLastName());
+            etNationalCode_4.setText(selectedInfo.get(3).getNationalCode());
+
+            etName_5.setText(selectedInfo.get(4).getFirstName());
+            etFamily_5.setText(selectedInfo.get(4).getLastName());
+            etNationalCode_5.setText(selectedInfo.get(4).getNationalCode());
+
+
+        }catch (Exception e){
+
         }
     }
 
@@ -2136,6 +2440,10 @@ public class CompeletInfoFragment
         this.stadiumId = stadiumId;
         Prefs.putInt("CountTicket", count);
 
+
+        spectatorAdapter = new SpectatorListAdapter(spectatorListData,this,count);
+        rvSpectatorList.setAdapter(spectatorAdapter);
+
         //  this.paymentMatchRequest = paymentMatchRequest;
 
         if (view == null)
@@ -2353,7 +2661,11 @@ public class CompeletInfoFragment
         llGateWaye.setVisibility(View.GONE);
         llTickets.setVisibility(View.VISIBLE);
         ((BuyTicketsActivity) getActivity()).onBackPayment();
-
+        if (slidingUpPanelLayout.getPanelState().equals(SlidingUpPanelLayout.PanelState.EXPANDED))
+        {
+            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            return;
+        }
     }
 
     public LinearLayout getLlGateWaye()
@@ -2393,6 +2705,13 @@ public class CompeletInfoFragment
         ((BuyTicketsActivity) getActivity()).hideLoading();
         showAlertFailure(context,error,"",false);
 
+    }
+
+    @Override
+    public void OnItemSpectatorListClick(ArrayList<SpectatorInfoModel> selectedInfo)
+    {
+
+        this.selectedInfo=selectedInfo;
     }
 }
 

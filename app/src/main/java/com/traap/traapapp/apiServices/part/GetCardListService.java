@@ -21,6 +21,6 @@ public class GetCardListService extends BasePart
 
     public void getMenu(OnServiceStatus<WebServiceClass<GetCardListResponse>> listener)
     {
-        start(getServiceGenerator().createService().getCardList(), listener);
+       // start(getServiceGenerator().createService().getCardList(), listener);
     }
 }

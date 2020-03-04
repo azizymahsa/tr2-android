@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
-import com.jakewharton.rxbinding2.view.RxView;
-import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding3.view.RxView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -194,18 +193,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         initView();
 
         EventBus.getDefault().register(this);
-        try
-        {
-            ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText(Prefs.getString("menu_transfer", "سوابق تراکنش"));
-
-
-        } catch (Throwable tx)
-        {
-        }
-
         return rootView;
     }
-
 
     private void getTypeTransactionList()
     {
@@ -223,18 +212,21 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                     if (response.info.statusCode != 200)
                     {
                         showAlertAndFinish(response.info.message);
-                    } else
+                    }
+                    else
                     {
                         if (response.data.isEmpty())
                         {
                             showAlertAndFinish("خطا در دریافت اطلاعات از سرور!");
-                        } else
+                        }
+                        else
                         {
                             typeCategoryList = response.data;
                             getData(false);
                         }
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     showAlertAndFinish(response.info.message);
                 }
@@ -248,7 +240,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
                     TransactionsListFragment.this.onError(message);
-                } else
+                }
+                else
                 {
                     TransactionsListFragment.this.onError(getString(R.string.networkErrorMessage));
                 }
@@ -262,6 +255,14 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         {
 
             mToolbar = rootView.findViewById(R.id.toolbar);
+
+            try
+            {
+                ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText(Prefs.getString("menu_transfer", "سوابق تراکنش"));
+            }
+            catch (Throwable tx)
+            {
+            }
 
             disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
                     .subscribe(v ->
@@ -343,7 +344,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
             hideKeyboard((Activity) context);
 
-            //  rcHashTag.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+          //  rcHashTag.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 
             slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
             slidingUpPanelLayout.setScrollableViewHelper(new NestedScrollableViewHelper());
@@ -360,7 +361,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                         {
                             Logger.e("getFilterId", idFilteredList + " #List size:" + filteredCategoryList.size());
                             llDeleteFilter.setVisibility(View.VISIBLE);
-                        } else
+                        }
+                        else
                         {
                             Logger.e("getFilterId", "Empty, " + idFilteredList);
                             llDeleteFilter.setVisibility(View.GONE);
@@ -369,7 +371,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                         if (filteredCategoryList.isEmpty())
                         {
                             filteredCategoryList = new ArrayList<>();
-                            for (TypeCategory item : typeCategoryList)
+                            for (TypeCategory item: typeCategoryList)
                             {
                                 FilterItem filterItem = new FilterItem();
                                 filterItem.setId(item.getId());
@@ -414,48 +416,51 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             );
 
             disposable.add(RxView.clicks(imgSearch)
-                            .subscribe(v ->
+                    .subscribe(v ->
+                    {
+                        KeyboardUtils.forceCloseKeyboard(imgSearch);
+                        if (!edtSearchText.getText().toString().equalsIgnoreCase(""))
+                        {
+                            if (edtSearchText.getText().toString().trim().length() > 2)
                             {
-                                KeyboardUtils.forceCloseKeyboard(imgSearch);
-                                if (!edtSearchText.getText().toString().equalsIgnoreCase(""))
+                                if (!titleFilteredList.contains("کد پیگیری" + ","))
                                 {
-                                    if (edtSearchText.getText().toString().trim().length() > 2)
-                                    {
-                                        if (!titleFilteredList.contains("کد پیگیری" + ","))
-                                        {
-                                            titleFilteredList += "کد پیگیری" + ",";
-                                        }
-                                        llFilterHashTag.setVisibility(View.VISIBLE);
-                                        setHashTag();
+                                    titleFilteredList += "کد پیگیری" + ",";
+                                }
+                                llFilterHashTag.setVisibility(View.VISIBLE);
+                                setHashTag();
 
-                                        isFilterEnable = true;
+                                isFilterEnable = true;
 
-                                        getData(true);
-                                    } else
-                                    {
-                                        showAlert(context, "تعداد کاراکترهای جستجو کافی نیست!", R.string.error);
-                                    }
-                                } else
+                                getData(true);
+                            }
+                            else
+                            {
+                                showAlert(context, "تعداد کاراکترهای جستجو کافی نیست!", R.string.error);
+                            }
+                        }
+                        else
+                        {
+                            if (getFilterAvailable())
+                            {
+                                if (titleFilteredList.trim().length() > 0 && titleFilteredList.contains("کد پیگیری" + ","))
                                 {
-                                    if (getFilterAvailable())
-                                    {
-                                        if (titleFilteredList.trim().length() > 0 && titleFilteredList.contains("کد پیگیری" + ","))
-                                        {
-                                            titleFilteredList = titleFilteredList.substring(0, titleFilteredList.indexOf("کد پیگیری" + ","));
-                                            Logger.e("-titleFilteredList-", titleFilteredList);
-                                            setHashTag();
+                                    titleFilteredList = titleFilteredList.substring(0, titleFilteredList.indexOf("کد پیگیری" + ","));
+                                    Logger.e("-titleFilteredList-", titleFilteredList);
+                                    setHashTag();
 
-                                            isFilterEnable = true;
+                                    isFilterEnable = true;
 
 //                                    setPager(true, false);
-                                            getData(true);
-                                        }
-                                    } else
-                                    {
-                                        resetAll();
-                                    }
+                                    getData(true);
                                 }
-                            })
+                            }
+                            else
+                            {
+                                resetAll();
+                            }
+                        }
+                    })
             );
 
             disposable.add(RxView.clicks(imgFilterClose)
@@ -515,38 +520,38 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             );
 
             disposable.add(RxView.clicks(btnDeleteFilter)
-                            .subscribe(v ->
-                            {
-                                KeyboardUtils.forceCloseKeyboard(btnDeleteFilter);
-                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                                edtSearchFilter.setText("");
-                                edtSearchText.setText("");
-                                tvStartDate.setText("");
-                                tvEndDate.setText("");
-                                filterEndDate = "";
-                                filterStartDate = "";
-                                idFilteredList = "";
-                                titleFilteredList = "";
-                                imgStartDateReset.setVisibility(View.GONE);
-                                imgEndDateReset.setVisibility(View.GONE);
-                                llDeleteFilter.setVisibility(View.GONE);
-                                llFilterHashTag.setVisibility(View.GONE);
+                    .subscribe(v ->
+                    {
+                        KeyboardUtils.forceCloseKeyboard(btnDeleteFilter);
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        edtSearchFilter.setText("");
+                        edtSearchText.setText("");
+                        tvStartDate.setText("");
+                        tvEndDate.setText("");
+                        filterEndDate = "";
+                        filterStartDate = "";
+                        idFilteredList = "";
+                        titleFilteredList = "";
+                        imgStartDateReset.setVisibility(View.GONE);
+                        imgEndDateReset.setVisibility(View.GONE);
+                        llDeleteFilter.setVisibility(View.GONE);
+                        llFilterHashTag.setVisibility(View.GONE);
 
-                                adapter = new FilterArchiveAdapter(getActivity(), filteredCategoryList);
-                                adapter.notifyDataSetChanged();
-                                rcFilterCategory.setAdapter(adapter);
-                                adapter.SetOnItemCheckedChangeListener(this);
+                        adapter = new FilterArchiveAdapter(getActivity(), filteredCategoryList);
+                        adapter.notifyDataSetChanged();
+                        rcFilterCategory.setAdapter(adapter);
+                        adapter.SetOnItemCheckedChangeListener(this);
 
-                                if (isFilterEnable)
-                                {
-                                    chbSuccessPayment.setChecked(true);
-                                    chbFailedPayment.setChecked(true);
+                        if (isFilterEnable)
+                        {
+                            chbSuccessPayment.setChecked(true);
+                            chbFailedPayment.setChecked(true);
 
-                                    isFilterEnable = false;
+                            isFilterEnable = false;
 //                            SingletonService.getInstance().getNewsService().getNewsArchiveCategory(this);
-                                    getData(false);
-                                }
-                            })
+                            getData(false);
+                        }
+                    })
             );
 
             disposable.add(RxTextView.textChanges(edtSearchFilter)
@@ -577,7 +582,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                     .subscribeWith(getFilteredArchiveIDs())
             );
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Logger.e("-Exception-", "message: " + e.getMessage());
             e.printStackTrace();
@@ -591,7 +597,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         if (!isFiltered)
         {
             SingletonService.getInstance().getTransactionService().getTransactionList(this);
-        } else
+        }
+        else
         {
             if (chbFailedPayment.isChecked() != chbSuccessPayment.isChecked())
             {
@@ -599,7 +606,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 if (chbSuccessPayment.isChecked())
                 {
                     status = true;
-                } else if (chbFailedPayment.isChecked())
+                }
+                else if (chbFailedPayment.isChecked())
                 {
                     status = false;
                 }
@@ -614,7 +622,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                         edtSearchText.getText().toString().trim(),
                         this
                 );
-            } else
+            }
+            else
             {
                 SingletonService.getInstance().getTransactionService().getTransactionListByFilterForAllStatus(
                         idFilteredList,
@@ -642,7 +651,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         pickerDialogStartDate.setTitle("انتخاب تاریخ شروع");
 
         startDay = currentDate.getPersianDay();
-        startMonth = currentDate.getPersianMonth() - 1;
+        startMonth = currentDate.getPersianMonth() - 1 ;
         startYear = currentDate.getPersianYear();
 
         endPersianDate = new PersianCalendar();
@@ -671,7 +680,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
     private Integer getDateInt(int year, int month, int day)
     {
-        return (year - year / 100) * 10000 + month * 100 + day;
+        return (year - year/100)*10000 + month*100 + day;
     }
 
     private void resetAll()
@@ -718,23 +727,30 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
     private void showAlertAndFinish(String message)
     {
-        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, getString(R.string.error), message,
-                false, "تایید", "", MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
+        try
         {
-            @Override
-            public void onConfirmClick()
+            MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, getString(R.string.error), message,
+                    false, "تایید", "", MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
             {
-                mainView.backToMainFragment();
-            }
+                @Override
+                public void onConfirmClick()
+                {
+                    mainView.backToMainFragment();
+                }
 
-            @Override
-            public void onCancelClick()
-            {
+                @Override
+                public void onCancelClick()
+                {
 
-            }
-        });
-        dialog.setCancelable(false);
-        dialog.show(((Activity) context).getFragmentManager(), "dialog");
+                }
+            });
+            dialog.setCancelable(false);
+            dialog.show(((Activity) context).getFragmentManager(), "dialog");
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     private boolean getFilterAvailable()
@@ -746,7 +762,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 idFilteredList.equalsIgnoreCase("") &&
                 chbSuccessPayment.isChecked() == chbFailedPayment.isChecked() &&
                 minPrice == MIN_PRICE_DEFAULT &&
-                maxPrice == MAX_PRICE_DEFAULT)
+                maxPrice == MAX_PRICE_DEFAULT )
         {
             isAvailable = false;
         }
@@ -794,7 +810,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                                     llFilterHashTag.setVisibility(View.GONE);
 
                                     filteredCategoryList = new ArrayList<>();
-                                    for (TypeCategory item : typeCategoryList)
+                                    for (TypeCategory item: typeCategoryList)
                                     {
                                         FilterItem filterItem = new FilterItem();
                                         filterItem.setId(item.getId());
@@ -805,7 +821,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                                     }
 
                                     Logger.e("-id Filtered List-", "Empty");
-                                } else
+                                }
+                                else
                                 {
                                     if (!tvStartDate.getText().toString().equalsIgnoreCase("") ||
                                             !tvEndDate.getText().toString().equalsIgnoreCase(""))
@@ -821,7 +838,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                                         }
                                     }
 
-                                    if (chbSuccessPayment.isChecked() != chbFailedPayment.isChecked())
+                                    if (chbSuccessPayment.isChecked() !=  chbFailedPayment.isChecked())
                                     {
                                         titleFilteredList += "نوع پرداخت" + ",";
                                     }
@@ -853,9 +870,9 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     {
         try
         {
-            String[] hashTag = titleFilteredList.substring(0, titleFilteredList.length() - 1).split(",");
+            String[] hashTag = titleFilteredList.substring(0, titleFilteredList.length()-1).split(",");
             List<String> values = new ArrayList<>();
-            for (String item : hashTag)
+            for (String item: hashTag)
             {
                 values.add("#" + item);
             }
@@ -865,7 +882,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
 //            tagGroup.setTags(hashTag);
             tagGroup.setTags(values);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             //Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -878,7 +896,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         Observable<FilterItem> observable = Observable.fromIterable(filteredCategoryList)
                 .filter(newsArchiveCategory ->
                 {
-                    Logger.e("-Observable-", "text: " + newsArchiveCategory.getTitle().contains(sequence));
+                    Logger.e("-Observable-","text: " + newsArchiveCategory.getTitle().contains(sequence));
                     return newsArchiveCategory.getTitle().contains(sequence);
                 })
                 .subscribeOn(Schedulers.io());
@@ -948,7 +966,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             filterStartDate = year + "/" + Utility.getFormatDateMonth(monthOfYear + 1) + "/" + Utility.getFormatDateMonth(dayOfMonth);
             tvStartDate.setText(filterStartDate);
             imgStartDateReset.setVisibility(View.VISIBLE);
-        } else if (view.getTag().equals("EndDate"))
+        }
+        else if (view.getTag().equals("EndDate"))
         {
             endPersianDate.set(year, monthOfYear, dayOfMonth);
             pickerDialogStartDate.setMaxDate(endPersianDate);
@@ -981,7 +1000,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 .doOnNext(fFilterItem ->
                 {
                     int index = tempFilteredCategoryList.indexOf(fFilterItem);
-                    Logger.e("-change-", "isChecked: " + isChecked);
+                    Logger.e("-change-", "isChecked: " +  isChecked);
                     tempFilteredCategoryList.set(index, filterItem);
                 })
                 .subscribeOn(Schedulers.io())
@@ -1011,14 +1030,16 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             {
                 showAlertAndFinish(response.info.message);
                 tvEmpty.setVisibility(View.GONE);
-            } else
+            }
+            else
             {
                 if (response.data.getTransactionLists().isEmpty())
                 {
                     tvEmpty.setVisibility(View.VISIBLE);
                     tvCount.setVisibility(View.INVISIBLE);
                     rcTransactionList.setAdapter(null);
-                } else
+                }
+                else
                 {
                     tvEmpty.setVisibility(View.GONE);
 
@@ -1042,7 +1063,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 tvMaxPrice.setText(Utility.priceFormat(filterSetting.getMaxAmount()) + " ریال");
                 tvMinPrice.setText(Utility.priceFormat(filterSetting.getMinAmount()) + " ریال");
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Logger.e("-Exception GetData-", e.getMessage());
             e.printStackTrace();
@@ -1058,7 +1080,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         {
             Logger.e("-OnError-", "Error: " + message);
             showAlertAndFinish("خطا در دریافت اطلاعات از سرور!");
-        } else
+        }
+        else
         {
             showAlertAndFinish(getString(R.string.networkErrorMessage));
         }
@@ -1070,7 +1093,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         if (chbFailedPayment.isChecked() != chbSuccessPayment.isChecked())
         {
             isFilterEnable = true;
-        } else
+        }
+        else
         {
 //            if (!getFilterAvailable())
 //            {

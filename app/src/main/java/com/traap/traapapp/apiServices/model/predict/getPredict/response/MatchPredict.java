@@ -24,6 +24,10 @@ public class MatchPredict
     @Expose @Getter @Setter
     private Cup cup;
 
+    @SerializedName("result")
+    @Expose @Getter @Setter
+    private LastMatchResult lastMatchResult;
+
     @SerializedName("datetime_formatted")
     @Expose @Getter @Setter
     private String matchDatetimeStr;

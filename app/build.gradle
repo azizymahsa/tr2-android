@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 51
-        versionName "1.14.8"
+        versionCode 55
+        versionName "1.17.1"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -84,8 +84,6 @@ android {
         implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
         implementation 'org.greenrobot:eventbus:3.1.1'
 
-        implementation 'com.android.support:multidex:1.0.3'
-
         //----------------------default end------------------------
 
         //----------------------constraint-layout start----------------------
@@ -154,7 +152,7 @@ android {
         implementation project(':type')
         implementation project(':moeidbannerlibrary')
 //    implementation project(path: ':type')
-        // implementation(name: 'uxcam-3.1.12', ext: 'aar')
+        implementation(name: 'uxcam-3.1.12', ext: 'aar')
         //----------------------my Libraries end-----------------
 
         //-----------------------google start--------------------
@@ -165,7 +163,7 @@ android {
         implementation "com.google.android.gms:play-services-gcm:17.0.0"
         //  implementation 'com.google.android.gms:play-services-location:17.0.0'
         implementation 'com.google.android.gms:play-services-vision:18.0.0'
-        // implementation "com.google.android.gms:play-services-base:16.1.0" //for yandex
+        implementation "com.google.android.gms:play-services-base:16.1.0" //for yandex
         //-----------------------google end----------------------
 
         //-------------------accubin start-----------------------
@@ -189,7 +187,8 @@ android {
         //---------------------TableView Scrolling end---------------------
 
         //------------------------rxbinding2 start----------------------
-        implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+        implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
+        //   implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
         //------------------------rxbinding2 end------------------------
 
         //------------------------FireBase start----------------------
@@ -332,12 +331,7 @@ android {
         //implementation 'com.github.crosswall:Android-Coverflow:release-v1.0.5'
         //------------------------CoverFlow end---------------------------
 
-        //------------------------RxBinding start-------------------------
-        //   implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-        //------------------------RxBinding end---------------------------
-
-        //--------------------------uxcam start---------------------------
-        implementation 'com.uxcam:uxcam:3.1.12@aar'
+//        implementation 'com.uxcam:uxcam:3.1.12@aar'
         //--------------------------uxcam end-----------------------------
 
         //--------------------------yandex start---------------------------
@@ -349,7 +343,6 @@ android {
         implementation('com.yandex.android:mobmetricapushlib:1.5.1') { // Without Caching
             exclude group: 'com.squareup.okhttp3', module: 'okhttp'
         }
-        implementation 'com.github.chrisbanes:PhotoView:2.1.3'
         //--------------------------yandex end-----------------------------
 
         //--------------------------materialedittext start-----------------------
@@ -409,9 +402,9 @@ android {
         implementation 'nl.garvelink.oss:iban:1.6.1'
         //----------------IBAN Passport for end------------------------
 
-        //----------------IBAN Passport for start----------------------
+        //----------------PhotoView for start----------------------
         implementation 'com.github.chrisbanes:PhotoView:2.1.3'
-        //----------------IBAN Passport for end------------------------
+        //----------------PhotoView for end------------------------
 //        }
 
 //        implementation 'com.scottyab:rootbeer-lib:0.0.7'
@@ -423,9 +416,9 @@ android {
 
 
         implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
-        compile 'com.miguelcatalan:materialsearchview:1.4.0'
+        implementation 'com.miguelcatalan:materialsearchview:1.4.0'
         implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
-        implementation 'com.github.arefbhrn:JustifiedTextView:1.0.5'
+//        implementation 'com.github.arefbhrn:JustifiedTextView:1.0.5'
 
     }
 }
@@ -446,8 +439,8 @@ configurations.all { exclude group: 'com.android.support', module: 'support-v13'
 apply plugin: 'com.google.gms.google-services'
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:+'
-    implementation 'androidx.constraintlayout:constraintlayout:+'
+    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
 //    implementation 'com.google.firebase:firebase-core:17.2.1'
 //    implementation "com.google.firebase:firebase-messaging:20.1.0"
 }

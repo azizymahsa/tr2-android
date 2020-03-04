@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.leagueTable;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,22 +29,26 @@ import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueR
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.Result;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.ui.adapters.Leaguse.FixTableAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
-import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 
-public class LeagueTableFragment
-        extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,
-        OnServiceStatus<WebServiceClass<ResponseLeage>>, FixTableAdapter.ItemClickListener
+public class LeagueTableFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<ResponseLeage>>,
+        FixTableAdapter.ItemClickListener
 {
     private View rootView;
+    private Context context;
 
-    private MainActionView mainView;
+    private Integer teamId;
+    private String matchId;
+    private Boolean isPredictable;
+
+    private LeagueTableActionView mainView;
 
     private Toolbar mToolbar;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
@@ -53,82 +59,53 @@ public class LeagueTableFragment
     private RecyclerView leagRecycler;
     private FixTableAdapter fixTableAdapter;
 
+    private LeagueTableParent parent;
+
 
     public LeagueTableFragment()
-    {
-
-    }
+    { }
 
 
-    public static LeagueTableFragment newInstance(MainActionView mainView)
+    public static LeagueTableFragment newInstance(LeagueTableParent parent, String matchId, Boolean isPredictable, Integer teamId, LeagueTableActionView mainView)
     {
         LeagueTableFragment f = new LeagueTableFragment();
+        
         Bundle args = new Bundle();
-
-
+        args.putInt("teamId", teamId);
+        args.putString("matchId", matchId);
+        args.putBoolean("isPredictable", isPredictable);
         f.setArguments(args);
+        
         f.setMainView(mainView);
+        f.setParent(parent);
         return f;
     }
 
-    public static LeagueTableFragment newInstance(String tab3, MatchScheduleFragment matchScheduleFragment, MainActionView mainActionView)
+
+    private void setParent(LeagueTableParent parent)
     {
-        LeagueTableFragment fragment = new LeagueTableFragment();
-
-
-        return fragment;
-
+        this.parent = parent;
     }
 
-    private void setMainView(MainActionView mainView)
+    private void setMainView(LeagueTableActionView mainView)
     {
         this.mainView = mainView;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-    }
-
-    public void initView()
-    {
-        try
-        {
-            leagRecycler = rootView.findViewById(R.id.leagueRecycler);
-
-            mToolbar = rootView.findViewById(R.id.toolbar);
-            tvUserName = mToolbar.findViewById(R.id.tvUserName);
-
-            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-
-            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    mainView.openDrawer();
-                }
-            });
-            //toolbar
-            tvTitle = rootView.findViewById(R.id.tvTitle);
-            imgMenu = rootView.findViewById(R.id.imgMenu);
-
-            imgMenu.setOnClickListener(v -> mainView.openDrawer());
-            imgBack = rootView.findViewById(R.id.imgBack);
-            imgBack.setOnClickListener(v ->
-            {
-                getActivity().onBackPressed();
-            });
-
-            tvTitle.setText("برنامه بازی ها");
-            tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
-        } catch (Exception e)
-        {
-
-        }
+        teamId = getArguments().getInt("teamId");
+        matchId = getArguments().getString("matchId");
+        isPredictable = getArguments().getBoolean("isPredictable", false);
     }
 
     @Override
@@ -148,6 +125,45 @@ public class LeagueTableFragment
         return rootView;
     }
 
+    public void initView()
+    {
+        try
+        {
+            leagRecycler = rootView.findViewById(R.id.leagueRecycler);
+
+            mToolbar = rootView.findViewById(R.id.toolbar);
+            tvUserName = mToolbar.findViewById(R.id.tvUserName);
+
+            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
+            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    mainView.openDrawerLeagueTable();
+                }
+            });
+            //toolbar
+            tvTitle = rootView.findViewById(R.id.tvTitle);
+            imgMenu = rootView.findViewById(R.id.imgMenu);
+
+            imgMenu.setOnClickListener(v -> mainView.openDrawerLeagueTable());
+            imgBack = rootView.findViewById(R.id.imgBack);
+            imgBack.setOnClickListener(v ->
+            {
+                getActivity().onBackPressed();
+            });
+
+            tvTitle.setText("برنامه بازی ها");
+            tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
+        } catch (Exception e)
+        {
+
+        }
+    }
+
 
     private void sendRequest()
     {
@@ -157,7 +173,8 @@ public class LeagueTableFragment
             GetLeagueRequest request = new GetLeagueRequest();
             request.setLeague("24");
             SingletonService.getInstance().getLiveScoreService().LeaguesService(LeagueTableFragment.this, request);
-        }catch (Exception e){
+        } catch (Exception e)
+        {
             Logger.e("-sendRequest-", "Error: " + e.getMessage());
 
         }
@@ -189,6 +206,7 @@ public class LeagueTableFragment
                 {
                     Result responseLeague = response.data.getResults().get(i);
                     data.add(new DataBean(
+//                            responseLeague.getTeamId(),
                             responseLeague.getTeamId(),
                             //title
                             responseLeague.getName(),
@@ -202,21 +220,22 @@ public class LeagueTableFragment
                             responseLeague.getPoints(),
                             responseLeague.getTeamLogo()));
                 }
-                fixTableAdapter = new FixTableAdapter(data, this.getContext());
+                fixTableAdapter = new FixTableAdapter(data, this.getContext(), matchId, isPredictable, teamId);
                 leagRecycler.setAdapter(fixTableAdapter);
 
 
                 // RecyclerView recyclerView = findViewById(R.id.rvAnimals);
                 leagRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-                fixTableAdapter = new FixTableAdapter(data, getActivity());
+                fixTableAdapter = new FixTableAdapter(data, getActivity(), matchId, isPredictable, teamId);
                 fixTableAdapter.setClickListener(this);
                 leagRecycler.setAdapter(fixTableAdapter);
 
             }
         } catch (Exception e)
         {
-            e.getMessage();
-            mainView.showError(e.getMessage());
+            e.printStackTrace();
+            Logger.e("-LeagueTable Exception-", "Exception: " + e.getMessage());
+            showError(context, "خطا در دریافت اطلاعات از سرور!");
             mainView.hideLoading();
         }
     }
@@ -224,75 +243,25 @@ public class LeagueTableFragment
     @Override
     public void onError(String message)
     {
-       // mainView.showError(message);
+        // mainView.showError(message);
         mainView.hideLoading();
         if (Tools.isNetworkAvailable(getActivity()))
         {
             Logger.e("-OnError-", "Error: " + message);
             showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-        } else
+        }
+        else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
         }
     }
 
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-    }
 
     @Override
-    public void onStop()
+    public void onItemClick(View view, int position, String imageLogo, String logoTitle, String matchId, Boolean isPredictable)
     {
-        super.onStop();
-
-
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-    }
-
-
-    @Override
-    public void onAnimationEnd()
-    {
-
-
-    }
-
-    @Override
-    public void onClick(View view)
-    {
-       /* switch (view.getId())
-        {
-            case R.id.btnConfirm:
-
-                break;
-
-
-        }*/
-
-    }
-
-
-    @Override
-    public void onItemClick(View view, int position, String imageLogo, String logoTitle)
-
-    {
-        mainView.openPastResultFragment(fixTableAdapter.getItem(position).teamId,imageLogo, logoTitle);
-      //  PastResultFragment pastResultFragment = PastResultFragment.newInstance(mainView, fixTableAdapter.getItem(position).teamId,imageLogo, logoTitle);
-      // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment,"pastResult").commit();
+        mainView.openPastResultFragment(parent, matchId, isPredictable, fixTableAdapter.getItem(position).teamId, imageLogo, logoTitle);
+        //  PastResultFragment pastResultFragment = PastResultFragment.newInstance(mainView, fixTableAdapter.getItem(position).teamId,imageLogo, logoTitle);
+        // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment,"pastResult").commit();
     }
 }

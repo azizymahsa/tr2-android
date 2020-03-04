@@ -17,6 +17,7 @@ import java.util.List;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -188,7 +189,7 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
             showToast(getActivity(),"متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
         }else
         {
-            mainView.openPastResultFragment(id.toString(), logo, title);
+            mainView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment,"0", false, id.toString(), logo, title);
         }
 
     }

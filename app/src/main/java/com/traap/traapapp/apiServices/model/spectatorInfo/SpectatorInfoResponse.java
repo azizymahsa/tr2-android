@@ -11,6 +11,17 @@ import lombok.Setter;
  */
 public class SpectatorInfoResponse
 {
+    public SpectatorInfoResponse(String lastName, String firstName, String nationalCode)
+    {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.nationalCode = nationalCode;
+    }
+
+    public SpectatorInfoResponse()
+    {
+    }
+
     @Expose
     @Getter
     @Setter
@@ -23,4 +34,22 @@ public class SpectatorInfoResponse
     @SerializedName("first_name")
     private String firstName;
 
+    @Expose
+    @Getter
+    @Setter
+    @SerializedName("national_code")
+    private String nationalCode;
+
+    @Expose
+
+
+    private Boolean isChecked=false;
+
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
+    }
 }

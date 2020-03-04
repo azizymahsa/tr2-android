@@ -16,6 +16,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 
+@SuppressLint("AppCompatCustomView")
 public class TextViewEx extends TextView
 {
     private Paint paint = new Paint();

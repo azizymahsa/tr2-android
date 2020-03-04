@@ -5,12 +5,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="ltr"
     android:orientation="vertical">
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/slidingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        app:umanoPanelHeight="0dp"
+        app:umanoShadowHeight="4dp"
+        app:umanoParallaxOffset="0dp"
+        app:umanoOverlay="true"
+        app:umanoClipPanel="false"
+        app:umanoDragView="@+id/nested">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
 
-
+            android:orientation="vertical">
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,8 +42,6 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:visibility="visible"
-
-
                 >
 
 
@@ -40,25 +54,35 @@
                     android:orientation="horizontal"
                     android:visibility="visible">
 
-                    <LinearLayout
-                        android:layout_width="@dimen/_10dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="100"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txttitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="لطفا اطلاعات افراد را وارد کنید:"
-                            android:textColor="#484848" />
-
-                    </LinearLayout>
-
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="10" />
+
+                    <LinearLayout
+                        android:id="@+id/llSelectSpectator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txtSelectSpectator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="انتخاب از لیست تماشاگران"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:textSize="@dimen/textSize_12dp"
+                            android:textColor="@color/borderColorRed" />
+                    </LinearLayout>
+                        <TextView
+                            android:id="@+id/txttitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="@dimen/_10dp"
+                            android:gravity="right"
+                            android:text="لطفا اطلاعات افراد را وارد کنید:"
+                            android:textColor="#484848" />
 
                     <Space
                         android:layout_width="0dp"
@@ -112,7 +136,24 @@
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <com.rengwuxian.materialedittext.MaterialEditText
+                                    <AutoCompleteTextView
+                                        android:id="@+id/etNationalCode_1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_gravity="center"
+                                        android:paddingLeft="24dp"
+                                        android:gravity="right|center"
+                                        android:text=""
+                                        android:hint="کد ملی "
+                                        android:maxLength="10"
+                                        android:inputType="number"
+                                        android:textColor="@color/_title_black"
+                                        android:textColorHint="@color/_disable_color"
+                                        android:imeOptions="actionDone"
+                                        android:textSize="@dimen/textSize_12dp" android:background="@drawable/background_spinner_amount_charge"
+                                        />
+
+                                   <!-- <com.rengwuxian.materialedittext.MaterialEditText
 
                                         android:id="@+id/etNationalCode_1"
                                         android:layout_width="match_parent"
@@ -123,7 +164,7 @@
                                         android:maxLength="10"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_12dp" />
+                                        android:textSize="@dimen/textSize_12dp" />-->
 
                                     <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etName_1"
@@ -296,19 +337,22 @@
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <com.rengwuxian.materialedittext.MaterialEditText
-
+                                    <AutoCompleteTextView
                                         android:id="@+id/etNationalCode_2"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_gravity="center"
+                                        android:paddingLeft="24dp"
+                                        android:gravity="right|center"
+                                        android:text=""
                                         android:hint="کد ملی "
-                                        android:inputType="number"
                                         android:maxLength="10"
-                                        android:gravity="right"
+                                        android:inputType="number"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_12dp" />
-
+                                        android:imeOptions="actionDone"
+                                        android:textSize="@dimen/textSize_12dp" android:background="@drawable/background_spinner_amount_charge"
+                                        />
                                     <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etName_2"
                                         android:layout_width="match_parent"
@@ -475,18 +519,22 @@
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <com.rengwuxian.materialedittext.MaterialEditText
-
+                                    <AutoCompleteTextView
                                         android:id="@+id/etNationalCode_3"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_gravity="center"
+                                        android:paddingLeft="24dp"
+                                        android:gravity="right|center"
+                                        android:text=""
                                         android:hint="کد ملی "
-                                        android:inputType="number"
-                                        android:gravity="right"
                                         android:maxLength="10"
+                                        android:inputType="number"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_12dp" />
+                                        android:imeOptions="actionDone"
+                                        android:textSize="@dimen/textSize_12dp" android:background="@drawable/background_spinner_amount_charge"
+                                        />
 
                                     <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etName_3"
@@ -655,19 +703,22 @@
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <com.rengwuxian.materialedittext.MaterialEditText
-
+                                    <AutoCompleteTextView
                                         android:id="@+id/etNationalCode_4"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_gravity="center"
+                                        android:paddingLeft="24dp"
+                                        android:gravity="right|center"
+                                        android:text=""
                                         android:hint="کد ملی "
-                                        android:inputType="number"
-                                        android:gravity="right"
                                         android:maxLength="10"
+                                        android:inputType="number"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_12dp" />
-
+                                        android:imeOptions="actionDone"
+                                        android:textSize="@dimen/textSize_12dp" android:background="@drawable/background_spinner_amount_charge"
+                                        />
                                     <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etName_4"
                                         android:layout_width="match_parent"
@@ -837,18 +888,22 @@
                                     android:orientation="vertical"
                                     android:padding="@dimen/_20dp">
 
-                                    <com.rengwuxian.materialedittext.MaterialEditText
-
+                                    <AutoCompleteTextView
                                         android:id="@+id/etNationalCode_5"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_gravity="center"
+                                        android:paddingLeft="24dp"
+                                        android:gravity="right|center"
+                                        android:text=""
                                         android:hint="کد ملی "
-                                        android:inputType="number"
-                                        android:gravity="right"
                                         android:maxLength="10"
+                                        android:inputType="number"
                                         android:textColor="@color/_title_black"
                                         android:textColorHint="@color/_disable_color"
-                                        android:textSize="@dimen/textSize_12dp" />
+                                        android:imeOptions="actionDone"
+                                        android:textSize="@dimen/textSize_12dp" android:background="@drawable/background_spinner_amount_charge"
+                                        />
 
                                     <com.rengwuxian.materialedittext.MaterialEditText
                                         android:id="@+id/etName_5"
@@ -2039,7 +2094,23 @@
                 </FrameLayout>
             </LinearLayout>
 
-
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="bottom">
+
+            <include
+                android:id="@+id/scroll"
+                layout="@layout/layout_spectator_list" />
+
+        </FrameLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+
 </LinearLayout>

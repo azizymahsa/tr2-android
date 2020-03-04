@@ -1,270 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-<LinearLayout
-    android:id="@+id/llWithDraw"
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
     <LinearLayout
+        android:id="@+id/llWithDraw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:gravity="center|end"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <Space
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="15" />
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center|end"
+            android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="0dp"
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="100"
+                android:padding="@dimen/_5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:singleLine="false"
+                    android:text="لطفا مبلغ مورد نظر جهت برداشت از کیف پول و شماره شبا، جهت واریز پول را وارد نمایید."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize_14dp" />
+
+            </FrameLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center|end"
+            android:orientation="horizontal">
 
-            android:layout_marginBottom="2dp"
-            android:layout_weight="100"
-            android:padding="@dimen/_5dp">
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_60dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="5dp"
+                android:gravity="start"
+                android:hint="مبلغ مورد نظر"
+                android:theme="@style/EditTextHint"
+                app:hintTextAppearance="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/edtCurrency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="100"
+                    android:backgroundTint="@color/black"
+                    android:digits="0,1,2,3,4,5,6,7,8,9"
+                    android:gravity="start"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/chargePackTextColor"
+                    android:textSize="@dimen/textSize_12dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|end"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_60dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="5dp"
+                android:gravity="start"
+                android:hint="شماره شبا"
+                android:theme="@style/EditTextHint"
+                app:hintTextAppearance="@style/TextLabel">
+
+                <ru.kolotnev.formattedittext.MaskedEditText
+                    android:id="@+id/edtShabaNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@null"
+                    android:backgroundTint="@color/black"
+                    android:gravity="start"
+                    android:inputType="text"
+                    android:textColor="@color/chargePackTextColor"
+                    android:textSize="@dimen/textSize_12dp"
+                    app:mask="IR99 -9999-9999-9999-9999-9999-99"
+                    app:placeholder="_" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center|end"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="50">
+
+                <include
+                    android:id="@+id/btnBackStep"
+                    layout="@layout/return_button" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="150">
+
+                <include
+                    android:id="@+id/btnGetMoney"
+                    layout="@layout/circular_progress_button_small" />
+
+            </FrameLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_30dp"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:gravity="center|end"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:singleLine="false"
-                android:text="لطفا مبلغ مورد نظر جهت برداشت از کیف پول و شماره شبا، جهت واریز پول را وارد نمایید."
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize_14dp" />
+                android:text="لازم بذکر است:"
+                android:textColor="@color/backgroundButton"
+                android:textSize="@dimen/_10dp" />
 
+            <ImageView
+                android:id="@+id/ivDec"
+                android:layout_width="@dimen/_20dp"
+                android:layout_height="match_parent"
+                android:tint="@color/backgroundButton"
+                app:srcCompat="@drawable/ic_error_outline" />
 
-        </FrameLayout>
+        </LinearLayout>
 
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="15" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|end"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="40" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="@dimen/_180sdp"
-            android:layout_height="@dimen/_60dp"
-            android:layout_gravity="start"
-            android:layout_marginStart="5dp"
-            android:gravity="start"
-            android:hint="مبلغ مورد نظر"
-            android:theme="@style/EditTextHint"
-            app:hintTextAppearance="@style/TextLabel">
-
-            <EditText
-                android:id="@+id/edtCurrency"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
-                android:digits="0,1,2,3,4,5,6,7,8,9"
-                android:layout_gravity="start"
-                android:gravity="start"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:layout_weight="100"
-                android:maxLength="7"
-                android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_12dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="40" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|end"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="40" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="@dimen/_180sdp"
-            android:layout_height="@dimen/_60dp"
-            android:layout_gravity="start"
-            android:layout_marginStart="5dp"
-            android:gravity="start"
-            android:hint="شماره شبا"
-            android:theme="@style/EditTextHint"
-            app:hintTextAppearance="@style/TextLabel">
-            <ru.kolotnev.formattedittext.MaskedEditText
-                android:id="@+id/edtShabaNum"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40dp"
-                android:layout_marginTop="@dimen/_10dp"
-                android:backgroundTint="@color/black"
-                android:background="@null"
-                android:gravity="start"
-                android:inputType="text"
-                android:textColor="@color/chargePackTextColor"
-                android:textSize="@dimen/textSize_12dp"
-                app:mask="IR99 -9999-9999-9999-9999-9999-99"
-                app:placeholder="_"
-
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="40" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:gravity="center|end"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="40" />
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="50">
-
-            <include
-                android:id="@+id/btnBackStep"
-                layout="@layout/return_button" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="150">
-
-            <include
-                android:id="@+id/btnGetMoney"
-                layout="@layout/circular_progress_button_small" />
-
-        </FrameLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="40" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10dp"
-        android:layout_marginTop="@dimen/_30dp"
-        android:layout_marginEnd="@dimen/_10dp"
-        android:gravity="center|end"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="لازم بذکر است:"
-            android:textColor="@color/backgroundButton"
-            android:textSize="@dimen/_10dp" />
-
-        <ImageView
-            android:id="@+id/ivDec"
-            android:layout_width="@dimen/_20dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:tint="@color/backgroundButton"
-            app:srcCompat="@drawable/ic_error_outline" />
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:gravity="center|end"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="98"
+                android:singleLine="false"
+                android:text=" -   "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10dp" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/_10dp"
-        android:layout_marginTop="@dimen/_10dp"
-        android:layout_marginEnd="@dimen/_10dp"
-        android:gravity="center|end"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:gravity="center|end"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/tvValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="98"
+                android:singleLine="false"
+                android:text=" -  "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10dp" />
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="98"
-            android:text=" -   "
-            android:textColor="@color/black"
-            android:singleLine="false"
-            android:textSize="@dimen/_10dp" />
-
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/_10dp"
-        android:layout_marginEnd="@dimen/_10dp"
-
-        android:gravity="center|end"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tvValue"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="98"
-            android:text=" -  "
-            android:textColor="@color/black"
-            android:singleLine="false"
-            android:textSize="@dimen/_10dp" />
-
-
+        </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -273,5 +261,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </LinearLayout>
+
 </LinearLayout>
