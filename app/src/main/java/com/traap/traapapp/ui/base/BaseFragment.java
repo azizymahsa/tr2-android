@@ -73,7 +73,7 @@ public class BaseFragment extends Fragment
             {
                 if (finish)
                 {
-                    ((Activity) context).finish();
+                    getActivity().onBackPressed();
                 }
             }
 
@@ -98,7 +98,7 @@ public class BaseFragment extends Fragment
             {
                 if (finish)
                 {
-                    ((Activity) context).finish();
+                    getActivity().onBackPressed();
                 }
             }
 
