@@ -138,6 +138,7 @@ public class Last5PastMatchFragment extends BaseFragment implements OnServiceSta
         else
         {
 //            last5PastMatchList = response.data.getLastMatchList();
+            last5PastMatchList = new ArrayList<>();
             Observable.fromIterable(response.data.getLastMatchList())
                     .filter(last5PastMatchItem -> response.data.getLastMatchList().indexOf(last5PastMatchItem) < 5)
                     .toList()
