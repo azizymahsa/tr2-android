@@ -158,6 +158,7 @@ public class MyProfileActivity extends BaseActivity
                     String mobile = Prefs.getString("mobile", "");
                     Prefs.clear();
                     Prefs.putString("mobile", mobile);
+                    Prefs.putBoolean("intro", false);
                     finish();
                     intent.setClass(getApplication(), LoginActivity.class);
                     startActivity(intent);
