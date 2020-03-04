@@ -75,8 +75,8 @@
 
                         <ImageView
                             android:id="@+id/imgLike"
-                            android:layout_width="@dimen/_30dp"
-                            android:layout_height="@dimen/_30dp"
+                            android:layout_width="@dimen/_35dp"
+                            android:layout_height="@dimen/_35dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:paddingTop="4dp"
