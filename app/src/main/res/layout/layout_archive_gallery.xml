@@ -25,13 +25,13 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="102dp"
+                    android:layout_height="104dp"
                     android:background="@drawable/background_main_header" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="102dp"
+                    android:layout_height="104dp"
                     android:layout_alignParentTop="true"
                     android:background="@android:color/transparent">
 
