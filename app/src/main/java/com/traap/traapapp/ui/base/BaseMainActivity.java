@@ -32,7 +32,7 @@ public class BaseMainActivity extends BaseActivity
     {
         transaction = myFragmentManager.beginTransaction();
         transaction.add(getContainerViewId(), fragment, tag)
-                .commit();
+                .commitAllowingStateLoss();
         fragmentList.add(fragment);
     }
 
@@ -40,7 +40,7 @@ public class BaseMainActivity extends BaseActivity
     {
         transaction = myFragmentManager.beginTransaction();
         transaction.replace(getContainerViewId(), fragment, tag)
-                .commit();
+                .commitAllowingStateLoss();
         fragmentList.add(fragment);
     }
 
@@ -52,14 +52,14 @@ public class BaseMainActivity extends BaseActivity
             Fragment lastFragment = fragmentList.get(fragmentList.size() - 1);
             transaction = myFragmentManager.beginTransaction();
             transaction.replace(getContainerViewId(), lastFragment, lastFragment.getTag())
-                    .commit();
+                    .commitAllowingStateLoss();
         }
         else if (fragmentList.size() == 2)
         {
             fragmentList.remove(fragmentList.size() - 1);
             transaction = myFragmentManager.beginTransaction();
             transaction.replace(getContainerViewId(), getMainFragment(), "mainFragment")
-                    .commit();
+                    .commitAllowingStateLoss();
         }
     }
 
@@ -70,6 +70,6 @@ public class BaseMainActivity extends BaseActivity
 
         transaction = myFragmentManager.beginTransaction();
         transaction.replace(getContainerViewId(), getMainFragment(), "mainFragment")
-                .commit();
+                .commitAllowingStateLoss();
     }
 }

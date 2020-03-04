@@ -190,16 +190,19 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onError(String message)
             {
-                if (!Tools.isNetworkAvailable(VideoDetailActivity.this))
-                {
-                    Logger.e("-OnError-", "Error: " + message);
-                    showError(VideoDetailActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                } else
-                {
-                    // showError(VideoDetailActivity.this,String.valueOf(R.string.networkErrorMessage));
+                try{
+                    if (!Tools.isNetworkAvailable(VideoDetailActivity.this))
+                    {
+                        Logger.e("-OnError-", "Error: " + message);
+                        showError(VideoDetailActivity.this, "خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        // showError(VideoDetailActivity.this,String.valueOf(R.string.networkErrorMessage));
 
-                    showAlert(VideoDetailActivity.this, R.string.networkErrorMessage, R.string.networkError);
-                }
+                        showAlert(VideoDetailActivity.this, R.string.networkErrorMessage, R.string.networkError);
+                    }
+                }catch (Exception e){}
+
             }
         });
     }

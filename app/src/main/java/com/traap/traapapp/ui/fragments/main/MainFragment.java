@@ -212,6 +212,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         return rootView;
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {

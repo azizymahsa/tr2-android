@@ -262,11 +262,14 @@ public class SplashActivity extends AppCompatActivity implements OnServiceStatus
             dialog.show((this).getFragmentManager(), "dialog");
         } catch (Exception e)
         {
-            MessageAlertDialog dialog = new MessageAlertDialog(this, "", "خطا در دریافت اطلاعات از سرور!",
-                    MessageAlertDialog.TYPE_ERROR);
-            dialog.show(this.getFragmentManager(), "dialog");
-            goToActivity();
+            try{
+                MessageAlertDialog dialog = new MessageAlertDialog(this, "", "خطا در دریافت اطلاعات از سرور!",
+                        MessageAlertDialog.TYPE_ERROR);
+                dialog.show(this.getFragmentManager(), "dialog");
+                goToActivity();
 //            finish();
+            }catch (Exception e2){}
+
         }
 
     }
