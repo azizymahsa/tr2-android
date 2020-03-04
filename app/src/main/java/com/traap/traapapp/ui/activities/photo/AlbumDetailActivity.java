@@ -284,6 +284,16 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             if (data.getContent().get(i).getIsCover())
             {
                 setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
+                if (data.getContent().get(i).getIsLiked())
+                {
+                    imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                    tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                }
+                else
+                {
+                    imgLike.setColorFilter(getResources().getColor(R.color.white));
+                    tvLike.setTextColor(getResources().getColor(R.color.white));
+                }
                 idPhoto = data.getContent().get(i).getId();
                 likeCount = data.getContent().get(i).getLikes();
                 isLike = data.getContent().get(i).getIsLiked();
@@ -639,14 +649,11 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
                         {
                             imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
                             tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
-                            tvLike.setText(likeCount + "");
-
                         }
                         else
                         {
                             imgLike.setColorFilter(getResources().getColor(R.color.white));
                             tvLike.setTextColor(getResources().getColor(R.color.white));
-                            tvLike.setText(likeCount + "");
                         }
                         tvLike.setText(likeCount + "");
                         if (content.data.getImageName().getThumbnailLarge() == "")
