@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,15 +22,11 @@ import android.widget.ImageView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 //import com.adpdigital.push.AdpPushClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.gson.Gson;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -43,18 +38,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.AsyncSubject;
-import io.reactivex.subjects.Subject;
 import io.realm.Realm;
 import io.realm.exceptions.RealmException;
 
@@ -90,7 +75,6 @@ import com.traap.traapapp.ui.activities.points.PointsActivity;
 import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
-import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.base.BaseMainActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
@@ -108,10 +92,10 @@ import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.MainFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
+//import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment2;
 import com.traap.traapapp.ui.fragments.matchSchedule.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
 import com.traap.traapapp.ui.fragments.moneyTransfer.MainMoneyTransferFragment;
-import com.traap.traapapp.ui.fragments.moneyTransfer.MoneyTransferFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
@@ -1294,7 +1278,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     {
         this.matchBuyable = matchBuyable;
         isMainFragment = false;
-        setFragment(MatchScheduleFragment.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable, 1));
+        setFragment(MatchScheduleFragment.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable, 0));
         replaceFragment(getFragment(), "leagueTableFragment");
     }
 
@@ -2174,6 +2158,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         fragmentList.remove(fragmentList.size()-1); //remove leagueTableFragment and add it again.
 
         isMainFragment = false;
+//        setFragment(MatchScheduleFragment2.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable,
         setFragment(MatchScheduleFragment.newInstance(this, MatchScheduleParent.MainActivity, matchBuyable,
                 Prefs.getInt("selectedTab", 0)));
         replaceFragment(getFragment(), "leagueTableFragment");

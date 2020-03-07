@@ -260,6 +260,7 @@ public class LeagueTableFragment extends BaseFragment implements OnServiceStatus
     @Override
     public void onItemClick(View view, int position, String imageLogo, String logoTitle, String matchId, Boolean isPredictable)
     {
+        Prefs.putInt("selectedTab", 0);
         mainView.openPastResultFragment(parent, matchId, isPredictable, fixTableAdapter.getItem(position).teamId, imageLogo, logoTitle);
         //  PastResultFragment pastResultFragment = PastResultFragment.newInstance(mainView, fixTableAdapter.getItem(position).teamId,imageLogo, logoTitle);
         // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment,"pastResult").commit();

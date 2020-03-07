@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
@@ -157,11 +158,8 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
         }
         else
         {
+            Prefs.putInt("selectedTab", 2);
             mainActionView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment, "0", false, id.toString(), logo, title);
         }
     }
 }
-
-
-
-
