@@ -168,7 +168,10 @@ public interface RetroClient
 
     @GET(Const.Get_Category_By_Id_Video)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
-            @Path("id") Integer categoryId
+          //  @Path("id") Integer categoryId
+           @Query("page") Integer page,
+           @Query("page_size") Integer page_size,
+           @Query("category_id") Integer category_id
     );
 
     @GET(Const.Get_Category_By_Id_Video2)
