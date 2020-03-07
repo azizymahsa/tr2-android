@@ -94,17 +94,17 @@ public class CompeletInfoFragment
     private Context context;
     private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
-    private TextView txtCondition,tvBalance,tvDate;
+    private TextView txtCondition, tvBalance, tvDate;
     private View btnBackToDetail, btnPaymentConfirm;
     private int count = 1;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
-    private AutoCompleteTextView etNationalCode_1,etNationalCode_2,etNationalCode_3,etNationalCode_4,etNationalCode_5;
-    private com.rengwuxian.materialedittext.MaterialEditText  etFamily_1, etName_1;
+    private AutoCompleteTextView etNationalCode_1, etNationalCode_2, etNationalCode_3, etNationalCode_4, etNationalCode_5;
+    private com.rengwuxian.materialedittext.MaterialEditText etFamily_1, etName_1;
     private com.rengwuxian.materialedittext.MaterialEditText etFamily_2, etName_2;
-    private com.rengwuxian.materialedittext.MaterialEditText  etFamily_3, etName_3;
-    private com.rengwuxian.materialedittext.MaterialEditText  etFamily_4, etName_4;
-    private com.rengwuxian.materialedittext.MaterialEditText  etFamily_5, etName_5;
-    private LinearLayout llBoxTicket1, llBoxTicket2, llBoxTicket3, llBoxTicket4, llBoxTicket5,llPaymentGateway,llPaymentWallet;
+    private com.rengwuxian.materialedittext.MaterialEditText etFamily_3, etName_3;
+    private com.rengwuxian.materialedittext.MaterialEditText etFamily_4, etName_4;
+    private com.rengwuxian.materialedittext.MaterialEditText etFamily_5, etName_5;
+    private LinearLayout llBoxTicket1, llBoxTicket2, llBoxTicket3, llBoxTicket4, llBoxTicket5, llPaymentGateway, llPaymentWallet;
     private TextView tvStation_1, tvStation_2, tvStation_3, tvStation_4, tvStation_5;
     private TextView tvPerson_1, tvPerson_2, tvPerson_3, tvPerson_4, tvPerson_5;
     private ImageView imgDelete1, imgDelete2, imgDelete3, imgDelete4, imgDelete5;
@@ -138,15 +138,15 @@ public class CompeletInfoFragment
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    private View imgBack, imgMenu,btnBuyWallet,btnBackWallet;
+    private View imgBack, imgMenu, btnBuyWallet, btnBackWallet;
     private ArrayList<MatchItem> matchBuyable;
 
     private String amount = "";
     private String title = "";
     private int imageDrawable = 1;
     private String mobile = "";
-    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay,tvAmountPay,tvTitlePayWallet;
-    private ImageView imgLogo,imgLogoWallet;
+    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay, tvAmountPay, tvTitlePayWallet;
+    private ImageView imgLogo, imgLogoWallet;
 
     private SimChargePaymentInstance simChargePaymentInstance;
     private int PAYMENT_STATUS;
@@ -183,7 +183,6 @@ public class CompeletInfoFragment
 
         return fragment;
     }
-
 
 
     /**
@@ -229,11 +228,12 @@ public class CompeletInfoFragment
         tvAmountF = view.findViewById(R.id.tvAmountF);
         llConfirmff = view.findViewById(R.id.llConfirmff);
         btnBackF = view.findViewById(R.id.btnBackF);
-        btnBackWallet=view.findViewById(R.id.btnBackWallet);
+        btnBackWallet = view.findViewById(R.id.btnBackWallet);
         btnBuy = view.findViewById(R.id.btnBuy);
-        btnBuyWallet=view.findViewById(R.id.btnBuyWallet);
+        btnBuyWallet = view.findViewById(R.id.btnBuyWallet);
         btnBuyWallet.setOnClickListener(this);
-        btnBackWallet.setOnClickListener(v -> {
+        btnBackWallet.setOnClickListener(v ->
+        {
 
             llGateWaye.setVisibility(View.GONE);
             llTickets.setVisibility(View.VISIBLE);
@@ -275,16 +275,16 @@ public class CompeletInfoFragment
 
         slidingUpPanelLayout = view.findViewById(R.id.slidingLayout);
 
-        btnConfirmFilter=view.findViewById(R.id.btnConfirmFilter);
+        btnConfirmFilter = view.findViewById(R.id.btnConfirmFilter);
         btnConfirmFilter.setOnClickListener(this);
-        imgFilterClose=view.findViewById(R.id.imgFilterClose);
+        imgFilterClose = view.findViewById(R.id.imgFilterClose);
         imgFilterClose.setOnClickListener(this);
-        btnDeleteFilter=view.findViewById(R.id.btnDeleteFilter);
+        btnDeleteFilter = view.findViewById(R.id.btnDeleteFilter);
         btnDeleteFilter.setOnClickListener(this);
-        rvSpectatorList=view.findViewById(R.id.rvSpectatorList);
-        tvError=view.findViewById(R.id.tvError);
+        rvSpectatorList = view.findViewById(R.id.rvSpectatorList);
+        tvError = view.findViewById(R.id.tvError);
 
-        edtSearchFilter=view.findViewById(R.id.edtSearchFilter);
+        edtSearchFilter = view.findViewById(R.id.edtSearchFilter);
 
         etNationalCode_1 = view.findViewById(R.id.etNationalCode_1);
         etFamily_1 = view.findViewById(R.id.etFamily_1);
@@ -292,7 +292,7 @@ public class CompeletInfoFragment
         tvStation_1 = view.findViewById(R.id.tvStation_1);
         tvPerson_1 = view.findViewById(R.id.tvPerson_1);
 
-        llSelectSpectator=view.findViewById(R.id.llSelectSpectator);
+        llSelectSpectator = view.findViewById(R.id.llSelectSpectator);
         llSelectSpectator.setOnClickListener(this);
 
         etNationalCode_2 = view.findViewById(R.id.etNationalCode_2);
@@ -310,15 +310,15 @@ public class CompeletInfoFragment
         llTickets = view.findViewById(R.id.llTickets);
         llGateWaye = view.findViewById(R.id.llGateWaye);
 
-        tvBalance=view.findViewById(R.id.tvBalance);
-        tvDate=view.findViewById(R.id.tvDate);
-        tvAmountPay=view.findViewById(R.id.tvAmountPay);
-        tvTitlePayWallet=view.findViewById(R.id.tvTitlePayWallet);
-        imgLogoWallet=view.findViewById(R.id.imgLogoWallet);
-        etPin2=view.findViewById(R.id.etPin2);
+        tvBalance = view.findViewById(R.id.tvBalance);
+        tvDate = view.findViewById(R.id.tvDate);
+        tvAmountPay = view.findViewById(R.id.tvAmountPay);
+        tvTitlePayWallet = view.findViewById(R.id.tvTitlePayWallet);
+        imgLogoWallet = view.findViewById(R.id.imgLogoWallet);
+        etPin2 = view.findViewById(R.id.etPin2);
 
-        llPaymentGateway=view.findViewById(R.id.llPaymentGateway);
-        llPaymentWallet=view.findViewById(R.id.llPaymentWallet);
+        llPaymentGateway = view.findViewById(R.id.llPaymentGateway);
+        llPaymentWallet = view.findViewById(R.id.llPaymentWallet);
 
 
         etNationalCode_4 = view.findViewById(R.id.etNationalCode_4);
@@ -356,32 +356,28 @@ public class CompeletInfoFragment
             llBoxTicket3.setVisibility(View.GONE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        }
-        else if (count == 2)
+        } else if (count == 2)
         {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.GONE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        }
-        else if (count == 3)
+        } else if (count == 3)
         {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        }
-        else if (count == 4)
+        } else if (count == 4)
         {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.VISIBLE);
             llBoxTicket5.setVisibility(View.GONE);
-        }
-        else if (count == 5)
+        } else if (count == 5)
         {
             llBoxTicket1.setVisibility(View.VISIBLE);
             llBoxTicket2.setVisibility(View.VISIBLE);
@@ -429,11 +425,12 @@ public class CompeletInfoFragment
             {
                 try
                 {
-                    if (etNationalCode_1.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_1.getText().toString()))
+                    if (etNationalCode_1.getText().toString().length() == 10 && NationalCodeValidation.isValidNationalCode(etNationalCode_1.getText().toString()))
                     {
-                        requestSpectatorInfo(etNationalCode_1.getText().toString(),1);
+                        requestSpectatorInfo(etNationalCode_1.getText().toString(), 1);
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
             }
@@ -458,11 +455,12 @@ public class CompeletInfoFragment
             {
                 try
                 {
-                    if (etNationalCode_2.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_2.getText().toString()))
+                    if (etNationalCode_2.getText().toString().length() == 10 && NationalCodeValidation.isValidNationalCode(etNationalCode_2.getText().toString()))
                     {
-                        requestSpectatorInfo(etNationalCode_2.getText().toString(),2);
+                        requestSpectatorInfo(etNationalCode_2.getText().toString(), 2);
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
             }
@@ -487,11 +485,12 @@ public class CompeletInfoFragment
             {
                 try
                 {
-                    if (etNationalCode_3.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_3.getText().toString()))
+                    if (etNationalCode_3.getText().toString().length() == 10 && NationalCodeValidation.isValidNationalCode(etNationalCode_3.getText().toString()))
                     {
-                        requestSpectatorInfo(etNationalCode_3.getText().toString(),3);
+                        requestSpectatorInfo(etNationalCode_3.getText().toString(), 3);
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
             }
@@ -516,11 +515,12 @@ public class CompeletInfoFragment
             {
                 try
                 {
-                    if (etNationalCode_4.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_4.getText().toString()))
+                    if (etNationalCode_4.getText().toString().length() == 10 && NationalCodeValidation.isValidNationalCode(etNationalCode_4.getText().toString()))
                     {
-                        requestSpectatorInfo(etNationalCode_4.getText().toString(),4);
+                        requestSpectatorInfo(etNationalCode_4.getText().toString(), 4);
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
             }
@@ -545,11 +545,12 @@ public class CompeletInfoFragment
             {
                 try
                 {
-                    if (etNationalCode_5.getText().toString().length() == 10&&NationalCodeValidation.isValidNationalCode(etNationalCode_5.getText().toString()))
+                    if (etNationalCode_5.getText().toString().length() == 10 && NationalCodeValidation.isValidNationalCode(etNationalCode_5.getText().toString()))
                     {
-                        requestSpectatorInfo(etNationalCode_5.getText().toString(),5);
+                        requestSpectatorInfo(etNationalCode_5.getText().toString(), 5);
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
             }
@@ -585,16 +586,16 @@ public class CompeletInfoFragment
         //etNationalCode_1.setPrimaryColor(R.color._disable_color);
         etFamily_1.setPrimaryColor(R.color._disable_color);
         etName_1.setPrimaryColor(R.color._disable_color);
-       // etNationalCode_2.setPrimaryColor(R.color._disable_color);
+        // etNationalCode_2.setPrimaryColor(R.color._disable_color);
         etFamily_2.setPrimaryColor(R.color._disable_color);
         etName_2.setPrimaryColor(R.color._disable_color);
-       // etNationalCode_3.setPrimaryColor(R.color._disable_color);
+        // etNationalCode_3.setPrimaryColor(R.color._disable_color);
         etFamily_3.setPrimaryColor(R.color._disable_color);
         etName_3.setPrimaryColor(R.color._disable_color);
-     //   etNationalCode_4.setPrimaryColor(R.color._disable_color);
+        //   etNationalCode_4.setPrimaryColor(R.color._disable_color);
         etFamily_4.setPrimaryColor(R.color._disable_color);
         etName_4.setPrimaryColor(R.color._disable_color);
-      //  etNationalCode_5.setPrimaryColor(R.color._disable_color);
+        //  etNationalCode_5.setPrimaryColor(R.color._disable_color);
         etFamily_5.setPrimaryColor(R.color._disable_color);
         etName_5.setPrimaryColor(R.color._disable_color);
 
@@ -619,16 +620,19 @@ public class CompeletInfoFragment
             {
                 try
                 {
-                    if (TextUtils.isEmpty(edtSearchFilter.getText().toString())){
+                    if (TextUtils.isEmpty(edtSearchFilter.getText().toString()))
+                    {
 
                         //   KeyboardUtils.forceCloseKeyboard(edtSearchFilter);
                         filter("");
 
 
-                    }else {
+                    } else
+                    {
                         filter(edtSearchFilter.getText().toString());
                     }
-                }catch (Exception e){
+                } catch (Exception e)
+                {
 
                 }
 
@@ -646,9 +650,7 @@ public class CompeletInfoFragment
                 .subscribeOn(Schedulers.computation())
                 .filter(x ->
                         {
-                            return x.getNationalCode().contains(text) ||x.getFirstName().contains(text)||x.getLastName().contains(text);
-
-
+                            return x.getNationalCode().contains(text) || x.getFirstName().contains(text) || x.getLastName().contains(text);
                         }
 
                 )
@@ -667,10 +669,11 @@ public class CompeletInfoFragment
                         rvSpectatorList.setVisibility(View.VISIBLE);
                         rvSpectatorList.removeAllViews();
 
-                        spectatorAdapter = new SpectatorListAdapter(results,CompeletInfoFragment.this,count);
+                        spectatorAdapter = new SpectatorListAdapter(results, CompeletInfoFragment.this, count);
                         rvSpectatorList.setAdapter(spectatorAdapter);
 
-                        if (results.size()==0){
+                        if (results.size() == 0)
+                        {
                             tvError.setVisibility(View.VISIBLE);
                             rvSpectatorList.setVisibility(View.GONE);
 
@@ -684,12 +687,14 @@ public class CompeletInfoFragment
                     }
                 });
     }
+
     private void onGetSpectatorListSuccess(ArrayList<SpectatorInfoResponse> results)
     {
         ArrayList<String> nationalcodesList = new ArrayList<>();
 
-        for (int i=0; i<results.size();i++){
-            nationalcodesList.add(i,results.get(i).getNationalCode());
+        for (int i = 0; i < results.size(); i++)
+        {
+            nationalcodesList.add(i, results.get(i).getNationalCode());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
@@ -712,7 +717,8 @@ public class CompeletInfoFragment
     }
 
 
-    private void requestGetSpectatorListInfo(){
+    private void requestGetSpectatorListInfo()
+    {
 
         ((BuyTicketsActivity) getActivity()).showLoading();
 
@@ -725,20 +731,34 @@ public class CompeletInfoFragment
 
                 try
                 {
-
                     if (response.info.statusCode == 200)
                     {
-                        spectatorList=response.data.getResults();
-                        setDataSpectatorList(response);
-                        onGetSpectatorListSuccess(response.data.getResults());
+                        if (response.data != null)
+                        {
+                            if (response.data.getResults().size() > 0)
+                            {
+                                spectatorList = response.data.getResults();
+                                setDataSpectatorList(response);
+                                onGetSpectatorListSuccess(response.data.getResults());
+                            }
+                            else
+                            {
+                                showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
+                            }
+                        }
+                        else
+                        {
+                            showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
+                        }
                     }
                     else
                     {
+                        showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
                     }
                 }
                 catch (Exception e)
                 {
-
+                    showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
                 }
             }
 
@@ -764,16 +784,17 @@ public class CompeletInfoFragment
 
     private void setDataSpectatorList(WebServiceClass<GetSpectatorListResponse> response)
     {
-        if (response.data.getResults().isEmpty()){
+        if (response.data.getResults().isEmpty())
+        {
             rvSpectatorList.setVisibility(View.GONE);
             tvError.setVisibility(View.VISIBLE);
         }
         rvSpectatorList.setVisibility(View.VISIBLE);
         tvError.setVisibility(View.GONE);
-        spectatorListData=response.data.getResults();
-         }
+        spectatorListData = response.data.getResults();
+    }
 
-    private void requestSpectatorInfo(String nationalCode,Integer number)
+    private void requestSpectatorInfo(String nationalCode, Integer number)
     {
         ((BuyTicketsActivity) getActivity()).showLoading();
 
@@ -789,13 +810,11 @@ public class CompeletInfoFragment
 
                     if (response.info.statusCode == 200)
                     {
-                        setDataSpectorInfo(response,number);
-                    }
-                    else
+                        setDataSpectorInfo(response, number);
+                    } else
                     {
                     }
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
 
                 }
@@ -810,8 +829,7 @@ public class CompeletInfoFragment
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(context, "خطا در دریافت اطلاعات از سرور!");
-                }
-                else
+                } else
                 {
                     showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
@@ -823,19 +841,24 @@ public class CompeletInfoFragment
 
     private void setDataSpectorInfo(WebServiceClass<SpectatorInfoResponse> response, Integer number)
     {
-        if (number==1){
+        if (number == 1)
+        {
             etName_1.setText(response.data.getFirstName());
             etFamily_1.setText(response.data.getLastName());
-        }else if (number==2){
+        } else if (number == 2)
+        {
             etName_2.setText(response.data.getFirstName());
             etFamily_2.setText(response.data.getLastName());
-        }else if (number==3){
+        } else if (number == 3)
+        {
             etName_3.setText(response.data.getFirstName());
             etFamily_3.setText(response.data.getLastName());
-        }else if (number==4){
+        } else if (number == 4)
+        {
             etName_4.setText(response.data.getFirstName());
             etFamily_4.setText(response.data.getLastName());
-        }else if (number==5){
+        } else if (number == 5)
+        {
             etName_5.setText(response.data.getFirstName());
             etFamily_5.setText(response.data.getLastName());
         }
@@ -861,8 +884,7 @@ public class CompeletInfoFragment
                     checkCondition();
 
                     changePersonCounterName();
-                }
-                else
+                } else
                 {
                     cbCondition.setChecked(true);
                     llConfirm.setVisibility(View.VISIBLE);
@@ -876,8 +898,7 @@ public class CompeletInfoFragment
                 if (flagDelete)
                 {
 
-                }
-                else
+                } else
                 {
                     cbCondition.setChecked(false);
                     llConfirm.setVisibility(View.GONE);
@@ -1070,7 +1091,7 @@ public class CompeletInfoFragment
                 break;
 
             case R.id.tvGateway:
-               // viewPager.setCurrentItem(0, true);
+                // viewPager.setCurrentItem(0, true);
                 llPaymentGateway.setVisibility(View.VISIBLE);
                 llPaymentWallet.setVisibility(View.GONE);
                 tvGateway.setBackgroundResource(R.drawable.background_border_a);
@@ -1100,13 +1121,13 @@ public class CompeletInfoFragment
                 {
                     ((BuyTicketsActivity) getActivity()).showLoading();
 
-                   // paymentMatchRequest.setViewers(infoViewers);
+                    // paymentMatchRequest.setViewers(infoViewers);
                     paymentMatchRequest.setPin2(etPin2.getText().toString());
-                    paymentWallet.paymentWalletRequest(this,paymentMatchRequest);
+                    paymentWallet.paymentWalletRequest(this, paymentMatchRequest);
 
                 } else
                 {
-                    showAlertFailure(context,"رمز کارت وارد نشده است.","",false);
+                    showAlertFailure(context, "رمز کارت وارد نشده است.", "", false);
 
                 }
 
@@ -1117,8 +1138,7 @@ public class CompeletInfoFragment
                 {
                     // imgDelete1.setVisibility(View.GONE);
 
-                }
-                else
+                } else
                 {
                     flagDelete = true;
                     flagNumberDelete = 1;
@@ -1132,8 +1152,7 @@ public class CompeletInfoFragment
                 {
                     //  imgDelete2.setVisibility(View.GONE);
 
-                }
-                else
+                } else
                 {
                     flagDelete = true;
                     flagNumberDelete = 2;
@@ -1147,8 +1166,7 @@ public class CompeletInfoFragment
                 {
                     // imgDelete3.setVisibility(View.GONE);
 
-                }
-                else
+                } else
                 {
                     flagDelete = true;
                     flagNumberDelete = 3;
@@ -1161,8 +1179,7 @@ public class CompeletInfoFragment
                 if (count == 1)
                 {
                     //  imgDelete4.setVisibility(View.GONE);
-                }
-                else
+                } else
                 {
                     flagDelete = true;
                     flagNumberDelete = 4;
@@ -1176,8 +1193,7 @@ public class CompeletInfoFragment
                 {
                     //imgDelete5.setVisibility(View.GONE);
 
-                }
-                else
+                } else
                 {
                     flagDelete = true;
                     flagNumberDelete = 5;
@@ -1211,8 +1227,7 @@ public class CompeletInfoFragment
                     llConfirm.setVisibility(View.VISIBLE);
                     llInVisible.setVisibility(View.GONE);
 
-                }
-                else
+                } else
                 {
                     llConfirm.setVisibility(View.GONE);
                     llInVisible.setVisibility(View.VISIBLE);
@@ -1257,7 +1272,8 @@ public class CompeletInfoFragment
             etNationalCode_5.setText(selectedInfo.get(4).getNationalCode());
 
 
-        }catch (Exception e){
+        } catch (Exception e)
+        {
 
         }
     }
@@ -1403,23 +1419,19 @@ public class CompeletInfoFragment
         {
             imgDelete1.setVisibility(View.GONE);
             return;
-        }
-        else if (llBoxTicket2.getVisibility() == View.VISIBLE)
+        } else if (llBoxTicket2.getVisibility() == View.VISIBLE)
         {
             imgDelete2.setVisibility(View.GONE);
             return;
-        }
-        else if (llBoxTicket3.getVisibility() == View.VISIBLE)
+        } else if (llBoxTicket3.getVisibility() == View.VISIBLE)
         {
             imgDelete3.setVisibility(View.GONE);
             return;
-        }
-        else if (llBoxTicket4.getVisibility() == View.VISIBLE)
+        } else if (llBoxTicket4.getVisibility() == View.VISIBLE)
         {
             imgDelete4.setVisibility(View.GONE);
             return;
-        }
-        else if (llBoxTicket5.getVisibility() == View.VISIBLE)
+        } else if (llBoxTicket5.getVisibility() == View.VISIBLE)
         {
             imgDelete5.setVisibility(View.GONE);
             return;
@@ -1479,8 +1491,7 @@ public class CompeletInfoFragment
                 flagValidations = flagValidations + PassengerFifth();
             }
 
-        }
-        else if (count == 2)
+        } else if (count == 2)
         {
             if (llBoxTicket1.getVisibility() == View.VISIBLE)
             {
@@ -1503,8 +1514,7 @@ public class CompeletInfoFragment
                 flagValidations = flagValidations + PassengerFifth();
             }
 
-        }
-        else if (count == 3)
+        } else if (count == 3)
         {
 
             if (llBoxTicket1.getVisibility() == View.VISIBLE)
@@ -1527,8 +1537,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + PassengerFifth();
             }
-        }
-        else if (count == 4)
+        } else if (count == 4)
         {
 
             if (llBoxTicket1.getVisibility() == View.VISIBLE)
@@ -1551,8 +1560,7 @@ public class CompeletInfoFragment
             {
                 flagValidations = flagValidations + PassengerFifth();
             }
-        }
-        else if (count == 5)
+        } else if (count == 5)
         {
 
             if (llBoxTicket1.getVisibility() == View.VISIBLE)
@@ -1593,8 +1601,7 @@ public class CompeletInfoFragment
             llInVisible.setVisibility(View.GONE);
             infoViewers.clear();
 
-        } */
-        else
+        } */ else
         {
             callPaymentTicketRequest();
 
@@ -1626,8 +1633,7 @@ public class CompeletInfoFragment
         {
             etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etNationalCode_1.getText().toString() != null)
+        } else if (etNationalCode_1.getText().toString() != null)
         {
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_1.getText().toString()))
             {
@@ -1637,13 +1643,11 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_1.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_1.getText().toString());
 
-            }
-            else if (etNationalCode_1.getText().toString().replace(" ", "").length() < 1)
+            } else if (etNationalCode_1.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_1.setError(getString(R.string.Please_enter_the_national_code));
@@ -1656,8 +1660,7 @@ public class CompeletInfoFragment
         {
             etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etFamily_1.getText().toString() != null)
+        } else if (etFamily_1.getText().toString() != null)
         {
 
             //   if (etFamily_1.getText().toString().length() > 1 && !(etFamily_1.getText().toString().toLowerCase().matches("[0-9]")))
@@ -1668,13 +1671,11 @@ public class CompeletInfoFragment
                 etFamily_1.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_1", etFamily_1.getText().toString());
 
-            }
-            else if (etFamily_1.getText().toString().replace(" ", "").length() < 1)
+            } else if (etFamily_1.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etFamily_1.setError(getString(R.string.Please_enter_last_name_in_Persian));
@@ -1687,26 +1688,23 @@ public class CompeletInfoFragment
         {
             etName_1.setError(getString(R.string.Please_enter_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etName_1.getText().toString() != null)
+        } else if (etName_1.getText().toString() != null)
         {
 
             // if (etName_1.getText().toString().length() > 1 && !(etName_1.getText().toString().toLowerCase().matches("[0-9]")))
             if (etName_1.getText().toString().trim().length() > 1 && (etName_1.getText().toString().trim().matches("[آ-ی]+"))
-                    || etName_1.getText().toString().trim().length() > 1 &&  (etName_1.getText().toString().trim().matches("[a-zA-Z]+")) || etName_1.getText().toString().contains(" "))
+                    || etName_1.getText().toString().trim().length() > 1 && (etName_1.getText().toString().trim().matches("[a-zA-Z]+")) || etName_1.getText().toString().contains(" "))
             {
 
                 flagValidations = flagValidations + "T";
                 etName_1.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_1", etName_1.getText().toString());
 
-            }
-            else if (etName_1.getText().toString().replace(" ", "").length() < 1)
+            } else if (etName_1.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etName_1.setError(getString(R.string.Please_enter_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etName_1.setError(getString(R.string.Please_enter_name_in_Persian));
@@ -1717,8 +1715,7 @@ public class CompeletInfoFragment
         {
             //((BuyTicketsActivity)getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
-        }
-        else
+        } else
         {
             Viewers viewer = new Viewers();
             viewer.setFirstName(etName_1.getText().toString());
@@ -1741,8 +1738,7 @@ public class CompeletInfoFragment
         {
             etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etNationalCode_2.getText().toString() != null)
+        } else if (etNationalCode_2.getText().toString() != null)
         {
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_2.getText().toString()))
             {
@@ -1752,13 +1748,11 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_2.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_2.getText().toString());
 
-            }
-            else if (etNationalCode_2.getText().toString().replace(" ", "").length() < 1)
+            } else if (etNationalCode_2.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_2.setError(getString(R.string.Please_enter_the_national_code));
@@ -1770,8 +1764,7 @@ public class CompeletInfoFragment
         {
             etFamily_2.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etFamily_2.getText().toString() != null)
+        } else if (etFamily_2.getText().toString() != null)
         {
 
             //  if (etFamily_2.getText().toString().length() > 1 && !(etFamily_2.getText().toString().toLowerCase().matches("[0-9]")))
@@ -1782,13 +1775,11 @@ public class CompeletInfoFragment
                 etFamily_2.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_2", etFamily_2.getText().toString());
 
-            }
-            else if (etFamily_2.getText().toString().replace(" ", "").length() < 1)
+            } else if (etFamily_2.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etFamily_2.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etFamily_2.setError(getString(R.string.Please_enter_last_name_in_Persian));
@@ -1801,8 +1792,7 @@ public class CompeletInfoFragment
         {
             etName_2.setError(getString(R.string.Please_enter_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etName_2.getText().toString() != null)
+        } else if (etName_2.getText().toString() != null)
         {
 
             // if (etName_2.getText().toString().length() > 1 && !(etName_2.getText().toString().toLowerCase().matches("[0-9]")))
@@ -1813,13 +1803,11 @@ public class CompeletInfoFragment
                 etName_2.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_2", etName_2.getText().toString());
 
-            }
-            else if (etName_2.getText().toString().replace(" ", "").length() < 1)
+            } else if (etName_2.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etName_2.setError(getString(R.string.Please_enter_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etName_2.setError(getString(R.string.Please_enter_name_in_Persian));
@@ -1830,8 +1818,7 @@ public class CompeletInfoFragment
         {
             // ((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
-        }
-        else
+        } else
         {
             Viewers viewer = new Viewers();
             viewer.setFirstName(etName_2.getText().toString());
@@ -1854,8 +1841,7 @@ public class CompeletInfoFragment
         {
             etNationalCode_3.setError(getString(R.string.Please_enter_the_national_code_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etNationalCode_3.getText().toString() != null)
+        } else if (etNationalCode_3.getText().toString() != null)
         {
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_3.getText().toString()))
             {
@@ -1865,13 +1851,11 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_3.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_3.getText().toString());
 
-            }
-            else if (etNationalCode_3.getText().toString().replace(" ", "").length() < 1)
+            } else if (etNationalCode_3.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_3.setError(getString(R.string.Please_enter_the_national_code_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_3.setError(getString(R.string.Please_enter_the_national_code));
@@ -1882,8 +1866,7 @@ public class CompeletInfoFragment
         {
             etFamily_3.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etFamily_3.getText().toString() != null)
+        } else if (etFamily_3.getText().toString() != null)
         {
 
             // if (etFamily_3.getText().toString().length() > 1 && !(etFamily_3.getText().toString().toLowerCase().matches("[0-9]")))
@@ -1894,13 +1877,11 @@ public class CompeletInfoFragment
                 etFamily_3.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_3", etFamily_3.getText().toString());
 
-            }
-            else if (etFamily_3.getText().toString().replace(" ", "").length() < 1)
+            } else if (etFamily_3.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etFamily_3.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etFamily_3.setError(getString(R.string.Please_enter_last_name_in_Persian));
@@ -1913,8 +1894,7 @@ public class CompeletInfoFragment
         {
             etName_3.setError(getString(R.string.Please_enter_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etName_3.getText().toString() != null)
+        } else if (etName_3.getText().toString() != null)
         {
 
             // if (etName_3.getText().toString().length() > 1 && !(etName_3.getText().toString().toLowerCase().matches("[0-9]")))
@@ -1925,13 +1905,11 @@ public class CompeletInfoFragment
                 etName_3.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_3", etName_3.getText().toString());
 
-            }
-            else if (etName_3.getText().toString().replace(" ", "").length() < 1)
+            } else if (etName_3.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etName_3.setError(getString(R.string.Please_enter_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etName_3.setError(getString(R.string.Please_enter_name_in_Persian));
@@ -1942,8 +1920,7 @@ public class CompeletInfoFragment
         {
             //((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
-        }
-        else
+        } else
         {
             Viewers viewer = new Viewers();
             viewer.setFirstName(etName_3.getText().toString());
@@ -1966,8 +1943,7 @@ public class CompeletInfoFragment
         {
             etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etNationalCode_4.getText().toString() != null)
+        } else if (etNationalCode_4.getText().toString() != null)
         {
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_4.getText().toString()))
             {
@@ -1977,13 +1953,11 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_4.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_4.getText().toString());
 
-            }
-            else if (etNationalCode_4.getText().toString().replace(" ", "").length() < 1)
+            } else if (etNationalCode_4.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_4.setError(getString(R.string.Please_enter_the_national_code));
@@ -1995,8 +1969,7 @@ public class CompeletInfoFragment
         {
             etFamily_4.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etFamily_4.getText().toString() != null)
+        } else if (etFamily_4.getText().toString() != null)
         {
 
             // if (etFamily_4.getText().toString().length() > 1 && !(etFamily_4.getText().toString().toLowerCase().matches("[0-9]")))
@@ -2007,13 +1980,11 @@ public class CompeletInfoFragment
                 etFamily_4.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_4", etFamily_4.getText().toString());
 
-            }
-            else if (etFamily_4.getText().toString().replace(" ", "").length() < 1)
+            } else if (etFamily_4.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etFamily_4.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etFamily_4.setError(getString(R.string.Please_enter_last_name_in_Persian));
@@ -2026,8 +1997,7 @@ public class CompeletInfoFragment
         {
             etName_4.setError(getString(R.string.Please_enter_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etName_4.getText().toString() != null)
+        } else if (etName_4.getText().toString() != null)
         {
 
             //if (etName_4.getText().toString().length() > 1 && !(etName_4.getText().toString().toLowerCase().matches("[0-9]")))
@@ -2038,13 +2008,11 @@ public class CompeletInfoFragment
                 etName_4.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_4", etName_4.getText().toString());
 
-            }
-            else if (etName_4.getText().toString().replace(" ", "").length() < 1)
+            } else if (etName_4.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etName_4.setError(getString(R.string.Please_enter_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etName_4.setError(getString(R.string.Please_enter_name_in_Persian));
@@ -2055,8 +2023,7 @@ public class CompeletInfoFragment
         {
             //   ((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
-        }
-        else
+        } else
         {
             Viewers viewer = new Viewers();
             viewer.setFirstName(etName_4.getText().toString());
@@ -2079,8 +2046,7 @@ public class CompeletInfoFragment
         {
             etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etNationalCode_5.getText().toString() != null)
+        } else if (etNationalCode_5.getText().toString() != null)
         {
             if (NationalCodeValidation.isValidNationalCode(etNationalCode_5.getText().toString()))
             {
@@ -2090,13 +2056,11 @@ public class CompeletInfoFragment
                 numbers.add(etNationalCode_5.getText().toString());
                 countRepetitive = countRepetitive + Collections.frequency(numbers, etNationalCode_5.getText().toString());
 
-            }
-            else if (etNationalCode_5.getText().toString().replace(" ", "").length() < 1)
+            } else if (etNationalCode_5.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etNationalCode_5.setError(getString(R.string.Please_enter_the_national_code));
@@ -2108,8 +2072,7 @@ public class CompeletInfoFragment
         {
             etFamily_5.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etFamily_5.getText().toString() != null)
+        } else if (etFamily_5.getText().toString() != null)
         {
 
             // if (etFamily_5.getText().toString().length() > 1 && !(etFamily_5.getText().toString().toLowerCase().matches("[0-9]")))
@@ -2120,13 +2083,11 @@ public class CompeletInfoFragment
                 etFamily_5.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etFamily_5", etFamily_5.getText().toString());
 
-            }
-            else if (etFamily_5.getText().toString().replace(" ", "").length() < 1)
+            } else if (etFamily_5.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etFamily_5.setError(getString(R.string.Please_enter_last_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etFamily_5.setError(getString(R.string.Please_enter_last_name_in_Persian));
@@ -2139,8 +2100,7 @@ public class CompeletInfoFragment
         {
             etName_5.setError(getString(R.string.Please_enter_name_in_Persian_null));
             flagValidations = flagValidations + "F";
-        }
-        else if (etName_5.getText().toString() != null)
+        } else if (etName_5.getText().toString() != null)
         {
 
             // if (etName_5.getText().toString().length() > 1 && !(etName_5.getText().toString().toLowerCase().matches("[0-9]")))
@@ -2151,13 +2111,11 @@ public class CompeletInfoFragment
                 etName_5.setTextColor(Color.parseColor("#4d4d4d"));
                 Prefs.putString("etName_5", etName_5.getText().toString());
 
-            }
-            else if (etName_5.getText().toString().replace(" ", "").length() < 1)
+            } else if (etName_5.getText().toString().replace(" ", "").length() < 1)
             {
                 flagValidations = flagValidations + "F";
                 etName_5.setError(getString(R.string.Please_enter_name_in_Persian_null));
-            }
-            else
+            } else
             {
                 flagValidations = flagValidations + "F";
                 etName_5.setError(getString(R.string.Please_enter_name_in_Persian));
@@ -2168,8 +2126,7 @@ public class CompeletInfoFragment
         {
             //((BuyTicketsActivity) getActivity()).showError("اطلاعات ورودی نامعتبر است");
             return "F";
-        }
-        else
+        } else
         {
             Viewers viewer = new Viewers();
             viewer.setFirstName(etName_5.getText().toString());
@@ -2441,7 +2398,7 @@ public class CompeletInfoFragment
         Prefs.putInt("CountTicket", count);
 
 
-        spectatorAdapter = new SpectatorListAdapter(spectatorListData,this,count);
+        spectatorAdapter = new SpectatorListAdapter(spectatorListData, this, count);
         rvSpectatorList.setAdapter(spectatorAdapter);
 
         //  this.paymentMatchRequest = paymentMatchRequest;
@@ -2466,8 +2423,7 @@ public class CompeletInfoFragment
             llBoxTicket3.setVisibility(View.GONE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        }
-        else if (count == 2)
+        } else if (count == 2)
         {
             imgDelete1.setVisibility(View.VISIBLE);
             imgDelete2.setVisibility(View.VISIBLE);
@@ -2477,8 +2433,7 @@ public class CompeletInfoFragment
             llBoxTicket3.setVisibility(View.GONE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        }
-        else if (count == 3)
+        } else if (count == 3)
         {
             imgDelete1.setVisibility(View.VISIBLE);
             imgDelete2.setVisibility(View.VISIBLE);
@@ -2489,8 +2444,7 @@ public class CompeletInfoFragment
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.GONE);
             llBoxTicket5.setVisibility(View.GONE);
-        }
-        else if (count == 4)
+        } else if (count == 4)
         {
             imgDelete1.setVisibility(View.VISIBLE);
             imgDelete2.setVisibility(View.VISIBLE);
@@ -2502,8 +2456,7 @@ public class CompeletInfoFragment
             llBoxTicket3.setVisibility(View.VISIBLE);
             llBoxTicket4.setVisibility(View.VISIBLE);
             llBoxTicket5.setVisibility(View.GONE);
-        }
-        else if (count == 5)
+        } else if (count == 5)
         {
             imgDelete1.setVisibility(View.VISIBLE);
             imgDelete2.setVisibility(View.VISIBLE);
@@ -2525,7 +2478,6 @@ public class CompeletInfoFragment
     {
         ((BuyTicketsActivity) getActivity()).hideLoading();
         List<Viewers> infoViewers_n = new ArrayList<>(infoViewers);
-
 
 
         paymentMatchRequest.setViewers(infoViewers_n);
@@ -2586,8 +2538,7 @@ public class CompeletInfoFragment
         if (Tools.isNetworkAvailable(getActivity()))
         {
             ((BuyTicketsActivity) getActivity()).showError(message);
-        }
-        else
+        } else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
         }
@@ -2616,8 +2567,7 @@ public class CompeletInfoFragment
         {
             Logger.e("-OnError-", "Error: " + error);
             ((BuyTicketsActivity) getActivity()).showError("خطا در دریافت اطلاعات از سرور!");
-        }
-        else
+        } else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
         }
@@ -2703,7 +2653,7 @@ public class CompeletInfoFragment
     public void onErrorPaymentWallet(String error)
     {
         ((BuyTicketsActivity) getActivity()).hideLoading();
-        showAlertFailure(context,error,"",false);
+        showAlertFailure(context, error, "", false);
 
     }
 
@@ -2711,7 +2661,7 @@ public class CompeletInfoFragment
     public void OnItemSpectatorListClick(ArrayList<SpectatorInfoModel> selectedInfo)
     {
 
-        this.selectedInfo=selectedInfo;
+        this.selectedInfo = selectedInfo;
     }
 }
 
