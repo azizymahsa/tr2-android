@@ -758,7 +758,7 @@ public class CompeletInfoFragment
                 }
                 catch (Exception e)
                 {
-                    showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
+                  //  showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
                 }
             }
 
