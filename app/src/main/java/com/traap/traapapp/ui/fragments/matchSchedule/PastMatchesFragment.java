@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
@@ -28,7 +30,7 @@ import com.traap.traapapp.utilities.Tools;
 /**
  * Created by MahtabAzizi on 11/16/2019.
  */
-public class PastMatchesFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener,MatchAdapter.ItemClickListener
+public class PastMatchesFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener
 {
     private View rootView;
 
@@ -80,9 +82,8 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
         try
         {
             recyclerView = rootView.findViewById(R.id.rclPast);
-
-
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
 
         }
@@ -107,12 +108,12 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
     private void addDataRecyclerList()
     {
         Collections.reverse(pastMatchesList);
-        mAdapter = new MatchAdapter(pastMatchesList,getContext(),this);
+        mAdapter = new MatchAdapter(pastMatchesList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new MatchAdapter(pastMatchesList, getActivity(),this);
+        mAdapter = new MatchAdapter(pastMatchesList, getActivity(), this);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -177,7 +178,7 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
-        PredictFragment pastResultFragment =  PredictFragment.newInstance(mainView, matchItem.getId(), matchItem.getIsPredict());
+        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem.getId(), matchItem.getIsPredict());
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
     }
@@ -185,11 +186,13 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
     @Override
     public void onItemLogoTeamClick(View view, Integer id, String logo, String title)
     {
-        if (id==0){
-            showToast(getActivity(),"متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
-        }else
+        if (id == 0)
         {
-            mainView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment,"0", false, id.toString(), logo, title);
+            showToast(getActivity(), "متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
+        } else
+        {
+            Prefs.putInt("selectedTab", 1);
+            mainView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment, "0", false, id.toString(), logo, title);
         }
 
     }

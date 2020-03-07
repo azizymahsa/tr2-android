@@ -59,8 +59,8 @@ public class Last5PastMatchAdapter extends RecyclerView.Adapter<Last5PastMatchAd
             holder.tvLeagueName.setText(item.getCup().getCupName());
             holder.tvStadiumName.setText(item.getStadium());
 
-            holder.tvMatchResult.setText(item.getResult().getHomeScore() + " - " +
-                    item.getResult().getAwayScore());
+            holder.tvMatchResult.setText(item.getResult().getAwayScore() + " - " +
+                    item.getResult().getHomeScore());
 
             setImageBackground(holder.imgAway, item.getAwayTeam().getTeamLogo());
             setImageBackground(holder.imgHome, item.getHomeTeam().getTeamLogo());

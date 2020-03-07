@@ -51,19 +51,21 @@
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:src="@drawable/icon_match"/>
+
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/shadow_b"
         android:backgroundTint="@color/_disable_color"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:orientation="horizontal"
         android:gravity="center">
-
 
         <TextView
             android:id="@+id/tvDate"
@@ -75,7 +77,6 @@
             android:textColor="#484848"
             android:text="جمعه 23 اسفند 1398"/>
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -115,7 +116,6 @@
                     android:text="میهمان"/>
 
             </RelativeLayout>
-
 
         </RelativeLayout>
 
@@ -187,6 +187,7 @@
         </RelativeLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/lnrBuyEnable"
         android:layout_width="match_parent"
@@ -199,7 +200,7 @@
         <TextView
             android:id="@+id/tvPredictResult"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_35dp"
             android:layout_weight="0.8"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/_5dp"
@@ -210,11 +211,10 @@
             android:textColor="@color/textColorPrimary"
             android:text=" پیش بینی نتیجه"/>
 
-
         <TextView
             android:id="@+id/tvBuyTicket"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/_35dp"
             android:layout_weight="0.8"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/_5dp"
@@ -224,5 +224,7 @@
             android:textSize="@dimen/_10sdp"
             android:textColor="@color/textColorTitle"
             android:text="خرید بلیت "/>
+
     </LinearLayout>
+
 </LinearLayout>

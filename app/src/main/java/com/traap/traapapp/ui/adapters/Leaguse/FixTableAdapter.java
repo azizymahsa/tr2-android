@@ -177,7 +177,8 @@ public class FixTableAdapter extends RecyclerView.Adapter<FixTableAdapter.ViewHo
         @Override
         public void onClick(View view)
         {
-            if (mClickListener != null && !matchId.equals("0"))
+//            if (mClickListener != null && !matchId.equals("0"))
+            if (mClickListener != null)
             {
                 mClickListener.onItemClick(
                         view,
