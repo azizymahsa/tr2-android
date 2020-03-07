@@ -543,13 +543,13 @@ public class AllMenuFragment extends BaseFragment implements
         {
             case 11://Flight ata
             {
-            /*    Intent intent = new Intent(getActivity(), WebActivity.class);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent,100);*/
-                startEniacFlightActivity =new StartEniacFlightActivity(
+                startActivityForResult(intent,100);
+              /*  startEniacFlightActivity =new StartEniacFlightActivity(
                         "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh", "0037250100293610", "1397",
                         new FlightReservationData()
                         {
@@ -565,12 +565,12 @@ public class AllMenuFragment extends BaseFragment implements
 
                             }
                         }, 2);
-                startEniacFlightActivity.startMainFlight();
+                startEniacFlightActivity.startMainFlight();*/
                 break;
             }
             case 14://Flight all
             {
-                startEniacFlightActivity =new StartEniacFlightActivity(
+        /*        startEniacFlightActivity =new StartEniacFlightActivity(
                         "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh", "0037250100293610", "1397",
                         new FlightReservationData()
                         {
@@ -586,18 +586,18 @@ public class AllMenuFragment extends BaseFragment implements
 
                             }
                         }, 2);
-                startEniacFlightActivity.startMainFlight();
-               /* Intent intent = new Intent(getActivity(), WebActivity.class);
+                startEniacFlightActivity.startMainFlight();*/
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent,100);*/
+                startActivityForResult(intent,100);
                 break;
             }
             case 12: //Hotel
             {
-                StartEniacHotelActivity   eniacHotelActivity =new StartEniacHotelActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+ /*               StartEniacHotelActivity   eniacHotelActivity =new StartEniacHotelActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
                         "0037250100293610", "1397", getActivity(), new HotelReservationData()
                 {
                     @Override
@@ -612,19 +612,19 @@ public class AllMenuFragment extends BaseFragment implements
 
                     }
                 }, 2);
-                eniacHotelActivity.startMainHotelActivity();
-          /*      Intent intent = new Intent(getActivity(), WebActivity.class);
+                eniacHotelActivity.startMainHotelActivity();*/
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent,100);*/
+                startActivityForResult(intent,100);
                 break;
             }
 
             case 13: //Bus
             {
-                StartEniacBusActivity eniacBusActivity = new StartEniacBusActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+              /*  StartEniacBusActivity eniacBusActivity = new StartEniacBusActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
                         "0037250100293610", "1397", getActivity(), new BusLockSeat()
                 {
                     @Override
@@ -639,14 +639,14 @@ public class AllMenuFragment extends BaseFragment implements
 
                     }
                 }, 2);
-                eniacBusActivity.startMainBusActivity();
+                eniacBusActivity.startMainBusActivity();*/
 
-          /*      Intent intent = new Intent(getActivity(), WebActivity.class);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent,100);*/
+                startActivityForResult(intent,100);
 
 
 
