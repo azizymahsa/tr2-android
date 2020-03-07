@@ -29,8 +29,6 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getLast5PastMatch.request.Last5PastMatchRequest;
 import com.traap.traapapp.apiServices.model.getLast5PastMatch.response.Last5PastMatchResponse;
-import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPastResult;
-import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponsePastResult;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.LeagueTableParent;
@@ -43,6 +41,7 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
+//import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment2;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -82,15 +81,6 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
     {
     }
 
-    /*@Override
-    public void onBackPressed() {
-        final Myfragment fragment = (Myfragment) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT);
-
-        if (fragment.allowBackPressed()) { // and then you define a method allowBackPressed with the logic to allow back pressed or not
-            super.onBackPressed();
-        }
-    }
-*/
 
     @Override
     public void onAttach(@NonNull Context context)
@@ -319,12 +309,13 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
         EventBus.getDefault().unregister(this);
     }
 
-    public void onBackClicked(ArrayList<MatchItem> matchBuyable)
-    {
-
-        MatchScheduleFragment matchScheduleFragment = MatchScheduleFragment.newInstance(mainView, MatchScheduleParent.MainActivity, matchBuyable, 1);
-
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, matchScheduleFragment, "leagueTableFragment").commit();
-    }
+//    public void onBackClicked(ArrayList<MatchItem> matchBuyable)
+//    {
+//
+////        MatchScheduleFragment2 matchScheduleFragment2 = MatchScheduleFragment.newInstance(mainView, MatchScheduleParent.MainActivity, matchBuyable, 1);
+//        MatchScheduleFragment matchScheduleFragment = MatchScheduleFragment.newInstance(mainView, MatchScheduleParent.MainActivity, matchBuyable, 2);
+//
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, matchScheduleFragment, "leagueTableFragment").commit();
+//    }
 
 }
