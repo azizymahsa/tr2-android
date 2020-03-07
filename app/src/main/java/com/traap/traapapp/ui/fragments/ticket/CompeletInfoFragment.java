@@ -169,7 +169,7 @@ public class CompeletInfoFragment
     private EditText edtSearchFilter;
     private ArrayList<SpectatorInfoResponse> spectatorList;
     private TextView tvError;
-    private ArrayList<SpectatorInfoResponse> spectatorListData= new ArrayList<>();
+    private ArrayList<SpectatorInfoResponse> spectatorListData;
 
 
     public CompeletInfoFragment()
@@ -2439,8 +2439,6 @@ public class CompeletInfoFragment
         this.ticketIdList = ticketIdList;
         this.stadiumId = stadiumId;
         Prefs.putInt("CountTicket", count);
-
-
 
 
         spectatorAdapter = new SpectatorListAdapter(spectatorListData,this,count);
