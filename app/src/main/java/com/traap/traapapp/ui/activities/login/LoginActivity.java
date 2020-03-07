@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 {
     private LoginPresenterImpl loginPresenter;
     private CircularProgressButton btnConfirm;
-    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, txtCondition;
+    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, txtCondition,tvChangeNumber;
     private int dimeSpace80, dimeSpace40, dimeLogo150, dimeLogo70;
     private RelativeLayout.LayoutParams logoLayoutParams;
     private LinearLayout.LayoutParams spaceLayoutParams;
@@ -97,6 +97,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
+
 
 
     @Override
@@ -190,6 +191,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     public void initView()
     {
         txtCondition = findViewById(R.id.txtCondition);
+        tvChangeNumber = findViewById(R.id.tvChangeNumber);
         llCondition = findViewById(R.id.llCondition);
         etCountryCode = findViewById(R.id.etCountryCode);
         etCountryName = findViewById(R.id.etCountryName);
@@ -285,6 +287,16 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
                     startActivityForResult(new Intent(LoginActivity.this, SearchCountryActivity.class), 1002);
                     etCountryName.clearFocus();
                 }
+            }
+        });
+
+        tvChangeNumber.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                codeToMobile();
+
             }
         });
 
@@ -434,6 +446,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             public void onAnimationEnd(Animator animator)
             {
                 llPin.setVisibility(View.VISIBLE);
+                tvChangeNumber.setVisibility(View.VISIBLE);
                 etMobileNumber.setVisibility(View.GONE);
                 etCountryName.setVisibility(View.GONE);
                 rlCountryCode.setVisibility(View.GONE);
@@ -464,6 +477,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         countDownTimer.setVisibility(View.GONE);
         btnConfirm.setTag("mobile");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + "  شماره تلفن همراه خود را وارد کنید."));
+        tvChangeNumber.setVisibility(View.GONE);
 
 
         YoYo.with(Techniques.SlideOutRight)
