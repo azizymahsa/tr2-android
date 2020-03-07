@@ -743,17 +743,17 @@ public class CompeletInfoFragment
                             }
                             else
                             {
-                                showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
+                             //   showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
                             }
                         }
                         else
                         {
-                            showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
+                          //  showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
                         }
                     }
                     else
                     {
-                        showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
+                     //   showAlertFailure(context, "خطا در دریافت اطلاعات از سرور!", "خطا!", true);
                     }
                 }
                 catch (Exception e)
