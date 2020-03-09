@@ -3,7 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        app:indicatorColor="@color/colorPrimaryDark"
+        app:indicatorName="BallSpinFadeLoaderIndicator" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,6 +39,17 @@
                 android:paddingBottom="2dp"
                 app:srcCompat="@drawable/ic_like_white"
                 app:tint="@color/white" />
+            <TextView
+                android:id="@+id/tvLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="8dp"
+                android:layout_toRightOf="@id/imgLikes"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize_18dp" />
 
             <ImageView
                 android:id="@+id/btnPlay"
@@ -67,17 +86,7 @@
                 android:src="@drawable/share_nn"
                 app:tint="@color/white" />
 
-            <TextView
-                android:id="@+id/tvLikes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:layout_marginRight="8dp"
-                android:layout_toRightOf="@id/imgLikes"
-                android:text=""
-                android:textColor="@color/white"
-                android:textSize="@dimen/textSize_18dp" />
+
 
         </LinearLayout>
 
@@ -126,15 +135,7 @@
 
     </LinearLayout>
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/avi"
-        style="@style/AVLoadingIndicatorView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerInParent="true"
-        android:visibility="visible"
-        app:indicatorColor="@color/colorPrimaryDark"
-        app:indicatorName="BallSpinFadeLoaderIndicator" />
+
 
 
 </RelativeLayout>
