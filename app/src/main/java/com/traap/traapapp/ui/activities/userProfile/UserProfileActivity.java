@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ import java.util.Random;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import okhttp3.MultipartBody;
+import ru.kolotnev.formattedittext.MaskedEditText;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Callback;
@@ -88,15 +90,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private CircularProgressButton btnConfirm;
     private ClearableEditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName;
     private ClearableEditText etPopularPlayer;
-    private TextView tvMenu, tvUserName, tvHeaderPopularNo;
+    private TextView tvMenu, tvUserName, tvHeaderPopularNo,txtphoneLast;
     private EditText tvBirthDay;
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture;
-    private ImageView imgProfile, imgBirthdayReset, imgBirthdaySet;
+    private ImageView imgProfile, imgBirthdayReset, imgBirthdaySet,imgEditMobile;
     private AVLoadingIndicatorView progressImageProfile;
 
     private SlidingUpPanelLayout slidingUpPanelLayout;
     private RelativeLayout rlSelectImage, rlDeleteImage;
+    private LinearLayout lnrEdits, lnrEditMobileOne;
 
     private Animation animHideButton, animShowButton;
 
@@ -119,6 +122,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private ArrayList<String> genderStrList;
 
     private MultipartBody.Part part;
+    private MaskedEditText tvMobileEdit;
 
 
     @SuppressLint("RestrictedApi")
@@ -154,17 +158,24 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         imgBirthdayReset = findViewById(R.id.imgBirthdayReset);
         imgBirthdaySet = findViewById(R.id.imgBirthdaySet);
         imgProfile = findViewById(R.id.imgProfile);
+        imgEditMobile = findViewById(R.id.imgEditMobile);
         fabCapture = findViewById(R.id.fabCapture);
         spinnerGender = findViewById(R.id.spinnerGender);
         tvBirthDay = findViewById(R.id.tvBirthDay);
         etNickName = findViewById(R.id.etNickName);
         etFirstName = findViewById(R.id.etFirstName);
+        tvMobileEdit = findViewById(R.id.tvMobileEdit);
         etLastName = findViewById(R.id.etLastName);
         etPopularPlayer = findViewById(R.id.etPopularPlayer);
         etFirstNameUS = findViewById(R.id.etFirstNameUS);
         etLastNameUS = findViewById(R.id.etLastNameUS);
         etEmail = findViewById(R.id.etEmail);
         etNationalCode = findViewById(R.id.etNationalCode);
+        lnrEdits = findViewById(R.id.lnrEdits);
+
+        /*newLayer*/
+        txtphoneLast = findViewById(R.id.txtphoneLast);
+        lnrEditMobileOne = findViewById(R.id.lnrEditMobileOne);
 
         FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
 
@@ -178,6 +189,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         });
 
         etFirstName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
+        tvMobileEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etLastName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etFirstNameUS.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etLastNameUS.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
@@ -186,7 +198,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         etPopularPlayer.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
         etNationalCode.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
-
+        tvMobileEdit.setText(Prefs.getString("mobile", ""));
         etFirstName.requestFocus();
 
         genderStrList = new ArrayList<String>();
@@ -195,8 +207,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         genderStrList.add("زن");
 
         ArrayAdapter<String> adapterGenderStrList = new ArrayAdapter<String>(this,
-                R.layout.my_spinner_item, genderStrList);
-        adapterGenderStrList.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+                R.layout.my_spinner_item_profile, genderStrList);
+        adapterGenderStrList.setDropDownViewResource(R.layout.custom_spinner_dropdown_item_profile);
         spinnerGender.setAdapter(adapterGenderStrList);
 
         initDate();
@@ -223,7 +235,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
         });
 
+        imgEditMobile.setOnClickListener(v ->
+        {
+           
 
+            updateMobileUI();
+        });
         btnConfirm.setOnClickListener(v ->
         {
             btnConfirm.startAnimation();
@@ -294,6 +311,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
         });
 
+    }
+
+    private void updateMobileUI() {
+        lnrEdits.setVisibility(View.GONE);
+        lnrEditMobileOne.setVisibility(View.VISIBLE);
+        txtphoneLast.setText("شماره تلفن همراه قبلی: "+Prefs.getString("mobile", ""));
     }
 
     public boolean isValid(String text)
