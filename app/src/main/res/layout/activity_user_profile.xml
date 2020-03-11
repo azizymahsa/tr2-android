@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
     android:background="@drawable/background"
+    android:fitsSystemWindows="true"
     tools:context="com.traap.traapapp.ui.activities.userProfile.UserProfileActivity">
 
     <RelativeLayout
@@ -16,7 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="208dp"
-            android:background="@drawable/background_main_header"/>
+            android:background="@drawable/background_main_header" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -31,17 +30,17 @@
 
         <com.sothree.slidinguppanel.SlidingUpPanelLayout
             android:id="@+id/slidingLayout"
-            android:layout_below="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
             android:gravity="bottom"
-            app:umanoPanelHeight="0dp"
-            app:umanoShadowHeight="4dp"
-            app:umanoParallaxOffset="0dp"
-            app:umanoOverlay="true"
+            android:visibility="visible"
             app:umanoClipPanel="false"
-            android:visibility="visible">
-<!--            app:umanoDragView="@+id/nestedScroll">-->
+            app:umanoOverlay="true"
+            app:umanoPanelHeight="0dp"
+            app:umanoParallaxOffset="0dp"
+            app:umanoShadowHeight="4dp">
+            <!--            app:umanoDragView="@+id/nestedScroll">-->
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nested"
@@ -51,11 +50,11 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:background="@android:color/transparent"
-                    android:paddingBottom="16dp"
+                    android:gravity="center"
+                    android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:paddingLeft="16dp">
+                    android:paddingBottom="16dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -68,20 +67,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            app:strokeColor="@color/borderColorGray"
+                            android:elevation="3dp"
+                            android:translationZ="1dp"
+                            app:cardCornerRadius="5dp"
                             app:cardElevation="3dp"
+                            app:cardMaxElevation="5dp"
                             app:cardUseCompatPadding="true"
                             app:contentPadding="8dp"
-                            app:cardCornerRadius="5dp"
-                            app:cardMaxElevation="5dp"
-                            android:elevation="3dp"
-                            android:translationZ="1dp">
+                            app:strokeColor="@color/borderColorGray">
 
                             <LinearLayout
+                                android:id="@+id/lnrEdits"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_70sdp"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+
+                                android:visibility="visible">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -97,28 +99,29 @@
                                     <LinearLayout
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_30dp"
+                                        android:layout_marginBottom="@dimen/_30dp"
                                         android:layout_weight="100"
-                                        android:layout_marginTop="@dimen/_20dp"
                                         android:orientation="vertical">
 
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/_10dp"
                                             android:gravity="center"
                                             android:text="لطفا مشخصات خود را وارد نمایید"
                                             android:textColor="@color/textColorSecondary"
-                                            android:textSize="@dimen/textSize_14dp"
-                                            android:layout_marginTop="@dimen/_10dp" />
+                                            android:textSize="@dimen/textSize_14dp" />
 
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/_10dp"
+                                            android:layout_marginBottom="@dimen/_10dp"
                                             android:gravity="center"
                                             android:text="@string/profile_desc"
                                             android:textColor="@color/textColorSecondary"
-                                            android:textSize="@dimen/textSize_14dp"
-                                            android:layout_marginBottom="@dimen/_10dp"
-                                            android:layout_marginTop="@dimen/_10dp" />
+                                            android:textSize="@dimen/textSize_14dp" />
 
                                     </LinearLayout>
 
@@ -126,6 +129,79 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="10" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="20" />
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/tvMobileEdit"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_toRightOf="@+id/imgEditMobile"
+                                            android:background="@android:color/transparent"
+                                            android:digits="0,1,2,3,4,5,6,7,8,9"
+                                            android:gravity="center_vertical|left"
+                                            android:imeOptions="actionNext"
+                                            android:inputType="number"
+                                            android:maxLines="1"
+                                            android:singleLine="true"
+                                            android:text=""
+                                            android:textColor="@color/textHint"
+                                            android:textColorHint="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp" />
+
+                                        <!--  <ImageView
+                                              android:id="@+id/imgEditMobile"
+                                              style="?android:attr/borderlessButtonStyle"
+                                              android:layout_width="@dimen/_25sdp"
+                                              android:layout_height="@dimen/_35sdp"
+                                              android:layout_centerVertical="true"
+                                              android:scaleType="centerCrop"
+                                              android:tint="@color/textColorPrimary"
+                                              android:visibility="visible"
+                                              app:srcCompat="@drawable/ic_clear" />-->
+
+                                        <ImageView
+                                            android:id="@+id/imgEditMobile"
+                                            style="?android:attr/borderlessButtonStyle"
+                                            android:layout_width="@dimen/_35sdp"
+                                            android:layout_height="@dimen/_35sdp"
+                                            android:layout_alignParentLeft="true"
+                                            android:layout_centerVertical="true"
+                                            android:scaleType="centerCrop"
+                                            android:tint="@color/textColorPrimary"
+                                            android:visibility="visible"
+                                            app:srcCompat="@drawable/repeat_icon" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:layout_alignParentBottom="true"
+                                            android:background="@color/textHint" />
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
 
                                 </LinearLayout>
 
@@ -153,15 +229,15 @@
                                             android:id="@+id/etFirstName"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:gravity="right|center"
                                             android:digits="@string/persian_alphabet"
-                                            android:nextFocusDown="@+id/etLastName"
+                                            android:gravity="right|center"
                                             android:inputType="textNoSuggestions"
                                             android:maxLines="1"
+                                            android:nextFocusDown="@+id/etLastName"
                                             android:paddingTop="8dp"
                                             android:singleLine="true"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/textColorSecondary" />
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -196,15 +272,15 @@
                                             android:id="@+id/etLastName"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:gravity="right|center"
                                             android:digits="@string/persian_alphabet"
-                                            android:nextFocusDown="@+id/etNickName"
+                                            android:gravity="right|center"
                                             android:inputType="textNoSuggestions"
                                             android:maxLines="1"
+                                            android:nextFocusDown="@+id/etNickName"
                                             android:paddingTop="8dp"
                                             android:singleLine="true"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/textColorSecondary" />
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -239,15 +315,15 @@
                                             android:id="@+id/etNickName"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:gravity="right|center"
                                             android:digits="@string/all__alphabet"
-                                            android:nextFocusDown="@+id/etFirstNameUS"
+                                            android:gravity="right|center"
                                             android:inputType="textNoSuggestions"
                                             android:maxLines="1"
+                                            android:nextFocusDown="@+id/etFirstNameUS"
                                             android:paddingTop="8dp"
                                             android:singleLine="true"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/textColorSecondary" />
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -282,15 +358,15 @@
                                             android:id="@+id/etFirstNameUS"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:gravity="left|center_vertical"
                                             android:digits="@string/english_alphabet"
-                                            android:nextFocusDown="@+id/etLastNameUS"
+                                            android:gravity="left|center_vertical"
                                             android:inputType="textNoSuggestions"
                                             android:maxLines="1"
+                                            android:nextFocusDown="@+id/etLastNameUS"
                                             android:paddingTop="8dp"
                                             android:singleLine="true"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/textColorSecondary" />
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -327,13 +403,13 @@
                                             android:layout_height="wrap_content"
                                             android:digits="@string/english_alphabet"
                                             android:gravity="left|center_vertical"
-                                            android:nextFocusDown="@+id/etNationalCode"
                                             android:inputType="textNoSuggestions"
                                             android:maxLines="1"
+                                            android:nextFocusDown="@+id/etNationalCode"
                                             android:paddingTop="8dp"
                                             android:singleLine="true"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/textColorSecondary" />
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -370,14 +446,14 @@
                                             android:layout_height="wrap_content"
                                             android:digits="0,1,2,3,4,5,6,7,8,9"
                                             android:gravity="right|center"
-                                            android:nextFocusDown="@+id/etEmail"
                                             android:inputType="number"
-                                            android:maxLines="1"
                                             android:maxLength="10"
+                                            android:maxLines="1"
+                                            android:nextFocusDown="@+id/etEmail"
                                             android:paddingTop="8dp"
                                             android:singleLine="true"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/textColorSecondary" />
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -417,8 +493,8 @@
                                             android:inputType="textEmailAddress"
                                             android:paddingTop="8dp"
                                             android:singleLine="true"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/textColorSecondary" />
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -445,9 +521,9 @@
                                         android:layout_height="@dimen/_40sdp"
                                         android:layout_gravity="center|right"
                                         android:layout_weight="100"
-                                        android:visibility="gone"
                                         android:hint="شماره بازیکن محبوب"
                                         android:theme="@style/EditTextHint"
+                                        android:visibility="gone"
                                         app:hintTextAppearance="@style/TextLabelProfile">
 
                                         <com.traap.traapapp.utilities.ClearableEditText
@@ -457,14 +533,43 @@
                                             android:digits="0,1,2,3,4,5,6,7,8,9"
                                             android:gravity="right|center"
                                             android:inputType="number"
-                                            android:maxLines="1"
                                             android:maxLength="2"
+                                            android:maxLines="1"
                                             android:paddingTop="8dp"
                                             android:singleLine="true"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/warmGray" />
+                                            android:textColor="@color/warmGray"
+                                            android:textSize="@dimen/textSize_12dp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:gravity="right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                    <Spinner
+                                        android:id="@+id/spinnerGender"
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_gravity="right"
+                                        android:layout_weight="100"
+                                        android:background="@drawable/background_spinner_custom2"
+                                        android:gravity="right"
+                                        android:tag="allBox" />
 
                                     <Space
                                         android:layout_width="0dp"
@@ -482,77 +587,18 @@
                                     <Space
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
-                                        android:layout_weight="20"/>
+                                        android:layout_weight="20" />
 
-                                    <RelativeLayout
-                                        android:id="@+id/rlBirthDay"
+                                    <FrameLayout
                                         android:layout_width="0dp"
-                                        android:layout_height="@dimen/_35sdp"
-                                        android:layout_weight="100"
-                                        android:layout_gravity="center|right">
-
-                                        <TextView
-                                            android:id="@+id/tv9"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="match_parent"
-                                            android:text="تاریخ تولد"
-                                            android:layout_alignParentRight="true"
-                                            android:layout_marginLeft="4dp"
-                                            android:gravity="center_vertical|right"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/textHint" />
-
-                                        <ru.kolotnev.formattedittext.MaskedEditText
-                                            android:id="@+id/tvBirthDay"
-                                            android:layout_toLeftOf="@+id/tv9"
-                                            android:layout_toRightOf="@+id/imgBirthdayReset"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:text=""
-                                            android:inputType="number"
-                                            android:gravity="center_vertical|right"
-                                            android:textSize="@dimen/textSize_12dp"
-                                            android:textColor="@color/textColorSecondary"
-                                            android:digits="0,1,2,3,4,5,6,7,8,9"
-                                            android:imeOptions="actionNext"
-                                            android:maxLines="1"
-                                            android:singleLine="true"
-                                            app:mask="9999/99/99"
-                                            android:textColorHint="@color/textColorSecondary"
-                                            app:placeholder="_"
-                                            android:background="@android:color/transparent" />
-
-                                        <ImageView
-                                            android:id="@+id/imgBirthdayReset"
-                                            style="?android:attr/borderlessButtonStyle"
-                                            android:layout_width="@dimen/_25sdp"
-                                            android:layout_toRightOf="@+id/imgBirthdaySet"
-                                            android:layout_height="@dimen/_35sdp"
-                                            android:scaleType="centerCrop"
-                                            android:visibility="gone"
-                                            android:layout_centerVertical="true"
-                                            android:tint="@color/textColorPrimary"
-                                            app:srcCompat="@drawable/ic_clear" />
-
-                                        <ImageView
-                                            android:id="@+id/imgBirthdaySet"
-                                            style="?android:attr/borderlessButtonStyle"
-                                            android:layout_width="@dimen/_35sdp"
-                                            android:layout_height="@dimen/_35sdp"
-                                            android:layout_alignParentLeft="true"
-                                            android:scaleType="centerCrop"
-                                            android:visibility="visible"
-                                            android:layout_centerVertical="true"
-                                            android:tint="@color/textColorPrimary"
-                                            app:srcCompat="@drawable/ic_calendar_black_24dp" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="100">
 
                                         <View
                                             android:layout_width="match_parent"
                                             android:layout_height="1dp"
-                                            android:layout_alignParentBottom="true"
-                                            android:background="@color/textHint"/>
-
-                                    </RelativeLayout>
+                                            android:background="@color/textHint" />
+                                    </FrameLayout>
 
                                     <Space
                                         android:layout_width="0dp"
@@ -565,23 +611,82 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center|right"
-                                    android:layout_marginTop="16dp"
                                     android:orientation="horizontal">
 
                                     <Space
                                         android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="match_parent"
                                         android:layout_weight="20" />
 
-                                    <Spinner
-                                        android:id="@+id/spinnerGender"
+                                    <RelativeLayout
+                                        android:id="@+id/rlBirthDay"
                                         android:layout_width="0dp"
-                                        android:layout_height="@dimen/_35dp"
-                                        android:layout_weight="100"
-                                        android:layout_gravity="center"
-                                        android:gravity="right"
-                                        android:tag="allBox"
-                                        android:background="@drawable/background_spinner_custom" />
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <TextView
+                                            android:id="@+id/tv9"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_marginLeft="4dp"
+                                            android:gravity="center_vertical|right"
+                                            android:text="تاریخ تولد"
+                                            android:textColor="@color/textHint"
+                                            android:textSize="@dimen/textSize_12dp" />
+
+                                        <ru.kolotnev.formattedittext.MaskedEditText
+                                            android:id="@+id/tvBirthDay"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_toLeftOf="@+id/tv9"
+                                            android:layout_toRightOf="@+id/imgBirthdayReset"
+                                            android:background="@android:color/transparent"
+                                            android:digits="0,1,2,3,4,5,6,7,8,9"
+                                            android:gravity="center_vertical|right"
+                                            android:imeOptions="actionNext"
+                                            android:inputType="number"
+                                            android:maxLines="1"
+                                            android:singleLine="true"
+                                            android:text=""
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textColorHint="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp"
+                                            app:mask="9999/99/99"
+                                            app:placeholder="_" />
+
+                                        <ImageView
+                                            android:id="@+id/imgBirthdayReset"
+                                            style="?android:attr/borderlessButtonStyle"
+                                            android:layout_width="@dimen/_25sdp"
+                                            android:layout_height="@dimen/_35sdp"
+                                            android:layout_centerVertical="true"
+                                            android:layout_toRightOf="@+id/imgBirthdaySet"
+                                            android:scaleType="centerCrop"
+                                            android:tint="@color/textColorPrimary"
+                                            android:visibility="gone"
+                                            app:srcCompat="@drawable/ic_clear" />
+
+                                        <ImageView
+                                            android:id="@+id/imgBirthdaySet"
+                                            style="?android:attr/borderlessButtonStyle"
+                                            android:layout_width="@dimen/_35sdp"
+                                            android:layout_height="@dimen/_35sdp"
+                                            android:layout_alignParentLeft="true"
+                                            android:layout_centerVertical="true"
+                                            android:scaleType="centerCrop"
+                                            android:tint="@color/textColorPrimary"
+                                            android:visibility="visible"
+                                            app:srcCompat="@drawable/ic_calendar_black_24dp" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:layout_alignParentBottom="true"
+                                            android:background="@color/textHint" />
+
+                                    </RelativeLayout>
 
                                     <Space
                                         android:layout_width="0dp"
@@ -589,6 +694,7 @@
                                         android:layout_weight="20" />
 
                                 </LinearLayout>
+
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -624,6 +730,176 @@
 
                             </LinearLayout>
 
+                            <LinearLayout
+                                android:id="@+id/lnrEditMobileOne"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_70sdp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="20" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="right|center"
+                                            android:singleLine="false"
+                                            android:textAlignment="center"
+                                            android:text="@string/_title_edit_mobile"
+                                            android:textColor="@color/g_txt_title2"
+                                            android:textSize="@dimen/textSize_14dp" />
+
+
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="20" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <TextView
+
+                                            android:id="@+id/txtphoneLast"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="right|center"
+                                            android:singleLine="false"
+                                            android:textAlignment="center"
+                                            android:text="شماره تلفت قبلی"
+                                            android:textStyle="bold"
+                                            android:textColor="@color/_title_black"
+                                            android:textSize="@dimen/textSize_14dp" />
+
+
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="20" />
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/tvMobileNew"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@android:color/transparent"
+                                            android:digits="0,1,2,3,4,5,6,7,8,9"
+                                            android:gravity="right|center"
+                                            android:hint="@string/_new_mobile_num"
+                                            android:imeOptions="actionNext"
+                                            android:inputType="number"
+                                            android:maxLines="1"
+                                            android:singleLine="true"
+                                            android:text=""
+                                            android:textColorHint="@color/textHint"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_12dp" />
+
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:layout_alignParentBottom="true"
+                                            android:background="@color/textHint" />
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_20dp"
+                                    android:layout_marginBottom="@dimen/_20dp"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="50" />
+
+                                    <FrameLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="100">
+
+                                        <include
+                                            android:id="@+id/btnConfirmEditMobile"
+                                            layout="@layout/circular_progress_button_small" />
+
+                                    </FrameLayout>
+
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="50" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
                         </androidx.cardview.widget.CardView>
 
                     </RelativeLayout>
@@ -632,53 +908,53 @@
                         android:id="@+id/rlImageProfile"
                         android:layout_width="@dimen/_120sdp"
                         android:layout_height="@dimen/_120sdp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_alignParentTop="true">
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true">
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/imgProfile"
                             android:layout_width="@dimen/_120sdp"
                             android:layout_height="@dimen/_120sdp"
-                            android:scaleType="fitXY"
-                            android:layout_centerHorizontal="true"
                             android:layout_alignParentTop="true"
-                            app:riv_corner_radius="30dip"
-                            app:riv_border_width="2dip"
+                            android:layout_centerHorizontal="true"
                             android:elevation="3dp"
-                            android:visibility="visible"
+                            android:scaleType="fitXY"
                             android:src="@drawable/ic_user_default"
+                            android:visibility="visible"
                             app:riv_border_color="@color/borderColorGray"
+                            app:riv_border_width="2dip"
+                            app:riv_corner_radius="30dip"
                             app:riv_mutate_background="true"
-                            app:riv_tile_mode="clamp"
-                            app:riv_oval="true" />
+                            app:riv_oval="true"
+                            app:riv_tile_mode="clamp" />
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/fabCapture"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
                             android:layout_marginRight="4dp"
                             android:layout_marginBottom="4dp"
-                            app:fabSize="mini"
-                            android:visibility="visible"
-                            app:elevation="3dp"
-                            app:backgroundTint="@color/colorPrimary"
                             android:src="@drawable/ic_capture"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"/>
+                            android:visibility="visible"
+                            app:backgroundTint="@color/colorPrimary"
+                            app:elevation="3dp"
+                            app:fabSize="mini" />
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/fabDeleteProfile"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
                             android:layout_marginLeft="4dp"
                             android:layout_marginTop="4dp"
-                            app:fabSize="mini"
                             android:visibility="gone"
-                            app:elevation="3dp"
                             app:backgroundTint="@color/colorPrimary"
-                            app:srcCompat="@android:drawable/ic_delete"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentLeft="true"/>
+                            app:elevation="3dp"
+                            app:fabSize="mini"
+                            app:srcCompat="@android:drawable/ic_delete" />
 
                         <com.wang.avi.AVLoadingIndicatorView
                             android:id="@+id/progressImageProfile"
@@ -686,8 +962,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:visibility="gone"
                             android:translationZ="3dp"
+                            android:visibility="gone"
                             app:indicatorColor="@color/textColorPrimary"
                             app:indicatorName="BallScaleMultipleIndicator" />
 
@@ -700,34 +976,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@android:color/transparent">
+                android:background="@android:color/transparent"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_border_white_16dp"
                     android:orientation="vertical"
-                    android:padding="32dp"
-                    android:background="@drawable/background_border_white_16dp">
+                    android:padding="32dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="تغییر عکس پروفایل"
-                        android:gravity="right"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="8dp"
+                        android:gravity="right"
+                        android:text="تغییر عکس پروفایل"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_16dp"
-                        android:layout_alignParentRight="true"/>
+                        android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
-                        android:background="@color/gray"/>
+                        android:background="@color/gray" />
 
                     <RelativeLayout
                         android:id="@+id/rlSelectImage"
@@ -738,6 +1014,7 @@
                         android:paddingBottom="6dp">
 
                         <TextView
+                            style="@style/Regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -745,7 +1022,6 @@
                             android:gravity="right|center_vertical"
                             android:paddingRight="10dp"
                             android:text="انتخاب عکس"
-                            style="@style/Regular"
                             android:textColor="@color/textColorSecondary"
                             android:textSize="@dimen/textSize_14dp" />
 
@@ -770,6 +1046,7 @@
                         android:paddingBottom="6dp">
 
                         <TextView
+                            style="@style/Regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -777,7 +1054,6 @@
                             android:gravity="right|center_vertical"
                             android:paddingRight="10dp"
                             android:text="حذف عکس"
-                            style="@style/Regular"
                             android:textColor="@color/textColorSecondary"
                             android:textSize="@dimen/textSize_14dp" />
 
@@ -798,8 +1074,9 @@
 
         </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
-        <include layout="@layout/loading"
-            android:visibility="gone"/>
+        <include
+            layout="@layout/loading"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
