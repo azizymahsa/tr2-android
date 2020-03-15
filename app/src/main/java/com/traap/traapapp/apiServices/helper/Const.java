@@ -190,4 +190,8 @@ public class Const
     //Lottery for Predict
     public final static String GET_LOTTERY_WINNER_LIST = SubBASEURL + "v1/lottery/{matchId}";
 
+    //editUser
+    public final static String Get_verify_change_user = SubBASEURL + "v1/user/change_username/verify/";
+    public final static String Get_send_code_change_user = SubBASEURL + "v1/user/change_username/send_code/";
+
 }

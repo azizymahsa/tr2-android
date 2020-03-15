@@ -30,6 +30,8 @@ import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletRequest;
 import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletResponse;
 import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferRequest;
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
+import com.traap.traapapp.apiServices.model.editUser.sendCodeReq.SendCodeReq;
+import com.traap.traapapp.apiServices.model.editUser.sendCodeRes.SendCodeRes;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import com.traap.traapapp.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
@@ -664,7 +666,14 @@ public interface RetroClient
 //            @Query("category_id__in") String categoryIds,          //example 1,2,3,4
 //            @Query("create_date__range") String createDateRanges   //example 2019-01-01,2019-12-01
 //    );
-
+@POST(Const.Get_verify_change_user)
+Single<Response<WebServiceClass<com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse>>> verifyEditMobile(
+        @Body com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest request
+);
+    @POST(Const.Get_send_code_change_user)
+    Single<Response<WebServiceClass<SendCodeRes>>> sendCodeEditUser(
+            @Body SendCodeReq request
+    );
     @GET(Const.Get_NEWS_DETAILS + "{id}/")
     Single<Response<WebServiceClass<GetNewsDetailsResponse>>> getNewsDetails(
             @Path("id") Integer id

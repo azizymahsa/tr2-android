@@ -75,7 +75,7 @@
                             app:cardUseCompatPadding="true"
                             app:contentPadding="8dp"
                             app:strokeColor="@color/borderColorGray">
-
+                            <!--lnrEdits-->
                             <LinearLayout
                                 android:id="@+id/lnrEdits"
                                 android:layout_width="match_parent"
@@ -137,7 +137,7 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center|right"
                                     android:orientation="horizontal"
-                                    android:visibility="gone">
+                                    android:visibility="visible">
 
                                     <Space
                                         android:layout_width="0dp"
@@ -185,10 +185,9 @@
                                             android:layout_height="@dimen/_35sdp"
                                             android:layout_alignParentLeft="true"
                                             android:layout_centerVertical="true"
-                                            android:scaleType="centerCrop"
-                                            android:tint="@color/textColorPrimary"
+                                            android:scaleType="center"
                                             android:visibility="visible"
-                                            app:srcCompat="@drawable/repeat_icon" />
+                                            app:srcCompat="@drawable/ic_refresh" />
 
                                         <View
                                             android:layout_width="match_parent"
@@ -729,7 +728,7 @@
                                 </LinearLayout>
 
                             </LinearLayout>
-
+                            <!--lnrEditMobileOne-->
                             <LinearLayout
                                 android:id="@+id/lnrEditMobileOne"
                                 android:layout_width="match_parent"
@@ -899,7 +898,73 @@
                                 </LinearLayout>
 
                             </LinearLayout>
+                            <!--llPin-->
+                            <LinearLayout
+                                android:id="@+id/llPin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone">
 
+                                <TextView
+                                    android:id="@+id/tvPhoneNumber"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center"
+                                    android:textColor="@color/textColorSecondary"
+                                    android:textSize="@dimen/textSize_14dp" />
+
+                                <com.alimuzaffar.lib.pin.PinEntryEditText
+                                    android:id="@+id/codeView"
+                                    android:layout_width="@dimen/_250dp_r"
+                                    android:layout_height="@dimen/_80dp"
+                                    android:layout_gravity="center"
+                                    android:textDirection="ltr"
+                                    android:layoutDirection="ltr"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:cursorVisible="false"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="number"
+                                    android:maxLength="4"
+                                    android:textColor="@color/textColorSecondary"
+                                    android:textSize="@dimen/textSize_20dp"
+                                    app:pinLineColors="@color/textColorSecondary" />
+
+                            </LinearLayout>
+                            <!--countDownTimer-->
+                            <LinearLayout
+                                android:id="@+id/countDownTimer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/tvCountDown"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/_10dp"
+                                    android:layout_marginBottom="@dimen/_20dp"
+                                    android:textColor="@color/textColorSecondary"
+                                    android:textSize="@dimen/textSize_12dp" />
+
+                                <TextView
+                                    android:id="@+id/tvResend"
+                                    android:layout_width="@dimen/_100dp"
+                                    android:layout_height="@dimen/_35dp"
+                                    android:gravity="center"
+                                    android:layout_margin="@dimen/_30dp"
+                                    android:textColor="@color/textColorPrimary"
+                                    android:textSize="@dimen/textSize_12dp"
+                                    android:text="ارسال مجدد کد"
+                                    android:background="@drawable/background_border_a"
+                                    android:foreground="?attr/selectableItemBackground"
+                                    android:visibility="gone" />
+
+                            </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
                     </RelativeLayout>
