@@ -66,6 +66,7 @@ import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProf
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.editUser.UserEditVerifyActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.ClearableEditText;
@@ -335,6 +336,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         progressImageProfile.setVisibility(View.VISIBLE);
         SendCodeReq sendCodeReq = new SendCodeReq();
         sendCodeReq.setUsername(mobileNum);
+        Prefs.putString("mobileLast", mobileNum);
         SingletonService.getInstance().sendProfileService().sendCodeEditUser(sendCodeReq, new OnServiceStatus<WebServiceClass<SendCodeRes>>() {
             @Override
             public void onReady(WebServiceClass<SendCodeRes> response) {
@@ -345,7 +347,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     if (response.info.statusCode != 200) {
                         showError(UserProfileActivity.this, response.info.message);
                     } else {
-                        showToast(UserProfileActivity.this, response.info.message, R.color.green);
+                       // showToast(UserProfileActivity.this, response.info.message, R.color.green);
+                        Intent myIntent = new Intent(UserProfileActivity.this, UserEditVerifyActivity.class);
+                        myIntent.putExtra("mobileLast", mobileNum); //Optional parameters
+                        startActivity(myIntent);
                     }
                 } catch (Exception e) {
                 }
