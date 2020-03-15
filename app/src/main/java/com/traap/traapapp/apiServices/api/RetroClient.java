@@ -148,8 +148,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface RetroClient
-{
+public interface RetroClient {
     @POST(Const.Login)
     Single<Response<WebServiceClass<LoginResponse>>> login(
             @Body LoginRequest request
@@ -170,10 +169,10 @@ public interface RetroClient
 
     @GET(Const.Get_Category_By_Id_Video)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
-          //  @Path("id") Integer categoryId
-           @Query("page") Integer page,
-           @Query("page_size") Integer page_size,
-           @Query("category_id") Integer category_id
+            //  @Path("id") Integer categoryId
+            @Query("page") Integer page,
+            @Query("page_size") Integer page_size,
+            @Query("category_id") Integer category_id
     );
 
     @GET(Const.Get_Category_By_Id_Video2)
@@ -297,7 +296,6 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetVersionResponse>>> getVersion(
             @Body GetVersionRequest request
     );
-
 
 
     @GET(Const.GET_BOUGHT_FOR)
@@ -661,19 +659,21 @@ public interface RetroClient
             @Query("search") String searchText
     );
 
-//    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs_AND_DATES)
+    //    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs_AND_DATES)
 //    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryByIdsAndRangeDate(
 //            @Query("category_id__in") String categoryIds,          //example 1,2,3,4
 //            @Query("create_date__range") String createDateRanges   //example 2019-01-01,2019-12-01
 //    );
-@POST(Const.Get_verify_change_user)
-Single<Response<WebServiceClass<com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse>>> verifyEditMobile(
-        @Body com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest request
-);
+    @POST(Const.Get_verify_change_user)
+    Single<Response<WebServiceClass<com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse>>> editUserVerify(
+            @Body com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest request
+    );
+
     @POST(Const.Get_send_code_change_user)
     Single<Response<WebServiceClass<SendCodeRes>>> sendCodeEditUser(
             @Body SendCodeReq request
     );
+
     @GET(Const.Get_NEWS_DETAILS + "{id}/")
     Single<Response<WebServiceClass<GetNewsDetailsResponse>>> getNewsDetails(
             @Path("id") Integer id

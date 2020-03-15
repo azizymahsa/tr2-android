@@ -33,6 +33,10 @@
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activities.editUser.UserEditVerifyActivity"
+            android:configChanges="keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activities.news.details.NewsDetailsActivity"
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />

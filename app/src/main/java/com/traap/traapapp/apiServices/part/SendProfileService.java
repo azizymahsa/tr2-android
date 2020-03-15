@@ -53,5 +53,8 @@ public class SendProfileService extends BasePart
     {
         start(getServiceGenerator().createService().sendCodeEditUser(SendCodeReq), listener);
     }
-
+    public void editUserVerify(VerifyRequest SendCodeReq,OnServiceStatus<WebServiceClass<VerifyResponse>> listener)
+    {
+        start(getServiceGenerator().createService().editUserVerify(SendCodeReq), listener);
+    }
 }

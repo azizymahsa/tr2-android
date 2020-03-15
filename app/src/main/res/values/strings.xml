@@ -162,6 +162,7 @@
     <string name="back">بازگشت</string>
     <string name="_new_mobile_num">شماره تلفن همراه جدید</string>
     <string name="_title_edit_mobile">با تغییر شماره تلفن همراه خود کلیه اطلاعات ثبت شده شما در تراپ(اطلاعات حساب کاربری،تراکنش ها،نظرات و اعتبار کیف پول شما) به صورت کامل به شماره جدید منتقل می گردد.</string>
+    <string name="verify_user">تایید و انتقال اطلاعات</string>
     <string-array name="string_array_alcohol">
         <item>Vodka</item>
         <item>Rum</item>
