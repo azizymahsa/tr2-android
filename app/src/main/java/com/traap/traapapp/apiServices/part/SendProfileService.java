@@ -5,6 +5,10 @@ import androidx.annotation.Nullable;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.editUser.sendCodeReq.SendCodeReq;
+import com.traap.traapapp.apiServices.model.editUser.sendCodeRes.SendCodeRes;
+import com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest;
+import com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse;
 import com.traap.traapapp.apiServices.model.profile.deleteProfile.DeleteProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
@@ -44,6 +48,10 @@ public class SendProfileService extends BasePart
     public void deleteProfilePhoto(OnServiceStatus<WebServiceClass<DeleteProfileResponse>> listener)
     {
         start(getServiceGenerator().createService().deleteProfilePhoto(), listener);
+    }
+    public void sendCodeEditUser(SendCodeReq SendCodeReq,OnServiceStatus<WebServiceClass<SendCodeRes>> listener)
+    {
+        start(getServiceGenerator().createService().sendCodeEditUser(SendCodeReq), listener);
     }
 
 }

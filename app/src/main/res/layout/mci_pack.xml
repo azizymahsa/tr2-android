@@ -148,7 +148,7 @@
 
         <ImageView
             android:id="@+id/img1"
-            android:src="@drawable/ic_warning"
+            android:src="@drawable/ic_warningg"
             android:tint="@color/imageWarningTintColor"
             android:layout_width="@dimen/_25dp"
             android:layout_height="@dimen/_25dp"
