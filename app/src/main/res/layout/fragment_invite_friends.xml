@@ -176,8 +176,8 @@
                         android:text="لینک دانلود اپلیکیشن"
                         android:textColor="@color/black"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:visibility="visible"
-                        android:textSize="@dimen/textSize_12dp"/>
+                        android:visibility="gone"
+                        android:textSize="@dimen/textSize_12dp" />
 
                     <TextView
                         android:id="@+id/tvLinkAddress"
@@ -188,7 +188,7 @@
                         android:textColor="@color/greyishBrown"
                         android:layout_marginBottom="@dimen/_20dp"
                         android:layout_marginTop="@dimen/_5dp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:textSize="@dimen/textSize_12dp"/>
 
 
