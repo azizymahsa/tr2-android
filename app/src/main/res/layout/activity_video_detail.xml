@@ -22,13 +22,13 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="102dp"
+                    android:layout_height="104dp"
                     android:background="@drawable/background_main_header" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="102dp"
+                    android:layout_height="104dp"
                     android:layout_alignParentTop="true"
                     android:background="@android:color/transparent">
 
@@ -75,8 +75,8 @@
 
                         <ImageView
                             android:id="@+id/imgLike"
-                            android:layout_width="@dimen/_30dp"
-                            android:layout_height="@dimen/_30dp"
+                            android:layout_width="@dimen/_35dp"
+                            android:layout_height="@dimen/_35dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:paddingTop="4dp"

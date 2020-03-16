@@ -29,10 +29,10 @@ public class LiveScoreService extends BasePart
         start(getServiceGenerator().createService().getLeage(req), listener);
     }
 
-    public void PastResultService(PastResultFragment listener, RequestPastResult req)
-    {
-        start(getServiceGenerator().createService().getPastResult(req), listener);
-    }
+//    public void PastResultService(PastResultFragment listener, RequestPastResult req)
+//    {
+//        start(getServiceGenerator().createService().getPastResult(req), listener);
+//    }
 
     public void getPastResult_v2_Service(Last5PastMatchRequest request, OnServiceStatus<WebServiceClass<Last5PastMatchResponse>> response)
     {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+
+        <layer-list>
+
+            <item>
+                <shape>
+                    <solid android:color="@color/buttonMainBackgroundColor"/>
+                    <stroke android:color="@color/buttonMainBorderColor"
+                        android:width="0dp"/>
+
+                    <corners android:radius="32dp"/>
+                </shape>
+            </item>
+
+            <item android:left="3dp">
+
+                <bitmap
+                    android:gravity="center_vertical|start"
+                    android:src="@drawable/ic_arrow_down_36dp" />
+
+            </item>
+
+        </layer-list>
+
+    </item>
+
+</selector>

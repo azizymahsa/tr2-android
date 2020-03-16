@@ -61,13 +61,13 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
             holder.tvLeagueName.setText(item.getMatchMyPredict().getCup().getCupName());
             holder.tvStadiumName.setText(item.getMatchMyPredict().getStadium());
 
-            holder.tvMatchResult.setText(item.getMatchMyPredict().getResultScore().getHomeScore() + " - " +
-                    item.getMatchMyPredict().getResultScore().getAwayScore());
+            holder.tvMatchResult.setText(item.getMatchMyPredict().getResultScore().getAwayScore() + " - " +
+                    item.getMatchMyPredict().getResultScore().getHomeScore());
 
             holder.tvPoint.setText("امتیاز این پیش بینی: " + item.getPoint() + " تراپ");
 
-            holder.tvPredictResult.setText(item.getPredictScore().getHomeScore() + " - " +
-                    item.getPredictScore().getAwayScore());
+            holder.tvPredictResult.setText(item.getPredictScore().getAwayScore() + " - " +
+                    item.getPredictScore().getHomeScore());
 
             setImageBackground(holder.imgAway, item.getMatchMyPredict().getAwayTeam().getTeamLogo());
             setImageBackground(holder.imgHome, item.getMatchMyPredict().getHomeTeam().getTeamLogo());

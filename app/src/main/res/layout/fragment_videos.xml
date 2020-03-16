@@ -284,14 +284,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/textHint" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCategories"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    />
+                    android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginBottom="@dimen/_10dp"
+                        />
+                    <ProgressBar
+                        android:id="@+id/pbMoreVideo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/white"
+
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+
 
                 <TextView
                     android:id="@+id/tvEmpty"

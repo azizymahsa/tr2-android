@@ -139,7 +139,11 @@ public class Const
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
     public final static String Get_VIDEOS_ARCHIVE_CATEGORY = SubBASEURL + "v1/video/category/";
     public final static String Get_VIDEOS_ARCHIVE_BY_IDs = SubBASEURL + "v1/video/";
-    public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
+  //  public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
+    public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/";
+
+
+
     public final static String Get_Category_By_Id_Video2 = SubBASEURL + "v1/video/{id}/related/";
     public final static String Like_Video = SubBASEURL + "v1/video/{id}/like/";
     public final static String bookMark_Video = SubBASEURL + "v1/video/{id}/bookmark/";
@@ -185,5 +189,9 @@ public class Const
 
     //Lottery for Predict
     public final static String GET_LOTTERY_WINNER_LIST = SubBASEURL + "v1/lottery/{matchId}";
+
+    //editUser
+    public final static String Get_verify_change_user = SubBASEURL + "v1/user/change_username/verify/";
+    public final static String Get_send_code_change_user = SubBASEURL + "v1/user/change_username/send_code/";
 
 }

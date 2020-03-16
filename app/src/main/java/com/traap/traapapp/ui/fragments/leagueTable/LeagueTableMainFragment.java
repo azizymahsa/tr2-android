@@ -133,6 +133,7 @@ public class LeagueTableMainFragment extends BaseFragment implements LeagueTable
     @Override
     public void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle)
     {
+        Prefs.putInt("LeagueTableParent", LeagueTableParent.PredictFragment.ordinal());
         mainView.openPastResultFragment(parent, String.valueOf(matchId), isPredictable, teamId, imageLogo, logoTitle);
     }
 

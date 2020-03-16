@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
+            <!--llPin-->
             <LinearLayout
                 android:id="@+id/llPin"
                 android:layout_width="match_parent"
@@ -273,7 +273,20 @@
                     android:layout_weight="40" />
 
             </LinearLayout>
-
+            <TextView
+                android:id="@+id/tvChangeNumber"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_35dp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_gravity="center"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/textSize_12dp"
+                android:text="اصلاح شماره"
+                android:background="@drawable/background_border_a"
+                android:foreground="?attr/selectableItemBackground"
+                android:visibility="gone" />
+            <!--countDownTimer-->
             <LinearLayout
                 android:id="@+id/countDownTimer"
                 android:layout_width="match_parent"
