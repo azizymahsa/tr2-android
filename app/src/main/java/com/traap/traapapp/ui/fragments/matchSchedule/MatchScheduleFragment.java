@@ -235,8 +235,8 @@ public class MatchScheduleFragment extends BaseFragment implements LeagueTableAc
         List<String> titleList = new ArrayList<>(3);
 
         titleList.add("جدول لیگ برتر");
-        titleList.add("بازی های پیش رو");
-        titleList.add("بازی های گذشته");
+        titleList.add("بازی\u200cهای پیش\u200cرو");
+        titleList.add("بازی\u200cهای گذشته");
 
         SamplePagerAdapter adapter = new SamplePagerAdapter(
                 getFragmentManager(),
@@ -382,6 +382,7 @@ public class MatchScheduleFragment extends BaseFragment implements LeagueTableAc
             tv.setText(getPageTitle(position));
             tv.setGravity(Gravity.CENTER_HORIZONTAL);
             tv.setTextColor(context.getResources().getColorStateList(R.color.textColorSecondary));
+            tv.setTextSize(14);
             tv.setTypeface(font);
             return v;
         }
