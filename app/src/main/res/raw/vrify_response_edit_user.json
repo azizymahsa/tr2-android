@@ -1,0 +1,26 @@
+{
+  "info": {
+    "code": 200,
+    "message": "",
+    "exception": ""
+  },
+  "data": {
+    "profile": {
+      "id": 21,
+      "popular_player": 12,
+      "photo": "http://5.253.25.117:9999/media/resource/profile/309ea90fa03e45a594fcf9f21bbbe419.jpg",
+      "username": "09029262658",
+      "first_name": "سپهر",
+      "last_name": "انیاک",
+      "national_code": "0057111332",
+      "birthday": "1398-11-01",
+      "english_name": "",
+      "key_invite": "8085101",
+      "sex": 1,
+      "first_english_name": "hdhdhuf",
+      "last_english_name": "zarirh",
+      "email": ""
+    },
+    "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0cmFhcGtleSI6IjI5M2JjNTdjYjEzMTk3ZjE2ODRjYjEzYzVmOGY3OGY3MGYzODViM2YiLCJ1c2VybmFtZSI6IjA5MDI5MjYyNjU4IiwiaW1laSI6IjdBbjI0VXdQZHhlTGk2MkNpZU9UTEo4MUN0cWJMNWxQR0RncCt5ZXlweUtxdVhwSXJQTEFFZURBTWlxUnMvazFsTGM0MTU4d3pNK1UrSGxyUE9VTzRBPT0ifQ.tf_4WxM8bUsw7qOIIljEjZWuMBZUix9itRK6suR5BM8"
+  }
+}

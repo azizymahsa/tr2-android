@@ -2,10 +2,8 @@ package com.traap.traapapp.apiServices.model.editUser.verifyRes;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.traap.traapapp.apiServices.model.allService.response.Info;
 
-
-public class VerifyResponse {
+public class Data {
 
     @SerializedName("profile")
     @Expose
@@ -29,6 +27,5 @@ public class VerifyResponse {
     public void setAccess(String access) {
         this.access = access;
     }
-
 
 }

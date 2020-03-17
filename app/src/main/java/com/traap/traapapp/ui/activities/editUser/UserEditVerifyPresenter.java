@@ -10,7 +10,7 @@ import com.traap.traapapp.ui.base.BasePresenter;
  */
 public interface UserEditVerifyPresenter extends BasePresenter {
     void getCode(PinEntryEditText codeView);
-    void getMobile(EditText mobile);
+   void getMobile(EditText mobile);
     void setScreenSize(int height, int width);
 
 }

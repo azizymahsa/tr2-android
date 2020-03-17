@@ -75,7 +75,7 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_verify);
 //        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        Prefs.putString("accessToken", "");
+       // Prefs.putString("accessToken", "");
         UserEditVerifyPresenter = new UserEditVerifyPresenterImpl(getApplicationContext(), this, this);
         initView();
         initCountryCode();
@@ -238,8 +238,8 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
     @Override
     public void onButtonActions(boolean canEnter, GoToActivity goToActivity)
     {
-        if (isCode && canEnter)
-        {
+       /* if (isCode && canEnter)
+        {*/
             Intent intent = null;
 //            switch (goToActivity)
 //            {
@@ -256,15 +256,19 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
 //
 //                        break;
 //            }
-            intent = new Intent(this, MainActivity.class);
+        finish();
+        //mainView.backToMainFragment();
+          /*  intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityForResult(intent, 100);
-            finish();
-        }
+            finish();*/
+
+
+       /* }
         else
         {
             mobileToCode();
-        }
+        }*/
 
 
     }
@@ -281,7 +285,7 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
     public void onTick(String second)
     {
         tvCountDown.setText(second);
-        //   countDownTimer.setVisibility(View.VISIBLE);
+           countDownTimer.setVisibility(View.VISIBLE);
 
     }
 
