@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
+import com.google.gson.Gson;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -21,6 +22,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 
 import com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest;
+import com.traap.traapapp.apiServices.model.editUser.verifyRes.Profile;
 import com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse;
 
 import com.traap.traapapp.conf.TrapConfig;
@@ -66,7 +68,7 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
         this.activityContext = activityContext;
         countDownTimer = new com.traap.traapapp.ui.activities.editUser.CountDownTimerResendCode(startTime, interval, loginView);
         // EventBus.getDefault().register(this);
-
+        countDownTimer.start();
     }
 
     @Override
@@ -111,6 +113,8 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
 
     public void verifyRequest() {
         loginView.showLoading();
+        countDownTimer.cancel();
+        //loginView.hideLoading();
         sendVerifyRequest();
     }
 
@@ -119,30 +123,36 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
 
         request.setUsername(Prefs.getString("mobileLast", ""));
         request.setCode(codeView.getText().toString());
-//        request.setCurrentVersion(BuildConfig.VERSION_NAME);0
         request.setDeviceType(TrapConfig.AndroidDeviceType);
-
-//        request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), activityContext));
         request.setImei(UUID.randomUUID().toString());
         request.setDeviceModel(Build.BRAND + "-" + Build.MODEL);
-//        request.setImei("864890030464324");
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) activityContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         request.setScreenSizeHeight(String.valueOf(displayMetrics.heightPixels));
         request.setScreenSizeWidth(String.valueOf(displayMetrics.widthPixels));
-
-        SingletonService.getInstance().sendProfileService().editUserVerify(request, new OnServiceStatus<WebServiceClass<VerifyResponse>>() {
+        //new Gson().toJson(request);
+    SingletonService.getInstance().sendProfileService().editUserVerify(request, new OnServiceStatus<WebServiceClass<VerifyResponse>>() {
             @Override
             public void onReady(WebServiceClass<VerifyResponse> response) {
                 try {
                     if (response.info.statusCode == 200) {
                         setProfileData(response);
-                        loginView.onButtonActions(true, GoToActivity.MainActivity);
                         loginView.hideLoading();
+                        Prefs.putString("profileImage", response.data. getProfile().getPhoto());
 
+                        Prefs.putInt("popularPlayer", response.data. getProfile().getPopularPlayer() == 0 ? 12 : response.data. getProfile().getPopularPlayer());
 
+                       // Prefs.putString("gds_token",  response.data. getProfile().getGds_token());
+
+                      //  Prefs.putString("bimeh_call_back",  response.data. getProfile().getBimeh_call_back());
+                      //  Prefs.putString("bimeh_api_key",  response.data. getProfile().getBimeh_api_key());
+                      //  Prefs.putString("bimeh_token",  response.data. getProfile().getBimeh_token());
+                      //  Prefs.putString("bimeh_base_url",  response.data. getProfile().getBimeh_base_url());
+
+                       // Prefs.putString("alopark_token",  response.data. getProfile().getAlopark_token());
+                        showAlertSuccess(activityContext,"تغییر ﺷﻤﺎره ﺗﻠﻔﻦ ﻫﻤﺮاه و اﻧﺘﻘﺎل اﻃﻼﻋﺎت ﺑﺎ ﻣﻮﻓﻘﯿﺖ اﻧﺠﺎم ﺷﺪ .","",true);
                     } else {
                         codeView.setText("");
                         MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
@@ -178,28 +188,54 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
 
 
     }
+    public void showAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
+                "بازگشت به خانه", "", true,
+                MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                if (finish)
+                {
+                   ((Activity) context).onBackPressed();
+                    //loginView.onButtonActions(true, GoToActivity.MainActivity);
 
+                }
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.setCancelable(!finish);
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
+    }
     private void setProfileData(WebServiceClass<VerifyResponse> response) {
 
+try {
+    Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
 
-       /* Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
+    Profile profile = response.data.getProfile();
+    Prefs.putString("firstName", profile.getFirstName());
+    Prefs.putString("lastName", profile.getLastName());
+    Prefs.putString("FULLName", profile.getFirstName() + " " + profile.getLastName());
+    Prefs.putString("nickName", profile.getEnglishName());
+    if (profile.getBirthday() != null) {
+        Prefs.putString("birthday", profile.getBirthday().toString());
+    }
+    if (profile.getPopularPlayer() != null) {
+        Prefs.putInt("popularPlayer", profile.getPopularPlayer() == 0 ? 12 : profile.getPopularPlayer());
+    }
+    Prefs.putString("nationalCode", profile.getNationalCode());
+    Prefs.putString("keyInvite", profile.getKeyInvite());
+}catch (Exception e){
 
-        Profile profile = response.data.getProfile();
-        Prefs.putString("firstName", profile.getFirstName());
-        Prefs.putString("lastName", profile.getLastName());
-        Prefs.putString("FULLName", profile.getFirstName() + " " + profile.getLastName());
-        Prefs.putString("nickName", profile.getEnglishName());
-        if (profile.getBirthday() != null)
-        {
-            Prefs.putString("birthday", profile.getBirthday().toString());
-        }
-        if (profile.getPopularPlayer() != null)
-        {
-            Prefs.putInt("popularPlayer", profile.getPopularPlayer()==0 ? 12 : profile.getPopularPlayer());
-        }
-        Prefs.putString("nationalCode", profile.getNationalCode());
-        Prefs.putString("keyInvite", profile.getKeyInvite());*/
-
+    e.getMessage();
+}
     }
 
     public void sendMobileRequest() {
@@ -223,7 +259,7 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
 
     @Override
     public void onDestroy() {
-        EventBus.getDefault().unregister(this);
+      //  EventBus.getDefault().unregister(this);
         countDownTimer.cancel();
 
 
