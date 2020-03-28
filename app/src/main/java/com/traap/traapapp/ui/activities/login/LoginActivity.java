@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private TextInputLayout etLayout;
     private PinEntryEditText codeView;
     private boolean isCode = false;
-    private ClearableEditText etMobileNumber;
+    private ClearableEditText etMobileNumber,etInviteCode;
     private LinearLayout countDownTimer, llPin, llCondition;
     private ArrayList<CountryCodeModel> countryCodeModels = new ArrayList<>();
     private EditText etCountryName, etCountryCode;
@@ -206,11 +206,16 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         // tvMenu = findViewById(R.id.tvMenu);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         etMobileNumber = findViewById(R.id.etMobileNumber);
+        etInviteCode=findViewById(R.id.etInviteCode);
         rlCountryCode = findViewById(R.id.rlCountryCode);
 
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(11);
         etMobileNumber.setFilters(filterArray);
+
+        InputFilter[] filterArrayInviteCode = new InputFilter[1];
+        filterArrayInviteCode[0] = new InputFilter.LengthFilter(6);
+        etInviteCode.setFilters(filterArrayInviteCode);
 
         countDownTimer = findViewById(R.id.countDownTimer);
         tvResend = findViewById(R.id.tvResend);
@@ -450,6 +455,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
                 etMobileNumber.setVisibility(View.GONE);
                 etCountryName.setVisibility(View.GONE);
                 rlCountryCode.setVisibility(View.GONE);
+                etInviteCode.setVisibility(View.GONE);
                 isCode = true;
                 YoYo.with(Techniques.SlideInRight)
                         .duration(500)
@@ -497,6 +503,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
                 etMobileNumber.setVisibility(View.VISIBLE);
                 etCountryName.setVisibility(View.VISIBLE);
                 rlCountryCode.setVisibility(View.VISIBLE);
+                etInviteCode.setVisibility(View.VISIBLE);
                 isCode = false;
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)
@@ -507,6 +514,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)
                         .playOn(etCountryName);
+                YoYo.with(Techniques.SlideInLeft)
+                        .duration(500)
+                        .playOn(etInviteCode);
 
             }
 
