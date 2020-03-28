@@ -185,7 +185,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
             case R.id.btnChangePass:
                 if (edtNewPass.getText().toString().equals(edtTemNewPass.getText().toString()))
                 {
-                    if (edtNewPass.getText().toString().length() > 4 && edtOldPass.getText().toString().length() > 4 && edtTemNewPass.getText().toString().length() > 4)
+                    if (edtNewPass.getText().toString().length() > 3 && edtOldPass.getText().toString().length() > 3 && edtTemNewPass.getText().toString().length() > 3)
                     {
 
                         MessageAlertDialog dialog1 = new MessageAlertDialog((Activity) mainView, "",

@@ -143,7 +143,7 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
                         Prefs.putString("profileImage", response.data. getProfile().getPhoto());
 
                         Prefs.putInt("popularPlayer", response.data. getProfile().getPopularPlayer() == 0 ? 12 : response.data. getProfile().getPopularPlayer());
-
+                        Prefs.putString("mobile", Prefs.getString("mobileLast", ""));
                        // Prefs.putString("gds_token",  response.data. getProfile().getGds_token());
 
                       //  Prefs.putString("bimeh_call_back",  response.data. getProfile().getBimeh_call_back());
