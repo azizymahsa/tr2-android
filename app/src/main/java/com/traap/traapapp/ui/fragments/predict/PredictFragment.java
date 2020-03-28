@@ -496,7 +496,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                     if (remainPredictTime > 0)
                     {
-                        isPredictable = true;
+//                        isPredictable = true;
                         llTimer.setVisibility(View.VISIBLE);
                         tvPredictText.setText(" پیش بینی کن برنده شو!");
 
@@ -504,7 +504,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     }
                     else
                     {
-                        isPredictable = false;
+//                        isPredictable = false;
                         llTimer.setVisibility(View.GONE);
                         tvPredictText.setTextSize(14f);
                         tvPredictText.setText("مشاهده برندگان پیش بینی");

@@ -39,6 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:elevation="3dp"
+                android:translationZ="2dp"
                 android:orientation="vertical">
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -49,6 +51,8 @@
                     android:overScrollMode="never"
                     android:transitionGroup="true"
                     android:layoutMode="opticalBounds"
+                    app:elevation="3dp"
+                    android:elevation="3dp"
                     android:background="@color/mainNavigationBottomBackgroundColor"
                     android:fitsSystemWindows="true"
                     android:theme="@style/Widget.BottomNavigationView"
