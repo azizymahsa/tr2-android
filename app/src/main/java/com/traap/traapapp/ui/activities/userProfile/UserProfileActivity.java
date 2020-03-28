@@ -524,6 +524,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     @Override
     public void onAnimationEnd() {
 //        btnConfirm.setText("ارسال اطلاعات کاربری");
+
+
+
         btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
         btnConfirmEditMobile.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
 
@@ -1048,6 +1051,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
         } catch (
                 Exception e) {
+            e.getMessage();
         }
 
     }
