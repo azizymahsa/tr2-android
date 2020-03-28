@@ -686,7 +686,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
         pickerDialogStartDate = DatePickerDialog.newInstance(this,
                 currentDate.getPersianYear(),
-                currentDate.getPersianMonth() - 1,
+                currentDate.getPersianMonth(),
                 currentDate.getPersianDay()
         );
         pickerDialogStartDate.setTitle("انتخاب تاریخ شروع");
