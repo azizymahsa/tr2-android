@@ -143,7 +143,7 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
             indicator = findViewById(R.id.indicator);
 
             tvTitle = findViewById(R.id.tvTitle);
-            tvTitle.setText("محتوای یک عکس");
+            tvTitle.setText("محتوای عکس");
 
             tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);

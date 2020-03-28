@@ -39,8 +39,9 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:gravity="right|center"
+                android:textStyle="bold"
                 android:textSize="@dimen/_10sdp"
-                android:textColor="@color/textColorSecondary"
+                android:textColor="@color/textColorButton"
                 android:text="لیگ"/>
 
             <TextView
@@ -52,7 +53,7 @@
                 android:layout_alignParentLeft="true"
                 android:gravity="left"
                 android:textSize="@dimen/_10sdp"
-                android:textColor="@color/textColorSubTitle"
+                android:textColor="@color/textColorButton"
                 android:text="ورزشگاه"/>
 
         </RelativeLayout>

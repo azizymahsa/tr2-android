@@ -382,7 +382,7 @@ public class MatchScheduleFragment extends BaseFragment implements LeagueTableAc
             tv.setText(getPageTitle(position));
             tv.setGravity(Gravity.CENTER_HORIZONTAL);
             tv.setTextColor(context.getResources().getColorStateList(R.color.textColorSecondary));
-            tv.setTextSize(14);
+            tv.setTextSize(12);
             tv.setTypeface(font);
             return v;
         }
