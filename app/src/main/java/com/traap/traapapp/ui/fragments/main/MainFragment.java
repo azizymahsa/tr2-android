@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
+import com.google.gson.Gson;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -38,6 +40,9 @@ import com.squareup.picasso.Picasso;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -1056,7 +1061,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         }
 
+
+
+        Collections.sort(results, new Comparator<ResultHelpMenu>() {
+            public int compare(ResultHelpMenu o1, ResultHelpMenu o2) {
+                return o1.getCode().compareTo(o2.getCode());
+            }
+        });
+        Log.e("tesssst",new Gson().toJson(results).toString());
         helpMenuResult = results;
+
 
         YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
         {
@@ -1067,12 +1081,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 rlIntro.setVisibility(View.GONE);
                 Utility.disableEnableControls(true, llRoot);
 
-                for (int i = 0; i < results.size(); i++)
+
+                for (int i = 1; i < results.size(); i++)
                 {
-                    if (results.get(i).getCode() == 1)
-                    {
-                        intro(imgMenu, results.get(i).getTitle(), results.get(i).getDescription(), 1);
-                    }
+                 /*   if (results.get(i).getCode() == 1)
+                    {*/
+                        intro(imgMenu, results.get(i).getTitle(), results.get(i).getDescription(),  results.get(i).getCode());
+                        break;
+                  //  }
                 }
             }
         })
@@ -1204,6 +1220,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         helpMenuResult = results;
         tvShowIntro.setOnClickListener(view ->
         {
+
             showIntro(results);
         });
         tvCancelIntro.setOnClickListener(view ->
@@ -1254,7 +1271,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                             {
                                 if (helpMenuResult.get(i).getCode() == 2)
                                 {
-                                    intro(btnBuyTicket, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 2);
+                                    intro(sliderRecyclerView, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 2);
                                 }
                             }
                             else if (type == 2)
