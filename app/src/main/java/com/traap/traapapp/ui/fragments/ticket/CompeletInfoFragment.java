@@ -170,6 +170,7 @@ public class CompeletInfoFragment
     private ArrayList<SpectatorInfoResponse> spectatorList;
     private TextView tvError;
     private ArrayList<SpectatorInfoResponse> spectatorListData=new ArrayList<>();
+    private ArrayList<SpectatorInfoResponse> spectatorListDataFilter=new ArrayList<>();
 
 
     public CompeletInfoFragment()
@@ -624,7 +625,12 @@ public class CompeletInfoFragment
                     {
 
                         //   KeyboardUtils.forceCloseKeyboard(edtSearchFilter);
-                        filter("");
+                       // filter("");
+                        tvError.setVisibility(View.GONE);
+                        rvSpectatorList.setVisibility(View.VISIBLE);
+                        spectatorListData.clear();
+                        spectatorListData.addAll(spectatorListDataFilter);
+                        spectatorAdapter.notifyDataSetChanged();
 
 
                     } else
@@ -669,11 +675,17 @@ public class CompeletInfoFragment
                         rvSpectatorList.setVisibility(View.VISIBLE);
                         rvSpectatorList.removeAllViews();
 
-                        spectatorAdapter = new SpectatorListAdapter(results, CompeletInfoFragment.this, count);
-                        rvSpectatorList.setAdapter(spectatorAdapter);
+                       // spectatorAdapter = new SpectatorListAdapter(results, CompeletInfoFragment.this, count);
+                        spectatorListData.clear();
+                        spectatorListData.addAll(results);
+                        spectatorAdapter.notifyDataSetChanged();
 
                         if (results.size() == 0)
                         {
+                            spectatorListData.clear();
+                            spectatorListData.addAll(spectatorListDataFilter);
+                            spectatorAdapter.notifyDataSetChanged();
+
                             tvError.setVisibility(View.VISIBLE);
                             rvSpectatorList.setVisibility(View.GONE);
 
@@ -792,6 +804,7 @@ public class CompeletInfoFragment
         rvSpectatorList.setVisibility(View.VISIBLE);
         tvError.setVisibility(View.GONE);
         spectatorListData = response.data.getResults();
+        spectatorListDataFilter.addAll( response.data.getResults());
     }
 
     private void requestSpectatorInfo(String nationalCode, Integer number)
@@ -2398,7 +2411,7 @@ public class CompeletInfoFragment
         Prefs.putInt("CountTicket", count);
 
 
-        spectatorAdapter = new SpectatorListAdapter(spectatorListData, this, count);
+        spectatorAdapter = new SpectatorListAdapter(getActivity(),spectatorListData, this, count);
         rvSpectatorList.setAdapter(spectatorAdapter);
 
         //  this.paymentMatchRequest = paymentMatchRequest;
@@ -2658,10 +2671,11 @@ public class CompeletInfoFragment
     }
 
     @Override
-    public void OnItemSpectatorListClick(ArrayList<SpectatorInfoModel> selectedInfo)
+    public void OnItemSpectatorListClick(ArrayList<SpectatorInfoModel> selectedInfo,Integer position)
     {
 
         this.selectedInfo = selectedInfo;
+        rvSpectatorList.post(() -> spectatorAdapter.notifyItemChanged(position));
     }
 }
 
