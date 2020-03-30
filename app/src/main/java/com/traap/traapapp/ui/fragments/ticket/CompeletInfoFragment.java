@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -1081,6 +1084,7 @@ public class CompeletInfoFragment
             case R.id.llSelectSpectator:
 
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+
                 //requestGetSpectatorListInfo();
 
                 break;
@@ -1089,17 +1093,44 @@ public class CompeletInfoFragment
 
                 setSpectatorListData();
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                etNationalCode_1.dismissDropDown();
+                etNationalCode_2.dismissDropDown();
+                etNationalCode_3.dismissDropDown();
+                etNationalCode_4.dismissDropDown();
+                etNationalCode_5.dismissDropDown();
 
+
+                new Handler().postDelayed(() ->
+                {
+                    hideKeyboard((Activity) context);
+                }, 500);
                 break;
             case R.id.btnDeleteFilter:
+                etNationalCode_1.dismissDropDown();
+                etNationalCode_2.dismissDropDown();
+                etNationalCode_3.dismissDropDown();
+                etNationalCode_4.dismissDropDown();
+                etNationalCode_5.dismissDropDown();
 
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-
+                new Handler().postDelayed(() ->
+                {
+                    hideKeyboard((Activity) context);
+                }, 500);
                 break;
 
             case R.id.imgFilterClose:
+                etNationalCode_1.dismissDropDown();
+                etNationalCode_2.dismissDropDown();
+                etNationalCode_3.dismissDropDown();
+                etNationalCode_4.dismissDropDown();
+                etNationalCode_5.dismissDropDown();
 
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                new Handler().postDelayed(() ->
+                {
+                    hideKeyboard((Activity) context);
+                }, 500);
 
                 break;
 
