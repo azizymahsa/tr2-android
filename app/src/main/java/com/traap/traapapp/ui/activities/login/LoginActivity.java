@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private PinEntryEditText codeView;
     private boolean isCode = false;
     private ClearableEditText etMobileNumber,etInviteCode;
-    private LinearLayout countDownTimer, llPin, llCondition;
+    private LinearLayout countDownTimer, llPin, llCondition,llInvite;
     private ArrayList<CountryCodeModel> countryCodeModels = new ArrayList<>();
     private EditText etCountryName, etCountryCode;
     private CompositeDisposable disposable = new CompositeDisposable();
@@ -199,6 +199,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         // tvTitle = findViewById(R.id.tvTitle);
         //etLayout = findViewById(R.id.etLayout);
         btnConfirm = findViewById(R.id.btnConfirm);
+        llInvite = findViewById(R.id.llInvite);
         btnConfirm.setText(getString(R.string.login));
 
         tvCountDown = findViewById(R.id.tvCountDown);
@@ -438,6 +439,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         YoYo.with(Techniques.SlideOutLeft)
                 .duration(500)
                 .playOn(etCountryName);
+        YoYo.with(Techniques.SlideOutLeft)
+                .duration(500)
+                .playOn(etInviteCode);
         YoYo.with(Techniques.SlideOutLeft)
                 .duration(700).withListener(new Animator.AnimatorListener()
         {
