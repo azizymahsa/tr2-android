@@ -2345,8 +2345,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         if (hasPaymentTicket)
         {
             isMainFragment = false;
-            setFragment(ShowTicketsFragment.newInstance(this, refrenceNumber));
-            replaceFragment(getFragment(), "ShowTicketsFragment");
+      /*      setFragment(ShowTicketsFragment.newInstance(this, refrenceNumber));
+            replaceFragment(getFragment(), "ShowTicketsFragment");*/
+
+            Intent intent = new Intent(this, PaymentResultChargeActivity.class);
+            intent.putExtra("RefrenceNumber", refrenceNumber);
+
            /* Intent intent = new Intent(MainActivity.this, ShowTicketActivity.class);
 
             intent.putExtra("RefrenceNumber", refrenceNumber);

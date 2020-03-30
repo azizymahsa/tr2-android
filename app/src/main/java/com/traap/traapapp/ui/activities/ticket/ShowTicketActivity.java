@@ -233,7 +233,7 @@ public class ShowTicketActivity extends BaseActivity implements View.OnClickList
     public void onFinishedTicketInfo(GetTicketInfoResponse response)
     {
 
-        showTicketAdapter = new ShowTicketAdapter(response.getResults(), mainView);
+        showTicketAdapter = new ShowTicketAdapter(response.getResults());
         rvTickets.setAdapter(showTicketAdapter);
         llSuccessPayment.setVisibility(View.VISIBLE);
         llErrorPayment.setVisibility(View.GONE);
