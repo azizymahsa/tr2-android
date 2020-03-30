@@ -14,7 +14,6 @@ import com.traap.traapapp.ui.fragments.ticket.CompeletInfoFragment;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.ticket.OnClickContinueBuyTicket;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
-import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 
 public class PagerAdapter
         extends FragmentStatePagerAdapter implements  PaymentParentActionView
@@ -25,8 +24,7 @@ public class PagerAdapter
     private BuyTicketsActivity buyTicketsFragment;
     private int numTabs;
     private CompeletInfoFragment tab2;
-    private ShowTicketsFragment tab4;
-    private ShowTicketsFragment tab3;
+
 
 
     public PagerAdapter(FragmentManager fm, int numTabs, OnClickContinueBuyTicket onClickContinueBuyTicket , MatchItem matchBuyable)

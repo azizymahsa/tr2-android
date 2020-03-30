@@ -31,16 +31,14 @@ import com.traap.traapapp.ui.fragments.main.MainActionView;
  */
 public class ShowTicketAdapter extends RecyclerView.Adapter<ShowTicketAdapter.ViewHolder>
 {
-    private final MainActionView mainView;
     private Context context;
     private String nationalCode;
     private List<ResultTicketInfo> ticketItems;
 
 
-    public ShowTicketAdapter(List<ResultTicketInfo> results, MainActionView mainView)
+    public ShowTicketAdapter(List<ResultTicketInfo> results)
     {
         this.ticketItems = results;
-        this.mainView=mainView;
     }
 
 
