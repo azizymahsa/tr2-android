@@ -556,6 +556,8 @@ public class PackFragment
         ivRightel.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.rightel2));
 
 
+
+
         llMCICharge.setVisibility(View.GONE);
         llPassCharge.setVisibility(View.GONE);
         llRightelCharge.setVisibility(View.GONE);
@@ -573,6 +575,8 @@ public class PackFragment
         llDescriptionSelectPack.setVisibility(View.GONE);
         irancellRecycler.setVisibility(View.GONE);
         llIrancellSpinner.setVisibility(View.GONE);
+
+        setBtnChargeConfirm();
     }
 
     @OnClick(R.id.flHamraheAval)
@@ -612,6 +616,7 @@ public class PackFragment
         isMtn = false;
         isMci = true;
         isRightel = false;
+        getMci();
         //  etMobileNumberRightel.setText(etMobileNumberMCI.getText());
         // etMobileNumberIranCell.setText(etMobileNumberMCI.getText());
 
@@ -665,6 +670,7 @@ public class PackFragment
         isMtn = false;
         isMci = false;
         isRightel = true;
+        setBtnChargeConfirmRightel();
         // etMobileNumberMCI.setText(etMobileNumberRightel.getText());
         // etMobileNumberIranCell.setText(etMobileNumberRightel.getText());
     }
@@ -815,8 +821,9 @@ public class PackFragment
             return;
         }
 
-        btnChargeConfirm.startAnimation();
-        btnChargeConfirm.setClickable(false);
+     /*   btnChargeConfirm.startAnimation();
+        btnChargeConfirm.setClickable(false);*/
+     mainView.showLoading();
         getPackageIrancell.findGetPackageIrancellDataRequest(this, etMobileNumberIranCell.getText().toString());
 //        llDetailDescription.setVisibility(View.GONE);
 //        llDescriptionSelectPack.setVisibility(View.VISIBLE);
@@ -889,8 +896,12 @@ public class PackFragment
     }
 */
     @OnClick(R.id.btnMCIPackConfirm)
-    void setBtnMCIPackConfirm()
+     void setBtnMCIPackConfirm()
     {
+        getMci();
+    }
+
+    public void getMci(){
         initSpinner();
         setupRecycler();
         if (TextUtils.isEmpty(etMobileNumberMCI.getText().toString()))
@@ -927,8 +938,9 @@ public class PackFragment
         }
 
         llDetailDescriptionMci.setVisibility(View.GONE);
-        btnMCIPackConfirm.startAnimation();
-        btnMCIPackConfirm.setClickable(false);
+     /*   btnMCIPackConfirm.startAnimation();
+        btnMCIPackConfirm.setClickable(false);*/
+     mainView.showLoading();
         packageMci.findPackageMciDataRequest(this, etMobileNumberMCI.getText().toString());
         hideSoftKeyboard(etMobileNumberMCI);
 
@@ -936,7 +948,6 @@ public class PackFragment
         isMci = true;
         isRightel = false;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -956,6 +967,8 @@ public class PackFragment
         buyPackageImpl = new BuyPackageImpl();
         getBoughtForRequest();
 
+
+
         return v;
     }
 
@@ -971,7 +984,7 @@ public class PackFragment
     public void onResume()
     {
         super.onResume();
-        checkPhoneNumberOperator();
+       checkPhoneNumberOperator();
         try
         {
 
@@ -1048,19 +1061,24 @@ public class PackFragment
                 changeFontInViewGroup(tabLayoutRightel,"fonts/iran_sans_normal.ttf");
                 isInitView = false;
                 initView();
+                getMci();
+
                 initDefaultOperatorView();
                 etCvv2.setText("");
                 etPassCharge.setText("");
-                
 
+
+                setBtnMCIPackConfirm();
 
             }
             initSpinner();
             setupRecycler();
-
         } catch (Exception e)
         {
+
         }
+
+
     }
 
 
@@ -1432,7 +1450,8 @@ public class PackFragment
         //  etMobileNumberIranCell.addTextChangedListener(this);
         // etMobileNumberMCI.addTextChangedListener(this);
         // etMobileNumberRightel.addTextChangedListener(this);
-        if (!cardNumberCheck.equals("003725"))
+
+        if (cardNumberCheck !=null&&!cardNumberCheck.equals("003725"))
         {
             llCvv2.setVisibility(View.VISIBLE);
         }
@@ -1992,6 +2011,7 @@ public class PackFragment
 
         btnMCIPackConfirm.revertAnimation(this);
         btnMCIPackConfirm.setClickable(true);
+        mainView.hideLoading();
         if (packRespone.info.statusCode == 200)
         {
             //requestId=getPackageMciResponse.getRequestId();
@@ -2146,6 +2166,7 @@ public class PackFragment
 
         btnChargeConfirm.revertAnimation(this);
         btnChargeConfirm.setClickable(true);
+        mainView.hideLoading();
 
         llDetailDescription.setVisibility(View.GONE);
         llDescriptionSelectPack.setVisibility(View.VISIBLE);
