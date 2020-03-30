@@ -462,5 +462,6 @@
 
 
     </androidx.core.widget.NestedScrollView>
-
+    <include layout="@layout/loading"
+        android:visibility="gone"/>
 </RelativeLayout>

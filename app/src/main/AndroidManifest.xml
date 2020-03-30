@@ -23,7 +23,10 @@
         <activity android:name=".ui.activities.points.PointsActivity" />
         <activity android:name=".ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity" />
         <activity
-            android:name=".ui.activities.paymentResult.PaymentResultChargeActivity"
+            android:name=".ui.activities.main.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.fragments.ticket.ShowTicketsFragment"
             android:screenOrientation="portrait" /> <!-- tools:replace="android:appComponentFactory,android:supportsRtl"> -->
         <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
@@ -80,7 +83,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.activities.main.MainActivity"
+            android:name=".ui.activities.paymentResult.PaymentResultChargeActivity"
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait">
 
