@@ -58,7 +58,6 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
         {
             recyclerView = rootView.findViewById(R.id.rclPast);
 
-
         } catch (Exception e)
         {
 
@@ -92,39 +91,9 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
         mAdapter = new MatchAdapter(nextMatchesList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new MatchAdapter(nextMatchesList, getActivity(), this);
         recyclerView.setAdapter(mAdapter);
-    }
-
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-    }
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-
-
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
     }
 
 
@@ -144,9 +113,10 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
-        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
-
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+//        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
+//
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+        mainActionView.onPredict(matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override
