@@ -139,6 +139,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     {
         PredictFragment f = new PredictFragment();
         f.setMainView(mainView);
+
         Bundle arg = new Bundle();
         arg.putInt("matchId", matchId);
         arg.putBoolean("isPredictable", isPredictable);
@@ -187,7 +188,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("پیش بینی بازی");
         rootView.findViewById(R.id.imgBack).setOnClickListener(v ->
         {
-            mainView.backToMainFragment();
+//            mainView.backToMainFragment();
+            getActivity().onBackPressed();
         });
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
