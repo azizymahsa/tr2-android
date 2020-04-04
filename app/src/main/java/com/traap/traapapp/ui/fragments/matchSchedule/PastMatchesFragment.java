@@ -41,7 +41,7 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
     private RecyclerView recyclerView;
     private List<MatchItem> pastMatchesList = new ArrayList<>();
     private MatchAdapter mAdapter;
-    
+
     public PastMatchesFragment()
     {
 

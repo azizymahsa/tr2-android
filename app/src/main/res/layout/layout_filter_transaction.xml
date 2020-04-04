@@ -21,7 +21,7 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             app:srcCompat="@drawable/ic_arrow_down"
-            android:tint="@color/textHint"/>
+            app:tint="@color/textHint" />
 
         <ScrollView
             android:id="@+id/nestedScroll"
