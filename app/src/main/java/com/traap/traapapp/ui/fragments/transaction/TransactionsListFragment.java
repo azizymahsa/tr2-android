@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.transaction;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -74,6 +75,8 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -144,7 +147,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     private TagGroup tagGroup;
 
     private List<String> tags = new ArrayList<>();
-    private ArrayList<GetMenuItemResponse> drawerListMenu = new ArrayList<>();
 
     public TransactionsListFragment()
     {
@@ -253,7 +255,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     {
         try
         {
-
             mToolbar = rootView.findViewById(R.id.toolbar);
 
             try
@@ -267,7 +268,15 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
                     .subscribe(v ->
                     {
-                        mainView.backToMainFragment();
+//                        mainView.backToMainFragment();
+                        if (slidingUpPanelLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED)
+                        {
+                            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        }
+                        else
+                        {
+                            getActivity().onBackPressed();
+                        }
                     })
             );
 
@@ -340,7 +349,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 //            rangeBar.setIndicatorTextDecimalFormat("0");
 //            rangeBar.setOnRangeChangedListener(this);
 
-            edtSearchText.requestFocus();
+//            edtSearchText.requestFocus();
 
             hideKeyboard((Activity) context);
 
@@ -397,8 +406,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             {
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             });
-
-            initDatePicker();
 
             disposable.add(RxView.clicks(btnConfirmFilter)
                     .subscribe(v ->
@@ -464,6 +471,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             );
 
             disposable.add(RxView.clicks(imgFilterClose)
+                    .doOnError(throwable -> Logger.e("-imgFilterClose-", "Error: " + throwable.getMessage()))
                     .subscribe(v ->
                     {
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
@@ -478,20 +486,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                             imgEndDateReset.setVisibility(View.GONE);
                             llFilterHashTag.setVisibility(View.GONE);
                         }
-                    })
-            );
-
-            disposable.add(RxView.clicks(tvStartDate)
-                    .subscribe(v ->
-                    {
-                        pickerDialogStartDate.show(getFragmentManager(), "StartDate");
-                    })
-            );
-
-            disposable.add(RxView.clicks(tvEndDate)
-                    .subscribe(v ->
-                    {
-                        pickerDialogEndDate.show(getFragmentManager(), "EndDate");
                     })
             );
 
@@ -582,6 +576,25 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                     .subscribeWith(getFilteredArchiveIDs())
             );
 
+            initDatePicker();
+
+//            tvStartDate.setOnClickListener(v -> pickerDialogStartDate.show(getFragmentManager(), "StartDate"));
+//            tvEndDate.setOnClickListener(v -> pickerDialogEndDate.show(getFragmentManager(), "EndDate"));
+
+            disposable.add(RxView.clicks(tvStartDate)
+                    .subscribe(v ->
+                    {
+                        pickerDialogStartDate.show(getFragmentManager(), "StartDate");
+                    })
+            );
+
+            disposable.add(RxView.clicks(tvEndDate)
+                    .subscribe(v ->
+                    {
+                        pickerDialogEndDate.show(getFragmentManager(), "EndDate");
+                    })
+            );
+
         }
         catch (Exception e)
         {
@@ -641,41 +654,61 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
     private void initDatePicker()
     {
-        currentDate = new PersianCalendar();
+        try
+        {
+            currentDate = new PersianCalendar();
 
-        pickerDialogStartDate = DatePickerDialog.newInstance(this,
-                currentDate.getPersianYear(),
-                currentDate.getPersianMonth() - 1,
-                currentDate.getPersianDay()
-        );
-        pickerDialogStartDate.setTitle("انتخاب تاریخ شروع");
+            int currentMonth = currentDate.getPersianMonth();
+            int maxDayOfMount = 31;
+            if (currentMonth == 0)
+            {
+                maxDayOfMount = 29;
+            }
+            else if (currentMonth == 6)
+            {
+                maxDayOfMount = 30;
+            }
 
-        startDay = currentDate.getPersianDay();
-        startMonth = currentDate.getPersianMonth() - 1 ;
-        startYear = currentDate.getPersianYear();
+            pickerDialogStartDate = DatePickerDialog.newInstance(this,
+                    currentMonth == 0 ? (currentDate.getPersianYear() - 1) : currentDate.getPersianYear(),
+                    currentMonth == 0 ? 11 : currentMonth,
+                    Math.min(maxDayOfMount , currentDate.getPersianDay())
 
-        endPersianDate = new PersianCalendar();
-        endDay = currentDate.getPersianDay();
-        endMonth = currentDate.getPersianMonth();
-        endYear = currentDate.getPersianYear();
+            );
+            pickerDialogStartDate.setTitle("انتخاب تاریخ شروع");
 
-        startPersianDate = new PersianCalendar();
-        startPersianDate.set(startYear, startMonth, startDay);
-        endPersianDate.set(endYear, endMonth, endDay);
-        pickerDialogStartDate.setMaxDate(endPersianDate);
+            startDay = Math.min(maxDayOfMount , currentDate.getPersianDay());
+            startMonth = currentMonth == 0 ? 11 : currentMonth;
+            startYear = currentMonth == 0 ? (currentDate.getPersianYear() - 1) : currentDate.getPersianYear();
 
-        startDateInt = getDateInt(startYear, startMonth, startDay);
-        endDateInt = getDateInt(endYear, endMonth, endDay);
+            endPersianDate = new PersianCalendar();
+            endDay = currentDate.getPersianDay();
+            endMonth = currentDate.getPersianMonth();
+            endYear = currentDate.getPersianYear();
 
-        pickerDialogEndDate = DatePickerDialog.newInstance(this,
-                currentDate.getPersianYear(),
-                currentDate.getPersianMonth(),
-                currentDate.getPersianDay()
-        );
-        pickerDialogEndDate.setTitle("انتخاب تاریخ پایان");
+            startPersianDate = new PersianCalendar();
+            startPersianDate.set(startYear, startMonth, startDay);
+            endPersianDate.set(endYear, endMonth, endDay);
+            pickerDialogStartDate.setMaxDate(endPersianDate);
 
-        pickerDialogEndDate.setMinDate(startPersianDate);
-        pickerDialogEndDate.setMaxDate(endPersianDate);
+            startDateInt = getDateInt(startYear, startMonth, startDay);
+            endDateInt = getDateInt(endYear, endMonth, endDay);
+
+            pickerDialogEndDate = DatePickerDialog.newInstance(this,
+                    currentDate.getPersianYear(),
+                    currentDate.getPersianMonth(),
+                    currentDate.getPersianDay()
+            );
+            pickerDialogEndDate.setTitle("انتخاب تاریخ پایان");
+
+            pickerDialogEndDate.setMinDate(startPersianDate);
+            pickerDialogEndDate.setMaxDate(endPersianDate);
+        }
+        catch (Exception e)
+        {
+            Logger.e("--initDatePicker Ex--", "Exception: " + e.getMessage());
+        }
+
     }
 
     private Integer getDateInt(int year, int month, int day)
@@ -1128,6 +1161,12 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
     }
 
+    @Override
+    public void onDestroyView()
+    {
+        disposable.clear();
+        super.onDestroyView();
+    }
 
     @Override
     public void onDestroy()

@@ -715,16 +715,28 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     {
         currentDate = new PersianCalendar();
 
+        int currentMonth = currentDate.getPersianMonth();
+        int maxDayOfMount = 31;
+        if (currentMonth == 0)
+        {
+            maxDayOfMount = 29;
+        }
+        else if (currentMonth == 6)
+        {
+            maxDayOfMount = 30;
+        }
+
         pickerDialogStartDate = DatePickerDialog.newInstance(this,
-                currentDate.getPersianYear(),
-                currentDate.getPersianMonth() ,
-                currentDate.getPersianDay()
+                currentMonth == 0 ? (currentDate.getPersianYear() - 1) : currentDate.getPersianYear(),
+                currentMonth == 0 ? 11 : currentMonth,
+                Math.min(maxDayOfMount , currentDate.getPersianDay())
+
         );
         pickerDialogStartDate.setTitle("انتخاب تاریخ شروع");
 
-        startDay = currentDate.getPersianDay();
-        startMonth = currentDate.getPersianMonth() ;
-        startYear = currentDate.getPersianYear();
+        startDay = Math.min(maxDayOfMount , currentDate.getPersianDay());
+        startMonth = currentMonth == 0 ? 11 : currentMonth;
+        startYear = currentMonth == 0 ? (currentDate.getPersianYear() - 1) : currentDate.getPersianYear();
 
         endPersianDate = new PersianCalendar();
         endDay = currentDate.getPersianDay();
