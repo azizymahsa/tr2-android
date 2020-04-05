@@ -670,10 +670,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                     if (fragmentList.size() > 2)
                     {
+                        Logger.e("-OnBackPressed-", "backToParentFragment");
                         backToParentFragment();
                     }
                     else
                     {
+                        Logger.e("-OnBackPressed-", "backToMainFragment");
                         backToMainFragment();
                     }
                 }
@@ -2082,9 +2084,10 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             @Override
             public void onConfirmClick()
             {
-                isMainFragment = false;
-                setFragment(PredictFragment.newInstance(MainActivity.this, matchId, isPredictable));
-                replaceFragment(getFragment(), "predictFragment");
+//                isMainFragment = false;
+//                setFragment(PredictFragment.newInstance(MainActivity.this, matchId, isPredictable));
+//                replaceFragment(getFragment(), "predictFragment");
+                onPredict(matchId, isPredictable);
             }
 
             @Override

@@ -42,12 +42,10 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
     private List<MatchItem> pastMatchesList = new ArrayList<>();
     private MatchAdapter mAdapter;
 
-
     public PastMatchesFragment()
     {
 
     }
-
 
     public static PastMatchesFragment newInstance(List<MatchItem> pastMatchesList, MainActionView mainActionView)
     {
@@ -178,9 +176,10 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
-        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem.getId(), matchItem.getIsPredict());
-
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+//        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem.getId(), matchItem.getIsPredict());
+//
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+        mainView.onPredict(matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override
