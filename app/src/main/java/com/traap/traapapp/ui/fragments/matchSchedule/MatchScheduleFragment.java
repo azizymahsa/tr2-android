@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,7 +133,7 @@ public class MatchScheduleFragment extends BaseFragment implements LeagueTableAc
     {
         if (rootView != null)
         {
-            rootView = null;
+            return rootView;
         }
 
         rootView = inflater.inflate(R.layout.fragment_match_schedule, container, false);
@@ -399,11 +400,19 @@ public class MatchScheduleFragment extends BaseFragment implements LeagueTableAc
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+
+    }
 
     @Override
     public void onDestroy()
     {
         super.onDestroy();
+        Log.e("testt","onDestroy");
         EventBus.getDefault().unregister(this);
     }
 }
