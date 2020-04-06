@@ -347,12 +347,14 @@ public class MatchScheduleFragment extends BaseFragment implements LeagueTableAc
                 case 1:
                 {
 //                    Prefs.putInt("selectedTab", 2);
-                    return PastMatchesFragment.newInstance(pastMatchesList, mainView);
+                    return NextMatchesFragment.newInstance(nextMatchesList, mainView);
+
                 }
                 case 2:
                 {
 //                    Prefs.putInt("selectedTab", 1);
-                    return NextMatchesFragment.newInstance(nextMatchesList, mainView);
+                    return PastMatchesFragment.newInstance(pastMatchesList, mainView);
+
                 }
                 default:
                 {
