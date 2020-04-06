@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -60,9 +61,22 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         initView();
         Intent intent = getIntent();
 
-        Uri uri = intent.getData();
-        refrenceNumber = uri.getQueryParameter("refrencenumber").replace("/", "");
-        typeTransaction = uri.getQueryParameter("typetransaction").replace("/", "");
+        if (intent.getData()!=null) {
+            Uri uri = intent.getData();
+            refrenceNumber = uri.getQueryParameter("refrencenumber").replace("/", "");
+            typeTransaction = uri.getQueryParameter("typetransaction").replace("/", "");
+        }else {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null)
+            {
+
+            } else
+            {
+                refrenceNumber = extras.getString("RefrenceNumber");
+                // statusPayment=extras.getBoolean(            "StatusPayment",false);
+            }
+        }
+
         try
         {
             if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard)
@@ -84,7 +98,7 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
 
         } catch (Exception e)
         {
-            showToast(PaymentResultChargeActivity.this, "شماره پیگیری: " + refrenceNumber, 0);
+           // showToast(PaymentResultChargeActivity.this, "شماره پیگیری: " + refrenceNumber, 0);
         }
 
         if (hasPaymentTicket)
