@@ -126,6 +126,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             imgLogo = rootView.findViewById(R.id.imgLogo);
 
             btnBuy = rootView.findViewById(R.id.btnBuy);
+        //    background_button_login
             btnBuy.setOnClickListener(clickListener);
             btnBack = rootView.findViewById(R.id.btnBack);
             btnBack.setOnClickListener(clickListener);
