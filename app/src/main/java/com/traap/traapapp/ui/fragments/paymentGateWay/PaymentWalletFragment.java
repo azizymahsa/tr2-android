@@ -83,6 +83,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private TextView tvTitlePay;
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
+    public Integer balance=0;
 
 
 
@@ -154,6 +155,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
             btnBuy = rootView.findViewById(R.id.btnBuy);
             btnBuy.setOnClickListener(clickListener);
+
             btnBack = rootView.findViewById(R.id.btnBack);
             btnBack.setOnClickListener(clickListener);
 
@@ -188,6 +190,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
     private void requestGetBalance()
     {
+        mainView.showLoading();
         GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
         request.setIsWallet(true);
         SingletonService.getInstance().getBalancePasswordLessService().GetBalancePasswordLessService(new OnServiceStatus<WebServiceClass<GetBalancePasswordLessResponse>>()
@@ -197,7 +200,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             @Override
             public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response)
             {
-
+                mainView.hideLoading();
                 try
                 {
                     if (response.info.statusCode == 200)
@@ -223,6 +226,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             public void onError(String message)
             {
 
+
                 mainView.showError(message);
 
             }
@@ -232,6 +236,19 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private void setBalanceData(GetBalancePasswordLessResponse data)
     {
         tvBalance.setText(Utility.priceFormat(data.getBalanceAmount()));
+        try
+        {
+            balance=Integer.valueOf(data.getBalanceAmount());
+            if (balance<Integer.valueOf(amount)){
+                btnBuy.setEnabled(false);
+                btnBuy.setClickable(false);
+                btnBuy.setText("موجودی کافی نمی باشد.");
+                btnBuy.setTextColor(getActivity().getResources().getColor(R.color.black));
+                btnBuy.setBackground(getActivity().getResources().getDrawable(R.drawable.background_button_login_disable));
+
+            }
+
+        }catch (Exception e){};
         tvDate.setText(data.getDateTime());
     }
 
