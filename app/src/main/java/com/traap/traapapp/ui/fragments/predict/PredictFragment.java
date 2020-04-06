@@ -466,15 +466,26 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             {
                 if (response.data.getMatchPredict().getLastMatchResult() != null)
                 {
-                    tvCurrentMatchResult.setText(
-                            response.data.getMatchPredict().getLastMatchResult().getHomeScore() +
-                            " - " +
-                            response.data.getMatchPredict().getLastMatchResult().getAwayScore());
+                    if (response.data.getMatchPredict().getLastMatchResult().getHomeScore() != null || response.data.getMatchPredict().getLastMatchResult().getAwayScore() != null)
+                    {
+                        tvCurrentMatchResult.setText(
+                                response.data.getMatchPredict().getLastMatchResult().getHomeScore() +
+                                        " - " +
+                                        response.data.getMatchPredict().getLastMatchResult().getAwayScore());
+                    }
+                    else
+                    {
+                        tvCurrentMatchResult.setVisibility(View.INVISIBLE);
+                    }
+                }
+                else
+                {
+                    tvCurrentMatchResult.setVisibility(View.INVISIBLE);
                 }
             }
             catch (Exception e)
             {
-                tvCurrentMatchResult.setVisibility(View.GONE);
+                tvCurrentMatchResult.setVisibility(View.INVISIBLE);
             }
 
             tvAwayHeader.setText(response.data.getMatchPredict().getAwayTeam().getTeamName());
