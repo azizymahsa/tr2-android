@@ -197,6 +197,19 @@
         android:gravity="center"
         android:weightSum="2">
 
+       <!-- <TextView
+            android:id="@+id/tvPredictResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginEnd="@dimen/_5dp"
+            android:layout_weight="0.8"
+            android:background="@drawable/background_border_a"
+            android:gravity="center"
+            android:text=" پیش بینی نتیجه"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="@dimen/_10sdp" />-->
         <TextView
             android:id="@+id/tvPredictResult"
             android:layout_width="0dp"
@@ -206,11 +219,11 @@
             android:layout_marginStart="@dimen/_5dp"
             android:layout_marginEnd="@dimen/_5dp"
             android:gravity="center"
-            android:background="@drawable/background_border_a"
+            android:background="@drawable/background_border_red"
             android:textSize="@dimen/_10sdp"
-            android:textColor="@color/textColorPrimary"
-            android:text=" پیش بینی نتیجه"/>
-
+            android:textColor="@color/textColorTitle"
+            android:text=" پیش بینی نتیجه"
+            />
         <TextView
             android:id="@+id/tvBuyTicket"
             android:layout_width="0dp"
