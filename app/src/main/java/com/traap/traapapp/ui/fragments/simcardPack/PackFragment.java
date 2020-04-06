@@ -466,7 +466,7 @@ public class PackFragment
     @OnClick(R.id.btnChargeBackRightel)
     void setRightelPack()
     {
-        llDescriptionSelectPackRightel.setVisibility(View.GONE);
+       // llDescriptionSelectPackRightel.setVisibility(View.GONE);
         llDetailDescriptionRightel.setVisibility(View.VISIBLE);
 //        mainView.needExpanded(false);
 //        tvPackTitle.setText("خرید بسته اینترنت " + "رایتل");
@@ -476,8 +476,8 @@ public class PackFragment
         YoYo.with(Techniques.SlideInRight)
                 .duration(200)
                 .playOn(llRightelMobile);
-        llChargeBackRightel.setVisibility(View.GONE);
-        llDescriptionSelectPackRightel.setVisibility(View.GONE);
+        //llChargeBackRightel.setVisibility(View.GONE);
+      //  llDescriptionSelectPackRightel.setVisibility(View.GONE);
         //llRightelFilter.setVisibility(View.GONE);
         llRightelSpinner.setVisibility(View.GONE);
         btnChargeConfirmRightel.setVisibility(View.VISIBLE);
@@ -490,7 +490,7 @@ public class PackFragment
     @OnClick(R.id.btnPackBackIrancell)
     void setBtnIrancellBack()
     {
-        llDescriptionSelectPack.setVisibility(View.GONE);
+      //  llDescriptionSelectPack.setVisibility(View.GONE);
         llDetailDescription.setVisibility(View.VISIBLE);
 //        mainView.needExpanded(false);
 //        tvPackTitle.setText("خرید بسته ایرانسل " + "رایتل");
@@ -503,8 +503,8 @@ public class PackFragment
                 .playOn(llIrancellMobile);
 
         btnChargeConfirm.setVisibility(View.VISIBLE);
-        llPackBackIrancell.setVisibility(View.GONE);
-        llDescriptionSelectPack.setVisibility(View.GONE);
+      //  llPackBackIrancell.setVisibility(View.GONE);
+      //  llDescriptionSelectPack.setVisibility(View.GONE);
         irancellRecycler.setVisibility(View.GONE);
         llIrancellSpinner.setVisibility(View.GONE);
 
@@ -524,7 +524,7 @@ public class PackFragment
         YoYo.with(Techniques.SlideInRight)
                 .duration(200)
                 .playOn(lMciMobile);
-        llPackBackMci.setVisibility(View.GONE);
+        //llPackBackMci.setVisibility(View.GONE);
         llMciFilter.setVisibility(View.GONE);
         btnMCIPackConfirm.setVisibility(View.VISIBLE);
         mciRecycler.setVisibility(View.GONE);
@@ -544,7 +544,7 @@ public class PackFragment
 //        tvPackTitle.setText("خرید بسته اینترنت " + "ایرانسل");
 //        tvPackTitle.setTextSize(18);
 
-        llDescriptionSelectPack.setVisibility(View.GONE);
+      //  llDescriptionSelectPack.setVisibility(View.GONE);
         llDetailDescription.setVisibility(View.VISIBLE);
 
         ivIrancell.setBorderColor(ContextCompat.getColor(getActivity(), R.color.btnColorSecondary));
@@ -571,8 +571,8 @@ public class PackFragment
         //  etMobileNumberMCI.setText(etMobileNumberIranCell.getText());
         // etMobileNumberRightel.setText(etMobileNumberIranCell.getText());
         btnChargeConfirm.setVisibility(View.VISIBLE);
-        llPackBackIrancell.setVisibility(View.GONE);
-        llDescriptionSelectPack.setVisibility(View.GONE);
+      //  llPackBackIrancell.setVisibility(View.GONE);
+      //  llDescriptionSelectPack.setVisibility(View.GONE);
         irancellRecycler.setVisibility(View.GONE);
         llIrancellSpinner.setVisibility(View.GONE);
 
@@ -606,7 +606,7 @@ public class PackFragment
         llMCICharge.setVisibility(View.VISIBLE);
 
 
-        llPackBackMci.setVisibility(View.GONE);
+        //llPackBackMci.setVisibility(View.GONE);
         btnMCIPackConfirm.setVisibility(View.VISIBLE);
         mciRecycler.setVisibility(View.GONE);
         llMciSpinner.setVisibility(View.GONE);
@@ -637,7 +637,7 @@ public class PackFragment
         etMobileNumberRightel.setSelection(etMobileNumberRightel.getText().length());
 
         closeAutoComplete();
-        llDescriptionSelectPackRightel.setVisibility(View.GONE);
+   //     llDescriptionSelectPackRightel.setVisibility(View.GONE);
         llDetailDescriptionRightel.setVisibility(View.VISIBLE);
         llRightelMobile.setVisibility(View.VISIBLE);
 //        mainView.needExpanded(false);
@@ -660,8 +660,8 @@ public class PackFragment
         //   etChargeAmountRightel.setText("");
 
 
-        llChargeBackRightel.setVisibility(View.GONE);
-        llDescriptionSelectPackRightel.setVisibility(View.GONE);
+      //  llChargeBackRightel.setVisibility(View.GONE);
+       // llDescriptionSelectPackRightel.setVisibility(View.GONE);
         //llRightelFilter.setVisibility(View.GONE);
         llRightelSpinner.setVisibility(View.GONE);
         btnChargeConfirmRightel.setVisibility(View.VISIBLE);
@@ -1459,6 +1459,84 @@ public class PackFragment
 //        btnIrancellRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 //        btnRightelRecent.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_calendar));
 
+        etMobileNumberMCI.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (etMobileNumberMCI.getText().toString().length()==11){
+
+                    setBtnMCIPackConfirm();
+                }
+
+            }
+        });
+
+
+        etMobileNumberIranCell.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (etMobileNumberIranCell.getText().toString().length()==11){
+
+                    setBtnChargeConfirm();
+
+                }
+
+            }
+        });
+
+        etMobileNumberRightel.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (etMobileNumberRightel.getText().toString().length()==11){
+
+                    setBtnChargeConfirmRightel();
+
+
+                }
+
+            }
+        });
 
 
 
@@ -1547,7 +1625,7 @@ public class PackFragment
                 ivRightel.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.rightel2));
 
 
-                llPackBackMci.setVisibility(View.GONE);
+               // llPackBackMci.setVisibility(View.GONE);
                 btnMCIPackConfirm.setVisibility(View.VISIBLE);
                 mciRecycler.setVisibility(View.GONE);
                 llMciSpinner.setVisibility(View.GONE);
@@ -1577,8 +1655,8 @@ public class PackFragment
                 isRightel = false;
 
                 btnChargeConfirm.setVisibility(View.VISIBLE);
-                llPackBackIrancell.setVisibility(View.GONE);
-                llDescriptionSelectPack.setVisibility(View.GONE);
+               // llPackBackIrancell.setVisibility(View.GONE);
+               // llDescriptionSelectPack.setVisibility(View.GONE);
                 irancellRecycler.setVisibility(View.GONE);
                 llIrancellSpinner.setVisibility(View.GONE);
 
@@ -1603,8 +1681,8 @@ public class PackFragment
                 isMtn = false;
                 isMci = false;
                 isRightel = true;
-                llChargeBackRightel.setVisibility(View.GONE);
-                llDescriptionSelectPackRightel.setVisibility(View.GONE);
+            //    llChargeBackRightel.setVisibility(View.GONE);
+              //  llDescriptionSelectPackRightel.setVisibility(View.GONE);
                 //llRightelFilter.setVisibility(View.GONE);
                 llRightelSpinner.setVisibility(View.GONE);
                 btnChargeConfirmRightel.setVisibility(View.VISIBLE);
@@ -1758,7 +1836,7 @@ public class PackFragment
         btnChargeConfirmRightel.setClickable(true);
 
         llDetailDescriptionRightel.setVisibility(View.GONE);
-        llDescriptionSelectPackRightel.setVisibility(View.VISIBLE);
+       // llDescriptionSelectPackRightel.setVisibility(View.VISIBLE);
 
         if (packResponse.info.statusCode == 200)
         {
@@ -1843,8 +1921,8 @@ public class PackFragment
 
             btnChargeConfirmRightel.setVisibility(View.VISIBLE);
             llRightelMobile.setVisibility(View.VISIBLE);
-            llChargeBackRightel.setVisibility(View.VISIBLE);
-            llDescriptionSelectPackRightel.setVisibility(View.VISIBLE);
+           // llChargeBackRightel.setVisibility(View.VISIBLE);
+           // llDescriptionSelectPackRightel.setVisibility(View.VISIBLE);
             // llRightelFilter.setVisibility(View.VISIBLE);
             llRightelSpinner.setVisibility(View.VISIBLE);
             rightelRecycler.setVisibility(View.VISIBLE);
@@ -2017,7 +2095,7 @@ public class PackFragment
             //requestId=getPackageMciResponse.getRequestId();
             mciRecycler.setNestedScrollingEnabled(false);
 //            mainView.needExpanded(false);
-            llPackBackMci.setVisibility(View.GONE);
+           // llPackBackMci.setVisibility(View.GONE);
             llMciFilter.setVisibility(View.GONE);
             llMciSpinner.setVisibility(View.GONE);
           /*  YoYo.with(Techniques.SlideInRight)
@@ -2102,7 +2180,7 @@ public class PackFragment
             packAdapter = new TitlePackAdapter(irancellPack, this, "",2);
             mciRecycler.setAdapter(packAdapter);
             btnMCIPackConfirm.setVisibility(View.GONE);
-            llPackBackMci.setVisibility(View.VISIBLE);
+           // llPackBackMci.setVisibility(View.VISIBLE);
             //   llMciFilter.setVisibility(View.VISIBLE);
             llMciSpinner.setVisibility(View.VISIBLE);
             mciRecycler.setVisibility(View.VISIBLE);
@@ -2169,7 +2247,7 @@ public class PackFragment
         mainView.hideLoading();
 
         llDetailDescription.setVisibility(View.GONE);
-        llDescriptionSelectPack.setVisibility(View.VISIBLE);
+        //llDescriptionSelectPack.setVisibility(View.VISIBLE);
 
         if (packRespone.info.statusCode == 200)
         {
@@ -2178,8 +2256,8 @@ public class PackFragment
             //requestId=getPackageMciResponse.getRequestId();
             irancellRecycler.setNestedScrollingEnabled(false);
 //            mainView.needExpanded(false);
-            llPackBackIrancell.setVisibility(View.GONE);
-            llDescriptionSelectPack.setVisibility(View.GONE);
+           // llPackBackIrancell.setVisibility(View.GONE);
+         //   llDescriptionSelectPack.setVisibility(View.GONE);
             //  llIrancellFilter.setVisibility(View.VISIBLE);
         /*    YoYo.with(Techniques.SlideInRight)
                     .duration(200)
@@ -2271,8 +2349,8 @@ public class PackFragment
             packAdapter = new TitlePackAdapter(irancellPack, this, "",1);
             irancellRecycler.setAdapter(packAdapter);
             btnChargeConfirm.setVisibility(View.GONE);
-            llPackBackIrancell.setVisibility(View.VISIBLE);
-            llDescriptionSelectPack.setVisibility(View.VISIBLE);
+            //llPackBackIrancell.setVisibility(View.VISIBLE);
+           // llDescriptionSelectPack.setVisibility(View.VISIBLE);
             irancellRecycler.setVisibility(View.VISIBLE);
             llIrancellSpinner.setVisibility(View.VISIBLE);
            /* new Handler().postDelayed(() ->
