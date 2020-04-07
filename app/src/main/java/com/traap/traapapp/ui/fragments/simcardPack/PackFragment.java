@@ -791,20 +791,20 @@ public class PackFragment
         setupRecycler();
         if (TextUtils.isEmpty(etMobileNumberIranCell.getText().toString()))
         {
-            mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
+         //   mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
             return;
         }
         try
         {
             if (!Utility.getMobileValidation(etMobileNumberIranCell.getText().toString()))
             {
-                mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+            //    mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
                 //   hideSoftKeyboard(etMobileNumberIranCell);
                 return;
             }
         } catch (Exception e)
         {
-            mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+          //  mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             //   hideSoftKeyboard(etMobileNumberIranCell);
             return;
         }
@@ -845,7 +845,7 @@ public class PackFragment
         setupRecycler();
         if (TextUtils.isEmpty(etMobileNumberRightel.getText().toString()))
         {
-            mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
+         //   mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
             return;
         }
         try
@@ -854,12 +854,12 @@ public class PackFragment
             {
                 // hideSoftKeyboard(etMobileNumberRightel);
 
-                mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+              //  mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
                 return;
             }
         } catch (Exception e)
         {
-            mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+          //  mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
         }
         if (Utility.checkTaliyaValidation(etMobileNumberRightel.getText().toString()))
@@ -906,21 +906,21 @@ public class PackFragment
         setupRecycler();
         if (TextUtils.isEmpty(etMobileNumberMCI.getText().toString()))
         {
-            mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
+          //  mainView.showError("لطفا شماره تلفن همراه را وارد نمایید.");
             return;
         }
         try
         {
             if (!Utility.getMobileValidation(etMobileNumberMCI.getText().toString()))
             {
-                mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+               // mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
                 hideSoftKeyboard(etMobileNumberMCI);
 
                 return;
             }
         } catch (Exception e)
         {
-            mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
+          //  mainView.showError("لطفا شماره تلفن همراه را صحیح وارد نمایید.");
             return;
 
         }

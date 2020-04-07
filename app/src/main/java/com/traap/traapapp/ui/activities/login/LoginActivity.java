@@ -215,7 +215,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         etMobileNumber.setFilters(filterArray);
 
         InputFilter[] filterArrayInviteCode = new InputFilter[1];
-        filterArrayInviteCode[0] = new InputFilter.LengthFilter(6);
+        filterArrayInviteCode[0] = new InputFilter.LengthFilter(8);
         etInviteCode.setFilters(filterArrayInviteCode);
 
         countDownTimer = findViewById(R.id.countDownTimer);

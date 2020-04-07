@@ -704,6 +704,7 @@ public class AllMenuFragment extends BaseFragment implements
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
+/*
 
                 Bundle headers = new Bundle();
                 headers.putString("Authorization", Prefs.getString("accessToken",""));
@@ -717,16 +718,24 @@ public class AllMenuFragment extends BaseFragment implements
                 customTabsIntent.intent.putExtra(Browser.EXTRA_HEADERS, headers);
 
                 customTabsIntent.launchUrl(getActivity(), uri);
+*/
 
+/*
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "الو پارک");
 
+                intent.putExtra("TOKEN", Prefs.getString("alopark_token", ""));
+                startActivityForResult(intent,100);*/
 
-             /*   Intent intent = new Intent(getActivity(), WebActivity.class);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", Prefs.getString("alopark_token", ""));
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
                 startActivityForResult(intent,100);
-*/
+
+
                 // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
             }
