@@ -529,13 +529,13 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
             pickerDialogStartDate = DatePickerDialog.newInstance(this,
                     currentDate.getPersianYear(),
-                    currentDate.getPersianMonth() - 1,
+                    currentDate.getPersianMonth(),
                     currentDate.getPersianDay()
             );
             pickerDialogStartDate.setTitle("انتخاب تاریخ شروع");
 
             startDay = currentDate.getPersianDay();
-            startMonth = currentDate.getPersianMonth() - 1;
+            startMonth = currentDate.getPersianMonth();
             startYear = currentDate.getPersianYear();
 
             endPersianDate = new PersianCalendar();

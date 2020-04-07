@@ -52,7 +52,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     private LoginView loginView;
     /* private SendActiveCodeImpl sendActiveCode;
      private ConfirmActiveCodeImpl activeCode;*/
-    private EditText mobileNumber;
+    private EditText mobileNumber,etCountryCode;
     private CountDownTimer countDownTimer;
     private PinEntryEditText codeView;
     private final long startTime = 120000;
@@ -83,6 +83,11 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                 if (TextUtils.isEmpty(mobileNumber.getText().toString().trim()))
                 {
                     loginView.showErrorMessage("لطفا شماره تلفن همراه خود را وارد نمایید.", this.getClass().getSimpleName(), false);
+                    return;
+                }
+                if (TextUtils.isEmpty(etCountryCode.getText().toString().trim()))
+                {
+                    loginView.showErrorMessage("لطفا کد کشور را وارد نمایید.", this.getClass().getSimpleName(), false);
                     return;
                 }
                 if (mobileNumber.getText().toString().trim().length() != 11)
@@ -160,6 +165,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         VerifyRequest request = new VerifyRequest();
 
         request.setUsername(mobileNumber.getText().toString());
+        request.setCountry_code(etCountryCode.getText().toString());
         request.setCode(codeView.getText().toString());
 //        request.setCurrentVersion(BuildConfig.VERSION_NAME);0
         request.setDevice_type(TrapConfig.AndroidDeviceType);
@@ -283,6 +289,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
 
         LoginRequest request = new LoginRequest();
         request.setUsername(mobileNumber.getText().toString());
+        request.setCountry_code(etCountryCode.getText().toString());
         Prefs.putString("mobile", mobileNumber.getText().toString());
         SingletonService.getInstance().getLoginService().login(this, request);
 
@@ -363,9 +370,10 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     }
 
     @Override
-    public void getMobile(EditText mobile)
+    public void getMobile(EditText mobile,EditText etCountryCode)
     {
         mobileNumber = mobile;
+        this.etCountryCode = etCountryCode;
 
     }
 
