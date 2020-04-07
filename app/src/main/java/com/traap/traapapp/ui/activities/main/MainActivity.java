@@ -2148,7 +2148,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     public void onBackToHomeWallet(int i)
     {
         fragmentList.remove(fragmentList.size()-1); //remove current Fragment
-        fragmentList.remove(fragmentList.size()-1); //remove IncreaseInventoryFragment and add it again.
+       // fragmentList.remove(fragmentList.size()-1); //remove IncreaseInventoryFragment and add it again.
 
         isMainFragment = false;
         setFragment(WalletFragment.newInstance(this, i));//IncreaseInventoryFragment
