@@ -188,7 +188,6 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("پیش بینی بازی");
         rootView.findViewById(R.id.imgBack).setOnClickListener(v ->
         {
-//            mainView.backToMainFragment();
             getActivity().onBackPressed();
         });
 
@@ -871,7 +870,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             @Override
             public void onConfirmClick()
             {
-                mainView.backToMainFragment();
+                getActivity().onBackPressed();
             }
 
             @Override
