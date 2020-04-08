@@ -291,6 +291,7 @@ public class AllMenuFragment extends BaseFragment implements
                     item.setTitle(itemResponse.getTitle());
                     // item.setImageLink(itemResponse.getImageName());
                     item.setImageLink(itemResponse.getLogo());
+                    item.setLogo(itemResponse.getLogo_());
                     item.setLogo_selected(itemResponse.getLogoSelected());
                     item.setKeyName(itemResponse.getKeyName());
                     item.setSubMenu(itemResponse.getSubMenu());
