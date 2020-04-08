@@ -11,7 +11,7 @@ import com.traap.traapapp.ui.base.BasePresenter;
  */
 public interface LoginPresenter extends BasePresenter {
     void getCode(PinEntryEditText codeView);
-    void getMobile(EditText mobile,EditText etCountryCode);
+    void getMobile(EditText mobile,EditText etCountryCode,EditText etInviteCode);
     void setScreenSize(int height, int width);
 
 }

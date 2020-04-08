@@ -35,6 +35,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -52,7 +53,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     private LoginView loginView;
     /* private SendActiveCodeImpl sendActiveCode;
      private ConfirmActiveCodeImpl activeCode;*/
-    private EditText mobileNumber,etCountryCode;
+    private EditText mobileNumber,etCountryCode,etInviteCode;
     private CountDownTimer countDownTimer;
     private PinEntryEditText codeView;
     private final long startTime = 120000;
@@ -167,6 +168,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         request.setUsername(mobileNumber.getText().toString());
         request.setCountry_code(etCountryCode.getText().toString());
         request.setCode(codeView.getText().toString());
+        request.setKeyInvite(etInviteCode.getText().toString());
 //        request.setCurrentVersion(BuildConfig.VERSION_NAME);0
         request.setDevice_type(TrapConfig.AndroidDeviceType);
 //        request.setImei(IMEI_Device.getIMEI(SingletonContext.getInstance().getContext(), activityContext));
@@ -370,11 +372,12 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     }
 
     @Override
-    public void getMobile(EditText mobile,EditText etCountryCode)
+    public void getMobile(EditText mobile, EditText etCountryCode, EditText etInviteCode)
     {
         mobileNumber = mobile;
         this.etCountryCode = etCountryCode;
 
+        this.etInviteCode=etInviteCode;
     }
 
     @Override
