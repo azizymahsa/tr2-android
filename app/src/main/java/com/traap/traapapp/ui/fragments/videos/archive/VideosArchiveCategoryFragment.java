@@ -47,6 +47,8 @@ public class VideosArchiveCategoryFragment extends BaseFragment implements OnSer
     private GridLayoutManager layoutManager;
     private TextView tvEmpty;
     private MediaArchiveCategoryCall callFrom;
+    public static Category categoriesList;
+    public Integer position;
 
 
     private ArrayList<Category> videosContentList = new ArrayList<>();
@@ -265,11 +267,14 @@ public class VideosArchiveCategoryFragment extends BaseFragment implements OnSer
     @Override
     public void onItemArchiveVideoClick(int position, Category category, ArrayList<Category> recent)
     {
-        openVideoDetail(recent, position, category.getCategoryId(), category.getId());
+        this.position=position;
+
+        openVideoDetail(videosContentList, position, category.getCategoryId(), category.getId());
     }
 
     private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
     {
+        VideosArchiveCategoryFragment.categoriesList =categoriesList.get(position);
         Intent intent = new Intent(context, VideoDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Videos", categoriesList);
@@ -280,4 +285,18 @@ public class VideosArchiveCategoryFragment extends BaseFragment implements OnSer
         startActivityForResult(intent,100);
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (position!=null){
+
+            videosContentList.get(position).setIsLiked(categoriesList.getIsLiked());
+            videosContentList.get(position).setLikes(categoriesList.getLikes());
+
+
+
+
+        }
+    }
 }

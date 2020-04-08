@@ -1,7 +1,9 @@
 package com.traap.traapapp.ui.fragments.photo.archive;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -24,6 +27,7 @@ import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
 import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.enums.MediaArchiveCategoryCall;
+import com.traap.traapapp.models.CountryCodeModel;
 import com.traap.traapapp.models.otherModels.mediaModel.MediaDetailsPositionIdsModel;
 import com.traap.traapapp.ui.activities.photo.AlbumDetailActivity;
 import com.traap.traapapp.ui.activities.photo.ShowBigPhotoActivity;
@@ -37,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhotosArchiveCategoryFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<PhotoArchiveResponse>>,
-        PhotosArchiveAdapter.ArchivePhotosListener ,PhotosCategoryTitleAdapter.TitleCategoryListener
+        PhotosArchiveAdapter.ArchivePhotosListener, PhotosCategoryTitleAdapter.TitleCategoryListener
 {
     private View rootView;
     private String Ids, filterStartDate, filterEndDate, filterSearchText;
@@ -48,7 +52,7 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
     private GridLayoutManager layoutManager;
     private TextView tvEmpty;
     private MediaArchiveCategoryCall callFrom;
-
+    public static ArrayList<Content> photosContentListOnActivityResult = new ArrayList<>();
 
     private ArrayList<Category> photosContentList = new ArrayList<>();
 
@@ -96,7 +100,6 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
         if (getArguments() != null)
         {
             Ids = getArguments().getString("Ids");
-
             filterStartDate = getArguments().getString("filterStartDate");
             filterEndDate = getArguments().getString("filterEndDate");
             filterSearchText = getArguments().getString("filterSearchText");
@@ -140,12 +143,10 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
                     filterSearchText,
                     this
             );
-        }
-        else if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
+        } else if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
         {
             SingletonService.getInstance().getPhotoArchiveService().getBookMarkPhoto(this);
-        }
-        else if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
+        } else if (callFrom == MediaArchiveCategoryCall.FROM_SINGLE_CONTENT)
         {
             progressBar.setVisibility(View.GONE);
             Logger.e("--photosContentList size--", "Size: " + photosContentList.size());
@@ -170,12 +171,12 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
     @Override
     public void onReady(WebServiceClass<PhotoArchiveResponse> response)
     {
-        try{
+        try
+        {
             if (response.info.statusCode != 200)
             {
                 showError(getActivity(), response.info.message);
-            }
-            else
+            } else
             {
                 photosContentList = response.data.getResults();
 
@@ -196,7 +197,9 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
             }
 
             progressBar.setVisibility(View.GONE);
-        }catch (Exception e){}
+        } catch (Exception e)
+        {
+        }
 
 
     }
@@ -210,8 +213,7 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
         {
             Logger.e("-OnError-", "Error: " + message);
             showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-        }
-        else
+        } else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
         }
@@ -250,12 +252,27 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
         if (callFrom == MediaArchiveCategoryCall.FROM_FAVORITE)
         {
 
-             List<Content> list=new ArrayList<>();
+            List<Category> list = new ArrayList<>();
 
             Intent intent = new Intent(getActivity(), ShowBigPhotoActivity.class);
 
-            for (int i = 0; i <photosContentList.size() ; i++) {
-                Content content = new Content();
+            for (int i = 0; i < photosContentListOnActivityResult.size(); i++)
+            {
+                for (int j = 0; j < photosContentList.size(); j++)
+                {
+
+                    if (photosContentListOnActivityResult.get(i).getId().equals(photosContentList.get(j).getId()))
+                    {
+                        photosContentList.get(j).setLikes(photosContentListOnActivityResult.get(i).getLikes());
+                        photosContentList.get(j).setIsLiked(photosContentListOnActivityResult.get(i).getIsLiked());
+
+                    }
+
+                }
+            }
+            for (int i = 0; i < photosContentList.size(); i++)
+            {
+                Category content = new Category();
                 content.setLikes(photosContentList.get(i).getLikes());
                 content.setIsLiked(photosContentList.get(i).getIsLiked());
                 content.setIsBookmarked(photosContentList.get(i).getIsBookmarked());
@@ -273,11 +290,10 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
 
 
             intent.putExtra("pic", position);
-            intent.putExtra("content",new Gson().toJson(list));
+            intent.putExtra("content", new Gson().toJson(list));
 
-            getActivity().startActivityForResult(intent,100);
-        }
-        else
+            getActivity().startActivityForResult(intent, 100);
+        } else
         {
             Intent intent = new Intent(getActivity(), AlbumDetailActivity.class);
 
@@ -286,7 +302,7 @@ public class PhotosArchiveCategoryFragment extends BaseFragment implements OnSer
             intent.putExtra("IdPhoto", category.getId());
             intent.putExtra("positionPhoto", position);
 
-            getActivity().startActivityForResult(intent,100);
+            getActivity().startActivityForResult(intent, 100);
         }
     }
 

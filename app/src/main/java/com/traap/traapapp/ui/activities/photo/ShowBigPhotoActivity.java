@@ -1,6 +1,8 @@
 package com.traap.traapapp.ui.activities.photo;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,6 +46,7 @@ import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
 import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.ui.adapters.photo.AlbumDetailsItemAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveCategoryFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
@@ -125,6 +128,16 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
 
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+
+        PhotosArchiveCategoryFragment.photosContentListOnActivityResult.clear();
+        PhotosArchiveCategoryFragment.photosContentListOnActivityResult.addAll(list);
+        finish();//finishing activity
+    }
+
     private void setColorBookmark()
     {
         if (isBookmark)
@@ -146,7 +159,10 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
             imgBack = findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
-                finish();
+                PhotosArchiveCategoryFragment.photosContentListOnActivityResult.clear();
+                PhotosArchiveCategoryFragment.photosContentListOnActivityResult.addAll(list);
+                finish();//finishing activity
+
             });
 
 
@@ -544,6 +560,7 @@ public class ShowBigPhotoActivity extends BaseActivity implements View.OnClickLi
                     tvLike.setText(likeCount[0] + "");
                     list.get(position).setIsLiked(false);
                     list.get(position).setLikes(likeCount[0]);
+
 
                 }
                 else
