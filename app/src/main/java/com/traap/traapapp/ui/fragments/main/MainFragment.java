@@ -557,6 +557,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     item.setKeyName(itemResponse.getKeyName());
                     item.setBase_url(itemResponse.getBaseUrl());
                     item.setLogin_url(itemResponse.getLoginUrl());
+                    item.setLogo(itemResponse.getLogo_());
 
                     newList.add(item);
                 }

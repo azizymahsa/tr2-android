@@ -32,10 +32,12 @@ import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.moeidbannerlibrary.banner.BannerLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import com.traap.traapapp.R;
@@ -57,6 +59,8 @@ import com.traap.traapapp.ui.adapters.photo.PhotosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+
+import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
 
 /**
  * Created by MahsaAzizi on 11/27/2019.
@@ -87,6 +91,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     private ScrollingPagerIndicator indicatorNewestPhotos;
     private boolean isFirstClick=true;
     private FrameLayout flProgress;
+    private TabLayout tabLayout;
 
 
     public PhotosFragment()
@@ -162,6 +167,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         tvEmpty = rootView.findViewById(R.id.tvEmpty);
         tvEmptyFavorite = rootView.findViewById(R.id.tvEmptyFavorite);
         llFavorites = rootView.findViewById(R.id.llFavorites);
+        tabLayout = rootView.findViewById(R.id.tabLayout);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true);
         rvCategoryTitles.setLayoutManager(layoutManager);
@@ -231,8 +237,55 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         indicatorNewestPhotos.attachToRecyclerView(bNewestPhotos.getmRecyclerView());
         bNewestPhotos.setAutoPlaying(true);
 
-        photoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(mainPhotosResponse.getListCategories(), this);
-        rvCategoryTitles.setAdapter(photoCategoryTitleAdapter);
+
+
+
+        Collections.reverse( mainPhotosResponse.getListCategories());
+        for (ListCategory listCategory : mainPhotosResponse.getListCategories()) {
+            tabLayout.addTab(tabLayout.newTab().setText(listCategory.getTitle()));
+
+
+        }
+        tabLayout.setTabTextColors(getResources().getColor(R.color.black), getResources().getColor(R.color.borderColorRed));
+
+        tabLayout.getTabAt(mainPhotosResponse.getListCategories().size()-1).select();
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override public void run() {
+                        tabLayout.getTabAt(mainPhotosResponse.getListCategories().size()-1).select();
+                    }
+                }, 100);
+        changeFontInViewGroup(tabLayout,"fonts/iran_sans_normal.ttf");
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabLayout.setTabTextColors(getResources().getColor(R.color.black), getResources().getColor(R.color.borderColorRed));
+                changeFontInViewGroup(tabLayout,"fonts/iran_sans_normal.ttf");
+                flProgress.setVisibility(View.VISIBLE);
+                idCategoryTitle = mainPhotosResponse.getListCategories().get(tab.getPosition()).getId();
+
+                requestGetCategoryById(mainPhotosResponse.getListCategories().get(tab.getPosition()).getId());
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        idCategoryTitle=mainPhotosResponse.getListCategories().get(mainPhotosResponse.getListCategories().size()-1).getId();
+        requestGetCategoryById(mainPhotosResponse.getListCategories().get(mainPhotosResponse.getListCategories().size()-1).getId());
+
+
+/*        photoCategoryTitleAdapter = new PhotosCategoryTitleAdapter(mainPhotosResponse.getListCategories(), this);
+        rvCategoryTitles.setAdapter(photoCategoryTitleAdapter);*/
         categoryAdapter = new CategoryPhotosAdapter(mainPhotosResponse.getCategory(), this);
         rvGrideCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
 

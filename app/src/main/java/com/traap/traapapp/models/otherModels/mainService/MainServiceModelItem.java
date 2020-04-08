@@ -36,4 +36,7 @@ public class MainServiceModelItem
     @Getter @Setter @Expose
     private String login_url;
 
+    @Getter @Setter @Expose
+    private String logo;
+
 }

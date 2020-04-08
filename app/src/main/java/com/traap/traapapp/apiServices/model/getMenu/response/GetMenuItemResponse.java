@@ -41,6 +41,9 @@ public class GetMenuItemResponse implements Parcelable
     @SerializedName("order_item")
     @Expose @Getter @Setter
     private Integer orderItem;
+    @SerializedName("logo")
+    @Expose @Getter @Setter
+    private String logo_;
 
 
     @SerializedName("sub_menu")
