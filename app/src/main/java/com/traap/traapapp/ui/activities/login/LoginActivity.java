@@ -224,7 +224,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         llPin = findViewById(R.id.llPin);
         // tvTitle.setVisibility(View.GONE);
         loginPresenter.getCode(codeView);
-        loginPresenter.getMobile(etMobileNumber,etCountryCode);
+        loginPresenter.getMobile(etMobileNumber,etCountryCode,etInviteCode);
         btnConfirm.setOnClickListener(loginPresenter);
 
         btnConfirm.setTag("mobile");
