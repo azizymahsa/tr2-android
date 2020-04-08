@@ -129,7 +129,8 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     private PersianCalendar currentDate, startPersianDate, endPersianDate;
     private Integer startDateInt = 0, endDateInt = 0;
     private MainActionView mainActionView;
-
+    MyCustomViewPager pager;
+    SamplePagerAdapter samplePagerAdapter;
     public PhotosArchiveFragment()
     {
     }
@@ -738,13 +739,13 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
     private void setPager(boolean pagerWithFilter, boolean pagerFromFavorite)
     {
-        MyCustomViewPager pager = rootView.findViewById(R.id.view_pager);
+         pager = rootView.findViewById(R.id.view_pager);
 
         if (pagerFromFavorite)
         {
-            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), null, pagerFromFavorite, pagerWithFilter);
+             samplePagerAdapter= new SamplePagerAdapter(getFragmentManager(), null, pagerFromFavorite, pagerWithFilter);
 
-            pager.setAdapter(adapter);
+            pager.setAdapter(samplePagerAdapter);
 
             pager.setCurrentItem(0);
         }
@@ -752,9 +753,9 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         {
             Collections.reverse(typeCategoryList);
 
-            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), typeCategoryList, pagerFromFavorite, pagerWithFilter);
+             samplePagerAdapter = new SamplePagerAdapter(getFragmentManager(), typeCategoryList, pagerFromFavorite, pagerWithFilter);
 
-            pager.setAdapter(adapter);
+            pager.setAdapter(samplePagerAdapter);
 
             TabLayout tabLayout = rootView.findViewById(R.id.tabLayout);
             tabLayout.setupWithViewPager(pager);
@@ -762,7 +763,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
             for (int i = 0; i < tabLayout.getTabCount(); i++)
             {
                 TabLayout.Tab tab = tabLayout.getTabAt(i);
-                tab.setCustomView(adapter.getTabView(i));
+                tab.setCustomView(samplePagerAdapter.getTabView(i));
             }
 
             pager.setCurrentItem(typeCategoryList.size()-1);

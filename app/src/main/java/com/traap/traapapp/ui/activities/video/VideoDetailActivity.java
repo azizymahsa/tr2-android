@@ -37,6 +37,8 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
+import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveCategoryFragment;
+import com.traap.traapapp.ui.fragments.videos.archive.VideosArchiveCategoryFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -156,7 +158,12 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         });
 
     }
-
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        finish();//finishing activity
+    }
     private void requestGetRelatedVideos(int idVideoCategory)
     {
         CategoryByIdVideosRequest request = new CategoryByIdVideosRequest();
@@ -283,6 +290,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.rlLike:
                 ivBigLike.setVisibility(View.VISIBLE);
                 requestLikeVideo();
+
                 break;
             case R.id.ivRelated1:
                 onRelatedClick(0);
@@ -463,12 +471,25 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void setLiked(LikeVideoResponse data)
     {
+        VideosArchiveCategoryFragment.categoriesList.setIsLiked(data.getIsLiked());
+
         if (data.getIsLiked())
         {
             imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
             tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
             likeCount = likeCount + 1;
             tvLike.setText(likeCount + "");
+
+
+            VideosArchiveCategoryFragment.categoriesList.setLikes(likeCount);
+
+/*            if (likeCount[0] > 0)
+            {
+                likeCount[0] = likeCount[0] - 1;
+            }
+            tvLike.setText(likeCount[0] + "");
+            list.get(position).setIsLiked(false);
+            list.get(position).setLikes(likeCount[0]);*/
 
         } else
         {
@@ -477,6 +498,8 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
             if (likeCount > 0)
                 likeCount = likeCount - 1;
             tvLike.setText(likeCount + "");
+            VideosArchiveCategoryFragment.categoriesList.setLikes(likeCount);
+
         }
         //tvLike.setText();
 
