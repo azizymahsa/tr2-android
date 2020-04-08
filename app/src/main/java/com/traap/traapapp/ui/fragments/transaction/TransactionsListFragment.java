@@ -43,6 +43,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.newsFilterItem.FilterItem;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.TagGroup;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.filterArchive.FilterArchiveAdapter;
@@ -120,7 +121,8 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
     private ImageView imgStartDateReset, imgEndDateReset, imgFilterClose, imgSearch;
     private TextView tvStartDate, tvEndDate;
-    private EditText edtSearchFilter, edtSearchText;
+    private EditText edtSearchFilter;
+    private ClearableEditText edtSearchText;
     private CircularProgressButton btnConfirmFilter, btnDeleteFilter;
 
     private RecyclerView rcFilterCategory, rcTransactionList;
@@ -334,7 +336,6 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
             edtSearchText.setInputType(InputType.TYPE_CLASS_NUMBER);
             edtSearchText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
-
             chbSuccessPayment.setOnCheckedChangeListener(this);
             chbFailedPayment.setOnCheckedChangeListener(this);
 
@@ -469,6 +470,29 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                         }
                     })
             );
+
+            edtSearchText.setListener(() ->
+            {
+                KeyboardUtils.forceCloseKeyboard(edtSearchText);
+                if (getFilterAvailable())
+                {
+                    if (titleFilteredList.trim().length() > 0 && titleFilteredList.contains("کد پیگیری" + ","))
+                    {
+                        titleFilteredList = titleFilteredList.substring(0, titleFilteredList.indexOf("کد پیگیری" + ","));
+                        Logger.e("-titleFilteredList-", titleFilteredList);
+                        setHashTag();
+
+                        isFilterEnable = true;
+
+//                                    setPager(true, false);
+                        getData(true);
+                    }
+                }
+                else
+                {
+                    resetAll();
+                }
+            });
 
             disposable.add(RxView.clicks(imgFilterClose)
                     .doOnError(throwable -> Logger.e("-imgFilterClose-", "Error: " + throwable.getMessage()))
