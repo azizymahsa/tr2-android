@@ -279,10 +279,10 @@ public class ShowTicketsFragment extends BaseActivity implements View.OnClickLis
 
                 break;
             case R.id.btnShareTicket:
-                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+                new ScreenShot(rvTickets, this, false, "برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");
 
-                new ScreenShot(rvTickets, (Activity) context);
-                // showToast(getContext(), "share");
+                // SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+               // new ScreenShot(rvTickets, (Activity) context);
                 break;
 
             case R.id.btnReturn:
