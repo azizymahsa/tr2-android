@@ -192,13 +192,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         });
 
         etFirstName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
-        tvMobileEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
+        tvMobileEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
         etLastName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etFirstNameUS.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etLastNameUS.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(100)});
         etNickName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
-
+        tvMobileNew.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
         etPopularPlayer.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
         etNationalCode.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         tvMobileEdit.setText(Prefs.getString("mobile", ""));

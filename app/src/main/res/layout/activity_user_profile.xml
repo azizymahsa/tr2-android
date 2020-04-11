@@ -163,6 +163,7 @@
                                             android:maxLines="1"
                                             android:singleLine="true"
                                             android:text=""
+                                            android:maxLength="11"
                                             android:textColor="@color/textHint"
                                             android:textColorHint="@color/textColorSecondary"
                                             android:textSize="@dimen/textSize_12dp" />
