@@ -1,5 +1,7 @@
 package com.traap.traapapp.ui.adapters.allMenu;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +14,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.allService.response.SubMenu;
@@ -26,12 +32,14 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     private ItemRecyclerViewAdapter.OnItemClickListenerItem mItemClickListener;
     private Context mContext;
     private List<SubMenu> list;
+    private Activity activity;
 
-    public ItemRecyclerViewAdapter(Context mContext, List<SubMenu> list, OnItemClickListenerItem mItemClickListener)
+    public ItemRecyclerViewAdapter(Context mContext, List<SubMenu> list, OnItemClickListenerItem mItemClickListener,Activity activity)
     {
         this.mItemClickListener = mItemClickListener;
         this.mContext = mContext;
         this.list = list;
+        this.activity = activity;
     }
 
 
@@ -122,7 +130,26 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         {
             if (mItemClickListener != null)
             {
-                mItemClickListener.onChosenItemClickk(view,  list.get(getAdapterPosition()).getKeyId(),list.get(getAdapterPosition()).getLoginUrl());
+                new TedPermission(Objects.requireNonNull(activity))
+                        .setPermissionListener(new PermissionListener()
+                        {
+                            @Override
+                            public void onPermissionGranted()
+                            {
+
+                                mItemClickListener.onChosenItemClickk(view,  list.get(getAdapterPosition()).getKeyId(),list.get(getAdapterPosition()).getLoginUrl());
+
+                            }
+
+                            @Override
+                            public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                            {
+                                return;
+                            }
+                        })
+                        // .setDeniedMessage("If you reject permission,you can not share this \n\nPlease turn on permissions at [Setting] > [Permission]")
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .check();
             }
         }
     }
