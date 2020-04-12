@@ -261,6 +261,7 @@ public class ShowTicketsFragment extends BaseActivity implements View.OnClickLis
         {
             case R.id.btnPaymentConfirm:
                 SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+                onBackPressed();
 
                 // onClickContinueBuyTicketListener.goBuyTicket();
              //   getBuyEnable(() -> { });
@@ -269,7 +270,7 @@ public class ShowTicketsFragment extends BaseActivity implements View.OnClickLis
                 break;
 
             case R.id.btnSaveResult:
-                new ScreenShot(rvTickets, (Activity) context, true, "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                new ScreenShot(rvTickets, this, true, "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
                 // showDialog();
                 break;
             case R.id.btnBackToHome:
