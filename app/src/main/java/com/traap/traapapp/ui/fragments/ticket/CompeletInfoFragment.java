@@ -174,6 +174,7 @@ public class CompeletInfoFragment
     private TextView tvError;
     private ArrayList<SpectatorInfoResponse> spectatorListData=new ArrayList<>();
     private ArrayList<SpectatorInfoResponse> spectatorListDataFilter=new ArrayList<>();
+    public String name,nationalCode;
 
 
     public CompeletInfoFragment()
@@ -900,6 +901,7 @@ public class CompeletInfoFragment
                     checkCondition();
 
                     changePersonCounterName();
+                    removeSpectator(name,nationalCode);
                 } else
                 {
                     cbCondition.setChecked(true);
@@ -1186,6 +1188,8 @@ public class CompeletInfoFragment
                 {
                     flagDelete = true;
                     flagNumberDelete = 1;
+                    name=etName_1.getText().toString();
+                    nationalCode=etNationalCode_1.getText().toString();
                     showDialogDelete();
 
                 }
@@ -1201,6 +1205,8 @@ public class CompeletInfoFragment
                     flagDelete = true;
                     flagNumberDelete = 2;
                     showDialogDelete();
+                    name=etName_2.getText().toString();
+                    nationalCode=etNationalCode_2.getText().toString();
                 }
                 break;
             case R.id.imgDelete3:
@@ -1215,6 +1221,8 @@ public class CompeletInfoFragment
                     flagDelete = true;
                     flagNumberDelete = 3;
                     showDialogDelete();
+                    name=etName_3.getText().toString();
+                    nationalCode=etNationalCode_3.getText().toString();
                 }
                 break;
             case R.id.imgDelete4:
@@ -1228,6 +1236,8 @@ public class CompeletInfoFragment
                     flagDelete = true;
                     flagNumberDelete = 4;
                     showDialogDelete();
+                    name=etName_4.getText().toString();
+                    nationalCode=etNationalCode_4.getText().toString();
                 }
                 break;
             case R.id.imgDelete5:
@@ -1242,6 +1252,8 @@ public class CompeletInfoFragment
                     flagDelete = true;
                     flagNumberDelete = 5;
                     showDialogDelete();
+                    name=etName_5.getText().toString();
+                    nationalCode=etNationalCode_5.getText().toString();
                 }
                 break;
             case R.id.btnPaymentConfirm:
@@ -1278,6 +1290,21 @@ public class CompeletInfoFragment
                 }
                 break;
         }
+    }
+
+    public void removeSpectator(String name,String nationalCode){
+
+        for (int i = 0; i <spectatorListData.size() ; i++)
+        {
+            if (spectatorListData.get(i).getFirstName().equals(name)&&spectatorListData.get(i).getNationalCode().equals(nationalCode)){
+
+                spectatorListData.get(i).setChecked(false);
+            }
+
+
+
+        }
+        spectatorAdapter.notifyDataSetChanged();
     }
 
     private void setSpectatorListData()
