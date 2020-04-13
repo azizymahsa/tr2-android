@@ -94,6 +94,7 @@ public class WebActivity extends BaseActivity
                 webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             }
 
+            
 
             String url = getIntent().getStringExtra("URL");
            /* if (getIntent().hasExtra("Title"))
