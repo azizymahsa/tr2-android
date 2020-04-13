@@ -95,6 +95,7 @@ public class WebActivity extends BaseActivity
             }
 
 
+
             String url = getIntent().getStringExtra("URL");
            /* if (getIntent().hasExtra("Title"))
             {
