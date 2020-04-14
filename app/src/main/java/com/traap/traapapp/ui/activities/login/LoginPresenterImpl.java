@@ -165,7 +165,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     {
         VerifyRequest request = new VerifyRequest();
 
-        request.setUsername(mobileNumber.getText().toString());
+        request.setUsername("0"+mobileNumber.getText().toString());
         request.setCountry_code(etCountryCode.getText().toString());
         request.setCode(codeView.getText().toString());
         request.setKeyInvite(etInviteCode.getText().toString());
@@ -290,7 +290,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         loginView.showLoading();
 
         LoginRequest request = new LoginRequest();
-        request.setUsername(mobileNumber.getText().toString());
+        request.setUsername("0"+mobileNumber.getText().toString());
         request.setCountry_code(etCountryCode.getText().toString());
         Prefs.putString("mobile", mobileNumber.getText().toString());
         SingletonService.getInstance().getLoginService().login(this, request);
