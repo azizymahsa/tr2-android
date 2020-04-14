@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -80,7 +81,9 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         {
             case R.id.btnConfirm:
             {
-                Logger.e("-Login000-", "Length:" + mobileNumber.getText().toString().trim().length() + ", text:" + mobileNumber.getText().toString().trim());
+
+                Log.e("testt", mobileNumber.getText().toString().trim().length()+" " +etCountryCode.getText().toString().trim());
+             //   Logger.e("-Login000-", "Length:" + mobileNumber.getText().toString().trim().length() + ", text:" + mobileNumber.getText().toString().trim());
                 if (TextUtils.isEmpty(mobileNumber.getText().toString().trim()))
                 {
                     loginView.showErrorMessage("لطفا شماره تلفن همراه خود را وارد نمایید.", this.getClass().getSimpleName(), false);
@@ -91,16 +94,22 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     loginView.showErrorMessage("لطفا کد کشور را وارد نمایید.", this.getClass().getSimpleName(), false);
                     return;
                 }
-                if (mobileNumber.getText().toString().trim().length() != 10)
+                if (etCountryCode.getText().toString().equals("98") && mobileNumber.getText().toString().trim().length() != 10)
                 {
                     loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
                     return;
-                }
-                if (!mobileNumber.getText().toString().trim().startsWith("9"))
+                }else if (!etCountryCode.getText().toString().equals("98"))
                 {
-                    loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
-                    return;
+
+                    if (!(mobileNumber.getText().toString().trim().length() >= 9 && mobileNumber.getText().toString().trim().length() <= 11)) {
+                        loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
+                        return;
+
                 }
+
+
+                }
+
 //                else if (!Utility.getMobileValidation(mobileNumber.getText().toString().trim()))
 //                {
 //                    loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
@@ -164,8 +173,14 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
     private void sendVerifyRequest()
     {
         VerifyRequest request = new VerifyRequest();
+        if (etCountryCode.getText().toString().equals("98")){
+            request.setUsername("0"+mobileNumber.getText().toString());
 
-        request.setUsername("0"+mobileNumber.getText().toString());
+        }else{
+            request.setUsername(mobileNumber.getText().toString());
+
+        }
+
         request.setCountry_code(etCountryCode.getText().toString());
         request.setCode(codeView.getText().toString());
         request.setKeyInvite(etInviteCode.getText().toString());
