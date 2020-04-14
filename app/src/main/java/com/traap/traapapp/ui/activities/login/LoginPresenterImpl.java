@@ -91,12 +91,12 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     loginView.showErrorMessage("لطفا کد کشور را وارد نمایید.", this.getClass().getSimpleName(), false);
                     return;
                 }
-                if (mobileNumber.getText().toString().trim().length() != 11)
+                if (mobileNumber.getText().toString().trim().length() != 10)
                 {
                     loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
                     return;
                 }
-                if (!mobileNumber.getText().toString().trim().startsWith("09"))
+                if (!mobileNumber.getText().toString().trim().startsWith("9"))
                 {
                     loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
                     return;

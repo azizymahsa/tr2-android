@@ -211,7 +211,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         rlCountryCode = findViewById(R.id.rlCountryCode);
 
         InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(11);
+        filterArray[0] = new InputFilter.LengthFilter(10);
         etMobileNumber.setFilters(filterArray);
 
         InputFilter[] filterArrayInviteCode = new InputFilter[1];
