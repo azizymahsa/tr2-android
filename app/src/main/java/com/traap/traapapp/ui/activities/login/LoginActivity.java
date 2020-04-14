@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputFilter;
+import android.text.method.DigitsKeyListener;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -561,9 +562,21 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1002 && resultCode == Activity.RESULT_OK)
         {
+
             etCountryName.setText(data.getExtras().getString("name"));
             etCountryCode.setText(data.getExtras().getString("code").replace("+", ""));
+            if (etCountryCode.getText().toString().equals("98")){
 
+                etMobileNumber.setLength(10);
+                etMobileNumber.setKeyListener(DigitsKeyListener.getInstance("123456789"));
+
+            }else{
+                if (etMobileNumber.getText().toString().startsWith("0"))
+                    etMobileNumber.setText( etMobileNumber.getText().toString().substring(0,1));
+                etMobileNumber.setLength(11);
+                etMobileNumber.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+
+            }
         }
     }
 }
