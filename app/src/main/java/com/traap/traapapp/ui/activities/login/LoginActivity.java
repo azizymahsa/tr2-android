@@ -6,8 +6,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -91,6 +94,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private EditText etCountryName, etCountryCode;
     private CompositeDisposable disposable = new CompositeDisposable();
     private RelativeLayout rlCountryCode;
+    private  TextWatcher textWatcher;
 
 
     @Override
@@ -211,9 +215,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         etInviteCode=findViewById(R.id.etInviteCode);
         rlCountryCode = findViewById(R.id.rlCountryCode);
 
-        InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(10);
-        etMobileNumber.setFilters(filterArray);
+
 
         InputFilter[] filterArrayInviteCode = new InputFilter[1];
         filterArrayInviteCode[0] = new InputFilter.LengthFilter(8);
@@ -307,6 +309,27 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             }
         });
 
+
+        etMobileNumber.setLength(10);
+         textWatcher =new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() == 1 && s.toString().startsWith("0")) {
+                    s.clear();
+                }
+            }
+        };
+         etMobileNumber.addTextChangedListener(textWatcher);
     }
 
 
@@ -566,15 +589,19 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             etCountryName.setText(data.getExtras().getString("name"));
             etCountryCode.setText(data.getExtras().getString("code").replace("+", ""));
             if (etCountryCode.getText().toString().equals("98")){
+                if (etMobileNumber.getText().toString().startsWith("0")){
 
+                    etMobileNumber.setText(etMobileNumber.getText().toString().replaceFirst("0","")
+                       .replaceFirst("٠",""));
+                }
                 etMobileNumber.setLength(10);
-                etMobileNumber.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+                etMobileNumber.addTextChangedListener(textWatcher);
+
 
             }else{
-                if (etMobileNumber.getText().toString().startsWith("0"))
-                    etMobileNumber.setText( etMobileNumber.getText().toString().substring(0,1));
+
                 etMobileNumber.setLength(11);
-                etMobileNumber.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+                etMobileNumber.removeTextChangedListener(textWatcher);
 
             }
         }
