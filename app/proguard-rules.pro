@@ -158,3 +158,4 @@
 -keep class com.uxcam.** { *; }
 -dontwarn com.uxcam.**
 -keepnames class **
+-keep class androidx.appcompat.widget.** { *; }
