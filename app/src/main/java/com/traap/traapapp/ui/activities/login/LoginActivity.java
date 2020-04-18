@@ -568,7 +568,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             if (etCountryCode.getText().toString().equals("98")){
 
                 etMobileNumber.setLength(10);
-                etMobileNumber.setKeyListener(DigitsKeyListener.getInstance("123456789"));
+                etMobileNumber.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
 
             }else{
                 if (etMobileNumber.getText().toString().startsWith("0"))
