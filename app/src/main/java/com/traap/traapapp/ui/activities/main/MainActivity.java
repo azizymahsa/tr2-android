@@ -1178,6 +1178,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         {
             showToast(this, "کارت جدید با موفقیت ذخیره شد.", R.color.green);
 
+        }else if ( resultCode == Activity.RESULT_OK && requestCode ==33){
+            fragmentList.remove(fragmentList.size()-1); //remove SelectPaymentGatewayFragment
+            fragmentList.remove(fragmentList.size()-1); //remove ChargeFragment and add it again.
+            int PAYMENTstatus = data.getIntExtra("PaymentStatus", 0);
+
+            onBackToChargFragment(PAYMENTstatus);
         }
         else if (resultCode == Activity.RESULT_OK)
         {

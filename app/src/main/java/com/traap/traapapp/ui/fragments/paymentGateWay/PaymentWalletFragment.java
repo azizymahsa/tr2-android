@@ -455,7 +455,9 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
         Intent intent = new Intent(getContext(), PaymentResultChargeActivity.class);
         intent.putExtra("RefrenceNumber", response.data.getRefNumber());
-        getContext().startActivity(intent);
+
+        intent.putExtra("PaymentStatus",PAYMENT_STATUS);
+        getActivity().startActivityForResult(intent,33);
 
     }
 
@@ -475,7 +477,9 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
         Intent intent = new Intent(getContext(), PaymentResultChargeActivity.class);
         intent.putExtra("RefrenceNumber", response.data.getRefNumber());
-        getContext().startActivity(intent);
+
+        intent.putExtra("PaymentStatus",PAYMENT_STATUS);
+        getActivity().startActivityForResult(intent,33);
     }
 
     @Override

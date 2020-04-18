@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.activities.paymentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -73,6 +74,8 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
             } else
             {
                 refrenceNumber = extras.getString("RefrenceNumber");
+                PAYMENT_STATUS=extras.getInt("PaymentStatus",0);
+
                 // statusPayment=extras.getBoolean(            "StatusPayment",false);
             }
         }
@@ -136,6 +139,15 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         llResult=findViewById(R.id.llResult);
         btnSaveResult=findViewById(R.id.btnSaveResult);
         btnSaveResult.setOnClickListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent();
+
+        resultIntent.putExtra("PaymentStatus", PAYMENT_STATUS);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
 
     private void requestGetDetailTransaction(String refrenceNumber)
@@ -232,6 +244,9 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
                 // showDialog();
                 break;
             case R.id.tvBackHome:
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("PaymentStatus", PAYMENT_STATUS);
+                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
                 break;
         }

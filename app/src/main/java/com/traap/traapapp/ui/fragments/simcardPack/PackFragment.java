@@ -378,7 +378,7 @@ public class PackFragment
     @OnClick(R.id.imgUserMobileIranCell)
     void onUserMobileIranCell()
     {
-        etMobileNumberIranCell.setText(Prefs.getString("mobile", ""));
+        etMobileNumberIranCell.setText("0"+Prefs.getString("mobile", ""));
     }
 
     ;
@@ -386,7 +386,7 @@ public class PackFragment
     @OnClick(R.id.imgUserMobileMci)
     void onUserMobileMci()
     {
-        etMobileNumberMCI.setText(Prefs.getString("mobile", ""));
+        etMobileNumberMCI.setText("0"+Prefs.getString("mobile", ""));
     }
 
     ;
@@ -394,7 +394,7 @@ public class PackFragment
     @OnClick(R.id.imgUserMobileRightel)
     void onUserMobileRightel()
     {
-        etMobileNumberRightel.setText(Prefs.getString("mobile", ""));
+        etMobileNumberRightel.setText("0"+Prefs.getString("mobile", ""));
     }
 
     ;
@@ -1420,9 +1420,9 @@ public class PackFragment
         btnMCIPackConfirm.setText("ادامه");
         btnChargeConfirmRightel.setText("ادامه");
 
-        etMobileNumberMCI.setText(Prefs.getString("mobile", ""));
-        etMobileNumberIranCell.setText(Prefs.getString("mobile", ""));
-        etMobileNumberRightel.setText(Prefs.getString("mobile", ""));
+        etMobileNumberMCI.setText("0"+Prefs.getString("mobile", ""));
+        etMobileNumberIranCell.setText("0"+Prefs.getString("mobile", ""));
+        etMobileNumberRightel.setText("0"+Prefs.getString("mobile", ""));
 
         tlPassCharge.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
         tipCvv2.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
@@ -1600,7 +1600,7 @@ public class PackFragment
 
     private void initDefaultOperatorView()
     {
-        myOperatorType = Utility.getOperatorType(Prefs.getString("mobile", ""));
+        myOperatorType = Utility.getOperatorType("0"+Prefs.getString("mobile", ""));
         tvAmountPackage.setVisibility(View.GONE);
         llPassCharge.setVisibility(View.GONE);
         llSelectOptaror.setVisibility(View.VISIBLE);
