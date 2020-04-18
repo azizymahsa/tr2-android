@@ -1304,9 +1304,9 @@ public class ChargeFragment extends BaseFragment
 //        isMtn = false;
 //        isMci = true;
 //        isRightel = false;
-        autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
-        autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
-        autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+        autoCompletePhoneNumberMci.setText("0"+Prefs.getString("mobile", ""));
+        autoCompletePhoneNumberIrancel.setText("0"+Prefs.getString("mobile", ""));
+        autoCompletePhoneNumberRightel.setText("0"+Prefs.getString("mobile", ""));
         // etMCIAmount.setOnFocusChangeListener(this);
 /*        etMCINumber.setOnFocusChangeListener(this);
         etMobileCharge.setOnFocusChangeListener(this);
