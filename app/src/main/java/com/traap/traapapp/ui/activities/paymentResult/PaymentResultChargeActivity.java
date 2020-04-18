@@ -16,6 +16,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -115,6 +116,8 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         }
 
         requestGetDetailTransaction(refrenceNumber);
+        SingletonPaymentPlace.getInstance().setPaymentPlace(1);
+
     }
 
     private void initView()
