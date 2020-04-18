@@ -23,6 +23,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -107,6 +108,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
         super.onCreate(savedInstanceState);
 
     }
+
 
     public void initView()
     {
@@ -195,6 +197,8 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
         }
     };
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -263,6 +267,9 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     public void onResume()
     {
         super.onResume();
+        if (SingletonPaymentPlace.getInstance().getPaymentPlace()!=0){
+            mainView.onBackToChargFragment(PAYMENT_STATUS);
+        }
 
     }
 

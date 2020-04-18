@@ -46,6 +46,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -68,6 +69,7 @@ import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeRe
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.pack.RightelPackModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.adapters.pack.DetailPackAdapter;
 import com.traap.traapapp.ui.adapters.pack.TitlePackAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -984,6 +986,13 @@ public class PackFragment
     public void onResume()
     {
         super.onResume();
+        if (SingletonPaymentPlace.getInstance().getPaymentPlace()!=0){
+            Objects.requireNonNull(getActivity()).onBackPressed();
+            getActivity().onBackPressed();
+            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
+
+            return;
+        }
        checkPhoneNumberOperator();
         try
         {

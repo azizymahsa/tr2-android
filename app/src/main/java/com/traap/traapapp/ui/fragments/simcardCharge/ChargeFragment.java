@@ -80,6 +80,7 @@ import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
 import com.traap.traapapp.ui.adapters.charge.ChargeAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -904,6 +905,13 @@ public class ChargeFragment extends BaseFragment
     public void onResume()
     {
         super.onResume();
+        if (SingletonPaymentPlace.getInstance().getPaymentPlace()!=0){
+            Objects.requireNonNull(getActivity()).onBackPressed();
+            getActivity().onBackPressed();
+            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
+
+            return;
+        }
         etCvv2.setText("");
         etPassCharge.setText("");
         // etChargeAmount.setText("");
