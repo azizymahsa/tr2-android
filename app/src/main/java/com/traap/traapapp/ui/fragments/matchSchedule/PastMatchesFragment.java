@@ -20,6 +20,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
+import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -106,12 +107,12 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
     private void addDataRecyclerList()
     {
         Collections.reverse(pastMatchesList);
-        mAdapter = new MatchAdapter(pastMatchesList, getContext(), this);
+        mAdapter = new MatchAdapter(MatchScheduleParent.PastResultFragment, pastMatchesList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new MatchAdapter(pastMatchesList, getActivity(), this);
+        mAdapter = new MatchAdapter(MatchScheduleParent.PastResultFragment, pastMatchesList, getActivity(), this);
         recyclerView.setAdapter(mAdapter);
     }
 

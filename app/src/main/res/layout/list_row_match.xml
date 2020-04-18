@@ -222,7 +222,7 @@
             android:background="@drawable/background_border_red"
             android:textSize="@dimen/_10sdp"
             android:textColor="@color/textColorTitle"
-            android:text=" پیش بینی نتیجه"
+            android:text=" پیش بینی"
             />
         <TextView
             android:id="@+id/tvBuyTicket"
