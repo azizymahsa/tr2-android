@@ -545,6 +545,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(1, 1)
                 .start(this);
     }
 

@@ -15,6 +15,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
+import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -88,11 +89,11 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     private void addDataRecyclerList()
     {
 
-        mAdapter = new MatchAdapter(nextMatchesList, getContext(), this);
+        mAdapter = new MatchAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new MatchAdapter(nextMatchesList, getActivity(), this);
+        mAdapter = new MatchAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getActivity(), this);
         recyclerView.setAdapter(mAdapter);
     }
 

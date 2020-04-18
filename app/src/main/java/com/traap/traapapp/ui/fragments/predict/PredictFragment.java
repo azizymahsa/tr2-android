@@ -468,9 +468,9 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     if (response.data.getMatchPredict().getLastMatchResult().getHomeScore() != null || response.data.getMatchPredict().getLastMatchResult().getAwayScore() != null)
                     {
                         tvCurrentMatchResult.setText(
-                                response.data.getMatchPredict().getLastMatchResult().getHomeScore() +
+                                response.data.getMatchPredict().getLastMatchResult().getAwayScore() +
                                         " - " +
-                                        response.data.getMatchPredict().getLastMatchResult().getAwayScore());
+                                        response.data.getMatchPredict().getLastMatchResult().getHomeScore());
                     }
                     else
                     {
