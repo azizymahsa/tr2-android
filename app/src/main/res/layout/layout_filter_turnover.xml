@@ -247,7 +247,8 @@
 
                         <include
                             android:id="@+id/btnDeleteFilter"
-                            layout="@layout/filter_deleted_button" />
+                            layout="@layout/filter_deleted_button"
+                            android:layout_height="25dp" />
 
                     </FrameLayout>
 
