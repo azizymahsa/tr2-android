@@ -219,7 +219,6 @@
                         android:maxLength="15"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:digits="123456789"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/textSize_18dp" />
 
