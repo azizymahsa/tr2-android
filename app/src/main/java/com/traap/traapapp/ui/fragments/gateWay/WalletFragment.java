@@ -287,6 +287,9 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             turnoverModel.setRemove(true);
 
             EventBus.getDefault().post(turnoverModel);
+
+            rangeBar.setRange(0f, filterSetting.getStepCount(), 1f);
+            rangeBar.setProgress(0f, filterSetting.getStepCount());
         });
 
         btnConfirmFilter.setOnClickListener(v ->

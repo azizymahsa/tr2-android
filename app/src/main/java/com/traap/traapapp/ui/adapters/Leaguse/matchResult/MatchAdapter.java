@@ -20,25 +20,23 @@ import java.util.List;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.enums.MatchScheduleParent;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
 {
     private Context mContext;
     private LayoutInflater mInflater;
+    private MatchScheduleParent parent;
 
     private List<MatchItem> pastMatchesList = new ArrayList<>();
     private View view;
     private ItemClickListener mClickListener;
 
-    public MatchAdapter(List<MatchItem> pastMatchesList)
-    {
-        this.pastMatchesList = pastMatchesList;
-    }
-
-    public MatchAdapter(List<MatchItem> pastMatchesList, Context context, ItemClickListener mClickListener)
+    public MatchAdapter(MatchScheduleParent parent, List<MatchItem> pastMatchesList, Context context, ItemClickListener mClickListener)
     {
         this.pastMatchesList = pastMatchesList;
         this.mContext = context;
+        this.parent = parent;
         this.mInflater = LayoutInflater.from(mContext);
         this.mClickListener = mClickListener;
 
@@ -82,7 +80,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
                     Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.imgHost);
                 }
             });
-        } catch (Exception e1)
+        }
+        catch (Exception e1)
         {
             //  holder.progressBar.setVisibility(View.GONE);
             Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.imgHost);
@@ -106,7 +105,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
                     Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.imgGuest);
                 }
             });
-        } catch (Exception e1)
+        }
+        catch (Exception e1)
         {
             //  holder.progressBar.setVisibility(View.GONE);
             Picasso.with(mContext).load(R.drawable.ic_logo_red).into(holder.imgGuest);
@@ -123,7 +123,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
 
                 holder.tvMatchResult.setVisibility(View.VISIBLE);
                 holder.imgCenter.setVisibility(View.GONE);
-            } else
+            }
+            else
             {
                 holder.tvMatchResult.setVisibility(View.GONE);
                 holder.imgCenter.setVisibility(View.VISIBLE);
@@ -141,38 +142,61 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             if (item.getBuyEnable() && item.getIsPredict())
             {
                 holder.tvBuyTicket.setVisibility(View.VISIBLE);
-                holder.tvPredictResult.setVisibility(View.VISIBLE);
+                getPredictVisibility(true, holder);
 
                 holder.lnrBuyEnable.setVisibility(View.VISIBLE);
-            } else if (item.getIsPredict())
+            }
+            else if (item.getIsPredict())
             {
                 holder.lnrBuyEnable.setVisibility(View.VISIBLE);
-                holder.tvPredictResult.setVisibility(View.VISIBLE);
+                getPredictVisibility(true, holder);
                 holder.tvBuyTicket.setVisibility(View.GONE);
 
-            } else if (item.getBuyEnable())
+            }
+            else if (item.getBuyEnable())
             {
                 holder.tvBuyTicket.setVisibility(View.VISIBLE);
-                holder.tvPredictResult.setVisibility(View.GONE);
+                getPredictVisibility(false, holder);
 
                 holder.lnrBuyEnable.setVisibility(View.VISIBLE);
-            } else
+            }
+            else
             {
                 holder.lnrBuyEnable.setVisibility(View.GONE);
-                holder.tvPredictResult.setVisibility(View.GONE);
+                getPredictVisibility(false, holder);
                 holder.tvBuyTicket.setVisibility(View.GONE);
 
             }
             if (item.getIs_chart_predict())
             {
                 //  holder.tvBuyTicket.setVisibility(View.GONE);
-                holder.tvPredictResult.setVisibility(View.VISIBLE);
+                getPredictVisibility(true, holder);
 
                 holder.lnrBuyEnable.setVisibility(View.VISIBLE);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
+        }
+    }
+
+    private void getPredictVisibility(boolean visibility, ViewHolder holder)
+    {
+        if (parent == MatchScheduleParent.PastResultFragment)
+        {
+            holder.tvPredictResult.setVisibility(View.GONE);
+        }
+        else
+        {
+            if (visibility)
+            {
+                holder.tvPredictResult.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                holder.tvPredictResult.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -244,28 +268,38 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             {
                 case R.id.tvBuyTicket:
                     if (mClickListener != null)
+                    {
                         mClickListener.onItemClick(view, getAdapterPosition(), pastMatchesList.get(getAdapterPosition()));
+                    }
                     break;
                 case R.id.tvPredictResult:
                     if (mClickListener != null)
+                    {
                         mClickListener.onItemPredictClick(view, getAdapterPosition(), pastMatchesList.get(getAdapterPosition()));
+                    }
                     break;
 
                 case R.id.rlHost:
-                    if (mClickListener != null) mClickListener.onItemLogoTeamClick(view,
-                            pastMatchesList.get(getAdapterPosition()).getTeamHome().getLivescoreId(),
-                            pastMatchesList.get(getAdapterPosition()).getTeamHome().getLogo(),
-                            pastMatchesList.get(getAdapterPosition()).getTeamHome().getName()
+                    if (mClickListener != null)
+                    {
+                        mClickListener.onItemLogoTeamClick(view,
+                                pastMatchesList.get(getAdapterPosition()).getTeamHome().getLivescoreId(),
+                                pastMatchesList.get(getAdapterPosition()).getTeamHome().getLogo(),
+                                pastMatchesList.get(getAdapterPosition()).getTeamHome().getName()
 
-                    );
+                        );
+                    }
                     break;
                 case R.id.rlGuest:
-                    if (mClickListener != null) mClickListener.onItemLogoTeamClick(view,
-                            pastMatchesList.get(getAdapterPosition()).getTeamAway().getLivescoreId(),
-                            pastMatchesList.get(getAdapterPosition()).getTeamAway().getLogo(),
-                            pastMatchesList.get(getAdapterPosition()).getTeamAway().getName()
+                    if (mClickListener != null)
+                    {
+                        mClickListener.onItemLogoTeamClick(view,
+                                pastMatchesList.get(getAdapterPosition()).getTeamAway().getLivescoreId(),
+                                pastMatchesList.get(getAdapterPosition()).getTeamAway().getLogo(),
+                                pastMatchesList.get(getAdapterPosition()).getTeamAway().getName()
 
-                    );
+                        );
+                    }
                     break;
             }
         }

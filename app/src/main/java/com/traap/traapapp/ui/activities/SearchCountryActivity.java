@@ -25,6 +25,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.models.CountryCodeModel;
 import com.traap.traapapp.ui.adapters.CountryAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.utilities.Utility;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -106,7 +107,7 @@ public class SearchCountryActivity extends BaseActivity
                         .fromIterable(countryCodeModels)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.computation())
-                        .filter(x -> {return x.getName().toLowerCase().contains(newText)||x.getDialCode().toLowerCase().contains(newText);})
+                        .filter(x -> {return x.getName().toLowerCase().contains(Utility.convertNumbersToEnglish(newText))||x.getDialCode().toLowerCase().contains(Utility.convertNumbersToEnglish(newText));})
                         .toList()
                         .subscribe(new SingleObserver<List<CountryCodeModel>>() {
                             @Override
