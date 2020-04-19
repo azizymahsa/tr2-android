@@ -92,6 +92,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     private boolean isFirstClick=true;
     private FrameLayout flProgress;
     private TabLayout tabLayout;
+    private Boolean needScrollUp=false;
 
 
     public PhotosFragment()
@@ -181,6 +182,13 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
         requestMainPhotos();
 
         return rootView;
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        needScrollUp=false;
     }
 
     private void requestMainPhotos()
@@ -506,6 +514,7 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
     @SuppressLint("CheckResult")
     private void setCategoryListData(CategoryByIdVideosResponse data)
     {
+
         if (data.getResults().isEmpty())
         {
             tvEmpty.setVisibility(View.VISIBLE);
@@ -536,6 +545,12 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                     }
                 }, 300);*/
 
+    if (!needScrollUp){
+        needScrollUp=true;
+        return;
+
+    }
+
 
             Observable.just(rvGrideCategories.getHeight())
                     .subscribeOn(Schedulers.io())
@@ -544,7 +559,6 @@ public class PhotosFragment extends BaseFragment implements View.OnClickListener
                     .subscribe(scrollTo -> {
 
                         flProgress.setVisibility(View.GONE);
-
                         nestedScrollView.post(() ->{nestedScrollView.scrollTo(0, llTop.getHeight()); } ); });
           //  flProgress.setVisibility(View.GONE);
 
