@@ -1,10 +1,12 @@
 package com.traap.traapapp.ui.activities.video;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -132,7 +134,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         btnBookmark = findViewById(R.id.btnBookmark);
         btnShareVideo = findViewById(R.id.btnShareVideo);
 
-       // ivVideo.setOnClickListener(this);
+        // ivVideo.setOnClickListener(this);
         ivRelated1.setOnClickListener(this);
         ivRelated2.setOnClickListener(this);
         ivRelated3.setOnClickListener(this);
@@ -147,7 +149,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         requestGetRelatedVideos(idVideoCategory);
         rlVideo.setOnClickListener(this);
         rlLike.setOnClickListener(this);
-       FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
+        FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
 
         flLogoToolbar.setOnClickListener(v ->
         {
@@ -288,7 +290,6 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         {
 
             case R.id.rlLike:
-                ivBigLike.setVisibility(View.VISIBLE);
                 requestLikeVideo();
 
                 break;
@@ -419,7 +420,27 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void requestLikeVideo()
     {
-        //rlLike.setClickable(false);
+        Log.e("test", likeCount+"" );
+        if (tvLike.getCurrentTextColor()==getResources().getColor(R.color.backgroundButton)){
+            likeCount--;
+            imgLike.setColorFilter(getResources().getColor(R.color.gray));
+            tvLike.setTextColor(getResources().getColor(R.color.gray));
+            tvLike.setText((likeCount)+ "");
+            Log.e("test1", likeCount+"" );
+
+        }else{
+            likeCount++;
+            ivBigLike.setVisibility(View.VISIBLE);
+            animateHeart(ivBigLike);
+            imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+            tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+            tvLike.setText((likeCount) + "");
+            Log.e("test2", likeCount+"" );
+
+        }
+        Log.e("test3", likeCount+"" );
+
+
         LikeVideoRequest request = new LikeVideoRequest();
 
         SingletonService.getInstance().getLikeVideoService().likeVideoService(idVideo, request, new OnServiceStatus<WebServiceClass<LikeVideoResponse>>()
@@ -434,10 +455,10 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
                     if (response.info.statusCode == 200)
                     {
-                        animateHeart(ivBigLike);
+                        /*       animateHeart(ivBigLike);
 
+                         */
                         setLiked(response.data);
-
                     } else
                     {
                         //  Tools.showToast(VideoDetailActivity.this, response.info.message, R.color.red);
@@ -473,12 +494,13 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     {
         VideosArchiveCategoryFragment.categoriesList.setIsLiked(data.getIsLiked());
 
+
         if (data.getIsLiked())
         {
-            imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+          /*  imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
             tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
-            likeCount = likeCount + 1;
-            tvLike.setText(likeCount + "");
+       */  //   likeCount = likeCount + 1;
+            //tvLike.setText(likeCount + "");
 
 
             VideosArchiveCategoryFragment.categoriesList.setLikes(likeCount);
@@ -493,11 +515,11 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
         } else
         {
-            imgLike.setColorFilter(getResources().getColor(R.color.gray));
+          /*  imgLike.setColorFilter(getResources().getColor(R.color.gray));
             tvLike.setTextColor(getResources().getColor(R.color.gray));
-            if (likeCount > 0)
+       /    / if (likeCount > 0)
                 likeCount = likeCount - 1;
-            tvLike.setText(likeCount + "");
+            tvLike.setText(likeCount + "");*/
             VideosArchiveCategoryFragment.categoriesList.setLikes(likeCount);
 
         }

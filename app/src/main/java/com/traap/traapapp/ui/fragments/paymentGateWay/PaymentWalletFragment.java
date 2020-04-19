@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.paymentGateWay;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -48,6 +49,7 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletImpl;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletInteractor;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageWalletImpl;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageWalletInteractor;
+import com.traap.traapapp.utilities.JustifiedTextView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -80,7 +82,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private String mobile;
     private SimPackPaymentInstance simPackPaymentInstance;
     private TextView tvAmount;
-    private TextView tvTitlePay;
+    private JustifiedTextView tvTitlePay;
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
     public Integer balance=0;
@@ -164,6 +166,10 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             imgLogo = rootView.findViewById(R.id.imgLogo);
 
             llConfirm.setVisibility(View.VISIBLE);
+
+            tvTitlePay.setTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
+            tvTitlePay.setLineSpacing(10);
+            tvTitlePay.setTextSize(getResources().getDimension(R.dimen.textSize_14dp));
 
             setContentData();
             requestGetBalance();
