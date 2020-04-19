@@ -401,9 +401,9 @@ public class ChargeFragment extends BaseFragment
 
         } else
         {
-            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberMci.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText("0"+Prefs.getString("mobile", ""));
 
 
         }
@@ -421,9 +421,9 @@ public class ChargeFragment extends BaseFragment
 
         } else
         {
-            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberMci.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText("0"+Prefs.getString("mobile", ""));
 
 
         }
@@ -441,9 +441,9 @@ public class ChargeFragment extends BaseFragment
 
         } else
         {
-            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberMci.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText("0"+Prefs.getString("mobile", ""));
 
 
         }
@@ -1211,7 +1211,7 @@ public class ChargeFragment extends BaseFragment
 
     private void initDefaultOperatorView()
     {
-        operatorType = getOperatorType(Prefs.getString("mobile", ""));
+        operatorType = getOperatorType("0"+Prefs.getString("mobile", ""));
         // operatorType = getOperatorType("09121234567");
 
         switch (operatorType)
