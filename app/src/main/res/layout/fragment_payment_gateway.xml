@@ -68,7 +68,7 @@
                 android:orientation="horizontal"
                 android:visibility="visible">
 
-                <TextView
+             <!--   <TextView
                     android:id="@+id/tvTitlePay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,11 +78,25 @@
                     android:gravity="center_vertical"
                     android:text=""
                     android:textColor="@color/returnButtonColor"
+                    android:textSize="@dimen/textSize_14dp" />-->
+
+                <com.traap.traapapp.utilities.JustifiedTextView
+                    android:id="@+id/tvTitlePay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/imgLogo"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="@dimen/_10dp"
+                    android:paddingLeft="@dimen/_10dp"
+                    android:text=""
+                    android:textColor="@color/textHint"
                     android:textSize="@dimen/textSize_14dp" />
+
                 <ImageView
                     android:id="@+id/imgLogo"
                     android:layout_width="@dimen/_50dp"
                     android:layout_height="@dimen/_50dp"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:layout_alignParentEnd="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_logo_red"

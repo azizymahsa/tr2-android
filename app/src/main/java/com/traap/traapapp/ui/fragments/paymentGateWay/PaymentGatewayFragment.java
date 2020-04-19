@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.paymentGateWay;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.JustifiedTextView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Utility;
 
@@ -51,7 +53,8 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     private String amount = "";
     private String title = "پرداخت";
     private int imageDrawable = 1;
-    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay;
+    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount;
+    private JustifiedTextView tvTitlePay;
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
 
@@ -147,6 +150,11 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             rbTejarat.setEnabled(false);
             rbTejarat.setSelected(false);
             rbTejarat.setChecked(false);
+
+
+            tvTitlePay.setTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
+            tvTitlePay.setLineSpacing(10);
+            tvTitlePay.setTextSize(getResources().getDimension(R.dimen.textSize_14dp));
 
             FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
             flLogoToolbar.setOnClickListener(v -> {
