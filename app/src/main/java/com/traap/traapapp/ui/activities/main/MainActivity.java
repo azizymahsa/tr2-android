@@ -2091,7 +2091,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             @Override
             public void onConfirmClick()
             {
-//                isMainFragment = false;
+                isMainFragment = false;
+                fragmentList.remove(fragmentList.size()-1); //remove current Fragment
 //                setFragment(PredictFragment.newInstance(MainActivity.this, matchId, isPredictable));
 //                replaceFragment(getFragment(), "predictFragment");
                 onPredict(matchId, isPredictable);
