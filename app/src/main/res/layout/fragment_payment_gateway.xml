@@ -80,7 +80,7 @@
                     android:textColor="@color/returnButtonColor"
                     android:textSize="@dimen/textSize_14dp" />-->
 
-                <com.traap.traapapp.utilities.JustifiedTextView
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
                     android:id="@+id/tvTitlePay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                     android:paddingRight="@dimen/_10dp"
                     android:paddingLeft="@dimen/_10dp"
                     android:text=""
-                    android:textColor="@color/textHint"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/textSize_14dp" />
 
                 <ImageView
