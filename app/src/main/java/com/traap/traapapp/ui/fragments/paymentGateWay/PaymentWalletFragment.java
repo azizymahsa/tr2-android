@@ -49,10 +49,10 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletImpl;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletInteractor;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageWalletImpl;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageWalletInteractor;
-import com.traap.traapapp.utilities.JustifiedTextView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
+import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
 /**
  * Created by MahsaAzizi on 11/25/2019.
@@ -167,9 +167,11 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
             llConfirm.setVisibility(View.VISIBLE);
 
+/*
             tvTitlePay.setTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
             tvTitlePay.setLineSpacing(10);
             tvTitlePay.setTextSize(getResources().getDimension(R.dimen.textSize_14dp));
+*/
 
             setContentData();
             requestGetBalance();

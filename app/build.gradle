@@ -419,6 +419,8 @@ android {
         implementation 'com.miguelcatalan:materialsearchview:1.4.0'
         implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
 //        implementation 'com.github.arefbhrn:JustifiedTextView:1.0.5'
+        implementation 'com.uncopt:android.justified:1.0'
+
 
     }
 }

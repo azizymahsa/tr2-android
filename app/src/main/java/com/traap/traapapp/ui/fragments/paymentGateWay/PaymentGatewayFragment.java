@@ -29,9 +29,9 @@ import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.utilities.JustifiedTextView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Utility;
+import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
 /**
  * Created by MahsaAzizi on 11/20/2019.
@@ -151,10 +151,12 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             rbTejarat.setSelected(false);
             rbTejarat.setChecked(false);
 
+/*
 
             tvTitlePay.setTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
             tvTitlePay.setLineSpacing(10);
             tvTitlePay.setTextSize(getResources().getDimension(R.dimen.textSize_14dp));
+*/
 
             FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
             flLogoToolbar.setOnClickListener(v -> {
@@ -275,8 +277,17 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     public void onResume()
     {
         super.onResume();
-        if (SingletonPaymentPlace.getInstance().getPaymentPlace()!=0){
-            mainView.onBackToChargFragment(PAYMENT_STATUS);
+        if (SingletonPaymentPlace.getInstance().getPaymentPlace()==1){
+            mainView.backToMainFragment();
+            mainView.onChargeSimCard(0);
+
+            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
+
+        }else if (SingletonPaymentPlace.getInstance().getPaymentPlace()==2){
+            mainView.backToMainFragment();
+            mainView.onPackSimCard(0);
+
+            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
         }
 
     }
