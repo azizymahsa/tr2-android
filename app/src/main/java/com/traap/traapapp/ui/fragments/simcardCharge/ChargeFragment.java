@@ -905,6 +905,7 @@ public class ChargeFragment extends BaseFragment
     public void onResume()
     {
         super.onResume();
+
         etCvv2.setText("");
         etPassCharge.setText("");
         // etChargeAmount.setText("");

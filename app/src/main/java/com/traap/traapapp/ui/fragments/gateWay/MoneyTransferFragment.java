@@ -474,10 +474,9 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
             return;
         }
-        requestGetInfo();
+       requestGetInfo();
 
 
-       // this.startActivity(intent);
     }
 
     private void showDialogGetInfo(GetInfoWalletResponse data)
@@ -573,10 +572,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
     {
         Intent intent = new Intent(this.getContext(), PaymentResultIncreaseInventoryActivity.class);
         intent.putExtra("RefrenceNumber", response.data.getRefrenceNumber());
-        //this.startActivity(intent);
-        getActivity().startActivityForResult(intent,0);
-
-
+        getActivity().startActivityForResult(intent,44);
     }
 
     private void requestGetInfo()
