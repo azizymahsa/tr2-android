@@ -183,7 +183,7 @@
 
     </RelativeLayout>
 
-    <com.traap.traapapp.utilities.JustifiedTextView
+    <com.uncopt.android.widget.text.justify.JustifiedTextView
         android:id="@+id/tvSubTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -192,10 +192,10 @@
         android:gravity="right|center_vertical"
         android:padding="@dimen/_10dp"
         android:text=""
-        android:textColor="@color/textHint"
+        android:textColor="@color/black"
         android:textSize="@dimen/textSize_14dp" />
 
-    <com.traap.traapapp.utilities.JustifiedTextView
+    <com.uncopt.android.widget.text.justify.JustifiedTextView
         android:id="@+id/tvBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -203,8 +203,8 @@
         android:gravity="right"
         android:padding="@dimen/_10dp"
         android:text=""
-        android:textColor="@color/textHint"
-        android:textSize="@dimen/textSize_16dp" />
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize_14dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

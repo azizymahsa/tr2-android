@@ -905,13 +905,7 @@ public class ChargeFragment extends BaseFragment
     public void onResume()
     {
         super.onResume();
-        if (SingletonPaymentPlace.getInstance().getPaymentPlace()!=0){
-            Objects.requireNonNull(getActivity()).onBackPressed();
-            getActivity().onBackPressed();
-            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
-
-            return;
-        }
+f
         etCvv2.setText("");
         etPassCharge.setText("");
         // etChargeAmount.setText("");

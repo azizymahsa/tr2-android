@@ -86,10 +86,14 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
             if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard)
             {
                 hasPaymentCharge = true;
+                SingletonPaymentPlace.getInstance().setPaymentPlace(1);
+
             }
             else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
             {
                 hasPaymentPackageSimcard = true;
+                SingletonPaymentPlace.getInstance().setPaymentPlace(2);
+
             }
             else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
             {
@@ -119,7 +123,6 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         }
 
         requestGetDetailTransaction(refrenceNumber);
-        SingletonPaymentPlace.getInstance().setPaymentPlace(1);
 
     }
 

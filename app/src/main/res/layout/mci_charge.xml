@@ -30,8 +30,9 @@
                 android:id="@+id/btnMciRecent"
                 android:layout_width="@dimen/_45dp"
                 android:layout_height="@dimen/_45dp"
-                android:layout_gravity="top"
                 android:padding="10dp"
+                android:layout_gravity="bottom"
+
                 android:layout_marginEnd="5dp"
                 android:src="@drawable/ic_list"
                 android:background="@drawable/button_small_border"
@@ -45,9 +46,10 @@
                 android:src="@drawable/ic_phone_book"
                 android:layout_width="@dimen/_45dp"
                 android:layout_height="@dimen/_45dp"
-                android:layout_gravity="top"
                 android:padding="@dimen/_5sdp"
                 android:layout_marginEnd="5dp"
+                android:layout_gravity="bottom"
+
                 android:background="@drawable/button_small_border"
                 android:foreground="?attr/selectableItemBackground" />
 

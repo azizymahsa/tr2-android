@@ -43,9 +43,9 @@ import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
 import com.traap.traapapp.ui.activities.news.NewsDetailsAction;
 import com.traap.traapapp.ui.adapters.news.NewsDetailsImageAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.utilities.JustifiedTextView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -203,14 +203,14 @@ public class NewsDetailsContentFragment extends BaseFragment implements NewsDeta
         }
         tvBody.setText(content.getBody());
 
-        tvSubTitle.setTypeFace(Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf"));
-        tvBody.setTypeFace(Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf"));
-
+/*        tvSubTitle.setTypeFace(Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf"));
+        tvBody.setTypeFace(Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans_normal.ttf"));*/
+/*
         tvSubTitle.setLineSpacing(10);
-        tvBody.setLineSpacing(10);
+        tvBody.setLineSpacing(10);*/
 
-        tvSubTitle.setTextSize(getResources().getDimension(R.dimen.textSize_14dp));
-        tvBody.setTextSize(getResources().getDimension(R.dimen.textSize_16dp));
+     /*   tvSubTitle.setTextSize(getResources().getDimension(R.dimen.textSize_14dp));
+        tvBody.setTextSize(getResources().getDimension(R.dimen.textSize_16dp));*/
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 //        {

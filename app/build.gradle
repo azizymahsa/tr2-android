@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 65
-        versionName "1.17.11"
+        versionCode 66
+        versionName "1.17.12"
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -419,6 +419,8 @@ android {
         implementation 'com.miguelcatalan:materialsearchview:1.4.0'
         implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
 //        implementation 'com.github.arefbhrn:JustifiedTextView:1.0.5'
+        implementation 'com.uncopt:android.justified:1.0'
+
 
     }
 }
