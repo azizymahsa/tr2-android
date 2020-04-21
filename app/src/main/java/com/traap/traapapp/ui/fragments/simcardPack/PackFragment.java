@@ -579,6 +579,7 @@ public class PackFragment
         llIrancellSpinner.setVisibility(View.GONE);
 
         setBtnChargeConfirm();
+       // setBtnChargeConfirm();
     }
 
     @OnClick(R.id.flHamraheAval)
@@ -881,6 +882,8 @@ public class PackFragment
 //        llDescriptionSelectPackRightel.setVisibility(View.VISIBLE);
         btnChargeConfirmRightel.startAnimation();
         btnChargeConfirmRightel.setClickable(false);
+        mainView.showLoading();
+
         rightelPack.findRightelPackData(this, etMobileNumberRightel.getText().toString());
         // hideSoftKeyboard(etMobileNumberRightel);
 
@@ -1070,14 +1073,14 @@ public class PackFragment
                 changeFontInViewGroup(tabLayoutRightel,"fonts/iran_sans_normal.ttf");
                 isInitView = false;
                 initView();
-                getMci();
+               // getMci();
 
                 initDefaultOperatorView();
                 etCvv2.setText("");
                 etPassCharge.setText("");
 
 
-                setBtnMCIPackConfirm();
+               // setBtnMCIPackConfirm();
 
             }
             initSpinner();
@@ -1107,37 +1110,37 @@ public class PackFragment
             {
                 try
                 {
-                    if (etMobileNumberIranCell.getText().toString().length() == 4 || etMobileNumberIranCell.getText().toString().length() ==11 )
+                    if ( etMobileNumberIranCell.getText().toString().length() ==11 )
                     {
                         operatorType = getOperatorType(charSequence.toString());
 
                         if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
                         {
 
-                            if (isMci)
+                           /* if (isMci)
                             {
 
                             } else
-                            {
+                            {*/
                                 etMobileNumberMCI.setText(charSequence.toString());
                                 hamraheAval();
                                 return;
 
-                            }
+                          //  }
 
                         } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
                         {
 
-                            if (isRightel)
+                          /*  if (isRightel)
                             {
 
                             } else
-                            {
+                            {*/
                                 etMobileNumberRightel.setText(charSequence.toString());
                                 rightel();
                                 return;
 
-                            }
+                         //   }
                         }
                     }
                 } catch (Exception e)
@@ -1166,7 +1169,7 @@ public class PackFragment
             {
                 try
                 {
-                    if (etMobileNumberMCI.getText().toString().length() == 4 || etMobileNumberMCI.getText().toString().length() ==11 )
+                    if ( etMobileNumberMCI.getText().toString().length() ==11 )
 
                     {
                         operatorType = getOperatorType(charSequence.toString());
@@ -1174,30 +1177,30 @@ public class PackFragment
                         if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
                         {
 
-                            if (isMtn)
+                           /* if (isMtn)
                             {
 
                             } else
-                            {
+                            {*/
                                 etMobileNumberIranCell.setText(charSequence.toString());
                                 irancell();
                                 return;
-                            }
+                           // }
 
 
                         } else if (OPERATOR_TYPE_RIGHTEL == getOperatorType(charSequence.toString()))
                         {
 
-                            if (isRightel)
+                           /* if (isRightel)
                             {
 
                             } else
-                            {
+                            {*/
                                 etMobileNumberRightel.setText(charSequence.toString());
                                 rightel();
                                 return;
 
-                            }
+                           // }
 
                         }
                     }
@@ -1228,33 +1231,33 @@ public class PackFragment
                 try
                 {
 
-                    if (etMobileNumberRightel.getText().toString().length() == 4 || etMobileNumberRightel.getText().toString().length() ==11 )
+                    if ( etMobileNumberRightel.getText().toString().length() ==11 )
                     {
                     operatorType = getOperatorType(charSequence.toString());
 
                     if (OPERATOR_TYPE_MCI == getOperatorType(charSequence.toString()))
                     {
 
-                        if (isMci)
+                       /* if (isMci)
                         {
 
                         } else
-                        {
+                        {*/
                             etMobileNumberMCI.setText(charSequence.toString());
                             hamraheAval();
-                        }
+                      //  }
 
                     } else if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
                     {
 
-                        if (isMtn)
+                       /* if (isMtn)
                         {
 
                         } else
-                        {
+                        {*/
                             etMobileNumberIranCell.setText(charSequence.toString());
                             irancell();
-                        }
+                       // }
 
                     }
                     }
@@ -1302,12 +1305,15 @@ public class PackFragment
 
         if (Arrays.asList(typeMCI_No).contains(startPhoneNo))
         {
+           // isMci=true;
             return OPERATOR_TYPE_MCI;
         } else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
         {
+           // isMtn=true;
             return OPERATOR_TYPE_MTN;
         } else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
         {
+         //   isRightel=true;
             return OPERATOR_TYPE_RIGHTEL;
         } else
         {
@@ -1843,6 +1849,7 @@ public class PackFragment
     {
         btnChargeConfirmRightel.revertAnimation(this);
         btnChargeConfirmRightel.setClickable(true);
+        mainView.hideLoading();
 
         llDetailDescriptionRightel.setVisibility(View.GONE);
        // llDescriptionSelectPackRightel.setVisibility(View.VISIBLE);
@@ -1950,7 +1957,7 @@ public class PackFragment
     public void onErrorRightelPack(String error)
     {
         // initDefaultOperatorView();
-
+        mainView.hideLoading();
         btnChargeConfirmRightel.revertAnimation(this);
         btnChargeConfirmRightel.setClickable(true);
         mainView.showError(error);
