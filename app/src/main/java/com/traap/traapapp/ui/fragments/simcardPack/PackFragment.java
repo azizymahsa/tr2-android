@@ -579,6 +579,7 @@ public class PackFragment
         llIrancellSpinner.setVisibility(View.GONE);
 
         setBtnChargeConfirm();
+       // setBtnChargeConfirm();
     }
 
     @OnClick(R.id.flHamraheAval)
@@ -1070,14 +1071,14 @@ public class PackFragment
                 changeFontInViewGroup(tabLayoutRightel,"fonts/iran_sans_normal.ttf");
                 isInitView = false;
                 initView();
-                getMci();
+               // getMci();
 
                 initDefaultOperatorView();
                 etCvv2.setText("");
                 etPassCharge.setText("");
 
 
-                setBtnMCIPackConfirm();
+               // setBtnMCIPackConfirm();
 
             }
             initSpinner();
@@ -1302,12 +1303,15 @@ public class PackFragment
 
         if (Arrays.asList(typeMCI_No).contains(startPhoneNo))
         {
+           // isMci=true;
             return OPERATOR_TYPE_MCI;
         } else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
         {
+           // isMtn=true;
             return OPERATOR_TYPE_MTN;
         } else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
         {
+         //   isRightel=true;
             return OPERATOR_TYPE_RIGHTEL;
         } else
         {
