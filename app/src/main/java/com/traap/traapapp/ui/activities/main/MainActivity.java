@@ -1184,6 +1184,10 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             int PAYMENTstatus = data.getIntExtra("PaymentStatus", 0);
 
             onBackToChargFragment(PAYMENTstatus);
+        }else if ( resultCode == Activity.RESULT_OK && requestCode ==44){
+
+
+            onBackToHomeWallet(0);
         }
         else if (resultCode == Activity.RESULT_OK)
         {
