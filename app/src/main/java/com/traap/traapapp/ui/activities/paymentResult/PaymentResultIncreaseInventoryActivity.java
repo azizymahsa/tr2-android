@@ -57,7 +57,8 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
             }
         }
         initView();
-        requestGetDetailTransaction(refrenceNumber);
+
+       requestGetDetailTransaction(refrenceNumber);
     }
 
     private void initView()
