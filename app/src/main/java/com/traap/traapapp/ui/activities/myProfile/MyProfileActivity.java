@@ -113,14 +113,14 @@ public class MyProfileActivity extends BaseActivity
 
         if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase(""))
         {
-            tvFullName.setText(Prefs.getString("mobile", ""));
+            tvFullName.setText(Prefs.getString("Country_Code","")+" "+Prefs.getString("mobile", ""));
             tvMobile.setVisibility(View.GONE);
         }
         else
         {
             tvFullName.setText(Prefs.getString("FULLName", ""));
         }
-        tvMobile.setText(Prefs.getString("mobile", ""));
+        tvMobile.setText(Prefs.getString("Country_Code","")+Prefs.getString("mobile", ""));
         tvInviteCode.setText(Prefs.getString("keyInvite", ""));
 
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
