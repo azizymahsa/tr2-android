@@ -8,8 +8,10 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -32,17 +34,28 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import io.reactivex.Observable;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import ru.kolotnev.formattedittext.MaskedEditText;
 
@@ -64,9 +77,12 @@ import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfi
 import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.models.CountryCodeModel;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.activities.SearchCountryActivity;
 import com.traap.traapapp.ui.activities.editUser.UserEditVerifyActivity;
+import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.ClearableEditText;
@@ -125,6 +141,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private MultipartBody.Part part;
     private MaskedEditText tvMobileEdit;
+    private EditText etCountryName, etCountryCode;
+    private ArrayList<CountryCodeModel> countryCodeModels = new ArrayList<>();
+    private  TextWatcher textWatcher;
 
 
     @SuppressLint("RestrictedApi")
@@ -133,6 +152,72 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        initView();
+        initCountryCode();
+        filter();
+
+    }
+
+    private void initCountryCode() {
+        Gson gson = new Gson();
+        String json = null;
+        try {
+            InputStream inputStream = getAssets().open("country.json");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            json = new String(buffer, "UTF-8");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        countryCodeModels = gson.fromJson(json,
+                new TypeToken<ArrayList<CountryCodeModel>>() {
+                }.getType());
+
+    }
+
+    @SuppressLint("CheckResult")
+    private void filter() {
+        RxTextView.textChangeEvents(etCountryCode)
+
+                .subscribe(e ->
+                        {
+                            Observable.fromIterable(countryCodeModels)
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribeOn(Schedulers.computation())
+                                    .filter(x ->
+                                    {
+                                        return x.getDialCode().equals("+" + e.getText().toString());
+                                    })
+                                    .toList()
+                                    .subscribe(new SingleObserver<List<CountryCodeModel>>() {
+                                        @Override
+                                        public void onSubscribe(Disposable d) {
+                                        }
+
+                                        @Override
+                                        public void onSuccess(List<CountryCodeModel> codeModels) {
+                                            if (codeModels.size() > 0) {
+                                                etCountryName.setText(codeModels.get(0).getName());
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                        }
+                                    });
+
+                        }
+                );
+
+
+    }
+
+    private void initView() {
         mToolbar = findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setVisibility(View.INVISIBLE);
@@ -169,7 +254,29 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         tvMobileEdit = findViewById(R.id.tvMobileEdit);
         etLastName = findViewById(R.id.etLastName);
         etPopularPlayer = findViewById(R.id.etPopularPlayer);
+
         tvMobileNew = findViewById(R.id.tvMobileNew);
+        tvMobileNew.setLength(10);
+        textWatcher =new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() == 1 && s.toString().startsWith("0")) {
+                    s.clear();
+                }
+            }
+        };
+        tvMobileNew.addTextChangedListener(textWatcher);
+
         etFirstNameUS = findViewById(R.id.etFirstNameUS);
         etLastNameUS = findViewById(R.id.etLastNameUS);
         etEmail = findViewById(R.id.etEmail);
@@ -198,12 +305,25 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etLastNameUS.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(100)});
         etNickName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
-        tvMobileNew.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
+       // tvMobileNew.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
         etPopularPlayer.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
         etNationalCode.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
-        tvMobileEdit.setText(Prefs.getString("mobile", ""));
+        tvMobileEdit.setText(Prefs.getString("Country_Code","")+" "+Prefs.getString("mobile", ""));
         etFirstName.requestFocus();
-
+        etCountryCode = findViewById(R.id.etCountryCode);
+        etCountryName = findViewById(R.id.etCountryName);
+        etCountryName.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View arg0, boolean hasfocus)
+            {
+                if (hasfocus)
+                {
+                    startActivityForResult(new Intent(UserProfileActivity.this, SearchCountryActivity.class), 1022);
+                    etCountryName.clearFocus();
+                }
+            }
+        });
         genderStrList = new ArrayList<String>();
 //        genderStrList.add("--انتخاب جنسیت--");
         genderStrList.add("مرد");
@@ -315,8 +435,49 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
 
             try {
-                if (!tvMobileNew.getText().toString().equalsIgnoreCase("") &&
-                        tvMobileNew.getText().toString().length() > 10) {
+
+                if (TextUtils.isEmpty(tvMobileNew.getText().toString().trim()))
+                {
+                   // loginView.showErrorMessage("لطفا شماره تلفن همراه خود را وارد نمایید.", this.getClass().getSimpleName(), false);
+                    showError(UserProfileActivity.this, "لطفا شماره موبایل جدید را وارد کنید.");
+                    return;
+
+                }
+                if (TextUtils.isEmpty(etCountryCode.getText().toString().trim()))
+                {
+                    //loginView.showErrorMessage("لطفا کد کشور را وارد نمایید.", this.getClass().getSimpleName(), false);
+                    showError(UserProfileActivity.this, "لطفا کد کشور را وارد نمایید.");
+                    return;
+
+                }
+                if (etCountryCode.getText().toString().equals("98") && tvMobileNew.getText().toString().trim().length() != 10)
+                {
+                   // loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
+                    showError(UserProfileActivity.this, "لطفا شماره تلفن همراه خود را صحیح وارد نمایید.");
+                    return;
+
+                }else if (!etCountryCode.getText().toString().equals("98"))
+                {
+
+                    if (!(tvMobileNew.getText().toString().trim().length() >= 9 && tvMobileNew.getText().toString().trim().length() <= 11)) {
+                       // loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
+                        showError(UserProfileActivity.this, "لطفا شماره تلفن همراه خود را صحیح وارد نمایید.");
+                        return;
+
+                    }
+
+
+                }
+                String phone="";
+                if (etCountryCode.getText().toString().equals("98"))
+                    phone="0"+tvMobileNew.getText().toString().trim();
+                else
+                    phone =tvMobileNew.getText().toString().trim();
+
+                btnConfirmEditMobile.startAnimation();
+                btnConfirmEditMobile.setClickable(false);
+                callSendSms(phone);
+               /* if (!tvMobileNew.getText().toString().equalsIgnoreCase("") && tvMobileNew.getText().toString().length() > 9) {
                     btnConfirmEditMobile.startAnimation();
                     btnConfirmEditMobile.setClickable(false);
                     callSendSms(tvMobileNew.getText().toString().trim());
@@ -324,7 +485,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     showError(UserProfileActivity.this, "لطفا شماره موبایل جدید را وارد کنید.");
 
                 }
-
+*/
             } catch (Exception e) {
 
             }
@@ -347,7 +508,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     if (response.info.statusCode != 200) {
                         showError(UserProfileActivity.this, response.info.message);
                     } else {
-                       // showToast(UserProfileActivity.this, response.info.message, R.color.green);
+                        // showToast(UserProfileActivity.this, response.info.message, R.color.green);
                         Intent myIntent = new Intent(UserProfileActivity.this, UserEditVerifyActivity.class);
                         myIntent.putExtra("mobileLast", mobileNum); //Optional parameters
                         startActivity(myIntent);
@@ -524,7 +685,6 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     @Override
     public void onAnimationEnd() {
 //        btnConfirm.setText("ارسال اطلاعات کاربری");
-
 
 
         btnConfirm.setBackground(ContextCompat.getDrawable(this, R.drawable.background_button_login));
@@ -911,6 +1071,30 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1022 && resultCode == Activity.RESULT_OK)
+        {
+
+            etCountryName.setText(data.getExtras().getString("name"));
+            etCountryCode.setText(data.getExtras().getString("code").replace("+", ""));
+
+            Prefs.putString("Country_Code",data.getExtras().getString("code").replace("+", ""));
+            if (etCountryCode.getText().toString().equals("98")){
+                if (tvMobileNew.getText().toString().startsWith("0")){
+
+                    tvMobileNew.setText(tvMobileNew.getText().toString().replaceFirst("0","")
+                            .replaceFirst("٠",""));
+                }
+                tvMobileNew.setLength(10);
+                tvMobileNew.addTextChangedListener(textWatcher);
+
+
+            }else{
+
+                tvMobileNew.setLength(11);
+                tvMobileNew.removeTextChangedListener(textWatcher);
+
+            }
+        }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
@@ -927,6 +1111,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 Exception error = result.getError();
             }
         }
+
     }
 
     private void saveImage(Bitmap finalBitmap) {

@@ -151,6 +151,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                         loginView.showErrorMessage("لطفا کد فعال سازی را وارد نمایید.", this.getClass().getSimpleName(), false);
                         return;
                     }
+
                     loginView.showLoading();
                     sendVerifyRequest();
 
@@ -180,6 +181,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
             request.setUsername(mobileNumber.getText().toString());
 
         }
+        Prefs.putString("Country_Code",etCountryCode.getText().toString().trim().replace("+", ""));
 
         request.setCountry_code(etCountryCode.getText().toString());
         request.setCode(codeView.getText().toString());

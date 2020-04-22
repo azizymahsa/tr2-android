@@ -588,6 +588,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 
             etCountryName.setText(data.getExtras().getString("name"));
             etCountryCode.setText(data.getExtras().getString("code").replace("+", ""));
+            Prefs.putString("Country_Code",data.getExtras().getString("code").replace("+", ""));
+
             if (etCountryCode.getText().toString().equals("98")){
                 if (etMobileNumber.getText().toString().startsWith("0")){
 

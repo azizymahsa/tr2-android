@@ -105,8 +105,7 @@ import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,
 //        FlightReservationData, BusLockSeat, HotelReservationData,
         View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
-        , OnServiceStatus<WebServiceClass<MachListResponse>>, CountDownTimerView, OnAnimationEndListener
-{
+        , OnServiceStatus<WebServiceClass<MachListResponse>>, CountDownTimerView, OnAnimationEndListener {
     private static final int TIME_INTERVAL_FAV_SERVICE_ANIM = 5500;
     private View rootView;
     private Context context;
@@ -154,8 +153,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private List<ResultHelpMenu> helpMenuResult;
     private View rlShirt;
 
-    public MainFragment()
-    {
+    public MainFragment() {
         // Required empty public constructor
     }
 
@@ -163,8 +161,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                                            ArrayList<GetMenuItemResponse> footballServiceList,
                                            ArrayList<GetMenuItemResponse> chosenServiceList,
                                            ArrayList<MatchItem> matchList
-    )
-    {
+    ) {
         MainFragment fragment = new MainFragment();
         fragment.setMainView(mainActionView);
 
@@ -179,17 +176,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
 
-    private void setMainView(MainActionView mainView)
-    {
+    private void setMainView(MainActionView mainView) {
         this.mainView = mainView;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null)
-        {
+        if (getArguments() != null) {
             chosenServiceList = getArguments().getParcelableArrayList("chosenServiceList");
             footballServiceList = getArguments().getParcelableArrayList("footballServiceList");
             matchList = getArguments().getParcelableArrayList("matchList");
@@ -197,16 +191,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -219,16 +211,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (matchList == null)
-        {
+        if (matchList == null) {
             getSliderData();
-        }
-        else
-        {
+        } else {
             setSlider();
 
 //            sliderAdapter = new MainSliderAdapter(context, matchList, this);
@@ -243,17 +231,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         rcFavoriteServices.setAdapter(adapter);
         favoriteServicesCount = list.size();
 
-        rcFavoriteServices.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        rcFavoriteServices.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
-            {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
 //                    Logger.e("-+- Scroll Index -+-", favoriteServicesIndex + ", " + layoutManager.findLastVisibleItemPosition());
-                    if (favoriteServicesIndex != layoutManager.findLastVisibleItemPosition() + 1)
-                    {
+                    if (favoriteServicesIndex != layoutManager.findLastVisibleItemPosition() + 1) {
                         favoriteServicesIndex = layoutManager.findLastCompletelyVisibleItemPosition() - 1;
                     }
                 }
@@ -264,35 +248,27 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         startAutoAnimFavoriteServices();
     }
 
-    private Runnable repeatTask = new Runnable()
-    {
+    private Runnable repeatTask = new Runnable() {
         @Override
-        public void run()
-        {
-            try
-            {
+        public void run() {
+            try {
                 rcFavoriteServices.post(() ->
                 {
 //                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
-                    if (favoriteServicesIndex < favoriteServicesCount)
-                    {
+                    if (favoriteServicesIndex < favoriteServicesCount) {
                         favoriteServicesIndex++;
-                    }
-                    else
-                    {
+                    } else {
                         favoriteServicesIndex = 0;
                     }
                     rcFavoriteServices.smoothScrollToPosition(favoriteServicesIndex);
                 });
-            } finally
-            {
+            } finally {
                 mHandler.postDelayed(repeatTask, TIME_INTERVAL_FAV_SERVICE_ANIM);
             }
         }
     };
 
-    private void startAutoAnimFavoriteServices()
-    {
+    private void startAutoAnimFavoriteServices() {
         new Handler().postDelayed(() -> rcFavoriteServices.post(() ->
         {
             rcFavoriteServices.smoothScrollToPosition(adapter.getItemCount() - 1);
@@ -307,8 +283,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
     private StartEniacFlightActivity startEniacFlightActivity;
-    private void initView(View rootView)
-    {
+
+    private void initView(View rootView) {
         mToolbar = rootView.findViewById(R.id.toolbar);
 
         llRoot = rootView.findViewById(R.id.rlRoot);
@@ -358,13 +334,17 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvF4 = rootView.findViewById(R.id.tvF4);
         tvF5 = rootView.findViewById(R.id.tvF5);
         tvF6 = rootView.findViewById(R.id.tvF6);
+        try {
+            tvF2.setText(footballServiceList.get(0).getTitle());
+            tvF1.setText(footballServiceList.get(1).getTitle());
+            tvF4.setText(footballServiceList.get(2).getTitle());
+            tvF3.setText(footballServiceList.get(3).getTitle());
+            tvF6.setText(footballServiceList.get(4).getTitle());
+            tvF5.setText(footballServiceList.get(5).getTitle());
 
-        tvF2.setText(footballServiceList.get(0).getTitle());
-        tvF1.setText(footballServiceList.get(1).getTitle());
-        tvF4.setText(footballServiceList.get(2).getTitle());
-        tvF3.setText(footballServiceList.get(3).getTitle());
-        tvF6.setText(footballServiceList.get(4).getTitle());
-        tvF5.setText(footballServiceList.get(5).getTitle());
+        } catch (Exception e) {
+            e.getMessage();
+        }
 
         rlF1.setOnClickListener(this);
         rlF2.setOnClickListener(this);
@@ -373,14 +353,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         rlF5.setOnClickListener(this);
         rlF6.setOnClickListener(this);
         rlShirt.setOnClickListener(this);
-
-        setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF3, footballServiceList.get(3).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ", "%20"));
-
+        try {
+            setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF3, footballServiceList.get(3).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ", "%20"));
+        } catch (Exception e) {
+            e.getMessage();
+        }
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true);
         rcFavoriteServices.setLayoutManager(layoutManager);
         sliderLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -394,8 +376,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         rlPredict.setOnClickListener(v ->
         {
-            try
-            {
+            try {
 
         /*        startEniacFlightActivity =new  StartEniacFlightActivity(
                         "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh", "0037250100293610", "1397",
@@ -498,57 +479,46 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
                     }
                 });*/
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 showToast(context, "زمان پیش بینی به پایان رسیده است.", R.color.green);
             }
 
         });
     }
 
-    private MainServiceModelItem findUrlById(List<MainServiceModelItem> userList, final String name)
-    {
+    private MainServiceModelItem findUrlById(List<MainServiceModelItem> userList, final String name) {
         Optional<MainServiceModelItem> userOptional =
-                FluentIterable.from(userList).firstMatch(new Predicate<MainServiceModelItem>()
-                {
+                FluentIterable.from(userList).firstMatch(new Predicate<MainServiceModelItem>() {
                     @Override
-                    public boolean apply(@NullableDecl MainServiceModelItem input)
-                    {
+                    public boolean apply(@NullableDecl MainServiceModelItem input) {
                         return input.getId().toString().equals(name);
                     }
                 });
         return userOptional.isPresent() ? userOptional.get() : null; // return user if found otherwise return null if user name don't exist in user list
     }
 
-    private void getSliderData()
-    {
+    private void getSliderData() {
         mainView.showLoading();
 
         SingletonService.getInstance().getMatchListService().getMatchList(this);
     }
 
-    public void startTimer(long time)
-    {
+    public void startTimer(long time) {
         countDownTimer = new CountDownTimerPredict(time, 1000, this);
         countDownTimer.start();
 //        countdownView.start(time);
     }
 
-    private void setImageIntoIV(ImageView imageView, String link)
-    {
+    private void setImageIntoIV(ImageView imageView, String link) {
         Picasso.with(context).load(link).into(imageView);
     }
 
-    private List<MainServiceModelItem> fillMenuRecyclerList()
-    {
+    private List<MainServiceModelItem> fillMenuRecyclerList() {
         List<MainServiceModelItem> newList = new ArrayList<>();
 
-        try
-        {
-            for (GetMenuItemResponse itemResponse : chosenServiceList)
-            {
-                if (itemResponse.getIsVisible())
-                {
+        try {
+            for (GetMenuItemResponse itemResponse : chosenServiceList) {
+                if (itemResponse.getIsVisible()) {
                     MainServiceModelItem item = new MainServiceModelItem();
 
                     item.setId(itemResponse.getKeyId());
@@ -562,31 +532,25 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     newList.add(item);
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return newList;
     }
 
-    private void setSlider()
-    {
+    private void setSlider() {
         int index = -1;
-        for (MatchItem matchItem : matchList)
-        {
+        for (MatchItem matchItem : matchList) {
             index++;
-            if (matchItem.getIsCurrent())
-            {
+            if (matchItem.getIsCurrent()) {
                 matchCurrentPos = index;
                 this.matchCurrent = matchItem;
                 Logger.e("--matchCurrentPos--", "pos: " + matchCurrentPos);
             }
 
-            try
-            {
-                if (matchItem.getIsPredict() && matchPredict == null)
-                {
+            try {
+                if (matchItem.getIsPredict() && matchPredict == null) {
                     this.matchPredict = matchItem;
 
                     Timestamp myTimestamp = new Timestamp(System.currentTimeMillis());
@@ -601,15 +565,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     long remainPredictTime = predictTime - dateTimeNow;
                     Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
 
-                    if (remainPredictTime > 0)
-                    {
+                    if (remainPredictTime > 0) {
                         isPredictable = true;
                         rootView.findViewById(R.id.llTimer).setVisibility(View.VISIBLE);
                         ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("پیش بینی کن جایزه بگیر!");
                         startTimer(remainPredictTime);
-                    }
-                    else
-                    {
+                    } else {
                         isPredictable = false;
                         rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
                         ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
@@ -625,18 +586,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //            }
 
 
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
-            if (matchItem.getBuyEnable())
-            {
+            if (matchItem.getBuyEnable()) {
                 this.matchBuyable = matchItem;
             }
 
         }
-        if (!isPredictable)
-        {
+        if (!isPredictable) {
             rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
             ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیشبینی وجود ندارد!");
         }
@@ -650,11 +608,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         indicator.attachToRecyclerView(sliderRecyclerView);
 //        sliderRecyclerView.setOnFlingListener(snapHelper);
 
-        new Handler().postDelayed(new Runnable()
-        {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 sliderRecyclerView.smoothScrollToPosition(matchCurrentPos);
 //                sliderRecyclerView.scrollToPosition(matchCurrentPos);
             }
@@ -664,8 +620,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
     @Override
-    public void onGdsFlight(GetUserPassResponse response)
-    {
+    public void onGdsFlight(GetUserPassResponse response) {
         mainView.hideLoading();
 
 //        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
@@ -678,8 +633,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
     @Override
-    public void onGdsBus(GetUserPassResponse response)
-    {
+    public void onGdsBus(GetUserPassResponse response) {
         mainView.hideLoading();
 
 //        StartEniacBusActivity busActivity = new StartEniacBusActivity(response.getUniqeCode(),
@@ -693,8 +647,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
     @Override
-    public void onGdsHotel(GetUserPassResponse response)
-    {
+    public void onGdsHotel(GetUserPassResponse response) {
         mainView.hideLoading();
 
 //        StartEniacHotelActivity hotelActivity = new StartEniacHotelActivity(response.getUniqeCode(),
@@ -710,8 +663,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
     @Override
-    public void onGdsError(String message)
-    {
+    public void onGdsError(String message) {
         mainView.hideLoading();
 
         showError(context, message);
@@ -757,10 +709,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //    }
 
     @Override
-    public void onChosenItemClick(View view, Integer id, String URl)
-    {
-        switch (id)
-        {
+    public void onChosenItemClick(View view, Integer id, String URl) {
+        switch (id) {
             case 11: //Flight ATA
             {
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, this);
@@ -853,14 +803,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         }
     }
 
-    private void getPermissionAndOpenInsurance(String URl)
-    {
+    private void getPermissionAndOpenInsurance(String URl) {
         new TedPermission(SingletonContext.getInstance().getContext())
-                .setPermissionListener(new PermissionListener()
-                {
+                .setPermissionListener(new PermissionListener() {
                     @Override
-                    public void onPermissionGranted()
-                    {
+                    public void onPermissionGranted() {
                         Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("URL", URl);
                         intent.putExtra("Title", "بیمه");
@@ -873,21 +820,17 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     }
 
                     @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
-                    {
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
                         MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "",
                                 "برای ارسال تصویر اسناد بیمه، اخذ این مجوز الزامی است. ",
-                                true, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
-                        {
+                                true, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener() {
                             @Override
-                            public void onConfirmClick()
-                            {
+                            public void onConfirmClick() {
                                 getPermissionAndOpenInsurance(URl);
                             }
 
                             @Override
-                            public void onCancelClick()
-                            {
+                            public void onCancelClick() {
 
                             }
                         }
@@ -899,8 +842,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 .check();
     }
 
-    private void onGdsFlightAta(GetUserPassResponse response)
-    {
+    private void onGdsFlightAta(GetUserPassResponse response) {
         mainView.hideLoading();
 
 //        StartEniacFlightActivity flightActivity = new StartEniacFlightActivity(response.getUniqeCode(),
@@ -912,16 +854,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
 
             case R.id.rlShirt:
                 startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class), 100);
                 break;
-            case R.id.btnBuyTicket:
-            {
+            case R.id.btnBuyTicket: {
                 SingletonNeedGetAllBoxesRequest.getInstance().needRequest = true;
                 btnBuyTicket.startAnimation();
                 btnBuyTicket.setClickable(false);
@@ -935,39 +874,33 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 //---------------test------------------
                 break;
             }
-            case R.id.rlF1:
-            {
+            case R.id.rlF1: {
                 mainView.onFootBallServiceOne();
                 break;
             }
 
-            case R.id.rlF2:
-            {
+            case R.id.rlF2: {
                 mainView.onFootBallServiceTwo();
 //                mainView.onMainVideoClick();
                 break;
             }
 
-            case R.id.rlF3:
-            {
+            case R.id.rlF3: {
 
                 break;
             }
 
-            case R.id.rlF4:
-            {
+            case R.id.rlF4: {
 
                 break;
             }
 
-            case R.id.rlF5:
-            {
+            case R.id.rlF5: {
 
                 break;
             }
 
-            case R.id.rlF6:
-            {
+            case R.id.rlF6: {
 
                 break;
             }
@@ -976,72 +909,57 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
     @Override
-    public void onReady(WebServiceClass<MachListResponse> responseMatchList)
-    {
-        try
-        {
+    public void onReady(WebServiceClass<MachListResponse> responseMatchList) {
+        try {
             mainView.hideLoading();
 
-            if (responseMatchList == null || responseMatchList.info == null)
-            {
+            if (responseMatchList == null || responseMatchList.info == null) {
                 startActivityForResult(new Intent(context, LoginActivity.class), 100);
                 ((Activity) context).finish();
 
                 return;
             }
-            if (responseMatchList.info.statusCode != 200)
-            {
+            if (responseMatchList.info.statusCode != 200) {
                 startActivityForResult(new Intent(context, LoginActivity.class), 100);
                 ((Activity) context).finish();
 
                 return;
-            }
-            else
-            {
+            } else {
                 matchList = responseMatchList.data.getMatchList();
                 MainActivity.matchList = matchList;
 
                 setSlider();
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
         }
 
     }
 
     @Override
-    public void onError(String message)
-    {
+    public void onError(String message) {
         mainView.hideLoading();
-        if (Tools.isNetworkAvailable((Activity) context))
-        {
+        if (Tools.isNetworkAvailable((Activity) context)) {
             showError(context, "خطا در دریافت اطلاعات از سرور!");
             Logger.e("--showErrorMessage--", message);
-        }
-        else
-        {
+        } else {
             showAlert(context, R.string.networkErrorMessage, R.string.networkError);
         }
     }
 
     @Override
-    public void onSliderItemClick(View view, Integer id, Integer position)
-    {
+    public void onSliderItemClick(View view, Integer id, Integer position) {
         mainView.onLeageClick(matchList);
     }
 
     @Override
-    public void onItemPredictClick(View view, int position, MatchItem matchItem)
-    {
+    public void onItemPredictClick(View view, int position, MatchItem matchItem) {
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit()
         mainView.onPredict(matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override
-    public void onItemBuyTicketClick(View view, int position, MatchItem matchItem)
-    {
+    public void onItemBuyTicketClick(View view, int position, MatchItem matchItem) {
         btnBuyTicket.startAnimation();
         btnBuyTicket.setClickable(false);
 
@@ -1052,16 +970,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         });
     }
 
-    public void showIntro(List<ResultHelpMenu> results)
-    {
-        try
-        {
+    public void showIntro(List<ResultHelpMenu> results) {
+        try {
             nestedScroll.scrollTo(0, 0);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
-
 
 
         Collections.sort(results, new Comparator<ResultHelpMenu>() {
@@ -1069,27 +983,24 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 return o1.getCode().compareTo(o2.getCode());
             }
         });
-        Log.e("tesssst",new Gson().toJson(results).toString());
+        Log.e("tesssst", new Gson().toJson(results).toString());
         helpMenuResult = results;
 
 
-        YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
-        {
+        YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation)
-            {
+            public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 rlIntro.setVisibility(View.GONE);
                 Utility.disableEnableControls(true, llRoot);
 
 
-                for (int i = 1; i < results.size(); i++)
-                {
+                for (int i = 1; i < results.size(); i++) {
                  /*   if (results.get(i).getCode() == 1)
                     {*/
-                        intro(imgMenu, results.get(i).getTitle(), results.get(i).getDescription(),  results.get(i).getCode());
-                        break;
-                  //  }
+                    intro(imgMenu, results.get(i).getTitle(), results.get(i).getDescription(), results.get(i).getCode());
+                    break;
+                    //  }
                 }
             }
         })
@@ -1097,44 +1008,32 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 .playOn(rlIntro);
     }
 
-    public void requestGetHelpMenu()
-    {
+    public void requestGetHelpMenu() {
         GetMenuHelpRequest request = new GetMenuHelpRequest();
-        SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>()
-        {
+        SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>() {
             @Override
-            public void onReady(WebServiceClass<GetMenuHelpResponse> response)
-            {
-                try
-                {
-                    if (response.info.statusCode == 200)
-                    {
+            public void onReady(WebServiceClass<GetMenuHelpResponse> response) {
+                try {
+                    if (response.info.statusCode == 200) {
                         showIntro(response.data.getResults());
-                    }
-                    else
-                    {
+                    } else {
                         Utility.disableEnableControls(true, llRoot);
                         showError(context, response.info.message);
                     }
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     showError(context, e.getMessage());
                 }
             }
 
             @Override
-            public void onError(String message)
-            {
+            public void onError(String message) {
                 Utility.disableEnableControls(true, llRoot);
 
-                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
-                {
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity()))) {
                     showError(context, message);
 
 
-                }
-                else
-                {
+                } else {
                     showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
 
                 }
@@ -1145,63 +1044,46 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
-        if (Prefs.getBoolean("intro", true))
-        {
+        if (Prefs.getBoolean("intro", true)) {
             requestShowTutorialIntro();
-        }
-        else
-        {
+        } else {
             Utility.disableEnableControls(true, llRoot);
         }
     }
 
-    private void requestShowTutorialIntro()
-    {
-        if (Prefs.getBoolean("intro", true))
-        {
+    private void requestShowTutorialIntro() {
+        if (Prefs.getBoolean("intro", true)) {
             GetMenuHelpRequest request = new GetMenuHelpRequest();
-            SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>()
-            {
+            SingletonService.getInstance().getMenuHelpService().getMenuHelpService(new OnServiceStatus<WebServiceClass<GetMenuHelpResponse>>() {
                 @Override
-                public void onReady(WebServiceClass<GetMenuHelpResponse> response)
-                {
-                    try
-                    {
+                public void onReady(WebServiceClass<GetMenuHelpResponse> response) {
+                    try {
 
-                        if (response.info.statusCode == 200)
-                        {
+                        if (response.info.statusCode == 200) {
 
                             startIntro(response.data.getResults());
 
-                        }
-                        else
-                        {
+                        } else {
                             Utility.disableEnableControls(true, llRoot);
                             showToast(((Activity) context), response.info.message, R.color.red);
                         }
-                    } catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         showToast(((Activity) context), e.getMessage(), R.color.red);
 
                     }
                 }
 
                 @Override
-                public void onError(String message)
-                {
+                public void onError(String message) {
                     Utility.disableEnableControls(true, llRoot);
 
-                    if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
-                    {
+                    if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity()))) {
                         showError(context, message);
 
 
-                    }
-                    else
-                    {
+                    } else {
                         showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
 
                     }
@@ -1213,8 +1095,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     }
 
 
-    private void startIntro(List<ResultHelpMenu> results)
-    {
+    private void startIntro(List<ResultHelpMenu> results) {
         // onHome();
 
         Prefs.putBoolean("intro", false);
@@ -1226,11 +1107,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         });
         tvCancelIntro.setOnClickListener(view ->
         {
-            YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
-            {
+            YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationEnd(Animator animation)
-                {
+                public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     Utility.disableEnableControls(true, llRoot);
                     rlIntro.setVisibility(View.GONE);
@@ -1251,8 +1130,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         }, 1000);
     }
 
-    private void intro(View view, String title, String text, final int type)
-    {
+    private void intro(View view, String title, String text, final int type) {
         new GuideView.Builder(getContext())
                 .setTitle(title)
                 .setContentText(text)
@@ -1264,74 +1142,49 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 .setTitleTextSize(14)//optional
                 .setGuideListener(view1 ->
                 {
-                    try
-                    {
-                        for (int i = 0; i < helpMenuResult.size(); i++)
-                        {
-                            if (type == 1)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 2)
-                                {
+                    try {
+                        for (int i = 0; i < helpMenuResult.size(); i++) {
+                            if (type == 1) {
+                                if (helpMenuResult.get(i).getCode() == 2) {
                                     intro(sliderRecyclerView, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 2);
                                 }
-                            }
-                            else if (type == 2)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 3)
-                                {
+                            } else if (type == 2) {
+                                if (helpMenuResult.get(i).getCode() == 3) {
                                     intro(sliderRecyclerView, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 3);
                                 }
-                            }
-                            else if (type == 3)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 4)
-                                {
+                            } else if (type == 3) {
+                                if (helpMenuResult.get(i).getCode() == 4) {
                                     intro(((Activity) context).findViewById(R.id.tab_all_services), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 4);
                                 }
-                            }
-                            else if (type == 4)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 5)
-                                {
+                            } else if (type == 4) {
+                                if (helpMenuResult.get(i).getCode() == 5) {
                                     intro(((Activity) context).findViewById(R.id.tab_media), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 5);
                                 }
-                            }
-                            else if (type == 5)
-                            {
+                            } else if (type == 5) {
 //                                if (helpMenuResult.get(i).getCode() == 6)
 //                                {
 //                                    intro(context.findViewById(R.id.tab_payment), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 6);
 //                                }
-                            }
-                            else if (type == 6)
-                            {
+                            } else if (type == 6) {
 //                                if (helpMenuResult.get(i).getCode() == 7)
 //                                {
 //                                    intro(context.findViewById(R.id.tab_market), helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 7);
 //                                }
-                            }
-                            else if (type == 7)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 8)
-                                {
+                            } else if (type == 7) {
+                                if (helpMenuResult.get(i).getCode() == 8) {
                                     intro(rlPredict, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 8);
                                 }
-                            }
-                            else if (type == 8)
-                            {
-                                if (helpMenuResult.get(i).getCode() == 9)
-                                {
+                            } else if (type == 8) {
+                                if (helpMenuResult.get(i).getCode() == 9) {
                                     int iFromService = i;
-                                    try
-                                    {
+                                    try {
                                         focusOnServiceViewList();
                                         new Handler().postDelayed(() ->
                                         {
                                             intro(rcFavoriteServices, helpMenuResult.get(iFromService).getTitle(), helpMenuResult.get(iFromService).getDescription(), 9);
 
                                         }, 1000);
-                                    } catch (Exception e)
-                                    {
+                                    } catch (Exception e) {
 
                                     }
 
@@ -1341,8 +1194,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                         }
 
-                    } catch (Exception e)
-                    {
+                    } catch (Exception e) {
 
                     }
 
@@ -1351,44 +1203,36 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 .show();
     }
 
-    private final void focusOnServiceViewList()
-    {
-        nestedScroll.post(new Runnable()
-        {
+    private final void focusOnServiceViewList() {
+        nestedScroll.post(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 nestedScroll.scrollTo(0, rcFavoriteServices.getBottom());
             }
         });
     }
 
     @Override
-    public void onFinishTimer()
-    {
+    public void onFinishTimer() {
         isPredictable = false;
         rootView.findViewById(R.id.llTimer).setVisibility(View.INVISIBLE);
         ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("زمان پیش بینی به پایان رسیده است!");
     }
 
     @Override
-    public void onTickTimer(String time)
-    {
+    public void onTickTimer(String time) {
 //        tvTimePredict.setTypeface();
         tvTimePredict.setText(time);
     }
 
     @Override
-    public void onErrorTimer(String message)
-    {
+    public void onErrorTimer(String message) {
         showError(context, message);
     }
 
     @Subscribe
-    public void getHeaderContent(HeaderModel headerModel)
-    {
-        if (headerModel.getPopularNo() != 0)
-        {
+    public void getHeaderContent(HeaderModel headerModel) {
+        if (headerModel.getPopularNo() != 0) {
             tvPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
         }
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -1396,15 +1240,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 
     @Override
-    public void onAnimationEnd()
-    {
+    public void onAnimationEnd() {
         btnBuyTicket.setBackgroundResource(R.drawable.button_buy_ticket);
     }
 }
