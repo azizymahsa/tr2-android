@@ -123,9 +123,9 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
         switch (v.getId())
         {
             case R.id.lnrPayment:
-                fragment = WithdrawAccountFragment.newInstance(mainView, settingsData);
+               /* fragment = WithdrawAccountFragment.newInstance(mainView, settingsData);
                 showFragment(fragment);
-                Prefs.putBoolean("isMainWalletFragment", false);
+                Prefs.putBoolean("isMainWalletFragment", false);*/
                 break;
             case R.id.lnrGetReport:
                 fragment = TurnoverFragment.newInstance(mainView);
