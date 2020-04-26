@@ -43,8 +43,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="8dp"
                 android:layout_centerVertical="true"
-                android:tint="@color/mainMenuColor"
-                android:src="@drawable/ic_menu_black_24dp" />
+                android:src="@drawable/ic_menu_black_24dp"
+                app:tint="@color/mainMenuColor" />
 
         </RelativeLayout>
 
@@ -68,8 +68,8 @@
                     android:layout_gravity="center_vertical|left"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:tint="@color/mainMenuColor"
-                    android:src="@drawable/ic_undo" />
+                    android:src="@drawable/ic_undo"
+                    app:tint="@color/mainMenuColor" />
 
                 <TextView
                     android:id="@+id/tvTitle"
@@ -85,7 +85,7 @@
                     android:visibility="visible"
                     android:textStyle="normal"
                     android:textColor="@color/textColorTitle"
-                    android:textSize="16dp" />
+                    android:textSize="13dp" />
 
             </RelativeLayout>
 
@@ -101,7 +101,7 @@
                 android:gravity="center_vertical|right"
                 android:text="نام کاربر"
                 android:textColor="@color/textColorTitle"
-                android:textSize="16dp"
+                android:textSize="13dp"
                 android:textStyle="bold" />
 
             <RelativeLayout

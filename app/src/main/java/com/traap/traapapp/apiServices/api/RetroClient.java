@@ -148,7 +148,8 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface RetroClient {
+public interface RetroClient
+{
     @POST(Const.Login)
     Single<Response<WebServiceClass<LoginResponse>>> login(
             @Body LoginRequest request
