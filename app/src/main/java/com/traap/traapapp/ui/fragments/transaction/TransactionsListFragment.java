@@ -334,7 +334,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             chbSuccessPayment = rootView.findViewById(R.id.chbSuccessPayment);
             chbFailedPayment = rootView.findViewById(R.id.chbFailedPayment);
 
-            edtSearchText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//            edtSearchText.setInputType(InputType.TYPE_CLASS_NUMBER);
             edtSearchText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
             chbSuccessPayment.setOnCheckedChangeListener(this);
             chbFailedPayment.setOnCheckedChangeListener(this);
@@ -431,16 +431,17 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                         {
                             if (edtSearchText.getText().toString().trim().length() > 2)
                             {
-                                if (!titleFilteredList.contains("کد پیگیری" + ","))
+                                if (!titleFilteredList.contains("جستجو" + ","))
                                 {
-                                    titleFilteredList += "کد پیگیری" + ",";
+                                    titleFilteredList += "جستجو" + ",";
                                 }
                                 llFilterHashTag.setVisibility(View.VISIBLE);
                                 setHashTag();
 
                                 isFilterEnable = true;
 
-                                getData(true);
+//                                getData(true);
+                                getSearchData();
                             }
                             else
                             {
@@ -451,9 +452,9 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                         {
                             if (getFilterAvailable())
                             {
-                                if (titleFilteredList.trim().length() > 0 && titleFilteredList.contains("کد پیگیری" + ","))
+                                if (titleFilteredList.trim().length() > 0 && titleFilteredList.contains("جستجو" + ","))
                                 {
-                                    titleFilteredList = titleFilteredList.substring(0, titleFilteredList.indexOf("کد پیگیری" + ","));
+                                    titleFilteredList = titleFilteredList.substring(0, titleFilteredList.indexOf("جستجو" + ","));
                                     Logger.e("-titleFilteredList-", titleFilteredList);
                                     setHashTag();
 
@@ -476,9 +477,9 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                 KeyboardUtils.forceCloseKeyboard(edtSearchText);
                 if (getFilterAvailable())
                 {
-                    if (titleFilteredList.trim().length() > 0 && titleFilteredList.contains("کد پیگیری" + ","))
+                    if (titleFilteredList.trim().length() > 0 && titleFilteredList.contains("جستجو" + ","))
                     {
-                        titleFilteredList = titleFilteredList.substring(0, titleFilteredList.indexOf("کد پیگیری" + ","));
+                        titleFilteredList = titleFilteredList.substring(0, titleFilteredList.indexOf("جستجو" + ","));
                         Logger.e("-titleFilteredList-", titleFilteredList);
                         setHashTag();
 
@@ -627,6 +628,11 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
         }
     }
 
+    private void getSearchData()
+    {
+        SingletonService.getInstance().getTransactionService().getTransactionListBySearch(edtSearchText.getText().toString().trim(), this);
+    }
+
     private void getData(boolean isFiltered)
     {
         mainView.showLoading();
@@ -656,7 +662,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                         tvStartDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvStartDate.getText().toString()),
                         tvEndDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvEndDate.getText().toString()),
                         status,
-                        edtSearchText.getText().toString().trim(),
+//                        edtSearchText.getText().toString().trim(),
                         this
                 );
             }
@@ -668,7 +674,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                         maxPrice,
                         tvStartDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvStartDate.getText().toString()),
                         tvEndDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvEndDate.getText().toString()),
-                        edtSearchText.getText().toString().trim(),
+//                        edtSearchText.getText().toString().trim(),
                         this
                 );
             }
@@ -889,9 +895,9 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
 
                                     if (!edtSearchText.getText().toString().equalsIgnoreCase(""))
                                     {
-                                        if (!titleFilteredList.contains("کد پیگیری" + ","))
+                                        if (!titleFilteredList.contains("جستجو" + ","))
                                         {
-                                            titleFilteredList += "کد پیگیری" + ",";
+                                            titleFilteredList += "جستجو" + ",";
                                         }
                                     }
 
