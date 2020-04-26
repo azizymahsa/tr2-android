@@ -2,7 +2,6 @@ package com.traap.traapapp.ui.fragments.gateWay;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +64,8 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
  * Created by MahtabAzizi on 12/8/2019.
  */
 public class WalletFragment extends BaseFragment implements View.OnClickListener, OnRangeChangedListener,
-        DatePickerDialog.OnDateSetListener {
+        DatePickerDialog.OnDateSetListener
+{
     private static int MAX_PRICE_DEFAULT = 10000000;
     private static int MIN_PRICE_DEFAULT = 0;
     private static int RANGEBAR_STEP = 200000;
@@ -106,55 +106,67 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     private FilterBalance filterSetting;
     private Integer priceInterval = 500000;
 
-    public WalletFragment() {
+    public WalletFragment()
+    {
 
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
-    public static WalletFragment newInstance(MainActionView mainView) {
+    public static WalletFragment newInstance(MainActionView mainView)
+    {
         WalletFragment fragment = new WalletFragment();
         fragment.setMainView(mainView);
         return fragment;
     }
 
-    public static Fragment newInstance(MainActionView mainView, int i) {
+    public static Fragment newInstance(MainActionView mainView, int i)
+    {
         WalletFragment fragment = new WalletFragment();
         fragment.setMainView(mainView);
         fragment.setInstance(i);
         return fragment;
     }
 
-    private void setInstance(int i) {
+    private void setInstance(int i)
+    {
         this.instanceBack = i;
     }
 
-    private void setMainView(MainActionView mainView) {
+    private void setMainView(MainActionView mainView)
+    {
         this.mainView = mainView;
     }
 
-    public void setTitleFragmentWallet(String Title, MainActionView mainView) {
+    public void setTitleFragmentWallet(String Title, MainActionView mainView)
+    {
         //this.TitleFragment = Title;
-        try {
+        try
+        {
             tvTitle.setText(Title);
 
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.getMessage();
         }
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
         YoYo.with(Techniques.FadeIn)
                 .duration(700)
@@ -164,38 +176,34 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        if (rootView != null) {
+                             Bundle savedInstanceState)
+    {
+        if (rootView != null)
+        {
             return rootView;
         }
         rootView = inflater.inflate(R.layout.fragment_wallet, container, false);
         initView();
 
         mainView.showLoading();
-        rootView.setFocusableInTouchMode(true);
-        rootView.requestFocus();
-        rootView.setOnKeyListener((v, keyCode, event) ->
-        {
-            if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-                    return true;
-                }
-            }
-            return false;
-        });
         requestGetBalance();
         requestGetInfo();
-            initDatePicker();
+        initDatePicker();
 
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener()
+        {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY - oldScrollY > 0) {
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
+            {
+                if (scrollY - oldScrollY > 0)
+                {
                     Animation animHide = AnimationUtils.loadAnimation(getContext(), R.anim.hide_button);
                     rootView.findViewById(R.id.rlImageProfile).startAnimation(animHide);
                     rootView.findViewById(R.id.rlImageProfile).setVisibility(View.GONE);
-                } else {
+                }
+                else
+                {
                     Animation animShow = AnimationUtils.loadAnimation(getContext(), R.anim.show_button);
                     rootView.findViewById(R.id.rlImageProfile).startAnimation(animShow);
                     rootView.findViewById(R.id.rlImageProfile).setVisibility(View.VISIBLE);
@@ -207,8 +215,10 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     }
 
 
-    private void initView() {
-        try {
+    private void initView()
+    {
+        try
+        {
             rlShirt = rootView.findViewById(R.id.rlShirt);
             slidingLayout = rootView.findViewById(R.id.slidingLayout);
             rangeBar = rootView.findViewById(R.id.rangeBar);
@@ -262,7 +272,9 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             });
 
             tvTitle.setText("کیف پول");
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 
@@ -324,55 +336,63 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
     /*----------------------------------------------------------------------------------------------------*/
 
-    private void requestGetBalance() {
-        try {
+    private void requestGetBalance()
+    {
+        try
+        {
             GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
             request.setIsWallet(true);
-            SingletonService.getInstance().getBalancePasswordLessService().GetBalancePasswordLessService(new OnServiceStatus<WebServiceClass<GetBalancePasswordLessResponse>>() {
+            SingletonService.getInstance().getBalancePasswordLessService().GetBalancePasswordLessService(new OnServiceStatus<WebServiceClass<GetBalancePasswordLessResponse>>()
+            {
                 @Override
-                public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response) {
+                public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response)
+                {
                     mainView.hideLoading();
-                    rootView.setOnKeyListener((v, keyCode, event) ->
-                    {
-                        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                            if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-                                return false;
-                            }
-                        }
-                        return false;
-                    });
-                    try {
-                        if (response.info.statusCode == 200) {
+                    try
+                    {
+                        if (response.info.statusCode == 200)
+                        {
                             setBalanceData(response.data);
                             settingsData = response.data.getSetting();
                             setFilterData(response.data.getSetting().getFilters());
                             setContainers();
-                        } else {
+                        }
+                        else
+                        {
                             mainView.showError(response.info.message);
                         }
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e)
+                    {
                         mainView.showError(e.getMessage());
                     }
                 }
 
                 @Override
-                public void onError(String message) {
+                public void onError(String message)
+                {
                     //mainView.showError(message);
                     mainView.hideLoading();
-                    if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity()))) {
+                    if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                    {
                         showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
-                    } else {
+                    }
+                    else
+                    {
                         mainView.showError(getString(R.string.networkErrorMessage));
                     }
                 }
             }, request);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
 
         }
     }
 
-    private void setFilterData(FilterBalance filters) {
+    private void setFilterData(FilterBalance filters)
+    {
         filterSetting = filters;
         MIN_PRICE_DEFAULT = filterSetting.getMinAmount();
         MAX_PRICE_DEFAULT = filterSetting.getMaxAmount();
@@ -392,8 +412,10 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         tvMinPrice.setText(Utility.priceFormat(filterSetting.getMinAmount()) + " ریال");
     }
 
-    private void setContainers() {
-        if (instanceBack == 0) {
+    private void setContainers()
+    {
+        if (instanceBack == 0)
+        {
             fragmentManager = getChildFragmentManager();
 
             fragment = DetailsCartFragment.newInstance(mainView, settingsData);
@@ -402,7 +424,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             transaction.replace(R.id.container, fragment, "DetailsCartFragment")
                     .commit();
         }
-        if (instanceBack == 1) {
+        if (instanceBack == 1)
+        {
             fragmentManager = getChildFragmentManager();
 
             fragment = IncreaseInventoryFragment.newInstance(mainView, settingsData);
@@ -413,32 +436,42 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-    private void setBalanceData(GetBalancePasswordLessResponse data) {
+    private void setBalanceData(GetBalancePasswordLessResponse data)
+    {
         tvBalance.setText(Utility.priceFormat(data.getBalanceAmount()));
         tvDate.setText(data.getDateTime());
     }
 
     /*----------------------------------------------------------------------------------------------------*/
-    private void requestGetInfo() {
+    private void requestGetInfo()
+    {
         GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
         request.setIsWallet(true);
-        SingletonService.getInstance().getBalancePasswordLessService().GetInfoWalletService(new OnServiceStatus<WebServiceClass<GetInfoWalletResponse>>() {
+        SingletonService.getInstance().getBalancePasswordLessService().GetInfoWalletService(new OnServiceStatus<WebServiceClass<GetInfoWalletResponse>>()
+        {
 
 
             @Override
-            public void onReady(WebServiceClass<GetInfoWalletResponse> response) {
+            public void onReady(WebServiceClass<GetInfoWalletResponse> response)
+            {
                 mainView.hideLoading();
 
-                try {
-                    if (response.info.statusCode == 200) {
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
                         setInfoData(response.data);
 
-                    } else {
+                    }
+                    else
+                    {
 
                         mainView.showError(response.info.message);
 
                     }
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     mainView.showError(e.getMessage());
 
                 }
@@ -447,14 +480,18 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             }
 
             @Override
-            public void onError(String message) {
+            public void onError(String message)
+            {
 
                 //   mainView.showError(message);
                 mainView.hideLoading();
-                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity()))) {
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
                     mainView.showError("خطای ارتباط با سرور!");
 
-                } else {
+                }
+                else
+                {
                     mainView.showError(getString(R.string.networkErrorMessage));
 
                 }
@@ -463,14 +500,18 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         }, request);
     }
 
-    private void setInfoData(GetInfoWalletResponse data) {
-        try {
+    private void setInfoData(GetInfoWalletResponse data)
+    {
+        try
+        {
             Iterable<String> result = Splitter.fixedLength(4).split(data.getCard_no());
             String[] parts = Iterables.toArray(result, String.class);
 
 
             cartNo.setText(parts[0] + "-" + parts[1] + "-" + parts[2] + "-" + parts[3]);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             cartNo.setText(data.getCard_no() + "");
 
         }
@@ -484,8 +525,10 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     /*----------------------------------------------------------------------------------------------------*/
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
             case R.id.ivRefreshing:
                 mainView.showLoading();
 
@@ -493,11 +536,14 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                 requestGetInfo();
                 break;
             case R.id.rlImageProfile:
-                if (incBackCart.getVisibility() == View.GONE) {
+                if (incBackCart.getVisibility() == View.GONE)
+                {
                     incBackCart.setVisibility(View.VISIBLE);
                     incFrontCart.setVisibility(View.GONE);
                     // lnrInventory.setVisibility(View.GONE);
-                } else {
+                }
+                else
+                {
                     incBackCart.setVisibility(View.GONE);
                     incFrontCart.setVisibility(View.VISIBLE);
                     //lnrInventory.setVisibility(View.VISIBLE);
@@ -507,15 +553,18 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ClickTurnOverEvent event) {
-        if (event.getFilterClick() != null && event.getFilterClick()) {
+    public void onMessageEvent(ClickTurnOverEvent event)
+    {
+        if (event.getFilterClick() != null && event.getFilterClick())
+        {
             slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
 
         }
     }
 
     @Override
-    public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
+    public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser)
+    {
 
         int left = (int) leftValue;
         int right = (int) rightValue;
@@ -534,19 +583,23 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
+    public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft)
+    {
 
     }
 
     @Override
-    public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
+    public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft)
+    {
 
     }
 
 
-    private void initDatePicker() {
+    private void initDatePicker()
+    {
 
-        try {
+        try
+        {
 
 
             currentDate = new PersianCalendar();
@@ -585,25 +638,31 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             pickerDialogEndDate.setMinDate(startPersianDate);
             pickerDialogEndDate.setMaxDate(endPersianDate);
 
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.getMessage();
         }
     }
 
-    private Integer getDateInt(int year, int month, int day) {
+    private Integer getDateInt(int year, int month, int day)
+    {
         return (year - year / 100) * 10000 + month * 100 + day;
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay) {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
+    {
 
-        if (view.getTag().equals("StartDate")) {
+        if (view.getTag().equals("StartDate"))
+        {
             startPersianDate.set(year, monthOfYear, dayOfMonth);
             pickerDialogEndDate.setMinDate(startPersianDate);
             pickerDialogEndDate.setMaxDate(currentDate);
             startDateInt = getDateInt(year, monthOfYear, dayOfMonth);
 
-            if (startDateInt > endDateInt) {
+            if (startDateInt > endDateInt)
+            {
                 tvEndDate.setText("");
                 filterEndDate = "";
                 imgEndDateReset.setVisibility(View.GONE);
@@ -612,12 +671,15 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
             filterStartDate = year + "/" + Utility.getFormatDateMonth(monthOfYear + 1) + "/" + Utility.getFormatDateMonth(dayOfMonth);
             tvStartDate.setText(filterStartDate);
             imgStartDateReset.setVisibility(View.VISIBLE);
-        } else if (view.getTag().equals("EndDate")) {
+        }
+        else if (view.getTag().equals("EndDate"))
+        {
             endPersianDate.set(year, monthOfYear, dayOfMonth);
             pickerDialogStartDate.setMaxDate(endPersianDate);
             endDateInt = getDateInt(year, monthOfYear, dayOfMonth);
 
-            if (startDateInt > endDateInt) {
+            if (startDateInt > endDateInt)
+            {
                 tvStartDate.setText("");
                 filterStartDate = "";
                 imgStartDateReset.setVisibility(View.GONE);
@@ -632,7 +694,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-    private void resetAll() {
+    private void resetAll()
+    {
         slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
         tvStartDate.setText("");
@@ -656,14 +719,17 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
     }
 
-    public void onSelectContact(OnSelectContact onSelectContact) {
-        if (fragment instanceof DetailsCartFragment) {
+    public void onSelectContact(OnSelectContact onSelectContact)
+    {
+        if (fragment instanceof DetailsCartFragment)
+        {
         }
         ((DetailsCartFragment) fragment).onSelectContact(onSelectContact);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(WalletTitle event) {
+    public void onMessageEvent(WalletTitle event)
+    {
         tvTitle.setText(event.title);
 
 

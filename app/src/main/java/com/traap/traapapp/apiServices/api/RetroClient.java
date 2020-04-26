@@ -148,7 +148,8 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface RetroClient {
+public interface RetroClient
+{
     @POST(Const.Login)
     Single<Response<WebServiceClass<LoginResponse>>> login(
             @Body LoginRequest request
@@ -541,8 +542,8 @@ public interface RetroClient {
             @Query("amount__lte") Integer priceTo,                                 //example 1000 and ""
             @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
             @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
-            @Query("status") Boolean status,                                       //example 0=All, 1=Success, 2=Failure
-            @Query("id__contains") String searchText
+            @Query("status") Boolean status                                       //example 0=All, 1=Success, 2=Failure
+//            @Query("id__contains") String searchText
     );
 
     @GET(Const.GET_Transaction_List)
@@ -551,8 +552,13 @@ public interface RetroClient {
             @Query("amount__gte") Integer priceFrom,                               //example 1000 and ""
             @Query("amount__lte") Integer priceTo,                                 //example 1000 and ""
             @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
-            @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
-            @Query("id__contains") String searchText
+            @Query("create_date__lte") String dateTo                              //example 2019-12-01 and ""
+//            @Query("id__contains") String searchText
+    );
+
+    @GET(Const.GET_Transaction_List)
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionListBySearch(
+            @Query("type_transaction__title__contains") String searchText
     );
 
 

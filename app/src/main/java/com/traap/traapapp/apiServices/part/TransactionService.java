@@ -77,7 +77,7 @@ public class TransactionService extends BasePart
                                            String dateFrom,
                                            String dateTo,
                                            Boolean status,
-                                           String searchText,
+//                                           String searchText,
                                            OnServiceStatus<WebServiceClass<ResponseTransaction>> listener)
     {
         start(getServiceGenerator().createService().getTransactionListByFilter(
@@ -86,8 +86,8 @@ public class TransactionService extends BasePart
                 priceTo,
                 dateFrom,
                 dateTo,
-                status,
-                searchText
+                status
+//                searchText
                 ), listener);
     }
 
@@ -96,7 +96,7 @@ public class TransactionService extends BasePart
                                            Integer priceTo,
                                            String dateFrom,
                                            String dateTo,
-                                           String searchText,
+//                                           String searchText,
                                            OnServiceStatus<WebServiceClass<ResponseTransaction>> listener)
     {
         start(getServiceGenerator().createService().getTransactionListByFilterForAllStatus(
@@ -104,9 +104,14 @@ public class TransactionService extends BasePart
                 priceFrom,
                 priceTo,
                 dateFrom,
-                dateTo,
-                searchText
+                dateTo
+//                searchText
                 ), listener);
+    }
+
+    public void getTransactionListBySearch(String searchText, OnServiceStatus<WebServiceClass<ResponseTransaction>> listener)
+    {
+        start(getServiceGenerator().createService().getTransactionListBySearch(searchText), listener);
     }
 
 }
