@@ -10,8 +10,10 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 67
-        versionName "1.17.14"
+        versionCode 68
+        versionName "1.17.15"
+//        versionName "2.0"
+        
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -26,6 +28,10 @@ android {
             storePassword 'traap@Tractor@app#'
         }
     }
+
+//    viewBinding {
+//        enabled = true
+//    }
 
     dexOptions {
         jumboMode true
