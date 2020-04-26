@@ -2077,32 +2077,11 @@ public class ChargeFragment extends BaseFragment
     {
         try
         {
-            if (isMtn)
-            {
-                autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
-                //  tilMIrancell.setHint(event.getCupName());
-                closeAutoComplete();
+            autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
+            autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
+            autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
+            closeAutoComplete();
 
-
-                return;
-            }
-            if (isMci)
-            {
-                autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
-                // tilMMci.setHint(event.getCupName());
-                closeAutoComplete();
-
-                return;
-
-
-            }
-            if (isRightel)
-            {
-                autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
-                // tilMRightel.setHint(event.getCupName());
-
-                return;
-            }
 
         } catch (Exception e)
         {

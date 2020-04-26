@@ -80,7 +80,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 {
     private LoginPresenterImpl loginPresenter;
     private CircularProgressButton btnConfirm;
-    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, txtCondition,tvChangeNumber;
+    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, txtCondition, tvChangeNumber;
     private int dimeSpace80, dimeSpace40, dimeLogo150, dimeLogo70;
     private RelativeLayout.LayoutParams logoLayoutParams;
     private LinearLayout.LayoutParams spaceLayoutParams;
@@ -88,13 +88,13 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private TextInputLayout etLayout;
     private PinEntryEditText codeView;
     private boolean isCode = false;
-    private ClearableEditText etMobileNumber,etInviteCode;
-    private LinearLayout countDownTimer, llPin, llCondition,llInvite;
+    private ClearableEditText etMobileNumber, etInviteCode;
+    private LinearLayout countDownTimer, llPin, llCondition, llInvite;
     private ArrayList<CountryCodeModel> countryCodeModels = new ArrayList<>();
     private EditText etCountryName, etCountryCode;
     private CompositeDisposable disposable = new CompositeDisposable();
     private RelativeLayout rlCountryCode;
-    private  TextWatcher textWatcher;
+    private TextWatcher textWatcher;
 
 
     @Override
@@ -102,7 +102,6 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
-
 
 
     @Override
@@ -212,9 +211,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         // tvMenu = findViewById(R.id.tvMenu);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         etMobileNumber = findViewById(R.id.etMobileNumber);
-        etInviteCode=findViewById(R.id.etInviteCode);
+        etInviteCode = findViewById(R.id.etInviteCode);
         rlCountryCode = findViewById(R.id.rlCountryCode);
-
 
 
         InputFilter[] filterArrayInviteCode = new InputFilter[1];
@@ -227,7 +225,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         llPin = findViewById(R.id.llPin);
         // tvTitle.setVisibility(View.GONE);
         loginPresenter.getCode(codeView);
-        loginPresenter.getMobile(etMobileNumber,etCountryCode,etInviteCode);
+        loginPresenter.getMobile(etMobileNumber, etCountryCode, etInviteCode);
         btnConfirm.setOnClickListener(loginPresenter);
 
         btnConfirm.setTag("mobile");
@@ -261,8 +259,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             {
                 logoLayoutParams = new RelativeLayout.LayoutParams(dimeLogo150, dimeLogo150);
                 spaceLayoutParams = new LinearLayout.LayoutParams(dimeSpace80, dimeSpace80);
-            }
-            else
+            } else
             {
                 logoLayoutParams = new RelativeLayout.LayoutParams(dimeLogo70, dimeLogo70);
                 spaceLayoutParams = new LinearLayout.LayoutParams(dimeSpace40, dimeSpace40);
@@ -277,8 +274,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             if (str.length() == 4)
             {
                 loginPresenter.verifyRequest();
-            }
-            else
+            } else
             {
                 showAlert(LoginActivity.this, "لطفا کد فعال سازی خود را صحیح وارد نمایید.", R.string.error);
             }
@@ -311,25 +307,30 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 
 
         etMobileNumber.setLength(10);
-         textWatcher =new TextWatcher() {
+        textWatcher = new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
 
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 1 && s.toString().startsWith("0")) {
+            public void afterTextChanged(Editable s)
+            {
+                if (s.toString().length() == 1 && s.toString().startsWith("0"))
+                {
                     s.clear();
                 }
             }
         };
-         etMobileNumber.addTextChangedListener(textWatcher);
+        etMobileNumber.addTextChangedListener(textWatcher);
     }
 
 
@@ -392,8 +393,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityForResult(intent, 100);
             finish();
-        }
-        else
+        } else
         {
             mobileToCode();
         }
@@ -426,8 +426,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             Logger.e("-OnError-", "Error: " + message);
             showErrorMessage(message);
 
-        }
-        else
+        } else
         {
             showAlert(this, R.string.networkErrorMessage, R.string.networkError);
         }
@@ -454,8 +453,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 //        btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setTag("code");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " کد فعال سازی ارسال شده را وارد کنید."));
-
-        tvPhoneNumber.setText("شماره تلفن همراه شما: " + etMobileNumber.getText().toString());
+        String stringBuilder = "+" + etCountryCode.getText().toString() +
+                etMobileNumber.getText().toString();
+        tvPhoneNumber.setText("شماره تلفن همراه شما: " + stringBuilder);
 
         YoYo.with(Techniques.SlideOutLeft)
                 .duration(500)
@@ -572,8 +572,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         if (isCode)
         {
             codeToMobile();
-        }
-        else
+        } else
         {
             super.onBackPressed();
         }
@@ -588,19 +587,22 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 
             etCountryName.setText(data.getExtras().getString("name"));
             etCountryCode.setText(data.getExtras().getString("code").replace("+", ""));
-            Prefs.putString("Country_Code",data.getExtras().getString("code").replace("+", ""));
+            Prefs.putString("Country_Code", data.getExtras().getString("code").replace("+", ""));
 
-            if (etCountryCode.getText().toString().equals("98")){
-                if (etMobileNumber.getText().toString().startsWith("0")){
+            if (etCountryCode.getText().toString().equals("98"))
+            {
+                if (etMobileNumber.getText().toString().startsWith("0"))
+                {
 
-                    etMobileNumber.setText(etMobileNumber.getText().toString().replaceFirst("0","")
-                       .replaceFirst("٠",""));
+                    etMobileNumber.setText(etMobileNumber.getText().toString().replaceFirst("0", "")
+                            .replaceFirst("٠", ""));
                 }
                 etMobileNumber.setLength(10);
                 etMobileNumber.addTextChangedListener(textWatcher);
 
 
-            }else{
+            } else
+            {
 
                 etMobileNumber.setLength(11);
                 etMobileNumber.removeTextChangedListener(textWatcher);
