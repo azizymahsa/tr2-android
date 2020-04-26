@@ -2401,33 +2401,12 @@ public class PackFragment
         //todo change this
         try
         {
-            if (isMtn)
-            {
-                etMobileNumberIranCell.setText(onSelectContact.getNumber().replaceAll(" ", ""));
-               // tilMIrancell.setHint(onSelectContact.getCupName());
-
-
-                return;
-            }
-            if (isMci)
-            {
-                etMobileNumberMCI.setText(onSelectContact.getNumber().replaceAll(" ", ""));
-              //  tilMMci.setHint(onSelectContact.getCupName());
-
-
-                return;
-
-
-            }
-            if (isRightel)
-            {
-                etMobileNumberRightel.setText(onSelectContact.getNumber().replaceAll(" ", ""));
-                //tilMRightel.setHint(onSelectContact.getCupName());
-
-
-            }
-
+            etMobileNumberIranCell.setText(onSelectContact.getNumber().replaceAll(" ", ""));
+            etMobileNumberMCI.setText(onSelectContact.getNumber().replaceAll(" ", ""));
+            etMobileNumberRightel.setText(onSelectContact.getNumber().replaceAll(" ", ""));
             closeAutoComplete();
+
+
 
 
         } catch (Exception e)
