@@ -299,7 +299,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         });
 
         etFirstName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
-        tvMobileEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
+        tvMobileEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(13)});
         etLastName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etFirstNameUS.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etLastNameUS.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
@@ -312,16 +312,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etFirstName.requestFocus();
         etCountryCode = findViewById(R.id.etCountryCode);
         etCountryName = findViewById(R.id.etCountryName);
-        etCountryName.setOnFocusChangeListener(new View.OnFocusChangeListener()
-        {
+        etCountryName.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View arg0, boolean hasfocus)
-            {
-                if (hasfocus)
-                {
-                    startActivityForResult(new Intent(UserProfileActivity.this, SearchCountryActivity.class), 1022);
-                    etCountryName.clearFocus();
-                }
+            public void onClick(View view) {
+                startActivityForResult(new Intent(UserProfileActivity.this, SearchCountryUserEditActivity.class), 1002);
+                etCountryName.clearFocus();
             }
         });
         genderStrList = new ArrayList<String>();
@@ -1071,7 +1066,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1022 && resultCode == Activity.RESULT_OK)
+        if (requestCode == 1002 && resultCode == Activity.RESULT_OK)
         {
 
             etCountryName.setText(data.getExtras().getString("name"));

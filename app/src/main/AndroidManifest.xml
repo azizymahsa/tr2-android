@@ -19,6 +19,7 @@
         <activity android:name=".ui.activities.lotteryWinnerList.LotteryWinnerDetailsActivity"></activity>
         <activity android:name=".ui.activities.myPredicts.MyPredictsActivity" />
         <activity android:name=".ui.activities.SearchCountryActivity" />
+        <activity android:name=".ui.activities.userProfile.SearchCountryUserEditActivity" />
         <activity android:name=".ui.activities.paymentResult.PaymentResultWithDrawAccountActivity" />
         <activity android:name=".ui.activities.points.PointsActivity" />
         <activity android:name=".ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity" />
