@@ -170,7 +170,7 @@
                                 android:layout_marginRight="8dp"
                                 android:singleLine="true"
                                 android:textSize="@dimen/textSize_12dp"
-                                android:hint="جستجوی کد پیگیری..."
+                                android:hint="جستجو..."
                                 android:imeOptions="actionDone"
                                 android:textColorHint="@color/textHint"
                                 android:textColor="@color/textColorSecondary" />
