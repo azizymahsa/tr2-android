@@ -8,11 +8,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,27 +38,23 @@ import com.anychart.enums.LegendLayout;
 import com.anychart.enums.LegendPositionMode;
 import com.anychart.enums.WordWrap;
 import com.anychart.graphics.vector.text.Direction;
-import com.anychart.graphics.vector.text.FontStyle;
 import com.anychart.graphics.vector.text.HAlign;
 import com.anychart.graphics.vector.text.VAlign;
-import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Predicate;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.BarChart;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.PieChart;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
@@ -72,7 +66,7 @@ import com.traap.traapapp.ui.adapters.predict.PredictBarChartProgressAdapter;
 import com.traap.traapapp.ui.adapters.predict.PredictMatchResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
-import com.traap.traapapp.ui.dialogs.PredictWinListDialog;
+import com.traap.traapapp.ui.dialogs.LotteryWinnerListDialog;
 import com.traap.traapapp.ui.fragments.main.CountDownTimerView;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
@@ -89,7 +83,7 @@ import org.greenrobot.eventbus.Subscribe;
  */
 @SuppressLint("ValidFragment")
 public class PredictFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<GetPredictResponse>>,
-        OnAnimationEndListener, CountDownTimerView
+        OnAnimationEndListener, CountDownTimerView, PredictActionView
 {
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -98,6 +92,8 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     private TextView tvUserName, tvHeaderPopularNo;
 
     private NumberPicker numPickerAway, numPickerHome;
+
+    private Integer teamHomeId, teamAwayId;
 
     private Context context;
 
@@ -143,6 +139,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
     {
         PredictFragment f = new PredictFragment();
         f.setMainView(mainView);
+
         Bundle arg = new Bundle();
         arg.putInt("matchId", matchId);
         arg.putBoolean("isPredictable", isPredictable);
@@ -191,7 +188,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("پیش بینی بازی");
         rootView.findViewById(R.id.imgBack).setOnClickListener(v ->
         {
-            mainView.backToMainFragment();
+            getActivity().onBackPressed();
         });
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
@@ -314,19 +311,33 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             sendPredict();
         });
 
+        llAwayResultList.setOnClickListener(v ->
+        {
+            mainView.onShowLast5PastMatch(teamAwayId);
+        });
+
+        llHomeResultList.setOnClickListener(v ->
+        {
+            mainView.onShowLast5PastMatch(teamHomeId);
+        });
+
         llPredict.setOnClickListener(v ->
         {
-            //show alert dialog
-            PredictWinListDialog dialog = new PredictWinListDialog(matchId);
+            LotteryWinnerListDialog dialog = new LotteryWinnerListDialog(matchId, this);
             dialog.show(getActivity().getFragmentManager(), "predictWinListDialog");
         });
 
         FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
-        flLogoToolbar.setOnClickListener(v -> {
+        flLogoToolbar.setOnClickListener(v ->
+        {
             mainView.backToMainFragment();
-
         });
 
+        imgAwayHeader.setOnClickListener(v -> mainView.onPredictLeagueTable(teamAwayId, matchId, isPredictable));
+        imgAwayPredict.setOnClickListener(v -> mainView.onPredictLeagueTable(teamAwayId, matchId, isPredictable));
+
+        imgHomeHeader.setOnClickListener(v -> mainView.onPredictLeagueTable(teamHomeId, matchId, isPredictable));
+        imgHomePredict.setOnClickListener(v -> mainView.onPredictLeagueTable(teamHomeId, matchId, isPredictable));
     }
 
     private void sendPredict()
@@ -410,10 +421,30 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         }
         else
         {
+            teamHomeId = response.data.getMatchPredict().getHomeTeam().getLiveScoreId();
+            teamAwayId = response.data.getMatchPredict().getAwayTeam().getLiveScoreId();
+
             tvMatchDate.setText(response.data.getMatchPredict().getMatchDatetimeStr());
 
-            rcMatchResult.setAdapter(new PredictMatchResultAdapter(context, response.data.getMatchTeamResults(),
-                    response.data.getMatchPredict().getHomeTeam(), response.data.getMatchPredict().getAwayTeam()));
+            rcMatchResult.setAdapter(new PredictMatchResultAdapter(
+                    response.data.getMatchTeamResults(),
+                    response.data.getMatchPredict().getHomeTeam(),
+                    response.data.getMatchPredict().getAwayTeam(),
+                    new PredictMatchResultAdapter.OnLogoClickListener()
+                    {
+                        @Override
+                        public void onHomeLogoClick()
+                        {
+                            mainView.onPredictLeagueTable(teamHomeId, matchId, isPredictable);
+                        }
+
+                        @Override
+                        public void onAwayLogoClick()
+                        {
+                            mainView.onPredictLeagueTable(teamAwayId, matchId, isPredictable);
+                        }
+                    })
+            );
 
             llAwayResultList.removeAllViews();
             llHomeResultList.removeAllViews();
@@ -430,7 +461,31 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             setImageIntoIV(imgAwayHeader, response.data.getMatchPredict().getAwayTeam().getTeamLogo());
             setImageIntoIV(imgHomeHeader, response.data.getMatchPredict().getHomeTeam().getTeamLogo());
 
-            tvCurrentMatchResult.setText("? - ?");
+            try
+            {
+                if (response.data.getMatchPredict().getLastMatchResult() != null)
+                {
+                    if (response.data.getMatchPredict().getLastMatchResult().getHomeScore() != null || response.data.getMatchPredict().getLastMatchResult().getAwayScore() != null)
+                    {
+                        tvCurrentMatchResult.setText(
+                                response.data.getMatchPredict().getLastMatchResult().getAwayScore() +
+                                        " - " +
+                                        response.data.getMatchPredict().getLastMatchResult().getHomeScore());
+                    }
+                    else
+                    {
+                        tvCurrentMatchResult.setVisibility(View.INVISIBLE);
+                    }
+                }
+                else
+                {
+                    tvCurrentMatchResult.setVisibility(View.INVISIBLE);
+                }
+            }
+            catch (Exception e)
+            {
+                tvCurrentMatchResult.setVisibility(View.INVISIBLE);
+            }
 
             tvAwayHeader.setText(response.data.getMatchPredict().getAwayTeam().getTeamName());
             tvHomeHeader.setText(response.data.getMatchPredict().getHomeTeam().getTeamName());
@@ -453,7 +508,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
                     if (remainPredictTime > 0)
                     {
-                        isPredictable = true;
+//                        isPredictable = true;
                         llTimer.setVisibility(View.VISIBLE);
                         tvPredictText.setText(" پیش بینی کن برنده شو!");
 
@@ -461,7 +516,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
                     }
                     else
                     {
-                        isPredictable = false;
+//                        isPredictable = false;
                         llTimer.setVisibility(View.GONE);
                         tvPredictText.setTextSize(14f);
                         tvPredictText.setText("مشاهده برندگان پیش بینی");
@@ -815,7 +870,7 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
             @Override
             public void onConfirmClick()
             {
-                mainView.backToMainFragment();
+                getActivity().onBackPressed();
             }
 
             @Override
@@ -827,11 +882,22 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
         dialog.show(((Activity)context).getFragmentManager(), "dialog");
     }
 
-
     @Override
     public void onAnimationEnd()
     {
         btnSendPredict.setBackground(ContextCompat.getDrawable(context, R.drawable.background_button_login));
+    }
+
+    @Override
+    public void showAlertFailure(String message)
+    {
+        showAlertFailure(context, message, "خطا!", false);
+    }
+
+    @Override
+    public void onShowDetailWinnerList(List<Winner> winnerList)
+    {
+        mainView.onShowDetailWinnerList(winnerList);
     }
 
     @Subscribe

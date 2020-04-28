@@ -32,8 +32,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import com.jakewharton.rxbinding2.view.RxView;
-import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding3.view.RxView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
@@ -61,9 +61,9 @@ import com.traap.traapapp.utilities.ReplacePersianNumberToEnglish;
 import com.traap.traapapp.utilities.TagGroup;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
+
 import com.traap.traapapp.utilities.calendar.mohamadamin_t.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.traap.traapapp.utilities.calendar.mohamadamin_t.persianmaterialdatetimepicker.utils.PersianCalendar;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -715,16 +715,28 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     {
         currentDate = new PersianCalendar();
 
+        int currentMonth = currentDate.getPersianMonth();
+        int maxDayOfMount = 31;
+        if (currentMonth == 0)
+        {
+            maxDayOfMount = 29;
+        }
+        else if (currentMonth == 6)
+        {
+            maxDayOfMount = 30;
+        }
+
         pickerDialogStartDate = DatePickerDialog.newInstance(this,
-                currentDate.getPersianYear(),
-                currentDate.getPersianMonth() - 1,
-                currentDate.getPersianDay()
+                currentMonth == 0 ? (currentDate.getPersianYear() - 1) : currentDate.getPersianYear(),
+                currentMonth == 0 ? 11 : currentMonth,
+                Math.min(maxDayOfMount , currentDate.getPersianDay())
+
         );
         pickerDialogStartDate.setTitle("انتخاب تاریخ شروع");
 
-        startDay = currentDate.getPersianDay();
-        startMonth = currentDate.getPersianMonth() - 1 ;
-        startYear = currentDate.getPersianYear();
+        startDay = Math.min(maxDayOfMount , currentDate.getPersianDay());
+        startMonth = currentMonth == 0 ? 11 : currentMonth;
+        startYear = currentMonth == 0 ? (currentDate.getPersianYear() - 1) : currentDate.getPersianYear();
 
         endPersianDate = new PersianCalendar();
         endDay = currentDate.getPersianDay();

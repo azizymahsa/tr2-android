@@ -13,10 +13,11 @@ buildscript {
         flatDir { dirs 'libs' }
     }
     dependencies {
+//        classpath 'com.android.tools.build:gradle:3.6.1'
         classpath 'com.android.tools.build:gradle:3.5.2'
 
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.0.0'
-        classpath 'com.google.gms:google-services:4.3.2'
+        classpath 'com.google.gms:google-services:4.3.3'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'io.fabric.tools:gradle:1.28.0'
 

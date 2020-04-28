@@ -27,6 +27,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
+import com.traap.traapapp.ui.activities.myPredicts.MyPredictsActivity;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -112,14 +113,14 @@ public class MyProfileActivity extends BaseActivity
 
         if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase(""))
         {
-            tvFullName.setText(Prefs.getString("mobile", ""));
+            tvFullName.setText("+"+Prefs.getString("Country_Code","")+" "+Prefs.getString("mobile", ""));
             tvMobile.setVisibility(View.GONE);
         }
         else
         {
             tvFullName.setText(Prefs.getString("FULLName", ""));
         }
-        tvMobile.setText(Prefs.getString("mobile", ""));
+        tvMobile.setText("+"+Prefs.getString("Country_Code","")+" "+ Prefs.getString("mobile", ""));
         tvInviteCode.setText(Prefs.getString("keyInvite", ""));
 
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
@@ -131,7 +132,7 @@ public class MyProfileActivity extends BaseActivity
 
         rlMyPredict.setOnClickListener(v ->
         {
-
+            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyPredictsActivity.class), 100);
         });
 
         rlMyFavorite.setOnClickListener(v ->
@@ -157,6 +158,7 @@ public class MyProfileActivity extends BaseActivity
                     String mobile = Prefs.getString("mobile", "");
                     Prefs.clear();
                     Prefs.putString("mobile", mobile);
+                    Prefs.putBoolean("intro", false);
                     finish();
                     intent.setClass(getApplication(), LoginActivity.class);
                     startActivity(intent);

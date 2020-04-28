@@ -27,8 +27,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.jakewharton.rxbinding2.view.RxView;
-import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding3.view.RxView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
@@ -129,7 +129,8 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     private PersianCalendar currentDate, startPersianDate, endPersianDate;
     private Integer startDateInt = 0, endDateInt = 0;
     private MainActionView mainActionView;
-
+    MyCustomViewPager pager;
+    SamplePagerAdapter samplePagerAdapter;
     public PhotosArchiveFragment()
     {
     }
@@ -684,16 +685,28 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
     {
         currentDate = new PersianCalendar();
 
+        int currentMonth = currentDate.getPersianMonth();
+        int maxDayOfMount = 31;
+        if (currentMonth == 0)
+        {
+            maxDayOfMount = 29;
+        }
+        else if (currentMonth == 6)
+        {
+            maxDayOfMount = 30;
+        }
+
         pickerDialogStartDate = DatePickerDialog.newInstance(this,
-                currentDate.getPersianYear(),
-                currentDate.getPersianMonth() - 1,
-                currentDate.getPersianDay()
+                currentMonth == 0 ? (currentDate.getPersianYear() - 1) : currentDate.getPersianYear(),
+                currentMonth == 0 ? 11 : currentMonth,
+                Math.min(maxDayOfMount , currentDate.getPersianDay())
+
         );
         pickerDialogStartDate.setTitle("انتخاب تاریخ شروع");
 
-        startDay = currentDate.getPersianDay();
-        startMonth = currentDate.getPersianMonth() - 1 ;
-        startYear = currentDate.getPersianYear();
+        startDay = Math.min(maxDayOfMount , currentDate.getPersianDay());
+        startMonth = currentMonth == 0 ? 11 : currentMonth;
+        startYear = currentMonth == 0 ? (currentDate.getPersianYear() - 1) : currentDate.getPersianYear();
 
         endPersianDate = new PersianCalendar();
         endDay = currentDate.getPersianDay();
@@ -726,13 +739,13 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
 
     private void setPager(boolean pagerWithFilter, boolean pagerFromFavorite)
     {
-        MyCustomViewPager pager = rootView.findViewById(R.id.view_pager);
+         pager = rootView.findViewById(R.id.view_pager);
 
         if (pagerFromFavorite)
         {
-            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), null, pagerFromFavorite, pagerWithFilter);
+             samplePagerAdapter= new SamplePagerAdapter(getFragmentManager(), null, pagerFromFavorite, pagerWithFilter);
 
-            pager.setAdapter(adapter);
+            pager.setAdapter(samplePagerAdapter);
 
             pager.setCurrentItem(0);
         }
@@ -740,9 +753,9 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
         {
             Collections.reverse(typeCategoryList);
 
-            SamplePagerAdapter adapter = new SamplePagerAdapter(getFragmentManager(), typeCategoryList, pagerFromFavorite, pagerWithFilter);
+             samplePagerAdapter = new SamplePagerAdapter(getFragmentManager(), typeCategoryList, pagerFromFavorite, pagerWithFilter);
 
-            pager.setAdapter(adapter);
+            pager.setAdapter(samplePagerAdapter);
 
             TabLayout tabLayout = rootView.findViewById(R.id.tabLayout);
             tabLayout.setupWithViewPager(pager);
@@ -750,7 +763,7 @@ public class PhotosArchiveFragment extends BaseFragment implements OnServiceStat
             for (int i = 0; i < tabLayout.getTabCount(); i++)
             {
                 TabLayout.Tab tab = tabLayout.getTabAt(i);
-                tab.setCustomView(adapter.getTabView(i));
+                tab.setCustomView(samplePagerAdapter.getTabView(i));
             }
 
             pager.setCurrentItem(typeCategoryList.size()-1);

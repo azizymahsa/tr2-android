@@ -18,7 +18,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="102dp"
+            android:layout_height="104dp"
             android:layout_alignParentTop="true"
             android:background="@android:color/transparent">
 
@@ -31,7 +31,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="102dp">
+        android:layout_marginTop="104dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
                                 app:srcCompat="@drawable/ic_arrow_left"
-                                android:tint="@color/textColorSecondary"/>
+                                app:tint="@color/textColorSecondary" />
 
                             <TextView
                                 android:layout_toRightOf="@+id/img0"
@@ -141,8 +141,7 @@
                             android:id="@+id/rlMyPredict"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:alpha="0.4"
-                            >
+                            android:alpha="1">
 
                             <ImageView
                                 android:id="@+id/img1"
@@ -152,11 +151,10 @@
                                 android:paddingBottom="10dp"
                                 android:paddingRight="10dp"
                                 android:scaleType="center"
-
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
                                 app:srcCompat="@drawable/ic_arrow_left"
-                                android:tint="@color/textColorSecondary"/>
+                                app:tint="@color/textColorSecondary" />
 
                             <TextView
                                 android:layout_toRightOf="@+id/img1"
@@ -185,8 +183,7 @@
                             android:id="@+id/rlMyFavorite"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:alpha="0.4"
-                            >
+                            android:alpha="0.4">
 
                             <ImageView
                                 android:id="@+id/img2"
@@ -197,10 +194,9 @@
                                 android:paddingRight="10dp"
                                 android:layout_alignParentLeft="true"
                                 android:scaleType="center"
-
                                 android:layout_centerVertical="true"
                                 app:srcCompat="@drawable/ic_arrow_left"
-                                android:tint="@color/textColorSecondary"/>
+                                app:tint="@color/textColorSecondary" />
 
                             <TextView
                                 android:layout_toRightOf="@+id/img2"
@@ -219,7 +215,8 @@
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
                                 android:padding="10dp"
-                                android:scaleType="center"                                android:layout_alignParentEnd="true"
+                                android:scaleType="center"
+                                android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/ic_favorite"/>
 
@@ -246,7 +243,8 @@
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
                                 android:padding="10dp"
-                                android:scaleType="center"                                android:layout_alignParentEnd="true"
+                                android:scaleType="center"
+                                android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/ic_exit_app"/>
 

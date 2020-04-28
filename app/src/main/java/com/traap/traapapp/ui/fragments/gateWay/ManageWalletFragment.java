@@ -185,7 +185,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
             case R.id.btnChangePass:
                 if (edtNewPass.getText().toString().equals(edtTemNewPass.getText().toString()))
                 {
-                    if (edtNewPass.getText().toString().length() > 4 && edtOldPass.getText().toString().length() > 4 && edtTemNewPass.getText().toString().length() > 4)
+                    if (edtNewPass.getText().toString().length() > 3 && edtOldPass.getText().toString().length() > 3 && edtTemNewPass.getText().toString().length() > 3)
                     {
 
                         MessageAlertDialog dialog1 = new MessageAlertDialog((Activity) mainView, "",
@@ -264,12 +264,9 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
         request.setPin2_old(edtOldPass.getText().toString());
         SingletonService.getInstance().forgetPasswordWalletService().ChangePasswordWalletService(new OnServiceStatus<WebServiceClass<ForgetPasswordWalletResponse>>()
         {
-
-
             @Override
             public void onReady(WebServiceClass<ForgetPasswordWalletResponse> response)
             {
-
                 try
                 {
                     mainView.hideLoading();
@@ -277,7 +274,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                     if (response.info.statusCode == 200)
                     {
                         MessageAlertSuccesDialog dialog = new MessageAlertSuccesDialog(getActivity(), "", getActivity().getString(R.string._send_sms_forget_pass), false,
-                                "بازگشت به خانه", "ی", 1, new MessageAlertSuccesDialog.OnConfirmListener()
+                                "بازگشت به خانه", "", 1, new MessageAlertSuccesDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()
@@ -344,8 +341,6 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
         request.setIsWallet(true);
         SingletonService.getInstance().forgetPasswordWalletService().ForgetPasswordWalletService(new OnServiceStatus<WebServiceClass<ForgetPasswordWalletResponse>>()
         {
-
-
             @Override
             public void onReady(WebServiceClass<ForgetPasswordWalletResponse> response)
             {
@@ -357,7 +352,7 @@ public class ManageWalletFragment extends BaseFragment implements View.OnClickLi
                     {
 
                         MessageAlertSuccesDialog dialog = new MessageAlertSuccesDialog(getActivity(), "", getActivity().getString(R.string._send_sms_forget_pass), false,
-                                "بازگشت به خانه", "ی", 1, new MessageAlertSuccesDialog.OnConfirmListener()
+                                "بازگشت به خانه", "", 1, new MessageAlertSuccesDialog.OnConfirmListener()
                         {
                             @Override
                             public void onConfirmClick()

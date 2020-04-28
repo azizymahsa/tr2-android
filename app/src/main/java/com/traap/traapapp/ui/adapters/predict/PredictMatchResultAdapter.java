@@ -26,18 +26,17 @@ import java.util.List;
  */
 public class PredictMatchResultAdapter extends RecyclerView.Adapter<PredictMatchResultAdapter.MyViewHolder>
 {
-
+    private OnLogoClickListener listener;
     private List<MatchTeamResults> cardList;
-    private Context context;
     private TeamDetails homeTeam, awayTeam;
     private Context appContext;
 
-    public PredictMatchResultAdapter(Context context, List<MatchTeamResults> models, TeamDetails homeTeam, TeamDetails awayTeam)
+    public PredictMatchResultAdapter(List<MatchTeamResults> models, TeamDetails homeTeam, TeamDetails awayTeam, OnLogoClickListener listener)
     {
         this.cardList = models;
-        this.context = context;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.listener = listener;
         appContext = SingletonContext.getInstance().getContext();
     }
 
@@ -68,6 +67,9 @@ public class PredictMatchResultAdapter extends RecyclerView.Adapter<PredictMatch
             loadImageIntoIV(homeTeam.getTeamLogo(), holder.imgHome, holder);
             loadImageIntoIV(awayTeam.getTeamLogo(), holder.imgAway, holder);
             loadImageIntoIV(item.getCup().getCupLogo(), holder.imgCupLogo, holder);
+//
+//            holder.imgHome.setOnClickListener(v -> listener.onHomeLogoClick());
+//            holder.imgAway.setOnClickListener(v -> listener.onAwayLogoClick());
 
             holder.vAway.setBackgroundColor(Color.parseColor(awayTeam.getTeamColorCode()));
             holder.vAway2.setBackgroundColor(Color.parseColor(awayTeam.getTeamColorCode()));
@@ -129,7 +131,17 @@ public class PredictMatchResultAdapter extends RecyclerView.Adapter<PredictMatch
             vAway2 = itemView.findViewById(R.id.vAway2);
             vHome2 = itemView.findViewById(R.id.vHome2);
             vHome = itemView.findViewById(R.id.vHome);
+
+            imgHome.setOnClickListener(v -> listener.onHomeLogoClick());
+            imgAway.setOnClickListener(v -> listener.onAwayLogoClick());
         }
+    }
+
+    public interface OnLogoClickListener
+    {
+        void onHomeLogoClick();
+
+        void onAwayLogoClick();
     }
 
 }

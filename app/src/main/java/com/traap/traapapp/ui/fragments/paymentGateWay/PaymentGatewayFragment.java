@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.paymentGateWay;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,12 +24,14 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Utility;
+import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
 /**
  * Created by MahsaAzizi on 11/20/2019.
@@ -50,7 +53,8 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     private String amount = "";
     private String title = "پرداخت";
     private int imageDrawable = 1;
-    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount, tvTitlePay;
+    private TextView tvWallet, tvCardsShetab, tvGateway, tvAmount;
+    private JustifiedTextView tvTitlePay;
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
 
@@ -108,6 +112,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
     }
 
+
     public void initView()
     {
         try
@@ -126,6 +131,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             imgLogo = rootView.findViewById(R.id.imgLogo);
 
             btnBuy = rootView.findViewById(R.id.btnBuy);
+        //    background_button_login
             btnBuy.setOnClickListener(clickListener);
             btnBack = rootView.findViewById(R.id.btnBack);
             btnBack.setOnClickListener(clickListener);
@@ -144,6 +150,13 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             rbTejarat.setEnabled(false);
             rbTejarat.setSelected(false);
             rbTejarat.setChecked(false);
+
+/*
+
+            tvTitlePay.setTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
+            tvTitlePay.setLineSpacing(10);
+            tvTitlePay.setTextSize(getResources().getDimension(R.dimen.textSize_14dp));
+*/
 
             FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
             flLogoToolbar.setOnClickListener(v -> {
@@ -193,6 +206,8 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             dialog.show(getActivity().getFragmentManager(), "dialog");*/
         }
     };
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -262,6 +277,18 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     public void onResume()
     {
         super.onResume();
+        if (SingletonPaymentPlace.getInstance().getPaymentPlace()==1){
+            mainView.backToMainFragment();
+            mainView.onChargeSimCard(0);
+
+            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
+
+        }else if (SingletonPaymentPlace.getInstance().getPaymentPlace()==2){
+            mainView.backToMainFragment();
+            mainView.onPackSimCard(0);
+
+            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
+        }
 
     }
 

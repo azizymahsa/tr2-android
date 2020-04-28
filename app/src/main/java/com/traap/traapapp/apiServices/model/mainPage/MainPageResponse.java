@@ -4,29 +4,49 @@ package com.traap.traapapp.apiServices.model.mainPage;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MainPageResponse {
+import java.util.List;
 
-    @SerializedName("data")
+public class MainPageResponse
+{
+
+    @SerializedName("banks")
     @Expose
-    private Data data;
-    @SerializedName("info")
+    private List<Bank> bank = null;
+    @SerializedName("to")
     @Expose
-    private Info info;
+    private List<Object> to = null;
+    @SerializedName("from")
+    @Expose
+    private List<From> from = null;
 
-    public Data getData() {
-        return data;
+    public List<Bank> getBank()
+    {
+        return bank;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setBank(List<Bank> bank)
+    {
+        this.bank = bank;
     }
 
-    public Info getInfo() {
-        return info;
+    public List<Object> getTo()
+    {
+        return to;
     }
 
-    public void setInfo(Info info) {
-        this.info = info;
+    public void setTo(List<Object> to)
+    {
+        this.to = to;
+    }
+
+    public List<From> getFrom()
+    {
+        return from;
+    }
+
+    public void setFrom(List<From> from)
+    {
+        this.from = from;
     }
 
 }

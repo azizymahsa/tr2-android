@@ -30,6 +30,8 @@ import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletRequest;
 import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletResponse;
 import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferRequest;
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
+import com.traap.traapapp.apiServices.model.editUser.sendCodeReq.SendCodeReq;
+import com.traap.traapapp.apiServices.model.editUser.sendCodeRes.SendCodeRes;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import com.traap.traapapp.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
@@ -50,6 +52,8 @@ import com.traap.traapapp.apiServices.model.getInfoBill.response.GetInfoBillResp
 import com.traap.traapapp.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillRequest;
 import com.traap.traapapp.apiServices.model.getInfoPhoneBill.GetInfoPhoneBillResponse;
 import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
+import com.traap.traapapp.apiServices.model.getLast5PastMatch.request.Last5PastMatchRequest;
+import com.traap.traapapp.apiServices.model.getLast5PastMatch.response.Last5PastMatchResponse;
 import com.traap.traapapp.apiServices.model.getMenu.request.GetMenuRequest;
 import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuResponse;
 import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpResponse;
@@ -64,6 +68,7 @@ import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResp
 import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
+import com.traap.traapapp.apiServices.model.inviteFriend.InviteFriendResponse;
 import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueRequest;
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
 import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPastResult;
@@ -71,6 +76,7 @@ import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponseP
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
+import com.traap.traapapp.apiServices.model.lottery.GetLotteryWinnerListResponse;
 import com.traap.traapapp.apiServices.model.mainPage.MainPageResponse;
 import com.traap.traapapp.apiServices.model.mainPhotos.MainPhotoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
@@ -91,6 +97,7 @@ import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
 import com.traap.traapapp.apiServices.model.points.groupBy.PointsGroupByResponse;
 import com.traap.traapapp.apiServices.model.points.guide.PointsGuideResponse;
 import com.traap.traapapp.apiServices.model.points.records.PointsRecordResponse;
+import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import com.traap.traapapp.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
@@ -113,9 +120,9 @@ import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfi
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
-import com.traap.traapapp.apiServices.model.setting.SettingResponse;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
+import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
@@ -163,7 +170,10 @@ public interface RetroClient
 
     @GET(Const.Get_Category_By_Id_Video)
     Single<Response<WebServiceClass<CategoryByIdVideosResponse>>> getCategoryByIdVideos(
-            @Path("id") Integer categoryId
+            //  @Path("id") Integer categoryId
+            @Query("page") Integer page,
+            @Query("page_size") Integer page_size,
+            @Query("category_id") Integer category_id
     );
 
     @GET(Const.Get_Category_By_Id_Video2)
@@ -289,7 +299,6 @@ public interface RetroClient
     );
 
 
-
     @GET(Const.GET_BOUGHT_FOR)
     Single<Response<WebServiceClass<GetBoughtForResponse>>> getBoughtFor();
 
@@ -309,13 +318,19 @@ public interface RetroClient
     Single<Response<WebServiceClass<WithdrawWalletResponse>>> withdrawWallet(
             @Body WithdrawWalletRequest request);
 
-    @POST(Const.GET_Leage)
+    @POST(Const.GET_League)
     Single<Response<WebServiceClass<ResponseLeage>>> getLeage(
             @Body GetLeagueRequest request);
 
-    @POST(Const.Get_Past_result)
+    @POST(Const.Get_Past_Result)
     Single<Response<WebServiceClass<ResponsePastResult>>> getPastResult(
             @Body RequestPastResult request);
+
+
+    @POST(Const.Get_Past_Result_v2)
+    Single<Response<WebServiceClass<Last5PastMatchResponse>>> getPastResult_v2(
+            @Body Last5PastMatchRequest request);
+
 
     @POST(Const.GET_PACKAGE_IRANCELL)
     Single<Response<WebServiceClass<GetPackageIrancellResponse>>> getIrancellPackage(
@@ -527,8 +542,8 @@ public interface RetroClient
             @Query("amount__lte") Integer priceTo,                                 //example 1000 and ""
             @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
             @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
-            @Query("status") Boolean status,                                       //example 0=All, 1=Success, 2=Failure
-            @Query("id__contains") String searchText
+            @Query("status") Boolean status                                       //example 0=All, 1=Success, 2=Failure
+//            @Query("id__contains") String searchText
     );
 
     @GET(Const.GET_Transaction_List)
@@ -537,8 +552,13 @@ public interface RetroClient
             @Query("amount__gte") Integer priceFrom,                               //example 1000 and ""
             @Query("amount__lte") Integer priceTo,                                 //example 1000 and ""
             @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
-            @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
-            @Query("id__contains") String searchText
+            @Query("create_date__lte") String dateTo                              //example 2019-12-01 and ""
+//            @Query("id__contains") String searchText
+    );
+
+    @GET(Const.GET_Transaction_List)
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionListBySearch(
+            @Query("type_transaction__title__contains") String searchText
     );
 
 
@@ -561,21 +581,28 @@ public interface RetroClient
             @Query("search") String searchText
     );
 
+
     @GET(Const.GET_CATEGORY_ARCHIVE_PHOTO)
     Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getPhotosArchiveCategory();
+
 
     @GET(Const.GetHistory)
     Single<Response<WebServiceClass<ResponseHistory>>> getHistory();
 
 
     @GET(Const.GET_PREDICT + "{matchId}/")
-//    Single<Response<WebServiceClass<GetPredictResponse_version1>>> getBarChart(
     Single<Response<WebServiceClass<GetPredictResponse>>> getPredict(
             @Path("matchId") Integer matchId
     );
 
+
+    @GET(Const.GET_MY_PREDICTS)
+    Single<Response<WebServiceClass<MyPredictResponse>>> getMyPredict();
+
+
     @GET(Const.GET_PREDICT_ENABLE)
     Single<Response<WebServiceClass<MatchItem>>> getPredictEnable();
+
 
     @POST(Const.SEND_PREDICT)
     Single<Response<WebServiceClass<Object>>> sendPredict(
@@ -588,11 +615,13 @@ public interface RetroClient
     );
 
 
-
     @GET(Const.GetSpectatorInfo)
     Single<Response<WebServiceClass<SpectatorInfoResponse>>> getSpectatorInfo(
             @Path("national_code") String nationalCode
     );
+
+    @GET(Const.GetSpectatorList)
+    Single<Response<WebServiceClass<GetSpectatorListResponse>>> getSpectatorList();
 
     @GET(Const.GET_PROFILE)
     Single<Response<WebServiceClass<GetProfileResponse>>> getProfile();
@@ -636,11 +665,20 @@ public interface RetroClient
             @Query("search") String searchText
     );
 
-//    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs_AND_DATES)
+    //    @GET(Const.Get_NEWS_ARCHIVE_BY_IDs_AND_DATES)
 //    Single<Response<WebServiceClass<NewsArchiveListByIdResponse>>> getNewsArchiveCategoryByIdsAndRangeDate(
 //            @Query("category_id__in") String categoryIds,          //example 1,2,3,4
 //            @Query("create_date__range") String createDateRanges   //example 2019-01-01,2019-12-01
 //    );
+    @POST(Const.Get_verify_change_user)
+    Single<Response<WebServiceClass<com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse>>> editUserVerify(
+            @Body com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest request
+    );
+
+    @POST(Const.Get_send_code_change_user)
+    Single<Response<WebServiceClass<SendCodeRes>>> sendCodeEditUser(
+            @Body SendCodeReq request
+    );
 
     @GET(Const.Get_NEWS_DETAILS + "{id}/")
     Single<Response<WebServiceClass<GetNewsDetailsResponse>>> getNewsDetails(
@@ -690,16 +728,25 @@ public interface RetroClient
     @GET(Const.GET_POINTS_GROUP_BY)
     Single<Response<WebServiceClass<PointsGroupByResponse>>> getPointGroupBy();
 
-    @GET(Const.SETTING)
-    Single<Response<WebServiceClass<SettingResponse>>> getSetting();
+//    @GET(Const.SETTING)
+//    Single<Response<WebServiceClass<SettingResponse>>> getSetting();
 
     @GET(Const.mainpage)
-    Observable<Response<MainPageResponse>> mainpage();
+    Single<Response<WebServiceClass<MainPageResponse>>> mainpage();
+
 
     @POST(Const.GetReport)
-            Observable<Response<GetReportResponse>> getReport(
-
+    Single<Response<WebServiceClass<GetReportResponse>>> getReport(
             @Body GetReportRequest request
+    );
+
+
+    @GET(Const.Get_Invite_Friend)
+    Single<Response<WebServiceClass<InviteFriendResponse>>> getInviteFriend();
+
+    @GET(Const.GET_LOTTERY_WINNER_LIST)
+    Single<Response<WebServiceClass<GetLotteryWinnerListResponse>>> getLotteryWinnerList(
+            @Path("matchId") Integer id
     );
 
 }

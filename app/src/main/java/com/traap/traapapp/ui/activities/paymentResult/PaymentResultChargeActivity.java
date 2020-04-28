@@ -2,8 +2,12 @@ package com.traap.traapapp.ui.activities.paymentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,8 +16,12 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
+import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonPaymentPlace;
+import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -26,6 +34,12 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
     private TextView tvTitle,tvStatusPayment,tvDate,tvPayment,tvAmount,tvPhoneNumber,tvRefrenceNumber,tvPackageTitle;
     private View btnShare,tvBackHome,llResult;
     private View btnSaveResult;
+    private String typeTransaction;
+    private boolean hasPaymentCharge = false;
+    private boolean hasPaymentPackageSimcard = false;
+    private int PAYMENT_STATUS = 0;
+    private boolean hasPaymentIncreaseWallet = false;
+    private boolean hasPaymentTicket = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,7 +50,7 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
 
         if (savedInstanceState == null)
         {
-            Bundle extras = getIntent().getExtras();
+     /*       Bundle extras = getIntent().getExtras();
             if (extras == null)
             {
 
@@ -44,10 +58,72 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
             {
                 refrenceNumber = extras.getString("RefrenceNumber");
                 // statusPayment=extras.getBoolean(            "StatusPayment",false);
-            }
+            }*/
         }
         initView();
+        Intent intent = getIntent();
+
+        if (intent.getData()!=null) {
+            Uri uri = intent.getData();
+            refrenceNumber = uri.getQueryParameter("refrencenumber").replace("/", "");
+            typeTransaction = uri.getQueryParameter("typetransaction").replace("/", "");
+        }else {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null)
+            {
+
+            } else
+            {
+                refrenceNumber = extras.getString("RefrenceNumber");
+                PAYMENT_STATUS=extras.getInt("PaymentStatus",0);
+
+                // statusPayment=extras.getBoolean(            "StatusPayment",false);
+            }
+        }
+
+        try
+        {
+            if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard)
+            {
+                hasPaymentCharge = true;
+                SingletonPaymentPlace.getInstance().setPaymentPlace(1);
+
+            }
+            else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
+            {
+                hasPaymentPackageSimcard = true;
+                SingletonPaymentPlace.getInstance().setPaymentPlace(2);
+
+            }
+            else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
+            {
+                hasPaymentTicket = true;
+            }
+            else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
+            {
+                hasPaymentIncreaseWallet = true;
+            }
+
+        } catch (Exception e)
+        {
+           // showToast(PaymentResultChargeActivity.this, "شماره پیگیری: " + refrenceNumber, 0);
+        }
+
+        if (hasPaymentTicket)
+        {
+
+
+            Intent intent2 = new Intent(this, ShowTicketsFragment.class);
+            intent2.putExtra("RefrenceNumber", refrenceNumber);
+            startActivity(intent2);
+            finish();
+            return;
+
+
+        }
+
         requestGetDetailTransaction(refrenceNumber);
+
     }
 
     private void initView()
@@ -69,6 +145,15 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
         llResult=findViewById(R.id.llResult);
         btnSaveResult=findViewById(R.id.btnSaveResult);
         btnSaveResult.setOnClickListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent();
+
+        resultIntent.putExtra("PaymentStatus", PAYMENT_STATUS);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
 
     private void requestGetDetailTransaction(String refrenceNumber)
@@ -165,6 +250,9 @@ public class PaymentResultChargeActivity extends BaseActivity implements View.On
                 // showDialog();
                 break;
             case R.id.tvBackHome:
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("PaymentStatus", PAYMENT_STATUS);
+                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
                 break;
         }

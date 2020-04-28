@@ -125,6 +125,7 @@
     <color name="mdtp_button_color">#AD0000</color>
     <color name="mdtp_button_text_color">#fff</color>
     <color name="mdtp_button_selected">#33969696</color>
+    <color name="greyishBrown">#484848</color>
 
     <!-- TimePicker Dark Theme -->
     <color name="mdtp_circle_background_dark_theme">#EBE095</color>
@@ -142,5 +143,13 @@
     <color name="backgroudPointMain">#d5282e</color>
     <color name="irancell">#ecc011</color>
     <color name="rightel">#9b2777</color>
+    <color name="predeictedTrueBackgroundColor">#d3ead8</color>
+    <color name="predeictedFalseBackgroundColor">#facecf</color>
+    <color name="predeictedTrueTextColor">#369251</color>
+    <color name="predeictedFalseTextColor">#d0555a</color>
+    <color name="colorBorderMatchCard">#cccccc</color>
+    <color name="backgroundLastLooseMatch">#facecf</color>
+    <color name="backgroundLastEqualMatch">#e4cfbc</color>
+    <color name="backgroundLastWinMatch">#d3ead8</color>
     <!--  calendar  end-->
 </resources>

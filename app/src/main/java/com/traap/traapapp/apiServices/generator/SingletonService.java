@@ -25,6 +25,7 @@ import com.traap.traapapp.apiServices.part.GetBoughtForService;
 import com.traap.traapapp.apiServices.part.GetCardListService;
 import com.traap.traapapp.apiServices.part.GetContactInfoService;
 import com.traap.traapapp.apiServices.part.GetHappyCardInfoService;
+import com.traap.traapapp.apiServices.part.GetInviteFriendService;
 import com.traap.traapapp.apiServices.part.GetMainPhotosService;
 import com.traap.traapapp.apiServices.part.GetMainVideosService;
 import com.traap.traapapp.apiServices.part.GetMenuHelpService;
@@ -35,7 +36,7 @@ import com.traap.traapapp.apiServices.part.GetPackageMciService;
 import com.traap.traapapp.apiServices.part.GetPredictService;
 import com.traap.traapapp.apiServices.part.GetProfileService;
 import com.traap.traapapp.apiServices.part.GetRightelPackService;
-import com.traap.traapapp.apiServices.part.GetSettingService;
+import com.traap.traapapp.apiServices.part.GetLotteryWinnerListService;
 import com.traap.traapapp.apiServices.part.GetShetabCardInfoService;
 import com.traap.traapapp.apiServices.part.GetTicketInfoService;
 import com.traap.traapapp.apiServices.part.GetVersionService;
@@ -181,6 +182,11 @@ public class SingletonService
         return new GetContactInfoService(serviceGenerator);
     }
 
+    public GetInviteFriendService getInviteFriendService(){
+
+        return new GetInviteFriendService(serviceGenerator);
+    }
+
     public GetMenuHelpService getMenuHelpService(){
         return new GetMenuHelpService(serviceGenerator);
     }
@@ -270,9 +276,9 @@ public class SingletonService
         return new GetRightelPackService(serviceGenerator);
     }
 
-    public GetSettingService getSettingService()
+    public GetLotteryWinnerListService getSettingService()
     {
-        return new GetSettingService(serviceGenerator);
+        return new GetLotteryWinnerListService(serviceGenerator);
     }
 
     public GetPackageMciService getPackageMciService()
@@ -397,6 +403,11 @@ public class SingletonService
     public NewsService getNewsService()
     {
         return new NewsService(serviceGenerator);
+    }
+
+    public GetLotteryWinnerListService getLotteryWinnerListService()
+    {
+        return new GetLotteryWinnerListService(serviceGenerator);
     }
 
 

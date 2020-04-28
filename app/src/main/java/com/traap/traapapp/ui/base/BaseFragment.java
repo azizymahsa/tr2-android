@@ -73,7 +73,7 @@ public class BaseFragment extends Fragment
             {
                 if (finish)
                 {
-                    ((Activity) context).finish();
+                    getActivity().onBackPressed();
                 }
             }
 
@@ -86,7 +86,10 @@ public class BaseFragment extends Fragment
         dialog.setCancelable(!finish);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
+    @Override
+    public void onSaveInstanceState( Bundle outState ) {
 
+    }
     public void showAlertFailure(Context context, String Msg, String mTitle, boolean finish)
     {
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
@@ -98,7 +101,7 @@ public class BaseFragment extends Fragment
             {
                 if (finish)
                 {
-                    ((Activity) context).finish();
+                    getActivity().onBackPressed();
                 }
             }
 

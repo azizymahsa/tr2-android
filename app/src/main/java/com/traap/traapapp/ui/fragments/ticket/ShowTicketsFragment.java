@@ -3,15 +3,12 @@ package com.traap.traapapp.ui.fragments.ticket;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -24,6 +21,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.ticket.ShowTicketAdapter;
+import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
@@ -34,10 +32,13 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by MahtabAzizi on 10/28/2019.
  */
-public class ShowTicketsFragment extends BaseFragment implements View.OnClickListener, TicketInfoInteractor.OnFinishedTicketInfoListener
+public class ShowTicketsFragment extends BaseActivity implements View.OnClickListener, TicketInfoInteractor.OnFinishedTicketInfoListener
 {
 
     private TextView btnBackToDetail, tvCountTicket, tvSelectPosition, tvFullInfo, tvPrintTicket;
@@ -50,7 +51,6 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     private Context context;
 
     private TextView tvPopularPlayer;
-    private View view;
     private OnClickContinueBuyTicket onClickContinueBuyTicketListener;
     private View btnShareTicket, btnPaymentConfirm, btnBackToHome,btnReturn,btnSaveResult;
     private TextView tvDescTicket;
@@ -59,13 +59,14 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     private LinearLayoutManager linearLayoutManager;
     private ShowTicketAdapter showTicketAdapter;
     private ArrayList<ShowTicketItem> ticketItems = new ArrayList<>();
-    private MainActionView mainView;
+   // private MainActionView mainView;
     private MessageAlertDialog.OnConfirmListener listener = null;
     private LinearLayout llSuccessPayment,llErrorPayment;
     private String refrenceNumber="";
     private TextView txRefrenceNumber,tvRefrenceNumberFromErrorPayment;
     private boolean isTransactionList=false;
     private View llSelect;
+    private LinearLayout rlLoading;
 
 
     public ShowTicketsFragment()
@@ -84,6 +85,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
 
         return fragment;
     }*/
+/*
     public static ShowTicketsFragment newInstance(MainActionView mainActionView, String refrenceNumber)
     {
         ShowTicketsFragment fragment = new ShowTicketsFragment();
@@ -93,55 +95,60 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
 
         return fragment;
     }
+*/
 
 
+/*
     private void setMainView(MainActionView mainView, String refrenceNumber)
     {
         this.mainView = mainView;
         this.refrenceNumber=refrenceNumber;
     }
+*/
+
+
+
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-    }
-
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        view = inflater.inflate(R.layout.show_tickets_fragment, container, false);
+        setContentView(R.layout.show_tickets_fragment);
 
         ticketInfo = new TicketInfoImpl();
 
         initView();
         setSelectedLayoutChecked();
-        return view;
     }
-
+    public void showLoading(){
+        rlLoading.setVisibility(View.VISIBLE);
+    }
+    public void hideLoading(){
+        rlLoading.setVisibility(View.GONE);
+    }
     private void initView()
     {
-        mainView.showLoading();
+        refrenceNumber=getIntent().getExtras().getString("RefrenceNumber");
+
         try
         {
-            tvTitle = view.findViewById(R.id.tvTitle);
-            tvUserName = view.findViewById(R.id.tvUserName);
+            tvTitle = findViewById(R.id.tvTitle);
+            tvUserName = findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-            imgMenu = view.findViewById(R.id.imgMenu);
+            imgMenu = findViewById(R.id.imgMenu);
+            rlLoading = findViewById(R.id.rlLoading);
 
             imgMenu.setVisibility(View.GONE);
-            //imgMenu.setOnClickListener(v -> mainView.openDrawerVideos());
+            //imgMenu.setOnClickListener(v -> openDrawerVideos());
 
-            tvPopularPlayer = view.findViewById(R.id.tvPopularPlayer);
+            tvPopularPlayer = findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(Prefs.getString("PopularPlayer", "12"));
 
-            imgBack = view.findViewById(R.id.imgBack);
+            imgBack = findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
-                getActivity().onBackPressed();
+                onBackPressed();
             });
 
 
@@ -157,7 +164,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onConfirmClick()
             {
-                getActivity().onBackPressed();
+            onBackPressed();
 
             }
 
@@ -167,35 +174,35 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
             }
 
         };
-        ivCountTicket = view.findViewById(R.id.ivCountTicket);
-        tvCountTicket = view.findViewById(R.id.tvCountTicket);
-        ivSelectPosition = view.findViewById(R.id.ivSelectPosition);
-        tvSelectPosition = view.findViewById(R.id.tvSelectPosition);
-        ivFullInfo = view.findViewById(R.id.ivFullInfo);
-        tvFullInfo = view.findViewById(R.id.tvFullInfo);
-        ivPrintTicket = view.findViewById(R.id.ivPrintTicket);
-        tvPrintTicket = view.findViewById(R.id.tvPrintTicket);
-        vZeroToOne = view.findViewById(R.id.vZeroToOne);
-        vOneToTow = view.findViewById(R.id.vOneToTow);
-        vTowToThree = view.findViewById(R.id.vTowToThree);
-        llSelect=view.findViewById(R.id.llSelect);
+        ivCountTicket = findViewById(R.id.ivCountTicket);
+        tvCountTicket = findViewById(R.id.tvCountTicket);
+        ivSelectPosition = findViewById(R.id.ivSelectPosition);
+        tvSelectPosition = findViewById(R.id.tvSelectPosition);
+        ivFullInfo = findViewById(R.id.ivFullInfo);
+        tvFullInfo = findViewById(R.id.tvFullInfo);
+        ivPrintTicket = findViewById(R.id.ivPrintTicket);
+        tvPrintTicket = findViewById(R.id.tvPrintTicket);
+        vZeroToOne = findViewById(R.id.vZeroToOne);
+        vOneToTow = findViewById(R.id.vOneToTow);
+        vTowToThree = findViewById(R.id.vTowToThree);
+        llSelect=findViewById(R.id.llSelect);
 
-        txRefrenceNumber=view.findViewById(R.id.txRefrenceNumber);
+        txRefrenceNumber=findViewById(R.id.txRefrenceNumber);
         txRefrenceNumber.setText(" کد پیگیری پرداخت: "+refrenceNumber);
-        tvRefrenceNumberFromErrorPayment=view.findViewById(R.id.tvRefrenceNumberFromErrorPayment);
+        tvRefrenceNumberFromErrorPayment=findViewById(R.id.tvRefrenceNumberFromErrorPayment);
         tvRefrenceNumberFromErrorPayment.setText(" کد پیگیری پرداخت: "+refrenceNumber);
 
-        llSuccessPayment = view.findViewById(R.id.llSuccessPayment);
-        llErrorPayment=view.findViewById(R.id.llErrorPayment);
-        btnShareTicket = view.findViewById(R.id.btnShareTicket);
-        btnPaymentConfirm = view.findViewById(R.id.btnPaymentConfirm);
-        btnSaveResult=view.findViewById(R.id.btnSaveResult);
+        llSuccessPayment = findViewById(R.id.llSuccessPayment);
+        llErrorPayment=findViewById(R.id.llErrorPayment);
+        btnShareTicket = findViewById(R.id.btnShareTicket);
+        btnPaymentConfirm = findViewById(R.id.btnPaymentConfirm);
+        btnSaveResult=findViewById(R.id.btnSaveResult);
 
-        btnReturn=view.findViewById(R.id.btnReturn);
+        btnReturn=findViewById(R.id.btnReturn);
         btnReturn.setOnClickListener(this);
 
-        btnBackToHome = view.findViewById(R.id.btnBackToHome);
-        rvTickets = view.findViewById(R.id.rvTickets);
+        btnBackToHome = findViewById(R.id.btnBackToHome);
+        rvTickets = findViewById(R.id.rvTickets);
         btnShareTicket.setOnClickListener(this);
         btnPaymentConfirm.setOnClickListener(this);
         btnSaveResult.setOnClickListener(this);
@@ -207,16 +214,18 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
             llSelect.setVisibility(View.VISIBLE);
         }
 
-        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager = new LinearLayoutManager(this);
         rvTickets.setLayoutManager(linearLayoutManager);
         try
         {
             ticketInfo.reservationRequest(this, Long.parseLong(refrenceNumber.trim()));
 
-        } catch (Exception e)
-        {
-
         }
+        catch (Exception e)
+    {
+
+    }
+        showLoading();
 
     }
 
@@ -237,18 +246,6 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         vTowToThree.setBackgroundColor(getResources().getColor(R.color.textColorPrimary));
     }
 
-    @Override
-    public void onAttach(Context context)
-    {
-        super.onAttach(context);
-        this.context = context;
-    }
-
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-    }
 
 
 
@@ -264,34 +261,35 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         {
             case R.id.btnPaymentConfirm:
                 SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+                onBackPressed();
 
                 // onClickContinueBuyTicketListener.goBuyTicket();
-                mainView.getBuyEnable(() -> { });
+             //   getBuyEnable(() -> { });
              //   getActivity().finish();
 
                 break;
 
             case R.id.btnSaveResult:
-                new ScreenShot(rvTickets, (Activity) context, true, "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
+                new ScreenShot(rvTickets, this, true, "برای ذخیره تصویر رسید، اخذ این مجوز الزامی است.");
                 // showDialog();
                 break;
             case R.id.btnBackToHome:
                 SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
 
-                getActivity().onBackPressed();
+               onBackPressed();
 
                 break;
             case R.id.btnShareTicket:
-                SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+                new ScreenShot(rvTickets, this, false, "برای ارسال تصویر رسید، اخذ این مجوز الزامی است.");
 
-                new ScreenShot(rvTickets, (Activity) context);
-                // showToast(getContext(), "share");
+                // SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
+               // new ScreenShot(rvTickets, (Activity) context);
                 break;
 
             case R.id.btnReturn:
                 SingletonNeedGetAllBoxesRequest.getInstance().setNeedRequest(true);
 
-                getActivity().onBackPressed();
+              onBackPressed();
                 break;
         }
     }
@@ -300,11 +298,11 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     public void onFinishedTicketInfo(GetTicketInfoResponse response)
     {
 
-        showTicketAdapter = new ShowTicketAdapter(response.getResults(), mainView);
+        showTicketAdapter = new ShowTicketAdapter(response.getResults());
         rvTickets.setAdapter(showTicketAdapter);
         llSuccessPayment.setVisibility(View.VISIBLE);
         llErrorPayment.setVisibility(View.GONE);
-        mainView.hideLoading();
+        hideLoading();
 
         ivPrintTicket.setImageResource(R.drawable.select_step);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
@@ -327,7 +325,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
         llSuccessPayment.setVisibility(View.GONE);
         llErrorPayment.setVisibility(View.VISIBLE);
         showToast(context, error, R.color.red);
-        mainView.hideLoading();
+        hideLoading();
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
@@ -343,7 +341,7 @@ public class ShowTicketsFragment extends BaseFragment implements View.OnClickLis
     {
         llSuccessPayment.setVisibility(View.GONE);
         llErrorPayment.setVisibility(View.VISIBLE);
-        mainView.hideLoading();
+        hideLoading();
         ivPrintTicket.setImageResource(R.drawable.un_check_mark);
         tvPrintTicket.setTextColor(getResources().getColor(R.color.textColorPrimary));
 

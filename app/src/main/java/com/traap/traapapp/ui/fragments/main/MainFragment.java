@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
+import com.google.gson.Gson;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -38,6 +40,9 @@ import com.squareup.picasso.Picasso;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -212,6 +217,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         return rootView;
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
@@ -245,7 +251,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE)
                 {
-                    Logger.e("-+- Scroll Index -+-", favoriteServicesIndex + ", " + layoutManager.findLastVisibleItemPosition());
+//                    Logger.e("-+- Scroll Index -+-", favoriteServicesIndex + ", " + layoutManager.findLastVisibleItemPosition());
                     if (favoriteServicesIndex != layoutManager.findLastVisibleItemPosition() + 1)
                     {
                         favoriteServicesIndex = layoutManager.findLastCompletelyVisibleItemPosition() - 1;
@@ -267,7 +273,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             {
                 rcFavoriteServices.post(() ->
                 {
-                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
+//                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
                     if (favoriteServicesIndex < favoriteServicesCount)
                     {
                         favoriteServicesIndex++;
@@ -278,7 +284,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     }
                     rcFavoriteServices.smoothScrollToPosition(favoriteServicesIndex);
                 });
-            } finally
+            }
+            finally
             {
                 mHandler.postDelayed(repeatTask, TIME_INTERVAL_FAV_SERVICE_ANIM);
             }
@@ -301,6 +308,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
 
     private StartEniacFlightActivity startEniacFlightActivity;
+
     private void initView(View rootView)
     {
         mToolbar = rootView.findViewById(R.id.toolbar);
@@ -352,13 +360,20 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvF4 = rootView.findViewById(R.id.tvF4);
         tvF5 = rootView.findViewById(R.id.tvF5);
         tvF6 = rootView.findViewById(R.id.tvF6);
+        try
+        {
+            tvF2.setText(footballServiceList.get(0).getTitle());
+            tvF1.setText(footballServiceList.get(1).getTitle());
+            tvF4.setText(footballServiceList.get(2).getTitle());
+            tvF3.setText(footballServiceList.get(3).getTitle());
+            tvF6.setText(footballServiceList.get(4).getTitle());
+            tvF5.setText(footballServiceList.get(5).getTitle());
 
-        tvF2.setText(footballServiceList.get(0).getTitle());
-        tvF1.setText(footballServiceList.get(1).getTitle());
-        tvF4.setText(footballServiceList.get(2).getTitle());
-        tvF3.setText(footballServiceList.get(3).getTitle());
-        tvF6.setText(footballServiceList.get(4).getTitle());
-        tvF5.setText(footballServiceList.get(5).getTitle());
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+        }
 
         rlF1.setOnClickListener(this);
         rlF2.setOnClickListener(this);
@@ -367,14 +382,19 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         rlF5.setOnClickListener(this);
         rlF6.setOnClickListener(this);
         rlShirt.setOnClickListener(this);
-
-        setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF3, footballServiceList.get(3).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ", "%20"));
-        setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ", "%20"));
-
+        try
+        {
+            setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF3, footballServiceList.get(3).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ", "%20"));
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+        }
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true);
         rcFavoriteServices.setLayoutManager(layoutManager);
         sliderLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -492,7 +512,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         ((TextView) rootView.findViewById(R.id.tvPredictText)).setText("هیچ بازی جهت پیش بینی وجود ندارد!");
                     }
                 });*/
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 showToast(context, "زمان پیش بینی به پایان رسیده است.", R.color.green);
             }
@@ -551,11 +572,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     item.setKeyName(itemResponse.getKeyName());
                     item.setBase_url(itemResponse.getBaseUrl());
                     item.setLogin_url(itemResponse.getLoginUrl());
+                    item.setLogo(itemResponse.getLogo_());
 
                     newList.add(item);
                 }
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -618,7 +641,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //            }
 
 
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
 
             }
@@ -1016,7 +1040,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             showAlert(context, R.string.networkErrorMessage, R.string.networkError);
         }
-
     }
 
     @Override
@@ -1030,7 +1053,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit()
-        mainView.onPredict(matchItem, matchItem.getIsPredict());
+        mainView.onPredict(matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override
@@ -1051,12 +1074,23 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         try
         {
             nestedScroll.scrollTo(0, 0);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
 
         }
 
+
+        Collections.sort(results, new Comparator<ResultHelpMenu>()
+        {
+            public int compare(ResultHelpMenu o1, ResultHelpMenu o2)
+            {
+                return o1.getCode().compareTo(o2.getCode());
+            }
+        });
+        Log.e("tesssst", new Gson().toJson(results).toString());
         helpMenuResult = results;
+
 
         YoYo.with(Techniques.SlideOutLeft).withListener(new AnimatorListenerAdapter()
         {
@@ -1067,12 +1101,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 rlIntro.setVisibility(View.GONE);
                 Utility.disableEnableControls(true, llRoot);
 
-                for (int i = 0; i < results.size(); i++)
+
+                for (int i = 1; i < results.size(); i++)
                 {
-                    if (results.get(i).getCode() == 1)
-                    {
-                        intro(imgMenu, results.get(i).getTitle(), results.get(i).getDescription(), 1);
-                    }
+                 /*   if (results.get(i).getCode() == 1)
+                    {*/
+                    intro(imgMenu, results.get(i).getTitle(), results.get(i).getDescription(), results.get(i).getCode());
+                    break;
+                    //  }
                 }
             }
         })
@@ -1099,7 +1135,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         Utility.disableEnableControls(true, llRoot);
                         showError(context, response.info.message);
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     showError(context, e.getMessage());
                 }
@@ -1134,7 +1171,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         if (Prefs.getBoolean("intro", true))
         {
             requestShowTutorialIntro();
-
         }
         else
         {
@@ -1166,7 +1202,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                             Utility.disableEnableControls(true, llRoot);
                             showToast(((Activity) context), response.info.message, R.color.red);
                         }
-                    } catch (Exception e)
+                    }
+                    catch (Exception e)
                     {
                         showToast(((Activity) context), e.getMessage(), R.color.red);
 
@@ -1205,6 +1242,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         helpMenuResult = results;
         tvShowIntro.setOnClickListener(view ->
         {
+
             showIntro(results);
         });
         tvCancelIntro.setOnClickListener(view ->
@@ -1255,7 +1293,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                             {
                                 if (helpMenuResult.get(i).getCode() == 2)
                                 {
-                                    intro(btnBuyTicket, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 2);
+                                    intro(sliderRecyclerView, helpMenuResult.get(i).getTitle(), helpMenuResult.get(i).getDescription(), 2);
                                 }
                             }
                             else if (type == 2)
@@ -1313,7 +1351,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                                             intro(rcFavoriteServices, helpMenuResult.get(iFromService).getTitle(), helpMenuResult.get(iFromService).getDescription(), 9);
 
                                         }, 1000);
-                                    } catch (Exception e)
+                                    }
+                                    catch (Exception e)
                                     {
 
                                     }
@@ -1324,7 +1363,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                         }
 
-                    } catch (Exception e)
+                    }
+                    catch (Exception e)
                     {
 
                     }

@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.enums.LeagueTableParent;
+import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
 import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -26,7 +29,7 @@ import com.traap.traapapp.utilities.Tools;
 public class NextMatchesFragment extends BaseFragment implements MatchAdapter.ItemClickListener
 {
     private MainActionView mainActionView;
-    private List<MatchItem> nextMatchesList=new ArrayList<>();
+    private List<MatchItem> nextMatchesList = new ArrayList<>();
     private View rootView;
 
 
@@ -47,7 +50,7 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
 
     private void setData(List<MatchItem> nextMatchesList)
     {
-        this.nextMatchesList=nextMatchesList;
+        this.nextMatchesList = nextMatchesList;
     }
 
     public void initView()
@@ -55,7 +58,6 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
         try
         {
             recyclerView = rootView.findViewById(R.id.rclPast);
-
 
         } catch (Exception e)
         {
@@ -67,6 +69,7 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     {
         this.mainActionView = mainActionView;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -86,42 +89,12 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     private void addDataRecyclerList()
     {
 
-        mAdapter = new MatchAdapter(nextMatchesList,getContext(),this);
+        mAdapter = new MatchAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new MatchAdapter(nextMatchesList, getActivity(),this);
+        mAdapter = new MatchAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getActivity(), this);
         recyclerView.setAdapter(mAdapter);
-    }
-
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-    }
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-
-
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
     }
 
 
@@ -141,23 +114,23 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     @Override
     public void onItemPredictClick(View view, int position, MatchItem matchItem)
     {
-        PredictFragment pastResultFragment =  PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
-
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+//        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
+//
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
+        mainActionView.onPredict(matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override
     public void onItemLogoTeamClick(View view, Integer id, String logo, String title)
     {
-        if (id==0){
-            showToast(getActivity(),"متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
-        }else
+        if (id == 0)
         {
-            mainActionView.openPastResultFragment(id.toString(), logo, title);
+            showToast(getActivity(), "متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
+        }
+        else
+        {
+            Prefs.putInt("selectedTab", 2);
+            mainActionView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment, "0", false, id.toString(), logo, title);
         }
     }
 }
-
-
-
-

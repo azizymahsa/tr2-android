@@ -207,18 +207,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30dp"
                 android:gravity="center"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:singleLine="true"
                 android:text=" "
                 android:textColor="@color/_title_black"
                 android:textSize="@dimen/textSize_14dp"
-                android:textStyle="bold" />
+              />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="0.1"
             android:gravity="center"
             android:orientation="vertical"
             >
@@ -250,10 +250,10 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_width="@dimen/_80dp"
+            android:layout_width="@dimen/_70dp"
             android:layout_height="@dimen/height_ticket_app_"
             android:gravity="center"
-            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_marginEnd="@dimen/_5dp"
             android:background="@drawable/left_line_invisible"
             android:orientation="horizontal">
 

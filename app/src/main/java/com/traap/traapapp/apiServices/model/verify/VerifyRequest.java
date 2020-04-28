@@ -15,6 +15,14 @@ public class VerifyRequest
     @Expose @Getter @Setter
     private String username;
 
+    @SerializedName("country_code")
+    @Expose @Getter @Setter
+    private String country_code;
+
+    @SerializedName("key_invite")
+    @Expose @Getter @Setter
+    private String keyInvite;
+
     @SerializedName("code")
     @Expose @Getter @Setter
     private String code;

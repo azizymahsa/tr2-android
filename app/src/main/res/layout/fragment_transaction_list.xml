@@ -153,8 +153,8 @@
                                 style="?android:attr/borderlessButtonStyle"
                                 app:srcCompat="@drawable/ic_search"
                                 android:layout_alignParentLeft="true"
-                                android:tint="@color/white"
-                                android:background="@drawable/background_border_red"/>
+                                android:background="@drawable/background_border_red"
+                                app:tint="@color/white" />
 
                             <com.traap.traapapp.utilities.ClearableEditText
                                 android:id="@+id/edtSearchText"
@@ -170,7 +170,7 @@
                                 android:layout_marginRight="8dp"
                                 android:singleLine="true"
                                 android:textSize="@dimen/textSize_12dp"
-                                android:hint="جستجوی کد پیگیری..."
+                                android:hint="جستجو..."
                                 android:imeOptions="actionDone"
                                 android:textColorHint="@color/textHint"
                                 android:textColor="@color/textColorSecondary" />

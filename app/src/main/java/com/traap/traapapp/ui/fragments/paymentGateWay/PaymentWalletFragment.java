@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.paymentGateWay;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -51,6 +52,7 @@ import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageWalletInteracto
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
+import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
 /**
  * Created by MahsaAzizi on 11/25/2019.
@@ -80,9 +82,10 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private String mobile;
     private SimPackPaymentInstance simPackPaymentInstance;
     private TextView tvAmount;
-    private TextView tvTitlePay;
+    private JustifiedTextView tvTitlePay;
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
+    public Integer balance=0;
 
 
 
@@ -154,6 +157,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
             btnBuy = rootView.findViewById(R.id.btnBuy);
             btnBuy.setOnClickListener(clickListener);
+
             btnBack = rootView.findViewById(R.id.btnBack);
             btnBack.setOnClickListener(clickListener);
 
@@ -162,6 +166,12 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             imgLogo = rootView.findViewById(R.id.imgLogo);
 
             llConfirm.setVisibility(View.VISIBLE);
+
+/*
+            tvTitlePay.setTypeFace(Typeface.createFromAsset(getActivity().getAssets(), "fonts/iran_sans_normal.ttf"));
+            tvTitlePay.setLineSpacing(10);
+            tvTitlePay.setTextSize(getResources().getDimension(R.dimen.textSize_14dp));
+*/
 
             setContentData();
             requestGetBalance();
@@ -188,6 +198,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
     private void requestGetBalance()
     {
+        mainView.showLoading();
         GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
         request.setIsWallet(true);
         SingletonService.getInstance().getBalancePasswordLessService().GetBalancePasswordLessService(new OnServiceStatus<WebServiceClass<GetBalancePasswordLessResponse>>()
@@ -197,7 +208,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             @Override
             public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response)
             {
-
+                mainView.hideLoading();
                 try
                 {
                     if (response.info.statusCode == 200)
@@ -223,6 +234,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             public void onError(String message)
             {
 
+
                 mainView.showError(message);
 
             }
@@ -232,6 +244,19 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private void setBalanceData(GetBalancePasswordLessResponse data)
     {
         tvBalance.setText(Utility.priceFormat(data.getBalanceAmount()));
+        try
+        {
+            balance=Integer.valueOf(data.getBalanceAmount());
+            if (balance<Integer.valueOf(amount)){
+                btnBuy.setEnabled(false);
+                btnBuy.setClickable(false);
+                btnBuy.setText("موجودی کافی نمی باشد.");
+                btnBuy.setTextColor(getActivity().getResources().getColor(R.color.black));
+                btnBuy.setBackground(getActivity().getResources().getDrawable(R.drawable.background_button_login_disable));
+
+            }
+
+        }catch (Exception e){};
         tvDate.setText(data.getDateTime());
     }
 
@@ -438,7 +463,9 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
         Intent intent = new Intent(getContext(), PaymentResultChargeActivity.class);
         intent.putExtra("RefrenceNumber", response.data.getRefNumber());
-        getContext().startActivity(intent);
+
+        intent.putExtra("PaymentStatus",PAYMENT_STATUS);
+        getActivity().startActivityForResult(intent,33);
 
     }
 
@@ -458,7 +485,9 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
         Intent intent = new Intent(getContext(), PaymentResultChargeActivity.class);
         intent.putExtra("RefrenceNumber", response.data.getRefNumber());
-        getContext().startActivity(intent);
+
+        intent.putExtra("PaymentStatus",PAYMENT_STATUS);
+        getActivity().startActivityForResult(intent,33);
     }
 
     @Override

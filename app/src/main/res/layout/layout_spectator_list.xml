@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/background_border_white_16dp">
+
+        <ImageView
+            android:id="@+id/imgFilterClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:srcCompat="@drawable/ic_arrow_down"
+            android:tint="@color/textHint"/>
+
+        <ScrollView
+            android:id="@+id/nestedScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="48dp"
+            android:paddingRight="48dp"
+            android:paddingBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvTitleFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="انتخاب از لیست تماشاگران:"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize_16dp"
+                        android:layout_alignParentRight="true"/>
+
+                    <com.traap.traapapp.utilities.ClearableEditText
+                        android:id="@+id/edtSearchFilter"
+                        android:layout_toLeftOf="@+id/tvTitleFilter"
+                        android:layout_toRightOf="@+id/sp1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center_vertical"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:layout_marginRight="8dp"
+                        android:singleLine="true"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:hint="جستجو"
+                        android:imeOptions="actionDone"
+                        android:textColorHint="@color/textHint"
+                        android:drawableRight="@drawable/ic_search"
+                        android:drawableTint="@color/textHint"
+                        android:textColor="@color/textColorSecondary" />
+
+                    <Space
+                        android:id="@+id/sp1"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_alignParentLeft="true"/>
+
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSpectatorList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:textColor="@color/red"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_20dp"
+                    android:text="نتیجه ای یافت نشد."
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:gravity="center|end"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40" />
+
+                    <LinearLayout
+                        android:id="@+id/llDeleteFilter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="120"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="100">
+
+                            <include
+                                android:id="@+id/btnDeleteFilter"
+                                layout="@layout/cancel_button" />
+
+                        </FrameLayout>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnConfirmFilter"
+                            layout="@layout/circular_progress_button" />
+
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

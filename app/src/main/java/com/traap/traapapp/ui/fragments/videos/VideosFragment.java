@@ -7,19 +7,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
+import com.google.android.material.tabs.TabLayout;
+
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +39,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -54,23 +57,23 @@ import com.traap.traapapp.apiServices.model.mainVideos.ListCategory;
 import com.traap.traapapp.ui.adapters.video.CategoryAdapter;
 import com.traap.traapapp.ui.adapters.video.VideosCategoryTitleAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.media.MediaFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
+
+import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
 
 /**
  * Created by MahtabAzizi on 11/23/2019.
  */
 public class VideosFragment extends BaseFragment implements VideosCategoryTitleAdapter.TitleCategoryListener,
-        View.OnClickListener, NewestVideosAdapter.NewestVideoListener, CategoryAdapter.CategoryListener
-{
+        View.OnClickListener, NewestVideosAdapter.NewestVideoListener, CategoryAdapter.CategoryListener {
     private VideosActionView mainView;
     private View rootView;
     private LinearLayout rlLoading;
-    public  Integer bNewestVideoPosition;
-    public  Integer categoryClickPosition;
-    public  Integer categoryClickPositionX;
-    public  Integer categoryClickPositionY;
+    public Integer bNewestVideoPosition;
+    public Integer categoryClickPosition;
+    public Integer categoryClickPositionX;
+    public Integer categoryClickPositionY;
     private Context context;
     private FrameLayout flProgress;
 
@@ -95,33 +98,32 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     private ScrollingPagerIndicator indicatorNewestPhotos;
     private ListCategory category;
     private LinearLayout llTop;
+    private ProgressBar pbMoreVideo;
+    private Integer pageNumber = 1;
+    private TabLayout tabLayout;
+    ArrayList<Category> categories = new ArrayList<>();
 
-    public VideosFragment()
-    {
+    public VideosFragment() {
 
     }
 
-    public static VideosFragment newInstance(SubMediaParent parent, VideosActionView mainView)
-    {
+    public static VideosFragment newInstance(SubMediaParent parent, VideosActionView mainView) {
         VideosFragment fragment = new VideosFragment();
         fragment.setMainView(mainView);
         fragment.setParent(parent);
         return fragment;
     }
 
-    private void setParent(SubMediaParent parent)
-    {
+    private void setParent(SubMediaParent parent) {
         this.parent = parent;
     }
 
-    private void setMainView(VideosActionView mainView)
-    {
+    private void setMainView(VideosActionView mainView) {
         this.mainView = mainView;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         YoYo.with(Techniques.FadeIn)
                 .duration(700)
@@ -129,28 +131,27 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        if (rootView != null)
-        {
+                             Bundle savedInstanceState) {
+        if (rootView != null) {
             return rootView;
         }
         rootView = inflater.inflate(R.layout.fragment_videos, container, false);
 
         flProgress = rootView.findViewById(R.id.flProgress);
+        pbMoreVideo = rootView.findViewById(R.id.pbMoreVideo);
         bNewestVideo = rootView.findViewById(R.id.bNewestPhotos);
         ivFavorite1 = rootView.findViewById(R.id.ivFavorite1);
         ivFavorite2 = rootView.findViewById(R.id.ivFavorite2);
         ivFavorite3 = rootView.findViewById(R.id.ivFavorite3);
         nestedScroll = rootView.findViewById(R.id.nestedScroll);
+        tabLayout = rootView.findViewById(R.id.tabLayout);
         indicatorNewestPhotos = rootView.findViewById(R.id.indicatorNewestPhotos);
         rvCategoryTitles = rootView.findViewById(R.id.rvCategoryTitles);
         tvArchiveVideo = rootView.findViewById(R.id.tvArchivePhotos);
@@ -169,45 +170,73 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         tvArchiveVideo.setOnClickListener(this);
         LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
         rvCategories.setLayoutManager(layoutManagerCategory);
-        // requestMainVideos();
 
+/*        nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+
+                if (scrollY == ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() )) {
+                    if (pbMoreVideo.getVisibility()==View.GONE){
+                        pageNumber++;
+                        requestGetCategoryById(idCategoryTitle,true);
+
+                        pbMoreVideo.setVisibility(View.VISIBLE);
+
+                    }
+                }
+            }
+        });*/
+        nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+
+                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                    if (pbMoreVideo.getVisibility() == View.GONE) {
+                        pbMoreVideo.setVisibility(View.VISIBLE);
+
+                        pageNumber++;
+                        requestGetCategoryById(idCategoryTitle, true, false);
+
+
+                    }
+
+                }
+            }
+        });
+
+
+        // requestMainVideos();
 
 
         return rootView;
     }
 
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
+        requestMainVideos();
 
         //Call the method
-        requestMainVideos();
+
     }
 
-    private void requestMainVideos()
-    {
-          flProgress.setVisibility(View.VISIBLE);
-        SingletonService.getInstance().getMainVideosService().getMainVideos(new OnServiceStatus<WebServiceClass<MainVideosResponse>>()
-        {
+    private void requestMainVideos() {
+        flProgress.setVisibility(View.VISIBLE);
+        SingletonService.getInstance().getMainVideosService().getMainVideos(new OnServiceStatus<WebServiceClass<MainVideosResponse>>() {
             @Override
-            public void onReady(WebServiceClass<MainVideosResponse> response)
-            {
-                  flProgress.setVisibility(View.GONE);
-                try
-                {
+            public void onReady(WebServiceClass<MainVideosResponse> response) {
+                flProgress.setVisibility(View.GONE);
+                try {
 
-                    if (response.info.statusCode == 200)
-                    {
+                    if (response.info.statusCode == 200) {
                         mainVideosResponse = response.data;
                         onGetMainVideosSuccess(response.data);
-                    }
-                    else
-                    {
+                    } else {
                         //  Tools.showToast(getContext(), response.info.message, R.color.red);
                         Logger.e("-getMainVideos-", "status: " + response.info.statusCode);
                     }
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     //  Tools.showToast(getContext(), e.getMessage(), R.color.red);
 
                     Logger.e("-getMainVideos Exception-", "Exception: " + e.getMessage());
@@ -215,16 +244,12 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             }
 
             @Override
-            public void onError(String message)
-            {
-                  flProgress.setVisibility(View.GONE);
-                if (Tools.isNetworkAvailable((Activity) context))
-                {
+            public void onError(String message) {
+                flProgress.setVisibility(View.GONE);
+                if (Tools.isNetworkAvailable((Activity) context)) {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(context, "خطا در دریافت اطلاعات از سرور!");
-                }
-                else
-                {
+                } else {
                     showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
                 // Tools.showToast(context, message, R.color.red);
@@ -232,21 +257,18 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         });
     }
 
-    private void onGetMainVideosSuccess(MainVideosResponse mainVideosResponse)
-    {
+    private void onGetMainVideosSuccess(MainVideosResponse mainVideosResponse) {
+
         bNewestVideo.setAdapter(new NewestVideosAdapter(mainVideosResponse.getRecent(), this));
         setDataFavoriteList(mainVideosResponse);
         indicatorNewestPhotos.attachToRecyclerView(bNewestVideo.getmRecyclerView());
 
         bNewestVideo.setAutoPlaying(true);
-        if (bNewestVideoPosition!=null)
-        {
-            try
-            {
+        if (bNewestVideoPosition != null) {
+            try {
                 bNewestVideo.getmRecyclerView().scrollToPosition(bNewestVideoPosition);
 
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 bNewestVideo.getmRecyclerView().scrollToPosition(0);
 
             }
@@ -268,60 +290,113 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 //
 //        }
 
-        videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(mainVideosResponse.getListCategories(), this);
-        rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);
-        categoryAdapter = new CategoryAdapter(mainVideosResponse.getCategory(), this);
-        rvCategories.setAdapter(categoryAdapter);
-        rvCategories.setNestedScrollingEnabled(false);
-        if (categoryClickPosition!=null)
-        {
-            try
-            {
-                rvCategoryTitles.scrollTo(categoryClickPositionX, categoryClickPositionY);
-                  flProgress.setVisibility(View.VISIBLE);
 
-                idCategoryTitle = category.getId();
-                requestGetCategoryById(idCategoryTitle);
+        if (idCategoryTitle != 0) {
+            flProgress.setVisibility(View.GONE);
+            pbMoreVideo.setVisibility(View.GONE);
+
+
+            return;
+        }
+        Collections.reverse( mainVideosResponse.getListCategories());
+        for (ListCategory listCategory : mainVideosResponse.getListCategories()) {
+            tabLayout.addTab(tabLayout.newTab().setText(listCategory.getTitle()));
+
+
+        }
+        tabLayout.setTabTextColors(getResources().getColor(R.color.black), getResources().getColor(R.color.borderColorRed));
+
+        tabLayout.getTabAt(mainVideosResponse.getListCategories().size()-1).select();
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override public void run() {
+                        tabLayout.getTabAt(mainVideosResponse.getListCategories().size()-1).select();
+                    }
+                }, 100);
+        changeFontInViewGroup(tabLayout,"fonts/iran_sans_normal.ttf");
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabLayout.setTabTextColors(getResources().getColor(R.color.black), getResources().getColor(R.color.borderColorRed));
+                changeFontInViewGroup(tabLayout,"fonts/iran_sans_normal.ttf");
+                categoryClickPosition = position;
+                flProgress.setVisibility(View.VISIBLE);
+                categoryClickPositionX = tabLayout.getScrollX();
+                categoryClickPositionY = tabLayout.getScrollY();
+                idCategoryTitle = mainVideosResponse.getListCategories().get(tab.getPosition()).getId();
+                flProgress.setVisibility(View.VISIBLE);
+                pageNumber = 1;
+                requestGetCategoryById(mainVideosResponse.getListCategories().get(tab.getPosition()).getId(), false, false);
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+         requestGetCategoryById(mainVideosResponse.getListCategories().get(mainVideosResponse.getListCategories().size()-1).getId(), false, true);
+
+
+
+
+     /*   videoCategoryTitleAdapter = new VideosCategoryTitleAdapter(mainVideosResponse.getListCategories(), this);
+        rvCategoryTitles.setAdapter(videoCategoryTitleAdapter);*/
+       // idCategoryTitle = mainVideosResponse.getListCategories().get(0).getId();
+
+       // requestGetCategoryById(mainVideosResponse.getListCategories().get(0).getId(), false, true);
+        rvCategories.setNestedScrollingEnabled(false);
+     /*   if (categoryClickPosition != null) {
+            try {
+                rvCategoryTitles.scrollTo(categoryClickPositionX, categoryClickPositionY);
+                flProgress.setVisibility(View.VISIBLE);
+
+                idCategoryTitle = mainVideosResponse.getListCategories().get(0).getId();
+                flProgress.setVisibility(View.VISIBLE);
+
+                requestGetCategoryById(idCategoryTitle, false, true);
                 videoCategoryTitleAdapter.setSelectedPosition(categoryClickPosition);
 
 
-  /*              RecyclerView.ViewHolder viewHolder = rvCategoryTitles.findViewHolderForAdapterPosition(position);
+  *//*              RecyclerView.ViewHolder viewHolder = rvCategoryTitles.findViewHolderForAdapterPosition(position);
 
 
                 ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setTextColor(context.getResources().getColor(R.color.borderColorRed));
-                ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setBackgroundResource(R.drawable.background_border_a);*/
-            } catch (Exception e)
-            {
+                ((VideosCategoryTitleAdapter.ViewHolder ) viewHolder).tvTitle.setBackgroundResource(R.drawable.background_border_a);*//*
+            } catch (Exception e) {
                 rvCategoryTitles.scrollToPosition(0);
                 idCategoryTitle = category.getId();
-                requestGetCategoryById(idCategoryTitle);
+                flProgress.setVisibility(View.VISIBLE);
+
+                requestGetCategoryById(idCategoryTitle, false, true);
             }
-        }
+        }*/
     }
 
-    private void setDataFavoriteList(MainVideosResponse mainVideosResponse)
-    {
-        if (!mainVideosResponse.getFavorites().isEmpty())
-        {
+    private void setDataFavoriteList(MainVideosResponse mainVideosResponse) {
+        if (!mainVideosResponse.getFavorites().isEmpty()) {
             llFavorites.setVisibility(View.VISIBLE);
             tvEmptyFavorite.setVisibility(View.GONE);
             List<Category> favoriteList = mainVideosResponse.getFavorites();
             setImageBackground(ivFavorite1, favoriteList.get(0).getBigPoster().replace("\\", ""));
             setImageBackground(ivFavorite2, favoriteList.get(1).getBigPoster().replace("\\", ""));
             setImageBackground(ivFavorite3, favoriteList.get(2).getBigPoster().replace("\\", ""));
-        }
-        else
-        {
+        } else {
             llFavorites.setVisibility(View.GONE);
             tvEmptyFavorite.setVisibility(View.VISIBLE);
         }
 
     }
 
-    private void setImageBackground(ImageView image, String link)
-    {
-        try
-        {
+    private void setImageBackground(ImageView image, String link) {
+        try {
             Glide.with(getContext()).load(Uri.parse(link)).into(image);
          /*   Picasso.with(getContext()).load(Uri.parse(link)).into(image, new Callback()
             {
@@ -334,65 +409,67 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
                 }
             });*/
-        }
-        catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             Picasso.with(getContext()).load(R.drawable.img_failure).into(image);
         }
     }
 
     @Override
-    public void onItemTitleCategoryClick(ListCategory category, int position)
-    {
+    public void onItemTitleCategoryClick(ListCategory category, int position) {
 
         this.category = category;
-        categoryClickPosition=position;
-          flProgress.setVisibility(View.VISIBLE);
-        categoryClickPositionX=rvCategoryTitles.getScrollX();
-        categoryClickPositionY=rvCategoryTitles.getScrollY();
+        categoryClickPosition = position;
+        flProgress.setVisibility(View.VISIBLE);
+        categoryClickPositionX = rvCategoryTitles.getScrollX();
+        categoryClickPositionY = rvCategoryTitles.getScrollY();
         idCategoryTitle = category.getId();
-        requestGetCategoryById(idCategoryTitle);
+        flProgress.setVisibility(View.VISIBLE);
+        pageNumber = 1;
+
+        requestGetCategoryById(idCategoryTitle, false, false);
     }
 
-    private void requestGetCategoryById(Integer idCategoryTitle)
-    {
-          flProgress.setVisibility(View.VISIBLE);
+    private void requestGetCategoryById(Integer idCategoryTitle, Boolean isPage, boolean isFirst) {
 
-        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(idCategoryTitle, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>()
-        {
+        SingletonService.getInstance().categoryByIdVideosService().categoryByIdVideosService(pageNumber, 10, idCategoryTitle, new OnServiceStatus<WebServiceClass<CategoryByIdVideosResponse>>() {
             @Override
-            public void onReady(WebServiceClass<CategoryByIdVideosResponse> response)
-            {
-                try
-                {
-                    if (response.info.statusCode == 200)
-                    {
+            public void onReady(WebServiceClass<CategoryByIdVideosResponse> response) {
+                try {
+                    if (response.info.statusCode == 200) {
+                        if (isFirst) {
+                            flProgress.setVisibility(View.GONE);
+                            pbMoreVideo.setVisibility(View.GONE);
+                            rvCategories.setVisibility(View.VISIBLE);
+                            categories.clear();
+                            categories.addAll(response.data.getResults());
+                            categoryAdapter = new CategoryAdapter(categories, VideosFragment.this);
+                            rvCategories.setAdapter(categoryAdapter);
 
-                        setCategoryListData(response.data);
 
-                    }
-                    else
-                    {
+                            return;
+                        }
+
+                        setCategoryListData(response.data, isPage);
+
+                    } else {
+                        pbMoreVideo.setVisibility(View.GONE);
                         //  Tools.showToast(getContext(), response.info.message, R.color.red);
                     }
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
+                    pbMoreVideo.setVisibility(View.GONE);
+
                     //  Tools.showToast(getContext(), e.getMessage(), R.color.red);
                 }
             }
 
             @Override
-            public void onError(String message)
-            {
-                  flProgress.setVisibility(View.GONE);
-                if (Tools.isNetworkAvailable((Activity) context))
-                {
+            public void onError(String message) {
+                flProgress.setVisibility(View.GONE);
+                pbMoreVideo.setVisibility(View.GONE);
+                if (Tools.isNetworkAvailable((Activity) context)) {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(context, "خطا در دریافت اطلاعات از سرور!");
-                }
-                else
-                {
+                } else {
                     showAlert(context, R.string.networkErrorMessage, R.string.networkError);
                 }
                 // Tools.showToast(context, message, R.color.red);
@@ -401,20 +478,32 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     }
 
     @SuppressLint("CheckResult")
-    private void setCategoryListData(CategoryByIdVideosResponse data)
-    {
-        if (data.getResults().isEmpty())
-        {
+    private void setCategoryListData(CategoryByIdVideosResponse data, Boolean isPage) {
+        if (data.getResults().isEmpty()) {
             tvEmpty.setVisibility(View.VISIBLE);
             rvCategories.setVisibility(View.GONE);
             flProgress.setVisibility(View.GONE);
 
-        }
-        else
-        {
+        } else {
             tvEmpty.setVisibility(View.GONE);
+            //  pbMoreVideo.setVisibility(View.GONE);
+
+
+            if (isPage) {
+                categories.addAll(data.getResults());
+                categoryAdapter.notifyItemRangeChanged(categories.size() - 1, data.getResults().size());
+                flProgress.setVisibility(View.GONE);
+
+                new Handler().postDelayed(() -> pbMoreVideo.setVisibility(View.GONE), 700);
+
+                return;
+            }
+            pbMoreVideo.setVisibility(View.GONE);
+
             rvCategories.setVisibility(View.VISIBLE);
-            categoryAdapter = new CategoryAdapter(data.getResults(), this);
+            categories.clear();
+            categories.addAll(data.getResults());
+            categoryAdapter = new CategoryAdapter(categories, this);
             rvCategories.setAdapter(categoryAdapter);
             Observable.just(rvCategories.getHeight())
                     .subscribeOn(Schedulers.io())
@@ -424,7 +513,10 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 
                         flProgress.setVisibility(View.GONE);
 
-                        nestedScroll.post(() ->{nestedScroll.scrollTo(0, llTop.getHeight()); } ); });
+                        nestedScroll.post(() -> {
+                            nestedScroll.scrollTo(0, llTop.getHeight());
+                        });
+                    });
 
         }
 
@@ -441,18 +533,13 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
             },50);*/
 
 
-
-
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.ivFavorite1:
-                if (mainVideosResponse != null)
-                {
+                if (mainVideosResponse != null) {
                     categoriesList = mainVideosResponse.getFavorites();
                     position = 0;
                     idVideo = mainVideosResponse.getFavorites().get(position).getCategoryId();
@@ -462,8 +549,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 break;
 
             case R.id.ivFavorite2:
-                if (mainVideosResponse != null)
-                {
+                if (mainVideosResponse != null) {
                     categoriesList = mainVideosResponse.getFavorites();
                     position = 1;
                     idVideo = mainVideosResponse.getFavorites().get(position).getCategoryId();
@@ -473,8 +559,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                 break;
 
             case R.id.ivFavorite3:
-                if (mainVideosResponse != null)
-                {
+                if (mainVideosResponse != null) {
                     categoriesList = mainVideosResponse.getFavorites();
                     position = 2;
                     idVideo = mainVideosResponse.getFavorites().get(position).getCategoryId();
@@ -482,8 +567,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
                     openVideoDetail(categoriesList, position, idVideo, id);
                 }
                 break;
-            case R.id.tvArchivePhotos:
-            {
+            case R.id.tvArchivePhotos: {
                 mainView.onVideosArchiveFragment(parent);
 //                try
 //                {
@@ -504,8 +588,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
 //                }
                 break;
             }
-            case R.id.tvMyFavoriteVideo:
-            {
+            case R.id.tvMyFavoriteVideo: {
                 mainView.onVideosFavoriteFragment(parent);
 //                try
 //                {
@@ -528,8 +611,7 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
         }
     }
 
-    private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id)
-    {
+    private void openVideoDetail(ArrayList<Category> categoriesList, int position, Integer idVideo, Integer id) {
         Intent intent = new Intent(context, VideoDetailActivity.class);
 
         intent.putParcelableArrayListExtra("Videos", categoriesList);
@@ -542,17 +624,15 @@ public class VideosFragment extends BaseFragment implements VideosCategoryTitleA
     }
 
     @Override
-    public void onItemNewestVideoClick(int position, Category category)
-    {
-        bNewestVideoPosition=position;
+    public void onItemNewestVideoClick(int position, Category category) {
+        bNewestVideoPosition = position;
 
         categoriesList = mainVideosResponse.getRecent();
         openVideoDetail(categoriesList, position, category.getCategoryId(), category.getId());
     }
 
     @Override
-    public void onItemCategoryClick(int position, Category category, ArrayList<Category> categories)
-    {
+    public void onItemCategoryClick(int position, Category category, ArrayList<Category> categories) {
         categoriesList = categories;
         openVideoDetail(categoriesList, position, category.getCategoryId(), category.getId());
     }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -84,6 +85,8 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
                              Bundle savedInstanceState)
     {
         rootView = inflater.inflate(R.layout.fragment_increase_inventory, container, false);
+
+        Prefs.putBoolean("isMainWalletFragment", false);
 
         initView();
 

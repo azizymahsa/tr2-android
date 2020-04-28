@@ -8,9 +8,7 @@ import lombok.Setter;
 
 public class RequestPastResult
 {
-    @SerializedName("team")
-    @Expose
-    @Getter
-    @Setter
-    private String team;
+    @SerializedName("livescore_id")
+    @Expose @Getter @Setter
+    private String teamLiveScoreId;
 }

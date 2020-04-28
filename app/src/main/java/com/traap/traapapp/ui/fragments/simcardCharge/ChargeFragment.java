@@ -70,14 +70,17 @@ import com.traap.traapapp.apiServices.model.availableAmount.Result;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.contact.OnSelectContact;
 import com.traap.traapapp.apiServices.model.getBoughtFor.GetBoughtForResponse;
+import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
+import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
 import com.traap.traapapp.ui.adapters.charge.ChargeAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -398,9 +401,9 @@ public class ChargeFragment extends BaseFragment
 
         } else
         {
-            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberMci.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText("0"+Prefs.getString("mobile", ""));
 
 
         }
@@ -418,9 +421,9 @@ public class ChargeFragment extends BaseFragment
 
         } else
         {
-            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberMci.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText("0"+Prefs.getString("mobile", ""));
 
 
         }
@@ -438,9 +441,9 @@ public class ChargeFragment extends BaseFragment
 
         } else
         {
-            autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
-            autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberMci.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberIrancel.setText("0"+Prefs.getString("mobile", ""));
+            autoCompletePhoneNumberRightel.setText("0"+Prefs.getString("mobile", ""));
 
 
         }
@@ -902,6 +905,7 @@ public class ChargeFragment extends BaseFragment
     public void onResume()
     {
         super.onResume();
+
         etCvv2.setText("");
         etPassCharge.setText("");
         // etChargeAmount.setText("");
@@ -1201,7 +1205,7 @@ public class ChargeFragment extends BaseFragment
 
     private void initDefaultOperatorView()
     {
-        operatorType = getOperatorType(Prefs.getString("mobile", ""));
+        operatorType = getOperatorType("0"+Prefs.getString("mobile", ""));
         // operatorType = getOperatorType("09121234567");
 
         switch (operatorType)
@@ -1294,9 +1298,9 @@ public class ChargeFragment extends BaseFragment
 //        isMtn = false;
 //        isMci = true;
 //        isRightel = false;
-        autoCompletePhoneNumberMci.setText(Prefs.getString("mobile", ""));
-        autoCompletePhoneNumberIrancel.setText(Prefs.getString("mobile", ""));
-        autoCompletePhoneNumberRightel.setText(Prefs.getString("mobile", ""));
+        autoCompletePhoneNumberMci.setText("0"+Prefs.getString("mobile", ""));
+        autoCompletePhoneNumberIrancel.setText("0"+Prefs.getString("mobile", ""));
+        autoCompletePhoneNumberRightel.setText("0"+Prefs.getString("mobile", ""));
         // etMCIAmount.setOnFocusChangeListener(this);
 /*        etMCINumber.setOnFocusChangeListener(this);
         etMobileCharge.setOnFocusChangeListener(this);
@@ -1881,7 +1885,13 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onPredict(MatchItem matchPredict, Boolean isPredictable)
+    public void onPredict(Integer matchId, Boolean isPredictable)
+    {
+
+    }
+
+    @Override
+    public void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable)
     {
 
     }
@@ -1971,7 +1981,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void openPastResultFragment(String teamId, String imageLogo, String logoTitle)
+    public void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle)
     {
 
     }
@@ -2038,6 +2048,24 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onChangeMediaPosition(MediaPosition mediaPosition)
+    {
+
+    }
+
+    @Override
+    public void onShowDetailWinnerList(List<Winner> winnerList)
+    {
+
+    }
+
+    @Override
+    public void onShowLast5PastMatch(Integer teamLiveScoreId)
+    {
+
+    }
+
     private void closeAutoComplete()
     {
         autoCompletePhoneNumberRightel.dismissDropDown();
@@ -2049,32 +2077,11 @@ public class ChargeFragment extends BaseFragment
     {
         try
         {
-            if (isMtn)
-            {
-                autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
-                //  tilMIrancell.setHint(event.getCupName());
-                closeAutoComplete();
+            autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
+            autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
+            autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
+            closeAutoComplete();
 
-
-                return;
-            }
-            if (isMci)
-            {
-                autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
-                // tilMMci.setHint(event.getCupName());
-                closeAutoComplete();
-
-                return;
-
-
-            }
-            if (isRightel)
-            {
-                autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
-                // tilMRightel.setHint(event.getCupName());
-
-                return;
-            }
 
         } catch (Exception e)
         {

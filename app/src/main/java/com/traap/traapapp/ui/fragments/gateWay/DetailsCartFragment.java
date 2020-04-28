@@ -51,7 +51,7 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
 
     private void setSettingData(SettingBalance settingsData)
     {
-        this.settingsData=settingsData;
+        this.settingsData = settingsData;
     }
 
     private void setMainView(MainActionView mainView)
@@ -65,19 +65,16 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
                              Bundle savedInstanceState)
     {
         rootView = inflater.inflate(R.layout.fragment_details_cart, container, false);
-
+        Prefs.putBoolean("isMainWalletFragment", true);
 
         initView();
-        Prefs.putInt("DetailCartStatus",1);
 
         return rootView;
     }
 
 
-
     private void initView()
     {
-
         lnrPayment = rootView.findViewById(R.id.lnrPayment);
         lnrGetReport = rootView.findViewById(R.id.lnrGetReport);
         lnrManageWallet = rootView.findViewById(R.id.lnrManageWallet);
@@ -126,32 +123,32 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
         switch (v.getId())
         {
             case R.id.lnrPayment:
-                fragment = WithdrawAccountFragment.newInstance(mainView,settingsData);
+               /* fragment = WithdrawAccountFragment.newInstance(mainView, settingsData);
                 showFragment(fragment);
-                Prefs.putInt("DetailCartStatus",0);
+                Prefs.putBoolean("isMainWalletFragment", false);*/
                 break;
             case R.id.lnrGetReport:
                 fragment = TurnoverFragment.newInstance(mainView);
                 showFragment(fragment);
-                Prefs.putInt("DetailCartStatus",0);
+                Prefs.putBoolean("isMainWalletFragment", false);
 
                 break;
             case R.id.lnrManageWallet:
                 fragment = ManageWalletFragment.newInstance(mainView);
                 showFragment(fragment);
-                Prefs.putInt("DetailCartStatus",0);
+                Prefs.putBoolean("isMainWalletFragment", false);
 
                 break;
             case R.id.lnrIncreaseInveronment:
-                fragment = IncreaseInventoryFragment.newInstance(mainView,settingsData);
+                fragment = IncreaseInventoryFragment.newInstance(mainView, settingsData);
                 showFragment(fragment);
-                Prefs.putInt("DetailCartStatus",0);
+                Prefs.putBoolean("isMainWalletFragment", false);
 
                 break;
             case R.id.lnrDoTransfer:
                 fragment = MoneyTransferFragment.newInstance(mainView);
                 showFragment(fragment);
-                Prefs.putInt("DetailCartStatus",0);
+                Prefs.putBoolean("isMainWalletFragment", false);
 
 
                 break;
@@ -162,7 +159,9 @@ public class DetailsCartFragment extends BaseFragment implements View.OnClickLis
 
     public void onSelectContact(OnSelectContact onSelectContact)
     {
-        if(fragment instanceof MoneyTransferFragment){}
+        if (fragment instanceof MoneyTransferFragment)
+        {
+        }
         ((MoneyTransferFragment) fragment).onSelectContact(onSelectContact);
     }
 }

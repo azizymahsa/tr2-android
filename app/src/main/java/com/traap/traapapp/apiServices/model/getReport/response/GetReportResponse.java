@@ -4,29 +4,75 @@ package com.traap.traapapp.apiServices.model.getReport.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetReportResponse {
+import java.util.List;
 
-    @SerializedName("data")
+public class GetReportResponse
+{
+
+    @SerializedName("balance_amount")
     @Expose
-    private Data data;
-    @SerializedName("info")
+    private String balanceAmount;
+    @SerializedName("full_name")
     @Expose
-    private Info info;
+    private String fullName;
+    @SerializedName("total_trn_count")
+    @Expose
+    private String totalTrnCount;
+    @SerializedName("is_loyal")
+    @Expose
+    private String isLoyal;
+    @SerializedName("list_transaction")
+    @Expose
+    private List<ListTransaction> listTransaction = null;
 
-    public Data getData() {
-        return data;
+    public String getBalanceAmount()
+    {
+        return balanceAmount;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setBalanceAmount(String balanceAmount)
+    {
+        this.balanceAmount = balanceAmount;
     }
 
-    public Info getInfo() {
-        return info;
+    public String getFullName()
+    {
+        return fullName;
     }
 
-    public void setInfo(Info info) {
-        this.info = info;
+    public void setFullName(String fullName)
+    {
+        this.fullName = fullName;
+    }
+
+    public String getTotalTrnCount()
+    {
+        return totalTrnCount;
+    }
+
+    public void setTotalTrnCount(String totalTrnCount)
+    {
+        this.totalTrnCount = totalTrnCount;
+    }
+
+    public String getIsLoyal()
+    {
+        return isLoyal;
+    }
+
+    public void setIsLoyal(String isLoyal)
+    {
+        this.isLoyal = isLoyal;
+    }
+
+    public List<ListTransaction> getListTransaction()
+    {
+        return listTransaction;
+    }
+
+    public void setListTransaction(List<ListTransaction> listTransaction)
+    {
+        this.listTransaction = listTransaction;
     }
 
 }

@@ -108,7 +108,7 @@ public class AllMenuServiceModelAdapter extends RecyclerView.Adapter<AllMenuServ
         {
             try
             {
-                Picasso.with(mContext).load(item.getImageLink()).into(holder.image, new Callback()
+                Picasso.with(mContext).load(item.getLogo()).into(holder.image, new Callback()
                 {
                     @Override
                     public void onSuccess()

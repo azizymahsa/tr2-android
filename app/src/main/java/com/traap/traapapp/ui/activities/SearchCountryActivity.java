@@ -19,12 +19,13 @@ import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.models.CountryCodeModel;
 import com.traap.traapapp.ui.adapters.CountryAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
+import com.traap.traapapp.utilities.Utility;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -106,7 +107,7 @@ public class SearchCountryActivity extends BaseActivity
                         .fromIterable(countryCodeModels)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.computation())
-                        .filter(x -> {return x.getName().toLowerCase().contains(newText)||x.getDialCode().toLowerCase().contains(newText);})
+                        .filter(x -> {return x.getName().toLowerCase().contains(Utility.convertNumbersToEnglish(newText))||x.getDialCode().toLowerCase().contains(Utility.convertNumbersToEnglish(newText));})
                         .toList()
                         .subscribe(new SingleObserver<List<CountryCodeModel>>() {
                             @Override
@@ -136,26 +137,26 @@ public class SearchCountryActivity extends BaseActivity
 
     }
     private void initCountryCode()
-    {
-        Gson gson = new Gson();
-        String json = null;
-        try {
-            InputStream inputStream = getAssets().open("country.json");
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            json = new String(buffer, "UTF-8");
+{
+    Gson gson = new Gson();
+    String json = null;
+    try {
+        InputStream inputStream = getAssets().open("country.json");
+        int size = inputStream.available();
+        byte[] buffer = new byte[size];
+        inputStream.read(buffer);
+        inputStream.close();
+        json = new String(buffer, "UTF-8");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        countryCodeModels= gson.fromJson(json,
-                new TypeToken<ArrayList<CountryCodeModel>>() {
-                }.getType());
-        countryCodeModelsFilter.addAll(countryCodeModels);
-
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+
+    countryCodeModels= gson.fromJson(json,
+            new TypeToken<ArrayList<CountryCodeModel>>() {
+            }.getType());
+    countryCodeModelsFilter.addAll(countryCodeModels);
+
+}
 
 }

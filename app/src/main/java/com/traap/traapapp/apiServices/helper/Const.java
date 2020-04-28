@@ -7,9 +7,9 @@ public class Const
     public static final boolean TEST = false;
 
     //-----------------------------------------------------------------------------
-//    public final static String BASEURL = "http://5.253.25.117:7000/";
-    public final static String BASEURL = "http://5.253.25.117:9999/";
-//     public final static String BASEURL = "https://restapp.traap.com/";
+    public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
+//    public final static String BASEURL = "http://5.253.25.117:5000/";     //pre Live
+//     public final static String BASEURL = "https://restapp.traap.com/";   //Live
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -32,6 +32,7 @@ public class Const
     public final static String GetTicketInfo = SubBASEURL + "v1/match/ticket_info/";
     public final static String GetTicketBuyEnable = SubBASEURL + "v1/match/buy_enable/";
     public final static String GetSpectatorInfo=SubBASEURL+"v1/match/spectator/{national_code}";
+    public final static String GetSpectatorList=SubBASEURL+"v1/match/spectator";
 
     //Mobile
     public final static String GET_BOUGHT_FOR = SubBASEURL + "v1/topupcharge/bought_for/";
@@ -101,6 +102,8 @@ public class Const
 
     //MatchList
     public final static String GET_Match_List = SubBASEURL + "v1/match/";
+    public final static String Get_Past_Result = SubBASEURL + "v1/livescore/get_past_result/";
+    public final static String Get_Past_Result_v2 = SubBASEURL + "v2/livescore/get_past_result/";
 
     //History
     public final static String GetHistory = SubBASEURL + "v1/club_history/get_history/";
@@ -109,12 +112,12 @@ public class Const
     public final static String GET_VERSION = SubBASEURL + "v1/version/get_version_android/";
 
     //Leagues
-    public final static String GET_Leage = SubBASEURL + "v1/livescore/get_leagues/";
-    public final static String Get_Past_result = SubBASEURL + "v1/livescore/get_past_result/";
+    public final static String GET_League = SubBASEURL + "v1/livescore/get_leagues/";
 
-    //BarChart
+    //Predict
     public final static String GET_PREDICT = SubBASEURL + "v2/predict/";
     public final static String SEND_PREDICT = SubBASEURL + "v2/predict/";
+    public final static String GET_MY_PREDICTS = SubBASEURL + "v1/user/my_predicts/";
     public final static String GET_PREDICT_ENABLE = SubBASEURL + "v1/match/predict_enable/";
 
     //Rule
@@ -136,7 +139,11 @@ public class Const
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
     public final static String Get_VIDEOS_ARCHIVE_CATEGORY = SubBASEURL + "v1/video/category/";
     public final static String Get_VIDEOS_ARCHIVE_BY_IDs = SubBASEURL + "v1/video/";
-    public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
+  //  public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
+    public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/";
+
+
+
     public final static String Get_Category_By_Id_Video2 = SubBASEURL + "v1/video/{id}/related/";
     public final static String Like_Video = SubBASEURL + "v1/video/{id}/like/";
     public final static String bookMark_Video = SubBASEURL + "v1/video/{id}/bookmark/";
@@ -171,11 +178,20 @@ public class Const
     public final static String GET_POINTS_GUIDE = SubBASEURL + "v1/point/info/";
     public final static String GET_POINTS_GROUP_BY = SubBASEURL + "v1/point/group_by/";
 
-    //Setting
-    public final static String SETTING = SubBASEURL + "v1/setting/";
+//    //Setting
+//    public final static String SETTING = SubBASEURL + "v1/setting/";
 
     //moneyTransfer
     public final static String mainpage = SubBASEURL + "v1/shetab/main_page/";
 
+    //inviteFriend
+    public final static String Get_Invite_Friend=SubBASEURL+"v1/invite_friend/";
+
+    //Lottery for Predict
+    public final static String GET_LOTTERY_WINNER_LIST = SubBASEURL + "v1/lottery/{matchId}";
+
+    //editUser
+    public final static String Get_verify_change_user = SubBASEURL + "v1/user/change_username/verify/";
+    public final static String Get_send_code_change_user = SubBASEURL + "v1/user/change_username/send_code/";
 
 }

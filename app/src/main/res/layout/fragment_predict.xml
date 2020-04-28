@@ -27,12 +27,6 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/background_main_header" />
 
-<!--            <RelativeLayout-->
-<!--                android:id="@+id/header"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:background="@drawable/img_header_background" />-->
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -136,6 +130,7 @@
                                 <LinearLayout
                                     android:id="@+id/llAwayResultList"
                                     android:layout_below="@+id/rlAway"
+                                    android:foreground="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="6dp"
@@ -189,6 +184,7 @@
                                 <LinearLayout
                                     android:id="@+id/llHomeResultList"
                                     android:layout_below="@+id/rlHomeHeader"
+                                    android:foreground="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="6dp"
@@ -223,6 +219,7 @@
                                 android:layout_marginBottom="12dp"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/textSize_18dp"
+                                android:background="@color/white"
                                 android:textColor="@color/textColorSecondary"
                                 android:gravity="center"/>
 
@@ -265,7 +262,7 @@
                         android:gravity="center"
                         android:layout_marginEnd="8dp"
                         android:textColor="@color/textColorTitle"
-                        android:textSize="@dimen/textSize_18dp"/>
+                        android:textSize="@dimen/textSize_14dp"/>
 
                     <LinearLayout
                         android:id="@+id/llTimer"
@@ -281,7 +278,7 @@
                             android:text="00 : 00 : 00 : 00"
                             android:textStyle="bold"
                             android:textColor="@color/textColorTitle"
-                            android:textSize="@dimen/textSize_16dp"/>
+                            android:textSize="@dimen/textSize_14dp"/>
 
                         <TextView
                             android:layout_width="wrap_content"

@@ -26,6 +26,8 @@
             android:layout_height="@dimen/_45dp"
             android:src="@drawable/ic_list"
             android:padding="10dp"
+            android:layout_gravity="bottom"
+
             android:background="@drawable/button_small_border"
             android:layout_marginRight="5dp"
             android:foreground="?attr/selectableItemBackground" />
@@ -36,6 +38,7 @@
             android:layout_width="@dimen/_45dp"
             android:layout_height="@dimen/_45dp"
             android:padding="10dp"
+            android:layout_gravity="bottom"
             android:layout_marginRight="5dp"
             android:background="@drawable/button_small_border"
             android:foreground="?attr/selectableItemBackground" />
@@ -227,7 +230,7 @@
             android:layout_marginEnd="@dimen/_10dp"
             android:textSize="@dimen/textSize_12dp" />
         <ImageView
-            android:src="@drawable/ic_warning"
+            android:src="@drawable/ic_warningg"
             android:tint="@color/imageBookmarkNewsTintColor"
             android:layout_width="@dimen/_25dp"
             android:layout_height="@dimen/_25dp"

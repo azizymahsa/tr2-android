@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Browser;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,6 +45,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -122,6 +124,7 @@ public class AllMenuFragment extends BaseFragment implements
     private StartEniacFlightActivity startEniacFlightActivity;
 
     Integer backState;
+
     public AllMenuFragment()
     {
 
@@ -145,6 +148,7 @@ public class AllMenuFragment extends BaseFragment implements
     {
         this.mainView = mainView;
     }
+
     private void setBackState(Integer backState)
     {
         this.backState = backState;
@@ -184,7 +188,7 @@ public class AllMenuFragment extends BaseFragment implements
                 @Override
                 public void onClick(View v)
                 {
-                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
+                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class), 100);
                 }
             });
 
@@ -240,21 +244,23 @@ public class AllMenuFragment extends BaseFragment implements
 
             adapter = new AllMenuServiceModelAdapter(getActivity(), list, this);
             recyclerView.setAdapter(adapter);
-            Log.e("backStateAllMenu2", backState+"" );
+            Log.e("backStateAllMenu2", backState + "");
 
-            if (list!=null&&backState==2){
-                Log.e("injaaaaaa", "salaaaam" );
+            if (list != null && backState == 2)
+            {
+                Log.e("injaaaaaa", "salaaaam");
 
                 for (int i = 0; i < list.size(); i++)
                 {
-                    Log.e("teeeeeeeeeeeeeeest", list.get(i).getId()+"");
-                        if (list.get(i).getId()==4){
-                            Log.e("teeeeeeeeeeeeeeest", "ok");
+                    Log.e("teeeeeeeeeeeeeeest", list.get(i).getId() + "");
+                    if (list.get(i).getId() == 4)
+                    {
+                        Log.e("teeeeeeeeeeeeeeest", "ok");
 
-                            adapter.setRow_index(i);
-                            OnItemAllMenuClick(null,list.get(i).getId(),list.get(i).getSubMenu());
-                            adapter.notifyDataSetChanged();
-                        }
+                        adapter.setRow_index(i);
+                        OnItemAllMenuClick(null, list.get(i).getId(), list.get(i).getSubMenu());
+                        adapter.notifyDataSetChanged();
+                    }
                 }
 
             }
@@ -291,6 +297,7 @@ public class AllMenuFragment extends BaseFragment implements
                     item.setTitle(itemResponse.getTitle());
                     // item.setImageLink(itemResponse.getImageName());
                     item.setImageLink(itemResponse.getLogo());
+                    item.setLogo(itemResponse.getLogo_());
                     item.setLogo_selected(itemResponse.getLogoSelected());
                     item.setKeyName(itemResponse.getKeyName());
                     item.setSubMenu(itemResponse.getSubMenu());
@@ -533,23 +540,25 @@ public class AllMenuFragment extends BaseFragment implements
     private void loadSubMenu(List<SubMenu> list)
     {
         rvGrid.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        rvGrid.setAdapter(new ItemRecyclerViewAdapter(getContext(), list, this));//, interactionListener));
+        rvGrid.setAdapter(new ItemRecyclerViewAdapter(getContext(), list, this,getActivity()));//, interactionListener));
     }
 
     @Override
     public void onChosenItemClickk(View view, Integer id, String URl)
     {
+
+
         switch (id)
         {
             case 11://Flight ata
             {
-            /*    Intent intent = new Intent(getActivity(), WebActivity.class);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent,100);*/
-                startEniacFlightActivity =new StartEniacFlightActivity(
+                startActivityForResult(intent, 100);
+              /*  startEniacFlightActivity =new StartEniacFlightActivity(
                         "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh", "0037250100293610", "1397",
                         new FlightReservationData()
                         {
@@ -565,12 +574,12 @@ public class AllMenuFragment extends BaseFragment implements
 
                             }
                         }, 2);
-                startEniacFlightActivity.startMainFlight();
+                startEniacFlightActivity.startMainFlight();*/
                 break;
             }
             case 14://Flight all
             {
-                startEniacFlightActivity =new StartEniacFlightActivity(
+        /*        startEniacFlightActivity =new StartEniacFlightActivity(
                         "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh", "0037250100293610", "1397",
                         new FlightReservationData()
                         {
@@ -586,18 +595,18 @@ public class AllMenuFragment extends BaseFragment implements
 
                             }
                         }, 2);
-                startEniacFlightActivity.startMainFlight();
-               /* Intent intent = new Intent(getActivity(), WebActivity.class);
+                startEniacFlightActivity.startMainFlight();*/
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent,100);*/
+                startActivityForResult(intent, 100);
                 break;
             }
             case 12: //Hotel
             {
-                StartEniacHotelActivity   eniacHotelActivity =new StartEniacHotelActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+ /*               StartEniacHotelActivity   eniacHotelActivity =new StartEniacHotelActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
                         "0037250100293610", "1397", getActivity(), new HotelReservationData()
                 {
                     @Override
@@ -612,19 +621,19 @@ public class AllMenuFragment extends BaseFragment implements
 
                     }
                 }, 2);
-                eniacHotelActivity.startMainHotelActivity();
-          /*      Intent intent = new Intent(getActivity(), WebActivity.class);
+                eniacHotelActivity.startMainHotelActivity();*/
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent,100);*/
+                startActivityForResult(intent, 100);
                 break;
             }
 
             case 13: //Bus
             {
-                StartEniacBusActivity eniacBusActivity = new StartEniacBusActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
+              /*  StartEniacBusActivity eniacBusActivity = new StartEniacBusActivity("ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh",
                         "0037250100293610", "1397", getActivity(), new BusLockSeat()
                 {
                     @Override
@@ -639,16 +648,14 @@ public class AllMenuFragment extends BaseFragment implements
 
                     }
                 }, 2);
-                eniacBusActivity.startMainBusActivity();
+                eniacBusActivity.startMainBusActivity();*/
 
-          /*      Intent intent = new Intent(getActivity(), WebActivity.class);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent,100);*/
-
-
+                startActivityForResult(intent, 100);
 
 
                 //mainView.onPackSimCard();
@@ -704,6 +711,7 @@ public class AllMenuFragment extends BaseFragment implements
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
+/*
 
                 Bundle headers = new Bundle();
                 headers.putString("Authorization", Prefs.getString("accessToken",""));
@@ -717,16 +725,24 @@ public class AllMenuFragment extends BaseFragment implements
                 customTabsIntent.intent.putExtra(Browser.EXTRA_HEADERS, headers);
 
                 customTabsIntent.launchUrl(getActivity(), uri);
+*/
 
+/*
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("URL", URl);
+                intent.putExtra("Title", "الو پارک");
 
+                intent.putExtra("TOKEN", Prefs.getString("alopark_token", ""));
+                startActivityForResult(intent,100);*/
 
-             /*   Intent intent = new Intent(getActivity(), WebActivity.class);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", Prefs.getString("alopark_token", ""));
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivityForResult(intent,100);
-*/
+                startActivityForResult(intent, 100);
+
+
                 // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
             }
@@ -737,7 +753,7 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivityForResult(intent,100);
+                startActivityForResult(intent, 100);
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
@@ -754,7 +770,7 @@ public class AllMenuFragment extends BaseFragment implements
                     public void onPermissionGranted()
                     {
 
-                       // Utility.openUrlCustomTab(getActivity(), URl);
+                        // Utility.openUrlCustomTab(getActivity(), URl);
                         Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("URL", URl);
                         intent.putExtra("Title", "بیمه");
@@ -763,7 +779,7 @@ public class AllMenuFragment extends BaseFragment implements
                         intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
                         intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
                         intent.putExtra("bimeh_base_url", Prefs.getString("bimeh_base_url", ""));
-                        startActivityForResult(intent,100);
+                        startActivityForResult(intent, 100);
                     }
 
                     @Override

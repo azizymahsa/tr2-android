@@ -2,6 +2,8 @@ package com.traap.traapapp.ui.activities.paymentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -55,7 +57,8 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
             }
         }
         initView();
-        requestGetDetailTransaction(refrenceNumber);
+
+       requestGetDetailTransaction(refrenceNumber);
     }
 
     private void initView()
@@ -203,6 +206,8 @@ public class PaymentResultIncreaseInventoryActivity extends BaseActivity impleme
 
                 break;
             case R.id.tvBackHome:
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
                 break;
         }

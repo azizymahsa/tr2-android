@@ -6,8 +6,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,7 +34,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -76,7 +80,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 {
     private LoginPresenterImpl loginPresenter;
     private CircularProgressButton btnConfirm;
-    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, txtCondition;
+    private TextView tvDesc, tvCountDown, tvPhoneNumber, tvMenu, tvResend, txtCondition, tvChangeNumber;
     private int dimeSpace80, dimeSpace40, dimeLogo150, dimeLogo70;
     private RelativeLayout.LayoutParams logoLayoutParams;
     private LinearLayout.LayoutParams spaceLayoutParams;
@@ -84,12 +88,13 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     private TextInputLayout etLayout;
     private PinEntryEditText codeView;
     private boolean isCode = false;
-    private ClearableEditText etMobileNumber;
-    private LinearLayout countDownTimer, llPin, llCondition;
-    private ArrayList<CountryCodeModel> countryCodeModels=new ArrayList<>();
-    private EditText etCountryName,etCountryCode;
+    private ClearableEditText etMobileNumber, etInviteCode;
+    private LinearLayout countDownTimer, llPin, llCondition, llInvite;
+    private ArrayList<CountryCodeModel> countryCodeModels = new ArrayList<>();
+    private EditText etCountryName, etCountryCode;
     private CompositeDisposable disposable = new CompositeDisposable();
     private RelativeLayout rlCountryCode;
+    private TextWatcher textWatcher;
 
 
     @Override
@@ -122,7 +127,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     {
         Gson gson = new Gson();
         String json = null;
-        try {
+        try
+        {
             InputStream inputStream = getAssets().open("country.json");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
@@ -130,35 +136,44 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             inputStream.close();
             json = new String(buffer, "UTF-8");
 
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
 
-        countryCodeModels= gson.fromJson(json,
-                new TypeToken<ArrayList<CountryCodeModel>>() {
+        countryCodeModels = gson.fromJson(json,
+                new TypeToken<ArrayList<CountryCodeModel>>()
+                {
                 }.getType());
 
     }
+
     @SuppressLint("CheckResult")
-    private void filter() {
-
-
+    private void filter()
+    {
         RxTextView.textChangeEvents(etCountryCode)
 
-                .subscribe(e ->{
+                .subscribe(e ->
+                        {
                             Observable.fromIterable(countryCodeModels)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribeOn(Schedulers.computation())
-                                    .filter(x -> {return x.getDialCode().equals("+"+e.text().toString());})
+                                    .filter(x ->
+                                    {
+                                        return x.getDialCode().equals("+" + e.getText().toString());
+                                    })
                                     .toList()
-                                    .subscribe(new SingleObserver<List<CountryCodeModel>>() {
+                                    .subscribe(new SingleObserver<List<CountryCodeModel>>()
+                                    {
                                         @Override
-                                        public void onSubscribe(Disposable d) {
+                                        public void onSubscribe(Disposable d)
+                                        {
                                         }
 
                                         @Override
-                                        public void onSuccess(List<CountryCodeModel> codeModels) {
-                                            if (codeModels.size()>0)
+                                        public void onSuccess(List<CountryCodeModel> codeModels)
+                                        {
+                                            if (codeModels.size() > 0)
                                             {
                                                 etCountryName.setText(codeModels.get(0).getName());
                                             }
@@ -166,13 +181,13 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
                                         }
 
                                         @Override
-                                        public void onError(Throwable e) {
+                                        public void onError(Throwable e)
+                                        {
                                         }
                                     });
 
                         }
-                       );
-
+                );
 
 
     }
@@ -180,6 +195,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
     public void initView()
     {
         txtCondition = findViewById(R.id.txtCondition);
+        tvChangeNumber = findViewById(R.id.tvChangeNumber);
         llCondition = findViewById(R.id.llCondition);
         etCountryCode = findViewById(R.id.etCountryCode);
         etCountryName = findViewById(R.id.etCountryName);
@@ -187,6 +203,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         // tvTitle = findViewById(R.id.tvTitle);
         //etLayout = findViewById(R.id.etLayout);
         btnConfirm = findViewById(R.id.btnConfirm);
+        llInvite = findViewById(R.id.llInvite);
         btnConfirm.setText(getString(R.string.login));
 
         tvCountDown = findViewById(R.id.tvCountDown);
@@ -194,11 +211,13 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         // tvMenu = findViewById(R.id.tvMenu);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         etMobileNumber = findViewById(R.id.etMobileNumber);
+        etInviteCode = findViewById(R.id.etInviteCode);
         rlCountryCode = findViewById(R.id.rlCountryCode);
 
-        InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(11);
-        etMobileNumber.setFilters(filterArray);
+
+        InputFilter[] filterArrayInviteCode = new InputFilter[1];
+        filterArrayInviteCode[0] = new InputFilter.LengthFilter(8);
+        etInviteCode.setFilters(filterArrayInviteCode);
 
         countDownTimer = findViewById(R.id.countDownTimer);
         tvResend = findViewById(R.id.tvResend);
@@ -206,7 +225,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         llPin = findViewById(R.id.llPin);
         // tvTitle.setVisibility(View.GONE);
         loginPresenter.getCode(codeView);
-        loginPresenter.getMobile(etMobileNumber);
+        loginPresenter.getMobile(etMobileNumber, etCountryCode, etInviteCode);
         btnConfirm.setOnClickListener(loginPresenter);
 
         btnConfirm.setTag("mobile");
@@ -223,7 +242,8 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             tvCountDown.setVisibility(View.VISIBLE);
         });
 
-        txtCondition.setOnClickListener(view -> {
+        txtCondition.setOnClickListener(view ->
+        {
             Utility.openUrlCustomTab(this, "http://www.traap.com/terms");
 
         });
@@ -254,8 +274,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             if (str.length() == 4)
             {
                 loginPresenter.verifyRequest();
-            }
-            else
+            } else
             {
                 showAlert(LoginActivity.this, "لطفا کد فعال سازی خود را صحیح وارد نمایید.", R.string.error);
             }
@@ -263,16 +282,55 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         });
 
 
-        etCountryName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etCountryName.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
             @Override
-            public void onFocusChange(View arg0, boolean hasfocus) {
-                if (hasfocus) {
-                    startActivityForResult(new Intent(LoginActivity.this, SearchCountryActivity.class),1002);
+            public void onFocusChange(View arg0, boolean hasfocus)
+            {
+                if (hasfocus)
+                {
+                    startActivityForResult(new Intent(LoginActivity.this, SearchCountryActivity.class), 1002);
                     etCountryName.clearFocus();
                 }
             }
         });
 
+        tvChangeNumber.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                codeToMobile();
+
+            }
+        });
+
+
+        etMobileNumber.setLength(10);
+        textWatcher = new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (s.toString().length() == 1 && s.toString().startsWith("0"))
+                {
+                    s.clear();
+                }
+            }
+        };
+        etMobileNumber.addTextChangedListener(textWatcher);
     }
 
 
@@ -336,7 +394,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             startActivityForResult(intent, 100);
             finish();
         } else
+        {
             mobileToCode();
+        }
 
 
     }
@@ -366,8 +426,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             Logger.e("-OnError-", "Error: " + message);
             showErrorMessage(message);
 
-        }
-        else
+        } else
         {
             showAlert(this, R.string.networkErrorMessage, R.string.networkError);
         }
@@ -394,8 +453,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 //        btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setTag("code");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " کد فعال سازی ارسال شده را وارد کنید."));
-
-        tvPhoneNumber.setText("شماره تلفن همراه شما: " + etMobileNumber.getText().toString());
+        String stringBuilder = "+" + etCountryCode.getText().toString() +
+                etMobileNumber.getText().toString();
+        tvPhoneNumber.setText("شماره تلفن همراه شما: " + stringBuilder);
 
         YoYo.with(Techniques.SlideOutLeft)
                 .duration(500)
@@ -403,6 +463,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         YoYo.with(Techniques.SlideOutLeft)
                 .duration(500)
                 .playOn(etCountryName);
+        YoYo.with(Techniques.SlideOutLeft)
+                .duration(500)
+                .playOn(etInviteCode);
         YoYo.with(Techniques.SlideOutLeft)
                 .duration(700).withListener(new Animator.AnimatorListener()
         {
@@ -416,9 +479,11 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             public void onAnimationEnd(Animator animator)
             {
                 llPin.setVisibility(View.VISIBLE);
+                tvChangeNumber.setVisibility(View.VISIBLE);
                 etMobileNumber.setVisibility(View.GONE);
                 etCountryName.setVisibility(View.GONE);
                 rlCountryCode.setVisibility(View.GONE);
+                etInviteCode.setVisibility(View.GONE);
                 isCode = true;
                 YoYo.with(Techniques.SlideInRight)
                         .duration(500)
@@ -446,6 +511,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         countDownTimer.setVisibility(View.GONE);
         btnConfirm.setTag("mobile");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " شماره\n" + "  شماره تلفن همراه خود را وارد کنید."));
+        tvChangeNumber.setVisibility(View.GONE);
 
 
         YoYo.with(Techniques.SlideOutRight)
@@ -465,6 +531,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
                 etMobileNumber.setVisibility(View.VISIBLE);
                 etCountryName.setVisibility(View.VISIBLE);
                 rlCountryCode.setVisibility(View.VISIBLE);
+                etInviteCode.setVisibility(View.VISIBLE);
                 isCode = false;
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)
@@ -475,6 +542,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)
                         .playOn(etCountryName);
+                YoYo.with(Techniques.SlideInLeft)
+                        .duration(500)
+                        .playOn(etInviteCode);
 
             }
 
@@ -503,7 +573,9 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         {
             codeToMobile();
         } else
+        {
             super.onBackPressed();
+        }
     }
 
     @Override
@@ -512,9 +584,30 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1002 && resultCode == Activity.RESULT_OK)
         {
-         etCountryName.setText(data.getExtras().getString("name"));
-         etCountryCode.setText(data.getExtras().getString("code").replace("+",""));
 
+            etCountryName.setText(data.getExtras().getString("name"));
+            etCountryCode.setText(data.getExtras().getString("code").replace("+", ""));
+            Prefs.putString("Country_Code", data.getExtras().getString("code").replace("+", ""));
+
+            if (etCountryCode.getText().toString().equals("98"))
+            {
+                if (etMobileNumber.getText().toString().startsWith("0"))
+                {
+
+                    etMobileNumber.setText(etMobileNumber.getText().toString().replaceFirst("0", "")
+                            .replaceFirst("٠", ""));
+                }
+                etMobileNumber.setLength(10);
+                etMobileNumber.addTextChangedListener(textWatcher);
+
+
+            } else
+            {
+
+                etMobileNumber.setLength(11);
+                etMobileNumber.removeTextChangedListener(textWatcher);
+
+            }
         }
     }
 }

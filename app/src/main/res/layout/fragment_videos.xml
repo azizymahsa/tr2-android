@@ -278,20 +278,48 @@
                     android:id="@+id/rvCategoryTitles"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    app:tabBackground="@drawable/tab_background"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
 
+                    app:tabMode="scrollable"
+                    app:tabTextColor="@drawable/tab_text_color" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/textHint" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCategories"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    />
+                    android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginBottom="@dimen/_10dp"
+                        />
+                    <ProgressBar
+                        android:id="@+id/pbMoreVideo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/white"
+
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+
 
                 <TextView
                     android:id="@+id/tvEmpty"
