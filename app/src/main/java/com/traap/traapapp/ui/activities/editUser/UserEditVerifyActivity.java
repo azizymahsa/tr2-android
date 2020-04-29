@@ -256,12 +256,12 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
 //
 //                        break;
 //            }
-        finish();
+       //getParent().finish();
         //mainView.backToMainFragment();
-          /*  intent = new Intent(this, MainActivity.class);
+            intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityForResult(intent, 100);
-            finish();*/
+            finish();
 
 
        /* }

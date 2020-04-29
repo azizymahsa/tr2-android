@@ -210,7 +210,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     {
                         setProfileData(response);
 //                        loginView.onButtonActions(true, GoToActivity.UserProfileActivity);
-                        loginView.onButtonActions(true, GoToActivity.MainActivity);
+                        loginView.onButtonActions(true, GoToActivity.MainActivity,false);
                         loginView.hideLoading();
                         Prefs.putString("profileImage", response.data.getProfile().getProfileImage());
 
@@ -238,12 +238,18 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                     }
                     else
                     {
-                        codeView.setText("");
+                        loginView.hideLoading();
                         MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
                                 response.info.message,
                                 MessageAlertDialog.TYPE_ERROR);
                         dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
-                        loginView.hideLoading();
+                        
+                        if(response.info.statusCode==404)
+                            loginView.onButtonActions(false, null,true);
+                        else{
+                        codeView.setText("");
+
+                        }
                     }
                 } catch (Exception e)
                 {
@@ -411,18 +417,9 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         try{
             if (response != null)
             {
-                if (response.info.statusCode==200){
-                    loginView.onButtonActions(false, null);
-                    countDownTimer.start();
-                    loginView.hideLoading();
-                }else{
-                    MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
-                            response.info.message,
-                            MessageAlertDialog.TYPE_ERROR);
-                    dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
-                    loginView.hideLoading();
-                }
-
+                loginView.onButtonActions(false, null,false);
+                countDownTimer.start();
+                loginView.hideLoading();
 
             }
             else
