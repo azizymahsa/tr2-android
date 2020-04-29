@@ -906,7 +906,7 @@
                                             android:layout_height="match_parent"
                                             android:background="@android:color/transparent"
                                             android:digits="0,1,2,3,4,5,6,7,8,9"
-                                            android:gravity="right|center"
+                                            android:gravity="center"
                                             android:hint="@string/_new_mobile_num"
                                             android:imeOptions="actionDone"
                                             android:inputType="number"
@@ -915,7 +915,7 @@
                                             android:text=""
                                             android:textColorHint="@color/textHint"
                                             android:textColor="@color/textColorSecondary"
-                                            android:textSize="@dimen/textSize_12dp" />
+                                            android:textSize="@dimen/textSize_16dp" />
 
 
                                         <View
