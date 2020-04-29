@@ -417,9 +417,18 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
         try{
             if (response != null)
             {
-                loginView.onButtonActions(false, null,false);
-                countDownTimer.start();
-                loginView.hideLoading();
+                if (response.info.statusCode==200){
+                    loginView.onButtonActions(false, null,false);
+                    countDownTimer.start();
+                    loginView.hideLoading();
+                }else{
+                    MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
+                            response.info.message,
+                            MessageAlertDialog.TYPE_ERROR);
+                    dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
+                    loginView.hideLoading();
+                }
+
 
             }
             else
