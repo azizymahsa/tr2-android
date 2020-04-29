@@ -103,7 +103,8 @@ import org.json.JSONObject;
  * Created by Javad.Abadi on 10/7/2019.
  */
 public class UserProfileActivity extends BaseActivity implements UserProfileActionView,
-        OnAnimationEndListener, OnServiceStatus<WebServiceClass<GetProfileResponse>>, DatePickerDialog.OnDateSetListener {
+        OnAnimationEndListener, OnServiceStatus<WebServiceClass<GetProfileResponse>>, DatePickerDialog.OnDateSetListener
+{
     private Toolbar mToolbar;
     private CircularProgressButton btnConfirm, btnConfirmEditMobile;
     private ClearableEditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName;
@@ -143,12 +144,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     private MaskedEditText tvMobileEdit;
     private EditText etCountryName, etCountryCode;
     private ArrayList<CountryCodeModel> countryCodeModels = new ArrayList<>();
-    private  TextWatcher textWatcher;
+    private TextWatcher textWatcher;
 
 
     @SuppressLint("RestrictedApi")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
@@ -158,10 +160,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     }
 
-    private void initCountryCode() {
+    private void initCountryCode()
+    {
         Gson gson = new Gson();
         String json = null;
-        try {
+        try
+        {
             InputStream inputStream = getAssets().open("country.json");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
@@ -169,18 +173,21 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             inputStream.close();
             json = new String(buffer, "UTF-8");
 
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
 
         countryCodeModels = gson.fromJson(json,
-                new TypeToken<ArrayList<CountryCodeModel>>() {
+                new TypeToken<ArrayList<CountryCodeModel>>()
+                {
                 }.getType());
 
     }
 
     @SuppressLint("CheckResult")
-    private void filter() {
+    private void filter()
+    {
         RxTextView.textChangeEvents(etCountryCode)
 
                 .subscribe(e ->
@@ -193,21 +200,26 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                         return x.getDialCode().equals("+" + e.getText().toString());
                                     })
                                     .toList()
-                                    .subscribe(new SingleObserver<List<CountryCodeModel>>() {
+                                    .subscribe(new SingleObserver<List<CountryCodeModel>>()
+                                    {
                                         @Override
-                                        public void onSubscribe(Disposable d) {
+                                        public void onSubscribe(Disposable d)
+                                        {
                                         }
 
                                         @Override
-                                        public void onSuccess(List<CountryCodeModel> codeModels) {
-                                            if (codeModels.size() > 0) {
+                                        public void onSuccess(List<CountryCodeModel> codeModels)
+                                        {
+                                            if (codeModels.size() > 0)
+                                            {
                                                 etCountryName.setText(codeModels.get(0).getName());
                                             }
 
                                         }
 
                                         @Override
-                                        public void onError(Throwable e) {
+                                        public void onError(Throwable e)
+                                        {
                                         }
                                     });
 
@@ -217,7 +229,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     }
 
-    private void initView() {
+    private void initView()
+    {
         mToolbar = findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setVisibility(View.INVISIBLE);
@@ -257,20 +270,25 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         tvMobileNew = findViewById(R.id.tvMobileNew);
         tvMobileNew.setLength(10);
-        textWatcher =new TextWatcher() {
+        textWatcher = new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
 
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 1 && s.toString().startsWith("0")) {
+            public void afterTextChanged(Editable s)
+            {
+                if (s.toString().length() == 1 && s.toString().startsWith("0"))
+                {
                     s.clear();
                 }
             }
@@ -305,16 +323,18 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         etLastNameUS.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         etEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(100)});
         etNickName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
-       // tvMobileNew.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
+        // tvMobileNew.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
         etPopularPlayer.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
         etNationalCode.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
-        tvMobileEdit.setText(Prefs.getString("Country_Code","")+" "+Prefs.getString("mobile", ""));
+        tvMobileEdit.setText(Prefs.getString("Country_Code", "") + " " + Prefs.getString("mobile", ""));
         etFirstName.requestFocus();
         etCountryCode = findViewById(R.id.etCountryCode);
         etCountryName = findViewById(R.id.etCountryName);
-        etCountryName.setOnClickListener(new View.OnClickListener() {
+        etCountryName.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 startActivityForResult(new Intent(UserProfileActivity.this, SearchCountryUserEditActivity.class), 1002);
                 etCountryName.clearFocus();
             }
@@ -339,11 +359,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
         scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) ->
         {
-            if (scrollY - oldScrollY > 0) {
+            if (scrollY - oldScrollY > 0)
+            {
                 Animation animHide = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.hide_button);
                 findViewById(R.id.rlImageProfile).startAnimation(animHide);
                 findViewById(R.id.rlImageProfile).setVisibility(View.GONE);
-            } else {
+            } else
+            {
                 Animation animShow = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.show_button);
                 findViewById(R.id.rlImageProfile).startAnimation(animShow);
                 findViewById(R.id.rlImageProfile).setVisibility(View.VISIBLE);
@@ -395,23 +417,28 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
-            if (isProfileImageAvailable) {
+            if (isProfileImageAvailable)
+            {
                 MessageAlertDialog dialog = new MessageAlertDialog(UserProfileActivity.this, "",
                         "آیا از حذف عکس پروفایل خود اطمینان دارید؟",
                         true, "حذف", "انصراف", MessageAlertDialog.TYPE_MESSAGE,
-                        new MessageAlertDialog.OnConfirmListener() {
+                        new MessageAlertDialog.OnConfirmListener()
+                        {
                             @Override
-                            public void onConfirmClick() {
+                            public void onConfirmClick()
+                            {
                                 callDeletePhoto();
                             }
 
                             @Override
-                            public void onCancelClick() {
+                            public void onCancelClick()
+                            {
                             }
                         });
                 dialog.setCancelable(false);
                 dialog.show(getFragmentManager(), "alertDialog");
-            } else {
+            } else
+            {
                 Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
                 rlDeleteImage.setAlpha(0.3f);
                 rlDeleteImage.setActivated(false);
@@ -422,18 +449,20 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     }
 
-    private void updateMobileUI() {
+    private void updateMobileUI()
+    {
         lnrEdits.setVisibility(View.GONE);
         lnrEditMobileOne.setVisibility(View.VISIBLE);
         txtphoneLast.setText("شماره تلفن همراه قبلی: " + Prefs.getString("mobile", ""));
         btnConfirmEditMobile.setOnClickListener(v ->
         {
 
-            try {
+            try
+            {
 
                 if (TextUtils.isEmpty(tvMobileNew.getText().toString().trim()))
                 {
-                   // loginView.showErrorMessage("لطفا شماره تلفن همراه خود را وارد نمایید.", this.getClass().getSimpleName(), false);
+                    // loginView.showErrorMessage("لطفا شماره تلفن همراه خود را وارد نمایید.", this.getClass().getSimpleName(), false);
                     showError(UserProfileActivity.this, "لطفا شماره موبایل جدید را وارد کنید.");
                     return;
 
@@ -447,15 +476,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 }
                 if (etCountryCode.getText().toString().equals("98") && tvMobileNew.getText().toString().trim().length() != 10)
                 {
-                   // loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
+                    // loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
                     showError(UserProfileActivity.this, "لطفا شماره تلفن همراه خود را صحیح وارد نمایید.");
                     return;
 
-                }else if (!etCountryCode.getText().toString().equals("98"))
+                } else if (!etCountryCode.getText().toString().equals("98"))
                 {
 
-                    if (!(tvMobileNew.getText().toString().trim().length() >= 9 && tvMobileNew.getText().toString().trim().length() <= 11)) {
-                       // loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
+                    if (!(tvMobileNew.getText().toString().trim().length() >= 9 && tvMobileNew.getText().toString().trim().length() <= 11))
+                    {
+                        // loginView.showErrorMessage("لطفا شماره تلفن همراه خود را صحیح وارد نمایید.", this.getClass().getSimpleName(), false);
                         showError(UserProfileActivity.this, "لطفا شماره تلفن همراه خود را صحیح وارد نمایید.");
                         return;
 
@@ -463,11 +493,11 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
 
                 }
-                String phone="";
+                String phone = "";
                 if (etCountryCode.getText().toString().equals("98"))
-                    phone="0"+tvMobileNew.getText().toString().trim();
+                    phone = "0" + tvMobileNew.getText().toString().trim();
                 else
-                    phone =tvMobileNew.getText().toString().trim();
+                    phone = tvMobileNew.getText().toString().trim();
 
                 btnConfirmEditMobile.startAnimation();
                 btnConfirmEditMobile.setClickable(false);
@@ -481,40 +511,52 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
                 }
 */
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
 
             }
         });
 
     }
 
-    private void callSendSms(String mobileNum) {
+    private void callSendSms(String mobileNum)
+    {
         progressImageProfile.setVisibility(View.VISIBLE);
         SendCodeReq sendCodeReq = new SendCodeReq();
         sendCodeReq.setUsername(mobileNum);
-        Prefs.putString("mobileLast", mobileNum);
-        SingletonService.getInstance().sendProfileService().sendCodeEditUser(sendCodeReq, new OnServiceStatus<WebServiceClass<SendCodeRes>>() {
+        Prefs.putString("mobileLast",etCountryCode.getText().toString()+" "+ tvMobileNew.getText().toString().trim());
+        SingletonService.getInstance().sendProfileService().sendCodeEditUser(sendCodeReq, new OnServiceStatus<WebServiceClass<SendCodeRes>>()
+        {
             @Override
-            public void onReady(WebServiceClass<SendCodeRes> response) {
+            public void onReady(WebServiceClass<SendCodeRes> response)
+            {
                 progressImageProfile.setVisibility(View.GONE);
                 btnConfirmEditMobile.revertAnimation();
                 btnConfirmEditMobile.setClickable(true);
-                try {
-                    if (response.info.statusCode != 200) {
+                try
+                {
+                    if (response.info.statusCode != 200)
+                    {
                         showError(UserProfileActivity.this, response.info.message);
-                    } else {
+                    } else
+                    {
                         // showToast(UserProfileActivity.this, response.info.message, R.color.green);
-                        Intent myIntent = new Intent(UserProfileActivity.this, UserEditVerifyActivity.class);
+                       /* Intent myIntent = new Intent(UserProfileActivity.this, UserEditVerifyActivity.class);
                         myIntent.putExtra("mobileLast", mobileNum); //Optional parameters
-                        startActivity(myIntent);
+                        startActivity(myIntent);*/
+                        Intent intent = new Intent(UserProfileActivity.this, UserEditVerifyActivity.class);
+                        intent.putExtra("mobileLast", etCountryCode.getText().toString()+" "+ tvMobileNew.getText().toString().trim()); //Optional parameters
+                        startActivityForResult(intent, 55);
                     }
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
                 }
 
             }
 
             @Override
-            public void onError(String message) {
+            public void onError(String message)
+            {
                 progressImageProfile.setVisibility(View.GONE);
                 btnConfirmEditMobile.revertAnimation();
                 btnConfirmEditMobile.setClickable(true);
@@ -523,23 +565,30 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         });
     }
 
-    public boolean isValid(String text) {
+    public boolean isValid(String text)
+    {
         return text.matches("/^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|31|([1-2][0-9])|(0[1-9]))))$/");
     }
 
-    private void callDeletePhoto() {
+    private void callDeletePhoto()
+    {
         progressImageProfile.setVisibility(View.VISIBLE);
 
-        SingletonService.getInstance().sendProfileService().deleteProfilePhoto(new OnServiceStatus<WebServiceClass<DeleteProfileResponse>>() {
+        SingletonService.getInstance().sendProfileService().deleteProfilePhoto(new OnServiceStatus<WebServiceClass<DeleteProfileResponse>>()
+        {
             @SuppressLint("RestrictedApi")
             @Override
-            public void onReady(WebServiceClass<DeleteProfileResponse> response) {
+            public void onReady(WebServiceClass<DeleteProfileResponse> response)
+            {
                 progressImageProfile.setVisibility(View.GONE);
 
-                try {
-                    if (response.info.statusCode != 200) {
+                try
+                {
+                    if (response.info.statusCode != 200)
+                    {
                         showError(UserProfileActivity.this, response.info.message);
-                    } else {
+                    } else
+                    {
                         showToast(UserProfileActivity.this, response.info.message, R.color.green);
 
                         Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
@@ -558,13 +607,15 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         rlDeleteImage.setEnabled(false);
                         rlDeleteImage.setClickable(false);
                     }
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
 
                 }
             }
 
             @Override
-            public void onError(String message) {
+            public void onError(String message)
+            {
                 progressImageProfile.setVisibility(View.GONE);
 
                 showError(UserProfileActivity.this, "خطای ارتباط با سرور!");
@@ -573,28 +624,35 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     }
 
-    private void getPermission() {
+    private void getPermission()
+    {
         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
         new TedPermission(SingletonContext.getInstance().getContext())
-                .setPermissionListener(new PermissionListener() {
+                .setPermissionListener(new PermissionListener()
+                {
                     @Override
-                    public void onPermissionGranted() {
+                    public void onPermissionGranted()
+                    {
                         openImageChooser();
                     }
 
                     @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions)
+                    {
                         MessageAlertDialog dialog = new MessageAlertDialog(UserProfileActivity.this, "",
                                 "برای دسترسی به عکس های دستگاهتان اخذ این مجوز الزامی است. ",
-                                true, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener() {
+                                true, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
+                        {
                             @Override
-                            public void onConfirmClick() {
+                            public void onConfirmClick()
+                            {
                                 getPermission();
                             }
 
                             @Override
-                            public void onCancelClick() {
+                            public void onCancelClick()
+                            {
 
                             }
                         }
@@ -607,7 +665,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 .check();
     }
 
-    private void initDate() {
+    private void initDate()
+    {
         currentDate = new PersianCalendar();
 
         pickerDialogDate = DatePickerDialog.newInstance(this,
@@ -618,36 +677,45 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         pickerDialogDate.setMaxDate(currentDate);
     }
 
-    private boolean setError() {
+    private boolean setError()
+    {
         boolean err = true;
         String message = "";
-        if (etNationalCode.getText().toString().length() < 10 && etNationalCode.getText().toString().length() > 0) {
+        if (etNationalCode.getText().toString().length() < 10 && etNationalCode.getText().toString().length() > 0)
+        {
             message = message + "کد ملی،";
             err = false;
 //            etNationalCode.setError("کد ملی باید 10رقمی باشد!");
-        } else if (etNationalCode.getText().toString().length() == 10) {
-            if (!NationalCodeValidation.isValidNationalCode(etNationalCode.getText().toString())) {
+        } else if (etNationalCode.getText().toString().length() == 10)
+        {
+            if (!NationalCodeValidation.isValidNationalCode(etNationalCode.getText().toString()))
+            {
                 message = message + "کد ملی،";
                 err = false;
 //                ((TextView)etNationalCode).setError("کد ملی نامعتبر است!");
             }
         }
-        if (!etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-zA-Z]+.[a-zA-Z]+") && !etEmail.getText().toString().equalsIgnoreCase("")) {
+        if (!etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-zA-Z]+.[a-zA-Z]+") && !etEmail.getText().toString().equalsIgnoreCase(""))
+        {
             message = message + "ایمیل،";
             err = false;
 //            etEmail.setError("ایمیل درست نیست!");
         }
-        if (!TextUtils.isEmpty(tvBirthDay.getText().toString().replaceAll("_", "").replaceAll("/", "").trim())) {
-            if (tvBirthDay.getText().toString().replaceAll("_", "").length() != 10) {
+        if (!TextUtils.isEmpty(tvBirthDay.getText().toString().replaceAll("_", "").replaceAll("/", "").trim()))
+        {
+            if (tvBirthDay.getText().toString().replaceAll("_", "").length() != 10)
+            {
                 message = message + "تاریخ تولد،";
                 err = false;
-            } else {
+            } else
+            {
                 String[] date = tvBirthDay.getText().toString().replaceAll("_", "").split("/");
                 Integer year = Integer.valueOf(date[0]);
                 Integer month = Integer.valueOf(date[1]);
                 Integer day = Integer.valueOf(date[2]);
 
-                if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1300 || year > 1399) {
+                if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1300 || year > 1399)
+                {
                     message = message + "تاریخ تولد،";
                     err = false;
                 }
@@ -655,30 +723,35 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         }
 
 
-        if (!err) {
+        if (!err)
+        {
             message = message + " باید اصلاح گردد.";
             showError(this, message);
         }
         return err;
     }
 
-    private void getDataProfileUser() {
+    private void getDataProfileUser()
+    {
         showLoading();
         SingletonService.getInstance().getProfileService().getProfileService(this);
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading()
+    {
         findViewById(R.id.rlLoading).setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideLoading() {
+    public void hideLoading()
+    {
         findViewById(R.id.rlLoading).setVisibility(View.GONE);
     }
 
     @Override
-    public void onAnimationEnd() {
+    public void onAnimationEnd()
+    {
 //        btnConfirm.setText("ارسال اطلاعات کاربری");
 
 
@@ -688,7 +761,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     }
 
     @Override
-    public void openImageChooser() {
+    public void openImageChooser()
+    {
 //        ImagePicker.create(this)
 //                .returnMode(ReturnMode.GALLERY_ONLY) // set whether pick action or camera action should return immediate result or not. Only works in single mode for image picker
 //                .folderMode(true) // set folder mode (false by default)
@@ -705,40 +779,51 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     }
 
     @Override
-    public void uploadProfileData() {
+    public void uploadProfileData()
+    {
 //        if (!isChangePic)
 //            return;
 
-        if (!setError()) {
+        if (!setError())
+        {
 //            hideLoading();
             hideSendDataLoading();
-        } else {
-            try {
+        } else
+        {
+            try
+            {
                 if (!etPopularPlayer.getText().toString().equalsIgnoreCase("") &&
-                        !etPopularPlayer.getText().toString().equalsIgnoreCase("0")) {
+                        !etPopularPlayer.getText().toString().equalsIgnoreCase("0"))
+                {
                     popularPlayer = Integer.parseInt(etPopularPlayer.getText().toString().trim());
-                } else {
+                } else
+                {
                     popularPlayer = 12;
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
 
             }
             headerModel = new HeaderModel();
 
-            try {
+            try
+            {
 
 //                part = PrepareImageFilePart.prepareFilePart(userPic.getCupName(), userPic);
 //                part = PrepareImageFilePart.prepareFilePart("photo", userPic);
 //                part = MultipartBody.Part.createFormData("photo", userPic.getCupName(),
 //                        RequestBody.create(MediaType.parse("image/*"), userPic));
-                if (isImageFileExist) {
+                if (isImageFileExist)
+                {
                     isImageFileExist = false;
                     sendProfilePhoto();
-                } else {
+                } else
+                {
                     sendPhotoSuccess = true;
                     sendPhotoFailure = false;
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 sendPhotoSuccess = true;
                 sendPhotoFailure = false;
                 Logger.e("-Exception Photo-", e.getMessage());
@@ -759,10 +844,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //            request.setBirthday(tvBirthDay.getText().toString().equalsIgnoreCase("") ? "" :
 //                    getGrgDate(tvBirthDay.getText().toString().trim()));
 
-            if (tvBirthDay.getText().toString().equals("____/__/__")) {
+            if (tvBirthDay.getText().toString().equals("____/__/__"))
+            {
                 request.setBirthday("");
 
-            } else {
+            } else
+            {
                 request.setBirthday(tvBirthDay.getText().toString().trim().replace("/", "-"));
 
             }
@@ -770,18 +857,23 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             request.setGender(spinnerGender.getSelectedItemPosition() + 1);
 
             SingletonService.getInstance().sendProfileService().sendProfileService(request,
-                    new OnServiceStatus<WebServiceClass<SendProfileResponse>>() {
+                    new OnServiceStatus<WebServiceClass<SendProfileResponse>>()
+                    {
                         @Override
-                        public void onReady(WebServiceClass<SendProfileResponse> response) {
-                            try {
+                        public void onReady(WebServiceClass<SendProfileResponse> response)
+                        {
+                            try
+                            {
                                 btnConfirm.revertAnimation();
                                 btnConfirm.setClickable(true);
-                                if (response.info.statusCode != 200) {
+                                if (response.info.statusCode != 200)
+                                {
                                     showError(UserProfileActivity.this, response.info.message);
                                     sendProfileFailure = true;
                                     sendProfileSuccess = false;
                                     finishSendData("");
-                                } else {
+                                } else
+                                {
                                     //------------------------------------------
                                     Prefs.putString("firstName", etFirstName.getText().toString().trim());
                                     Prefs.putString("lastName", etLastName.getText().toString().trim());
@@ -792,22 +884,27 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                     Prefs.putString("email", etEmail.getText().toString().trim());
                                     Prefs.putInt("gender", spinnerGender.getSelectedItemPosition());
 
-                                    if (tvBirthDay.getText() != null) {
+                                    if (tvBirthDay.getText() != null)
+                                    {
                                         Prefs.putString("birthday", tvBirthDay.getText().toString().equalsIgnoreCase("") ?
                                                 null :
                                                 tvBirthDay.getText().toString().trim());
                                     }
-                                    if (popularPlayer != 0) {
+                                    if (popularPlayer != 0)
+                                    {
                                         Prefs.putInt("popularPlayer", popularPlayer);
-                                    } else {
+                                    } else
+                                    {
                                         Prefs.putInt("popularPlayer", 12);
                                     }
                                     Prefs.putString("nationalCode", etNationalCode.getText().toString().trim());
 
                                     if (!Prefs.getString("FULLName", "").trim().replace(" ", "")
-                                            .equalsIgnoreCase("")) {
+                                            .equalsIgnoreCase(""))
+                                    {
                                         TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
-                                    } else {
+                                    } else
+                                    {
                                         TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
                                     }
 
@@ -818,22 +915,26 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                     sendProfileFailure = false;
                                     finishSendData("");
                                 }
-                            } catch (Exception e) {
+                            } catch (Exception e)
+                            {
                             }
 
                         }
 
                         @Override
-                        public void onError(String message) {
+                        public void onError(String message)
+                        {
                             btnConfirm.revertAnimation();
                             btnConfirm.setClickable(true);
                             sendProfileFailure = true;
                             sendProfileSuccess = false;
                             finishSendData("");
-                            if (Tools.isNetworkAvailable(UserProfileActivity.this)) {
+                            if (Tools.isNetworkAvailable(UserProfileActivity.this))
+                            {
                                 Logger.e("-OnError-", "Error: " + message);
                                 showError(UserProfileActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                            } else {
+                            } else
+                            {
                                 showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
                             }
                         }
@@ -843,18 +944,21 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     }
 
     @Override
-    public void showSendDataLoading() {
+    public void showSendDataLoading()
+    {
         btnConfirm.startAnimation();
         btnConfirm.setClickable(false);
     }
 
     @Override
-    public void hideSendDataLoading() {
+    public void hideSendDataLoading()
+    {
         btnConfirm.revertAnimation(UserProfileActivity.this);
         btnConfirm.setClickable(true);
     }
 
-    private void sendProfilePhoto() {
+    private void sendProfilePhoto()
+    {
         progressImageProfile.setVisibility(View.VISIBLE);
 
         //---------------------new FAN--------------------------
@@ -898,13 +1002,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //                        finishSendData();
 //                    }
 //                });
-                .getAsString(new StringRequestListener() {
+                .getAsString(new StringRequestListener()
+                {
                     @SuppressLint("RestrictedApi")
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(String response)
+                    {
                         Log.e("--Upload Response--", response + " ##");
 
-                        try {
+                        try
+                        {
                             JSONObject object = new JSONObject(response);
                             JSONObject info = object.getJSONObject("info");
                             Logger.e("+info+", info.toString());
@@ -915,7 +1022,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
                             Logger.e("-status Response1-", status.toString() + " ");
                             Logger.e("-status Response2-", info.getString("code"));
-                            if (status == 201) {
+                            if (status == 201)
+                            {
                                 String imageURL = data.getString("photo");
                                 headerModel.setProfileUrl(imageURL);
                                 Logger.e("-image Link Response-", imageURL.toString() + " ");
@@ -932,7 +1040,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                                 sendPhotoFailure = false;
                                 finishSendData("");
                             }
-                        } catch (JSONException e) {
+                        } catch (JSONException e)
+                        {
                             e.printStackTrace();
                         }
                         progressImageProfile.setVisibility(View.GONE);
@@ -943,15 +1052,18 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     }
 
                     @Override
-                    public void onError(ANError anError) {
+                    public void onError(ANError anError)
+                    {
                         sendPhotoFailure = true;
                         sendPhotoSuccess = false;
 
-                        if (Tools.isNetworkAvailable(UserProfileActivity.this)) {
+                        if (Tools.isNetworkAvailable(UserProfileActivity.this))
+                        {
                             Logger.e("-showErrorMessage Photo1-", "Error: " + anError.getErrorDetail());
                             Logger.e("-showErrorMessage Photo2-", "Error: " + anError);
 
-                        } else {
+                        } else
+                        {
                             showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
                         }
                         finishSendData(anError + " ");
@@ -1022,8 +1134,10 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 //        }
     }
 
-    private void finishSendData(String photoErrorMessage) {
-        if (sendPhotoSuccess && sendProfileSuccess) {
+    private void finishSendData(String photoErrorMessage)
+    {
+        if (sendPhotoSuccess && sendProfileSuccess)
+        {
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
 
@@ -1034,22 +1148,27 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
 //            finish();
 
-        } else if (sendPhotoFailure && sendProfileFailure) {
+        } else if (sendPhotoFailure && sendProfileFailure)
+        {
 //            hideLoading();
             //Fail
-            if (Tools.isNetworkAvailable(this)) {
+            if (Tools.isNetworkAvailable(this))
+            {
                 Logger.e("-PhotoFailor-", "Error: " + "PhotoFailor");
                 showError(this, "خطا در دریافت اطلاعات از سرور!");
-            } else {
+            } else
+            {
                 showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
             }
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
-        } else if (sendPhotoFailure && sendProfileSuccess) {
+        } else if (sendPhotoFailure && sendProfileSuccess)
+        {
             btnConfirm.revertAnimation();
             btnConfirm.setClickable(true);
             String message = "اطلاعات شما با موفقیت ارسال گردید" + "\n" + "اما" + "\n" + "ارسال عکس ناموفق بود.";
-            if (BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG)
+            {
                 message = message + "\n" + photoErrorMessage;
             }
             showAlertFailure(UserProfileActivity.this, message, getString(R.string.error), false);
@@ -1064,7 +1183,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     @SuppressLint("RestrictedApi")
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1002 && resultCode == Activity.RESULT_OK)
         {
@@ -1072,27 +1192,32 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             etCountryName.setText(data.getExtras().getString("name"));
             etCountryCode.setText(data.getExtras().getString("code").replace("+", ""));
 
-            Prefs.putString("Country_Code",data.getExtras().getString("code").replace("+", ""));
-            if (etCountryCode.getText().toString().equals("98")){
-                if (tvMobileNew.getText().toString().startsWith("0")){
+            Prefs.putString("Country_Code", data.getExtras().getString("code").replace("+", ""));
+            if (etCountryCode.getText().toString().equals("98"))
+            {
+                if (tvMobileNew.getText().toString().startsWith("0"))
+                {
 
-                    tvMobileNew.setText(tvMobileNew.getText().toString().replaceFirst("0","")
-                            .replaceFirst("٠",""));
+                    tvMobileNew.setText(tvMobileNew.getText().toString().replaceFirst("0", "")
+                            .replaceFirst("٠", ""));
                 }
                 tvMobileNew.setLength(10);
                 tvMobileNew.addTextChangedListener(textWatcher);
 
 
-            }else{
+            } else
+            {
 
                 tvMobileNew.setLength(11);
                 tvMobileNew.removeTextChangedListener(textWatcher);
 
             }
         }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+        {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK)
+            {
                 isImageFileExist = true;
                 imageUri = result.getUri();
                 imgProfile.setImageBitmap(BitmapFactory.decodeFile(imageUri.getPath()));
@@ -1102,14 +1227,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 rlDeleteImage.setActivated(true);
                 rlDeleteImage.setEnabled(true);
                 rlDeleteImage.setClickable(true);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE)
+            {
                 Exception error = result.getError();
             }
         }
 
     }
 
-    private void saveImage(Bitmap finalBitmap) {
+    private void saveImage(Bitmap finalBitmap)
+    {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/traap");
         myDir.mkdirs();
@@ -1118,57 +1245,73 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         n = generator.nextInt(n);
         String fname = "profile" + ".jpg";
         userPic = new File(myDir, fname);
-        if (userPic.exists()) {
+        if (userPic.exists())
+        {
             userPic.delete();
         }
-        try {
+        try
+        {
             FileOutputStream out = new FileOutputStream(userPic);
             finalBitmap.compress(Bitmap.CompressFormat.JPEG, 30, out);
             out.flush();
             out.close();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
     @SuppressLint("RestrictedApi")
     @Override
-    public void onReady(WebServiceClass<GetProfileResponse> response) {
-        try {
+    public void onReady(WebServiceClass<GetProfileResponse> response)
+    {
+        try
+        {
             hideLoading();
 
-            if (response.info.statusCode == 200) {
-                if (response.data.getPopularPlayer() != 0) {
+            if (response.info.statusCode == 200)
+            {
+                if (response.data.getPopularPlayer() != 0)
+                {
                     Prefs.putInt("favPlayerNo", response.data.getPopularPlayer());
                 }
-                try {
+                try
+                {
                     etFirstName.setText(response.data.getFirstName());
                     etLastName.setText(response.data.getLastName());
 
-                    if (!Prefs.getString("FULLName", "").replace(" ", "").equalsIgnoreCase("")) {
+                    if (!Prefs.getString("FULLName", "").replace(" ", "").equalsIgnoreCase(""))
+                    {
                         TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
-                    } else {
+                    } else
+                    {
                         TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
                     }
 
-                    try {
-                        if (!response.data.getBirthday().equalsIgnoreCase("")) {
+                    try
+                    {
+                        if (!response.data.getBirthday().equalsIgnoreCase(""))
+                        {
 //                    tvBirthDay.setText(getPersianDate(response.data.getBirthday()));
                             tvBirthDay.setText(response.data.getBirthday().replace("-", "/"));
                             imgBirthdayReset.setVisibility(View.VISIBLE);
                         }
-                    } catch (Exception e) {
+                    } catch (Exception e)
+                    {
                         tvBirthDay.setText(response.data.getBirthday().replace("-", "/"));
                         imgBirthdayReset.setVisibility(View.VISIBLE);
                     }
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
 
                 }
                 etNickName.setText(response.data.getEnglishName());
-                if (response.data.getNationalCode().equalsIgnoreCase("0")) {
+                if (response.data.getNationalCode().equalsIgnoreCase("0"))
+                {
                     etNationalCode.setText("");
-                } else {
+                } else
+                {
                     etNationalCode.setText(response.data.getNationalCode());
                 }
                 etFirstNameUS.setText(response.data.getFirstNameUS());
@@ -1179,11 +1322,15 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                 headerModel.setPopularNo(response.data.getPopularPlayer());
                 headerModel.setHeaderName(TrapConfig.HEADER_USER_NAME);
 
-                try {
-                    if (!response.data.getPhotoUrl().contains("default_avatar.png")) {
-                        Picasso.with(this).load(response.data.getPhotoUrl()).into(imgProfile, new Callback() {
+                try
+                {
+                    if (!response.data.getPhotoUrl().contains("default_avatar.png"))
+                    {
+                        Picasso.with(this).load(response.data.getPhotoUrl()).into(imgProfile, new Callback()
+                        {
                             @Override
-                            public void onSuccess() {
+                            public void onSuccess()
+                            {
                                 Prefs.putString("profileImage", response.data.getPhotoUrl());
                                 headerModel.setProfileUrl(response.data.getPhotoUrl());
 
@@ -1196,11 +1343,13 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                             }
 
                             @Override
-                            public void onError() {
+                            public void onError()
+                            {
                                 Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
                             }
                         });
-                    } else {
+                    } else
+                    {
                         Picasso.with(UserProfileActivity.this).load(R.drawable.ic_user_default).into(imgProfile);
 
                         rlDeleteImage.setAlpha(0.3f);
@@ -1208,11 +1357,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         rlDeleteImage.setEnabled(false);
                         rlDeleteImage.setClickable(false);
                     }
-                } catch (Exception e) {
-                    if (Tools.isNetworkAvailable(this)) {
+                } catch (Exception e)
+                {
+                    if (Tools.isNetworkAvailable(this))
+                    {
                         Logger.e("-OnError-", "Error: " + e.getMessage());
 //                    showError(this, "خطا در دریافت اطلاعات از سرور!");
-                    } else {
+                    } else
+                    {
                         showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
                     }
                 }
@@ -1221,53 +1373,65 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
                 EventBus.getDefault().post(headerModel);
 
-                if (headerModel.getPopularNo() != 0) {
+                if (headerModel.getPopularNo() != 0)
+                {
                     etPopularPlayer.setText(String.valueOf(headerModel.getPopularNo()));
                 }
                 tvUserName.setText(TrapConfig.HEADER_USER_NAME);
 
                 Prefs.putString("shareText", response.data.getShareText());
-            } else {
+            } else
+            {
                 showError(this, response.info.message);
             }
         } catch (
-                Exception e) {
+                Exception e)
+        {
             e.getMessage();
         }
 
     }
 
     @Override
-    public void onError(String message) {
+    public void onError(String message)
+    {
         hideLoading();
 
-        if (Tools.isNetworkAvailable(this)) {
+        if (Tools.isNetworkAvailable(this))
+        {
             Logger.e("-OnError-", "Error: " + message);
             showError(this, "خطا در دریافت اطلاعات از سرور!");
-        } else {
+        } else
+        {
             showAlertFailure(UserProfileActivity.this, getString(R.string.networkErrorMessage), getString(R.string.networkError), true);
         }
     }
 
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay) {
-        if (view.getTag().equals("CreateDate")) {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int endYear, int endMonth, int endDay)
+    {
+        if (view.getTag().equals("CreateDate"))
+        {
             PersianCalendar calendar = new PersianCalendar();
             calendar.set(year, monthOfYear, dayOfMonth);
             String day;
             String month;
 
-            if (String.valueOf(dayOfMonth).length() == 1) {
+            if (String.valueOf(dayOfMonth).length() == 1)
+            {
                 day = "0" + dayOfMonth;
-            } else {
+            } else
+            {
                 day = String.valueOf(dayOfMonth);
 
             }
 
-            if (String.valueOf(monthOfYear + 1).length() == 1) {
+            if (String.valueOf(monthOfYear + 1).length() == 1)
+            {
                 month = "0" + (monthOfYear + 1);
-            } else {
+            } else
+            {
                 month = String.valueOf(monthOfYear + 1);
 
             }

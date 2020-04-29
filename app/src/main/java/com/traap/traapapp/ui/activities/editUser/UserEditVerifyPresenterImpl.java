@@ -199,8 +199,14 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
             {
                 if (finish)
                 {
-                   ((Activity) context).onBackPressed();
+                  // ((Activity) context).onBackPressed();
                     //loginView.onButtonActions(true, GoToActivity.MainActivity);
+                   // Intent returnIntent = new Intent();
+                   // ((Activity) context).setResult(Activity.RESULT_OK,returnIntent);
+                    loginView.onButtonActions(true, GoToActivity.MainActivity);
+                   // ((Activity) context).finish();
+
+                    // ((Activity) context).getParent().finish();
 
                 }
             }
