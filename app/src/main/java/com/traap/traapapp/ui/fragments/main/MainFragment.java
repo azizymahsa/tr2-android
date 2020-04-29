@@ -325,7 +325,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         imgMenu.setOnClickListener(v -> mainView.openDrawer());
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         rlShirt = mToolbar.findViewById(R.id.rlShirt);
-        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
         tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
         tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
@@ -1176,6 +1175,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             Utility.disableEnableControls(true, llRoot);
         }
+        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+
     }
 
     private void requestShowTutorialIntro()
