@@ -369,7 +369,7 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 
 
     @Override
-    public void onButtonActions(boolean canEnter, GoToActivity goToActivity)
+    public void onButtonActions(boolean canEnter, GoToActivity goToActivity, boolean errorInvite)
     {
         if (isCode && canEnter)
         {
@@ -393,8 +393,12 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityForResult(intent, 100);
             finish();
+        } else if (errorInvite)
+        {
+            onBackPressed();
         } else
         {
+
             mobileToCode();
         }
 

@@ -9,7 +9,7 @@ import com.traap.traapapp.ui.base.GoToActivity;
  */
 public interface LoginView extends BaseView
 {
-    void onButtonActions(boolean canEnter, GoToActivity goToActivity);
+    void onButtonActions(boolean canEnter, GoToActivity goToActivity,boolean errorInvite);
 
     void onFinishTimer();
 
