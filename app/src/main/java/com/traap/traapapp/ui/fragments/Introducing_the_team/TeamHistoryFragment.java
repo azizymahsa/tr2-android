@@ -1,9 +1,11 @@
 package com.traap.traapapp.ui.fragments.Introducing_the_team;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -42,6 +44,14 @@ public class TeamHistoryFragment extends BaseFragment
     {
         super.onActivityCreated(savedInstanceState);
         initView();
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                Log.e("TeamHistoryFragment" ,tvHistory.getHeight()+"" );
+
+            }
+        });
     }
 
     private void initView()
