@@ -80,6 +80,7 @@ import com.traap.traapapp.ui.base.BaseMainActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
 import com.traap.traapapp.ui.drawer.MenuDrawerFragment;
+import com.traap.traapapp.ui.fragments.Introducing_the_team.IntroducingTeamFragment;
 import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
@@ -474,6 +475,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     Logger.e("-FireBaseInstanceId-", msg);
 //                        showToast(MainActivity.this, msg, R.color.gray);
                 });
+
+       // onIntroduceTeam();
 
     }
 
@@ -908,6 +911,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
     }
 
+    public void onIntroduceTeam()
+    {
+        isMainFragment = false;
+
+        setFragment(IntroducingTeamFragment.newInstance(this));
+        replaceFragment(getFragment(), "chargeFragment");
+
+    }
 
     public void onPackSimCard(Integer status)
     {
@@ -915,6 +926,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         this.backState = status;
         setFragment(PackFragment.newInstance(this, backState));
         replaceFragment(getFragment(), "packFragment");
+       // onIntroduceTeam();
     }
 
 

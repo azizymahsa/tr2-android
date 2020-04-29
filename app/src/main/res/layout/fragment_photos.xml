@@ -288,6 +288,7 @@
          </GridLayout>
      -->
     </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llPager"
             android:layout_width="match_parent"
@@ -313,29 +314,24 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize_12dp" />
 
+            <TextView
+                android:id="@+id/tvEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_40dp"
+                android:layout_marginBottom="@dimen/_40dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="هیچ عکسی در این گروه یافت نشد."
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/textSize_14dp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/textHint" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCategoryTitles"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                app:tabBackground="@drawable/tab_background"
-                app:tabGravity="center"
-                app:tabIndicatorHeight="0dp"
-
-                app:tabMode="scrollable"
-                app:tabTextColor="@drawable/tab_text_color" />
 
             <View
                 android:layout_width="match_parent"
@@ -350,19 +346,25 @@
                 android:layout_marginBottom="@dimen/_10dp"
                 android:rotationY="180" />
 
-            <TextView
-                android:id="@+id/tvEmpty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_40dp"
-                android:layout_marginBottom="@dimen/_40dp"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text="هیچ عکسی در این گروه یافت نشد."
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/textSize_14dp"
-                android:textStyle="bold"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategoryTitles"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:visibility="gone" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:tabBackground="@drawable/tab_background"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+
+                app:tabMode="scrollable"
+                app:tabTextColor="@drawable/tab_text_color" />
 
         </LinearLayout>
 
