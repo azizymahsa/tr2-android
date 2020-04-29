@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
 
 
@@ -12,7 +13,6 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="104dp"
-        android:layout_marginBottom="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,8 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/appbar"
-        android:layout_marginTop="@dimen/_10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:fillViewport="true"
         app:layout_constraintStart_toStartOf="parent">
         <LinearLayout
@@ -251,6 +251,7 @@
 
             <View
                 android:id="@+id/v1"
+                android:layout_marginTop="@dimen/_10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/textHint"
@@ -267,8 +268,8 @@
                 app:tabBackground="@drawable/tab_background"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="0dp"
-                android:layout_marginRight="@dimen/_20dp"
-                android:layout_marginLeft="@dimen/_20dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:layout_marginLeft="@dimen/_10dp"
                 app:tabMode="scrollable"
                 app:tabTextColor="@drawable/tab_text_color" />
 
@@ -279,12 +280,18 @@
                 android:background="@color/textHint"
                 app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_200dp"
 
+            <com.traap.traapapp.utilities.MyCustomViewPager
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/view_pager"
                 app:layout_constraintTop_toBottomOf="@+id/v2"/>
+            <FrameLayout
+                android:id="@+id/child_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
 
         </LinearLayout>
 

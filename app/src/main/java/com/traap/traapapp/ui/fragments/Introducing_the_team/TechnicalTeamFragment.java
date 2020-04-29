@@ -1,15 +1,14 @@
 package com.traap.traapapp.ui.fragments.Introducing_the_team;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.PositionInLeaguesAdapter;
+import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.TechnicalTeamAdapter;
 
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -21,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class PositionInLeaguesFragment  extends BaseFragment
+public class TechnicalTeamFragment extends BaseFragment
 {
     private View rootView;
     private RecyclerView rv;
@@ -35,7 +34,7 @@ public class PositionInLeaguesFragment  extends BaseFragment
             return rootView;
 
         }
-        rootView = inflater.inflate(R.layout.in_leagues_fragment, container, false);
+        rootView = inflater.inflate(R.layout.technical_team_fragment, container, false);
 
         return rootView;
     }
@@ -45,20 +44,12 @@ public class PositionInLeaguesFragment  extends BaseFragment
     {
         super.onActivityCreated(savedInstanceState);
         initView();
-        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                Log.e("TeamHistoryFragment2" ,rv.getHeight()+"" );
-
-            }
-        });
     }
 
     private void initView(){
         rv=rootView.findViewById(R.id.rv);
         nested=rootView.findViewById(R.id.nested);
-        rv.setAdapter(new PositionInLeaguesAdapter());
+        rv.setAdapter(new TechnicalTeamAdapter());
         ViewCompat.setNestedScrollingEnabled(nested,false);
     }
 }
