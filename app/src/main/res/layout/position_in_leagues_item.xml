@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_50dp"
+    android:orientation="horizontal"
+    android:gravity="center|right">
+
+
+        <TextView
+            android:layout_width="@dimen/_150dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="لیگ خلیج فارس"
+            android:textColor="@color/warmGray"
+            android:textSize="@dimen/textSize_16dp"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/warmGray"
+            />
+        <TextView
+            android:layout_width="@dimen/_70dp"
+            android:layout_height="wrap_content"
+            android:text="1398"
+            android:textColor="@color/warmGray"
+            android:gravity="center"
+            android:textSize="@dimen/textSize_16dp"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/warmGray"/>
+        <TextView
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:gravity="center"
+            android:textColor="@color/warmGray"
+            android:layout_marginRight="@dimen/_10dp"
+
+            android:textSize="@dimen/textSize_16dp"/>
+
+
+
+</LinearLayout>
