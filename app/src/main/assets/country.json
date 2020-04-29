@@ -21,7 +21,7 @@
   },
   {
     "name": "AmericanSamoa",
-    "dial_code": "+1 684",
+    "dial_code": "+1684",
     "code": "AS"
   },
   {
@@ -36,7 +36,7 @@
   },
   {
     "name": "Anguilla",
-    "dial_code": "+1 264",
+    "dial_code": "+1264",
     "code": "AI"
   },
   {
@@ -76,7 +76,7 @@
   },
   {
     "name": "Bahamas",
-    "dial_code": "+1 242",
+    "dial_code": "+1242",
     "code": "BS"
   },
   {
@@ -91,7 +91,7 @@
   },
   {
     "name": "Barbados",
-    "dial_code": "+1 246",
+    "dial_code": "+1246",
     "code": "BB"
   },
   {
@@ -116,7 +116,7 @@
   },
   {
     "name": "Bermuda",
-    "dial_code": "+1 441",
+    "dial_code": "+1441",
     "code": "BM"
   },
   {
@@ -266,12 +266,12 @@
   },
   {
     "name": "Dominica",
-    "dial_code": "+1 767",
+    "dial_code": "+1767",
     "code": "DM"
   },
   {
     "name": "Dominican Republic",
-    "dial_code": "+1 849",
+    "dial_code": "+1849",
     "code": "DO"
   },
   {
@@ -381,7 +381,7 @@
   },
   {
     "name": "Grenada",
-    "dial_code": "+1 473",
+    "dial_code": "+1473",
     "code": "GD"
   },
   {
@@ -391,7 +391,7 @@
   },
   {
     "name": "Guam",
-    "dial_code": "+1 671",
+    "dial_code": "+1671",
     "code": "GU"
   },
   {
@@ -466,7 +466,7 @@
   },
   {
     "name": "Jamaica",
-    "dial_code": "+1 876",
+    "dial_code": "+1876",
     "code": "JM"
   },
   {
@@ -691,7 +691,7 @@
   },
   {
     "name": "Northern Mariana Islands",
-    "dial_code": "+1 670",
+    "dial_code": "+1670",
     "code": "MP"
   },
   {
@@ -751,7 +751,7 @@
   },
   {
     "name": "Puerto Rico",
-    "dial_code": "+1 939",
+    "dial_code": "+1939",
     "code": "PR"
   },
   {
@@ -896,7 +896,7 @@
   },
   {
     "name": "Trinidad and Tobago",
-    "dial_code": "+1 868",
+    "dial_code": "+1868",
     "code": "TT"
   },
   {
@@ -916,7 +916,7 @@
   },
   {
     "name": "Turks and Caicos Islands",
-    "dial_code": "+1 649",
+    "dial_code": "+1649",
     "code": "TC"
   },
   {
@@ -1117,12 +1117,12 @@
   },
   {
     "name": "Saint Kitts and Nevis",
-    "dial_code": "+1 869",
+    "dial_code": "+1869",
     "code": "KN"
   },
   {
     "name": "Saint Lucia",
-    "dial_code": "+1 758",
+    "dial_code": "+1758",
     "code": "LC"
   },
   {
@@ -1137,7 +1137,7 @@
   },
   {
     "name": "Saint Vincent and the Grenadines",
-    "dial_code": "+1 784",
+    "dial_code": "+1784",
     "code": "VC"
   },
   {
@@ -1187,12 +1187,12 @@
   },
   {
     "name": "Virgin Islands, British",
-    "dial_code": "+1 284",
+    "dial_code": "+1284",
     "code": "VG"
   },
   {
     "name": "Virgin Islands, U.S.",
-    "dial_code": "+1 340",
+    "dial_code": "+1340",
     "code": "VI"
   }
 ]

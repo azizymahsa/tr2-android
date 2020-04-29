@@ -151,5 +151,7 @@
     <color name="backgroundLastLooseMatch">#facecf</color>
     <color name="backgroundLastEqualMatch">#e4cfbc</color>
     <color name="backgroundLastWinMatch">#d3ead8</color>
+    <color name="team_text_color">#484848</color>
+    <color name="textHint2">#888888</color>
     <!--  calendar  end-->
 </resources>

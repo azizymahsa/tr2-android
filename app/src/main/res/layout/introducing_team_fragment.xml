@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="3dp"
+        android:background="@drawable/background_main_header"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <include layout="@layout/toolbar_back" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        android:layout_marginTop="@dimen/_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fillViewport="true"
+        app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|right"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:text="باشگاه فرهنگی ورزشی اقتصادی تراکتور"
+                    android:textAppearance="@style/IranSansBold"
+                    android:textColor="@color/team_text_color"
+                    android:textSize="@dimen/textSize_14dp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_70dp"
+                    android:layout_height="@dimen/_70dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_logo_red" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/llSearch"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40dp"
+                android:layout_marginLeft="@dimen/_20dp"
+                android:layout_toLeftOf="@+id/btnFilter"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/llEt"
+                android:layout_marginRight="@dimen/_20dp"
+
+
+                android:background="@drawable/background_border_gray">
+
+
+
+                <com.traap.traapapp.utilities.ClearableEditText
+                    android:id="@+id/edtSearchText"
+                    android:layout_toRightOf="@+id/imgSearch"
+                    android:layout_width="0dp"
+                    android:layout_weight="100"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:inputType="text"
+                    android:background="@null"
+                    android:layout_centerVertical="true"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:hint="جستجوی بازیکن، کادر فنی و ..."
+                    android:imeOptions="actionDone"
+                    android:textColorHint="@color/textHint2"
+                    android:textColor="@color/textColorSecondary" />
+                <ImageView
+                    android:id="@+id/imgSearch"
+                    android:layout_width="@dimen/_30dp"
+                    android:layout_height="@dimen/_30dp"
+                    android:padding="6dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    style="?android:attr/borderlessButtonStyle"
+                    app:srcCompat="@drawable/search"
+                    android:layout_alignParentLeft="true"
+                    />
+            </LinearLayout>
+            <com.example.moeidbannerlibrary.banner.BannerLayout
+                android:id="@+id/blTeam"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200dp"
+                android:textAlignment="center"
+                app:autoPlaying="false"
+                app:centerScale="1.2"
+                android:layout_marginTop="@dimen/_10dp"
+                app:itemSpace="5"
+                app:moveSpeed="0.9"
+                app:showIndicator="false"
+                app:layout_constraintTop_toBottomOf="@+id/llSearch"/>
+
+            <LinearLayout
+                android:id="@+id/llTeamDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|right"
+                app:layout_constraintTop_toBottomOf="@+id/blTeam"
+                android:layout_marginRight="@dimen/_20dp"
+
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSize_12dp"
+                    android:text="اطلاعات تیم"
+                    android:textColor="@color/team_text_color"
+                    android:textAppearance="@style/IranSansBold"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:text="1370"
+                        android:textColor="@color/team_text_color"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:text="سال تاسیس: "
+                        android:textColor="@color/team_text_color"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:text="تبریز"
+                        android:textColor="@color/team_text_color"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:text="آدرس باشگاه: "
+                        android:textColor="@color/team_text_color"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:text="021-2211"
+                        android:textColor="@color/team_text_color"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:text="شماره تماس: "
+                        android:textColor="@color/team_text_color"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:text="info@traap.com"
+                        android:textColor="@color/team_text_color"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:text="ایمیل: "
+                        android:textColor="@color/team_text_color"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/textHint"
+                app:layout_constraintTop_toBottomOf="@+id/llTeamDetails"/>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                style="@style/TabLayoutStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v1"
+                app:tabBackground="@drawable/tab_background"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                android:layout_marginRight="@dimen/_20dp"
+                android:layout_marginLeft="@dimen/_20dp"
+                app:tabMode="scrollable"
+                app:tabTextColor="@drawable/tab_text_color" />
+
+            <View
+                android:id="@+id/v2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/textHint"
+                app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200dp"
+
+                app:layout_constraintTop_toBottomOf="@+id/v2"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
