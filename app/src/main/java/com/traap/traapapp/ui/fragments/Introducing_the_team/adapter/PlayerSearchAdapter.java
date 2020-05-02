@@ -1,30 +1,23 @@
 package com.traap.traapapp.ui.fragments.Introducing_the_team.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.makeramen.roundedimageview.RoundedImageView;
-import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.mainVideos.Category;
-
-import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class TeamPhotoAdapter extends RecyclerView.Adapter<TeamPhotoAdapter.ViewHolder>
+public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapter.ViewHolder>
 {
     private Context context;
 
 
-    public TeamPhotoAdapter()
+    public PlayerSearchAdapter()
     {
 
     }
@@ -35,18 +28,15 @@ public class TeamPhotoAdapter extends RecyclerView.Adapter<TeamPhotoAdapter.View
     {
         this.context = parent.getContext();
         return new ViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.team_photo_adapter, parent, false));
+                .inflate(R.layout.player_search_adapter, parent, false));
     }
 
 
     @Override
-    public void onBindViewHolder(final TeamPhotoAdapter.ViewHolder holder, final int position)
+    public void onBindViewHolder(final PlayerSearchAdapter.ViewHolder holder, final int position)
     {
 
-
     }
-
-
 
 
     @Override
@@ -63,6 +53,7 @@ public class TeamPhotoAdapter extends RecyclerView.Adapter<TeamPhotoAdapter.View
         public ViewHolder(View v)
         {
             super(v);
+
 
         }
     }

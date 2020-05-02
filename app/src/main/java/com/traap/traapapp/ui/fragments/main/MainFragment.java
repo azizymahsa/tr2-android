@@ -972,6 +972,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case R.id.rlF4:
             {
+                mainView.onIntroduceTeam();
 
                 break;
             }

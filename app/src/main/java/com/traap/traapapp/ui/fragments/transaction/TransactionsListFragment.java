@@ -1,12 +1,10 @@
 package com.traap.traapapp.ui.fragments.transaction;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +22,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.jaygoo.widget.OnRangeChangedListener;
@@ -35,7 +32,6 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.getMenu.response.GetMenuItemResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.FilterTransactionSetting;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
@@ -63,7 +59,6 @@ import com.traap.traapapp.utilities.calendar.mohamadamin_t.persianmaterialdateti
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,8 +71,6 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -327,7 +320,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
             tvStartDate = rootView.findViewById(R.id.tvStartDate);
             tvEndDate = rootView.findViewById(R.id.tvEndDate);
             edtSearchFilter = rootView.findViewById(R.id.edtSearchFilter);
-            edtSearchText = rootView.findViewById(R.id.edtSearchText);
+            edtSearchText = rootView.findViewById(R.id.etSearchText);
             btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
             btnDeleteFilter = rootView.findViewById(R.id.btnDeleteFilter);
 

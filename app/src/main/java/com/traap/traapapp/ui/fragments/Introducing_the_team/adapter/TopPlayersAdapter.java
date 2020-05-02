@@ -11,9 +11,7 @@ import com.traap.traapapp.R;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * Created by MahsaAzizi on 11/23/2019.
- */
+
 public class TopPlayersAdapter extends RecyclerView.Adapter<TopPlayersAdapter.ViewHolder>
 {
     private Context context;

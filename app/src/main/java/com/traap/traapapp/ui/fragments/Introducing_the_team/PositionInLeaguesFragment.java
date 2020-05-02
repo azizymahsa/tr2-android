@@ -26,6 +26,7 @@ public class PositionInLeaguesFragment  extends BaseFragment
     private View rootView;
     private RecyclerView rv;
     private NestedScrollView nested;
+    public static Integer height;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -49,8 +50,7 @@ public class PositionInLeaguesFragment  extends BaseFragment
             @Override
             public void onGlobalLayout() {
                 rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                Log.e("TeamHistoryFragment2" ,rv.getHeight()+"" );
-
+                height=rv.getHeight();
             }
         });
     }
@@ -61,6 +61,7 @@ public class PositionInLeaguesFragment  extends BaseFragment
         rv.setAdapter(new PositionInLeaguesAdapter());
         ViewCompat.setNestedScrollingEnabled(nested,false);
     }
+
 }
 
 

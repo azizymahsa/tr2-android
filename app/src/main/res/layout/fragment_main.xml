@@ -302,7 +302,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <RelativeLayout
@@ -320,7 +319,8 @@
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
                                 android:scaleType="fitXY"
-                                app:riv_oval="false" />
+                                app:riv_oval="false"
+                                android:src="@drawable/test_photo"/>
 
     <!--                        <ImageView-->
     <!--                            android:id="@+id/imgF3"-->
@@ -369,7 +369,9 @@
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
                                 android:scaleType="fitXY"
-                                app:riv_oval="false" />
+                                app:riv_oval="false"
+                                android:src="@drawable/test_photo"/>
+
 
     <!--                        <ImageView-->
     <!--                            android:id="@+id/imgF4"-->

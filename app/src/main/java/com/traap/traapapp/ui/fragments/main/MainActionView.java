@@ -105,4 +105,5 @@ public interface MainActionView extends BaseView
     void onShowDetailWinnerList(List<Winner> winnerList);
 
     void onShowLast5PastMatch(Integer teamLiveScoreId);
+    void onIntroduceTeam();
 }

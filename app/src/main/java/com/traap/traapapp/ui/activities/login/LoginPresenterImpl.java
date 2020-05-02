@@ -244,7 +244,7 @@ public class LoginPresenterImpl implements LoginPresenter, View.OnClickListener,
                                 MessageAlertDialog.TYPE_ERROR);
                         dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
                         
-                        if(response.info.statusCode==404)
+                        if(response.info.message.contains("کد معرف"))
                             loginView.onButtonActions(false, null,true);
                         else{
                         codeView.setText("");

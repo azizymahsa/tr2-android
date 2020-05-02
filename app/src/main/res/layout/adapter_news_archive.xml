@@ -16,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="@dimen/_80dp"
@@ -27,24 +27,27 @@
                 android:id="@+id/tvDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:textColor="@color/textColorSubTitle"
-                android:gravity="right"
+                android:gravity="left"
                 android:textSize="@dimen/textSize_12dp"
                 android:text="تاریخ"/>
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
                 android:textColor="@color/textColorSecondary"
                 android:layout_marginTop="8dp"
                 android:textStyle="bold"
                 android:maxLines="2"
-                android:gravity="right|center_vertical"
+                android:gravity="center"
                 android:textSize="@dimen/textSize_14dp"
                 android:text="عنوان"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rlImage"
