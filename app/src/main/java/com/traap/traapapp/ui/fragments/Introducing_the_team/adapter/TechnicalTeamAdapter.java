@@ -11,9 +11,7 @@ import com.traap.traapapp.R;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * Created by MahsaAzizi on 11/23/2019.
- */
+
 public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdapter.ViewHolder>
 {
     private Context context;

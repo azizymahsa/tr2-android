@@ -8,6 +8,7 @@ public class Const
 
     //-----------------------------------------------------------------------------
     public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
+   // public final static String BASEURL = "http:/stage-rest.traap.com/";     //developing
 //    public final static String BASEURL = "http://5.253.25.117:5000/";     //pre Live
 //     public final static String BASEURL = "https://restapp.traap.com/";   //Live
 
@@ -193,5 +194,6 @@ public class Const
     //editUser
     public final static String Get_verify_change_user = SubBASEURL + "v1/user/change_username/verify/";
     public final static String Get_send_code_change_user = SubBASEURL + "v1/user/change_username/send_code/";
+    public final static String traktor = SubBASEURL + "v1/team/traktor/";
 
 }

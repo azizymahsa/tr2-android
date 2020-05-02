@@ -22,6 +22,7 @@ public class TeamHistoryFragment extends BaseFragment
 {
     private View rootView;
     private JustifiedTextView tvHistory;
+    public static Integer height;
 
 
 
@@ -49,7 +50,7 @@ public class TeamHistoryFragment extends BaseFragment
             public void onGlobalLayout() {
                 rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 Log.e("TeamHistoryFragment" ,tvHistory.getHeight()+"" );
-
+                height=tvHistory.getHeight();
             }
         });
     }

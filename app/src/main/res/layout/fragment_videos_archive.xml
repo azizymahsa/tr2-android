@@ -157,7 +157,7 @@
                                 android:background="@drawable/background_border_red"/>
 
                             <com.traap.traapapp.utilities.ClearableEditText
-                                android:id="@+id/edtSearchText"
+                                android:id="@+id/etSearchText"
                                 android:layout_toRightOf="@+id/imgSearch"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"

@@ -12,9 +12,7 @@ import com.traap.traapapp.R;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * Created by MahsaAzizi on 11/23/2019.
- */
+
 public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLeaguesAdapter.ViewHolder>
 {
     private Context context;

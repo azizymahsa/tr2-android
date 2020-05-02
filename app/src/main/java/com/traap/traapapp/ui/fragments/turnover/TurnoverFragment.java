@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.traap.traapapp.R;
@@ -23,8 +22,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
 
@@ -83,7 +80,7 @@ public class TurnoverFragment extends BaseFragment
         tabLayout = rootView.findViewById(R.id.tabLayout);
         btnFilter = rootView.findViewById(R.id.btnFilter);
         imgSearch = rootView.findViewById(R.id.imgSearch);
-        edtSearchText = rootView.findViewById(R.id.edtSearchText);
+        edtSearchText = rootView.findViewById(R.id.etSearchText);
 
 
         vp.setAdapter(new TurnOverPagerAdapter(getActivity().getSupportFragmentManager(), mainView));

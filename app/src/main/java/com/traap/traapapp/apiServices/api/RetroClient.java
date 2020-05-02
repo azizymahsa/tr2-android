@@ -2,7 +2,6 @@ package com.traap.traapapp.apiServices.api;
 
 import java.util.ArrayList;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 import com.traap.traapapp.apiServices.helper.Const;
@@ -130,6 +129,7 @@ import com.traap.traapapp.apiServices.model.tourism.bus.getPaymentBus.request.Re
 import com.traap.traapapp.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
 import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
+import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
 import com.traap.traapapp.apiServices.model.verify.VerifyRequest;
 import com.traap.traapapp.apiServices.model.verify.VerifyResponse;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
@@ -748,5 +748,8 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetLotteryWinnerListResponse>>> getLotteryWinnerList(
             @Path("matchId") Integer id
     );
+
+    @GET(Const.traktor)
+    Single<Response<WebServiceClass<TractorTeamResponse>>> traktor();
 
 }
