@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
 
 
@@ -12,7 +13,6 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="104dp"
-        android:layout_marginBottom="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,11 +37,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/appbar"
-        android:layout_marginTop="@dimen/_10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:fillViewport="true"
         app:layout_constraintStart_toStartOf="parent">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -75,51 +75,80 @@
             </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/llSearch"
+
+                <LinearLayout
+                    android:id="@+id/llSearch"
+                    android:layout_below="@+id/llEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_toLeftOf="@+id/btnFilter"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/background_border_gray">
+
+
+
+
+                    <com.traap.traapapp.utilities.ClearableEditText
+                        android:id="@+id/etSearchText"
+                        android:layout_toRightOf="@+id/imgSearch"
+                        android:layout_width="0dp"
+                        android:layout_weight="100"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center_vertical"
+                        android:inputType="text"
+                        android:background="@null"
+                        android:layout_centerVertical="true"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:layout_marginRight="@dimen/_10dp"
+                        android:hint="جستجوی بازیکن، کادر فنی و ..."
+                        android:imeOptions="actionDone"
+                        android:textColorHint="@color/textHint2"
+                        android:textColor="@color/textColorSecondary" />
+                    <ImageView
+                        android:id="@+id/imgSearch"
+                        android:layout_width="@dimen/_30dp"
+                        android:layout_height="@dimen/_30dp"
+                        android:padding="6dp"
+                        android:layout_marginRight="@dimen/_10dp"
+                        style="?android:attr/borderlessButtonStyle"
+                        app:srcCompat="@drawable/search"
+                        android:layout_alignParentLeft="true"
+                        />
+                </LinearLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSearch"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_below="@+id/llSearch"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/_20dp"
-                android:layout_toLeftOf="@+id/btnFilter"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/llEt"
                 android:layout_marginRight="@dimen/_20dp"
-
-
-                android:background="@drawable/background_border_gray">
-
-
-
-                <com.traap.traapapp.utilities.ClearableEditText
-                    android:id="@+id/edtSearchText"
-                    android:layout_toRightOf="@+id/imgSearch"
-                    android:layout_width="0dp"
-                    android:layout_weight="100"
-                    android:layout_height="match_parent"
-                    android:gravity="right|center_vertical"
-                    android:inputType="text"
-                    android:background="@null"
-                    android:layout_centerVertical="true"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textSize="@dimen/textSize_14dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:hint="جستجوی بازیکن، کادر فنی و ..."
-                    android:imeOptions="actionDone"
-                    android:textColorHint="@color/textHint2"
-                    android:textColor="@color/textColorSecondary" />
-                <ImageView
-                    android:id="@+id/imgSearch"
-                    android:layout_width="@dimen/_30dp"
-                    android:layout_height="@dimen/_30dp"
-                    android:padding="6dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    style="?android:attr/borderlessButtonStyle"
-                    app:srcCompat="@drawable/search"
-                    android:layout_alignParentLeft="true"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
+                <ProgressBar
+                    android:id="@+id/pdSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     />
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
             <com.example.moeidbannerlibrary.banner.BannerLayout
                 android:id="@+id/blTeam"
                 android:layout_width="match_parent"
@@ -131,9 +160,10 @@
                 app:itemSpace="5"
                 app:moveSpeed="0.9"
                 app:showIndicator="false"
-                app:layout_constraintTop_toBottomOf="@+id/llSearch"/>
+                android:layout_below="@+id/llSearch"/>
 
             <LinearLayout
+                android:layout_below="@+id/blTeam"
                 android:id="@+id/llTeamDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,7 +175,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSize_12dp"
+                    android:textSize="@dimen/textSize_14dp"
                     android:text="اطلاعات تیم"
                     android:textColor="@color/team_text_color"
                     android:textAppearance="@style/IranSansBold"
@@ -158,9 +188,10 @@
                     android:layout_marginTop="@dimen/_10dp"
                     >
                     <TextView
+                        android:id="@+id/tvCreateDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_12dp"
+                        android:textSize="@dimen/textSize_14dp"
                         android:text="1370"
                         android:textColor="@color/team_text_color"
                         />
@@ -168,7 +199,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_12dp"
+                        android:textSize="@dimen/textSize_14dp"
                         android:text="سال تاسیس: "
                         android:textColor="@color/team_text_color"
                         />
@@ -182,6 +213,7 @@
                     android:layout_marginTop="5dp"
                     >
                     <TextView
+                        android:id="@+id/tvTeamAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_12dp"
@@ -205,18 +237,19 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="5dp"
                     >
+
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_12dp"
+                        android:id="@+id/tvPhone"
+                        android:layout_width="48dp"
+                        android:layout_height="match_parent"
                         android:text="021-2211"
                         android:textColor="@color/team_text_color"
-                        />
+                        android:textSize="@dimen/textSize_14dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_12dp"
+                        android:textSize="@dimen/textSize_14dp"
                         android:text="شماره تماس: "
                         android:textColor="@color/team_text_color"
                         />
@@ -230,6 +263,7 @@
                     android:layout_marginTop="5dp"
                     >
                     <TextView
+                        android:id="@+id/tvEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_12dp"
@@ -251,8 +285,10 @@
 
             <View
                 android:id="@+id/v1"
+                android:layout_marginTop="@dimen/_10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_below="@+id/llTeamDetails"
                 android:background="@color/textHint"
                 app:layout_constraintTop_toBottomOf="@+id/llTeamDetails"/>
             <com.google.android.material.tabs.TabLayout
@@ -261,32 +297,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/v1"
+
+                android:layout_below="@+id/v1"
+                android:layout_centerHorizontal="true"
                 app:tabBackground="@drawable/tab_background"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="0dp"
-                android:layout_marginRight="@dimen/_20dp"
-                android:layout_marginLeft="@dimen/_20dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:layout_marginLeft="@dimen/_10dp"
                 app:tabMode="scrollable"
                 app:tabTextColor="@drawable/tab_text_color" />
 
             <View
                 android:id="@+id/v2"
+                android:layout_below="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/textHint"
-                app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
+               />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
+
+            <com.traap.traapapp.utilities.WrapContentHeightViewPager
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200dp"
-
+                android:layout_height="wrap_content"
+                android:id="@+id/view_pager"
+                android:layout_below="@+id/v2"
                 app:layout_constraintTop_toBottomOf="@+id/v2"/>
+            <FrameLayout
+                android:id="@+id/child_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
 

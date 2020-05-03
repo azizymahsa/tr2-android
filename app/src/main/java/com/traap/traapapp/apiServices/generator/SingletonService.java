@@ -57,6 +57,7 @@ import com.traap.traapapp.apiServices.part.SheatcChangePassService;
 import com.traap.traapapp.apiServices.part.SheatcForgotPassService;
 import com.traap.traapapp.apiServices.part.GetMatchListService;
 import com.traap.traapapp.apiServices.part.SpectatorInfoService;
+import com.traap.traapapp.apiServices.part.TractorTeamService;
 import com.traap.traapapp.apiServices.part.TransactionDetailService;
 import com.traap.traapapp.apiServices.part.TransactionService;
 import com.traap.traapapp.apiServices.part.VerifyService;
@@ -408,6 +409,11 @@ public class SingletonService
     public GetLotteryWinnerListService getLotteryWinnerListService()
     {
         return new GetLotteryWinnerListService(serviceGenerator);
+    }
+
+    public TractorTeamService tractorTeamService()
+    {
+        return new TractorTeamService(serviceGenerator);
     }
 
 

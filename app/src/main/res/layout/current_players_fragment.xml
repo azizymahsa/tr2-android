@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/nested"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            android:gravity="center|right"
+            android:layout_marginTop="@dimen/_20dp"
+
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:id="@+id/llHeader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvAttendance"
+                    android:layout_width="0dp"
+                    android:layout_weight="120"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="تعداد حضور"
+                    android:textColor="@color/warmGray"
+                    android:textSize="@dimen/textSize_14dp"/>
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/warmGray"
+                    />
+                <TextView
+                    android:id="@+id/tvGoals"
+                    android:layout_width="0dp"
+                    android:layout_weight="70"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="تعداد گل"
+                    android:textColor="@color/warmGray"
+                    android:textSize="@dimen/textSize_14dp"/>
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/warmGray"
+                    />
+                <TextView
+                    android:id="@+id/tvPlayer"
+                    android:layout_width="0dp"
+                    android:layout_weight="140"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="بازیکن"
+                    android:textColor="@color/warmGray"
+                    android:gravity="center|right"
+                    android:textSize="@dimen/textSize_14dp"/>
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/warmGray"/>
+                <TextView
+                    android:id="@+id/tvRate"
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:layout_height="wrap_content"
+                    android:text="ردیف"
+                    android:gravity="center"
+                    android:textColor="@color/warmGray"
+                    android:layout_marginRight="@dimen/_10dp"
+
+                    android:textSize="@dimen/textSize_14dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:background="@color/warmGray"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="100"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -282,28 +282,16 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
         });
 
 
-        etCountryName.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        etCountryName.setOnFocusChangeListener((arg0, hasfocus) ->
         {
-            @Override
-            public void onFocusChange(View arg0, boolean hasfocus)
+            if (hasfocus)
             {
-                if (hasfocus)
-                {
-                    startActivityForResult(new Intent(LoginActivity.this, SearchCountryActivity.class), 1002);
-                    etCountryName.clearFocus();
-                }
+                startActivityForResult(new Intent(LoginActivity.this, SearchCountryActivity.class), 1002);
+                etCountryName.clearFocus();
             }
         });
 
-        tvChangeNumber.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                codeToMobile();
-
-            }
-        });
+        tvChangeNumber.setOnClickListener(v -> codeToMobile());
 
 
         etMobileNumber.setLength(10);

@@ -9,16 +9,15 @@ import android.widget.TextView;
 
 import com.traap.traapapp.R;
 
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLeaguesAdapter.ViewHolder>
+public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdapter.ViewHolder>
 {
     private Context context;
 
 
-    public PositionInLeaguesAdapter()
+    public TechnicalTeamAdapter()
     {
 
     }
@@ -29,21 +28,19 @@ public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLea
     {
         this.context = parent.getContext();
         return new ViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.position_in_leagues_item, parent, false));
+                .inflate(R.layout.technical_team_item, parent, false));
     }
 
 
     @Override
-    public void onBindViewHolder(final PositionInLeaguesAdapter.ViewHolder holder, final int position)
+    public void onBindViewHolder(final TechnicalTeamAdapter.ViewHolder holder, final int position)
     {
 
         if (position%2==0){
             holder.tvRate.setTextColor(context.getResources().getColor(R.color.black));
-            holder.tvYear.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvLeague.setTextColor(context.getResources().getColor(R.color.black));
         }else{
             holder.tvRate.setTextColor(context.getResources().getColor(R.color.warmGray));
-            holder.tvYear.setTextColor(context.getResources().getColor(R.color.warmGray));
             holder.tvLeague.setTextColor(context.getResources().getColor(R.color.warmGray));
         }
 
@@ -72,7 +69,6 @@ public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLea
             llHeader=v.findViewById(R.id.llHeader);
             llItem=v.findViewById(R.id.llItem);
             tvRate=v.findViewById(R.id.tvRate);
-            tvYear=v.findViewById(R.id.tvYear);
             tvLeague=v.findViewById(R.id.tvLeague);
 
         }

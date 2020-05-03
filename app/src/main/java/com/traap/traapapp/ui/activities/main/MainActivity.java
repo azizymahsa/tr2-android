@@ -793,6 +793,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 replaceFragment(getFragment(), "SupportFragment");
                 break;
             }
+            case 100:{
+                onIntroduceTeam();
+
+                break;
+
+            }
             case 89: //راهنما
             {
                 if (getFragment() instanceof MainFragment)
@@ -926,7 +932,6 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         this.backState = status;
         setFragment(PackFragment.newInstance(this, backState));
         replaceFragment(getFragment(), "packFragment");
-       // onIntroduceTeam();
     }
 
 
@@ -1340,6 +1345,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     @Override
     public void onFootBallServiceOne()
     {
+        setCheckedBNV(bottomNavigationView, 0);
+
         isMainFragment = false;
         setFragment(NewsMainFragment.newInstance(new NewsMainActionView()
         {
@@ -1454,6 +1461,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     @Override
     public void onFootBallServiceTwo()
     {
+        setCheckedBNV(bottomNavigationView, 0);
+
         isMainFragment = false;
         setFragment(VideosMainFragment.newInstance(new VideosMainActionView()
         {
