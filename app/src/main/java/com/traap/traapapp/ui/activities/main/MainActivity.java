@@ -80,6 +80,7 @@ import com.traap.traapapp.ui.base.BaseMainActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
 import com.traap.traapapp.ui.drawer.MenuDrawerFragment;
+import com.traap.traapapp.ui.fragments.Introducing_the_team.IntroducingTeamFragment;
 import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
@@ -475,6 +476,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 //                        showToast(MainActivity.this, msg, R.color.gray);
                 });
 
+       // onIntroduceTeam();
+
     }
 
     private void setIndicator(int index)
@@ -790,6 +793,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 replaceFragment(getFragment(), "SupportFragment");
                 break;
             }
+            case 100:{
+                onIntroduceTeam();
+
+                break;
+
+            }
             case 89: //راهنما
             {
                 if (getFragment() instanceof MainFragment)
@@ -908,6 +917,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
     }
 
+    public void onIntroduceTeam()
+    {
+        isMainFragment = false;
+
+        setFragment(IntroducingTeamFragment.newInstance(this));
+        replaceFragment(getFragment(), "chargeFragment");
+
+    }
 
     public void onPackSimCard(Integer status)
     {
@@ -1328,6 +1345,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     @Override
     public void onFootBallServiceOne()
     {
+        setCheckedBNV(bottomNavigationView, 0);
+
         isMainFragment = false;
         setFragment(NewsMainFragment.newInstance(new NewsMainActionView()
         {
@@ -1442,6 +1461,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     @Override
     public void onFootBallServiceTwo()
     {
+        setCheckedBNV(bottomNavigationView, 0);
+
         isMainFragment = false;
         setFragment(VideosMainFragment.newInstance(new VideosMainActionView()
         {

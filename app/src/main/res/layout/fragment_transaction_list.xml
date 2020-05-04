@@ -157,7 +157,7 @@
                                 app:tint="@color/white" />
 
                             <com.traap.traapapp.utilities.ClearableEditText
-                                android:id="@+id/edtSearchText"
+                                android:id="@+id/etSearchText"
                                 android:layout_toRightOf="@+id/imgSearch"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -170,7 +170,7 @@
                                 android:layout_marginRight="8dp"
                                 android:singleLine="true"
                                 android:textSize="@dimen/textSize_12dp"
-                                android:hint="جستجوی کد پیگیری..."
+                                android:hint="جستجو..."
                                 android:imeOptions="actionDone"
                                 android:textColorHint="@color/textHint"
                                 android:textColor="@color/textColorSecondary" />

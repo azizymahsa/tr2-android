@@ -1320,7 +1320,7 @@ public class ChargeFragment extends BaseFragment
         String startPhoneNo = phoneNo.substring(0, 4);
         Logger.e("-startPhoneNo-", startPhoneNo);
 
-        String[] typeMCI_No = {"0990", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919", "0992"};
+        String[] typeMCI_No = {"0990", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919", "0992","0994"};
         String[] typeMTN_No = {"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939"};
         String[] typeRightel_No = {"0920", "0921", "0922"};
 
@@ -2066,6 +2066,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onIntroduceTeam()
+    {
+
+    }
+
     private void closeAutoComplete()
     {
         autoCompletePhoneNumberRightel.dismissDropDown();
@@ -2077,32 +2083,11 @@ public class ChargeFragment extends BaseFragment
     {
         try
         {
-            if (isMtn)
-            {
-                autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
-                //  tilMIrancell.setHint(event.getCupName());
-                closeAutoComplete();
+            autoCompletePhoneNumberIrancel.setText(event.getNumber().replaceAll(" ", ""));
+            autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
+            autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
+            closeAutoComplete();
 
-
-                return;
-            }
-            if (isMci)
-            {
-                autoCompletePhoneNumberMci.setText(event.getNumber().replaceAll(" ", ""));
-                // tilMMci.setHint(event.getCupName());
-                closeAutoComplete();
-
-                return;
-
-
-            }
-            if (isRightel)
-            {
-                autoCompletePhoneNumberRightel.setText(event.getNumber().replaceAll(" ", ""));
-                // tilMRightel.setHint(event.getCupName());
-
-                return;
-            }
 
         } catch (Exception e)
         {

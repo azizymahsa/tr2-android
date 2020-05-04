@@ -163,7 +163,7 @@
                                             android:maxLines="1"
                                             android:singleLine="true"
                                             android:text=""
-                                            android:maxLength="11"
+                                            android:maxLength="13"
                                             android:textColor="@color/textHint"
                                             android:textColorHint="@color/textColorSecondary"
                                             android:textSize="@dimen/textSize_12dp" />
@@ -815,6 +815,42 @@
                                         android:layout_weight="20" />
 
                                 </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10dp"
+                                    android:layout_marginBottom="@dimen/_10dp"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="100"
+                                        android:orientation="horizontal">
+                                        <EditText
+                                            android:id="@+id/etCountryName"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:text="ایران"
+                                            android:editable="false"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_18dp" />
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -826,6 +862,37 @@
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="20" />
+                                    <RelativeLayout
+                                        android:id="@+id/rlCountryCode"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+                                        <TextView
+                                            android:layout_width="@dimen/_10dp"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_18dp"
+                                            android:text="+"
+                                            android:layout_centerVertical="true"/>
+                                        <EditText
+                                            android:id="@+id/etCountryCode"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingLeft="@dimen/_10dp"
+                                            android:layout_gravity="center"
+                                            android:minWidth="@dimen/_50dp"
+                                            android:gravity="center"
+                                            android:text="98"
+                                            android:imeOptions="actionDone"
+                                            android:inputType="number"
+                                            android:maxLength="4"
+
+
+                                            android:maxLines="1"
+                                            android:singleLine="true"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_18dp" />
+                                    </RelativeLayout>
 
                                     <RelativeLayout
                                         android:layout_width="0dp"
@@ -839,7 +906,7 @@
                                             android:layout_height="match_parent"
                                             android:background="@android:color/transparent"
                                             android:digits="0,1,2,3,4,5,6,7,8,9"
-                                            android:gravity="right|center"
+                                            android:gravity="center"
                                             android:hint="@string/_new_mobile_num"
                                             android:imeOptions="actionDone"
                                             android:inputType="number"
@@ -848,7 +915,7 @@
                                             android:text=""
                                             android:textColorHint="@color/textHint"
                                             android:textColor="@color/textColorSecondary"
-                                            android:textSize="@dimen/textSize_12dp" />
+                                            android:textSize="@dimen/textSize_16dp" />
 
 
                                         <View

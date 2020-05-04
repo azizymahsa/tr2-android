@@ -247,9 +247,17 @@
                             android:background="@drawable/background_gray_rec"
                             android:scaleType="center"
                             android:padding="@dimen/_10dp"
-
-                            android:src="@drawable/digital_wallet" />
-
+                            android:tint="@color/gray"
+                            android:src="@drawable/digital_wallet"
+                            />
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" به زودی "
+                            android:textColor="@color/white"
+                            android:background="@color/red"
+                            android:layout_marginTop="@dimen/_10dp"/>
 
                     </RelativeLayout>
 
@@ -260,7 +268,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="برداشت از کیف پول"
-                        android:textColor="@color/textColorSecondary"
+                        android:textColor="@color/gray"
                         android:textSize="@dimen/textSize_12dp" />
 
                 </LinearLayout>

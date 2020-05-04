@@ -259,7 +259,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
         tvStartDate = rootView.findViewById(R.id.tvStartDate);
         tvEndDate = rootView.findViewById(R.id.tvEndDate);
         edtSearchFilter = rootView.findViewById(R.id.edtSearchFilter);
-        edtSearchText = rootView.findViewById(R.id.edtSearchText);
+        edtSearchText = rootView.findViewById(R.id.etSearchText);
         btnConfirmFilter = rootView.findViewById(R.id.btnConfirmFilter);
         btnDeleteFilter = rootView.findViewById(R.id.btnDeleteFilter);
 

@@ -2,7 +2,6 @@ package com.traap.traapapp.apiServices.api;
 
 import java.util.ArrayList;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 import com.traap.traapapp.apiServices.helper.Const;
@@ -130,6 +129,7 @@ import com.traap.traapapp.apiServices.model.tourism.bus.getPaymentBus.request.Re
 import com.traap.traapapp.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
 import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
+import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
 import com.traap.traapapp.apiServices.model.verify.VerifyRequest;
 import com.traap.traapapp.apiServices.model.verify.VerifyResponse;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
@@ -148,7 +148,8 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface RetroClient {
+public interface RetroClient
+{
     @POST(Const.Login)
     Single<Response<WebServiceClass<LoginResponse>>> login(
             @Body LoginRequest request
@@ -541,8 +542,8 @@ public interface RetroClient {
             @Query("amount__lte") Integer priceTo,                                 //example 1000 and ""
             @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
             @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
-            @Query("status") Boolean status,                                       //example 0=All, 1=Success, 2=Failure
-            @Query("id__contains") String searchText
+            @Query("status") Boolean status                                       //example 0=All, 1=Success, 2=Failure
+//            @Query("id__contains") String searchText
     );
 
     @GET(Const.GET_Transaction_List)
@@ -551,8 +552,13 @@ public interface RetroClient {
             @Query("amount__gte") Integer priceFrom,                               //example 1000 and ""
             @Query("amount__lte") Integer priceTo,                                 //example 1000 and ""
             @Query("create_date__gte") String dateFrom,                            //example 2019-01-01 and ""
-            @Query("create_date__lte") String dateTo,                              //example 2019-12-01 and ""
-            @Query("id__contains") String searchText
+            @Query("create_date__lte") String dateTo                              //example 2019-12-01 and ""
+//            @Query("id__contains") String searchText
+    );
+
+    @GET(Const.GET_Transaction_List)
+    Single<Response<WebServiceClass<ResponseTransaction>>> getTransactionListBySearch(
+            @Query("type_transaction__title__contains") String searchText
     );
 
 
@@ -742,5 +748,8 @@ public interface RetroClient {
     Single<Response<WebServiceClass<GetLotteryWinnerListResponse>>> getLotteryWinnerList(
             @Path("matchId") Integer id
     );
+
+    @GET(Const.traktor)
+    Single<Response<WebServiceClass<TractorTeamResponse>>> traktor();
 
 }

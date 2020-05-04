@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.fragments.gateWay;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,9 +173,21 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
         mainView.showLoading();
 
+        rootView.setOnKeyListener((v, keyCode, event) ->
+        {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                    return true;
+                }
+            }
+            return false;
+        });
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
         requestGetBalance();
         requestGetInfo();
-            initDatePicker();
+        initDatePicker();
 
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -320,7 +333,16 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                 @Override
                 public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response) {
                     mainView.hideLoading();
+                    rootView.setOnKeyListener((v, keyCode, event) ->
+                    {
+                        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                            if (keyCode == KeyEvent.KEYCODE_BACK) {
 
+                                return false;
+                            }
+                        }
+                        return false;
+                    });
                     try {
                         if (response.info.statusCode == 200) {
                             setBalanceData(response.data);

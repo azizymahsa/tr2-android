@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:gravity="center|right">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="120"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/_20dp"
+            android:layout_height="@dimen/_20dp"
+            android:src="@drawable/info_f"
+            app:tint="@color/warmGray"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="@dimen/_10dp"/>
+        <TextView
+            android:id="@+id/tvAttendance"
+            android:layout_width="0dp"
+            android:layout_weight="100"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="17 فصل"
+            android:textColor="@color/warmGray"
+            android:textSize="@dimen/textSize_14dp"/>
+
+    </LinearLayout>
+
+
+
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@color/warmGray"
+        />
+    <TextView
+        android:id="@+id/tvGoals"
+        android:layout_width="0dp"
+        android:layout_weight="70"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="111 گل"
+        android:textColor="@color/warmGray"
+        android:textSize="@dimen/textSize_14dp"/>
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@color/warmGray"
+        />
+    <TextView
+        android:id="@+id/tvPlayer"
+        android:layout_width="0dp"
+        android:layout_weight="140"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:text="محمدرشید مظاهری"
+        android:textColor="@color/warmGray"
+        android:gravity="center|right"
+        android:textSize="@dimen/textSize_14dp"/>
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@color/warmGray"/>
+    <TextView
+        android:id="@+id/tvRate"
+        android:layout_width="0dp"
+        android:layout_weight="50"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:gravity="center"
+        android:textColor="@color/warmGray"
+        android:layout_marginRight="@dimen/_10dp"
+
+        android:textSize="@dimen/textSize_14dp"/>
+
+
+</LinearLayout>
