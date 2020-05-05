@@ -429,7 +429,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 startEniacFlightActivity.startMainFlight();*/
                 list = fillMenuRecyclerList();
                 MainServiceModelItem s = findUrlById(list, "11");
-                mainView.openWebView(mainView, s.getBase_url(), Prefs.getString("gds_token", ""));
+                mainView.openWebView(mainView, s.getLogin_url(), Prefs.getString("gds_token", ""));
 
 
 
