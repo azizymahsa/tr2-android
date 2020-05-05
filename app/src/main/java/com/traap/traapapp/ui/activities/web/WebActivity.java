@@ -97,6 +97,8 @@ public class WebActivity extends BaseActivity
 
 
             String url = getIntent().getStringExtra("URL");
+            System.out.println("URLGDSSSSSSSSSSS: "+url);
+            System.out.println("URLGDSSSSSSSSSSSTOKEN : "+Prefs.getString("accessToken",""));
            /* if (getIntent().hasExtra("Title"))
             {
                 if (getIntent().getStringExtra("Title").contains("بیمه"))
@@ -126,6 +128,8 @@ public class WebActivity extends BaseActivity
             webView.loadUrl(url,extraHeaders);
 
             WebSettings settings = webView.getSettings();
+            settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+
             initWebViewSettings();
             // Enable AppCache
             // Fix for CB-2282
