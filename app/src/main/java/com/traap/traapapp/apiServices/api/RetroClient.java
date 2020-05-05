@@ -124,6 +124,7 @@ import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForg
 import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
+import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
 import com.traap.traapapp.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
 import com.traap.traapapp.apiServices.model.tourism.bus.getPaymentBus.request.RequestBusPayment;
 import com.traap.traapapp.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
@@ -199,6 +200,13 @@ public interface RetroClient
             @Query("create_date__lte") String dateTo,             //example 2019-12-01 and ""
             @Query("search") String searchText
     );
+
+
+    /*survey*/
+    @GET(Const.Get_DETAIL_SURVEY)
+    Single<Response<WebServiceClass<SurveyDetailResponse>>> getSurveyDetail(
+            @Query("id") Integer surveyId);
+
 
     /*photos*/
     @GET(Const.Get_Main_Photo)
