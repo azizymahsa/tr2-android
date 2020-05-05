@@ -96,6 +96,7 @@ public class WebFragment extends BaseFragment
             String postData = "auth=" + URLEncoder.encode(Token, "UTF-8");
             webView = view.findViewById(R.id.webView);
             WebSettings settings = webView.getSettings();
+            settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
             settings.setJavaScriptEnabled(true);
             settings.setJavaScriptCanOpenWindowsAutomatically(true);
             settings.setDefaultTextEncodingName("utf-8");
@@ -113,6 +114,8 @@ public class WebFragment extends BaseFragment
             Map<String, String> extraHeaders = new HashMap<String, String>();
             extraHeaders.put("Authorization",Prefs.getString("accessToken",""));
             webView.loadUrl(URL,extraHeaders);
+            System.out.println("URLGDSSSSSSSSSSS: "+URL);
+            System.out.println("URLGDSSSSSSSSSSSTOKEN : "+Prefs.getString("accessToken",""));
             // Enable responsive layout
             webView.getSettings().setUseWideViewPort(true);
 // Zoom out if the content width is greater than the width of the viewport
