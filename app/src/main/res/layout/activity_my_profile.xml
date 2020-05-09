@@ -221,6 +221,48 @@
                                 android:src="@drawable/ic_favorite"/>
 
                         </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/rlMySupport"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+
+                            <ImageView
+                                android:id="@+id/img3"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_alignParentLeft="true"
+                                android:scaleType="center"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_arrow_left"
+                                app:tint="@color/textColorSecondary" />
+
+                            <TextView
+                                android:layout_toRightOf="@+id/img3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical"
+                                android:layout_centerVertical="true"
+                                android:paddingEnd="2dp"
+                                android:text="پروفایل هواداری "
+                                android:textSize="@dimen/textSize_14dp"
+                                android:layout_toLeftOf="@+id/icon4"
+                                android:textColor="@color/textColorSecondary"/>
+
+                            <ImageView
+                                android:id="@+id/icon4"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:padding="10dp"
+                                android:scaleType="center"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_havadar"/>
+
+                        </RelativeLayout>
 
                         <RelativeLayout
                             android:id="@+id/rlExit"
