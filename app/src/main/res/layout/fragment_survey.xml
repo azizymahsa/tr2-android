@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:background="@drawable/background_main_header" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent">
+
+
+                <include layout="@layout/toolbar_back" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_20dp"
+                        android:layout_marginTop="@dimen/_20dp"
+                        android:layout_marginEnd="@dimen/_20dp">
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="right"
+                                android:text=" کاربر گرامی، با پاسخ دادن به سوالات نظر سنجی می توانید از امتیاز بهره مند شوید."
+                                android:textColor="@color/returnButtonColor"
+                                android:textSize="@dimen/textSize_14dp" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvQestionOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:gravity="right"
+                    android:text=" "
+                    android:textColor="@color/returnButtonColor"
+                    android:textSize="@dimen/textSize_14dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginEnd="@dimen/_20dp" />
+
+             <!--   <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/shadow_b"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:backgroundTint="@color/_disable_color" />
+
+                <TextView
+                    android:id="@+id/tvQestionTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:gravity="right"
+                    android:text=" "
+                    android:textColor="@color/returnButtonColor"
+                    android:textSize="@dimen/textSize_14dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvQuestionTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/shadow_b"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:backgroundTint="@color/_disable_color" />
+
+                <TextView
+                    android:id="@+id/tvQestionThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:gravity="right"
+                    android:text=" "
+                    android:textColor="@color/returnButtonColor"
+                    android:textSize="@dimen/textSize_14dp" />
+
+                <com.traap.traapapp.utilities.ClearableEditText
+                    android:id="@+id/etAnswerThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:hint="پاسخ"
+                    android:imeOptions="actionDone"
+                    android:textColorHint="@color/textHint"
+                    android:textColor="@color/textColorSecondary" />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:gravity="center|end"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100">
+
+                        <include
+                            android:id="@+id/btnConfirm"
+                            layout="@layout/circular_progress_button_small" />
+
+                    </FrameLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</RelativeLayout>

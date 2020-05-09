@@ -197,4 +197,9 @@ public class Const
     public final static String Get_send_code_change_user = SubBASEURL + "v1/user/change_username/send_code/";
     public final static String traktor = SubBASEURL + "v1/team/traktor/";
 
+    //survey
+    public final static String Get_DETAIL_SURVEY = SubBASEURL + "v1/survey/{id}/";
+
+
+
 }
