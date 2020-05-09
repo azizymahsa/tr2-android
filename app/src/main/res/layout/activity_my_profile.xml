@@ -225,7 +225,7 @@
                             android:id="@+id/rlMySupport"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            >
+                           android:alpha="0.4" >
 
                             <ImageView
                                 android:id="@+id/img3"
