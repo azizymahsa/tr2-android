@@ -101,7 +101,7 @@ public class PackFragment
         , RightelPackImpl.OnFinishedRightelPackListener,
         PackFragmentInteractor, DetailPackAdapter.GetPackInAdapter,
         PackageMciImpl.OnFinishedPackageMciListener, BuyPackageInteractor.OnFinishedBuyPackageListener, PaymentParentActionView,
-        GetPackageIrancellImpl.OnFinishedGetPackageIrancellListener, TextWatcher, AdapterView.OnItemSelectedListener, PaymentActionView
+        GetPackageIrancellImpl.OnFinishedGetPackageIrancellListener, AdapterView.OnItemSelectedListener, PaymentActionView
         , OnClickContinueSelectPayment
 {
 
@@ -179,45 +179,6 @@ public class PackFragment
 
     @BindView(R.id.rlShirt)
     View rlShirt;
-
-
-
-    //toolbar
-
-/*
-
-            tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-   // rlShirt = rootView.findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View v)
-        {
-            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class));
-        }
-    });
-            mToolbar.findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener()
-{
-    @Override
-    public void onClick(View v)
-    {
-        mainView.openDrawer();
-    }
-});
-    tvTitle = rootView.findViewById(R.id.tvTitle);
-            tvTitle.setText("سرویس ها");
-    imgMenu = rootView.findViewById(R.id.imgMenu);
-
-            imgMenu.setOnClickListener(v -> mainView.openDrawer());
-    imgBack = rootView.findViewById(R.id.imgBack);
-            imgBack.setOnClickListener(v ->
-    {
-        getActivity().onBackPressed();
-    });
-
-    tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
-            tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
-*/
 
     @BindView(R.id.contentView)
     LinearLayout contentView;
@@ -570,6 +531,11 @@ public class PackFragment
         isMtn = true;
         isMci = false;
         isRightel = false;
+
+
+
+        imageDrawable = R.drawable.irancell;
+
         //  etMobileNumberMCI.setText(etMobileNumberIranCell.getText());
         // etMobileNumberRightel.setText(etMobileNumberIranCell.getText());
         btnChargeConfirm.setVisibility(View.VISIBLE);
@@ -619,6 +585,10 @@ public class PackFragment
         isMtn = false;
         isMci = true;
         isRightel = false;
+
+
+            imageDrawable = R.drawable.hamrahe_aval;
+
         getMci();
         //  etMobileNumberRightel.setText(etMobileNumberMCI.getText());
         // etMobileNumberIranCell.setText(etMobileNumberMCI.getText());
@@ -673,6 +643,8 @@ public class PackFragment
         isMtn = false;
         isMci = false;
         isRightel = true;
+        imageDrawable = R.drawable.rightel;
+
         setBtnChargeConfirmRightel();
         // etMobileNumberMCI.setText(etMobileNumberRightel.getText());
         // etMobileNumberIranCell.setText(etMobileNumberRightel.getText());
@@ -1245,6 +1217,7 @@ public class PackFragment
                         {*/
                             etMobileNumberMCI.setText(charSequence.toString());
                             hamraheAval();
+                            return;
                       //  }
 
                     } else if (OPERATOR_TYPE_MTN == getOperatorType(charSequence.toString()))
@@ -1257,6 +1230,7 @@ public class PackFragment
                         {*/
                             etMobileNumberIranCell.setText(charSequence.toString());
                             irancell();
+                            return;
                        // }
 
                     }
@@ -1305,15 +1279,24 @@ public class PackFragment
 
         if (Arrays.asList(typeMCI_No).contains(startPhoneNo))
         {
-           // isMci=true;
+           /* isMci=true;
+            isMtn=false;
+            isRightel=false;*/
             return OPERATOR_TYPE_MCI;
         } else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
         {
-           // isMtn=true;
+//            isMci=false;
+//
+//            isMtn=true;
+//            isRightel=false;
+
             return OPERATOR_TYPE_MTN;
         } else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
         {
-         //   isRightel=true;
+//            isMci=false;
+//
+//            isMtn=false;
+//            isRightel=true;
             return OPERATOR_TYPE_RIGHTEL;
         } else
         {
@@ -2004,7 +1987,7 @@ public class PackFragment
 
 
     @Override
-    public void getPackRightel(Detail o)
+    public void getPackRightel(Detail o,Integer operatorType)
     {
         imageDrawable = 0;
 
@@ -2028,33 +2011,25 @@ public class PackFragment
 
         tvAmountPackage.setText("قیمت: " + Utility.priceFormat(amount) + " ریال");
 
-
-        if (isMci)
-        {
-            imageDrawable = R.drawable.hamrahe_aval;
-           // llMCICharge.setVisibility(View.GONE);
-            profileType = Integer.valueOf(o.getProfileId());
-            mobile = etMobileNumberMCI.getText().toString();
-
-
-        }
-        if (isRightel)
-        {
-            imageDrawable = R.drawable.rightel;
-         //   llRightelCharge.setVisibility(View.GONE);
-            profileType = Integer.valueOf(o.getProfileId());
-            mobile = etMobileNumberRightel.getText().toString();
-
-        }
-        if (isMtn)
-        {
+        if (operatorType==1){
             imageDrawable = R.drawable.irancell;
-          //  llMTNCharge.setVisibility(View.GONE);
+            //  llMTNCharge.setVisibility(View.GONE);
             profileType = o.getProfileId();
             mobile = etMobileNumberIranCell.getText().toString();
 
-
+        }else if (operatorType==2){
+            imageDrawable = R.drawable.hamrahe_aval;
+            // llMCICharge.setVisibility(View.GONE);
+            profileType = Integer.valueOf(o.getProfileId());
+            mobile = etMobileNumberMCI.getText().toString();
+        }else{
+            imageDrawable = R.drawable.rightel;
+            //   llRightelCharge.setVisibility(View.GONE);
+            profileType = Integer.valueOf(o.getProfileId());
+            mobile = etMobileNumberRightel.getText().toString();
         }
+
+
 
         //----------------------------new for payment fragment-----------------------
         title = "با انجام این پرداخت ، مبلغ " +
@@ -2316,6 +2291,9 @@ public class PackFragment
             if (packRespone.data.getIrancellPackage().getOneYear() != null && packRespone.data.getIrancellPackage().getOneYear().size() != 0)
                 irancellPack.add(new RightelPackModel("یک ساله", packRespone.data.getIrancellPackage().getOneYear()));
 
+
+            imageDrawable=R.drawable.irancell;
+
             if (!TextUtils.isEmpty(packageType) && operatorType == 1)
             {
                 boolean isActive = false;
@@ -2414,104 +2392,6 @@ public class PackFragment
         }
     }
 
-    // @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onConfirmButtonPhoneNumber(Transaction event)
-//    {
-//
-//        if (event.getTypeTransactionId() != 4)
-//            return;
-//        Log.e("teeeeeeeest", event.getInternetPackageVm().getPackageType() + "");
-//        packageType = event.getInternetPackageVm().getPackageType();
-//        amountType = event.getAmount();
-//        operatorType = event.getInternetPackageVm().getTypeOperatorId();
-//        if (isMtn)
-//        {
-//
-//            etMobileNumberIranCell.setText(event.getInternetPackageVm().getMobileNumber());
-//            //  etChargeAmount.setText(event.getAmount()+"");
-//            btnChargeConfirm.startAnimation();
-//            btnChargeConfirm.setClickable(false);
-//            getPackageIrancell.findGetPackageIrancellDataRequest(this, etMobileNumberIranCell.getText().toString());
-//            hideSoftKeyboard(etMobileNumberIranCell);
-//
-//
-//            return;
-//        }
-//        if (isMci)
-//        {
-//            etMobileNumberMCI.setText(event.getInternetPackageVm().getMobileNumber());
-//            //   etMCIAmount.setText(event.getAmount()+"");
-//            btnMCIPackConfirm.startAnimation();
-//            btnMCIPackConfirm.setClickable(false);
-//            packageMci.findPackageMciDataRequest(this, etMobileNumberMCI.getText().toString());
-//            hideSoftKeyboard(etMobileNumberMCI);
-//            return;
-//
-//
-//        }
-//        if (isRightel)
-//        {
-//            etMobileNumberRightel.setText(event.getInternetPackageVm().getMobileNumber());
-//            //   etChargeAmountRightel.setText(event.getAmount()+"");
-//            btnChargeConfirmRightel.startAnimation();
-//            btnChargeConfirmRightel.setClickable(false);
-//            rightelPack.findRightelPackData(this, etMobileNumberRightel.getText().toString());
-//            hideSoftKeyboard(etMobileNumberRightel);
-//
-//
-//        }
-//
-//
-//    }
-
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
-    {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
-    {
-        if (TextUtils.isEmpty(charSequence))
-        {
-            try
-            {
-                if (isMtn)
-                {
-                  //  tilMIrancell.setHint("شماره موبایل");
-
-
-                    return;
-                }
-                if (isMci)
-                {
-                   // tilMMci.setHint("شماره موبایل");
-
-                    return;
-
-
-                }
-                if (isRightel)
-                {
-                  //  tilMRightel.setHint("شماره موبایل");
-
-
-                }
-
-            } catch (Exception e)
-            {
-            }
-
-        }
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable)
-    {
-
-    }
 
     @Override
     public void showPaymentParentLoading()
@@ -2678,22 +2558,6 @@ public class PackFragment
 
         super.onDestroyView();
     }
-
-
-
-    /*
-    public void filterIrancell(String text) {
-        irancellPackFilter.clear();
-        for (int i = 0; i <irancellPack.size() ; i++) {
-            for (int j = 0; j <irancellPack.get(i).getDetail().size() ; j++) {
-                if (irancellPack.get(i).getDetail().get(j).getPackageType().equals(text))
-                    irancellPackFilter.add(irancellPack.get(i));
-            }
-        }
-        packAdapter = new TitlePackAdapter(irancellPackFilter, this);
-        irancellRecycler.setAdapter(packAdapter);
-
-    }*/
 
 
 }

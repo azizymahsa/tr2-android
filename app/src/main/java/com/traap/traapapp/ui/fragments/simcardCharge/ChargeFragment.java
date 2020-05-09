@@ -1310,7 +1310,7 @@ public class ChargeFragment extends BaseFragment
 
     }
 
-    private int getOperatorType(String phoneNo)
+    private int  getOperatorType(String phoneNo)
     {
         String startPhoneNo = phoneNo.substring(0, 4);
         Logger.e("-startPhoneNo-", startPhoneNo);
