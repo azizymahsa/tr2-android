@@ -40,7 +40,6 @@ import com.squareup.picasso.Picasso;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -70,7 +69,6 @@ import com.traap.traapapp.ui.adapters.mainSlider.MainSliderAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
-import com.traap.traapapp.ui.fragments.predict.PredictFragment;
 import com.traap.traapapp.utilities.CountDownTimerPredict;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
@@ -95,9 +93,6 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 //import library.android.service.model.bus.searchBus.response.Company;
 //import library.android.service.model.flight.reservation.response.ReservationResponse;
 import library.android.eniac.StartEniacFlightActivity;
-import library.android.eniac.interfaces.FlightReservationData;
-import library.android.eniac.model.FlightReservation;
-import library.android.service.model.flight.reservation.response.ReservationResponse;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
@@ -429,7 +424,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 startEniacFlightActivity.startMainFlight();*/
                 list = fillMenuRecyclerList();
                 MainServiceModelItem s = findUrlById(list, "11");
-                mainView.openWebView(mainView, s.getLogin_url(), Prefs.getString("gds_token", ""));
+                mainView.openWebView(mainView, s.getLogin_url(), Prefs.getString("gds_token", ""), "گردشگری");
 
 
 
@@ -773,10 +768,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //    }
 
     @Override
-    public void onChosenItemClick(View view, Integer id, String URl)
+    public void onChosenItemClick(View view, Integer id, String URl,String baseUrl)
     {
         switch (id)
         {
+            case 701:
+            {
+                mainView.openWebView(mainView, baseUrl, Prefs.getString("gds_token", ""),"تراپ مارکت");
+                break;
+
+            }
             case 11: //Flight ATA
             {
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, this);
@@ -795,7 +796,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             case 13: //Bus
             {
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, this);
-                mainView.openWebView(mainView, URl, Prefs.getString("gds_token", ""));
+                mainView.openWebView(mainView, URl, Prefs.getString("gds_token", ""), "گردشگری");
                 break;
             }
             case 65: //Bill

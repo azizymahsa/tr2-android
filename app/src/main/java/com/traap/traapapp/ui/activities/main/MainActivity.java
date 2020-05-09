@@ -114,7 +114,6 @@ import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.ui.fragments.support.SupportFragment;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
-import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.ui.fragments.videos.VideosMainActionView;
 import com.traap.traapapp.ui.fragments.videos.VideosMainFragment;
@@ -2045,11 +2044,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    public void openWebView(MainActionView mainView, String uRl, String gds_token, String title)
     {
         isMainFragment = false;
-        setFragment(WebFragment.newInstance(mainView, uRl, gds_token));
+        setFragment(WebFragment.newInstance(mainView, uRl, gds_token,title));
         replaceFragment(getFragment(), "WebFragment");
+
     }
 
 

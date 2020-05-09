@@ -175,13 +175,9 @@ public class MediaFragment extends BaseFragment implements MediaAdapter.OnItemAl
                 case ImageGallery:
                 {
                     myMediaType = MediaPosition.ImageGallery.ordinal();
-
                     fragment = PhotosFragment.newInstance(this);
                     transaction = fragmentManager.beginTransaction();
-
-                    transaction.replace(R.id.main_container, fragment, "photosFragment")
-                            .commit();
-
+                    transaction.replace(R.id.main_container, fragment, "photosFragment").commit();
                     break;
                 }
                 case VideoGallery:

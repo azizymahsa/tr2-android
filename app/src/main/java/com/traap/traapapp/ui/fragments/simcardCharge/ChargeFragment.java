@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -80,7 +77,6 @@ import com.traap.traapapp.enums.MediaPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
-import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
 import com.traap.traapapp.ui.adapters.charge.ChargeAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -92,7 +88,6 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImp
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyImpl;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.mci.MciBuyInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.rightel.RightelBuyImpl;
-import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.utilities.ClearableEditText;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
@@ -1994,7 +1989,7 @@ public class ChargeFragment extends BaseFragment
 
 
     @Override
-    public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    public void openWebView(MainActionView mainView, String uRl, String gds_token, String title)
     {
 
     }

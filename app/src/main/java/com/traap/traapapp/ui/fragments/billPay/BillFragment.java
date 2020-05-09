@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1512,7 +1511,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
 
     @Override
-    public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    public void openWebView(MainActionView mainView, String uRl, String gds_token, String title)
     {
 
     }
