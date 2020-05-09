@@ -113,6 +113,7 @@ import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPaymen
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.ui.fragments.support.SupportFragment;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
+import com.traap.traapapp.ui.fragments.survey.SurveyFragment;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.ticket.ShowTicketsFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
@@ -789,7 +790,9 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 // showToast(this, "ارتباط با پشتیبانی", R.color.green);
                 isMainFragment = false;
 
+                //setFragment(SurveyFragment.newInstance(this));
                 setFragment(SupportFragment.newInstance(this));
+
                 replaceFragment(getFragment(), "SupportFragment");
                 break;
             }

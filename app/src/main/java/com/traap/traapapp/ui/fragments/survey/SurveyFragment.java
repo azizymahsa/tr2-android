@@ -51,9 +51,10 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
     private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu, rlShirt;
     private CircularProgressButton btnConfirm;
-    private Integer Id=1;
-    private ArrayList<Question> surveyDetailList;
+    private Integer Id=0;
+    private ArrayList<Question> surveyDetailList= new ArrayList<>();
     private RecyclerView rvQuestion;
+    private SurveyDetailAdapter detailAdapter;
 
 
     public static SurveyFragment newInstance(MainActionView mainView)
@@ -154,7 +155,7 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
 
             rvQuestion=view.findViewById(R.id.rvQuestion);
 
-            SurveyDetailAdapter detailAdapter = new SurveyDetailAdapter(surveyDetailList,this);
+            detailAdapter = new SurveyDetailAdapter(surveyDetailList,this);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
             rvQuestion.setLayoutManager(linearLayoutManager);
@@ -225,12 +226,15 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
 
     private void setQuestions(SurveyDetailResponse data)
     {
+        surveyDetailList.addAll(data.getQuestions());
 
+        detailAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onError(String message)
     {
+        hideLoading();
         if (!Tools.isNetworkAvailable(this.getActivity()))
         {
             Logger.e("-OnError-", "Error: " + message);

@@ -205,7 +205,7 @@ public interface RetroClient
     /*survey*/
     @GET(Const.Get_DETAIL_SURVEY)
     Single<Response<WebServiceClass<SurveyDetailResponse>>> getSurveyDetail(
-            @Query("id") Integer surveyId);
+            @Path("id") Integer surveyId);
 
 
     /*photos*/

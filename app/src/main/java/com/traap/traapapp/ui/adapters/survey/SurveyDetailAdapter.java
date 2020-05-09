@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.survey.Question;
-import com.traap.traapapp.ui.adapters.spectatorList.SpectatorListAdapter;
 import com.traap.traapapp.ui.fragments.survey.SurveyFragment;
+import com.traap.traapapp.ui.others.CustomLinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
     private final SurveyFragment surveyFragment;
     private Context context;
     private List<Question> surveyDetailList;
-    MedicinesInPrescAdapter adapter;
+    SurveyDetailRadioGroupAdapter adapter;
 
 
 
@@ -43,7 +42,7 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
     {
         this.context = parent.getContext();
         return new SurveyDetailAdapter.ViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.list_item_detail_survey, parent, false));
+                .inflate(R.layout.list_item_detail_survey, parent, false),context);
     }
 
 
@@ -53,12 +52,11 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
         Question info = surveyDetailList.get(position);
 
 
-        adapter = new MedicinesInPrescAdapter(model.getLstproduct());
-        viewHolder.lstMedicines.setAdapter(adapter);
+        adapter = new SurveyDetailRadioGroupAdapter();
+        holder.rvQuestionRadioGroup.setAdapter(adapter);
+
        // holder.cbSelectSpectator.setChecked(info.getIsMandatory());
        // holder.cbSelectSpectator.setEnabled(false);
-
-
 
 
 
@@ -79,14 +77,16 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
         private RecyclerView rvQuestionRadioGroup,rvQuestionCheckBox;
         public TextView tvQuestion;
 
-        public ViewHolder(View v)
+        public ViewHolder(View v, Context context)
         {
             super(v);
             tvQuestion = v.findViewById(R.id.tvQestion);
             rvQuestionRadioGroup = v.findViewById(R.id.rvQuestionRadioGroup);
             rvQuestionCheckBox = v.findViewById(R.id.rvQuestionCheckBox);
 
-            MyLinearLayoutManager layoutManager = new MyLinearLayoutManager(itemView.getContext(), LinearLayoutManager.VERTICAL,false);
+            RecyclerView.LayoutManager layoutManager = new CustomLinearLayoutManager(context);
+            rvQuestionRadioGroup.setLayoutManager(layoutManager);
+
             rvQuestionRadioGroup.setHasFixedSize(false);
             rvQuestionRadioGroup.setLayoutManager(layoutManager);
 
