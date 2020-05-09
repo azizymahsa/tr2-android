@@ -41,6 +41,7 @@ import com.anychart.graphics.vector.text.Direction;
 import com.anychart.graphics.vector.text.HAlign;
 import com.anychart.graphics.vector.text.VAlign;
 import com.pixplicity.easyprefs.library.Prefs;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -808,7 +809,30 @@ public class PredictFragment extends BaseFragment implements OnServiceStatus<Web
 
     private void setImageIntoIV(ImageView imageView, String link)
     {
-        Picasso.with(context).load(link).into(imageView);
+        try
+        {
+            Picasso.with(context).load(link).into(imageView, new Callback()
+            {
+                @Override
+                public void onSuccess()
+                {
+
+                }
+
+                @Override
+                public void onError()
+                {
+                    Picasso.with(context).load(R.drawable.img_failure).into(imageView);
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Logger.e("-Load Image-", "" + e.getMessage());
+            e.printStackTrace();
+            Picasso.with(context).load(R.drawable.img_failure).into(imageView);
+        }
+
     }
 
     private RelativeLayout getWinLoseListView(String itemStr)
