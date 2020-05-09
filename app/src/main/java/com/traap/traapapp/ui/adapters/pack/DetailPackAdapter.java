@@ -68,7 +68,7 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
         holder.tvAmount.setText("مبلغ با احتساب 9 درصد مالیات " + Utility.priceFormat(item.getBillAmount()) + " ریال ");
         holder.tvMainAmount.setText(Utility.priceFormat(item.getAmount()) + " ریال ");
         holder.container.setOnClickListener(view -> {
-            getPackInAdapter.getPackRightel(item);
+            getPackInAdapter.getPackRightel(item,operatorType);
         });
 
         if (operatorType==1){
@@ -113,7 +113,7 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
 
     public interface GetPackInAdapter
     {
-        void getPackRightel(Detail o);
+        void getPackRightel(Detail o,Integer operatorType);
     }
 
 

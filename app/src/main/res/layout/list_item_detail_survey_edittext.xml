@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/tvQestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginEnd="@dimen/_20dp"
+        android:gravity="right"
+        android:text=" "
+        android:textColor="@color/returnButtonColor"
+        android:textSize="@dimen/textSize_14dp" />
+
+    <com.traap.traapapp.utilities.ClearableEditText
+        android:id="@+id/etAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right|center_vertical"
+        android:inputType="text"
+        android:maxLines="1"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginEnd="@dimen/_20dp"
+        android:singleLine="true"
+        android:textSize="@dimen/textSize_14dp"
+        android:hint="پاسخ"
+        android:imeOptions="actionDone"
+        android:textColorHint="@color/textHint"
+        android:textColor="@color/textColorSecondary" />
+
+</LinearLayout>

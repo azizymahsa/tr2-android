@@ -57,6 +57,7 @@ import com.traap.traapapp.apiServices.part.SheatcChangePassService;
 import com.traap.traapapp.apiServices.part.SheatcForgotPassService;
 import com.traap.traapapp.apiServices.part.GetMatchListService;
 import com.traap.traapapp.apiServices.part.SpectatorInfoService;
+import com.traap.traapapp.apiServices.part.SurveyDetailService;
 import com.traap.traapapp.apiServices.part.TractorTeamService;
 import com.traap.traapapp.apiServices.part.TransactionDetailService;
 import com.traap.traapapp.apiServices.part.TransactionService;
@@ -170,6 +171,11 @@ public class SingletonService
     public ArchiveVideoService getArchiveVideoService()
     {
         return new ArchiveVideoService(serviceGenerator);
+    }
+
+    public SurveyDetailService getSurveyDetailService()
+    {
+        return new SurveyDetailService(serviceGenerator);
     }
 
     public PhotoArchiveService getPhotoArchiveService()
