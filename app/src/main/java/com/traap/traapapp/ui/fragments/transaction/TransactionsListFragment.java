@@ -93,6 +93,7 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
     private float rangeLeft = 0f, rangeRight = 50f;
 
     private FilterTransactionSetting filterSetting;
+    private Boolean isSettingFirstLoad = true;
 
     private CompositeDisposable disposable = new CompositeDisposable();
     private final int DELAY_TIME_TEXT_CHANGE = 200;
@@ -547,6 +548,13 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                         llDeleteFilter.setVisibility(View.GONE);
                         llFilterHashTag.setVisibility(View.GONE);
 
+                        rangeLeft = 0f;
+                        rangeRight = filterSetting.getStepCount();
+
+                        tvMaxPrice.setText(Utility.priceFormat(filterSetting.getMaxAmount()) + " ریال");
+                        tvMinPrice.setText(Utility.priceFormat(filterSetting.getMinAmount()) + " ریال");
+                        rangeBar.setProgress(rangeLeft, rangeRight);
+                        
                         adapter = new FilterArchiveAdapter(getActivity(), filteredCategoryList);
                         adapter.notifyDataSetChanged();
                         rcFilterCategory.setAdapter(adapter);
@@ -1108,18 +1116,24 @@ public class TransactionsListFragment extends BaseFragment implements DatePicker
                     fixTableAdapter = new TransactionListAdapter(response.data.getTransactionLists(), context);
                     rcTransactionList.setAdapter(fixTableAdapter);
                 }
-                filterSetting = response.data.getTransactionSetting().getFilters();
-                MIN_PRICE_DEFAULT = filterSetting.getMinAmount();
-                MAX_PRICE_DEFAULT = filterSetting.getMaxAmount();
-                priceInterval = (filterSetting.getMaxAmount() - filterSetting.getMinAmount()) / filterSetting.getStepCount();
+                if (isSettingFirstLoad)
+                {
+                    isSettingFirstLoad = false;
 
-                rangeBar.setRange(0f, filterSetting.getStepCount(), 1f);
-                rangeBar.setProgress(0f, filterSetting.getStepCount());
-                rangeBar.setIndicatorTextDecimalFormat("0");
+                    filterSetting = response.data.getTransactionSetting().getFilters();
+                    MIN_PRICE_DEFAULT = filterSetting.getMinAmount();
+                    MAX_PRICE_DEFAULT = filterSetting.getMaxAmount();
+                    priceInterval = (filterSetting.getMaxAmount() - filterSetting.getMinAmount()) / filterSetting.getStepCount();
+
+                    rangeBar.setRange(0f, filterSetting.getStepCount(), 1f);
+                    rangeBar.setProgress(0f, filterSetting.getStepCount());
+                    rangeBar.setIndicatorTextDecimalFormat("0");
+
+                    tvMaxPrice.setText(Utility.priceFormat(filterSetting.getMaxAmount()) + " ریال");
+                    tvMinPrice.setText(Utility.priceFormat(filterSetting.getMinAmount()) + " ریال");
+                }
                 rangeBar.setOnRangeChangedListener(this);
 
-                tvMaxPrice.setText(Utility.priceFormat(filterSetting.getMaxAmount()) + " ریال");
-                tvMinPrice.setText(Utility.priceFormat(filterSetting.getMinAmount()) + " ریال");
             }
         }
         catch (Exception e)
