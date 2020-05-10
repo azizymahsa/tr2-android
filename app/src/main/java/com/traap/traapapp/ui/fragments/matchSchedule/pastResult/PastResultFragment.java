@@ -29,18 +29,15 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getLast5PastMatch.request.Last5PastMatchRequest;
 import com.traap.traapapp.apiServices.model.getLast5PastMatch.response.Last5PastMatchResponse;
-import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.LeagueTableParent;
-import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
-import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
-import com.traap.traapapp.ui.adapters.Leaguse.pastResult.PastResultAdapter;
+import com.traap.traapapp.ui.adapters.leagues.DataBean;
+import com.traap.traapapp.ui.adapters.leagues.pastResult.PastResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 //import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment2;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
@@ -158,14 +155,14 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
             {
                 if (parent == LeagueTableParent.MatchScheduleFragment)
                 {
-                    Prefs.putInt("LeagueTableParent",LeagueTableParent.MatchScheduleFragment.ordinal());
+                    Prefs.putInt("LeagueTableParent", LeagueTableParent.MatchScheduleFragment.ordinal());
 //                    mainView.onBackToMatch();
                     getActivity().onBackPressed();
                 }
                 else if (parent == LeagueTableParent.PredictFragment)
                 {
 //                    mainView.onPredictLeagueTable(Integer.parseInt(teamId), Integer.parseInt(matchId), isPredictable);
-                    Prefs.putInt("LeagueTableParent",LeagueTableParent.PredictFragment.ordinal());
+                    Prefs.putInt("LeagueTableParent", LeagueTableParent.PredictFragment.ordinal());
                     getActivity().onBackPressed();
                 }
 //                getActivity().onBackPressed();
@@ -180,7 +177,8 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
             imgLogo = rootView.findViewById(R.id.imgLogo);
             Picasso.with(SingletonContext.getInstance().getContext()).load(logoPath).into(imgLogo);
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
 
         }
@@ -239,7 +237,8 @@ public class PastResultFragment extends BaseFragment implements OnAnimationEndLi
                 //fixTableAdapter.setClickListener(this);
                 leagRecycler.setAdapter(fixTableAdapter);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             mainView.showError(e.getMessage());
             mainView.hideLoading();

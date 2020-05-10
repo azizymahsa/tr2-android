@@ -1,7 +1,6 @@
 package com.traap.traapapp.ui.activities.myPredicts;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.traap.traapapp.R;
@@ -27,17 +25,16 @@ import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.activities.lotteryWinnerList.LotteryWinnerDetailsActivity;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.myPredict.MyPredictAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.LotteryWinnerListDialog;
-import com.traap.traapapp.ui.fragments.predict.PredictActionView;
+import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultActionView;
 import com.traap.traapapp.utilities.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyPredictsActivity extends BaseActivity implements MyPredictActionView, PredictActionView,
+public class MyPredictsActivity extends BaseActivity implements MyPredictActionView, PredictResultActionView,
         OnServiceStatus<WebServiceClass<MyPredictResponse>>, MyPredictAdapter.OnItemClickListener
 {
     private Toolbar mToolbar;

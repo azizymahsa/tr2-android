@@ -1,23 +1,18 @@
 package com.traap.traapapp.ui.dialogs;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Space;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,7 +27,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.lottery.GetLotteryWinnerListResponse;
 import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.ui.adapters.lotteryWinnerList.LotteryPredictGeneralAdapter;
-import com.traap.traapapp.ui.fragments.predict.PredictActionView;
+import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -42,8 +37,6 @@ import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
 
 /**
  * Created by Javad.Abadi on 6/24/2019.
@@ -66,9 +59,9 @@ public class LotteryWinnerListDialog extends DialogFragment
     private CircularProgressButton btnBack, btnDetails;
 
     private RecyclerView recyclerView;
-    private PredictActionView actionView;
+    private PredictResultActionView actionView;
 
-    public LotteryWinnerListDialog(Integer matchId, PredictActionView actionView)
+    public LotteryWinnerListDialog(Integer matchId, PredictResultActionView actionView)
     {
         this.matchId = matchId;
         this.actionView = actionView;
