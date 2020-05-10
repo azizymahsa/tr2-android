@@ -666,7 +666,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             @Override
             public void run()
             {
-                sliderRecyclerView.smoothScrollToPosition(matchCurrentPos);
+                sliderRecyclerView.smoothScrollToPosition(matchList.size()-1);
 //                sliderRecyclerView.scrollToPosition(matchCurrentPos);
             }
         }, 200);

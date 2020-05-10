@@ -544,7 +544,7 @@ public class AllMenuFragment extends BaseFragment implements
     }
 
     @Override
-    public void onChosenItemClickk(View view, Integer id, String URl)
+    public void onChosenItemClickk(View view, Integer id, String URl,String baseuUrl)
     {
 
 
@@ -756,6 +756,11 @@ public class AllMenuFragment extends BaseFragment implements
                 startActivityForResult(intent, 100);
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
+                break;
+            }
+            case 73: //  پارک حاشیه ای
+            {
+                Utility.openUrlCustomTab(getActivity(), baseuUrl);
                 break;
             }
         }
