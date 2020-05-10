@@ -134,11 +134,11 @@ public class MyProfileActivity extends BaseActivity
 
         rlMyPredict.setOnClickListener(v ->
         {
-           // startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyPredictsActivity.class), 100);
+            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyPredictsActivity.class), 100);
         });
         rlMySupport.setOnClickListener(v ->
         {
-            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MySupportActivity.class), 100);
+           // startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MySupportActivity.class), 100);
         });
 
         rlMyFavorite.setOnClickListener(v ->
