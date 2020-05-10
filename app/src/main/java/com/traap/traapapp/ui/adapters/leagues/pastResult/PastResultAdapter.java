@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.adapters.Leaguse.pastResult;
+package com.traap.traapapp.ui.adapters.leagues.pastResult;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,16 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getLast5PastMatch.response.Last5PastMatchItem;
-import com.traap.traapapp.apiServices.model.league.pastResult.response.Result;
-
-import saman.zamani.persiandate.PersianDate;
-import saman.zamani.persiandate.PersianDateFormat;
 
 
 public class PastResultAdapter extends RecyclerView.Adapter<PastResultAdapter.ViewHolder>

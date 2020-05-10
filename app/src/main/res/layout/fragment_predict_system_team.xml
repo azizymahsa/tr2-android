@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="15dp"
+            app:contentPaddingTop="8dp"
+            app:contentPaddingRight="1dp"
+            app:contentPaddingLeft="1dp"
+            app:contentPaddingBottom="8dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMatchDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/textSize_16dp"
+                    android:textColor="@color/textColorSecondary"
+                    android:gravity="center"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:id="@+id/rlAway"
+                                android:layout_width="@dimen/_120dp"
+                                android:layout_height="@dimen/_120dp"
+                                android:background="@drawable/ic_ball"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:layout_alignParentTop="true">
+
+                                <ImageView
+                                    android:id="@+id/imgAwayHeader"
+                                    android:layout_width="@dimen/_60dp"
+                                    android:layout_height="@dimen/_60dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignParentTop="true"
+                                    android:scaleType="fitXY"/>
+
+                                <TextView
+                                    android:id="@+id/tvAwayHeader"
+                                    android:layout_below="@+id/imgAwayHeader"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="عنوان"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/textSize_16dp"
+                                    android:textColor="@color/textColorSecondary"
+                                    android:gravity="center"/>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/drawerSepratorColor"/>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:id="@+id/rlHomeHeader"
+                                android:layout_width="@dimen/_120dp"
+                                android:layout_height="@dimen/_120dp"
+                                android:background="@drawable/ic_ball"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:layout_alignParentTop="true">
+
+                                <ImageView
+                                    android:id="@+id/imgHomeHeader"
+                                    android:layout_width="@dimen/_60dp"
+                                    android:layout_height="@dimen/_60dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignParentTop="true"
+                                    android:scaleType="fitXY"/>
+
+                                <TextView
+                                    android:id="@+id/tvHomeHeader"
+                                    android:layout_below="@+id/imgHomeHeader"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="عنوان"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/textSize_16dp"
+                                    android:textColor="@color/textColorSecondary"
+                                    android:gravity="center"/>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imgCupLogo"
+                            android:layout_width="@dimen/_50dp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_gravity="center"
+                            android:background="@color/white"
+                            android:scaleType="fitCenter"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/llPredict"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:paddingRight="8dp"
+                android:gravity="right"
+                android:textSize="@dimen/textSize_14dp"
+                android:textColor="@color/textColorSecondary"
+                android:text="ترکیب مورد نظر تیم را وارد نمایید:"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:paddingRight="8dp"
+                android:gravity="right"
+                android:textSize="@dimen/textSize_12dp"
+                android:textColor="@color/textColorSubTitle"
+                android:text="ترکیب تیم"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabSelectSystem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:visibility="visible"
+                    app:backgroundTint="@color/backgroundButton"
+                    app:rippleColor="@color/colorPrimaryDark"
+                    app:elevation="3dp"
+                    app:fabSize="mini" />
+
+                <Spinner
+                    android:layout_toRightOf="@+id/fabSelectSystem"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:layoutDirection="rtl"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:paddingRight="8dp"
+                android:gravity="right"
+                android:textSize="@dimen/textSize_14dp"
+                android:textColor="@color/textColorSecondary"
+                android:text="برای انتخاب بازیکن مورد نظر بر روی هر پست، کلیک نمایید."/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@color/green"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+

@@ -19,8 +19,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -30,10 +28,9 @@ import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseL
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.Result;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.LeagueTableParent;
-import com.traap.traapapp.ui.adapters.Leaguse.FixTableAdapter;
+import com.traap.traapapp.ui.adapters.leagues.FixTableAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
+import com.traap.traapapp.ui.adapters.leagues.DataBean;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 

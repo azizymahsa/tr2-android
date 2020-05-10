@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,12 +20,11 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MatchScheduleParent;
-import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
-import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
+import com.traap.traapapp.enums.PredictPosition;
+import com.traap.traapapp.ui.adapters.leagues.DataBean;
+import com.traap.traapapp.ui.adapters.leagues.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.fragments.predict.PredictFragment;
-import com.traap.traapapp.utilities.Tools;
 
 /**
  * Created by MahtabAzizi on 11/16/2019.
@@ -118,35 +116,6 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
 
 
     @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-    }
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-
-
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-    }
-
-
-    @Override
     public void onAnimationEnd()
     {
 
@@ -180,7 +149,7 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem.getId(), matchItem.getIsPredict());
 //
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-        mainView.onPredict(matchItem.getId(), matchItem.getIsPredict());
+        mainView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override
