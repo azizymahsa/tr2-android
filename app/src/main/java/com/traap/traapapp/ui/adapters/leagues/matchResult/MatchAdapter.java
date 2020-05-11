@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.adapters.Leaguse.matchResult;
+package com.traap.traapapp.ui.adapters.leagues.matchResult;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -183,12 +183,12 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
 
     private void getPredictVisibility(boolean visibility, ViewHolder holder)
     {
-        if (parent == MatchScheduleParent.PastResultFragment)
-        {
-            holder.tvPredictResult.setVisibility(View.GONE);
-        }
-        else
-        {
+//        if (parent == MatchScheduleParent.PastResultFragment)
+//        {
+//            holder.tvPredictResult.setVisibility(View.GONE);
+//        }
+//        else
+//        {
             if (visibility)
             {
                 holder.tvPredictResult.setVisibility(View.VISIBLE);
@@ -197,7 +197,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             {
                 holder.tvPredictResult.setVisibility(View.GONE);
             }
-        }
+//        }
     }
 
     // total number of rows

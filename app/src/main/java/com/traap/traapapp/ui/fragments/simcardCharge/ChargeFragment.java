@@ -77,6 +77,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MediaPosition;
+import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
@@ -1885,7 +1886,13 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onPredict(Integer matchId, Boolean isPredictable)
+    public void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
+    {
+
+    }
+
+    @Override
+    public void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
     {
 
     }

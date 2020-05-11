@@ -1,10 +1,7 @@
 package com.traap.traapapp.ui.fragments.paymentGateWay;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,14 +29,12 @@ import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePas
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
-import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
-import com.traap.traapapp.ui.activities.paymentResult.PaymentResultActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
-import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
-import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
+import com.traap.traapapp.ui.adapters.leagues.DataBean;
+import com.traap.traapapp.ui.adapters.leagues.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -50,7 +45,6 @@ import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletInteract
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageWalletImpl;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageWalletInteractor;
 import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
