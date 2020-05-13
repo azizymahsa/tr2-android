@@ -61,6 +61,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MediaPosition;
+import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.dbModels.ArchiveCardDBModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
@@ -1402,7 +1403,13 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void onPredict(Integer matchId, Boolean isPredictable)
+    public void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
+    {
+
+    }
+
+    @Override
+    public void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
     {
 
     }

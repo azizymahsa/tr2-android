@@ -56,6 +56,7 @@ import com.traap.traapapp.apiServices.model.getMenuHelp.ResultHelpMenu;
 import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
@@ -1054,7 +1055,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     {
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainView, matchItem, matchItem.getIsPredict());
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit()
-        mainView.onPredict(matchItem.getId(), matchItem.getIsPredict());
+        mainView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override

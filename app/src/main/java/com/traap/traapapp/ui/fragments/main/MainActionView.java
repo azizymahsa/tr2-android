@@ -8,6 +8,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MediaPosition;
+import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
@@ -48,7 +49,9 @@ public interface MainActionView extends BaseView
 
     void onLeageClick (ArrayList<MatchItem> matchBuyable);
 
-    void onPredict(Integer matchId, Boolean isPredictable);
+    void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable);
+
+    void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable);
 
     void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable);
 

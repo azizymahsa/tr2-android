@@ -65,12 +65,14 @@ import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.enums.MediaPosition;
+import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.dbModels.BankDB;
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.singleton.SingletonLastPredictItem;
 import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
 import com.traap.traapapp.ui.activities.points.PointsActivity;
 import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
@@ -108,6 +110,7 @@ import com.traap.traapapp.ui.fragments.paymentWithoutCard.PaymentWithoutCardFrag
 import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveActionView;
 import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveFragment;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
+import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultResultFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
@@ -587,6 +590,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     @Override
     public void onBackPressed()
     {
+        Logger.e("-LeagueTableParent-", Prefs.getInt("LeagueTableParent", 0) + "");
         try
         {
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -604,7 +608,15 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             else if ((getFragment() instanceof PastResultFragment) &&
                     Prefs.getInt("LeagueTableParent", 0) == LeagueTableParent.MatchScheduleFragment.ordinal())
             {
+                Logger.e("-PastResultFragment back-", "-onBackToMatch-");
                 onBackToMatch();
+            }
+            else if (getFragment() instanceof Last5PastMatchFragment || getFragment() instanceof LeagueTableMainFragment)
+            {
+                onBackToPredict(SingletonLastPredictItem.getInstance().getPredictPosition(),
+                        SingletonLastPredictItem.getInstance().getMatchId(),
+                        SingletonLastPredictItem.getInstance().getIsPredictable()
+                );
             }
             else if (getFragment() instanceof SelectPaymentGatewayFragment)
             {
@@ -1315,10 +1327,21 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onPredict(Integer matchId, Boolean isPredictable)
+    public void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
     {
         isMainFragment = false;
-        setFragment(PredictFragment.newInstance(this, matchId, isPredictable));
+        setFragment(PredictFragment.newInstance(this, position, matchId, isPredictable));
+        replaceFragment(getFragment(), "predictFragment");
+    }
+
+    @Override
+    public void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
+    {
+        fragmentList.remove(fragmentList.size()-1); //remove current Fragment
+        fragmentList.remove(fragmentList.size()-1); //remove Predict Fragment
+
+        isMainFragment = false;
+        setFragment(PredictFragment.newInstance(this, position, matchId, isPredictable));
         replaceFragment(getFragment(), "predictFragment");
     }
 
@@ -2123,7 +2146,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 fragmentList.remove(fragmentList.size()-1); //remove current Fragment
 //                setFragment(PredictFragment.newInstance(MainActivity.this, matchId, isPredictable));
 //                replaceFragment(getFragment(), "predictFragment");
-                onPredict(matchId, isPredictable);
+                onPredict(PredictPosition.PredictResult, matchId, isPredictable);
             }
 
             @Override

@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.fragments.matchSchedule;
+package com.traap.traapapp.ui.fragments.competitions;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,24 +8,23 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MatchScheduleParent;
-import com.traap.traapapp.enums.PredictPosition;
-import com.traap.traapapp.ui.adapters.leagues.DataBean;
-import com.traap.traapapp.ui.adapters.leagues.matchResult.MatchAdapter;
+import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
+import com.traap.traapapp.ui.adapters.compations.CompationsAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Created by MahtabAzizi on 11/16/2019.
+ * Created by MahsaAzizi on 05/16/2020.
  */
-public class NextMatchesFragment extends BaseFragment implements MatchAdapter.ItemClickListener
+public class ActiveMatchesFragment extends BaseFragment implements CompationsAdapter.ItemClickListener
 {
     private MainActionView mainActionView;
     private List<MatchItem> nextMatchesList = new ArrayList<>();
@@ -35,11 +34,11 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
     private RecyclerView recyclerView;
-    private MatchAdapter mAdapter;
+    private CompationsAdapter mAdapter;
 
-    public static NextMatchesFragment newInstance(List<MatchItem> nextMatchesList, MainActionView mainActionView)
+    public static ActiveMatchesFragment newInstance(List<MatchItem> nextMatchesList, MainActionView mainActionView)
     {
-        NextMatchesFragment fragment = new NextMatchesFragment();
+        ActiveMatchesFragment fragment = new ActiveMatchesFragment();
         Bundle args = new Bundle();
 
         fragment.setMainView(mainActionView);
@@ -88,11 +87,12 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
     private void addDataRecyclerList()
     {
 
-        mAdapter = new MatchAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getContext(), this);
+
+        mAdapter = new CompationsAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new MatchAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getActivity(), this);
+        mAdapter = new CompationsAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getActivity(), this);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -116,7 +116,7 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
 //
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsPredict());
+        mainActionView.onPredict(matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override

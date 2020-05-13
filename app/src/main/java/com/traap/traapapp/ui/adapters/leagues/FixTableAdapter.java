@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.adapters.Leaguse;
+package com.traap.traapapp.ui.adapters.leagues;
 
 import android.content.Context;
 import android.graphics.Color;
