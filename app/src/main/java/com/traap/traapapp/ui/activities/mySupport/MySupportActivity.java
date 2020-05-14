@@ -30,12 +30,13 @@ import com.traap.traapapp.ui.adapters.myPredict.MyPredictAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.LotteryWinnerListDialog;
 import com.traap.traapapp.ui.fragments.predict.PredictActionView;
+import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultActionView;
 import com.traap.traapapp.utilities.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySupportActivity extends BaseActivity implements MyPredictActionView, PredictActionView,
+public class MySupportActivity extends BaseActivity implements MyPredictActionView, PredictResultActionView,
         OnServiceStatus<WebServiceClass<MyPredictResponse>>, MyPredictAdapter.OnItemClickListener
 {
     private Toolbar mToolbar;

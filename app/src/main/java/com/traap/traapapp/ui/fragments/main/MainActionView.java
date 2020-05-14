@@ -87,7 +87,7 @@ public interface MainActionView extends BaseView
 
     void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
 
-    void openWebView(MainActionView mainView, String uRl, String gds_token);
+    void openWebView(MainActionView mainView, String uRl, String gds_token, String title);
 
     void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
     void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
