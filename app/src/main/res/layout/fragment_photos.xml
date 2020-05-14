@@ -366,7 +366,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
                 android:layout_marginBottom="@dimen/_10dp"
-                android:rotationY="180" />
+               />
         </LinearLayout>
 
     </LinearLayout>

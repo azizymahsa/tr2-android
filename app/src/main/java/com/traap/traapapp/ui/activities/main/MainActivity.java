@@ -2070,11 +2070,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    public void openWebView(MainActionView mainView, String uRl, String gds_token, String title)
     {
         isMainFragment = false;
-        setFragment(WebFragment.newInstance(mainView, uRl, gds_token));
+        setFragment(WebFragment.newInstance(mainView, uRl, gds_token,title));
         replaceFragment(getFragment(), "WebFragment");
+
     }
 
 

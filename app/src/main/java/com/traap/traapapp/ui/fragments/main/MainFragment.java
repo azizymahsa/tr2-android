@@ -425,7 +425,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 startEniacFlightActivity.startMainFlight();*/
                 list = fillMenuRecyclerList();
                 MainServiceModelItem s = findUrlById(list, "11");
-                mainView.openWebView(mainView, s.getLogin_url(), Prefs.getString("gds_token", ""));
+                mainView.openWebView(mainView, s.getLogin_url(), Prefs.getString("gds_token", ""), "گردشگری");
 
 
 
@@ -667,7 +667,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             @Override
             public void run()
             {
-                sliderRecyclerView.smoothScrollToPosition(matchCurrentPos);
+                sliderRecyclerView.smoothScrollToPosition(matchList.size()-1);
 //                sliderRecyclerView.scrollToPosition(matchCurrentPos);
             }
         }, 200);
@@ -769,10 +769,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //    }
 
     @Override
-    public void onChosenItemClick(View view, Integer id, String URl)
+    public void onChosenItemClick(View view, Integer id, String URl,String baseUrl)
     {
         switch (id)
         {
+            case 701:
+            {
+                mainView.openWebView(mainView, baseUrl, Prefs.getString("gds_token", ""),"تراپ مارکت");
+                break;
+
+            }
             case 11: //Flight ATA
             {
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_FLIGHT, this);
@@ -791,7 +797,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             case 13: //Bus
             {
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, this);
-                mainView.openWebView(mainView, URl, Prefs.getString("gds_token", ""));
+                mainView.openWebView(mainView, URl, Prefs.getString("gds_token", ""), "گردشگری");
                 break;
             }
             case 65: //Bill

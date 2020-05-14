@@ -13,8 +13,9 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MatchScheduleParent;
-import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
+import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.ui.adapters.compations.CompationsAdapter;
+import com.traap.traapapp.ui.adapters.leagues.DataBean;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 
@@ -116,7 +117,7 @@ public class ActiveMatchesFragment extends BaseFragment implements CompationsAda
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
 //
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-        mainActionView.onPredict(matchItem.getId(), matchItem.getIsPredict());
+        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override
