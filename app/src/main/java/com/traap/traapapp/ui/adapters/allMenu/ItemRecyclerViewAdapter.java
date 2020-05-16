@@ -137,7 +137,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                             public void onPermissionGranted()
                             {
 
-                                mItemClickListener.onChosenItemClickk(view,  list.get(getAdapterPosition()).getKeyId(),list.get(getAdapterPosition()).getLoginUrl());
+                                mItemClickListener.onChosenItemClickk(view,  list.get(getAdapterPosition()).getKeyId(),list.get(getAdapterPosition()).getLoginUrl(),list.get(getAdapterPosition()).getBaseUrl());
 
                             }
 
@@ -157,7 +157,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     public interface OnItemClickListenerItem
     {
-        public void onChosenItemClickk(View view, Integer id,String URL);
+        public void onChosenItemClickk(View view, Integer id,String URL,String baseuUrl);
     }
 
 //    public void SetOnItemCheckedChangeListener(final OnItemClickListener mItemClickListener)

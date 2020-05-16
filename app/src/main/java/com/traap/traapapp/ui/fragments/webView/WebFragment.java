@@ -49,6 +49,7 @@ public class WebFragment extends BaseFragment
     private String URL = "";
     private String Token = "";
     private View rlShirt;
+    private String title;
 
     public WebFragment()
     {
@@ -56,18 +57,19 @@ public class WebFragment extends BaseFragment
     }
 
 
-    public static WebFragment newInstance(MainActionView mainView, String URL, String Token)
+    public static WebFragment newInstance(MainActionView mainView, String URL, String Token, String title)
     {
         WebFragment fragment = new WebFragment();
-        fragment.setMainView(mainView, URL, Token);
+        fragment.setMainView(mainView, URL, Token,title);
         return fragment;
     }
 
-    private void setMainView(MainActionView mainView, String URL, String Token)
+    private void setMainView(MainActionView mainView, String URL, String Token, String title)
     {
         this.mainView = mainView;
         this.URL = URL;
         this.Token = Token;
+        this.title = title;
     }
 
     @Override
@@ -177,7 +179,7 @@ public class WebFragment extends BaseFragment
             });
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
             TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-            tvTitle.setText("گردشگری");
+            tvTitle.setText(title);
             mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
