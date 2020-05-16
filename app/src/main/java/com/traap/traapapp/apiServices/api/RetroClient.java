@@ -125,6 +125,8 @@ import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListRespon
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
+import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
+import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyResponse;
 import com.traap.traapapp.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
 import com.traap.traapapp.apiServices.model.tourism.bus.getPaymentBus.request.RequestBusPayment;
 import com.traap.traapapp.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
@@ -206,6 +208,13 @@ public interface RetroClient
     @GET(Const.Get_DETAIL_SURVEY)
     Single<Response<WebServiceClass<SurveyDetailResponse>>> getSurveyDetail(
             @Path("id") Integer surveyId);
+
+    @PUT(Const.Get_DETAIL_SURVEY)
+    Single<Response<WebServiceClass<PutSurveyResponse>>> putSurvey(
+            @Path("id") Integer surveyId,
+            @Body PutSurveyRequest request);
+
+
 
 
     /*photos*/

@@ -3,6 +3,8 @@ package com.traap.traapapp.apiServices.model.survey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by MahtabAzizi on 5/5/2020.
  */
@@ -22,7 +24,7 @@ public class Question
     private Boolean isMandatory;
     @SerializedName("options")
     @Expose
-    private Object options;
+    private List<Option> options;
 
     public Integer getId() {
         return id;
@@ -56,11 +58,23 @@ public class Question
         this.isMandatory = isMandatory;
     }
 
-    public Object getOptions() {
+    public Boolean isMandatory()
+    {
+        return isMandatory;
+    }
+
+    public void setMandatory(Boolean mandatory)
+    {
+        isMandatory = mandatory;
+    }
+
+    public List<Option> getOptions()
+    {
         return options;
     }
 
-    public void setOptions(Object options) {
+    public void setOptions(List<Option> options)
+    {
         this.options = options;
     }
 }

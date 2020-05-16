@@ -30,4 +30,5 @@ public class Option
     public void setAnswerOption(String answerOption) {
         this.answerOption = answerOption;
     }
+
 }

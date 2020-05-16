@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,8 @@ import com.traap.traapapp.ui.others.CustomLinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import library.android.eniac.flight.adapter.PassengerAdapter;
+
 /**
  * Created by MahtabAzizi on 5/5/2020.
  */
@@ -26,6 +29,8 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
     private Context context;
     private List<Question> surveyDetailList;
     SurveyDetailRadioGroupAdapter adapter;
+    ArrayList<SurveyDetailAdapter.ViewHolder> myViewHolders = new ArrayList<>();
+
 
 
 
@@ -44,20 +49,31 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
         return new SurveyDetailAdapter.ViewHolder(LayoutInflater.from(context)
                 .inflate(R.layout.list_item_detail_survey, parent, false),context);
     }
-
+    public ArrayList<ViewHolder> getMyViewHolders()
+    {
+        return myViewHolders;
+    }
 
     @Override
     public void onBindViewHolder(final SurveyDetailAdapter.ViewHolder holder, final int position)
     {
+        myViewHolders.add(position, holder);
+
+
         Question info = surveyDetailList.get(position);
 
 
-        adapter = new SurveyDetailRadioGroupAdapter();
-        holder.rvQuestionRadioGroup.setAdapter(adapter);
+        holder.tvQuestion.setText(info.getQuery());
 
-       // holder.cbSelectSpectator.setChecked(info.getIsMandatory());
-       // holder.cbSelectSpectator.setEnabled(false);
-
+        if(info.getQuestionType()==1||info.getQuestionType()==2){
+            adapter = new SurveyDetailRadioGroupAdapter(info.getQuestionType(),info.getOptions());
+            holder.rvQuestionRadioGroup.setAdapter(adapter);
+            holder.rvQuestionRadioGroup.setVisibility(View.VISIBLE);
+            holder.etAnswer.setVisibility(View.GONE);
+        }else {
+            holder.rvQuestionRadioGroup.setVisibility(View.GONE);
+            holder.etAnswer.setVisibility(View.VISIBLE);
+        }
 
 
     }
@@ -74,7 +90,8 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private RecyclerView rvQuestionRadioGroup,rvQuestionCheckBox;
+        public EditText etAnswer;
+        public RecyclerView rvQuestionRadioGroup;
         public TextView tvQuestion;
 
         public ViewHolder(View v, Context context)
@@ -82,7 +99,7 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
             super(v);
             tvQuestion = v.findViewById(R.id.tvQestion);
             rvQuestionRadioGroup = v.findViewById(R.id.rvQuestionRadioGroup);
-            rvQuestionCheckBox = v.findViewById(R.id.rvQuestionCheckBox);
+            etAnswer=v.findViewById(R.id.etAnswer);
 
             RecyclerView.LayoutManager layoutManager = new CustomLinearLayoutManager(context);
             rvQuestionRadioGroup.setLayoutManager(layoutManager);

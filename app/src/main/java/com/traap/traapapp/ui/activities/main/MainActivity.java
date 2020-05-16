@@ -789,9 +789,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             {
                 // showToast(this, "ارتباط با پشتیبانی", R.color.green);
                 isMainFragment = false;
-
-                //setFragment(SurveyFragment.newInstance(this));
-                setFragment(SupportFragment.newInstance(this));
+                setFragment(SurveyFragment.newInstance(this));
+               // setFragment(SupportFragment.newInstance(this));
 
                 replaceFragment(getFragment(), "SupportFragment");
                 break;
