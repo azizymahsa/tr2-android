@@ -8,6 +8,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MediaPosition;
+import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
@@ -48,7 +49,9 @@ public interface MainActionView extends BaseView
 
     void onLeageClick (ArrayList<MatchItem> matchBuyable);
 
-    void onPredict(Integer matchId, Boolean isPredictable);
+    void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable);
+
+    void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable);
 
     void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable);
 
@@ -84,7 +87,7 @@ public interface MainActionView extends BaseView
 
     void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
 
-    void openWebView(MainActionView mainView, String uRl, String gds_token);
+    void openWebView(MainActionView mainView, String uRl, String gds_token, String title);
 
     void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
     void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );

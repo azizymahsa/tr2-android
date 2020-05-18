@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.adapters.Leaguse;
+package com.traap.traapapp.ui.adapters.leagues;
 
 /**
  * Created by feng on 2017/4/10.

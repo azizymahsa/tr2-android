@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,6 +61,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MediaPosition;
+import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.dbModels.ArchiveCardDBModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
@@ -1403,7 +1403,13 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void onPredict(Integer matchId, Boolean isPredictable)
+    public void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
+    {
+
+    }
+
+    @Override
+    public void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
     {
 
     }
@@ -1512,7 +1518,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
 
     @Override
-    public void openWebView(MainActionView mainView, String uRl, String gds_token)
+    public void openWebView(MainActionView mainView, String uRl, String gds_token, String title)
     {
 
     }

@@ -16,12 +16,11 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MatchScheduleParent;
-import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
-import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
+import com.traap.traapapp.enums.PredictPosition;
+import com.traap.traapapp.ui.adapters.leagues.DataBean;
+import com.traap.traapapp.ui.adapters.leagues.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.fragments.predict.PredictFragment;
-import com.traap.traapapp.utilities.Tools;
 
 /**
  * Created by MahtabAzizi on 11/16/2019.
@@ -117,7 +116,7 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
 //
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-        mainActionView.onPredict(matchItem.getId(), matchItem.getIsPredict());
+        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsPredict());
     }
 
     @Override

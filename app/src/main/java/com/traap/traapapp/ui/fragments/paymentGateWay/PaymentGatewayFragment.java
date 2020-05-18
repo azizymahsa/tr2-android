@@ -1,7 +1,6 @@
 package com.traap.traapapp.ui.fragments.paymentGateWay;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,11 +24,10 @@ import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.singleton.SingletonPaymentPlace;
-import com.traap.traapapp.ui.adapters.Leaguse.DataBean;
-import com.traap.traapapp.ui.adapters.Leaguse.matchResult.MatchAdapter;
+import com.traap.traapapp.ui.adapters.leagues.DataBean;
+import com.traap.traapapp.ui.adapters.leagues.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Utility;
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
 

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:fitsSystemWindows="true"
     android:layoutDirection="ltr"
-    android:background="@drawable/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <RelativeLayout
@@ -36,11 +36,11 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:background="@android:color/transparent"
-            android:paddingBottom="16dp"
+            android:gravity="center"
+            android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingLeft="16dp">
+            android:paddingBottom="16dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -53,14 +53,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    app:strokeColor="@color/borderColorGray"
+                    android:elevation="3dp"
+                    android:translationZ="1dp"
+                    app:cardCornerRadius="5dp"
                     app:cardElevation="3dp"
+                    app:cardMaxElevation="5dp"
                     app:cardUseCompatPadding="true"
                     app:contentPadding="8dp"
-                    app:cardCornerRadius="5dp"
-                    app:cardMaxElevation="5dp"
-                    android:elevation="3dp"
-                    android:translationZ="1dp">
+                    app:strokeColor="@color/borderColorGray">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -73,27 +73,27 @@
                             android:id="@+id/tvFullName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/textSize_18dp"
+                            android:gravity="center"
                             android:textColor="@color/textColorSecondary"
-                            android:gravity="center"/>
+                            android:textSize="@dimen/textSize_18dp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvMobile"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/textSize_16dp"
+                            android:gravity="center"
                             android:textColor="@color/textHint"
-                            android:gravity="center"/>
+                            android:textSize="@dimen/textSize_16dp"
+                            android:textStyle="bold" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            android:background="@color/drawerSepratorColor"/>
+                            android:background="@color/drawerSepratorColor" />
 
                         <RelativeLayout
                             android:id="@+id/rlEditProfile"
@@ -104,36 +104,36 @@
                                 android:id="@+id/img0"
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:paddingRight="10dp"
-                                android:scaleType="center"
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
+                                android:paddingTop="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="10dp"
+                                android:scaleType="center"
                                 app:srcCompat="@drawable/ic_arrow_left"
                                 app:tint="@color/textColorSecondary" />
 
                             <TextView
-                                android:layout_toRightOf="@+id/img0"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="right|center_vertical"
                                 android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/menu_dr_icon0"
+                                android:layout_toRightOf="@+id/img0"
+                                android:gravity="right|center_vertical"
                                 android:paddingEnd="2dp"
                                 android:text="ویرایش حساب کاربری"
-                                android:textSize="@dimen/textSize_14dp"
-                                android:layout_toLeftOf="@+id/menu_dr_icon0"
-                                android:textColor="@color/textColorSecondary"/>
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_14dp" />
 
                             <ImageView
                                 android:id="@+id/menu_dr_icon0"
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
-                                android:padding="10dp"
-                                android:scaleType="center"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/ic_edit_profile"/>
+                                android:padding="10dp"
+                                android:scaleType="center"
+                                android:src="@drawable/ic_edit_profile" />
 
                         </RelativeLayout>
 
@@ -147,35 +147,36 @@
                                 android:id="@+id/img1"
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:paddingRight="10dp"
-                                android:scaleType="center"
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
+                                android:paddingTop="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="10dp"
+                                android:scaleType="center"
                                 app:srcCompat="@drawable/ic_arrow_left"
                                 app:tint="@color/textColorSecondary" />
 
                             <TextView
-                                android:layout_toRightOf="@+id/img1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="right|center_vertical"
                                 android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/menu_dr_icon"
+                                android:layout_toRightOf="@+id/img1"
+                                android:gravity="right|center_vertical"
                                 android:paddingEnd="2dp"
                                 android:text="پیش بینی های من"
-                                android:textSize="@dimen/textSize_14dp"
-                                android:layout_toLeftOf="@+id/menu_dr_icon"
-                                android:textColor="@color/textColorSecondary"/>
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_14dp" />
 
                             <ImageView
                                 android:id="@+id/menu_dr_icon"
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
-                                android:padding="10dp"
-                                android:scaleType="center"                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/ic_my_predict"/>
+                                android:padding="10dp"
+                                android:scaleType="center"
+                                android:src="@drawable/ic_my_predict" />
 
                         </RelativeLayout>
 
@@ -189,36 +190,80 @@
                                 android:id="@+id/img2"
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:paddingRight="10dp"
                                 android:layout_alignParentLeft="true"
-                                android:scaleType="center"
                                 android:layout_centerVertical="true"
+                                android:paddingTop="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="10dp"
+                                android:scaleType="center"
                                 app:srcCompat="@drawable/ic_arrow_left"
                                 app:tint="@color/textColorSecondary" />
 
                             <TextView
-                                android:layout_toRightOf="@+id/img2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="right|center_vertical"
                                 android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/icon2"
+                                android:layout_toRightOf="@+id/img2"
+                                android:gravity="right|center_vertical"
                                 android:paddingEnd="2dp"
                                 android:text="علاقه مندی های من"
-                                android:textSize="@dimen/textSize_14dp"
-                                android:layout_toLeftOf="@+id/icon2"
-                                android:textColor="@color/textColorSecondary"/>
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_14dp" />
 
                             <ImageView
                                 android:id="@+id/icon2"
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
-                                android:padding="10dp"
-                                android:scaleType="center"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/ic_favorite"/>
+                                android:padding="10dp"
+                                android:scaleType="center"
+                                android:src="@drawable/ic_favorite" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rlMySupport"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.4"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/img3"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:paddingTop="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="10dp"
+                                android:scaleType="center"
+                                app:srcCompat="@drawable/ic_arrow_left"
+                                app:tint="@color/textColorSecondary" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/icon4"
+                                android:layout_toRightOf="@+id/img3"
+                                android:gravity="right|center_vertical"
+                                android:paddingEnd="2dp"
+                                android:text="پروفایل هواداری "
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_14dp" />
+
+                            <ImageView
+                                android:id="@+id/icon4"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:padding="10dp"
+                                android:scaleType="center"
+                                android:src="@drawable/ic_havadar" />
 
                         </RelativeLayout>
 
@@ -230,36 +275,36 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="right|center_vertical"
                                 android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/icon3"
+                                android:gravity="right|center_vertical"
                                 android:paddingEnd="2dp"
                                 android:text="خروج از حساب کاربری"
-                                android:textSize="@dimen/textSize_14dp"
-                                android:layout_toLeftOf="@+id/icon3"
-                                android:textColor="@color/textColorSecondary"/>
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_14dp" />
 
                             <ImageView
                                 android:id="@+id/icon3"
                                 android:layout_width="@dimen/_50dp"
                                 android:layout_height="@dimen/_50dp"
-                                android:padding="10dp"
-                                android:scaleType="center"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/ic_exit_app"/>
+                                android:padding="10dp"
+                                android:scaleType="center"
+                                android:src="@drawable/ic_exit_app" />
 
                         </RelativeLayout>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
                             android:layout_above="@+id/cardInviteCode"
-                            android:text="کد عضویت شما در تراپ"
+                            android:layout_marginTop="16dp"
                             android:layout_marginBottom="@dimen/_10dp"
-                            android:textSize="@dimen/textSize_16dp"
+                            android:gravity="center"
+                            android:text="کد عضویت شما در تراپ"
                             android:textColor="@color/textColorSecondary"
-                            android:gravity="center"/>
+                            android:textSize="@dimen/textSize_16dp" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -269,12 +314,12 @@
                                 android:id="@+id/cardInviteCode"
                                 android:layout_width="@dimen/_120dp"
                                 android:layout_height="@dimen/_35dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
                                 app:cardBackgroundColor="@color/btnColorSecondary"
                                 app:cardCornerRadius="20dp"
                                 app:cardElevation="5dp"
-                                android:gravity="center"
-                                android:layout_alignParentBottom="true"
-                                android:layout_centerHorizontal="true"
                                 app:cardUseCompatPadding="false"
                                 app:layout_anchor="@+id/nav_header_container"
                                 app:layout_anchorGravity="bottom|center_horizontal">
@@ -283,12 +328,12 @@
                                     android:id="@+id/tvInviteCode"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:text="0000000"
                                     android:gravity="center"
-                                    android:paddingBottom="8dp"
                                     android:paddingTop="8dp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/textColorTitle" />
+                                    android:paddingBottom="8dp"
+                                    android:text="0000000"
+                                    android:textColor="@color/textColorTitle"
+                                    android:textStyle="bold" />
 
                             </androidx.cardview.widget.CardView>
 
@@ -304,16 +349,16 @@
                 android:id="@+id/imgProfile"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_120sdp"
-                android:scaleType="fitXY"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
-                app:riv_corner_radius="30dip"
-                app:riv_border_width="2dip"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_user_default"
                 app:riv_border_color="@color/borderColorGray"
+                app:riv_border_width="2dip"
+                app:riv_corner_radius="30dip"
                 app:riv_mutate_background="true"
-                app:riv_tile_mode="clamp"
-                app:riv_oval="true" />
+                app:riv_oval="true"
+                app:riv_tile_mode="clamp" />
 
         </RelativeLayout>
 
