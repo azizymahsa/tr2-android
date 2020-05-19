@@ -20,7 +20,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="@dimen/_10dp"/>
         <TextView
-            android:id="@+id/tvLeague"
+            android:id="@+id/tvName"
             android:layout_width="0dp"
             android:layout_weight="100"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         android:background="@color/warmGray"
         />
     <ImageView
-        android:id="@+id/tvYear"
+        android:id="@+id/ivFlag"
 
         android:layout_width="0dp"
         android:layout_weight="40"
@@ -52,7 +52,7 @@
         android:layout_height="match_parent"
         android:background="@color/warmGray"/>
     <TextView
-        android:id="@+id/tvRate"
+        android:id="@+id/tvRole"
         android:layout_width="0dp"
         android:layout_weight="20"
         android:layout_height="wrap_content"
