@@ -17,6 +17,8 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Bundle;
+import android.provider.Browser;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -822,6 +824,27 @@ public class Utility
             intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
             CustomTabsIntent customTabsIntent = intentBuilder.build();
             customTabsIntent.launchUrl(context, uri);
+
+        } catch (Exception e)
+        {
+            Log.e("errr",   e.getMessage() );
+            e.getMessage();
+        }
+    }
+    public static void openUrlCustomTabWithBundle(Activity context, String url, Bundle headers)
+    {
+        try
+        {
+            Uri uri = Uri.parse(url);
+            CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
+            intentBuilder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+            intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+            CustomTabsIntent customTabsIntent = intentBuilder.build();
+
+            customTabsIntent.intent.putExtra(android.provider.Browser.EXTRA_HEADERS, headers);
+
+            customTabsIntent.launchUrl(context, uri);
+
 
         } catch (Exception e)
         {

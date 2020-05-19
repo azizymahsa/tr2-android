@@ -552,12 +552,26 @@ public class AllMenuFragment extends BaseFragment implements
         {
             case 11://Flight ata
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+             /*   Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 100);*/
+
+
+
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+
+
+
+
+
+
+
               /*  startEniacFlightActivity =new StartEniacFlightActivity(
                         "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh", "0037250100293610", "1397",
                         new FlightReservationData()
@@ -595,13 +609,30 @@ public class AllMenuFragment extends BaseFragment implements
 
                             }
                         }, 2);
+
+
+
+
                 startEniacFlightActivity.startMainFlight();*/
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+   /*             Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivityForResult(intent, 100);
+*/
+
+
+
+
+
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+
+
+
                 break;
             }
             case 12: //Hotel
@@ -622,12 +653,25 @@ public class AllMenuFragment extends BaseFragment implements
                     }
                 }, 2);
                 eniacHotelActivity.startMainHotelActivity();*/
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+
+
+
+
+
+
+
+
+             /*   Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 100);*/
+
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
                 break;
             }
 
@@ -650,12 +694,23 @@ public class AllMenuFragment extends BaseFragment implements
                 }, 2);
                 eniacBusActivity.startMainBusActivity();*/
 
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+
+
+
+
+         /*       Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "گردشگری");
 
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 100);*/
+
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+
+
 
 
                 //mainView.onPackSimCard();
@@ -735,12 +790,21 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("TOKEN", Prefs.getString("alopark_token", ""));
                 startActivityForResult(intent,100);*/
 
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+
+
+   /*             Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", Prefs.getString("alopark_token", ""));
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 100);*/
+
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+
+
 
 
                 // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
@@ -748,12 +812,17 @@ public class AllMenuFragment extends BaseFragment implements
             }
             case 32: //  پارک حاشیه ای
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+  /*              Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 100);*/
+
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
@@ -776,7 +845,7 @@ public class AllMenuFragment extends BaseFragment implements
                     {
 
                         // Utility.openUrlCustomTab(getActivity(), URl);
-                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                   /*     Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("URL", URl);
                         intent.putExtra("Title", "بیمه");
 
@@ -784,7 +853,12 @@ public class AllMenuFragment extends BaseFragment implements
                         intent.putExtra("bimeh_call_back", Prefs.getString("bimeh_call_back", ""));
                         intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
                         intent.putExtra("bimeh_base_url", Prefs.getString("bimeh_base_url", ""));
-                        startActivityForResult(intent, 100);
+                        startActivityForResult(intent, 100);*/
+
+                        Bundle headers = new Bundle();
+                        headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                        Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
                     }
 
                     @Override
