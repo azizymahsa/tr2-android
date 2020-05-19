@@ -10,9 +10,11 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.moeidbannerlibrary.banner.BannerLayout;
@@ -65,6 +67,7 @@ public class IntroducingTeamFragment extends BaseFragment
     private PlayerSearchAdapter playerSearchAdapter;
     private RecyclerView rvSearch;
     private TextView tvCreateDate,tvTeamAddress,tvPhone,tvEmail;
+    private ImageView ivTeamLogo;
 
     public IntroducingTeamFragment()
     {
@@ -156,6 +159,7 @@ public class IntroducingTeamFragment extends BaseFragment
     private void initView()
     {
         blTeam = rootView.findViewById(R.id.blTeam);
+        ivTeamLogo = rootView.findViewById(R.id.ivTeamLogo);
         nestedScrollView = rootView.findViewById(R.id.nestedScroll);
         tabLayout = rootView.findViewById(R.id.tabLayout);
         view_pager = rootView.findViewById(R.id.view_pager);
@@ -292,6 +296,7 @@ public class IntroducingTeamFragment extends BaseFragment
                         tvPhone.setText(response.data.getPhone());
                         tvEmail.setText(response.data.getEmail());
 
+                        Glide.with(getActivity()).load(response.data.getLogo()).into(ivTeamLogo);
 
 
                     }else {
