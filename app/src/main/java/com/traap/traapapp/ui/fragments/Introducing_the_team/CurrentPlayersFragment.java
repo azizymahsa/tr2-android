@@ -6,9 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.CurrentPlayersAdapter;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.TopPlayersAdapter;
+import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -35,7 +41,7 @@ public class CurrentPlayersFragment extends BaseFragment
 
         }
         rootView = inflater.inflate(R.layout.current_players_fragment, container, false);
-
+        getCurrentPlayers();
         return rootView;
     }
 
@@ -49,8 +55,55 @@ public class CurrentPlayersFragment extends BaseFragment
     private void initView(){
         rv=rootView.findViewById(R.id.rv);
         nested=rootView.findViewById(R.id.nested);
-        rv.setAdapter(new CurrentPlayersAdapter());
         ViewCompat.setNestedScrollingEnabled(nested,false);
+    }
+
+    public void getCurrentPlayers(){
+
+        SingletonService.getInstance().tractorTeamService().getTech(new OnServiceStatus<WebServiceClass<TopPlayerResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<TopPlayerResponse> response)
+            {
+                try
+                {
+                    if (response.info.statusCode==200)
+                    {
+
+                        rv.setAdapter(new CurrentPlayersAdapter(response.data.getResults()));
+
+
+
+                    }else{
+                        showToast(getActivity(), response.info.message, R.color.red);
+
+                    }
+                }
+                catch (Exception e){
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+
+                }
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                try{
+
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + message);
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    }
+                    else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                }catch (Exception e){}
+            }
+        },"player",true,null);
+
     }
 }
 

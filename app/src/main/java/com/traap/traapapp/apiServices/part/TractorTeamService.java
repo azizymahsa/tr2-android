@@ -3,8 +3,8 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
-import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
+import com.traap.traapapp.apiServices.model.cup.CupResponse;
+import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
 
 /**
@@ -29,6 +29,18 @@ public class TractorTeamService extends BasePart
     public void traktor( OnServiceStatus<WebServiceClass<TractorTeamResponse>> listener)
     {
         start(getServiceGenerator().createService().traktor(), listener);
+    }
+
+    public void getTech(OnServiceStatus<WebServiceClass<TopPlayerResponse>> listener, String role__code_name,
+                        Boolean is_present, Boolean tech_staff__is_featured)
+    {
+        start(getServiceGenerator().createService().getTech(role__code_name,is_present,tech_staff__is_featured), listener);
+    }
+
+
+    public void getCup(OnServiceStatus<WebServiceClass<CupResponse>> listener)
+    {
+        start(getServiceGenerator().createService().cup(), listener);
     }
 
 

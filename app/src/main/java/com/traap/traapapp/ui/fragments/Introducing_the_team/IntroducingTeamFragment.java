@@ -112,7 +112,6 @@ public class IntroducingTeamFragment extends BaseFragment
     private void initViewPager()
     {
         addTabs(view_pager);
-        view_pager.setOffscreenPageLimit(4);
 /*        Fragment childFragment = new TeamHistoryFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.child_fragment_container, childFragment).commit();*/
@@ -262,6 +261,7 @@ public class IntroducingTeamFragment extends BaseFragment
         adapter.addFrag("تاریخچه", new TeamHistoryFragment());
 
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(5);
     }
 
     @Override

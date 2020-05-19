@@ -4,10 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.topPlayers.Result;
+
+import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,10 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdapter.ViewHolder>
 {
     private Context context;
+    private List<Result> results;
 
 
-    public TechnicalTeamAdapter()
+    public TechnicalTeamAdapter(List<Result> results)
     {
+        this.results=results;
 
     }
 
@@ -37,14 +44,15 @@ public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdap
     {
 
         if (position%2==0){
-            holder.tvRate.setTextColor(context.getResources().getColor(R.color.black));
-            holder.tvLeague.setTextColor(context.getResources().getColor(R.color.black));
+            holder.tvRole.setTextColor(context.getResources().getColor(R.color.black));
+            holder.tvName.setTextColor(context.getResources().getColor(R.color.black));
         }else{
-            holder.tvRate.setTextColor(context.getResources().getColor(R.color.warmGray));
-            holder.tvLeague.setTextColor(context.getResources().getColor(R.color.warmGray));
+            holder.tvRole.setTextColor(context.getResources().getColor(R.color.warmGray));
+            holder.tvName.setTextColor(context.getResources().getColor(R.color.warmGray));
         }
-
-
+        holder.tvName.setText(results.get(position).getPersianFirstName()+" "+results.get(position).getPersianLastName());
+        holder.tvRole.setText(results.get(position).getRole());
+        Glide.with(context).load(results.get(position).getNationality()).into(holder.ivFlag);
     }
 
 
@@ -54,13 +62,14 @@ public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdap
     public int getItemCount()
     {
 
-        return 10;
+        return results.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         private LinearLayout llHeader,llItem;
-        private TextView tvRate,tvYear,tvLeague;
+        private TextView tvRole,tvYear,tvName;
+        private ImageView ivFlag;
 
 
         public ViewHolder(View v)
@@ -68,8 +77,9 @@ public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdap
             super(v);
             llHeader=v.findViewById(R.id.llHeader);
             llItem=v.findViewById(R.id.llItem);
-            tvRate=v.findViewById(R.id.tvRate);
-            tvLeague=v.findViewById(R.id.tvLeague);
+            tvRole=v.findViewById(R.id.tvRole);
+            ivFlag=v.findViewById(R.id.ivFlag);
+            tvName=v.findViewById(R.id.tvName);
 
         }
     }
