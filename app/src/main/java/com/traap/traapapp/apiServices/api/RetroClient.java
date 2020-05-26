@@ -215,6 +215,9 @@ public interface RetroClient
             @Query("is_present") Boolean is_present,
             @Query("tech_staff__is_featured") Boolean tech_staff__is_featured
            );
+    @GET(Const.TECHS)
+    Single<Response<WebServiceClass<TopPlayerResponse>>> getSearchTech(
+            @Query("search") String role__code_name);
 
 
     /*photos*/

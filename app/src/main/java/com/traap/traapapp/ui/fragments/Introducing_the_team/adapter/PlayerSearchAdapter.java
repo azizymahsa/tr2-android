@@ -1,13 +1,18 @@
 package com.traap.traapapp.ui.fragments.Introducing_the_team.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.topPlayers.Result;
+
+import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,10 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapter.ViewHolder>
 {
     private Context context;
+    private List<Result> results;
+    private Activity activity;
 
 
-    public PlayerSearchAdapter()
+    public PlayerSearchAdapter(List<Result> results, Activity activity)
     {
+        this.results=results;
 
     }
 
@@ -36,6 +44,9 @@ public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapte
     public void onBindViewHolder(final PlayerSearchAdapter.ViewHolder holder, final int position)
     {
 
+        holder.tvName.setText(results.get(position).getRole()+" - "+results.get(position).getPersianFirstName()+" "+results.get(position).getPersianLastName());
+        //Glide.with(activity).load(results.get(position).).into(ivTeamLogo);
+
     }
 
 
@@ -43,16 +54,20 @@ public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapte
     public int getItemCount()
     {
 
-        return 10;
+        return results.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
+        private TextView tvName;
+        private ImageView ivPhoto;
 
 
         public ViewHolder(View v)
         {
             super(v);
+            tvName=v.findViewById(R.id.tvName);
+            ivPhoto=v.findViewById(R.id.ivPhoto);
 
 
         }

@@ -1,12 +1,10 @@
 package com.traap.traapapp.ui.fragments.Introducing_the_team;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.example.moeidbannerlibrary.banner.BannerLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.topPlayers.Result;
+import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -35,12 +33,13 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.WrapContentHeightViewPager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -68,6 +67,9 @@ public class IntroducingTeamFragment extends BaseFragment
     private RecyclerView rvSearch;
     private TextView tvCreateDate,tvTeamAddress,tvPhone,tvEmail;
     private ImageView ivTeamLogo;
+    private List<Result> getResults= new ArrayList<>();
+    private  Handler handler ;
+
 
     public IntroducingTeamFragment()
     {
@@ -183,6 +185,9 @@ public class IntroducingTeamFragment extends BaseFragment
         blTeam.setAdapter(new TeamPhotoAdapter());
         blTeam.setAutoPlaying(true);
         ViewCompat.setNestedScrollingEnabled(rvSearch, true);
+        playerSearchAdapter=new PlayerSearchAdapter(getResults,getActivity());
+        rvSearch.setAdapter(playerSearchAdapter);
+
     }
 
     public void initSearch()
@@ -206,28 +211,30 @@ public class IntroducingTeamFragment extends BaseFragment
             public void afterTextChanged(Editable s)
             {
 
+
                 if (etSearchText.getText().toString().length() > 2)
                 {
-
-                    new Handler().postDelayed(() ->
-                    {
-                        pdSearch.setVisibility(View.GONE);
-                        rvSearch.setVisibility(View.VISIBLE);
-
-
-                    }, 2000);
                     cvSearch.setVisibility(View.VISIBLE);
                     pdSearch.setVisibility(View.VISIBLE);
-                    rvSearch.setVisibility(View.GONE);
+                    if (handler!=null)
+                        handler.removeCallbacksAndMessages(null);
 
-                } else
-                {
+                    handler = new Handler();
+                    handler.postDelayed(() -> search(etSearchText.getText().toString()),500);
+
+
+                } else if (etSearchText.getText().toString().length() ==0){
                     cvSearch.setVisibility(View.GONE);
+                    pdSearch.setVisibility(View.GONE);
+                    playerSearchAdapter.notifyDataSetChanged();
+                    getResults.clear();
+                    if (handler!=null)
+                        handler.removeCallbacksAndMessages(null);
                 }
 
             }
         });
-        rvSearch.setAdapter(new PlayerSearchAdapter());
+        //vSearch.setAdapter(new PlayerSearchAdapter(response.data.getResults()));
  /*       etSearchText.setListener(() -> YoYo.with(Techniques.FadeOutDown)
                 .duration(500)
                 .playOn(cvSearch));*/
@@ -330,4 +337,47 @@ public class IntroducingTeamFragment extends BaseFragment
             }
         });
     }
+
+    public void search(String name){
+        if (getResults.size()>0){
+            rvSearch.setVisibility(View.VISIBLE);
+            getResults.clear();
+        }else{
+            cvSearch.setVisibility(View.VISIBLE);
+
+            pdSearch.setVisibility(View.VISIBLE);
+            rvSearch.setVisibility(View.GONE);
+        }
+
+
+        SingletonService.getInstance().tractorTeamService().getSearchTech(new OnServiceStatus<WebServiceClass<TopPlayerResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<TopPlayerResponse> response)
+            {
+                try {
+                    mainView.hideLoading();
+
+                    if (response.info.statusCode==200)
+                    {
+                        getResults.addAll(response.data.getResults());
+                        playerSearchAdapter.notifyDataSetChanged();
+                        pdSearch.setVisibility(View.GONE);
+                        rvSearch.setVisibility(View.VISIBLE);
+                    }else{
+
+                    }
+                }catch (Exception e){}
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                pdSearch.setVisibility(View.GONE);
+                rvSearch.setVisibility(View.VISIBLE);
+            }
+        },name);
+
+}
 }

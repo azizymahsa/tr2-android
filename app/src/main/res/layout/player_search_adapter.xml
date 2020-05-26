@@ -7,6 +7,7 @@
     android:gravity="center|right"
     android:layout_marginTop="@dimen/_10dp">
     <TextView
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -15,7 +16,7 @@
         android:textSize="@dimen/textSize_14dp"
         android:layout_marginRight="@dimen/_10dp"/>
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/ivNewestVideo"
+        android:id="@+id/ivPhoto"
         android:layout_width="@dimen/_40dp"
         android:layout_height="@dimen/_40dp"
         android:scaleType="fitXY"

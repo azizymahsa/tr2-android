@@ -36,6 +36,10 @@ public class TractorTeamService extends BasePart
     {
         start(getServiceGenerator().createService().getTech(role__code_name,is_present,tech_staff__is_featured), listener);
     }
+    public void getSearchTech(OnServiceStatus<WebServiceClass<TopPlayerResponse>> listener, String name)
+    {
+        start(getServiceGenerator().createService().getSearchTech(name), listener);
+    }
 
 
     public void getCup(OnServiceStatus<WebServiceClass<CupResponse>> listener)
