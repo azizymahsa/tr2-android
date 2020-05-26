@@ -156,9 +156,9 @@ public class PredictFragment extends BaseFragment implements PredictActionView
     {
         tabList = new ArrayList<>(2);
 
-        PredictTabModel tabItem = new PredictTabModel(PREDICT_SYSTEM_TEAM_ID, "پیش بینی ترکیب");
-        tabList.add(tabItem);
-        tabItem = new PredictTabModel(PREDICT_RESULT_ID, "پیش بینی نتیجه");
+ /*       PredictTabModel tabItem = new PredictTabModel(PREDICT_SYSTEM_TEAM_ID, "پیش بینی ترکیب");
+       tabList.add(tabItem);*/
+        PredictTabModel tabItem = new PredictTabModel(PREDICT_RESULT_ID, "پیش بینی نتیجه");
         tabList.add(tabItem);
 
         setPager();

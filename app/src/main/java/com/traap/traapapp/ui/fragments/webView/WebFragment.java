@@ -1,18 +1,26 @@
 package com.traap.traapapp.ui.fragments.webView;
 
 import android.annotation.SuppressLint;
+import android.app.DownloadManager;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -31,6 +39,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.Context.DOWNLOAD_SERVICE;
 
 /**
  * Created by MahsaAzizi .
@@ -159,6 +169,51 @@ public class WebFragment extends BaseFragment
             mainView.hideLoading();
 
         }
+
+        webView.setDownloadListener(new DownloadListener() {
+
+            @Override
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimetype,
+                                        long contentLength) {
+                Log.e("test11222333", url );
+                /*    if (url.contains(".pdf")){
+                        Utility.openUrlCustomTab(WebActivity.this,"docs.google.com/viewer?url="+url.replace("https://",""));
+                    }*/
+
+                try {
+                    Intent i = new Intent("android.intent.action.MAIN");
+                    i.setComponent(ComponentName.unflattenFromString("com.android.chrome/com.android.chrome.Main"));
+                    i.addCategory("android.intent.category.LAUNCHER");
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
+                catch(ActivityNotFoundException e) {
+                    // Chrome is not installed
+                    DownloadManager.Request request = new DownloadManager.Request(
+                            Uri.parse(url));
+
+                    request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED); //Notify client once download is completed!
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Name of your downloadble file goes here, example: Mathematics II ");
+                    DownloadManager dm = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+                    dm.enqueue(request);
+                    Toast.makeText(getActivity().getApplicationContext(), "Downloading File", //To notify the Client that the file is being downloaded
+                            Toast.LENGTH_LONG).show();
+                }
+                   /* DownloadManager.Request request = new DownloadManager.Request(
+                            Uri.parse(url));
+
+                    request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED); //Notify client once download is completed!
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Name of your downloadble file goes here, example: Mathematics II ");
+                    DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                    dm.enqueue(request);
+                    Toast.makeText(getApplicationContext(), "Downloading File", //To notify the Client that the file is being downloaded
+                            Toast.LENGTH_LONG).show();*/
+
+            }
+        });
         return view;
     }
 
@@ -169,14 +224,7 @@ public class WebFragment extends BaseFragment
             //toolbar
             mToolbar = view.findViewById(R.id.toolbar);
             rlShirt = view.findViewById(R.id.rlShirt);
-            rlShirt.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100);
-                }
-            });
+            rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class),100));
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
             TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
             tvTitle.setText(title);

@@ -201,6 +201,9 @@ public class Const
     public final static String Get_DETAIL_SURVEY = SubBASEURL + "v1/survey/{id}/";
     public final static String Get_LIST_SURVEY = SubBASEURL + "v1/survey/";
 
+    public final static String TECHS = SubBASEURL + "v1/team/techs/";
+    public final static String CUPS = SubBASEURL + "v1/team/cups/";
+    public final static String SEACRHTECHS = SubBASEURL + "v1/team/techs/";
 
 
 }

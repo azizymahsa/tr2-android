@@ -25,6 +25,7 @@ import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardReques
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
 import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosResponse;
 import com.traap.traapapp.apiServices.model.contactInfo.GetContactInfoResponse;
+import com.traap.traapapp.apiServices.model.cup.CupResponse;
 import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletRequest;
 import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletResponse;
 import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferRequest;
@@ -125,6 +126,7 @@ import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListRespon
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
+import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
 import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
 import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyResponse;
@@ -209,6 +211,16 @@ public interface RetroClient
     @GET(Const.Get_DETAIL_SURVEY)
     Single<Response<WebServiceClass<SurveyDetailResponse>>> getSurveyDetail(
             @Path("id") Integer surveyId);
+
+    @GET(Const.TECHS)
+    Single<Response<WebServiceClass<TopPlayerResponse>>> getTech(
+            @Query("role__code_name") String role__code_name,
+            @Query("is_present") Boolean is_present,
+            @Query("tech_staff__is_featured") Boolean tech_staff__is_featured
+           );
+    @GET(Const.TECHS)
+    Single<Response<WebServiceClass<TopPlayerResponse>>> getSearchTech(
+            @Query("search") String role__code_name);
 
     @PUT(Const.Get_DETAIL_SURVEY)
     Single<Response<WebServiceClass<PutSurveyResponse>>> putSurvey(
@@ -771,5 +783,7 @@ public interface RetroClient
 
     @GET(Const.traktor)
     Single<Response<WebServiceClass<TractorTeamResponse>>> traktor();
+    @GET(Const.CUPS)
+    Single<Response<WebServiceClass<CupResponse>>> cup();
 
 }
