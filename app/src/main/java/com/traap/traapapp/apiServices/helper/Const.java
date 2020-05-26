@@ -199,6 +199,7 @@ public class Const
 
     //survey
     public final static String Get_DETAIL_SURVEY = SubBASEURL + "v1/survey/{id}/";
+    public final static String Get_LIST_SURVEY = SubBASEURL + "v1/survey/";
 
 
 
