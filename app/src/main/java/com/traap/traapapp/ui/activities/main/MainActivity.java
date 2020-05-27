@@ -88,6 +88,7 @@ import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
+import com.traap.traapapp.ui.fragments.galleryIntroPlayer.MediaPlayersFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
 import com.traap.traapapp.ui.fragments.lastPast5Match.Last5PastMatchFragment;
@@ -388,7 +389,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 
-                        setFragment(MediaFragment.newInstance(MediaPosition.News, this));
+                        setFragment(MediaPlayersFragment.newInstance(MediaPosition.News, this));
                         replaceFragment(getFragment(), "mediaFragment");
                     }
                     break;
