@@ -18,64 +18,41 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="سومين تيم برتر ليگ برتر فوتبال کشورمان در سال 1397-1398 کدام
-يک از گزينه های زير می باشد ؟
-"
+            android:gravity="center"
+            android:text="جمعه 23 اسفند 1398"
             android:textColor="#484848"
             android:textSize="@dimen/textSize_14dp"
             android:textStyle="bold" />
 
-        <!--<TextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="جمعه 23 اسفند 1398"
             android:textColor="#484848"
-            android:textSize="@dimen/textSize_12dp" />-->
+            android:textSize="@dimen/textSize_12dp" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_100dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="5dp">
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center|start"
-            android:text="فولاد خوزستان"
-            android:textColor="@color/red"
-            android:textSize="@dimen/textSize_12dp" />
+            android:gravity="center"
+             android:src="@drawable/ic_support"/>
 
         <TextView
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center|start"
             android:text="جمعه 23 اسفند 1398"
-            android:textColor="@color/red"
-            android:textSize="@dimen/textSize_12dp" />
-
-        <TextView
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|start"
-            android:text="فولاد خوزستان"
-            android:textColor="@color/red"
-            android:textSize="@dimen/textSize_12dp" />
-
-        <TextView
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|start"
-            android:text="فولاد خوزستان"
             android:textColor="@color/red"
             android:textSize="@dimen/textSize_12dp" />
     </LinearLayout>
