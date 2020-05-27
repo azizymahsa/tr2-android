@@ -3,11 +3,15 @@ package com.traap.traapapp.ui.fragments.survey;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -22,11 +26,17 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.survey.Question;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
+import com.traap.traapapp.apiServices.model.survey.listSurvey.Result;
+import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
+import com.traap.traapapp.apiServices.model.survey.putSurvey.Answers;
+import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
+import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.survey.SurveyDetailAdapter;
+import com.traap.traapapp.ui.adapters.survey.SurveyDetailRadioGroupAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
@@ -38,23 +48,28 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import library.android.eniac.flight.adapter.PassengerAdapter;
+import library.android.service.model.flight.reservation.request.TravelerList;
 
 /**
  * Created by MahtabAzizi on 5/4/2020.
  */
-public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<SurveyDetailResponse>>
+public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<SurveyDetailResponse>>, View.OnClickListener
 {
 
     private MainActionView mainView;
     private View view;
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName, tvPopularPlayer;
+    private TextView tvTitle, tvUserName, tvPopularPlayer,tvTitleFill;
     private View imgBack, imgMenu, rlShirt;
     private CircularProgressButton btnConfirm;
     private Integer Id=0;
     private ArrayList<Question> surveyDetailList= new ArrayList<>();
     private RecyclerView rvQuestion;
     private SurveyDetailAdapter detailAdapter;
+    private Question item;
+    private ArrayList<Answers> answers;
+    private LinearLayout llFill,llEmpty;
 
 
     public static SurveyFragment newInstance(MainActionView mainView)
@@ -109,10 +124,12 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
         {
             showLoading();
 
+            requestGetSurveyList();
+
             mToolbar = view.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
             TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-            tvTitle.setText("ارتباط با پشتیبانی");
+            tvTitle.setText("نظرسنجی");
             mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
@@ -150,8 +167,15 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
+            llFill=view.findViewById(R.id.llFill);
+            llEmpty=view.findViewById(R.id.llEmpty);
+            tvTitleFill=view.findViewById(R.id.tvTitleFill);
+            llEmpty.setVisibility(View.VISIBLE);
+            llFill.setVisibility(View.GONE);
+
             btnConfirm=view.findViewById(R.id.btnConfirm);
             btnConfirm.setText("ثبت نظرسنجی");
+            btnConfirm.setOnClickListener(this);
 
             rvQuestion=view.findViewById(R.id.rvQuestion);
 
@@ -163,17 +187,66 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
             rvQuestion.setAdapter(detailAdapter);
 
 
-            SingletonService.getInstance().getSurveyDetailService().getSurveyDetail(
-                    Id,
-                    this
-            );
-
-            //showAlert();
-            //showError();
-
         }catch (Exception e){
         }
     }
+
+    private void requestGetSurveyList()
+    {
+        SingletonService.getInstance().getSurveyDetailService().getSurveyList(new OnServiceStatus<WebServiceClass<SurveyListResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<SurveyListResponse> response)
+            {
+                hideLoading();
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+                        for (int i =0;i<response.data.getResults().size();i++)
+                        {
+                            Result surveyList = response.data.getResults().get(i);
+                            if (surveyList.getIsActive()){
+                                llEmpty.setVisibility(View.GONE);
+                                llFill.setVisibility(View.VISIBLE);
+                                tvTitleFill.setText(surveyList.getTitle());
+                                //Id=surveyList.get
+
+                                SingletonService.getInstance().getSurveyDetailService().getSurveyDetail(
+                                        Id,
+                                        SurveyFragment.this
+                                );
+
+                            }
+                        }
+
+                    } else
+                    {
+
+                    }
+                } catch (Exception e)
+                {
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                hideLoading();
+                if (!Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getContext(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
+            }
+        });
+    }
+
     private void hideLoading()
     {
         mainView.hideLoading();
@@ -226,6 +299,7 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
 
     private void setQuestions(SurveyDetailResponse data)
     {
+        surveyDetailList.clear();
         surveyDetailList.addAll(data.getQuestions());
 
         detailAdapter.notifyDataSetChanged();
@@ -246,11 +320,118 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
     }
 
 
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId()){
+            case R.id.btnConfirm:
+                answers = new ArrayList<Answers>();
 
+                    boolean valid = true;
 
+                    for (int i = 0; i < surveyDetailList.size(); i++)
+                    {
+                        item = surveyDetailList.get(i);
+                        SurveyDetailAdapter holders = ((SurveyDetailAdapter) rvQuestion.getAdapter());
+                        SurveyDetailAdapter.ViewHolder holder = holders.getMyViewHolders().get(i);
 
+                        if (item.getQuestionType()==1){
+                            SurveyDetailRadioGroupAdapter groupAdapterHolders=
+                                    ((SurveyDetailRadioGroupAdapter) holder.rvQuestionRadioGroup.getAdapter());
+                            for (int j = 0; j < surveyDetailList.get(i).getOptions().size(); j++)
+                            {
+                                SurveyDetailRadioGroupAdapter.SurveyDetailViewHolder detailViewHolder = groupAdapterHolders.getMyViewHolders().get(j);
+                                if (detailViewHolder.radioButton.isSelected()){
+                                    answers.add(new Answers(surveyDetailList.get(i).getId().toString()
+                                            ,surveyDetailList.get(j).getId().toString()
+                                            ,"" ));
+                                }
 
+                            }
 
+                        }else if (item.getQuestionType()==2){
+                            SurveyDetailRadioGroupAdapter groupAdapterHolders=
+                                    ((SurveyDetailRadioGroupAdapter) holder.rvQuestionRadioGroup.getAdapter());
+                            for (int j = 0; j < surveyDetailList.get(i).getOptions().size(); j++)
+                            {
+                                SurveyDetailRadioGroupAdapter.SurveyDetailViewHolder detailViewHolder = groupAdapterHolders.getMyViewHolders().get(j);
+                                if (detailViewHolder.checkBox.isChecked()){
+                                    answers.add(new Answers(surveyDetailList.get(i).getId().toString()
+                                            ,surveyDetailList.get(j).getId().toString()
+                                            ,"" ));
+                                }
 
+                            }
+                        }
 
-}
+                        else if (item.getQuestionType() == 3)
+                        {
+                            if (!TextUtils.isEmpty(holder.etAnswer.getText()) )
+                            {
+                                answers.add(new Answers(surveyDetailList.get(i).getId().toString()
+                                        ,""
+                                        ,holder.etAnswer.getText().toString() ));
+
+                            } else if (item.isMandatory())
+                            {
+                                valid = false;
+                                Toast.makeText(getContext(), "پاسخ به سوالات مشخص شده اجباری می باشد. ", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                     //   break;
+                    }
+                if (valid)
+                    putSurvey(answers);
+        }
+    }
+
+    private void putSurvey(ArrayList<Answers> answers)
+    {
+        showLoading();
+        PutSurveyRequest putSurveyRequest = new PutSurveyRequest();
+        putSurveyRequest.setAnswers(answers);
+
+        SingletonService.getInstance().getSurveyDetailService().putSurvey(
+                Id,putSurveyRequest,new OnServiceStatus<WebServiceClass<PutSurveyResponse>>()
+                {
+                    @Override
+                    public void onReady(WebServiceClass<PutSurveyResponse> response)
+                    {
+                        hideLoading();
+                        try
+                        {
+
+                            if (response.info.statusCode == 200)
+                            {
+
+                                showAlertSuccess(getContext(),"پاسخ نظرسنجی شما با موفقیت ثبت شد.","",true);
+
+                            } else
+                            {
+
+                            }
+                        } catch (Exception e)
+                        {
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(String message)
+                    {
+                        hideLoading();
+                        if (!Tools.isNetworkAvailable(getActivity()))
+                        {
+                            Logger.e("-OnError-", "Error: " + message);
+                            showError(getContext(), "خطا در دریافت اطلاعات از سرور!");
+                        } else
+                        {
+                            showAlert(getContext(), R.string.networkErrorMessage, R.string.networkError);
+                        }
+                    }
+                });
+
+                }
+
+ }
