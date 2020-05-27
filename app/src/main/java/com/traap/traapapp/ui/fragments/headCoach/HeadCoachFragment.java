@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -31,6 +33,7 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.PositionInLeaguesFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.IntroduceFragmentPagerAdapter;
+import com.traap.traapapp.ui.fragments.headCoach.adapter.CommentAdapter;
 import com.traap.traapapp.ui.fragments.headCoach.profileHeadCoach.ProfileHeadCoahFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
@@ -54,12 +57,13 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private MainActionView mainView;
     private TextView tvUserName, tvPopularPlayer;
     private TabLayout tabLayout;
-    private WrapContentHeightViewPager view_pager;
+    private com.traap.traapapp.utilities.WrapContentHeightViewPager view_pager;
     private IntroduceFragmentPagerAdapter adapter;
     private Integer coachId=4;
     private GetTechsIdResponse headProfileData;
     private RoundedImageView imgProfile;
     private ProfileHeadCoahFragment profileHeadCoahFragment;
+    private RecyclerView rvComment;
 
     public void setCoachId(Integer coachId)
     {
@@ -109,6 +113,8 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
             //toolbar
             mToolbar = view.findViewById(R.id.toolbar);
+            rvComment = view.findViewById(R.id.rvComment);
+            rvComment.setAdapter(new CommentAdapter());
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
             TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
             tvTitle.setText("معرفی سرمربی");
@@ -154,6 +160,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             tabLayout = view.findViewById(R.id.tabLayout);
             view_pager = view.findViewById(R.id.view_pager);
             imgProfile=view.findViewById(R.id.imgProfile);
+            ViewCompat.setNestedScrollingEnabled(rvComment, true);
 
 
 
@@ -164,18 +171,16 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     }
     public void getTechsId(){
 
-      //  mainView.showLoading();
         SingletonService.getInstance().tractorTeamService().getTechsId(coachId,new OnServiceStatus<WebServiceClass<GetTechsIdResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<GetTechsIdResponse> response)
             {
-                mainView.hideLoading();
-                mainView.hideLoading();
+
                     if (response.info.statusCode==200)
                     {
                         headProfileData=response.data;
-                      //  setImageProfile(response.data.getImage());
+                        setImageProfile(response.data.getImage());
                         profileHeadCoahFragment.setData(headProfileData);
 
                     }else{
@@ -253,6 +258,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         profileHeadCoahFragment =new ProfileHeadCoahFragment();
         getTechsId();
         initViewPager();
+
         return view;
     }
 
