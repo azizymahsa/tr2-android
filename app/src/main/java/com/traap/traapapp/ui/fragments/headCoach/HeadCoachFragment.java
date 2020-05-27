@@ -164,7 +164,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     }
     public void getTechsId(){
 
-        mainView.showLoading();
+      //  mainView.showLoading();
         SingletonService.getInstance().tractorTeamService().getTechsId(coachId,new OnServiceStatus<WebServiceClass<GetTechsIdResponse>>()
         {
             @Override
