@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.traap.traapapp.ui.fragments.main.MainFragment">
 
     <RelativeLayout
@@ -29,8 +29,7 @@
                 android:layout_alignParentTop="true"
                 android:background="@android:color/transparent">
 
-                <include
-                    layout="@layout/toolbar_main" />
+                <include layout="@layout/toolbar_main" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -38,9 +37,9 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScroll"
-            android:layout_marginTop="104dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="104dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,10 +50,10 @@
                     android:id="@+id/rl1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_anchor="@id/header"
-                    app:layout_anchorGravity="bottom|center_horizontal|right"
+                    android:layout_marginBottom="8dp"
                     android:orientation="vertical"
-                    android:layout_marginBottom="8dp">
+                    app:layout_anchor="@id/header"
+                    app:layout_anchorGravity="bottom|center_horizontal|right">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/sliderRecyclerView"
@@ -65,13 +64,13 @@
 
                     <LinearLayout
                         android:id="@+id/llIndicator"
-                        android:layout_below="@+id/sliderRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
+                        android:layout_below="@+id/sliderRecyclerView"
                         android:layout_gravity="center|bottom"
                         android:layout_marginTop="5dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
                             android:id="@+id/indicator"
@@ -92,11 +91,24 @@
 
                 <RelativeLayout
                     android:id="@+id/rlPredict"
-                    android:layout_below="@+id/rl1"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:background="@drawable/background_ata_flight">
+                    android:layout_below="@+id/rl1"
+                    android:background="@drawable/background_ata_flight"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewBaner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"/>
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvPredictText"
@@ -104,62 +116,41 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:text="پیش بینی کن جایزه بگیر!"
-                        android:textStyle="bold"
-                        android:visibility="gone"
                         android:layout_marginEnd="8dp"
+                        android:text="پیش بینی کن جایزه بگیر!"
                         android:textColor="@color/textColorTitle"
-                        android:textSize="@dimen/textSize_16dp"/>
+                        android:textSize="@dimen/textSize_16dp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/llTimer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="gone"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
-<!--                        <cn.iwgang.countdownview.CountdownView-->
-<!--                            android:id="@+id/countDown"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            app:isHideTimeBackground="true"-->
-<!--                            app:isShowDay="true"-->
-<!--                            app:isShowHour="true"-->
-<!--                            app:isShowMinute="true"-->
-<!--                            app:isShowSecond="true"-->
-<!--                            app:isShowMillisecond="false"-->
-<!--                            app:timeTextColor="@color/textColorTitle"-->
-<!--                            app:timeTextSize="@dimen/textSize_18dp"-->
-<!--                            app:isTimeTextBold="true"-->
-<!--                            app:suffixGravity="center"-->
-<!--                            app:suffixTextColor="@color/textColorTitle"-->
-<!--                            app:suffixTextSize="@dimen/textSize_16dp"-->
-<!--                            app:suffixDay=":"-->
-<!--                            app:suffixHour=":"-->
-<!--                            app:suffixMinute=":"-->
-<!--                            app:suffixSecond=""-->
-<!--                            app:suffixMillisecond="" />-->
 
                         <TextView
                             android:id="@+id/tvTimePredict"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00 : 00 : 00 : 00"
-                            android:textStyle="bold"
-                            android:visibility="gone"
                             android:textColor="@color/textColorTitle"
-                            android:textSize="@dimen/textSize_16dp"/>
+                            android:textSize="@dimen/textSize_16dp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="مانده به پایان پیش\u200cبینی"
                             android:textColor="@color/textColorTitle"
-                            android:visibility="gone"
-                            android:textSize="@dimen/textSize_12dp"/>
+                            android:textSize="@dimen/textSize_12dp"
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
@@ -168,27 +159,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@android:color/transparent">
+                    android:background="@android:color/transparent"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv1"
-                        android:layout_below="@+id/rl2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="سرویس\u200cهای برگزیده"
+                        android:layout_below="@+id/rl2"
                         android:gravity="start"
                         android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
                         android:paddingTop="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="سرویس\u200cهای برگزیده"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/textColorSecondary"/>
+                        android:textColor="@color/textColorSecondary" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
-                        android:layout_below="@+id/tv1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv1" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -199,10 +190,10 @@
                         <RelativeLayout
                             android:id="@+id/rlF1"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
-                            android:layout_height="@dimen/_75sdp">
-    <!--                        android:background="@drawable/button_main_background_border">-->
+                            android:layout_weight="1">
+                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF1"
@@ -213,11 +204,11 @@
                                 app:riv_mutate_background="true"
                                 app:riv_oval="false" />
 
-    <!--                        <ImageView-->
-    <!--                            android:id="@+id/imgF1"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:scaleType="fitXY"/>-->
+                            <!--                        <ImageView-->
+                            <!--                            android:id="@+id/imgF1"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="match_parent"-->
+                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF1"
@@ -225,24 +216,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
-                                android:textStyle="bold"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
-                                android:gravity="start"
-                                android:textStyle="bold"
-                                android:visibility="gone"
-                                android:text="بزودی..."
-                                android:layout_marginBottom="4dp"
                                 android:layout_marginEnd="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:gravity="start"
+                                android:text="بزودی..."
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-
+                                android:textStyle="bold"
+                                android:visibility="gone" />
 
 
                         </RelativeLayout>
@@ -250,25 +240,25 @@
                         <RelativeLayout
                             android:id="@+id/rlF2"
                             android:layout_width="0dp"
-                            android:layout_weight="2"
+                            android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
-                            android:layout_height="@dimen/_75sdp">
-    <!--                        android:background="@drawable/button_main_background_border">-->
+                            android:layout_weight="2">
+                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:scaleType="fitXY"
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
-                                android:scaleType="fitXY"
                                 app:riv_oval="false" />
 
-    <!--                        <ImageView-->
-    <!--                            android:id="@+id/imgF2"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:scaleType="fitXY"/>-->
+                            <!--                        <ImageView-->
+                            <!--                            android:id="@+id/imgF2"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="match_parent"-->
+                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF2"
@@ -276,23 +266,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
-                                android:textStyle="bold"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
-                                android:gravity="start"
-                                android:textStyle="bold"
-                                android:text="بزودی..."
-                                android:layout_marginBottom="4dp"
                                 android:layout_marginEnd="4dp"
-                                android:visibility="gone"
+                                android:layout_marginBottom="4dp"
+                                android:gravity="start"
+                                android:text="بزودی..."
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold"
+                                android:visibility="gone" />
 
 
                         </RelativeLayout>
@@ -308,26 +298,26 @@
                         <RelativeLayout
                             android:id="@+id/rlF3"
                             android:layout_width="0dp"
-                            android:layout_weight="2"
+                            android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
-                            android:layout_height="@dimen/_75sdp">
-    <!--                        android:background="@drawable/button_main_background_border">-->
+                            android:layout_weight="2">
+                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF3"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/test_photo"
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
-                                android:scaleType="fitXY"
-                                app:riv_oval="false"
-                                android:src="@drawable/test_photo"/>
+                                app:riv_oval="false" />
 
-    <!--                        <ImageView-->
-    <!--                            android:id="@+id/imgF3"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:scaleType="fitXY"/>-->
+                            <!--                        <ImageView-->
+                            <!--                            android:id="@+id/imgF3"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="match_parent"-->
+                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF3"
@@ -335,22 +325,22 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
-                                android:textStyle="bold"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
-                                android:gravity="start"
-                                android:textStyle="bold"
-                                android:text="بزودی..."
-                                android:layout_marginBottom="4dp"
                                 android:layout_marginEnd="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:gravity="start"
+                                android:text="بزودی..."
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
 
                         </RelativeLayout>
@@ -358,27 +348,27 @@
                         <RelativeLayout
                             android:id="@+id/rlF4"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
-                            android:layout_height="@dimen/_75sdp">
-    <!--                        android:background="@drawable/button_main_background_border">-->
+                            android:layout_weight="1">
+                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF4"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/test_photo"
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
-                                android:scaleType="fitXY"
-                                app:riv_oval="false"
-                                android:src="@drawable/test_photo"/>
+                                app:riv_oval="false" />
 
 
-    <!--                        <ImageView-->
-    <!--                            android:id="@+id/imgF4"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:scaleType="fitXY"/>-->
+                            <!--                        <ImageView-->
+                            <!--                            android:id="@+id/imgF4"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="match_parent"-->
+                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF4"
@@ -386,22 +376,22 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
-                                android:textStyle="bold"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
-                                android:gravity="start"
-                                android:textStyle="bold"
-                                android:text="بزودی..."
-                                android:layout_marginBottom="4dp"
                                 android:layout_marginEnd="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:gravity="start"
+                                android:text="بزودی..."
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
 
                         </RelativeLayout>
@@ -412,31 +402,31 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <RelativeLayout
                             android:id="@+id/rlF5"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
-                            android:layout_height="@dimen/_75sdp">
-    <!--                        android:background="@drawable/button_main_background_border">-->
+                            android:layout_weight="1">
+                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:scaleType="fitXY"
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
-                                android:scaleType="fitXY"
                                 app:riv_oval="false" />
 
-    <!--                        <ImageView-->
-    <!--                            android:id="@+id/imgF5"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:scaleType="fitXY"/>-->
+                            <!--                        <ImageView-->
+                            <!--                            android:id="@+id/imgF5"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="match_parent"-->
+                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF5"
@@ -444,22 +434,22 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
-                                android:textStyle="bold"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
-                                android:gravity="start"
-                                android:textStyle="bold"
-                                android:text="بزودی..."
-                                android:layout_marginBottom="4dp"
                                 android:layout_marginEnd="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:gravity="start"
+                                android:text="بزودی..."
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
 
                         </RelativeLayout>
@@ -467,25 +457,25 @@
                         <RelativeLayout
                             android:id="@+id/rlF6"
                             android:layout_width="0dp"
-                            android:layout_weight="2"
+                            android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
-                            android:layout_height="@dimen/_75sdp">
-    <!--                        android:background="@drawable/button_main_background_border">-->
+                            android:layout_weight="2">
+                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF6"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:scaleType="fitXY"
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
-                                android:scaleType="fitXY"
                                 app:riv_oval="false" />
 
-    <!--                        <ImageView-->
-    <!--                            android:id="@+id/imgF6"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:scaleType="fitXY"/>-->
+                            <!--                        <ImageView-->
+                            <!--                            android:id="@+id/imgF6"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="match_parent"-->
+                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF6"
@@ -493,22 +483,22 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
-                                android:textStyle="bold"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
-                                android:gravity="start"
-                                android:textStyle="bold"
-                                android:text="بزودی..."
-                                android:layout_marginBottom="4dp"
                                 android:layout_marginEnd="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:gravity="start"
+                                android:text="بزودی..."
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                                android:textStyle="bold" />
 
 
                         </RelativeLayout>
