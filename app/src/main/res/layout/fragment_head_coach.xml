@@ -65,7 +65,7 @@
                             app:contentPadding="8dp"
                             app:strokeColor="@color/borderColorGray">
                             <ImageView
-                                android:id="@+id/btnShareTicket"
+                                android:id="@+id/btnShare"
                                 android:layout_width="@dimen/_35dp"
                                 android:layout_height="@dimen/_35dp"
                                 android:background="@drawable/button_small_border"
@@ -76,9 +76,11 @@
                                 />
 
                             <RelativeLayout
+                                android:id="@+id/llInfoFromShare"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_70sdp"
+                                android:background="@color/white"
                                 android:visibility="visible">
 
                                 <View
@@ -128,9 +130,40 @@
                                     android:visibility="gone"
                                     />
 
+                                <RelativeLayout
+                                    android:id="@+id/llGallery"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_100dp"
+                                    android:layout_below="@+id/view_pager"
+                                    >
 
+
+                                        <com.makeramen.roundedimageview.RoundedImageView
+                                            android:id="@+id/imgF2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            app:riv_corner_radius="10dp"
+                                            app:riv_mutate_background="true"
+                                            android:scaleType="fitXY"
+                                            android:background="@color/warmGray"
+                                            app:riv_oval="false" />
+
+                                                <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:gravity="center"
+                                            android:textStyle="bold"
+                                                    android:text="گالری فیلم و عکس"
+                                            android:textColor="@color/textColorTitle"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+
+                                </RelativeLayout>
 
                             </RelativeLayout>
+
+
 
                         </androidx.cardview.widget.CardView>
 
