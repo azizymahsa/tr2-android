@@ -89,6 +89,7 @@ import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
+import com.traap.traapapp.ui.fragments.headCoach.HeadCoachFragment;
 import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
 import com.traap.traapapp.ui.fragments.lastPast5Match.Last5PastMatchFragment;
 import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableMainFragment;
@@ -778,7 +779,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             case 87: //دعوت از دوستان
             {
                 isMainFragment = false;
-                setFragment(HeadCoachFragment.newInstance(this));
+                setFragment(InviteFriendsFragment.newInstance(this));
                 replaceFragment(getFragment(), "inviteFriendsFragment");
 
                 break;

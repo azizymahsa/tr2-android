@@ -33,6 +33,7 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.PositionInLeaguesFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.IntroduceFragmentPagerAdapter;
+import com.traap.traapapp.ui.fragments.galleryIntroPlayer.MediaPlayersFragment;
 import com.traap.traapapp.ui.fragments.headCoach.profileHeadCoach.ProfileHeadCoahFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
@@ -348,7 +349,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.llGallery:
 
-                
+              //  MediaPlayersFragment
                 break;
 
         }
