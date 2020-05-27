@@ -205,5 +205,7 @@ public class Const
     public final static String CUPS = SubBASEURL + "v1/team/cups/";
     public final static String SEACRHTECHS = SubBASEURL + "v1/team/techs/";
 
+    public final static String TECHS_ID=SubBASEURL+"v1/team/techs/{id}/";
+
 
 }

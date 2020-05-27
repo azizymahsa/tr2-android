@@ -4,28 +4,37 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.pixplicity.easyprefs.library.Prefs;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.PositionInLeaguesFragment;
+import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.IntroduceFragmentPagerAdapter;
+import com.traap.traapapp.ui.fragments.headCoach.profileHeadCoach.ProfileHeadCoahFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.WrapContentHeightViewPager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,7 +55,11 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private TextView tvUserName, tvPopularPlayer;
     private TabLayout tabLayout;
     private WrapContentHeightViewPager view_pager;
-
+    private IntroduceFragmentPagerAdapter adapter;
+    private Integer id=4;
+    private GetTechsIdResponse headProfileData;
+    private RoundedImageView imgProfile;
+    private ProfileHeadCoahFragment profileHeadCoahFragment;
 
 
     public static HeadCoachFragment newInstance(MainActionView mainView)
@@ -135,22 +148,94 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
             tabLayout = view.findViewById(R.id.tabLayout);
             view_pager = view.findViewById(R.id.view_pager);
+            imgProfile=view.findViewById(R.id.imgProfile);
+
+
 
         } catch (Exception e)
         {
             e.getMessage();
         }
     }
+    public void getTechsId(){
+
+        showLoading();
+        SingletonService.getInstance().tractorTeamService().getTechsId(id,new OnServiceStatus<WebServiceClass<GetTechsIdResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetTechsIdResponse> response)
+            {
+                hideLoading();
+
+                    if (response.info.statusCode==200)
+                    {
+                        headProfileData=response.data;
+                        setImageProfile(response.data.getImage());
+                        profileHeadCoahFragment.setData(headProfileData);
+
+                    }else{
+                        showToast(getActivity(), response.info.message, R.color.red);
+
+                    }
+                }
+
+            @Override
+            public void onError(String message)
+            {
+                hideLoading();
+                try{
+
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + message);
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    }
+                    else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                }catch (Exception e){}
+            }
+        });
+
+    }
+
+    private void setImageProfile(String image)
+    {
+        try
+        {
+            Picasso.with(getContext()).load(image).into(imgProfile, new Callback()
+            {
+                @Override
+                public void onSuccess()
+                {
+
+                }
+
+                @Override
+                public void onError()
+                {
+                    Picasso.with(getContext()).load(R.drawable.ic_user_default).into(imgProfile);
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Picasso.with(getContext()).load(R.drawable.ic_user_default).into(imgProfile);
+        }
+    }
 
     private void hideLoading()
     {
-        mainView.hideLoading();
+;
+
     }
 
 
     private void showLoading()
     {
-        mainView.showLoading();
+
+
     }
 
     @Override
@@ -160,7 +245,8 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         view = inflater.inflate(R.layout.fragment_head_coach, container, false);
 
         initViews();
-
+        profileHeadCoahFragment =new ProfileHeadCoahFragment();
+        getTechsId();
         initViewPager();
         return view;
     }
@@ -196,15 +282,17 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
     private void addTabs(ViewPager viewPager)
     {
-      /*  adapter = new IntroduceFragmentPagerAdapter(getChildFragmentManager());
+        adapter = new IntroduceFragmentPagerAdapter(getChildFragmentManager());
 
-        adapter.addFrag("بازیکنان فعلی", new CurrentPlayersFragment());
-        adapter.addFrag("کادر فنی", new TechnicalTeamFragment());
-        adapter.addFrag("برترین بازیکن ها", new TopPlayersFragment());
-        adapter.addFrag("جایگاه در لیگ ها", new PositionInLeaguesFragment());
-        adapter.addFrag("تاریخچه", new TeamHistoryFragment());
+       /* adapter.addFrag("امتیازات", new CurrentPlayersFragment());
+        adapter.addFrag("اتفاقات مهم", new TechnicalTeamFragment());
+        adapter.addFrag("قراردادها", new TopPlayersFragment());*/
+        adapter.addFrag("سابقه", new PositionInLeaguesFragment());
+        adapter.addFrag("مشخصات",profileHeadCoahFragment);
 
-        viewPager.setAdapter(adapter);*/
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(5);
+
     }
 
     @Override

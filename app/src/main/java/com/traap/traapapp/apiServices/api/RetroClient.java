@@ -126,6 +126,7 @@ import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListRespon
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
+import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
 import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
@@ -142,6 +143,7 @@ import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletRequest;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletResponse;
 
+import lombok.Generated;
 import okhttp3.MultipartBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -785,5 +787,9 @@ public interface RetroClient
     Single<Response<WebServiceClass<TractorTeamResponse>>> traktor();
     @GET(Const.CUPS)
     Single<Response<WebServiceClass<CupResponse>>> cup();
+
+    @GET(Const.TECHS_ID)
+    Single<Response<WebServiceClass<GetTechsIdResponse>>> getTechsId(
+            @Path("id") Integer id);
 
 }

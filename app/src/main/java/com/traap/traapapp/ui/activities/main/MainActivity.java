@@ -778,7 +778,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             case 87: //دعوت از دوستان
             {
                 isMainFragment = false;
-                setFragment(HeadCoachFragment.newInstance(this));
+                setFragment(InviteFriendsFragment.newInstance(this));
                 replaceFragment(getFragment(), "inviteFriendsFragment");
 
                 break;

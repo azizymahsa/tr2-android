@@ -65,7 +65,7 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
 
         if (info.isMandatory()){
 
-            holder.tvQuestion.setText(info.getQuery()+"<font color=red>" + " *");
+         //   holder.tvQuestion.setText(info.getQuery()+"<font color=red>" + " *");
         }else {
             holder.tvQuestion.setText(info.getQuery());
 
