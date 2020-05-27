@@ -88,9 +88,7 @@ import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
-import com.traap.traapapp.ui.fragments.galleryIntroPlayer.MediaPlayersFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
-import com.traap.traapapp.ui.fragments.headCoach.HeadCoachFragment;
 import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
 import com.traap.traapapp.ui.fragments.lastPast5Match.Last5PastMatchFragment;
 import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableMainFragment;
@@ -389,8 +387,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 //                        setCheckedBNV(bottomNavigationView, 1);
                         setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
-
-                        setFragment(MediaPlayersFragment.newInstance(MediaPosition.News, this));
+//                        setFragment(MediaPlayersFragment.newInstance(MediaPosition.News, this));
+                        setFragment(MediaFragment.newInstance(MediaPosition.News, this));
                         replaceFragment(getFragment(), "mediaFragment");
                     }
                     break;
@@ -803,17 +801,11 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             {
                 // showToast(this, "ارتباط با پشتیبانی", R.color.green);
                 isMainFragment = false;
+
+                //setFragment(SurveyFragment.newInstance(this));
                 setFragment(SupportFragment.newInstance(this));
 
                 replaceFragment(getFragment(), "SupportFragment");
-                break;
-            }
-            case 54 :  //نظرسنجی
-                {
-
-                isMainFragment = false;
-                setFragment(SurveyFragment.newInstance(this));
-                replaceFragment(getFragment(), "SurveyFragment");
                 break;
             }
             case 100:{
