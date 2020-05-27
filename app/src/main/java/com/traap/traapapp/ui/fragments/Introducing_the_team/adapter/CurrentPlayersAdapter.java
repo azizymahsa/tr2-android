@@ -8,6 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.topPlayers.Result;
+
+import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CurrentPlayersAdapter extends RecyclerView.Adapter<CurrentPlayersAdapter.ViewHolder>
 {
     private Context context;
+    private List<Result> results;
 
 
-    public CurrentPlayersAdapter()
+    public CurrentPlayersAdapter(List<Result> results)
     {
+        this.results=results;
 
     }
 
@@ -51,6 +56,12 @@ public class CurrentPlayersAdapter extends RecyclerView.Adapter<CurrentPlayersAd
         }
 
         holder.tvRate.setText(String.valueOf(position + 1));
+
+
+        holder.tvPlayer.setText(results.get(position).getPersianFirstName()+" "+results.get(position).getPersianLastName());
+        holder.tvAttendance.setText(results.get(position).getSeasons()+" فصل");
+        holder.tvGoals.setText(results.get(position).getClubGoals()+" گل");
+
     }
 
 
@@ -58,7 +69,7 @@ public class CurrentPlayersAdapter extends RecyclerView.Adapter<CurrentPlayersAd
     public int getItemCount()
     {
 
-        return 10;
+        return results.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder

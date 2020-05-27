@@ -775,7 +775,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         {
             case 701:
             {
-                mainView.openWebView(mainView, baseUrl, Prefs.getString("gds_token", ""),"تراپ مارکت");
+               // mainView.openWebView(mainView, baseUrl, Prefs.getString("gds_token", ""),"تراپ مارکت");
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                Utility.openUrlCustomTab(getActivity(),baseUrl);
                 break;
 
             }
@@ -797,7 +801,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             case 13: //Bus
             {
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, this);
-                mainView.openWebView(mainView, URl, Prefs.getString("gds_token", ""), "گردشگری");
+
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+              ///  mainView.openWebView(mainView, URl, Prefs.getString("gds_token", ""), "گردشگری");
                 break;
             }
             case 65: //Bill
@@ -846,25 +855,31 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+    /*            Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", Prefs.getString("alopark_token", ""));
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 100);*/
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
 
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
                 // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
             }
             case 32: //  پارک حاشیه ای
             {
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+       /*         Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("URL", URl);
                 intent.putExtra("Title", "الوپارک");
 
                 intent.putExtra("TOKEN", "");
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 100);*/
+                Bundle headers = new Bundle();
+                headers.putString("Authorization",Prefs.getString("accessToken",""));
 
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
@@ -879,7 +894,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                     @Override
                     public void onPermissionGranted()
                     {
-                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                     /*   Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("URL", URl);
                         intent.putExtra("Title", "بیمه");
 
@@ -888,6 +903,12 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         intent.putExtra("TOKEN", Prefs.getString("bimeh_token", ""));
                         intent.putExtra("bimeh_base_url", Prefs.getString("bimeh_base_url", ""));
                         startActivityForResult(intent, 100);
+            */
+                        Bundle headers = new Bundle();
+                        headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                        Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+
                     }
 
                     @Override
@@ -1380,7 +1401,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 .show();
     }
 
-    private final void focusOnServiceViewList()
+    private void focusOnServiceViewList()
     {
         nestedScroll.post(new Runnable()
         {

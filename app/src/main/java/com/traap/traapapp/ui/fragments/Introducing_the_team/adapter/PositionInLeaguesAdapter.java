@@ -8,18 +8,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.cup.Datum;
 
-import androidx.core.view.ViewCompat;
+import java.util.List;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 
 public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLeaguesAdapter.ViewHolder>
 {
     private Context context;
+    private List<Datum> results;
 
 
-    public PositionInLeaguesAdapter()
+    public PositionInLeaguesAdapter(List<Datum> results)
     {
+        this.results=results;
 
     }
 
@@ -47,6 +51,9 @@ public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLea
             holder.tvLeague.setTextColor(context.getResources().getColor(R.color.warmGray));
         }
 
+        holder.tvLeague.setText(results.get(position).getCup());
+        holder.tvYear.setText(results.get(position).getYear()+"");
+
 
     }
 
@@ -57,7 +64,7 @@ public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLea
     public int getItemCount()
     {
 
-        return 10;
+        return results.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder
