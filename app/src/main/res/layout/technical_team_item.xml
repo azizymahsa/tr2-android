@@ -4,6 +4,8 @@
     android:layout_height="@dimen/_50dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
+    android:id="@+id/llRoot"
+    android:foreground="?attr/selectableItemBackground"
     android:gravity="center|right">
 
     <LinearLayout
@@ -11,7 +13,8 @@
         android:layout_weight="100"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+     >
         <ImageView
             android:layout_width="@dimen/_20dp"
             android:layout_height="@dimen/_20dp"

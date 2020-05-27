@@ -74,61 +74,66 @@
                                 android:tint="@color/shadowColor"
                                 android:foreground="?attr/selectableItemBackground"
                                 />
-
-                            <RelativeLayout
-                                android:id="@+id/llInfoFromShare"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_70sdp"
-                                android:background="@color/white"
-                                android:visibility="visible">
+                                android:orientation="vertical"
+                                android:layout_marginTop="@dimen/_70sdp">
 
-                                <View
-                                    android:id="@+id/v1"
-                                    android:layout_marginTop="@dimen/_10dp"
+                                <RelativeLayout
+                                    android:id="@+id/llInfoFromShare"
                                     android:layout_width="match_parent"
-                                    android:layout_height="0.5dp"
-                                    android:layout_below="@+id/llTeamDetails"
-                                    android:background="@color/textHint"
-                                    app:layout_constraintTop_toBottomOf="@+id/llTeamDetails"/>
-                                <com.google.android.material.tabs.TabLayout
-                                    android:id="@+id/tabLayout"
-                                    style="@style/TabLayoutStyle"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="48dp"
-                                    android:layout_gravity="center"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="100"
+                                    android:background="@color/white"
+                                    android:visibility="visible">
 
-                                    android:layout_below="@+id/v1"
-                                    android:layout_centerHorizontal="true"
-                                    app:tabBackground="@drawable/tab_background"
-                                    app:tabGravity="center"
-                                    app:tabIndicatorHeight="0dp"
-                                    android:layout_marginRight="@dimen/_10dp"
-                                    android:layout_marginLeft="@dimen/_10dp"
-                                    app:tabMode="scrollable"
-                                    app:tabTextColor="@drawable/tab_text_color" />
+                                    <View
+                                        android:id="@+id/v1"
+                                        android:layout_marginTop="@dimen/_10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0.5dp"
+                                        android:layout_below="@+id/llTeamDetails"
+                                        android:background="@color/textHint"
+                                        app:layout_constraintTop_toBottomOf="@+id/llTeamDetails"/>
+                                    <com.google.android.material.tabs.TabLayout
+                                        android:id="@+id/tabLayout"
+                                        style="@style/TabLayoutStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="48dp"
+                                        android:layout_gravity="center"
 
-                                <View
-                                    android:id="@+id/v2"
-                                    android:layout_below="@+id/tabLayout"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.5dp"
-                                    android:background="@color/textHint"
-                                    />
+                                        android:layout_below="@+id/v1"
+                                        android:layout_centerHorizontal="true"
+                                        app:tabBackground="@drawable/tab_background"
+                                        app:tabGravity="center"
+                                        app:tabIndicatorHeight="0dp"
+                                        android:layout_marginRight="@dimen/_10dp"
+                                        android:layout_marginLeft="@dimen/_10dp"
+                                        app:tabMode="scrollable"
+                                        app:tabTextColor="@drawable/tab_text_color" />
+
+                                    <View
+                                        android:id="@+id/v2"
+                                        android:layout_below="@+id/tabLayout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0.5dp"
+                                        android:background="@color/textHint"
+                                        />
 
 
-                                <com.traap.traapapp.utilities.WrapContentHeightViewPager
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/view_pager"
-                                    android:layout_below="@+id/v2"
-                                    app:layout_constraintTop_toBottomOf="@+id/v2"/>
-                                <FrameLayout
-                                    android:id="@+id/child_fragment_container"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    />
+                                    <com.traap.traapapp.utilities.WrapContentHeightViewPager
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/view_pager"
+                                        android:layout_below="@+id/v2"
+                                        app:layout_constraintTop_toBottomOf="@+id/v2"/>
+                                    <FrameLayout
+                                        android:id="@+id/child_fragment_container"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        />
 
                                 <RelativeLayout
                                     android:id="@+id/llGallery"
@@ -161,7 +166,17 @@
 
                                 </RelativeLayout>
 
-                            </RelativeLayout>
+                                </RelativeLayout>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    android:textSize="@dimen/textSize_16dp"
+                                    android:textColor="@color/red"
+                                    android:text=".3 نظر ثبت شده است"/>
+                            </LinearLayout>
+
+
 
 
 

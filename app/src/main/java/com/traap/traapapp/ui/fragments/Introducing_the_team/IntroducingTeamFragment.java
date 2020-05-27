@@ -266,7 +266,7 @@ public class IntroducingTeamFragment extends BaseFragment
         adapter = new IntroduceFragmentPagerAdapter(getChildFragmentManager());
 
         adapter.addFrag("بازیکنان فعلی", new CurrentPlayersFragment());
-        adapter.addFrag("کادر فنی", new TechnicalTeamFragment());
+        adapter.addFrag("کادر فنی", new TechnicalTeamFragment(mainView));
         adapter.addFrag("برترین بازیکن ها", new TopPlayersFragment());
         adapter.addFrag("جایگاه در لیگ ها", new PositionInLeaguesFragment());
         adapter.addFrag("تاریخچه", new TeamHistoryFragment());
