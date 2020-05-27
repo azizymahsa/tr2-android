@@ -63,13 +63,13 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
     private TextView tvTitle, tvUserName, tvPopularPlayer,tvTitleFill;
     private View imgBack, imgMenu, rlShirt;
     private CircularProgressButton btnConfirm;
-    private Integer Id=0;
     private ArrayList<Question> surveyDetailList= new ArrayList<>();
     private RecyclerView rvQuestion;
     private SurveyDetailAdapter detailAdapter;
     private Question item;
     private ArrayList<Answers> answers;
     private LinearLayout llFill,llEmpty;
+    private Integer idSurvey=0;
 
 
     public static SurveyFragment newInstance(MainActionView mainView)
@@ -124,7 +124,6 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
         {
             showLoading();
 
-            requestGetSurveyList();
 
             mToolbar = view.findViewById(R.id.toolbar);
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -187,6 +186,9 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
             rvQuestion.setAdapter(detailAdapter);
 
 
+            requestGetSurveyList();
+
+
         }catch (Exception e){
         }
     }
@@ -198,7 +200,6 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
             @Override
             public void onReady(WebServiceClass<SurveyListResponse> response)
             {
-                hideLoading();
                 try
                 {
 
@@ -211,10 +212,10 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
                                 llEmpty.setVisibility(View.GONE);
                                 llFill.setVisibility(View.VISIBLE);
                                 tvTitleFill.setText(surveyList.getTitle());
-                                //Id=surveyList.get
+                                idSurvey=surveyList.getId();
 
                                 SingletonService.getInstance().getSurveyDetailService().getSurveyDetail(
-                                        Id,
+                                        idSurvey,
                                         SurveyFragment.this
                                 );
 
@@ -341,9 +342,9 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
                             for (int j = 0; j < surveyDetailList.get(i).getOptions().size(); j++)
                             {
                                 SurveyDetailRadioGroupAdapter.SurveyDetailViewHolder detailViewHolder = groupAdapterHolders.getMyViewHolders().get(j);
-                                if (detailViewHolder.radioButton.isSelected()){
+                                if (surveyDetailList.get(i).getOptions().get(j).getCheck()){
                                     answers.add(new Answers(surveyDetailList.get(i).getId().toString()
-                                            ,surveyDetailList.get(j).getId().toString()
+                                            ,surveyDetailList.get(i).getOptions().get(j).getId().toString()
                                             ,"" ));
                                 }
 
@@ -352,13 +353,14 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
                         }else if (item.getQuestionType()==2){
                             SurveyDetailRadioGroupAdapter groupAdapterHolders=
                                     ((SurveyDetailRadioGroupAdapter) holder.rvQuestionRadioGroup.getAdapter());
-                            for (int j = 0; j < surveyDetailList.get(i).getOptions().size(); j++)
+                            for (int k = 0; k < surveyDetailList.get(i).getOptions().size(); k++)
                             {
-                                SurveyDetailRadioGroupAdapter.SurveyDetailViewHolder detailViewHolder = groupAdapterHolders.getMyViewHolders().get(j);
-                                if (detailViewHolder.checkBox.isChecked()){
+                                SurveyDetailRadioGroupAdapter.SurveyDetailViewHolder detailViewHolder = groupAdapterHolders.getMyViewHolders().get(k);
+                                if (surveyDetailList.get(i).getOptions().get(k).getCheck()){
                                     answers.add(new Answers(surveyDetailList.get(i).getId().toString()
-                                            ,surveyDetailList.get(j).getId().toString()
+                                            ,surveyDetailList.get(i).getOptions().get(k).getId().toString()
                                             ,"" ));
+
                                 }
 
                             }
@@ -375,7 +377,8 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
                             } else if (item.isMandatory())
                             {
                                 valid = false;
-                                Toast.makeText(getContext(), "پاسخ به سوالات مشخص شده اجباری می باشد. ", Toast.LENGTH_LONG).show();
+                                showAlertFailure(getContext(),"پاسخ به سوالات مشخص شده اجباری می باشد.","",false);
+
                             }
                         }
 
@@ -393,7 +396,7 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
         putSurveyRequest.setAnswers(answers);
 
         SingletonService.getInstance().getSurveyDetailService().putSurvey(
-                Id,putSurveyRequest,new OnServiceStatus<WebServiceClass<PutSurveyResponse>>()
+                idSurvey,putSurveyRequest,new OnServiceStatus<WebServiceClass<PutSurveyResponse>>()
                 {
                     @Override
                     public void onReady(WebServiceClass<PutSurveyResponse> response)

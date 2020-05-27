@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -70,8 +71,18 @@ public class SurveyDetailRadioGroupAdapter extends RecyclerView.Adapter<SurveyDe
         } else if (questionType==2)
         {
             viewHolder.checkBox.setText(option.getAnswerOption());
+            viewHolder.checkBox.setTag(option.getId());
             viewHolder.radioButton.setVisibility(View.GONE);
             viewHolder.checkBox.setVisibility(View.VISIBLE);
+            viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+            {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                {
+                    optionsList.get(position).setCheck(isChecked);
+
+                }
+            });
         }
     }
 
@@ -94,10 +105,20 @@ public class SurveyDetailRadioGroupAdapter extends RecyclerView.Adapter<SurveyDe
             radioButton = (RadioButton) itemView.findViewById(R.id.radioButton);
             checkBox=(CheckBox) itemView.findViewById(R.id.checkBox);
 
+
             radioButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     lastSelectedPosition = getAdapterPosition();
+                    optionsList.get(lastSelectedPosition).setCheck(true);
+                    for (int i = 0; i <optionsList.size() ; i++)
+                    {
+                        if (i!=lastSelectedPosition){
+                            optionsList.get(i).setCheck(false);
+
+                        }
+                    }
+
                     notifyDataSetChanged();
 
                 }
