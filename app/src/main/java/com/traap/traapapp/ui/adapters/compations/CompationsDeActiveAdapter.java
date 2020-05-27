@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.MatchScheduleParent;
@@ -20,7 +18,7 @@ import com.traap.traapapp.enums.MatchScheduleParent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompationsAdapter extends RecyclerView.Adapter<CompationsAdapter.ViewHolder>
+public class CompationsDeActiveAdapter extends RecyclerView.Adapter<CompationsDeActiveAdapter.ViewHolder>
 {
     private Context mContext;
     private LayoutInflater mInflater;
@@ -30,7 +28,7 @@ public class CompationsAdapter extends RecyclerView.Adapter<CompationsAdapter.Vi
     private View view;
     private ItemClickListener mClickListener;
 
-    public CompationsAdapter(MatchScheduleParent parent, List<MatchItem> pastMatchesList, Context context, ItemClickListener mClickListener)
+    public CompationsDeActiveAdapter(MatchScheduleParent parent, List<MatchItem> pastMatchesList, Context context, ItemClickListener mClickListener)
     {
         this.pastMatchesList = pastMatchesList;
         this.mContext = context;
@@ -43,7 +41,7 @@ public class CompationsAdapter extends RecyclerView.Adapter<CompationsAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        view = mInflater.inflate(R.layout.list_row_compations, parent, false);
+        view = mInflater.inflate(R.layout.list_row_deactive, parent, false);
         return new ViewHolder(view);
     }
 

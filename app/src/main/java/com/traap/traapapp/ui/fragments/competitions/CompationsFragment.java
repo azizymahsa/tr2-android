@@ -32,6 +32,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonMatchBuyable;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.Introducing_the_team.IntroducingTeamFragment;
 import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableActionView;
 import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -66,7 +67,12 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
     private Integer selectedTab;
 
     private MatchScheduleParent parent;
-
+    public static CompationsFragment newInstance(MainActionView mainView)
+    {
+        CompationsFragment f = new CompationsFragment();
+        f.setMainView(mainView);
+        return f;
+    }
 
     public CompationsFragment()
     {
@@ -107,9 +113,10 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        selectedTab = getArguments().getInt("selectedTab", 0);
+        selectedTab =0;
+     /* //  selectedTab = getArguments().getInt("selectedTab", 0);
 
-        matchBuyable = getArguments().getParcelableArrayList("MatchList");
+      //  matchBuyable = getArguments().getParcelableArrayList("MatchList");
         if (matchBuyable != null)
         {
             SingletonMatchBuyable.getInstance().setMatchBuyable(matchBuyable);
@@ -121,7 +128,7 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
 
         Logger.e("-MatchSchedule-", "size: " + matchBuyable.size() + ", selectedTab: " + selectedTab);
 
-        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);*/
     }
 
     @Override
@@ -138,7 +145,7 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
 
         initView();
 
-//        sendRequest();
+        sendRequest();
 
         return rootView;
     }
@@ -147,7 +154,7 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
     {
         pastMatchesList = new ArrayList<>();
         nextMatchesList = new ArrayList<>();
-        for (int i = 0; i < matchBuyable.size(); i++)
+       /* for (int i = 0; i < matchBuyable.size(); i++)
         {
             if (matchBuyable.get(i).getDateTimeNow() >= matchBuyable.get(i).getMatchDatetime())
             {
@@ -159,7 +166,7 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
                 nextMatchesList.add(matchBuyable.get(i));
 
             }
-        }
+        }*/
 
         Logger.e("-+MatchSchedule+-", "past: " + pastMatchesList.size() + ", next: " + nextMatchesList.size());
 
@@ -240,8 +247,8 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
                 titleList,
                 pastMatchesList,
                 nextMatchesList
-        );
 
+        );
         viewPager.setAdapter(adapter);
 
 //        TabLayout tabLayout = rootView.findViewById(R.id.tabLayout);
@@ -334,16 +341,18 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
                 case 0:
                 {
                     Prefs.putInt("selectedTab", 0);
-                    return LeagueTableFragment.newInstance(LeagueTableParent.MatchScheduleFragment,
+                   /* return LeagueTableFragment.newInstance(LeagueTableParent.MatchScheduleFragment,
                             "0", false,
                             TrapConfig.TRACTOR_LIVE_SCORE_ID,
                             CompationsFragment.this
-                    );
+                    );*/
+                    return DeActiveMatchesFragment.newInstance(nextMatchesList, mainView);
+
                 }
                 case 1:
                 {
 //                    Prefs.putInt("selectedTab", 2);
-                    return ActiveMatchesFragment.newInstance(nextMatchesList, mainView);
+                    return WinMatchesFragment.newInstance(nextMatchesList, mainView);
 
                 }
                /* case 2:

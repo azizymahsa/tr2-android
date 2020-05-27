@@ -138,7 +138,7 @@ public class MyProfileActivity extends BaseActivity
         });
         rlMySupport.setOnClickListener(v ->
         {
-           // startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MySupportActivity.class), 100);
+            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MySupportActivity.class), 100);
         });
 
         rlMyFavorite.setOnClickListener(v ->

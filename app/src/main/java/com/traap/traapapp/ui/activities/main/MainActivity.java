@@ -87,6 +87,7 @@ import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
+import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
 import com.traap.traapapp.ui.fragments.lastPast5Match.Last5PastMatchFragment;
@@ -937,6 +938,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
         setFragment(IntroducingTeamFragment.newInstance(this));
         replaceFragment(getFragment(), "chargeFragment");
+
+    }
+ public void onCompationTeam()
+    {
+        isMainFragment = false;
+
+        setFragment(CompationsFragment.newInstance(this));
+        replaceFragment(getFragment(), "CompationsFragment");
 
     }
 

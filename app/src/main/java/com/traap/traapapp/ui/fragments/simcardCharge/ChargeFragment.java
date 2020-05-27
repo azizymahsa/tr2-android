@@ -2074,6 +2074,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onCompationTeam()
+    {
+
+    }
+
     private void closeAutoComplete()
     {
         autoCompletePhoneNumberRightel.dismissDropDown();
