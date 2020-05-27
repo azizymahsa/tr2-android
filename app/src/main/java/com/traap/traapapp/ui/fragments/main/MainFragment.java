@@ -428,19 +428,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 mainView.openWebView(mainView, s.getLogin_url(), Prefs.getString("gds_token", ""), "گردشگری");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             /*    mainView.showLoading();
 
                 SingletonService.getInstance().getPredictService().getPredictEnableService(new OnServiceStatus<WebServiceClass<MatchItem>>()
@@ -989,6 +976,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case R.id.rlF3:
             {
+                //مسابقات
+                mainView.onCompationTeam();
 
                 break;
             }

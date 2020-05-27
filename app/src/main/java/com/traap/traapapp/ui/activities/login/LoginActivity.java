@@ -445,9 +445,14 @@ public class LoginActivity extends BaseActivity implements LoginView, OnAnimatio
 //        btnConfirm.setText(getString(R.string.send_code));
         btnConfirm.setTag("code");
         tvDesc.setText(Html.fromHtml("جهت ورود به " + "<font color='#ff0000'> تراپ </font>" + " \n" + " کد فعال سازی ارسال شده را وارد کنید."));
-        String stringBuilder = "+" + etCountryCode.getText().toString() +
-                etMobileNumber.getText().toString();
-        tvPhoneNumber.setText("شماره تلفن همراه شما: " + stringBuilder);
+
+
+        StringBuilder builder= new StringBuilder();
+        builder.append(etCountryCode.getText().toString() );
+        builder.append(etMobileNumber.getText().toString());
+
+
+        tvPhoneNumber.setText(builder);
 
         YoYo.with(Techniques.SlideOutLeft)
                 .duration(500)
