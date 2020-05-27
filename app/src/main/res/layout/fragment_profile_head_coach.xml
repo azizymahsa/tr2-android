@@ -492,9 +492,10 @@
                 android:layout_marginBottom="@dimen/_10dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginRight="@dimen/_10dp"
-                android:text=""
+                android:text="وی اکنون سرمربی تیم تراکتور است."
                 android:textColor="@color/warmGray"
                 android:textSize="@dimen/textSize_12dp"/>
+
 
         </LinearLayout>
 

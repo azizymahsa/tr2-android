@@ -2,6 +2,7 @@ package com.traap.traapapp.ui.fragments.headCoach;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -31,9 +33,11 @@ import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.PositionInLeaguesFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.IntroduceFragmentPagerAdapter;
+import com.traap.traapapp.ui.fragments.galleryIntroPlayer.MediaPlayersFragment;
 import com.traap.traapapp.ui.fragments.headCoach.profileHeadCoach.ProfileHeadCoahFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.WrapContentHeightViewPager;
 
@@ -60,6 +64,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private GetTechsIdResponse headProfileData;
     private RoundedImageView imgProfile;
     private ProfileHeadCoahFragment profileHeadCoahFragment;
+    private View btnShare,llInfoFromShare,llGallery;
 
     public void setCoachId(Integer coachId)
     {
@@ -154,8 +159,11 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             tabLayout = view.findViewById(R.id.tabLayout);
             view_pager = view.findViewById(R.id.view_pager);
             imgProfile=view.findViewById(R.id.imgProfile);
-
-
+            btnShare=view.findViewById(R.id.btnShare);
+            btnShare.setOnClickListener(this);
+            llInfoFromShare=view.findViewById(R.id.llInfoFromShare);
+            llGallery=view.findViewById(R.id.llGallery);
+            llGallery.setOnClickListener(this);
 
         } catch (Exception e)
         {
@@ -207,6 +215,8 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
     private void setImageProfile(String image)
     {
+      //  Glide.with(getContext()).load(Uri.parse(image)).into(imgProfile);
+
         try
         {
             Picasso.with(getContext()).load(image).into(imgProfile, new Callback()
@@ -334,9 +344,14 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     {
         switch (view.getId())
         {
+            case R.id.btnShare:
+                new ScreenShot(llInfoFromShare, getActivity(), false, "برای ارسال، اخذ این مجوز الزامی است.");
+                break;
+            case R.id.llGallery:
 
-           /* case R.id.btnConfirm:
-                break;*/
+              //  MediaPlayersFragment
+                break;
+
         }
 
     }
