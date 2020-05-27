@@ -1602,6 +1602,12 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     }
 
+    @Override
+    public void onHeadCoach(Integer coachId)
+    {
+
+    }
+
 
     @Override
     public void onBill()

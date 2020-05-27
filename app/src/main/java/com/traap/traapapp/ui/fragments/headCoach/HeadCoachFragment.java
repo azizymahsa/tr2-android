@@ -56,16 +56,21 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private TabLayout tabLayout;
     private WrapContentHeightViewPager view_pager;
     private IntroduceFragmentPagerAdapter adapter;
-    private Integer id=4;
+    private Integer coachId=4;
     private GetTechsIdResponse headProfileData;
     private RoundedImageView imgProfile;
     private ProfileHeadCoahFragment profileHeadCoahFragment;
 
+    public void setCoachId(Integer coachId)
+    {
+        this.coachId = coachId;
+    }
 
-    public static HeadCoachFragment newInstance(MainActionView mainView)
+    public static HeadCoachFragment newInstance(MainActionView mainView, Integer coachId)
     {
         HeadCoachFragment f = new HeadCoachFragment();
         f.setMainView(mainView);
+        f.setCoachId(coachId);
         return f;
     }
 
@@ -159,18 +164,18 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     }
     public void getTechsId(){
 
-        showLoading();
-        SingletonService.getInstance().tractorTeamService().getTechsId(id,new OnServiceStatus<WebServiceClass<GetTechsIdResponse>>()
+        mainView.showLoading();
+        SingletonService.getInstance().tractorTeamService().getTechsId(coachId,new OnServiceStatus<WebServiceClass<GetTechsIdResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<GetTechsIdResponse> response)
             {
-                hideLoading();
-
+                mainView.hideLoading();
+                mainView.hideLoading();
                     if (response.info.statusCode==200)
                     {
                         headProfileData=response.data;
-                        setImageProfile(response.data.getImage());
+                      //  setImageProfile(response.data.getImage());
                         profileHeadCoahFragment.setData(headProfileData);
 
                     }else{
@@ -182,7 +187,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             @Override
             public void onError(String message)
             {
-                hideLoading();
+                mainView.hideLoading();
                 try{
 
                     if (Tools.isNetworkAvailable(getActivity()))

@@ -21,11 +21,13 @@ public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdap
 {
     private Context context;
     private List<Result> results;
+    private TechnicalTeamEvent teamEvent;
 
 
-    public TechnicalTeamAdapter(List<Result> results)
+    public TechnicalTeamAdapter(List<Result> results,TechnicalTeamEvent teamEvent)
     {
         this.results=results;
+        this.teamEvent=teamEvent;
 
     }
 
@@ -53,6 +55,10 @@ public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdap
         holder.tvName.setText(results.get(position).getPersianFirstName()+" "+results.get(position).getPersianLastName());
         holder.tvRole.setText(results.get(position).getRole());
         Glide.with(context).load(results.get(position).getNationality()).into(holder.ivFlag);
+        holder.llRoot.setOnClickListener(v ->
+        {
+            teamEvent.TechnicalTeamClick(results.get(position));
+        });
     }
 
 
@@ -67,7 +73,7 @@ public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private LinearLayout llHeader,llItem;
+        private LinearLayout llRoot;
         private TextView tvRole,tvYear,tvName;
         private ImageView ivFlag;
 
@@ -75,13 +81,15 @@ public class TechnicalTeamAdapter extends RecyclerView.Adapter<TechnicalTeamAdap
         public ViewHolder(View v)
         {
             super(v);
-            llHeader=v.findViewById(R.id.llHeader);
-            llItem=v.findViewById(R.id.llItem);
+            llRoot=v.findViewById(R.id.llRoot);
             tvRole=v.findViewById(R.id.tvRole);
             ivFlag=v.findViewById(R.id.ivFlag);
             tvName=v.findViewById(R.id.tvName);
 
         }
+    }
+    public interface TechnicalTeamEvent{
+         void TechnicalTeamClick(Result result);
     }
 
 

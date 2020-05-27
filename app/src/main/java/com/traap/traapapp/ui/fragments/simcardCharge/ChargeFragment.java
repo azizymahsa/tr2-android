@@ -2080,6 +2080,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onHeadCoach(Integer coachId)
+    {
+
+    }
+
     private void closeAutoComplete()
     {
         autoCompletePhoneNumberRightel.dismissDropDown();
