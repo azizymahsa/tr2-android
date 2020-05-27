@@ -21,6 +21,10 @@ private Integer questionCount;
 @Expose
 private String title;
 
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+
 public String getStartDate() {
 return startDate;
 }
@@ -61,4 +65,13 @@ public void setTitle(String title) {
 this.title = title;
 }
 
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
 }
