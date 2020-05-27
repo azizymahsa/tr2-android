@@ -163,6 +163,7 @@ public class LotteryWinnerListDialog extends DialogFragment
                                 Logger.e("-generalWinnerList-", "Size: " + generalWinnerList.size());
                                 recyclerView.setAdapter(new LotteryPredictGeneralAdapter(context, generalWinnerList, response.data.getIsFinal()));
                             })
+
                             .subscribe();
                 }
 
